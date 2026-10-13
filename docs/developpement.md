@@ -74,6 +74,10 @@ Rust `telecharger`.
   kDrive de démonstration.
 - `pnpm e2e` : bout en bout, trois appareils simulés (voir README). Parcours
   de test : `tests/parcours-de-test.ts`, déposés par `e2e/preparer.mts`.
+- `node e2e/regressions.mjs` : défauts déjà corrigés (brouillon d'une question
+  quittée aussitôt, Entrée avec correction à la fin, suivi après modification
+  d'un parcours). Seul `pnpm dev` est nécessaire. Code de sortie 1 si un
+  contrôle échoue (comme `pnpm e2e`).
 
 ## Signature Android
 
@@ -144,12 +148,26 @@ Le mécanisme est en place (0.1.1) ; il manque l'adresse de publication.
   `<données>/moteurs/`, activation au lancement suivant. Réglages : version du
   moteur et recherche manuelle.
 - Tests : `cargo test moteur` (publication valide, ancienne, autre API,
-  signature d'une autre clé, archive altérée) ; publication réelle du script :
+  signature d'une autre clé, archive altérée, redirections d'une forge, page
+  de connexion d'un projet privé) ; publication réelle du script :
   `MOTEUR_PUBLICATION=<sortie> cargo test -- --ignored`.
+- Hébergement : n'importe quel serveur HTTPS public qui sert les trois
+  fichiers sous une même adresse (`<adresse>mise-a-jour.json`, etc.). Les
+  redirections sont suivies. Conviennent : un dossier de coopmaths.fr,
+  GitLab Pages, les fichiers d'un projet **public** de la forge
+  (`…/-/raw/<branche>/<dossier>/`) ou le registre de paquets génériques
+  (`…/packages/generic/moteur/<version>/`, une adresse par version : à
+  éviter, l'adresse doit rester fixe). Un projet privé renvoie vers la page
+  de connexion : la signature échoue, rien n'est installé. Publier l'archive
+  avant `mise-a-jour.json` et sa signature, pour qu'une app ne lise jamais une
+  annonce dont l'archive manque.
 
 Reste à faire :
 
-1. Choisir l'adresse publique et la renseigner dans `URL_MISES_A_JOUR`.
+1. Choisir l'adresse publique et la renseigner dans `URL_MISES_A_JOUR`, avec
+   la vraie clé publique dans `CLE_PUBLIQUE`, puis publier une version de
+   l'app : les deux sont compilées dans l'app, les apps déjà installées
+   continuent d'interroger l'ancienne adresse.
 2. Dans la CI de MathALÉA, à chaque mise en production : construire le moteur,
    le publier avec `publier-moteur.mjs` et la clé de Coopmaths.
 3. Un parcours pourra indiquer la version minimale du moteur (exercice récent) :

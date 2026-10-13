@@ -12,6 +12,7 @@
     enregistrer,
     exporter,
     exporterUn,
+    CLASSE_SANS_NOM,
     lireBibliotheque,
     parcoursVide,
     supprimer,
@@ -116,7 +117,9 @@
       return !local || local.classes.length === 0 || local.parcours.version < p.version
     })
   })
-  const classesDuModele = (id: string) => [...new Set(classesDesDossiers.filter((c) => c.parcours.some((p) => p.id === id)).map((c) => c.nom))]
+  const classesDuModele = (id: string) => [
+    ...new Set([...classesDesDossiers.filter((c) => c.parcours.some((p) => p.id === id)).map((c) => c.nom), ...(classesImportees[id] ?? [])]),
+  ]
   const totalQuestions = (p: Parcours) => p.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0)
 
   const resumes = $derived.by(() => {
@@ -152,6 +155,7 @@
     ajoutes = (await stockage.lire<Parcours[]>('ajoutes')) ?? []
     bibliotheque = await lireBibliotheque(stockage)
     importes = (await stockage.lire<Parcours[]>('importes')) ?? []
+    classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
     for (const p of tous) await chargerParcours(p)
     vue = profil === 'enseignant' ? 'enseignant' : 'accueil'
     pret = true
@@ -206,6 +210,8 @@
 
   const accueil = () => aller(profil === 'enseignant' ? 'enseignant' : 'accueil')
   navigation.versAccueil = () => {
+    // Aperçu : retour à l'éditeur, qui protège lui-même le brouillon
+    if (vue === 'apercu') return aller('creation')
     if (profil === 'enseignant') creation = null
     else onglet = 'mes'
     accueil()
@@ -345,15 +351,25 @@
     const f = exporterUn($state.snapshot(bibliotheque) as Bibliotheque, id)
     if (!f) return ''
     if (!(await enregistrerFichier(f.nom, f.texte))) return 'Téléchargement annulé.'
+    await sauverBibliotheque(f.bibliotheque)
     return partageNatif ? `Choisissez l’app de votre drive et déposez ${f.nom} dans le dossier partagé.` : `${f.nom} enregistré.`
   }
 
   // Parcours importés d'un fichier (collègue) : proposés dans « Éditer un parcours existant »
   let importes: Parcours[] = $state([])
+  // Classes de chaque parcours importé : reprises quand l'enseignant l'édite
+  let classesImportees: Record<string, string[]> = $state({})
   async function importerFichier(texte: string): Promise<string> {
     try {
       const f = lireFichier(texte)
       const recus = f.classes.flatMap((c) => c.parcours)
+      const classes = { ...classesImportees }
+      for (const c of f.classes) {
+        if (c.nom === CLASSE_SANS_NOM) continue
+        for (const p of c.parcours) classes[p.id] = [...new Set([...(classes[p.id] ?? []), c.nom])]
+      }
+      classesImportees = classes
+      await stockage!.ecrire('importes-classes', classes)
       const vus = new Map(importes.map((p) => [p.id, p]))
       let nouveaux = 0
       for (const p of recus) {

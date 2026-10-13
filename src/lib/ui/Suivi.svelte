@@ -77,14 +77,14 @@
       .filter((l) => l.n > 0),
   )
 
-  /** Exercices dont le dernier passage terminé n'est pas à 100 % */
+  /** Exercices dont le dernier passage terminé n'est pas à 100 %, lus dans la copie figée de la séance */
   const aRetravailler = $derived(
     parcours.flatMap((p) => {
       const dernier = (historiques[p.id] ?? []).at(-1)
       if (!dernier) return []
       return bilan(dernier)
-        .parEtape.filter((e) => e.points < e.sur)
-        .map((e) => ({ p, etape: p.etapes[e.etape], points: e.points, sur: e.sur }))
+        .parEtape.filter((e) => e.points < e.sur && dernier.contenu.etapes[e.etape])
+        .map((e) => ({ p, etape: dernier.contenu.etapes[e.etape], rang: e.etape, points: e.points, sur: e.sur }))
     }),
   )
 
@@ -233,7 +233,7 @@
     {#if aRetravailler.length}
       <h2 class={titreSection}>À retravailler</h2>
       <ul class={listeGroupee}>
-        {#each aRetravailler as r (`${r.p.id}-${r.etape.id}`)}
+        {#each aRetravailler as r (`${r.p.id}-${r.rang}`)}
           <li>
             <button
               type="button"
@@ -243,7 +243,7 @@
               onclick={() => onouvrir(r.p)}
             >
               <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                {titreEleve(r.etape, r.p.etapes.indexOf(r.etape))}
+                {titreEleve(r.etape, r.rang)}
                 <div class={discret}>{r.p.titre}</div>
               </div>
               <span class={pastille}>{arrondi(r.points)}/{r.sur}</span>

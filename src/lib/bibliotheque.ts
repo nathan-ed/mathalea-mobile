@@ -66,6 +66,8 @@ export function parcoursVide(): Parcours {
  * pour que les élèves qui l'ont déjà la reçoivent.
  */
 export function adopter(b: Bibliotheque, p: Parcours, classes: string[] = []): Bibliotheque {
+  const connues = [...b.classes]
+  for (const nom of classes) if (!connues.some((c) => c.nom === nom)) connues.push({ nom })
   const i = b.parcours.findIndex((pe) => pe.parcours.id === p.id)
   // Même identifiant : jamais de doublon. Version plus récente dans le dossier : elle remplace la copie locale
   if (i !== -1) {
@@ -74,13 +76,11 @@ export function adopter(b: Bibliotheque, p: Parcours, classes: string[] = []): B
     const parcours = [...b.parcours]
     const toutes = [...new Set([...pe.classes, ...classes])]
     parcours[i] = { parcours: JSON.parse(JSON.stringify(p)), classes: toutes, exportee: Object.fromEntries(toutes.map((c) => [c, p.version])) }
-    return { ...b, parcours }
+    return { ...b, classes: connues, parcours }
   }
   const original: Parcours = JSON.parse(JSON.stringify(p))
   // Déjà exporté dans ces classes à cette version : une modification ouvre la suivante
   const exportee = Object.fromEntries([['', original.version], ...classes.map((c) => [c, original.version])])
-  const connues = [...b.classes]
-  for (const nom of classes) if (!connues.some((c) => c.nom === nom)) connues.push({ nom })
   return { ...b, classes: connues, parcours: [...b.parcours, { parcours: original, classes: [...classes], exportee }] }
 }
 
@@ -156,21 +156,30 @@ export function exporter(b: Bibliotheque): { texte: string; bibliotheque: Biblio
   }
 }
 
+/** Classe du fichier d'un parcours seul qui n'est donné à aucune classe */
+export const CLASSE_SANS_NOM = 'Parcours'
+
 /**
- * Un parcours seul, pour le donner à un collègue (il l'importe depuis « Éditer
- * un parcours existant »). Ne compte pas comme un export aux élèves.
+ * Un parcours seul, pour un collègue ou à déposer à côté de la banque dans le
+ * dossier partagé. Sa version est marquée diffusée (clé '') : la modification
+ * suivante ouvre une nouvelle version, sinon les élèves garderaient l'ancienne.
  */
-export function exporterUn(b: Bibliotheque, id: string): { nom: string; texte: string } | null {
+export function exporterUn(b: Bibliotheque, id: string): { nom: string; texte: string; bibliotheque: Bibliotheque } | null {
   const pe = b.parcours.find((x) => x.parcours.id === id)
   if (!pe) return null
-  const classes = (pe.classes.length ? pe.classes : ['Parcours']).map((nom) => ({ nom, parcours: [pe.parcours] }))
+  const classes = (pe.classes.length ? pe.classes : [CLASSE_SANS_NOM]).map((nom) => ({ nom, parcours: [pe.parcours] }))
   const base = pe.parcours.titre
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
-  return { nom: `parcours-${base || pe.parcours.id}-v${pe.parcours.version}.json`, texte: creerFichier(classes) }
+  const marque: ParcoursEnseignant = { ...pe, exportee: { ...pe.exportee, '': pe.parcours.version } }
+  return {
+    nom: `parcours-${base || pe.parcours.id}-v${pe.parcours.version}.json`,
+    texte: creerFichier(classes),
+    bibliotheque: { ...b, parcours: b.parcours.map((x) => (x === pe ? marque : x)) },
+  }
 }
 
 /** Retrouve les classes et parcours d'un fichier déjà exporté (nouvel appareil) */

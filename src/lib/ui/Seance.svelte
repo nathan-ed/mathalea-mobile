@@ -171,6 +171,20 @@
     else avancer()
   }
 
+  /** Touche Entrée dans une question : ne révèle jamais une correction que le bouton ne révélerait pas */
+  function surEntree(i: number) {
+    if (relecture) return
+    if (unique && finale) {
+      if (!derniere) void allerPage(page + 1)
+    } else if (unique) {
+      if (pageVerifiee) suivant()
+      else if (aSaisi) void verifierPage()
+    } else {
+      // Plusieurs questions sur la page : la correction attend le bouton Soumettre
+      blocs[i + 1]?.focaliser(true)
+    }
+  }
+
   /** Bouton Vérifier (une question) ou Soumettre (page entière) */
   function verifierPageAvecGarde() {
     if (unique) void verifierPage()
@@ -338,7 +352,7 @@
             brouillon={seance.brouillons[cleQuestion(ref.etape, ref.question)]}
             onverifiee={(r) => enregistrerEssai(ref, r)}
             onbrouillon={(s) => enregistrerBrouillon(ref, s)}
-            onvalider={unique ? () => (pageVerifiee ? suivant() : aSaisi && verifierPage()) : undefined}
+            onvalider={parQuestion ? undefined : () => surEntree(i)}
             onsaisie={() => (avertissement = null)}
           />
         {/each}

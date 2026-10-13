@@ -91,8 +91,12 @@ Bibliothèque de l'enseignant (`src/lib/bibliotheque.ts`)
 - `enregistrer()` : modification d'un parcours déjà exporté = version
   suivante. Doit renvoyer `{ ...b, … }` (un oubli effaçait `lien`).
 - `exporter()` : banque complète, marque `exportee` par classe.
-- `exporterUn()` : un parcours seul (`parcours-<titre>-v<n>.json`), ne compte
-  pas comme exporté.
+- `exporterUn()` : un parcours seul (`parcours-<titre>-v<n>.json`). Ne compte
+  pas comme exporté par classe, mais marque sa version diffusée (`exportee['']`) :
+  sinon un parcours seul déposé dans le dossier restait en V1 après
+  modification et n'arrivait jamais aux élèves.
+- Import d'un fichier (« Éditer un parcours existant ») : classes gardées
+  par parcours (clé `importes-classes`), reprises par `adopter()`.
 - `adopter(b, p, classes)` : reprise d'un parcours d'un dossier ou d'un
   fichier. Jamais de doublon (même id) ; une version plus récente remplace la
   copie locale ; les classes d'origine sont reprises.
@@ -152,6 +156,10 @@ Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
   `VITE_URL_EXPLORER` (`.env.development.local`, ignoré par Git).
 - Sans adresse servie, tout fonctionne : moteur livré, Explorer « Aucun
   parcours proposé pour le moment. ».
+- Hébergement possible partout où les trois fichiers sont publics sous une
+  même adresse fixe (coopmaths.fr, GitLab Pages, `-/raw/` d'un projet public) ;
+  redirections suivies (testé). Adresse et clé sont compilées dans l'app :
+  les fixer avant une release, sinon les apps installées gardent l'ancienne.
 
 ## 4. Partage par dossiers de drive
 
@@ -301,6 +309,12 @@ Environnement (machine de Nathan)
   `VITE_URL_EXPLORER=http://127.0.0.1:8702/s/Xk42demo/explorer/` ;
   `DOSSIER=<dossier> CAPTURES=e2e/captures node e2e/complet.mjs` →
   « TOUT VERT ». Vider `<dossier>/classe-3a` avant. Regarder les captures.
+- `node e2e/regressions.mjs` (seulement `pnpm dev`) : brouillon d'une question
+  quittée aussitôt, Entrée avec correction à la fin, suivi d'une ancienne
+  version. Vraie frappe clavier : la sonde réessaie tant que le champ
+  MathLive n'est pas prêt (sinon résultats aléatoires).
+- Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
+  par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
 - `node e2e/drives.mjs` : vrais kDrive et Dropbox dans le navigateur (relais).
 - Pièges Playwright : sélecteurs ambigus (`Enregistrer et quitter`,
   `Ouvrir le dossier`, boutons « Retirer l'exercice 4C21 » vs l'exercice) →
@@ -309,6 +323,25 @@ Environnement (machine de Nathan)
   écrase la saisie).
 
 ## 9. Pièges rencontrés
+
+- Sauvegarde : `lireSauvegarde()` contrôle chaque clé (`cleInvalide`) avant
+  d'effacer quoi que ce soit, tout le contenu imbriqué et l'unicité des noms
+  et identifiants servant de clés aux listes (`src/lib/validation.ts`, aussi
+  utilisé pour les fichiers partagés). Une nouvelle clé de stockage ou un
+  nouveau champ affiché doit y être ajouté, sinon les sauvegardes qui le
+  contiennent sont refusées (ou passent sans contrôle).
+- CI GitHub : `pnpm/action-setup` sans `version` (le `packageManager` de
+  `package.json` fait foi ; les deux différents = erreur). Actions en Node 24
+  depuis octobre 2026 (checkout v7, setup-node v7, cache v6, artifacts v7/v8,
+  tauri-action v1 : release brouillon obligatoire si elle existe déjà).
+- Suivi, bilan, relecture : lire les étapes dans `seance.contenu`, jamais
+  dans le parcours courant (une étape retirée faisait planter le suivi).
+  Clés de `{#each}` : un même exercice peut figurer deux fois, prendre le rang.
+- Svelte 5 : pendant un démontage (`onDestroy`), l'état relu a ses anciennes
+  valeurs. Écrire la séance à ce moment remettait la question quittée : le
+  brouillon de `BlocQuestion` part dans un `queueMicrotask`.
+- Touche Entrée dans une séance (`surEntree`) : avec la correction à la fin,
+  elle passe à la question suivante sans rien vérifier.
 
 - Ne jamais `pkill -f` / `pgrep -f` avec un motif présent dans la commande
   elle-même : cela tue le shell. Tuer par PID (`ps -eo pid,cmd | grep "[m]otif"`).

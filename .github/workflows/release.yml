@@ -29,21 +29,20 @@ jobs:
     steps:
       # Moteur construit depuis MathALÉA au commit moteur/COMMIT, plus les
       # fichiers de moteur/ (voir moteur/README.md) : rien n'est déposé à la main
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - uses: actions/cache@v4
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@v6
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.cache/mathalea-mobile
             ~/.local/share/pnpm/store
           key: moteur-${{ hashFiles('moteur/COMMIT') }}
       - run: bash scripts/moteur.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: moteur
           path: static/moteur
@@ -61,17 +60,16 @@ jobs:
           - { os: macos-15-intel, args: '--target x86_64-apple-darwin' }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
         with:
           name: moteur
           path: static/moteur
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@v6
       - uses: dtolnay/rust-toolchain@stable
       - name: Dépendances Linux
         if: runner.os == 'Linux'
@@ -83,7 +81,7 @@ jobs:
         with:
           workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -99,18 +97,17 @@ jobs:
     env:
       ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
         with:
           name: moteur
           path: static/moteur
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - uses: actions/setup-java@v4
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
@@ -140,7 +137,7 @@ jobs:
           NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
         run: pnpm tauri android build --apk --split-per-abi --target aarch64 --target armv7
       - name: Joindre l'APK à la release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.VERSION }}
           draft: true

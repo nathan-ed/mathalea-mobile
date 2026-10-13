@@ -143,9 +143,10 @@ Test de bout en bout (trois appareils simulés, format téléphone) :
 
 ```bash
 pnpm dev                                                   # terminal 1
-cd ../parcours-spikes/spike-sync && pnpm server /tmp/drive # terminal 2 : dossier partagé local
+cd ../parcours-spikes/spike-sync && pnpm run server /tmp/drive # terminal 2 : dossier partagé local
 npx tsx e2e/preparer.mts /tmp/drive                        # dépose les parcours de test
 DOSSIER=/tmp/drive pnpm e2e
+node e2e/regressions.mjs    # défauts corrigés (brouillon, Entrée, suivi) : pnpm dev suffit
 ```
 
 ## Releases

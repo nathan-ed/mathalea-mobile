@@ -90,12 +90,41 @@ describe('sauvegarde', async () => {
       } as never,
     }
   }
+  const seance = nouvelleSeance({ ...brouillon('Fractions'), id: 'fractions' }, 'essai')
   it('exporte puis restaure à l’identique', async () => {
-    const a = memoire({ profil: 'eleve', 'historique:x': [{ debut: '1' }] })
-    const texte = await exporterSauvegarde(a.st)
-    const b = memoire({ profil: 'enseignant', autre: 1 })
+    const donnees = { profil: 'eleve', 'historique:fractions': [seance], 'complet:fractions': 1 }
+    const texte = await exporterSauvegarde(memoire(donnees).st)
+    const b = memoire({ profil: 'enseignant', 'complet:autre': 1 })
     await restaurerSauvegarde(b.st, texte)
-    expect(Object.fromEntries(b.d)).toEqual({ profil: 'eleve', 'historique:x': [{ debut: '1' }] })
+    expect(Object.fromEntries(b.d)).toEqual(JSON.parse(JSON.stringify(donnees)))
+  })
+  it('refuse une sauvegarde au bon format mais au contenu mal formé, sans rien effacer', async () => {
+    const avant = { profil: 'eleve', 'historique:fractions': [seance] }
+    const mauvaises = [
+      { classes: { invalide: true } },
+      { bibliotheque: { classes: [], parcours: [{ parcours: { id: 'x' } }] } },
+      { 'historique:fractions': [{ debut: '1' }] },
+      { 'seance:fractions': { ...seance, etapes: [7] } },
+      { inconnue: 1 },
+      // Retours de vérification : contenu imbriqué et doublons
+      { classes: [{ lien: 'https://exemple.ch/s/a', nom: 'A', parcours: [], fichier: [null] }] },
+      { bibliotheque: { classes: [{ nom: 'A' }, { nom: 'A' }], parcours: [] } },
+      { classes: [{ lien: 'https://exemple.ch/s/a' }, { lien: 'https://exemple.ch/s/a' }] },
+      { bibliotheque: { classes: [], parcours: [{ parcours: seance.contenu, classes: [], exportee: {} }, { parcours: seance.contenu, classes: [], exportee: {} }] } },
+      { ajoutes: [seance.contenu, seance.contenu] },
+      { ajoutes: [{ ...seance.contenu, theme: undefined }] },
+      { chapitres: { x: { ordre: ['Fractions', 'Fractions'], fermes: [] } } },
+      { 'historique:fractions': [seance, seance] },
+      { 'seance:autre': seance },
+      { 'seance:fractions': { ...seance, essais: [null] } },
+      { 'resultats:fractions@1': { 0: { points: 1 } } },
+    ]
+    for (const donnees of mauvaises) {
+      const b = memoire(avant)
+      const texte = JSON.stringify({ format: 'sauvegarde-mathalea/1', creeeLe: '', donnees })
+      await expect(restaurerSauvegarde(b.st, texte)).rejects.toThrow(/endommagée/)
+      expect(Object.fromEntries(b.d)).toEqual(avant)
+    }
   })
   it('refuse un fichier invalide sans rien toucher', async () => {
     const b = memoire({ profil: 'eleve' })
@@ -103,10 +132,23 @@ describe('sauvegarde', async () => {
     expect(Object.fromEntries(b.d)).toEqual({ profil: 'eleve' })
   })
   it('remet l’état d’avant si l’écriture échoue en cours de route', async () => {
-    const texte = await exporterSauvegarde(memoire({ a: 1, panne: 2 }).st)
-    const b = memoire({ profil: 'eleve' }, 'panne')
+    const texte = await exporterSauvegarde(memoire({ 'complet:a': 1, 'complet:panne': 2 }).st)
+    const b = memoire({ profil: 'eleve' }, 'complet:panne')
     await expect(restaurerSauvegarde(b.st, texte)).rejects.toThrow(/rien n’a changé/)
     expect(Object.fromEntries(b.d)).toEqual({ profil: 'eleve' })
+  })
+})
+
+describe('fichiers partagés mal formés', () => {
+  const p = { ...brouillon('Relatifs'), id: 'relatifs-5e' }
+  const fichier = (classes: unknown) => JSON.stringify({ format: 'classes-mathalea/1', exporteLe: '', classes })
+  it('refuse deux classes de même nom ou un parcours en double dans une classe', () => {
+    expect(() => lireFichier(fichier([{ nom: 'A', parcours: [p] }, { nom: 'A', parcours: [] }]))).toThrow(/en double/)
+    expect(() => lireFichier(fichier([{ nom: 'A', parcours: [p, p] }]))).toThrow(/en double/)
+  })
+  it('refuse un parcours auquel il manque un champ affiché', () => {
+    expect(() => lireFichier(fichier([{ nom: 'A', parcours: [{ ...p, theme: undefined }] }]))).toThrow(/Parcours invalide/)
+    expect(() => lireFichier(fichier([{ nom: 'A', parcours: [{ ...p, etapes: [null] }] }]))).toThrow(/Parcours invalide/)
   })
 })
 
@@ -116,7 +158,7 @@ describe('téléchargements après la création', () => {
     expect(b.lien).toBe('https://exemple.ch/s/x')
   })
 
-  it('un parcours seul, dans ses classes et à sa version, sans compter comme exporté', () => {
+  it('un parcours seul, dans ses classes et à sa version, sans compter comme exporté dans la banque', () => {
     let b = enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('Fractions'))
     b = exporter(b).bibliotheque
     const id = b.parcours[0].parcours.id
@@ -127,6 +169,15 @@ describe('téléchargements après la création', () => {
     expect(lu.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
     expect(lu.classes[0].parcours[0].version).toBe(2)
     expect(nbAExporter(b)).toBe(1)
+  })
+
+  it('un parcours seul déposé aux élèves : la modification suivante ouvre une nouvelle version', () => {
+    let b = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
+    const id = b.parcours[0].parcours.id
+    b = exporterUn(b, id)!.bibliotheque
+    b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
+    expect(b.parcours[0].parcours.version).toBe(2)
+    expect(exporterUn(b, id)!.nom).toBe('parcours-fractions-corrige-v2.json')
   })
 
   it('un parcours repris d’un dossier garde ses classes et passe à la version suivante si modifié', () => {
@@ -144,6 +195,12 @@ describe('doublons et versions à la reprise', () => {
     let b = adopter({ classes: [], parcours: [] }, p, ['Classe test'])
     b = adopter(b, p, ['Classe test'])
     expect(b.parcours).toHaveLength(1)
+  })
+  it('une version plus récente reçue pour une autre classe ajoute cette classe à la bibliothèque', () => {
+    let b = adopter({ classes: [], parcours: [] }, p, ['A'])
+    b = adopter(b, { ...p, version: 3 }, ['B'])
+    expect(b.classes.map((c) => c.nom)).toEqual(['A', 'B'])
+    expect(lireFichier(exporter(b).texte).classes.map((c) => c.nom)).toEqual(['A', 'B'])
   })
   it('une version plus récente du dossier remplace la copie locale, une plus ancienne non', () => {
     let b = adopter({ classes: [], parcours: [] }, p, ['Classe test'])

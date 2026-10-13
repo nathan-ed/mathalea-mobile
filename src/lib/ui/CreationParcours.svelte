@@ -201,7 +201,8 @@
   />
 {:else}
   <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <EnTete />
+    <!-- Le logo protège le brouillon comme le bouton retour -->
+    <EnTete surLogo={quitter} />
     <FilAriane titre={modification ? 'Modifier le parcours' : 'Nouveau parcours'} onretour={quitter} />
 
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

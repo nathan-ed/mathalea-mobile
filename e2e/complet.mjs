@@ -408,3 +408,5 @@ ok((await a.evaluate(() => [document.documentElement.scrollWidth - innerWidth, i
 ok(erreurs.length === 0, `aucune erreur JS ${erreurs.slice(0, 3).join(' | ')}`)
 console.log(echecs ? `${echecs} échec(s)` : 'TOUT VERT')
 await nav.close()
+// Code de sortie non nul : un script ou une CI ne prend pas un échec pour un succès
+if (echecs) process.exitCode = 1

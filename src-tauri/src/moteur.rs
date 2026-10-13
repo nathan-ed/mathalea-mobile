@@ -286,6 +286,29 @@ mod tests {
         format!("http://127.0.0.1:{port}/")
     }
 
+    /// Serveur qui répond à tout par une redirection 302 : vers `cible` + chemin
+    /// demandé (fichiers d'une forge servis depuis un stockage d'objets), ou
+    /// vers une page fixe si `page_fixe` (projet privé : page de connexion)
+    fn servir_redirections(cible: String, page_fixe: bool) -> String {
+        let ecoute = TcpListener::bind("127.0.0.1:0").unwrap();
+        let port = ecoute.local_addr().unwrap().port();
+        std::thread::spawn(move || {
+            for flux in ecoute.incoming().flatten() {
+                let cible = cible.clone();
+                std::thread::spawn(move || {
+                    let mut flux = flux;
+                    let mut tampon = [0u8; 4096];
+                    let n = flux.read(&mut tampon).unwrap_or(0);
+                    let ligne = String::from_utf8_lossy(&tampon[..n]);
+                    let chemin = ligne.split_whitespace().nth(1).unwrap_or("/").trim_start_matches('/').to_string();
+                    let lieu = if page_fixe { cible } else { format!("{cible}{chemin}") };
+                    let _ = write!(flux, "HTTP/1.1 302 Found\r\nLocation: {lieu}\r\nContent-Length: 0\r\nConnection: close\r\n\r\n");
+                });
+            }
+        });
+        format!("http://127.0.0.1:{port}/")
+    }
+
     fn cle() -> SigningKey {
         SigningKey::from_bytes(&[7u8; 32])
     }
@@ -341,6 +364,28 @@ mod tests {
         let actif = installer(&base, &m, donnees.path()).await.unwrap();
         assert_eq!(lire_actif(donnees.path()).unwrap().version, "2026-11-01+abc");
         assert!(donnees.path().join(&actif.dossier).join("morceaux/exo.js").is_file());
+    }
+
+    #[tokio::test]
+    async fn suit_les_redirections_d_une_forge() {
+        let serveur = tempfile::tempdir().unwrap();
+        let donnees = tempfile::tempdir().unwrap();
+        publier(serveur.path(), "2026-11-01+abc", 1, "2026-11-01T10:00:00Z", &cle());
+        let base = servir_redirections(servir_dossier(serveur.path().into()), false);
+        let m = chercher(&base, &cle_publique(&cle()), 1, "2026-10-13").await.unwrap().expect("plus récente");
+        installer(&base, &m, donnees.path()).await.unwrap();
+        assert_eq!(lire_actif(donnees.path()).unwrap().version, "2026-11-01+abc");
+    }
+
+    #[tokio::test]
+    async fn refuse_une_page_de_connexion_sans_rien_installer() {
+        // Projet privé : chaque fichier redirige vers une page HTML servie en 200
+        let pages = tempfile::tempdir().unwrap();
+        let donnees = tempfile::tempdir().unwrap();
+        fs::write(pages.path().join("sign_in"), "<!DOCTYPE html><title>Connexion</title>").unwrap();
+        let base = servir_redirections(format!("{}sign_in", servir_dossier(pages.path().into())), true);
+        assert!(chercher(&base, &cle_publique(&cle()), 1, "2026-10-13").await.is_err());
+        assert!(lire_actif(donnees.path()).is_none());
     }
 
     #[tokio::test]

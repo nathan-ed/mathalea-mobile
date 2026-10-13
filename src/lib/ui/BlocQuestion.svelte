@@ -42,6 +42,7 @@
   let resultat: ResultatVerification | null = $state(null)
   let erreur = $state('')
   let minuterie: ReturnType<typeof setTimeout> | undefined
+  let enAttente = false
   const q = $derived(exercice.questions[question])
 
   function lireSaisies(): Record<string, string> {
@@ -62,7 +63,16 @@
     aSaisi = Object.keys(lireSaisies()).length > 0
     onsaisie?.()
     clearTimeout(minuterie)
-    minuterie = setTimeout(() => onbrouillon(lireSaisies()), 350)
+    enAttente = true
+    minuterie = setTimeout(envoyerBrouillon, 350)
+  }
+
+  /** Enregistre le brouillon en attente */
+  function envoyerBrouillon() {
+    clearTimeout(minuterie)
+    if (!enAttente || resultat) return
+    enAttente = false
+    onbrouillon(lireSaisies())
   }
 
   function surTouche(e: KeyboardEvent) {
@@ -98,6 +108,7 @@
     if (resultat || !q.interactive) return
     ;(document.activeElement as HTMLElement | null)?.blur?.()
     clearTimeout(minuterie)
+    enAttente = false
     resultat = moteur.verifier(exercice, question)
     onverifiee(resultat)
     await afficherCorrection()
@@ -143,7 +154,15 @@
     return () => removeEventListener('resize', surRedimension)
   })
 
-  onDestroy(() => clearTimeout(minuterie))
+  // Question quittée avant le délai : le brouillon part quand même. Après le
+  // démontage seulement : pendant celui-ci, Svelte relit les anciennes valeurs
+  // de l'état et la séance repartirait à la question quittée.
+  onDestroy(() => {
+    clearTimeout(minuterie)
+    if (!enAttente || resultat) return
+    const saisies = lireSaisies()
+    queueMicrotask(() => onbrouillon(saisies))
+  })
 </script>
 
 <div class="container max-w-full grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4">

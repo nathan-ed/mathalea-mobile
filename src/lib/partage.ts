@@ -5,6 +5,7 @@
 import { strFromU8, unzipSync } from 'fflate'
 import type { Parcours } from './catalogue'
 import { dansTauri, type Stockage } from './stockage'
+import { classesDuFichier, estParcours } from './validation'
 
 export const NOM_FICHIER = 'parcours-mathalea.json'
 // Un fichier contient toutes les classes d'un enseignant (dossier commun) ;
@@ -205,20 +206,15 @@ export function lireFichier(texte: string): FichierClasses {
     throw invalide()
   }
   for (const c of f.classes) {
-    if (typeof c.nom !== 'string' || !Array.isArray(c.parcours)) throw invalide()
+    if (!c || typeof c.nom !== 'string' || !Array.isArray(c.parcours)) throw invalide()
     for (const p of c.parcours) verifierParcours(p)
   }
+  if (!classesDuFichier(f.classes)) throw new Error("Ce fichier contient une classe ou un parcours en double.")
   return f
 }
 
 function verifierParcours(p: Parcours) {
-  const valide =
-    typeof p.id === 'string' &&
-    /^[a-z0-9-]+$/.test(p.id) &&
-    Number.isInteger(p.version) &&
-    Array.isArray(p.etapes) &&
-    p.etapes.every((e) => typeof e.uuid === 'string' && typeof e.titre === 'string')
-  if (!valide) throw new Error(`Parcours invalide dans le fichier : ${String(p.id)}`)
+  if (!estParcours(p)) throw new Error(`Parcours invalide dans le fichier : ${String((p as Parcours | null)?.id)}`)
 }
 
 export function creerFichier(classes: ClasseDuFichier[]): string {
