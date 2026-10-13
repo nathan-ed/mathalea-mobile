@@ -1,0 +1,49 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Fenêtre principale",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "sql:default",
+    "sql:allow-execute",
+    "dialog:default",
+    "fs:default",
+    "fs:allow-write-text-file",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://kdrive.infomaniak.com/*"
+        },
+        {
+          "url": "https://*.infomaniakusercontent.com/*"
+        },
+        {
+          "url": "https://*.dropbox.com/*"
+        },
+        {
+          "url": "https://*.dropboxusercontent.com/*"
+        },
+        {
+          "url": "https://drive.google.com/*"
+        },
+        {
+          "url": "https://*.googleusercontent.com/*"
+        },
+        {
+          "url": "https://www.googleapis.com/*"
+        },
+        {
+          "url": "https://*/*"
+        },
+        {
+          "url": "http://*:8702/*"
+        }
+      ]
+    }
+  ]
+}

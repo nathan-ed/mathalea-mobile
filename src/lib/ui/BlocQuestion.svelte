@@ -1,0 +1,206 @@
+<script lang="ts">
+  // Une question MathALÉA : affichage, brouillon, vérification, correction.
+  // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
+  import { onDestroy, onMount, tick } from 'svelte'
+  import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
+  import type { Essai } from '$lib/progression'
+
+  let {
+    moteur,
+    exercice,
+    question,
+    avecContexte,
+    verifierAuMontage = false,
+    lectureSeule = false,
+    avecBouton = false,
+    essai,
+    brouillon,
+    onverifiee,
+    onbrouillon,
+    onvalider,
+    onsaisie,
+    aSaisi = $bindable(false),
+  }: {
+    moteur: Moteur
+    exercice: ExercicePrepare
+    question: number
+    avecContexte: boolean
+    verifierAuMontage?: boolean // soumission d'une tentative : vérifiée dès l'affichage
+    lectureSeule?: boolean // relecture d'un passage terminé
+    avecBouton?: boolean // lien « Vérifier » sous la question (Question.svelte de MathALÉA)
+    essai: Essai | undefined
+    brouillon: Record<string, string> | undefined
+    onverifiee: (r: ResultatVerification) => void
+    onbrouillon: (saisies: Record<string, string>) => void
+    onvalider?: () => void // touche Entrée
+    onsaisie?: () => void
+    aSaisi?: boolean
+  } = $props()
+
+  let zone: HTMLDivElement
+  let zoneCorrection: HTMLDivElement | undefined = $state()
+  let resultat: ResultatVerification | null = $state(null)
+  let erreur = $state('')
+  let minuterie: ReturnType<typeof setTimeout> | undefined
+  const q = $derived(exercice.questions[question])
+
+  function lireSaisies(): Record<string, string> {
+    const saisies: Record<string, string> = {}
+    for (const champ of zone.querySelectorAll<HTMLElement>('math-field[id], input[id]')) {
+      if (champ instanceof HTMLInputElement && champ.type === 'checkbox') {
+        if (champ.checked) saisies[champ.id] = '1'
+      } else {
+        const v = (champ as HTMLInputElement).value
+        if (typeof v === 'string' && v.trim() !== '') saisies[champ.id] = v
+      }
+    }
+    return saisies
+  }
+
+  function surSaisie() {
+    if (resultat) return
+    aSaisi = Object.keys(lireSaisies()).length > 0
+    onsaisie?.()
+    clearTimeout(minuterie)
+    minuterie = setTimeout(() => onbrouillon(lireSaisies()), 350)
+  }
+
+  function surTouche(e: KeyboardEvent) {
+    if (e.key !== 'Enter') return
+    e.preventDefault()
+    if (onvalider) onvalider()
+    else if (!resultat && aSaisi) verifier()
+  }
+
+  async function afficherCorrection() {
+    await tick()
+    if (zoneCorrection) {
+      zoneCorrection.innerHTML = q.correction
+      await moteur.afficher(zoneCorrection)
+    }
+  }
+
+  export function focaliser(defiler = false) {
+    if (defiler) zone?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    // Premier champ vide, sinon le premier champ
+    const champs = [...(zone?.querySelectorAll<HTMLElement>('math-field, input:not([type=checkbox])') ?? [])]
+    const vide = champs.find((c) => !(c as HTMLInputElement).value?.trim())
+    ;(vide ?? champs[0])?.focus({ preventScroll: defiler })
+  }
+
+  /** État de la question pour le garde-fou de la séance */
+  export const etat = (): 'verifiee' | 'saisie' | 'vide' =>
+    resultat ? 'verifiee' : Object.keys(lireSaisies()).length ? 'saisie' : 'vide'
+
+  export const estVerifiee = () => resultat !== null
+
+  export async function verifier() {
+    if (resultat || !q.interactive) return
+    ;(document.activeElement as HTMLElement | null)?.blur?.()
+    clearTimeout(minuterie)
+    resultat = moteur.verifier(exercice, question)
+    onverifiee(resultat)
+    await afficherCorrection()
+  }
+
+  onMount(async () => {
+    zone.innerHTML = (avecContexte && q.contexte.trim() ? `<div class="mb-4">${q.contexte}</div>` : '') + `<div>${q.enonce}</div>`
+    await moteur.afficher(zone)
+    if (essai) {
+      // Déjà vérifiée : réponse, smiley et correction reviennent ; l'essai enregistré fait foi
+      await moteur.ecrireReponses(essai.reponses)
+      await tick()
+      try {
+        moteur.verifier(exercice, question)
+      } catch {
+        /* rien */
+      }
+      resultat = { juste: essai.juste, points: essai.points, total: essai.total, retour: '', reponses: essai.reponses }
+      await afficherCorrection()
+    } else {
+      if (brouillon && Object.keys(brouillon).length) {
+        await moteur.ecrireReponses(brouillon)
+        await tick()
+        aSaisi = Object.keys(lireSaisies()).length > 0
+      }
+      if (verifierAuMontage) {
+        try {
+          await verifier()
+        } catch (e) {
+          erreur = `Cette question ne peut pas être vérifiée (${(e as Error).message}).`
+        }
+      }
+    }
+  })
+
+  // Rotation ou redimensionnement : les figures reprennent la bonne largeur
+  const surRedimension = () => {
+    if (zone) moteur.ajusterFigures(zone)
+    if (zoneCorrection) moteur.ajusterFigures(zoneCorrection)
+  }
+  onMount(() => {
+    addEventListener('resize', surRedimension)
+    return () => removeEventListener('resize', surRedimension)
+  })
+
+  onDestroy(() => clearTimeout(minuterie))
+</script>
+
+<div class="container max-w-full grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4">
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div
+    bind:this={zone}
+    class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    style="font-size: 1.15rem; line-height: 1.6; {lectureSeule ? 'pointer-events: none' : ''}"
+    inert={lectureSeule}
+    oninput={surSaisie}
+    onchange={surSaisie}
+    onkeydown={surTouche}
+  ></div>
+  {#if avecBouton && !resultat && !lectureSeule && q.interactive}
+    <div>
+      <button
+        type="button"
+        class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded border border-coopmaths-action
+        text-coopmaths-action dark:text-coopmathsdark-action bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+        font-medium text-xs leading-tight uppercase
+        hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:text-coopmaths-canvas dark:hover:text-coopmathsdark-canvas
+        transition duration-150 ease-in-out disabled:opacity-40"
+        style="min-height: 44px; min-width: 9rem"
+        disabled={!aSaisi}
+        onclick={async () => {
+          try {
+            await verifier()
+          } catch (e) {
+            erreur = `Cette question ne peut pas être vérifiée (${(e as Error).message}).`
+          }
+        }}
+      >
+        <i aria-hidden="true" class="bx bx-check-circle text-base"></i>
+        Vérifier
+      </button>
+    </div>
+  {/if}
+  {#if erreur}
+    <p class="font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
+  {/if}
+  {#if resultat && resultat.total > 1}
+    <span class="text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+      Score : {resultat.points} / {resultat.total}
+    </span>
+  {/if}
+</div>
+
+{#if resultat}
+  <div
+    class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 mb-4 ml-0 py-2 pl-4"
+  >
+    <div class="contenu-mathalea container overflow-x-auto overflow-y-hidden py-1" bind:this={zoneCorrection}></div>
+    <div
+      class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-0.75 -top-3.75 bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+    >
+      Correction
+    </div>
+    <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"></div>
+  </div>
+{/if}

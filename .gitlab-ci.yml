@@ -1,0 +1,10 @@
+# Forge : vérifications à chaque push. Les binaires sont construits sur le
+# miroir GitHub (.github/workflows/release.yml) puis recopiés ici par
+# scripts/release.sh (voir docs/developpement.md).
+verifier:
+  image: node:22
+  script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+    - pnpm check
+    - pnpm test

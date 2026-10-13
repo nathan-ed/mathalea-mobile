@@ -1,0 +1,86 @@
+/* L'apparence vient du CSS du moteur MathALÉA (moteur.css, classes Tailwind
+   de MathALÉA). Ici, seulement ce que le site n'a pas à gérer : zones sûres
+   des téléphones et défilement. */
+html,
+body {
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+.zone-sure-haut {
+  padding-top: env(safe-area-inset-top);
+}
+.zone-sure-bas {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Sur ordinateur et tablette, le contenu reste à une largeur de lecture */
+.colonne {
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+/* Contenu des exercices : les figures se réduisent à la largeur de l'écran,
+   les tableaux et formules larges défilent dans leur propre cadre, pour que
+   la page elle-même ne déborde jamais. */
+.contenu-mathalea {
+  max-width: 100%;
+}
+/* Les figures mathalea2d sont réduites par le moteur (ajusterFigures), étiquettes comprises */
+.contenu-mathalea img,
+.contenu-mathalea canvas {
+  max-width: 100%;
+  height: auto;
+}
+.contenu-mathalea table,
+.contenu-mathalea .katex-display {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Clavier de MathALÉA (fixé en bas) : au-dessus de la barre de navigation
+   du téléphone, que l'app recouvre (affichage bord à bord d'Android) */
+#mathalea-virtual-keyboard {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem) !important;
+}
+
+/* Clavier de MathALÉA sur téléphone : toute la largeur, touches larges.
+   Les tailles du site sont fixes (30 × 40 px) ; ici chaque bloc s'étire
+   selon son nombre de colonnes. */
+@media (max-width: 640px) {
+  #mathalea-virtual-keyboard #kb-block {
+    width: 100%;
+    justify-content: stretch;
+    gap: 10px;
+  }
+  #mathalea-virtual-keyboard #kb-block,
+  #mathalea-virtual-keyboard #kb-block > [id^='kb-block-'] {
+    flex: 1 1 0;
+  }
+  #mathalea-virtual-keyboard #kb-block > [id^='kb-block-']:has(> .grid[style*='repeat(2,']) {
+    flex-grow: 2;
+  }
+  #mathalea-virtual-keyboard #kb-block > [id^='kb-block-']:has(> .grid[style*='repeat(3,']) {
+    flex-grow: 3;
+  }
+  #mathalea-virtual-keyboard #kb-block > [id^='kb-block-']:has(> .grid[style*='repeat(4,']) {
+    flex-grow: 4;
+  }
+  #mathalea-virtual-keyboard #kb-block > [id^='kb-block-']:has(> .grid[style*='repeat(5,']) {
+    flex-grow: 5;
+  }
+  #mathalea-virtual-keyboard .customdimensions {
+    width: 100% !important;
+    height: 46px !important;
+    font-size: 1.25rem;
+  }
+  #mathalea-virtual-keyboard .customgap {
+    gap: 6px !important;
+  }
+}

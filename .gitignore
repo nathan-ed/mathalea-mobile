@@ -1,0 +1,18 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Moteur MathALÉA construit (scripts/moteur.sh)
+/static/moteur
+# Rust et Tauri
+/src-tauri/target
+/src-tauri/gen/schemas
+# Essais de bout en bout
+/e2e/captures
