@@ -290,6 +290,21 @@ Environnement (machine de Nathan)
   Relançable. Ordre voulu par Nathan : **APK d'abord**, puis le reste ; ranger
   ce qui est prêt sans attendre le reste. Penser à monter la version dans
   `package.json`, `src-tauri/tauri.conf.json` et `src-tauri/Cargo.toml`.
+- Déroulé d'une release (0.1.3, fait de bout en bout) : tests complets
+  (check, test, cargo test, job CI rejoué dans Docker, `complet.mjs`,
+  `regressions.mjs`), version montée et `docs/developpement.md` à jour,
+  commit, `git tag v<x>`, push du tag **seul** :
+  `git push origin main v<x>` puis `git push github main v<x>` (le tag sur
+  GitHub lance `release.yml` avec `cibles=tout`, environ 20 min ; suivre avec
+  `gh run watch`). Puis `scripts/release.sh v<x>` ; il ne commite rien :
+  `git add releases` (README et `releases/v<x>/`), commit, push sur les deux
+  dépôts (300 Mo de LFS). Contrôle : somme SHA-256 d'une APK lue par
+  `glab api "projects/coopmaths%2Fmathalea-mobile/repository/files/releases%2Fv<x>%2F<fichier>/raw?ref=main&lfs=true"`.
+- **Jamais `git push --tags`** : des tags locaux anciens (`v0.1.0`, `v0.1.1`,
+  `moteur`) partent avec. Un tag `v*` absent de GitHub relance une release
+  (à annuler : `gh run cancel <id>`) ; le tag `moteur` sur la forge lance un
+  pipeline en échec. Supprimer un tag distant (`git push origin :refs/tags/x`)
+  est bloqué en mode auto : le demander à Nathan (`! …`).
 - Lien vers la dernière release :
   `https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest`.
 
@@ -345,6 +360,9 @@ Environnement (machine de Nathan)
 - Touche Entrée dans une séance (`surEntree`) : avec la correction à la fin,
   elle passe à la question suivante sans rien vérifier.
 
+- `CARGO_TARGET_DIR` relatif : `tauri android build` travaille dans
+  `src-tauri/`, le chemin y est résolu (un `src-tauri/src-tauri/target-essai`
+  de 1,4 Go est apparu ainsi). Toujours un chemin absolu.
 - Ne jamais `pkill -f` / `pgrep -f` avec un motif présent dans la commande
   elle-même : cela tue le shell. Tuer par PID (`ps -eo pid,cmd | grep "[m]otif"`).
 - Plugin Vite : `configureServer` ne doit **rien renvoyer** (une fonction
