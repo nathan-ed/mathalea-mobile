@@ -38,7 +38,8 @@ type Requete = (url: string, init?: RequestInit) => Promise<Response>
 
 /**
  * Dans Tauri, la commande Rust « telecharger » : sans en-tête Origin, que
- * kDrive refuse (redirection vers une page d'erreur). Sinon fetch.
+ * kDrive refuse (redirection vers une page d'erreur). Dans le navigateur en
+ * développement, le relais du serveur Vite (vite.config.js). Sinon fetch.
  */
 export const requete: Requete = async (url, init) => {
   if (dansTauri) {
@@ -46,6 +47,7 @@ export const requete: Requete = async (url, init) => {
     const r = await invoke<{ statut: number; corps: number[] }>('telecharger', { url })
     return new Response(r.statut === 204 ? null : new Uint8Array(r.corps), { status: r.statut })
   }
+  if (import.meta.env?.DEV) return fetch(`/__telecharger?url=${encodeURIComponent(url)}`)
   return fetch(url, init)
 }
 

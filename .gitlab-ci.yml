@@ -4,6 +4,8 @@
 verifier:
   image: node:22
   script:
+    # pnpm fixé par packageManager (package.json) : la dernière version
+    # refuserait des paquets publiés depuis moins de 24 h
     - corepack enable
     - pnpm install --frozen-lockfile
     - pnpm check

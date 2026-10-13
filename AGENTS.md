@@ -2,6 +2,9 @@
 
 Application Tauri 2 (Svelte 5, SvelteKit statique) de parcours MathALÉA.
 Détails : `docs/developpement.md` ; guide enseignant : `docs/enseignants.md`.
+Savoir-faire complet (exigences, moteur, drives, Android, CI, releases,
+pièges) : skill `.claude/skills/mathalea-mobile/SKILL.md`, à charger avant
+toute modification.
 
 ## Règles
 
@@ -16,12 +19,14 @@ Détails : `docs/developpement.md` ; guide enseignant : `docs/enseignants.md`.
   (`parcours-mathalea.json`), aucun n'est intégré à l'app.
 - Une séance garde une copie figée de son parcours (`contenu`) : ne jamais lire
   la version courante pour rejouer, relire ou reprendre.
-- Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`), jamais
-  importé dans le code de l'app. Contrat : `src/lib/moteur.ts` (`API_ATTENDUE`).
+- Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source
+  dans `moteur/`), jamais importé dans le code de l'app. Contrat :
+  `src/lib/moteur.ts` (`API_ATTENDUE`).
 
 ## Vérifier avant de rendre
 
 - `pnpm check` et `pnpm test` ; `cargo test` dans `src-tauri`.
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux
   captures, en clair et en sombre, à 390 px de large.
-- Ne rien commiter ni pousser sans demande explicite.
+- Ne rien commiter ni pousser sans demande explicite (sur ce projet, Nathan a
+  demandé de pousser souvent).
