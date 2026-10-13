@@ -39,7 +39,7 @@ uniforme() {
 ranger() {
   for f in "$1"/*; do
     nom="$(uniforme "$(basename "$f")")"
-    [ -n "$nom" ] && cp "$f" "$dossier/$nom" && echo "  $nom"
+    if [ -n "$nom" ]; then cp "$f" "$dossier/$nom" && echo "  $nom"; fi
   done
 }
 
