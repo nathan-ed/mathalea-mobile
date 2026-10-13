@@ -167,6 +167,16 @@ refuse la mise à jour.
     jusqu'à 800 o à 1 Ko environ (version 20 à 25, correction M) : un
     parcours courant tient dans un QR ; au-delà, plusieurs QR à la suite
     (« 1/2, 2/2 ») ou le fichier.
+  - Limite par défaut : statistiques, réponses des tentatives dernière et
+    meilleure, et pas plus de 800 o environ ; au-delà, plusieurs QR.
+  - Plusieurs QR : une grille sur un écran ne stocke guère plus qu'un grand
+    QR de même surface (la taille des modules limite), mais elle est plus
+    robuste (un QR mal lu se relit seul) ; norme « structured append » (16
+    symboles au plus). Gains réels : QR qui défilent (un par demi-seconde,
+    assemblés par l'app, sans limite de taille) et plusieurs téléphones
+    d'élèves photographiés d'un coup (ML Kit détecte plusieurs codes par
+    image ; plugin Tauri à vérifier, sinon plugin Kotlin comme le partage ;
+    sur ordinateur, zxing-cpp en WebAssembly).
   - Côté enseignant : onglet Résultats par classe, tableau élèves × exercices,
     exercices les moins réussis en tête, réponses d'un élève sur une
     question, export CSV.
