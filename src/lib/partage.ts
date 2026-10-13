@@ -48,8 +48,9 @@ export const requete: Requete = async (url, init) => {
     const r = await invoke<{ statut: number; corps: number[] }>('telecharger', { url })
     return new Response(r.statut === 204 ? null : new Uint8Array(r.corps), { status: r.statut })
   }
-  if (import.meta.env?.DEV) return fetch(`/__telecharger?url=${encodeURIComponent(url)}`)
-  return fetch(url, init)
+  // no-store : toujours la version du dossier, jamais celle du cache du navigateur
+  if (import.meta.env?.DEV) return fetch(`/__telecharger?url=${encodeURIComponent(url)}`, { cache: 'no-store' })
+  return fetch(url, { cache: 'no-store', ...init })
 }
 
 // Clé d'API Google (publique, propre à l'app) : seulement pour les liens de dossiers Google Drive

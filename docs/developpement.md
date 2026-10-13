@@ -133,6 +133,8 @@ refuse la mise à jour.
   « Exporter ce parcours » (nom stable), Dupliquer, ordre des parcours par
   classe, correction d'un parcours sans que les élèves voient de différence
   (résultats repris par exercice d'une version à l'autre, avec leur version).
+- Dossiers suivis, Explorer et moteur relus à chaque retour dans l'app, au
+  retour de la connexion et toutes les 10 minutes, sans cache (fait).
 
 ### 0.1.4
 
@@ -215,6 +217,12 @@ Le mécanisme est en place (0.1.1) ; il manque l'adresse de publication.
   signature, même `API_MOTEUR`, taille et SHA-256, extraction dans
   `<données>/moteurs/`, activation au lancement suivant. Réglages : version du
   moteur et recherche manuelle.
+- Actualisation (`actualiser()`, `+page.svelte`) : dossiers suivis, Explorer
+  et moteur sont relus au lancement, à chaque retour dans l'app
+  (`visibilitychange`), au retour de la connexion et toutes les 10 minutes
+  tant que l'app est affichée (au plus une fois par minute). Requêtes en
+  `no-cache` / `no-store` ; une mise à jour du moteur déjà installée n'est
+  pas retéléchargée.
 - Tests : `cargo test moteur` (publication valide, ancienne, autre API,
   signature d'une autre clé, archive altérée, redirections d'une forge, page
   de connexion d'un projet privé) ; publication réelle du script :

@@ -71,7 +71,13 @@ pub fn verifier_signature(texte: &[u8], signature_b64: &str, cle_b64: &str) -> R
 }
 
 async fn telecharger(client: &reqwest::Client, url: &str) -> Result<Vec<u8>, String> {
-    let r = client.get(url).send().await.map_err(|e| format!("réseau : {e}"))?;
+    // Toujours la publication du serveur, jamais une copie gardée en route
+    let r = client
+        .get(url)
+        .header(reqwest::header::CACHE_CONTROL, "no-cache")
+        .send()
+        .await
+        .map_err(|e| format!("réseau : {e}"))?;
     if !r.status().is_success() {
         return Err(format!("{url} : HTTP {}", r.status().as_u16()));
     }
@@ -182,8 +188,14 @@ pub async fn mettre_a_jour_moteur(app: tauri::AppHandle, api: u32, publie_actuel
     let dossier = dossier_moteurs(&app).ok_or("dossier de données introuvable")?;
     fs::create_dir_all(&dossier).map_err(|e| e.to_string())?;
     let base = base_url();
-    let Some(m) = chercher(&base, CLE_PUBLIQUE, api, &publie_actuel).await? else {
-        return Ok(None);
+    // Une mise à jour déjà installée (active au prochain lancement) n'est pas retéléchargée
+    let en_attente = lire_actif(&dossier).filter(|a| session(&app).as_ref().map(|(s, _)| s.dossier != a.dossier).unwrap_or(true));
+    let reference = match &en_attente {
+        Some(a) if a.publie_le > publie_actuel => a.publie_le.clone(),
+        _ => publie_actuel,
+    };
+    let Some(m) = chercher(&base, CLE_PUBLIQUE, api, &reference).await? else {
+        return Ok(en_attente.filter(|a| a.publie_le == reference).map(|a| a.version));
     };
     let actif = installer(&base, &m, &dossier).await?;
     let en_cours = session(&app).as_ref().map(|(a, _)| a.dossier.clone());

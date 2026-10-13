@@ -72,8 +72,14 @@
   let organisations: Record<string, Organisation> = $state({})
   let miseAJourMoteur: string | null = $state(null)
 
+  let rechercheMoteur: Promise<string> | null = null
   /** Mise à jour du moteur : installée en arrière-plan, utilisée au prochain lancement */
-  async function chercherMoteur(): Promise<string> {
+  function chercherMoteur(): Promise<string> {
+    // Une seule recherche à la fois (automatique et bouton des réglages)
+    rechercheMoteur ??= rechercherMoteur().finally(() => (rechercheMoteur = null))
+    return rechercheMoteur
+  }
+  async function rechercherMoteur(): Promise<string> {
     try {
       const version = await chercherMiseAJourMoteur()
       if (version) miseAJourMoteur = version
@@ -164,13 +170,36 @@
     try {
       moteur = await chargerMoteur()
       moteur.definirLangue(pays === 'CH' ? 'fr-CH' : 'fr-FR')
-      void chercherMoteur()
     } catch (e) {
       erreurMoteur = (e as Error).message
     }
-    // Nouvelles versions des dossiers partagés au lancement
-    if (classes.length) void synchroniserClasses()
-    void synchroniserExplorer()
+    actualiser()
+  })
+
+  // Parcours des dossiers suivis, Explorer et moteur : relus au lancement, à chaque retour
+  // dans l'app, au retour de la connexion et toutes les 10 minutes tant qu'elle est affichée
+  const ECART_MINIMUM = 60_000
+  let actualiseLe = 0
+  let actualisation: Promise<unknown> | null = null
+  function actualiser() {
+    if (!pret || actualisation || Date.now() - actualiseLe < ECART_MINIMUM) return
+    actualiseLe = Date.now()
+    actualisation = Promise.all([classes.length ? synchroniserClasses() : null, synchroniserExplorer(), moteur ? chercherMoteur() : null]).finally(
+      () => (actualisation = null),
+    )
+  }
+  onMount(() => {
+    const auPremierPlan = () => {
+      if (document.visibilityState === 'visible') actualiser()
+    }
+    const minuteur = setInterval(auPremierPlan, 10 * 60_000)
+    document.addEventListener('visibilitychange', auPremierPlan)
+    window.addEventListener('online', auPremierPlan)
+    return () => {
+      clearInterval(minuteur)
+      document.removeEventListener('visibilitychange', auPremierPlan)
+      window.removeEventListener('online', auPremierPlan)
+    }
   })
 
   /** Nouvelle version du catalogue ; les parcours ajoutés suivent leur nouvelle version */
@@ -290,7 +319,13 @@
   }
 
   async function synchroniserClasses() {
-    classes = await Promise.all(classes.map((c) => synchroniserClasse($state.snapshot(c) as Classe)))
+    const avant = $state.snapshot(classes) as Classe[]
+    const recues = await Promise.all(avant.map((c) => synchroniserClasse(c)))
+    // Une classe ajoutée, choisie ou retirée pendant le téléchargement garde son état
+    classes = classes.map((c) => {
+      const i = avant.findIndex((a) => a.lien === c.lien && a.nom === c.nom)
+      return i < 0 ? c : recues[i]
+    })
     await ecrireClasses(stockage!, classes)
     for (const c of classes) for (const p of c.parcours) await chargerParcours(p)
   }

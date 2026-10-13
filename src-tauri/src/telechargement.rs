@@ -32,7 +32,11 @@ pub async fn telecharger(url: String) -> Result<Reponse, String> {
         .user_agent("MathALEA")
         .build()
         .map_err(|e| e.to_string())?;
-    let r = client.get(url).send().await.map_err(|e| format!("Réseau : {e}"))?;
+    // Toujours la version du drive, jamais une copie gardée en route
+    let r = client
+        .get(url)
+        .header(reqwest::header::CACHE_CONTROL, "no-cache")
+        .send().await.map_err(|e| format!("Réseau : {e}"))?;
     let statut = r.status().as_u16();
     let corps = r.bytes().await.map_err(|e| format!("Réseau : {e}"))?.to_vec();
     Ok(Reponse { statut, corps })

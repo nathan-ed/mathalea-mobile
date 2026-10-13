@@ -148,6 +148,8 @@ Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
   (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`).
 - App : signature, même API, plus récent (`publieLe`), taille et SHA-256,
   extraction à part, activation au lancement suivant (jamais en séance),
+  recherche au lancement, au retour dans l'app et toutes les 10 min comme
+  les dossiers suivis et l'Explorer (`actualiser()`),
   servi par `moteur://`, repli sur le moteur livré. Réglages : version et
   « Rechercher une mise à jour ».
 - `URL_MISES_A_JOUR` et `URL_EXPLORER` (catalogue Explorer, `partage.ts`)
@@ -373,10 +375,11 @@ Environnement (machine de Nathan)
   MR du moteur dans MathALÉA (puis supprimer `moteur/` et la release `moteur`
   du miroir GitHub).
 - 0.1.2 (publiée) : fiabilité (sauvegardes, brouillons, Entrée, suivi).
-- 0.1.3 : espace enseignant réorganisé (Publier et état « à jour chez les
+- 0.1.3 (publiée) : espace enseignant réorganisé (Publier et état « à jour chez les
   élèves », mise en route, « Éditer un parcours existant » pour tous les
   parcours, « Exporter ce parcours », Dupliquer, ordre par classe,
-  correction invisible pour les élèves : `reprendreResultats`).
+  correction invisible pour les élèves : `reprendreResultats`), relecture
+  des dossiers et du moteur à chaque retour dans l'app.
 - 0.1.4 : dictionnaire de compétences par chapitre (édité dans l'app ou
   importé en JSON), étiquetage rapide des exercices, suivi par compétence.
 - Idées notées par Nathan (docs/developpement.md, « À faire ») : création
