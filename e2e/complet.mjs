@@ -293,20 +293,23 @@ await t.getByRole('button', { name: 'Quitter (tout est enregistré)' }).click()
 await t.getByRole('button', { name: 'Valider le parcours' }).click()
 ok((await texte(t)).includes('3e A') && (await texte(t)).includes('3e B'), 'parcours rangé dans 3e A et 3e B')
 ok(await t.getByText('« Fractions express » enregistré (V1)').isVisible(), 'après validation : téléchargement proposé')
-const [seul] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: 'Télécharger ce parcours seul' }).click()])
-ok(/^parcours-fractions-express-v1\.json$/.test(seul.suggestedFilename()), 'parcours seul : ' + seul.suggestedFilename())
+ok(await t.getByText('Mise en route').isVisible(), 'sans dossier partagé : mise en route proposée')
+const [seul] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: 'Exporter ce parcours' }).click()])
+ok(/^parcours-fractions-express\.json$/.test(seul.suggestedFilename()), 'parcours seul, nom stable : ' + seul.suggestedFilename())
 await cap(t, '9c-enregistre')
-await t.getByLabel('Lien du dossier partagé (à donner aux élèves)').fill(lienClasse)
+await t.getByLabel('Lien du dossier partagé', { exact: true }).fill(lienClasse)
 await t.getByRole('button', { name: 'Enregistrer le lien' }).click()
-ok(await t.getByRole('button', { name: 'Ouvrir le dossier' }).last().isVisible(), 'lien du dossier enregistré pour la classe')
+ok(await t.getByRole('button', { name: 'Ouvrir le dossier' }).isVisible(), 'lien du dossier enregistré pour la classe')
+ok(await t.getByText('Un parcours n’est pas encore chez les élèves.').isVisible(), 'état : parcours pas encore publié')
 
 async function exporterVersDossier() {
-  const [dl] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: /^\s*Exporter/ }).first().click()])
+  const [dl] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: 'Publier', exact: true }).click()])
   const chemin = `${dossierPartage}/classe-3a/parcours-mathalea.json`
   await dl.saveAs(chemin)
   return chemin
 }
 await exporterVersDossier()
+ok(await t.getByText('Tout est à jour chez les élèves.').isVisible(), 'état : tout est à jour après Publier')
 await cap(t, '10-enseignant')
 
 // L'élève ajoute la classe par le lien du dossier partagé
@@ -328,9 +331,11 @@ await t.getByLabel('Titre', { exact: true }).fill('Fractions express (corrigé)'
 await t.getByRole('button', { name: /Réglages et aperçu/ }).click()
 ok((await t.getByLabel('Nombre de questions').inputValue()) === '2', 'modification : réglages de l’exercice repris')
 await t.getByLabel('Nombre de questions').fill('3')
+ok(await t.getByRole('button', { name: 'Dupliquer' }).isDisabled(), 'modification en cours : dupliquer attend l’enregistrement')
 await cap(t, '9b-modification')
 await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
 ok((await texte(t)).includes('V2'), 'modification après export : V2')
+ok(await t.getByText('Un parcours n’est pas encore chez les élèves.').isVisible(), 'état : V2 à publier')
 await exporterVersDossier()
 await a.getByRole('button', { name: 'Réglages' }).click()
 await a.getByRole('button', { name: 'Mettre à jour les parcours' }).click()

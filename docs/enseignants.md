@@ -83,36 +83,55 @@ En bas : « Aperçu élève » pour essayer, et « Valider le parcours » (ou
 « Enregistrer et quitter »). Tant qu'il manque une information, la ligne
 « À compléter » dit laquelle.
 
-Après l'enregistrement, l'accueil propose :
+Après l'enregistrement, l'accueil indique ce qui n'est pas encore chez les
+élèves et propose **Publier** (voir plus bas) et **Exporter ce parcours** :
+un fichier `parcours-<titre>.json` avec ce seul parcours, toujours sous le
+même nom, à déposer à côté des autres ou à donner à un collègue.
 
-- **Télécharger tous les parcours** : `parcours-mathalea.json`, à déposer dans
-  votre dossier partagé en remplaçant l'ancien ;
-- **Télécharger ce parcours seul** : un fichier avec ce seul parcours, à
-  déposer à côté des autres ou à donner à un collègue.
+En bas de l'éditeur d'un parcours enregistré, « Ce parcours » propose
+**Dupliquer** (une copie, nouveau parcours en V1, par exemple pour une autre
+classe) et **Exporter**.
 
-« Éditer un parcours existant » reprend un parcours des dossiers partagés que
-vous suivez (collègue, ressources) ou d'un fichier importé, avec ses classes
-et ses réglages, sous le même identifiant.
+**Éditer un parcours existant** regroupe tout ce qui se modifie : vos
+parcours, ceux des dossiers partagés que vous suivez (collègue, ressources)
+et ceux d'un fichier importé. Un parcours repris garde ses classes, ses
+réglages et son identifiant : vous le modifiez pour vos propres élèves. Un
+fichier qui ne contient qu'un parcours s'ouvre directement dans l'éditeur.
+
+Sur l'accueil, les flèches à gauche d'un parcours changent sa place dans la
+classe : c'est l'ordre que voient les élèves.
 
 ## Versions
 
-Un parcours exporté puis modifié passe à la version suivante (V1, V2…).
-Les élèves reçoivent la nouvelle version au prochain lancement. Une séance
-commencée garde sa version ; les anciennes tentatives restent consultables
-telles qu'elles ont été faites.
+Un parcours publié puis modifié passe à la version suivante (V1, V2…).
+Les élèves reçoivent la nouvelle version au prochain lancement, sans rien
+voir d'autre :
+
+- corriger une erreur (titre, réglage, nombre de questions, ordre) ne remet
+  pas leurs résultats à zéro : chaque exercice resté dans le parcours garde
+  son dernier résultat, et seul un exercice ajouté part de zéro ;
+- une séance commencée se termine dans sa version ;
+- un passage déjà fait se relit tel qu'il a été fait (même version, mêmes
+  questions, même nombre de questions).
 
 ## Partager avec les élèves
+
+Tant que le dossier partagé n'est pas renseigné, l'accueil affiche une
+« Mise en route » en trois étapes :
 
 1. Créez un dossier sur votre drive et partagez-le par lien public, en lecture
    seule.
 2. Collez ce lien dans « Lien du dossier partagé », puis
    « Enregistrer le lien ».
-3. « Exporter » enregistre `parcours-mathalea.json`. « Ouvrir le dossier »
-   ouvre votre drive : déposez-y le fichier en remplaçant l'ancien.
+3. **Publier** enregistre `parcours-mathalea.json` (sur Android : ouvre le
+   partage, choisissez l'app de votre drive). « Ouvrir le dossier » ouvre
+   votre drive : déposez-y le fichier en remplaçant l'ancien.
 4. Donnez le lien aux élèves (projection, QR code, ENT…).
 
-À chaque modification : Exporter, puis déposer le fichier en remplaçant
-l'ancien. Le lien ne change pas.
+Ensuite, l'encadré du haut dit si tout est à jour chez les élèves, ou combien
+de parcours ne le sont pas encore. À chaque modification : Publier, puis
+déposer le fichier en remplaçant l'ancien. Le lien ne change pas (« Modifier »
+pour le changer).
 
 ### Drives pris en charge
 

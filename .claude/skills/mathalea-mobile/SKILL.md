@@ -91,7 +91,7 @@ Bibliothèque de l'enseignant (`src/lib/bibliotheque.ts`)
 - `enregistrer()` : modification d'un parcours déjà exporté = version
   suivante. Doit renvoyer `{ ...b, … }` (un oubli effaçait `lien`).
 - `exporter()` : banque complète, marque `exportee` par classe.
-- `exporterUn()` : un parcours seul (`parcours-<titre>-v<n>.json`). Ne compte
+- `exporterUn()` : un parcours seul (`parcours-<titre>.json`, nom stable pour remplacer le précédent). Ne compte
   pas comme exporté par classe, mais marque sa version diffusée (`exportee['']`) :
   sinon un parcours seul déposé dans le dossier restait en V1 après
   modification et n'arrivait jamais aux élèves.
@@ -372,8 +372,16 @@ Environnement (machine de Nathan)
   vraie clé de signature du moteur et de l'APK, projet de la forge public,
   MR du moteur dans MathALÉA (puis supprimer `moteur/` et la release `moteur`
   du miroir GitHub).
-- 0.1.2 : dictionnaire de compétences par chapitre (édité dans l'app ou
+- 0.1.2 (publiée) : fiabilité (sauvegardes, brouillons, Entrée, suivi).
+- 0.1.3 : espace enseignant réorganisé (Publier et état « à jour chez les
+  élèves », mise en route, « Éditer un parcours existant » pour tous les
+  parcours, « Exporter ce parcours », Dupliquer, ordre par classe,
+  correction invisible pour les élèves : `reprendreResultats`).
+- 0.1.4 : dictionnaire de compétences par chapitre (édité dans l'app ou
   importé en JSON), étiquetage rapide des exercices, suivi par compétence.
+- Idées notées par Nathan (docs/developpement.md, « À faire ») : création
+  de parcours depuis le site MathALÉA (et édition d'un `.json` chargé),
+  retour élève vers enseignant (code ou QR de bilan, plus tard).
 - Plus tard : moteur en ressource Android (une copie), iOS (Mac nécessaire),
   Wi-Fi seulement pour le moteur, version minimale du moteur par parcours,
   clé Google Drive, ressources (PDF, images) à côté des parcours.

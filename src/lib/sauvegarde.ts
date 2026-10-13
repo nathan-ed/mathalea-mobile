@@ -108,7 +108,7 @@ const prefixes: Record<string, (v: unknown, suffixe: string) => boolean> = {
   'seance:': (v, id) => estSeance(id)(v),
   'historique:': (v, id) => listeDe(v, estSeance(id)) && sansDoublon((v as Seance[]).map((s) => s.debut)),
   'resultats:': (v) =>
-    dictionnaireDe(v, (r) => estObjet(r) && estNombre(r.points) && estNombre(r.sur) && typeof r.complet === 'boolean' && estTexte(r.le)) &&
+    dictionnaireDe(v, (r) => estObjet(r) && estNombre(r.points) && estNombre(r.sur) && typeof r.complet === 'boolean' && estTexte(r.le) && optionnel(r.version, estEntier)) &&
     Object.keys(v as object).every((k) => /^\d+$/.test(k)),
   'complet:': estNombre,
 }

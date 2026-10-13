@@ -26,6 +26,8 @@
     onvalider,
     onapercu,
     onsupprimer,
+    ondupliquer,
+    onexporter,
     onretour,
   }: {
     bibliotheque: Bibliotheque
@@ -38,6 +40,8 @@
     onvalider: (classes: string[], p: Parcours) => void
     onapercu: (p: Parcours) => void
     onsupprimer?: () => void
+    ondupliquer?: (classes: string[], p: Parcours) => void // modification : copie en nouveau parcours
+    onexporter?: () => Promise<string> // modification : fichier de ce parcours seul (version enregistrée)
     onretour: () => void
   } = $props()
 
@@ -75,6 +79,7 @@
   let messageLien = $state('')
   let confirmerSuppression = $state(false)
   let confirmerSortie = $state(false)
+  let messageExport = $state('')
   let navigateur = $state(false)
   let ouvert: number | null = $state(null) // exercice déplié : réglages et aperçu
   const descriptions: Record<string, DescriptionExercice | null> = $state({})
@@ -346,6 +351,26 @@
         bind:valeur={p.correction}
         options={Object.entries(libellesValidation).map(([valeur, libelle]) => ({ valeur: valeur as Parcours['correction'], libelle }))}
       />
+
+      {#if ondupliquer || onexporter}
+        <h2 class={titreSection}>Ce parcours</h2>
+        {#if modifie}
+          <p class={discret}>Enregistrez d’abord les modifications pour le dupliquer ou l’exporter.</p>
+        {/if}
+        <div class="grid gap-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          {#if ondupliquer}
+            <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={modifie} onclick={() => ondupliquer([...classes], instantane())}>
+              Dupliquer
+            </button>
+          {/if}
+          {#if onexporter}
+            <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={modifie} onclick={async () => (messageExport = await onexporter())}>
+              Exporter
+            </button>
+          {/if}
+        </div>
+        {#if messageExport}<p class={discret} role="status">{messageExport}</p>{/if}
+      {/if}
 
       {#if onsupprimer}
         <div class="pt-6">

@@ -12,6 +12,8 @@
     enregistrer,
     exporter,
     exporterUn,
+    deplacer,
+    copie,
     CLASSE_SANS_NOM,
     lireBibliotheque,
     parcoursVide,
@@ -359,7 +361,7 @@
   let importes: Parcours[] = $state([])
   // Classes de chaque parcours importé : reprises quand l'enseignant l'édite
   let classesImportees: Record<string, string[]> = $state({})
-  async function importerFichier(texte: string): Promise<string> {
+  async function importerFichier(texte: string): Promise<{ message: string; parcours: Parcours[] }> {
     try {
       const f = lireFichier(texte)
       const recus = f.classes.flatMap((c) => c.parcours)
@@ -379,9 +381,12 @@
       }
       importes = [...vus.values()]
       await stockage!.ecrire('importes', $state.snapshot(importes))
-      return `${recus.length} parcours importé${recus.length > 1 ? 's' : ''}${nouveaux < recus.length ? ' (déjà présents : version la plus récente gardée)' : ''}.`
+      return {
+        message: `${recus.length} parcours importé${recus.length > 1 ? 's' : ''}${nouveaux < recus.length ? ' (déjà présents : version la plus récente gardée)' : ''}.`,
+        parcours: recus,
+      }
     } catch (e) {
-      return (e as Error).message
+      return { message: (e as Error).message, parcours: [] }
     }
   }
 
@@ -446,6 +451,7 @@
       onfermerDernier={() => (dernier = null)}
       onexporterUn={exporterUnParcours}
       onimporter={importerFichier}
+      ondeplacer={(id, classe, sens) => sauverBibliotheque(deplacer($state.snapshot(bibliotheque) as Bibliotheque, id, classe, sens))}
       onediter={async (p) => {
         await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p, classesDuModele(p.id)))
         const pe = bibliotheque.parcours.find((x) => x.parcours.id === p.id)!
@@ -470,6 +476,8 @@
             {pays}
             onvalider={valider}
             onapercu={voirApercu}
+            ondupliquer={creation.parcours.id ? (classesCopie, p) => creer(copie(p), classesCopie) : undefined}
+            onexporter={creation.parcours.id ? () => exporterUnParcours(creation!.parcours.id) : undefined}
             onsupprimer={creation.parcours.id
               ? async () => {
                   await sauverBibliotheque(supprimer($state.snapshot(bibliotheque) as Bibliotheque, creation!.parcours.id))

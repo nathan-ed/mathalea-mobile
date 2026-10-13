@@ -127,6 +127,23 @@ export function enregistrer(b: Bibliotheque, classes: string[], p: Parcours): Bi
   return { ...b, classes: toutesClasses, parcours }
 }
 
+/**
+ * Déplace un parcours d'un rang dans une classe (ordre vu par les élèves) :
+ * il échange sa place avec le parcours voisin de la même classe.
+ */
+export function deplacer(b: Bibliotheque, id: string, classe: string, sens: -1 | 1): Bibliotheque {
+  const rangs = b.parcours.flatMap((pe, i) => (pe.classes.includes(classe) ? [i] : []))
+  const k = rangs.findIndex((i) => b.parcours[i].parcours.id === id)
+  const voisin = rangs[k + sens]
+  if (k === -1 || voisin === undefined) return b
+  const parcours = [...b.parcours]
+  ;[parcours[rangs[k]], parcours[voisin]] = [parcours[voisin], parcours[rangs[k]]]
+  return { ...b, parcours }
+}
+
+/** Copie d'un parcours à enregistrer comme nouveau parcours (nouvel identifiant, V1) */
+export const copie = (p: Parcours): Parcours => ({ ...JSON.parse(JSON.stringify(p)), id: '', version: 1, titre: `${p.titre} (copie)` })
+
 export function definirLien(b: Bibliotheque, lien: string): Bibliotheque {
   return { ...b, lien: lien || undefined }
 }
@@ -176,7 +193,7 @@ export function exporterUn(b: Bibliotheque, id: string): { nom: string; texte: s
     .replace(/^-|-$/g, '')
   const marque: ParcoursEnseignant = { ...pe, exportee: { ...pe.exportee, '': pe.parcours.version } }
   return {
-    nom: `parcours-${base || pe.parcours.id}-v${pe.parcours.version}.json`,
+    nom: `parcours-${base || pe.parcours.id}.json`, // nom stable : déposé, il remplace le précédent
     texte: creerFichier(classes),
     bibliotheque: { ...b, parcours: b.parcours.map((x) => (x === pe ? marque : x)) },
   }

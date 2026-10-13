@@ -45,6 +45,7 @@ export interface ResultatEtape {
   sur: number // nombre de questions
   complet: boolean
   le: string
+  version?: number // version du parcours travaillée (un résultat repris garde la sienne)
 }
 
 export const cleQuestion = (etape: number, question: number) => `${etape}-${question}`
@@ -144,8 +145,38 @@ export async function ecrireSeance(st: Stockage, s: Seance) {
   await st.ecrire(cleSeance(s.parcours), s)
 }
 
-export async function lireResultats(st: Stockage, parcours: Parcours) {
-  return (await st.lire<Record<number, ResultatEtape>>(cleResultats(parcours))) ?? {}
+/**
+ * Résultats d'une version. Une version sans résultats reprend ceux de la
+ * précédente pour chaque exercice resté dans le parcours (même exercice
+ * MathALÉA, même s'il a été déplacé ou ses réglages corrigés) : corriger un
+ * parcours ne remet pas l'élève à zéro. Un exercice ajouté part de zéro.
+ */
+export async function lireResultats(st: Stockage, parcours: Parcours): Promise<Record<number, ResultatEtape>> {
+  const propres = await st.lire<Record<number, ResultatEtape>>(cleResultats(parcours))
+  if (propres) return propres
+  // Version précédente connue par les passages terminés (copie figée du parcours)
+  const precedente = (await lireHistorique(st, parcours.id))
+    .map((h) => h.contenu)
+    .filter((c) => c.version < parcours.version)
+    .sort((a, b) => b.version - a.version)[0]
+  if (!precedente) return {}
+  return reprendreResultats(precedente, await lireResultats(st, precedente), parcours)
+}
+
+/** Résultats d'une version transposés sur une autre, exercice par exercice */
+export function reprendreResultats(avant: Parcours, resultats: Record<number, ResultatEtape>, apres: Parcours) {
+  const repris: Record<number, ResultatEtape> = {}
+  const pris = new Set<number>()
+  apres.etapes.forEach((e, i) => {
+    // Même rang d'abord, sinon le premier exercice identique pas encore repris
+    const candidats = avant.etapes.map((a, j) => j).filter((j) => avant.etapes[j].uuid === e.uuid && !pris.has(j) && resultats[j])
+    const j = candidats.includes(i) ? i : candidats[0]
+    if (j === undefined) return
+    pris.add(j)
+    // Version d'origine conservée : `sur` reste le nombre de questions de cette version
+    repris[i] = { version: avant.version, ...resultats[j] }
+  })
+  return repris
 }
 
 /** Clôt la séance et met à jour le dernier résultat de chaque étape travaillée */
@@ -153,7 +184,7 @@ export async function terminerSeance(st: Stockage, s: Seance) {
   s.fin = new Date().toISOString()
   const resultats = await lireResultats(st, s.contenu)
   for (const e of bilan(s).parEtape) {
-    resultats[e.etape] = { points: e.points, sur: e.sur, complet: e.faites === e.sur, le: s.fin }
+    resultats[e.etape] = { points: e.points, sur: e.sur, complet: e.faites === e.sur, le: s.fin, version: s.contenu.version }
   }
   await st.ecrire(cleResultats(s.contenu), resultats)
   await ecrireSeance(st, s)

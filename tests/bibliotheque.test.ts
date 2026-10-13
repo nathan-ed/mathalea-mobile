@@ -165,7 +165,7 @@ describe('téléchargements après la création', () => {
     b = enregistrer(b, ['3e A', '3e B'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
     const f = exporterUn(b, id)!
     const lu = lireFichier(f.texte)
-    expect(f.nom).toBe('parcours-fractions-corrige-v2.json')
+    expect(f.nom).toBe('parcours-fractions-corrige.json')
     expect(lu.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
     expect(lu.classes[0].parcours[0].version).toBe(2)
     expect(nbAExporter(b)).toBe(1)
@@ -177,7 +177,7 @@ describe('téléchargements après la création', () => {
     b = exporterUn(b, id)!.bibliotheque
     b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
     expect(b.parcours[0].parcours.version).toBe(2)
-    expect(exporterUn(b, id)!.nom).toBe('parcours-fractions-corrige-v2.json')
+    expect(exporterUn(b, id)!.nom).toBe('parcours-fractions-corrige.json')
   })
 
   it('un parcours repris d’un dossier garde ses classes et passe à la version suivante si modifié', () => {
@@ -186,6 +186,29 @@ describe('téléchargements après la création', () => {
     expect(b.parcours[0].classes).toEqual(['Classe test'])
     b = enregistrer(b, ['Classe test'], { ...p, titre: 'Relatifs (repris)' })
     expect(b.parcours[0].parcours.version).toBe(4)
+  })
+})
+
+describe('ordre et copie', async () => {
+  const { deplacer, copie } = await import('../src/lib/bibliotheque')
+  it('déplace un parcours dans sa classe sans toucher aux autres classes', () => {
+    let b = enregistrer({ classes: [], parcours: [] }, ['A'], brouillon('Un'))
+    b = enregistrer(b, ['B'], brouillon('Autre'))
+    b = enregistrer(b, ['A'], brouillon('Deux'))
+    const id = b.parcours[2].parcours.id
+    b = deplacer(b, id, 'A', -1)
+    expect(parcoursDeClasse(b, 'A').map((pe) => pe.parcours.titre)).toEqual(['Deux', 'Un'])
+    expect(parcoursDeClasse(b, 'B').map((pe) => pe.parcours.titre)).toEqual(['Autre'])
+    expect(deplacer(b, id, 'A', -1)).toBe(b) // déjà en tête
+  })
+  it('une copie devient un nouveau parcours en V1', () => {
+    let b = enregistrer({ classes: [], parcours: [] }, ['A'], brouillon('Un'))
+    b = exporter(b).bibliotheque
+    b = enregistrer(b, ['A'], { ...b.parcours[0].parcours, objectif: 'x' })
+    b = enregistrer(b, ['B'], copie(b.parcours[0].parcours))
+    expect(b.parcours).toHaveLength(2)
+    expect(b.parcours[1].parcours).toMatchObject({ titre: 'Un (copie)', version: 1 })
+    expect(b.parcours[1].parcours.id).not.toBe(b.parcours[0].parcours.id)
   })
 })
 
@@ -210,5 +233,53 @@ describe('doublons et versions à la reprise', () => {
     expect(b.parcours).toHaveLength(1)
     expect(b.parcours[0].parcours.titre).toBe('Nouvelle')
     expect(b.parcours[0].classes).toEqual(['Classe test', 'Autre classe'])
+  })
+})
+
+describe('correction d’un parcours déjà travaillé', async () => {
+  const { lireResultats, terminerSeance } = await import('../src/lib/progression')
+  const d = new Map<string, unknown>()
+  const st = {
+    lire: async (c: string) => (d.has(c) ? structuredClone(d.get(c)) : null),
+    ecrire: async (c: string, v: unknown) => void d.set(c, structuredClone(v)),
+    effacer: async (c: string) => void d.delete(c),
+    cles: async () => [...d.keys()],
+  } as never
+  const v1 = {
+    ...brouillon('Fractions'),
+    id: 'fractions',
+    etapes: [
+      { uuid: 'aaa', titre: 'Simplifier', nbQuestions: 1 },
+      { uuid: 'bbb', titre: 'Additionner', nbQuestions: 1 },
+    ],
+  }
+  const essai = (etape: number, juste: boolean) => ({ etape, question: 0, juste, points: juste ? 1 : 0, total: 1, reponses: {}, le: '2026-10-13T10:00:00Z' })
+
+  it('garde les résultats des exercices restés, corrigés ou déplacés ; un exercice ajouté part de zéro', async () => {
+    const s = nouvelleSeance(v1, 'essai')
+    s.nbQuestions = { 0: 1, 1: 1 }
+    s.essais = [essai(0, true), essai(1, false)]
+    await terminerSeance(st, s)
+    // V2 : titre corrigé, réglage changé, exercices échangés, un exercice ajouté
+    const v2 = {
+      ...v1,
+      version: 2,
+      etapes: [{ uuid: 'bbb', titre: 'Additionner deux fractions', nbQuestions: 2 }, { uuid: 'ccc', titre: 'Nouveau' }, v1.etapes[0]],
+    }
+    const r = await lireResultats(st, v2)
+    // Nombre de questions changé (1 → 2) : le résultat garde sa version et son total
+    expect(r[0]).toMatchObject({ points: 0, sur: 1, version: 1 })
+    expect(r[1]).toBeUndefined()
+    expect(r[2]).toMatchObject({ points: 1, sur: 1 })
+    // Et d'une version à la suivante (V1 → V2 → V3 sans passage en V2)
+    expect((await lireResultats(st, { ...v2, version: 3 }))[2]).toMatchObject({ points: 1 })
+  })
+
+  it('la relecture d’un passage V1 rejoue la V1 (copie figée, nombre de questions d’alors)', async () => {
+    const { lireHistorique, questionsDe } = await import('../src/lib/progression')
+    const [passage] = await lireHistorique(st, 'fractions')
+    expect(passage.contenu.version).toBe(1)
+    expect(passage.contenu.etapes[1]).toMatchObject({ uuid: 'bbb', nbQuestions: 1 })
+    expect(questionsDe(passage)).toHaveLength(2)
   })
 })

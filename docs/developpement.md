@@ -122,11 +122,34 @@ refuse la mise à jour.
 
 ### 0.1.2
 
+- Fiabilité (fait) : sauvegardes et fichiers partagés validés en entier,
+  brouillon gardé, Entrée sans correction anticipée, suivi sur la copie figée.
+
+### 0.1.3
+
+- Espace enseignant : état « à jour chez les élèves » et un seul bouton
+  Publier, mise en route du dossier partagé, « Éditer un parcours existant »
+  pour tous les parcours (les siens, ceux des dossiers, un fichier importé),
+  « Exporter ce parcours » (nom stable), Dupliquer, ordre des parcours par
+  classe, correction d'un parcours sans que les élèves voient de différence
+  (résultats repris par exercice d'une version à l'autre, avec leur version).
+
+### 0.1.4
+
 - Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
   JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
   avec une ou plusieurs compétences ; suivi de l'élève par compétence.
 
 ## À faire (sans version fixée)
+
+- Site MathALÉA : option pour créer un parcours directement depuis le site
+  (exercices choisis, présentation, correction) et le télécharger au format
+  `parcours-mathalea.json`, à déposer tel quel dans le dossier partagé ; et
+  pouvoir y charger un `.json` existant pour le modifier. À proposer à
+  l'équipe MathALÉA (pas de fork).
+- Retour vers l'enseignant, sans qu'aucune donnée quitte l'appareil sans
+  geste de l'élève : par exemple un code ou un QR de bilan (sans nom) que
+  l'élève montre et que l'app enseignant lit. À réfléchir.
 
 ### Moteur servi par Coopmaths
 
