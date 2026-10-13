@@ -75,7 +75,7 @@ const absent = () => new Error(`Le dossier ne contient pas encore de fichier de 
 
 /**
  * kDrive : service de la page de partage (non documenté, voir sonoTour/dev.md).
- * Tous les fichiers .json du dossier : un fichier par parcours, ou plusieurs parcours par fichier.
+ * Tous les fichiers .json du dossier (pas des sous-dossiers) : un parcours seul ou plusieurs par fichier.
  */
 async function lireKdrive(lien: string, req: Requete): Promise<Uint8Array[]> {
   const m = lien.match(/kdrive\.infomaniak\.com\/app\/share\/(\d+)\/([0-9a-f-]{36})/i)
@@ -84,23 +84,19 @@ async function lireKdrive(lien: string, req: Requete): Promise<Uint8Array[]> {
   const init = JSON.parse(strFromU8(await octets(await req(`${api}/init`), 'kDrive')))
   const racine = init?.data?.file_id
   if (racine == null) throw new Error('kDrive : dossier partagé illisible.')
+  // Fichiers du dossier lui-même : les sous-dossiers ne sont pas lus
   const fichiers: { id: number; name: string }[] = []
-  // Sous-dossiers compris (par exemple un dossier par classe), sur trois niveaux au plus
-  const parcourir = async (dossier: number, profondeur: number) => {
-    for (let page = 1; ; page++) {
-      const r = await req(`${api}/files/${dossier}/files?per_page=200&page=${page}`)
-      const liste = JSON.parse(strFromU8(await octets(r, 'kDrive'))).data as { id: number; name: string; type: string }[]
-      fichiers.push(...liste.filter((x) => x.type !== 'dir' && estJson(x.name)))
-      if (profondeur < 3) for (const d of liste.filter((x) => x.type === 'dir')) await parcourir(d.id, profondeur + 1)
-      if (liste.length < 200) break
-    }
+  for (let page = 1; ; page++) {
+    const r = await req(`${api}/files/${racine}/files?per_page=200&page=${page}`)
+    const liste = JSON.parse(strFromU8(await octets(r, 'kDrive'))).data as { id: number; name: string; type: string }[]
+    fichiers.push(...liste.filter((x) => x.type !== 'dir' && estJson(x.name)))
+    if (liste.length < 200) break
   }
-  await parcourir(racine, 0)
   if (!fichiers.length) throw absent()
   return Promise.all(fichiers.map(async (f) => octets(await req(`${api}/files/${f.id}/download`), 'kDrive')))
 }
 
-/** Dropbox : un dossier en dl=1 arrive en zip (tous ses .json, sous-dossiers compris) ; un fichier arrive tel quel */
+/** Dropbox : un dossier en dl=1 arrive en zip (ses .json, hors sous-dossiers) ; un fichier arrive tel quel */
 async function lireDropbox(lien: string, req: Requete): Promise<Uint8Array[]> {
   const url = new URL(lien)
   url.searchParams.set('dl', '1')
@@ -108,7 +104,8 @@ async function lireDropbox(lien: string, req: Requete): Promise<Uint8Array[]> {
   const estZip = contenu[0] === 0x50 && contenu[1] === 0x4b
   if (!estZip) return [contenu]
   const fichiers = unzipSync(contenu)
-  const noms = Object.keys(fichiers).filter(estJson)
+  // Le zip de Dropbox met les fichiers du dossier à la racine : « sous-dossier/x.json » est ignoré
+  const noms = Object.keys(fichiers).filter((n) => estJson(n) && !n.replace(/^\//, '').includes('/'))
   if (!noms.length) throw absent()
   return noms.map((n) => fichiers[n])
 }

@@ -68,7 +68,8 @@ describe('kDrive (service de la page de partage)', () => {
 
 describe('Dropbox', () => {
   it('lit le fichier dans le zip d’un lien de dossier (dl=1)', async () => {
-    const zip = zipSync({ [`Classe 3A/${NOM_FICHIER}`]: strToU8(fichier(3)), 'Classe 3A/autre.txt': strToU8('x') })
+    // Comme le zip réel de Dropbox : les fichiers du dossier à la racine
+    const zip = zipSync({ [NOM_FICHIER]: strToU8(fichier(3)), 'autre.txt': strToU8('x') })
     const s = serveur({ 'https://www.dropbox.com/scl/fo/abc': () => reponse(zip) })
     const f = await lireFichierDistant('https://www.dropbox.com/scl/fo/abc/def?rlkey=x&dl=0', s.req)
     expect(f.classes[0].parcours[0].version).toBe(3)
@@ -143,7 +144,7 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
   const api = 'https://kdrive.infomaniak.com/2/app/123/share/0f5c2e9a-1b2c-4d5e-8f90-123456789abc'
   const lien = 'https://kdrive.infomaniak.com/app/share/123/0f5c2e9a-1b2c-4d5e-8f90-123456789abc'
 
-  it('kDrive : lit tous les .json et garde la version la plus récente', async () => {
+  it('kDrive : lit les .json du dossier et garde la version la plus récente', async () => {
     const s = serveur({
       [`${api}/init`]: () => reponse(JSON.stringify({ data: { file_id: 7 } })),
       [`${api}/files/7/files`]: () =>
@@ -157,8 +158,7 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
             ],
           }),
         ),
-      [`${api}/files/11/files`]: () => reponse(JSON.stringify({ data: [{ id: 12, name: 'geometrie.json', type: 'file' }] })),
-      [`${api}/files/12/download`]: () => reponse(creerFichier([{ nom: '3e B', parcours: [{ ...p(1, 'Géométrie'), id: 'geometrie-4e' }] }])),
+
       [`${api}/files/8/download`]: () => reponse(banque),
       [`${api}/files/9/download`]: () => reponse(seul),
     })
@@ -168,19 +168,22 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
       ['fractions-4e', 2],
       ['puissances-4e', 1],
     ])
-    expect(f.classes.find((c) => c.nom === '3e B')!.parcours.map((x) => x.titre)).toEqual(['Fractions V2', 'Géométrie'])
-    expect(s.demandees.some((u) => u.includes('/files/10/'))).toBe(false)
+    expect(f.classes.find((c) => c.nom === '3e B')!.parcours.map((x) => x.titre)).toEqual(['Fractions V2'])
+    // Ni les autres fichiers ni les sous-dossiers ne sont lus
+    expect(s.demandees.some((u) => u.includes('/files/10/') || u.includes('/files/11/'))).toBe(false)
   })
 
-  it('Dropbox : lit tous les .json du zip, ignore ceux qui ne sont pas des parcours', async () => {
+  it('Dropbox : lit les .json du dossier, ignore les sous-dossiers et ce qui n’est pas un parcours', async () => {
     const zip = zipSync({
-      [`Maths/${NOM_FICHIER}`]: strToU8(banque),
-      'Maths/parcours-fractions-v2.json': strToU8(seul),
-      'Maths/config.json': strToU8('{"autre": true}'),
+      [NOM_FICHIER]: strToU8(banque),
+      'parcours-fractions-v2.json': strToU8(seul),
+      'config.json': strToU8('{"autre": true}'),
+      'archives/ancien.json': strToU8(creerFichier([{ nom: 'Archives', parcours: [p(9)] }])),
     })
     const s = serveur({ 'https://www.dropbox.com/scl/fo/abc': () => reponse(zip) })
     const f = await lireFichierDistant('https://www.dropbox.com/scl/fo/abc/def?rlkey=x&dl=0', s.req)
     expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)
+    expect(f.classes.some((c) => c.nom === 'Archives')).toBe(false)
   })
 
   it('une version plus ancienne ne remplace pas une plus récente, quel que soit l’ordre', () => {

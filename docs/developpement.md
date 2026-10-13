@@ -105,7 +105,8 @@ refuse la mise à jour.
 - Séance : la barre d'actions ne suit plus le clavier qui se referme (fait).
 - Éditeur de parcours sur un seul écran ; navigateur d'exercices par niveau
   et chapitre, réglages (`decrireExercice` du moteur) et aperçu (fait).
-- Dossiers partagés : tous les `.json` lus, sous-dossiers compris, fusion par
+- Dossiers partagés : tous les `.json` à la racine du dossier lus (pas les
+  sous-dossiers), fusion par
   identifiant à la version la plus haute (`fusionner`) ; téléchargement de la
   banque ou d'un parcours seul après l'enregistrement ; import d'un fichier
   (fait). Dossier de test : `npx tsx scripts/dossier-test.mts <sortie>`,

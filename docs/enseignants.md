@@ -21,9 +21,9 @@ choisit la sienne la première fois.
 ## Dossiers partagés
 
 Un dossier partagé est un dossier de drive ouvert en lecture par un lien public.
-L'application lit tous les fichiers `.json` de parcours qu'il contient, sous-dossiers
-compris (kDrive, Dropbox) : la banque complète `parcours-mathalea.json`, des
-parcours seuls, un dossier par classe… Un parcours présent dans plusieurs
+L'application lit tous les fichiers `.json` de parcours placés directement dans
+ce dossier (les sous-dossiers ne sont pas lus) : la banque complète
+`parcours-mathalea.json`, des parcours seuls… Un parcours présent dans plusieurs
 fichiers n'apparaît qu'une fois, dans sa version la plus récente.
 
 - Un élève peut suivre plusieurs dossiers (changement d'enseignant en cours
