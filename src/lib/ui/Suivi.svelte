@@ -1,6 +1,6 @@
 <script lang="ts">
   // Suivi du travail dans la durée, avec la rampe « struct » de MathALÉA
-  import type { Parcours } from '$lib/catalogue'
+  import { titreEleve, type Parcours } from '$lib/catalogue'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { theme } from '$lib/theme.svelte'
   import { listeGroupee, pastille } from './classes'
@@ -243,8 +243,7 @@
               onclick={() => onouvrir(r.p)}
             >
               <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{r.etape.id}</span>
-                &nbsp;{r.etape.titre}
+                {titreEleve(r.etape, r.p.etapes.indexOf(r.etape))}
                 <div class={discret}>{r.p.titre}</div>
               </div>
               <span class={pastille}>{arrondi(r.points)}/{r.sur}</span>

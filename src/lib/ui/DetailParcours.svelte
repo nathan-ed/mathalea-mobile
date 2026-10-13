@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Parcours } from '$lib/catalogue'
+  import { titreEleve, type Parcours } from '$lib/catalogue'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
   import { nouveauCode, normaliserCode } from '$lib/progression'
   import ChampTexte from './ChampTexte.svelte'
@@ -13,6 +13,7 @@
     enCours,
     aAmeliorer,
     epingle,
+    explorer = false,
     passages,
     onepingler,
     onrelire,
@@ -27,6 +28,7 @@
     enCours: boolean
     aAmeliorer: number[]
     epingle: boolean
+    explorer?: boolean // parcours du catalogue Explorer : l'épingle l'ajoute à l'accueil
     passages: Seance[]
     onepingler: () => void
     onrelire: (s: Seance) => void
@@ -52,6 +54,7 @@
   <EnTete />
   <FilAriane titre={parcours.titre} {onretour}>
     {#snippet droite()}
+      {#if !explorer}
       <button
         type="button"
         aria-label={epingle ? 'Retirer de l’accueil' : 'Épingler à l’accueil'}
@@ -59,9 +62,9 @@
         class="shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action"
         onclick={onepingler}
       >
-        <i aria-hidden="true"
- class="bx {epingle ? 'bxs-pin' : 'bx-pin'} text-2xl"></i>
+        <i aria-hidden="true" class="bx {epingle ? 'bxs-pin' : 'bx-pin'} text-2xl"></i>
       </button>
+      {/if}
     {/snippet}
   </FilAriane>
 
@@ -81,8 +84,7 @@
           bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
         >
           <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-            <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{etape.id}</span>
-            &nbsp;{etape.titre}
+            {titreEleve(etape, i)}
           </div>
           {#if r}
             <span class={pastille}>{Math.round((100 * r.points) / r.sur)} %</span>
@@ -95,6 +97,12 @@
       <button type="button" class="{boutonAction} w-full" onclick={oncommencer}>
         {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
       </button>
+      {#if explorer}
+        <button type="button" class="{boutonInverse} w-full" aria-pressed={epingle} onclick={onepingler}>
+          <i aria-hidden="true" class="bx {epingle ? 'bx-check' : 'bx-plus'} mr-1"></i>
+          {epingle ? 'Ajouté à l’accueil' : 'Ajouter à l’accueil'}
+        </button>
+      {/if}
       {#if aAmeliorer.length > 0 && !enCours}
         <button type="button" class="{boutonInverse} w-full" onclick={onameliorer}>
           Reprendre les exercices à améliorer ({aAmeliorer.length})

@@ -1,0 +1,5 @@
+{
+  "identifier": "fr.coopmaths.mathalea.dev",
+  "productName": "MathALEA dev",
+  "app": { "windows": [{ "title": "MathALÉA (développement)", "width": 420, "height": 860 }] }
+}

@@ -224,7 +224,22 @@ ok((await a.getByRole('button', { name: /questions, \d+ correctes?/ }).count()) 
 await cap(a, '6-suivi')
 await a.getByRole('button', { name: 'Graphique' }).click()
 ok((await a.locator('main svg rect').count()) > 0, 'suivi : graphique')
+
+// Explorer : catalogue de l'équipe MathALÉA, ajout à l'accueil
+await a.getByRole('tab', { name: 'Explorer' }).click()
+await a.getByText('Parcours proposés par l’équipe MathALÉA').waitFor({ timeout: 10000 })
+await cap(a, '6b-explorer')
+await a.locator('main').getByRole('button').first().click()
+await a.getByRole('button', { name: /Fractions : les bases/ }).click()
+await a.getByRole('button', { name: 'Ajouter à l’accueil' }).click()
+ok(await a.getByRole('button', { name: 'Ajouté à l’accueil' }).isVisible(), 'explorer : ajouté à l’accueil')
+await cap(a, '6c-explorer-detail')
+await accueil(a)
 await a.getByRole('tab', { name: 'Mes parcours' }).click()
+await a.waitForTimeout(300)
+await cap(a, '6d-accueil-ajout')
+ok(await a.getByText('Ajoutés depuis Explorer').isVisible(), 'explorer : section à l’accueil')
+ok(await a.getByRole('button', { name: /Fractions : les bases/ }).isVisible(), 'explorer : parcours à l’accueil')
 
 // ---------- Enseignant ----------
 const t = await appareil('enseignant')

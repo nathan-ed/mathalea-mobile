@@ -14,8 +14,22 @@ compte, et l'application ne demande aucun mot de passe.
 4. Les élèves ajoutent ce lien une fois. À chaque lancement, leur application
    récupère les nouveaux parcours et les nouvelles versions.
 
-Un seul fichier contient toutes vos classes. Si le fichier contient plusieurs
-classes, chaque élève choisit la sienne la première fois.
+Un seul fichier contient toutes vos classes : un seul dossier, un seul lien
+pour tous vos élèves. Si le fichier contient plusieurs classes, chaque élève
+choisit la sienne la première fois.
+
+## Dossiers partagés
+
+Un dossier partagé est un dossier de drive ouvert en lecture par un lien public.
+Il contient le fichier `parcours-mathalea.json`.
+
+- Un élève peut suivre plusieurs dossiers (changement d'enseignant en cours
+  d'année, ressources d'un autre collègue) : Réglages, « Dossiers partagés ».
+  Le premier s'ajoute aussi depuis l'accueil.
+- Un enseignant peut ajouter les dossiers de ses collègues (Réglages,
+  « Dossiers partagés ») : leurs parcours apparaissent dans « Éditer un parcours
+  existant », prêts à être repris.
+- Retirer un dossier ne supprime ni les résultats ni le suivi de l'élève.
 
 ## Essayer avec le dossier de démonstration
 
@@ -49,7 +63,9 @@ suivant, puis à l'étape suivante.
 4. **Exercices** : recherchez par identifiant ou par titre (ex. `4C21`,
    `fractions`), ou collez un lien MathALÉA : les exercices sont repris avec
    leurs réglages (nombre de questions, paramètres). L'ordre se change avec
-   les flèches.
+   les flèches. Les élèves voient le titre MathALÉA sans la référence : vous
+   pouvez le modifier, ou le masquer (icône œil) pour n'afficher que
+   « Exercice 1 », « Exercice 2 »…
 5. **Pages et validation**
    - Pages : une page par question, une page par exercice, ou tous les
      exercices sur une page.
@@ -104,6 +120,8 @@ l'ancien. Le lien ne change pas.
 - Le bilan permet de revoir chaque exercice, de tout refaire avec de nouvelles
   valeurs ou de reprendre seulement les exercices à améliorer.
 - L'onglet Suivi montre l'activité et les passages successifs.
+- L'onglet Explorer propose les parcours de l'équipe MathALÉA ; l'élève peut
+  en ajouter à son accueil.
 
 ## Sessions communes
 

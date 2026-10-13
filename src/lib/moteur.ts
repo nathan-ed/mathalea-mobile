@@ -1,7 +1,8 @@
 // Chargement du moteur MathALÉA à l'exécution (paquet construit par
 // `vite build -c vite.moteur.config.ts` dans MathALÉA). Le moteur n'est pas
-// compilé dans l'app : une nouvelle version peut être installée sans mise à
-// jour de l'app (voir RESULTATS.md, « moteur embarqué »).
+// compilé dans l'app : une mise à jour signée peut le remplacer sans nouvelle
+// version de l'app (voir src-tauri/src/moteur.rs).
+import { dansTauri } from './stockage'
 
 export const API_ATTENDUE = 1
 
@@ -76,31 +77,89 @@ interface Manifeste {
   css: string
 }
 
+// Moteur téléchargé par une mise à jour (src-tauri/src/moteur.rs)
+interface MoteurTelecharge {
+  version: string
+  publieLe: string
+  dossier: string
+}
+
+export interface InfoMoteur {
+  version: string
+  source: 'livré' | 'téléchargé'
+  publieLe: string // date de référence pour chercher une version plus récente
+}
+
+let info: InfoMoteur | null = null
+export const infoMoteur = () => info
+
+const baseLivree = () => new URL('/moteur/', location.href).href
+
+async function lireManifeste(base: string): Promise<Manifeste> {
+  return (await (await fetch(base + 'manifest.json')).json()) as Manifeste
+}
+
+async function chargerDepuis(base: string): Promise<Moteur> {
+  const manifeste = await lireManifeste(base)
+  if (manifeste.api !== API_ATTENDUE) {
+    throw new Error(`Moteur ${manifeste.version} incompatible (API ${manifeste.api})`)
+  }
+  await new Promise<void>((ok, ko) => {
+    const lien = document.createElement('link')
+    lien.rel = 'stylesheet'
+    lien.href = base + manifeste.css
+    lien.onload = () => ok()
+    lien.onerror = () => ko(new Error('Feuille de style du moteur introuvable'))
+    // Avant nos propres styles : l'app garde la main sur sa mise en page
+    document.head.prepend(lien)
+  })
+  const moteur = (await import(/* @vite-ignore */ base + manifeste.entree)) as Moteur
+  await moteur.initialiser()
+  return moteur
+}
+
+/** « 2026-10-13+commit » → « 2026-10-13T00:00:00Z » : date du moteur livré */
+const dateDeVersion = (version: string) => `${version.slice(0, 10)}T00:00:00Z`
+
 let chargement: Promise<Moteur> | null = null
 
-/** Dossier du moteur actif. Plus tard : version téléchargée dans les données de l'app. */
-export const dossierMoteur = () => new URL('/moteur/', location.href).href
-
+/**
+ * Charge le moteur le plus récent entre celui livré avec l'app et celui
+ * téléchargé par une mise à jour ; en cas d'échec du second, le premier.
+ */
 export function chargerMoteur(): Promise<Moteur> {
   chargement ??= (async () => {
-    const base = dossierMoteur()
-    const manifeste = (await (await fetch(base + 'manifest.json')).json()) as Manifeste
-    if (manifeste.api !== API_ATTENDUE) {
-      throw new Error(`Moteur ${manifeste.version} incompatible (API ${manifeste.api})`)
+    const livre = await lireManifeste(baseLivree())
+    let telecharge: MoteurTelecharge | null = null
+    let baseTelechargee = ''
+    if (dansTauri) {
+      const { invoke, convertFileSrc } = await import('@tauri-apps/api/core')
+      telecharge = await invoke<MoteurTelecharge | null>('moteur_telecharge').catch(() => null)
+      baseTelechargee = convertFileSrc('', 'moteur').replace(/\/?$/, '/')
     }
-    await new Promise<void>((ok, ko) => {
-      const lien = document.createElement('link')
-      lien.rel = 'stylesheet'
-      lien.href = base + manifeste.css
-      lien.onload = () => ok()
-      lien.onerror = () => ko(new Error('Feuille de style du moteur introuvable'))
-      // Avant nos propres styles : l'app garde la main sur sa mise en page
-      document.head.prepend(lien)
-    })
-    const moteur = (await import(/* @vite-ignore */ base + manifeste.entree)) as Moteur
-    await moteur.initialiser()
+    if (telecharge && telecharge.publieLe > dateDeVersion(livre.version)) {
+      try {
+        const moteur = await chargerDepuis(baseTelechargee)
+        info = { version: telecharge.version, source: 'téléchargé', publieLe: telecharge.publieLe }
+        return moteur
+      } catch (e) {
+        console.warn('Moteur téléchargé inutilisable, moteur livré utilisé', e)
+      }
+    }
+    const moteur = await chargerDepuis(baseLivree())
+    info = { version: livre.version, source: 'livré', publieLe: dateDeVersion(livre.version) }
     return moteur
   })()
   chargement.catch(() => (chargement = null))
   return chargement
+}
+
+/**
+ * Cherche et installe une version plus récente du moteur (signée, même API).
+ * Elle sera utilisée au prochain lancement. Renvoie sa version, ou null.
+ */
+export async function chercherMiseAJourMoteur(): Promise<string | null> {
+  if (!dansTauri || !info) return null
+  const { invoke } = await import('@tauri-apps/api/core')
+  return invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: info.publieLe })
 }

@@ -217,7 +217,10 @@
     mesure = setInterval(() => {
       const clavier = document.getElementById('mathalea-virtual-keyboard')
       const h = clavier?.getBoundingClientRect().height ?? 0
-      hauteurClavier = clavier && h > 0 && getComputedStyle(clavier).display !== 'none' ? h : 0
+      // Seulement si un champ (ou le clavier) a le focus : après une validation,
+      // la barre reste en bas pendant que le clavier se referme
+      const saisieEnCours = document.activeElement?.closest('math-field, mathalea-mathfield, #mathalea-virtual-keyboard') != null
+      hauteurClavier = saisieEnCours && clavier && h > 0 && getComputedStyle(clavier).display !== 'none' ? h : 0
     }, 120)
     try {
       for (const etape of seance.etapes) {
@@ -317,7 +320,7 @@
                   {seance.etapes.indexOf(ref.etape) + 1}
                 </div>
                 <div class="font-light ml-2" style="font-size: 1.25rem; line-height: 1.3;">
-                  {parcours.etapes[ref.etape].id} - <span use:latex={ex.titre}></span>
+                  {#if !parcours.etapes[ref.etape].titreMasque}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
                 </div>
               </div>
             </h1>

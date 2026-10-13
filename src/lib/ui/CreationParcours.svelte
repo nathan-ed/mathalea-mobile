@@ -96,7 +96,7 @@
   const sansDollars = (t: string) => t.replace(/\$([^$]*)\$/g, '$1')
 
   function ajouter(e: ExerciceDuReferentiel) {
-    p.etapes.push({ uuid: e.uuid, id: e.id, titre: sansDollars(e.titre), nbQuestions: 3 })
+    p.etapes.push({ uuid: e.uuid, id: e.id, titre: e.titre, nbQuestions: 3 })
   }
 
   function importerLien() {
@@ -108,7 +108,7 @@
       }
       for (const e of etapes) {
         const r = referentiel.find((x) => x.uuid === e.uuid)
-        p.etapes.push({ ...e, id: e.id ?? r?.id, titre: sansDollars(r?.titre ?? e.id ?? e.uuid), nbQuestions: e.nbQuestions ?? 3 } as Etape)
+        p.etapes.push({ ...e, id: e.id ?? r?.id, titre: r?.titre ?? e.id ?? e.uuid, nbQuestions: e.nbQuestions ?? 3 } as Etape)
       }
       messageLien = ''
       lienMathalea = ''
@@ -262,8 +262,23 @@
                 </button>
               </div>
               <div class="min-w-0 flex-1">
-                <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                  <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{e.id}</span>&nbsp;{e.titre}
+                <div class="flex flex-row items-center gap-2 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                  <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{e.id}</span>
+                  <input
+                    aria-label="Titre vu par les élèves pour {e.id}"
+                    bind:value={e.titre}
+                    disabled={e.titreMasque}
+                    class="min-w-0 flex-1 text-sm border-0 border-b border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-transparent p-0 focus:ring-0 disabled:opacity-40 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                  />
+                  <button
+                    type="button"
+                    aria-label={e.titreMasque ? 'Afficher le titre aux élèves' : 'Masquer le titre aux élèves'}
+                    aria-pressed={e.titreMasque === true}
+                    class="p-1 text-coopmaths-action dark:text-coopmathsdark-action"
+                    onclick={() => (e.titreMasque = !e.titreMasque)}
+                  >
+                    <i aria-hidden="true" class="bx {e.titreMasque ? 'bx-hide' : 'bx-show'} text-xl"></i>
+                  </button>
                 </div>
                 <label class="{discret} inline-flex items-center gap-2">
                   Questions

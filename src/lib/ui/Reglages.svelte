@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-  import type { Pays } from '$lib/moteur'
+  import type { InfoMoteur, Pays } from '$lib/moteur'
   import type { Classe } from '$lib/partage'
   import ChampTexte from './ChampTexte.svelte'
   import ChoixRadio from './ChoixRadio.svelte'
@@ -23,6 +23,9 @@
     onchoisirClasse,
     onexporterSauvegarde,
     onrestaurer,
+    moteur,
+    miseAJourMoteur,
+    onchercherMoteur,
   }: {
     profil: Profil
     pays: Pays
@@ -34,7 +37,13 @@
     onchoisirClasse: (lien: string, classe: string) => void
     onexporterSauvegarde: () => Promise<string>
     onrestaurer: (texte: string) => Promise<string>
+    moteur: InfoMoteur | null
+    miseAJourMoteur: string | null // version installée, active au prochain lancement
+    onchercherMoteur: (() => Promise<string>) | null // null hors de l'application
   } = $props()
+
+  let messageMoteur = $state('')
+  let rechercheMoteur = $state(false)
 
   let messageSauvegarde = $state('')
   async function restaurer(e: Event) {
@@ -152,6 +161,36 @@
         Ajouter le dossier
       </button>
     </section>
+
+    {#if moteur}
+      <section class="flex flex-col gap-3">
+        <h2 class={titreSection}>Moteur MathALÉA</h2>
+        <p class="pl-2 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          Version {moteur.version} ({moteur.source === 'livré' ? 'livrée avec l’application' : 'mise à jour téléchargée'})
+        </p>
+        {#if miseAJourMoteur}
+          <p class="pl-2 text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">
+            Version {miseAJourMoteur} installée : elle sera utilisée au prochain lancement.
+          </p>
+        {/if}
+        {#if onchercherMoteur}
+          <button
+            type="button"
+            class="{boutonInverse} w-full disabled:opacity-40"
+            style="min-height: 44px"
+            disabled={rechercheMoteur}
+            onclick={async () => {
+              rechercheMoteur = true
+              messageMoteur = await onchercherMoteur!()
+              rechercheMoteur = false
+            }}
+          >
+            Rechercher une mise à jour
+          </button>
+          {#if messageMoteur}<p class="pl-2 {texteDiscret}" role="status">{messageMoteur}</p>{/if}
+        {/if}
+      </section>
+    {/if}
 
     <section class="flex flex-col gap-3">
       <h2 class={titreSection}>Sauvegarde</h2>

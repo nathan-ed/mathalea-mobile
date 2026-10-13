@@ -89,29 +89,62 @@ En local : `src-tauri/gen/android/keystore.properties` (ignoré par Git) avec
 Toutes les versions doivent être signées avec la même clé, sinon Android
 refuse la mise à jour.
 
-## À faire
+## Feuille de route
 
-### Version 2 : moteur servi par Coopmaths
+### 0.1.1
 
-Aujourd'hui, le moteur est livré avec l'application : de nouveaux exercices
-MathALÉA demandent une nouvelle version de l'app. Objectif : les télécharger
-sans mise à jour de l'app.
+- Mises à jour du moteur sans réinstaller l'app (fait ; adresse de publication
+  à fixer) : voir « Moteur servi par Coopmaths » ci-dessous.
+- Explorer : catalogue de parcours proposés par l'équipe MathALÉA, au format
+  `parcours-mathalea.json` (fait ; adresse provisoire `URL_EXPLORER` dans
+  `src/lib/partage.ts`, `VITE_URL_EXPLORER` pour les essais). Copie locale hors
+  connexion ; « Ajouter à l'accueil » garde une copie du parcours, qui suit ses
+  nouvelles versions.
+- Titres d'exercices : titre MathALÉA sans référence par défaut, modifiable ou
+  masqué à la création (fait).
+- Séance : la barre d'actions ne suit plus le clavier qui se referme (fait).
+- `scripts/release.sh` : noms uniformes des fichiers
+  (`MathALEA-<v>-<système>.<ext>`) et release de la forge via `glab`.
 
-1. Dans la CI de MathALÉA, à chaque fusion dans `main` : construire le moteur,
-   publier `moteur-<version>.tgz` (20 Mo) et `manifest.json` à une adresse fixe
-   (ex. `coopmaths.fr/alea/moteur/`).
-2. Signer le manifeste (clé Coopmaths, Ed25519) ; l'app embarque la clé
-   publique et refuse un moteur non signé ou d'API incompatible.
-3. Dans l'app : au lancement, en Wi-Fi, comparer la version ; télécharger
-   l'archive, vérifier la signature et la somme, décompresser dans un nouveau
-   dossier des données de l'app, activer au lancement suivant. Garder le
-   moteur livré comme secours.
-4. `dossierMoteur()` (`src/lib/moteur.ts`) pointe alors vers le moteur actif.
-5. Un parcours peut indiquer la version minimale du moteur (exercice récent) :
+### 0.1.2
+
+- Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
+  JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
+  avec une ou plusieurs compétences ; suivi de l'élève par compétence.
+
+## À faire (sans version fixée)
+
+### Moteur servi par Coopmaths
+
+Le mécanisme est en place (0.1.1) ; il manque l'adresse de publication.
+
+- Publication : `node scripts/publier-moteur.mjs <dist-moteur> <sortie> <clé privée>`
+  produit `moteur-<version>.tar.gz`, `mise-a-jour.json` (version, API, date,
+  taille, SHA-256) et `mise-a-jour.json.sig` (signature Ed25519). Les trois
+  fichiers se déposent à l'adresse `URL_MISES_A_JOUR` (`src-tauri/src/moteur.rs`,
+  provisoire : à fixer avec l'équipe ; `MATHALEA_MOTEUR_URL` pour les essais).
+- Clé : `node scripts/cles-moteur.mjs <fichier .pem>` crée la paire ; la clé
+  publique remplace `CLE_PUBLIQUE` dans `moteur.rs`. La clé actuelle est une
+  clé de test (privée dans `~/.local/share/mathalea-mobile/` sur la machine de
+  Nathan) : Coopmaths génère la sienne et la garde dans les secrets de sa CI.
+- App : au lancement, `chargerMoteur()` prend le plus récent entre le moteur
+  livré et le moteur téléchargé (`moteur://`, repli sur le livré en cas
+  d'échec), puis `mettre_a_jour_moteur` cherche une publication plus récente :
+  signature, même `API_MOTEUR`, taille et SHA-256, extraction dans
+  `<données>/moteurs/`, activation au lancement suivant. Réglages : version du
+  moteur et recherche manuelle.
+- Tests : `cargo test moteur` (publication valide, ancienne, autre API,
+  signature d'une autre clé, archive altérée) ; publication réelle du script :
+  `MOTEUR_PUBLICATION=<sortie> cargo test -- --ignored`.
+
+Reste à faire :
+
+1. Choisir l'adresse publique et la renseigner dans `URL_MISES_A_JOUR`.
+2. Dans la CI de MathALÉA, à chaque mise en production : construire le moteur,
+   le publier avec `publier-moteur.mjs` et la clé de Coopmaths.
+3. Un parcours pourra indiquer la version minimale du moteur (exercice récent) :
    télécharger avant d'ouvrir, ou signaler « connexion nécessaire ».
-6. Garder les séances commencées sur la version de moteur qui a tiré leurs
-   graines, ou s'appuyer sur la règle de stabilité des graines de MathALÉA
-   (`stability:check`).
+4. Wi-Fi seulement pour les 20 Mo ? Réglage à prévoir sur Android.
 
 ### MathALÉA
 

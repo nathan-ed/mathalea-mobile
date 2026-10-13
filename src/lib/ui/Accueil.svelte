@@ -25,6 +25,8 @@
 
   let {
     sources,
+    catalogue,
+    ajoutes,
     aChoisir,
     organisations,
     resumes,
@@ -39,6 +41,8 @@
     onorganiser,
   }: {
     sources: Source[]
+    catalogue: Parcours[] | null // parcours de l'équipe MathALÉA (null : pas encore reçu)
+    ajoutes: Parcours[] // parcours du catalogue ajoutés à l'accueil
     aChoisir: { lien: string; disponibles: string[] }[] // dossiers à plusieurs classes, classe pas encore choisie
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
@@ -81,11 +85,15 @@
   let classe: Source | null = $state(null)
   let niveau: string | null = $state(null)
 
+  // Parcours de l'élève : ceux de ses dossiers et ceux ajoutés depuis Explorer
   const tous = $derived.by(() => {
     const vus = new Map<string, Parcours>()
     for (const s of sources) for (const p of s.parcours) vus.set(p.id, p)
+    for (const p of ajoutes) if (!vus.has(p.id)) vus.set(p.id, p)
     return [...vus.values()]
   })
+  const ajoutesVisibles = $derived(ajoutes.filter((p) => !resumes[p.id]?.enCours && !epingles.includes(p.id)))
+  const explorables = $derived(catalogue ?? [])
   const enCours = $derived(tous.filter((p) => resumes[p.id]?.enCours))
   const epinglesVisibles = $derived(
     epingles.map((id) => tous.find((p) => p.id === id)).filter((p): p is Parcours => !!p && !resumes[p.id]?.enCours),
@@ -109,7 +117,7 @@
       ([theme, ps]) => [theme, ps.map((p, i) => ({ p, i })).sort((a, b) => a.p.difficulte - b.p.difficulte || a.i - b.i).map((x) => x.p)] as const,
     )
   }
-  const niveaux = $derived([...new Set(tous.map((p) => p.niveau))])
+  const niveaux = $derived([...new Set(explorables.map((p) => p.niveau))])
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
 
   function changerOnglet(o: typeof onglet) {
@@ -209,6 +217,12 @@
               <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
             {/each}
           {/if}
+          {#if ajoutesVisibles.length}
+            <h2 class={titreSection}>Ajoutés depuis Explorer</h2>
+            {#each ajoutesVisibles as p (p.id)}
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
+            {/each}
+          {/if}
           {#each aChoisir as d (d.lien)}
             <h2 class={titreSection}>Choisis ta classe</h2>
             {#each d.disponibles as nomClasse (nomClasse)}
@@ -257,7 +271,7 @@
     {:else if onglet === 'explorer' && niveau}
       <FilAriane titre={niveau} onretour={() => (niveau = null)} />
       <div class="flex flex-col gap-3 p-4">
-        {#each parTheme(tous.filter((p) => p.niveau === niveau)) as [theme, ps] (theme)}
+        {#each parTheme(explorables.filter((p) => p.niveau === niveau)) as [theme, ps] (theme)}
           <h2 class={titreSection}>{theme}</h2>
           {#each ps as p (p.id)}
             <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
@@ -266,9 +280,14 @@
       </div>
     {:else if onglet === 'explorer'}
       <div class="flex flex-col gap-3 p-4">
+        <h2 class={titreSection}>Parcours proposés par l’équipe MathALÉA</h2>
         {#each niveaux as n (n)}
-          {@const nb = tous.filter((p) => p.niveau === n).length}
+          {@const nb = explorables.filter((p) => p.niveau === n).length}
           <Tuile icon="bx-book-content" title={n} subtitle="{nb} parcours" onclick={() => (niveau = n)} />
+        {:else}
+          <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+            Aucun parcours proposé pour le moment.
+          </p>
         {/each}
       </div>
     {:else}

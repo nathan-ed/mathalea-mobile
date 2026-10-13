@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Parcours } from '$lib/catalogue'
+  import { titreEleve, type Parcours } from '$lib/catalogue'
   import type { Moteur } from '$lib/moteur'
   import { bilan, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
@@ -59,8 +59,7 @@
             onclick={() => (ouvertes[e.etape] = !ouvertes[e.etape])}
           >
             <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-              <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{parcours.etapes[e.etape].id}</span>
-              &nbsp;{parcours.etapes[e.etape].titre}
+              {titreEleve(parcours.etapes[e.etape], e.etape)}
             </div>
             <div class="flex flex-row items-center gap-2">
               <span class={pastille}>{arrondi(e.points)}/{e.sur}</span>

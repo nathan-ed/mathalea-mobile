@@ -28,6 +28,41 @@ Dans [releases/](releases/), choisir la dernière version.
 
 Vérifier un fichier : `sha256sum -c SHA256SUMS` dans le dossier de la version.
 
+### Installer l'APK sur un téléphone Android
+
+L'application ne vient pas du Play Store : Android demande d'autoriser
+l'installation depuis l'application qui ouvre l'APK.
+
+1. Copier l'APK sur le téléphone (câble USB, drive, courriel) ou le télécharger
+   depuis la page de release. `arm64` convient à presque tous les téléphones ;
+   `armv7` aux plus anciens.
+2. Ouvrir le fichier depuis l'application **Fichiers** (ou le navigateur).
+3. Android affiche « Pour votre sécurité, l'installation d'applications
+   inconnues provenant de cette source n'est pas autorisée » : toucher
+   **Paramètres**, activer **Autoriser cette source**, revenir en arrière.
+   (Ailleurs : Paramètres, Applications, ⋮ ou Accès spécial, **Installer des
+   applis inconnues**, choisir Fichiers ou le navigateur, Autoriser.)
+4. Toucher **Installer**. Si Play Protect avertit d'une application inconnue :
+   « Plus de détails », **Installer quand même**.
+5. Une nouvelle version s'installe par-dessus l'ancienne et garde les données,
+   à condition d'être signée avec la même clé. Sinon : désinstaller d'abord.
+
+#### Par câble, en mode développeur
+
+Pour installer depuis un ordinateur, ou lancer l'app en développement :
+
+1. Paramètres, **À propos du téléphone**, toucher sept fois **Numéro de build**
+   (Samsung : À propos du téléphone, Informations sur le logiciel, Numéro de
+   version). Le message « Vous êtes maintenant développeur » s'affiche.
+2. Paramètres, Système, **Options pour les développeurs** : activer
+   **Débogage USB**.
+3. Brancher le téléphone, accepter « Autoriser le débogage USB » (cocher
+   « Toujours autoriser depuis cet ordinateur »).
+4. Sur l'ordinateur : `adb devices` doit lister le téléphone, puis
+   `adb install -r MathALEA-0.1.0-android-arm64.apk` (`-r` remplace la version
+   installée en gardant les données). Avec le SDK Android : `pnpm tauri android dev`
+   lance l'app en développement sur le téléphone.
+
 ## Lancer depuis les sources
 
 Prérequis : Node 22 et pnpm 10, Rust stable, et les dépendances système de
@@ -39,12 +74,16 @@ pnpm install
 # Moteur MathALÉA : clone de MathALÉA à côté du dépôt (branche moteur-embarquable)
 git clone -b moteur-embarquable https://forge.apps.education.fr/coopmaths/mathalea.git ../mathalea
 pnpm moteur             # construit le moteur et le copie dans static/moteur
-pnpm tauri dev          # application de bureau
+pnpm app                # application de bureau (données séparées de l'app installée)
 pnpm dev                # ou dans un navigateur : http://localhost:1420
 ```
 
 Dans un navigateur, les dossiers kDrive ne se lisent pas (kDrive refuse les
 requêtes venant d'une autre origine) ; l'application les lit par sa partie Rust.
+
+Données locales de l'app installée : `~/.config/fr.coopmaths.mathalea/` (Linux),
+celles de `pnpm app` : `~/.config/fr.coopmaths.mathalea.dev/`. Pour repartir de
+zéro, supprimer le dossier correspondant (et son pendant dans `~/.local/share/`).
 
 ## Construire
 

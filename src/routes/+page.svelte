@@ -2,7 +2,8 @@
   import { onMount } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import { exporterSauvegarde, restaurerSauvegarde } from '$lib/sauvegarde'
-  import { chargerMoteur, type Moteur, type Pays } from '$lib/moteur'
+  import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, type Moteur, type Pays } from '$lib/moteur'
+  import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier } from '$lib/fichiers'
   import {
     adopter,
@@ -15,7 +16,7 @@
     supprimer,
     type Bibliotheque,
   } from '$lib/bibliotheque'
-  import { ecrireClasses, lireClasses, NOM_FICHIER, synchroniserClasse, type Classe } from '$lib/partage'
+  import { ecrireClasses, lireClasses, lireExplorer, NOM_FICHIER, synchroniserClasse, type Classe } from '$lib/partage'
   import {
     bilan,
     ecrireSeance,
@@ -65,6 +66,19 @@
   let classes: Classe[] = $state([])
   let epingles: string[] = $state([])
   let organisations: Record<string, Organisation> = $state({})
+  let miseAJourMoteur: string | null = $state(null)
+
+  /** Mise à jour du moteur : installée en arrière-plan, utilisée au prochain lancement */
+  async function chercherMoteur(): Promise<string> {
+    try {
+      const version = await chercherMiseAJourMoteur()
+      if (version) miseAJourMoteur = version
+      return version ? '' : 'Le moteur est à jour.'
+    } catch (e) {
+      console.warn('Mise à jour du moteur', e)
+      return 'Mise à jour impossible pour le moment (connexion ou serveur indisponible).'
+    }
+  }
   const aChoisir = $derived(classes.filter((c) => !c.nom && c.disponibles.length > 1).map((c) => ({ lien: c.lien, disponibles: c.disponibles })))
   // Enseignant
   let bibliotheque: Bibliotheque = $state({ classes: [], parcours: [] })
@@ -73,11 +87,16 @@
 
   // Aucun parcours intégré : tout vient des dossiers partagés
   const sources: Source[] = $derived(classes.filter((c) => c.nom).map((c) => ({ id: c.lien, nom: c.nom, parcours: c.parcours })))
+  // Explorer : catalogue de l'équipe MathALÉA (copie locale) et parcours ajoutés à l'accueil
+  let catalogue: Parcours[] | null = $state(null)
+  let ajoutes: Parcours[] = $state([])
   const tous: Parcours[] = $derived.by(() => {
     const vus = new Map<string, Parcours>()
     for (const s of sources) for (const p of s.parcours) vus.set(p.id, p)
+    for (const p of ajoutes) if (!vus.has(p.id)) vus.set(p.id, p)
     return [...vus.values()]
   })
+  const dansSources = (id: string) => sources.some((s) => s.parcours.some((p) => p.id === id))
   // Enseignant : parcours éditables venant des dossiers partagés et des parcours de test
   const modeles: Parcours[] = $derived(tous.filter((p) => !bibliotheque.parcours.some((pe) => pe.parcours.id === p.id)))
   const totalQuestions = (p: Parcours) => p.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0)
@@ -111,6 +130,8 @@
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
+    catalogue = await stockage.lire<Parcours[]>('explorer')
+    ajoutes = (await stockage.lire<Parcours[]>('ajoutes')) ?? []
     bibliotheque = await lireBibliotheque(stockage)
     for (const p of tous) await chargerParcours(p)
     vue = profil === 'enseignant' ? 'enseignant' : 'accueil'
@@ -118,12 +139,35 @@
     try {
       moteur = await chargerMoteur()
       moteur.definirLangue(pays === 'CH' ? 'fr-CH' : 'fr-FR')
+      void chercherMoteur()
     } catch (e) {
       erreurMoteur = (e as Error).message
     }
     // Nouvelles versions des dossiers partagés au lancement
     if (classes.length) void synchroniserClasses()
+    void synchroniserExplorer()
   })
+
+  /** Nouvelle version du catalogue ; les parcours ajoutés suivent leur nouvelle version */
+  async function synchroniserExplorer() {
+    try {
+      const recu = await lireExplorer()
+      catalogue = recu
+      await stockage!.ecrire('explorer', recu)
+      ajoutes = ajoutes.map((a) => recu.find((p) => p.id === a.id) ?? a)
+      await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
+      for (const p of ajoutes) await chargerParcours(p)
+    } catch (e) {
+      // Hors connexion ou adresse indisponible : la copie locale reste affichée
+      console.warn('Explorer', e)
+    }
+  }
+
+  async function basculerAjout(p: Parcours) {
+    ajoutes = ajoutes.some((a) => a.id === p.id) ? ajoutes.filter((a) => a.id !== p.id) : [...ajoutes, p]
+    await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
+    await chargerParcours(p)
+  }
 
   async function changerPays(p: Pays) {
     pays = p
@@ -317,6 +361,9 @@
       onchoisirClasse={choisirClasse}
       onexporterSauvegarde={sauvegarder}
       onrestaurer={restaurer}
+      moteur={moteur ? infoMoteur() : null}
+      {miseAJourMoteur}
+      onchercherMoteur={dansTauri ? chercherMoteur : null}
     />
   {:else if vue === 'enseignant'}
     <EspaceEnseignant
@@ -369,6 +416,8 @@
   {:else if vue === 'accueil'}
     <Accueil
       {sources}
+      {catalogue}
+      {ajoutes}
       {aChoisir}
       {organisations}
       {resumes}
@@ -394,9 +443,10 @@
       resultats={resultats[actif.id] ?? {}}
       enCours={resumes[actif.id]?.enCours ?? false}
       aAmeliorer={etapesAAmeliorer(actif, resultats[actif.id] ?? {})}
-      epingle={epingles.includes(actif.id)}
+      epingle={dansSources(actif.id) ? epingles.includes(actif.id) : ajoutes.some((a) => a.id === actif!.id)}
       passages={historiques[actif.id] ?? []}
-      onepingler={() => basculerEpingle(actif!)}
+      explorer={!dansSources(actif.id)}
+      onepingler={() => (dansSources(actif!.id) ? basculerEpingle(actif!) : basculerAjout(actif!))}
       onrelire={(s) => {
         relue = s
         aller('relecture')

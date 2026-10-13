@@ -3,8 +3,12 @@
 import type { ParamsExercice } from './moteur'
 
 export interface Etape extends ParamsExercice {
-  titre: string
+  titre: string // titre vu par l'élève : celui de MathALÉA par défaut, modifiable
+  titreMasque?: boolean // l'élève voit « Exercice n »
 }
+
+/** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ */
+export const titreEleve = (e: Etape, i: number) => (e.titreMasque ? `Exercice ${i + 1}` : e.titre.replace(/\$([^$]*)\$/g, '$1'))
 
 /** Mêmes valeurs que le presMode de MathALÉA */
 export type Presentation = 'une_question_par_page' | 'un_exo_par_page' | 'liste_exos'

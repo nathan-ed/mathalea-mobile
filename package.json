@@ -11,7 +11,8 @@
     "test": "vitest run tests/",
     "e2e": "node e2e/complet.mjs",
     "moteur": "bash scripts/moteur.sh",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "app": "tauri dev --config src-tauri/tauri.dev.conf.json"
   },
   "license": "AGPL-3.0-or-later",
   "dependencies": {

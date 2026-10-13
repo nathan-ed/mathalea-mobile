@@ -62,7 +62,7 @@
                 {seance.etapes.indexOf(ref.etape) + 1}
               </div>
               <div class="font-light ml-2" style="font-size: 1.25rem; line-height: 1.3;">
-                {parcours.etapes[ref.etape].id} - <span use:latex={ex.titre}></span>
+                {#if !parcours.etapes[ref.etape].titreMasque}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
               </div>
             </div>
           </h1>

@@ -210,3 +210,18 @@ export async function lireClasses(st: Stockage) {
 export async function ecrireClasses(st: Stockage, classes: Classe[]) {
   await st.ecrire('classes', classes)
 }
+
+/**
+ * Explorer : dossier partagé de l'équipe MathALÉA, au même format que ceux des
+ * enseignants (une « classe » par thème ou par niveau). Adresse provisoire, à
+ * fixer avec l'équipe ; VITE_URL_EXPLORER pour les essais.
+ */
+export const URL_EXPLORER: string = import.meta.env?.VITE_URL_EXPLORER ?? 'https://coopmaths.fr/alea/parcours/'
+
+/** Parcours du catalogue Explorer (doublons retirés) */
+export async function lireExplorer(req: Requete = requete): Promise<Parcours[]> {
+  const fichier = await lireFichierDistant(URL_EXPLORER, req)
+  const vus = new Map<string, Parcours>()
+  for (const c of fichier.classes) for (const p of c.parcours) vus.set(p.id, p)
+  return [...vus.values()]
+}
