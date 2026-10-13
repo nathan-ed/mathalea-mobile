@@ -1,7 +1,7 @@
 import { strToU8, zipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
 import type { Parcours } from '../src/lib/catalogue'
-import { creerFichier, lireFichierDistant, NOM_FICHIER, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
+import { creerFichier, fusionner, lireFichier, lireFichierDistant, NOM_FICHIER, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
 
 const p = (version: number, titre = 'Fractions'): Parcours => ({
   id: 'fractions-4e',
@@ -133,5 +133,58 @@ describe('dossier commun à plusieurs classes', () => {
     const c = await synchroniserClasse({ lien: 'https://x.ch/s/a', nom: '', disponibles: [], parcours: [] }, serveur({ 'https://x.ch/s/a/': () => reponse(ancien) }).req)
     expect(c.nom).toBe('Classe test')
     expect(c.parcours).toHaveLength(1)
+  })
+})
+
+describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
+  const autre = { ...p(1, 'Puissances'), id: 'puissances-4e' }
+  const banque = creerFichier([{ nom: '3e A', parcours: [p(1), autre] }])
+  const seul = creerFichier([{ nom: '3e A', parcours: [p(2, 'Fractions V2')] }, { nom: '3e B', parcours: [p(2, 'Fractions V2')] }])
+  const api = 'https://kdrive.infomaniak.com/2/app/123/share/0f5c2e9a-1b2c-4d5e-8f90-123456789abc'
+  const lien = 'https://kdrive.infomaniak.com/app/share/123/0f5c2e9a-1b2c-4d5e-8f90-123456789abc'
+
+  it('kDrive : lit tous les .json et garde la version la plus récente', async () => {
+    const s = serveur({
+      [`${api}/init`]: () => reponse(JSON.stringify({ data: { file_id: 7 } })),
+      [`${api}/files/7/files`]: () =>
+        reponse(
+          JSON.stringify({
+            data: [
+              { id: 8, name: NOM_FICHIER, type: 'file' },
+              { id: 9, name: 'parcours-fractions-v2.json', type: 'file' },
+              { id: 10, name: 'notes.txt', type: 'file' },
+              { id: 11, name: '3e B', type: 'dir' },
+            ],
+          }),
+        ),
+      [`${api}/files/11/files`]: () => reponse(JSON.stringify({ data: [{ id: 12, name: 'geometrie.json', type: 'file' }] })),
+      [`${api}/files/12/download`]: () => reponse(creerFichier([{ nom: '3e B', parcours: [{ ...p(1, 'Géométrie'), id: 'geometrie-4e' }] }])),
+      [`${api}/files/8/download`]: () => reponse(banque),
+      [`${api}/files/9/download`]: () => reponse(seul),
+    })
+    const f = await lireFichierDistant(lien, s.req)
+    const a = f.classes.find((c) => c.nom === '3e A')!
+    expect(a.parcours.map((x) => [x.id, x.version])).toEqual([
+      ['fractions-4e', 2],
+      ['puissances-4e', 1],
+    ])
+    expect(f.classes.find((c) => c.nom === '3e B')!.parcours.map((x) => x.titre)).toEqual(['Fractions V2', 'Géométrie'])
+    expect(s.demandees.some((u) => u.includes('/files/10/'))).toBe(false)
+  })
+
+  it('Dropbox : lit tous les .json du zip, ignore ceux qui ne sont pas des parcours', async () => {
+    const zip = zipSync({
+      [`Maths/${NOM_FICHIER}`]: strToU8(banque),
+      'Maths/parcours-fractions-v2.json': strToU8(seul),
+      'Maths/config.json': strToU8('{"autre": true}'),
+    })
+    const s = serveur({ 'https://www.dropbox.com/scl/fo/abc': () => reponse(zip) })
+    const f = await lireFichierDistant('https://www.dropbox.com/scl/fo/abc/def?rlkey=x&dl=0', s.req)
+    expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)
+  })
+
+  it('une version plus ancienne ne remplace pas une plus récente, quel que soit l’ordre', () => {
+    const f = fusionner([lireFichier(seul), lireFichier(banque)])
+    expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)
   })
 })

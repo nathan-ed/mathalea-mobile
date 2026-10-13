@@ -21,7 +21,10 @@ choisit la sienne la première fois.
 ## Dossiers partagés
 
 Un dossier partagé est un dossier de drive ouvert en lecture par un lien public.
-Il contient le fichier `parcours-mathalea.json`.
+L'application lit tous les fichiers `.json` de parcours qu'il contient, sous-dossiers
+compris (kDrive, Dropbox) : la banque complète `parcours-mathalea.json`, des
+parcours seuls, un dossier par classe… Un parcours présent dans plusieurs
+fichiers n'apparaît qu'une fois, dans sa version la plus récente.
 
 - Un élève peut suivre plusieurs dossiers (changement d'enseignant en cours
   d'année, ressources d'un autre collègue) : Réglages, « Dossiers partagés ».
@@ -49,35 +52,47 @@ réglages se modifient plus tard dans Réglages (roue dentée).
 En Suisse, l'éditeur propose les niveaux 9e à 4e Collège et le référentiel
 suisse de MathALÉA ; les exercices utilisent les notations suisses.
 
-## Créer un parcours
+## Créer ou modifier un parcours
 
-« Créer un parcours », puis six étapes. La touche Entrée passe au champ
-suivant, puis à l'étape suivante.
+« Créer un parcours » ouvre un seul écran, à remplir dans l'ordre que vous
+voulez. Pour modifier un parcours, touchez-le dans votre liste : tout est
+déjà rempli, chaque réglage se change sur place.
 
-1. **Classes** : cochez une ou plusieurs classes, ou ajoutez-en une.
-   Un même parcours peut être donné à plusieurs classes.
-2. **Chapitre** : un chapitre existant ou un nouveau. Les élèves voient leurs
-   parcours rangés par chapitre.
-3. **Parcours** : titre, objectif, niveau, type (Découverte, Entraînement,
-   Approfondissement).
-4. **Exercices** : recherchez par identifiant ou par titre (ex. `4C21`,
-   `fractions`), ou collez un lien MathALÉA : les exercices sont repris avec
-   leurs réglages (nombre de questions, paramètres). L'ordre se change avec
-   les flèches. Les élèves voient le titre MathALÉA sans la référence : vous
-   pouvez le modifier, ou le masquer (icône œil) pour n'afficher que
-   « Exercice 1 », « Exercice 2 »…
-5. **Pages et validation**
-   - Pages : une page par question, une page par exercice, ou tous les
-     exercices sur une page.
-   - Validation et correction : après chaque question, à la fin de chaque
-     page, ou à la fin du parcours. Dans ce dernier cas, rien n'est corrigé
-     avant que l'élève soumette sa tentative, même en changeant de page.
-6. **Récapitulatif** : « Aperçu élève » pour essayer le parcours,
-   puis « Valider le parcours ».
+- **Classes** : touchez une classe pour la cocher (les vôtres et celles des
+  dossiers partagés que vous suivez), ou ajoutez-en une. Un même parcours peut
+  aller à plusieurs classes.
+- **Chapitre** : touchez un chapitre existant ou tapez-en un nouveau. Les
+  chapitres des classes cochées viennent en premier.
+- **Parcours** : titre, objectif, niveau, type (Découverte, Entraînement,
+  Approfondissement).
+- **Exercices** : « Ajouter des exercices » ouvre le référentiel comme sur le
+  site (niveau, puis chapitre, ou recherche par identifiant ou titre). Touchez
+  un exercice : nombre de questions, paramètres du site et aperçu, puis
+  « Ajouter au parcours ». Un lien MathALÉA collé ajoute ses exercices avec
+  leurs réglages. Dans la liste, touchez un exercice pour changer ses réglages,
+  le titre vu par les élèves (ou le masquer avec l'icône œil) ; les flèches
+  changent l'ordre.
+- **Pages et validation**
+  - Pages : une page par question, une page par exercice, ou tous les
+    exercices sur une page.
+  - Validation et correction : après chaque question, à la fin de chaque
+    page, ou à la fin du parcours. Dans ce dernier cas, rien n'est corrigé
+    avant que l'élève soumette sa tentative, même en changeant de page.
 
-Pour modifier un parcours, touchez-le dans votre liste : l'assistant s'ouvre
-sur le récapitulatif. « Éditer un parcours existant » reprend un parcours
-d'un dossier partagé (collègue, ressources), sous le même identifiant.
+En bas : « Aperçu élève » pour essayer, et « Valider le parcours » (ou
+« Enregistrer et quitter »). Tant qu'il manque une information, la ligne
+« À compléter » dit laquelle.
+
+Après l'enregistrement, l'accueil propose :
+
+- **Télécharger tous les parcours** : `parcours-mathalea.json`, à déposer dans
+  votre dossier partagé en remplaçant l'ancien ;
+- **Télécharger ce parcours seul** : un fichier avec ce seul parcours, à
+  déposer à côté des autres ou à donner à un collègue.
+
+« Éditer un parcours existant » reprend un parcours des dossiers partagés que
+vous suivez (collègue, ressources) ou d'un fichier importé, avec ses classes
+et ses réglages, sous le même identifiant.
 
 ## Versions
 

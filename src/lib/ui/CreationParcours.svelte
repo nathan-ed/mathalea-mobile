@@ -1,20 +1,25 @@
 <script lang="ts">
-  // Création ou modification d'un parcours, étape par étape :
-  // classe, chapitre, parcours, exercices, pages et validation, récapitulatif.
+  // Création ou modification d'un parcours sur un seul écran : classes,
+  // chapitre, parcours, exercices (réglages et aperçu), pages et validation.
+  // Tout reste modifiable dans n'importe quel ordre.
   import { onMount, untrack } from 'svelte'
   import type { Etape, Parcours } from '$lib/catalogue'
-  import { chapitres, etapesDepuisLienMathalea, type Bibliotheque } from '$lib/bibliotheque'
-  import { NIVEAUX, type ExerciceDuReferentiel, type Moteur, type Pays } from '$lib/moteur'
+  import { chapitres, chapitresDeBibliotheque, etapesDepuisLienMathalea, type Bibliotheque, type ChapitreConnu } from '$lib/bibliotheque'
+  import { NIVEAUX, type DescriptionExercice, type ExerciceDuReferentiel, type Moteur, type Pays } from '$lib/moteur'
+  import ApercuExercice from './ApercuExercice.svelte'
   import ChampTexte from './ChampTexte.svelte'
   import ChoixRadio from './ChoixRadio.svelte'
   import { boutonAction, boutonInverse, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
   import FilAriane from './FilAriane.svelte'
-  import Tuile from './Tuile.svelte'
+  import NavigateurExercices from './NavigateurExercices.svelte'
+  import ReglagesExercice from './ReglagesExercice.svelte'
 
   let {
     bibliotheque,
     classesInitiales,
+    classesDossiers = [],
+    chapitresDossiers = [],
     parcours: initial,
     moteur,
     pays,
@@ -25,6 +30,8 @@
   }: {
     bibliotheque: Bibliotheque
     classesInitiales: string[]
+    classesDossiers?: string[] // classes des dossiers partagés suivis
+    chapitresDossiers?: ChapitreConnu[]
     parcours: Parcours
     moteur: Moteur
     pays: Pays
@@ -34,10 +41,16 @@
     onretour: () => void
   } = $props()
 
-  const ETAPES = ['Classes', 'Chapitre', 'Parcours', 'Exercices', 'Pages et validation', 'Récapitulatif']
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'pl-2 pt-4 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
-  const niveaux = $derived(NIVEAUX[pays])
+  const puce = (actif: boolean) =>
+    `rounded-full px-3 py-1.5 text-sm border border-coopmaths-action dark:border-coopmathsdark-action ${
+      actif
+        ? 'bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas'
+        : 'text-coopmaths-action dark:text-coopmathsdark-action'
+    }`
+  // Le niveau d'un parcours repris (autre pays, autre référentiel) reste proposé
+  const niveaux = $derived(initial.niveau && !NIVEAUX[pays].includes(initial.niveau) ? [initial.niveau, ...NIVEAUX[pays]] : NIVEAUX[pays])
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
   const libellesPresentation = {
     liste_exos: 'Tous les exercices sur une page',
@@ -51,52 +64,70 @@
   }
 
   const modification = untrack(() => initial.id !== '')
-  let etape = $state(modification ? 5 : 0)
   let p: Parcours = $state(untrack(() => JSON.parse(JSON.stringify(initial))))
   let classes: string[] = $state(untrack(() => [...classesInitiales]))
+  const depart = untrack(() => JSON.stringify([classesInitiales, initial]))
+  const modifie = $derived(JSON.stringify([classes, p]) !== depart)
+
   let nouvelleClasse = $state('')
-  // Classes connues, plus celles créées pendant cette saisie
-  const toutesClasses = $derived([...new Set([...bibliotheque.classes.map((c) => c.nom), ...classes])])
-  let nouveauChapitre = $state('')
   let referentiel: ExerciceDuReferentiel[] = $state([])
-  let recherche = $state('')
   let lienMathalea = $state('')
   let messageLien = $state('')
   let confirmerSuppression = $state(false)
+  let confirmerSortie = $state(false)
+  let navigateur = $state(false)
+  let ouvert: number | null = $state(null) // exercice déplié : réglages et aperçu
+  const descriptions: Record<string, DescriptionExercice | null> = $state({})
 
-  const chapitresClasse = $derived(chapitres(bibliotheque, classes))
-  const valide = $derived([
-    classes.length > 0,
-    p.theme.trim() !== '',
-    p.titre.trim() !== '' && p.niveau !== '',
-    p.etapes.length > 0,
-    true,
-    true,
-  ])
+  // Classes connues (les siennes, celles des dossiers partagés), plus celles créées ici
+  const toutesClasses = $derived([...new Set([...bibliotheque.classes.map((c) => c.nom), ...classesDossiers, ...classes])])
+  const propositions = $derived.by(() => {
+    const c = chapitres([...chapitresDeBibliotheque(bibliotheque), ...chapitresDossiers], classes)
+    const theme = p.theme.trim()
+    if (theme && !c.deClasse.includes(theme) && !c.autres.includes(theme)) return { deClasse: [theme, ...c.deClasse], autres: c.autres }
+    return c
+  })
+
+  const manques = $derived(
+    [
+      [classes.length === 0, 'une classe'],
+      [!p.theme.trim(), 'un chapitre'],
+      [!p.titre.trim(), 'un titre'],
+      [!p.niveau, 'un niveau'],
+      [p.etapes.length === 0, 'un exercice'],
+    ]
+      .filter(([manque]) => manque)
+      .map(([, libelle]) => libelle as string),
+  )
 
   onMount(async () => {
     referentiel = (await moteur.listerExercices(pays)).filter((e) => e.interactif)
   })
 
-  const normaliser = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
-  const resultats = $derived.by(() => {
-    const mots = normaliser(recherche).split(/\s+/).filter(Boolean)
-    if (!mots.length) return []
-    const requete = normaliser(recherche.trim())
-    // Identifiant exact d'abord, puis identifiant qui commence par la recherche, puis le reste
-    const rang = (e: ExerciceDuReferentiel) => {
-      const id = normaliser(e.id)
-      return id === requete ? 0 : id.startsWith(requete) ? 1 : id.includes(requete) ? 2 : 3
+  async function decrire(uuid: string): Promise<DescriptionExercice | null> {
+    if (!(uuid in descriptions)) {
+      try {
+        descriptions[uuid] = (await moteur.decrireExercice?.(uuid)) ?? null
+      } catch {
+        descriptions[uuid] = null
+      }
     }
-    return referentiel
-      .filter((e) => mots.every((m) => normaliser(`${e.id} ${e.titre} ${e.niveau} ${e.theme}`).includes(m)))
-      .sort((a, b) => rang(a) - rang(b))
-      .slice(0, 40)
-  })
-  const sansDollars = (t: string) => t.replace(/\$([^$]*)\$/g, '$1')
+    return descriptions[uuid]
+  }
 
-  function ajouter(e: ExerciceDuReferentiel) {
-    p.etapes.push({ uuid: e.uuid, id: e.id, titre: e.titre, nbQuestions: 3 })
+  function basculerExercice(i: number) {
+    ouvert = ouvert === i ? null : i
+    if (ouvert !== null) void decrire(p.etapes[i].uuid)
+  }
+
+  function ajouterClasse() {
+    const nom = nouvelleClasse.trim()
+    if (nom && !classes.includes(nom)) classes.push(nom)
+    nouvelleClasse = ''
+  }
+
+  function basculerClasse(nom: string) {
+    classes = classes.includes(nom) ? classes.filter((c) => c !== nom) : [...classes, nom]
   }
 
   function importerLien() {
@@ -121,226 +152,187 @@
     const j = i + sens
     if (j < 0 || j >= p.etapes.length) return
     ;[p.etapes[i], p.etapes[j]] = [p.etapes[j], p.etapes[i]]
+    if (ouvert === i) ouvert = j
+    else if (ouvert === j) ouvert = i
   }
 
-  function ajouterClasseSaisie() {
-    const nom = nouvelleClasse.trim()
-    if (nom && !classes.includes(nom)) classes.push(nom)
-    nouvelleClasse = ''
-  }
-
-  function basculerClasse(nom: string) {
-    classes = classes.includes(nom) ? classes.filter((c) => c !== nom) : [...classes, nom]
-  }
-
-  function suivant() {
-    if (etape === 0) ajouterClasseSaisie()
-    if (etape === 1 && nouveauChapitre.trim()) p.theme = nouveauChapitre.trim()
-    etape = modification ? 5 : etape + 1
-    scrollTo({ top: 0 })
-  }
-
-  function aller(i: number) {
-    etape = i
-    scrollTo({ top: 0 })
+  function retirer(i: number) {
+    p.etapes.splice(i, 1)
+    ouvert = null
   }
 
   const instantane = () => $state.snapshot(p) as Parcours
 
-  let zone: HTMLElement
-  const peutContinuer = () =>
-    etape === 5 ? valide.every(Boolean) : valide[etape] || (etape === 0 && !!nouvelleClasse.trim()) || (etape === 1 && !!nouveauChapitre.trim())
+  function quitter() {
+    if (modifie && !confirmerSortie) {
+      confirmerSortie = true
+      scrollTo({ top: 0 })
+    } else onretour()
+  }
 
-  /** Entrée : champ suivant, puis étape suivante (ou validation) sur le dernier champ */
+  /** Entrée : nouvelle classe ajoutée, lien importé, sinon champ suivant */
+  let zone: HTMLElement | undefined = $state()
   function surEntree(e: KeyboardEvent) {
     if (e.key !== 'Enter' || e.isComposing) return
     const cible = e.target as HTMLElement
-    if (!(cible instanceof HTMLInputElement || cible instanceof HTMLSelectElement)) return
-    if (cible instanceof HTMLInputElement && (cible.type === 'radio' || cible.type === 'checkbox')) return
+    if (!(cible instanceof HTMLInputElement) || ['radio', 'checkbox'].includes(cible.type)) return
     e.preventDefault()
-    if (cible.id === 'nouvelle-classe' && nouvelleClasse.trim()) return ajouterClasseSaisie()
-    if (cible.id === 'lien-mathalea' && lienMathalea.trim()) return importerLien()
-    if (cible instanceof HTMLInputElement && cible.type === 'search') {
-      if (resultats[0]) {
-        ajouter(resultats[0])
-        recherche = ''
-      }
-      return
-    }
-    const champs = [...zone.querySelectorAll<HTMLElement>('input:not([type=radio]):not([type=checkbox]):not([type=file]), select')].filter(
-      (c) => c.offsetParent !== null,
-    )
+    if (cible.id === 'nouvelle-classe') return ajouterClasse()
+    if (cible.id === 'lien-mathalea') return importerLien()
+    const champs = [...zone!.querySelectorAll<HTMLElement>('input[type=text], input:not([type]), input[type=url]')].filter((c) => c.offsetParent !== null)
     const i = champs.indexOf(cible)
     if (i !== -1 && i < champs.length - 1) champs[i + 1].focus()
-    else if (peutContinuer()) etape === 5 ? onvalider([...classes], instantane()) : suivant()
+    else cible.blur()
   }
 </script>
 
-<div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete />
-  <FilAriane titre={modification ? `Modifier · ${p.titre}` : 'Nouveau parcours'} onretour={etape === 0 || etape === 5 ? onretour : () => aller(etape - 1)} />
+{#if navigateur}
+  <NavigateurExercices
+    {moteur}
+    {referentiel}
+    niveauInitial={p.niveau}
+    nbChoisis={p.etapes.length}
+    {decrire}
+    onajouter={(e) => p.etapes.push(e)}
+    onfermer={() => {
+      navigateur = false
+      scrollTo({ top: 0 })
+    }}
+  />
+{:else}
+  <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <EnTete />
+    <FilAriane titre={modification ? 'Modifier le parcours' : 'Nouveau parcours'} onretour={quitter} />
 
-  <!-- Progression : une barre par étape, comme les onglets de la vue élève -->
-  <div class="flex flex-row gap-1 px-4 pt-3" aria-hidden="true">
-    {#each ETAPES as _, i (i)}
-      <div class="flex-1 h-1 rounded-full {i <= etape ? 'bg-coopmaths-struct dark:bg-coopmathsdark-struct' : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'}"></div>
-    {/each}
-  </div>
-  <p class="px-4 pt-2 {discret}">Étape {etape + 1} sur {ETAPES.length} · {ETAPES[etape]}</p>
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+    <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas" style="padding-bottom: 9rem" bind:this={zone} onkeydown={surEntree}>
+      {#if confirmerSortie}
+        <div class="flex flex-col gap-2 rounded-xl p-4 border border-coopmaths-action dark:border-coopmathsdark-action" role="alert">
+          <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Les modifications ne sont pas enregistrées.</p>
+          <div class="flex flex-row gap-3">
+            <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={onretour}>Quitter sans enregistrer</button>
+            <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
+          </div>
+        </div>
+      {/if}
 
-  <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-  <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas" style="padding-bottom: 6rem" bind:this={zone} onkeydown={surEntree}>
-    {#if etape === 0}
-      {#each toutesClasses as nom (nom)}
-        <button
-          type="button"
-          role="checkbox"
-          aria-checked={classes.includes(nom)}
-          class="w-full flex flex-row items-center gap-3 text-left rounded-xl px-4 py-3
-          border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
-          bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-          active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
-          onclick={() => basculerClasse(nom)}
-        >
-          <i aria-hidden="true"
- class="bx {classes.includes(nom) ? 'bxs-checkbox-checked' : 'bx-checkbox'} text-3xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
-          <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{nom}</span>
-        </button>
-      {/each}
-      <h2 class={titreSection}>Nouvelle classe</h2>
-      <ChampTexte id="nouvelle-classe" titre="Nom affiché aux élèves" bind:valeur={nouvelleClasse} />
-      <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={!nouvelleClasse.trim()} onclick={ajouterClasseSaisie}>
-        Ajouter la classe
-      </button>
-    {:else if etape === 1}
-      {#each chapitresClasse as ch (ch)}
-        <Tuile
-          icon={p.theme === ch && !nouveauChapitre ? 'bx-check-circle' : 'bx-book-content'}
-          title={ch}
-          onclick={() => {
-            p.theme = ch
-            nouveauChapitre = ''
-            suivant()
-          }}
-        />
-      {/each}
-      <h2 class={titreSection}>{chapitresClasse.length ? 'Nouveau chapitre' : 'Chapitre'}</h2>
-      <ChampTexte id="nouveau-chapitre" titre="Nom du chapitre" bind:valeur={nouveauChapitre} />
-    {:else if etape === 2}
-      <ChampTexte id="titre" titre="Titre" bind:valeur={p.titre} />
-      <ChampTexte id="objectif" titre="Objectif" bind:valeur={p.objectif} />
-      <h2 class={titreSection}>Niveau</h2>
-      <div class="grid gap-2" style="grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));" role="radiogroup" aria-label="Niveau">
-        {#each niveaux as n (n)}
-          <button
-            type="button"
-            role="radio"
-            aria-checked={p.niveau === n}
-            class="{p.niveau === n ? boutonAction : boutonInverse} w-full"
-            style="min-height: 44px"
-            onclick={() => (p.niveau = n)}
-          >
-            {n}
+      <h2 class={titreSection}>Classes</h2>
+      <div class="flex flex-row flex-wrap gap-2" role="group" aria-label="Classes">
+        {#each toutesClasses as nom (nom)}
+          <button type="button" role="checkbox" aria-checked={classes.includes(nom)} class={puce(classes.includes(nom))} onclick={() => basculerClasse(nom)}>
+            {nom}
           </button>
         {/each}
       </div>
-      <h2 class={titreSection}>Type</h2>
-      <ChoixRadio nom="difficulte" bind:valeur={p.difficulte} options={difficultes.map((d, i) => ({ libelle: d, valeur: (i + 1) as 1 | 2 | 3 }))} />
-    {:else if etape === 3}
+      <div class="flex flex-row items-end gap-2">
+        <ChampTexte id="nouvelle-classe" titre="Nouvelle classe (nom affiché aux élèves)" bind:valeur={nouvelleClasse} />
+        <button type="button" class="{boutonInverse} shrink-0 disabled:opacity-40" style="min-height: 40px" disabled={!nouvelleClasse.trim()} onclick={ajouterClasse}>
+          Ajouter
+        </button>
+      </div>
+
+      <h2 class={titreSection}>Chapitre</h2>
+      {#if propositions.deClasse.length || propositions.autres.length}
+        <div class="flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Chapitres existants">
+          {#each [...propositions.deClasse, ...propositions.autres] as ch (ch)}
+            <button type="button" role="radio" aria-checked={p.theme.trim() === ch} class={puce(p.theme.trim() === ch)} onclick={() => (p.theme = ch)}>
+              {ch}
+            </button>
+          {/each}
+        </div>
+      {/if}
+      <ChampTexte id="chapitre" titre="Nom du chapitre" bind:valeur={p.theme} />
+
+      <h2 class={titreSection}>Parcours</h2>
+      <ChampTexte id="titre" titre="Titre" bind:valeur={p.titre} />
+      <ChampTexte id="objectif" titre="Objectif" bind:valeur={p.objectif} />
+      <p class="text-sm font-light text-coopmaths-struct dark:text-coopmathsdark-struct">Niveau</p>
+      <div class="flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Niveau">
+        {#each niveaux as n (n)}
+          <button type="button" role="radio" aria-checked={p.niveau === n} class={puce(p.niveau === n)} onclick={() => (p.niveau = n)}>{n}</button>
+        {/each}
+      </div>
+      <p class="text-sm font-light text-coopmaths-struct dark:text-coopmathsdark-struct">Type</p>
+      <div class="flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Type">
+        {#each difficultes as d, i (d)}
+          <button type="button" role="radio" aria-checked={p.difficulte === i + 1} class={puce(p.difficulte === i + 1)} onclick={() => (p.difficulte = (i + 1) as 1 | 2 | 3)}>
+            {d}
+          </button>
+        {/each}
+      </div>
+
+      <h2 class={titreSection}>Exercices</h2>
       {#if p.etapes.length}
         <ul class={listeGroupee}>
-          {#each p.etapes as e, i (i)}
-            <li class="flex flex-row items-center gap-2 px-3 py-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
-              <div class="flex flex-col">
-                <button type="button" aria-label="Monter" class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40" disabled={i === 0} onclick={() => deplacer(i, -1)}>
-                  <i aria-hidden="true"
- class="bx bx-chevron-up text-2xl"></i>
-                </button>
-                <button type="button" aria-label="Descendre" class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40" disabled={i === p.etapes.length - 1} onclick={() => deplacer(i, 1)}>
-                  <i aria-hidden="true"
- class="bx bx-chevron-down text-2xl"></i>
-                </button>
-              </div>
-              <div class="min-w-0 flex-1">
-                <div class="flex flex-row items-center gap-2 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                  <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{e.id}</span>
-                  <input
-                    aria-label="Titre vu par les élèves pour {e.id}"
-                    bind:value={e.titre}
-                    disabled={e.titreMasque}
-                    class="min-w-0 flex-1 text-sm border-0 border-b border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-transparent p-0 focus:ring-0 disabled:opacity-40 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-                  />
+          {#each p.etapes as e, i (e)}
+            <li class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+              <div class="flex flex-row items-center gap-2 px-3 py-2">
+                <div class="flex flex-col">
+                  <button type="button" aria-label="Monter" class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40" disabled={i === 0} onclick={() => deplacer(i, -1)}>
+                    <i aria-hidden="true" class="bx bx-chevron-up text-2xl"></i>
+                  </button>
                   <button
                     type="button"
-                    aria-label={e.titreMasque ? 'Afficher le titre aux élèves' : 'Masquer le titre aux élèves'}
-                    aria-pressed={e.titreMasque === true}
-                    class="p-1 text-coopmaths-action dark:text-coopmathsdark-action"
-                    onclick={() => (e.titreMasque = !e.titreMasque)}
+                    aria-label="Descendre"
+                    class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40"
+                    disabled={i === p.etapes.length - 1}
+                    onclick={() => deplacer(i, 1)}
                   >
-                    <i aria-hidden="true" class="bx {e.titreMasque ? 'bx-hide' : 'bx-show'} text-xl"></i>
+                    <i aria-hidden="true" class="bx bx-chevron-down text-2xl"></i>
                   </button>
                 </div>
-                <label class="{discret} inline-flex items-center gap-2">
-                  Questions
-                  <input
-                    type="number"
-                    min="1"
-                    max="20"
-                    bind:value={e.nbQuestions}
-                    class="w-16 text-sm border h-8 border-coopmaths-action dark:border-coopmathsdark-action bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-                  />
-                </label>
+                <button type="button" class="min-w-0 flex-1 text-left" aria-expanded={ouvert === i} onclick={() => basculerExercice(i)}>
+                  <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{e.id ?? 'Exercice'}</div>
+                  <div class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus truncate">
+                    {e.titreMasque ? `Exercice ${i + 1}` : e.titre.replace(/\$([^$]*)\$/g, '$1')}
+                  </div>
+                  <div class={discret}>{e.nbQuestions ?? '?'} question{(e.nbQuestions ?? 0) > 1 ? 's' : ''} · Réglages et aperçu</div>
+                </button>
+                <button type="button" aria-label="Retirer l’exercice {e.id}" class="p-1 text-coopmaths-action dark:text-coopmathsdark-action" onclick={() => retirer(i)}>
+                  <i aria-hidden="true" class="bx bx-x text-2xl"></i>
+                </button>
               </div>
-              <button type="button" aria-label="Retirer l’exercice {e.id}" class="p-1 text-coopmaths-action dark:text-coopmathsdark-action" onclick={() => p.etapes.splice(i, 1)}>
-                <i aria-hidden="true"
- class="bx bx-x text-2xl"></i>
-              </button>
-            </li>
-          {/each}
-        </ul>
-      {/if}
-      <label
-        class="w-full flex flex-row items-center gap-2 rounded-lg px-3 py-2
-        border border-coopmaths-action dark:border-coopmathsdark-action
-        bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
-      >
-        <i aria-hidden="true"
- class="bx bx-search"></i>
-        <input
-          type="search"
-          aria-label="Rechercher un exercice MathALÉA (identifiant, titre, niveau)"
-          bind:value={recherche}
-          class="w-full bg-transparent border-0 p-0 focus:outline-0 focus:ring-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-        />
-      </label>
-      {#if resultats.length}
-        <ul class={listeGroupee}>
-          {#each resultats as e (e.uuid)}
-            <li>
-              <button
-                type="button"
-                class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-                bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-                active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
-                onclick={() => ajouter(e)}
-              >
-                <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                  <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{e.id}</span>&nbsp;{sansDollars(e.titre)}
-                  <div class={discret}>{e.niveau} · {e.theme}</div>
+              {#if ouvert === i}
+                <div class="flex flex-col gap-4 px-4 pb-4">
+                  <div class="flex flex-row items-end gap-2">
+                    <div class="flex-1 min-w-0">
+                      <label class="font-light text-sm block text-coopmaths-struct dark:text-coopmathsdark-struct" for="titre-ex-{i}">Titre vu par les élèves</label>
+                      <input
+                        id="titre-ex-{i}"
+                        bind:value={e.titre}
+                        disabled={e.titreMasque}
+                        class="block w-full text-sm border h-10 border-coopmaths-action dark:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-40 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      aria-label={e.titreMasque ? 'Afficher le titre aux élèves' : 'Masquer le titre aux élèves'}
+                      aria-pressed={e.titreMasque === true}
+                      class="p-2 text-coopmaths-action dark:text-coopmathsdark-action"
+                      onclick={() => (e.titreMasque = !e.titreMasque)}
+                    >
+                      <i aria-hidden="true" class="bx {e.titreMasque ? 'bx-hide' : 'bx-show'} text-2xl"></i>
+                    </button>
+                  </div>
+                  <ReglagesExercice bind:etape={p.etapes[i]} description={descriptions[e.uuid] ?? null} />
+                  <ApercuExercice {moteur} params={e} />
                 </div>
-                <i aria-hidden="true"
- class="bx bx-plus text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
-              </button>
+              {/if}
             </li>
           {/each}
         </ul>
       {/if}
-      <ChampTexte id="lien-mathalea" titre="Ou coller un lien MathALÉA (exercices et paramètres)" bind:valeur={lienMathalea} type="url" />
-      {#if messageLien}<p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{messageLien}</p>{/if}
-      <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lienMathalea.trim()} onclick={importerLien}>
-        Importer le lien
+      <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (navigateur = true)}>
+        <i aria-hidden="true" class="bx bx-plus mr-1"></i> Ajouter des exercices
       </button>
-    {:else if etape === 4}
+      <div class="flex flex-row items-end gap-2">
+        <ChampTexte id="lien-mathalea" titre="Ou coller un lien MathALÉA (exercices et réglages)" bind:valeur={lienMathalea} type="url" />
+        <button type="button" class="{boutonInverse} shrink-0 disabled:opacity-40" style="min-height: 40px" disabled={!lienMathalea.trim()} onclick={importerLien}>
+          Importer
+        </button>
+      </div>
+      {#if messageLien}<p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{messageLien}</p>{/if}
+
       <h2 class={titreSection}>Pages</h2>
       <ChoixRadio
         nom="presentation"
@@ -353,55 +345,33 @@
         bind:valeur={p.correction}
         options={Object.entries(libellesValidation).map(([valeur, libelle]) => ({ valeur: valeur as Parcours['correction'], libelle }))}
       />
-    {:else}
-      <ul class={listeGroupee}>
-        {#each [['Classes', classes.join(', '), 0], ['Chapitre', p.theme, 1], ['Parcours', `${p.titre} · ${p.niveau} · ${difficultes[p.difficulte - 1]}`, 2], ['Exercices', p.etapes.map((e) => e.id).join(', '), 3], ['Pages et validation', `${libellesPresentation[p.presentation]} · ${libellesValidation[p.correction].toLowerCase()}`, 4]] as [titre, valeur, i] (titre)}
-          <li>
-            <button
-              type="button"
-              class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-              bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-              active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
-              onclick={() => aller(i as number)}
-            >
-              <div class="min-w-0">
-                <div class={discret}>{titre}</div>
-                <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{valeur}</div>
-              </div>
-              <span class="text-sm text-coopmaths-action dark:text-coopmathsdark-action">Modifier</span>
-            </button>
-          </li>
-        {/each}
-      </ul>
-      <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => onapercu(instantane())}>Aperçu élève</button>
-      {#if onsupprimer}
-        {#if confirmerSuppression}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={onsupprimer}>Confirmer la suppression</button>
-        {:else}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (confirmerSuppression = true)}>Supprimer le parcours</button>
-        {/if}
-      {/if}
-    {/if}
-  </main>
 
-  <footer
-    class="fixed left-0 right-0 bottom-0 z-20 flex flex-row gap-3 px-4 py-3 zone-sure-bas
-    border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-  >
-    {#if etape < 5}
-      <button
-        type="button"
-        class="{boutonAction} flex-1 disabled:opacity-40"
-        style="min-height: 44px"
-        disabled={!peutContinuer()}
-        onclick={suivant}
-      >
-        {modification ? 'Revenir au récapitulatif' : 'Suivant'}
-      </button>
-    {:else}
-      <button type="button" class="{boutonAction} flex-1 disabled:opacity-40" style="min-height: 44px" disabled={!valide.every(Boolean)} onclick={() => onvalider([...classes], instantane())}>
-        Valider le parcours
-      </button>
-    {/if}
-  </footer>
-</div>
+      {#if onsupprimer}
+        <div class="pt-6">
+          {#if confirmerSuppression}
+            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={onsupprimer}>Confirmer la suppression</button>
+          {:else}
+            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (confirmerSuppression = true)}>Supprimer le parcours</button>
+          {/if}
+        </div>
+      {/if}
+    </main>
+
+    <footer
+      class="fixed left-0 right-0 bottom-0 z-20 flex flex-col gap-1 px-4 py-3 zone-sure-bas
+      border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      {#if manques.length}
+        <p class="{discret} text-center">À compléter : {manques.join(', ')}</p>
+      {/if}
+      <div class="flex flex-row gap-3">
+        <button type="button" class="{boutonInverse} flex-1 disabled:opacity-40" style="min-height: 44px" disabled={!p.etapes.length} onclick={() => onapercu(instantane())}>
+          Aperçu élève
+        </button>
+        <button type="button" class="{boutonAction} flex-1 disabled:opacity-40" style="min-height: 44px" disabled={manques.length > 0} onclick={() => onvalider([...classes], instantane())}>
+          {modification ? 'Enregistrer et quitter' : 'Valider le parcours'}
+        </button>
+      </div>
+    </footer>
+  </div>
+{/if}

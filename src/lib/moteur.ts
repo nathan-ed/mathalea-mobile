@@ -12,6 +12,8 @@ export interface ParamsExercice {
   nbQuestions?: number
   sup?: string
   sup2?: string
+  sup3?: string
+  sup4?: string
   alea?: string
 }
 
@@ -50,10 +52,31 @@ export interface Moteur {
   verifier(exercice: ExercicePrepare, question: number): ResultatVerification
   monterClavier(cible: HTMLElement): () => void
   listerExercices(pays?: Pays): Promise<ExerciceDuReferentiel[]>
+  /** Absent des moteurs antérieurs au 2026-10-13 */
+  decrireExercice?(uuid: string): Promise<DescriptionExercice>
   definirLangue(langue: 'fr-FR' | 'fr-CH'): void
 }
 
 export type Pays = 'FR' | 'CH'
+
+/** Paramètre réglable d'un exercice (formulaire du site MathALÉA) */
+export interface ParametreExercice {
+  cle: 'sup' | 'sup2' | 'sup3' | 'sup4'
+  titre: string
+  type: 'nombre' | 'liste' | 'case' | 'texte'
+  max?: number
+  options?: { valeur: string; libelle: string }[]
+  aide?: string
+  defaut: string
+}
+
+export interface DescriptionExercice {
+  uuid: string
+  titre: string
+  nbQuestions: number
+  nbQuestionsModifiable: boolean
+  parametres: ParametreExercice[]
+}
 
 /** Niveaux proposés dans l'éditeur, selon les référentiels de MathALÉA */
 export const NIVEAUX: Record<Pays, string[]> = {

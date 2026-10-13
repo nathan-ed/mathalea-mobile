@@ -11,12 +11,13 @@
     ecrireBibliotheque,
     enregistrer,
     exporter,
+    exporterUn,
     lireBibliotheque,
     parcoursVide,
     supprimer,
     type Bibliotheque,
   } from '$lib/bibliotheque'
-  import { ecrireClasses, lireClasses, lireExplorer, NOM_FICHIER, synchroniserClasse, type Classe } from '$lib/partage'
+  import { ecrireClasses, lireClasses, lireExplorer, lireFichier, NOM_FICHIER, synchroniserClasse, type Classe } from '$lib/partage'
   import {
     bilan,
     ecrireSeance,
@@ -98,7 +99,24 @@
   })
   const dansSources = (id: string) => sources.some((s) => s.parcours.some((p) => p.id === id))
   // Enseignant : parcours éditables venant des dossiers partagés et des parcours de test
-  const modeles: Parcours[] = $derived(tous.filter((p) => !bibliotheque.parcours.some((pe) => pe.parcours.id === p.id)))
+  // Toutes les classes des fichiers suivis (l'enseignant voit tout, pas seulement « sa » classe)
+  const classesDesDossiers = $derived(classes.flatMap((c) => c.fichier ?? (c.nom ? [{ nom: c.nom, parcours: c.parcours }] : [])))
+  const parcoursDesDossiers: Parcours[] = $derived.by(() => {
+    const vus = new Map<string, Parcours>()
+    for (const c of classesDesDossiers) for (const p of c.parcours) if (!vus.has(p.id) || vus.get(p.id)!.version < p.version) vus.set(p.id, p)
+    return [...vus.values()]
+  })
+  // Repris sans classe puis abandonné : reste proposé
+  // Un parcours par identifiant, à sa version la plus récente ; masqué si l'enseignant l'a déjà (même version ou plus récente)
+  const modeles: Parcours[] = $derived.by(() => {
+    const vus = new Map<string, Parcours>()
+    for (const p of [...parcoursDesDossiers, ...importes]) if (!vus.has(p.id) || vus.get(p.id)!.version < p.version) vus.set(p.id, p)
+    return [...vus.values()].filter((p) => {
+      const local = bibliotheque.parcours.find((pe) => pe.parcours.id === p.id)
+      return !local || local.classes.length === 0 || local.parcours.version < p.version
+    })
+  })
+  const classesDuModele = (id: string) => [...new Set(classesDesDossiers.filter((c) => c.parcours.some((p) => p.id === id)).map((c) => c.nom))]
   const totalQuestions = (p: Parcours) => p.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0)
 
   const resumes = $derived.by(() => {
@@ -133,6 +151,7 @@
     catalogue = await stockage.lire<Parcours[]>('explorer')
     ajoutes = (await stockage.lire<Parcours[]>('ajoutes')) ?? []
     bibliotheque = await lireBibliotheque(stockage)
+    importes = (await stockage.lire<Parcours[]>('importes')) ?? []
     for (const p of tous) await chargerParcours(p)
     vue = profil === 'enseignant' ? 'enseignant' : 'accueil'
     pret = true
@@ -310,10 +329,43 @@
     aller('creation')
   }
 
+  // Parcours qui vient d'être enregistré : l'espace enseignant propose de le télécharger
+  let dernier: string | null = $state(null)
+
   async function valider(classesParcours: string[], p: Parcours) {
-    await sauverBibliotheque(enregistrer($state.snapshot(bibliotheque) as Bibliotheque, classesParcours, p))
+    const b = enregistrer($state.snapshot(bibliotheque) as Bibliotheque, classesParcours, p)
+    await sauverBibliotheque(b)
+    // Création : l'identifiant est attribué par enregistrer(), c'est le dernier ajouté
+    dernier = p.id || b.parcours.at(-1)!.parcours.id
     creation = null
     aller('enseignant')
+  }
+
+  async function exporterUnParcours(id: string) {
+    const f = exporterUn($state.snapshot(bibliotheque) as Bibliotheque, id)
+    if (!f) return ''
+    return (await enregistrerFichier(f.nom, f.texte)) ? `${f.nom} enregistré.` : 'Téléchargement annulé.'
+  }
+
+  // Parcours importés d'un fichier (collègue) : proposés dans « Éditer un parcours existant »
+  let importes: Parcours[] = $state([])
+  async function importerFichier(texte: string): Promise<string> {
+    try {
+      const f = lireFichier(texte)
+      const recus = f.classes.flatMap((c) => c.parcours)
+      const vus = new Map(importes.map((p) => [p.id, p]))
+      let nouveaux = 0
+      for (const p of recus) {
+        const avant = vus.get(p.id)
+        if (!avant) nouveaux++
+        if (!avant || avant.version < p.version) vus.set(p.id, p)
+      }
+      importes = [...vus.values()]
+      await stockage!.ecrire('importes', $state.snapshot(importes))
+      return `${recus.length} parcours importé${recus.length > 1 ? 's' : ''}${nouveaux < recus.length ? ' (déjà présents : version la plus récente gardée)' : ''}.`
+    } catch (e) {
+      return (e as Error).message
+    }
   }
 
   function voirApercu(p: Parcours) {
@@ -371,8 +423,12 @@
       modeles={modeles}
       onouvrir={(pe) => creer(pe.parcours, pe.classes)}
       oncreer={() => creer()}
+      {dernier}
+      onfermerDernier={() => (dernier = null)}
+      onexporterUn={exporterUnParcours}
+      onimporter={importerFichier}
       onediter={async (p) => {
-        await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p))
+        await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p, classesDuModele(p.id)))
         const pe = bibliotheque.parcours.find((x) => x.parcours.id === p.id)!
         creer(pe.parcours, pe.classes)
       }}
@@ -388,6 +444,8 @@
           <CreationParcours
             {bibliotheque}
             classesInitiales={creation.classes}
+            classesDossiers={[...new Set(classesDesDossiers.map((c) => c.nom))]}
+            chapitresDossiers={classesDesDossiers.flatMap((c) => c.parcours.map((p) => ({ classe: c.nom, theme: p.theme })))}
             parcours={creation.parcours}
             {moteur}
             {pays}

@@ -42,6 +42,11 @@
     onchercherMoteur: (() => Promise<string>) | null // null hors de l'application
   } = $props()
 
+  // Chaque réglage est enregistré aussitôt ; après un changement, un bouton ramène à l'accueil
+  const etat = () => JSON.stringify([profil, pays, classes.map((c) => [c.lien, c.nom])])
+  const depart = etat()
+  const modifie = $derived(etat() !== depart)
+
   let messageMoteur = $state('')
   let rechercheMoteur = $state(false)
 
@@ -77,7 +82,15 @@
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete />
-  <FilAriane titre="Réglages" {onretour} />
+  <FilAriane titre="Réglages" {onretour}>
+    {#snippet droite()}
+      {#if modifie}
+        <button type="button" class="shrink-0 px-2 py-1 text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" onclick={onretour}>
+          Enregistrer et quitter
+        </button>
+      {/if}
+    {/snippet}
+  </FilAriane>
 
   <main class="flex-1 flex flex-col gap-8 p-4 zone-sure-bas">
     <section>

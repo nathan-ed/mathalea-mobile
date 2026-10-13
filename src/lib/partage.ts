@@ -29,6 +29,7 @@ export interface Classe {
   nom: string // classe retenue dans le fichier ('' tant que l'élève n'a pas choisi)
   disponibles: string[] // classes présentes dans le fichier
   parcours: Parcours[]
+  fichier?: ClasseDuFichier[] // tout le fichier : l'enseignant reprend les parcours de toutes les classes
   maj?: string
   erreur?: string
 }
@@ -69,63 +70,98 @@ async function octets(r: Response, quoi: string) {
   return new Uint8Array(await r.arrayBuffer())
 }
 
-/** kDrive : service de la page de partage (non documenté, voir sonoTour/dev.md) */
-async function lireKdrive(lien: string, req: Requete): Promise<Uint8Array> {
+const estJson = (nom: string) => nom.toLowerCase().endsWith('.json')
+const absent = () => new Error(`Le dossier ne contient pas encore de fichier de parcours (${NOM_FICHIER}).`)
+
+/**
+ * kDrive : service de la page de partage (non documenté, voir sonoTour/dev.md).
+ * Tous les fichiers .json du dossier : un fichier par parcours, ou plusieurs parcours par fichier.
+ */
+async function lireKdrive(lien: string, req: Requete): Promise<Uint8Array[]> {
   const m = lien.match(/kdrive\.infomaniak\.com\/app\/share\/(\d+)\/([0-9a-f-]{36})/i)
   if (!m) throw new Error('Lien kDrive non reconnu : copiez le lien de partage du dossier.')
   const api = `https://kdrive.infomaniak.com/2/app/${m[1]}/share/${m[2]}`
   const init = JSON.parse(strFromU8(await octets(await req(`${api}/init`), 'kDrive')))
   const racine = init?.data?.file_id
   if (racine == null) throw new Error('kDrive : dossier partagé illisible.')
-  for (let page = 1; ; page++) {
-    const r = await req(`${api}/files/${racine}/files?per_page=200&page=${page}`)
-    const liste = JSON.parse(strFromU8(await octets(r, 'kDrive'))).data as { id: number; name: string; type: string }[]
-    const f = liste.find((x) => x.name === NOM_FICHIER && x.type !== 'dir')
-    if (f) return octets(await req(`${api}/files/${f.id}/download`), 'kDrive')
-    if (liste.length < 200) break
+  const fichiers: { id: number; name: string }[] = []
+  // Sous-dossiers compris (par exemple un dossier par classe), sur trois niveaux au plus
+  const parcourir = async (dossier: number, profondeur: number) => {
+    for (let page = 1; ; page++) {
+      const r = await req(`${api}/files/${dossier}/files?per_page=200&page=${page}`)
+      const liste = JSON.parse(strFromU8(await octets(r, 'kDrive'))).data as { id: number; name: string; type: string }[]
+      fichiers.push(...liste.filter((x) => x.type !== 'dir' && estJson(x.name)))
+      if (profondeur < 3) for (const d of liste.filter((x) => x.type === 'dir')) await parcourir(d.id, profondeur + 1)
+      if (liste.length < 200) break
+    }
   }
-  throw new Error(`Le dossier ne contient pas encore ${NOM_FICHIER}.`)
+  await parcourir(racine, 0)
+  if (!fichiers.length) throw absent()
+  return Promise.all(fichiers.map(async (f) => octets(await req(`${api}/files/${f.id}/download`), 'kDrive')))
 }
 
-/** Dropbox : un dossier en dl=1 arrive en zip ; un fichier arrive tel quel */
-async function lireDropbox(lien: string, req: Requete): Promise<Uint8Array> {
+/** Dropbox : un dossier en dl=1 arrive en zip (tous ses .json, sous-dossiers compris) ; un fichier arrive tel quel */
+async function lireDropbox(lien: string, req: Requete): Promise<Uint8Array[]> {
   const url = new URL(lien)
   url.searchParams.set('dl', '1')
   const contenu = await octets(await req(url.href), 'Dropbox')
   const estZip = contenu[0] === 0x50 && contenu[1] === 0x4b
-  if (!estZip) return contenu
+  if (!estZip) return [contenu]
   const fichiers = unzipSync(contenu)
-  const nom = Object.keys(fichiers).find((n) => n === NOM_FICHIER || n.endsWith(`/${NOM_FICHIER}`))
-  if (!nom) throw new Error(`Le dossier ne contient pas encore ${NOM_FICHIER}.`)
-  return fichiers[nom]
+  const noms = Object.keys(fichiers).filter(estJson)
+  if (!noms.length) throw absent()
+  return noms.map((n) => fichiers[n])
 }
 
-/** Google Drive : lien du fichier sans clé ; lien du dossier avec la clé d'API de l'app */
-async function lireGoogle(lien: string, req: Requete): Promise<Uint8Array> {
+/** Google Drive : lien d'un fichier sans clé ; lien du dossier avec la clé d'API de l'app */
+async function lireGoogle(lien: string, req: Requete): Promise<Uint8Array[]> {
   const fichier = lien.match(/\/file\/d\/([\w-]+)/) ?? lien.match(/[?&]id=([\w-]+)/)
-  if (fichier) return octets(await req(`https://drive.google.com/uc?export=download&id=${fichier[1]}`), 'Google Drive')
+  if (fichier) return [await octets(await req(`https://drive.google.com/uc?export=download&id=${fichier[1]}`), 'Google Drive')]
   const dossier = lien.match(/\/folders\/([\w-]+)/)
   if (!dossier) throw new Error('Lien Google Drive non reconnu.')
   if (!CLE_GOOGLE) throw new Error(`Avec Google Drive, partagez directement le fichier ${NOM_FICHIER} (lien du fichier).`)
-  const q = encodeURIComponent(`'${dossier[1]}' in parents and name = '${NOM_FICHIER}' and trashed = false`)
+  const q = encodeURIComponent(`'${dossier[1]}' in parents and name contains '.json' and trashed = false`)
   const liste = JSON.parse(
     strFromU8(await octets(await req(`https://www.googleapis.com/drive/v3/files?q=${q}&key=${CLE_GOOGLE}`), 'Google Drive')),
   ) as { files: { id: string }[] }
-  if (!liste.files?.length) throw new Error(`Le dossier ne contient pas encore ${NOM_FICHIER}.`)
-  return octets(await req(`https://www.googleapis.com/drive/v3/files/${liste.files[0].id}?alt=media&key=${CLE_GOOGLE}`), 'Google Drive')
+  if (!liste.files?.length) throw absent()
+  return Promise.all(
+    liste.files.map(async (f) => octets(await req(`https://www.googleapis.com/drive/v3/files/${f.id}?alt=media&key=${CLE_GOOGLE}`), 'Google Drive')),
+  )
 }
 
 /** Tout autre service (Nextcloud, WebDAV public…) : lien du dossier + nom du fichier, ou lien du fichier */
-async function lireAutre(lien: string, req: Requete): Promise<Uint8Array> {
+async function lireAutre(lien: string, req: Requete): Promise<Uint8Array[]> {
   const url = lien.endsWith('.json') ? lien : new URL(NOM_FICHIER, lien.endsWith('/') ? lien : lien + '/').href
-  return octets(await req(url), 'Téléchargement')
+  return [await octets(await req(url), 'Téléchargement')]
+}
+
+/**
+ * Réunit plusieurs fichiers : classes de même nom fusionnées ; un parcours
+ * présent dans plusieurs fichiers garde sa version la plus récente.
+ */
+export function fusionner(fichiers: FichierClasses[]): FichierClasses {
+  const classes: ClasseDuFichier[] = []
+  for (const f of fichiers) {
+    for (const c of f.classes) {
+      let cible = classes.find((x) => x.nom === c.nom)
+      if (!cible) classes.push((cible = { nom: c.nom, parcours: [] }))
+      for (const p of c.parcours) {
+        const i = cible.parcours.findIndex((x) => x.id === p.id)
+        if (i === -1) cible.parcours.push(p)
+        else if (p.version > cible.parcours[i].version) cible.parcours[i] = p
+      }
+    }
+  }
+  const exporteLe = fichiers.map((f) => f.exporteLe).sort().at(-1) ?? ''
+  return { format: FORMAT, exporteLe, classes }
 }
 
 export async function lireFichierDistant(lien: string, req: Requete = requete): Promise<FichierClasses> {
   const lecteurs = { kdrive: lireKdrive, dropbox: lireDropbox, google: lireGoogle, autre: lireAutre }
-  let texte: string
+  let contenus: Uint8Array[]
   try {
-    texte = strFromU8(await lecteurs[serviceDuLien(lien)](lien, req))
+    contenus = await lecteurs[serviceDuLien(lien)](lien, req)
   } catch (e) {
     if (e instanceof TypeError && /URL/.test(e.message)) throw new Error('Ce lien n’est pas une adresse valide.')
     // fetch refusé : pas de réseau, ou drive qui refuse les navigateurs (kDrive)
@@ -138,7 +174,17 @@ export async function lireFichierDistant(lien: string, req: Requete = requete): 
     }
     throw e
   }
-  return lireFichier(texte)
+  // Un seul fichier : il doit être valide. Plusieurs : les .json qui ne sont pas des parcours sont ignorés
+  if (contenus.length === 1) return lireFichier(strFromU8(contenus[0]))
+  const lus = contenus.flatMap((c) => {
+    try {
+      return [lireFichier(strFromU8(c))]
+    } catch {
+      return []
+    }
+  })
+  if (!lus.length) throw absent()
+  return fusionner(lus)
 }
 
 export function lireFichier(texte: string): FichierClasses {
@@ -194,7 +240,7 @@ export async function synchroniserClasse(classe: Classe, req: Requete = requete)
       const actuel = classe.parcours.find((a) => a.id === p.id)
       return actuel && actuel.version >= p.version ? actuel : p
     })
-    return { ...classe, nom, disponibles, parcours, maj: new Date().toISOString(), erreur: undefined }
+    return { ...classe, nom, disponibles, parcours, fichier: f.classes, maj: new Date().toISOString(), erreur: undefined }
   } catch (e) {
     return { ...classe, erreur: (e as Error).message }
   }
