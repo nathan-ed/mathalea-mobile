@@ -1,3 +1,9 @@
 07f12c4007c39139e5dc00a020bca0f9bc3ae5b7224bb904add317603afd6d08  MathALEA-0.1.2-android-arm64.apk
 fb38facb4ab515a43bb38ea3631537f2a8b7c2ce4cc90ac94fda68e889507700  MathALEA-0.1.2-android-armv7.apk
+89794bec8bab824d53ea8f83c170a5663e8c13f0589305e2b2159b697372606b  MathALEA-0.1.2-linux-amd64.AppImage
+3e7c0c43b33a94eb8c1fc61584985a34e4ee076e8ffac1a6248d2988548a7ca3  MathALEA-0.1.2-linux-amd64.deb
+bdb43e8e538f9a297815d43d1182470140b751778675397904fc11791820d611  MathALEA-0.1.2-linux-x86_64.rpm
 4a2e3b81527cad5bf95b5e3d994b022a79f0bc34fccac0424f69897f5026ef78  MathALEA-0.1.2-macos-apple-silicon.dmg
+1bcea7dfa26b44d603af81d2ec4e22d6a24f88f05a58abcdeadb22585ef7f9ba  MathALEA-0.1.2-macos-intel.dmg
+2d47e0c8d2da53315cb84b1eb4df407c93f6006293135a9c25b2afab4fb6d472  MathALEA-0.1.2-windows.msi
+6ba87d9b6547a17e2ff0870f28e8d7b58fadd4535319f2308901ee8566fb13f3  MathALEA-0.1.2-windows-setup.exe
