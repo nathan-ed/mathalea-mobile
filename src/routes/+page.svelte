@@ -4,7 +4,7 @@
   import { exporterSauvegarde, restaurerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
-  import { enregistrerFichier } from '$lib/fichiers'
+  import { enregistrerFichier, partageNatif } from '$lib/fichiers'
   import {
     adopter,
     definirLien,
@@ -344,7 +344,8 @@
   async function exporterUnParcours(id: string) {
     const f = exporterUn($state.snapshot(bibliotheque) as Bibliotheque, id)
     if (!f) return ''
-    return (await enregistrerFichier(f.nom, f.texte)) ? `${f.nom} enregistré.` : 'Téléchargement annulé.'
+    if (!(await enregistrerFichier(f.nom, f.texte))) return 'Téléchargement annulé.'
+    return partageNatif ? `Choisissez l’app de votre drive et déposez ${f.nom} dans le dossier partagé.` : `${f.nom} enregistré.`
   }
 
   // Parcours importés d'un fichier (collègue) : proposés dans « Éditer un parcours existant »
@@ -377,7 +378,9 @@
     const { texte, bibliotheque: b } = exporter($state.snapshot(bibliotheque) as Bibliotheque)
     if (!(await enregistrerFichier(NOM_FICHIER, texte))) return 'Export annulé.'
     await sauverBibliotheque(b)
-    return `${NOM_FICHIER} enregistré : déposez-le dans le dossier partagé, en remplaçant l’ancien.`
+    return partageNatif
+      ? `Choisissez l’app de votre drive et déposez ${NOM_FICHIER} dans le dossier partagé.`
+      : `${NOM_FICHIER} enregistré : déposez-le dans le dossier partagé, en remplaçant l’ancien.`
   }
 
 </script>

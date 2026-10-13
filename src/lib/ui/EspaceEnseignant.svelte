@@ -2,6 +2,7 @@
   // Accueil de l'enseignant : parcours par classe, export, classes partagées, sessions communes
   import type { Parcours } from '$lib/catalogue'
   import { aExporter, nbAExporter, parcoursDeClasse, type Bibliotheque, type ParcoursEnseignant } from '$lib/bibliotheque'
+  import { partageNatif } from '$lib/fichiers'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse } from './classes'
   import EnTete from './EnTete.svelte'
@@ -111,10 +112,10 @@
             Pour que les élèves le reçoivent, déposez le fichier dans votre dossier partagé (en remplaçant celui du même nom).
           </p>
           <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={async () => (messageDernier = await onexporter())}>
-            Télécharger tous les parcours ({nbParcours})
+            {partageNatif ? 'Partager' : 'Télécharger'} tous les parcours ({nbParcours})
           </button>
           <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageDernier = await onexporterUn(enregistre!.parcours.id))}>
-            Télécharger ce parcours seul
+            {partageNatif ? 'Partager' : 'Télécharger'} ce parcours seul
           </button>
           {#if bibliotheque.lien}
             <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => ouvrirDossier(bibliotheque.lien!)}>Ouvrir le dossier</button>

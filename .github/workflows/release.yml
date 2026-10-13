@@ -11,9 +11,6 @@ on:
       version:
         description: Version (ex. v0.2.0)
         required: true
-      mathalea_ref:
-        description: Branche ou tag de MathALÉA contenant le moteur embarquable
-        default: moteur-embarquable
       cibles:
         description: Ce qu'il faut construire
         type: choice
@@ -25,44 +22,31 @@ permissions:
 
 env:
   VERSION: ${{ inputs.version || github.ref_name }}
-  MATHALEA_REF: ${{ inputs.mathalea_ref || 'moteur-embarquable' }}
 
 jobs:
   moteur:
     runs-on: ubuntu-latest
     steps:
-      # Moteur déjà construit, publié dans la release « moteur » de ce dépôt
-      # (tant que la branche moteur-embarquable n'est pas sur la forge)
-      - name: Moteur publié
-        id: publie
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if gh release download moteur --repo "$GITHUB_REPOSITORY" --pattern moteur.tgz; then
-            mkdir dist-moteur && tar -xzf moteur.tgz -C dist-moteur
-            echo "pret=1" >> "$GITHUB_OUTPUT"
-          fi
+      # Moteur construit depuis MathALÉA au commit moteur/COMMIT, plus les
+      # fichiers de moteur/ (voir moteur/README.md) : rien n'est déposé à la main
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        if: steps.publie.outputs.pret != '1'
         with:
           node-version: 22
       - uses: pnpm/action-setup@v4
-        if: steps.publie.outputs.pret != '1'
         with:
           version: 10
-      - name: Moteur MathALÉA depuis la forge
-        if: steps.publie.outputs.pret != '1'
-        run: |
-          git clone --depth 1 --branch "$MATHALEA_REF" https://forge.apps.education.fr/coopmaths/mathalea.git mathalea
-          cd mathalea
-          pnpm install --frozen-lockfile
-          pnpm makeJson
-          NODE_OPTIONS=--max-old-space-size=6144 npx vite build -c vite.moteur.config.ts
-          mv dist-moteur ../dist-moteur
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/mathalea-mobile
+            ~/.local/share/pnpm/store
+          key: moteur-${{ hashFiles('moteur/COMMIT') }}
+      - run: bash scripts/moteur.sh
       - uses: actions/upload-artifact@v4
         with:
           name: moteur
-          path: dist-moteur
+          path: static/moteur
 
   bureau:
     needs: moteur
@@ -94,6 +78,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      # Dépendances Rust compilées gardées d'une release à l'autre
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
       - uses: tauri-apps/tauri-action@v0
         env:
@@ -132,6 +120,10 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+      # Dépendances Rust compilées gardées d'une release à l'autre
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
       - name: Clé de signature (si fournie)
         if: env.ANDROID_KEYSTORE != ''

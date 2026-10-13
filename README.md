@@ -71,9 +71,7 @@ Tauri 2 (https://v2.tauri.app/start/prerequisites/). Sous Linux : WebKitGTK
 
 ```bash
 pnpm install
-# Moteur MathALÉA : clone de MathALÉA à côté du dépôt (branche moteur-embarquable)
-git clone -b moteur-embarquable https://forge.apps.education.fr/coopmaths/mathalea.git ../mathalea
-pnpm moteur             # construit le moteur et le copie dans static/moteur
+pnpm moteur             # moteur : MathALÉA au commit moteur/COMMIT + moteur/, copié dans static/moteur
 pnpm app                # application de bureau (données séparées de l'app installée)
 pnpm dev                # ou dans un navigateur : http://localhost:1420
 ```
@@ -105,7 +103,12 @@ pnpm tauri android build --apk --debug   # APK installable, signé avec la clé 
 pnpm tauri android build --apk           # APK de release (signé si keystore.properties existe)
 ```
 
-Les APK sont dans `src-tauri/gen/android/app/build/outputs/apk/`. Sur un
+Les APK sont dans `src-tauri/gen/android/app/build/outputs/apk/`.
+
+APK d'essai, bien plus rapide (arm64 seul, sans LTO, cache séparé) :
+`scripts/apk-essai.sh`, ou `scripts/apk-essai.sh x86_64` pour l'émulateur.
+Les dépendances Rust déjà compilées sont gardées dans `src-tauri/target` ;
+seuls l'app et l'édition de liens sont refaits d'un build à l'autre. Sur un
 téléphone branché en USB (débogage activé) : `pnpm tauri android dev`.
 
 ### iPhone et iPad

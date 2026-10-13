@@ -12,6 +12,8 @@ L'application ne contient pas le code de MathALÉA : elle charge à l'exécution
 un **paquet moteur** construit depuis le dépôt MathALÉA (branche
 `moteur-embarquable` : `src/moteur/index.ts`, `vite.moteur.config.ts`).
 
+- Source : `moteur/` (fichiers ajoutés à MathALÉA et commit de référence,
+  voir `moteur/README.md`), en attendant la MR dans MathALÉA.
 - `pnpm moteur` construit ce paquet (`dist-moteur/` : `moteur.js`, ses
   morceaux, `moteur.css`, polices, `manifest.json`) et le copie dans
   `static/moteur/` (non versionné). Taille : 70 Mo sur disque, 20 Mo
@@ -174,6 +176,6 @@ Reste à faire :
   clavier, figures, PDF, mode avion.
 - Ressources des parcours (PDF, images) à côté du fichier de classe.
 - Clé d'API Google pour lire les dossiers Google Drive.
-- CI : quand `moteur-embarquable` sera dans MathALÉA, supprimer la release
-  `moteur` du miroir GitHub ; le workflow construira alors le moteur depuis la
-  forge.
+- CI : quand le moteur sera dans MathALÉA, supprimer `moteur/` et construire
+  depuis la forge. La release `moteur` du miroir GitHub ne sert plus (à
+  supprimer).
