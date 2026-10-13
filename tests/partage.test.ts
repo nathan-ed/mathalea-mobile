@@ -186,6 +186,14 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
     expect(f.classes.some((c) => c.nom === 'Archives')).toBe(false)
   })
 
+  it('classes triées par nom, quel que soit l’ordre des fichiers', () => {
+    const f = fusionner([
+      lireFichier(creerFichier([{ nom: '10e A', parcours: [] }])),
+      lireFichier(creerFichier([{ nom: 'Classe test', parcours: [] }, { nom: '3e B', parcours: [] }])),
+    ])
+    expect(f.classes.map((c) => c.nom)).toEqual(['3e B', '10e A', 'Classe test'])
+  })
+
   it('une version plus ancienne ne remplace pas une plus récente, quel que soit l’ordre', () => {
     const f = fusionner([lireFichier(seul), lireFichier(banque)])
     expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)

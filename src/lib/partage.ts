@@ -153,6 +153,8 @@ export function fusionner(fichiers: FichierClasses[]): FichierClasses {
     }
   }
   const exporteLe = fichiers.map((f) => f.exporteLe).sort().at(-1) ?? ''
+  // L'ordre des fichiers du drive est arbitraire : classes triées par nom (tri naturel : 3e avant 10e)
+  classes.sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { numeric: true }))
   return { format: FORMAT, exporteLe, classes }
 }
 

@@ -384,7 +384,9 @@ mod tests {
     #[tokio::test]
     #[ignore = "publication préparée par le script Node"]
     async fn accepte_une_publication_du_script() {
-        let dossier = PathBuf::from(std::env::var("MOTEUR_PUBLICATION").expect("MOTEUR_PUBLICATION"));
+        // Sans publication préparée (cargo test -- --include-ignored), rien à vérifier
+        let Ok(dossier) = std::env::var("MOTEUR_PUBLICATION") else { return };
+        let dossier = PathBuf::from(dossier);
         let donnees = tempfile::tempdir().unwrap();
         let base = servir_dossier(dossier);
         let m = chercher(&base, CLE_PUBLIQUE, 1, "2000").await.unwrap().expect("publication acceptée");
