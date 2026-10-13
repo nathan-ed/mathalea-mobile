@@ -1,22 +1,62 @@
 #!/usr/bin/env bash
-# Récupère une release construite sur le miroir GitHub privé et la range dans
-# releases/<version>/ (fichiers en Git LFS, sommes SHA-256). Avec FORGE_TOKEN,
-# crée aussi la release correspondante sur la forge, avec un lien par fichier.
-#   scripts/release.sh v0.2.0
-#   GITHUB_DEPOT=compte/mathalea-mobile FORGE_TOKEN=… scripts/release.sh v0.2.0
+# Range les installateurs d'une version dans releases/<version>/ (Git LFS),
+# sous des noms uniformes (MathALEA-<v>-<système>.<ext>), avec SHA256SUMS,
+# puis crée ou complète la release de la forge (un lien par fichier).
+#
+#   scripts/release.sh v0.2.0             # tout ce que la CI GitHub a construit
+#   APK_LOCALES=1 scripts/release.sh v0.2.0   # + les APK construites ici (prioritaires)
+#
+# Peut être relancé : les fichiers déjà présents sont remplacés, les liens
+# manquants ajoutés à la release de la forge. Pousser le commit qui contient
+# releases/<version> avant (les liens pointent sur main).
 set -euo pipefail
 version="${1:?Version attendue, ex. v0.2.0}"
+v="${version#v}"
 racine="$(cd "$(dirname "$0")/.." && pwd)"
-depot_github="${GITHUB_DEPOT:-coopmaths/mathalea-mobile}"
+depot_github="${GITHUB_DEPOT:-nathan-ed/mathalea-mobile}"
+projet="coopmaths/mathalea-mobile"
 dossier="$racine/releases/$version"
-
+brut="$(mktemp -d)"
+trap 'rm -rf "$brut"' EXIT
 mkdir -p "$dossier"
-gh release download "$version" --repo "$depot_github" --dir "$dossier" --clobber
-(cd "$dossier" && sha256sum -- * | grep -v ' SHA256SUMS$' > SHA256SUMS)
-echo "Fichiers dans releases/$version :"
-ls -1 "$dossier"
 
-# Liste des versions pour releases/README.md
+# Nom uniforme d'après le nom produit par tauri-action ou Gradle
+uniforme() {
+  case "$1" in
+    *.AppImage) echo "MathALEA-$v-linux-amd64.AppImage" ;;
+    *.deb) echo "MathALEA-$v-linux-amd64.deb" ;;
+    *.rpm) echo "MathALEA-$v-linux-x86_64.rpm" ;;
+    *aarch64*.dmg) echo "MathALEA-$v-macos-apple-silicon.dmg" ;;
+    *x64*.dmg) echo "MathALEA-$v-macos-intel.dmg" ;;
+    *.msi) echo "MathALEA-$v-windows.msi" ;;
+    *setup.exe) echo "MathALEA-$v-windows-setup.exe" ;;
+    *arm64*.apk | *aarch64*.apk) echo "MathALEA-$v-android-arm64.apk" ;;
+    *armeabi*.apk | *arm-*.apk | *armv7*.apk) echo "MathALEA-$v-android-armv7.apk" ;;
+    *) echo "" ;;
+  esac
+}
+
+ranger() {
+  for f in "$1"/*; do
+    nom="$(uniforme "$(basename "$f")")"
+    [ -n "$nom" ] && cp "$f" "$dossier/$nom" && echo "  $nom"
+  done
+}
+
+if gh release view "$version" --repo "$depot_github" > /dev/null 2>&1; then
+  echo "Release GitHub $version :"
+  gh release download "$version" --repo "$depot_github" --dir "$brut/github" --clobber
+  ranger "$brut/github"
+fi
+if [ -n "${APK_LOCALES:-}" ]; then
+  echo "APK construites ici :"
+  mkdir -p "$brut/local"
+  find "$racine/src-tauri/gen/android/app/build/outputs/apk" -name '*-release.apk' -newer "$racine/package.json" -exec cp {} "$brut/local/" \;
+  ranger "$brut/local"
+fi
+
+(cd "$dossier" && sha256sum -- MathALEA-* > SHA256SUMS)
+
 {
   echo "# Versions de MathALÉA"
   echo
@@ -28,16 +68,20 @@ ls -1 "$dossier"
   done
 } > "$racine/releases/README.md"
 
-if [ -n "${FORGE_TOKEN:-}" ]; then
-  api="https://forge.apps.education.fr/api/v4/projects/coopmaths%2Fmathalea-mobile"
-  brut="https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/$version"
-  liens="$(cd "$dossier" && for f in *; do printf '{"name":"%s","url":"%s/%s","link_type":"package"}\n' "$f" "$brut" "$f"; done | jq -s .)"
-  notes="$(gh release view "$version" --repo "$depot_github" --json body --jq .body)"
-  jq -n --arg tag "$version" --arg notes "$notes" --argjson liens "$liens" \
-    '{tag_name: $tag, ref: "main", name: ("MathALÉA " + $tag), description: $notes, assets: {links: $liens}}' |
-    curl --fail --silent --show-error --header "PRIVATE-TOKEN: $FORGE_TOKEN" --header 'Content-Type: application/json' \
-      --data @- "$api/releases" > /dev/null
-  echo "Release $version créée sur la forge (pousser d'abord le commit qui contient releases/$version)."
-else
-  echo "Ensuite : git add releases && git commit && git push (puis FORGE_TOKEN=… pour la release de la forge)."
+# Release de la forge : créée au besoin, puis un lien par fichier manquant
+cd "$racine"  # glab prend la forge dans le remote origin
+api="projects/${projet//\//%2F}/releases"
+# Liens sur main : une version peut être complétée après coup (APK d'abord, puis le reste)
+lien_brut="https://forge.apps.education.fr/$projet/-/raw/main/releases/$version"
+if ! glab api "$api/$version" > /dev/null 2>&1; then
+  glab api -X POST "$api" -f tag_name="$version" -f ref=main -f name="MathALÉA $v" \
+    -f description="Installateurs : voir releases/$version et le README (installation)." > /dev/null
+  echo "Release $version créée sur la forge."
 fi
+existants="$(glab api "$api/$version/assets/links" | jq -r '.[].name')"
+for f in "$dossier"/*; do
+  nom="$(basename "$f")"
+  grep -qxF "$nom" <<< "$existants" && continue
+  glab api -X POST "$api/$version/assets/links" -f name="$nom" -f url="$lien_brut/$nom" -f link_type=package > /dev/null
+  echo "  lien ajouté : $nom"
+done
