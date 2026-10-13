@@ -147,9 +147,29 @@ refuse la mise à jour.
   `parcours-mathalea.json`, à déposer tel quel dans le dossier partagé ; et
   pouvoir y charger un `.json` existant pour le modifier. À proposer à
   l'équipe MathALÉA (pas de fork).
-- Retour vers l'enseignant, sans qu'aucune donnée quitte l'appareil sans
-  geste de l'élève : par exemple un code ou un QR de bilan (sans nom) que
-  l'élève montre et que l'app enseignant lit. À réfléchir.
+- Retour vers l'enseignant (idée de Nathan, à reprendre plus tard). Rien ne
+  quitte l'appareil sans un geste de l'élève ; pas de compte ni de serveur.
+  - Un format `bilan-mathalea/1`, transmis de deux façons : QR code montré en
+    classe et scanné par l'app enseignant (plugin Tauri barcode-scanner,
+    mobile seulement), ou fichier envoyé par le partage du téléphone (ENT,
+    messagerie, drive) et importé par l'enseignant, ordinateur compris.
+  - Nom montré à l'enseignant saisi une fois par l'élève, gardé sur son
+    appareil, présent seulement dans les bilans qu'il envoie.
+  - Contenu par parcours : identifiant, version, version du moteur ; par
+    exercice : nombre de tentatives, score moyen, meilleur, dernier ; les
+    réponses de la dernière et de la meilleure tentative, avec leurs
+    graines. Les graines suffisent à l'app enseignant pour régénérer les
+    questions et montrer réponse et correction, comme la relecture. Limite :
+    il faut la même version du moteur que l'élève (sinon, scores seulement).
+  - Taille mesurée (JSON compressé par deflate, deux tentatives avec
+    réponses, réponses variées) : 3 × 5 questions ≈ 340 o, 5 × 5 ≈ 430 o,
+    8 × 6 ≈ 630 o, 10 × 10 ≈ 1 Ko. Un QR lu d'écran à écran reste fiable
+    jusqu'à 800 o à 1 Ko environ (version 20 à 25, correction M) : un
+    parcours courant tient dans un QR ; au-delà, plusieurs QR à la suite
+    (« 1/2, 2/2 ») ou le fichier.
+  - Côté enseignant : onglet Résultats par classe, tableau élèves × exercices,
+    exercices les moins réussis en tête, réponses d'un élève sur une
+    question, export CSV.
 
 ### Moteur servi par Coopmaths
 

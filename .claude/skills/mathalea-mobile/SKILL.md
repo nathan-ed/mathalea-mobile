@@ -381,7 +381,9 @@ Environnement (machine de Nathan)
   importé en JSON), étiquetage rapide des exercices, suivi par compétence.
 - Idées notées par Nathan (docs/developpement.md, « À faire ») : création
   de parcours depuis le site MathALÉA (et édition d'un `.json` chargé),
-  retour élève vers enseignant (code ou QR de bilan, plus tard).
+  retour élève vers enseignant (QR ou fichier `bilan-mathalea/1` avec
+  statistiques et réponses des tentatives dernière et meilleure, graines
+  pour régénérer les questions ; tailles mesurées dans la doc).
 - Plus tard : moteur en ressource Android (une copie), iOS (Mac nécessaire),
   Wi-Fi seulement pour le moteur, version minimale du moteur par parcours,
   clé Google Drive, ressources (PDF, images) à côté des parcours.
