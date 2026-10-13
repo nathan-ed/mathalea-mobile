@@ -147,20 +147,56 @@ cd ../parcours-spikes/spike-sync && pnpm run server /tmp/drive # terminal 2 : do
 npx tsx e2e/preparer.mts /tmp/drive                        # dépose les parcours de test
 DOSSIER=/tmp/drive pnpm e2e
 node e2e/regressions.mjs    # défauts corrigés (brouillon, Entrée, suivi) : pnpm dev suffit
+node e2e/captures-enseignant.mjs /tmp/captures   # espace enseignant en clair et en sombre, 390 px
 ```
+
+## Clés et secrets
+
+Deux clés, à créer une seule fois et à garder hors du dépôt (gestionnaire de
+mots de passe, coffre de l'équipe). Les perdre empêche de publier des mises
+à jour ; les changer impose une nouvelle version de l'app.
+
+| Clé | Sert à | Créer | Où la mettre |
+| --- | --- | --- | --- |
+| Signature Android (`.jks`) | signer les APK ; Android refuse une mise à jour signée par une autre clé | `keytool -genkey -v -keystore mathalea.jks -keyalg RSA -keysize 2048 -validity 10000 -alias mathalea` | local : `src-tauri/gen/android/keystore.properties` (`storeFile`, `storePassword`, `keyAlias`, `keyPassword`, ignoré par Git) ; GitHub, Settings, Secrets : `ANDROID_KEYSTORE` (`base64 -w0 mathalea.jks`), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` |
+| Signature du moteur (Ed25519, `.pem`) | signer les mises à jour du moteur téléchargées par l'app | `node scripts/cles-moteur.mjs moteur-ed25519.pem` (affiche la clé publique) | clé publique : `CLE_PUBLIQUE` dans `src-tauri/src/moteur.rs` ; clé privée : chez qui publie (secret de CI) |
+
+Les clés actuelles sont des clés **de test** (sur la machine de Nathan). Avant
+une diffusion large : créer les vraies, remplacer les secrets GitHub et
+`CLE_PUBLIQUE`, fixer `URL_MISES_A_JOUR` (même fichier), puis publier une
+version. Installer la première APK signée par la vraie clé demande de
+désinstaller une fois l'ancienne.
+
+Publier un moteur (sans nouvelle version de l'app) :
+
+```bash
+pnpm moteur                                                     # construit static/moteur
+node scripts/publier-moteur.mjs static/moteur sortie/ moteur-ed25519.pem
+# déposer sortie/moteur-*.tar.gz, puis mise-a-jour.json et mise-a-jour.json.sig à URL_MISES_A_JOUR
+```
+
+Détails : [docs/developpement.md](docs/developpement.md#moteur-servi-par-coopmaths).
 
 ## Releases
 
-1. Le dépôt de référence est sur la forge. Un miroir **privé** sur GitHub sert
-   à construire : GitHub Actions (`.github/workflows/release.yml`) construit
-   Linux, Windows, macOS (ARM et Intel) et Android à chaque tag `v*`, et
-   prépare une release brouillon.
-2. `scripts/release.sh v0.2.0` télécharge cette release dans
-   `releases/v0.2.0/` (fichiers en Git LFS, sommes SHA-256).
-3. Commit et push sur la forge, puis
-   `FORGE_TOKEN=… scripts/release.sh v0.2.0` crée la release de la forge.
+Outils : `gh` (GitHub) et `glab` (forge) connectés, Git LFS, `jq`. Le dépôt de
+référence est sur la forge ; un miroir **privé** sur GitHub (`github`) sert à
+construire Linux, Windows, macOS (ARM et Intel) et Android
+(`.github/workflows/release.yml`).
 
-Signature Android : voir [docs/developpement.md](docs/developpement.md#signature-android).
+1. Monter la version dans `package.json`, `src-tauri/tauri.conf.json` et
+   `src-tauri/Cargo.toml`. Lancer tous les tests (voir ci-dessus), commiter,
+   pousser sur `origin` et `github`.
+2. Construire sur GitHub :
+   `gh workflow run release.yml --repo nathan-ed/mathalea-mobile -f version=v0.2.0 -f cibles=tout`
+   (`bureau` ou `android` pour une partie ; un tag `v*` le lance aussi).
+   Suivi : `gh run watch <id> --exit-status`. Résultat : release brouillon.
+3. APK construites ici, en parallèle (prioritaires sur celles de la CI) :
+   `pnpm tauri android build --apk --split-per-abi --target aarch64 --target armv7`.
+4. `APK_LOCALES=1 scripts/release.sh v0.2.0` : range les fichiers dans
+   `releases/v0.2.0/` (noms uniformes, Git LFS, `SHA256SUMS`) et crée ou
+   complète la release de la forge. Commiter `releases/`, pousser. Le
+   script se relance quand la CI a fini : APK d'abord, le reste ensuite.
 
 ## Licence
 

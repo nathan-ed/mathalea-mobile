@@ -177,6 +177,21 @@ refuse la mise à jour.
     d'élèves photographiés d'un coup (ML Kit détecte plusieurs codes par
     image ; plugin Tauri à vérifier, sinon plugin Kotlin comme le partage ;
     sur ordinateur, zxing-cpp en WebAssembly).
+  - Choix de Nathan : **pas de réponses** dans le bilan, seulement le
+    résultat de chaque question (dernière et meilleure tentative), le nombre
+    de tentatives, les scores moyen, meilleur et dernier par exercice.
+  - Essai (simulation, 13 octobre 2026) : bilans réels sans réponses
+    (JSON, deflate, base64) de 216 caractères (3 × 5, QR version 11) à 360
+    (10 × 10, version 14). Photos simulées (perspective, flou, bruit, JPEG)
+    lues avec zxing-cpp, qui lit plusieurs codes par image :
+    - 4 téléphones en 2 × 2 sur la table : 4/4 lus dans tous les cas, même en
+      aperçu caméra 720p et avec le flou le plus fort ;
+    - 4 téléphones en ligne (champ plus large, QR plus petits) : 4/4 avec un
+      flou léger, 0/4 avec le flou fort : préférer 2 × 2, ou deux photos ;
+    - 1 téléphone, grille 2 × 2 de QR (1 068 caractères) et un seul grand QR
+      (version 27) : lus dans tous les cas.
+    À confirmer sur de vrais téléphones (reflets d'écran, luminosité) et avec
+    ML Kit sur Android avant de choisir.
   - Côté enseignant : onglet Résultats par classe, tableau élèves × exercices,
     exercices les moins réussis en tête, réponses d'un élève sur une
     question, export CSV.
