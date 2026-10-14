@@ -16,6 +16,7 @@
     onsauver,
     onquitter,
     onterminer,
+    onsupprimer,
   }: {
     parcours: Parcours
     seance: Seance
@@ -23,6 +24,7 @@
     onsauver: (s: Seance) => void
     onquitter: () => void
     onterminer: () => void
+    onsupprimer?: () => void // absent dans l'aperçu de l'éditeur : quitter suffit
   } = $props()
 
   type Ref = { etape: number; question: number; rang: number }
@@ -85,7 +87,10 @@
     return `${arrondi(faites.reduce((a, q) => a + valeur(premiers.get(cleQuestion(q.etape, q.question))), 0))}/${qs.length}`
   }
 
+  // Tentative supprimée : un brouillon envoyé en partant ne doit pas la recréer
+  let supprimee = false
   function sauver() {
+    if (supprimee) return
     onsauver($state.snapshot(seance) as Seance)
   }
 
@@ -126,16 +131,36 @@
   // ---------- Garde-fou : réponses manquantes ou pas encore vérifiées ----------
   type Manque = { ref: Ref; raison: 'vide' | 'saisie' }
   let avertissement: { manques: Manque[]; libelle: string; continuer: () => void } | null = $state(null)
-  // Retour du téléphone pendant la séance : confirmer avant de quitter
-  let confirmerSortie = $state(false)
-  // Bouton retour du téléphone : referme ce qui est ouvert, sinon demande confirmation
+  // Sortie (croix ou retour du téléphone) : reprendre plus tard, terminer
+  // tout de suite ou supprimer la tentative
+  let sortie: 'choix' | 'suppression' | null = $state(null)
+  function demanderSortie() {
+    if (onsupprimer) sortie = 'choix'
+    else onquitter()
+  }
+  // Bouton retour du téléphone : referme ce qui est ouvert, sinon demande quoi faire
   retourSi(
     () => true,
     () => {
       if (avertissement) avertissement = null
-      else confirmerSortie = true
+      else demanderSortie()
     },
   )
+  // Rien de répondu : terminer donnerait un passage vide
+  const peutTerminer = $derived(seance.essais.length > 0 || Object.keys(seance.brouillons).length > 0 || !!seance.soumise)
+
+  /** Correction à la fin pas encore demandée : on soumet ; sinon, bilan avec ce qui est fait */
+  function terminerMaintenant() {
+    sortie = null
+    if (finale && !seance.soumise) void soumettreTentative()
+    else onterminer()
+  }
+
+  function supprimerTentative() {
+    supprimee = true
+    sortie = null
+    onsupprimer?.()
+  }
 
   function etatDe(ref: Ref): 'verifiee' | 'saisie' | 'vide' {
     const i = pages[page]?.findIndex((q) => q.rang === ref.rang) ?? -1
@@ -272,7 +297,7 @@
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre={parcours.titre}>
     {#snippet gauche()}
-      <button type="button" aria-label="Quitter (tout est enregistré)" onclick={onquitter} class="bouton-icone">
+      <button type="button" aria-label="Quitter" onclick={demanderSortie} class="bouton-icone">
         <i aria-hidden="true" class="bx bx-x text-3xl"></i>
       </button>
     {/snippet}
@@ -435,13 +460,29 @@
   {/if}
 
   <div bind:this={hoteClavier}></div>
-  {#if confirmerSortie}
-    <Feuille onfermer={() => (confirmerSortie = false)}>
+  {#if sortie === 'choix'}
+    <Feuille onfermer={() => (sortie = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Quitter l’activité ?</p>
-      <p class="text-sm">Tes réponses sont enregistrées : tu pourras reprendre plus tard.</p>
+      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onquitter}>Reprendre plus tard</button>
+      {#if peutTerminer}
+        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={terminerMaintenant}>
+          {finale && !seance.soumise ? 'Soumettre maintenant' : 'Terminer maintenant'}
+        </button>
+      {/if}
+      <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (sortie = 'suppression')}>
+        Supprimer la tentative
+      </button>
+      <button type="button" class="presse w-full py-2 text-sm font-semibold text-coopmaths-action dark:text-coopmathsdark-action" onclick={() => (sortie = null)}>
+        Rester
+      </button>
+    </Feuille>
+  {:else if sortie === 'suppression'}
+    <Feuille onfermer={() => (sortie = 'choix')}>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer cette tentative ?</p>
+      <p class="text-sm">Ses réponses seront effacées. Tes passages terminés sont gardés.</p>
       <div class="flex flex-row gap-3">
-        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
-        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={onquitter}>Quitter</button>
+        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (sortie = 'choix')}>Annuler</button>
+        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={supprimerTentative}>Supprimer</button>
       </div>
     </Feuille>
   {/if}

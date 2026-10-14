@@ -50,7 +50,7 @@ ok(await page.getByText('Quitter l’activité ?').isVisible(), 'séance : confi
 await retour()
 ok(!(await page.getByText('Quitter l’activité ?').isVisible()) && (await page.locator('main math-field, main input').first().isVisible()), 'séance : second retour, on reste')
 await retour()
-await page.getByRole('button', { name: 'Quitter', exact: true }).click()
+await page.getByRole('button', { name: 'Reprendre plus tard' }).click()
 await page.waitForTimeout(300)
 ok(await visible('button', /Commencer|Continuer/), 'séance quittée → détail du parcours')
 await retour()

@@ -408,7 +408,12 @@ Environnement (machine de Nathan)
   Clés de `{#each}` : un même exercice peut figurer deux fois, prendre le rang.
 - Svelte 5 : pendant un démontage (`onDestroy`), l'état relu a ses anciennes
   valeurs. Écrire la séance à ce moment remettait la question quittée : le
-  brouillon de `BlocQuestion` part dans un `queueMicrotask`.
+  brouillon de `BlocQuestion` part dans un `queueMicrotask`. De même, une
+  tentative supprimée serait recréée par ce brouillon : `Seance` n'écrit plus
+  rien après `supprimerTentative` (drapeau `supprimee`).
+- Le clavier de MathALÉA peut s'ouvrir juste après l'ouverture d'une
+  `Feuille` (focus de la question suivante) et la recouvrir : masqué par
+  `body:has(.feuille)` dans `app.css`.
 - Touche Entrée dans une séance (`surEntree`) : avec la correction à la fin,
   elle passe à la question suivante sans rien vérifier.
 

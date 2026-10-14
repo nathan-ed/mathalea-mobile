@@ -282,4 +282,20 @@ describe('correction d’un parcours déjà travaillé', async () => {
     expect(passage.contenu.etapes[1]).toMatchObject({ uuid: 'bbb', nbQuestions: 1 })
     expect(questionsDe(passage)).toHaveLength(2)
   })
+
+  it('supprimer la tentative en cours garde les passages terminés et les résultats', async () => {
+    const { ecrireSeance, lireHistorique, lireSeance, supprimerSeance } = await import('../src/lib/progression')
+    const avant = await lireResultats(st, v1)
+    // Reprise d'un passage terminé (questions passées), puis nouvelle réponse
+    const reprise = (await lireHistorique(st, 'fractions'))[0]
+    reprise.fin = undefined
+    reprise.essais.push(essai(1, true))
+    await ecrireSeance(st, reprise)
+    expect(await lireSeance(st, 'fractions')).not.toBeNull()
+    await supprimerSeance(st, 'fractions')
+    expect(await lireSeance(st, 'fractions')).toBeNull()
+    expect(await lireHistorique(st, 'fractions')).toHaveLength(1)
+    expect((await lireHistorique(st, 'fractions'))[0].essais).toHaveLength(2)
+    expect(await lireResultats(st, v1)).toEqual(avant)
+  })
 })

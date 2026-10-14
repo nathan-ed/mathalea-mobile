@@ -32,6 +32,7 @@
     premiersEssais,
     questionsDe,
     terminerSeance,
+    supprimerSeance,
     type ResultatEtape,
     type Seance as TSeance,
   } from '$lib/progression'
@@ -326,6 +327,13 @@
     aller('bilan')
   }
 
+  async function supprimerTentative(id: string) {
+    await supprimerSeance(stockage!, id)
+    seances[id] = null
+    if (seance?.parcours === id) seance = undefined
+    aller('parcours')
+  }
+
   function revenirAuxPassees() {
     const s = seance!
     const premiere = bilan(s).passees[0]
@@ -609,6 +617,7 @@
       onrefaire={refaire}
       onameliorer={ameliorer}
       onsession={session}
+      onsupprimer={() => supprimerTentative(actif!.id)}
     />
   {:else if vue === 'relecture' && relue}
     <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} />
@@ -621,6 +630,7 @@
         onsauver={sauverSeance}
         onquitter={() => aller('parcours')}
         onterminer={terminer}
+        onsupprimer={() => supprimerTentative(seance!.parcours)}
       />
     {/key}
   {:else if vue === 'bilan' && seance && actif}

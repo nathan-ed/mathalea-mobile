@@ -172,6 +172,12 @@ refuse la mise à jour.
 
 ### 0.1.5
 
+- Sortie d'une séance (croix ou retour) : reprendre plus tard, terminer
+  maintenant (soumettre si la correction est à la fin ; masqué sans aucune
+  réponse) ou supprimer la tentative. Suppression aussi depuis le détail du
+  parcours ; les passages terminés et les résultats restent
+  (`supprimerSeance`). Le clavier de MathALÉA est masqué sous un panneau du
+  bas (fait).
 - Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
   JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
   avec une ou plusieurs compétences ; suivi de l'élève par compétence.

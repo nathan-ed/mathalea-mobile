@@ -5,6 +5,7 @@
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, listeGroupee, pastille } from './classes'
   import EnTete from './EnTete.svelte'
+  import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
   let {
@@ -22,6 +23,7 @@
     onrefaire,
     onameliorer,
     onsession,
+    onsupprimer,
   }: {
     parcours: Parcours
     resultats: Record<number, ResultatEtape>
@@ -37,10 +39,12 @@
     onrefaire: () => void
     onameliorer: () => void
     onsession: (code: string) => void
+    onsupprimer: () => void // tentative en cours
   } = $props()
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
   let code = $state('')
+  let confirmerSuppression = $state(false)
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
@@ -110,6 +114,7 @@
       {/if}
       {#if enCours}
         <button type="button" class="{boutonInverse} w-full" onclick={onrefaire}>Tout refaire</button>
+        <button type="button" class="{boutonInverse} w-full" onclick={() => (confirmerSuppression = true)}>Supprimer la tentative en cours</button>
       {/if}
       {#if session === 'creer'}
         <div class="text-center py-2">
@@ -185,4 +190,22 @@
       </ul>
     {/if}
   </main>
+  {#if confirmerSuppression}
+    <Feuille onfermer={() => (confirmerSuppression = false)}>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer la tentative en cours ?</p>
+      <p class="text-sm">Ses réponses seront effacées. Tes passages terminés sont gardés.</p>
+      <div class="flex flex-row gap-3">
+        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (confirmerSuppression = false)}>Annuler</button>
+        <button
+          type="button"
+          class="{boutonAction} flex-1"
+          style="min-height: 44px"
+          onclick={() => {
+            confirmerSuppression = false
+            onsupprimer()
+          }}>Supprimer</button
+        >
+      </div>
+    </Feuille>
+  {/if}
 </div>

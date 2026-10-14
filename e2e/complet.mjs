@@ -60,6 +60,8 @@ const accueil = async (page) => {
   for (let i = 0; i < 5 && !(await page.getByRole('button', { name: 'Réglages' }).isVisible().catch(() => false)); i++) {
     await page.getByRole('button', { name: /Revenir en arrière|Quitter/ }).first().click()
     await page.waitForTimeout(200)
+    // Séance : la croix propose de reprendre plus tard
+    if (await page.getByRole('button', { name: 'Reprendre plus tard' }).isVisible()) await page.getByRole('button', { name: 'Reprendre plus tard' }).click()
   }
 }
 const enonce = (page) => page.locator('main').innerText().then((t) => t.replace(/\s+/g, ' ').slice(0, 160))
@@ -180,6 +182,10 @@ ok((await texte(a)).includes('Session 1k3lr'), 'session 1k3lr affichée dans la 
 await a.goBack({ waitUntil: 'commit' })
 await a.waitForTimeout(300)
 ok((await a.getByRole('alert').innerText()).includes('Quitter l’activité'), 'retour du téléphone pendant une séance : confirmation demandée')
+ok(
+  (await a.getByRole('button', { name: 'Reprendre plus tard' }).isVisible()) && (await a.getByRole('button', { name: 'Supprimer la tentative' }).isVisible()),
+  'sortie : reprendre plus tard ou supprimer la tentative',
+)
 await a.getByRole('button', { name: 'Rester' }).click()
 const enonceA = await enonce(a)
 await cap(a, '4-session')
@@ -210,7 +216,63 @@ await b.locator('main math-field').first().waitFor()
 await b.waitForTimeout(500)
 ok((await enonce(b)) === enonceA, 'élève B, code 1K3LR : exactement les mêmes exercices que A')
 await b.getByRole('button', { name: 'Passer' }).click()
-await b.getByRole('button', { name: 'Quitter (tout est enregistré)' }).click()
+await b.getByRole('button', { name: 'Quitter', exact: true }).click()
+ok(!(await b.getByRole('button', { name: 'Terminer maintenant' }).isVisible()), 'sortie sans aucune réponse : pas de « Terminer maintenant »')
+await b.getByRole('button', { name: 'Reprendre plus tard' }).click()
+await b.getByRole('button', { name: 'Continuer', exact: true }).waitFor()
+ok(await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).isVisible(), 'détail : tentative en cours supprimable')
+
+// Terminer tout de suite : bilan avec ce qui est fait
+await b.getByRole('button', { name: 'Continuer', exact: true }).click()
+await b.locator('main math-field').first().waitFor()
+await b.waitForTimeout(500)
+await saisir(b, 0, '1')
+await b.getByRole('button', { name: 'Vérifier' }).click()
+await b.waitForTimeout(350)
+await b.getByRole('button', { name: 'Quitter', exact: true }).click()
+await b.waitForTimeout(400)
+await cap(b, '4b-sortie')
+await b.getByRole('button', { name: 'Terminer maintenant' }).click()
+await b.getByRole('button', { name: 'Retour à l’accueil' }).waitFor()
+ok(/\d+ \/ 9/.test(await texte(b)), `terminer maintenant : bilan (${(await texte(b)).match(/\d+ \/ \d+/)?.[0]})`)
+await b.getByRole('button', { name: 'Retour à l’accueil' }).click()
+await parcoursDeTest(b, 'Nombres relatifs')
+const passagesB = await b.locator('main').getByRole('button', { name: /%/ }).count()
+ok(passagesB === 1, `passage terminé gardé (${passagesB})`)
+
+// Supprimer depuis la séance (juste après une saisie : le brouillon en attente
+// ne doit pas la recréer), puis depuis le détail ; les passages terminés restent
+await b.getByRole('button', { name: 'Recommencer' }).click()
+await b.locator('main math-field').first().waitFor()
+await b.waitForTimeout(500)
+await saisir(b, 0, '2')
+await b.getByRole('button', { name: 'Quitter', exact: true }).click()
+await b.getByRole('button', { name: 'Supprimer la tentative' }).click()
+await b.getByRole('button', { name: 'Supprimer', exact: true }).click()
+await b.getByRole('button', { name: 'Recommencer' }).waitFor()
+await b.waitForTimeout(800)
+ok(
+  !(await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).isVisible()) &&
+    (await b.evaluate(() => Object.keys(localStorage).filter((c) => c.startsWith('copie:seance:')).length)) === 0,
+  'séance supprimée juste après une saisie : rien ne reste',
+)
+await b.getByRole('button', { name: 'Recommencer' }).click()
+await b.locator('main math-field').first().waitFor()
+await b.getByRole('button', { name: 'Quitter', exact: true }).click()
+await b.getByRole('button', { name: 'Reprendre plus tard' }).click()
+await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).click()
+await b.getByRole('button', { name: 'Supprimer', exact: true }).click()
+await b.waitForTimeout(500)
+ok(
+  (await b.getByRole('button', { name: 'Recommencer' }).isVisible()) &&
+    !(await b.getByRole('button', { name: 'Continuer', exact: true }).isVisible()) &&
+    (await b.locator('main').getByRole('button', { name: /%/ }).count()) === 1,
+  'détail : tentative supprimée, passage terminé gardé',
+)
+await b.reload()
+await b.getByRole('button', { name: /^\s*Nombres relatifs/ }).first().waitFor()
+await parcoursDeTest(b, 'Nombres relatifs')
+ok(!(await b.getByRole('button', { name: 'Continuer', exact: true }).isVisible()), 'après relance : la tentative supprimée ne revient pas')
 
 // Relecture, suivi
 await a.getByRole('button', { name: 'Retour à l’accueil' }).click()
@@ -291,7 +353,8 @@ await cap(t, '9-editeur-complet')
 await t.getByRole('button', { name: 'Aperçu élève' }).click()
 await t.locator('main math-field').first().waitFor()
 ok(await t.getByRole('button', { name: 'Soumettre l’exercice' }).isVisible(), 'aperçu élève du parcours en cours de création')
-await t.getByRole('button', { name: 'Quitter (tout est enregistré)' }).click()
+await t.getByRole('button', { name: 'Quitter', exact: true }).click()
+ok(!(await t.getByRole('button', { name: 'Reprendre plus tard' }).isVisible()), 'aperçu : la croix quitte directement')
 await t.getByRole('button', { name: 'Valider le parcours' }).click()
 ok((await texte(t)).includes('3e A') && (await texte(t)).includes('3e B'), 'parcours rangé dans 3e A et 3e B')
 ok(await t.getByText('« Fractions express » enregistré (V1)').isVisible(), 'après validation : téléchargement proposé')

@@ -145,6 +145,11 @@ export async function ecrireSeance(st: Stockage, s: Seance) {
   await st.ecrire(cleSeance(s.parcours), s)
 }
 
+/** Supprime la tentative en cours ; les passages terminés et les résultats restent */
+export async function supprimerSeance(st: Stockage, parcours: string) {
+  await st.effacer(cleSeance(parcours))
+}
+
 /**
  * Résultats d'une version. Une version sans résultats reprend ceux de la
  * précédente pour chaque exercice resté dans le parcours (même exercice

@@ -114,6 +114,12 @@ math-field,
   padding-bottom: calc(var(--bas) + 0.5rem) !important;
 }
 
+/* Panneau du bas ouvert (Feuille) : le clavier, qui peut s'ouvrir juste après
+   (focus sur la question suivante), ne le recouvre pas */
+body:has(.feuille) #mathalea-virtual-keyboard {
+  display: none !important;
+}
+
 /* Clavier de MathALÉA sur téléphone : toute la largeur, touches larges.
    Les tailles du site sont fixes (30 × 40 px) ; ici chaque bloc s'étire
    selon son nombre de colonnes. */
