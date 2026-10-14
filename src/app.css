@@ -84,3 +84,30 @@ body {
     gap: 6px !important;
   }
 }
+
+/* Changement d'écran : glissement court, comme une app (rien si l'appareil
+   demande moins d'animations). Par « left » et non « transform », qui
+   déplacerait aussi les barres fixées en bas de l'écran. */
+.ecran {
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ecran-avant {
+    animation: ecran-avant 180ms ease-out;
+  }
+  .ecran-arriere {
+    animation: ecran-arriere 180ms ease-out;
+  }
+}
+@keyframes ecran-avant {
+  from {
+    opacity: 0;
+    left: 2rem;
+  }
+}
+@keyframes ecran-arriere {
+  from {
+    opacity: 0;
+    left: -2rem;
+  }
+}

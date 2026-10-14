@@ -48,7 +48,7 @@
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import PiedDePage from '$lib/ui/PiedDePage.svelte'
-  import { navigation } from '$lib/navigation.svelte'
+  import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
   type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'enseignant' | 'creation' | 'apercu'
 
@@ -234,7 +234,14 @@
     await stockage!.ecrire('profil', p)
   }
 
+  // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, enseignant: 0, reglages: 1, parcours: 1, creation: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  let sens: 'avant' | 'arriere' = $state('avant')
+  // L'aperçu garde l'éditeur monté : même écran pour l'animation
+  const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
+
   function aller(v: Vue) {
+    sens = PROFONDEUR[v] < PROFONDEUR[vue] ? 'arriere' : 'avant'
     vue = v
     scrollTo(0, 0)
   }
@@ -247,6 +254,23 @@
     else onglet = 'mes'
     accueil()
   }
+
+  // Bouton retour du téléphone : écran précédent (séance et éditeur ont leur propre garde-fou)
+  $effect(() => {
+    const precedent: Partial<Record<Vue, () => void>> = {
+      reglages: accueil,
+      parcours: accueil,
+      relecture: () => aller('parcours'),
+      seance: () => aller('parcours'),
+      bilan: () => aller('parcours'),
+      creation: () => {
+        creation = null
+        aller('enseignant')
+      },
+      apercu: () => aller('creation'),
+    }
+    retourDeBase(profil !== null ? (precedent[vue] ?? null) : null)
+  })
 
   // ---------- Élève ----------
 
@@ -450,6 +474,8 @@
     <p class="p-4 font-bold text-coopmaths-action" role="alert">Moteur MathALÉA indisponible : {erreurMoteur}</p>
   {/if}
 
+  {#key ecran}
+  <div class="ecran ecran-{sens}">
   {#if !moteur || !pret}
     <!-- rien tant que le moteur (et sa feuille de style) n'est pas chargé -->
   {:else if profil === null}
@@ -602,6 +628,8 @@
       onfermer={() => aller('parcours')}
     />
   {/if}
+  </div>
+  {/key}
   {#if moteur && pret && profil !== null && vue !== 'seance' && vue !== 'apercu'}
     <PiedDePage />
   {/if}

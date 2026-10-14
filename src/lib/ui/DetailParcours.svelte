@@ -6,6 +6,7 @@
   import { boutonAction, boutonInverse, listeGroupee, pastille } from './classes'
   import EnTete from './EnTete.svelte'
   import FilAriane from './FilAriane.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     parcours,
@@ -41,6 +42,7 @@
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
   let code = $state('')
+  retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'

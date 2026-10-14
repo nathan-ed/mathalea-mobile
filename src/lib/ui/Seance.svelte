@@ -6,7 +6,7 @@
   import BlocQuestion from './BlocQuestion.svelte'
   import { boutonAction, boutonInverse, pastille } from './classes'
   import EnTete from './EnTete.svelte'
-  import { navigation } from '$lib/navigation.svelte'
+  import { navigation, retourSi } from '$lib/navigation.svelte'
 
   let {
     parcours,
@@ -127,6 +127,14 @@
   let avertissement: { manques: Manque[]; libelle: string; continuer: () => void } | null = $state(null)
   // Logo touché pendant la séance : confirmer avant de quitter
   let confirmerSortie = $state(false)
+  // Bouton retour du téléphone : referme ce qui est ouvert, sinon demande confirmation
+  retourSi(
+    () => true,
+    () => {
+      if (avertissement) avertissement = null
+      else confirmerSortie = !confirmerSortie
+    },
+  )
 
   function etatDe(ref: Ref): 'verifiee' | 'saisie' | 'vide' {
     const i = pages[page]?.findIndex((q) => q.rang === ref.rang) ?? -1

@@ -8,6 +8,7 @@
   import FilAriane from './FilAriane.svelte'
   import ReglagesExercice from './ReglagesExercice.svelte'
   import Tuile from './Tuile.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     moteur,
@@ -90,6 +91,7 @@
     ouvert = null
   }
 
+  retourSi(() => true, () => retour())
   function retour() {
     if (ouvert) ouvert = null
     else if (chapitre) chapitre = null

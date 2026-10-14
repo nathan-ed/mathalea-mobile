@@ -9,6 +9,7 @@
   import EnTete from './EnTete.svelte'
   import FilAriane from './FilAriane.svelte'
   import Tuile from './Tuile.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     bibliotheque,
@@ -45,6 +46,7 @@
   const texte = 'text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus'
   const carte = 'flex flex-col gap-3 rounded-xl p-4 border border-coopmaths-action dark:border-coopmathsdark-action'
   let vue: 'accueil' | 'modeles' = $state('accueil')
+  retourSi(() => vue === 'modeles', () => (vue = 'accueil'))
   let message = $state('')
   let lien = $state('')
   let modifierLien = $state(false)

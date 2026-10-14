@@ -22,6 +22,7 @@
   import EnTete from './EnTete.svelte'
   import FilAriane from './FilAriane.svelte'
   import Tuile from './Tuile.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     sources,
@@ -119,6 +120,15 @@
   }
   const niveaux = $derived([...new Set(explorables.map((p) => p.niveau))])
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
+
+  retourSi(
+    () => classe !== null || niveau !== null || onglet !== 'mes',
+    () => {
+      if (classe) classe = null
+      else if (niveau) niveau = null
+      else changerOnglet('mes')
+    },
+  )
 
   function changerOnglet(o: typeof onglet) {
     onglet = o

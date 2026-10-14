@@ -11,6 +11,7 @@
   // l'élève peut réordonner. Dans un chapitre : par difficulté, puis ordre de l'enseignant.
   import type { Parcours } from '$lib/catalogue'
   import Tuile from './Tuile.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     nom,
@@ -31,6 +32,7 @@
   } = $props()
 
   let organiser = $state(false)
+  retourSi(() => organiser, () => (organiser = false))
 
   const chapitres = $derived.by(() => {
     const groupes = new Map<string, Parcours[]>()

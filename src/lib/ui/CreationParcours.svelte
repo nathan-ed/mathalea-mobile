@@ -14,6 +14,7 @@
   import FilAriane from './FilAriane.svelte'
   import NavigateurExercices from './NavigateurExercices.svelte'
   import ReglagesExercice from './ReglagesExercice.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     bibliotheque,
@@ -79,6 +80,10 @@
   let messageLien = $state('')
   let confirmerSuppression = $state(false)
   let confirmerSortie = $state(false)
+  retourSi(
+    () => !navigateur,
+    () => (confirmerSortie ? (confirmerSortie = false) : quitter()),
+  )
   let messageExport = $state('')
   let navigateur = $state(false)
   let ouvert: number | null = $state(null) // exercice déplié : réglages et aperçu
