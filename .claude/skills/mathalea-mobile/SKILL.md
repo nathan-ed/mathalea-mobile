@@ -292,6 +292,14 @@ Environnement (machine de Nathan)
   elle-même, il faut une image Android 11 dont le WebView est 111 ou plus
   (image `google_apis_playstore` à jour, ou WebView mis à jour). Nettoyer
   l'AVD et l'image après (disque).
+- Constaté le 14 octobre 2026 : sur ce PC (x86_64), impossible de faire
+  tourner l'interface sur un émulateur Android 11. Les images API 30 ont un
+  WebView 83 figé, et Google ne publie plus de WebView x86 que pour
+  Android 12L et plus (vérifié sur les versions 15x) ; pas de WebView x86 dans
+  les compilations Chromium. Sur émulateur Android 11 : seulement
+  l'installation et l'écran « Mise à jour nécessaire ». Pour l'interface : APK
+  d'essai arm64 (`scripts/apk-essai.sh`, rangée dans `releases/essai/`) sur un
+  vrai téléphone Android 11, dont le WebView se met à jour par le Play Store.
 - Signature v1 : `scripts/signer-apk.sh <apk>…` (aussi dans la CI).
 - **Toute compilation terminée va dans `releases/`** (demande de Nathan) :
   release dans `releases/v<x>/`, essai dans `releases/essai/`
