@@ -1,4 +1,5 @@
 // Thème clair ou sombre. Sans choix de l'élève, celui du téléphone.
+import { partageNatif } from './fichiers'
 const CLE = 'theme'
 
 function lirePreference(): 'clair' | 'sombre' | null {
@@ -22,6 +23,8 @@ export function initialiserTheme() {
     theme.preference = pref ?? 'telephone'
     theme.sombre = pref ? pref === 'sombre' : systeme.matches
     document.documentElement.classList.toggle('dark', theme.sombre)
+    // Android : icônes de la barre d'état lisibles sur le fond de l'app
+    if (partageNatif) void import('@tauri-apps/api/core').then(({ invoke }) => invoke('barre_etat', { sombre: theme.sombre }).catch(() => {}))
   }
   appliquer()
   systeme.addEventListener('change', appliquer)

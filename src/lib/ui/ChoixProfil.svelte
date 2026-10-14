@@ -4,8 +4,11 @@
   import type { Profil } from './Reglages.svelte'
   import EnTete from './EnTete.svelte'
   import Tuile from './Tuile.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
   let { onchoisir }: { onchoisir: (pays: Pays, profil: Profil) => void } = $props()
   let pays: Pays | null = $state(null)
+  // Retour du téléphone sur « Vous êtes » : revient au choix du programme
+  retourSi(() => pays !== null, () => (pays = null))
   const titre = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
 </script>
 

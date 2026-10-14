@@ -22,9 +22,21 @@ Design (« les dev MathALÉA en charge du design vont me tomber dessus »)
   `static/moteur/moteur.css` (compilées par le site). Avant d'utiliser une
   classe nouvelle, la chercher :
   `grep -c '\.h-9[{,: ]' static/moteur/moteur.css` (0 = absente, ne marche pas).
-- Composants repris du site : `Tuile` (MobileTile), `FilAriane`, `ChampTexte`
+- Composants repris du site : `Tuile` (MobileTile), `ChampTexte`
   (InputText), `ChoixRadio` (FormRadio), classes de `src/lib/ui/classes.ts`
   (`boutonAction`, `boutonInverse`, `listeGroupee`, `pastille`).
+- « Ça fait trop site web » (testeurs, octobre 2026) : couleurs, polices et
+  icônes de MathALÉA, mais **formes d'app** (décision de Nathan). `EnTete`
+  (logo à l'accueil seulement, ailleurs retour + titre), `BarreOnglets`
+  (onglets élève en bas), `Feuille` (confirmations en panneau du bas), bouton
+  flottant (`.bouton-flottant`), boutons sans majuscules ni survol, cartes
+  sans cadre, pas de pied de page (licence dans Réglages, « À propos »),
+  thème dans Réglages (« Apparence »), texte non sélectionnable hors champs,
+  dé qui tourne au lancement (`app.html`). CSS propre à l'app dans
+  `src/app.css` avec les variables `--color-coopmaths*` de moteur.css.
+- Bouton retour du téléphone partout (`navigation.svelte.ts`, `retourSi`) :
+  tout nouvel état « ouvert » (sous-niveau, panneau, mode) doit déclarer
+  `retourSi(() => ouvert, () => (ouvert = false))`.
 - Rien d'« AI-like » : pas de dégradés, pastilles décoratives, slogans, texte
   de remplissage ni placeholder. Chaque texte porte une information ou une
   action (« aucun placeholder ou dead text avec moi »).
@@ -217,6 +229,10 @@ Environnement (machine de Nathan)
   `src-tauri/gen/android/app/build/outputs/apk/{arm64,arm}/release/`.
 - Essai rapide : `scripts/apk-essai.sh` (arm64) ou `scripts/apk-essai.sh x86_64`
   (émulateur) : sans LTO, une architecture, cache `src-tauri/target-essai`.
+- **Toute compilation terminée va dans `releases/`** (demande de Nathan) :
+  release dans `releases/v<x>/`, essai dans `releases/essai/`
+  (`MathALEA-<version>-<commit>-android-<abi>.apk`, ignoré par Git), fait
+  par `scripts/apk-essai.sh` lui-même.
 - Signature : `src-tauri/gen/android/keystore.properties` (ignoré) ; clé de
   **test** `~/.local/share/mathalea-mobile/mathalea-test.jks`, aussi dans les
   secrets GitHub (`ANDROID_KEYSTORE`, `_PASSWORD`, `ANDROID_KEY_ALIAS`,
@@ -332,6 +348,10 @@ Environnement (machine de Nathan)
   MathLive n'est pas prêt (sinon résultats aléatoires).
 - Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
   par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
+- `node e2e/retour.mjs` (seulement `pnpm dev` et le dossier « test ») :
+  bouton retour (`page.goBack()`) à chaque niveau.
+- `node e2e/captures-enseignant.mjs <dossier>` : captures enseignant en clair
+  et en sombre.
 - `node e2e/drives.mjs` : vrais kDrive et Dropbox dans le navigateur (relais).
 - Pièges Playwright : sélecteurs ambigus (`Enregistrer et quitter`,
   `Ouvrir le dossier`, boutons « Retirer l'exercice 4C21 » vs l'exercice) →
@@ -375,6 +395,13 @@ Environnement (machine de Nathan)
   octet.
 - Script bash avec `set -e` : `[ -n "$x" ] && cmd` en fin de boucle arrête le
   script quand le test est faux ; écrire `if …; then …; fi`.
+- Pas de `transform` dans une animation d'écran : il fait du conteneur le
+  repère des éléments `fixed` (barres du bas, clavier) ; animer `left`.
+- Le clavier MathALÉA (fixé, au premier plan) recouvre ce qui s'ouvre en bas :
+  `Feuille` retire le focus à l'ouverture et passe au-dessus (`z-index: 100`).
+- Historique : passer par `pushState` de `$app/navigation` (état
+  `page.state.retour`), jamais `history.pushState` directement (conflit avec
+  le routeur de SvelteKit).
 - Svelte 5 : `let x: HTMLElement` lié par `bind:this` et utilisé dans une
   fonction donne un avertissement → `$state()`. Un `$effect.pre` qui rouvre
   un niveau doit ne le faire qu'une fois (sinon « retour » impossible).

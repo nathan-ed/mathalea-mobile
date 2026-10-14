@@ -12,3 +12,13 @@ export NDK_HOME="${NDK_HOME:-$(ls -d "$ANDROID_HOME"/ndk/* | sort -V | tail -1)}
 export CARGO_TARGET_DIR="$(cd "$(dirname "$0")/.." && pwd)/src-tauri/target-essai"
 export CARGO_PROFILE_RELEASE_LTO=false CARGO_PROFILE_RELEASE_CODEGEN_UNITS=16 CARGO_PROFILE_RELEASE_OPT_LEVEL=2
 pnpm tauri android build --apk --split-per-abi --target "$cible"
+
+# Rangée dans releases/essai (non versionné) : toujours au même endroit
+racine="$(cd "$(dirname "$0")/.." && pwd)"
+version=$(node -p "require('$racine/package.json').version")
+commit=$(git -C "$racine" rev-parse --short HEAD)
+case "$cible" in aarch64) abi=arm64 dossier=arm64 ;; armv7) abi=armv7 dossier=arm ;; *) abi="$cible" dossier="$cible" ;; esac
+mkdir -p "$racine/releases/essai"
+cp "$racine/src-tauri/gen/android/app/build/outputs/apk/$dossier/release/app-$dossier-release.apk" \
+  "$racine/releases/essai/MathALEA-$version-$commit-android-$abi.apk"
+echo "Rangée : releases/essai/MathALEA-$version-$commit-android-$abi.apk"

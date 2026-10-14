@@ -9,8 +9,12 @@ toute modification.
 ## Règles
 
 - Français partout (interface, commentaires, documentation). Pas de tiret cadratin.
-- Design : uniquement les composants et classes Tailwind de MathALÉA (compilées
-  dans `static/moteur/moteur.css`, voir `src/lib/ui/classes.ts`). Aucun style
+- Design : couleurs, polices et icônes de MathALÉA (classes Tailwind compilées
+  dans `static/moteur/moteur.css`, voir `src/lib/ui/classes.ts`), formes d'une
+  app de téléphone et non d'un site : barre de titre avec retour, onglets en
+  bas, panneaux du bas (`Feuille`), bouton retour du téléphone partout. Le
+  peu de CSS propre à l'app est dans `src/app.css`, avec les variables de
+  couleur de MathALÉA (aucune nouvelle couleur). Aucun style
   « maquette IA » (dégradés, pastilles décoratives, slogans), aucun texte de
   remplissage ni placeholder : chaque texte porte une information ou une action.
 - Icônes boxicons avec `aria-hidden="true"`.

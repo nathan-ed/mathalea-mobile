@@ -4,6 +4,11 @@
 /* Couleurs de MathALÉA (variables de moteur.css) pour les quelques styles
    propres à l'app : mêmes teintes que les classes coopmaths / coopmathsdark */
 :root {
+  /* Zones sûres : celles du navigateur, ou celles qu'Android donne à l'app
+     (--marge-*, posées par marges.ts : le WebView d'Android ne compte pas la
+     barre de navigation dans safe-area-inset-bottom) */
+  --haut: max(env(safe-area-inset-top), var(--marge-haut, 0px));
+  --bas: max(env(safe-area-inset-bottom), var(--marge-bas, 0px));
   --app-fond: var(--color-coopmaths-canvas);
   --app-fond-2: var(--color-coopmaths-canvas-dark);
   --app-presse: var(--color-coopmaths-canvas-darkest);
@@ -29,12 +34,35 @@ body {
 body {
   min-height: 100dvh;
   overflow-x: hidden;
+  /* Interface d'app : pas de sélection de texte ni de menu au toucher long,
+     pas de délai de double toucher. Les champs de saisie restent sélectionnables. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+input,
+textarea,
+math-field,
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Barres de défilement masquées sur écran tactile (comme les apps) */
+@media (pointer: coarse) {
+  * {
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 .zone-sure-haut {
-  padding-top: env(safe-area-inset-top);
+  padding-top: var(--haut);
 }
 .zone-sure-bas {
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: var(--bas);
 }
 
 /* Bouton rond d'une barre (retour, réglages, épingle) : zone de 48 px,
@@ -83,7 +111,7 @@ body {
 /* Clavier de MathALÉA (fixé en bas) : au-dessus de la barre de navigation
    du téléphone, que l'app recouvre (affichage bord à bord d'Android) */
 #mathalea-virtual-keyboard {
-  padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem) !important;
+  padding-bottom: calc(var(--bas) + 0.5rem) !important;
 }
 
 /* Clavier de MathALÉA sur téléphone : toute la largeur, touches larges.
@@ -154,7 +182,7 @@ body {
   padding-bottom: 0.375rem;
 }
 .avec-onglets {
-  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  padding-bottom: calc(4.5rem + var(--bas));
 }
 /* Clavier du téléphone ouvert sur un champ : la barre ne remonte pas avec lui */
 body:has(input:focus, textarea:focus) .barre-onglets {
@@ -169,7 +197,7 @@ body:has(input:focus, textarea:focus) .barre-onglets {
 /* Panneau du bas (Feuille.svelte) */
 .feuille {
   border-radius: 1rem 1rem 0 0;
-  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  padding-bottom: calc(1rem + var(--bas));
 }
 .feuille-poignee {
   align-self: center;
@@ -201,7 +229,7 @@ body:has(input:focus, textarea:focus) .barre-onglets {
 .bouton-flottant {
   position: fixed;
   right: 1rem;
-  bottom: calc(1rem + env(safe-area-inset-bottom));
+  bottom: calc(1rem + var(--bas));
   z-index: 30;
   min-height: 3.5rem;
   padding-inline: 1.25rem;

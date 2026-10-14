@@ -65,6 +65,27 @@ kDrive redirige vers une page d'erreur toute requête qui porte un en-tête
 `Origin` étranger : dans l'app, les téléchargements passent par la commande
 Rust `telecharger`.
 
+### Interface d'app
+
+- Bouton retour du téléphone : `src/lib/navigation.svelte.ts`. Chaque
+  composant déclare ce que « retour » referme chez lui (`retourSi`) ; sinon
+  la page revient à l'écran précédent. L'historique garde une seule entrée
+  en plus de la page (sans changer d'adresse) : Android revient en arrière
+  par défaut tant qu'elle existe, puis quitte l'app depuis l'accueil.
+- `EnTete` : logo à l'accueil, ailleurs retour et titre. Onglets élève en bas
+  (`BarreOnglets`), confirmations dans un panneau du bas (`Feuille`), bouton
+  flottant pour l'action principale de l'enseignant.
+- Lancement : `app.html` affiche le dé MathALÉA qui tourne et applique le
+  thème avant tout chargement ; retiré quand le moteur est prêt. Android :
+  fond de fenêtre aux couleurs canvas (`res/values*/colors.xml`), icônes de
+  la barre d'état selon le thème de l'app (commande `barre_etat`,
+  `PartagePlugin.kt`).
+- iOS (à faire sur un Mac après `pnpm tauri ios init`) : fond de l'écran de
+  démarrage (`LaunchScreen.storyboard`) aux couleurs canvas, couleur des
+  icônes de la barre d'état, et le geste de retour par balayage du bord
+  (WKWebView `allowsBackForwardNavigationGestures`, à activer côté natif ;
+  la flèche de la barre de titre suffit sans lui).
+
 ## Tests
 
 - `pnpm check` : types.
@@ -74,6 +95,8 @@ Rust `telecharger`.
   kDrive de démonstration.
 - `pnpm e2e` : bout en bout, trois appareils simulés (voir README). Parcours
   de test : `tests/parcours-de-test.ts`, déposés par `e2e/preparer.mts`.
+- `node e2e/retour.mjs` : bouton retour du téléphone (simulé par
+  « précédent ») à chaque niveau, confirmations de la séance.
 - `node e2e/regressions.mjs` : défauts déjà corrigés (brouillon d'une question
   quittée aussitôt, Entrée avec correction à la fin, suivi après modification
   d'un parcours). Seul `pnpm dev` est nécessaire. Code de sortie 1 si un

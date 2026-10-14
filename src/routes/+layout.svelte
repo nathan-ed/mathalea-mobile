@@ -5,6 +5,7 @@
   import { page } from '$app/state'
   import { initialiserTheme } from '$lib/theme.svelte'
   import { brancherHistorique, etatHistorique } from '$lib/navigation.svelte'
+  import { suivreMarges } from '$lib/marges'
   let { children } = $props()
 
   onMount(() => {
@@ -12,7 +13,12 @@
       'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus'
     // Bouton retour du téléphone : une entrée d'historique sans changer d'adresse
     brancherHistorique((present) => (present ? pushState('', { retour: true }) : history.back()))
-    return initialiserTheme()
+    const finMarges = suivreMarges()
+    const finTheme = initialiserTheme()
+    return () => {
+      finMarges()
+      finTheme()
+    }
   })
 
   $effect(() => etatHistorique(!!page.state.retour))

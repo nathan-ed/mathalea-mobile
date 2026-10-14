@@ -254,6 +254,14 @@
     accueil()
   }
 
+  // Écran de lancement (app.html) : retiré quand le moteur est prêt ou en erreur
+  $effect(() => {
+    if (!((moteur && pret) || erreurMoteur)) return
+    const lancement = document.getElementById('lancement')
+    lancement?.classList.add('fini')
+    setTimeout(() => lancement?.remove(), 250)
+  })
+
   // Bouton retour du téléphone : écran précédent (séance et éditeur ont leur propre garde-fou)
   $effect(() => {
     const precedent: Partial<Record<Vue, () => void>> = {

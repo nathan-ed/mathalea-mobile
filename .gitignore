@@ -16,3 +16,6 @@ vite.config.ts.timestamp-*
 /src-tauri/gen/schemas
 # Essais de bout en bout
 /e2e/captures
+
+# APK d'essai compilées ici (scripts/apk-essai.sh) : rangées, pas versionnées
+releases/essai/

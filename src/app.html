@@ -1,13 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Tauri + SvelteKit + Typescript App</title>
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#282a36" media="(prefers-color-scheme: dark)" />
+    <title>MathALÉA</title>
+    <script>
+      // Thème choisi dans les Réglages appliqué avant le premier affichage
+      // (sinon un éclair clair au lancement en thème sombre)
+      try {
+        const t = localStorage.getItem('theme')
+        if (t === 'sombre' || (t !== 'clair' && matchMedia('(prefers-color-scheme: dark)').matches))
+          document.documentElement.classList.add('dark')
+      } catch {}
+    </script>
+    <style>
+      /* Écran de lancement : le dé MathALÉA tourne jusqu'à ce que le moteur
+         soit prêt (couleurs canvas de MathALÉA, moteur.css pas encore chargé) */
+      html { background: #fff; }
+      html.dark { background: #282a36; }
+      #lancement {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: inherit;
+        transition: opacity 200ms;
+      }
+      #lancement.fini { opacity: 0; pointer-events: none; }
+      #lancement img { width: 5rem; animation: de-tourne 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+      @keyframes de-tourne { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { #lancement img { animation: none; } }
+    </style>
     %sveltekit.head%
   </head>
-  <body data-sveltekit-preload-data="hover">
+  <body>
+    <div id="lancement" aria-hidden="true"><img src="%sveltekit.assets%/logo_mathalea.svg" alt="" /></div>
     <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>

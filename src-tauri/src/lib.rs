@@ -17,7 +17,9 @@ pub fn run() {
             telechargement::telecharger,
             moteur::moteur_telecharge,
             moteur::mettre_a_jour_moteur,
-            partage::partager_fichier
+            partage::partager_fichier,
+            partage::barre_etat,
+            partage::marges
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
