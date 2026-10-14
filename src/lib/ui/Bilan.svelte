@@ -6,7 +6,6 @@
   import { boutonAction, boutonInverse, listeGroupee, pastille } from './classes'
   import EnTete from './EnTete.svelte'
   import { navigation } from '$lib/navigation.svelte'
-  import FilAriane from './FilAriane.svelte'
 
   let {
     parcours,
@@ -34,8 +33,7 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete />
-  <FilAriane titre={seance.type === 'ciblee' ? `${parcours.titre} · reprise` : parcours.titre} onretour={onfermer} />
+  <EnTete titre={seance.type === 'ciblee' ? `${parcours.titre} · reprise` : parcours.titre} onretour={onfermer} />
 
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
     <div class="text-center py-4">

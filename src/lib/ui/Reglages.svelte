@@ -9,8 +9,8 @@
   import ChoixRadio from './ChoixRadio.svelte'
   import { boutonAction, boutonInverse, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
-  import FilAriane from './FilAriane.svelte'
-
+  import { choisirTheme, theme, type PreferenceTheme } from '$lib/theme.svelte'
+  import { version } from '../../../package.json'
 
   let {
     profil = $bindable(),
@@ -43,7 +43,7 @@
   } = $props()
 
   // Chaque réglage est enregistré aussitôt ; après un changement, un bouton ramène à l'accueil
-  const etat = () => JSON.stringify([profil, pays, classes.map((c) => [c.lien, c.nom])])
+  const etat = () => JSON.stringify([profil, pays, theme.preference, classes.map((c) => [c.lien, c.nom])])
   const depart = etat()
   const modifie = $derived(etat() !== depart)
 
@@ -77,12 +77,22 @@
   }
 
 
+  /** Lien vers coopmaths.fr : navigateur du téléphone dans l'app */
+  async function ouvrirCoopmaths(e: MouseEvent) {
+    e.preventDefault()
+    try {
+      const { openUrl } = await import('@tauri-apps/plugin-opener')
+      await openUrl('https://coopmaths.fr')
+    } catch {
+      window.open('https://coopmaths.fr', '_blank', 'noopener')
+    }
+  }
+
   const date = (iso?: string) => (iso ? new Date(iso).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : '')
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete />
-  <FilAriane titre="Réglages" {onretour}>
+  <EnTete titre="Réglages" {onretour}>
     {#snippet droite()}
       {#if modifie}
         <button type="button" class="shrink-0 px-2 py-1 text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" onclick={onretour}>
@@ -90,7 +100,7 @@
         </button>
       {/if}
     {/snippet}
-  </FilAriane>
+  </EnTete>
 
   <main class="flex-1 flex flex-col gap-8 p-4 zone-sure-bas">
     <section>
@@ -112,6 +122,19 @@
         options={[
           { libelle: 'France', valeur: 'FR' },
           { libelle: 'Suisse', valeur: 'CH' },
+        ]}
+      />
+    </section>
+
+    <section>
+      <h2 class={titreSection}>Apparence</h2>
+      <ChoixRadio
+        nom="theme"
+        bind:valeur={() => theme.preference, (p: PreferenceTheme) => choisirTheme(p)}
+        options={[
+          { libelle: 'Comme le téléphone', valeur: 'telephone' },
+          { libelle: 'Clair', valeur: 'clair' },
+          { libelle: 'Sombre', valeur: 'sombre' },
         ]}
       />
     </section>
@@ -215,6 +238,14 @@
         <input type="file" accept=".json,application/json" class="hidden" onchange={restaurer} />
       </label>
       {#if messageSauvegarde}<p class={texteDiscret} role="status">{messageSauvegarde}</p>{/if}
+    </section>
+
+    <section class="flex flex-col gap-1">
+      <h2 class={titreSection}>À propos</h2>
+      <p class="pl-2 {texteDiscret}">
+        MathALÉA {version} · licence AGPL-3.0 ·
+        <a href="https://coopmaths.fr" class="text-coopmaths-action dark:text-coopmathsdark-action" onclick={ouvrirCoopmaths}>coopmaths.fr</a>
+      </p>
     </section>
   </main>
 </div>

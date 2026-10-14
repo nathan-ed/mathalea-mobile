@@ -7,7 +7,6 @@
   import BlocQuestion from './BlocQuestion.svelte'
   import { pastille } from './classes'
   import EnTete from './EnTete.svelte'
-  import FilAriane from './FilAriane.svelte'
 
   let { parcours, seance, moteur, onretour }: { parcours: Parcours; seance: Seance; moteur: Moteur; onretour: () => void } =
     $props()
@@ -39,12 +38,11 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete>
+  <EnTete titre="{parcours.titre} · {date}" {onretour}>
     {#snippet droite()}
-      <span class={pastille}>{arrondi(b.points)}/{b.sur}</span>
+      <span class="px-3"><span class={pastille}>{arrondi(b.points)}/{b.sur}</span></span>
     {/snippet}
   </EnTete>
-  <FilAriane titre="{parcours.titre} · {date}" {onretour} />
 
   <main class="flex-1 px-4 pt-4 zone-sure-bas">
     {#if erreur}

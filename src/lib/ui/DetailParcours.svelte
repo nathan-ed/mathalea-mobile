@@ -5,7 +5,6 @@
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, listeGroupee, pastille } from './classes'
   import EnTete from './EnTete.svelte'
-  import FilAriane from './FilAriane.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
   let {
@@ -53,22 +52,21 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete />
-  <FilAriane titre={parcours.titre} {onretour}>
+  <EnTete titre={parcours.titre} {onretour}>
     {#snippet droite()}
       {#if !explorer}
       <button
         type="button"
         aria-label={epingle ? 'Retirer de l’accueil' : 'Épingler à l’accueil'}
         aria-pressed={epingle}
-        class="shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action"
+        class="bouton-icone"
         onclick={onepingler}
       >
         <i aria-hidden="true" class="bx {epingle ? 'bxs-pin' : 'bx-pin'} text-2xl"></i>
       </button>
       {/if}
     {/snippet}
-  </FilAriane>
+  </EnTete>
 
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
     <div>

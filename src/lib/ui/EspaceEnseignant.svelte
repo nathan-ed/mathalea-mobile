@@ -7,7 +7,6 @@
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse } from './classes'
   import EnTete from './EnTete.svelte'
-  import FilAriane from './FilAriane.svelte'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
@@ -97,16 +96,19 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete>
-    {#snippet gauche()}
-      <button type="button" aria-label="Réglages" onclick={onreglages} class="shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action">
-        <i aria-hidden="true" class="bx bx-cog text-3xl"></i>
-      </button>
-    {/snippet}
-  </EnTete>
+  {#if vue === 'modeles'}
+    <EnTete titre="Éditer un parcours existant" onretour={() => (vue = 'accueil')} />
+  {:else}
+    <EnTete>
+      {#snippet droite()}
+        <button type="button" aria-label="Réglages" onclick={onreglages} class="bouton-icone">
+          <i aria-hidden="true" class="bx bx-cog text-2xl"></i>
+        </button>
+      {/snippet}
+    </EnTete>
+  {/if}
 
   {#if vue === 'modeles'}
-    <FilAriane titre="Éditer un parcours existant" onretour={() => (vue = 'accueil')} />
     <div class="flex flex-col gap-3 p-4">
       {#if bibliotheque.parcours.length}
         <h2 class={titreSection}>Mes parcours</h2>

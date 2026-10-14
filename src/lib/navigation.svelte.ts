@@ -1,5 +1,5 @@
-// Navigation commune : le logo de l'en-tête ramène à l'accueil (page.svelte
-// fournit la fonction). Pendant une séance, une confirmation est demandée.
+// Navigation commune : « Quitter » de la séance et du bilan ramène à l'accueil
+// (page.svelte fournit la fonction).
 export const navigation = $state({ versAccueil: () => {} })
 
 // Bouton retour du téléphone (Android), geste de retour et bouton « précédent »

@@ -47,7 +47,6 @@
   import Relecture from '$lib/ui/Relecture.svelte'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
-  import PiedDePage from '$lib/ui/PiedDePage.svelte'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
   type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'enseignant' | 'creation' | 'apercu'
@@ -630,7 +629,4 @@
   {/if}
   </div>
   {/key}
-  {#if moteur && pret && profil !== null && vue !== 'seance' && vue !== 'apercu'}
-    <PiedDePage />
-  {/if}
 </div>

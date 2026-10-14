@@ -10,12 +10,16 @@ function lirePreference(): 'clair' | 'sombre' | null {
   }
 }
 
-export const theme = $state({ sombre: false })
+export type PreferenceTheme = 'telephone' | 'clair' | 'sombre'
+export const theme = $state({ sombre: false, preference: 'telephone' as PreferenceTheme })
+
+let appliquer = () => {}
 
 export function initialiserTheme() {
   const systeme = matchMedia('(prefers-color-scheme: dark)')
-  const appliquer = () => {
+  appliquer = () => {
     const pref = lirePreference()
+    theme.preference = pref ?? 'telephone'
     theme.sombre = pref ? pref === 'sombre' : systeme.matches
     document.documentElement.classList.toggle('dark', theme.sombre)
   }
@@ -24,12 +28,13 @@ export function initialiserTheme() {
   return () => systeme.removeEventListener('change', appliquer)
 }
 
-export function basculerTheme() {
-  theme.sombre = !theme.sombre
-  document.documentElement.classList.toggle('dark', theme.sombre)
+/** Réglage « Apparence » : appliqué aussitôt et mémorisé sur l'appareil */
+export function choisirTheme(p: PreferenceTheme) {
   try {
-    localStorage.setItem(CLE, theme.sombre ? 'sombre' : 'clair')
+    if (p === 'telephone') localStorage.removeItem(CLE)
+    else localStorage.setItem(CLE, p)
   } catch {
     /* préférence non mémorisée */
   }
+  appliquer()
 }

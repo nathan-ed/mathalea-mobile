@@ -56,7 +56,8 @@ const rejoindreClasseTest = async (page) => {
   await page.getByRole('button', { name: /^\s*Nombres relatifs/ }).first().waitFor()
 }
 const accueil = async (page) => {
-  for (let i = 0; i < 5 && !(await page.getByRole('tab', { name: 'Mes parcours' }).isVisible().catch(() => false)); i++) {
+  // Accueil : la barre porte le bouton Réglages (les onglets du bas restent visibles partout)
+  for (let i = 0; i < 5 && !(await page.getByRole('button', { name: 'Réglages' }).isVisible().catch(() => false)); i++) {
     await page.getByRole('button', { name: /Revenir en arrière|Quitter/ }).first().click()
     await page.waitForTimeout(200)
   }
@@ -176,8 +177,9 @@ await a.getByRole('button', { name: 'Rejoindre la session' }).click()
 await a.locator('main math-field').first().waitFor()
 await a.waitForTimeout(500)
 ok((await texte(a)).includes('Session 1k3lr'), 'session 1k3lr affichée dans la séance')
-await a.getByRole('button', { name: 'Accueil', exact: true }).click()
-ok((await a.getByRole('alert').innerText()).includes('Quitter l’activité'), 'logo pendant une séance : confirmation demandée')
+await a.goBack({ waitUntil: 'commit' })
+await a.waitForTimeout(300)
+ok((await a.getByRole('alert').innerText()).includes('Quitter l’activité'), 'retour du téléphone pendant une séance : confirmation demandée')
 await a.getByRole('button', { name: 'Rester' }).click()
 const enonceA = await enonce(a)
 await cap(a, '4-session')
@@ -192,7 +194,7 @@ for (let n = 0; n < 9; n++) {
 }
 ok((await texte(a)).includes('9 / 9'), `session 1k3lr terminée : ${(await texte(a)).match(/\d+ \/ \d+/)?.[0]}`)
 ok(await a.getByRole('button', { name: 'Retour à l’accueil' }).isVisible(), 'bilan : bouton « Retour à l’accueil »')
-ok((await a.locator('body').innerText()).includes('licence AGPL-3.0') && (await a.getByRole('link', { name: 'coopmaths.fr' }).isVisible()), 'pied de page : licence et coopmaths.fr')
+ok(!(await a.locator('body').innerText()).includes('licence AGPL-3.0'), 'pas de pied de page')
 await cap(a, '5-bilan-session')
 
 // ---------- Élève B : même code, mêmes exercices ----------
@@ -211,8 +213,8 @@ await b.getByRole('button', { name: 'Passer' }).click()
 await b.getByRole('button', { name: 'Quitter (tout est enregistré)' }).click()
 
 // Relecture, suivi
-await a.getByRole('button', { name: 'Accueil', exact: true }).click()
-ok(await a.getByRole('tab', { name: 'Mes parcours' }).isVisible(), 'logo : retour à l’accueil')
+await a.getByRole('button', { name: 'Retour à l’accueil' }).click()
+ok(await a.getByRole('tab', { name: 'Mes parcours' }).isVisible(), 'bilan : retour à l’accueil')
 await parcoursDeTest(a, 'Nombres relatifs')
 await a.locator('main').getByRole('button', { name: /%/ }).last().click()
 await a.waitForTimeout(1500)
@@ -314,6 +316,10 @@ await cap(t, '10-enseignant')
 
 // L'élève ajoute la classe par le lien du dossier partagé
 await a.getByRole('button', { name: 'Réglages' }).click()
+ok((await texte(a)).includes('licence AGPL-3.0') && (await a.getByRole('link', { name: 'coopmaths.fr' }).isVisible()), 'réglages : licence et coopmaths.fr')
+await a.getByLabel('Sombre').check()
+ok(await a.evaluate(() => document.documentElement.classList.contains('dark')), 'réglages : thème sombre appliqué aussitôt')
+await a.getByLabel('Comme le téléphone').check()
 await a.getByLabel('Lien de partage du dossier').fill(lienClasse)
 await a.getByRole('button', { name: 'Ajouter le dossier' }).click()
 await a.getByLabel('3e A').check({ timeout: 10000 })
@@ -393,6 +399,7 @@ await cap(t, '10b-edition-dossier')
 await t.getByRole('button', { name: 'Revenir en arrière' }).click()
 
 // Sauvegarde complète, restaurée sur un nouvel appareil
+await accueil(a)
 await a.getByRole('button', { name: 'Réglages' }).click()
 const [sauvegarde] = await Promise.all([a.waitForEvent('download'), a.getByRole('button', { name: 'Exporter une sauvegarde' }).click()])
 const fichierSauvegarde = `${dossierPartage}/sauvegarde.json`

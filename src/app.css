@@ -1,6 +1,25 @@
 /* L'apparence vient du CSS du moteur MathALÉA (moteur.css, classes Tailwind
    de MathALÉA). Ici, seulement ce que le site n'a pas à gérer : zones sûres
    des téléphones et défilement. */
+/* Couleurs de MathALÉA (variables de moteur.css) pour les quelques styles
+   propres à l'app : mêmes teintes que les classes coopmaths / coopmathsdark */
+:root {
+  --app-fond: var(--color-coopmaths-canvas);
+  --app-fond-2: var(--color-coopmaths-canvas-dark);
+  --app-presse: var(--color-coopmaths-canvas-darkest);
+  --app-action: var(--color-coopmaths-action);
+  --app-struct: var(--color-coopmaths-struct);
+  --app-discret: var(--color-coopmaths-corpus-lightest);
+}
+.dark {
+  --app-fond: var(--color-coopmathsdark-canvas);
+  --app-fond-2: var(--color-coopmathsdark-canvas-dark);
+  --app-presse: var(--color-coopmathsdark-canvas-darkest);
+  --app-action: var(--color-coopmathsdark-action);
+  --app-struct: var(--color-coopmathsdark-struct);
+  --app-discret: var(--color-coopmathsdark-corpus-lightest);
+}
+
 html,
 body {
   margin: 0;
@@ -16,6 +35,23 @@ body {
 }
 .zone-sure-bas {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Bouton rond d'une barre (retour, réglages, épingle) : zone de 48 px,
+   cercle visible sous le doigt */
+.bouton-icone {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: var(--app-action);
+  transition: background-color 150ms;
+}
+.bouton-icone:active {
+  background-color: var(--app-presse);
 }
 
 /* Sur ordinateur et tablette, le contenu reste à une largeur de lecture */
@@ -110,4 +146,17 @@ body {
     opacity: 0;
     left: -2rem;
   }
+}
+
+/* Barre d'onglets du bas : hauteur fixe, le contenu s'arrête au-dessus */
+.barre-onglets .onglet {
+  min-height: 3.75rem;
+  padding-bottom: 0.375rem;
+}
+.avec-onglets {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+/* Clavier du téléphone ouvert sur un champ : la barre ne remonte pas avec lui */
+body:has(input:focus, textarea:focus) .barre-onglets {
+  display: none;
 }

@@ -125,7 +125,7 @@
   // ---------- Garde-fou : réponses manquantes ou pas encore vérifiées ----------
   type Manque = { ref: Ref; raison: 'vide' | 'saisie' }
   let avertissement: { manques: Manque[]; libelle: string; continuer: () => void } | null = $state(null)
-  // Logo touché pendant la séance : confirmer avant de quitter
+  // Retour du téléphone pendant la séance : confirmer avant de quitter
   let confirmerSortie = $state(false)
   // Bouton retour du téléphone : referme ce qui est ouvert, sinon demande confirmation
   retourSi(
@@ -269,21 +269,15 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete surLogo={() => (confirmerSortie = true)}>
+  <EnTete titre={parcours.titre}>
     {#snippet gauche()}
-      <button
-        type="button"
-        aria-label="Quitter (tout est enregistré)"
-        onclick={onquitter}
-        class="shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action"
-      >
-        <i aria-hidden="true"
- class="bx bx-x text-3xl"></i>
+      <button type="button" aria-label="Quitter (tout est enregistré)" onclick={onquitter} class="bouton-icone">
+        <i aria-hidden="true" class="bx bx-x text-3xl"></i>
       </button>
     {/snippet}
     {#snippet droite()}
       {#if pret}
-        <span class={pastille}>{arrondi(points)}/{liste.length}</span>
+        <span class="px-3"><span class={pastille}>{arrondi(points)}/{liste.length}</span></span>
       {/if}
     {/snippet}
   </EnTete>

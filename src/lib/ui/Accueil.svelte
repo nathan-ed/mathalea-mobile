@@ -20,7 +20,7 @@
   import ContenuClasse, { type Organisation } from './ContenuClasse.svelte'
   import { boutonAction } from './classes'
   import EnTete from './EnTete.svelte'
-  import FilAriane from './FilAriane.svelte'
+  import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
@@ -139,42 +139,22 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete>
-    {#snippet gauche()}
-      <button
-        type="button"
-        aria-label="Réglages"
-        onclick={onreglages}
-        class="shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action"
-      >
-        <i aria-hidden="true"
- class="bx bx-cog text-3xl"></i>
-      </button>
-    {/snippet}
-  </EnTete>
+  {#if onglet === 'mes' && classe}
+    <EnTete titre={classe.nom} onretour={() => (classe = null)} />
+  {:else if onglet === 'explorer' && niveau}
+    <EnTete titre={niveau} onretour={() => (niveau = null)} />
+  {:else}
+    <EnTete>
+      {#snippet droite()}
+        <button type="button" aria-label="Réglages" onclick={onreglages} class="bouton-icone">
+          <i aria-hidden="true" class="bx bx-cog text-2xl"></i>
+        </button>
+      {/snippet}
+    </EnTete>
+  {/if}
 
-  <!-- Onglets de la vue élève de MathALÉA (Eleve.svelte) -->
-  <div
-    class="grid justify-items-center w-full mt-2 border-b-2 border-coopmaths-struct dark:border-coopmathsdark-struct
-    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-    style="grid-template-columns: repeat(3, minmax(0, 1fr));"
-    role="tablist"
-  >
-    {#each [['mes', 'Mes parcours'], ['explorer', 'Explorer'], ['suivi', 'Suivi']] as [cle, libelle] (cle)}
-      <button
-        role="tab"
-        aria-selected={onglet === cle}
-        class="relative group {onglet === cle ? 'border-b-4' : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action dark:text-coopmathsdark-action"
-        onclick={() => changerOnglet(cle as typeof onglet)}
-      >
-        <div class="pt-2 pb-4 px-2 text-xl font-light whitespace-nowrap">{libelle}</div>
-      </button>
-    {/each}
-  </div>
-
-  <main class="flex-1 zone-sure-bas">
+  <main class="flex-1 avec-onglets">
     {#if onglet === 'mes' && classe}
-      <FilAriane titre={classe.nom} onretour={() => (classe = null)} />
       <div class="flex flex-col gap-3 p-4">
         <ContenuClasse
           nom="Chapitres"
@@ -279,7 +259,6 @@
         {/if}
       </div>
     {:else if onglet === 'explorer' && niveau}
-      <FilAriane titre={niveau} onretour={() => (niveau = null)} />
       <div class="flex flex-col gap-3 p-4">
         {#each parTheme(explorables.filter((p) => p.niveau === niveau)) as [theme, ps] (theme)}
           <h2 class={titreSection}>{theme}</h2>
@@ -304,4 +283,17 @@
       {@render suivi()}
     {/if}
   </main>
+
+  <BarreOnglets
+    onglets={[
+      { cle: 'mes', libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
+      { cle: 'explorer', libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
+      { cle: 'suivi', libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
+    ]}
+    actif={onglet}
+    onchoisir={(o) => {
+      changerOnglet(o)
+      scrollTo(0, 0)
+    }}
+  />
 </div>

@@ -5,7 +5,7 @@
   import type { DescriptionExercice, ExerciceDuReferentiel, Moteur } from '$lib/moteur'
   import ApercuExercice from './ApercuExercice.svelte'
   import { boutonAction, boutonInverse, listeGroupee } from './classes'
-  import FilAriane from './FilAriane.svelte'
+  import EnTete from './EnTete.svelte'
   import ReglagesExercice from './ReglagesExercice.svelte'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
@@ -130,7 +130,7 @@
 {/snippet}
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <FilAriane titre={chapitre ?? niveau ?? 'Ajouter des exercices'} onretour={retour} />
+  <EnTete titre={chapitre ?? niveau ?? 'Ajouter des exercices'} onretour={retour} />
   <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas" style="padding-bottom: 6rem">
     <label
       class="w-full flex flex-row items-center gap-2 rounded-lg px-3 py-2
