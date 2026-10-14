@@ -248,7 +248,7 @@ Le mécanisme est en place (0.1.1) ; le moteur est publié avec le site sur
   MR. Deux scripts séparés plutôt qu'un seul : le moteur peut être republié
   seul, et un échec du moteur (clé absente) n'empêche pas le site de partir.
 - Clé : mode d'emploi pour qui publie dans
-  `moteur/fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`
+  `moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`
   (`node tasks/cles_moteur.mjs <.pem>` ; la clé publique est transmise et
   remplace `CLE_PUBLIQUE`). La clé actuelle est une clé de test (privée dans
   `~/.local/share/mathalea-mobile/` sur la machine de Nathan).
@@ -296,8 +296,10 @@ Reste à faire :
 
 ### MathALÉA
 
-- Fusionner la branche `moteur-embarquable` (moteur, `version.ts` sans appel
-  réseau dans le moteur, `definirLangue`) et documenter le moteur dans
+- MR !9394 (branche `moteur-app-mobile`, ouverte le 14 octobre 2026) : moteur,
+  `version.ts` sans appel réseau, publication sur mathalea.fr/releases. Une
+  fois fusionnée, supprimer `moteur/`. Ancienne branche locale
+  `moteur-embarquable` remplacée. Documenter le moteur dans
   `documentation/`.
 - Lancer `pnpm prebuild-unit-tests` sur cette branche.
 - Branche `flowmath-evenements-verification` (événements de vérification pour

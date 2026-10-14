@@ -26,7 +26,8 @@ const commit = (() => {
 })()
 // MOTEUR_VERSION : fixée par l'hôte qui construit le moteur (date, commit, empreinte de ses fichiers)
 const version =
-  process.env.MOTEUR_VERSION ?? `${new Date().toISOString().slice(0, 10)}+${commit}`
+  process.env.MOTEUR_VERSION ??
+  `${new Date().toISOString().slice(0, 10)}+${commit}`
 const API_MOTEUR = 1
 const sortie = 'dist-moteur'
 

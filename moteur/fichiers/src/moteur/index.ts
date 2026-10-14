@@ -286,7 +286,9 @@ const optionsDe = (aide: string) =>
  * Nombre de questions et paramètres (sup à sup4) d'un exercice, avec leurs
  * valeurs par défaut, pour l'éditeur de parcours de l'hôte.
  */
-export async function decrireExercice(uuid: string): Promise<DescriptionExercice> {
+export async function decrireExercice(
+  uuid: string,
+): Promise<DescriptionExercice> {
   const e = await mathaleaLoadExerciceFromUuid(uuid)
   const parametres: ParametreExercice[] = []
   const suffixes = ['', '2', '3', '4'] as const
@@ -303,14 +305,33 @@ export async function decrireExercice(uuid: string): Promise<DescriptionExercice
       parametres.push(
         options.length
           ? { cle, titre: String(num[0]), type: 'liste', options, defaut }
-          : { cle, titre: String(num[0]), type: 'nombre', max: Number(num[1]) || undefined, aide: aide || undefined, defaut },
+          : {
+              cle,
+              titre: String(num[0]),
+              type: 'nombre',
+              max: Number(num[1]) || undefined,
+              aide: aide || undefined,
+              defaut,
+            },
       )
     } else if (Array.isArray(texte)) {
       const aide = String(texte[1] ?? '')
       const options = optionsDe(aide)
-      parametres.push({ cle, titre: String(texte[0]), type: 'texte', options: options.length ? options : undefined, aide: aide.split('\n')[0] || undefined, defaut })
+      parametres.push({
+        cle,
+        titre: String(texte[0]),
+        type: 'texte',
+        options: options.length ? options : undefined,
+        aide: aide.split('\n')[0] || undefined,
+        defaut,
+      })
     } else if (Array.isArray(caseACocher)) {
-      parametres.push({ cle, titre: String(caseACocher[0]), type: 'case', defaut: defaut === 'true' ? 'true' : 'false' })
+      parametres.push({
+        cle,
+        titre: String(caseACocher[0]),
+        type: 'case',
+        defaut: defaut === 'true' ? 'true' : 'false',
+      })
     }
   }
   return {
@@ -339,17 +360,20 @@ export interface ExerciceDuReferentiel {
 export async function listerExercices(
   pays: 'FR' | 'CH' = 'FR',
 ): Promise<ExerciceDuReferentiel[]> {
-  const [{ default: referentiel }, { default: themes }, { default: chapitres }] =
-    await Promise.all([
-      pays === 'CH'
-        ? import('../json/referentiel2022CH.json')
-        : import('../json/referentiel2022FR.json'),
-      import('../json/codeToThemeList.json'),
-      // Noms des chapitres du menu du site (ReferentielNode.svelte)
-      pays === 'CH'
-        ? import('../json/levelsThemesListCH.json')
-        : import('../json/levelsThemesList.json'),
-    ])
+  const [
+    { default: referentiel },
+    { default: themes },
+    { default: chapitres },
+  ] = await Promise.all([
+    pays === 'CH'
+      ? import('../json/referentiel2022CH.json')
+      : import('../json/referentiel2022FR.json'),
+    import('../json/codeToThemeList.json'),
+    // Noms des chapitres du menu du site (ReferentielNode.svelte)
+    pays === 'CH'
+      ? import('../json/levelsThemesListCH.json')
+      : import('../json/levelsThemesList.json'),
+  ])
   const nomsThemes = themes as Record<string, string | Record<string, string>>
   const nomsChapitres = chapitres as Record<string, { titre?: string }>
   const nomTheme = (code: string) => {

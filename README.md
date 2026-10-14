@@ -170,7 +170,7 @@ Le moteur est publié par le site MathALÉA à chaque mise en ligne, sur
 `https://mathalea.fr/releases/` (`pnpm build:deploy`, ou `pnpm build:moteur`
 puis `pnpm deploy:moteur`). Scripts et mode d'emploi des clés, en attendant
 leur entrée dans MathALÉA : `moteur/fichiers/tasks/` et
-`moteur/fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`.
+`moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`.
 
 Détails : [docs/developpement.md](docs/developpement.md#moteur-servi-par-coopmaths).
 

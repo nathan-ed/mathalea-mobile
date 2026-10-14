@@ -8,7 +8,7 @@ index dc97bf4b7..effb87439 100644
  # This command will prompt you for your password one last time to copy the key.
 +
 +# Moteur de l'app MathALÉA mobile (tasks/deploy_moteur.sh), voir
-+# documentation/developpement/maintenance-moteur/publication-moteur.md
++# documentation/developpement/maintenance-moteur/architecture/publication-moteur.md
 +MOTEUR_CLE_PRIVEE="/absolute/path/to/moteur-ed25519.pem"
 +REMOTE_RELEASES_PATH="~/remote/releases/path"
 diff --git a/.gitignore b/.gitignore

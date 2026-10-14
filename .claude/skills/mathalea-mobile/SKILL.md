@@ -68,7 +68,10 @@ Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce
   projet, Nathan a demandé de **pousser souvent**, même sans release prête.
 - MathALÉA : « on ne fork pas ». Le code du moteur vit dans `moteur/` en
-  attendant une MR que Nathan ouvrira plus tard (voir 3).
+  attendant la MR !9394 (branche `moteur-app-mobile`, voir 3). Pousser vers
+  MathALÉA : HTTPS avec `-c 'credential.helper=!glab auth git-credential'`
+  (le SSH ne passe pas) ; travailler dans `~/Documents/projets/mathalea`
+  (Nathan l'a autorisé) puis le remettre sur sa branche.
 
 ## 2. Architecture
 
@@ -161,7 +164,7 @@ Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
   `REMOTE_SERVER`, dossier local pour les essais) ; `build:deploy` enchaîne
   site et moteur. Deux scripts séparés voulus : publier le moteur seul, et
   un échec du moteur ne bloque pas le site. Mode d'emploi des clés pour qui
-  publie : `moteur/fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`
+  publie : `moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`
   (`node tasks/cles_moteur.mjs <.pem>`, la clé publique revient à l'app dans
   `CLE_PUBLIQUE`). Clé actuelle = clé de test
   (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`). Contrôle :

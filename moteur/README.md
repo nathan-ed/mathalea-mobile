@@ -1,7 +1,7 @@
 # Moteur MathALÉA embarquable
 
 Code du moteur ajouté à MathALÉA, en attendant sa fusion dans le dépôt de
-Coopmaths (branche `moteur-embarquable`, MR à venir) :
+Coopmaths (MR !9394, branche `moteur-app-mobile`) :
 
 - `COMMIT` : commit de MathALÉA de référence ;
 - `fichiers/` : fichiers ajoutés tels quels (`src/moteur/`,
@@ -21,4 +21,4 @@ encore s'appliquer). Une fois la MR fusionnée, supprimer ce dossier et
 construire depuis MathALÉA directement.
 
 Publication du moteur avec le site : voir
-`fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`.
+`fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`.

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Publie le moteur embarquable (dist-moteur, construit par pnpm build:moteur)
 # pour l'app MathALÉA mobile : https://mathalea.fr/releases/
-# Mode d'emploi et clés : documentation/developpement/maintenance-moteur/publication-moteur.md
+# Mode d'emploi et clés : documentation/developpement/maintenance-moteur/architecture/publication-moteur.md
 set -euo pipefail
 
 if [ -f .env ]; then
