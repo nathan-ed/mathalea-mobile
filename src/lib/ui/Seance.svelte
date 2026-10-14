@@ -395,36 +395,6 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       style="bottom: {hauteurClavier}px"
     >
-      {#if avertissement}
-        {@const vides = avertissement.manques.filter((m) => m.raison === 'vide')}
-        {@const saisies = avertissement.manques.filter((m) => m.raison === 'saisie')}
-        <div
-          role="alert"
-          class="border-l-[3px] border-coopmaths-action dark:border-coopmathsdark-action bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark px-3 py-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-        >
-          <p class="font-bold">{avertissement.libelle} ?</p>
-          {#if vides.length}
-            <p>
-              {vides.length === 1 ? 'Il reste une question sans réponse' : `Il reste ${vides.length} questions sans réponse`} :
-              {vides.map((m) => nomQuestion(m.ref)).join(', ')}.
-            </p>
-          {/if}
-          {#if saisies.length}
-            <p>
-              {saisies.length === 1 ? 'Une réponse n’est pas encore vérifiée' : `${saisies.length} réponses ne sont pas encore vérifiées`} :
-              {saisies.map((m) => nomQuestion(m.ref)).join(', ')}.
-            </p>
-          {/if}
-        </div>
-        <div class="flex flex-row gap-3">
-          <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => allerA(avertissement!.manques[0].ref)}>
-            Aller à {nomQuestion(avertissement.manques[0].ref)}
-          </button>
-          <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={continuerQuandMeme}>
-            {avertissement.libelle}
-          </button>
-        </div>
-      {:else}
       <div class="flex flex-row gap-3">
       {#if finale && !seance.soumise}
         {#if derniere}
@@ -455,12 +425,36 @@
         </button>
       {/if}
       </div>
-      {/if}
     </footer>
   {/if}
 
   <div bind:this={hoteClavier}></div>
-  {#if sortie === 'choix'}
+  {#if avertissement}
+    <!-- Garde-fou : questions sans réponse ou pas encore vérifiées -->
+    {@const vides = avertissement.manques.filter((m) => m.raison === 'vide')}
+    {@const saisies = avertissement.manques.filter((m) => m.raison === 'saisie')}
+    <Feuille onfermer={() => (avertissement = null)}>
+      <div role="alert" class="flex flex-col gap-1 text-sm">
+        <p class="text-base font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{avertissement.libelle} ?</p>
+        {#if vides.length}
+          <p>
+            {vides.length === 1 ? 'Il reste une question sans réponse' : `Il reste ${vides.length} questions sans réponse`} :
+            {vides.map((m) => nomQuestion(m.ref)).join(', ')}.
+          </p>
+        {/if}
+        {#if saisies.length}
+          <p>
+            {saisies.length === 1 ? 'Une réponse n’est pas encore vérifiée' : `${saisies.length} réponses ne sont pas encore vérifiées`} :
+            {saisies.map((m) => nomQuestion(m.ref)).join(', ')}.
+          </p>
+        {/if}
+      </div>
+      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => allerA(avertissement!.manques[0].ref)}>
+        Aller à {nomQuestion(avertissement.manques[0].ref)}
+      </button>
+      <button type="button" class={boutonLien} onclick={continuerQuandMeme}>{avertissement.libelle}</button>
+    </Feuille>
+  {:else if sortie === 'choix'}
     <Feuille onfermer={() => (sortie = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Quitter l’activité ?</p>
       <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onquitter}>Reprendre plus tard</button>

@@ -14,7 +14,6 @@ for (const [nom, lien] of Object.entries(liens)) {
   const page = await (await nav.newContext({ viewport: { width: 390, height: 844 } })).newPage()
   await page.goto(base)
   await page.getByRole('button', { name: /France/ }).click()
-  await page.getByRole('button', { name: /Élève/ }).click()
   await page.getByLabel('Lien de partage donné par ton enseignant').fill(lien)
   await page.getByRole('button', { name: 'Ajouter le dossier' }).click()
   const ok = await page

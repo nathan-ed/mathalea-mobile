@@ -1,12 +1,13 @@
 <script lang="ts">
-  // Accueil de l'enseignant : état de la diffusion et Publier, mise en route du
+  // Onglet Créer de l'accueil (réglage Enseignant) : état de la diffusion et Publier, mise en route du
   // dossier partagé, parcours par classe dans l'ordre vu par les élèves.
   import type { Parcours } from '$lib/catalogue'
   import { aExporter, nbAExporter, parcoursDeClasse, type Bibliotheque, type ParcoursEnseignant } from '$lib/bibliotheque'
   import { partageNatif } from '$lib/fichiers'
   import ChampTexte from './ChampTexte.svelte'
-  import { boutonAction, boutonInverse } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
+  import Feuille from './Feuille.svelte'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
@@ -43,12 +44,18 @@
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const texte = 'text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus'
-  const carte = 'flex flex-col gap-3 rounded-xl p-4 border border-coopmaths-action dark:border-coopmathsdark-action'
   let vue: 'accueil' | 'modeles' = $state('accueil')
   retourSi(() => vue === 'modeles', () => (vue = 'accueil'))
   let message = $state('')
   let lien = $state('')
   let modifierLien = $state(false)
+  // Dossier partagé : ouvrir ou changer le lien, dans un panneau du bas
+  let feuilleDossier = $state(false)
+  retourSi(() => modifierLien, () => (modifierLien = false))
+  // Classe affichée (pastilles), la première par défaut
+  let classeChoisie: string | null = $state(null)
+  const classesAvecParcours = $derived(bibliotheque.classes.filter((c) => parcoursDeClasse(bibliotheque, c.nom).length))
+  const classeVue = $derived(classesAvecParcours.find((c) => c.nom === classeChoisie) ?? classesAvecParcours[0])
   $effect.pre(() => {
     lien = bibliotheque.lien ?? ''
   })
@@ -84,9 +91,23 @@
     onfermerDernier()
   }
 
+  async function exporterDernier() {
+    const id = enregistre!.parcours.id
+    onfermerDernier()
+    message = await onexporterUn(id)
+  }
+
   function enregistrerLien() {
     onlien(lien.trim())
     modifierLien = false
+  }
+
+  const hote = (adresse: string) => {
+    try {
+      return new URL(adresse).hostname.replace(/^www\./, '')
+    } catch {
+      return adresse
+    }
   }
 
   const sousTitre = (pe: ParcoursEnseignant, classe: string) =>
@@ -109,7 +130,7 @@
   {/if}
 
   {#if vue === 'modeles'}
-    <div class="flex flex-col gap-3 p-4">
+    <div class="flex flex-col gap-3 p-4 avec-onglets">
       {#if bibliotheque.parcours.length}
         <h2 class={titreSection}>Mes parcours</h2>
         {#each bibliotheque.parcours as pe (pe.parcours.id)}
@@ -140,14 +161,11 @@
       {#if messageImport}<p class={discret} role="status">{messageImport}</p>{/if}
     </div>
   {:else}
-    <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas" style="padding-bottom: 6rem">
+    <main class="flex-1 flex flex-col gap-3 p-4 avec-onglets avec-bouton-flottant">
       {#if !bibliotheque.lien}
         <!-- Mise en route : sans dossier partagé, rien n'arrive aux élèves -->
-        <section class={carte} aria-label="Mise en route">
+        <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="Mise en route">
           <h2 class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Mise en route</h2>
-          {#if enregistre}
-            <p class={texte}>« {enregistre.parcours.titre} » enregistré (V{enregistre.parcours.version}).</p>
-          {/if}
           <ol class="flex flex-col gap-3 {texte}">
             <li class="flex flex-row gap-2">
               <i aria-hidden="true" class="bx {bibliotheque.parcours.length ? 'bx-check-circle' : 'bx-circle'} text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
@@ -165,109 +183,166 @@
             </li>
             <li class="flex flex-row gap-2">
               <i aria-hidden="true" class="bx bx-circle text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
-              <span>Publiez, puis déposez le fichier parcours-mathalea.json dans ce dossier.</span>
+              <span>Publiez, puis déposez le fichier dans ce dossier.</span>
             </li>
           </ol>
           {#if prets}
             <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={publier}>Publier pour les élèves</button>
           {/if}
-          {#if enregistre}
-            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (message = await onexporterUn(enregistre!.parcours.id))}>
-              Exporter ce parcours
-            </button>
-          {/if}
           {#if message}<p class={discret} role="status">{message}</p>{/if}
         </section>
       {:else}
-        <!-- État de la diffusion : un seul geste, Publier -->
-        <section class={nb ? carte : 'flex flex-col gap-3 rounded-xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest'} aria-label="Publication">
-          {#if enregistre}
-            <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
-              « {enregistre.parcours.titre} » enregistré (V{enregistre.parcours.version}).
-            </p>
-          {/if}
-          <p class="flex flex-row items-center gap-2 {texte}" role="status">
-            <i aria-hidden="true" class="bx {nb ? 'bx-error-circle' : 'bx-check-circle'} text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
-            {#if nb}
-              {nb === 1 ? 'Un parcours n’est pas encore chez les élèves.' : `${nb} parcours ne sont pas encore chez les élèves.`}
-            {:else if prets}
-              Tout est à jour chez les élèves.
-            {:else}
-              Créez un parcours : il sera publié dans votre dossier partagé.
-            {/if}
-          </p>
+        <!-- État de la diffusion : une ligne, et Publier s'il reste quelque chose à envoyer -->
+        <p class="flex flex-row items-center gap-2 px-1 {texte}" role="status">
+          <i aria-hidden="true" class="bx {nb ? 'bx-error-circle' : 'bx-check-circle'} text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
           {#if nb}
-            <p class={discret}>
-              {partageNatif ? 'Publier ouvre le partage : choisissez l’app de votre drive' : 'Publier enregistre parcours-mathalea.json : déposez-le'} dans le dossier partagé, en remplaçant l’ancien.
-            </p>
-          {/if}
-          <div class="grid gap-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
-            <button type="button" class="{nb ? boutonAction : boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={!prets} onclick={publier}>
-              Publier
-            </button>
-            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => ouvrirDossier(bibliotheque.lien!)}>Ouvrir le dossier</button>
-          </div>
-          {#if enregistre}
-            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (message = await onexporterUn(enregistre!.parcours.id))}>
-              Exporter ce parcours
-            </button>
-          {/if}
-          {#if message}<p class={discret} role="status">{message}</p>{/if}
-          {#if modifierLien}
-            <ChampTexte id="lien-dossier" titre="Lien du dossier partagé (à donner aux élèves)" bind:valeur={lien} type="url" />
-            <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim()} onclick={enregistrerLien}>
-              Enregistrer le lien
-            </button>
+            {nb === 1 ? 'Un parcours n’est pas encore chez les élèves.' : `${nb} parcours ne sont pas encore chez les élèves.`}
+          {:else if prets}
+            Tout est à jour chez les élèves.
           {:else}
-            <button type="button" class="flex flex-row items-center gap-2 text-left {discret}" onclick={() => (modifierLien = true)}>
-              <span class="min-w-0 truncate">Dossier partagé : {bibliotheque.lien}</span>
-              <span class="shrink-0 font-bold text-coopmaths-action dark:text-coopmathsdark-action">Modifier</span>
-            </button>
+            Créez un parcours : il sera publié dans votre dossier partagé.
           {/if}
-        </section>
+        </p>
+        {#if nb}
+          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" disabled={!prets} onclick={publier}>Publier</button>
+        {/if}
+        {#if message}<p class={discret} role="status">{message}</p>{/if}
       {/if}
 
-      <Tuile icon="bx-folder-open" title="Éditer un parcours existant" subtitle="Dossiers suivis, fichiers de collègues" onclick={() => (vue = 'modeles')} />
-
-      {#each bibliotheque.classes as c (c.nom)}
-        {@const ps = parcoursDeClasse(bibliotheque, c.nom)}
-        {#if ps.length}
-          <h2 class={titreSection}>{c.nom}</h2>
-          {#each ps as pe, i (pe.parcours.id)}
-            <div class="flex flex-row items-center gap-2">
-              {#if ps.length > 1}
-                <div class="flex flex-col">
-                  <button
-                    type="button"
-                    aria-label="Monter {pe.parcours.titre} dans {c.nom}"
-                    class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40"
-                    disabled={i === 0}
-                    onclick={() => ondeplacer(pe.parcours.id, c.nom, -1)}
-                  >
-                    <i aria-hidden="true" class="bx bx-chevron-up text-2xl"></i>
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Descendre {pe.parcours.titre} dans {c.nom}"
-                    class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40"
-                    disabled={i === ps.length - 1}
-                    onclick={() => ondeplacer(pe.parcours.id, c.nom, 1)}
-                  >
-                    <i aria-hidden="true" class="bx bx-chevron-down text-2xl"></i>
-                  </button>
-                </div>
-              {/if}
-              <div class="min-w-0 flex-1">
-                <Tuile icon={pe.parcours.icone} title={pe.parcours.titre} subtitle={sousTitre(pe, c.nom)} badge="V{pe.parcours.version}" onclick={() => onouvrir(pe)} />
-              </div>
-            </div>
-          {/each}
+      <ul class={listeGroupee}>
+        {#if bibliotheque.lien}
+          <li>
+            <button type="button" class={elementListe} onclick={() => (feuilleDossier = true)}>
+              <span class="flex flex-row items-center gap-3 min-w-0">
+                <i aria-hidden="true" class="bx bx-folder text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                <span class="flex flex-col min-w-0">
+                  <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Dossier partagé</span>
+                  <span class="truncate {discret}">{hote(bibliotheque.lien)}</span>
+                </span>
+              </span>
+              <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+            </button>
+          </li>
         {/if}
-      {/each}
+        <li>
+          <button type="button" class={elementListe} onclick={() => (vue = 'modeles')}>
+            <span class="flex flex-row items-center gap-3 min-w-0">
+              <i aria-hidden="true" class="bx bx-folder-open text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+              <span class="flex flex-col min-w-0">
+                <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Éditer un parcours existant</span>
+                <span class="truncate {discret}">Dossiers suivis, fichiers de collègues</span>
+              </span>
+            </span>
+            <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+          </button>
+        </li>
+      </ul>
+
+      {#if classesAvecParcours.length > 1}
+        <div class="flex flex-row gap-2 overflow-x-auto -mx-4 px-4 pt-2" role="tablist" aria-label="Classes">
+          {#each classesAvecParcours as c (c.nom)}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={c.nom === classeVue?.nom}
+              class="presse shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold
+              {c.nom === classeVue?.nom
+                ? 'bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas'
+                : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus'}"
+              onclick={() => (classeChoisie = c.nom)}
+            >
+              {c.nom}
+            </button>
+          {/each}
+        </div>
+      {:else if classeVue}
+        <h2 class={titreSection}>{classeVue.nom}</h2>
+      {/if}
+      {#if classeVue}
+        {@const c = classeVue}
+        {@const ps = parcoursDeClasse(bibliotheque, c.nom)}
+        {#each ps as pe, i (pe.parcours.id)}
+          <div class="flex flex-row items-center gap-2">
+            {#if ps.length > 1}
+              <div class="flex flex-col">
+                <button
+                  type="button"
+                  aria-label="Monter {pe.parcours.titre} dans {c.nom}"
+                  class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40"
+                  disabled={i === 0}
+                  onclick={() => ondeplacer(pe.parcours.id, c.nom, -1)}
+                >
+                  <i aria-hidden="true" class="bx bx-chevron-up text-2xl"></i>
+                </button>
+                <button
+                  type="button"
+                  aria-label="Descendre {pe.parcours.titre} dans {c.nom}"
+                  class="text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40"
+                  disabled={i === ps.length - 1}
+                  onclick={() => ondeplacer(pe.parcours.id, c.nom, 1)}
+                >
+                  <i aria-hidden="true" class="bx bx-chevron-down text-2xl"></i>
+                </button>
+              </div>
+            {/if}
+            <div class="min-w-0 flex-1">
+              <Tuile icon={pe.parcours.icone} title={pe.parcours.titre} subtitle={sousTitre(pe, c.nom)} badge="V{pe.parcours.version}" onclick={() => onouvrir(pe)} />
+            </div>
+          </div>
+        {/each}
+      {/if}
     </main>
     <button type="button" class="{boutonAction} bouton-flottant" onclick={oncreer}>
       <i aria-hidden="true" class="bx bx-plus text-2xl"></i>
       Créer un parcours
     </button>
+  {/if}
+
+  {#if enregistre}
+    <!-- Juste après « Valider » : publier, sinon rien n'arrive aux élèves -->
+    <Feuille onfermer={onfermerDernier}>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+        « {enregistre.parcours.titre} » enregistré (V{enregistre.parcours.version})
+      </p>
+      {#if prets}
+        <p class="text-sm">Publiez pour que vos élèves le reçoivent.</p>
+        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={publier}>Publier pour les élèves</button>
+      {/if}
+      <button type="button" class={boutonLien} onclick={exporterDernier}>Exporter ce parcours seul</button>
+    </Feuille>
+  {:else if feuilleDossier}
+    <Feuille
+      onfermer={() => {
+        feuilleDossier = false
+        modifierLien = false
+      }}
+    >
+      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Dossier partagé</p>
+      {#if modifierLien}
+        <ChampTexte id="lien-dossier" titre="Lien du dossier partagé (à donner aux élèves)" bind:valeur={lien} type="url" />
+        <button
+          type="button"
+          class="{boutonAction} w-full disabled:opacity-40"
+          style="min-height: 44px"
+          disabled={!lien.trim()}
+          onclick={() => {
+            enregistrerLien()
+            feuilleDossier = false
+          }}>Enregistrer le lien</button
+        >
+      {:else}
+        <p class="text-sm break-all {discret}">{bibliotheque.lien}</p>
+        <button
+          type="button"
+          class="{boutonAction} w-full"
+          style="min-height: 44px"
+          onclick={() => {
+            feuilleDossier = false
+            ouvrirDossier(bibliotheque.lien!)
+          }}>Ouvrir le dossier</button
+        >
+        <button type="button" class={boutonLien} onclick={() => (modifierLien = true)}>Changer le lien</button>
+      {/if}
+    </Feuille>
   {/if}
 </div>

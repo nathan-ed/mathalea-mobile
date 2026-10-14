@@ -51,15 +51,18 @@ Règles :
 
 ### Partage
 
-L'enseignant exporte un fichier et le dépose dans un dossier partagé par lien
-public. `partage.ts` lit ce fichier selon le drive :
+L'enseignant publie un fichier daté et le dépose dans un dossier partagé par
+lien public. `partage.ts` lit tous les .json du dossier selon le drive, quel
+que soit leur nom ; parmi les publications complètes (`banque: true`), seule
+la plus récente compte (`fusionner`) :
 
 | Drive | Méthode |
 | --- | --- |
 | kDrive | service de la page de partage : `/2/app/<drive>/share/<uuid>/init`, `/files/<id>/files`, `/files/<id>/download` (non documenté par Infomaniak, déjà utilisé par sonoTour) |
 | Dropbox | `dl=1` : un dossier arrive en zip, un fichier tel quel |
 | Google Drive | lien de fichier : `uc?export=download` ; lien de dossier : API Drive avec une clé (`VITE_CLE_API_GOOGLE`, non fournie) |
-| autres | `<lien>/parcours-mathalea.json` |
+| Nextcloud | lien `…/s/<jeton>` : `…/s/<jeton>/download`, le dossier en zip sous un dossier de tête (un fichier partagé seul arrive tel quel) |
+| autres | lien d'un `.json`, sinon `<lien>/parcours-mathalea.json` |
 
 kDrive redirige vers une page d'erreur toute requête qui porte un en-tête
 `Origin` étranger : dans l'app, les téléchargements passent par la commande
@@ -181,6 +184,19 @@ refuse la mise à jour.
 - Détail du parcours allégé : un seul bouton (Commencer, Continuer…), le
   reste dans « Autres actions » (panneau du bas : tout refaire, supprimer la
   tentative, sessions) ; classe `boutonLien` pour les actions sans cadre (fait).
+- Enseignant = élève + onglet Créer : réglage « Je suis enseignant » (bas des
+  Réglages, interrupteur `.interrupteur`), plus de choix du profil au premier
+  lancement ; l'enseignant voit toutes les classes de ses dossiers (pastilles),
+  l'élève choisit la sienne (fait).
+- Publication allégée : une ligne d'état et Publier, « Dossier partagé » et
+  « Éditer un parcours existant » en liste, panneau du bas après
+  l'enregistrement ; actions de l'éditeur dans « Autres actions » ; garde-fou
+  de la séance en panneau du bas ; import par lien replié (fait).
+- Fichiers horodatés (`nomHorodate`) : `parcours-mathalea-<date>.json`, jamais
+  renommé « (1) ». Lecture de tous les .json quel que soit le nom ; parmi les
+  publications complètes (`banque: true`), seule la plus récente compte.
+  Nextcloud : dossier lu en zip par `…/s/<jeton>/download` (dossier de tête),
+  testé sur Nextcloud 30 dans Docker (fait).
 - Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
   JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
   avec une ou plusieurs compétences ; suivi de l'élève par compétence.

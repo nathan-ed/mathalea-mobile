@@ -41,6 +41,10 @@ Design (« les dev MathALÉA en charge du design vont me tomber dessus »)
   de remplissage ni placeholder. Chaque texte porte une information ou une
   action (« aucun placeholder ou dead text avec moi »).
 - Beau, motivant, « 300 % intuitif », « 100 % fluide » pour les élèves.
+- « L'appli doit être nickel. N'oublie jamais les Android 11 » : chaque
+  changement d'interface ou d'Android s'essaie aussi sur Android 11 (des
+  collègues et élèves l'ont encore, souvent sous MIUI), pas seulement sur le
+  dernier Android de l'émulateur. Voir section 5.
 - Vocabulaire : « correcte(s) / incorrecte(s) » (pas « juste / pas juste »),
   l'app s'appelle « MathALÉA » (logo : dé + « MathALÉA par CoopMaths »),
   pas de « min » de durée, pas de badge « Hors ligne » (tout est hors ligne).
@@ -48,6 +52,15 @@ Design (« les dev MathALÉA en charge du design vont me tomber dessus »)
 - Captures à vérifier à 390 px, en clair et en sombre.
 
 Ergonomie décidée
+- Profil : tout le monde est élève ; « Je suis enseignant » (interrupteur en
+  bas des Réglages, pas d'infobulle sur mobile) ajoute l'onglet Créer aux
+  onglets élève. « Les élèves ne devraient jamais voir Créer. » Pas de choix
+  du profil au premier lancement (programme seulement). L'enseignant voit
+  toutes les classes de ses dossiers (pastilles), l'élève choisit la sienne.
+- Rien de chargé (« c'est hyper chargé », « pas joli ») : un seul bouton plein
+  par écran ; actions secondaires en lien (`boutonLien`) ou dans « Autres
+  actions » (panneau du bas en liste avec icônes) ; confirmations et
+  garde-fous en panneau du bas, jamais en encadré dans la page.
 - Éditeur de parcours : **un seul écran** pour créer et modifier (pas
   d'assistant à étapes : « trop compliqué »). Tout prérempli à la
   modification, réglages d'exercice modifiables sur place à partir des valeurs
@@ -56,9 +69,9 @@ Ergonomie décidée
   dossiers suivis), chapitres des classes cochées d'abord.
 - Ajout d'exercices comme sur le site : niveau, puis chapitre (noms du site),
   recherche, réglages (paramètres du site) et aperçu.
-- Après « Valider » / « Enregistrer et quitter » : encadré qui propose
-  « Télécharger (Android : Partager) tous les parcours » et « … ce parcours
-  seul ». C'est « le plus important » : sans fichier, rien n'arrive aux élèves.
+- Après « Valider » / « Enregistrer et quitter » : panneau du bas qui propose
+  « Publier pour les élèves » et « Exporter ce parcours seul ». C'est « le
+  plus important » : sans fichier, rien n'arrive aux élèves.
 - Réglages de l'app : chaque réglage s'applique aussitôt ; après un
   changement, bouton « Enregistrer et quitter » qui ramène à l'accueil.
 - Entrée : champ suivant (ajoute la classe saisie, importe le lien collé).
@@ -215,7 +228,20 @@ Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
     vrai zip) ; un fichier arrive tel quel.
   - Google Drive : lien de fichier (`uc?export=download`) ; lien de dossier
     seulement avec `VITE_CLE_API_GOOGLE` (non fournie).
-  - Autre (Nextcloud, local) : `<lien>/parcours-mathalea.json` seulement.
+  - Nextcloud (dont le Nuage d'apps.education.fr) : lien `…/s/<jeton>` →
+    `…/s/<jeton>/download`, zip du dossier sous un dossier de tête à son nom
+    (vérifié sur Nextcloud 30 : `docker run -p 127.0.0.1:8090:80 -e
+    SQLITE_DATABASE=nc -e NEXTCLOUD_ADMIN_USER=… nextcloud:30-apache`, dépôt
+    par WebDAV, partage par l'API OCS `shareType=3`) ; un fichier partagé
+    seul arrive tel quel.
+  - Autre (serveur local de test) : lien d'un .json, sinon
+    `<lien>/parcours-mathalea.json`.
+- Publications horodatées (`nomHorodate` : `parcours-mathalea-<date>.json`,
+  `parcours-<titre>-<date>.json`) : demandé par Nathan, un nouveau dépôt
+  n'est jamais renommé « (1) ». Lecture sans nom imposé (« cela ne devrait
+  pas être aussi fragile »). La banque porte `banque: true` : seule la plus
+  récente du dossier compte, un parcours retiré ne revient pas ; les parcours
+  seuls s'ajoutent (version la plus haute).
 - kDrive redirige vers une page d'erreur toute requête avec un `Origin`
   étranger, Dropbox n'autorise pas CORS. D'où :
   - dans l'app : commande Rust `telecharger` (HTTPS, HTTP seulement local) ;
@@ -260,6 +286,12 @@ Environnement (machine de Nathan)
   affiche la raison sous le dé après 20 s (`__erreursLancement`). Essai :
   image `system-images;android-30;google_apis;x86_64` (WebView 83 figé, sans
   Play Store) ; la supprimer ensuite (3,3 Go).
+- **Toujours essayer sur Android 11** (API 30) en plus d'Android 16 : APK
+  x86_64 sur un AVD Android 11 ; avec le WebView 83 de l'image sans Play
+  Store, seul l'écran « Mise à jour nécessaire » est testable : pour l'app
+  elle-même, il faut une image Android 11 dont le WebView est 111 ou plus
+  (image `google_apis_playstore` à jour, ou WebView mis à jour). Nettoyer
+  l'AVD et l'image après (disque).
 - Signature v1 : `scripts/signer-apk.sh <apk>…` (aussi dans la CI).
 - **Toute compilation terminée va dans `releases/`** (demande de Nathan) :
   release dans `releases/v<x>/`, essai dans `releases/essai/`

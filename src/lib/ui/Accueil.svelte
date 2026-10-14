@@ -33,7 +33,9 @@
     resumes,
     epingles,
     onglet = $bindable('mes'),
+    enseignant = false,
     suivi,
+    espaceEnseignant,
     onouvrir,
     oncontinuer,
     onreglages,
@@ -48,8 +50,10 @@
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
-    onglet?: 'mes' | 'explorer' | 'suivi'
+    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer'
+    enseignant?: boolean // réglage Enseignant : onglet Créer en plus
     suivi: Snippet
+    espaceEnseignant?: Snippet
     onouvrir: (p: Parcours) => void
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
@@ -83,7 +87,9 @@
   const ouvrir = (p: Parcours) => (resumes[p.id]?.enCours ? oncontinuer(p) : onouvrir(p))
 
   let recherche = $state('')
-  let classe: Source | null = $state(null)
+  // Classe affichée quand il y en a plusieurs (pastilles) : la première par défaut
+  let classeChoisie: string | null = $state(null)
+  const classeVue = $derived(sources.find((s) => s.id === classeChoisie) ?? sources[0])
   let niveau: string | null = $state(null)
 
   // Parcours de l'élève : ceux de ses dossiers et ceux ajoutés depuis Explorer
@@ -122,26 +128,25 @@
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
 
   retourSi(
-    () => classe !== null || niveau !== null || onglet !== 'mes',
+    () => niveau !== null || onglet !== 'mes',
     () => {
-      if (classe) classe = null
-      else if (niveau) niveau = null
+      if (niveau) niveau = null
       else changerOnglet('mes')
     },
   )
 
   function changerOnglet(o: typeof onglet) {
     onglet = o
-    classe = null
     niveau = null
     recherche = ''
   }
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  {#if onglet === 'mes' && classe}
-    <EnTete titre={classe.nom} onretour={() => (classe = null)} />
-  {:else if onglet === 'explorer' && niveau}
+  {#if onglet === 'creer' && enseignant && espaceEnseignant}
+    {@render espaceEnseignant()}
+  {:else}
+  {#if onglet === 'explorer' && niveau}
     <EnTete titre={niveau} onretour={() => (niveau = null)} />
   {:else}
     <EnTete>
@@ -154,19 +159,7 @@
   {/if}
 
   <main class="flex-1 avec-onglets">
-    {#if onglet === 'mes' && classe}
-      <div class="flex flex-col gap-3 p-4">
-        <ContenuClasse
-          nom="Chapitres"
-          parcours={classe.parcours}
-          organisation={organisation(classe.id)}
-          {sousTitre}
-          {badge}
-          onouvrir={ouvrir}
-          onorganiser={(o) => onorganiser(classe!.id, o)}
-        />
-      </div>
-    {:else if onglet === 'mes'}
+    {#if onglet === 'mes'}
       <div class="flex flex-col gap-3 p-4">
         {#if tous.length}
         <label
@@ -230,15 +223,36 @@
               onorganiser={(o) => onorganiser(sources[0].id, o)}
             />
           {:else if sources.length > 1}
-            <h2 class={titreSection}>Classes</h2>
-            {#each sources as s (s.id)}
-              <Tuile
-                icon="bx-group"
-                title={s.nom}
-                subtitle="{s.parcours.length} parcours{termines(s) ? ` · ${termines(s)} terminé${termines(s) > 1 ? 's' : ''}` : ''}"
-                onclick={() => (classe = s)}
-              />
-            {/each}
+            <!-- Plusieurs classes : pastilles pour passer de l'une à l'autre -->
+            <div class="flex flex-row gap-2 overflow-x-auto -mx-4 px-4" role="tablist" aria-label="Classes">
+              {#each sources as s (s.id)}
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={s.id === classeVue?.id}
+                  class="presse shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold
+                  {s.id === classeVue?.id
+                    ? 'bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas'
+                    : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus'}"
+                  onclick={() => (classeChoisie = s.id)}
+                >
+                  {s.nom}
+                </button>
+              {/each}
+            </div>
+            {#if classeVue}
+              {#key classeVue.id}
+                <ContenuClasse
+                  nom="Chapitres"
+                  parcours={classeVue.parcours}
+                  organisation={organisation(classeVue.id)}
+                  {sousTitre}
+                  {badge}
+                  onouvrir={ouvrir}
+                  onorganiser={(o) => onorganiser(classeVue!.id, o)}
+                />
+              {/key}
+            {/if}
           {:else if aChoisir.length === 0}
             <h2 class={titreSection}>Ajoute le dossier de ta classe</h2>
             <ChampTexte id="lien-accueil" titre="Lien de partage donné par ton enseignant" bind:valeur={lien} type="url" />
@@ -282,12 +296,14 @@
       {@render suivi()}
     {/if}
   </main>
+  {/if}
 
   <BarreOnglets
     onglets={[
       { cle: 'mes', libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
       { cle: 'explorer', libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
       { cle: 'suivi', libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
+      ...(enseignant ? [{ cle: 'creer' as const, libelle: 'Créer', icone: 'bx-plus-circle', iconeActive: 'bxs-plus-circle' }] : []),
     ]}
     actif={onglet}
     onchoisir={(o) => {

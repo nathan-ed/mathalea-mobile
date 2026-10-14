@@ -1,9 +1,9 @@
 // Parcours de l'enseignant, enregistrés sur l'appareil ; un parcours peut aller à plusieurs classes.
-// Chaque classe a son dossier partagé et son fichier parcours-mathalea.json.
+// Un dossier partagé reçoit les publications datées de toutes les classes.
 // Une modification après un export ouvre la version suivante : les élèves
 // gardent l'ancienne pour leurs séances commencées.
 import type { Etape, Parcours } from './catalogue'
-import { creerFichier, lireFichier, type FichierClasses } from './partage'
+import { creerFichier, lireFichier, nomHorodate, type FichierClasses } from './partage'
 import type { Stockage } from './stockage'
 
 export interface ParcoursEnseignant {
@@ -163,7 +163,7 @@ export function exporter(b: Bibliotheque): { texte: string; bibliotheque: Biblio
     .map((c) => ({ nom: c.nom, parcours: parcoursDeClasse(b, c.nom).filter(pret).map((pe) => pe.parcours) }))
     .filter((c) => c.parcours.length > 0)
   return {
-    texte: creerFichier(classes),
+    texte: creerFichier(classes, true),
     bibliotheque: {
       ...b,
       parcours: b.parcours.map((pe) =>
@@ -193,7 +193,7 @@ export function exporterUn(b: Bibliotheque, id: string): { nom: string; texte: s
     .replace(/^-|-$/g, '')
   const marque: ParcoursEnseignant = { ...pe, exportee: { ...pe.exportee, '': pe.parcours.version } }
   return {
-    nom: `parcours-${base || pe.parcours.id}.json`, // nom stable : déposé, il remplace le précédent
+    nom: nomHorodate(`parcours-${base || pe.parcours.id}`),
     texte: creerFichier(classes),
     bibliotheque: { ...b, parcours: b.parcours.map((x) => (x === pe ? marque : x)) },
   }

@@ -23,7 +23,6 @@ const visible = (role, name) => page.getByRole(role, { name }).first().isVisible
 
 await page.goto(base)
 await page.getByRole('button', { name: /France/ }).click()
-await page.getByRole('button', { name: /Élève/ }).click()
 await page.getByLabel('Lien de partage donné par ton enseignant').fill(lienTest)
 await page.getByRole('button', { name: 'Ajouter le dossier' }).click()
 await page.getByRole('button', { name: /^\s*Classe test/ }).click()

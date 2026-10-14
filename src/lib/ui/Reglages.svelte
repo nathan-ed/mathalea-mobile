@@ -104,18 +104,7 @@
 
   <main class="flex-1 flex flex-col gap-8 p-4 zone-sure-bas">
     <section>
-      <h2 class={titreSection}>Profil</h2>
-      <ChoixRadio
-        nom="profil"
-        bind:valeur={profil}
-        options={[
-          { libelle: 'Élève', valeur: 'eleve' },
-          { libelle: 'Enseignant', valeur: 'enseignant' },
-        ]}
-      />
-    </section>
-    <section>
-      <h2 class={titreSection}>Pays</h2>
+      <h2 class={titreSection}>Programme</h2>
       <ChoixRadio
         nom="pays"
         bind:valeur={pays}
@@ -238,6 +227,28 @@
         <input type="file" accept=".json,application/json" class="hidden" onchange={restaurer} />
       </label>
       {#if messageSauvegarde}<p class={texteDiscret} role="status">{messageSauvegarde}</p>{/if}
+    </section>
+
+    <section>
+      <h2 class={titreSection}>Enseignant</h2>
+      <label
+        class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3
+        bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+      >
+        <span class="flex flex-col gap-1 min-w-0">
+          <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Je suis enseignant</span>
+          <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+            Ajoute l’onglet Créer pour préparer des parcours et les publier à vos classes.
+          </span>
+        </span>
+        <input
+          type="checkbox"
+          role="switch"
+          class="interrupteur shrink-0"
+          checked={profil === 'enseignant'}
+          onchange={(e) => (profil = e.currentTarget.checked ? 'enseignant' : 'eleve')}
+        />
+      </label>
     </section>
 
     <section class="flex flex-col gap-1">

@@ -165,7 +165,7 @@ describe('téléchargements après la création', () => {
     b = enregistrer(b, ['3e A', '3e B'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
     const f = exporterUn(b, id)!
     const lu = lireFichier(f.texte)
-    expect(f.nom).toBe('parcours-fractions-corrige.json')
+    expect(f.nom).toMatch(/^parcours-fractions-corrige-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}\.json$/)
     expect(lu.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
     expect(lu.classes[0].parcours[0].version).toBe(2)
     expect(nbAExporter(b)).toBe(1)
@@ -177,7 +177,7 @@ describe('téléchargements après la création', () => {
     b = exporterUn(b, id)!.bibliotheque
     b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
     expect(b.parcours[0].parcours.version).toBe(2)
-    expect(exporterUn(b, id)!.nom).toBe('parcours-fractions-corrige.json')
+    expect(exporterUn(b, id)!.nom).toMatch(/^parcours-fractions-corrige-/)
   })
 
   it('un parcours repris d’un dossier garde ses classes et passe à la version suivante si modifié', () => {

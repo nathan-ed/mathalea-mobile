@@ -17,10 +17,10 @@ for (const theme of ['clair', 'sombre']) {
   await page.goto('http://localhost:1420/')
   await page.getByRole('button', { name: 'Publier', exact: true }).waitFor()
   await page.screenshot({ path: `${sortie}/ens-accueil-${theme}.png` })
-  await page.getByRole('button', { name: 'Éditer un parcours existant' }).click()
+  await page.getByRole('button', { name: /Éditer un parcours existant/ }).click()
   await page.screenshot({ path: `${sortie}/ens-editer-${theme}.png` })
   await page.getByRole('button', { name: /Fractions express/ }).click()
-  await page.getByRole('button', { name: 'Dupliquer' }).scrollIntoViewIfNeeded()
+  await page.getByRole('button', { name: 'Autres actions' }).scrollIntoViewIfNeeded()
   await page.screenshot({ path: `${sortie}/ens-editeur-bas-${theme}.png` })
   await ctx.close()
 }

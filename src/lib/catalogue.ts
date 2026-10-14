@@ -1,5 +1,5 @@
 // Types des parcours. Les parcours arrivent par les dossiers partagés
-// (fichier parcours-mathalea.json, voir partage.ts) ; aucun n'est intégré à l'app.
+// (fichiers .json des dossiers partagés, voir partage.ts) ; aucun n'est intégré à l'app.
 import type { ParamsExercice } from './moteur'
 
 export interface Etape extends ParamsExercice {

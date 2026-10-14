@@ -1,7 +1,7 @@
 import { strToU8, zipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
 import type { Parcours } from '../src/lib/catalogue'
-import { creerFichier, fusionner, lireFichier, lireFichierDistant, NOM_FICHIER, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
+import { creerFichier, fusionner, lireFichier, lireFichierDistant, NOM_FICHIER, nomHorodate, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
 
 const p = (version: number, titre = 'Fractions'): Parcours => ({
   id: 'fractions-4e',
@@ -94,7 +94,7 @@ describe('Google Drive', () => {
 describe('validation et synchronisation', () => {
   it('refuse un fichier qui n’est pas un fichier de classe', async () => {
     const s = serveur({ 'https://cloud.exemple.ch/s/xyz/': () => reponse('{"format":"autre"}') })
-    await expect(lireFichierDistant('https://cloud.exemple.ch/s/xyz', s.req)).rejects.toThrow(/pas un parcours-mathalea.json valide/)
+    await expect(lireFichierDistant('https://cloud.exemple.ch/s/xyz', s.req)).rejects.toThrow(/pas un fichier de parcours MathALÉA valide/)
   })
   it('ne reprend que les parcours dont la version a augmenté', async () => {
     let version = 2
@@ -197,5 +197,50 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
   it('une version plus ancienne ne remplace pas une plus récente, quel que soit l’ordre', () => {
     const f = fusionner([lireFichier(seul), lireFichier(banque)])
     expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)
+  })
+})
+
+describe('publications horodatées (nom libre, la plus récente compte)', () => {
+  const autre = { ...p(1, 'Puissances'), id: 'puissances-4e' }
+  const banque = (exporteLe: string, parcours: Parcours[]) =>
+    JSON.stringify({ ...JSON.parse(creerFichier([{ nom: '3e A', parcours }], true)), exporteLe })
+
+  it('nom horodaté à la minute, jamais renommé « (1) »', () => {
+    expect(nomHorodate('parcours-mathalea', new Date(2026, 9, 14, 9, 5))).toBe('parcours-mathalea-2026-10-14-09h05.json')
+  })
+
+  it('seule la banque la plus récente compte : un parcours retiré disparaît, un parcours seul s’ajoute', () => {
+    const ancienne = lireFichier(banque('2026-10-01T08:00:00Z', [p(1), autre]))
+    const recente = lireFichier(banque('2026-10-14T08:00:00Z', [p(2)]))
+    const seul = lireFichier(creerFichier([{ nom: '3e B', parcours: [{ ...p(1), id: 'seul', titre: 'Seul' }] }]))
+    const f = fusionner([recente, seul, ancienne])
+    expect(f.classes.find((c) => c.nom === '3e A')!.parcours.map((x) => [x.id, x.version])).toEqual([['fractions-4e', 2]])
+    expect(f.classes.find((c) => c.nom === '3e B')!.parcours.map((x) => x.id)).toEqual(['seul'])
+  })
+
+  it('Nextcloud : le dossier arrive en zip sous un dossier de tête, noms de fichiers libres', async () => {
+    const zip = zipSync({
+      'Maths 3e/': new Uint8Array(),
+      'Maths 3e/parcours-mathalea-2026-10-01-08h00.json': strToU8(banque('2026-10-01T08:00:00Z', [p(1), autre])),
+      'Maths 3e/parcours-mathalea-2026-10-14-08h00.json': strToU8(banque('2026-10-14T08:00:00Z', [p(2)])),
+      'Maths 3e/archives/vieux.json': strToU8(creerFichier([{ nom: 'Archives', parcours: [p(9)] }])),
+    })
+    const s = serveur({ 'https://nuage.example.fr/s/AbC123/download': () => reponse(zip) })
+    const f = await lireFichierDistant('https://nuage.example.fr/s/AbC123', s.req)
+    expect(f.classes.map((c) => c.nom)).toEqual(['3e A'])
+    expect(f.classes[0].parcours.map((x) => [x.id, x.version])).toEqual([['fractions-4e', 2]])
+  })
+
+  it('Nextcloud : partage d’un seul fichier, puis repli sur parcours-mathalea.json hors Nextcloud', async () => {
+    const s = serveur({ 'https://nuage.example.fr/index.php/s/Zz9/download': () => reponse(fichier(4)) })
+    expect((await lireFichierDistant('https://nuage.example.fr/index.php/s/Zz9/', s.req)).classes[0].parcours[0].version).toBe(4)
+    const local = serveur({ [`http://127.0.0.1:8702/s/Xk42demo/test/${NOM_FICHIER}`]: () => reponse(fichier(5)) })
+    expect((await lireFichierDistant('http://127.0.0.1:8702/s/Xk42demo/test/', local.req)).classes[0].parcours[0].version).toBe(5)
+  })
+
+  it('Dropbox : un sous-dossier seul n’est jamais lu', async () => {
+    const zip = zipSync({ 'archives/vieux.json': strToU8(fichier(9)) })
+    const s = serveur({ 'https://www.dropbox.com/scl/fo/abc': () => reponse(zip) })
+    await expect(lireFichierDistant('https://www.dropbox.com/scl/fo/abc/def?dl=0', s.req)).rejects.toThrow('pas encore de fichier')
   })
 })

@@ -9,7 +9,7 @@
   import ApercuExercice from './ApercuExercice.svelte'
   import ChampTexte from './ChampTexte.svelte'
   import ChoixRadio from './ChoixRadio.svelte'
-  import { boutonAction, boutonInverse, listeGroupee } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
   import NavigateurExercices from './NavigateurExercices.svelte'
   import ReglagesExercice from './ReglagesExercice.svelte'
@@ -77,8 +77,12 @@
   let nouvelleClasse = $state('')
   let referentiel: ExerciceDuReferentiel[] = $state([])
   let lienMathalea = $state('')
+  // Import par lien du site : replié tant qu'on ne le demande pas
+  let avecLien = $state(false)
   let messageLien = $state('')
   let confirmerSuppression = $state(false)
+  let actions = $state(false)
+  const ligneAction = `${elementListe} disabled:opacity-40`
   let confirmerSortie = $state(false)
   retourSi(
     () => !navigateur,
@@ -323,12 +327,18 @@
       <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (navigateur = true)}>
         <i aria-hidden="true" class="bx bx-plus mr-1"></i> Ajouter des exercices
       </button>
-      <div class="flex flex-row items-end gap-2">
-        <ChampTexte id="lien-mathalea" titre="Ou coller un lien MathALÉA (exercices et réglages)" bind:valeur={lienMathalea} type="url" />
-        <button type="button" class="{boutonInverse} shrink-0 disabled:opacity-40" style="min-height: 40px" disabled={!lienMathalea.trim()} onclick={importerLien}>
-          Importer
+      {#if avecLien}
+        <div class="flex flex-row items-end gap-2">
+          <ChampTexte id="lien-mathalea" titre="Lien MathALÉA (exercices et réglages)" bind:valeur={lienMathalea} type="url" />
+          <button type="button" class="{boutonInverse} shrink-0 disabled:opacity-40" style="min-height: 40px" disabled={!lienMathalea.trim()} onclick={importerLien}>
+            Importer
+          </button>
+        </div>
+      {:else}
+        <button type="button" class={boutonLien} onclick={() => (avecLien = true)}>
+          <i aria-hidden="true" class="bx bx-link text-xl"></i> Importer depuis un lien MathALÉA
         </button>
-      </div>
+      {/if}
       {#if messageLien}<p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{messageLien}</p>{/if}
 
       <h2 class={titreSection}>Pages</h2>
@@ -344,30 +354,13 @@
         options={Object.entries(libellesValidation).map(([valeur, libelle]) => ({ valeur: valeur as Parcours['correction'], libelle }))}
       />
 
-      {#if ondupliquer || onexporter}
-        <h2 class={titreSection}>Ce parcours</h2>
-        {#if modifie}
-          <p class={discret}>Enregistrez d’abord les modifications pour le dupliquer ou l’exporter.</p>
-        {/if}
-        <div class="grid gap-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
-          {#if ondupliquer}
-            <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={modifie} onclick={() => ondupliquer([...classes], instantane())}>
-              Dupliquer
-            </button>
-          {/if}
-          {#if onexporter}
-            <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={modifie} onclick={async () => (messageExport = await onexporter())}>
-              Exporter
-            </button>
-          {/if}
-        </div>
-        {#if messageExport}<p class={discret} role="status">{messageExport}</p>{/if}
-      {/if}
-
-      {#if onsupprimer}
-        <div class="pt-6">
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (confirmerSuppression = true)}>Supprimer le parcours</button>
-        </div>
+      {#if ondupliquer || onexporter || onsupprimer}
+        <!-- Dupliquer, exporter, supprimer : dans un panneau du bas -->
+        <button type="button" class="{boutonLien} mt-4" onclick={() => (actions = true)}>
+          <i aria-hidden="true" class="bx bx-dots-horizontal-rounded text-xl"></i>
+          Autres actions
+        </button>
+        {#if messageExport}<p class="text-center {discret}" role="status">{messageExport}</p>{/if}
       {/if}
     </main>
 
@@ -378,6 +371,57 @@
           <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={onretour}>Quitter sans enregistrer</button>
           <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
         </div>
+      </Feuille>
+    {/if}
+    {#if actions}
+      <Feuille onfermer={() => (actions = false)}>
+        {#if modifie}
+          <p class="text-sm {discret}">Enregistrez d’abord les modifications pour dupliquer ou exporter ce parcours.</p>
+        {/if}
+        <ul class={listeGroupee}>
+          {#if ondupliquer}
+            <li>
+              <button type="button" class={ligneAction} disabled={modifie} onclick={() => ondupliquer([...classes], instantane())}>
+                <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                  <i aria-hidden="true" class="bx bx-copy text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>Dupliquer
+                </span>
+              </button>
+            </li>
+          {/if}
+          {#if onexporter}
+            <li>
+              <button
+                type="button"
+                class={ligneAction}
+                disabled={modifie}
+                onclick={async () => {
+                  actions = false
+                  messageExport = await onexporter()
+                }}
+              >
+                <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                  <i aria-hidden="true" class="bx bx-export text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>Exporter ce parcours seul
+                </span>
+              </button>
+            </li>
+          {/if}
+          {#if onsupprimer}
+            <li>
+              <button
+                type="button"
+                class={ligneAction}
+                onclick={() => {
+                  actions = false
+                  confirmerSuppression = true
+                }}
+              >
+                <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                  <i aria-hidden="true" class="bx bx-trash text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>Supprimer le parcours
+                </span>
+              </button>
+            </li>
+          {/if}
+        </ul>
       </Feuille>
     {/if}
     {#if confirmerSuppression && onsupprimer}
