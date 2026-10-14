@@ -19,6 +19,11 @@ export const boutonInverse = `presse inline-flex items-center justify-center gap
   font-semibold text-sm leading-tight
   transition duration-150 ease-in-out`
 
+/** Action secondaire sans cadre (lien d'une app) */
+export const boutonLien = `presse inline-flex items-center justify-center gap-2 px-3 py-3 text-center rounded-xl
+  text-coopmaths-action dark:text-coopmathsdark-action
+  font-semibold text-sm leading-tight`
+
 export const desactive = 'disabled:opacity-40'
 
 /** Pastille de compteur (MobileEndingItem.svelte) */

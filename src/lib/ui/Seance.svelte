@@ -4,7 +4,7 @@
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, premiersEssais, questionsDe, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import { boutonAction, boutonInverse, pastille } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, pastille } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
@@ -464,17 +464,14 @@
     <Feuille onfermer={() => (sortie = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Quitter l’activité ?</p>
       <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onquitter}>Reprendre plus tard</button>
-      {#if peutTerminer}
-        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={terminerMaintenant}>
-          {finale && !seance.soumise ? 'Soumettre maintenant' : 'Terminer maintenant'}
-        </button>
-      {/if}
-      <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (sortie = 'suppression')}>
-        Supprimer la tentative
-      </button>
-      <button type="button" class="presse w-full py-2 text-sm font-semibold text-coopmaths-action dark:text-coopmathsdark-action" onclick={() => (sortie = null)}>
-        Rester
-      </button>
+      <div class="flex flex-row justify-center">
+        {#if peutTerminer}
+          <button type="button" class="{boutonLien} flex-1" onclick={terminerMaintenant}>
+            {finale && !seance.soumise ? 'Soumettre maintenant' : 'Terminer maintenant'}
+          </button>
+        {/if}
+        <button type="button" class="{boutonLien} flex-1" onclick={() => (sortie = 'suppression')}>Supprimer la tentative</button>
+      </div>
     </Feuille>
   {:else if sortie === 'suppression'}
     <Feuille onfermer={() => (sortie = 'choix')}>

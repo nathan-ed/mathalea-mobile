@@ -173,6 +173,7 @@ await accueil(a)
 
 // Session partagée 1k3lr, faite en entier avec les bonnes réponses (Nombres relatifs)
 await parcoursDeTest(a, 'Nombres relatifs')
+await a.getByRole('button', { name: 'Autres actions' }).click()
 await a.getByRole('button', { name: 'Rejoindre une session' }).click()
 await a.getByLabel('Code de session').fill('1k3lr')
 await a.getByRole('button', { name: 'Rejoindre la session' }).click()
@@ -186,7 +187,9 @@ ok(
   (await a.getByRole('button', { name: 'Reprendre plus tard' }).isVisible()) && (await a.getByRole('button', { name: 'Supprimer la tentative' }).isVisible()),
   'sortie : reprendre plus tard ou supprimer la tentative',
 )
-await a.getByRole('button', { name: 'Rester' }).click()
+await a.goBack({ waitUntil: 'commit' })
+await a.waitForTimeout(300)
+ok(!(await a.getByRole('button', { name: 'Reprendre plus tard' }).isVisible()), 'second retour : le panneau se referme, on reste')
 const enonceA = await enonce(a)
 await cap(a, '4-session')
 for (let n = 0; n < 9; n++) {
@@ -209,6 +212,7 @@ await b.getByRole('button', { name: /France/ }).click()
 await b.getByRole('button', { name: /Élève/ }).click()
 await rejoindreClasseTest(b)
 await parcoursDeTest(b, 'Nombres relatifs')
+await b.getByRole('button', { name: 'Autres actions' }).click()
 await b.getByRole('button', { name: 'Rejoindre une session' }).click()
 await b.getByLabel('Code de session').fill('1K3LR')
 await b.getByRole('button', { name: 'Rejoindre la session' }).click()
@@ -220,7 +224,13 @@ await b.getByRole('button', { name: 'Quitter', exact: true }).click()
 ok(!(await b.getByRole('button', { name: 'Terminer maintenant' }).isVisible()), 'sortie sans aucune réponse : pas de « Terminer maintenant »')
 await b.getByRole('button', { name: 'Reprendre plus tard' }).click()
 await b.getByRole('button', { name: 'Continuer', exact: true }).waitFor()
-ok(await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).isVisible(), 'détail : tentative en cours supprimable')
+ok((await b.locator('main button').count()) <= 4, `détail : un seul bouton principal (${await b.locator('main button').count()} boutons)`)
+await b.getByRole('button', { name: 'Autres actions' }).click()
+await b.waitForTimeout(400)
+await cap(b, '4c-autres-actions')
+ok(await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).isVisible(), 'autres actions : tentative en cours supprimable')
+await b.goBack({ waitUntil: 'commit' })
+await b.waitForTimeout(300)
 
 // Terminer tout de suite : bilan avec ce qui est fait
 await b.getByRole('button', { name: 'Continuer', exact: true }).click()
@@ -252,7 +262,7 @@ await b.getByRole('button', { name: 'Supprimer', exact: true }).click()
 await b.getByRole('button', { name: 'Recommencer' }).waitFor()
 await b.waitForTimeout(800)
 ok(
-  !(await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).isVisible()) &&
+  !(await b.getByRole('button', { name: 'Continuer', exact: true }).isVisible()) &&
     (await b.evaluate(() => Object.keys(localStorage).filter((c) => c.startsWith('copie:seance:')).length)) === 0,
   'séance supprimée juste après une saisie : rien ne reste',
 )
@@ -260,6 +270,7 @@ await b.getByRole('button', { name: 'Recommencer' }).click()
 await b.locator('main math-field').first().waitFor()
 await b.getByRole('button', { name: 'Quitter', exact: true }).click()
 await b.getByRole('button', { name: 'Reprendre plus tard' }).click()
+await b.getByRole('button', { name: 'Autres actions' }).click()
 await b.getByRole('button', { name: 'Supprimer la tentative en cours' }).click()
 await b.getByRole('button', { name: 'Supprimer', exact: true }).click()
 await b.waitForTimeout(500)

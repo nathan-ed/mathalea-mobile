@@ -3,7 +3,7 @@
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
   import { nouveauCode, normaliserCode } from '$lib/progression'
   import ChampTexte from './ChampTexte.svelte'
-  import { boutonAction, boutonInverse, listeGroupee, pastille } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
@@ -44,7 +44,8 @@
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
   let code = $state('')
-  let confirmerSuppression = $state(false)
+  // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton
+  let feuille: 'actions' | 'suppression' | null = $state(null)
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
@@ -112,10 +113,6 @@
           Reprendre les exercices à améliorer ({aAmeliorer.length})
         </button>
       {/if}
-      {#if enCours}
-        <button type="button" class="{boutonInverse} w-full" onclick={onrefaire}>Tout refaire</button>
-        <button type="button" class="{boutonInverse} w-full" onclick={() => (confirmerSuppression = true)}>Supprimer la tentative en cours</button>
-      {/if}
       {#if session === 'creer'}
         <div class="text-center py-2">
           <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2.5rem; letter-spacing: 0.15em">{code}</div>
@@ -136,30 +133,10 @@
           Rejoindre la session
         </button>
       {:else}
-        <div class="grid gap-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
-          <button
-            type="button"
-            class="{boutonInverse} w-full"
-            style="min-height: 44px"
-            onclick={() => {
-              code = nouveauCode()
-              session = 'creer'
-            }}
-          >
-            Session partagée
-          </button>
-          <button
-            type="button"
-            class="{boutonInverse} w-full"
-            style="min-height: 44px"
-            onclick={() => {
-              code = ''
-              session = 'rejoindre'
-            }}
-          >
-            Rejoindre une session
-          </button>
-        </div>
+        <button type="button" class={boutonLien} onclick={() => (feuille = 'actions')}>
+          <i aria-hidden="true" class="bx bx-dots-horizontal-rounded text-xl"></i>
+          Autres actions
+        </button>
       {/if}
     </div>
 
@@ -190,18 +167,49 @@
       </ul>
     {/if}
   </main>
-  {#if confirmerSuppression}
-    <Feuille onfermer={() => (confirmerSuppression = false)}>
+  {#if feuille === 'actions'}
+    {@const action = (icone: string, libelle: string, fn: () => void) => ({ icone, libelle, fn })}
+    {@const actions = [
+      ...(enCours
+        ? [action('bx-revision', 'Tout refaire', onrefaire), action('bx-trash', 'Supprimer la tentative en cours', () => (feuille = 'suppression'))]
+        : []),
+      action('bx-group', 'Session partagée', () => {
+        code = nouveauCode()
+        session = 'creer'
+        feuille = null
+      }),
+      action('bx-log-in', 'Rejoindre une session', () => {
+        code = ''
+        session = 'rejoindre'
+        feuille = null
+      }),
+    ]}
+    <Feuille onfermer={() => (feuille = null)}>
+      <ul class={listeGroupee}>
+        {#each actions as a (a.libelle)}
+          <li>
+            <button type="button" class={elementListe} onclick={a.fn}>
+              <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                <i aria-hidden="true" class="bx {a.icone} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                {a.libelle}
+              </span>
+            </button>
+          </li>
+        {/each}
+      </ul>
+    </Feuille>
+  {:else if feuille === 'suppression'}
+    <Feuille onfermer={() => (feuille = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer la tentative en cours ?</p>
       <p class="text-sm">Ses réponses seront effacées. Tes passages terminés sont gardés.</p>
       <div class="flex flex-row gap-3">
-        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (confirmerSuppression = false)}>Annuler</button>
+        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (feuille = null)}>Annuler</button>
         <button
           type="button"
           class="{boutonAction} flex-1"
           style="min-height: 44px"
           onclick={() => {
-            confirmerSuppression = false
+            feuille = null
             onsupprimer()
           }}>Supprimer</button
         >

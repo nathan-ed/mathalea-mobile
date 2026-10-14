@@ -178,6 +178,9 @@ refuse la mise à jour.
   parcours ; les passages terminés et les résultats restent
   (`supprimerSeance`). Le clavier de MathALÉA est masqué sous un panneau du
   bas (fait).
+- Détail du parcours allégé : un seul bouton (Commencer, Continuer…), le
+  reste dans « Autres actions » (panneau du bas : tout refaire, supprimer la
+  tentative, sessions) ; classe `boutonLien` pour les actions sans cadre (fait).
 - Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
   JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
   avec une ou plusieurs compétences ; suivi de l'élève par compétence.
