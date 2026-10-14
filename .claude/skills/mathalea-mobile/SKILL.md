@@ -229,6 +229,15 @@ Environnement (machine de Nathan)
   `src-tauri/gen/android/app/build/outputs/apk/{arm64,arm}/release/`.
 - Essai rapide : `scripts/apk-essai.sh` (arm64) ou `scripts/apk-essai.sh x86_64`
   (émulateur) : sans LTO, une architecture, cache `src-tauri/target-essai`.
+- Installation refusée sur un Xiaomi (MIUI 12, Android 11) : « paquet
+  invalide » dans un installateur tiers, rien dans celui de MIUI, alors que la
+  même APK s'installe sur un Android 11 standard. Depuis : bibliothèques
+  compressées (`jniLibs.useLegacyPackaging = true`, APK de 32 à 25 Mo) et
+  signature v1 + v2 + v3. AGP ne pose pas la v1 avec `minSdk` 24 : l'ajouter
+  avec `apksigner sign --v1-signing-enabled true …` (vérifier avec
+  `apksigner verify -v --min-sdk-version 18`).
+- Un WebView très ancien (83, image Android 11 de l'émulateur sans mise à
+  jour) affiche un écran blanc : JavaScript trop récent.
 - **Toute compilation terminée va dans `releases/`** (demande de Nathan) :
   release dans `releases/v<x>/`, essai dans `releases/essai/`
   (`MathALEA-<version>-<commit>-android-<abi>.apk`, ignoré par Git), fait

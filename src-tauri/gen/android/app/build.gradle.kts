@@ -30,10 +30,21 @@ android {
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
                 keyPassword = keystoreProperties.getProperty("keyPassword")
+                // Toutes les signatures : certains installateurs (MIUI…) refusent
+                // une APK signée seulement en v2
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
             }
         }
     }
     namespace = "fr.coopmaths.mathalea"
+    // Bibliothèques natives compressées, extraites à l'installation (mode
+    // classique, le mieux accepté par les installateurs des constructeurs) :
+    // l'APK est aussi plus légère à télécharger
+    packaging {
+        jniLibs.useLegacyPackaging = true
+    }
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
         applicationId = "fr.coopmaths.mathalea"
