@@ -234,17 +234,27 @@ refuse la mise à jour.
 
 ### Moteur servi par Coopmaths
 
-Le mécanisme est en place (0.1.1) ; il manque l'adresse de publication.
+Le mécanisme est en place (0.1.1) ; le moteur est publié avec le site sur
+`https://mathalea.fr/releases/` (`URL_MISES_A_JOUR`, `src-tauri/src/moteur.rs` ;
+`MATHALEA_MOTEUR_URL` pour les essais).
 
-- Publication : `node scripts/publier-moteur.mjs <dist-moteur> <sortie> <clé privée>`
-  produit `moteur-<version>.tar.gz`, `mise-a-jour.json` (version, API, date,
-  taille, SHA-256) et `mise-a-jour.json.sig` (signature Ed25519). Les trois
-  fichiers se déposent à l'adresse `URL_MISES_A_JOUR` (`src-tauri/src/moteur.rs`,
-  provisoire : à fixer avec l'équipe ; `MATHALEA_MOTEUR_URL` pour les essais).
-- Clé : `node scripts/cles-moteur.mjs <fichier .pem>` crée la paire ; la clé
-  publique remplace `CLE_PUBLIQUE` dans `moteur.rs`. La clé actuelle est une
-  clé de test (privée dans `~/.local/share/mathalea-mobile/` sur la machine de
-  Nathan) : Coopmaths génère la sienne et la garde dans les secrets de sa CI.
+- Publication : à chaque mise en ligne du site, `pnpm build:deploy` de
+  MathALÉA enchaîne `build:moteur` et `tasks/deploy_moteur.sh`, qui signe
+  (`tasks/publier_moteur.mjs`) et dépose `moteur-<version>.tar.gz`, puis
+  `mise-a-jour.json` (version, API, date, taille, SHA-256) et
+  `mise-a-jour.json.sig` (signature Ed25519) dans `REMOTE_RELEASES_PATH`.
+  Ces fichiers sont dans `moteur/fichiers/tasks/` et le correctif
+  `moteur/mathalea.patch` (`package.json`, `.env.example`) en attendant la
+  MR. Deux scripts séparés plutôt qu'un seul : le moteur peut être republié
+  seul, et un échec du moteur (clé absente) n'empêche pas le site de partir.
+- Clé : mode d'emploi pour qui publie dans
+  `moteur/fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`
+  (`node tasks/cles_moteur.mjs <.pem>` ; la clé publique est transmise et
+  remplace `CLE_PUBLIQUE`). La clé actuelle est une clé de test (privée dans
+  `~/.local/share/mathalea-mobile/` sur la machine de Nathan).
+- Pourquoi signer : le moteur téléchargé s'exécute avec les droits de l'app.
+  HTTPS protège le trajet, pas le serveur : la signature empêche qu'un accès
+  au serveur web suffise pour envoyer du code à toutes les apps.
 - App : au lancement, `chargerMoteur()` prend le plus récent entre le moteur
   livré et le moteur téléchargé (`moteur://`, repli sur le livré en cas
   d'échec), puis `mettre_a_jour_moteur` cherche une publication plus récente :
@@ -259,8 +269,9 @@ Le mécanisme est en place (0.1.1) ; il manque l'adresse de publication.
   pas retéléchargée.
 - Tests : `cargo test moteur` (publication valide, ancienne, autre API,
   signature d'une autre clé, archive altérée, redirections d'une forge, page
-  de connexion d'un projet privé) ; publication réelle du script :
-  `MOTEUR_PUBLICATION=<sortie> cargo test -- --ignored`.
+  de connexion d'un projet privé) ; publication réelle du script (déposée en
+  local : `REMOTE_RELEASES_PATH=<dossier>` sans `REMOTE_SERVER`) :
+  `MOTEUR_PUBLICATION=<dossier> cargo test moteur -- --include-ignored`.
 - Hébergement : n'importe quel serveur HTTPS public qui sert les trois
   fichiers sous une même adresse (`<adresse>mise-a-jour.json`, etc.). Les
   redirections sont suivies. Conviennent : un dossier de coopmaths.fr,
@@ -274,12 +285,11 @@ Le mécanisme est en place (0.1.1) ; il manque l'adresse de publication.
 
 Reste à faire :
 
-1. Choisir l'adresse publique et la renseigner dans `URL_MISES_A_JOUR`, avec
-   la vraie clé publique dans `CLE_PUBLIQUE`, puis publier une version de
-   l'app : les deux sont compilées dans l'app, les apps déjà installées
-   continuent d'interroger l'ancienne adresse.
-2. Dans la CI de MathALÉA, à chaque mise en production : construire le moteur,
-   le publier avec `publier-moteur.mjs` et la clé de Coopmaths.
+1. Qui déploie le site crée la vraie clé et transmet la clé publique ; la
+   mettre dans `CLE_PUBLIQUE` et publier une version de l'app (adresse et
+   clé sont compilées dans l'app).
+2. Sur le serveur : créer le dossier servi à `mathalea.fr/releases/` et le
+   renseigner dans `REMOTE_RELEASES_PATH` (`.env` du site).
 3. Un parcours pourra indiquer la version minimale du moteur (exercice récent) :
    télécharger avant d'ouvrir, ou signaler « connexion nécessaire ».
 4. Wi-Fi seulement pour les 20 Mo ? Réglage à prévoir sur Android.

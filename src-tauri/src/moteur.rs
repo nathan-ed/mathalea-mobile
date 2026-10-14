@@ -1,6 +1,6 @@
 //! Mises à jour du moteur MathALÉA sans mise à jour de l'app.
 //!
-//! Une publication (scripts/publier-moteur.mjs) contient `mise-a-jour.json`,
+//! Une publication (tasks/publier_moteur.mjs de MathALÉA, voir moteur/) contient `mise-a-jour.json`,
 //! sa signature Ed25519 `mise-a-jour.json.sig` et l'archive du moteur. L'app
 //! vérifie la signature avec CLE_PUBLIQUE, la version d'API, la taille et le
 //! SHA-256 de l'archive, l'extrait à part, puis l'active au lancement suivant :
@@ -18,12 +18,13 @@ use sha2::{Digest, Sha256};
 use tauri::Manager;
 use tauri_plugin_http::reqwest;
 
-/// Adresse provisoire : à fixer avec l'équipe Coopmaths (voir docs/developpement.md).
-/// Variable d'environnement MATHALEA_MOTEUR_URL pour les essais.
-pub const URL_MISES_A_JOUR: &str = "https://coopmaths.fr/alea/moteur/";
+/// Publiée à chaque mise en ligne du site (tasks/deploy_moteur.sh de MathALÉA,
+/// voir moteur/). Variable d'environnement MATHALEA_MOTEUR_URL pour les essais.
+pub const URL_MISES_A_JOUR: &str = "https://mathalea.fr/releases/";
 
 /// Clé publique Ed25519 (32 octets, base64) qui signe les publications.
-/// Clé de test : Coopmaths génère la sienne (scripts/cles-moteur.mjs) et la remplace ici.
+/// Clé de test : qui publie le site génère la sienne (tasks/cles_moteur.mjs de
+/// MathALÉA, voir publication-moteur.md) et transmet la clé publique à mettre ici.
 pub const CLE_PUBLIQUE: &str = "UaVlT+Qmsv8bLpxDfjkMDfDvA4yHSiX5ogHhMNdl8sU=";
 
 const FORMAT: &str = "moteur-mathalea/1";
@@ -436,8 +437,8 @@ mod tests {
         assert_eq!(lire_actif(donnees.path()).unwrap().version, "un");
     }
 
-    /// Publication réelle (scripts/publier-moteur.mjs) vérifiée avec CLE_PUBLIQUE :
-    /// MOTEUR_PUBLICATION=<dossier de sortie du script> cargo test -- --ignored
+    /// Publication réelle (tasks/deploy_moteur.sh de MathALÉA) vérifiée avec CLE_PUBLIQUE :
+    /// MOTEUR_PUBLICATION=<REMOTE_RELEASES_PATH local> cargo test -- --ignored
     #[tokio::test]
     #[ignore = "publication préparée par le script Node"]
     async fn accepte_une_publication_du_script() {

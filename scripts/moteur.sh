@@ -18,7 +18,7 @@ git cat-file -e "$commit^{commit}" 2>/dev/null || git fetch origin "$commit"
 git checkout -q -f "$commit"
 git clean -q -fd -e node_modules
 cp -r "$racine/moteur/fichiers/." .
-git apply "$racine/moteur/version.patch"
+git apply "$racine/moteur/mathalea.patch"
 
 # Version : date, commit de MathALÉA, empreinte des fichiers de moteur/
 empreinte="$(cd "$racine/moteur" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)"
@@ -26,7 +26,7 @@ export MOTEUR_VERSION="$(date -u +%F)+${commit:0:9}.$empreinte"
 
 pnpm install --frozen-lockfile
 pnpm makeJson
-NODE_OPTIONS=--max-old-space-size=6144 npx vite build -c vite.moteur.config.ts
+pnpm build:moteur
 
 rm -rf "$racine/static/moteur"
 cp -r "$mathalea/dist-moteur" "$racine/static/moteur"

@@ -159,21 +159,18 @@ mots de passe, coffre de l'équipe). Les perdre empêche de publier des mises
 | Clé | Sert à | Créer | Où la mettre |
 | --- | --- | --- | --- |
 | Signature Android (`.jks`) | signer les APK ; Android refuse une mise à jour signée par une autre clé | `keytool -genkey -v -keystore mathalea.jks -keyalg RSA -keysize 2048 -validity 10000 -alias mathalea` | local : `src-tauri/gen/android/keystore.properties` (`storeFile`, `storePassword`, `keyAlias`, `keyPassword`, ignoré par Git) ; GitHub, Settings, Secrets : `ANDROID_KEYSTORE` (`base64 -w0 mathalea.jks`), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` |
-| Signature du moteur (Ed25519, `.pem`) | signer les mises à jour du moteur téléchargées par l'app | `node scripts/cles-moteur.mjs moteur-ed25519.pem` (affiche la clé publique) | clé publique : `CLE_PUBLIQUE` dans `src-tauri/src/moteur.rs` ; clé privée : chez qui publie (secret de CI) |
+| Signature du moteur (Ed25519, `.pem`) | signer les mises à jour du moteur téléchargées par l'app | `node tasks/cles_moteur.mjs <.pem>` dans MathALÉA (affiche la clé publique) | clé publique : `CLE_PUBLIQUE` dans `src-tauri/src/moteur.rs` ; clé privée : chez qui déploie le site (`MOTEUR_CLE_PRIVEE` dans son `.env`) |
 
 Les clés actuelles sont des clés **de test** (sur la machine de Nathan). Avant
 une diffusion large : créer les vraies, remplacer les secrets GitHub et
-`CLE_PUBLIQUE`, fixer `URL_MISES_A_JOUR` (même fichier), puis publier une
-version. Installer la première APK signée par la vraie clé demande de
-désinstaller une fois l'ancienne.
+`CLE_PUBLIQUE`, puis publier une version. Installer la première APK signée
+par la vraie clé demande de désinstaller une fois l'ancienne.
 
-Publier un moteur (sans nouvelle version de l'app) :
-
-```bash
-pnpm moteur                                                     # construit static/moteur
-node scripts/publier-moteur.mjs static/moteur sortie/ moteur-ed25519.pem
-# déposer sortie/moteur-*.tar.gz, puis mise-a-jour.json et mise-a-jour.json.sig à URL_MISES_A_JOUR
-```
+Le moteur est publié par le site MathALÉA à chaque mise en ligne, sur
+`https://mathalea.fr/releases/` (`pnpm build:deploy`, ou `pnpm build:moteur`
+puis `pnpm deploy:moteur`). Scripts et mode d'emploi des clés, en attendant
+leur entrée dans MathALÉA : `moteur/fichiers/tasks/` et
+`moteur/fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`.
 
 Détails : [docs/developpement.md](docs/developpement.md#moteur-servi-par-coopmaths).
 

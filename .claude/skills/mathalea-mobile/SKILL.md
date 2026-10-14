@@ -152,20 +152,33 @@ Bibliothèque de l'enseignant (`src/lib/bibliotheque.ts`)
   d'un parcours d'un autre pays reste affiché dans l'éditeur.
 
 Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
-- Publication : `node scripts/publier-moteur.mjs <dist-moteur> <sortie> <clé .pem>`
-  → `moteur-<v>.tar.gz`, `mise-a-jour.json` (format `moteur-mathalea/1`,
+- Publication : par le site, à chaque mise en ligne, sur
+  `https://mathalea.fr/releases/` (`URL_MISES_A_JOUR`). Scripts dans
+  `moteur/fichiers/tasks/` (entrent dans MathALÉA avec la MR) :
+  `pnpm build:moteur` puis `pnpm deploy:moteur` (`deploy_moteur.sh` :
+  `publier_moteur.mjs` signe, rsync de l'archive puis de `mise-a-jour.json`
+  et `.sig` vers `REMOTE_RELEASES_PATH`, trois archives gardées ; sans
+  `REMOTE_SERVER`, dossier local pour les essais) ; `build:deploy` enchaîne
+  site et moteur. Deux scripts séparés voulus : publier le moteur seul, et
+  un échec du moteur ne bloque pas le site. Mode d'emploi des clés pour qui
+  publie : `moteur/fichiers/documentation/developpement/maintenance-moteur/publication-moteur.md`
+  (`node tasks/cles_moteur.mjs <.pem>`, la clé publique revient à l'app dans
+  `CLE_PUBLIQUE`). Clé actuelle = clé de test
+  (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`). Contrôle :
+  `MOTEUR_PUBLICATION=<dossier> cargo test moteur -- --include-ignored`.
+- Format : `moteur-<v>.tar.gz`, `mise-a-jour.json` (format `moteur-mathalea/1`,
   version, api, publieLe, archive, taille, sha256), `mise-a-jour.json.sig`
-  (Ed25519, base64). Clé : `node scripts/cles-moteur.mjs <fichier>` ; la clé
-  publique va dans `CLE_PUBLIQUE`. Clé actuelle = clé de test
-  (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`).
+  (Ed25519, base64). La signature protège les apps d'un serveur web
+  compromis (le moteur a les droits de l'app) ; la clé privée n'est pas sur
+  le serveur.
 - App : signature, même API, plus récent (`publieLe`), taille et SHA-256,
   extraction à part, activation au lancement suivant (jamais en séance),
   recherche au lancement, au retour dans l'app et toutes les 10 min comme
   les dossiers suivis et l'Explorer (`actualiser()`),
   servi par `moteur://`, repli sur le moteur livré. Réglages : version et
   « Rechercher une mise à jour ».
-- `URL_MISES_A_JOUR` et `URL_EXPLORER` (catalogue Explorer, `partage.ts`)
-  sont des **adresses provisoires** (coopmaths.fr répond 503) : Nathan les
+- `URL_EXPLORER` (catalogue Explorer, `partage.ts`) est une **adresse
+  provisoire** (coopmaths.fr répond 503 ; le site tourne sur mathalea.fr/alea) : Nathan les
   fixe avec les devs Coopmaths. Essais : `MATHALEA_MOTEUR_URL`,
   `VITE_URL_EXPLORER` (`.env.development.local`, ignoré par Git).
 - Sans adresse servie, tout fonctionne : moteur livré, Explorer « Aucun
@@ -431,7 +444,7 @@ Environnement (machine de Nathan)
 - 0.1.1 : publiée (éditeur sur un écran, navigateur d'exercices, plusieurs
   fichiers par dossier, téléchargements après validation, partage Android,
   mises à jour du moteur et Explorer avec adresses provisoires).
-- À fixer avec Coopmaths : adresses `URL_MISES_A_JOUR` et `URL_EXPLORER`,
+- À fixer avec Coopmaths : adresse `URL_EXPLORER`,
   vraie clé de signature du moteur et de l'APK, projet de la forge public,
   MR du moteur dans MathALÉA (puis supprimer `moteur/` et la release `moteur`
   du miroir GitHub).
