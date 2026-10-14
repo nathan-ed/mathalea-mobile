@@ -136,6 +136,10 @@ jobs:
         env:
           NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
         run: pnpm tauri android build --apk --split-per-abi --target aarch64 --target armv7
+      # Signature v1 en plus (AGP ne la pose pas avec minSdk 24 ; MIUI la veut)
+      - name: Signatures v1, v2 et v3
+        if: env.ANDROID_KEYSTORE != ''
+        run: scripts/signer-apk.sh src-tauri/gen/android/app/build/outputs/apk/*/release/*.apk
       - name: Joindre l'APK à la release
         uses: softprops/action-gh-release@v3
         with:

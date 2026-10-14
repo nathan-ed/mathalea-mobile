@@ -14,7 +14,47 @@
         const t = localStorage.getItem('theme')
         if (t === 'sombre' || (t !== 'clair' && matchMedia('(prefers-color-scheme: dark)').matches))
           document.documentElement.classList.add('dark')
-      } catch {}
+      } catch (e) {}
+      // Démarrage raté (WebView trop ancien, fichier manquant) : la raison
+      // s'affiche sous le dé au lieu d'un écran figé
+      window.__erreursLancement = []
+      addEventListener('error', function (e) {
+        window.__erreursLancement.push((e.message || (e.target && (e.target.src || e.target.href)) || 'erreur') + '')
+      }, true)
+      addEventListener('unhandledrejection', function (e) {
+        window.__erreursLancement.push('' + (e.reason && e.reason.message ? e.reason.message : e.reason))
+      })
+      // WebView trop ancien pour le CSS de MathALÉA (Tailwind 4 : Chrome 111 et
+      // plus) : il se met à jour par le Play Store (« Android System WebView »)
+      var VERSION_MINIMALE = 111
+      var versionWebView = +((navigator.userAgent.match(/Chrome\/([0-9]+)/) || [])[1] || 0)
+      if (versionWebView && versionWebView < VERSION_MINIMALE) {
+        addEventListener('DOMContentLoaded', function () {
+          var d = document.getElementById('webview-ancien')
+          d.style.display = 'flex'
+          var l = document.getElementById('lancement')
+          if (l) l.style.display = 'none'
+          d.querySelector('.installee').textContent = versionWebView
+          d.querySelector('.maj').onclick = function () {
+            var url = 'https://play.google.com/store/apps/details?id=com.google.android.webview'
+            var t = window.__TAURI_INTERNALS__
+            if (t) t.invoke('plugin:opener|open_url', { url: url })
+            else location.href = url
+          }
+          d.querySelector('.continuer').onclick = function () {
+            d.parentNode.removeChild(d)
+          }
+        })
+      }
+      setTimeout(function () {
+        var l = document.getElementById('lancement')
+        if (!l) return
+        var p = document.createElement('p')
+        var v = (navigator.userAgent.match(/Chrome\/([0-9]+)/) || [])[1]
+        p.textContent = 'MathALÉA ne démarre pas' + (v ? ' (WebView ' + v + ')' : '') + '. ' +
+          (window.__erreursLancement.join(' · ') || 'Aucune erreur signalée.')
+        l.appendChild(p)
+      }, 20000)
     </script>
     <style>
       /* Écran de lancement : le dé MathALÉA tourne jusqu'à ce que le moteur
@@ -23,14 +63,37 @@
       html.dark { background: #282a36; }
       #lancement {
         position: fixed;
-        inset: 0;
+        top: 0; right: 0; bottom: 0; left: 0;
         z-index: 200;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         background: inherit;
         transition: opacity 200ms;
       }
+      #lancement p { max-width: 20rem; margin: 1.5rem 1rem 0; font: 14px sans-serif; text-align: center; color: #6a7c8d; }
+      #webview-ancien {
+        display: none;
+        position: fixed;
+        top: 0; right: 0; bottom: 0; left: 0;
+        z-index: 300;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: #fff;
+        font: 16px sans-serif;
+        color: #1f2429;
+        text-align: center;
+      }
+      html.dark #webview-ancien { color: #dfdfdf; background: #282a36; }
+      #webview-ancien h1 { margin: 0 0 1rem; font-size: 1.25rem; color: #216d9a; }
+      html.dark #webview-ancien h1 { color: #bd93f9; }
+      #webview-ancien p { max-width: 22rem; margin: 0 0 1.5rem; line-height: 1.5; }
+      #webview-ancien button { width: 100%; max-width: 22rem; min-height: 48px; margin-top: 0.75rem; border-radius: 0.75rem; font: 600 14px sans-serif; }
+      #webview-ancien .maj { border: 0; background: #f15929; color: #fff; }
+      #webview-ancien .continuer { border: 1px solid #f15929; background: transparent; color: #f15929; }
       #lancement.fini { opacity: 0; pointer-events: none; }
       #lancement img { width: 5rem; animation: de-tourne 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
       @keyframes de-tourne { to { transform: rotate(360deg); } }
@@ -39,6 +102,16 @@
     %sveltekit.head%
   </head>
   <body>
+    <div id="webview-ancien" role="alertdialog" aria-labelledby="webview-titre">
+      <h1 id="webview-titre">Mise à jour nécessaire</h1>
+      <p>
+        MathALÉA a besoin d’une version plus récente d’« Android System WebView »
+        (installée : <span class="installee"></span>, nécessaire : 111 ou plus).
+        Elle se met à jour gratuitement par le Play Store.
+      </p>
+      <button type="button" class="maj">Mettre à jour Android System WebView</button>
+      <button type="button" class="continuer">Continuer quand même</button>
+    </div>
     <div id="lancement" aria-hidden="true"><img src="%sveltekit.assets%/logo_mathalea.svg" alt="" /></div>
     <div style="display: contents">%sveltekit.body%</div>
   </body>

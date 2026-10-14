@@ -161,6 +161,17 @@ refuse la mise à jour.
 
 ### 0.1.4
 
+- Interface d'app et non de site (retours des testeurs) : bouton retour du
+  téléphone, barre de titre, onglets en bas, panneaux du bas, bouton
+  flottant, dé qui tourne au lancement, barres du système d'Android (fait).
+- Installation : bibliothèques natives compressées et signatures v1, v2, v3
+  (`scripts/signer-apk.sh`), après un refus sur un Xiaomi sous MIUI 12 (fait).
+- WebView trop ancien (moins de Chrome 111, minimum du CSS de MathALÉA) :
+  écran qui propose de mettre à jour « Android System WebView » par le Play
+  Store au lieu d'un écran blanc (fait).
+
+### 0.1.5
+
 - Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
   JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
   avec une ou plusieurs compétences ; suivi de l'élève par compétence.

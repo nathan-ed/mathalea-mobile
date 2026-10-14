@@ -236,8 +236,15 @@ Environnement (machine de Nathan)
   signature v1 + v2 + v3. AGP ne pose pas la v1 avec `minSdk` 24 : l'ajouter
   avec `apksigner sign --v1-signing-enabled true …` (vérifier avec
   `apksigner verify -v --min-sdk-version 18`).
-- Un WebView très ancien (83, image Android 11 de l'émulateur sans mise à
-  jour) affiche un écran blanc : JavaScript trop récent.
+- WebView minimum : Chrome 111 (Tailwind 4 de MathALÉA : `@layer`, `:where`,
+  `:has`, `@property`). En dessous, `app.html` affiche « Mise à jour
+  nécessaire » avec un lien Play Store vers Android System WebView. Convertir
+  le CSS pour Chrome 83 a été essayé (lightningcss + postcss-preset-env) :
+  il reste des centaines de `:where`/`:has`, abandonné. Un démarrage raté
+  affiche la raison sous le dé après 20 s (`__erreursLancement`). Essai :
+  image `system-images;android-30;google_apis;x86_64` (WebView 83 figé, sans
+  Play Store) ; la supprimer ensuite (3,3 Go).
+- Signature v1 : `scripts/signer-apk.sh <apk>…` (aussi dans la CI).
 - **Toute compilation terminée va dans `releases/`** (demande de Nathan) :
   release dans `releases/v<x>/`, essai dans `releases/essai/`
   (`MathALEA-<version>-<commit>-android-<abi>.apk`, ignoré par Git), fait
@@ -434,7 +441,8 @@ Environnement (machine de Nathan)
   parcours, « Exporter ce parcours », Dupliquer, ordre par classe,
   correction invisible pour les élèves : `reprendreResultats`), relecture
   des dossiers et du moteur à chaque retour dans l'app.
-- 0.1.4 : dictionnaire de compétences par chapitre (édité dans l'app ou
+- 0.1.4 : interface d'app, APK plus compatible, écran WebView ancien.
+- 0.1.5 : dictionnaire de compétences par chapitre (édité dans l'app ou
   importé en JSON), étiquetage rapide des exercices, suivi par compétence.
 - Idées notées par Nathan (docs/developpement.md, « À faire ») : création
   de parcours depuis le site MathALÉA (et édition d'un `.json` chargé),
