@@ -1,25 +1,22 @@
 // Classes Tailwind reprises telles quelles de MathALÉA ; elles sont compilées
 // dans moteur.css. Ne pas en inventer : une classe absente du site n'y figure pas.
 
-/** Bouton de vérification de la vue élève (ExerciceMathaleaVueEleve.svelte) */
-export const boutonAction = `inline-block px-6 py-2.5
+/** Bouton principal : couleurs du bouton de vérification de MathALÉA
+ * (ExerciceMathaleaVueEleve.svelte), forme d'app : texte normal, coins
+ * arrondis, aucun effet au survol (il resterait collé après un toucher) */
+export const boutonAction = `inline-flex items-center justify-center gap-2 px-3 py-3 text-center
   bg-coopmaths-action dark:bg-coopmathsdark-action
   text-coopmaths-canvas dark:text-coopmathsdark-canvas
-  font-medium text-xs leading-tight uppercase rounded shadow-md
-  transform hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
-  hover:shadow-lg focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest
-  focus:shadow-lg focus:outline-none focus:ring-0
+  font-semibold text-sm leading-tight rounded-xl shadow-sm
   active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest
-  active:shadow-lg transition duration-150 ease-in-out`
+  transition duration-150 ease-in-out`
 
-/** Variante « inverted » de ButtonTextAction.svelte */
-export const boutonInverse = `inline-block px-6 py-2.5 rounded
-  border border-coopmaths-action
+/** Bouton secondaire : variante « inverted » de ButtonTextAction.svelte */
+export const boutonInverse = `presse inline-flex items-center justify-center gap-2 px-3 py-3 text-center rounded-xl
+  border border-coopmaths-action dark:border-coopmathsdark-action
   text-coopmaths-action dark:text-coopmathsdark-action
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
-  font-medium text-xs leading-tight uppercase
-  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action
-  hover:text-coopmaths-canvas dark:hover:text-coopmathsdark-canvas
+  font-semibold text-sm leading-tight
   transition duration-150 ease-in-out`
 
 export const desactive = 'disabled:opacity-40'

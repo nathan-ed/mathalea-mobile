@@ -1,5 +1,6 @@
 <script lang="ts">
-  // Tuile de la vue mobile de MathALÉA (MobileTile.svelte), avec une pastille facultative
+  // Tuile de la vue mobile de MathALÉA (MobileTile.svelte), sans cadre (carte
+  // pleine, comme les apps), avec une pastille facultative
   import { pastille as classePastille } from './classes'
 
   type Props = {
@@ -12,8 +13,7 @@
   }
   const { title, subtitle = '', icon = '', size = 'normal', badge = '', onclick }: Props = $props()
 
-  const sharedClasses = $derived(`w-full flex flex-row items-center justify-between gap-3 text-left rounded-xl
-  border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
+  const sharedClasses = $derived(`w-full flex flex-row items-center justify-between gap-3 text-left rounded-2xl
   bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
   active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest
   transition-colors duration-150

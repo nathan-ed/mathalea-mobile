@@ -140,7 +140,7 @@
       {#if messageImport}<p class={discret} role="status">{messageImport}</p>{/if}
     </div>
   {:else}
-    <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas">
+    <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas" style="padding-bottom: 6rem">
       {#if !bibliotheque.lien}
         <!-- Mise en route : sans dossier partagé, rien n'arrive aux élèves -->
         <section class={carte} aria-label="Mise en route">
@@ -227,8 +227,7 @@
         </section>
       {/if}
 
-      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={oncreer}>Créer un parcours</button>
-      <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (vue = 'modeles')}>Éditer un parcours existant</button>
+      <Tuile icon="bx-folder-open" title="Éditer un parcours existant" subtitle="Dossiers suivis, fichiers de collègues" onclick={() => (vue = 'modeles')} />
 
       {#each bibliotheque.classes as c (c.nom)}
         {@const ps = parcoursDeClasse(bibliotheque, c.nom)}
@@ -266,5 +265,9 @@
         {/if}
       {/each}
     </main>
+    <button type="button" class="{boutonAction} bouton-flottant" onclick={oncreer}>
+      <i aria-hidden="true" class="bx bx-plus text-2xl"></i>
+      Créer un parcours
+    </button>
   {/if}
 </div>

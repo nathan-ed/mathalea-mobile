@@ -4,6 +4,7 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
+  import { boutonInverse } from './classes'
 
   let {
     moteur,
@@ -180,11 +181,7 @@
     <div>
       <button
         type="button"
-        class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded border border-coopmaths-action
-        text-coopmaths-action dark:text-coopmathsdark-action bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
-        font-medium text-xs leading-tight uppercase
-        hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:text-coopmaths-canvas dark:hover:text-coopmathsdark-canvas
-        transition duration-150 ease-in-out disabled:opacity-40"
+        class="{boutonInverse} disabled:opacity-40"
         style="min-height: 44px; min-width: 9rem"
         disabled={!aSaisi}
         onclick={async () => {

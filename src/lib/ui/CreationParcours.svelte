@@ -14,6 +14,7 @@
   import NavigateurExercices from './NavigateurExercices.svelte'
   import ReglagesExercice from './ReglagesExercice.svelte'
   import { retourSi } from '$lib/navigation.svelte'
+  import Feuille from './Feuille.svelte'
 
   let {
     bibliotheque,
@@ -173,10 +174,8 @@
   const instantane = () => $state.snapshot(p) as Parcours
 
   function quitter() {
-    if (modifie && !confirmerSortie) {
-      confirmerSortie = true
-      scrollTo({ top: 0 })
-    } else onretour()
+    if (modifie && !confirmerSortie) confirmerSortie = true
+    else onretour()
   }
 
   /** Entrée : nouvelle classe ajoutée, lien importé, sinon champ suivant */
@@ -214,15 +213,6 @@
 
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas" style="padding-bottom: 9rem" bind:this={zone} onkeydown={surEntree}>
-      {#if confirmerSortie}
-        <div class="flex flex-col gap-2 rounded-xl p-4 border border-coopmaths-action dark:border-coopmathsdark-action" role="alert">
-          <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Les modifications ne sont pas enregistrées.</p>
-          <div class="flex flex-row gap-3">
-            <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={onretour}>Quitter sans enregistrer</button>
-            <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
-          </div>
-        </div>
-      {/if}
 
       <h2 class={titreSection}>Classes</h2>
       <div class="flex flex-row flex-wrap gap-2" role="group" aria-label="Classes">
@@ -376,14 +366,30 @@
 
       {#if onsupprimer}
         <div class="pt-6">
-          {#if confirmerSuppression}
-            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={onsupprimer}>Confirmer la suppression</button>
-          {:else}
-            <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (confirmerSuppression = true)}>Supprimer le parcours</button>
-          {/if}
+          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (confirmerSuppression = true)}>Supprimer le parcours</button>
         </div>
       {/if}
     </main>
+
+    {#if confirmerSortie}
+      <Feuille onfermer={() => (confirmerSortie = false)}>
+        <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Les modifications ne sont pas enregistrées.</p>
+        <div class="flex flex-row gap-3">
+          <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={onretour}>Quitter sans enregistrer</button>
+          <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
+        </div>
+      </Feuille>
+    {/if}
+    {#if confirmerSuppression && onsupprimer}
+      <Feuille onfermer={() => (confirmerSuppression = false)}>
+        <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer « {p.titre || 'Sans titre'} » ?</p>
+        <p class="text-sm">Le parcours disparaît de cet appareil. Les élèves le gardent jusqu’à la prochaine publication.</p>
+        <div class="flex flex-row gap-3">
+          <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (confirmerSuppression = false)}>Annuler</button>
+          <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={onsupprimer}>Supprimer</button>
+        </div>
+      </Feuille>
+    {/if}
 
     <footer
       class="fixed left-0 right-0 bottom-0 z-20 flex flex-col gap-1 px-4 py-3 zone-sure-bas

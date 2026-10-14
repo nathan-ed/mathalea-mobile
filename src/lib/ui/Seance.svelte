@@ -6,7 +6,8 @@
   import BlocQuestion from './BlocQuestion.svelte'
   import { boutonAction, boutonInverse, pastille } from './classes'
   import EnTete from './EnTete.svelte'
-  import { navigation, retourSi } from '$lib/navigation.svelte'
+  import Feuille from './Feuille.svelte'
+  import { retourSi } from '$lib/navigation.svelte'
 
   let {
     parcours,
@@ -132,7 +133,7 @@
     () => true,
     () => {
       if (avertissement) avertissement = null
-      else confirmerSortie = !confirmerSortie
+      else confirmerSortie = true
     },
   )
 
@@ -369,18 +370,7 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       style="bottom: {hauteurClavier}px"
     >
-      {#if confirmerSortie}
-        <div
-          role="alert"
-          class="border-l-[3px] border-coopmaths-action dark:border-coopmathsdark-action bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark px-3 py-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-        >
-          Quitter l’activité ? Tes réponses sont enregistrées : tu pourras reprendre plus tard.
-        </div>
-        <div class="flex flex-row gap-3">
-          <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => navigation.versAccueil()}>Quitter</button>
-          <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
-        </div>
-      {:else if avertissement}
+      {#if avertissement}
         {@const vides = avertissement.manques.filter((m) => m.raison === 'vide')}
         {@const saisies = avertissement.manques.filter((m) => m.raison === 'saisie')}
         <div
@@ -445,4 +435,14 @@
   {/if}
 
   <div bind:this={hoteClavier}></div>
+  {#if confirmerSortie}
+    <Feuille onfermer={() => (confirmerSortie = false)}>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Quitter l’activité ?</p>
+      <p class="text-sm">Tes réponses sont enregistrées : tu pourras reprendre plus tard.</p>
+      <div class="flex flex-row gap-3">
+        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (confirmerSortie = false)}>Rester</button>
+        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={onquitter}>Quitter</button>
+      </div>
+    </Feuille>
+  {/if}
 </div>

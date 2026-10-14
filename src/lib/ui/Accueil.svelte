@@ -170,8 +170,7 @@
       <div class="flex flex-col gap-3 p-4">
         {#if tous.length}
         <label
-          class="w-full flex flex-row items-center gap-2 rounded-lg px-3 py-2
-          border border-coopmaths-action dark:border-coopmathsdark-action
+          class="w-full flex flex-row items-center gap-2 rounded-full px-4 py-3
           bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
           text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
         >

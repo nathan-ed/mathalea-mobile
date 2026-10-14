@@ -160,3 +160,55 @@ body {
 body:has(input:focus, textarea:focus) .barre-onglets {
   display: none;
 }
+
+/* Retour au toucher des boutons secondaires et des lignes de liste */
+.presse:active {
+  background-color: var(--app-presse);
+}
+
+/* Panneau du bas (Feuille.svelte) */
+.feuille {
+  border-radius: 1rem 1rem 0 0;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+}
+.feuille-poignee {
+  align-self: center;
+  width: 2.5rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background-color: var(--app-presse);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .feuille {
+    animation: feuille-monte 200ms ease-out;
+  }
+  .feuille-fond {
+    animation: fondu 200ms ease-out;
+  }
+}
+@keyframes feuille-monte {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes fondu {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Bouton flottant (action principale d'un écran), au-dessus de la zone sûre */
+.bouton-flottant {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 30;
+  min-height: 3.5rem;
+  padding-inline: 1.25rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+}
+body:has(input:focus, textarea:focus) .bouton-flottant {
+  display: none;
+}

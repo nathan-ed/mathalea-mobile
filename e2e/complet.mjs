@@ -377,7 +377,9 @@ ok(notation.includes('\\cdot') && !notation.includes('\\times'), 'Suisse : \\cdo
 
 // Édition d'un parcours d'un dossier partagé : classes, chapitre, tout est repris
 for (let i = 0; i < 6 && !(await t.getByRole('button', { name: 'Réglages' }).isVisible()); i++) {
-  await t.getByRole('button', { name: 'Revenir en arrière' }).click()
+  // Éditeur modifié : le panneau de confirmation s'ouvre
+  if (await t.getByRole('button', { name: 'Quitter sans enregistrer' }).isVisible()) await t.getByRole('button', { name: 'Quitter sans enregistrer' }).click()
+  else await t.getByRole('button', { name: 'Revenir en arrière' }).click()
   await t.waitForTimeout(150)
 }
 await t.getByRole('button', { name: 'Réglages' }).click()
