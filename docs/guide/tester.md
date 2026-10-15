@@ -6,7 +6,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 ## Installer
 
-- Android : en attendant le Play Store, écrivez à contact@coopmaths.fr avec l'adresse mail de votre compte Google pour recevoir le lien de test, ou installez le fichier APK. Tout est expliqué dans [Installer l'application](installer.md).
+- Android : en attendant le Play Store, écrivez à hello@naths.ch avec l'adresse mail de votre compte Google pour recevoir le lien de test, ou installez le fichier APK. Tout est expliqué dans [Installer l'application](installer.md).
 - Ordinateur : Windows, Mac ou Linux, voir [Installer l'application](installer.md).
 - iPhone et iPad : la version de test TestFlight arrive bientôt. Pour les curieux, une installation avec un ordinateur est possible dès maintenant, voir [Installer l'application](installer.md).
 
@@ -20,7 +20,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 ## Nous dire ce qui ne va pas
 
-Pour chaque remarque, écrivez à contact@coopmaths.fr en précisant :
+Pour chaque remarque, écrivez à hello@naths.ch en précisant :
 
 - le téléphone ou l'ordinateur, et sa version d'Android, de Windows… ;
 - la version de l'application (Réglages, en bas, « À propos ») ;

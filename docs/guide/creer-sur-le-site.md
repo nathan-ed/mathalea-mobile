@@ -4,7 +4,7 @@
 
 Sur un ordinateur, on a plus de place. La page « Parcours pour l'application » du site MathALÉA reprend la même bibliothèque que l'application. On crée les parcours, on les donne aux classes et on publie le même fichier.
 
-Adresse de la page : `https://coopmaths.fr/alea/?v=parcours`. Elle arrive sur le site avec une prochaine mise à jour de MathALÉA ; d'ici là, tout se fait aussi dans l'application, y compris sur ordinateur.
+Adresse de la page : [https://coopmaths.fr/alea/?v=parcours](https://coopmaths.fr/alea/?v=parcours). Elle arrive sur le site avec une prochaine mise à jour de MathALÉA ; d'ici là, tout se fait aussi dans l'application, y compris sur ordinateur.
 
 ## 1. Créer un parcours
 
