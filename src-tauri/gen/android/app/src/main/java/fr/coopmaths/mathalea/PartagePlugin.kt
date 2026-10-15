@@ -24,6 +24,8 @@ class PartagerArgs {
 @InvokeArg
 class BarreEtatArgs {
   var sombre: Boolean = false
+  // Utile sur iOS seulement (apparence rendue au téléphone)
+  var telephone: Boolean = false
 }
 
 /** Feuille de partage d'Android pour un fichier texte et icônes de la barre

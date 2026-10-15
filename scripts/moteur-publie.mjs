@@ -34,7 +34,9 @@ const fichier = join(tmpdir(), annonce.archive)
 writeFileSync(fichier, archive)
 rmSync('static/moteur', { recursive: true, force: true })
 mkdirSync('static/moteur', { recursive: true })
-// Archive faite sur Mac : attributs étendus ignorés sans avertissement
-execFileSync('tar', ['--warning=no-unknown-keyword', '-xzf', fichier, '-C', 'static/moteur'])
+// Archive faite sur Mac : attributs étendus ignorés sans avertissement par le
+// tar de GNU (celui de macOS les comprend et ne connaît pas l'option)
+const options = process.platform === 'darwin' ? [] : ['--warning=no-unknown-keyword']
+execFileSync('tar', [...options, '-xzf', fichier, '-C', 'static/moteur'])
 readFileSync('static/moteur/manifest.json')
 console.log(annonce.version)

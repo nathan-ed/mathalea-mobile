@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Ajouté par Tauri à l'Info.plist de l'app iOS -->
+<plist version="1.0">
+<dict>
+  <!-- Nom sous l'icône -->
+  <key>CFBundleDisplayName</key>
+  <string>MathALÉA</string>
+  <!-- Seul chiffrement : HTTPS du système (exempté), pas de déclaration d'exportation -->
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.education</string>
+</dict>
+</plist>

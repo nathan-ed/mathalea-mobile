@@ -1,0 +1,119 @@
+# Version iOS, construite sur macOS (aucun Mac nécessaire en local).
+# Sans clé Apple : compilation pour le simulateur, lancement de l'app et
+# captures (clair, sombre) en artefacts, plus le projet Xcode généré.
+# Avec les secrets App Store Connect : .ipa signée, envoyée à TestFlight.
+# Comme Google Play, la boutique embarque le moteur publié sur mathalea.fr
+# (signature, taille et SHA-256 vérifiés : scripts/moteur-publie.mjs) ; iOS ne
+# télécharge jamais de moteur (moteur.rs, MISES_A_JOUR).
+name: ios
+
+on:
+  workflow_dispatch:
+    inputs:
+      envoi:
+        description: Signer et envoyer à TestFlight (secrets Apple requis)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    env:
+      APPLE_API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios,aarch64-apple-ios-sim
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+      - run: pnpm install --frozen-lockfile
+      - name: Moteur publié
+        run: echo "MOTEUR=$(node scripts/moteur-publie.mjs)" >> "$GITHUB_ENV"
+      # Projet Xcode : généré s'il n'est pas encore dans le dépôt (src-tauri/gen/apple)
+      - name: Projet Xcode
+        run: |
+          if [ ! -d src-tauri/gen/apple ]; then
+            brew install xcodegen
+            pnpm tauri ios init --ci
+          fi
+      - uses: actions/upload-artifact@v7
+        with:
+          name: projet-xcode
+          path: |
+            src-tauri/gen/apple
+            !src-tauri/gen/apple/build
+            !src-tauri/gen/apple/Externals
+
+      # Simulateur : compilation, lancement et captures
+      - name: Simulateur
+        if: ${{ !inputs.envoi }}
+        run: pnpm tauri ios build --target aarch64-sim --debug
+      - name: Captures
+        if: ${{ !inputs.envoi }}
+        run: |
+          app=$(find src-tauri/gen/apple/build -name '*.app' -path '*simulator*' | head -1)
+          [ -n "$app" ] || app=$(find src-tauri/gen/apple/build -name '*.app' | head -1)
+          echo "App : $app"
+          appareil=$(xcrun simctl list devices available -j | node -e '
+            const d = JSON.parse(require("fs").readFileSync(0, "utf8")).devices
+            const t = Object.entries(d).filter(([k]) => k.includes("iOS")).flatMap(([, l]) => l)
+            console.log((t.find((x) => /^iPhone \d+$/.test(x.name)) ?? t.find((x) => x.name.startsWith("iPhone"))).udid)')
+          xcrun simctl boot "$appareil"
+          xcrun simctl bootstatus "$appareil" -b
+          xcrun simctl install "$appareil" "$app"
+          mkdir -p captures
+          for apparence in light dark; do
+            xcrun simctl ui "$appareil" appearance "$apparence"
+            xcrun simctl launch "$appareil" fr.coopmaths.mathalea
+            sleep 25
+            xcrun simctl io "$appareil" screenshot "captures/ios-$apparence.png"
+            xcrun simctl terminate "$appareil" fr.coopmaths.mathalea || true
+          done
+          xcrun simctl spawn "$appareil" log show --last 5m --predicate 'process == "mathalea-mobile"' --style compact | tail -100 > captures/journal.txt || true
+      - uses: actions/upload-artifact@v7
+        if: ${{ !inputs.envoi && always() }}
+        with:
+          name: captures-ios
+          path: captures
+
+      # TestFlight : signature automatique par la clé d'API App Store Connect
+      - name: Clé d'API
+        if: inputs.envoi && env.APPLE_API_KEY_P8 != ''
+        run: |
+          mkdir -p ~/private_keys
+          echo "$APPLE_API_KEY_P8" > ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
+          echo "APPLE_API_KEY_PATH=$HOME/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8" >> "$GITHUB_ENV"
+      # Numéro de compilation daté (AAMMJJHH) : toujours plus grand que le précédent
+      - name: IPA
+        if: inputs.envoi && env.APPLE_API_KEY_P8 != ''
+        env:
+          APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_DEVELOPMENT_TEAM }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY_ID }}
+        run: |
+          pnpm tauri ios build --target aarch64 --export-method app-store-connect --build-number "$(date -u +%y%m%d%H)"
+          mkdir -p ipa
+          cp src-tauri/gen/apple/build/arm64/*.ipa "ipa/MathALEA-moteur-${MOTEUR%%+*}.ipa"
+      - uses: actions/upload-artifact@v7
+        if: inputs.envoi && env.APPLE_API_KEY_P8 != ''
+        with:
+          name: app-store
+          path: ipa/*.ipa
+      - name: Envoi à TestFlight
+        if: inputs.envoi && env.APPLE_API_KEY_P8 != ''
+        run: xcrun altool --upload-app --type ios --file ipa/*.ipa --apiKey "${{ secrets.APPLE_API_KEY_ID }}" --apiIssuer "${{ secrets.APPLE_API_ISSUER }}"
+      - name: Secrets absents
+        if: inputs.envoi && env.APPLE_API_KEY_P8 == ''
+        run: |
+          echo "::error::Secrets APPLE_API_KEY_P8, APPLE_API_KEY_ID, APPLE_API_ISSUER et APPLE_DEVELOPMENT_TEAM requis pour TestFlight."
+          exit 1

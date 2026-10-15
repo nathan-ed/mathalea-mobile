@@ -1,8 +1,11 @@
 // Enregistrement d'un fichier choisi par l'utilisateur
 import { dansTauri } from './stockage'
 
-/** Android : le fichier part par la feuille de partage (kDrive, Dropbox, Drive, courriel…) */
-export const partageNatif = dansTauri && /Android/i.test(navigator.userAgent)
+/** Téléphone ou tablette (Android, iPhone, iPad, qui se présente comme un Mac
+ * tactile) : le fichier part par la feuille de partage (kDrive, Dropbox, Drive,
+ * courriel…) */
+export const partageNatif =
+  dansTauri && (/Android|iPhone|iPad/i.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1))
 
 export async function enregistrerFichier(nom: string, texte: string): Promise<boolean> {
   // Parcours en JSON, liste d'objectifs en CSV (tableur)

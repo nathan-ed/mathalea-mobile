@@ -6,3 +6,7 @@
 # will have schema files for capabilities auto-completion
 /gen/schemas
 /target-essai/
+
+# API Swift de Tauri copiée par build.rs (iOS)
+/.tauri
+/ios/.build

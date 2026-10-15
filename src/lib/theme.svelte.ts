@@ -23,8 +23,9 @@ export function initialiserTheme() {
     theme.preference = pref ?? 'telephone'
     theme.sombre = pref ? pref === 'sombre' : systeme.matches
     document.documentElement.classList.toggle('dark', theme.sombre)
-    // Android : icônes de la barre d'état lisibles sur le fond de l'app
-    if (partageNatif) void import('@tauri-apps/api/core').then(({ invoke }) => invoke('barre_etat', { sombre: theme.sombre }).catch(() => {}))
+    // Téléphone : barre d'état lisible sur le fond de l'app ; iOS rend
+    // l'apparence au téléphone quand l'app le suit
+    if (partageNatif) void import('@tauri-apps/api/core').then(({ invoke }) => invoke('barre_etat', { sombre: theme.sombre, telephone: !pref }).catch(() => {}))
   }
   appliquer()
   systeme.addEventListener('change', appliquer)
