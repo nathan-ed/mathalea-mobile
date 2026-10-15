@@ -382,8 +382,7 @@ Environnement (machine de Nathan)
   `https://forge.apps.education.fr/coopmaths/mathalea-mobile.git`, push par
   `glab` (credential helper `!glab auth git-credential`, compte
   `nathan.scheinmann-ext`, Owner). Le SSH vers la forge ne marche pas depuis la
-  session. Projet **privé** : les liens de release mènent à la connexion pour
-  un visiteur. `main` protégée : force-push interdit (on l'a autorisé un temps
+  session. Projet **public** depuis le 15 octobre 2026 (avant : privé). `main` protégée : force-push interdit (on l'a autorisé un temps
   avec `glab api PATCH protected_branches/main allow_force_push=true` pour
   réécrire l'historique initial, puis remis à `false`).
 - Miroir **privé** GitHub `github` = `git@github.com:nathan-ed/mathalea-mobile.git` :
