@@ -15,6 +15,7 @@ pub fn run() {
         .register_uri_scheme_protocol("moteur", |ctx, requete| moteur::servir(ctx.app_handle(), &requete))
         .invoke_handler(tauri::generate_handler![
             telechargement::telecharger,
+            moteur::mises_a_jour_moteur,
             moteur::moteur_telecharge,
             moteur::mettre_a_jour_moteur,
             partage::partager_fichier,

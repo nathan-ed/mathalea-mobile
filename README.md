@@ -152,13 +152,15 @@ node e2e/captures-enseignant.mjs /tmp/captures   # espace enseignant en clair et
 
 ## Clés et secrets
 
-Deux clés, à créer une seule fois et à garder hors du dépôt (gestionnaire de
+Des clés à créer une seule fois et à garder hors du dépôt (gestionnaire de
 mots de passe, coffre de l'équipe). Les perdre empêche de publier des mises
 à jour ; les changer impose une nouvelle version de l'app.
 
 | Clé | Sert à | Créer | Où la mettre |
 | --- | --- | --- | --- |
 | Signature Android (`.jks`) | signer les APK ; Android refuse une mise à jour signée par une autre clé | `keytool -genkey -v -keystore mathalea.jks -keyalg RSA -keysize 2048 -validity 10000 -alias mathalea` | local : `src-tauri/gen/android/keystore.properties` (`storeFile`, `storePassword`, `keyAlias`, `keyPassword`, ignoré par Git) ; GitHub, Settings, Secrets : `ANDROID_KEYSTORE` (`base64 -w0 mathalea.jks`), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` |
+| Importation Google Play (`.jks`) | signer le fichier `.aab` envoyé à Google Play ; Google signe ensuite l'app distribuée (Signature d'application Play) | même commande `keytool`, autre fichier (`importation.jks`, alias `importation`) | GitHub, Secrets : `ANDROID_UPLOAD_KEYSTORE`, `ANDROID_UPLOAD_KEYSTORE_PASSWORD`, `ANDROID_UPLOAD_KEY_ALIAS`, `ANDROID_UPLOAD_KEY_PASSWORD` ; à défaut, la clé des APK sert |
+| Compte de service Google Play (`.json`) | envoyer chaque semaine la version Google Play (`google-play.yml`) | Play Console, Configuration, Accès à l'API : compte de service avec le rôle de publication | GitHub, Secrets : `GOOGLE_PLAY_SERVICE_ACCOUNT` (contenu du fichier) |
 | Signature du moteur (Ed25519, `.pem`) | signer les mises à jour du moteur téléchargées par l'app | `node tasks/cles_moteur.mjs <.pem>` dans MathALÉA (affiche la clé publique) | clé publique : `CLE_PUBLIQUE` dans `src-tauri/src/moteur.rs` ; clé privée : chez qui déploie le site (`MOTEUR_CLE_PRIVEE` dans son `.env`) |
 
 Les clés actuelles sont des clés **de test** (sur la machine de Nathan). Avant

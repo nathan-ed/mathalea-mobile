@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
   import { CLE_AVANT_RESTAURATION, exporterSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
-  import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, type Moteur, type Pays } from '$lib/moteur'
+  import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier, partageNatif } from '$lib/fichiers'
   import {
@@ -81,6 +81,8 @@
   let epingles: string[] = $state([])
   let organisations: Record<string, Organisation> = $state({})
   let miseAJourMoteur: string | null = $state(null)
+  // Versions des boutiques : moteur livré seulement (pas de recherche de mise à jour)
+  let moteurMisAJour = $state(false)
 
   let rechercheMoteur: Promise<string> | null = null
   /** Mise à jour du moteur : installée en arrière-plan, utilisée au prochain lancement */
@@ -206,6 +208,7 @@
     if (profil === 'enseignant') onglet = 'creer'
     pret = true
     try {
+      moteurMisAJour = await misesAJourMoteur()
       moteur = await chargerMoteur()
       moteur.definirLangue(pays === 'CH' ? 'fr-CH' : 'fr-FR')
     } catch (e) {
@@ -222,7 +225,7 @@
   function actualiser() {
     if (!pret || actualisation || Date.now() - actualiseLe < ECART_MINIMUM) return
     actualiseLe = Date.now()
-    actualisation = Promise.all([classes.length ? synchroniserClasses() : null, synchroniserExplorer(), moteur ? chercherMoteur() : null]).finally(
+    actualisation = Promise.all([classes.length ? synchroniserClasses() : null, synchroniserExplorer(), moteur && moteurMisAJour ? chercherMoteur() : null]).finally(
       () => (actualisation = null),
     )
   }
@@ -684,7 +687,7 @@
       onannulerRestauration={restaurationAnnulable ? annulerRestauration : null}
       moteur={moteur ? infoMoteur() : null}
       {miseAJourMoteur}
-      onchercherMoteur={dansTauri ? chercherMoteur : null}
+      onchercherMoteur={moteurMisAJour ? chercherMoteur : null}
       {preferences}
       onpreferences={sauverPreferences}
       {demonstration}

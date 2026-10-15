@@ -130,6 +130,37 @@ En local : `src-tauri/gen/android/keystore.properties` (ignoré par Git) avec
 Toutes les versions doivent être signées avec la même clé, sinon Android
 refuse la mise à jour.
 
+## Google Play et App Store
+
+Les deux boutiques interdisent de télécharger du code qui change l'app
+(Google Play : « Device and Network Abuse », exception floue pour le
+JavaScript d'une WebView ; Apple : règle 2.5.2, et 4.7.2 pour l'accès aux
+fonctions natives). Leurs versions ne téléchargent donc pas le moteur :
+`MISES_A_JOUR` (`src-tauri/src/moteur.rs`) est faux sur iOS et quand l'app est
+construite avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré
+et masque « Rechercher une mise à jour ». Les versions de la forge (APK,
+ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
+
+- Fichier Google Play : `.aab` (Android App Bundle, arm64, armv7, x86_64),
+  construit par `release.yml` (artefact `google-play`, pas dans `releases/`),
+  signé avec la clé d'importation (README, tableau des clés). Numéro de
+  version interne daté (`AAMMJJHH`) : toujours croissant.
+- Chaque lundi, `google-play.yml` construit une version Google Play si
+  mathalea.fr a publié un nouveau moteur (`scripts/moteur-publie.mjs` :
+  signature, taille et SHA-256 vérifiés), avec le code du dernier tag `v*`,
+  et l'envoie à la Play Console (secret `GOOGLE_PLAY_SERVICE_ACCOUNT`). Les
+  élèves la reçoivent par la mise à jour automatique d'Android. À la main :
+  Actions, `google-play`, « Run workflow » (moteur forcé, piste au choix).
+- Signature d'application Play : la version Play est signée par Google, les
+  APK de la forge par notre clé ; l'une ne met pas l'autre à jour (sauvegarder,
+  désinstaller, réinstaller).
+- Fiche Play : public cible avec des moins de 13 ans (règlement Familles),
+  Sécurité des données « aucune donnée collectée ni partagée », politique de
+  confidentialité `docs/confidentialite.md` (page `static/confidentialite.html`,
+  à publier à une adresse publique).
+- App Store (plus tard, Mac nécessaire) : même règle, moteur figé d'office
+  sur iOS ; versions hebdomadaires possibles de la même façon.
+
 ## Feuille de route
 
 ### 0.1.1
@@ -238,6 +269,12 @@ Plus tard : reprises espacées et révision mélangée (recommandées par la
 recherche, laissées à l'enseignant pour l'instant), pages de cours intégrées,
 format minimal (`formatMin`) si un ajout devait être ignoré à tort par une
 ancienne app.
+
+## 0.2.1 : boutiques (fait)
+
+- Moteur figé dans les versions des boutiques (`MATHALEA_MOTEUR_FIGE`, iOS) ;
+  fichier Google Play (`.aab`) ; version Google Play hebdomadaire
+  automatique (`google-play.yml`) ; politique de confidentialité.
 
 ## À faire (sans version fixée)
 

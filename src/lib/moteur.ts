@@ -179,6 +179,17 @@ export function chargerMoteur(): Promise<Moteur> {
 }
 
 /**
+ * Le moteur se met-il à jour sans l'app ? Non dans les versions des boutiques
+ * (Google Play, App Store), dont les règles l'interdisent : elles gardent le
+ * moteur livré, mis à jour avec l'app.
+ */
+export async function misesAJourMoteur(): Promise<boolean> {
+  if (!dansTauri) return false
+  const { invoke } = await import('@tauri-apps/api/core')
+  return invoke<boolean>('mises_a_jour_moteur').catch(() => false)
+}
+
+/**
  * Cherche et installe une version plus récente du moteur (signée, même API).
  * Elle sera utilisée au prochain lancement. Renvoie sa version, ou null.
  */

@@ -177,15 +177,33 @@ fn session(app: &tauri::AppHandle) -> &'static Option<(Actif, PathBuf)> {
     })
 }
 
+/// Versions des boutiques (Google Play, App Store) : moteur livré seulement, mis
+/// à jour avec l'app. Leurs règles interdisent de télécharger du code qui
+/// change l'app (Play : « Device and Network Abuse » ; Apple : 2.5.2). Toujours
+/// sur iOS ; ailleurs, construction avec MATHALEA_MOTEUR_FIGE=1 (fichier Play).
+pub const MISES_A_JOUR: bool = !cfg!(target_os = "ios") && option_env!("MATHALEA_MOTEUR_FIGE").is_none();
+
+/// Le moteur peut-il être mis à jour sans mettre à jour l'app ?
+#[tauri::command]
+pub fn mises_a_jour_moteur() -> bool {
+    MISES_A_JOUR
+}
+
 /// Moteur téléchargé utilisé par cette session (None : moteur livré avec l'app)
 #[tauri::command]
 pub fn moteur_telecharge(app: tauri::AppHandle) -> Option<Actif> {
+    if !MISES_A_JOUR {
+        return None;
+    }
     session(&app).as_ref().map(|(a, _)| a.clone())
 }
 
 /// Cherche et installe une mise à jour ; elle sera active au prochain lancement
 #[tauri::command]
 pub async fn mettre_a_jour_moteur(app: tauri::AppHandle, api: u32, publie_actuel: String) -> Result<Option<String>, String> {
+    if !MISES_A_JOUR {
+        return Ok(None);
+    }
     let dossier = dossier_moteurs(&app).ok_or("dossier de données introuvable")?;
     fs::create_dir_all(&dossier).map_err(|e| e.to_string())?;
     let base = base_url();
@@ -450,6 +468,16 @@ mod tests {
         let m = chercher(&base, CLE_PUBLIQUE, 1, "2000").await.unwrap().expect("publication acceptée");
         let actif = installer(&base, &m, donnees.path()).await.unwrap();
         assert!(donnees.path().join(&actif.dossier).join("moteur.css").is_file());
+    }
+
+    /// Versions de la forge : mises à jour du moteur ; celles des boutiques sont
+    /// construites avec MATHALEA_MOTEUR_FIGE=1 (ou pour iOS)
+    #[test]
+    fn mises_a_jour_hors_boutiques() {
+        assert_eq!(MISES_A_JOUR, option_env!("MATHALEA_MOTEUR_FIGE").is_none() && !cfg!(target_os = "ios"));
+        if option_env!("MATHALEA_MOTEUR_FIGE").is_none() {
+            assert!(mises_a_jour_moteur());
+        }
     }
 
     #[test]

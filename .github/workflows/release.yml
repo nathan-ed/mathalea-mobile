@@ -96,6 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+      ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
@@ -146,3 +147,33 @@ jobs:
           tag_name: ${{ env.VERSION }}
           draft: true
           files: src-tauri/gen/android/app/build/outputs/apk/*/release/*.apk
+      # Google Play : Android App Bundle signé avec la clé d'importation
+      # (secrets ANDROID_UPLOAD_*) ; sans elle, avec la clé des APK. Google signe
+      # ensuite l'app distribuée (Signature d'application Play). Le .aab ne sert
+      # qu'à la Play Console : il est un artefact du job, pas un fichier de la release.
+      - name: Clé d'importation Google Play (si fournie)
+        if: env.ANDROID_UPLOAD_KEYSTORE != ''
+        run: |
+          echo "$ANDROID_UPLOAD_KEYSTORE" | base64 -d > "$RUNNER_TEMP/importation.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/importation.jks"
+            echo "storePassword=${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}"
+            echo "keyAlias=${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}"
+            echo "keyPassword=${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}"
+          } > src-tauri/gen/android/keystore.properties
+      - name: AAB (Google Play)
+        env:
+          NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
+          # Règles de Google Play : pas de moteur téléchargé, celui de l'app seulement
+          MATHALEA_MOTEUR_FIGE: '1'
+        run: |
+          # Numéro de version interne daté, comme la version hebdomadaire (google-play.yml)
+          code=$(date -u +%y%m%d%H)
+          pnpm tauri android build --aab --target aarch64 --target armv7 --target x86_64 \
+            --config "{\"bundle\":{\"android\":{\"versionCode\":$code}}}"
+          mkdir -p aab
+          cp src-tauri/gen/android/app/build/outputs/bundle/*/*.aab "aab/MathALEA-${VERSION#v}-google-play.aab"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: google-play
+          path: aab/*.aab

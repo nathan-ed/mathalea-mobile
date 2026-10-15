@@ -429,6 +429,14 @@ Environnement (machine de Nathan)
 - Lien vers la dernière release :
   `https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest`.
 
+- Boutiques (Google Play, App Store) : moteur figé (`MATHALEA_MOTEUR_FIGE=1`,
+  toujours sur iOS), leurs règles interdisant le code téléchargé qui change
+  l'app (vérifié dans le texte : Play « Device and Network Abuse », Apple
+  2.5.2 et 4.7.2). Nathan accepte des versions hebdomadaires automatiques :
+  `google-play.yml` (lundi, si nouveau moteur publié, dernier tag `v*`,
+  `versionCode` daté). `.aab` aussi construit par `release.yml` (artefact).
+  Voir `docs/developpement.md`, « Google Play et App Store ».
+
 ## 8. Tests
 
 - `pnpm check` (svelte-check, 0 erreur et 0 avertissement),

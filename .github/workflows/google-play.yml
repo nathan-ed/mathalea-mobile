@@ -1,0 +1,151 @@
+# Version Google Play chaque semaine, si mathalea.fr a publié un nouveau moteur.
+# Les boutiques interdisent de télécharger du code qui change l'app : leur
+# version embarque le moteur (MATHALEA_MOTEUR_FIGE=1) et le reçoit par une mise
+# à jour de l'app. Celle-ci reprend le moteur publié (signature, taille et
+# SHA-256 vérifiés : scripts/moteur-publie.mjs), le code de l'app au dernier
+# tag v*, et un numéro de version interne daté (toujours croissant).
+# Envoi à la Play Console si le secret GOOGLE_PLAY_SERVICE_ACCOUNT existe ;
+# sinon, le .aab reste un artefact du job.
+name: google-play
+
+on:
+  schedule:
+    - cron: '0 3 * * 1' # lundi, 3 h UTC
+  workflow_dispatch:
+    inputs:
+      forcer:
+        description: Construire même si le moteur n'a pas changé
+        type: boolean
+        default: false
+      piste:
+        description: Piste de la Play Console
+        type: choice
+        options: [internal, alpha, beta, production]
+        default: production
+
+permissions:
+  contents: read
+
+jobs:
+  google-play:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+      ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
+      GOOGLE_PLAY_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # Code de l'app : la dernière version publiée (tag v*)
+      - name: Dernière version de l'app
+        run: |
+          # Script du moteur publié pris sur la branche principale, avant de changer de version
+          cp scripts/moteur-publie.mjs "$RUNNER_TEMP/"
+          tag=$(git describe --tags --abbrev=0 --match 'v*')
+          git checkout "$tag"
+          echo "TAG=$tag" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Moteur publié
+        run: echo "MOTEUR=$(node "$RUNNER_TEMP/moteur-publie.mjs" --version)" >> "$GITHUB_ENV"
+      # Moteur déjà envoyé à Google Play : rien à faire
+      - name: Déjà envoyé ?
+        id: deja
+        uses: actions/cache@v6
+        with:
+          path: .moteur-envoye
+          key: google-play-${{ env.TAG }}-${{ env.MOTEUR }}
+          lookup-only: true
+      - name: Rien de nouveau
+        if: steps.deja.outputs.cache-hit == 'true' && !inputs.forcer
+        run: echo "Moteur $MOTEUR et app $TAG déjà envoyés à Google Play."
+      - name: Suite
+        id: suite
+        if: steps.deja.outputs.cache-hit != 'true' || inputs.forcer
+        run: echo "ok=true" >> "$GITHUB_OUTPUT"
+      - name: Moteur dans l'app
+        if: steps.suite.outputs.ok
+        run: node "$RUNNER_TEMP/moteur-publie.mjs"
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@v6
+        if: steps.suite.outputs.ok
+      - uses: actions/setup-java@v6
+        if: steps.suite.outputs.ok
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: NDK et plateforme Android
+        if: steps.suite.outputs.ok
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.2.12479018" "platforms;android-37.0" "build-tools;36.0.0" > /dev/null
+      - uses: dtolnay/rust-toolchain@stable
+        if: steps.suite.outputs.ok
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android
+      - uses: Swatinem/rust-cache@v2
+        if: steps.suite.outputs.ok
+        with:
+          workspaces: src-tauri -> target
+      - run: pnpm install --frozen-lockfile
+        if: steps.suite.outputs.ok
+      # Clé d'importation de Google Play ; à défaut, celle des APK
+      - name: Clé de signature
+        if: steps.suite.outputs.ok && (env.ANDROID_UPLOAD_KEYSTORE != '' || env.ANDROID_KEYSTORE != '')
+        run: |
+          if [ -n "$ANDROID_UPLOAD_KEYSTORE" ]; then
+            echo "$ANDROID_UPLOAD_KEYSTORE" | base64 -d > "$RUNNER_TEMP/cle.jks"
+            {
+              echo "storeFile=$RUNNER_TEMP/cle.jks"
+              echo "storePassword=${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}"
+              echo "keyAlias=${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}"
+              echo "keyPassword=${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}"
+            } > src-tauri/gen/android/keystore.properties
+          else
+            echo "$ANDROID_KEYSTORE" | base64 -d > "$RUNNER_TEMP/cle.jks"
+            {
+              echo "storeFile=$RUNNER_TEMP/cle.jks"
+              echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
+              echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}"
+              echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}"
+            } > src-tauri/gen/android/keystore.properties
+          fi
+      # Numéro de version interne daté (AAMMJJHH) : toujours plus grand que le précédent
+      - name: AAB
+        if: steps.suite.outputs.ok
+        env:
+          NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
+          MATHALEA_MOTEUR_FIGE: '1'
+        run: |
+          code=$(date -u +%y%m%d%H)
+          pnpm tauri android build --aab --target aarch64 --target armv7 --target x86_64 \
+            --config "{\"bundle\":{\"android\":{\"versionCode\":$code}}}"
+          mkdir -p aab
+          cp src-tauri/gen/android/app/build/outputs/bundle/*/*.aab "aab/MathALEA-${TAG#v}-moteur-${MOTEUR%%+*}-google-play.aab"
+          {
+            echo "## Version Google Play"
+            echo "App $TAG, moteur $MOTEUR, numéro interne $code"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: steps.suite.outputs.ok
+        with:
+          name: google-play
+          path: aab/*.aab
+      - name: Envoi à la Play Console
+        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
+          packageName: fr.coopmaths.mathalea
+          releaseFiles: aab/*.aab
+          track: ${{ inputs.piste || 'production' }}
+          status: completed
+      # Retenu comme envoyé seulement après un envoi réussi
+      - name: Moteur envoyé
+        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
+        run: echo "$MOTEUR" > .moteur-envoye
+      - uses: actions/cache/save@v6
+        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
+        with:
+          path: .moteur-envoye
+          key: google-play-${{ env.TAG }}-${{ env.MOTEUR }}
