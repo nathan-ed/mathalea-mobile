@@ -10,3 +10,19 @@ verifier:
     - pnpm install --frozen-lockfile
     - pnpm check
     - pnpm test
+
+# Pages de la forge : politique de confidentialité publique, adresse donnée
+# aux boutiques (https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html).
+# Le dépôt reste privé ; seules ces pages sont publiques.
+pages:
+  image: alpine:3.22
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - mkdir -p public
+    - cp static/confidentialite.html public/confidentialite.html
+    - cp static/confidentialite.html public/index.html
+    - cp static/favicon.png public/favicon.png
+  artifacts:
+    paths:
+      - public
