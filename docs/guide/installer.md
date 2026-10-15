@@ -6,7 +6,7 @@
 
 ### Par le Play Store
 
-L'application arrive bientôt sur le Play Store. En attendant, elle est en test. Pour faire partie des bêta-testeurs, écrivez à hello@naths.ch avec l'adresse mail de votre compte Google. Vous recevrez un lien d'inscription.
+L'application arrive bientôt sur le Play Store. En attendant, elle est en test. Pour faire partie des bêta-testeurs, écrivez sur Mattermost à Nathan Scheinmann avec l'adresse mail de votre compte Google. Vous recevrez un lien d'inscription.
 
 Une fois inscrit, ou une fois l'application publiée :
 
