@@ -197,17 +197,57 @@ refuse la mise à jour.
   publications complètes (`banque: true`), seule la plus récente compte.
   Nextcloud : dossier lu en zip par `…/s/<jeton>/download` (dossier de tête),
   testé sur Nextcloud 30 dans Docker (fait).
-- Compétences : dictionnaire par chapitre, modifiable dans l'app ou importé en
-  JSON ; à la création d'un parcours, étiqueter rapidement chaque exercice
-  avec une ou plusieurs compétences ; suivi de l'élève par compétence.
+- Mises à jour du moteur signées par la clé de mathalea.fr (transmise par
+  Rémi Angot), publication sur `https://mathalea.fr/releases/` (fait).
+
+## Organisation des parcours (enseignants)
+
+Idées de Nathan (15 octobre 2026), par étapes, chacune validée avant d'être
+codée. Principe commun : tout reste dans `parcours-mathalea.json` ; chaque
+ajout au format est facultatif, et un champ `formatMin` empêche une app trop
+ancienne d'ouvrir un parcours qu'elle afficherait mal (elle propose de se
+mettre à jour). Tout doit rester très simple à créer : éditeur sur un seul
+écran, aucun texte de remplissage.
+
+1. Préférences de création : le dernier choix (classes, niveau, difficulté,
+   présentation, validation) préremplit le parcours suivant. Dans les
+   Réglages, si « Je suis enseignant », ces valeurs par défaut sont
+   modifiables.
+2. Bibliothèque et niveaux : un parcours appartient à un ou plusieurs
+   niveaux (`niveaux`, `niveau` gardé pour les anciennes apps) et n'est plus
+   créé pour une classe. Onglet Créer = bibliothèque par niveau puis
+   chapitre ; « Donner à une classe » l'assigne. Un parcours sans classe
+   existe déjà (`classes: []`, `CLASSE_SANS_NOM`). Sauvegarde de toute la
+   bibliothèque, non assignés compris, en un fichier repris sur un autre
+   appareil.
+3. Objectifs et compétences : liste d'objectifs par chapitre, saisie dans
+   l'app ou importée (JSON ou CSV : code, libellé, niveau) ; `Etape.objectifs`.
+   L'étiquette est retenue par exercice, clé `uuid` + `sup`…`sup4` (des
+   paramètres différents peuvent viser une autre compétence ou un autre
+   niveau ; le nombre de questions ne compte pas) : le même exercice ajouté
+   ailleurs reprend ses objectifs. Vue par objectif (exercices, niveaux,
+   parcours) ; suivi de l'élève par objectif, sur son appareil.
+4. Parcours structurés : paliers (`blocs`) séparés par des jalons : pause,
+   seuil de réussite pour débloquer la suite, ou code donné en classe
+   (déblocage local, rien ne remonte). Carte du parcours pour l'élève
+   (paliers verrouillés ou atteints), ceintures nommées par palier dans les
+   couleurs de MathALÉA (aucune nouvelle couleur). Remédiation : étape
+   proposée si le seuil n'est pas atteint. Modèles : Prof Collège, ChingMath.
+5. Ressources : étape « ressource » (PDF, vidéo) liée depuis un drive, lue
+   par les mêmes lecteurs que les dossiers partagés, utilisable en
+   remédiation.
+6. Édition sur le web : l'app est un SvelteKit statique qui tourne déjà dans
+   un navigateur (`localStorage`) ; la même construction servie sur le site
+   donne l'éditeur web sans second code. À proposer à l'équipe MathALÉA
+   (pas de fork) ; à défaut, une option du site qui exporte un
+   `parcours-mathalea.json`.
+
+À trancher au moment de chaque étape : forme du fichier d'objectifs
+(référentiel officiel ou propre à l'enseignant), déblocage d'un jalon (seuil,
+code ou les deux), hébergement de l'éditeur web.
 
 ## À faire (sans version fixée)
 
-- Site MathALÉA : option pour créer un parcours directement depuis le site
-  (exercices choisis, présentation, correction) et le télécharger au format
-  `parcours-mathalea.json`, à déposer tel quel dans le dossier partagé ; et
-  pouvoir y charger un `.json` existant pour le modifier. À proposer à
-  l'équipe MathALÉA (pas de fork).
 - Retour vers l'enseignant (idée de Nathan, à reprendre plus tard). Rien ne
   quitte l'appareil sans un geste de l'élève ; pas de compte ni de serveur.
   - Un format `bilan-mathalea/1`, transmis de deux façons : QR code montré en
@@ -275,8 +315,10 @@ Le mécanisme est en place (0.1.1) ; le moteur est publié avec le site sur
 - Clé : mode d'emploi pour qui publie dans
   `moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`
   (`node tasks/cles_moteur.mjs <.pem>` ; la clé publique est transmise et
-  remplace `CLE_PUBLIQUE`). La clé actuelle est une clé de test (privée dans
-  `~/.local/share/mathalea-mobile/` sur la machine de Nathan).
+  remplace `CLE_PUBLIQUE`). Clé actuelle : celle de mathalea.fr, transmise
+  par Rémi Angot le 14 octobre 2026 (version 0.1.5). L'ancienne clé de test
+  (privée dans `~/.local/share/mathalea-mobile/`) ne sert plus qu'aux
+  publications locales, qui ne passent donc plus `CLE_PUBLIQUE`.
 - Pourquoi signer : le moteur téléchargé s'exécute avec les droits de l'app.
   HTTPS protège le trajet, pas le serveur : la signature empêche qu'un accès
   au serveur web suffise pour envoyer du code à toutes les apps.
@@ -310,14 +352,9 @@ Le mécanisme est en place (0.1.1) ; le moteur est publié avec le site sur
 
 Reste à faire :
 
-1. Qui déploie le site crée la vraie clé et transmet la clé publique ; la
-   mettre dans `CLE_PUBLIQUE` et publier une version de l'app (adresse et
-   clé sont compilées dans l'app).
-2. Sur le serveur : créer le dossier servi à `mathalea.fr/releases/` et le
-   renseigner dans `REMOTE_RELEASES_PATH` (`.env` du site).
-3. Un parcours pourra indiquer la version minimale du moteur (exercice récent) :
+1. Un parcours pourra indiquer la version minimale du moteur (exercice récent) :
    télécharger avant d'ouvrir, ou signaler « connexion nécessaire ».
-4. Wi-Fi seulement pour les 20 Mo ? Réglage à prévoir sur Android.
+2. Wi-Fi seulement pour les 20 Mo ? Réglage à prévoir sur Android.
 
 ### MathALÉA
 
@@ -339,7 +376,6 @@ Reste à faire :
   de l'inclure dans le binaire de chaque architecture ; prépare aussi la v2.
 - Essayer sur iPhone (Mac nécessaire) et sur d'autres téléphones Android :
   clavier, figures, PDF, mode avion.
-- Ressources des parcours (PDF, images) à côté du fichier de classe.
 - Clé d'API Google pour lire les dossiers Google Drive.
 - CI : quand le moteur sera dans MathALÉA, supprimer `moteur/` et construire
   depuis la forge. La release `moteur` du miroir GitHub ne sert plus (à

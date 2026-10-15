@@ -23,9 +23,9 @@ use tauri_plugin_http::reqwest;
 pub const URL_MISES_A_JOUR: &str = "https://mathalea.fr/releases/";
 
 /// Clé publique Ed25519 (32 octets, base64) qui signe les publications.
-/// Clé de test : qui publie le site génère la sienne (tasks/cles_moteur.mjs de
-/// MathALÉA, voir publication-moteur.md) et transmet la clé publique à mettre ici.
-pub const CLE_PUBLIQUE: &str = "UaVlT+Qmsv8bLpxDfjkMDfDvA4yHSiX5ogHhMNdl8sU=";
+/// Clé de qui publie mathalea.fr (tasks/cles_moteur.mjs de MathALÉA, voir
+/// publication-moteur.md) ; une nouvelle clé demande une nouvelle version de l'app.
+pub const CLE_PUBLIQUE: &str = "WYpFYjbzARZSNnH0wPsmc2NOqr7AL/m4Mq9AYT4PtjI=";
 
 const FORMAT: &str = "moteur-mathalea/1";
 

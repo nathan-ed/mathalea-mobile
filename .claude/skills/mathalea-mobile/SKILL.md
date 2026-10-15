@@ -179,8 +179,11 @@ Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
   un échec du moteur ne bloque pas le site. Mode d'emploi des clés pour qui
   publie : `moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`
   (`node tasks/cles_moteur.mjs <.pem>`, la clé publique revient à l'app dans
-  `CLE_PUBLIQUE`). Clé actuelle = clé de test
-  (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`). Contrôle :
+  `CLE_PUBLIQUE`). Clé actuelle = clé de mathalea.fr (Rémi Angot, depuis
+  0.1.5) ; la clé de test (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`)
+  ne signe plus que des publications locales, refusées par `CLE_PUBLIQUE`.
+  Contrôle sur la vraie publication : copier `mise-a-jour.json`, `.sig` et
+  l'archive de mathalea.fr/releases dans un dossier, puis
   `MOTEUR_PUBLICATION=<dossier> cargo test moteur -- --include-ignored`.
 - Format : `moteur-<v>.tar.gz`, `mise-a-jour.json` (format `moteur-mathalea/1`,
   version, api, publieLe, archive, taille, sha256), `mise-a-jour.json.sig`
