@@ -297,6 +297,17 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
+## 0.2.3 : un seul toucher pour valider (fait)
+
+- Android : la page s'arrête au-dessus du clavier du téléphone (affichage bord
+  à bord, `MainActivity.kt`) ; les barres du bas (Valider, Enregistrer)
+  passaient dessous et demandaient deux touchers. Les boutons des barres du
+  bas ne prennent plus le focus (`barreDuBas.ts`).
+- Séance : le panneau « Soumettre quand même ? » ne se referme plus tout seul
+  (le champ quitté signalait une nouvelle saisie) ; en se refermant, un
+  panneau ne rouvre plus le clavier sur la correction.
+- Guide en ligne (Pages de la forge), `.ipa` non signée pour iPhone et iPad.
+
 ## À faire (sans version fixée)
 
 - Retour vers l'enseignant (idée de Nathan, à reprendre plus tard). Rien ne
