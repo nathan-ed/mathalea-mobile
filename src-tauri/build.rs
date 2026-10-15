@@ -1,4 +1,10 @@
 fn main() {
+    // Android 15+ et Google Play : bibliothèques natives alignées sur des pages
+    // de 16 Ko (sinon la Play Console refuse le bundle). Par build.rs plutôt
+    // que .cargo/config.toml : Tauri impose RUSTFLAGS pour Android.
+    if std::env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("android") {
+        println!("cargo:rustc-link-arg=-Wl,-z,max-page-size=16384");
+    }
     // iOS : compile le plugin Swift « partage » (ios/) et le lie à l'app,
     // comme le font les plugins Tauri officiels (seulement sur macOS)
     #[cfg(target_os = "macos")]
