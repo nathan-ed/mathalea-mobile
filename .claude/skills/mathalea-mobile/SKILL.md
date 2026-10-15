@@ -447,6 +447,15 @@ Environnement (machine de Nathan)
   les Réglages (À propos), publique sur les Pages de la forge
   (https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html,
   `pages_access_level=public`, job `pages`).
+- Guide en ligne (Pages de la forge) : https://coopmaths.forge.apps.education.fr/mathalea-mobile/,
+  sources `docs/guide/*.md` (Markdown simple, liens `.md` changés en `.html`)
+  construites par `scripts/guide.mjs` (job `pages`). Captures avec repère du
+  prochain toucher : `node e2e/guide.mjs` (pnpm dev) et
+  `node e2e/guide-site.mjs` (MathALÉA local, `npx vite --port 5180` dans le
+  worktree), puis `FICHIER=<publié> SEULEMENT=importer node e2e/guide.mjs`.
+  Ton voulu par Nathan : simple, « pas une syntaxe de livre ».
+- Historique réécrit le 15 octobre 2026 (adresse personnelle retirée de deux
+  commits) : tags `v*` et releases de la forge recréés, tag `moteur` supprimé.
 - iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; minutes macOS
   comptées dix fois sur un dépôt privé : ne pas le lancer pour rien).
   Plugin Swift `src-tauri/ios/` lié par `build.rs` (cfg macOS + cible ios),

@@ -11,18 +11,17 @@ verifier:
     - pnpm check
     - pnpm test
 
-# Pages de la forge : politique de confidentialité publique, adresse donnée
-# aux boutiques (https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html).
-# Le dépôt reste privé ; seules ces pages sont publiques.
+# Pages de la forge (publiques, le dépôt reste privé) : guide de l'application
+# (docs/guide, scripts/guide.mjs) et politique de confidentialité, adresse
+# donnée aux boutiques :
+# https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html
 pages:
-  image: alpine:3.22
+  image: node:22-alpine
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
-    - mkdir -p public
-    - cp static/confidentialite.html public/confidentialite.html
-    - cp static/confidentialite.html public/index.html
-    - cp static/favicon.png public/favicon.png
+    - node scripts/guide.mjs public
+    - cp static/confidentialite.html static/favicon.png public/
   artifacts:
     paths:
       - public

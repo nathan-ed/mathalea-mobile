@@ -1,0 +1,26 @@
+/* Guide de l'application : couleurs de MathALÉA (comme confidentialite.html) */
+:root { --fond: #ffffff; --texte: #3c3c3c; --titre: #216d9a; --action: #f15929; --discret: #f6f6f6; --bord: #e5e5e5; }
+@media (prefers-color-scheme: dark) {
+  :root { --fond: #282a36; --texte: #e0e0e0; --titre: #a66df7; --action: #ffb46b; --discret: #343746; --bord: #44475a; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fond); color: var(--texte); font: 17px/1.55 system-ui, sans-serif; }
+header { border-bottom: 1px solid var(--bord); padding: .75rem 1rem; }
+header a { display: inline-flex; align-items: center; gap: .5rem; color: var(--action); font-weight: 800; font-size: 1.25rem; text-decoration: none; }
+header img { width: 2rem; height: 2rem; }
+header span { color: var(--texte); font-weight: 400; font-size: .9rem; opacity: .7; }
+main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+h1 { color: var(--action); font-size: 1.7rem; line-height: 1.25; margin: .5rem 0 1rem; }
+h2 { color: var(--titre); font-size: 1.25rem; margin: 2.25rem 0 .5rem; }
+h3 { color: var(--titre); font-size: 1.05rem; margin: 1.75rem 0 .4rem; }
+a { color: var(--action); }
+code { background: var(--discret); padding: 0 .3rem; border-radius: .25rem; font-size: .9em; overflow-wrap: anywhere; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .35rem 0; }
+figure { margin: .75rem 0 1.25rem; }
+figure img { display: block; width: 100%; max-width: 300px; border: 1px solid var(--bord); border-radius: 14px; }
+figure img[src*="site-"] { max-width: 100%; border-radius: 8px; }
+.tableau { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; vertical-align: top; padding: .5rem; border-bottom: 1px solid var(--bord); }
+th { color: var(--titre); }

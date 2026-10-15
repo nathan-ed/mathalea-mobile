@@ -6,7 +6,8 @@ moteur de MathALÉA, embarqué dans l'application : tout fonctionne hors
 connexion. Réponses et scores restent sur l'appareil ; l'application ne
 connaît aucun compte ni mot de passe.
 
-- Guide enseignant : [docs/enseignants.md](docs/enseignants.md)
+- Prise en main pas à pas, avec captures : https://coopmaths.forge.apps.education.fr/mathalea-mobile/ (sources : [docs/guide](docs/guide/index.md), captures `node e2e/guide.mjs`)
+- Guide enseignant détaillé : [docs/enseignants.md](docs/enseignants.md)
 - Développement, architecture, à faire : [docs/developpement.md](docs/developpement.md)
 - Installateurs : [releases/](releases/)
 
