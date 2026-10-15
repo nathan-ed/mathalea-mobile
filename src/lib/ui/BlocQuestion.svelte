@@ -59,10 +59,13 @@
     return saisies
   }
 
-  function surSaisie() {
+  function surSaisie(e: Event) {
     if (resultat) return
     aSaisi = Object.keys(lireSaisies()).length > 0
-    onsaisie?.()
+    // Seulement une vraie frappe : « change » arrive aussi quand le champ perd
+    // le focus, par exemple à l'ouverture du panneau « Soumettre quand même ? »,
+    // qui se refermait alors aussitôt (premier toucher perdu)
+    if (e.type === 'input') onsaisie?.()
     clearTimeout(minuterie)
     enAttente = true
     minuterie = setTimeout(envoyerBrouillon, 350)

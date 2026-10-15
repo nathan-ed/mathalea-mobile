@@ -512,6 +512,16 @@ Environnement (machine de Nathan)
   brouillon de `BlocQuestion` part dans un `queueMicrotask`. De même, une
   tentative supprimée serait recréée par ce brouillon : `Seance` n'écrit plus
   rien après `supprimerTentative` (drapeau `supprimee`).
+- Clavier du téléphone (Android, affichage bord à bord) : il recouvre la page
+  au lieu de la réduire ; les barres du bas passaient dessous (« il faut
+  appuyer deux fois », Nathan). `MainActivity.kt` réduit la vue de contenu de
+  la hauteur du clavier moins la barre de navigation (déjà comptée par
+  `--marge-bas`). Ne se voit pas dans Chromium : essayer sur l'émulateur avec
+  `adb shell settings put secure show_ime_with_hard_keyboard 1` (sinon pas de
+  clavier à l'écran). Les boutons des barres du bas ne prennent pas le focus
+  (`barreDuBas.ts`, `use:garderSaisie`).
+- APK d'essai sans compiler ici : `gh workflow run apk-essai.yml --repo
+  nathan-ed/mathalea-mobile` (arm64 et x86_64, artefact `apk-essai`).
 - Le clavier de MathALÉA peut s'ouvrir juste après l'ouverture d'une
   `Feuille` (focus de la question suivante) et la recouvrir : masqué par
   `body:has(.feuille)` dans `app.css`.
