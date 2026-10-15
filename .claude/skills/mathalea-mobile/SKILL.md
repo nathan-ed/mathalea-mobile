@@ -436,6 +436,15 @@ Environnement (machine de Nathan)
   `google-play.yml` (lundi, si nouveau moteur publié, dernier tag `v*`,
   `versionCode` daté). `.aab` aussi construit par `release.yml` (artefact).
   Voir `docs/developpement.md`, « Google Play et App Store ».
+- Clés Android en CI : `scripts/cle-android.sh` écrit `keystore.properties`
+  depuis l'environnement (jamais `${{ secrets.X }}` dans un `run:`, qui casse
+  un mot de passe avec `$`, `\`, `"`). Clé d'importation Play de Nathan
+  (`CN=CoopMaths`, secrets `ANDROID_UPLOAD_*`) posée le 15 octobre 2026 ;
+  vérifier un `.aab` : `keytool -printcert -jarfile`.
+- Fiche des boutiques : `docs/fiche-boutiques.md` (textes, réponses de la
+  Play Console), captures `node e2e/fiche-play.mjs <dossier>` (1080 × 1920).
+  Politique de confidentialité : `static/confidentialite.html`, aussi dans
+  les Réglages (À propos), à publier sur mathalea.fr par Rémi.
 - iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; minutes macOS
   comptées dix fois sur un dépôt privé : ne pas le lancer pour rien).
   Plugin Swift `src-tauri/ios/` lié par `build.rs` (cfg macOS + cible ios),
