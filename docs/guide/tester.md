@@ -8,7 +8,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 - Android : en attendant le Play Store, écrivez à contact@coopmaths.fr avec l'adresse mail de votre compte Google pour recevoir le lien de test, ou installez le fichier APK. Tout est expliqué dans [Installer l'application](installer.md).
 - Ordinateur : Windows, Mac ou Linux, voir [Installer l'application](installer.md).
-- iPhone et iPad : pas encore. On vous préviendra quand la version de test sera prête.
+- iPhone et iPad : la version de test TestFlight arrive bientôt. Pour les curieux, une installation avec un ordinateur est possible dès maintenant, voir [Installer l'application](installer.md).
 
 ## Ce qu'on peut essayer
 

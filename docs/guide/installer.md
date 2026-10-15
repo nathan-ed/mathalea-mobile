@@ -38,12 +38,27 @@ Sur la [dernière version](https://forge.apps.education.fr/coopmaths/mathalea-mo
 
 ## iPhone et iPad
 
-Pas encore disponible. Apple n'autorise l'installation que par l'App Store, ou par TestFlight pour les tests. L'application y arrivera d'abord en test.
+L'application n'est pas encore sur l'App Store. Il y a deux façons de l'avoir en attendant.
 
-Quand le lien de test sera là :
+### Avec TestFlight (bientôt)
+
+C'est la façon simple, sans ordinateur. Dès que la version de test sera prête, on publiera ici un lien.
 
 1. Installez **TestFlight** depuis l'App Store. C'est une application gratuite d'Apple.
 2. Sur l'iPhone ou l'iPad, ouvrez le lien de test de MathALÉA.
 3. Touchez « Accepter » puis « Installer ».
 
 Une version de test dure 90 jours. TestFlight propose la suivante tout seul.
+
+### Avec Sideloadly (dès maintenant, pour les curieux)
+
+On peut installer soi-même le fichier de l'application avec un ordinateur (Windows ou Mac) et un identifiant Apple gratuit. C'est plus long et l'application ne reste installée que **7 jours**. Il faut ensuite refaire l'installation. Vos données restent.
+
+1. Sur la [dernière version](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest), téléchargez `MathALEA-…-ios-non-signee.ipa`.
+2. Installez [Sideloadly](https://sideloadly.io) sur l'ordinateur. Sous Windows, il faut aussi iTunes et iCloud téléchargés depuis le site d'Apple (pas ceux du Microsoft Store).
+3. Branchez l'iPhone ou l'iPad avec un câble et touchez « Se fier à cet ordinateur ».
+4. Dans Sideloadly, glissez le fichier `.ipa`, écrivez votre identifiant Apple puis cliquez sur « Start ». Votre mot de passe Apple est demandé : il ne sert qu'à signer l'application, chez Apple.
+5. Sur l'iPhone, ouvrez Réglages, Général, « VPN et gestion de l'appareil », touchez votre identifiant Apple puis « Faire confiance ».
+6. Sur iOS 16 et plus, activez aussi le mode développeur : Réglages, « Confidentialité et sécurité », « Mode développeur », puis redémarrez.
+
+L'icône MathALÉA apparaît sur l'écran d'accueil. Au bout de 7 jours, refaites les étapes 4 et 5.
