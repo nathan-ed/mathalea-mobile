@@ -32,15 +32,18 @@ L'application se connecte à Internet seulement pour :
   fichiers de parcours, publics, de ces dossiers. Aucune donnée de l'élève
   n'est envoyée ; comme pour toute page web, le service consulté reçoit
   l'adresse IP de l'appareil, selon sa propre politique ;
-- **mettre à jour le moteur d'exercices** depuis mathalea.fr (versions
-  installées hors des boutiques d'applications) ; le fichier est signé et
-  vérifié avant d'être utilisé ;
 - **afficher le catalogue de parcours proposés par l'équipe MathALÉA**
   (onglet Explorer) ;
 - **ouvrir un lien** choisi par l'utilisateur (ressource d'un parcours,
   dossier partagé) dans le navigateur de l'appareil.
 
 Toutes ces connexions sont chiffrées (HTTPS).
+
+Les versions de Google Play et de l'App Store ne téléchargent jamais de code :
+le moteur d'exercices est livré avec l'application et mis à jour avec elle,
+par la boutique. Seule la version installée hors des boutiques (fichier
+d'installation de la forge de CoopMaths) peut recevoir un nouveau moteur
+depuis mathalea.fr, signé et vérifié avant d'être utilisé.
 
 ## Partage de fichiers
 
