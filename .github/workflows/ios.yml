@@ -96,9 +96,9 @@ jobs:
       - name: IPA non signée
         if: inputs.ipa
         run: |
-          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Automatic; CODE_SIGNING_ALLOWED = NO; CODE_SIGNING_REQUIRED = NO; CODE_SIGN_IDENTITY = "";/' src-tauri/gen/apple/*.xcodeproj/project.pbxproj
+          bash scripts/ios-sans-signature.sh
           pnpm tauri ios build --target aarch64 || echo "Export refusé sans signature : on reprend l'archive"
-          app=$(find src-tauri/gen/apple/build -path '*.xcarchive/Products/Applications/*.app' -maxdepth 6 | head -1)
+          app=$(find src-tauri/gen/apple/build ~/Library/Developer/Xcode -path '*.xcarchive/Products/Applications/*.app' -prune 2>/dev/null | head -1)
           echo "App : $app"
           [ -n "$app" ]
           mkdir -p ipa-libre/Payload
