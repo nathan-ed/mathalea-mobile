@@ -455,6 +455,29 @@ Environnement (machine de Nathan)
   Ton voulu par Nathan : simple, « pas une syntaxe de livre ».
 - Historique réécrit le 15 octobre 2026 (adresse personnelle retirée de deux
   commits) : tags `v*` et releases de la forge recréés, tag `moteur` supprimé.
+- Google Play (15 octobre 2026) : 0.2.4 (code 26101518) envoyée en
+  production, en examen. Bundle : `google-play.yml` (signé `CN=CoopMaths`,
+  vérifier `keytool -printcert -jarfile`). Exigence des pages de 16 Ko :
+  `-Wl,-z,max-page-size=16384` dans `src-tauri/build.rs` (Tauri impose
+  RUSTFLAGS, `.cargo/config.toml` ne marcherait pas) ; contrôle
+  `readelf -lW` sur le `.so`, segments `LOAD` à `0x4000`. Un code de version
+  déjà importé est refusé : « Ajouter à partir de la bibliothèque ».
+  Bêta-testeurs (inscription par Mattermost auprès de Nathan) : piste
+  « Tests fermés » avec liste d'adresses Gmail, pas « Tests ouverts ».
+  Avertissements Play sur `setStatusBarColor` : viennent d'androidx
+  (`enableEdgeToEdge`), rien à faire. Envoi automatique : secret
+  `GOOGLE_PLAY_SERVICE_ACCOUNT` encore à créer (compte de service invité
+  dans la Play Console). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
+  gros pour SendUserFile (30 Mo).
+- `.ipa` non signée pour iPhone (`ios.yml`, `ipa=true`,
+  `scripts/ios-sans-signature.sh`) jointe aux releases de la forge ;
+  installation par Sideloadly (7 jours) décrite dans le guide. Non essayée
+  sur un vrai iPhone. TestFlight attend le compte Apple Developer.
+- Clavier d'Android et double toucher : vérifier sur l'émulateur avec
+  `adb shell settings put secure show_ime_with_hard_keyboard 1` et le
+  débogage du WebView (`adb forward tcp:9222
+  localabstract:webview_devtools_remote_<pid>`, CDP en WebSocket ;
+  Playwright `connectOverCDP` ne marche pas sur un WebView).
 - iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; minutes macOS
   comptées dix fois sur un dépôt privé : ne pas le lancer pour rien).
   Plugin Swift `src-tauri/ios/` lié par `build.rs` (cfg macOS + cible ios),
