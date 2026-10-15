@@ -41,7 +41,7 @@ jobs:
       - name: Dernière version de l'app
         run: |
           # Script du moteur publié pris sur la branche principale, avant de changer de version
-          cp scripts/moteur-publie.mjs "$RUNNER_TEMP/"
+          cp scripts/moteur-publie.mjs scripts/cle-android.sh "$RUNNER_TEMP/"
           tag=$(git describe --tags --abbrev=0 --match 'v*')
           git checkout "$tag"
           echo "TAG=$tag" >> "$GITHUB_ENV"
@@ -92,24 +92,13 @@ jobs:
       # Clé d'importation de Google Play ; à défaut, celle des APK
       - name: Clé de signature
         if: steps.suite.outputs.ok && (env.ANDROID_UPLOAD_KEYSTORE != '' || env.ANDROID_KEYSTORE != '')
-        run: |
-          if [ -n "$ANDROID_UPLOAD_KEYSTORE" ]; then
-            echo "$ANDROID_UPLOAD_KEYSTORE" | base64 -d > "$RUNNER_TEMP/cle.jks"
-            {
-              echo "storeFile=$RUNNER_TEMP/cle.jks"
-              echo "storePassword=${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}"
-              echo "keyAlias=${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}"
-              echo "keyPassword=${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}"
-            } > src-tauri/gen/android/keystore.properties
-          else
-            echo "$ANDROID_KEYSTORE" | base64 -d > "$RUNNER_TEMP/cle.jks"
-            {
-              echo "storeFile=$RUNNER_TEMP/cle.jks"
-              echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
-              echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}"
-              echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}"
-            } > src-tauri/gen/android/keystore.properties
-          fi
+        env:
+          CLE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE || secrets.ANDROID_KEYSTORE }}
+          CLE_MOT_DE_PASSE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE && secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD || secrets.ANDROID_KEYSTORE_PASSWORD }}
+          CLE_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEYSTORE && secrets.ANDROID_UPLOAD_KEY_ALIAS || secrets.ANDROID_KEY_ALIAS }}
+          CLE_MOT_DE_PASSE_CLE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE && secrets.ANDROID_UPLOAD_KEY_PASSWORD || secrets.ANDROID_KEY_PASSWORD }}
+        # Le script vient de la branche principale (le tag peut être plus ancien)
+        run: PROPRIETES=src-tauri/gen/android/keystore.properties bash "$RUNNER_TEMP/cle-android.sh" "$RUNNER_TEMP/cle.jks"
       # Numéro de version interne daté (AAMMJJHH) : toujours plus grand que le précédent
       - name: AAB
         if: steps.suite.outputs.ok

@@ -125,14 +125,12 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Clé de signature (si fournie)
         if: env.ANDROID_KEYSTORE != ''
-        run: |
-          echo "$ANDROID_KEYSTORE" | base64 -d > "$RUNNER_TEMP/mathalea.jks"
-          {
-            echo "storeFile=$RUNNER_TEMP/mathalea.jks"
-            echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
-            echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}"
-            echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}"
-          } > src-tauri/gen/android/keystore.properties
+        env:
+          CLE_BASE64: ${{ secrets.ANDROID_KEYSTORE }}
+          CLE_MOT_DE_PASSE: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          CLE_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          CLE_MOT_DE_PASSE_CLE: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: scripts/cle-android.sh "$RUNNER_TEMP/mathalea.jks"
       - name: APK
         env:
           NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
@@ -153,14 +151,12 @@ jobs:
       # qu'à la Play Console : il est un artefact du job, pas un fichier de la release.
       - name: Clé d'importation Google Play (si fournie)
         if: env.ANDROID_UPLOAD_KEYSTORE != ''
-        run: |
-          echo "$ANDROID_UPLOAD_KEYSTORE" | base64 -d > "$RUNNER_TEMP/importation.jks"
-          {
-            echo "storeFile=$RUNNER_TEMP/importation.jks"
-            echo "storePassword=${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}"
-            echo "keyAlias=${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}"
-            echo "keyPassword=${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}"
-          } > src-tauri/gen/android/keystore.properties
+        env:
+          CLE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
+          CLE_MOT_DE_PASSE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
+          CLE_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          CLE_MOT_DE_PASSE_CLE: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+        run: scripts/cle-android.sh "$RUNNER_TEMP/importation.jks"
       - name: AAB (Google Play)
         env:
           NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018

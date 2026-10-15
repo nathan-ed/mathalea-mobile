@@ -7,7 +7,8 @@ set -euo pipefail
 racine="$(cd "$(dirname "$0")/.." && pwd)"
 proprietes="$racine/src-tauri/gen/android/keystore.properties"
 [ -f "$proprietes" ] || { echo "Pas de keystore.properties : APK laissées telles quelles"; exit 0; }
-prop() { grep "^$1=" "$proprietes" | cut -d= -f2-; }
+# Valeurs écrites par cle-android.sh : \\ redevient \
+prop() { grep "^$1=" "$proprietes" | cut -d= -f2- | sed 's/\\\\/\\/g'; }
 sdk="${ANDROID_HOME:-$HOME/.local/share/the-file-android/sdk}"
 apksigner="$(ls -d "$sdk"/build-tools/* | sort -V | tail -1)/apksigner"
 mdp="$(mktemp)"; mdpcle="$(mktemp)"
