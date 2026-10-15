@@ -1,8 +1,8 @@
 # MathALÉA, l'application
 
-MathALÉA existe en application pour téléphone, tablette et ordinateur. Les élèves y font des parcours d'exercices MathALÉA, corrigés tout de suite, même sans connexion. Les enseignants préparent ces parcours et les donnent à leurs classes.
+MathALÉA existe sous forme d'application pour téléphone, tablette et ordinateur. Les élèves y font des parcours d'exercices MathALÉA, corrigés immédiatement, même sans connexion. Les enseignants préparent ces parcours et les donnent à leurs classes.
 
-Pas de compte, pas de mot de passe. Les réponses et les résultats des élèves restent sur leur appareil.
+Il n'y a ni compte ni mot de passe. Les réponses et les résultats des élèves restent sur leur appareil.
 
 ## Les guides
 
@@ -17,8 +17,8 @@ Pas de compte, pas de mot de passe. Les réponses et les résultats des élèves
 
 1. Vous créez vos parcours et vous les donnez à vos classes.
 2. Vous publiez. L'application enregistre un fichier.
-3. Vous mettez ce fichier dans un dossier de votre drive (kDrive, Dropbox, Nextcloud…) partagé par lien.
-4. Les élèves ajoutent ce lien une fois dans leur application. Après, chaque nouvelle publication que vous mettez dans le dossier leur arrive toute seule.
+3. Vous déposez ce fichier dans un dossier de votre drive (kDrive, Dropbox, Nextcloud…) que vous partagez par un lien.
+4. Les élèves ajoutent ce lien une seule fois dans leur application. Ensuite, chaque nouvelle publication déposée dans le dossier leur parvient automatiquement.
 
 Un élève ne voit que les parcours donnés à sa classe.
 

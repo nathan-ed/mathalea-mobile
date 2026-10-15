@@ -30,7 +30,7 @@ Juste en dessous, touchez « Charger les parcours de démonstration ». Revenez 
 
 ## 5. Un parcours, côté élève
 
-Dans « Mes parcours », la classe Démonstration a quatre parcours. Touchez « Relatifs en ceintures ».
+Dans « Mes parcours », la classe Démonstration contient quatre parcours. Touchez « Relatifs en ceintures ».
 
 ![Mes parcours](images/decouvrir-5-mes-parcours.png)
 
@@ -42,7 +42,7 @@ Une ceinture s'ouvre quand la précédente est réussie. Touchez « Commencer »
 
 ## 7. Répondre
 
-Touchez une case, le clavier de MathALÉA s'ouvre. Répondez, puis « Soumettre ». La correction s'affiche tout de suite.
+Touchez une case : le clavier de MathALÉA s'ouvre. Répondez, puis touchez « Soumettre ». La correction s'affiche aussitôt.
 
 ![Une question](images/decouvrir-7-question.png)
 
@@ -60,10 +60,10 @@ Vous y retrouvez les mêmes parcours. Touchez « Relatifs par paliers ».
 
 ## 10. Les paliers
 
-Chaque palier a son titre et ses exercices. On peut y mettre une ressource pour revoir, et une pause après (un mot pour les élèves, une mise en commun en classe…).
+Chaque palier a son titre et ses exercices. On peut y ajouter une ressource pour revoir la notion, et une pause à la fin du palier (un mot pour les élèves, une mise en commun en classe…).
 
 ![Paliers dans l'éditeur](images/decouvrir-10-paliers-editeur.png)
 
-Pour enlever la démonstration : Réglages, « Retirer les parcours de démonstration ».
+Pour enlever la démonstration, ouvrez les Réglages et touchez « Retirer les parcours de démonstration ».
 
-La suite : [créer votre premier parcours](creer.md).
+Vous pouvez maintenant [créer votre premier parcours](creer.md).

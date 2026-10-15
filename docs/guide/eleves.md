@@ -2,7 +2,7 @@
 
 [Retour aux guides](index.md)
 
-Ce que fait un élève avec le lien donné par son enseignant. Sur chaque image, le cercle bleu montre où toucher.
+Voici ce que fait un élève avec le lien donné par son enseignant. Sur chaque image, le cercle bleu montre où toucher.
 
 ## 1. Ajouter le dossier de la classe
 
@@ -14,19 +14,19 @@ Si le dossier contient plusieurs classes, l'élève choisit la sienne.
 
 ## 2. Ses parcours
 
-Les parcours donnés à sa classe s'affichent, rangés par chapitre. L'épingle garde un parcours en haut de la liste. Il touche un parcours pour l'ouvrir.
+Les parcours donnés à sa classe s'affichent, rangés par chapitre. L'épingle garde un parcours en haut de la liste. L'élève touche un parcours pour l'ouvrir.
 
 ![Mes parcours](images/eleve-2-parcours.png)
 
 ## 3. Répondre
 
-Dans « Relatifs en ceintures », il touche « Commencer », répond avec le clavier de MathALÉA, puis touche « Soumettre ».
+Dans « Relatifs en ceintures », l'élève touche « Commencer », répond avec le clavier de MathALÉA, puis touche « Soumettre ».
 
 ![Réponses](images/eleve-3-reponses.png)
 
 ## 4. La correction
 
-Chaque réponse est corrigée, avec la correction détaillée. Il touche « Voir le bilan ».
+Chaque réponse est corrigée et la correction détaillée s'affiche. L'élève touche ensuite « Voir le bilan ».
 
 ![Correction](images/eleve-4-correction.png)
 
@@ -44,7 +44,7 @@ L'onglet « Suivi » rassemble son travail.
 
 ## 7. Ses progrès
 
-Questions faites, réponses correctes, jours de travail, puis le détail par parcours, par objectif et par ceinture. Tout reste sur son appareil.
+L'élève y voit le nombre de questions faites, de réponses correctes et de jours de travail, puis le détail par parcours, par objectif et par ceinture. Tout reste sur son appareil.
 
 ![Suivi](images/eleve-7-suivi.png)
 
@@ -52,5 +52,5 @@ Questions faites, réponses correctes, jours de travail, puis le détail par par
 
 - Sans connexion, l'élève travaille quand même. Les nouveaux parcours arrivent à la prochaine connexion.
 - Un parcours commencé se reprend là où il s'est arrêté.
-- Pour changer de téléphone : Réglages, « Exporter une sauvegarde », puis « Restaurer une sauvegarde » sur le nouveau.
+- Pour changer de téléphone, l'élève touche « Exporter une sauvegarde » dans les Réglages, puis « Restaurer une sauvegarde » sur le nouveau téléphone.
 - L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, que l'élève peut ajouter lui-même.

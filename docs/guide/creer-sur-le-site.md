@@ -20,7 +20,7 @@ Donnez un titre et choisissez le niveau. Les chapitres de MathALÉA du niveau so
 
 ## 3. Ajouter des exercices
 
-Écrivez le but du parcours (les élèves le voient) puis cliquez sur « Ajouter des exercices ».
+Écrivez le but du parcours, que les élèves verront, puis cliquez sur « Ajouter des exercices ».
 
 ![Ajouter des exercices](images/site-3-ajouter.png)
 
@@ -44,13 +44,13 @@ Cliquez sur « Valider » pour revenir au parcours.
 
 ## 7. Le parcours
 
-Le schéma à droite montre ce que verront les élèves. « Paliers » et « Ceintures » découpent le parcours en étapes. Quand le parcours est prêt passez à l'onglet « Classes ».
+Le schéma à droite montre ce que verront les élèves. « Paliers » et « Ceintures » découpent le parcours en étapes. Quand le parcours est prêt, passez à l'onglet « Classes ».
 
 ![Parcours prêt](images/site-7-parcours.png)
 
 ## 8. Une classe
 
-Écrivez le nom de la classe tel que les élèves le verront puis cliquez sur « Classe ».
+Écrivez le nom de la classe, tel que les élèves le verront, puis cliquez sur « Classe ».
 
 ![Nouvelle classe](images/site-8-classe.png)
 
@@ -78,7 +78,7 @@ Le même fichier se reprend dans l'application du téléphone.
 
 ### 1. Reprendre ma bibliothèque publiée
 
-Dans l'onglet Créer touchez « Reprendre ma bibliothèque publiée ».
+Dans l'onglet Créer, touchez « Reprendre ma bibliothèque publiée ».
 
 ![Reprendre ma bibliothèque](images/importer-1-reprendre.png)
 

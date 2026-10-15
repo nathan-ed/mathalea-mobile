@@ -4,7 +4,7 @@
 
 Il faut d'abord activer « Je suis enseignant » dans les Réglages (voir [Découvrir](decouvrir.md), étape 3). Sur chaque image, le cercle bleu montre où toucher.
 
-On crée un parcours pour un niveau, puis on le donne à une ou plusieurs classes. À la fin, on publie un fichier qu'on met dans un dossier partagé.
+On crée un parcours pour un niveau, puis on le donne à une ou plusieurs classes. Enfin, on publie un fichier que l'on dépose dans un dossier partagé.
 
 ## Créer le parcours
 
@@ -22,7 +22,7 @@ Touchez le niveau, ici 5e.
 
 ### 3. Chapitre, titre et but
 
-Écrivez le nom du chapitre. Ensuite, vos chapitres déjà utilisés sont proposés au-dessus. Donnez un titre et une phrase de but, les élèves les voient.
+Écrivez le nom du chapitre ; les chapitres que vous avez déjà utilisés sont proposés au-dessus. Donnez ensuite un titre et une phrase qui décrit le but du parcours : les élèves verront les deux.
 
 ![Chapitre, titre et but](images/creer-3-infos.png)
 
@@ -52,7 +52,7 @@ Choisissez le nombre de questions et les options, comme sur le site, puis touche
 
 ### 8. Revenir au parcours
 
-Le bouton du bas compte les exercices choisis. Touchez-le.
+Le bouton du bas indique le nombre d'exercices choisis. Touchez-le pour revenir au parcours.
 
 ![Revenir au parcours](images/creer-8-revenir.png)
 
@@ -90,7 +90,7 @@ Cochez le parcours, puis touchez « Enregistrer ».
 
 ### 14. Retour aux parcours
 
-La classe a son parcours. Touchez « Parcours » pour revenir.
+La classe a maintenant son parcours. Touchez « Parcours » pour revenir.
 
 ![La classe et son parcours](images/creer-14-classe.png)
 
@@ -104,7 +104,7 @@ Sur votre drive (kDrive, Dropbox, Nextcloud…), créez un dossier et partagez-l
 
 ### 16. Publier
 
-Touchez « Publier ». Sur téléphone, choisissez l'application de votre drive puis le dossier partagé. Sur ordinateur, le fichier est enregistré et vous le mettez dans le dossier.
+Touchez « Publier ». Sur téléphone, choisissez l'application de votre drive puis le dossier partagé. Sur ordinateur, le fichier est enregistré : déposez-le ensuite dans le dossier partagé.
 
 ![Publier](images/creer-16-publier.png)
 
@@ -117,6 +117,6 @@ Touchez « Publier ». Sur téléphone, choisissez l'application de votre drive 
 ## Ensuite
 
 - Un élève ne voit que les parcours donnés à sa classe.
-- Pour modifier un parcours, en ajouter un ou en retirer un d'une classe, faites-le dans l'application, puis publiez à nouveau et mettez le nouveau fichier dans le dossier. Rien ne change chez les élèves avant. Les anciens fichiers peuvent rester dans le dossier, seul le plus récent compte.
-- « Exporter ce parcours seul » crée un fichier à part, pour un collègue par exemple. Si vous le mettez dans le dossier, il s'ajoute à la publication et y reste jusqu'à ce que vous le supprimiez.
+- Pour modifier un parcours, en ajouter un ou en retirer un d'une classe, faites-le dans l'application, puis publiez à nouveau et déposez le nouveau fichier dans le dossier. Rien ne change chez les élèves avant cette nouvelle publication. Les anciens fichiers peuvent rester dans le dossier : seul le plus récent compte.
+- « Exporter ce parcours seul » crée un fichier à part, pour un collègue par exemple. Déposé dans le dossier, il s'ajoute à la publication et y reste tant que vous ne le supprimez pas.
 - Retirer un parcours n'efface rien chez l'élève. Ses résultats restent sur son appareil.
