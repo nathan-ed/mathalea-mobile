@@ -35,7 +35,8 @@ un **paquet moteur** construit depuis le dépôt MathALÉA (branche
 | `src/lib/catalogue.ts` | types : parcours, étapes, présentation, validation |
 | `src/lib/progression.ts` | séances (version figée du parcours, graines, brouillons, essais), score à la première vérification, bilans, sessions partagées |
 | `src/lib/partage.ts` | fichier `parcours-mathalea.json` (plusieurs classes), lecture des drives |
-| `src/lib/bibliotheque.ts` | parcours de l'enseignant, versions, export |
+| `src/lib/bibliotheque.ts` | parcours de l'enseignant, classes, préférences, versions, publication (toute la bibliothèque) et reprise |
+| `src/lib/objectifs.ts` | objectifs (CSV, mémoire par exercice), états des paliers, suivi par objectif, ceintures obtenues |
 | `src/lib/sauvegarde.ts` | sauvegarde et restauration (avec retour arrière) |
 | `src/lib/stockage.ts` | SQLite dans Tauri, `localStorage` dans un navigateur |
 | `src-tauri/src/telechargement.rs` | téléchargement sans en-tête `Origin` |
@@ -48,6 +49,14 @@ Règles :
 - Session partagée : graine = `code-id-vversion-étape`. Même code et même
   version : mêmes exercices.
 - Aucune donnée ne quitte l'appareil ; l'app ne stocke aucun identifiant.
+- Paliers : `paliers` donne le nombre d'exercices de chacun (les étapes
+  restent une liste ; une ancienne app affiche tout le parcours), `acces`
+  (`libre`, `seuil`), `seuil`, `ressource`, `pause` (contenu après le palier) ;
+  `style` (`paliers`, `ceintures`) et `premiereCeinture`. Une séance porte sur
+  un palier (`etapes`) ; le pourcentage du parcours (`complet:<id>`) ne vient
+  que d'un passage sur toutes ses étapes.
+- Objectifs : libellés sur les étapes (`objectifs`) ; l'objectif du programme
+  vient du moteur (`listerExercices`, code sous le chapitre : `5N2` › `5N2G`).
 
 ### Partage
 
@@ -200,51 +209,35 @@ refuse la mise à jour.
 - Mises à jour du moteur signées par la clé de mathalea.fr (transmise par
   Rémi Angot), publication sur `https://mathalea.fr/releases/` (fait).
 
-## Organisation des parcours (enseignants)
+## 0.2.0 : organisation des parcours (fait)
 
-Idées de Nathan (15 octobre 2026), par étapes, chacune validée avant d'être
-codée. Principe commun : tout reste dans `parcours-mathalea.json` ; chaque
-ajout au format est facultatif, et un champ `formatMin` empêche une app trop
-ancienne d'ouvrir un parcours qu'elle afficherait mal (elle propose de se
-mettre à jour). Tout doit rester très simple à créer : éditeur sur un seul
-écran, aucun texte de remplissage.
+Demandes de Nathan du 15 octobre 2026, après une recherche didactique
+(`reports/`, non versionné : maîtrise, remédiation, pratique espacée, ceintures,
+plateformes) et un audit d'ergonomie :
 
-1. Préférences de création : le dernier choix (classes, niveau, difficulté,
-   présentation, validation) préremplit le parcours suivant. Dans les
-   Réglages, si « Je suis enseignant », ces valeurs par défaut sont
-   modifiables.
-2. Bibliothèque et niveaux : un parcours appartient à un ou plusieurs
-   niveaux (`niveaux`, `niveau` gardé pour les anciennes apps) et n'est plus
-   créé pour une classe. Onglet Créer = bibliothèque par niveau puis
-   chapitre ; « Donner à une classe » l'assigne. Un parcours sans classe
-   existe déjà (`classes: []`, `CLASSE_SANS_NOM`). Sauvegarde de toute la
-   bibliothèque, non assignés compris, en un fichier repris sur un autre
-   appareil.
-3. Objectifs et compétences : liste d'objectifs par chapitre, saisie dans
-   l'app ou importée (JSON ou CSV : code, libellé, niveau) ; `Etape.objectifs`.
-   L'étiquette est retenue par exercice, clé `uuid` + `sup`…`sup4` (des
-   paramètres différents peuvent viser une autre compétence ou un autre
-   niveau ; le nombre de questions ne compte pas) : le même exercice ajouté
-   ailleurs reprend ses objectifs. Vue par objectif (exercices, niveaux,
-   parcours) ; suivi de l'élève par objectif, sur son appareil.
-4. Parcours structurés : paliers (`blocs`) séparés par des jalons : pause,
-   seuil de réussite pour débloquer la suite, ou code donné en classe
-   (déblocage local, rien ne remonte). Carte du parcours pour l'élève
-   (paliers verrouillés ou atteints), ceintures nommées par palier dans les
-   couleurs de MathALÉA (aucune nouvelle couleur). Remédiation : étape
-   proposée si le seuil n'est pas atteint. Modèles : Prof Collège, ChingMath.
-5. Ressources : étape « ressource » (PDF, vidéo) liée depuis un drive, lue
-   par les mêmes lecteurs que les dossiers partagés, utilisable en
-   remédiation.
-6. Édition sur le web : l'app est un SvelteKit statique qui tourne déjà dans
-   un navigateur (`localStorage`) ; la même construction servie sur le site
-   donne l'éditeur web sans second code. À proposer à l'équipe MathALÉA
-   (pas de fork) ; à défaut, une option du site qui exporte un
-   `parcours-mathalea.json`.
+- On crée pour un niveau, on donne aux classes dans la vue Classes ;
+  bibliothèque par niveau et chapitre ; préférences de création.
+- Organisation : liste simple, paliers, ceintures (première au choix) ; accès
+  par seuil ou ouvert à tout moment ; ressource pour revoir ; pause (contenu)
+  après un palier ; validation « à la fin du palier ».
+- Objectifs du programme posés automatiquement, objectifs de l'enseignant
+  (CSV au fil de l'année), vue par objectif ; suivi de l'élève par objectif
+  (meilleur niveau, dernière fois travaillé) et ceintures obtenues.
+- Élève : carte en paliers, bilan de palier avec pause et « Continuer »,
+  progression « 1/3 », épingle sur les tuiles, session sur un palier ouvert.
+- Publication : le fichier porte toute la bibliothèque ; état « prêt à
+  déposer » puis « Vérifier le dossier partagé » ; reprise sur un autre
+  appareil ou depuis la page du site.
+- Icône proposée d'après le chapitre ; parcours de démonstration (Réglages,
+  enseignant) ; restauration avec aperçu, confirmation et annulation ;
+  panneaux accessibles et limités à la zone visible.
+- Page du site `?v=parcours` (MR sur MathALÉA) : même format et même
+  bibliothèque, fenêtre d'ajout d'exercices du site, schéma du parcours.
 
-À trancher au moment de chaque étape : forme du fichier d'objectifs
-(référentiel officiel ou propre à l'enseignant), déblocage d'un jalon (seuil,
-code ou les deux), hébergement de l'éditeur web.
+Plus tard : reprises espacées et révision mélangée (recommandées par la
+recherche, laissées à l'enseignant pour l'instant), pages de cours intégrées,
+format minimal (`formatMin`) si un ajout devait être ignoré à tort par une
+ancienne app.
 
 ## À faire (sans version fixée)
 

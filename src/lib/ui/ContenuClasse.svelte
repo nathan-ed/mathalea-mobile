@@ -21,6 +21,8 @@
     badge,
     onouvrir,
     onorganiser,
+    epingles = [],
+    onepingler,
   }: {
     nom: string
     parcours: Parcours[]
@@ -29,6 +31,8 @@
     badge: (p: Parcours) => string
     onouvrir: (p: Parcours) => void
     onorganiser: (o: Organisation) => void
+    epingles?: string[]
+    onepingler?: (p: Parcours) => void
   } = $props()
 
   let organiser = $state(false)
@@ -181,7 +185,15 @@
   </div>
   {#if ouvert && !organiser}
     {#each c.parcours as p (p.id)}
-      <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => onouvrir(p)} />
+      <Tuile
+        icon={p.icone}
+        title={p.titre}
+        subtitle={sousTitre(p)}
+        badge={badge(p)}
+        onclick={() => onouvrir(p)}
+        epingle={epingles.includes(p.id)}
+        onepingler={onepingler ? () => onepingler(p) : undefined}
+      />
     {/each}
   {/if}
 {/each}

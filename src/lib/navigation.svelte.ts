@@ -9,12 +9,13 @@ export const navigation = $state({ versAccueil: () => {} })
 //
 // Niveaux : chaque composant enregistre ce que fait « retour » chez lui
 // (sous-niveau ouvert, confirmation, garde-fou) avec surRetour(), le plus
-// récent passant en premier ; sinon, la page revient à l'écran précédent
-// (retourDeBase).
+// récent passant en premier ; un panneau du bas (Feuille) passe avant tout le
+// reste, même enregistré plus tôt qu'un onglet ; sinon, la page revient à
+// l'écran précédent (retourDeBase).
 
 type Retour = () => void
 
-const pile: Retour[] = []
+const pile: { fn: Retour; priorite: number }[] = []
 let base: Retour | null = null
 let sentinelle = false
 let ignorer = false
@@ -22,11 +23,12 @@ let planifie = false
 let pousser: ((present: boolean) => void) | null = null
 
 /** Enregistre un niveau à refermer par « retour » ; renvoie de quoi le retirer */
-export function surRetour(fn: Retour): () => void {
-  pile.push(fn)
+export function surRetour(fn: Retour, priorite = 0): () => void {
+  const niveau = { fn, priorite }
+  pile.push(niveau)
   planifier()
   return () => {
-    const i = pile.lastIndexOf(fn)
+    const i = pile.lastIndexOf(niveau)
     if (i >= 0) pile.splice(i, 1)
     planifier()
   }
@@ -40,8 +42,9 @@ export function retourDeBase(fn: Retour | null) {
 
 /** Ce que fait le bouton retour du téléphone */
 export function revenir() {
-  const haut = pile.at(-1)
-  if (haut) haut()
+  // Le plus récent parmi les plus prioritaires
+  const haut = pile.reduce<(typeof pile)[number] | undefined>((h, n) => (!h || n.priorite >= h.priorite ? n : h), undefined)
+  if (haut) haut.fn()
   else base?.()
 }
 
@@ -80,8 +83,8 @@ function planifier() {
 }
 
 /** Dans un composant : tant que actif() est vrai, « retour » appelle fn */
-export function retourSi(actif: () => boolean, fn: Retour) {
+export function retourSi(actif: () => boolean, fn: Retour, priorite = 0) {
   $effect(() => {
-    if (actif()) return surRetour(fn)
+    if (actif()) return surRetour(fn, priorite)
   })
 }

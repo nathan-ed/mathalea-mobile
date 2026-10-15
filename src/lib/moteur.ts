@@ -91,6 +91,7 @@ export interface ExerciceDuReferentiel {
   niveau: string
   theme: string
   interactif: boolean
+  objectif?: { code: string; libelle: string } // moteurs postérieurs au 2026-10-15
 }
 
 interface Manifeste {

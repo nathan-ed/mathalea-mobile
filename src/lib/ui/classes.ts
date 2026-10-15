@@ -41,3 +41,9 @@ export const elementListe = `w-full flex flex-row items-center justify-between g
   bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
   active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest
   transition-colors duration-150`
+
+/** Pastille d'un score : couleur de réussite à partir de 80 %, neutre en dessous (0 % n'a pas l'air réussi) */
+export const pastilleNeutre = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
+  bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest
+  text-coopmaths-corpus dark:text-coopmathsdark-corpus text-xs font-bold`
+export const pastilleScore = (pourcentage: number) => (pourcentage >= 80 ? pastille : pastilleNeutre)

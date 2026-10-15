@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { adopter, definirLien, enregistrer, exporter, exporterUn, aExporter, ajouterClasses, nbAExporter, parcoursVide, parcoursDeClasse } from '../src/lib/bibliotheque'
+import { adopter, definirLien, enregistrer, exporter, exporterUn, aExporter, reprendre, attribuer, nbAExporter, parcoursVide, parcoursDeClasse } from '../src/lib/bibliotheque'
 import { lireFichier } from '../src/lib/partage'
 import { graineDeSession, nouveauCode, nouvelleSeance } from '../src/lib/progression'
 
@@ -39,11 +39,31 @@ describe('bibliothèque de l’enseignant', () => {
 
   it('retrouve ses classes depuis un fichier exporté (nouvel appareil)', () => {
     const f = lireFichier(exporter(enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('F'))).texte)
-    const b = ajouterClasses({ classes: [], parcours: [] }, f)
+    const b = reprendre({ classes: [], parcours: [] }, f)
     expect(b.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
     expect(b.parcours).toHaveLength(1)
     expect(b.parcours[0].classes).toEqual(['3e A', '3e B'])
     expect(nbAExporter(b)).toBe(0)
+  })
+
+  it('reprend toute la bibliothèque : parcours sans classe et objectifs compris, sans rien perdre localement', () => {
+    let source = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
+    source = enregistrer(source, [], { ...brouillon('Brouillon sans classe'), id: '' })
+    const objectifs = [{ libelle: 'Additionner des fractions', niveau: '4e', theme: 'Fractions' }]
+    const f = lireFichier(exporter(source, objectifs).texte)
+    expect(f.classes.map((c) => c.parcours.length)).toEqual([1])
+    expect(f.bibliotheque?.parcours).toHaveLength(2)
+    expect(f.bibliotheque?.objectifs).toEqual(objectifs)
+    // Appareil qui a déjà un parcours à lui : il le garde
+    const local = enregistrer({ classes: [], parcours: [] }, [], { ...brouillon('À moi'), id: '' })
+    const b = reprendre(local, f)
+    expect(b.parcours.map((pe) => pe.parcours.titre)).toEqual(['À moi', 'Fractions', 'Brouillon sans classe'])
+    expect(b.parcours.find((pe) => pe.parcours.titre === 'Brouillon sans classe')?.classes).toEqual([])
+    // Reprendre deux fois ne crée aucun doublon ; une version locale plus récente est gardée
+    const plusRecent = attribuer(enregistrer(b, ['3e A'], { ...b.parcours[1].parcours, version: 5 }), b.parcours[1].parcours.id, ['3e A'])
+    const encore = reprendre(plusRecent, f)
+    expect(encore.parcours).toHaveLength(3)
+    expect(encore.parcours[1].parcours.version).toBe(5)
   })
 })
 
@@ -96,7 +116,18 @@ describe('sauvegarde', async () => {
     const texte = await exporterSauvegarde(memoire(donnees).st)
     const b = memoire({ profil: 'enseignant', 'complet:autre': 1 })
     await restaurerSauvegarde(b.st, texte)
-    expect(Object.fromEntries(b.d)).toEqual(JSON.parse(JSON.stringify(donnees)))
+    const { 'avant-restauration': copie, ...restaure } = Object.fromEntries(b.d)
+    expect(restaure).toEqual(JSON.parse(JSON.stringify(donnees)))
+    // L'état remplacé est gardé : restaurer cette copie annule la restauration
+    await restaurerSauvegarde(b.st, copie as string)
+    const { 'avant-restauration': _, ...annule } = Object.fromEntries(b.d)
+    expect(annule).toEqual({ profil: 'enseignant', 'complet:autre': 1 })
+    expect(JSON.parse(await exporterSauvegarde(b.st)).donnees['avant-restauration']).toBeUndefined()
+  })
+  it('résume une sauvegarde avant de la restaurer', async () => {
+    const { resumerSauvegarde } = await import('../src/lib/sauvegarde')
+    const texte = await exporterSauvegarde(memoire({ profil: 'eleve', 'historique:fractions': [seance] }).st)
+    expect(resumerSauvegarde(texte)).toMatchObject({ dossiers: 0, passages: 1, enseignant: false })
   })
   it('refuse une sauvegarde au bon format mais au contenu mal formé, sans rien effacer', async () => {
     const avant = { profil: 'eleve', 'historique:fractions': [seance] }
@@ -165,7 +196,7 @@ describe('téléchargements après la création', () => {
     b = enregistrer(b, ['3e A', '3e B'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
     const f = exporterUn(b, id)!
     const lu = lireFichier(f.texte)
-    expect(f.nom).toMatch(/^parcours-fractions-corrige-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}\.json$/)
+    expect(f.nom).toMatch(/^parcours-fractions-corrige-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/)
     expect(lu.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
     expect(lu.classes[0].parcours[0].version).toBe(2)
     expect(nbAExporter(b)).toBe(1)

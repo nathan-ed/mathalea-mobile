@@ -113,4 +113,68 @@ export const catalogue: Parcours[] = [
     icone: 'bx-line-chart',
     etapes: [{ uuid: 'b92da', id: '3F10', nbQuestions: 3, titre: 'Tableau de valeurs' }],
   },
+  // Démonstration des paliers côté élève : objectifs du programme, seuil,
+  // palier ouvert d'emblée, ressource pour revoir, pauses (dont un bravo final)
+  {
+    id: 'relatifs-paliers-5e',
+    version: 1,
+    presentation: 'un_exo_par_page',
+    correction: 'page',
+    titre: 'Relatifs par paliers',
+    objectif: 'Additionner, puis soustraire des nombres relatifs, un palier après l’autre.',
+    niveau: '5e',
+    theme: 'Nombres et calculs',
+    difficulte: 2,
+    icone: 'bx-layer',
+    etapes: [
+      { uuid: 'cbc26', id: '5N2G', nbQuestions: 2, titre: 'Additionner deux nombres relatifs', objectifs: ['Additionner deux nombres décimaux relatifs'] },
+      {
+        uuid: '61b4a',
+        id: '5N2G-1',
+        nbQuestions: 2,
+        titre: "Trouver le terme manquant d'une somme de nombres relatifs",
+        objectifs: ['Additionner deux nombres décimaux relatifs'],
+      },
+      { uuid: 'b6982', id: '5N2I', nbQuestions: 2, titre: 'Soustraire deux nombres relatifs', objectifs: ['Soustraire deux nombres décimaux relatifs'] },
+      { uuid: '36e2a', id: '5N2H', nbQuestions: 2, titre: 'Additionner 5 nombres relatifs', objectifs: ['Additionner plusieurs nombres décimaux relatifs'] },
+    ],
+    paliers: [
+      {
+        titre: 'Additionner',
+        nb: 2,
+        ressource: { titre: 'Revoir l’addition sur MathALÉA', lien: 'https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=4&v=eleve&es=0111' },
+        pause: {
+          texte: 'Bravo ! Avant de soustraire, on met en commun en classe : comment additionner deux nombres de signes contraires ?',
+        },
+      },
+      { titre: 'Soustraire', nb: 1, acces: 'seuil', seuil: 80 },
+      { titre: 'Pour aller plus loin', nb: 1, acces: 'libre', pause: { texte: 'Parcours terminé : tu sais additionner et soustraire des relatifs.' } },
+    ],
+  },
+  // Démonstration des ceintures : la première est orange, chaque ceinture
+  // s'obtient à 80 % de la précédente ; validation à la fin de chaque ceinture
+  {
+    id: 'relatifs-ceintures-5e',
+    version: 1,
+    presentation: 'un_exo_par_page',
+    correction: 'parcours',
+    titre: 'Relatifs en ceintures',
+    objectif: 'Obtenir les ceintures orange, verte et bleue des nombres relatifs.',
+    niveau: '5e',
+    theme: 'Nombres et calculs',
+    difficulte: 2,
+    icone: 'bx-medal',
+    style: 'ceintures',
+    premiereCeinture: 2,
+    etapes: [
+      { uuid: 'cbc26', id: '5N2G', nbQuestions: 2, titre: 'Additionner deux nombres relatifs', objectifs: ['Additionner deux nombres décimaux relatifs'] },
+      { uuid: 'b6982', id: '5N2I', nbQuestions: 2, titre: 'Soustraire deux nombres relatifs', objectifs: ['Soustraire deux nombres décimaux relatifs'] },
+      { uuid: '36e2a', id: '5N2H', nbQuestions: 2, titre: 'Additionner 5 nombres relatifs', objectifs: ['Additionner plusieurs nombres décimaux relatifs'] },
+    ],
+    paliers: [
+      { titre: 'Additionner', nb: 1, pause: { texte: 'Ceinture orange obtenue ? Bravo ! Prochaine étape : la soustraction.' } },
+      { titre: 'Soustraire', nb: 1, acces: 'seuil', seuil: 80, ressource: { titre: 'Revoir la soustraction', lien: 'https://coopmaths.fr/alea/?uuid=b6982&id=5N2I&n=4&v=eleve' } },
+      { titre: 'Enchaîner', nb: 1, acces: 'seuil', seuil: 80 },
+    ],
+  },
 ]

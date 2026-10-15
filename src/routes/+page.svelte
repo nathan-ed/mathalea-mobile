@@ -1,13 +1,21 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import type { Parcours } from '$lib/catalogue'
-  import { exporterSauvegarde, restaurerSauvegarde } from '$lib/sauvegarde'
+  import { nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
+  import { CLE_AVANT_RESTAURATION, exporterSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier, partageNatif } from '$lib/fichiers'
   import {
     adopter,
+    ajouterClasse as ajouterClasseBibliotheque,
     definirLien,
+    parcoursPourClasse,
+    preferencesDe,
+    publicationPresente,
+    reprendre,
+    renommerClasse,
+    retirerClasse as retirerClasseBibliotheque,
+    type Preferences,
     ecrireBibliotheque,
     enregistrer,
     exporter,
@@ -20,7 +28,8 @@
     supprimer,
     type Bibliotheque,
   } from '$lib/bibliotheque'
-  import { ecrireClasses, lireClasses, lireExplorer, lireFichier, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
+  import { ceinturesObtenues, completerListe, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
+  import { LIEN_DEMONSTRATION, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
   import {
     bilan,
     ecrireSeance,
@@ -96,7 +105,11 @@
   )
   // Enseignant
   let bibliotheque: Bibliotheque = $state({ classes: [], parcours: [] })
-  let creation: { classes: string[]; parcours: Parcours; cle: number } | null = $state(null)
+  let creation: { parcours: Parcours; cle: number } | null = $state(null)
+  // Liste d'objectifs de l'enseignant, objectifs retenus par exercice, derniers choix de création
+  let objectifs: Objectif[] = $state([])
+  let etiquettes: Record<string, string[]> = $state({})
+  let preferences: Partial<Preferences> = $state({})
   let apercu: TSeance | undefined = $state()
 
   // Aucun parcours intégré : tout vient des dossiers partagés
@@ -156,6 +169,9 @@
         sur: enCours && s ? questionsDe(s).length || totalQuestions(p) : totalQuestions(p),
         enCours,
         pourcentage: derniersComplets[p.id] ?? null,
+        ...(paliersDe(p).length > 1
+          ? { paliers: { reussis: ceinturesObtenues(p, historiques[p.id] ?? []).filter((x) => x.obtenue).length, total: paliersDe(p).length } }
+          : {}),
       }
     }
     return r
@@ -180,6 +196,10 @@
     bibliotheque = await lireBibliotheque(stockage)
     importes = (await stockage.lire<Parcours[]>('importes')) ?? []
     classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
+    objectifs = (await stockage.lire<Objectif[]>('objectifs')) ?? []
+    etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
+    preferences = (await stockage.lire<Preferences>('preferences-creation')) ?? {}
+    restaurationAnnulable = !!(await stockage.lire<string>(CLE_AVANT_RESTAURATION))
     for (const p of tous) await chargerParcours(p)
     vue = 'accueil'
     // Réglage Enseignant : l'app s'ouvre sur l'onglet Créer
@@ -322,14 +342,41 @@
     aller('seance')
   }
 
-  function commencer(p: Parcours) {
+  /** Tout le parcours, ou un palier ; une tentative en cours de ces exercices reprend là où elle en était */
+  function commencer(p: Parcours, etapes?: number[]) {
     actif = p
     const existante = seances[p.id]
-    void lancer(existante && !existante.fin ? existante : nouvelleSeance(p, moteur!.VERSION_MOTEUR))
+    const memes = !etapes || (existante && existante.etapes.join() === etapes.join())
+    void lancer(existante && !existante.fin && memes ? existante : nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes))
   }
 
-  const refaire = () => void lancer(nouvelleSeance(actif!, moteur!.VERSION_MOTEUR))
-  const session = (code: string) => void lancer(nouvelleSeance(actif!, moteur!.VERSION_MOTEUR, 'complet', undefined, code))
+  // Refaire : les mêmes exercices que la dernière tentative (un palier, ou tout le parcours)
+  const refaire = () => void lancer(nouvelleSeance(actif!, moteur!.VERSION_MOTEUR, 'complet', seances[actif!.id]?.etapes))
+  /** Bilan d'une séance de palier : nom, pause, et palier suivant avec son état d'après les nouveaux résultats */
+  const palierDuBilan = $derived.by(() => {
+    if (!seance || !actif || seance.contenu.id !== actif.id) return null
+    const etats = etatsPaliers(actif, resultats[actif.id] ?? {})
+    if (etats.length < 2) return null
+    const k = etats.findIndex((x) => x.etapes.join() === seance!.etapes.join())
+    if (k === -1) return null
+    const suivant = etats[k + 1]
+    return {
+      nom: nomPalier(actif, k),
+      pause: etats[k].pause,
+      ressource: etats[k].ressource,
+      suite: suivant
+        ? {
+            nom: nomPalier(actif, k + 1),
+            ouvert: suivant.ouvert,
+            etapes: suivant.etapes,
+            condition: `au moins ${suivant.seuil} % (${etats[k].fini ? `tu as ${etats[k].pourcentage} %` : 'termine tous ses exercices'})`,
+          }
+        : null,
+    }
+  })
+
+  // Avec des paliers : la session porte sur un palier ouvert, choisi au lancement
+  const session = (code: string, etapes?: number[]) => void lancer(nouvelleSeance(actif!, moteur!.VERSION_MOTEUR, 'complet', etapes, code))
 
   function ameliorer() {
     const etapes = etapesAAmeliorer(actif!, resultats[actif!.id] ?? {})
@@ -343,7 +390,8 @@
     if (s.contenu.version === actif?.version) resultats[s.parcours] = r
     seances[s.parcours] = s
     historiques[s.parcours] = await lireHistorique(stockage!, s.parcours)
-    if (s.type === 'complet') {
+    // Pourcentage du parcours : seulement pour un passage sur tous ses exercices (pas un palier seul)
+    if (s.type === 'complet' && s.etapes.length === s.contenu.etapes.length) {
       derniersComplets[s.parcours] = bilan(s).pourcentage
       await stockage!.ecrire(`complet:${s.parcours}`, derniersComplets[s.parcours])
     }
@@ -416,6 +464,14 @@
     }
   }
 
+  /** Annule la dernière restauration : l'état remplacé revient */
+  async function annulerRestauration() {
+    const copie = await stockage!.lire<string>(CLE_AVANT_RESTAURATION)
+    if (!copie) return 'Aucune restauration à annuler.'
+    return restaurer(copie)
+  }
+  let restaurationAnnulable = $state(false)
+
   async function retirerClasse(lien: string) {
     // Les résultats restent : seuls les parcours téléchargés sont retirés
     classes = classes.filter((c) => c.lien !== lien)
@@ -429,17 +485,38 @@
     await ecrireBibliotheque(stockage!, $state.snapshot(b) as Bibliotheque)
   }
 
-  function creer(p: Parcours = parcoursVide(), classesParcours: string[] = []) {
-    creation = { classes: classesParcours, parcours: p, cle: Date.now() }
+  function creer(p: Parcours = parcoursVide(preferences)) {
+    creation = { parcours: p, cle: Date.now() }
     aller('creation')
+  }
+
+  async function sauverObjectifs(liste: Objectif[]) {
+    objectifs = liste
+    await stockage!.ecrire('objectifs', $state.snapshot(liste))
+  }
+
+  async function exporterListeObjectifs() {
+    const nom = nomHorodate('objectifs-mathalea').replace(/\.json$/, '.csv')
+    return (await enregistrerFichier(nom, objectifsEnCsv($state.snapshot(objectifs) as Objectif[]))) ? `${nom} enregistré.` : 'Export annulé.'
+  }
+
+  async function sauverPreferences(pref: Preferences) {
+    preferences = pref
+    await stockage!.ecrire('preferences-creation', pref)
   }
 
   // Parcours qui vient d'être enregistré : l'espace enseignant propose de le télécharger
   let dernier: string | null = $state(null)
 
-  async function valider(classesParcours: string[], p: Parcours) {
-    const b = enregistrer($state.snapshot(bibliotheque) as Bibliotheque, classesParcours, p)
+  async function valider(p: Parcours, nouveaux: Objectif[]) {
+    // On crée pour un niveau : un parcours existant garde ses classes, un nouveau n'en a pas encore
+    const classesParcours = bibliotheque.parcours.find((pe) => pe.parcours.id === p.id)?.classes ?? []
+    const b = enregistrer($state.snapshot(bibliotheque) as Bibliotheque, [...classesParcours], p)
     await sauverBibliotheque(b)
+    await sauverPreferences(preferencesDe(p))
+    etiquettes = memoriser($state.snapshot(etiquettes), p.etapes)
+    await stockage!.ecrire('etiquettes', $state.snapshot(etiquettes))
+    if (nouveaux.length) await sauverObjectifs(fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], nouveaux))
     // Création : l'identifiant est attribué par enregistrer(), c'est le dernier ajouté
     dernier = p.id || b.parcours.at(-1)!.parcours.id
     versCreer()
@@ -486,13 +563,80 @@
     }
   }
 
+  /**
+   * Reprend la bibliothèque publiée (lien du dossier partagé ou fichier) :
+   * autre appareil, ou modifications faites sur la page du site. Rien n'est effacé.
+   */
+  async function reprendreBibliotheque(source: { lien?: string; texte?: string }): Promise<string> {
+    try {
+      const f = source.lien ? await lireFichierDistant(source.lien) : lireFichier(source.texte ?? '')
+      let b = reprendre($state.snapshot(bibliotheque) as Bibliotheque, f)
+      if (source.lien && !b.lien) b = definirLien(b, source.lien)
+      await sauverBibliotheque(b)
+      if (f.bibliotheque?.objectifs?.length) await sauverObjectifs(fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], f.bibliotheque.objectifs))
+      const ids = new Set([...f.classes.flatMap((c) => c.parcours), ...(f.bibliotheque?.parcours ?? [])].map((p) => p.id))
+      const n = f.classes.length
+      return `${ids.size} parcours repris${n ? `, ${n} classe${n > 1 ? 's' : ''}` : ''}.`
+    } catch (e) {
+      return (e as Error).message
+    }
+  }
+
+  // ---------- Démonstration (Réglages, enseignant) ----------
+  // Exception voulue à « aucun parcours dans l'app » : chargés seulement sur
+  // demande de l'enseignant, et retirés d'un geste
+  const demonstration = $derived(classes.some((c) => c.lien === LIEN_DEMONSTRATION))
+
+  async function chargerDemonstration(): Promise<string> {
+    try {
+      const f = lireFichier(await (await fetch('/demo/parcours-demonstration.json')).text())
+      const c = f.classes[0]
+      classes = [...classes.filter((x) => x.lien !== LIEN_DEMONSTRATION), { lien: LIEN_DEMONSTRATION, nom: c.nom, disponibles: [c.nom], parcours: c.parcours, fichier: f.classes }]
+      await ecrireClasses(stockage!, $state.snapshot(classes) as Classe[])
+      for (const p of c.parcours) await chargerParcours(p)
+      await sauverBibliotheque(reprendre($state.snapshot(bibliotheque) as Bibliotheque, f))
+      let liste = $state.snapshot(objectifs) as Objectif[]
+      for (const p of c.parcours) liste = completerListe(liste, p.etapes.flatMap((e) => e.objectifs ?? []), p.niveau, p.theme)
+      await sauverObjectifs(liste)
+      return `${c.parcours.length} parcours chargés : classe « ${c.nom} » dans Mes parcours, et votre bibliothèque dans Créer.`
+    } catch (e) {
+      return `Chargement impossible : ${(e as Error).message}`
+    }
+  }
+
+  async function retirerDemonstration(): Promise<string> {
+    const c = classes.find((x) => x.lien === LIEN_DEMONSTRATION)
+    if (!c) return ''
+    const ids = new Set(c.parcours.map((p) => p.id))
+    classes = classes.filter((x) => x.lien !== LIEN_DEMONSTRATION)
+    await ecrireClasses(stockage!, $state.snapshot(classes) as Classe[])
+    const b = $state.snapshot(bibliotheque) as Bibliotheque
+    await sauverBibliotheque({ ...b, classes: b.classes.filter((x) => x.nom !== c.nom), parcours: b.parcours.filter((pe) => !ids.has(pe.parcours.id)) })
+    return 'Parcours de démonstration retirés. Vos résultats d’essai restent dans le Suivi.'
+  }
+
   function voirApercu(p: Parcours) {
     apercu = nouvelleSeance({ ...p, id: p.id || 'apercu' }, moteur!.VERSION_MOTEUR)
     aller('apercu')
   }
 
+  /** Le dossier partagé contient-il le dernier fichier publié ? */
+  async function verifierDossier(): Promise<string> {
+    if (!bibliotheque.lien) return ''
+    try {
+      const dossier = await lireFichierDistant(bibliotheque.lien)
+      if (!publicationPresente(bibliotheque, dossier)) {
+        return 'Le dossier ne contient pas encore le dernier fichier publié : déposez-le, puis vérifiez à nouveau.'
+      }
+      await sauverBibliotheque({ ...($state.snapshot(bibliotheque) as Bibliotheque), verifieLe: new Date().toISOString() })
+      return 'Le dossier contient la dernière publication : les élèves la reçoivent au prochain lancement de leur app.'
+    } catch (e) {
+      return (e as Error).message
+    }
+  }
+
   async function exporterClasse() {
-    const { texte, bibliotheque: b } = exporter($state.snapshot(bibliotheque) as Bibliotheque)
+    const { texte, bibliotheque: b } = exporter($state.snapshot(bibliotheque) as Bibliotheque, $state.snapshot(objectifs) as Objectif[])
     const nom = nomHorodate('parcours-mathalea')
     if (!(await enregistrerFichier(nom, texte))) return 'Export annulé.'
     await sauverBibliotheque(b)
@@ -536,9 +680,16 @@
       onchoisirClasse={choisirClasse}
       onexporterSauvegarde={sauvegarder}
       onrestaurer={restaurer}
+      onresumer={resumerSauvegarde}
+      onannulerRestauration={restaurationAnnulable ? annulerRestauration : null}
       moteur={moteur ? infoMoteur() : null}
       {miseAJourMoteur}
       onchercherMoteur={dansTauri ? chercherMoteur : null}
+      {preferences}
+      onpreferences={sauverPreferences}
+      {demonstration}
+      onchargerDemonstration={chargerDemonstration}
+      onretirerDemonstration={retirerDemonstration}
     />
   {:else if vue === 'creation' || vue === 'apercu'}
     {#if creation}
@@ -547,15 +698,15 @@
         {#key creation.cle}
           <CreationParcours
             {bibliotheque}
-            classesInitiales={creation.classes}
-            classesDossiers={[...new Set(classesDesDossiers.map((c) => c.nom))]}
-            chapitresDossiers={classesDesDossiers.flatMap((c) => c.parcours.map((p) => ({ classe: c.nom, theme: p.theme })))}
+            chapitresDossiers={classesDesDossiers.flatMap((c) => c.parcours.map((p) => ({ niveau: p.niveau, theme: p.theme })))}
+            {objectifs}
+            {etiquettes}
             parcours={creation.parcours}
             {moteur}
             {pays}
             onvalider={valider}
             onapercu={voirApercu}
-            ondupliquer={creation.parcours.id ? (classesCopie, p) => creer(copie(p), classesCopie) : undefined}
+            ondupliquer={creation.parcours.id ? (p) => creer(copie(p)) : undefined}
             onexporter={creation.parcours.id ? () => exporterUnParcours(creation!.parcours.id) : undefined}
             onsupprimer={creation.parcours.id
               ? async () => {
@@ -589,6 +740,7 @@
       onreglages={() => aller('reglages')}
       onajouter={ajouterClasse}
       onchoisirClasse={choisirClasse}
+      onepingler={(p) => (dansSources(p.id) ? basculerEpingle(p) : basculerAjout(p))}
       onorganiser={async (source, o) => {
         organisations = { ...organisations, [source]: o }
         await stockage!.ecrire('chapitres', $state.snapshot(organisations))
@@ -601,18 +753,28 @@
       <EspaceEnseignant
         {bibliotheque}
         modeles={modeles}
-        onouvrir={(pe) => creer(pe.parcours, pe.classes)}
+        {objectifs}
+        {pays}
+        onouvrir={(pe) => creer(pe.parcours)}
         oncreer={() => creer()}
         {dernier}
         onfermerDernier={() => (dernier = null)}
         onexporterUn={exporterUnParcours}
         onimporter={importerFichier}
+        onreprendre={reprendreBibliotheque}
+        onverifier={verifierDossier}
         ondeplacer={(id, classe, sens) => sauverBibliotheque(deplacer($state.snapshot(bibliotheque) as Bibliotheque, id, classe, sens))}
         onediter={async (p) => {
           await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p, classesDuModele(p.id)))
           const pe = bibliotheque.parcours.find((x) => x.parcours.id === p.id)!
-          creer(pe.parcours, pe.classes)
+          creer(pe.parcours)
         }}
+        onparcoursDeClasse={(classe, ids) => sauverBibliotheque(parcoursPourClasse($state.snapshot(bibliotheque) as Bibliotheque, classe, ids))}
+        onajouterClasse={(nom) => sauverBibliotheque(ajouterClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
+        onrenommerClasse={(avant, apres) => sauverBibliotheque(renommerClasse($state.snapshot(bibliotheque) as Bibliotheque, avant, apres))}
+        onretirerClasse={(nom) => sauverBibliotheque(retirerClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
+        onobjectifs={sauverObjectifs}
+        onexporterObjectifs={exporterListeObjectifs}
         onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
         onexporter={exporterClasse}
         onreglages={() => aller('reglages')}
@@ -624,6 +786,7 @@
       parcours={actif}
       resultats={resultats[actif.id] ?? {}}
       enCours={resumes[actif.id]?.enCours ?? false}
+      etapesEnCours={seances[actif.id] && !seances[actif.id]!.fin ? seances[actif.id]!.etapes : null}
       aAmeliorer={etapesAAmeliorer(actif, resultats[actif.id] ?? {})}
       epingle={dansSources(actif.id) ? epingles.includes(actif.id) : ajoutes.some((a) => a.id === actif!.id)}
       passages={historiques[actif.id] ?? []}
@@ -634,7 +797,7 @@
         aller('relecture')
       }}
       onretour={() => aller('accueil')}
-      oncommencer={() => commencer(actif!)}
+      oncommencer={(etapes) => commencer(actif!, etapes)}
       onrefaire={refaire}
       onameliorer={ameliorer}
       onsession={session}
@@ -664,6 +827,8 @@
       onameliorer={ameliorer}
       onpassees={revenirAuxPassees}
       onfermer={() => aller('parcours')}
+      palier={palierDuBilan}
+      oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
     />
   {/if}
   </div>

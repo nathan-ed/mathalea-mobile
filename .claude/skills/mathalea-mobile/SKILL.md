@@ -132,6 +132,36 @@ Bibliothèque de l'enseignant (`src/lib/bibliotheque.ts`)
   parcours par id à sa version la plus haute, masqué si l'enseignant a déjà
   la même version ou plus récente. Import d'un fichier `.json` possible.
 
+Organisation des parcours (0.2.0, voir `docs/developpement.md`)
+- « On crée pour un niveau, on donne à une classe » (Nathan) : aucune classe
+  dans l'éditeur ni dans le panneau d'après-enregistrement ; attribution dans
+  la vue Classes de l'onglet Créer (Parcours / Classes / Objectifs).
+- Paliers et ceintures : `paliers` (nombre d'exercices de chacun), `acces`
+  `libre`|`seuil`, `seuil`, `ressource` (pour revoir), `pause` (contenu après
+  le palier : « une pause du type on peut insérer un contenu théorique… un
+  bravo »), `style` `paliers`|`ceintures`, `premiereCeinture` (on peut
+  commencer à l'orange). Ne pas dire « jalon ». Couleurs des ceintures : seule
+  exception à la charte, sur la ceinture elle-même (`CEINTURES`).
+- Une séance = un palier ; pourcentage du parcours seulement pour un passage
+  complet ; tuile « 1/3 » ; session partagée sur un palier ouvert ; bilan de
+  palier avec la pause et « Continuer ».
+- Objectifs : objectif du programme lu par le moteur (`listerExercices`, code
+  sous le chapitre), mémoire par exercice (`cleExercice`), CSV au fil de
+  l'année ; Suivi élève : objectifs (meilleur niveau, date au toucher) et
+  ceintures (`objectifsTravailles`, `ceinturesObtenues`).
+- Publication : le fichier porte toute la bibliothèque (`bibliotheque`) ;
+  état « prêt à déposer » puis vérification du dossier (`publieLe`,
+  `verifieLe`) ; reprise (`reprendre`) depuis un lien ou un fichier.
+- Page du site `?v=parcours` : dépôt MathALÉA, worktree
+  `~/Documents/projets/mathalea-parcours` (branche `parcours-enseignants`),
+  `src/lib/parcours/` (identifiants en anglais, règle du dépôt) et
+  `src/components/setup/parcours/` ; fenêtre d'ajout du site réutilisée
+  (`TypstAddExerciseModal`, options facultatives). « Rien de nouveau » : ne pas
+  refaire un sélecteur d'exercices, réutiliser celui du site.
+- Démonstration : `static/demo/parcours-demonstration.json`
+  (`npx tsx scripts/demonstration.mts`), chargée et retirée dans les Réglages
+  (enseignant), classe `LIEN_DEMONSTRATION` jamais synchronisée.
+
 ## 3. Moteur MathALÉA
 
 - Jamais importé dans le code : chargé à l'exécution depuis `static/moteur`
@@ -489,6 +519,22 @@ Environnement (machine de Nathan)
   listes.
 - La barre d'actions de la séance ne suit la hauteur du clavier que si un
   champ de réponse (`math-field`, clavier MathALÉA) a le focus.
+
+- Serveur de dev ouvert depuis longtemps : après de gros changements de
+  modules, le rechargement à chaud peut garder un module périmé (« nomPalier is
+  not defined » alors que l'import est juste). Relancer `pnpm app`/`pnpm dev`
+  avant de conclure à un bug.
+- Rejouer la CI sur la copie de travail : `git ls-files -co --exclude-standard
+  | tar -cf - -T - | tar -x -C <dossier>` ; `git write-tree` ne prend que
+  l'index (modifications non indexées absentes). Docker crée des fichiers
+  root : nouveau dossier à chaque fois, ou `chown` en fin de commande.
+- Tuile avec épingle : deux boutons dont le nom contient le titre ; dans les
+  tests, ancrer (`/^Titre/`).
+- Panneaux (`Feuille`) : priorité au bouton retour (`retourSi(..., 1)`), sinon
+  un onglet enregistré plus tard passe devant. Rôle `dialog`, nommé par son
+  premier texte en gras, focus gardé, hauteur limitée à la zone visible.
+- Ne jamais faire de capture du bureau de Nathan (`import -window root`) :
+  données personnelles. Vérifier par Playwright avec ses données copiées.
 
 ## 10. Feuille de route
 

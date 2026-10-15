@@ -207,6 +207,10 @@ body:has(input:focus, textarea:focus) .barre-onglets {
 .feuille {
   border-radius: 1rem 1rem 0 0;
   padding-bottom: calc(1rem + var(--bas));
+  /* Petit écran ou clavier ouvert : le panneau reste dans la zone visible et défile */
+  max-height: calc(100dvh - var(--haut) - 0.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .feuille-poignee {
   align-self: center;

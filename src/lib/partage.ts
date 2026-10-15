@@ -5,8 +5,9 @@
 // version a augmenté.
 import { strFromU8, unzipSync } from 'fflate'
 import type { Parcours } from './catalogue'
+import type { Objectif } from './objectifs'
 import { dansTauri, type Stockage } from './stockage'
-import { classesDuFichier, estParcours } from './validation'
+import { classesDuFichier, estObjet, estParcours, estTexte, listeDe, optionnel, parcoursUniques } from './validation'
 
 export const NOM_FICHIER = 'parcours-mathalea.json'
 
@@ -17,7 +18,8 @@ export const NOM_FICHIER = 'parcours-mathalea.json'
  */
 export function nomHorodate(base: string, date = new Date()) {
   const z = (n: number) => String(n).padStart(2, '0')
-  return `${base}-${date.getFullYear()}-${z(date.getMonth() + 1)}-${z(date.getDate())}-${z(date.getHours())}h${z(date.getMinutes())}.json`
+  // Secondes comprises : deux publications dans la même minute gardent des noms distincts
+  return `${base}-${date.getFullYear()}-${z(date.getMonth() + 1)}-${z(date.getDate())}-${z(date.getHours())}h${z(date.getMinutes())}-${z(date.getSeconds())}.json`
 }
 // Un fichier contient toutes les classes d'un enseignant (dossier commun) ;
 // l'ancien format à une seule classe reste lisible.
@@ -36,6 +38,14 @@ export interface FichierClasses {
   // Publication complète d'un enseignant (toutes ses classes) : dans un
   // dossier, seule la plus récente compte, un parcours retiré disparaît
   banque?: boolean
+  // Toute la bibliothèque de l'enseignant (parcours sans classe compris,
+  // objectifs) : un autre appareil ou la page du site la reprend. Les élèves l'ignorent.
+  bibliotheque?: BibliothequeDuFichier
+}
+
+export interface BibliothequeDuFichier {
+  parcours: Parcours[]
+  objectifs?: Objectif[]
 }
 
 /** Dossier partagé suivi par l'élève (ou par l'enseignant : collègues, ressources) */
@@ -203,9 +213,11 @@ export function fusionner(fichiers: FichierClasses[]): FichierClasses {
     }
   }
   const exporteLe = fichiers.map((f) => f.exporteLe).sort().at(-1) ?? ''
+  // Bibliothèque de l'enseignant : celle de la publication complète la plus récente
+  const bibliotheque = banque?.bibliotheque
   // L'ordre des fichiers du drive est arbitraire : classes triées par nom (tri naturel : 3e avant 10e)
   classes.sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { numeric: true }))
-  return { format: FORMAT, exporteLe, classes }
+  return { format: FORMAT, exporteLe, classes, ...(bibliotheque ? { bibliotheque } : {}) }
 }
 
 export async function lireFichierDistant(lien: string, req: Requete = requete): Promise<FichierClasses> {
@@ -259,6 +271,13 @@ export function lireFichier(texte: string): FichierClasses {
     for (const p of c.parcours) verifierParcours(p)
   }
   if (!classesDuFichier(f.classes)) throw new Error("Ce fichier contient une classe ou un parcours en double.")
+  if (f.bibliotheque !== undefined) {
+    const b = f.bibliotheque as unknown as Record<string, unknown>
+    const objectifsValides =
+      b.objectifs === undefined ||
+      listeDe(b.objectifs, (o) => estObjet(o) && estTexte(o.libelle) && estTexte(o.niveau) && estTexte(o.theme) && optionnel(o.code, estTexte))
+    if (!estObjet(b) || !parcoursUniques(b.parcours) || !objectifsValides) throw invalide()
+  }
   return f
 }
 
@@ -266,8 +285,14 @@ function verifierParcours(p: Parcours) {
   if (!estParcours(p)) throw new Error(`Parcours invalide dans le fichier : ${String((p as Parcours | null)?.id)}`)
 }
 
-export function creerFichier(classes: ClasseDuFichier[], banque = false): string {
-  const f: FichierClasses = { format: FORMAT, exporteLe: new Date().toISOString(), classes, ...(banque ? { banque: true } : {}) }
+export function creerFichier(classes: ClasseDuFichier[], banque = false, bibliotheque?: BibliothequeDuFichier): string {
+  const f: FichierClasses = {
+    format: FORMAT,
+    exporteLe: new Date().toISOString(),
+    classes,
+    ...(banque ? { banque: true } : {}),
+    ...(bibliotheque ? { bibliotheque } : {}),
+  }
   return JSON.stringify(f, null, 2)
 }
 
@@ -275,7 +300,11 @@ export function creerFichier(classes: ClasseDuFichier[], banque = false): string
  * Met à jour une classe. Les parcours dont la version n'a pas augmenté sont
  * gardés tels quels ; en cas d'échec, la classe garde ce qu'elle avait.
  */
+/** Classe des parcours de démonstration (Réglages, enseignant) : rien à télécharger */
+export const LIEN_DEMONSTRATION = 'demonstration'
+
 export async function synchroniserClasse(classe: Classe, req: Requete = requete): Promise<Classe> {
+  if (classe.lien === LIEN_DEMONSTRATION) return classe
   try {
     const f = await lireFichierDistant(classe.lien, req)
     const disponibles = f.classes.map((c) => c.nom)

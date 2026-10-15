@@ -206,7 +206,7 @@ describe('publications horodatées (nom libre, la plus récente compte)', () => 
     JSON.stringify({ ...JSON.parse(creerFichier([{ nom: '3e A', parcours }], true)), exporteLe })
 
   it('nom horodaté à la minute, jamais renommé « (1) »', () => {
-    expect(nomHorodate('parcours-mathalea', new Date(2026, 9, 14, 9, 5))).toBe('parcours-mathalea-2026-10-14-09h05.json')
+    expect(nomHorodate('parcours-mathalea', new Date(2026, 9, 14, 9, 5, 7))).toBe('parcours-mathalea-2026-10-14-09h05-07.json')
   })
 
   it('seule la banque la plus récente compte : un parcours retiré disparaît, un parcours seul s’ajoute', () => {

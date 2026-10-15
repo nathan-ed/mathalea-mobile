@@ -26,9 +26,12 @@ interface Sauvegarde {
   donnees: Record<string, unknown>
 }
 
+/** État avant la dernière restauration, pour l'annuler (jamais exporté) */
+export const CLE_AVANT_RESTAURATION = 'avant-restauration'
+
 export async function exporterSauvegarde(st: Stockage): Promise<string> {
   const donnees: Record<string, unknown> = {}
-  for (const cle of await st.cles()) donnees[cle] = await st.lire(cle)
+  for (const cle of await st.cles()) if (cle !== CLE_AVANT_RESTAURATION) donnees[cle] = await st.lire(cle)
   const s: Sauvegarde = { format: FORMAT, creeeLe: new Date().toISOString(), donnees }
   return JSON.stringify(s)
 }
@@ -86,6 +89,8 @@ const estDossier = (v: unknown) =>
 const estBibliotheque = (v: unknown) =>
   estObjet(v) &&
   optionnel(v.lien, estTexte) &&
+  optionnel(v.publieLe, estTexte) &&
+  optionnel(v.verifieLe, estTexte) &&
   listeDe(v.classes, (c) => estObjet(c) && estTexte(c.nom)) &&
   sansDoublon((v.classes as { nom: string }[]).map((c) => c.nom)) &&
   listeDe(v.parcours, (pe) => estObjet(pe) && estParcours(pe.parcours) && textesUniques(pe.classes) && dictionnaireDe(pe.exportee, estNombre)) &&
@@ -102,6 +107,17 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
   ajoutes: parcoursUniques,
   importes: parcoursUniques,
   'importes-classes': (v) => dictionnaireDe(v, textesUniques),
+  [CLE_AVANT_RESTAURATION]: estTexte,
+  objectifs: (v) =>
+    listeDe(v, (o) => estObjet(o) && estTexte(o.libelle) && estTexte(o.niveau) && estTexte(o.theme)) &&
+    sansDoublon((v as { libelle: string }[]).map((o) => o.libelle)),
+  etiquettes: (v) => dictionnaireDe(v, textesUniques),
+  'preferences-creation': (v) =>
+    estObjet(v) &&
+    estTexte(v.niveau) &&
+    [1, 2, 3].includes(v.difficulte as number) &&
+    ['une_question_par_page', 'un_exo_par_page', 'liste_exos'].includes(v.presentation as string) &&
+    ['question', 'page', 'parcours'].includes(v.correction as string),
 }
 // Clés par parcours : le suffixe est l'identifiant (resultats : identifiant@version)
 const prefixes: Record<string, (v: unknown, suffixe: string) => boolean> = {
@@ -139,14 +155,34 @@ export function lireSauvegarde(texte: string): Sauvegarde {
   return s
 }
 
-/** Remplace toutes les données par celles de la sauvegarde ; en cas d'échec, remet l'état d'avant */
+/** Ce que contient une sauvegarde, montré avant de remplacer quoi que ce soit */
+export function resumerSauvegarde(texte: string) {
+  const s = lireSauvegarde(texte)
+  const d = s.donnees
+  const cles = Object.keys(d)
+  const bibliotheque = d.bibliotheque as { parcours?: unknown[] } | undefined
+  return {
+    creeeLe: s.creeeLe,
+    dossiers: Array.isArray(d.classes) ? d.classes.length : 0,
+    parcoursEnseignant: bibliotheque?.parcours?.length ?? 0,
+    passages: cles.filter((c) => c.startsWith('historique:')).reduce((a, c) => a + ((d[c] as unknown[] | null)?.length ?? 0), 0),
+    enseignant: d.profil === 'enseignant',
+  }
+}
+
+/**
+ * Remplace toutes les données par celles de la sauvegarde ; en cas d'échec,
+ * remet l'état d'avant. L'état remplacé est gardé pour annuler la restauration.
+ */
 export async function restaurerSauvegarde(st: Stockage, texte: string) {
   const s = lireSauvegarde(texte)
   const avant: Record<string, unknown> = {}
   for (const cle of await st.cles()) avant[cle] = await st.lire(cle)
+  const copie = await exporterSauvegarde(st)
   try {
     for (const cle of Object.keys(avant)) await st.effacer(cle)
     for (const [cle, valeur] of Object.entries(s.donnees)) await st.ecrire(cle, valeur)
+    await st.ecrire(CLE_AVANT_RESTAURATION, copie)
   } catch (e) {
     for (const cle of await st.cles()) await st.effacer(cle)
     for (const [cle, valeur] of Object.entries(avant)) await st.ecrire(cle, valeur)

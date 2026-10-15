@@ -20,7 +20,9 @@ toute modification.
 - Icônes boxicons avec `aria-hidden="true"`.
 - Aucune donnée de l'élève ne quitte l'appareil ; l'app ne stocke aucun
   identifiant. Les parcours arrivent par les dossiers partagés
-  (`parcours-mathalea.json`), aucun n'est intégré à l'app.
+  (`parcours-mathalea.json`), aucun n'est intégré à l'app. Seule exception :
+  les parcours de démonstration (`static/demo`, `scripts/demonstration.mts`),
+  chargés et retirés par l'enseignant dans les Réglages, jamais d'office.
 - Une séance garde une copie figée de son parcours (`contenu`) : ne jamais lire
   la version courante pour rejouer, relire ou reprendre.
 - Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source

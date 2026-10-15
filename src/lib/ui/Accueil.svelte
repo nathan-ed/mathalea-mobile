@@ -4,6 +4,7 @@
     sur: number
     enCours: boolean
     pourcentage: number | null // dernier parcours complet terminé
+    paliers?: { reussis: number; total: number } // parcours à paliers : sa progression, pas un pourcentage
   }
 
   export interface Source {
@@ -14,6 +15,7 @@
 </script>
 
 <script lang="ts">
+  import { organisationDe } from '$lib/catalogue'
   import type { Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import ChampTexte from './ChampTexte.svelte'
@@ -42,6 +44,7 @@
     onajouter,
     onchoisirClasse,
     onorganiser,
+    onepingler,
   }: {
     sources: Source[]
     catalogue: Parcours[] | null // parcours de l'équipe MathALÉA (null : pas encore reçu)
@@ -60,6 +63,7 @@
     onajouter: (lien: string) => Promise<string | null>
     onchoisirClasse: (lien: string, classe: string) => void
     onorganiser: (source: string, o: Organisation) => void
+    onepingler: (p: Parcours) => void
   } = $props()
 
   let lien = $state('')
@@ -78,10 +82,14 @@
   const sousTitre = (p: Parcours) =>
     resumes[p.id]?.enCours
       ? `En cours · question ${Math.min(resumes[p.id].fait + 1, resumes[p.id].sur)} sur ${resumes[p.id].sur}`
-      : `${p.niveau} · ${difficultes[p.difficulte - 1]}`
+      : resumes[p.id]?.paliers
+        ? `${p.niveau} · ${organisationDe(p)}`
+        : `${p.niveau} · ${organisationDe(p) || difficultes[p.difficulte - 1]}`
   const badge = (p: Parcours) => {
     const r = resumes[p.id]
     if (r?.enCours) return `${r.fait}/${r.sur}`
+    // Paliers réussis : un palier fait seul ne dit rien du parcours entier
+    if (r?.paliers) return r.paliers.reussis ? `${r.paliers.reussis}/${r.paliers.total}` : ''
     return r?.pourcentage != null ? `${r.pourcentage} %` : ''
   }
   const ouvrir = (p: Parcours) => (resumes[p.id]?.enCours ? oncontinuer(p) : onouvrir(p))
@@ -196,7 +204,7 @@
           {#if epinglesVisibles.length}
             <h2 class={titreSection}>Épinglés</h2>
             {#each epinglesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle onepingler={() => onepingler(p)} />
             {/each}
           {/if}
           {#if ajoutesVisibles.length}
@@ -221,6 +229,8 @@
               {badge}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(sources[0].id, o)}
+              {epingles}
+              {onepingler}
             />
           {:else if sources.length > 1}
             <!-- Plusieurs classes : pastilles pour passer de l'une à l'autre -->
@@ -250,24 +260,29 @@
                   {badge}
                   onouvrir={ouvrir}
                   onorganiser={(o) => onorganiser(classeVue!.id, o)}
+                  {epingles}
+                  {onepingler}
                 />
               {/key}
             {/if}
           {:else if aChoisir.length === 0}
             <h2 class={titreSection}>Ajoute le dossier de ta classe</h2>
-            <ChampTexte id="lien-accueil" titre="Lien de partage donné par ton enseignant" bind:valeur={lien} type="url" />
-            {#if messageLien}
-              <p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{messageLien}</p>
-            {/if}
-            <button
-              type="button"
-              class="{boutonAction} w-full disabled:opacity-40"
-              style="min-height: 44px"
-              disabled={!lien.trim() || ajoutEnCours}
-              onclick={ajouter}
+            <!-- Formulaire : Entrée ajoute le dossier ; le lien reste si l'ajout échoue -->
+            <form
+              class="flex flex-col gap-3"
+              onsubmit={(e) => {
+                e.preventDefault()
+                if (lien.trim() && !ajoutEnCours) ajouter()
+              }}
             >
-              Ajouter le dossier
-            </button>
+              <ChampTexte id="lien-accueil" titre="Lien de partage donné par ton enseignant" bind:valeur={lien} type="url" />
+              {#if messageLien}
+                <p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{messageLien}</p>
+              {/if}
+              <button type="submit" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim() || ajoutEnCours}>
+                {ajoutEnCours ? 'Ajout du dossier…' : 'Ajouter le dossier'}
+              </button>
+            </form>
           {/if}
         {/if}
       </div>

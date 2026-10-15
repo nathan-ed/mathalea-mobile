@@ -60,53 +60,93 @@ suisse de MathALÉA ; les exercices utilisent les notations suisses.
 
 ## Créer ou modifier un parcours
 
-« Créer un parcours » ouvre un seul écran, à remplir dans l'ordre que vous
-voulez. Pour modifier un parcours, touchez-le dans votre liste : tout est
-déjà rempli, chaque réglage se change sur place.
+On crée un parcours pour un **niveau** ; on le donne ensuite à des classes,
+dans la vue Classes. « Créer un parcours » ouvre un seul écran, à remplir dans
+l'ordre que vous voulez ; niveau, type, pages et correction reprennent vos
+derniers choix (modifiables dans les Réglages, « Nouveau parcours »). Pour
+modifier un parcours, touchez-le : tout est déjà rempli.
 
-- **Classes** : touchez une classe pour la cocher (les vôtres et celles des
-  dossiers partagés que vous suivez), ou ajoutez-en une. Un même parcours peut
-  aller à plusieurs classes.
-- **Chapitre** : touchez un chapitre existant ou tapez-en un nouveau. Les
-  chapitres des classes cochées viennent en premier.
-- **Parcours** : titre, objectif, niveau, type (Découverte, Entraînement,
-  Approfondissement).
+- **Niveau** et **Chapitre** : les chapitres déjà utilisés à ce niveau
+  viennent en premier ; touchez-en un ou tapez-en un nouveau.
+- **Parcours** : titre, but (une phrase vue par les élèves), type
+  (Découverte, Entraînement, Approfondissement).
 - **Exercices** : « Ajouter des exercices » ouvre le référentiel comme sur le
-  site (niveau, puis chapitre, ou recherche par identifiant ou titre). Touchez
-  un exercice : nombre de questions, paramètres du site et aperçu, puis
-  « Ajouter au parcours ». Un lien MathALÉA collé ajoute ses exercices avec
-  leurs réglages (« Importer depuis un lien MathALÉA »). Dans la liste, touchez un exercice pour changer ses réglages,
-  le titre vu par les élèves (ou le masquer avec l'icône œil) ; les flèches
-  changent l'ordre.
-- **Pages et validation**
-  - Pages : une page par question, une page par exercice, ou tous les
-    exercices sur une page.
-  - Validation et correction : après chaque question, à la fin de chaque
-    page, ou à la fin du parcours. Dans ce dernier cas, rien n'est corrigé
-    avant que l'élève soumette sa tentative, même en changeant de page.
+  site (niveau, chapitre, ou recherche), avec réglages et aperçu. « Importer
+  depuis un lien MathALÉA » reprend une feuille du site. Touchez un exercice
+  pour ses réglages, son titre vu par les élèves (ou le masquer) et ses
+  objectifs ; les flèches changent l'ordre.
+- **Organisation** : liste simple, paliers ou ceintures (voir plus bas).
+- **Icône, pages et correction** (replié) : l'icône est proposée d'après le
+  chapitre et se change d'un geste ; une page par question, par exercice ou
+  tout sur une page ; correction après chaque question, à la fin de chaque
+  page, ou à la fin du parcours (« à la fin du palier » avec des paliers).
 
-En bas : « Aperçu élève » pour essayer, et « Valider le parcours » (ou
-« Enregistrer et quitter »). Tant qu'il manque une information, la ligne
-« À compléter » dit laquelle.
+En bas : « Aperçu élève » pour essayer, et « Valider le parcours ». Tant
+qu'il manque une information, la ligne « À compléter » dit laquelle. Le
+parcours entre dans votre bibliothèque ; le panneau qui s'ouvre propose de le
+donner à des classes (ou de publier s'il l'est déjà).
 
-Après l'enregistrement, un panneau propose **Publier pour les élèves** (voir
-plus bas) et **Exporter ce parcours seul** : un fichier
-`parcours-<titre>-<date>.json` avec ce seul parcours, à déposer à côté des
-autres ou à donner à un collègue.
+« Autres actions », en bas d'un parcours enregistré : **Dupliquer**,
+**Exporter ce parcours seul** et **Supprimer le parcours**.
 
-En bas de l'éditeur d'un parcours enregistré, « Autres actions » propose
-**Dupliquer** (une copie, nouveau parcours en V1, par exemple pour une autre
-classe), **Exporter ce parcours seul** et **Supprimer le parcours**.
+### Paliers, ceintures et pauses (facultatif)
 
-**Éditer un parcours existant** regroupe tout ce qui se modifie : vos
-parcours, ceux des dossiers partagés que vous suivez (collègue, ressources)
-et ceux d'un fichier importé. Un parcours repris garde ses classes, ses
-réglages et son identifiant : vous le modifiez pour vos propres élèves. Un
-fichier qui ne contient qu'un parcours s'ouvre directement dans l'éditeur.
+« Paliers » découpe le parcours, un palier par objectif au départ ; vous
+ajustez ensuite. « Ceintures » fait de même avec des ceintures de couleur ; la
+**première ceinture** se choisit (une 5e peut commencer à l'orange). Les
+flèches d'un exercice le font passer au palier voisin. Pour chaque palier à
+partir du deuxième :
 
-Dans l'onglet Créer, les pastilles passent d'une classe à l'autre, et les
-flèches à gauche d'un parcours changent sa place dans la classe : c'est
-l'ordre que voient les élèves.
+- **Pour y accéder** : réussir le palier précédent avec le seuil choisi (50 à
+  100 %, 80 % par défaut), ou « Ouvert à tout moment ».
+- **Ressource pour revoir** : lien vers un PDF ou une vidéo de votre drive,
+  mise en avant tant que le palier n'est pas réussi.
+- **Pause après le palier** : un contenu entre deux paliers (point de cours,
+  consigne, mise en commun, encouragement), avec un document lié si vous
+  voulez. L'élève la lit à la fin du palier.
+
+Chaque palier se fait en une séance. L'élève voit une carte par palier (état
+écrit en toutes lettres, objectifs, exercices, un seul bouton sur le palier à
+faire) ; à la fin d'un palier, son bilan affiche la pause et propose de
+continuer au suivant, ou dit ce qu'il manque pour l'ouvrir.
+
+### Objectifs
+
+Chaque exercice ajouté reçoit l'objectif du programme sous lequel MathALÉA le
+range (par exemple « Additionner deux nombres décimaux relatifs », 5N2G).
+Vous pouvez en retirer, en ajouter ou créer les vôtres ; un exercice ajouté
+plus tard avec les mêmes réglages reprend ses objectifs.
+
+La vue **Objectifs** de l'onglet Créer les liste par niveau et chapitre, avec
+les exercices qui les travaillent. « Importer des objectifs » accepte un
+tableau CSV (colonnes code ; libellé ; niveau ; chapitre, en-tête facultatif),
+un texte collé (un objectif par ligne) ou le fichier d'un collègue, à répéter
+au fil de l'année sans doublon. « Exporter la liste » produit un CSV.
+
+### Bibliothèque et classes
+
+L'onglet Créer a trois vues :
+
+- **Parcours** : votre bibliothèque, par niveau puis chapitre, avec les
+  classes de chaque parcours. « Éditer un parcours existant » reprend un
+  parcours d'un collègue (dossier suivi ou fichier).
+- **Classes** : ce que reçoit chaque classe, dans l'ordre vu par les élèves.
+  « Choisir les parcours de… » coche les parcours de la bibliothèque ; « + »
+  ajoute une classe ; « … » la renomme ou la retire (ses parcours restent).
+- **Objectifs** : voir plus haut.
+
+### Démonstration
+
+Réglages, « Parcours de démonstration » (enseignant seulement) : une liste
+simple, des paliers et des ceintures, avec objectifs et pauses. Une classe
+« Démonstration » apparaît dans Mes parcours pour essayer comme un élève, et
+les mêmes parcours entrent dans votre bibliothèque. Un bouton les retire.
+
+### Page du site
+
+La même bibliothèque se prépare sur le site MathALÉA (« Plus d'exports »,
+« Parcours pour l'application ») : même format, même fichier. Publier sur le
+site, puis « Reprendre les parcours du dossier » dans l'app, ou l'inverse.
 
 ## Versions
 
@@ -135,11 +175,22 @@ Tant que le dossier partagé n'est pas renseigné, l'onglet Créer affiche une
    inutile de supprimer les anciens.
 4. Donnez le lien aux élèves (projection, QR code, ENT…).
 
-Ensuite, une ligne en haut de l'onglet Créer dit si tout est à jour chez les
-élèves, ou combien de parcours ne le sont pas encore, avec **Publier** s'il y
-a quelque chose à envoyer. « Dossier partagé » ouvre le dossier sur votre
+Ensuite, une ligne en haut de l'onglet Créer dit où en est la diffusion :
+combien de parcours ne sont pas encore publiés (avec **Publier**), ou que le
+fichier est prêt à déposer. « Vérifier le dossier partagé » relit alors le
+dossier et confirme que la dernière publication s'y trouve (l'app ne peut pas
+savoir si chaque élève l'a reçue). « Dossier partagé » ouvre le dossier sur votre
 drive ou change le lien (celui des élèves ne change pas tant que vous gardez
 le même dossier).
+
+Le fichier publié contient toute votre bibliothèque : classes et ordre pour
+les élèves, mais aussi les parcours sans classe et vos objectifs (les élèves
+ne voient que les parcours de leur classe). Sur un autre appareil, « Reprendre
+ma bibliothèque publiée » (Mise en route) avec le lien de votre dossier, ou le
+dernier fichier publié, retrouve tout et règle le dossier. Après des
+modifications faites ailleurs, « Dossier partagé », puis « Reprendre les
+parcours du dossier ». Rien n'est jamais effacé par une reprise ; un parcours
+plus récent remplace l'ancien.
 
 ### Drives pris en charge
 
@@ -154,7 +205,8 @@ le même dossier).
 ## Ce que voient les élèves
 
 - Leurs parcours par chapitre ; ils peuvent replier et réordonner les
-  chapitres, et épingler des parcours sur l'accueil.
+  chapitres, et épingler un parcours sur l'accueil d'un geste (l'épingle de
+  sa tuile). Un parcours à paliers affiche sa progression (« 1/3 »).
 - Pendant le travail : clavier mathématique de MathALÉA, sauvegarde
   automatique, reprise exacte après fermeture. Avant de soumettre, l'application
   signale les questions sans réponse ou non vérifiées et place le curseur sur
@@ -165,13 +217,17 @@ le même dossier).
 - Le score retient la première vérification de chaque question.
 - Le bilan permet de revoir chaque exercice, de tout refaire avec de nouvelles
   valeurs ou de reprendre seulement les exercices à améliorer.
-- L'onglet Suivi montre l'activité et les passages successifs.
+- L'onglet Suivi montre l'activité et les passages successifs, les
+  **objectifs** travaillés (meilleur niveau atteint, de « Insuffisante » à
+  « Très bonne maîtrise », et la dernière fois travaillé, au toucher) et les
+  **ceintures** obtenues.
 - L'onglet Explorer propose les parcours de l'équipe MathALÉA ; l'élève peut
   en ajouter à son accueil.
 
 ## Sessions communes
 
-Dans un parcours, « Session partagée » donne un code (ex. `1k3lr`). Toutes les
+Dans un parcours, « Session partagée » donne un code (ex. `1k3lr`) ; avec des
+paliers, la session porte sur un palier ouvert, choisi au lancement. Toutes les
 personnes qui entrent ce code avec « Rejoindre une session » ont exactement les
 mêmes exercices : utile pour corriger ensemble au tableau ou travailler en
 groupe.
@@ -179,5 +235,7 @@ groupe.
 ## Sauvegarde
 
 Réglages, « Exporter une sauvegarde » : un fichier avec les réglages, les liens,
-vos parcours et le suivi. « Restaurer une sauvegarde » le recharge sur un
-autre appareil. Une sauvegarde invalide ne modifie rien.
+vos parcours et le suivi. « Restaurer une sauvegarde » montre d'abord ce qu'elle
+contient (date, dossiers, passages) et demande confirmation ; l'état remplacé
+est gardé, et « Annuler la dernière restauration » le rétablit. Une sauvegarde
+invalide ne modifie rien.

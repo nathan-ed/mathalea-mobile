@@ -1,0 +1,221 @@
+{
+  "format": "classes-mathalea/1",
+  "exporteLe": "2026-10-15T07:24:43.765Z",
+  "classes": [
+    {
+      "nom": "Démonstration",
+      "parcours": [
+        {
+          "id": "relatifs-5e",
+          "version": 1,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "titre": "Nombres relatifs",
+          "objectif": "Additionner et soustraire des nombres relatifs sans hésiter.",
+          "niveau": "5e",
+          "theme": "Nombres et calculs",
+          "difficulte": 1,
+          "icone": "bx-calculator",
+          "etapes": [
+            {
+              "uuid": "cbc26",
+              "id": "5R20",
+              "nbQuestions": 3,
+              "titre": "Additionner deux relatifs"
+            },
+            {
+              "uuid": "b6982",
+              "id": "5R21",
+              "nbQuestions": 3,
+              "titre": "Soustraire deux relatifs"
+            },
+            {
+              "uuid": "f6ea7",
+              "id": "5R22",
+              "nbQuestions": 3,
+              "titre": "Enchaîner additions et soustractions"
+            }
+          ]
+        },
+        {
+          "id": "relatifs-paliers-5e",
+          "version": 1,
+          "presentation": "un_exo_par_page",
+          "correction": "page",
+          "titre": "Relatifs par paliers",
+          "objectif": "Additionner, puis soustraire des nombres relatifs, un palier après l’autre.",
+          "niveau": "5e",
+          "theme": "Nombres et calculs",
+          "difficulte": 2,
+          "icone": "bx-layer",
+          "etapes": [
+            {
+              "uuid": "cbc26",
+              "id": "5N2G",
+              "nbQuestions": 2,
+              "titre": "Additionner deux nombres relatifs",
+              "objectifs": [
+                "Additionner deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "61b4a",
+              "id": "5N2G-1",
+              "nbQuestions": 2,
+              "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
+              "objectifs": [
+                "Additionner deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "b6982",
+              "id": "5N2I",
+              "nbQuestions": 2,
+              "titre": "Soustraire deux nombres relatifs",
+              "objectifs": [
+                "Soustraire deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "36e2a",
+              "id": "5N2H",
+              "nbQuestions": 2,
+              "titre": "Additionner 5 nombres relatifs",
+              "objectifs": [
+                "Additionner plusieurs nombres décimaux relatifs"
+              ]
+            }
+          ],
+          "paliers": [
+            {
+              "titre": "Additionner",
+              "nb": 2,
+              "ressource": {
+                "titre": "Revoir l’addition sur MathALÉA",
+                "lien": "https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=4&v=eleve&es=0111"
+              },
+              "pause": {
+                "texte": "Bravo ! Avant de soustraire, on met en commun en classe : comment additionner deux nombres de signes contraires ?"
+              }
+            },
+            {
+              "titre": "Soustraire",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Pour aller plus loin",
+              "nb": 1,
+              "acces": "libre",
+              "pause": {
+                "texte": "Parcours terminé : tu sais additionner et soustraire des relatifs."
+              }
+            }
+          ]
+        },
+        {
+          "id": "relatifs-ceintures-5e",
+          "version": 1,
+          "presentation": "un_exo_par_page",
+          "correction": "parcours",
+          "titre": "Relatifs en ceintures",
+          "objectif": "Obtenir les ceintures orange, verte et bleue des nombres relatifs.",
+          "niveau": "5e",
+          "theme": "Nombres et calculs",
+          "difficulte": 2,
+          "icone": "bx-medal",
+          "style": "ceintures",
+          "premiereCeinture": 2,
+          "etapes": [
+            {
+              "uuid": "cbc26",
+              "id": "5N2G",
+              "nbQuestions": 2,
+              "titre": "Additionner deux nombres relatifs",
+              "objectifs": [
+                "Additionner deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "b6982",
+              "id": "5N2I",
+              "nbQuestions": 2,
+              "titre": "Soustraire deux nombres relatifs",
+              "objectifs": [
+                "Soustraire deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "36e2a",
+              "id": "5N2H",
+              "nbQuestions": 2,
+              "titre": "Additionner 5 nombres relatifs",
+              "objectifs": [
+                "Additionner plusieurs nombres décimaux relatifs"
+              ]
+            }
+          ],
+          "paliers": [
+            {
+              "titre": "Additionner",
+              "nb": 1,
+              "pause": {
+                "texte": "Ceinture orange obtenue ? Bravo ! Prochaine étape : la soustraction."
+              }
+            },
+            {
+              "titre": "Soustraire",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80,
+              "ressource": {
+                "titre": "Revoir la soustraction",
+                "lien": "https://coopmaths.fr/alea/?uuid=b6982&id=5N2I&n=4&v=eleve"
+              }
+            },
+            {
+              "titre": "Enchaîner",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ]
+        },
+        {
+          "id": "fractions-4e",
+          "version": 1,
+          "presentation": "un_exo_par_page",
+          "correction": "page",
+          "titre": "Fractions",
+          "objectif": "Simplifier, additionner et multiplier des fractions.",
+          "niveau": "4e",
+          "theme": "Nombres et calculs",
+          "difficulte": 2,
+          "icone": "bx-calculator",
+          "etapes": [
+            {
+              "uuid": "f8f4e",
+              "id": "5N13",
+              "nbQuestions": 3,
+              "titre": "Simplifier une fraction"
+            },
+            {
+              "uuid": "5f429",
+              "id": "4C21",
+              "nbQuestions": 3,
+              "titre": "Additionner des fractions"
+            },
+            {
+              "uuid": "72ce7",
+              "id": "4C22",
+              "nbQuestions": 3,
+              "titre": "Multiplier et diviser"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "banque": true
+}

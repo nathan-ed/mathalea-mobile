@@ -3,7 +3,8 @@
 // Une modification après un export ouvre la version suivante : les élèves
 // gardent l'ancienne pour leurs séances commencées.
 import type { Etape, Parcours } from './catalogue'
-import { creerFichier, lireFichier, nomHorodate, type FichierClasses } from './partage'
+import { creerFichier, nomHorodate, type FichierClasses } from './partage'
+import type { Objectif } from './objectifs'
 import type { Stockage } from './stockage'
 
 export interface ParcoursEnseignant {
@@ -20,6 +21,8 @@ export interface Bibliotheque {
   lien?: string // dossier partagé de l'enseignant (toutes ses classes dans un fichier)
   classes: ClasseEnseignant[]
   parcours: ParcoursEnseignant[] // l'ordre de la liste est celui présenté aux élèves
+  publieLe?: string // date du dernier fichier publié (à déposer dans le dossier)
+  verifieLe?: string // date où ce fichier a été trouvé dans le dossier partagé
 }
 
 const CLE = 'bibliotheque'
@@ -44,7 +47,22 @@ function identifiant(titre: string) {
   return `${base || 'parcours'}-${Math.random().toString(36).slice(2, 7)}`
 }
 
-export function parcoursVide(): Parcours {
+/** Derniers choix de l'enseignant : ils préremplissent le parcours suivant */
+export interface Preferences {
+  niveau: string
+  difficulte: 1 | 2 | 3
+  presentation: Parcours['presentation']
+  correction: Parcours['correction']
+}
+
+export const preferencesDe = (p: Parcours): Preferences => ({
+  niveau: p.niveau,
+  difficulte: p.difficulte,
+  presentation: p.presentation,
+  correction: p.correction,
+})
+
+export function parcoursVide(pref: Partial<Preferences> = {}): Parcours {
   return {
     id: '',
     version: 1,
@@ -57,6 +75,7 @@ export function parcoursVide(): Parcours {
     presentation: 'une_question_par_page',
     correction: 'question',
     etapes: [],
+    ...pref,
   }
 }
 
@@ -88,20 +107,64 @@ export const parcoursDeClasse = (b: Bibliotheque, classe: string) => b.parcours.
 
 export const aExporter = (pe: ParcoursEnseignant, classe: string) => pe.exportee[classe] !== pe.parcours.version
 
-/** Chapitre utilisé dans une classe (parcours de l'enseignant ou d'un dossier partagé) */
+/** Chapitre utilisé à un niveau (parcours de l'enseignant ou d'un dossier partagé) */
 export interface ChapitreConnu {
-  classe: string
+  niveau: string
   theme: string
 }
 
 export const chapitresDeBibliotheque = (b: Bibliotheque): ChapitreConnu[] =>
-  b.parcours.flatMap((pe) => pe.classes.map((classe) => ({ classe, theme: pe.parcours.theme })))
+  b.parcours.map((pe) => ({ niveau: pe.parcours.niveau, theme: pe.parcours.theme }))
 
-/** Chapitres des classes choisies d'abord, puis tous les autres chapitres connus */
-export function chapitres(connus: ChapitreConnu[], classes: string[]) {
+/** Chapitres du niveau choisi d'abord, puis tous les autres chapitres connus */
+export function chapitres(connus: ChapitreConnu[], niveau: string) {
   const themes = (l: ChapitreConnu[]) => [...new Set(l.map((c) => c.theme.trim()).filter(Boolean))]
-  const deClasse = themes(connus.filter((c) => classes.includes(c.classe)))
-  return { deClasse, autres: themes(connus).filter((t) => !deClasse.includes(t)) }
+  const duNiveau = themes(connus.filter((c) => c.niveau === niveau))
+  return { duNiveau, autres: themes(connus).filter((t) => !duNiveau.includes(t)) }
+}
+
+/** Classes qui reçoivent un parcours (l'ordre des classes déjà servies ne change pas) */
+export function attribuer(b: Bibliotheque, id: string, classes: string[]): Bibliotheque {
+  const connues = [...b.classes]
+  for (const nom of classes) if (!connues.some((c) => c.nom === nom)) connues.push({ nom })
+  return { ...b, classes: connues, parcours: b.parcours.map((pe) => (pe.parcours.id === id ? { ...pe, classes: [...classes] } : pe)) }
+}
+
+/** Parcours d'une classe, choisis dans la bibliothèque ; ceux déjà présents gardent leur rang */
+export function parcoursPourClasse(b: Bibliotheque, classe: string, ids: string[]): Bibliotheque {
+  const classes = b.classes.some((c) => c.nom === classe) ? b.classes : [...b.classes, { nom: classe }]
+  const parcours = b.parcours.map((pe) => {
+    const voulu = ids.includes(pe.parcours.id)
+    const present = pe.classes.includes(classe)
+    if (voulu === present) return pe
+    return { ...pe, classes: voulu ? [...pe.classes, classe] : pe.classes.filter((c) => c !== classe) }
+  })
+  return { ...b, classes, parcours }
+}
+
+export function ajouterClasse(b: Bibliotheque, nom: string): Bibliotheque {
+  const n = nom.trim()
+  return !n || b.classes.some((c) => c.nom === n) ? b : { ...b, classes: [...b.classes, { nom: n }] }
+}
+
+export function renommerClasse(b: Bibliotheque, avant: string, apres: string): Bibliotheque {
+  const n = apres.trim()
+  if (!n || n === avant || b.classes.some((c) => c.nom === n)) return b
+  const remplacer = <T>(r: Record<string, T>) => Object.fromEntries(Object.entries(r).map(([k, v]) => [k === avant ? n : k, v]))
+  return {
+    ...b,
+    classes: b.classes.map((c) => (c.nom === avant ? { nom: n } : c)),
+    parcours: b.parcours.map((pe) => ({ ...pe, classes: pe.classes.map((c) => (c === avant ? n : c)), exportee: remplacer(pe.exportee) })),
+  }
+}
+
+/** Retire la classe et ses attributions ; les parcours restent dans la bibliothèque */
+export function retirerClasse(b: Bibliotheque, nom: string): Bibliotheque {
+  return {
+    ...b,
+    classes: b.classes.filter((c) => c.nom !== nom),
+    parcours: b.parcours.map((pe) => ({ ...pe, classes: pe.classes.filter((c) => c !== nom) })),
+  }
 }
 
 /**
@@ -157,15 +220,23 @@ const pret = (pe: ParcoursEnseignant) => pe.parcours.etapes.length > 0 && pe.par
 export const nbAExporter = (b: Bibliotheque) =>
   b.parcours.filter((pe) => pret(pe) && pe.classes.some((c) => aExporter(pe, c))).length
 
-/** Fichier à déposer dans le dossier partagé : toutes les classes, et bibliothèque marquée exportée */
-export function exporter(b: Bibliotheque): { texte: string; bibliotheque: Bibliotheque } {
+/**
+ * Fichier à déposer dans le dossier partagé : les classes (ce que lisent les
+ * élèves) et toute la bibliothèque (parcours sans classe, objectifs), que
+ * l'enseignant reprend sur un autre appareil. La bibliothèque est marquée exportée.
+ */
+export function exporter(b: Bibliotheque, objectifs: Objectif[] = []): { texte: string; bibliotheque: Bibliotheque } {
   const classes = b.classes
     .map((c) => ({ nom: c.nom, parcours: parcoursDeClasse(b, c.nom).filter(pret).map((pe) => pe.parcours) }))
     .filter((c) => c.parcours.length > 0)
+  const texte = creerFichier(classes, true, { parcours: b.parcours.map((pe) => pe.parcours), ...(objectifs.length ? { objectifs } : {}) })
   return {
-    texte: creerFichier(classes, true),
+    texte,
     bibliotheque: {
       ...b,
+      // Le fichier est prêt : rien ne dit encore qu'il est dans le dossier partagé
+      publieLe: (JSON.parse(texte) as FichierClasses).exporteLe,
+      verifieLe: undefined,
       parcours: b.parcours.map((pe) =>
         pret(pe) ? { ...pe, exportee: Object.fromEntries(pe.classes.map((c) => [c, pe.parcours.version])) } : pe,
       ),
@@ -199,31 +270,37 @@ export function exporterUn(b: Bibliotheque, id: string): { nom: string; texte: s
   }
 }
 
-/** Retrouve les classes et parcours d'un fichier déjà exporté (nouvel appareil) */
-export function ajouterClasses(b: Bibliotheque, f: FichierClasses): Bibliotheque {
-  let resultat = b
+/**
+ * Reprend la bibliothèque d'un fichier publié (autre appareil, page du site) :
+ * classes, attributions et ordre, parcours sans classe. Un parcours plus récent
+ * dans le fichier remplace la copie locale ; un parcours local plus récent est
+ * gardé. Rien n'est supprimé.
+ */
+export function reprendre(b: Bibliotheque, f: FichierClasses): Bibliotheque {
+  const classes = [...b.classes]
+  for (const c of f.classes) if (!classes.some((x) => x.nom === c.nom)) classes.push({ nom: c.nom })
+  const parcours = [...b.parcours]
+  const prendre = (p: Parcours) => {
+    const i = parcours.findIndex((pe) => pe.parcours.id === p.id)
+    if (i === -1) parcours.push({ parcours: p, classes: [], exportee: { '': p.version } })
+    else if (parcours[i].parcours.version < p.version) parcours[i] = { ...parcours[i], parcours: p }
+  }
+  for (const c of f.classes) for (const p of c.parcours) prendre(p)
+  for (const p of f.bibliotheque?.parcours ?? []) prendre(p)
+  // Attributions du fichier, dans l'ordre de chaque classe
   for (const c of f.classes) {
-    const classes = resultat.classes.some((x) => x.nom === c.nom) ? resultat.classes : [...resultat.classes, { nom: c.nom }]
-    const parcours = [...resultat.parcours]
     for (const p of c.parcours) {
       const i = parcours.findIndex((pe) => pe.parcours.id === p.id)
-      if (i === -1) {
-        parcours.push({ parcours: p, classes: [c.nom], exportee: { [c.nom]: p.version } })
-        continue
-      }
       const pe = parcours[i]
       parcours[i] = {
-        parcours: pe.parcours.version < p.version ? p : pe.parcours,
+        ...pe,
         classes: pe.classes.includes(c.nom) ? pe.classes : [...pe.classes, c.nom],
-        exportee: { ...pe.exportee, [c.nom]: p.version },
+        exportee: { ...pe.exportee, [c.nom]: Math.max(pe.exportee[c.nom] ?? 0, p.version) },
       }
     }
-    resultat = { ...resultat, classes, parcours }
   }
-  return resultat
+  return { ...b, classes, parcours }
 }
-
-export const importerFichier = (b: Bibliotheque, texte: string) => ajouterClasses(b, lireFichier(texte))
 
 /**
  * Exercices d'un lien MathALÉA (https://coopmaths.fr/alea/?uuid=…&id=…&n=…&s=…),
@@ -245,3 +322,9 @@ export function etapesDepuisLienMathalea(lien: string): Omit<Etape, 'titre'>[] {
   }
   return etapes
 }
+
+/**
+ * Le dossier partagé contient-il la dernière publication ? (sa date, ou une
+ * plus récente, d'un autre appareil). L'app ne sait pas si chaque élève l'a reçue.
+ */
+export const publicationPresente = (b: Bibliotheque, dossier: FichierClasses) => !!b.publieLe && dossier.exporteLe >= b.publieLe

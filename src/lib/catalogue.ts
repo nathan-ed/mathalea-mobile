@@ -5,6 +5,7 @@ import type { ParamsExercice } from './moteur'
 export interface Etape extends ParamsExercice {
   titre: string // titre vu par l'élève : celui de MathALÉA par défaut, modifiable
   titreMasque?: boolean // l'élève voit « Exercice n »
+  objectifs?: string[] // libellés des objectifs visés (liste de l'enseignant)
 }
 
 /** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ */
@@ -14,6 +15,34 @@ export const titreEleve = (e: Etape, i: number) => (e.titreMasque ? `Exercice ${
 export type Presentation = 'une_question_par_page' | 'un_exo_par_page' | 'liste_exos'
 
 export type Validation = 'question' | 'page' | 'parcours'
+
+/** Accès à un palier : toujours ouvert, ou à partir d'une réussite au palier précédent (seuil choisi par l'enseignant) */
+export type Acces = 'libre' | 'seuil'
+
+export interface Ressource {
+  titre: string
+  lien: string // PDF, vidéo… sur un drive partagé par lien
+}
+
+/** Pause après un palier : un point de cours, une consigne, un encouragement */
+export interface Pause {
+  texte: string
+  ressource?: Ressource
+}
+
+/**
+ * Palier : suite d'exercices consécutifs du parcours. Les étapes restent une
+ * seule liste (les anciennes versions de l'app ignorent les paliers et
+ * affichent tout le parcours).
+ */
+export interface Palier {
+  titre: string
+  nb: number // nombre d'exercices, pris dans l'ordre des étapes
+  acces?: Acces // ignoré pour le premier palier
+  seuil?: number // pourcentage à atteindre au palier précédent (accès « seuil »)
+  ressource?: Ressource // pour revoir la notion, mise en avant tant que le palier n'est pas réussi
+  pause?: Pause // affichée après le palier
+}
 
 export interface Parcours {
   id: string
@@ -28,4 +57,104 @@ export interface Parcours {
   // Validation (et correction) après chaque question, à la fin de chaque page, ou à la fin du parcours
   correction: Validation
   etapes: Etape[]
+  paliers?: Palier[]
+  style?: StylePaliers // présentation des paliers aux élèves
+  premiereCeinture?: number // rang dans CEINTURES de la première ceinture (0 : blanche)
+}
+
+/** Paliers numérotés, ou ceintures comme au judo (blanche, jaune…) */
+export type StylePaliers = 'paliers' | 'ceintures'
+
+/** Ceintures dans l'ordre ; au-delà de la noire, des dan. Seule couleur hors charte : celle de la ceinture elle-même */
+export const CEINTURES = [
+  { nom: 'blanche', couleur: '#f5f5f4' },
+  { nom: 'jaune', couleur: '#facc15' },
+  { nom: 'orange', couleur: '#f97316' },
+  { nom: 'verte', couleur: '#16a34a' },
+  { nom: 'bleue', couleur: '#2563eb' },
+  { nom: 'marron', couleur: '#78350f' },
+  { nom: 'noire', couleur: '#1c1917' },
+] as const
+
+type OptionsCeintures = Pick<Parcours, 'style' | 'premiereCeinture'>
+const rangCeinture = (p: OptionsCeintures, k: number) => (p.premiereCeinture ?? 0) + k
+
+/** Nom d'un palier selon le style : « Palier 2 » ou « Ceinture jaune » (à partir de la première ceinture choisie) */
+export function nomPalier(p: OptionsCeintures, k: number) {
+  if (p.style !== 'ceintures') return `Palier ${k + 1}`
+  const r = rangCeinture(p, k)
+  return r < CEINTURES.length ? `Ceinture ${CEINTURES[r].nom}` : `Ceinture noire, ${r - CEINTURES.length + 2}e dan`
+}
+
+export const couleurCeinture = (p: OptionsCeintures, k: number) => CEINTURES[Math.min(rangCeinture(p, k), CEINTURES.length - 1)].couleur
+
+/** Paliers d'un parcours avec les rangs de leurs étapes ; sans paliers valides, un seul palier */
+export function paliersDe(p: Parcours) {
+  const paliers = p.paliers ?? []
+  const valides = paliers.length > 1 && paliers.reduce((a, x) => a + x.nb, 0) === p.etapes.length
+  if (!valides) return [{ titre: '', etapes: p.etapes.map((_, i) => i), acces: 'libre' as Acces, seuil: 0, ressource: undefined as Ressource | undefined, pause: undefined as Pause | undefined }]
+  let debut = 0
+  return paliers.map((x, k) => {
+    const etapes = Array.from({ length: x.nb }, (_, j) => debut + j)
+    debut += x.nb
+    return {
+      titre: x.titre,
+      etapes,
+      acces: k === 0 ? ('libre' as Acces) : (x.acces ?? 'libre'),
+      seuil: x.seuil ?? 80,
+      ressource: x.ressource,
+      pause: x.pause,
+    }
+  })
+}
+
+/** Organisation en quelques mots, pour les tuiles : « 3 paliers », « Ceintures orange à bleue » */
+export function organisationDe(p: Parcours) {
+  const n = paliersDe(p).length
+  if (n < 2) return ''
+  if (p.style !== 'ceintures') return `${n} paliers`
+  const nom = (k: number) => nomPalier(p, k).replace(/^Ceinture /, '')
+  return `Ceintures ${nom(0)} à ${nom(n - 1)}`
+}
+
+/** Icônes proposées pour un parcours (boxicons du site) */
+export const ICONES = [
+  { classe: 'bx-calculator', nom: 'Calcul' },
+  { classe: 'bx-math', nom: 'Algèbre' },
+  { classe: 'bx-shape-triangle', nom: 'Géométrie' },
+  { classe: 'bx-shape-circle', nom: 'Cercle' },
+  { classe: 'bx-ruler', nom: 'Mesures' },
+  { classe: 'bx-cube', nom: 'Espace' },
+  { classe: 'bx-line-chart', nom: 'Fonctions' },
+  { classe: 'bx-bar-chart-alt-2', nom: 'Statistiques' },
+  { classe: 'bx-dice-5', nom: 'Probabilités' },
+  { classe: 'bx-transfer-alt', nom: 'Proportionnalité' },
+  { classe: 'bx-code-alt', nom: 'Algorithmique' },
+  { classe: 'bx-coin-stack', nom: 'Argent' },
+  { classe: 'bx-timer', nom: 'Durées' },
+  { classe: 'bx-brain', nom: 'Réflexion' },
+  { classe: 'bx-target-lock', nom: 'Objectif' },
+  { classe: 'bx-book-content', nom: 'Cours' },
+] as const
+
+const REGLES_ICONES: [RegExp, string][] = [
+  [/probabil|hasard|aleatoire/, 'bx-dice-5'],
+  [/statisti|donnee|diagramme|moyenne|mediane/, 'bx-bar-chart-alt-2'],
+  [/proportion|pourcentage|echelle|vitesse|ratio/, 'bx-transfer-alt'],
+  [/algorithm|programm|scratch|informatique/, 'bx-code-alt'],
+  [/fonction|graphique|repere|reperage|droite gradu/, 'bx-line-chart'],
+  [/espace|solide|pave|pyramide|cone|cylindre|sphere|patron/, 'bx-cube'],
+  [/cercle|disque/, 'bx-shape-circle'],
+  [/triangle|pythagore|thales|trigono|angle|geometr|parallelogramme|polygone|transformation|symetr|homothet|translation|rotation|quadrilatere/, 'bx-shape-triangle'],
+  [/longueur|aire|perimetre|grandeur|mesure|volume|unite|conversion/, 'bx-ruler'],
+  [/prix|argent|monnaie|budget/, 'bx-coin-stack'],
+  [/duree|horaire|heure/, 'bx-timer'],
+  [/litteral|equation|algebr|expression|factoris|develop|inequation/, 'bx-math'],
+  [/relatif|nombre|calcul|operation|fraction|decima|puissance|entier|division|multipl|racine|arithmet/, 'bx-calculator'],
+]
+
+/** Icône proposée d'après le chapitre (l'enseignant peut en choisir une autre) */
+export function iconeProposee(theme: string) {
+  const t = theme.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  return REGLES_ICONES.find(([re]) => re.test(t))?.[1] ?? 'bx-book-content'
 }

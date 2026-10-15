@@ -41,7 +41,8 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
       fichier.writeText(args.texte)
       val uri = FileProvider.getUriForFile(activity, activity.packageName + ".fileprovider", fichier)
       val envoi = Intent(Intent.ACTION_SEND).apply {
-        type = "application/json"
+        // Parcours en JSON, liste d'objectifs en CSV
+        type = if (fichier.name.endsWith(".csv")) "text/csv" else "application/json"
         putExtra(Intent.EXTRA_STREAM, uri)
         putExtra(Intent.EXTRA_TITLE, fichier.name)
         clipData = ClipData.newRawUri(fichier.name, uri)

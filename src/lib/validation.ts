@@ -29,9 +29,22 @@ export function estEtape(v: unknown): v is Etape {
     optionnel(e.id, estTexte) &&
     optionnel(e.nbQuestions, (n) => estEntier(n) && (n as number) > 0) &&
     optionnel(e.titreMasque, (b) => typeof b === 'boolean') &&
+    optionnel(e.objectifs, textesUniques) &&
     [e.sup, e.sup2, e.sup3, e.sup4].every((s) => optionnel(s, estParametre))
   )
 }
+
+const ACCES = ['libre', 'seuil']
+const estRessource = (r: unknown) => estObjet(r) && estTexte(r.titre) && estTexte(r.lien)
+const estPalier = (v: unknown) =>
+  estObjet(v) &&
+  estTexte(v.titre) &&
+  estEntier(v.nb) &&
+  (v.nb as number) >= 0 &&
+  optionnel(v.acces, (a) => ACCES.includes(a as string)) &&
+  optionnel(v.seuil, (n) => estNombre(n) && (n as number) >= 0 && (n as number) <= 100) &&
+  optionnel(v.ressource, estRessource) &&
+  optionnel(v.pause, (x) => estObjet(x) && estTexte(x.texte) && optionnel(x.ressource, estRessource))
 
 export function estParcours(v: unknown): v is Parcours {
   const p = v as Parcours
@@ -49,7 +62,10 @@ export function estParcours(v: unknown): v is Parcours {
     optionnel(p.icone, estTexte) &&
     PRESENTATIONS.includes(p.presentation) &&
     VALIDATIONS.includes(p.correction) &&
-    listeDe(p.etapes, estEtape)
+    listeDe(p.etapes, estEtape) &&
+    optionnel(p.paliers, (l) => listeDe(l, estPalier)) &&
+    optionnel(p.style, (x) => x === 'paliers' || x === 'ceintures') &&
+    optionnel(p.premiereCeinture, (n) => estEntier(n) && (n as number) >= 0 && (n as number) < 7)
   )
 }
 

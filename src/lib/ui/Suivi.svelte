@@ -1,9 +1,10 @@
 <script lang="ts">
   // Suivi du travail dans la durée, avec la rampe « struct » de MathALÉA
-  import { titreEleve, type Parcours } from '$lib/catalogue'
+  import { paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
+  import { MAITRISES, ceinturesObtenues, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { theme } from '$lib/theme.svelte'
-  import { listeGroupee, pastille } from './classes'
+  import { listeGroupee, pastille, pastilleScore } from './classes'
 
   let {
     parcours,
@@ -67,12 +68,22 @@
   const largeur = (L - (NB_JOURS - 1) * 2) / NB_JOURS
   const detail = $derived(choisi === null ? null : jours[choisi])
 
+  // Par parcours : passages complets comparés entre eux ; un parcours à paliers donne ses paliers réussis
   const lignes = $derived(
     parcours
       .map((p) => {
         const passages = historiques[p.id] ?? []
-        const pcts = passages.map((s) => bilan(s).pourcentage)
-        return { p, n: passages.length, dernier: pcts.at(-1), avant: pcts.at(-2), meilleur: pcts.length ? Math.max(...pcts) : undefined }
+        const paliers = paliersDe(p).length > 1 ? ceinturesObtenues(p, passages) : null
+        const complets = passages.filter((s) => s.etapes.length === s.contenu.etapes.length)
+        const pcts = complets.map((s) => bilan(s).pourcentage)
+        return {
+          p,
+          n: passages.length,
+          dernier: pcts.at(-1),
+          avant: pcts.at(-2),
+          meilleur: pcts.length ? Math.max(...pcts) : undefined,
+          paliers: paliers ? { reussis: paliers.filter((x) => x.obtenue).length, total: paliers.length } : null,
+        }
       })
       .filter((l) => l.n > 0),
   )
@@ -87,6 +98,28 @@
         .map((e) => ({ p, etape: dernier.contenu.etapes[e.etape], rang: e.etape, points: e.points, sur: e.sur }))
     }),
   )
+
+  // ---------- Objectifs et ceintures ----------
+  let vue: 'activite' | 'objectifs' | 'ceintures' = $state('activite')
+  const passagesTermines = $derived(parcours.flatMap((p) => historiques[p.id] ?? []))
+  const objectifs = $derived(objectifsTravailles(passagesTermines))
+  const objectifsParNiveau = $derived.by(() => {
+    const niveaux = [...new Set(objectifs.map((o) => o.niveau))]
+    return niveaux.map((niveau) => {
+      const du = objectifs.filter((o) => o.niveau === niveau)
+      return { niveau, chapitres: [...new Set(du.map((o) => o.theme))].map((theme) => ({ theme, liste: du.filter((o) => o.theme === theme) })) }
+    })
+  })
+  let objectifOuvert: string | null = $state(null)
+  const ceintures = $derived(
+    parcours.filter((p) => p.style === 'ceintures' && (p.paliers?.length ?? 0) > 1).map((p) => ({ p, liste: ceinturesObtenues(p, historiques[p.id] ?? []) })),
+  )
+  const vues = $derived([
+    ['activite', 'Activité'],
+    ['objectifs', 'Objectifs'],
+    ...(ceintures.length ? [['ceintures', 'Ceintures']] : []),
+  ])
+  const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
 
   const fmtJour = (d: Date) => d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
@@ -110,6 +143,93 @@
       {/each}
     </div>
 
+    {#if vues.length > 1}
+      <div class="flex flex-row gap-1 rounded-xl p-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" role="tablist" aria-label="Suivi">
+        {#each vues as [v, libelle] (v)}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={vue === v}
+            class="flex-1 rounded-lg py-2 text-sm font-semibold transition-colors duration-150
+            {vue === v
+              ? 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct shadow-sm'
+              : 'text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'}"
+            onclick={() => (vue = v as typeof vue)}>{libelle}</button
+          >
+        {/each}
+      </div>
+    {/if}
+
+    {#if vue === 'objectifs'}
+      {#if !objectifs.length}
+        <p class="py-6 text-center {discret}">Les objectifs de tes parcours apparaîtront ici dès que tu auras terminé un passage.</p>
+      {:else}
+        <div class="flex flex-row flex-wrap items-center gap-x-3 gap-y-1 px-1 {discret}" aria-hidden="true">
+          {#each MAITRISES as m, k (m)}
+            <span class="inline-flex items-center gap-1"><i style="width:10px;height:10px;border-radius:2px;background:{rampe[k]}"></i>{m}</span>
+          {/each}
+        </div>
+        {#each objectifsParNiveau as n (n.niveau)}
+          <h2 class={titreSection}>{n.niveau || 'Sans niveau'}</h2>
+          {#each n.chapitres as c (c.theme)}
+            <p class="pl-2 text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.theme}</p>
+            <ul class={listeGroupee}>
+              {#each c.liste as o (o.libelle)}
+                {@const m = maitrise(o.meilleur)}
+                <li>
+                  <button
+                    type="button"
+                    aria-expanded={objectifOuvert === o.libelle}
+                    class="w-full flex flex-col gap-2 px-4 py-3 text-left bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
+                    active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+                    onclick={() => (objectifOuvert = objectifOuvert === o.libelle ? null : o.libelle)}
+                  >
+                    <span class="flex flex-row items-start justify-between gap-3">
+                      <span class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">{o.libelle}</span>
+                      <span class="shrink-0 flex flex-row gap-0.5 pt-1" role="img" aria-label="Meilleur niveau : {MAITRISES[m]}">
+                        {#each MAITRISES as _, k (k)}
+                          <i style="width:14px;height:8px;border-radius:2px;background:{k <= m ? rampe[m] : vide}"></i>
+                        {/each}
+                      </span>
+                    </span>
+                    <span class="text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">{MAITRISES[m]} · {o.meilleur} %</span>
+                    {#if objectifOuvert === o.libelle}
+                      <span class={discret}>
+                        Travaillé pour la dernière fois le {fmtDate(o.dernier)}, dans « {o.parcours} » ; {o.passages} exercice{o.passages > 1 ? 's' : ''} en tout.
+                      </span>
+                    {/if}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/each}
+        {/each}
+      {/if}
+    {:else if vue === 'ceintures'}
+      {#each ceintures as c (c.p.id)}
+        {@const plusHaute = c.liste.filter((x) => x.obtenue).at(-1)}
+        <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+          <button type="button" class="text-left" onclick={() => onouvrir(c.p)}>
+            <span class="block font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.p.titre}</span>
+            <span class={discret}>{plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')}` : 'Aucune ceinture pour le moment'}</span>
+          </button>
+          <ul class="flex flex-row flex-wrap gap-3">
+            {#each c.liste as x (x.nom)}
+              <li class="flex flex-col items-center gap-1" aria-label="{x.nom} : {x.obtenue ? 'obtenue' : 'pas encore obtenue'}">
+                <span
+                  class="relative inline-flex items-center justify-center w-14 h-7 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
+                  {x.obtenue ? '' : 'opacity-30'}"
+                  style="background-color: {x.couleur}"
+                >
+                  {#if x.obtenue}<i aria-hidden="true" class="bx bx-check text-lg" style="color: {x.couleur === '#f5f5f4' || x.couleur === '#facc15' ? '#1c1917' : '#ffffff'}"></i>{/if}
+                </span>
+                <span class="text-xs {x.obtenue ? 'font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct' : discret}">{x.nom.replace('Ceinture ', '')}</span>
+              </li>
+            {/each}
+          </ul>
+        </section>
+      {/each}
+    {:else}
     <div class="flex flex-row items-center justify-between">
       <h2 class={titreSection}>Activité des 4 dernières semaines</h2>
       <div class="flex flex-row text-sm" role="group" aria-label="Affichage de l’activité">
@@ -219,11 +339,19 @@
               <div class="min-w-0">
                 <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{l.p.titre}</div>
                 <div class={discret}>
-                  {l.n} passage{l.n > 1 ? 's' : ''} · meilleur {l.meilleur} %{#if evolution !== null && evolution !== 0}
-                    · {evolution > 0 ? '+' : ''}{evolution} points{/if}
+                  {#if l.paliers}
+                    {l.n} passage{l.n > 1 ? 's' : ''} · {l.paliers.reussis} {l.p.style === 'ceintures' ? 'ceinture' : 'palier'}{l.paliers.reussis > 1 ? 's' : ''} sur {l.paliers.total}
+                  {:else}
+                    {l.n} passage{l.n > 1 ? 's' : ''} · meilleur {l.meilleur} %{#if evolution !== null && evolution !== 0}
+                      · {evolution > 0 ? '+' : ''}{evolution} points{/if}
+                  {/if}
                 </div>
               </div>
-              <span class={pastille}>{l.dernier} %</span>
+              {#if l.paliers}
+                <span class={pastilleScore(l.paliers.total ? (100 * l.paliers.reussis) / l.paliers.total : 0)}>{l.paliers.reussis}/{l.paliers.total}</span>
+              {:else if l.dernier !== undefined}
+                <span class={pastilleScore(l.dernier)}>{l.dernier} %</span>
+              {/if}
             </button>
           </li>
         {/each}
@@ -251,6 +379,7 @@
           </li>
         {/each}
       </ul>
+    {/if}
     {/if}
   {/if}
 </div>
