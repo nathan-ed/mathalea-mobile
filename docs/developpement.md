@@ -297,7 +297,15 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
-## 0.2.3 : un seul toucher pour valider (fait)
+## 0.2.4 : Google Play, pages de 16 Ko (fait)
+
+- Bibliothèques natives Android alignées sur des pages de 16 Ko (exigence de
+  Google Play pour Android 15 et plus) : `-Wl,-z,max-page-size=16384` posé
+  par `src-tauri/build.rs`. Vérifier : `readelf -lW` sur le `.so` de l'APK,
+  alignement `0x4000` des segments `LOAD`. Contient aussi tout le contenu
+  de la 0.2.3, qui n'a pas été publiée.
+
+## 0.2.3 : un seul toucher pour valider (non publiée, reprise dans 0.2.4)
 
 - Android : la page s'arrête au-dessus du clavier du téléphone (affichage bord
   à bord, `MainActivity.kt`) ; les barres du bas (Valider, Enregistrer)
