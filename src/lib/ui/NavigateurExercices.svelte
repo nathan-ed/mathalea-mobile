@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { garderSaisie } from './barreDuBas'
   // Choix des exercices comme sur le site : par niveau puis par chapitre, ou
   // par recherche ; aperçu et réglages avant d'ajouter.
   import type { Etape } from '$lib/catalogue'
@@ -167,6 +168,7 @@
   </main>
 
   <footer
+    use:garderSaisie
     class="fixed left-0 right-0 bottom-0 z-20 flex flex-row gap-3 px-4 py-3 zone-sure-bas
     border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >

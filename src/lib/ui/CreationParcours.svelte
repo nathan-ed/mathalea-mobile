@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { garderSaisie } from './barreDuBas'
   // Création ou modification d'un parcours sur un seul écran : niveau,
   // chapitre, parcours, exercices (réglages, aperçu, objectifs), paliers,
   // pages et validation. Tout reste modifiable dans n'importe quel ordre.
@@ -849,6 +850,7 @@
     {/if}
 
     <footer
+      use:garderSaisie
       class="fixed left-0 right-0 bottom-0 z-20 flex flex-col gap-1 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >

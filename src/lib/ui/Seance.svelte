@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { garderSaisie } from './barreDuBas'
   import { onDestroy, onMount, tick } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
@@ -390,6 +391,7 @@
 
   {#if pret}
     <footer
+      use:garderSaisie
       class="fixed left-0 right-0 z-20 flex flex-col gap-3 px-4 py-3 {hauteurClavier ? '' : 'zone-sure-bas'}
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
