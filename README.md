@@ -113,7 +113,9 @@ téléphone branché en USB (débogage activé) : `pnpm tauri android dev`.
 
 ### iPhone et iPad
 
-Il faut un Mac avec Xcode, et un compte Apple :
+Sans Mac : le workflow `ios` du miroir GitHub construit l'app sur macOS
+(simulateur et captures, ou TestFlight avec la clé d'API App Store Connect,
+voir `docs/developpement.md`). Sur un Mac avec Xcode :
 
 ```bash
 pnpm tauri ios init

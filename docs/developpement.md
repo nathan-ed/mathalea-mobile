@@ -92,9 +92,10 @@ Rust `telecharger`.
   fond de fenêtre aux couleurs canvas (`res/values*/colors.xml`), icônes de
   la barre d'état selon le thème de l'app (commande `barre_etat`,
   `PartagePlugin.kt`).
-- iOS (à faire sur un Mac après `pnpm tauri ios init`) : fond de l'écran de
-  démarrage (`LaunchScreen.storyboard`) aux couleurs canvas, couleur des
-  icônes de la barre d'état, et le geste de retour par balayage du bord
+- iOS : apparence de la barre d'état selon le thème de l'app (même commande
+  `barre_etat`, plugin Swift `src-tauri/ios/`) et zones sûres par
+  `env(safe-area-inset-*)` ; à faire : fond de l'écran de démarrage
+  (`LaunchScreen.storyboard`) aux couleurs canvas, et le geste de retour par balayage du bord
   (WKWebView `allowsBackForwardNavigationGestures`, à activer côté natif ;
   la flèche de la barre de titre suffit sans lui).
 
@@ -158,8 +159,20 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   Sécurité des données « aucune donnée collectée ni partagée », politique de
   confidentialité `docs/confidentialite.md` (page `static/confidentialite.html`,
   à publier à une adresse publique).
-- App Store (plus tard, Mac nécessaire) : même règle, moteur figé d'office
-  sur iOS ; versions hebdomadaires possibles de la même façon.
+- App Store : même règle, moteur figé d'office sur iOS. Aucun Mac nécessaire :
+  `ios.yml` (GitHub, à lancer à la main) tourne sur macOS. Sans secret, il
+  compile pour le simulateur, lance l'app et en fait des captures (clair,
+  sombre, artefact `captures-ios`), et fournit le projet Xcode généré
+  (`projet-xcode`, à verser dans `src-tauri/gen/apple`). Avec « envoi » et
+  les secrets `APPLE_API_KEY_P8` (clé d'API App Store Connect, rôle App
+  Manager), `APPLE_API_KEY_ID`, `APPLE_API_ISSUER` et `APPLE_DEVELOPMENT_TEAM`,
+  il signe (signature automatique par la clé d'API) et envoie l'`.ipa` à
+  TestFlight, numéro de compilation daté. Fiche : catégorie Éducation, 4+, pas
+  la catégorie Enfants (elle impose un contrôle parental avant tout lien
+  externe) ; `ITSAppUsesNonExemptEncryption` faux (`src-tauri/Info.ios.plist`).
+- Partage natif iOS : plugin Swift `src-tauri/ios/` (feuille de partage,
+  barre d'état, zones sûres), compilé et lié par `src-tauri/build.rs` sur macOS
+  seulement, avec l'API Swift de Tauri copiée dans `src-tauri/.tauri/`.
 
 ## Feuille de route
 
@@ -404,7 +417,7 @@ Reste à faire :
   ceux signés avec l'autre (désinstaller une fois).
 - Livrer le moteur comme ressource Android (`assets`, une seule copie) au lieu
   de l'inclure dans le binaire de chaque architecture ; prépare aussi la v2.
-- Essayer sur iPhone (Mac nécessaire) et sur d'autres téléphones Android :
+- Essayer sur iPhone (TestFlight) et sur d'autres téléphones Android :
   clavier, figures, PDF, mode avion.
 - Clé d'API Google pour lire les dossiers Google Drive.
 - CI : quand le moteur sera dans MathALÉA, supprimer `moteur/` et construire

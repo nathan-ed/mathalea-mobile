@@ -13,6 +13,7 @@
   import Feuille from './Feuille.svelte'
   import { choisirTheme, theme, type PreferenceTheme } from '$lib/theme.svelte'
   import { version } from '../../../package.json'
+  import { ouvrirLien } from '$lib/fichiers'
 
   let {
     profil = $bindable(),
@@ -83,6 +84,25 @@
   let messageSauvegarde = $state('')
   // Restauration : aperçu de la sauvegarde et confirmation avant de remplacer quoi que ce soit
   let aRestaurer: { texte: string; resume: ReturnType<typeof onresumer> } | null = $state(null)
+  // Politique de confidentialité : page livrée avec l'app (static/confidentialite.html,
+  // la même qu'en ligne), affichée sans quitter l'app
+  let confidentialite: string | null = $state(null)
+  async function ouvrirConfidentialite() {
+    const page = new DOMParser().parseFromString(await (await fetch('/confidentialite.html')).text(), 'text/html')
+    page.querySelector('h1')?.remove()
+    confidentialite = page.querySelector('main')?.innerHTML ?? ''
+  }
+  /** Liens du texte (courriel de contact) : ouverts hors de l'app, jamais dans sa page */
+  function liensExternes(bloc: HTMLElement) {
+    const ouvrir = (e: MouseEvent) => {
+      const lien = (e.target as HTMLElement).closest('a')
+      if (!lien) return
+      e.preventDefault()
+      void ouvrirLien(lien.href)
+    }
+    bloc.addEventListener('click', ouvrir)
+    return { destroy: () => bloc.removeEventListener('click', ouvrir) }
+  }
   async function restaurer(e: Event) {
     const champ = e.currentTarget as HTMLInputElement
     const f = champ.files?.[0]
@@ -355,6 +375,9 @@
         MathALÉA {version} · licence AGPL-3.0 ·
         <a href="https://coopmaths.fr" class="text-coopmaths-action dark:text-coopmathsdark-action" onclick={ouvrirCoopmaths}>coopmaths.fr</a>
       </p>
+      <button type="button" class="self-start pl-2 text-sm text-coopmaths-action dark:text-coopmathsdark-action" style="min-height: 44px" onclick={ouvrirConfidentialite}
+        >Politique de confidentialité</button
+      >
     </section>
   </main>
   {#if aRetirer}
@@ -374,6 +397,15 @@
           }}>Retirer</button
         >
       </div>
+    </Feuille>
+  {/if}
+  {#if confidentialite !== null}
+    <Feuille onfermer={() => (confidentialite = null)}>
+      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Politique de confidentialité</p>
+      <!-- Page de l'app elle-même (static/confidentialite.html) -->
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      <div class="politique text-sm" use:liensExternes>{@html confidentialite}</div>
+      <button type="button" class="{boutonInverse} shrink-0" style="min-height: 44px" onclick={() => (confidentialite = null)}>Fermer</button>
     </Feuille>
   {/if}
   {#if aRestaurer}

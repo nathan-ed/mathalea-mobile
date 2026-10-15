@@ -436,6 +436,15 @@ Environnement (machine de Nathan)
   `google-play.yml` (lundi, si nouveau moteur publié, dernier tag `v*`,
   `versionCode` daté). `.aab` aussi construit par `release.yml` (artefact).
   Voir `docs/developpement.md`, « Google Play et App Store ».
+- iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; minutes macOS
+  comptées dix fois sur un dépôt privé : ne pas le lancer pour rien).
+  Plugin Swift `src-tauri/ios/` lié par `build.rs` (cfg macOS + cible ios),
+  `partageNatif` vrai sur iPhone et iPad (qui se dit Macintosh tactile).
+  `barre_etat` reçoit `telephone` : iOS rend alors l'apparence au téléphone
+  (sinon `prefers-color-scheme` resterait figé). `moteur-publie.mjs` : le
+  tar de macOS ne connaît pas `--warning`. Rien de lourd en local : la
+  mémoire de la machine de Nathan est limitée (arrêter démons Gradle et
+  serveurs de dev après usage).
 
 ## 8. Tests
 
@@ -567,6 +576,6 @@ Environnement (machine de Nathan)
   retour élève vers enseignant (QR ou fichier `bilan-mathalea/1` avec
   statistiques et réponses des tentatives dernière et meilleure, graines
   pour régénérer les questions ; tailles mesurées dans la doc).
-- Plus tard : moteur en ressource Android (une copie), iOS (Mac nécessaire),
+- Plus tard : moteur en ressource Android (une copie), iOS sur TestFlight,
   Wi-Fi seulement pour le moteur, version minimale du moteur par parcours,
   clé Google Drive, ressources (PDF, images) à côté des parcours.

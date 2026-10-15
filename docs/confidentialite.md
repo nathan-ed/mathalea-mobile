@@ -60,6 +60,10 @@ aucun outil tiers de collecte de données.
 La seule autorisation demandée est l'accès à Internet, pour les usages
 ci-dessus.
 
+## Contact
+
+Pour toute question sur cette politique : contact@coopmaths.fr.
+
 ## Modifications
 
 Toute modification de cette politique est publiée à cette même adresse, avec

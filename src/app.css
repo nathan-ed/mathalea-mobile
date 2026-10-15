@@ -212,6 +212,23 @@ body:has(input:focus, textarea:focus) .barre-onglets {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+/* Politique de confidentialité (Réglages), texte de static/confidentialite.html */
+.politique h2 {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--app-struct);
+}
+.politique p,
+.politique ul {
+  margin-top: 0.5rem;
+}
+.politique ul {
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+.politique a {
+  color: var(--app-action);
+}
 .feuille-poignee {
   align-self: center;
   width: 2.5rem;
