@@ -289,6 +289,14 @@ ancienne app.
   fichier Google Play (`.aab`) ; version Google Play hebdomadaire
   automatique (`google-play.yml`) ; politique de confidentialité.
 
+## 0.2.2 : publication sur Google Play (fait)
+
+- Politique de confidentialité lisible dans les Réglages (À propos), avec le
+  contact de CoopMaths ; fiche des boutiques (`docs/fiche-boutiques.md`,
+  captures `e2e/fiche-play.mjs`). Mots de passe des clés Android passés par
+  l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
+  partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
+
 ## À faire (sans version fixée)
 
 - Retour vers l'enseignant (idée de Nathan, à reprendre plus tard). Rien ne
