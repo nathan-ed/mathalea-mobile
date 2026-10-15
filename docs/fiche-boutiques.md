@@ -2,7 +2,9 @@
 
 Textes et réponses à reprendre dans la Play Console (et plus tard dans App
 Store Connect). Captures : `node e2e/fiche-play.mjs <dossier>` (pnpm dev,
-1080 × 1920, parcours de démonstration) ; image de présentation 1024 × 500 :
+parcours de démonstration ; téléphone 1620 × 2880, tablette 7 pouces
+1440 × 2304, tablette 10 pouces 1600 × 2560 : accueil, paliers, ceintures,
+question, bibliothèque, éditeur) ; image de présentation 1024 × 500 :
 logo de l'en-tête de l'app agrandi ; icône 512 × 512 : `src-tauri/icons/icon.png`.
 
 ## Fiche
@@ -36,8 +38,11 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
 
 - **Catégorie** : Éducation. **Adresse e-mail** : contact@coopmaths.fr.
   **Site web** : https://coopmaths.fr.
-- **Politique de confidentialité** : `static/confidentialite.html`, publiée sur
-  mathalea.fr (adresse à reporter ici et dans la Play Console).
+- **Politique de confidentialité** :
+  https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html
+  (Pages de la forge, job `pages` de `.gitlab-ci.yml`, copie de
+  `static/confidentialite.html` ; seules les Pages sont publiques, le dépôt
+  reste privé).
 
 ## Contenu de l'application (Play Console)
 

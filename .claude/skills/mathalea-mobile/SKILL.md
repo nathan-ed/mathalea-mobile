@@ -444,7 +444,9 @@ Environnement (machine de Nathan)
 - Fiche des boutiques : `docs/fiche-boutiques.md` (textes, réponses de la
   Play Console), captures `node e2e/fiche-play.mjs <dossier>` (1080 × 1920).
   Politique de confidentialité : `static/confidentialite.html`, aussi dans
-  les Réglages (À propos), à publier sur mathalea.fr par Rémi.
+  les Réglages (À propos), publique sur les Pages de la forge
+  (https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html,
+  `pages_access_level=public`, job `pages`).
 - iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; minutes macOS
   comptées dix fois sur un dépôt privé : ne pas le lancer pour rien).
   Plugin Swift `src-tauri/ios/` lié par `build.rs` (cfg macOS + cible ios),
