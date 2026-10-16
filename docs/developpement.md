@@ -344,7 +344,7 @@ ancienne app.
 
 ## À faire (sans version fixée)
 
-- Page `?v=parcours` du site : reprendre `enTetesMasques` et `melanger`.
+- Page `?v=parcours` du site : `enTetesMasques` et `melanger` repris (MR !9426, à fusionner).
 - Teste ton niveau : ajouter le CE1 et le CE2 (sujets présents dans le
   référentiel, `canCE1a`, `canCE2a`) si les collègues le souhaitent.
 

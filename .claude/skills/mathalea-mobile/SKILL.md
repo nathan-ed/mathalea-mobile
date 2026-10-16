@@ -152,8 +152,18 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
 - Publication : le fichier porte toute la bibliothèque (`bibliotheque`) ;
   état « prêt à déposer » puis vérification du dossier (`publieLe`,
   `verifieLe`) ; reprise (`reprendre`) depuis un lien ou un fichier.
-- Page du site `?v=parcours` : dépôt MathALÉA, worktree
-  `~/Documents/projets/mathalea-parcours` (branche `parcours-enseignants`),
+- **Toujours reporter sur la page `?v=parcours` du site** (demande de Nathan)
+  tout changement du modèle de parcours ou de l'éditeur (nouveau champ,
+  valeur par défaut, contrôle) : types `parcoursTypes.ts`, contrôle
+  `parcoursFile.ts` (`isParcours`), valeurs par défaut `parcoursLibrary.ts`
+  et `Parcours.svelte`, formulaire `ParcoursEditor.svelte`, test
+  `tests/unit/parcours.test.ts`. D'abord récupérer `main` de MathALÉA
+  (`git fetch` en HTTPS avec glab), une branche par changement depuis
+  `origin/main`, puis push et MR (`glab mr create -R coopmaths/mathalea`).
+  Exemple : MR !9426 (`enTetesMasques`, `melanger`).
+- Page du site `?v=parcours` : dans `main` de MathALÉA depuis octobre 2026
+  (la première MR a été fusionnée). Worktree
+  `~/Documents/projets/mathalea-parcours` (ancienne branche `parcours-enseignants`),
   `src/lib/parcours/` (identifiants en anglais, règle du dépôt) et
   `src/components/setup/parcours/` ; fenêtre d'ajout du site réutilisée
   (`TypstAddExerciseModal`, options facultatives). « Rien de nouveau » : ne pas
