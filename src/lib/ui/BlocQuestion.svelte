@@ -46,16 +46,37 @@
   let enAttente = false
   const q = $derived(exercice.questions[question])
 
+  // Champ placé dans une figure (MetaInteractif2d) : la réponse est le « trou »
+  // champ1 de la formule, rangée comme MathALÉA l'attend pour la réécrire :
+  // MetaInteractif2dEx<n>Q<i> → {"MetaInteractif2dEx<n>Q<i>field<k>": "…"}
+  const CHAMP_FIGURE = /^(MetaInteractif2dEx\d+Q\d+)field\d+$/
+
+  /**
+   * Contenu du trou champ1. Un champ déjà retiré de la page (question quittée)
+   * ne répond plus à getPromptValue : sa valeur LaTeX, elle, reste lisible.
+   */
+  function trouDe(champ: HTMLElement & { value?: string; getPromptValue?: (p: string) => string }) {
+    const v = champ.isConnected ? (champ.getPromptValue?.('champ1') ?? '') : ''
+    if (v) return v
+    return /\\placeholder\[champ1\](?:\[[^\]]*\])*\{(.*)\}/.exec(champ.value ?? '')?.[1] ?? ''
+  }
+
   function lireSaisies(): Record<string, string> {
     const saisies: Record<string, string> = {}
+    const figures: Record<string, Record<string, string>> = {}
     for (const champ of zone.querySelectorAll<HTMLElement>('math-field[id], input[id]')) {
-      if (champ instanceof HTMLInputElement && champ.type === 'checkbox') {
+      const figure = CHAMP_FIGURE.exec(champ.id)
+      if (figure) {
+        const v = trouDe(champ as HTMLElement & { value?: string; getPromptValue?: (p: string) => string })
+        if (v.trim() !== '') (figures[figure[1]] ??= {})[champ.id] = v
+      } else if (champ instanceof HTMLInputElement && champ.type === 'checkbox') {
         if (champ.checked) saisies[champ.id] = '1'
       } else {
         const v = (champ as HTMLInputElement).value
         if (typeof v === 'string' && v.trim() !== '') saisies[champ.id] = v
       }
     }
+    for (const [cle, valeurs] of Object.entries(figures)) saisies[cle] = JSON.stringify(valeurs)
     return saisies
   }
 

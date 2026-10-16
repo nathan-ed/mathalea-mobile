@@ -4,7 +4,7 @@ import { parcoursVide } from '../src/lib/bibliotheque'
 import type { ExerciceDuReferentiel } from '../src/lib/moteur'
 import { cleQuestion, fixerOrdre, melanger, nouvelleSeance, questionsDe, questionsOrdonnees } from '../src/lib/progression'
 import { cleInvalide } from '../src/lib/sauvegarde'
-import { NIVEAUX_TEST, partie, sujetsDu, tirerTest, type SujetCan } from '../src/lib/testNiveau'
+import { NB_QUESTIONS, NIVEAUX_TEST, sujetsDu, tirerTest, type ClassementCan } from '../src/lib/testNiveau'
 import { estParcours } from '../src/lib/validation'
 
 const sujet = (id: string, titre = id, interactif = true): ExerciceDuReferentiel => ({ uuid: `u-${id}`, id, titre, niveau: 'CAN', theme: '6e', interactif })
@@ -21,51 +21,87 @@ const referentiel = [
 ]
 const niveau = (cle: string) => NIVEAUX_TEST.find((n) => n.cle === cle)!
 
+// Classement fictif : 30 questions par sujet, 6 domaines ; les 10 premières
+// de can6a-2025 reprennent celles de can6a-2024 (mêmes sources), un titre est
+// partagé par deux sujets
+const DOMAINES = ['nombres', 'mesures', 'geometrie', 'proportionnalite', 'donnees', 'algebre']
+const fictives = (id: string, partage?: string): ClassementCan[string] =>
+  Array.from({ length: 30 }, (_, i) => ({
+    n: i + 1,
+    source: partage && i < 10 ? `${partage}-Q${i + 1}` : `${id}-Q${i + 1}`,
+    titre: i === 20 ? 'Calculer une moyenne' : `${id} question ${i + 1}`,
+    domaine: i === 29 ? null : DOMAINES[i % 6],
+  }))
+const classement: ClassementCan = {
+  'can6a-2024': fictives('can6a-2024'),
+  'can6a-2025': fictives('can6a-2025', 'can6a-2024'),
+  'canc3a-2025': fictives('canc3a-2025'),
+  'canc3a-2025b': fictives('canc3a-2025b'),
+  'canTSpea-2025': fictives('canTSpea-2025'),
+}
+
 describe('teste ton niveau', () => {
-  it('ne garde que les sujets officiels récents et interactifs du niveau', () => {
-    expect(sujetsDu(niveau('6e'), referentiel).map((e) => e.id)).toEqual(['can6a-2024', 'can6a-2025'])
-    expect(sujetsDu(niveau('cm1'), referentiel).map((e) => e.id)).toEqual(['canc3a-2025b'])
-    expect(sujetsDu(niveau('cm2'), referentiel).map((e) => e.id)).toEqual(['canc3a-2025'])
-    expect(sujetsDu(niveau('terminale'), referentiel).map((e) => e.id)).toEqual(['canTSpea-2025'])
+  it('ne garde que les sujets officiels récents, interactifs et classés du niveau', () => {
+    expect(sujetsDu(niveau('6e'), referentiel, classement).map((e) => e.id)).toEqual(['can6a-2024', 'can6a-2025'])
+    expect(sujetsDu(niveau('cm1'), referentiel, classement).map((e) => e.id)).toEqual(['canc3a-2025b'])
+    expect(sujetsDu(niveau('cm2'), referentiel, classement).map((e) => e.id)).toEqual(['canc3a-2025'])
+    expect(sujetsDu(niveau('terminale'), referentiel, classement).map((e) => e.id)).toEqual(['canTSpea-2025'])
+    // Sujet absent du classement : ignoré
+    expect(sujetsDu(niveau('6e'), referentiel, { 'can6a-2024': classement['can6a-2024'] }).map((e) => e.id)).toEqual(['can6a-2024'])
   })
 
-  const sujets: SujetCan[] = sujetsDu(niveau('6e'), referentiel).map((e) => ({ ...e, nbQuestions: 30 }))
-  const numeros = (p: ReturnType<typeof tirerTest>, k: 0 | 1) =>
-    partie(p, k).flatMap((i) => String(p.etapes[i].sup2).split('-').map((n) => `${p.etapes[i].uuid}:${n}`))
+  const sujets = sujetsDu(niveau('6e'), referentiel, classement)
+  const tirees = (p: ReturnType<typeof tirerTest>) =>
+    p.etapes.flatMap((e) => String(e.sup2).split('-').map((n) => classement[e.id!].find((q) => q.n === Number(n))!))
 
-  it('tire 10 questions parmi les 10 premières et 20 parmi les suivantes, sans doublon', () => {
-    const p = tirerTest(niveau('6e'), sujets, 'graine', 3)
-    const r = numeros(p, 0)
-    const v = numeros(p, 1)
-    expect(r).toHaveLength(10)
-    expect(v).toHaveLength(20)
-    expect(new Set([...r, ...v]).size).toBe(30)
-    expect(r.every((c) => Number(c.split(':')[1]) <= 10)).toBe(true)
-    expect(v.every((c) => Number(c.split(':')[1]) > 10)).toBe(true)
-    // Une étape par sujet et par partie, son nombre de questions suit la liste
-    for (const e of p.etapes) expect(e.nbQuestions).toBe(String(e.sup2).split('-').length)
-    expect(paliersDe(p).map((x) => x.etapes)).toEqual([partie(p, 0), partie(p, 1)])
-    expect(p.version).toBe(3)
-    expect(estParcours(p)).toBe(true)
+  it('tire 15 questions : 5 automatismes et 10 autres, sans doublon de source ni de titre, domaines alternés', () => {
+    for (const graine of ['a', 'b', 'c', 'd']) {
+      const p = tirerTest(niveau('6e'), sujets, graine, 3, classement)
+      const qs = tirees(p)
+      expect(qs).toHaveLength(NB_QUESTIONS)
+      expect(qs.filter((q) => q.n <= 10)).toHaveLength(5)
+      expect(new Set(qs.map((q) => q.source)).size).toBe(15)
+      expect(new Set(qs.map((q) => q.titre)).size).toBe(15)
+      // 5 automatismes de 5 domaines différents ; au plus 2 questions par domaine dans les 10 autres
+      expect(new Set(qs.filter((q) => q.n <= 10).map((q) => q.domaine)).size).toBe(5)
+      const parDomaine = new Map<string, number>()
+      for (const q of qs.filter((q) => q.n > 10)) parDomaine.set(String(q.domaine), (parDomaine.get(String(q.domaine)) ?? 0) + 1)
+      expect(Math.max(...parDomaine.values())).toBeLessThanOrEqual(2)
+      expect(parDomaine.has('null')).toBe(false) // sans domaine : seulement pour compléter
+      for (const e of p.etapes) expect(e.nbQuestions).toBe(String(e.sup2).split('-').length)
+      expect(p.paliers).toBeUndefined()
+      expect(p.version).toBe(3)
+      expect(estParcours(p)).toBe(true)
+    }
   })
 
   it('même graine, même tirage ; autre graine, autre tirage', () => {
-    const a = tirerTest(niveau('6e'), sujets, 'x', 1)
-    expect(tirerTest(niveau('6e'), sujets, 'x', 1)).toEqual(a)
-    expect(numeros(tirerTest(niveau('6e'), sujets, 'y', 1), 1)).not.toEqual(numeros(a, 1))
+    const a = tirerTest(niveau('6e'), sujets, 'x', 1, classement)
+    expect(tirerTest(niveau('6e'), sujets, 'x', 1, classement)).toEqual(a)
+    expect(tirees(tirerTest(niveau('6e'), sujets, 'y', 1, classement))).not.toEqual(tirees(a))
   })
 
-  it('sujets de 20 questions : validation sur les questions 11 à 20', () => {
-    const p = tirerTest(niveau('cm1'), [{ uuid: 'ce', id: 'canc3a-2025b', titre: 'CE', nbQuestions: 20 }], 'g', 1)
-    expect(numeros(p, 0)).toHaveLength(10)
-    expect(numeros(p, 1)).toHaveLength(10)
+  it('peu de questions : le test est plus court, sans doublon', () => {
+    const petit: ClassementCan = { 'can6a-2024': fictives('can6a-2024').slice(0, 12) }
+    const p = tirerTest(niveau('6e'), sujetsDu(niveau('6e'), referentiel, petit), 'g', 1, petit)
+    const qs = p.etapes.flatMap((e) => String(e.sup2).split('-'))
+    expect(qs).toHaveLength(7) // 5 parmi 1 à 10, 2 parmi 11 et 12
+    expect(new Set(qs).size).toBe(7)
+  })
+
+  it('le classement livré couvre les neuf niveaux', async () => {
+    const livre = (await import('../src/lib/questionsCan.json')).default as ClassementCan
+    // Référentiel tel que le moteur le donne : les sujets CM1 se distinguent par leur titre
+    const ref = Object.keys(livre).map((id) => sujet(id, /^canc3a-.*b$/.test(id) ? 'CAN CM1' : 'CAN CM2'))
+    for (const n of NIVEAUX_TEST) expect(sujetsDu(n, ref, livre).length, n.nom).toBeGreaterThan(0)
   })
 
   it('l’état du test est contrôlé dans une sauvegarde', () => {
-    const p = tirerTest(niveau('6e'), sujets, 'g', 1)
-    expect(cleInvalide({ 'test-niveau': { '6e': { tirage: p, reperage: true, valideLe: '2026-10-16' } } })).toBeUndefined()
+    const p = tirerTest(niveau('6e'), sujets, 'g', 1, classement)
+    expect(cleInvalide({ 'test-niveau': { '6e': { tirage: p, valideLe: '2026-10-16' } } })).toBeUndefined()
+    expect(cleInvalide({ 'test-niveau': { '6e': { tirage: p, reperage: true } } })).toBeUndefined() // état de la 0.3.0
     expect(cleInvalide({ 'test-niveau': { '6e': { tirage: { ...p, id: 'autre' } } } })).toBe('test-niveau')
-    expect(cleInvalide({ 'test-niveau': { '6e': { reperage: 'oui' } } })).toBe('test-niveau')
+    expect(cleInvalide({ 'test-niveau': { '6e': { valideLe: 3 } } })).toBe('test-niveau')
   })
 })
 

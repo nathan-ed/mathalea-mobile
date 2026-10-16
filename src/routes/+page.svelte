@@ -59,18 +59,7 @@
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
-  import {
-    NB_VALIDATION,
-    NIVEAUX_TEST,
-    SEUIL_TEST,
-    ceintureDu,
-    estTest,
-    niveauDuTest,
-    partie,
-    sujetsDu,
-    tirerTest,
-    type EtatTest,
-  } from '$lib/testNiveau'
+  import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, estTest, niveauDuTest, sujetsDu, tirerTest, type EtatTest } from '$lib/testNiveau'
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
@@ -369,28 +358,17 @@
     await stockage!.ecrire('test-niveau', $state.snapshot(etatTest))
   }
 
-  /** Nouveau tirage d'un niveau, puis son repérage */
-  async function reperageTest(rang: number) {
+  /** Nouveau tirage d'un niveau, puis le test */
+  async function lancerTest(rang: number) {
     if (!moteur || !referentielCan) return
     const n = NIVEAUX_TEST[rang]
-    // Nombre de questions de chaque sujet (30 le plus souvent, 20 en CE)
-    const sujets = await Promise.all(
-      sujetsDu(n, referentielCan).map(async (e) => ({ ...e, nbQuestions: (await moteur!.decrireExercice?.(e.uuid))?.nbQuestions ?? 30 })),
-    )
     const avant = etatTest[n.cle]
-    const p = tirerTest(n, sujets, `${Date.now()}-${Math.random()}`, (avant?.tirage?.version ?? 0) + 1)
-    etatTest[n.cle] = { ...avant, tirage: p, reperage: false }
+    const p = tirerTest(n, sujetsDu(n, referentielCan), `${Date.now()}-${Math.random()}`, (avant?.tirage?.version ?? 0) + 1)
+    etatTest[n.cle] = { ...avant, tirage: p, reperage: undefined }
     await sauverTest()
     await chargerParcours(p)
     actif = p
-    void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet', partie(p, 0)))
-  }
-
-  function validationTest(rang: number) {
-    const p = etatTest[NIVEAUX_TEST[rang].cle]?.tirage
-    if (!p || !moteur) return
-    actif = p
-    void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet', partie(p, 1)))
+    void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet'))
   }
 
   function reprendreTest(rang: number) {
@@ -401,14 +379,13 @@
     void lancer(s)
   }
 
-  /** Repérage réussi : la validation s'ouvre ; validation réussie : la ceinture est obtenue */
+  // Passage complet réussi : la ceinture est obtenue
+  const testReussi = (s: TSeance) => s.etapes.length === s.contenu.etapes.length && bilan(s).pourcentage >= SEUIL_TEST
+
   async function noterTest(s: TSeance) {
     const n = NIVEAUX_TEST[niveauDuTest(s.parcours)]
-    if (!n) return
-    const validation = s.etapes.join() === partie(s.contenu, 1).join()
-    const reussi = bilan(s).pourcentage >= SEUIL_TEST
-    const e = etatTest[n.cle] ?? {}
-    etatTest[n.cle] = { ...e, reperage: !validation && reussi, ...(validation && reussi ? { valideLe: s.fin } : {}) }
+    if (!n || !testReussi(s)) return
+    etatTest[n.cle] = { ...etatTest[n.cle], valideLe: s.fin }
     await sauverTest()
   }
 
@@ -420,32 +397,20 @@
     const ouvert = (i: number) => (disponiblesTest?.[NIVEAUX_TEST[i].cle] ?? 0) > 0
     const suivant = NIVEAUX_TEST.findIndex((_, i) => i > rang && ouvert(i))
     const precedent = NIVEAUX_TEST.findLastIndex((_, i) => i < rang && ouvert(i))
-    const validation = seance.etapes.join() === partie(seance.contenu, 1).join()
-    const reussi = bilan(seance).pourcentage >= SEUIL_TEST
     const ceinture = ceintureDu(rang).toLowerCase()
     const retour = { libelle: 'Retour aux niveaux', fn: () => aller('test') }
-    if (!validation && reussi)
-      return {
-        message: `Repérage réussi. ${NB_VALIDATION} questions de validation pour la ${ceinture}.`,
-        actions: [{ libelle: 'Passer la validation', fn: () => validationTest(rang) }, retour],
-      }
-    if (!validation)
-      return {
-        message: `Il faut ${SEUIL_TEST} % au repérage pour passer à la validation.`,
-        actions: [
-          { libelle: 'Recommencer avec de nouvelles questions', fn: () => void reperageTest(rang) },
-          ...(precedent >= 0 ? [{ libelle: `Essayer le niveau ${NIVEAUX_TEST[precedent].nom}`, fn: () => void reperageTest(precedent) }] : []),
-          retour,
-        ],
-      }
-    if (reussi)
+    if (testReussi(seance))
       return {
         message: `${ceintureDu(rang)} obtenue : niveau ${NIVEAUX_TEST[rang].nom} validé.`,
-        actions: [...(suivant >= 0 ? [{ libelle: `Niveau suivant : ${NIVEAUX_TEST[suivant].nom}`, fn: () => void reperageTest(suivant) }] : []), retour],
+        actions: [...(suivant >= 0 ? [{ libelle: `Niveau suivant : ${NIVEAUX_TEST[suivant].nom}`, fn: () => void lancerTest(suivant) }] : []), retour],
       }
     return {
-      message: `Il faut ${SEUIL_TEST} % à la validation pour obtenir la ${ceinture}.`,
-      actions: [{ libelle: 'Recommencer le niveau', fn: () => void reperageTest(rang) }, retour],
+      message: `Il faut ${SEUIL_TEST} % (${Math.ceil((SEUIL_TEST * NB_QUESTIONS) / 100)} sur ${NB_QUESTIONS}) pour obtenir la ${ceinture}.`,
+      actions: [
+        { libelle: 'Recommencer avec de nouvelles questions', fn: () => void lancerTest(rang) },
+        ...(precedent >= 0 ? [{ libelle: `Essayer le niveau ${NIVEAUX_TEST[precedent].nom}`, fn: () => void lancerTest(precedent) }] : []),
+        retour,
+      ],
     }
   })
 
@@ -943,8 +908,7 @@
       etat={etatTest}
       disponibles={disponiblesTest}
       enCours={enCoursTest}
-      onreperage={(rang) => void reperageTest(rang)}
-      onvalidation={validationTest}
+      oncommencer={(rang) => void lancerTest(rang)}
       onreprendre={reprendreTest}
       onretour={accueil}
     />
@@ -957,6 +921,7 @@
         bind:seance
         {moteur}
         onsauver={sauverSeance}
+        bilanDirect={estTest(seance.parcours)}
         onquitter={quitterSeance}
         onterminer={terminer}
         onsupprimer={() => supprimerTentative(seance!.parcours)}

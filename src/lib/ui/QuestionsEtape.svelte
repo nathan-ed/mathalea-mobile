@@ -6,8 +6,13 @@
   import { cleQuestion, premiersEssais, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
 
-  let { parcours, seance, etape, moteur }: { parcours: Parcours; seance: Seance; etape: number; moteur: Moteur } =
-    $props()
+  let {
+    parcours,
+    seance,
+    etape,
+    moteur,
+    question,
+  }: { parcours: Parcours; seance: Seance; etape: number; moteur: Moteur; question?: number /** une seule question */ } = $props()
 
   let exercice: ExercicePrepare | undefined = $state()
   let erreur = $state('')
@@ -27,16 +32,18 @@
 {/if}
 {#if exercice}
   {#each exercice.questions as _, q (q)}
+    {#if question === undefined || question === q}
     <BlocQuestion
       {moteur}
       {exercice}
       question={q}
-      avecContexte={q === 0}
+      avecContexte={q === 0 || question !== undefined}
       lectureSeule={true}
       essai={premiers.get(cleQuestion(etape, q))}
       brouillon={seance.brouillons[cleQuestion(etape, q)]}
       onverifiee={() => {}}
       onbrouillon={() => {}}
     />
+    {/if}
   {/each}
 {/if}

@@ -2,7 +2,7 @@
   import { titreEleve, type Parcours, type Pause, type Ressource } from '$lib/catalogue'
   import { ouvrirLien } from '$lib/fichiers'
   import type { Moteur } from '$lib/moteur'
-  import { bilan, type Seance } from '$lib/progression'
+  import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
   import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
@@ -43,6 +43,10 @@
 
   const b = $derived(bilan(seance))
   let ouvertes: Record<number, boolean> = $state({})
+  // Teste ton niveau : les questions dans l'ordre où elles ont été posées, sans nom de sujet
+  const premiers = $derived(premiersEssais(seance))
+  const questions = $derived(questionsOrdonnees(seance))
+  let questionsOuvertes: Record<string, boolean> = $state({})
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 </script>
 
@@ -76,6 +80,36 @@
       </section>
     {/if}
 
+    {#if test}
+    <ul class={listeGroupee}>
+      {#each questions as q, i (cleQuestion(q.etape, q.question))}
+        {@const cle = cleQuestion(q.etape, q.question)}
+        {@const v = valeur(premiers.get(cle))}
+        <li class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+          <button
+            type="button"
+            class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
+            active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+            aria-expanded={!!questionsOuvertes[cle]}
+            onclick={() => (questionsOuvertes[cle] = !questionsOuvertes[cle])}
+          >
+            <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Question {i + 1}</span>
+            <span class="flex flex-row items-center gap-2">
+              <span class={pastilleScore(100 * v)}>{v === 1 ? 'Correcte' : 'Incorrecte'}</span>
+              <i aria-hidden="true"
+                class="bx {questionsOuvertes[cle] ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"
+              ></i>
+            </span>
+          </button>
+          {#if questionsOuvertes[cle]}
+            <div class="px-4 pb-4 pt-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+              <QuestionsEtape {parcours} {seance} etape={q.etape} question={q.question} {moteur} />
+            </div>
+          {/if}
+        </li>
+      {/each}
+    </ul>
+    {:else}
     <ul class={listeGroupee}>
       {#each b.parEtape as e (e.etape)}
         <li class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
@@ -104,6 +138,7 @@
         </li>
       {/each}
     </ul>
+    {/if}
 
     {#if test}
       <div class="flex flex-col gap-3">

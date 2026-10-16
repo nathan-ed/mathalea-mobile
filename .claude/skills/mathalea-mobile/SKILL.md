@@ -177,9 +177,16 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `src/lib/testNiveau.ts`, `TestNiveau.svelte`. Sujets CAN officiels de 2024
   et après (`can<niv>a-<année>`, racine `CAN` du référentiel FR, même en
   Suisse) ; `MetaExerciceCan` donne les questions de `sup2` (« 3-7-12 »).
-  10 parmi les questions 1 à 10 (repérage) puis 20 parmi les suivantes
-  (validation), 80 %, ceinture par niveau (CM1 blanche … Terminale noire
-  3e dan). Les sujets 2018-2023, « Spéciale année » (NY) et Aléa/CoopMaths
+  Une série de 15 (Nathan : « 30 c'est beaucoup ») : 5 parmi les questions
+  1 à 10, 10 parmi les suivantes, classées par domaine (« classer les
+  questions et tirer parmi » pour éviter les redondances :
+  `scripts/questions-can.mts` → `src/lib/questionsCan.json`, par source,
+  titre, domaine ; une question reprise par deux sujets = même source),
+  80 %, correction à la fin puis bilan direct par question, sans nom de
+  sujet. Ceinture par niveau (CM1 blanche … Terminale noire 3e dan).
+  Les questions des sujets sont souvent importées d'un autre sujet (les 10
+  premières communes à deux niveaux) : lire les imports du sujet, pas son
+  dossier. Les sujets 2018-2023, « Spéciale année » (NY) et Aléa/CoopMaths
   ne choisissent pas leurs questions. Vérifier : `node e2e/sonde-can.mjs`,
   `node e2e/test-niveau.mjs` (pnpm dev).
 - Démonstration : `static/demo/parcours-demonstration.json`
@@ -581,6 +588,11 @@ Environnement (machine de Nathan)
   (`barreDuBas.ts`, `use:garderSaisie`).
 - APK d'essai sans compiler ici : `gh workflow run apk-essai.yml --repo
   nathan-ed/mathalea-mobile` (arm64 et x86_64, artefact `apk-essai`).
+- Champs dans une figure (`MetaInteractif2d`, CAN) : réponse = trou
+  `champ1` (`getPromptValue`), brouillon au format
+  `MetaInteractif2dEx<n>Q<i>` → JSON ; un champ retiré de la page renvoie
+  un trou vide (lire la valeur LaTeX). Le bug (« la réponse n'a pas été
+  prise en compte ») ne se voyait qu'avec la correction à la fin.
 - Le clavier de MathALÉA peut s'ouvrir juste après l'ouverture d'une
   `Feuille` (focus de la question suivante) et la recouvrir : masqué par
   `body:has(.feuille)` dans `app.css`.

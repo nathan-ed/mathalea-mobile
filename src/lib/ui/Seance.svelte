@@ -18,6 +18,7 @@
     onquitter,
     onterminer,
     onsupprimer,
+    bilanDirect = false,
   }: {
     parcours: Parcours
     seance: Seance
@@ -26,6 +27,8 @@
     onquitter: () => void
     onterminer: () => void
     onsupprimer?: () => void // absent dans l'aperçu de l'éditeur : quitter suffit
+    /** Correction à la fin : le bilan suit la soumission, sans page de relecture (Teste ton niveau) */
+    bilanDirect?: boolean
   } = $props()
 
   type Ref = { etape: number; question: number; rang: number }
@@ -75,6 +78,38 @@
   )
 
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+
+  // Bilan direct : la relecture corrige toutes les questions sans être montrée,
+  // puis le bilan s'ouvre (au plus tard après 10 s si une question échoue)
+  const correctionCachee = $derived(bilanDirect && relecture)
+  let bilanOuvert = false
+  function ouvrirBilan() {
+    if (bilanOuvert) return
+    bilanOuvert = true
+    onterminer()
+  }
+  $effect(() => {
+    if (!correctionCachee || !pret) return
+    const minuterie = setTimeout(ouvrirBilan, 10_000)
+    if (liste.every((q) => premiers.has(cleQuestion(q.etape, q.question)) || !exercices[q.etape]?.questions[q.question]?.interactive)) ouvrirBilan()
+    return () => clearTimeout(minuterie)
+  })
+
+  /** Segment de la barre de progression : question en cours, répondue, correcte ou non (si corrigée) */
+  function etatSegment(ref: Ref, actuelle: boolean) {
+    if (actuelle) return 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'
+    const cle = cleQuestion(ref.etape, ref.question)
+    const e = premiers.get(cle)
+    if (e && !(finale && !seance.soumise))
+      return valeur(e) === 1 ? 'bg-coopmaths-warn dark:bg-coopmathsdark-warn' : 'bg-coopmaths-action dark:bg-coopmathsdark-action'
+    if (e || Object.keys(seance.brouillons[cle] ?? {}).length) return 'bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light'
+    return 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
+  }
+  function nomSegment(ref: Ref, i: number) {
+    const e = premiers.get(cleQuestion(ref.etape, ref.question))
+    const etat = e && !(finale && !seance.soumise) ? (valeur(e) === 1 ? ', correcte' : ', incorrecte') : ''
+    return `Question ${i + 1}${etat}`
+  }
 
   function smiley(etape: number, q: number) {
     if (finale && !seance.soumise) return ''
@@ -312,7 +347,19 @@
     {/snippet}
   </EnTete>
 
-  {#if pret && pages.length > 1}
+  {#if pret && unique && pages.length > 1}
+    <!-- Une question par page : barre de progression à segments (un toucher pour aller à une question) -->
+    <div class="px-4 pt-2 pb-2">
+      <div class="flex flex-row" role="tablist" aria-label="Questions">
+        {#each pages as p, i (i)}
+          <button type="button" role="tab" aria-selected={i === page} aria-label={nomSegment(p[0], i)} class="flex-1 px-0.5 py-3" onclick={() => allerPage(i)}>
+            <span class="block h-1.5 rounded-full {etatSegment(p[0], i === page)}"></span>
+          </button>
+        {/each}
+      </div>
+      <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Question {page + 1} sur {pages.length}</p>
+    </div>
+  {:else if pret && pages.length > 1}
     <!-- Onglets de la vue élève de MathALÉA (Eleve.svelte) -->
     <div
       class="flex flex-row overflow-x-auto w-full mt-2 mb-4 border-b-2 border-coopmaths-struct dark:border-coopmathsdark-struct
@@ -351,7 +398,11 @@
       <p class="py-4 font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
     {/if}
 
+    {#if correctionCachee}
+      <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">Correction…</p>
+    {/if}
     {#if pret && pages[page]}
+      <div style:visibility={correctionCachee ? 'hidden' : undefined}>
       {#key `${presentation}-${page}-${relecture}`}
         {#each pages[page] as ref, i (ref.rang)}
           {@const ex = exercices[ref.etape]}
@@ -398,10 +449,11 @@
           />
         {/each}
       {/key}
+      </div>
     {/if}
   </main>
 
-  {#if pret}
+  {#if pret && !correctionCachee}
     <footer
       use:garderSaisie
       class="fixed left-0 right-0 z-20 flex flex-col gap-3 px-4 py-3 {hauteurClavier ? '' : 'zone-sure-bas'}

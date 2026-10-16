@@ -70,12 +70,25 @@ Règles :
   `can<niveau>a-<année>`), du CM1 à la Terminale. Ces sujets
   (`MetaExerciceCan`) produisent les questions demandées par `sup2`
   (« 3-7-12 »), sans changement du moteur (`node e2e/sonde-can.mjs` le
-  vérifie sujet par sujet). Un tirage = un parcours `test-niveau-<niveau>` à
-  deux paliers : 10 questions prises parmi les questions 1 à 10 des sujets
-  (repérage), 20 parmi les suivantes (validation), 80 % pour réussir. La
-  version augmente à chaque tirage. État dans la clé `test-niveau` (dernier
-  tirage, repérage réussi, date de validation par niveau) ; séances et
-  historique sous les clés habituelles.
+  vérifie sujet par sujet). Questions classées par
+  `scripts/questions-can.mts` (lit le clone de MathALÉA de `pnpm moteur`,
+  écrit `src/lib/questionsCan.json`) : pour chaque sujet, source, titre et
+  domaine (mots-clés du titre ; à relancer quand le moteur change de commit).
+  Un tirage = un parcours `test-niveau-<niveau>` de 15 questions : 5 parmi
+  les questions 1 à 10 des sujets (automatismes), 10 parmi les suivantes,
+  domaines alternés, jamais deux fois la même source ni le même titre ;
+  80 % donnent la ceinture. Correction à la fin et bilan direct (`Seance`,
+  `bilanDirect`), bilan question par question. La version augmente à chaque
+  tirage. État dans la clé `test-niveau` (dernier tirage, date de validation
+  par niveau ; `reperage` de la 0.3.0 encore lu) ; séances et historique
+  sous les clés habituelles.
+- Une question par page : barre de progression à segments (touchables) et
+  « Question n sur N » au lieu des onglets numérotés.
+- Champs placés dans une figure (`MetaInteractif2d`) : le brouillon garde le
+  trou `champ1` au format de MathALÉA (`MetaInteractif2dEx<n>Q<i>` → JSON),
+  lu dans la valeur LaTeX si le champ a déjà quitté la page
+  (`BlocQuestion.svelte`). Sinon la réponse était perdue avec la correction
+  à la fin.
 
 ### Partage
 
@@ -315,6 +328,13 @@ ancienne app.
   captures `e2e/fiche-play.mjs`). Mots de passe des clés Android passés par
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
+
+## Prochaine version
+
+- Teste ton niveau : une seule série de 15 questions classées par domaine,
+  sans doublon, bilan direct par question ; barre de progression pour une
+  question par page ; réponses dans une figure gardées avec la correction à
+  la fin.
 
 ## 0.3.0 : Teste ton niveau (fait)
 

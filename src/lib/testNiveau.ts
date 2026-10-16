@@ -1,15 +1,18 @@
-// « Teste ton niveau » : questions tirées des annales de la Course aux nombres
-// (CAN) de MathALÉA. Par niveau, 10 questions de repérage prises parmi les
-// questions 1 à 10 des sujets, puis 20 questions de validation prises parmi
-// les suivantes. Un niveau validé donne sa ceinture. Tout vient du moteur :
-// rien n'est intégré à l'app, rien ne quitte l'appareil.
+// « Teste ton niveau » : 15 questions tirées des annales de la Course aux
+// nombres (CAN) de MathALÉA, 5 parmi les questions 1 à 10 des sujets
+// (automatismes), 10 parmi les suivantes. Les questions sont classées par
+// domaine (questionsCan.json, scripts/questions-can.mts) : le tirage alterne
+// les domaines et ne prend jamais deux fois la même question ni le même titre.
+// 80 % donnent la ceinture du niveau. Tout vient du moteur : rien ne quitte
+// l'appareil.
 import { CEINTURES, type Etape, type Parcours } from './catalogue'
 import type { ExerciceDuReferentiel } from './moteur'
 import { melanger } from './progression'
+import QUESTIONS_CAN from './questionsCan.json'
 
 export const SEUIL_TEST = 80
-export const NB_REPERAGE = 10
-export const NB_VALIDATION = 20
+export const NB_AUTOMATISMES = 5 // parmi les questions 1 à 10 des sujets
+export const NB_QUESTIONS = 15
 export const PREFIXE_TEST = 'test-niveau-'
 
 export interface NiveauTest {
@@ -46,14 +49,17 @@ export const couleurDu = (rang: number) => CEINTURES[Math.min(rang, CEINTURES.le
 const SUJET = /^can(.+)a-(\d{4})[a-zA-Z]?$/
 export const ANNEE_MINIMUM = 2024
 
-export interface SujetCan {
-  uuid: string
-  id: string
+/** Question d'un sujet, classée (questionsCan.json) */
+export interface QuestionCan {
+  n: number // rang dans le sujet, à partir de 1
+  source: string // fichier de MathALÉA : une question reprise par deux sujets n'est tirée qu'une fois
   titre: string
-  nbQuestions: number
+  domaine: string | null
 }
+export type ClassementCan = Record<string, QuestionCan[]> // par identifiant de sujet
 
-export function sujetsDu(niveau: NiveauTest, referentiel: ExerciceDuReferentiel[]) {
+/** Sujets du niveau présents dans le moteur et dans le classement */
+export function sujetsDu(niveau: NiveauTest, referentiel: ExerciceDuReferentiel[], classement: ClassementCan = QUESTIONS_CAN) {
   return referentiel.filter((e) => {
     const m = SUJET.exec(e.id)
     return (
@@ -62,56 +68,102 @@ export function sujetsDu(niveau: NiveauTest, referentiel: ExerciceDuReferentiel[
       e.niveau === 'CAN' &&
       m[1] === niveau.prefixe &&
       Number(m[2]) >= ANNEE_MINIMUM &&
-      (!niveau.titre || niveau.titre.test(e.titre))
+      (!niveau.titre || niveau.titre.test(e.titre)) &&
+      !!classement[e.id]?.length
     )
   })
 }
 
+type Candidate = QuestionCan & { sujet: ExerciceDuReferentiel }
+const cleTitre = (t: string) =>
+  t
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/\(qcm\)|[^a-z0-9]+/g, ' ')
+    .trim()
+
+/**
+ * k questions qui alternent les domaines (le moins servi d'abord), sans
+ * reprendre une source ni un titre déjà pris. Un titre vide ne compte pas
+ * comme doublon.
+ */
+function piocher(candidates: Candidate[], k: number, graine: string, prises: Set<string>) {
+  const parDomaine = new Map<string, Candidate[]>()
+  for (const c of melanger(candidates, graine)) parDomaine.set(c.domaine ?? 'autres', [...(parDomaine.get(c.domaine ?? 'autres') ?? []), c])
+  // Questions sans domaine (titre vide ou « Question 12 ») : seulement pour compléter
+  const domaines = melanger([...parDomaine.keys()].filter((d) => d !== 'autres').sort(), `${graine}-domaines`)
+  const choix: Candidate[] = []
+  for (const tour of [domaines, ['autres']]) {
+    let progres = true
+    while (choix.length < k && progres) {
+      progres = false
+      for (const d of tour) {
+        if (!parDomaine.has(d)) continue
+        if (choix.length >= k) break
+        const liste = parDomaine.get(d)!
+        const i = liste.findIndex((c) => !prises.has(c.source) && !(cleTitre(c.titre) && prises.has(`titre:${cleTitre(c.titre)}`)))
+        if (i === -1) continue
+        const [c] = liste.splice(i, 1)
+        prises.add(c.source)
+        if (cleTitre(c.titre)) prises.add(`titre:${cleTitre(c.titre)}`)
+        choix.push(c)
+        progres = true
+      }
+    }
+  }
+  return choix
+}
+
 /** Questions d'un sujet groupées en une étape : « 3-7 » produit les questions 3 et 7 */
-function etapesDe(choix: { sujet: SujetCan; numero: number }[], sujets: SujetCan[]): Etape[] {
-  return sujets
-    .map((sujet) => ({
-      sujet,
-      numeros: choix
-        .filter((c) => c.sujet.uuid === sujet.uuid)
-        .map((c) => c.numero)
-        .sort((a, b) => a - b),
-    }))
-    .filter((x) => x.numeros.length)
-    .map(({ sujet, numeros }) => ({
-      uuid: sujet.uuid,
-      id: sujet.id,
-      titre: sujet.titre,
+function etapesDe(choix: Candidate[]): Etape[] {
+  const parSujet = new Map<string, Candidate[]>()
+  for (const c of choix) parSujet.set(c.sujet.uuid, [...(parSujet.get(c.sujet.uuid) ?? []), c])
+  return [...parSujet.values()].map((cs) => {
+    const numeros = cs.map((c) => c.n).sort((a, b) => a - b)
+    return {
+      uuid: cs[0].sujet.uuid,
+      id: cs[0].sujet.id,
+      titre: cs[0].sujet.titre,
       nbQuestions: numeros.length,
       sup: 'false', // données aléatoires, pas celles du sujet officiel
       sup2: numeros.join('-'),
       sup3: 'false',
-    }))
+    }
+  })
 }
 
 /**
- * Nouveau test d'un niveau : tirage sans doublon, 10 questions parmi les
- * questions 1 à 10 des sujets, 20 parmi les suivantes. La version augmente à
- * chaque tirage : la séance garde sa copie figée.
+ * Nouveau test d'un niveau : 5 questions parmi les questions 1 à 10 des
+ * sujets, 10 parmi les suivantes, domaines alternés, sans doublon. La version
+ * augmente à chaque tirage : la séance garde sa copie figée.
  */
-export function tirerTest(niveau: NiveauTest, sujets: SujetCan[], graine: string, version: number): Parcours {
-  const numeros = (s: SujetCan, de: number, a: number) =>
-    Array.from({ length: Math.max(0, Math.min(a, s.nbQuestions) - de + 1) }, (_, i) => ({ sujet: s, numero: de + i }))
-  const reperage = melanger(
-    sujets.flatMap((s) => numeros(s, 1, NB_REPERAGE)),
-    `${graine}-reperage`,
-  ).slice(0, NB_REPERAGE)
-  const validation = melanger(
-    sujets.flatMap((s) => numeros(s, NB_REPERAGE + 1, s.nbQuestions)),
-    `${graine}-validation`,
-  ).slice(0, NB_VALIDATION)
-  const etapes1 = etapesDe(reperage, sujets)
-  const etapes2 = etapesDe(validation, sujets)
+export function tirerTest(
+  niveau: NiveauTest,
+  sujets: ExerciceDuReferentiel[],
+  graine: string,
+  version: number,
+  classement: ClassementCan = QUESTIONS_CAN,
+): Parcours {
+  const toutes: Candidate[] = sujets.flatMap((sujet) => (classement[sujet.id] ?? []).map((q) => ({ ...q, sujet })))
+  const prises = new Set<string>()
+  const automatismes = piocher(
+    toutes.filter((q) => q.n <= 10),
+    NB_AUTOMATISMES,
+    `${graine}-1`,
+    prises,
+  )
+  const suite = piocher(
+    toutes.filter((q) => q.n > 10),
+    NB_QUESTIONS - automatismes.length,
+    `${graine}-2`,
+    prises,
+  )
   return {
     id: `${PREFIXE_TEST}${niveau.cle}`,
     version,
     titre: `Teste ton niveau : ${niveau.nom}`,
-    objectif: `${NB_REPERAGE} questions de repérage, puis ${NB_VALIDATION} pour valider (${SEUIL_TEST} % pour réussir).`,
+    objectif: `${NB_QUESTIONS} questions de la Course aux nombres, ${SEUIL_TEST} % pour obtenir la ceinture.`,
     niveau: niveau.nom,
     theme: 'Course aux nombres',
     difficulte: 2,
@@ -120,27 +172,17 @@ export function tirerTest(niveau: NiveauTest, sujets: SujetCan[], graine: string
     correction: 'parcours',
     enTetesMasques: true,
     melanger: true,
-    etapes: [...etapes1, ...etapes2],
-    paliers: [
-      { titre: 'Repérage', nb: etapes1.length },
-      { titre: 'Validation', nb: etapes2.length, acces: 'seuil', seuil: SEUIL_TEST },
-    ],
+    etapes: etapesDe([...automatismes, ...suite]),
   }
 }
 
 export const estTest = (id: string | undefined) => !!id?.startsWith(PREFIXE_TEST)
 export const niveauDuTest = (id: string) => NIVEAUX_TEST.findIndex((n) => `${PREFIXE_TEST}${n.cle}` === id)
 
-/** Étapes de la partie 0 (repérage) ou 1 (validation) d'un test tiré */
-export function partie(p: Parcours, k: 0 | 1) {
-  const nb = p.paliers?.[0]?.nb ?? 0
-  return k === 0 ? Array.from({ length: nb }, (_, i) => i) : Array.from({ length: p.etapes.length - nb }, (_, i) => nb + i)
-}
-
-/** Ce que l'app garde du test : dernier tirage et étapes franchies, par niveau */
+/** Ce que l'app garde du test, par niveau : dernier tirage et date de validation */
 export interface EtatNiveau {
   tirage?: Parcours
-  reperage?: boolean // repérage réussi sur ce tirage : validation à faire
+  reperage?: boolean // 0.3.0 (repérage puis validation) : lu, plus utilisé
   valideLe?: string
 }
 export type EtatTest = Record<string, EtatNiveau>

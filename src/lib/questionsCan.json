@@ -1,0 +1,5100 @@
+{
+ "canCE1a-2025": [
+  {
+   "n": 1,
+   "source": "can/canCE1a-2025/canCE1-2025-Q1",
+   "titre": "Multiple simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/canCE1a-2025/canCE1-2025-Q2",
+   "titre": "Convertir",
+   "domaine": "mesures"
+  },
+  {
+   "n": 3,
+   "source": "can/canCE1a-2025/canCE1-2025-Q3",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/canCE1a-2025/canCE1-2025-Q4",
+   "titre": "Résoudre un petit problème",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/canCE1a-2025/canCE1-2025-Q5",
+   "titre": "Chercher un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/canCE1a-2025/canCE1-2025-Q6",
+   "titre": "Trouver un nombre (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/canCE1a-2025/canCE1-2025-Q7",
+   "titre": "Trouver un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/canCE1a-2025/canCE1-2025-Q8",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/canCE1a-2025/canCE1-2025-Q9",
+   "titre": "Trouver un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/canCE1a-2025/canCE1-2025-Q10",
+   "titre": "Vocabulaire dans un solide (QCM)",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 11,
+   "source": "can/canCE1a-2025/canCE1-2025-Q11",
+   "titre": "Trouver un nombre dans une suite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 12,
+   "source": "can/canCE1a-2025/canCE1-2025-Q12",
+   "titre": "Résoudre un problème",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/canCE1a-2025/canCE1-2025-Q13",
+   "titre": "Trouver la moitié d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 14,
+   "source": "can/canCE1a-2025/canCE1-2025-Q14",
+   "titre": "Trouver un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canCE1a-2025/canCE1-2025-Q15",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/canCE1a-2025/canCE1-2025-Q16",
+   "titre": "Calculer avec des dizaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/canCE1a-2025/canCE1-2025-Q17",
+   "titre": "Trouver la moitié d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/c3/canc3D04",
+   "titre": "Indiquer l'heure sur une horloge",
+   "domaine": "mesures"
+  },
+  {
+   "n": 19,
+   "source": "can/canCE1a-2025/canCE1-2025-Q19",
+   "titre": "Trouver la moitié d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canCE1a-2025/canCE1-2025-Q20",
+   "titre": "Déterminer une abscisse sur une droite graduée",
+   "domaine": "geometrie"
+  }
+ ],
+ "canCE1a-2026": [
+  {
+   "n": 1,
+   "source": "can/canCE1a-2026/canCE1-2026-Q1",
+   "titre": "Trouver la moitié d'un nombre (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/canCE1a-2026/canCE1-2026-Q2",
+   "titre": "Trouver le résultat le plus petit (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/canCE1a-2026/canCE1-2026-Q3",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/canCE1a-2026/canCE1-2026-Q4",
+   "titre": "Résoudre un problème de jeu de l'oie",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/canCE1a-2026/canCE1-2026-Q5",
+   "titre": "Choisir un nombre vérifiant trois conditions (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/canCE1a-2026/canCE1-2026-Q6",
+   "titre": "Trouver un nombre compris entre deux autres (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/canCE1a-2026/canCE1-2026-Q7",
+   "titre": "Déterminer le plus nombre possible",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/canCE1a-2026/canCE1-2026-Q8",
+   "titre": " (QCM)",
+   "domaine": null
+  },
+  {
+   "n": 9,
+   "source": "can/canCE1a-2026/canCE1-2026-Q9",
+   "titre": "Écrire un nombre en chiffres (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/canCE1a-2026/canCE1-2026-Q10",
+   "titre": "Donner le nombre de faces d'un cube (QCM)",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 11,
+   "source": "can/canCE1a-2026/canCE1-2026-Q11",
+   "titre": "Compléter une suite logique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/canCE1a-2026/canCE1-2026-Q12",
+   "titre": "Résoudre un problème de soustraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/canCE1a-2026/canCE1-2026-Q13",
+   "titre": "Calculer le double d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 14,
+   "source": "can/canCE1a-2026/canCE1-2026-Q14",
+   "titre": "Trouver un nombre connaissant le nombre de dizaines et les unités",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canCE1a-2026/canCE1-2026-Q15",
+   "titre": "Trouver la figure avec deux angles droits (QCM)",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 16,
+   "source": "can/canCE1a-2026/canCE1-2026-Q16",
+   "titre": "Enlever des centaines à un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/canCE1a-2026/canCE1-2026-Q17",
+   "titre": "Trouver un nombre connaissant le nombre de dizaines et les unités",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/canCE1a-2026/canCE1-2026-Q18",
+   "titre": "Trouve l'heure sur une horloge (QCM)",
+   "domaine": "mesures"
+  },
+  {
+   "n": 19,
+   "source": "can/canCE1a-2026/canCE1-2026-Q19",
+   "titre": "Compléter un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canCE1a-2026/canCE1-2026-Q20",
+   "titre": "Trouver la la fraction un demi (QCM)",
+   "domaine": "nombres"
+  }
+ ],
+ "canCE2a-2025": [
+  {
+   "n": 1,
+   "source": "can/canCE2a-2025/canCE2-2025-Q1",
+   "titre": "Complément à la dizaine supérieure",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/canCE2a-2025/canCE2-2025-Q2",
+   "titre": "Tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/canCE2a-2025/canCE2-2025-Q3",
+   "titre": "Droite des nombres",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 4,
+   "source": "can/canCE2a-2025/canCE2-2025-Q4",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/canCE2a-2025/canCE2-2025-Q5",
+   "titre": "Multiple simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/canCE2a-2025/canCE2-2025-Q6",
+   "titre": "Multiple simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/canCE2a-2025/canCE2-2025-Q7",
+   "titre": "Numeration simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/canCE2a-2025/canCE2-2025-Q8",
+   "titre": "Combien de fois ?",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/canCE2a-2025/canCE2-2025-Q9",
+   "titre": "Complément à la centaine supérieure",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/canCE2a-2025/canCE2-2025-Q10",
+   "titre": "Numeration et ordre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canCE2a-2025/canCE2-2025-Q11",
+   "titre": "Visualisation 3d",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 12,
+   "source": "can/canCE2a-2025/canCE2-2025-Q12",
+   "titre": "Mulitiplier des mutiples de dix",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/canCE2a-2025/canCE2-2025-Q13",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 14,
+   "source": "can/canCE2a-2025/canCE2-2025-Q14",
+   "titre": "Numeration et intervalle",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canCE2a-2025/canCE2-2025-Q15",
+   "titre": "Division euclidienne",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/canCE2a-2025/canCE2-2025-Q16",
+   "titre": "Multiples simples",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/canCE2a-2025/canCE2-2025-Q17",
+   "titre": "Multiples de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/canCE2a-2025/canCE2-2025-Q18",
+   "titre": "Numération compliquée",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/canCE2a-2025/canCE2-2025-Q19",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canCE2a-2025/canCE2-2025-Q20",
+   "titre": "Somme facilitée",
+   "domaine": "nombres"
+  }
+ ],
+ "canc3a-2024": [
+  {
+   "n": 1,
+   "source": "can/can6a-2024/can6a-2024-Q1",
+   "titre": "Calculer avec les tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2024/can6a-2024-Q2",
+   "titre": "Ajouter un nombre se finissant par 9",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2024/can6a-2024-Q3",
+   "titre": "Écrire un nombre à partir des dizaines ou des centaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2024/can6a-2024-Q4",
+   "titre": "Calculer avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2024/can6a-2024-Q5",
+   "titre": "Compléter une égalité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2024/can6a-2024-Q6",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2024/can6a-2024-Q7",
+   "titre": "Compléter une table de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2024/can6a-2024-Q8",
+   "titre": "Résoudre un problème concret",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2024/can6a-2024-Q9",
+   "titre": "Écrire des heurs/minutes en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2024/can6a-2024-Q10",
+   "titre": "Trouver une valeur possible de hauteur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canc3a-2024/canc3a-2024-Q11",
+   "titre": "Trouver le plus grand nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/canc3a-2024/canc3a-2024-Q12",
+   "titre": "Multiplier astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/canc3a-2024/canc3a-2024-Q13",
+   "titre": "Calculer un coût",
+   "domaine": "nombres"
+  },
+  {
+   "n": 14,
+   "source": "can/canc3a-2024/canc3a-2024-Q14",
+   "titre": "Multiplier par 10, ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canc3a-2024/canc3a-2024-Q15",
+   "titre": "Calculer le périmètre d'un rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 16,
+   "source": "can/canc3a-2024/canc3a-2024-Q16",
+   "titre": "Calculer le quart d'une quantité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/canc3a-2024/canc3a-2024-Q17",
+   "titre": "Calculer un nombre de billes",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can6a-2024/can6a-2024-Q18",
+   "titre": "Déterminer l'aire  d'un trapèze rectangle en ua",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/canc3a-2024/canc3a-2024-Q19",
+   "titre": "Soustraire un décimal à un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canc3a-2024/canc3a-2024-Q20",
+   "titre": "Calculer une distance à partir d'une vitesse",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 21,
+   "source": "can/canc3a-2024/canc3a-2024-Q21",
+   "titre": "Déterminer une abscisse sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 22,
+   "source": "can/canc3a-2024/canc3a-2024-Q22",
+   "titre": "Déterminer une abscisse sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 23,
+   "source": "can/canc3a-2024/canc3a-2024-Q23",
+   "titre": "Calculer la moitié d'un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 24,
+   "source": "can/canc3a-2024/canc3a-2024-Q24",
+   "titre": "Placer la virgule dans un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 25,
+   "source": "can/can6a-2024/can6a-2024-Q25",
+   "titre": "Encadrer un décimal par deux entiers consécutifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/canc3a-2024/canc3a-2024-Q26",
+   "titre": "Additionner des décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/can6a-2024/can6a-2024-Q27",
+   "titre": "Déterminer une fraction d'aire",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/can6a-2024/can6a-2024-Q28",
+   "titre": "Compléter 1 litre",
+   "domaine": "mesures"
+  },
+  {
+   "n": 29,
+   "source": "can/canc3a-2024/canc3a-2024-Q29",
+   "titre": "Diviser par 5",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can6a-2024/can6a-2024-Q30",
+   "titre": "Résoudre un problème avec une différence",
+   "domaine": "nombres"
+  }
+ ],
+ "canc3a-2025": [
+  {
+   "n": 1,
+   "source": "can/can6a-2025/can6a-2025-Q1",
+   "titre": "Sommes de nombres entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2025/can6a-2025-Q2",
+   "titre": "Tables à trou",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2025/can6a-2025-Q3",
+   "titre": "Nombre de dizaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2025/can6a-2025-Q4",
+   "titre": "Écrire un nombre en chiffres",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2025/can6a-2025-Q5",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2025/can6a-2025-Q6",
+   "titre": "Ajouter une demi-heure",
+   "domaine": "mesures"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2025/can6a-2025-Q7",
+   "titre": "Multiple simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2025/can6a-2025-Q8",
+   "titre": "Calculer avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2025/can6a-2025-Q9",
+   "titre": "Compléter une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2025/can6a-2025-Q10",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canc3a-2025/canc3a-2025-Q11",
+   "titre": "Calculer avec des dixèmes/centièmes",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/canc3a-2025/canc3a-2025-Q12",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/canc3a-2025/canc3a-2025-Q13",
+   "titre": "Résoudre un problème de monnaie",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/canc3a-2025/canc3a-2025-Q14",
+   "titre": "Calculer une somme astucieusment",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can6a-2025/can6a-2025-Q15",
+   "titre": "Comparer deux périmètres",
+   "domaine": "mesures"
+  },
+  {
+   "n": 16,
+   "source": "can/can6a-2025/can6a-2025-Q16",
+   "titre": "Comparer deux aires",
+   "domaine": "mesures"
+  },
+  {
+   "n": 17,
+   "source": "can/canc3a-2025/canc3a-2025-Q17",
+   "titre": "Calculer la longueur d'un segment par comparaison",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 18,
+   "source": "can/canc3a-2025/canc3a-2025-Q18",
+   "titre": "Calculer la longueur d'un côté d'un triangle équilatéral",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/canc3a-2025/canc3a-2025-Q19",
+   "titre": "Compléter une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canc3a-2025/canc3a-2025-Q20",
+   "titre": "Calculer le tiers d'une quantité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can6a-2025/can6a-2025-Q21",
+   "titre": "Effetuer une multiplication avec $25$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/canc3a-2025/canc3a-2025-Q22",
+   "titre": "Effetuer une multiplication avec $25$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/canc3a-2025/canc3a-2025-Q23",
+   "titre": "ECalculer un rendu de monnaie",
+   "domaine": "mesures"
+  },
+  {
+   "n": 24,
+   "source": "can/canc3a-2025/canc3a-2025-Q24",
+   "titre": "Compléter une suite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can6a-2025/can6a-2025-Q25",
+   "titre": "Déterminer le résultat d'un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/canc3a-2025/canc3a-2025-Q26",
+   "titre": "Trouver un nombre sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/canc3a-2025/canc3a-2025-Q27",
+   "titre": "Convertir des minutes en heures/minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/canc3a-2025/canc3a-2025-Q28",
+   "titre": "Calculer d'un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/canc3a-2025/canc3a-2025-Q29",
+   "titre": "Convertir en mm",
+   "domaine": "mesures"
+  },
+  {
+   "n": 30,
+   "source": "can/canc3a-2025/canc3a-2025-Q30",
+   "titre": "Calculer le résultat d'une division par 5",
+   "domaine": "nombres"
+  }
+ ],
+ "canc3a-2025b": [
+  {
+   "n": 1,
+   "source": "can/can6a-2025/can6a-2025-Q1",
+   "titre": "Sommes de nombres entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2025/can6a-2025-Q2",
+   "titre": "Tables à trou",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2025/can6a-2025-Q3",
+   "titre": "Nombre de dizaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2025/can6a-2025-Q4",
+   "titre": "Écrire un nombre en chiffres",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2025/can6a-2025-Q5",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2025/can6a-2025-Q6",
+   "titre": "Ajouter une demi-heure",
+   "domaine": "mesures"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2025/can6a-2025-Q7",
+   "titre": "Multiple simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2025/can6a-2025-Q8",
+   "titre": "Calculer avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2025/can6a-2025-Q9",
+   "titre": "Compléter une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2025/can6a-2025-Q10",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q11",
+   "titre": "Calculer avec des dizaines/centaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q12",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q13",
+   "titre": "Résoudre un problème de longueurs",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q14",
+   "titre": "Calculer une somme astucieusment",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q15",
+   "titre": "Calculer la longueur d'un contour",
+   "domaine": "mesures"
+  },
+  {
+   "n": 16,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q16",
+   "titre": "Tracer une figure avec une aire donnée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 17,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q17",
+   "titre": "Calculer la longueur d'un segment par comparaison",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 18,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q18",
+   "titre": "Calculer la longueur d'un côté d'un triangle connaissant la longueur de son contour",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q19",
+   "titre": "Trouver le plus grand nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q20",
+   "titre": "Calculer le tiers d'une quantité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q21",
+   "titre": "Effetuer une multiplication avec $50$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q22",
+   "titre": "Effetuer une multiplication avec $50$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q23",
+   "titre": "Calculer un rendu de monnaie",
+   "domaine": "mesures"
+  },
+  {
+   "n": 24,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q24",
+   "titre": "Compléter une suite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q25",
+   "titre": "Déterminer le résultat d'un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q26",
+   "titre": "Trouver un nombre sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q27",
+   "titre": "Convertir des heures en heures/minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q28",
+   "titre": "Calculer d'un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q29",
+   "titre": "Convertir des m en cm",
+   "domaine": "mesures"
+  },
+  {
+   "n": 30,
+   "source": "can/canc3a-CM1-2025/canc3a-CM1-2025-Q30",
+   "titre": "Calculer le résultat d'une division par 3 ou 4",
+   "domaine": "nombres"
+  }
+ ],
+ "canc3a-2026": [
+  {
+   "n": 1,
+   "source": "can/can6a-2026/can6a-2026-Q1",
+   "titre": "Déterminer les facteurs d'un carré parfait",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2026/can6a-2026-Q2",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2026/can6a-2026-Q3",
+   "titre": "Calculer un prix total",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2026/can6a-2026-Q4",
+   "titre": "Calculer une valeur dans un partage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2026/can6a-2026-Q5",
+   "titre": "Calculer le double d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2026/can6a-2026-Q6",
+   "titre": "Compléter une égalité avec une multiplication par 100 ou 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2026/can6a-2026-Q7",
+   "titre": "Déterminer un prix par somme",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2026/can6a-2026-Q8",
+   "titre": "Déterminer l'abscisse d'un point sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2026/can6a-2026-Q9",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2026/can6a-2026-Q10",
+   "titre": "Compléter une égalité avec une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canc3a-2026/canc3a-2026-Q11",
+   "titre": "Compléter une égalité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can6a-2026/can6a-2026-Q12",
+   "titre": "Calculer une valeur à l'aide d'un tableau",
+   "domaine": "donnees"
+  },
+  {
+   "n": 13,
+   "source": "can/canc3a-2026/canc3a-2026-Q13",
+   "titre": "Additionner des m et des cm",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/canc3a-2026/canc3a-2026-Q14",
+   "titre": "Calculer une somme avec une fraction décimale",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canc3a-2026/canc3a-2026-Q15",
+   "titre": "Chercher le nombre de fois d'une fraction pour obtenir 1",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/canc3a-2026/canc3a-2026-Q16",
+   "titre": "Compléter sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 17,
+   "source": "can/canc3a-2026/canc3a-2026-Q17",
+   "titre": "Calculer un prix avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 18,
+   "source": "can/canc3a-2026/canc3a-2026-Q18",
+   "titre": "Calculer la moitié d'un nombre ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/canc3a-2026/canc3a-2026-Q19",
+   "titre": "Trouver le plus grand nombre (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canc3a-2026/canc3a-2026-Q20",
+   "titre": "Calculer une longueur à partir d'un périmètre",
+   "domaine": "mesures"
+  },
+  {
+   "n": 21,
+   "source": "can/canc3a-2026/canc3a-2026-Q21",
+   "titre": "Calculer un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/canc3a-2026/canc3a-2026-Q22",
+   "titre": "Calculer un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/canc3a-2026/canc3a-2026-Q23",
+   "titre": "Convertir en secondes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 24,
+   "source": "can/canc3a-2026/canc3a-2026-Q24",
+   "titre": "Convertir en centaines/unités",
+   "domaine": "mesures"
+  },
+  {
+   "n": 25,
+   "source": "can/canc3a-2026/canc3a-2026-Q25",
+   "titre": "Donner la nature d'un quadrilatère",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 26,
+   "source": "can/canc3a-2026/canc3a-2026-Q26",
+   "titre": "Tracer un segment de longueur fractionnaire",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/canc3a-2026/canc3a-2026-Q27",
+   "titre": "Déterminer un prix",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 28,
+   "source": "can/canc3a-2026/canc3a-2026-Q28",
+   "titre": "Calculer un produit avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/canc3a-2026/canc3a-2026-Q29",
+   "titre": "Enlever une centaine",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/canc3a-2026/canc3a-2026-Q30",
+   "titre": "Trouver un nombre de boîtes",
+   "domaine": "nombres"
+  }
+ ],
+ "canc3a-2026b": [
+  {
+   "n": 1,
+   "source": "can/can6a-2026/can6a-2026-Q1",
+   "titre": "Déterminer les facteurs d'un carré parfait",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2026/can6a-2026-Q2",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2026/can6a-2026-Q3",
+   "titre": "Calculer un prix total",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2026/can6a-2026-Q4",
+   "titre": "Calculer une valeur dans un partage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2026/can6a-2026-Q5",
+   "titre": "Calculer le double d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2026/can6a-2026-Q6",
+   "titre": "Compléter une égalité avec une multiplication par 100 ou 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2026/can6a-2026-Q7",
+   "titre": "Déterminer un prix par somme",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2026/can6a-2026-Q8",
+   "titre": "Déterminer l'abscisse d'un point sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2026/can6a-2026-Q9",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2026/can6a-2026-Q10",
+   "titre": "Compléter une égalité avec une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q11",
+   "titre": "Compléter une égalité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can6a-2026/can6a-2026-Q12",
+   "titre": "Calculer une valeur à l'aide d'un tableau",
+   "domaine": "donnees"
+  },
+  {
+   "n": 13,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q13",
+   "titre": "Additionner des m et des cm",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q14",
+   "titre": "Calculer une somme astucieusment",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/canc3a-2026/canc3a-2026-Q15",
+   "titre": "Chercher le nombre de fois d'une fraction pour obtenir 1",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q16",
+   "titre": "Tracer une figure avec une aire donnée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 17,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q17",
+   "titre": "Calculer la longueur d'un segment par comparaison",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 18,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q18",
+   "titre": "Calculer la moitié d'un nombre ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q19",
+   "titre": "Trouver le plus grand nombre (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q20",
+   "titre": "Calculer une longueur à partir d'un périmètre",
+   "domaine": "mesures"
+  },
+  {
+   "n": 21,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q21",
+   "titre": "Calculer un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q22",
+   "titre": "Calculer un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q23",
+   "titre": "Convertir en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 24,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q24",
+   "titre": "Convertir en dizaines/unités",
+   "domaine": "mesures"
+  },
+  {
+   "n": 25,
+   "source": "can/canc3a-2026/canc3a-2026-Q25",
+   "titre": "Donner la nature d'un quadrilatère",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 26,
+   "source": "can/canc3a-2026/canc3a-2026-Q26",
+   "titre": "Tracer un segment de longueur fractionnaire",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q27",
+   "titre": "Déterminer un rendu de monnaie",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q28",
+   "titre": "Trouver le complément à 1 avec des dixièmes",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q29",
+   "titre": "Ajouter une dizaine/centaine",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/canc3a-CM1-2026/canc3a-CM1-2026-Q30",
+   "titre": "Trouver un nombre de boîtes",
+   "domaine": "nombres"
+  }
+ ],
+ "can6a-2024": [
+  {
+   "n": 1,
+   "source": "can/can6a-2024/can6a-2024-Q1",
+   "titre": "Calculer avec les tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2024/can6a-2024-Q2",
+   "titre": "Ajouter un nombre se finissant par 9",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2024/can6a-2024-Q3",
+   "titre": "Écrire un nombre à partir des dizaines ou des centaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2024/can6a-2024-Q4",
+   "titre": "Calculer avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2024/can6a-2024-Q5",
+   "titre": "Compléter une égalité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2024/can6a-2024-Q6",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2024/can6a-2024-Q7",
+   "titre": "Compléter une table de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2024/can6a-2024-Q8",
+   "titre": "Résoudre un problème concret",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2024/can6a-2024-Q9",
+   "titre": "Écrire des heurs/minutes en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2024/can6a-2024-Q10",
+   "titre": "Trouver une valeur possible de hauteur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can6a-2024/can6a-2024-Q11",
+   "titre": "Trouver le plus grand d'un décimal et d'une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can6a-2024/can6a-2024-Q12",
+   "titre": "Multiplier astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/can6a-2024/can6a-2024-Q13",
+   "titre": "Calculer un coût",
+   "domaine": "nombres"
+  },
+  {
+   "n": 14,
+   "source": "can/can6a-2024/can6a-2024-Q14",
+   "titre": "Multiplier par 0,1...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can6a-2024/can6a-2024-Q15",
+   "titre": "Calculer le périmètre d'un rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 16,
+   "source": "can/can6a-2024/can6a-2024-Q16",
+   "titre": "Calculer avec un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 17,
+   "source": "can/can6a-2024/can6a-2024-Q17",
+   "titre": "Calculer un nombre de billes",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can6a-2024/can6a-2024-Q18",
+   "titre": "Déterminer l'aire  d'un trapèze rectangle en ua",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/can6a-2024/can6a-2024-Q19",
+   "titre": "Soustraire un décimal à un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can6a-2024/can6a-2024-Q20",
+   "titre": "Calculer une distance à partir d'une vitesse",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 21,
+   "source": "can/can6a-2024/can6a-2024-Q21",
+   "titre": "Déterminer une abscisse sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 22,
+   "source": "can/can6a-2024/can6a-2024-Q22",
+   "titre": "Déterminer une abscisse sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 23,
+   "source": "can/can6a-2024/can6a-2024-Q23",
+   "titre": "Calculer la moitié d'un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 24,
+   "source": "can/can6a-2024/can6a-2024-Q24",
+   "titre": "Placer la virgule dans un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 25,
+   "source": "can/can6a-2024/can6a-2024-Q25",
+   "titre": "Encadrer un décimal par deux entiers consécutifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/can6a-2024/can6a-2024-Q26",
+   "titre": "Additionner des décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/can6a-2024/can6a-2024-Q27",
+   "titre": "Déterminer une fraction d'aire",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/can6a-2024/can6a-2024-Q28",
+   "titre": "Compléter 1 litre",
+   "domaine": "mesures"
+  },
+  {
+   "n": 29,
+   "source": "can/can6a-2024/can6a-2024-Q29",
+   "titre": "Diviser par 5",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can6a-2024/can6a-2024-Q30",
+   "titre": "Résoudre un problème avec une différence",
+   "domaine": "nombres"
+  }
+ ],
+ "can6a-2025": [
+  {
+   "n": 1,
+   "source": "can/can6a-2025/can6a-2025-Q1",
+   "titre": "Sommes de nombres entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2025/can6a-2025-Q2",
+   "titre": "Tables à trou",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2025/can6a-2025-Q3",
+   "titre": "Nombre de dizaines",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2025/can6a-2025-Q4",
+   "titre": "Écrire un nombre en chiffres",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2025/can6a-2025-Q5",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2025/can6a-2025-Q6",
+   "titre": "Ajouter une demi-heure",
+   "domaine": "mesures"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2025/can6a-2025-Q7",
+   "titre": "Multiple simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2025/can6a-2025-Q8",
+   "titre": "Calculer avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2025/can6a-2025-Q9",
+   "titre": "Compléter une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2025/can6a-2025-Q10",
+   "titre": "Ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can6a-2025/can6a-2025-Q11",
+   "titre": "Calculer avec des dixèmes/centièmes",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can6a-2025/can6a-2025-Q12",
+   "titre": "Trouver un produit égal à 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/can6a-2025/can6a-2025-Q13",
+   "titre": "Calculer et convertir",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/can6a-2025/can6a-2025-Q14",
+   "titre": "Calculer une somme astucieusment",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can6a-2025/can6a-2025-Q15",
+   "titre": "Comparer deux périmètres",
+   "domaine": "mesures"
+  },
+  {
+   "n": 16,
+   "source": "can/can6a-2025/can6a-2025-Q16",
+   "titre": "Comparer deux aires",
+   "domaine": "mesures"
+  },
+  {
+   "n": 17,
+   "source": "can/can6a-2025/can6a-2025-Q17",
+   "titre": "Calculer une longueur",
+   "domaine": "mesures"
+  },
+  {
+   "n": 18,
+   "source": "can/can6a-2025/can6a-2025-Q18",
+   "titre": "Calculer la longueur d'un côté d'un carré",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/can6a-2025/can6a-2025-Q19",
+   "titre": "Comparer deux fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can6a-2025/can6a-2025-Q20",
+   "titre": "Calculer deux tiers d'une quantité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can6a-2025/can6a-2025-Q21",
+   "titre": "Effetuer une multiplication avec $25$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/can6a-2025/can6a-2025-Q22",
+   "titre": "Effetuer une multiplication avec $25$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/can6a-2025/can6a-2025-Q23",
+   "titre": "Calculer un rendu de monnaie",
+   "domaine": "mesures"
+  },
+  {
+   "n": 24,
+   "source": "can/can6a-2025/can6a-2025-Q24",
+   "titre": "Compléter une suite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can6a-2025/can6a-2025-Q25",
+   "titre": "Déterminer le résultat d'un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/can6a-2025/can6a-2025-Q26",
+   "titre": "Placer un point sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/can6a-2025/can6a-2025-Q27",
+   "titre": "Convertir des fractions d'heure en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/can6a-2025/can6a-2025-Q28",
+   "titre": "Calculer le produit d'un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/can6a-2025/can6a-2025-Q29",
+   "titre": "Convertir en cm",
+   "domaine": "mesures"
+  },
+  {
+   "n": 30,
+   "source": "can/can6a-2025/can6a-2025-Q30",
+   "titre": "Calculer le reste dans une division euclidienne",
+   "domaine": "nombres"
+  }
+ ],
+ "can6a-2026": [
+  {
+   "n": 1,
+   "source": "can/can6a-2026/can6a-2026-Q1",
+   "titre": "Déterminer les facteurs d'un carré parfait",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 2,
+   "source": "can/can6a-2026/can6a-2026-Q2",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can6a-2026/can6a-2026-Q3",
+   "titre": "Calculer un prix total",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 4,
+   "source": "can/can6a-2026/can6a-2026-Q4",
+   "titre": "Calculer une valeur dans un partage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can6a-2026/can6a-2026-Q5",
+   "titre": "Calculer le double d'un nombre",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can6a-2026/can6a-2026-Q6",
+   "titre": "Compléter une égalité avec une multiplication par 100 ou 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can6a-2026/can6a-2026-Q7",
+   "titre": "Déterminer un prix par somme",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can6a-2026/can6a-2026-Q8",
+   "titre": "Déterminer l'abscisse d'un point sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 9,
+   "source": "can/can6a-2026/can6a-2026-Q9",
+   "titre": "Calculer une différence",
+   "domaine": "nombres"
+  },
+  {
+   "n": 10,
+   "source": "can/can6a-2026/can6a-2026-Q10",
+   "titre": "Compléter une égalité avec une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can6a-2026/can6a-2026-Q11",
+   "titre": "Compléter une égalité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can6a-2026/can6a-2026-Q12",
+   "titre": "Calculer une valeur à l'aide d'un tableau",
+   "domaine": "donnees"
+  },
+  {
+   "n": 13,
+   "source": "can/can6a-2026/can6a-2026-Q13",
+   "titre": "Additionner des kg et des g",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/can6a-2026/can6a-2026-Q14",
+   "titre": "Calculer une somme avec des décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can6a-2026/can6a-2026-Q15",
+   "titre": "Chercher le nombre de fois d'une fraction pour obtenir une autre fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/can6a-2026/can6a-2026-Q16",
+   "titre": "Compléter sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 17,
+   "source": "can/can6a-2026/can6a-2026-Q17",
+   "titre": "Calculer un prix avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 18,
+   "source": "can/can6a-2026/can6a-2026-Q18",
+   "titre": "Calculer la moitié d'un nombre en dixièmes",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/can6a-2026/can6a-2026-Q19",
+   "titre": "Trouver le plus grand nombre (QCM)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can6a-2026/can6a-2026-Q20",
+   "titre": "Calculer une longueur à partir d'un périmètre",
+   "domaine": "mesures"
+  },
+  {
+   "n": 21,
+   "source": "can/can6a-2026/can6a-2026-Q21",
+   "titre": "Calculer un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/can6a-2026/can6a-2026-Q22",
+   "titre": "Calculer un produit",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/can6a-2026/can6a-2026-Q23",
+   "titre": "Convertir en secondes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 24,
+   "source": "can/can6a-2026/can6a-2026-Q24",
+   "titre": "Convertir en centièmes/dixièmes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 25,
+   "source": "can/can6a-2026/can6a-2026-Q25",
+   "titre": "Donner la nature d'un triangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 26,
+   "source": "can/can6a-2026/can6a-2026-Q26",
+   "titre": "Tracer un segment de longueur fractionnaire",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/can6a-2026/can6a-2026-Q27",
+   "titre": "Déterminer un prix",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 28,
+   "source": "can/can6a-2026/can6a-2026-Q28",
+   "titre": "Calculer un produit avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/can6a-2026/can6a-2026-Q29",
+   "titre": "Ajouter un dixième ou un centième",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can6a-2026/can6a-2026-Q30",
+   "titre": "Trouver un nombre de boîtes",
+   "domaine": "nombres"
+  }
+ ],
+ "can5a-2024": [
+  {
+   "n": 1,
+   "source": "can/can5a-2024/can5a-2024-Q1",
+   "titre": "Calculer avec les tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can5a-2024/can5a-2024-Q2",
+   "titre": "Calculer avec un quart, un tiers, ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can5a-2024/can5a-2024-Q3",
+   "titre": "Calculer une différence de deux entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can5a-2024/can5a-2024-Q4",
+   "titre": "Compléter un encadrement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can5a-2024/can5a-2024-Q5",
+   "titre": "Calculer une somme de deux décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can5a-2024/can5a-2024-Q6",
+   "titre": "Calculer une durée en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 7,
+   "source": "can/can5a-2024/can5a-2024-Q7",
+   "titre": "Multiplier par $10$ ou $100$ ou ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can5a-2024/can5a-2024-Q8",
+   "titre": "Faire une somme avec des fractions décimales",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can5a-2024/can5a-2024-Q9",
+   "titre": "Convertir des dm en m et réciproquement",
+   "domaine": "mesures"
+  },
+  {
+   "n": 10,
+   "source": "can/can5a-2024/can5a-2024-Q10",
+   "titre": "Calculer un prix dans une situation de proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can5a-2024/can5a-2024-Q11",
+   "titre": "Calculer astucieusement une somme de deux décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can5a-2024/can5a-2024-Q12",
+   "titre": "Compter le nombre d'axe de symétrie d'une figure",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 13,
+   "source": "can/can5a-2024/can5a-2024-Q13",
+   "titre": "Calculer une expression décrite par une phrase",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can5a-2024/can5a-2024-Q14",
+   "titre": "Déterminer une abscisse sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 15,
+   "source": "can/can5a-2024/can5a-2024-Q15",
+   "titre": "Calculer une quatrième proportionnelle dans un tableau de proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 16,
+   "source": "can/can5a-2024/can5a-2024-Q16",
+   "titre": "Effectuer un calcul",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/can5a-2024/can5a-2024-Q17",
+   "titre": "Compléter une suite logique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can5a-2024/can5a-2024-Q18",
+   "titre": "Calculer le volume d'un cube",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/can5a-2024/can5a-2024-Q19",
+   "titre": "Appliquer un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 20,
+   "source": "can/can5a-2024/can5a-2024-Q20",
+   "titre": "Trouver un ordre de grandeur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can5a-2024/can5a-2024-Q21",
+   "titre": "Effectuer une conversion d'aires",
+   "domaine": "mesures"
+  },
+  {
+   "n": 22,
+   "source": "can/can5a-2024/can5a-2024-Q22",
+   "titre": "Additionner deux fractions de même dénominateur",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/can5a-2024/can5a-2024-Q23",
+   "titre": "Déterminer un nombre de cubes dans une pyramide",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 24,
+   "source": "can/can5a-2024/can5a-2024-Q24",
+   "titre": "Simplifier une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 25,
+   "source": "can/can5a-2024/can5a-2024-Q25",
+   "titre": "Déterminer la mesure d'un angle sur un rapporteur",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 26,
+   "source": "can/can5a-2024/can5a-2024-Q26",
+   "titre": "Calculer une distance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/can5a-2024/can5a-2024-Q27",
+   "titre": "Déterminer la longueur d'un segment",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 28,
+   "source": "can/can5a-2024/can5a-2024-Q28",
+   "titre": "Décomposer une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 29,
+   "source": "can/can5a-2024/can5a-2024-Q29",
+   "titre": "Calculer la moitié d'une fracion",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can5a-2024/can5a-2024-Q30",
+   "titre": "Calculer une aire",
+   "domaine": "mesures"
+  }
+ ],
+ "can5a-2025": [
+  {
+   "n": 1,
+   "source": "can/can5a-2025/can5a-2025-Q1",
+   "titre": "Tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can5a-2025/can5a-2025-Q2",
+   "titre": "Somme de deux nombres décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can5a-2025/can5a-2025-Q3",
+   "titre": "Fraction simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can5a-2025/can5a-2025-Q4",
+   "titre": "Complément à 100",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can5a-2025/can5a-2025-Q5",
+   "titre": "Abscisse d'un point",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 6,
+   "source": "can/can5a-2025/can5a-2025-Q6",
+   "titre": "Priorité des opérations",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can5a-2025/can5a-2025-Q7",
+   "titre": "Conversion en minutes décimales",
+   "domaine": "mesures"
+  },
+  {
+   "n": 8,
+   "source": "can/can5a-2025/can5a-2025-Q8",
+   "titre": "Multiplication par 100 de nombres décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can5a-2025/can5a-2025-Q9",
+   "titre": "Dix pour cent",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 10,
+   "source": "can/can5a-2025/can5a-2025-Q10",
+   "titre": "Répartition",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can5a-2025/can5a-2025-Q11",
+   "titre": "Ecriture décimale",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can5a-2025/can5a-2025-Q12",
+   "titre": "Symétrie axiale",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 13,
+   "source": "can/can5a-2025/can5a-2025-Q13",
+   "titre": "Produit de 3 facteurs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 14,
+   "source": "can/can5a-2025/can5a-2025-Q14",
+   "titre": "Suite de nombres",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/can5a-2025/can5a-2025-Q15",
+   "titre": "Répartition",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 16,
+   "source": "can/can5a-2025/can5a-2025-Q16",
+   "titre": "Proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 17,
+   "source": "can/can5a-2025/can5a-2025-Q17",
+   "titre": "Conversion de longueurs",
+   "domaine": "mesures"
+  },
+  {
+   "n": 18,
+   "source": "can/can5a-2025/can5a-2025-Q18",
+   "titre": "Somme des angles d'un triangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/can5a-2025/can5a-2025-Q19",
+   "titre": "Numération",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can5a-2025/can5a-2025-Q20",
+   "titre": "Division euclidienne",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can5a-2025/can5a-2025-Q21",
+   "titre": "Calculer facilement avec la distributivité",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/can5a-2025/can5a-2025-Q22",
+   "titre": "Proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 23,
+   "source": "can/can5a-2025/can5a-2025-Q23",
+   "titre": "Majoration de fraction",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 24,
+   "source": "can/can5a-2025/can5a-2025-Q24",
+   "titre": "Partage d'un segment",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 25,
+   "source": "can/can5a-2025/can5a-2025-Q25",
+   "titre": "Expression à calculer",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/can5a-2025/can5a-2025-Q26",
+   "titre": "Égalité de fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/can5a-2025/can5a-2025-Q27",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 28,
+   "source": "can/can5a-2025/can5a-2025-Q28",
+   "titre": "Convertir un volume",
+   "domaine": "mesures"
+  },
+  {
+   "n": 29,
+   "source": "can/can5a-2025/can5a-2025-Q29",
+   "titre": "Calculer un produit astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can5a-2025/can5a-2025-Q30",
+   "titre": "Calculer une longueur de pavé",
+   "domaine": "geometrie"
+  }
+ ],
+ "can5a-2026": [
+  {
+   "n": 1,
+   "source": "can/can3a-2026/can3a-2026-Q1",
+   "titre": "Calculer un produit (table de multiplication)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can3a-2026/can3a-2026-Q2",
+   "titre": "Calculer une fraction d'heures",
+   "domaine": "mesures"
+  },
+  {
+   "n": 3,
+   "source": "can/can3a-2026/can3a-2026-Q3",
+   "titre": "Calculer une somme de décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can3a-2026/can3a-2026-Q4",
+   "titre": "Effectuer une conversion d'unités",
+   "domaine": "mesures"
+  },
+  {
+   "n": 5,
+   "source": "can/can3a-2026/can3a-2026-Q5",
+   "titre": "Multiplier un décimal par 10, 100, 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can3a-2026/can3a-2026-Q6",
+   "titre": "Déterminer un nombre manquant dans une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can3a-2026/can3a-2026-Q7",
+   "titre": "Calculer une fraction d'un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can3a-2026/can3a-2026-Q8",
+   "titre": "Calculer un prix avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can3a-2026/can3a-2026-Q9",
+   "titre": "Calculer une expression avec des priorités d'opérations",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can3a-2026/can3a-2026-Q10",
+   "titre": "Calculer 10, 20 ou 30  $\\\\%$ d'un nombre",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can5a-2026/can5a-2026-Q11",
+   "titre": "Calculer le périmètre d'un rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 12,
+   "source": "can/can5a-2026/can5a-2026-Q12",
+   "titre": "Multiplier un nombre décimalpar 0,2",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/can5a-2026/can5a-2026-Q13",
+   "titre": "Effectuer des conversions entre grammes et kilogrammes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/can5a-2026/can5a-2026-Q14",
+   "titre": "Déterminer le terme manquant dans une égalité de fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can5a-2026/can5a-2026-Q15",
+   "titre": "Déteterminer une heure de départ en soustrayant une durée",
+   "domaine": "mesures"
+  },
+  {
+   "n": 16,
+   "source": "can/can5a-2026/can5a-2026-Q16",
+   "titre": "Calculer la proportion de boules blanches dans un sac",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 17,
+   "source": "can/can5a-2026/can5a-2026-Q17",
+   "titre": "Calculer l'aire d'un triangle à partir de la base et de la hauteur",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 18,
+   "source": "can/can5a-2026/can5a-2026-Q18",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 19,
+   "source": "can/can5a-2026/can5a-2026-Q19",
+   "titre": "Calculer un angle dans un triangle connaissant les deux autres",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 20,
+   "source": "can/can5a-2026/can5a-2026-Q20",
+   "titre": "Écrire une fraction décimale en écriture décimale",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can5a-2026/can5a-2026-Q21",
+   "titre": "Effectuer des conversions de volumes entre m³ et dm³",
+   "domaine": "mesures"
+  },
+  {
+   "n": 22,
+   "source": "can/can5a-2026/can5a-2026-Q22",
+   "titre": "Déterminer le nombre de faces d'un solide",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 23,
+   "source": "can/can5a-2026/can5a-2026-Q23",
+   "titre": "Compléter une suite logique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 24,
+   "source": "can/can5a-2026/can5a-2026-Q24",
+   "titre": "Calculer le périmètre d'un rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 25,
+   "source": "can/can5a-2026/can5a-2026-Q25",
+   "titre": "Déterminer l'abscisse d'un point dans un repère",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/can5a-2026/can5a-2026-Q26",
+   "titre": "Déterminer le volume d'un pavé droit",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 27,
+   "source": "can/can5a-2026/can5a-2026-Q27",
+   "titre": "Calculer le double de la somme ou du produit de deux nombres",
+   "domaine": "nombres"
+  },
+  {
+   "n": 28,
+   "source": "can/can5a-2026/can5a-2026-Q28",
+   "titre": "Calculer un angle complémentaire",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 29,
+   "source": "can/can5a-2026/can5a-2026-Q29",
+   "titre": "Rendre une fraction irréductible",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can5a-2026/can5a-2026-Q30",
+   "titre": "Calculer la durée d'un trajet en vélo",
+   "domaine": "mesures"
+  }
+ ],
+ "can4a-2024": [
+  {
+   "n": 1,
+   "source": "can/can5a-2024/can5a-2024-Q1",
+   "titre": "Calculer avec les tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can5a-2024/can5a-2024-Q2",
+   "titre": "Calculer avec un quart, un tiers, ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can5a-2024/can5a-2024-Q3",
+   "titre": "Calculer une différence de deux entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can5a-2024/can5a-2024-Q4",
+   "titre": "Compléter un encadrement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can5a-2024/can5a-2024-Q5",
+   "titre": "Calculer une somme de deux décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can5a-2024/can5a-2024-Q6",
+   "titre": "Calculer une durée en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 7,
+   "source": "can/can5a-2024/can5a-2024-Q7",
+   "titre": "Multiplier par $10$ ou $100$ ou ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can5a-2024/can5a-2024-Q8",
+   "titre": "Faire une somme avec des fractions décimales",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can5a-2024/can5a-2024-Q9",
+   "titre": "Convertir des dm en m et réciproquement",
+   "domaine": "mesures"
+  },
+  {
+   "n": 10,
+   "source": "can/can5a-2024/can5a-2024-Q10",
+   "titre": "Calculer un prix dans une situation de proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can4a-2024/can4-2024-Q11",
+   "titre": "Passer des fractions d'heures en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 12,
+   "source": "can/can4a-2024/can4-2024-Q12",
+   "titre": "Convertir  cL <-> L",
+   "domaine": "mesures"
+  },
+  {
+   "n": 13,
+   "source": "can/can4a-2024/can4-2024-Q13",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 14,
+   "source": "can/can4a-2024/can4-2024-Q14",
+   "titre": "Connaitre le vocabulaire du cube",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 15,
+   "source": "can/can4a-2024/can4-2024-Q15",
+   "titre": "Additionner deux fractions de dénominateurs comptatibles",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/can4a-2024/can4-2024-Q16",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 17,
+   "source": "can/can4a-2024/can4-2024-Q17",
+   "titre": "Calculer une dimension dans un rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 18,
+   "source": "can/can4a-2024/can4-2024-Q18",
+   "titre": "Déterminer l'opposé ou l'inverse d'une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/can4a-2024/can4-2024-Q19",
+   "titre": "Calculer avec un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 20,
+   "source": "can/can4a-2024/can4-2024-Q20",
+   "titre": "Calculer une somme avec des relatifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can4a-2024/can4-2024-Q21",
+   "titre": "Comprendre un programme scratch",
+   "domaine": "algebre"
+  },
+  {
+   "n": 22,
+   "source": "can/can4a-2024/can4-2024-Q22",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 23,
+   "source": "can/can4a-2024/can4-2024-Q23",
+   "titre": "Calculer un produit astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 24,
+   "source": "can/can4a-2024/can4-2024-Q24",
+   "titre": "Réduire une expression littérale",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can4a-2024/can4-2024-Q25",
+   "titre": "Résoudre un problème de reste",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/can4a-2024/can4-2024-Q26",
+   "titre": "Calculer une longueur",
+   "domaine": "mesures"
+  },
+  {
+   "n": 27,
+   "source": "can/can4a-2024/can4-2024-Q27",
+   "titre": "Donner l'écriture décimale d'une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 28,
+   "source": "can/can4a-2024/can4-2024-Q28",
+   "titre": "Transformer une heure décimale en heures/minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 29,
+   "source": "can/can4a-2024/can4-2024-Q29",
+   "titre": "Calculer un produit astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can4a-2024/can4-2024-Q30",
+   "titre": "Calculer un produit astucieusement",
+   "domaine": "nombres"
+  }
+ ],
+ "can4a-2025": [
+  {
+   "n": 1,
+   "source": "can/can5a-2025/can5a-2025-Q1",
+   "titre": "Tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can5a-2025/can5a-2025-Q2",
+   "titre": "Somme de deux nombres décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can5a-2025/can5a-2025-Q3",
+   "titre": "Fraction simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can5a-2025/can5a-2025-Q4",
+   "titre": "Complément à 100",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can5a-2025/can5a-2025-Q5",
+   "titre": "Abscisse d'un point",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 6,
+   "source": "can/can5a-2025/can5a-2025-Q6",
+   "titre": "Priorité des opérations",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can5a-2025/can5a-2025-Q7",
+   "titre": "Conversion en minutes décimales",
+   "domaine": "mesures"
+  },
+  {
+   "n": 8,
+   "source": "can/can5a-2025/can5a-2025-Q8",
+   "titre": "Multiplication par 100 de nombres décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can5a-2025/can5a-2025-Q9",
+   "titre": "Dix pour cent",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 10,
+   "source": "can/can5a-2025/can5a-2025-Q10",
+   "titre": "Répartition",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can4a-2025/can4a-2025-Q11",
+   "titre": "Convertir des durées",
+   "domaine": "mesures"
+  },
+  {
+   "n": 12,
+   "source": "can/can4a-2025/can4a-2025-Q12",
+   "titre": "Distance sur un segment",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 13,
+   "source": "can/can4a-2025/can4a-2025-Q13",
+   "titre": "Conversion de longueurs",
+   "domaine": "mesures"
+  },
+  {
+   "n": 14,
+   "source": "can/can4a-2025/can4a-2025-Q14",
+   "titre": "Probabilités",
+   "domaine": "donnees"
+  },
+  {
+   "n": 15,
+   "source": "can/can4a-2025/can4a-2025-Q15",
+   "titre": "Arrondir un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/can4a-2025/can4a-2025-Q16",
+   "titre": "Différence de fracion",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/can4a-2025/can4a-2025-Q17",
+   "titre": "Boucle scratch",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/can4a-2025/can4a-2025-Q18",
+   "titre": "Calculer une longueur dans un triangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 19,
+   "source": "can/can4a-2025/can4a-2025-Q19",
+   "titre": "Programme de calcul",
+   "domaine": "algebre"
+  },
+  {
+   "n": 20,
+   "source": "can/can4a-2025/can4a-2025-Q20",
+   "titre": "Compter les sommets d'un prisme",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 21,
+   "source": "can/can4a-2025/can4a-2025-Q21",
+   "titre": "Somme de nombre relatifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/can4a-2025/can4a-2025-Q22",
+   "titre": "Somme de nombre relatifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/can4a-2025/can4a-2025-Q23",
+   "titre": "Réduire une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can4a-2025/can4a-2025-Q24",
+   "titre": "Fraction restante",
+   "domaine": "nombres"
+  },
+  {
+   "n": 25,
+   "source": "can/can4a-2025/can4a-2025-Q25",
+   "titre": "Somme astucieuse",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/can4a-2025/can4a-2025-Q26",
+   "titre": "Convertir des heures décimales en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 27,
+   "source": "can/can4a-2025/can4a-2025-Q27",
+   "titre": "Moitié d'un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 28,
+   "source": "can/can4a-2025/can4a-2025-Q28",
+   "titre": "Ratios",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 29,
+   "source": "can/can4a-2025/can4a-2025-Q29",
+   "titre": "Multiplier astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can4a-2025/can4a-2025-Q30",
+   "titre": "Aire du disque",
+   "domaine": "geometrie"
+  }
+ ],
+ "can4a-2026": [
+  {
+   "n": 1,
+   "source": "can/can3a-2026/can3a-2026-Q1",
+   "titre": "Calculer un produit (table de multiplication)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can3a-2026/can3a-2026-Q2",
+   "titre": "Calculer une fraction d'heures",
+   "domaine": "mesures"
+  },
+  {
+   "n": 3,
+   "source": "can/can3a-2026/can3a-2026-Q3",
+   "titre": "Calculer une somme de décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can3a-2026/can3a-2026-Q4",
+   "titre": "Effectuer une conversion d'unités",
+   "domaine": "mesures"
+  },
+  {
+   "n": 5,
+   "source": "can/can3a-2026/can3a-2026-Q5",
+   "titre": "Multiplier un décimal par 10, 100, 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can3a-2026/can3a-2026-Q6",
+   "titre": "Déterminer un nombre manquant dans une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can3a-2026/can3a-2026-Q7",
+   "titre": "Calculer une fraction d'un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can3a-2026/can3a-2026-Q8",
+   "titre": "Calculer un prix avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can3a-2026/can3a-2026-Q9",
+   "titre": "Calculer une expression avec des priorités d'opérations",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can3a-2026/can3a-2026-Q10",
+   "titre": "Calculer 10, 20 ou 30  $\\\\%$ d'un nombre",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can4a-2026/can4a-2026-Q11",
+   "titre": "Soustraire une fraction à 1",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can4a-2026/can4a-2026-Q12",
+   "titre": "Question 12",
+   "domaine": null
+  },
+  {
+   "n": 13,
+   "source": "can/can4a-2026/can4a-2026-Q13",
+   "titre": "Calculer l'aire d'un carré",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 14,
+   "source": "can/can4a-2026/can4a-2026-Q14",
+   "titre": "Compléter une suite logique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can4a-2026/can4a-2026-Q15",
+   "titre": "Calculer un angle dans un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 16,
+   "source": "can/can4a-2026/can4a-2026-Q16",
+   "titre": "Completer une égalité du type $a\\\\times ?-b=c$",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/can4a-2026/can4a-2026-Q17",
+   "titre": "Calculer un arrondi au dixième ou centième près",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can4a-2026/can4a-2026-Q18",
+   "titre": "Expression du périmètre d'un rectangle en fonction de sa largeur",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/can4a-2026/can4a-2026-Q19",
+   "titre": "Déterminer le reste d'une division euclidienne",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can4a-2026/can4a-2026-Q20",
+   "titre": "Calculer une expression littéralee pour une valeur donnée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/can4a-2026/can4a-2026-Q21",
+   "titre": "Transformer un nombre de secondes en minutes et secondes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 22,
+   "source": "can/can4a-2026/can4a-2026-Q22",
+   "titre": "Simplifier une écriture avec des produits",
+   "domaine": "nombres"
+  },
+  {
+   "n": 23,
+   "source": "can/can4a-2026/can4a-2026-Q23",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 24,
+   "source": "can/can4a-2026/can4a-2026-Q24",
+   "titre": "Question 24",
+   "domaine": null
+  },
+  {
+   "n": 25,
+   "source": "can/can4a-2026/can4a-2026-Q25",
+   "titre": "Question 25",
+   "domaine": null
+  },
+  {
+   "n": 26,
+   "source": "can/can4a-2026/can4a-2026-Q26",
+   "titre": "Question 26",
+   "domaine": null
+  },
+  {
+   "n": 27,
+   "source": "can/can4a-2026/can4a-2026-Q27",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 28,
+   "source": "can/can4a-2026/can4a-2026-Q28",
+   "titre": "Lire un nombre sur une droite graduée",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 29,
+   "source": "can/can4a-2026/can4a-2026-Q29",
+   "titre": "Compléter un tableau de proportionnalité ",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 30,
+   "source": "can/can4a-2026/can4a-2026-Q30",
+   "titre": "Calculer le volume d'un prisme droit à base triangulaire",
+   "domaine": "geometrie"
+  }
+ ],
+ "can3a-2024": [
+  {
+   "n": 1,
+   "source": "can/can5a-2024/can5a-2024-Q1",
+   "titre": "Calculer avec les tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can5a-2024/can5a-2024-Q2",
+   "titre": "Calculer avec un quart, un tiers, ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can5a-2024/can5a-2024-Q3",
+   "titre": "Calculer une différence de deux entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can5a-2024/can5a-2024-Q4",
+   "titre": "Compléter un encadrement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can5a-2024/can5a-2024-Q5",
+   "titre": "Calculer une somme de deux décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can5a-2024/can5a-2024-Q6",
+   "titre": "Calculer une durée en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 7,
+   "source": "can/can5a-2024/can5a-2024-Q7",
+   "titre": "Multiplier par $10$ ou $100$ ou ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can5a-2024/can5a-2024-Q8",
+   "titre": "Faire une somme avec des fractions décimales",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can5a-2024/can5a-2024-Q9",
+   "titre": "Convertir des dm en m et réciproquement",
+   "domaine": "mesures"
+  },
+  {
+   "n": 10,
+   "source": "can/can5a-2024/can5a-2024-Q10",
+   "titre": "Calculer un prix dans une situation de proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can3a-2024/can3-2024-Q11",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 12,
+   "source": "can/can3a-2024/can3-2024-Q12",
+   "titre": "Simplifier des puissances de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/can3a-2024/can3-2024-Q13",
+   "titre": "Réduire une expression littérale",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can3a-2024/can3-2024-Q14",
+   "titre": "Calculer avec un programme de calcul",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/can3a-2024/can3-2024-Q15",
+   "titre": "Soustraire deux fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/can3a-2024/can3-2024-Q16",
+   "titre": "Calculer le côté d'un carré à partir de son aire",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 17,
+   "source": "can/can3a-2024/can3-2024-Q17",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 18,
+   "source": "can/can3a-2024/can3-2024-Q18",
+   "titre": "Diviser des fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/can3a-2024/can3-2024-Q19",
+   "titre": "Calculer une fraction d'un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can3a-2024/can3-2024-Q20",
+   "titre": "Calculer une image",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/can3a-2024/can3-2024-Q21",
+   "titre": "Calculer une distance à partir d'une vitesse",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 22,
+   "source": "can/can3a-2024/can3-2024-Q22",
+   "titre": "Déterminer une médiane",
+   "domaine": "donnees"
+  },
+  {
+   "n": 23,
+   "source": "can/can3a-2024/can3-2024-Q23",
+   "titre": "Donner une écriture scientifique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 24,
+   "source": "can/can3a-2024/can3-2024-Q24",
+   "titre": "Calculer une expression pour une valeur particulière",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can3a-2024/can3-2024-Q25",
+   "titre": "Trouver un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 26,
+   "source": "can/can3a-2024/can3-2024-Q26",
+   "titre": "Exprimer en fonction de ...",
+   "domaine": "algebre"
+  },
+  {
+   "n": 27,
+   "source": "can/can3a-2024/can3-2024-Q27",
+   "titre": "Calculer une longueur dans un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 28,
+   "source": "can/can3a-2024/can3-2024-Q28",
+   "titre": "Calculer un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 29,
+   "source": "can/can3a-2024/can3-2024-Q29",
+   "titre": "Compléter un schéma avec un nombre ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can3a-2024/can3-2024-Q30",
+   "titre": "Calculer avec un ratio",
+   "domaine": "proportionnalite"
+  }
+ ],
+ "can3a-2025": [
+  {
+   "n": 1,
+   "source": "can/can5a-2025/can5a-2025-Q1",
+   "titre": "Tables de multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can5a-2025/can5a-2025-Q2",
+   "titre": "Somme de deux nombres décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can5a-2025/can5a-2025-Q3",
+   "titre": "Fraction simple",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can5a-2025/can5a-2025-Q4",
+   "titre": "Complément à 100",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can5a-2025/can5a-2025-Q5",
+   "titre": "Abscisse d'un point",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 6,
+   "source": "can/can5a-2025/can5a-2025-Q6",
+   "titre": "Priorité des opérations",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can5a-2025/can5a-2025-Q7",
+   "titre": "Conversion en minutes décimales",
+   "domaine": "mesures"
+  },
+  {
+   "n": 8,
+   "source": "can/can5a-2025/can5a-2025-Q8",
+   "titre": "Multiplication par 100 de nombres décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can5a-2025/can5a-2025-Q9",
+   "titre": "Dix pour cent",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 10,
+   "source": "can/can5a-2025/can5a-2025-Q10",
+   "titre": "Répartition",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can3a-2025/can3a-2025-Q11",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can3a-2025/can3a-2025-Q12",
+   "titre": "Soustraire 19, 29, ...., 99 à un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/can3a-2025/can3a-2025-Q13",
+   "titre": "Développer et réduire",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can3a-2025/can3a-2025-Q14",
+   "titre": "Déterminer l'inverse ou l'opposé d'une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can3a-2025/can3a-2025-Q15",
+   "titre": "Calculer l'hypoténuse dans un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 16,
+   "source": "can/can3a-2025/can3a-2025-Q16",
+   "titre": "Calculer avec une valeur particulière",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/can3a-2025/can3a-2025-Q17",
+   "titre": "Additionner un entier et une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can3a-2025/can3a-2025-Q18",
+   "titre": "Donner une écriture scientifique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/can3a-2025/can3a-2025-Q19",
+   "titre": "Calculer avec une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can3a-2025/can3a-2025-Q20",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 21,
+   "source": "can/can3a-2025/can3a-2025-Q21",
+   "titre": "Calculer une longueur avec Thalès",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 22,
+   "source": "can/can3a-2025/can3a-2025-Q22",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 23,
+   "source": "can/can3a-2025/can3a-2025-Q23",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can3a-2025/can3a-2025-Q24",
+   "titre": "Trouver le reste par une division euclidienne",
+   "domaine": "nombres"
+  },
+  {
+   "n": 25,
+   "source": "can/can3a-2025/can3a-2025-Q25",
+   "titre": "Calculer le périmètre d'un cercle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 26,
+   "source": "can/can3a-2025/can3a-2025-Q26",
+   "titre": "Convertir en litres",
+   "domaine": "mesures"
+  },
+  {
+   "n": 27,
+   "source": "can/can3a-2025/can3a-2025-Q27",
+   "titre": "Mltiplier astucieusement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 28,
+   "source": "can/can3a-2025/can3a-2025-Q28",
+   "titre": "Calculer le volume d'un cylindre",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 29,
+   "source": "can/can3a-2025/can3a-2025-Q29",
+   "titre": "Calculer un prix après une réduction",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 30,
+   "source": "can/can3a-2025/can3a-2025-Q30",
+   "titre": "Calculer un produit avec des fractions",
+   "domaine": "nombres"
+  }
+ ],
+ "can3a-2026": [
+  {
+   "n": 1,
+   "source": "can/can3a-2026/can3a-2026-Q1",
+   "titre": "Calculer un produit (table de multiplication)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can3a-2026/can3a-2026-Q2",
+   "titre": "Calculer une fraction d'heures",
+   "domaine": "mesures"
+  },
+  {
+   "n": 3,
+   "source": "can/can3a-2026/can3a-2026-Q3",
+   "titre": "Calculer une somme de décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can3a-2026/can3a-2026-Q4",
+   "titre": "Effectuer une conversion d'unités",
+   "domaine": "mesures"
+  },
+  {
+   "n": 5,
+   "source": "can/can3a-2026/can3a-2026-Q5",
+   "titre": "Multiplier un décimal par 10, 100, 1000",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can3a-2026/can3a-2026-Q6",
+   "titre": "Déterminer un nombre manquant dans une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can3a-2026/can3a-2026-Q7",
+   "titre": "Calculer une fraction d'un entier",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can3a-2026/can3a-2026-Q8",
+   "titre": "Calculer un prix avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can3a-2026/can3a-2026-Q9",
+   "titre": "Calculer une expression avec des priorités d'opérations",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can3a-2026/can3a-2026-Q10",
+   "titre": "Calculer 10, 20 ou 30  $\\\\%$ d'un nombre",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 11,
+   "source": "can/can3a-2026/can3a-2026-Q11",
+   "titre": "Lire une coordonnée d'un point",
+   "domaine": "algebre"
+  },
+  {
+   "n": 12,
+   "source": "can/can3a-2026/can3a-2026-Q12",
+   "titre": "Calculer une vitesse moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 13,
+   "source": "can/can3a-2026/can3a-2026-Q13",
+   "titre": "Calculer un côté de l'angle droit dans un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 14,
+   "source": "can/can3a-2026/can3a-2026-Q14",
+   "titre": "Calculer la moyenne de cinq nombres",
+   "domaine": "donnees"
+  },
+  {
+   "n": 15,
+   "source": "can/can3a-2026/can3a-2026-Q15",
+   "titre": "Calculer une expression avec un carré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 16,
+   "source": "can/can3a-2026/can3a-2026-Q16",
+   "titre": "Compléter un tableau de proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 17,
+   "source": "can/can3a-2026/can3a-2026-Q17",
+   "titre": "Calculer un angle dans un triangle isocèle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 18,
+   "source": "can/can3a-2026/can3a-2026-Q18",
+   "titre": "Développer et réduire une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/can3a-2026/can3a-2026-Q19",
+   "titre": "Décomposition en produit de facteurs premiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can3a-2026/can3a-2026-Q20",
+   "titre": "Calculer avec des puissances de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can3a-2026/can3a-2026-Q21",
+   "titre": "Additionner deux fractions à dénominateurs différents",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/can3a-2026/can3a-2026-Q22",
+   "titre": "Calculer un prix après une réduction",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 23,
+   "source": "can/can3a-2026/can3a-2026-Q23",
+   "titre": "Calculer l'aire d'un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 24,
+   "source": "can/can3a-2026/can3a-2026-Q24",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can3a-2026/can3a-2026-Q25",
+   "titre": "Compléter un encadrement entre deux racines carrées",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/can3a-2026/can3a-2026-Q26",
+   "titre": "",
+   "domaine": null
+  },
+  {
+   "n": 27,
+   "source": "can/can3a-2026/can3a-2026-Q27",
+   "titre": "Convertir des volumes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 28,
+   "source": "can/can3a-2026/can3a-2026-Q28",
+   "titre": "Calculer une heure de début",
+   "domaine": "mesures"
+  },
+  {
+   "n": 29,
+   "source": "can/can3a-2026/can3a-2026-Q29",
+   "titre": "",
+   "domaine": null
+  },
+  {
+   "n": 30,
+   "source": "can/can3a-2026/can3a-2026-Q30",
+   "titre": "Calculer Le volume d'une pyramide à base carrée",
+   "domaine": "geometrie"
+  }
+ ],
+ "can2a-2024": [
+  {
+   "n": 1,
+   "source": "can/can2a-2024/can2a-2024-Q1",
+   "titre": "Multiplier par 1,5 ou 2,5 ou ...",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2024/can2a-2024-Q2",
+   "titre": "Additionner des relatifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2024/can2a-2024-Q3",
+   "titre": "Développer une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2024/can2a-2024-Q4",
+   "titre": "Calculer avec des fractions ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2024/can2a-2024-Q5",
+   "titre": "Appliquer un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2024/can2a-2024-Q6",
+   "titre": "Multiplier deux décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2024/can2a-2024-Q7",
+   "titre": "Déterminer un coefficient multiplicateur ou un taux d'évolution",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2024/can2a-2024-Q8",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2024/can2a-2024-Q9",
+   "titre": "Calculer une racine carrée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2024/can2a-2024-Q10",
+   "titre": "Trouver le résultat d'un programme Python",
+   "domaine": "algebre"
+  },
+  {
+   "n": 11,
+   "source": "can/can2a-2024/can2a-2024-Q11",
+   "titre": "Compléter une égalité ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can2a-2024/can2a-2024-Q12",
+   "titre": "Déterminer une abscisse",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 13,
+   "source": "can/can2a-2024/can2a-2024-Q13",
+   "titre": "Calculer l'aire d'un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 14,
+   "source": "can/can2a-2024/can2a-2024-Q14",
+   "titre": "Calculer un prix après des évolutions successives",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 15,
+   "source": "can/can2a-2024/can2a-2024-Q15",
+   "titre": "Calculer avec des puissances de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/can2a-2024/can2a-2024-Q16",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 17,
+   "source": "can/can2a-2024/can2a-2024-Q17",
+   "titre": "Rendre une fraction irréductible",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can2a-2024/can2a-2024-Q18",
+   "titre": "Déterminer l'écriture scientifique",
+   "domaine": "nombres"
+  },
+  {
+   "n": 19,
+   "source": "can/can2a-2024/can2a-2024-Q19",
+   "titre": "Calculer avec une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can2a-2024/can2a-2024-Q20",
+   "titre": "Calculer une expression pour une valeur particulière",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/can2a-2024/can2a-2024-Q21",
+   "titre": "Déterminer la longueur d'une ligne brisée",
+   "domaine": "mesures"
+  },
+  {
+   "n": 22,
+   "source": "can/can2a-2024/can2a-2024-Q22",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 23,
+   "source": "can/can2a-2024/can2a-2024-Q23",
+   "titre": "Déterminer un coefficient directeur",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can2a-2024/can2a-2024-Q24",
+   "titre": "Calculer les coordonnées d'un milieu",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can2a-2024/can2a-2024-Q25",
+   "titre": "Développer avec une identité remarquable",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/can2a-2024/can2a-2024-Q26",
+   "titre": "Factoriser avec une identité remarquable",
+   "domaine": "algebre"
+  },
+  {
+   "n": 27,
+   "source": "can/can2a-2024/can2a-2024-Q27",
+   "titre": "Déterminer une proportion",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 28,
+   "source": "can/can2a-2024/can2a-2024-Q28",
+   "titre": "Déterminer le nombre de solution d'une équation graphiquement ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 29,
+   "source": "can/can2a-2024/can2a-2024-Q29",
+   "titre": "Lire une image graphiquement ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/can2a-2024/can2a-2024-Q30",
+   "titre": "Déterminer le signe d'une fonction graphiquement ",
+   "domaine": "algebre"
+  }
+ ],
+ "can2a-2025": [
+  {
+   "n": 1,
+   "source": "can/can2a-2025/can2a-2025-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2025/can2a-2025-Q2",
+   "titre": "Utiliser la priorité de la multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2025/can2a-2025-Q3",
+   "titre": "Développer une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2025/can2a-2025-Q4",
+   "titre": "Appliquer 25 % sur un nombre",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2025/can2a-2025-Q5",
+   "titre": "Déterminer une médiane",
+   "domaine": "donnees"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2025/can2a-2025-Q6",
+   "titre": "Rendre une fraction irréductible",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2025/can2a-2025-Q7",
+   "titre": "Calculer un prix après des évolutions successives",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2025/can2a-2025-Q8",
+   "titre": "Calculer avec une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2025/can2a-2025-Q9",
+   "titre": "Factoriser avec une identité remarquable",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2025/can2a-2025-Q10",
+   "titre": "Calculer avec des fractions ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can2a-2025/can2a-2025-Q11",
+   "titre": "Calculer les coordonnées d'un milieu",
+   "domaine": "algebre"
+  },
+  {
+   "n": 12,
+   "source": "can/can2a-2025/can2a-2025-Q12",
+   "titre": "Trouver le résultat d'un programme Python",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/can2a-2025/can2a-2025-Q13",
+   "titre": "Déterminer une image graphiquement ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can2a-2025/can2a-2025-Q14",
+   "titre": "Résoudre une équation graphiquement ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/can2a-2025/can2a-2025-Q15",
+   "titre": "Résoudre graphiquement une inéquation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 16,
+   "source": "can/can2a-2025/can2a-2025-Q16",
+   "titre": "Calculer une somme de fraction (V/F)",
+   "domaine": "nombres"
+  },
+  {
+   "n": 17,
+   "source": "can/can2a-2025/can2a-2025-Q17",
+   "titre": "Déterminer un coefficient directeur",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/can2a-2025/can2a-2025-Q18",
+   "titre": "Déterminer un coefficient multiplicateur ou un taux d'évolution",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 19,
+   "source": "can/can2a-2025/can2a-2025-Q19",
+   "titre": "Déterminer un taux global",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 20,
+   "source": "can/can2a-2025/can2a-2025-Q20",
+   "titre": "Calculer une image par une fonction",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/can2a-2025/can2a-2025-Q21",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 22,
+   "source": "can/can2a-2025/can2a-2025-Q22",
+   "titre": "Calculer la probabilité d'un événement contraire",
+   "domaine": "donnees"
+  },
+  {
+   "n": 23,
+   "source": "can/can2a-2025/can2a-2025-Q23",
+   "titre": "Déterminer un vecteur égal sur une grille",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can2a-2025/can2a-2025-Q24",
+   "titre": "Déterminer un coefficient de colinéarité",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can2a-2025/can2a-2025-Q25",
+   "titre": "Calculer un prix dans une situation de proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 26,
+   "source": "can/can2a-2025/can2a-2025-Q26",
+   "titre": "Déterminer le coefficient directeur d'une droite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 27,
+   "source": "can/can2a-2025/can2a-2025-Q27",
+   "titre": "Déterminer un antécédent",
+   "domaine": "algebre"
+  },
+  {
+   "n": 28,
+   "source": "can/can2a-2025/can2a-2025-Q28",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 29,
+   "source": "can/can2a-2025/can2a-2025-Q29",
+   "titre": "Développer avec une identité remarquable",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/can2a-2025/can2a-2025-Q30",
+   "titre": "Calculer une longueur sur une grille",
+   "domaine": "mesures"
+  }
+ ],
+ "can2a-2025C": [
+  {
+   "n": 1,
+   "source": "can/can2a-2025C/can2a-2025C-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2025C/can2a-2025C-Q2",
+   "titre": "Calculer une somme de quatre entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2025C/can2a-2025C-Q3",
+   "titre": "Calculer une différence de deux entiers",
+   "domaine": "nombres"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2025C/can2a-2025C-Q4",
+   "titre": "Calculer une somme d'un entier et d'une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2025C/can2a-2025C-Q5",
+   "titre": "Calculer un produit par 11",
+   "domaine": "nombres"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2025C/can2a-2025C-Q6",
+   "titre": "Calculer une fraction d'un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2025C/can2a-2025C-Q7",
+   "titre": "Calculer un produit de plusieurs facteurs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2025C/can2a-2025C-Q8",
+   "titre": "Convertir une durée en minutes",
+   "domaine": "mesures"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2025C/can2a-2025C-Q9",
+   "titre": "Calculer un pourcentage d'une quantité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2025C/can2a-2025C-Q10",
+   "titre": "Calculer une probabilité à partir de la probabilité de l'événement contraire",
+   "domaine": "donnees"
+  },
+  {
+   "n": 11,
+   "source": "can/can2a-2025C/can2a-2025C-Q11",
+   "titre": "Diviser par un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can2a-2025C/can2a-2025C-Q12",
+   "titre": "Calculer une puissance d'une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 13,
+   "source": "can/can2a-2025C/can2a-2025C-Q13",
+   "titre": "Q13",
+   "domaine": null
+  },
+  {
+   "n": 14,
+   "source": "can/can2a-2025C/can2a-2025C-Q14",
+   "titre": "Calculer avec une fraction complexe",
+   "domaine": "nombres"
+  },
+  {
+   "n": 15,
+   "source": "can/can2a-2025C/can2a-2025C-Q15",
+   "titre": "Calculer avec le vocabulaire : carré, triple, double, etc.",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 16,
+   "source": "can/can2a-2025C/can2a-2025C-Q16",
+   "titre": "Calculer un angle dans un triangle rectangle",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 17,
+   "source": "can/can2a-2025C/can2a-2025C-Q17",
+   "titre": "Calculer le coefficient directeur d’une droite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/can2a-2025C/can2a-2025C-Q18",
+   "titre": "Calculer l'image d'un nombre par une fonction polynôme du second degré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/can2a-2025C/can2a-2025C-Q19",
+   "titre": "Calcculer un antécédent par une fonction homographique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 20,
+   "source": "can/can2a-2025C/can2a-2025C-Q20",
+   "titre": "Calculer l'âge d'un élève à partir d'un énoncé",
+   "domaine": "mesures"
+  },
+  {
+   "n": 21,
+   "source": "can/can2a-2025C/can2a-2025C-Q21",
+   "titre": "Q21",
+   "domaine": null
+  },
+  {
+   "n": 22,
+   "source": "can/can2a-2025C/can2a-2025C-Q22",
+   "titre": "Calculer un prix avec une proportionnalité",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 23,
+   "source": "can/can2a-2025C/can2a-2025C-Q23",
+   "titre": "Résoudre une équation avec un quotient",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can2a-2025C/can2a-2025C-Q24",
+   "titre": "Vérifier si une valeur est solution d'une inéquation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can2a-2025C/can2a-2025C-Q25",
+   "titre": "Calculer la diagonale d'un carré connaissant son aire",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 26,
+   "source": "can/can2a-2025C/can2a-2025C-Q26",
+   "titre": "Calculer un produit de deux nombres avec une égalité remarquable",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/can2a-2025C/can2a-2025C-Q27",
+   "titre": "Calculer une probabilité à partir d'une égalité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 28,
+   "source": "can/can2a-2025C/can2a-2025C-Q28",
+   "titre": "Donner le nombre de solutions d'une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 29,
+   "source": "can/can2a-2025C/can2a-2025C-Q29",
+   "titre": "Trouver une valeur à partir de la colinéarité de deux vecteurs",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/can2a-2025C/can2a-2025C-Q30",
+   "titre": "Calculer un volume",
+   "domaine": "mesures"
+  }
+ ],
+ "can2a-2026": [
+  {
+   "n": 1,
+   "source": "can/can2a-2026/can2a-2026-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2026/can2a-2026-Q2",
+   "titre": "Calculer le produit d’un nombre décimal par une puissance de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2026/can2a-2026-Q3",
+   "titre": "Factoriser une expression du type ax² ± x",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2026/can2a-2026-Q4",
+   "titre": "Ajouter ou soustraire des fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2026/can2a-2026-Q5",
+   "titre": "Calculer la moyenne d’une série de nombres",
+   "domaine": "donnees"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2026/can2a-2026-Q6",
+   "titre": "Calculer la somme d’une fraction et d’un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2026/can2a-2026-Q7",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2026/can2a-2026-Q8",
+   "titre": "Déterminer le prix en fonction d’un tarif proportionnel",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2026/can2a-2026-Q9",
+   "titre": "Développer et réduire un carré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2026/can2a-2026-Q10",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can2a-2026/can2a-2026-Q11",
+   "titre": "Calculer les coordonnées du milieu d’un segment",
+   "domaine": "algebre"
+  },
+  {
+   "n": 12,
+   "source": "can/can2a-2026/can2a-2026-Q12",
+   "titre": "Calcul retourné par un algorithme",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/can2a-2026/can2a-2026-Q13",
+   "titre": "Déterminer une image graphiquement ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can2a-2026/can2a-2026-Q14",
+   "titre": "Résoudre une équation graphiquement ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/can2a-2026/can2a-2026-Q15",
+   "titre": "Calculer une puissance en utilisant les propriétés des exposants",
+   "domaine": "nombres"
+  },
+  {
+   "n": 16,
+   "source": "can/can2a-2026/can2a-2026-Q16",
+   "titre": "Trouver la solution positive d'une équation produit nul",
+   "domaine": "algebre"
+  },
+  {
+   "n": 17,
+   "source": "can/can2a-2026/can2a-2026-Q17",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 18,
+   "source": "can/can2a-2026/can2a-2026-Q18",
+   "titre": "Déterminer un taux de hausse",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 19,
+   "source": "can/can2a-2026/can2a-2026-Q19",
+   "titre": "Calculer une baisse globale après deux baisses successives",
+   "domaine": "nombres"
+  },
+  {
+   "n": 20,
+   "source": "can/can2a-2026/can2a-2026-Q20",
+   "titre": "Calculer avec une fraction ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 21,
+   "source": "can/can2a-2026/can2a-2026-Q21",
+   "titre": "Déterminer l'écriture scientifique d'un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/can2a-2026/can2a-2026-Q22",
+   "titre": "Calculer la probabilité d'un événement contraire",
+   "domaine": "donnees"
+  },
+  {
+   "n": 23,
+   "source": "can/can2a-2026/can2a-2026-Q23",
+   "titre": "Déterminer le coefficient directeur d'une droite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can2a-2026/can2a-2026-Q24",
+   "titre": "Développer une expression du type $(ax - b)^2$",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can2a-2026/can2a-2026-Q25",
+   "titre": "Déterminer le coefficient directeur d'une droite (calcul)",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/can2a-2026/can2a-2026-Q26",
+   "titre": "Calculer une probabilité sur un dé",
+   "domaine": "donnees"
+  },
+  {
+   "n": 27,
+   "source": "can/can2a-2026/can2a-2026-Q27",
+   "titre": "Calculer une puissance d'un radical",
+   "domaine": "nombres"
+  },
+  {
+   "n": 28,
+   "source": "can/can2a-2026/can2a-2026-Q28",
+   "titre": "Résoudre une équation produit-nul",
+   "domaine": "algebre"
+  },
+  {
+   "n": 29,
+   "source": "can/can2a-2026/can2a-2026-Q29",
+   "titre": "Compléter une relation de Chasles",
+   "domaine": "nombres"
+  },
+  {
+   "n": 30,
+   "source": "can/can2a-2026/can2a-2026-Q30",
+   "titre": "Déterminer la longueur d'une ligne brisée",
+   "domaine": "mesures"
+  }
+ ],
+ "can1a-2024": [
+  {
+   "n": 1,
+   "source": "can/can1a-2024/can1a-2024-Q1",
+   "titre": "Multiplier des décimaux",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can1a-2024/can1a-2024-Q2",
+   "titre": "Déterminer un point sur une courbe",
+   "domaine": "algebre"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2024/can2a-2024-Q3",
+   "titre": "Développer une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2024/can2a-2024-Q4",
+   "titre": "Calculer avec des fractions ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2024/can2a-2024-Q5",
+   "titre": "Appliquer un pourcentage",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 6,
+   "source": "can/can1a-2024/can1a-2024-Q6",
+   "titre": "Donner l'écriture décimale d'une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can1a-2024/can1a-2024-Q7",
+   "titre": "Déterminer un coefficient multiplicateur ou un taux d'évolution",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can1a-2024/can1a-2024-Q8",
+   "titre": "Déterminer la raison d'une suite géométrique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 9,
+   "source": "can/can1a-2024/can1a-2024-Q9",
+   "titre": "Encadrer une racine carrée par deux entiers consécutifs",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can1a-2024/can1a-2024-Q10",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 11,
+   "source": "can/can1a-2024/can1a-2024-Q11",
+   "titre": "Décomposer une fraction",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/can1a-2024/can1a-2024-Q12",
+   "titre": "Factoriser avec un facteur commun",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/can1a-2024/can1a-2024-Q13",
+   "titre": "Calculer un produit scalaire",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can1a-2024/can1a-2024-Q14",
+   "titre": "Déterminer une équation réduite de droite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/can1a-2024/can1a-2024-Q15",
+   "titre": "Calculer un terme d'une suite définie par récurrence",
+   "domaine": "algebre"
+  },
+  {
+   "n": 16,
+   "source": "can/can1a-2024/can1a-2024-Q16",
+   "titre": "Reconnaitre deux événements indépendants",
+   "domaine": "donnees"
+  },
+  {
+   "n": 17,
+   "source": "can/can1a-2024/can1a-2024-Q17",
+   "titre": "Calculer un discriminant",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/can1a-2024/can1a-2024-Q18",
+   "titre": "Calculer une distance à partir d'une vitesse",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 19,
+   "source": "can/can1a-2024/can1a-2024-Q19",
+   "titre": "Calculer une fonction dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 20,
+   "source": "can/can1a-2024/can1a-2024-Q20",
+   "titre": "Calculer une espérance",
+   "domaine": "donnees"
+  },
+  {
+   "n": 21,
+   "source": "can/can1a-2024/can1a-2024-Q21",
+   "titre": "Calculer la somme des termes d'une suite géométrique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 22,
+   "source": "can/can1a-2024/can1a-2024-Q22",
+   "titre": "Calculer un nombre dérivé",
+   "domaine": "algebre"
+  },
+  {
+   "n": 23,
+   "source": "can/can1a-2024/can1a-2024-Q23",
+   "titre": "Résoudre une inéquation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 24,
+   "source": "can/can1a-2024/can1a-2024-Q24",
+   "titre": "Trouver un axe de symétrie",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 25,
+   "source": "can/can1a-2024/can1a-2024-Q25",
+   "titre": "Calculer avec une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 26,
+   "source": "can/can1a-2024/can1a-2024-Q26",
+   "titre": "Additionner des fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/can1a-2024/can1a-2024-Q27",
+   "titre": "Calculer une probabilité dans un arbre",
+   "domaine": "donnees"
+  },
+  {
+   "n": 28,
+   "source": "can/can1a-2024/can1a-2024-Q28",
+   "titre": "Calculer une probabilité",
+   "domaine": "donnees"
+  },
+  {
+   "n": 29,
+   "source": "can/can1a-2024/can1a-2024-Q29",
+   "titre": "Augmenter/diminuer avec des pourcentages",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 30,
+   "source": "can/can1a-2024/can1a-2024-Q30",
+   "titre": "Calculer l'abscisse du sommet d'une parabole",
+   "domaine": "algebre"
+  }
+ ],
+ "can1a-2025": [
+  {
+   "n": 1,
+   "source": "can/can2a-2025/can2a-2025-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2025/can2a-2025-Q2",
+   "titre": "Utiliser la priorité de la multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2025/can2a-2025-Q3",
+   "titre": "Développer une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2025/can2a-2025-Q4",
+   "titre": "Appliquer 25 % sur un nombre",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2025/can2a-2025-Q5",
+   "titre": "Déterminer une médiane",
+   "domaine": "donnees"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2025/can2a-2025-Q6",
+   "titre": "Rendre une fraction irréductible",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2025/can2a-2025-Q7",
+   "titre": "Calculer un prix après des évolutions successives",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2025/can2a-2025-Q8",
+   "titre": "Calculer avec une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2025/can2a-2025-Q9",
+   "titre": "Factoriser avec une identité remarquable",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2025/can2a-2025-Q10",
+   "titre": "Calculer avec des fractions ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can1a-2025/can1a-2025-Q11",
+   "titre": "Transformer des heures décimales",
+   "domaine": "mesures"
+  },
+  {
+   "n": 12,
+   "source": "can/can1a-2025/can1a-2025-Q12",
+   "titre": "Utiliser un script Python",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/can1a-2025/can1a-2025-Q13",
+   "titre": "Calculer une moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 14,
+   "source": "can/can1a-2025/can1a-2025-Q14",
+   "titre": "Calculer la probabilité d'une intersection d'événements indépendants",
+   "domaine": "donnees"
+  },
+  {
+   "n": 15,
+   "source": "can/can1a-2025/can1a-2025-Q15",
+   "titre": "Calculer une vitesse moyenne",
+   "domaine": "donnees"
+  },
+  {
+   "n": 16,
+   "source": "can/can1a-2025/can1a-2025-Q16",
+   "titre": "Calculer la raison d'une suite géométrique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 17,
+   "source": "can/can1a-2025/can1a-2025-Q17",
+   "titre": "Calculer une dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/can1a-2025/can1a-2025-Q18",
+   "titre": "Trouver l'extremum à partir d'une forme canonique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/can1a-2025/can1a-2025-Q19",
+   "titre": "Résoudre une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 20,
+   "source": "can/can1a-2025/can1a-2025-Q20",
+   "titre": "Déterminer si des vecteurs ont la même direction",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/can1a-2025/can1a-2025-Q21",
+   "titre": "Calculer avec un cosinus",
+   "domaine": "algebre"
+  },
+  {
+   "n": 22,
+   "source": "can/can1a-2025/can1a-2025-Q22",
+   "titre": "Donner le nombre d'antécédent(s) par la fonction carré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 23,
+   "source": "can/can1a-2025/can1a-2025-Q23",
+   "titre": "Calculer une probabilité dans un tableau",
+   "domaine": "donnees"
+  },
+  {
+   "n": 24,
+   "source": "can/can1a-2025/can1a-2025-Q24",
+   "titre": "Calculer une différence de deux carrés",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 25,
+   "source": "can/can1a-2025/can1a-2025-Q25",
+   "titre": "Résoudre une inéquation du second degré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/can1a-2025/can1a-2025-Q26",
+   "titre": "Déterminer un taux global d'évolution",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 27,
+   "source": "can/can1a-2025/can1a-2025-Q27",
+   "titre": "Calculer les coordonnées d'un milieu",
+   "domaine": "algebre"
+  },
+  {
+   "n": 28,
+   "source": "can/can1a-2025/can1a-2025-Q28",
+   "titre": "Trouver l'extremum à partir d'une forme canonique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 29,
+   "source": "can/can1a-2025/can1a-2025-Q29",
+   "titre": "Trouver l'extremum à partir d'une forme canonique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/can1a-2025/can1a-2025-Q30",
+   "titre": "Calculer une probabilité avec un arbre",
+   "domaine": "donnees"
+  }
+ ],
+ "can1a-2026": [
+  {
+   "n": 1,
+   "source": "can/can2a-2026/can2a-2026-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2026/can2a-2026-Q2",
+   "titre": "Calculer le produit d’un nombre décimal par une puissance de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2026/can2a-2026-Q3",
+   "titre": "Factoriser une expression du type ax² ± x",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2026/can2a-2026-Q4",
+   "titre": "Ajouter ou soustraire des fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2026/can2a-2026-Q5",
+   "titre": "Calculer la moyenne d’une série de nombres",
+   "domaine": "donnees"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2026/can2a-2026-Q6",
+   "titre": "Calculer la somme d’une fraction et d’un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2026/can2a-2026-Q7",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2026/can2a-2026-Q8",
+   "titre": "Déterminer le prix en fonction d’un tarif proportionnel",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2026/can2a-2026-Q9",
+   "titre": "Développer et réduire un carré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2026/can2a-2026-Q10",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can1a-2026/can1a-2026-Q11",
+   "titre": "Calculer un terme d'une suite définie de façon explicite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 12,
+   "source": "can/can1a-2026/can1a-2026-Q12",
+   "titre": "Calculer la valeur affichée par un algorithme",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/can1a-2026/can1a-2026-Q13",
+   "titre": "Trouver un angle à partir de son cosinus et de son sinus",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/can1a-2026/can1a-2026-Q14",
+   "titre": "Donner le nombre de solutions d'une équation du second degré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/can1a-2026/can1a-2026-Q15",
+   "titre": "Calculer l'image d'une fraction par une fonction polynôme",
+   "domaine": "algebre"
+  },
+  {
+   "n": 16,
+   "source": "can/can1a-2026/can1a-2026-Q16",
+   "titre": "Déterminer p dans l'équation réduite d'une droite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 17,
+   "source": "can/can1a-2026/can1a-2026-Q17",
+   "titre": "Déterminer la somme des racines d'une fonction polynôme factorisée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/can1a-2026/can1a-2026-Q18",
+   "titre": "Exprimer une variable en fonction d'une autre",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/can1a-2026/can1a-2026-Q19",
+   "titre": "Calculer la probabilité d'un événement dans un cas d'événements indépendants",
+   "domaine": "donnees"
+  },
+  {
+   "n": 20,
+   "source": "can/can1a-2026/can1a-2026-Q20",
+   "titre": "",
+   "domaine": null
+  },
+  {
+   "n": 21,
+   "source": "can/can1a-2026/can1a-2026-Q21",
+   "titre": "Donner le nombre de solutions de l'équation $f'(x)=0$ à partir de la courbe représentative de $f$",
+   "domaine": "algebre"
+  },
+  {
+   "n": 22,
+   "source": "can/can1a-2026/can1a-2026-Q22",
+   "titre": "Calculer un produit scalaire dans un trapèze rectangle",
+   "domaine": "algebre"
+  },
+  {
+   "n": 23,
+   "source": "can/can1a-2026/can1a-2026-Q23",
+   "titre": "Calculer une probabilité avec un arbre",
+   "domaine": "donnees"
+  },
+  {
+   "n": 24,
+   "source": "can/can1a-2026/can1a-2026-Q24",
+   "titre": "Calculer un produit scalaire",
+   "domaine": "algebre"
+  },
+  {
+   "n": 25,
+   "source": "can/can1a-2026/can1a-2026-Q25",
+   "titre": "Calculer une fonction dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/can1a-2026/can1a-2026-Q26",
+   "titre": "Déterminer la raison d'une suite géométrique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 27,
+   "source": "can/can1a-2026/can1a-2026-Q27",
+   "titre": "Déterminer les intervalles de croissance ou de décroissance d'une fonction du second degré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 28,
+   "source": "can/can1a-2026/can1a-2026-Q28",
+   "titre": "Donner la bonne formule de probabilités totales",
+   "domaine": "donnees"
+  },
+  {
+   "n": 29,
+   "source": "can/can1a-2026/can1a-2026-Q29",
+   "titre": "Calculer la raison d'une suite arithmétique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/can1a-2026/can1a-2026-Q30",
+   "titre": "Identifier une fonction polynôme du second degré",
+   "domaine": "algebre"
+  }
+ ],
+ "canTSpea-2025": [
+  {
+   "n": 1,
+   "source": "can/can2a-2025/can2a-2025-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2025/can2a-2025-Q2",
+   "titre": "Utiliser la priorité de la multiplication",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2025/can2a-2025-Q3",
+   "titre": "Développer une expression",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2025/can2a-2025-Q4",
+   "titre": "Appliquer 25 % sur un nombre",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2025/can2a-2025-Q5",
+   "titre": "Déterminer une médiane",
+   "domaine": "donnees"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2025/can2a-2025-Q6",
+   "titre": "Rendre une fraction irréductible",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2025/can2a-2025-Q7",
+   "titre": "Calculer un prix après des évolutions successives",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2025/can2a-2025-Q8",
+   "titre": "Calculer avec une puissance",
+   "domaine": "nombres"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2025/can2a-2025-Q9",
+   "titre": "Factoriser avec une identité remarquable",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2025/can2a-2025-Q10",
+   "titre": "Calculer avec des fractions ",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/can1a-2025/can1a-2025-Q11",
+   "titre": "Transformer des heures décimales",
+   "domaine": "mesures"
+  },
+  {
+   "n": 12,
+   "source": "can/can1a-2025/can1a-2025-Q12",
+   "titre": "Utiliser un script Python",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/canTspea-2025/canTspea-2025-Q13",
+   "titre": "Déterminer un encadrement avec la fonction carré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/canTspea-2025/canTspea-2025-Q14",
+   "titre": "Déterminer le nombre de solutions d'une équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/canTspea-2025/canTspea-2025-Q15",
+   "titre": "Trouver la raison d'une suite géométrique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 16,
+   "source": "can/canTspea-2025/canTspea-2025-Q16",
+   "titre": "Résoudre une équation trigonométrique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 17,
+   "source": "can/canTspea-2025/canTspea-2025-Q17",
+   "titre": "Calculer une espérance",
+   "domaine": "donnees"
+  },
+  {
+   "n": 18,
+   "source": "can/canTspea-2025/canTspea-2025-Q18",
+   "titre": "Calculer une dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/canTspea-2025/canTspea-2025-Q19",
+   "titre": "Déterminer le coefficient directeur d'une droite",
+   "domaine": "algebre"
+  },
+  {
+   "n": 20,
+   "source": "can/canTspea-2025/canTspea-2025-Q20",
+   "titre": "Donner le nombre de solutions d'une équation du second degré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/canTspea-2025/canTspea-2025-Q21",
+   "titre": "Calculer une somme",
+   "domaine": "nombres"
+  },
+  {
+   "n": 22,
+   "source": "can/canTspea-2025/canTspea-2025-Q22",
+   "titre": "Calculer une dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 23,
+   "source": "can/canTspea-2025/canTspea-2025-Q23",
+   "titre": "Calculer un coefficcient binomial",
+   "domaine": "donnees"
+  },
+  {
+   "n": 24,
+   "source": "can/can1a-2025/can1a-2025-Q30",
+   "titre": "Calculer une probabilité avec un arbre",
+   "domaine": "donnees"
+  },
+  {
+   "n": 25,
+   "source": "can/canTspea-2025/canTspea-2025-Q25",
+   "titre": "Calculer un terme d'une suite récurrente",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/canTspea-2025/canTspea-2025-Q26",
+   "titre": "Calculer une dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 27,
+   "source": "can/can1a-2025/can1a-2025-Q26",
+   "titre": "Déterminer un taux global d'évolution",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 28,
+   "source": "can/canTspea-2025/canTspea-2025-Q28",
+   "titre": "Résoudre une inéquation du second degré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 29,
+   "source": "can/canTspea-2025/canTspea-2025-Q29",
+   "titre": "Exprimer une variable en fonction d'une autre",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/canTspea-2025/canTspea-2025-Q30",
+   "titre": "Calculer une limite",
+   "domaine": "algebre"
+  }
+ ],
+ "canTSpea-2026": [
+  {
+   "n": 1,
+   "source": "can/can2a-2026/can2a-2026-Q1",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 2,
+   "source": "can/can2a-2026/can2a-2026-Q2",
+   "titre": "Calculer le produit d’un nombre décimal par une puissance de 10",
+   "domaine": "nombres"
+  },
+  {
+   "n": 3,
+   "source": "can/can2a-2026/can2a-2026-Q3",
+   "titre": "Factoriser une expression du type ax² ± x",
+   "domaine": "algebre"
+  },
+  {
+   "n": 4,
+   "source": "can/can2a-2026/can2a-2026-Q4",
+   "titre": "Ajouter ou soustraire des fractions",
+   "domaine": "nombres"
+  },
+  {
+   "n": 5,
+   "source": "can/can2a-2026/can2a-2026-Q5",
+   "titre": "Calculer la moyenne d’une série de nombres",
+   "domaine": "donnees"
+  },
+  {
+   "n": 6,
+   "source": "can/can2a-2026/can2a-2026-Q6",
+   "titre": "Calculer la somme d’une fraction et d’un nombre décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 7,
+   "source": "can/can2a-2026/can2a-2026-Q7",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 8,
+   "source": "can/can2a-2026/can2a-2026-Q8",
+   "titre": "Déterminer le prix en fonction d’un tarif proportionnel",
+   "domaine": "proportionnalite"
+  },
+  {
+   "n": 9,
+   "source": "can/can2a-2026/can2a-2026-Q9",
+   "titre": "Développer et réduire un carré",
+   "domaine": "algebre"
+  },
+  {
+   "n": 10,
+   "source": "can/can2a-2026/can2a-2026-Q10",
+   "titre": "Multiplier un entier avec un décimal",
+   "domaine": "nombres"
+  },
+  {
+   "n": 11,
+   "source": "can/canTspea-2026/canTspea-2026-Q11",
+   "titre": "Completer un encadrement à partir d'un encadrement",
+   "domaine": "nombres"
+  },
+  {
+   "n": 12,
+   "source": "can/canTspea-2026/canTspea-2026-Q12",
+   "titre": "Donner la valeur d'une variable après exécution d'un script",
+   "domaine": "algebre"
+  },
+  {
+   "n": 13,
+   "source": "can/canTspea-2026/canTspea-2026-Q13",
+   "titre": "Réesoudre une équation avec valeur absolue",
+   "domaine": "algebre"
+  },
+  {
+   "n": 14,
+   "source": "can/canTspea-2026/canTspea-2026-Q14",
+   "titre": "Résoudre une équation avec quotients",
+   "domaine": "algebre"
+  },
+  {
+   "n": 15,
+   "source": "can/canTspea-2026/canTspea-2026-Q15",
+   "titre": "Exprimer une variable en fonction d'une autre à partir d'une formule",
+   "domaine": "algebre"
+  },
+  {
+   "n": 16,
+   "source": "can/canTspea-2026/canTspea-2026-Q16",
+   "titre": "Calculer un terme d'une suite géométrique définie par récurrence",
+   "domaine": "algebre"
+  },
+  {
+   "n": 17,
+   "source": "can/canTspea-2026/canTspea-2026-Q17",
+   "titre": "Résoudre une équation du type $e^(x+a) = 1$",
+   "domaine": "algebre"
+  },
+  {
+   "n": 18,
+   "source": "can/canTspea-2026/canTspea-2026-Q18",
+   "titre": "Résoudre une inéquation du second degré ",
+   "domaine": "algebre"
+  },
+  {
+   "n": 19,
+   "source": "can/canTspea-2026/canTspea-2026-Q19",
+   "titre": "Déterminer les coordonnées d'un vecteur normal à un plan à partir de son équation",
+   "domaine": "algebre"
+  },
+  {
+   "n": 20,
+   "source": "can/canTspea-2026/canTspea-2026-Q20",
+   "titre": "Déterminer le signe de $f(a)\\\\times f'(a)$ par lecture graphique",
+   "domaine": "algebre"
+  },
+  {
+   "n": 21,
+   "source": "can/canTspea-2026/canTspea-2026-Q21",
+   "titre": "Calculer une valeur pour obtenir une moyenne pondérée donnée",
+   "domaine": "donnees"
+  },
+  {
+   "n": 22,
+   "source": "can/canTspea-2026/canTspea-2026-Q22",
+   "titre": "Question 22",
+   "domaine": null
+  },
+  {
+   "n": 23,
+   "source": "can/canTspea-2026/canTspea-2026-Q23",
+   "titre": "Calculer une probabilité avec un arbre",
+   "domaine": "donnees"
+  },
+  {
+   "n": 24,
+   "source": "can/canTspea-2026/canTspea-2026-Q24",
+   "titre": "Question 24",
+   "domaine": null
+  },
+  {
+   "n": 25,
+   "source": "can/canTspea-2026/canTspea-2026-Q25",
+   "titre": "Calculer une fonction dérivée",
+   "domaine": "algebre"
+  },
+  {
+   "n": 26,
+   "source": "can/canTspea-2026/canTspea-2026-Q26",
+   "titre": "Compléter un encadrement de $\\\\dfrac{n}{\\\\text{e}}$ par deux entiers consécutifs",
+   "domaine": "nombres"
+  },
+  {
+   "n": 27,
+   "source": "can/canTspea-2026/canTspea-2026-Q27",
+   "titre": "Calculer une limite avec l'infini",
+   "domaine": "algebre"
+  },
+  {
+   "n": 28,
+   "source": "can/canTspea-2026/canTspea-2026-Q28",
+   "titre": "Calculer la valeur d'un paramètre pour que le point appartienne à un plan",
+   "domaine": "geometrie"
+  },
+  {
+   "n": 29,
+   "source": "can/canTspea-2026/canTspea-2026-Q29",
+   "titre": "Calculer la mesure d'un angle à partir de son sinus",
+   "domaine": "algebre"
+  },
+  {
+   "n": 30,
+   "source": "can/canTspea-2026/canTspea-2026-Q30",
+   "titre": "Question 30",
+   "domaine": null
+  }
+ ]
+}

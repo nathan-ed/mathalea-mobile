@@ -230,8 +230,9 @@ plus récent remplace l'ancien.
   en ajouter à son accueil.
 - « Teste ton niveau », en tête de l'Explorer, est ouvert à tous : questions
   des sujets de la Course aux nombres, du CM1 à la Terminale. Par niveau,
-  10 questions de repérage puis 20 de validation, 80 % pour réussir ; un
-  niveau validé donne sa ceinture (CM1 blanche, CM2 jaune, 6e orange,
+  15 questions de tous les domaines (nombres et calcul, mesures, géométrie,
+  proportionnalité, données, algèbre), jamais deux fois la même, corrigées à
+  la fin ; 80 % (12 sur 15) donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange,
   5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire
   de nouvelles questions.
 

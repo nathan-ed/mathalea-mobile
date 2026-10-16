@@ -1,7 +1,7 @@
 <script lang="ts">
   // « Teste ton niveau » : une ceinture par niveau, du CM1 à la Terminale.
-  // Toucher un niveau ouvre un panneau du bas : repérage, validation ou reprise.
-  import { NB_REPERAGE, NB_VALIDATION, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, couleurDu, type EtatTest } from '$lib/testNiveau'
+  // Toucher un niveau ouvre un panneau du bas : commencer ou reprendre.
+  import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, couleurDu, type EtatTest } from '$lib/testNiveau'
   import { boutonAction, boutonInverse } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
@@ -10,16 +10,14 @@
     etat,
     disponibles,
     enCours,
-    onreperage,
-    onvalidation,
+    oncommencer,
     onreprendre,
     onretour,
   }: {
     etat: EtatTest
     disponibles: Record<string, number> | null // sujets par niveau (null : lecture en cours)
     enCours: Record<string, boolean> // tentative commencée, pas terminée
-    onreperage: (rang: number) => void // nouveau tirage
-    onvalidation: (rang: number) => void
+    oncommencer: (rang: number) => void // nouveau tirage
     onreprendre: (rang: number) => void
     onretour: () => void
   } = $props()
@@ -35,7 +33,6 @@
   function etatDu(cle: string) {
     const e = etat[cle]
     if (enCours[cle]) return 'En cours'
-    if (e?.reperage) return 'Repérage réussi : validation à faire'
     if (e?.valideLe) return `Validé le ${date(e.valideLe)}`
     return ''
   }
@@ -52,8 +49,8 @@
 
   <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas">
     <p class="pl-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-      Questions des sujets de la Course aux nombres. Par niveau : {NB_REPERAGE} questions de repérage, puis {NB_VALIDATION} pour valider. Il faut
-      {SEUIL_TEST} % pour réussir.
+      {NB_QUESTIONS} questions des sujets de la Course aux nombres, de tous les domaines. {SEUIL_TEST} % de réponses correctes donnent la ceinture du
+      niveau.
     </p>
     {#if disponibles === null}
       <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">Lecture des sujets…</p>
@@ -100,18 +97,12 @@
     <Feuille onfermer={() => (choisi = null)}>
       <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{n.nom} · {ceintureDu(choisi).toLowerCase()}</p>
       {#if enCours[n.cle]}
-        <p class="text-sm">Une tentative est en cours : tu reprends là où tu en étais.</p>
+        <p class="text-sm">Un test est en cours : tu reprends là où tu en étais.</p>
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => agir(onreprendre)}>Reprendre</button>
-        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => agir(onreperage)}>Recommencer avec de nouvelles questions</button>
-      {:else if etat[n.cle]?.reperage}
-        <p class="text-sm">Repérage réussi. Validation : {NB_VALIDATION} questions, {SEUIL_TEST} % pour obtenir la ceinture.</p>
-        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => agir(onvalidation)}>Passer la validation</button>
-        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => agir(onreperage)}>Refaire le repérage</button>
+        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => agir(oncommencer)}>Recommencer avec de nouvelles questions</button>
       {:else}
-        <p class="text-sm">
-          {NB_REPERAGE} questions de repérage. Avec {SEUIL_TEST} % ou plus, {NB_VALIDATION} questions de validation donnent la ceinture.
-        </p>
-        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => agir(onreperage)}>
+        <p class="text-sm">{NB_QUESTIONS} questions, corrigées à la fin. Avec {SEUIL_TEST} % ou plus, tu obtiens la {ceintureDu(choisi).toLowerCase()}.</p>
+        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => agir(oncommencer)}>
           {etat[n.cle]?.valideLe ? 'Repasser le test' : 'Commencer'}
         </button>
       {/if}
