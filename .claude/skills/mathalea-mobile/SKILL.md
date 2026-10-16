@@ -490,8 +490,12 @@ Environnement (machine de Nathan)
   « Tests fermés » avec liste d'adresses Gmail, pas « Tests ouverts ».
   Avertissements Play sur `setStatusBarColor` : viennent d'androidx
   (`enableEdgeToEdge`), rien à faire. Envoi automatique : secret
-  `GOOGLE_PLAY_SERVICE_ACCOUNT` encore à créer (compte de service invité
-  dans la Play Console). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
+  `GOOGLE_PLAY_SERVICE_ACCOUNT` posé, API « Google Play Android Developer »
+  activée le 16 octobre 2026 (projet 922562518325). Envoi à la main :
+  `gh workflow run google-play.yml --repo nathan-ed/mathalea-mobile -f forcer=true -f piste=internal`.
+  0.3.0 envoyée en « Test interne » le 16 octobre 2026. Attention : le
+  lundi, sans `piste`, l'envoi part en **production** (dernier tag `v*`, si
+  nouveau moteur publié). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
   gros pour SendUserFile (30 Mo).
 - `.ipa` non signée pour iPhone (`ios.yml`, `ipa=true`,
   `scripts/ios-sans-signature.sh`) jointe aux releases de la forge ;
