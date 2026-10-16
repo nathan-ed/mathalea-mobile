@@ -3,7 +3,7 @@
   import { onMount } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
-  import { bilan, cleQuestion, premiersEssais, questionsDe, type Seance } from '$lib/progression'
+  import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
   import { pastille } from './classes'
   import EnTete from './EnTete.svelte'
@@ -14,7 +14,7 @@
   let exercices: Record<number, ExercicePrepare> = $state({})
   let pret = $state(false)
   let erreur = $state('')
-  const liste = $derived(questionsDe(seance))
+  const liste = $derived(questionsOrdonnees(seance))
   const premiers = $derived(premiersEssais(seance))
   const b = $derived(bilan(seance))
   const date = $derived(new Date(seance.fin ?? seance.debut).toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' }))
@@ -51,7 +51,11 @@
     {#if pret}
       {#each liste as ref, i (`${ref.etape}-${ref.question}`)}
         {@const ex = exercices[ref.etape]}
-        {#if i === 0 || liste[i - 1].etape !== ref.etape}
+        {#if parcours.enTetesMasques}
+          <div class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
+            <div class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg">{i + 1}</div>
+          </div>
+        {:else if i === 0 || liste[i - 1].etape !== ref.etape}
           <h1 class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex flex-row items-center" class:mt-6={i > 0}>
             <div class="flex flex-row justify-start items-start">
               <div

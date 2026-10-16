@@ -19,6 +19,7 @@
     onfermer,
     palier = null,
     oncontinuer,
+    test = null,
   }: {
     parcours: Parcours
     seance: Seance
@@ -36,6 +37,8 @@
       suite: { nom: string; ouvert: boolean; condition: string } | null
     } | null
     oncontinuer?: () => void // commence le palier suivant
+    /** Teste ton niveau : verdict et suites proposées, à la place des actions d'un parcours */
+    test?: { message: string; actions: { libelle: string; fn: () => void }[] } | null
   } = $props()
 
   const b = $derived(bilan(seance))
@@ -55,7 +58,8 @@
         {b.pourcentage} % · {b.reussies} réponse{b.reussies > 1 ? 's' : ''} correcte{b.reussies > 1 ? 's' : ''}
         {#if b.passees.length}· {b.passees.length} passée{b.passees.length > 1 ? 's' : ''}{/if}
       </div>
-      {#if palier}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Bilan : {palier.nom.toLowerCase()}</p>{/if}
+      {#if test}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{test.message}</p>
+      {:else if palier}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Bilan : {palier.nom.toLowerCase()}</p>{/if}
     </div>
 
     {#if palier?.pause && b.passees.length === 0}
@@ -101,6 +105,13 @@
       {/each}
     </ul>
 
+    {#if test}
+      <div class="flex flex-col gap-3">
+        {#each test.actions as a, i (a.libelle)}
+          <button type="button" class="{i === 0 ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={a.fn}>{a.libelle}</button>
+        {/each}
+      </div>
+    {:else}
     <div class="flex flex-col gap-3">
       {#if b.passees.length > 0}
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onpassees}>
@@ -140,5 +151,6 @@
         </button>
       {/if}
     </div>
+    {/if}
   </main>
 </div>

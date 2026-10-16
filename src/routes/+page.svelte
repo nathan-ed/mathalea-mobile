@@ -40,6 +40,7 @@
     nouvelleSeance,
     premiersEssais,
     questionsDe,
+    questionsOrdonnees,
     terminerSeance,
     supprimerSeance,
     type ResultatEtape,
@@ -57,9 +58,23 @@
   import Relecture from '$lib/ui/Relecture.svelte'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
+  import TestNiveau from '$lib/ui/TestNiveau.svelte'
+  import {
+    NB_VALIDATION,
+    NIVEAUX_TEST,
+    SEUIL_TEST,
+    ceintureDu,
+    estTest,
+    niveauDuTest,
+    partie,
+    sujetsDu,
+    tirerTest,
+    type EtatTest,
+  } from '$lib/testNiveau'
+  import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
@@ -201,6 +216,8 @@
     objectifs = (await stockage.lire<Objectif[]>('objectifs')) ?? []
     etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
     preferences = (await stockage.lire<Preferences>('preferences-creation')) ?? {}
+    etatTest = (await stockage.lire<EtatTest>('test-niveau')) ?? {}
+    for (const e of Object.values(etatTest)) if (e.tirage) await chargerParcours(e.tirage)
     restaurationAnnulable = !!(await stockage.lire<string>(CLE_AVANT_RESTAURATION))
     for (const p of tous) await chargerParcours(p)
     vue = 'accueil'
@@ -278,7 +295,7 @@
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, creation: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
   // L'aperçu garde l'éditeur monté : même écran pour l'animation
   const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
@@ -318,13 +335,124 @@
       reglages: accueil,
       parcours: accueil,
       relecture: () => aller('parcours'),
-      seance: () => aller('parcours'),
-      bilan: () => aller('parcours'),
+      seance: quitterSeance,
+      bilan: quitterSeance,
+      test: accueil,
       creation: versCreer,
       apercu: () => aller('creation'),
     }
     retourDeBase(profil !== null ? (precedent[vue] ?? null) : null)
   })
+
+  // ---------- Teste ton niveau ----------
+
+  let etatTest: EtatTest = $state({})
+  // Sujets de la CAN du référentiel (lus à la première ouverture du test)
+  let referentielCan: ExerciceDuReferentiel[] | null = $state(null)
+  const disponiblesTest = $derived(referentielCan ? Object.fromEntries(NIVEAUX_TEST.map((n) => [n.cle, sujetsDu(n, referentielCan!).length])) : null)
+  const enCoursTest = $derived(Object.fromEntries(NIVEAUX_TEST.map((n) => [n.cle, !!etatTest[n.cle]?.tirage && !!seances[etatTest[n.cle].tirage!.id] && !seances[etatTest[n.cle].tirage!.id]!.fin])))
+  // Dernière ceinture obtenue, pour la tuile de l'Explorer
+  const resumeTest = $derived.by(() => {
+    const rang = NIVEAUX_TEST.findLastIndex((n) => etatTest[n.cle]?.valideLe)
+    return rang >= 0 ? `${ceintureDu(rang)} · ${NIVEAUX_TEST[rang].nom} validé` : 'Course aux nombres, du CM1 à la Terminale'
+  })
+
+  async function ouvrirTest() {
+    aller('test')
+    if (!referentielCan && moteur) {
+      // Sujets : référentiel français quel que soit le pays (la CAN n'existe que là)
+      referentielCan = (await moteur.listerExercices('FR')).filter((e) => e.niveau === 'CAN')
+    }
+  }
+
+  async function sauverTest() {
+    await stockage!.ecrire('test-niveau', $state.snapshot(etatTest))
+  }
+
+  /** Nouveau tirage d'un niveau, puis son repérage */
+  async function reperageTest(rang: number) {
+    if (!moteur || !referentielCan) return
+    const n = NIVEAUX_TEST[rang]
+    // Nombre de questions de chaque sujet (30 le plus souvent, 20 en CE)
+    const sujets = await Promise.all(
+      sujetsDu(n, referentielCan).map(async (e) => ({ ...e, nbQuestions: (await moteur!.decrireExercice?.(e.uuid))?.nbQuestions ?? 30 })),
+    )
+    const avant = etatTest[n.cle]
+    const p = tirerTest(n, sujets, `${Date.now()}-${Math.random()}`, (avant?.tirage?.version ?? 0) + 1)
+    etatTest[n.cle] = { ...avant, tirage: p, reperage: false }
+    await sauverTest()
+    await chargerParcours(p)
+    actif = p
+    void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet', partie(p, 0)))
+  }
+
+  function validationTest(rang: number) {
+    const p = etatTest[NIVEAUX_TEST[rang].cle]?.tirage
+    if (!p || !moteur) return
+    actif = p
+    void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet', partie(p, 1)))
+  }
+
+  function reprendreTest(rang: number) {
+    const p = etatTest[NIVEAUX_TEST[rang].cle]?.tirage
+    const s = p ? seances[p.id] : null
+    if (!p || !s || s.fin) return
+    actif = p
+    void lancer(s)
+  }
+
+  /** Repérage réussi : la validation s'ouvre ; validation réussie : la ceinture est obtenue */
+  async function noterTest(s: TSeance) {
+    const n = NIVEAUX_TEST[niveauDuTest(s.parcours)]
+    if (!n) return
+    const validation = s.etapes.join() === partie(s.contenu, 1).join()
+    const reussi = bilan(s).pourcentage >= SEUIL_TEST
+    const e = etatTest[n.cle] ?? {}
+    etatTest[n.cle] = { ...e, reperage: !validation && reussi, ...(validation && reussi ? { valideLe: s.fin } : {}) }
+    await sauverTest()
+  }
+
+  /** Verdict du bilan d'un test et suites proposées */
+  const testDuBilan = $derived.by(() => {
+    if (!seance || !seance.fin || !estTest(seance.parcours)) return null
+    const rang = niveauDuTest(seance.parcours)
+    if (rang === -1) return null
+    const ouvert = (i: number) => (disponiblesTest?.[NIVEAUX_TEST[i].cle] ?? 0) > 0
+    const suivant = NIVEAUX_TEST.findIndex((_, i) => i > rang && ouvert(i))
+    const precedent = NIVEAUX_TEST.findLastIndex((_, i) => i < rang && ouvert(i))
+    const validation = seance.etapes.join() === partie(seance.contenu, 1).join()
+    const reussi = bilan(seance).pourcentage >= SEUIL_TEST
+    const ceinture = ceintureDu(rang).toLowerCase()
+    const retour = { libelle: 'Retour aux niveaux', fn: () => aller('test') }
+    if (!validation && reussi)
+      return {
+        message: `Repérage réussi. ${NB_VALIDATION} questions de validation pour la ${ceinture}.`,
+        actions: [{ libelle: 'Passer la validation', fn: () => validationTest(rang) }, retour],
+      }
+    if (!validation)
+      return {
+        message: `Il faut ${SEUIL_TEST} % au repérage pour passer à la validation.`,
+        actions: [
+          { libelle: 'Recommencer avec de nouvelles questions', fn: () => void reperageTest(rang) },
+          ...(precedent >= 0 ? [{ libelle: `Essayer le niveau ${NIVEAUX_TEST[precedent].nom}`, fn: () => void reperageTest(precedent) }] : []),
+          retour,
+        ],
+      }
+    if (reussi)
+      return {
+        message: `${ceintureDu(rang)} obtenue : niveau ${NIVEAUX_TEST[rang].nom} validé.`,
+        actions: [...(suivant >= 0 ? [{ libelle: `Niveau suivant : ${NIVEAUX_TEST[suivant].nom}`, fn: () => void reperageTest(suivant) }] : []), retour],
+      }
+    return {
+      message: `Il faut ${SEUIL_TEST} % à la validation pour obtenir la ${ceinture}.`,
+      actions: [{ libelle: 'Recommencer le niveau', fn: () => void reperageTest(rang) }, retour],
+    }
+  })
+
+  /** Quitter une séance ou son bilan : le test revient à ses niveaux */
+  function quitterSeance() {
+    aller(estTest(seance?.parcours) ? 'test' : 'parcours')
+  }
 
   // ---------- Élève ----------
 
@@ -393,6 +521,7 @@
     if (s.contenu.version === actif?.version) resultats[s.parcours] = r
     seances[s.parcours] = s
     historiques[s.parcours] = await lireHistorique(stockage!, s.parcours)
+    if (estTest(s.parcours)) await noterTest(s)
     // Pourcentage du parcours : seulement pour un passage sur tous ses exercices (pas un palier seul)
     if (s.type === 'complet' && s.etapes.length === s.contenu.etapes.length) {
       derniersComplets[s.parcours] = bilan(s).pourcentage
@@ -410,9 +539,10 @@
 
   function revenirAuxPassees() {
     const s = seance!
-    const premiere = bilan(s).passees[0]
+    const passees = bilan(s).passees
     s.fin = undefined
-    s.position = questionsDe(s).findIndex((q) => q.etape === premiere.etape && q.question === premiere.question)
+    // Première question passée dans l'ordre d'affichage (mélangé ou non)
+    s.position = questionsOrdonnees(s).findIndex((q) => passees.some((p) => p.etape === q.etape && p.question === q.question))
     void lancer(s)
   }
 
@@ -741,6 +871,8 @@
       onouvrir={ouvrir}
       oncontinuer={commencer}
       onreglages={() => aller('reglages')}
+      ontest={moteur ? ouvrirTest : undefined}
+      {resumeTest}
       onajouter={ajouterClasse}
       onchoisirClasse={choisirClasse}
       onepingler={(p) => (dansSources(p.id) ? basculerEpingle(p) : basculerAjout(p))}
@@ -806,6 +938,16 @@
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
     />
+  {:else if vue === 'test'}
+    <TestNiveau
+      etat={etatTest}
+      disponibles={disponiblesTest}
+      enCours={enCoursTest}
+      onreperage={(rang) => void reperageTest(rang)}
+      onvalidation={validationTest}
+      onreprendre={reprendreTest}
+      onretour={accueil}
+    />
   {:else if vue === 'relecture' && relue}
     <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} />
   {:else if vue === 'seance' && seance}
@@ -815,7 +957,7 @@
         bind:seance
         {moteur}
         onsauver={sauverSeance}
-        onquitter={() => aller('parcours')}
+        onquitter={quitterSeance}
         onterminer={terminer}
         onsupprimer={() => supprimerTentative(seance!.parcours)}
       />
@@ -829,8 +971,9 @@
       onrefaire={refaire}
       onameliorer={ameliorer}
       onpassees={revenirAuxPassees}
-      onfermer={() => aller('parcours')}
+      onfermer={quitterSeance}
       palier={palierDuBilan}
+      test={testDuBilan}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
     />
   {/if}

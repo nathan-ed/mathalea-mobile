@@ -3,7 +3,7 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
-  import { cleQuestion, premiersEssais, questionsDe, valeur, type Seance } from '$lib/progression'
+  import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
   import { boutonAction, boutonInverse, boutonLien, pastille } from './classes'
   import EnTete from './EnTete.svelte'
@@ -40,9 +40,11 @@
   let demonterClavier: (() => void) | undefined
   let mesure: ReturnType<typeof setInterval> | undefined
 
-  const liste: Ref[] = $derived(pret ? questionsDe(seance).map((q, rang) => ({ ...q, rang })) : [])
+  const liste: Ref[] = $derived(pret ? questionsOrdonnees(seance).map((q, rang) => ({ ...q, rang })) : [])
   // La présentation et le moment de validation sont choisis par l'enseignant
   const presentation = $derived(parcours.presentation)
+  // Sans en-tête d'exercice, les questions s'enchaînent, numérotées 1, 2, 3…
+  const sansEnTete = $derived(!!parcours.enTetesMasques)
   const finale = $derived(parcours.correction === 'parcours')
   // Une fois la tentative soumise, toutes les questions sur une page, corrigées
   const relecture = $derived(finale && !!seance.soumise)
@@ -171,7 +173,7 @@
     return Object.keys(seance.brouillons[cle] ?? {}).length ? 'saisie' : 'vide'
   }
 
-  const nomQuestion = (ref: Ref) => `Ex ${seance.etapes.indexOf(ref.etape) + 1} · Q${ref.question + 1}`
+  const nomQuestion = (ref: Ref) => (sansEnTete ? `Question ${ref.rang + 1}` : `Ex ${seance.etapes.indexOf(ref.etape) + 1} · Q${ref.question + 1}`)
 
   /** Continue tout de suite, ou signale d'abord ce qui manque */
   function garder(refs: Ref[], exigerVerification: boolean, libelle: string, continuer: () => void) {
@@ -279,6 +281,7 @@
         seance.nbQuestions[etape] = ex.questions.length
       }
       seance.moteur = moteur.VERSION_MOTEUR
+      fixerOrdre(seance)
       if (seance.position >= questionsDe(seance).length) seance.position = 0
       pret = true
       sauver()
@@ -315,13 +318,13 @@
       class="flex flex-row overflow-x-auto w-full mt-2 mb-4 border-b-2 border-coopmaths-struct dark:border-coopmathsdark-struct
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       role="tablist"
-      aria-label={unique ? 'Questions' : 'Exercices'}
+      aria-label={unique ? 'Questions' : sansEnTete ? 'Pages' : 'Exercices'}
     >
       {#each pages as p, i (i)}
         <button
           role="tab"
           aria-selected={i === page}
-          aria-label={unique ? `Question ${i + 1}` : `Exercice ${i + 1}`}
+          aria-label={unique ? `Question ${i + 1}` : sansEnTete ? `Page ${i + 1}` : `Exercice ${i + 1}`}
           class="relative group flex-1 {i === page ? 'border-b-4' : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action dark:text-coopmathsdark-action"
           style="min-width: 2.75rem"
           onclick={() => allerPage(i)}
@@ -330,7 +333,7 @@
             {#if unique}
               {i + 1}<span class="ml-1 text-sm">{smiley(p[0].etape, p[0].question)}</span>
             {:else}
-              Ex {i + 1}<span class="ml-1 text-sm font-bold">{scoreEtape(p[0].etape)}</span>
+              {sansEnTete ? 'Page' : 'Ex'} {i + 1}<span class="ml-1 text-sm font-bold">{scoreEtape(p[0].etape)}</span>
             {/if}
           </div>
         </button>
@@ -353,7 +356,16 @@
         {#each pages[page] as ref, i (ref.rang)}
           {@const ex = exercices[ref.etape]}
           {@const debutEtape = i === 0 || pages[page][i - 1].etape !== ref.etape}
-          {#if debutEtape}
+          {#if sansEnTete}
+            {#if !unique}
+              <!-- Numéro de la question, au style de l'en-tête d'exercice -->
+              <div class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
+                <div class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg">
+                  {ref.rang + 1}
+                </div>
+              </div>
+            {/if}
+          {:else if debutEtape}
             <!-- En-tête d'exercice de la vue élève (HeaderExerciceVueEleve.svelte) -->
             <h1 class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex flex-row items-center" class:mt-6={i > 0}>
               <div class="flex flex-row justify-start items-start">

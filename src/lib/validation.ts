@@ -65,7 +65,9 @@ export function estParcours(v: unknown): v is Parcours {
     listeDe(p.etapes, estEtape) &&
     optionnel(p.paliers, (l) => listeDe(l, estPalier)) &&
     optionnel(p.style, (x) => x === 'paliers' || x === 'ceintures') &&
-    optionnel(p.premiereCeinture, (n) => estEntier(n) && (n as number) >= 0 && (n as number) < 7)
+    optionnel(p.premiereCeinture, (n) => estEntier(n) && (n as number) >= 0 && (n as number) < 7) &&
+    optionnel(p.enTetesMasques, (b) => typeof b === 'boolean') &&
+    optionnel(p.melanger, (b) => typeof b === 'boolean')
   )
 }
 

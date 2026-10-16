@@ -80,6 +80,11 @@ modifier un parcours, touchez-le : tout est déjà rempli.
   chapitre et se change d'un geste ; une page par question, par exercice ou
   tout sur une page ; correction après chaque question, à la fin de chaque
   page, ou à la fin du parcours (« à la fin du palier » avec des paliers).
+  « Afficher les exercices » montre le numéro et le titre de chaque exercice ;
+  désactivé (par défaut), les questions s'enchaînent, numérotées 1, 2, 3…
+  « Mélanger les questions » (activé par défaut) mêle les questions des
+  différents exercices, dans un ordre propre à chaque élève (le même pour
+  toute une session commune) ; sans effet avec une page par exercice.
 
 En bas : « Aperçu élève » pour essayer, et « Valider le parcours ». Tant
 qu'il manque une information, la ligne « À compléter » dit laquelle. Le
@@ -223,6 +228,12 @@ plus récent remplace l'ancien.
   **ceintures** obtenues.
 - L'onglet Explorer propose les parcours de l'équipe MathALÉA ; l'élève peut
   en ajouter à son accueil.
+- « Teste ton niveau », en tête de l'Explorer, est ouvert à tous : questions
+  des sujets de la Course aux nombres, du CM1 à la Terminale. Par niveau,
+  10 questions de repérage puis 20 de validation, 80 % pour réussir ; un
+  niveau validé donne sa ceinture (CM1 blanche, CM2 jaune, 6e orange,
+  5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire
+  de nouvelles questions.
 
 ## Sessions communes
 

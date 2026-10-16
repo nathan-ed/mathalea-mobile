@@ -53,6 +53,8 @@ export interface Preferences {
   difficulte: 1 | 2 | 3
   presentation: Parcours['presentation']
   correction: Parcours['correction']
+  enTetesMasques?: boolean
+  melanger?: boolean
 }
 
 export const preferencesDe = (p: Parcours): Preferences => ({
@@ -60,6 +62,8 @@ export const preferencesDe = (p: Parcours): Preferences => ({
   difficulte: p.difficulte,
   presentation: p.presentation,
   correction: p.correction,
+  enTetesMasques: !!p.enTetesMasques,
+  melanger: !!p.melanger,
 })
 
 export function parcoursVide(pref: Partial<Preferences> = {}): Parcours {
@@ -74,6 +78,9 @@ export function parcoursVide(pref: Partial<Preferences> = {}): Parcours {
     icone: 'bx-book-content',
     presentation: 'une_question_par_page',
     correction: 'question',
+    // Nouveaux parcours : questions enchaînées, sans en-tête, ordre mélangé
+    enTetesMasques: true,
+    melanger: true,
     etapes: [],
     ...pref,
   }

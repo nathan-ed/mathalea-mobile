@@ -64,7 +64,7 @@
   let aRetirer: Classe | null = $state(null)
 
   // Création de parcours : mêmes valeurs par défaut que parcoursVide()
-  const pref = $derived<Preferences>({ niveau: '', difficulte: 1, presentation: 'une_question_par_page', correction: 'question', ...preferences })
+  const pref = $derived<Preferences>({ niveau: '', difficulte: 1, presentation: 'une_question_par_page', correction: 'question', enTetesMasques: true, melanger: true, ...preferences })
   const changer = (modif: Partial<Preferences>) => onpreferences({ ...pref, ...modif })
   const puce = (actif: boolean) =>
     `rounded-full px-3 py-1.5 text-sm border border-coopmaths-action dark:border-coopmathsdark-action ${
@@ -355,6 +355,12 @@
             { libelle: 'Une page par question', valeur: 'une_question_par_page' as const },
           ]}
         />
+        {#each [{ cle: 'enTetes', libelle: 'Afficher les exercices (numéro et titre)', actif: !pref.enTetesMasques, changer: (v: boolean) => changer({ enTetesMasques: !v }) }, { cle: 'melanger', libelle: 'Mélanger les questions', actif: !!pref.melanger, changer: (v: boolean) => changer({ melanger: v }) }] as o (o.cle)}
+          <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+            <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{o.libelle}</span>
+            <input type="checkbox" role="switch" class="interrupteur shrink-0" checked={o.actif} onchange={(e) => o.changer(e.currentTarget.checked)} />
+          </label>
+        {/each}
         <p class="pl-2 pt-2 text-sm font-light text-coopmaths-struct dark:text-coopmathsdark-struct">Validation et correction</p>
         <ChoixRadio
           nom="pref-validation"

@@ -1,5 +1,5 @@
 // Séances et résultats d'un élève. Tout reste dans le stockage local.
-import type { Parcours } from './catalogue'
+import { melange, type Parcours } from './catalogue'
 import type { Stockage } from './stockage'
 
 export interface Essai {
@@ -27,6 +27,7 @@ export interface Seance {
   fin?: string
   soumise?: boolean // validation à la fin du parcours : tentative soumise
   code?: string // session partagée : même code, mêmes exercices
+  ordre?: string[] // questions mélangées (clés « étape-question »), tirées une fois
 }
 
 /** Codes de session : 5 caractères faciles à dicter (sans 0/o ni 1/l/i) */
@@ -80,6 +81,57 @@ export function questionsDe(s: Seance) {
   return s.etapes.flatMap((etape) =>
     Array.from({ length: s.nbQuestions[etape] ?? 0 }, (_, question) => ({ etape, question })),
   )
+}
+
+/** Nombre pseudo-aléatoire entre 0 et 1 tiré d'une graine (mulberry32) */
+function generateur(graine: string) {
+  let h = 1779033703
+  for (let i = 0; i < graine.length; i++) h = Math.imul(h ^ graine.charCodeAt(i), 3432918353)
+  let a = h >>> 0
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0
+    let t = a
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+/** Copie mélangée (Fisher-Yates) : même graine, même ordre */
+export function melanger<T>(liste: T[], graine: string): T[] {
+  const alea = generateur(graine)
+  const t = [...liste]
+  for (let i = t.length - 1; i > 0; i--) {
+    const j = Math.floor(alea() * (i + 1))
+    ;[t[i], t[j]] = [t[j], t[i]]
+  }
+  return t
+}
+
+/**
+ * Tire l'ordre des questions une fois qu'elles sont toutes préparées. En
+ * session partagée, l'ordre vient du code : toute la classe a le même. Un
+ * ordre déjà tiré qui correspond toujours aux questions est gardé.
+ */
+export function fixerOrdre(s: Seance) {
+  if (!melange(s.contenu)) {
+    s.ordre = undefined
+    return
+  }
+  const cles = questionsDe(s).map((q) => cleQuestion(q.etape, q.question))
+  const valide = s.ordre && s.ordre.length === cles.length && cles.every((c) => s.ordre!.includes(c))
+  if (valide) return
+  const graine = s.code ? `${s.code}-${s.contenu.id}-v${s.contenu.version}-ordre` : `${Math.random()}`
+  s.ordre = melanger(cles, graine)
+}
+
+/** Questions dans l'ordre d'affichage : mélangé si la séance a un ordre tiré */
+export function questionsOrdonnees(s: Seance) {
+  const questions = questionsDe(s)
+  if (!s.ordre || s.ordre.length !== questions.length) return questions
+  const rang = new Map(s.ordre.map((c, i) => [c, i]))
+  if (questions.some((q) => !rang.has(cleQuestion(q.etape, q.question)))) return questions
+  return [...questions].sort((a, b) => rang.get(cleQuestion(a.etape, a.question))! - rang.get(cleQuestion(b.etape, b.question))!)
 }
 
 /** Première vérification de chaque question : c'est elle qui compte */

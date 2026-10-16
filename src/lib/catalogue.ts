@@ -60,7 +60,12 @@ export interface Parcours {
   paliers?: Palier[]
   style?: StylePaliers // présentation des paliers aux élèves
   premiereCeinture?: number // rang dans CEINTURES de la première ceinture (0 : blanche)
+  enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
+  melanger?: boolean // questions de plusieurs exercices dans un ordre mélangé (sauf un exercice par page)
 }
+
+/** Ordre mélangé : seulement si une page ou le parcours mêle plusieurs exercices */
+export const melange = (p: Pick<Parcours, 'melanger' | 'presentation'>) => !!p.melanger && p.presentation !== 'un_exo_par_page'
 
 /** Paliers numérotés, ou ceintures comme au judo (blanche, jaune…) */
 export type StylePaliers = 'paliers' | 'ceintures'

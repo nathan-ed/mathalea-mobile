@@ -5,7 +5,7 @@
   // pages et validation. Tout reste modifiable dans n'importe quel ordre.
   // Les classes se choisissent ensuite : on crée pour un niveau, on donne à une classe.
   import { onMount, untrack } from 'svelte'
-  import { CEINTURES, ICONES, couleurCeinture, iconeProposee, nomPalier, type Etape, type Palier, type Parcours, type Ressource, type StylePaliers } from '$lib/catalogue'
+  import { CEINTURES, ICONES, couleurCeinture, iconeProposee, melange, nomPalier, type Etape, type Palier, type Parcours, type Ressource, type StylePaliers } from '$lib/catalogue'
   import { chapitres, chapitresDeBibliotheque, etapesDepuisLienMathalea, type Bibliotheque, type ChapitreConnu } from '$lib/bibliotheque'
   import { NIVEAUX, type DescriptionExercice, type ExerciceDuReferentiel, type Moteur, type Pays } from '$lib/moteur'
   import { cleExercice, type Objectif } from '$lib/objectifs'
@@ -668,7 +668,7 @@
           <i aria-hidden="true" class="bx {p.icone} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
           <span class="flex flex-col min-w-0">
             <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Icône, pages et correction</span>
-            <span class="{discret} truncate">{libellesPresentation[p.presentation]} · correction : {libellesValidation[p.correction].toLowerCase()}</span>
+            <span class="{discret} truncate">{libellesPresentation[p.presentation]}{melange(p) ? ', mélangées' : ''} · correction : {libellesValidation[p.correction].toLowerCase()}</span>
           </span>
         </span>
         <i aria-hidden="true" class="bx {presentationOuverte ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
@@ -699,6 +699,32 @@
         bind:valeur={p.presentation}
         options={Object.entries(libellesPresentation).map(([valeur, libelle]) => ({ valeur: valeur as Parcours['presentation'], libelle }))}
       />
+      <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+        <span class="flex flex-col gap-1 min-w-0">
+          <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Afficher les exercices</span>
+          <span class={discret}>Numéro et titre de chaque exercice ; sinon, les questions s’enchaînent.</span>
+        </span>
+        <input type="checkbox" role="switch" class="interrupteur shrink-0" checked={!p.enTetesMasques} onchange={(e) => (p.enTetesMasques = !e.currentTarget.checked)} />
+      </label>
+      <label
+        class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        class:opacity-40={p.presentation === 'un_exo_par_page'}
+      >
+        <span class="flex flex-col gap-1 min-w-0">
+          <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Mélanger les questions</span>
+          <span class={discret}>
+            {p.presentation === 'un_exo_par_page' ? 'Sans effet avec un exercice par page.' : 'Ordre différent pour chaque élève, le même pour une session partagée.'}
+          </span>
+        </span>
+        <input
+          type="checkbox"
+          role="switch"
+          class="interrupteur shrink-0"
+          disabled={p.presentation === 'un_exo_par_page'}
+          checked={!!p.melanger}
+          onchange={(e) => (p.melanger = e.currentTarget.checked)}
+        />
+      </label>
       <p class={sousTitre}>Validation et correction</p>
       <ChoixRadio
         nom="validation"

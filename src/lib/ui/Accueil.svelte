@@ -41,6 +41,8 @@
     onouvrir,
     oncontinuer,
     onreglages,
+    ontest,
+    resumeTest = '',
     onajouter,
     onchoisirClasse,
     onorganiser,
@@ -60,6 +62,8 @@
     onouvrir: (p: Parcours) => void
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
+    ontest?: () => void // Teste ton niveau (moteur prêt)
+    resumeTest?: string
     onajouter: (lien: string) => Promise<string | null>
     onchoisirClasse: (lien: string, classe: string) => void
     onorganiser: (source: string, o: Organisation) => void
@@ -297,6 +301,9 @@
       </div>
     {:else if onglet === 'explorer'}
       <div class="flex flex-col gap-3 p-4">
+        {#if ontest}
+          <Tuile icon="bx-timer" title="Teste ton niveau" subtitle={resumeTest} onclick={ontest} />
+        {/if}
         <h2 class={titreSection}>Parcours proposés par l’équipe MathALÉA</h2>
         {#each niveaux as n (n)}
           {@const nb = explorables.filter((p) => p.niveau === n).length}

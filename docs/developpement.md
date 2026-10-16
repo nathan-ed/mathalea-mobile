@@ -37,6 +37,7 @@ un **paquet moteur** construit depuis le dépôt MathALÉA (branche
 | `src/lib/partage.ts` | fichier `parcours-mathalea.json` (plusieurs classes), lecture des drives |
 | `src/lib/bibliotheque.ts` | parcours de l'enseignant, classes, préférences, versions, publication (toute la bibliothèque) et reprise |
 | `src/lib/objectifs.ts` | objectifs (CSV, mémoire par exercice), états des paliers, suivi par objectif, ceintures obtenues |
+| `src/lib/testNiveau.ts` | « Teste ton niveau » : sujets de CAN par niveau, tirage des questions, ceintures |
 | `src/lib/sauvegarde.ts` | sauvegarde et restauration (avec retour arrière) |
 | `src/lib/stockage.ts` | SQLite dans Tauri, `localStorage` dans un navigateur |
 | `src-tauri/src/telechargement.rs` | téléchargement sans en-tête `Origin` |
@@ -57,6 +58,24 @@ Règles :
   que d'un passage sur toutes ses étapes.
 - Objectifs : libellés sur les étapes (`objectifs`) ; l'objectif du programme
   vient du moteur (`listerExercices`, code sous le chapitre : `5N2` › `5N2G`).
+- Affichage : `enTetesMasques` (ni numéro ni titre d'exercice, questions
+  numérotées 1, 2, 3…) et `melanger` (sans effet avec un exercice par page).
+  Les deux sont vrais pour un nouveau parcours ; absents (anciens parcours),
+  rien ne change. L'ordre mélangé est tiré une fois toutes les questions
+  préparées et gardé dans la séance (`ordre`, clés `étape-question`) ; en
+  session partagée, il vient du code. `questionsOrdonnees()` sert à
+  l'affichage, `questionsDe()` reste dans l'ordre des étapes (bilan, suivi).
+- Teste ton niveau (Explorer, pour tous) : questions des sujets de la Course
+  aux nombres de 2024 et après (référentiel FR, racine `CAN`, ids
+  `can<niveau>a-<année>`), du CM1 à la Terminale. Ces sujets
+  (`MetaExerciceCan`) produisent les questions demandées par `sup2`
+  (« 3-7-12 »), sans changement du moteur (`node e2e/sonde-can.mjs` le
+  vérifie sujet par sujet). Un tirage = un parcours `test-niveau-<niveau>` à
+  deux paliers : 10 questions prises parmi les questions 1 à 10 des sujets
+  (repérage), 20 parmi les suivantes (validation), 80 % pour réussir. La
+  version augmente à chaque tirage. État dans la clé `test-niveau` (dernier
+  tirage, repérage réussi, date de validation par niveau) ; séances et
+  historique sous les clés habituelles.
 
 ### Partage
 
@@ -297,6 +316,13 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
+## Prochaine version
+
+- Explorer : « Teste ton niveau », ceintures du CM1 (blanche) à la Terminale
+  (noire, 3e dan) d'après les sujets de la Course aux nombres.
+- Parcours : exercices sans en-tête et questions mélangées (réglages de
+  « Icône, pages et correction », vrais par défaut pour un nouveau parcours).
+
 ## 0.2.4 : Google Play, pages de 16 Ko (fait)
 
 - Bibliothèques natives Android alignées sur des pages de 16 Ko (exigence de
@@ -317,6 +343,10 @@ ancienne app.
 - Guide en ligne (Pages de la forge), `.ipa` non signée pour iPhone et iPad.
 
 ## À faire (sans version fixée)
+
+- Page `?v=parcours` du site : reprendre `enTetesMasques` et `melanger`.
+- Teste ton niveau : ajouter le CE1 et le CE2 (sujets présents dans le
+  référentiel, `canCE1a`, `canCE2a`) si les collègues le souhaitent.
 
 - Retour vers l'enseignant (idée de Nathan, à reprendre plus tard). Rien ne
   quitte l'appareil sans un geste de l'élève ; pas de compte ni de serveur.

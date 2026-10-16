@@ -158,6 +158,20 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `src/components/setup/parcours/` ; fenêtre d'ajout du site réutilisée
   (`TypstAddExerciseModal`, options facultatives). « Rien de nouveau » : ne pas
   refaire un sélecteur d'exercices, réutiliser celui du site.
+- Affichage (octobre 2026) : `enTetesMasques` (questions enchaînées,
+  numérotées 1, 2, 3…) et `melanger` (ordre tiré une fois, `Seance.ordre`,
+  du code en session partagée ; `questionsOrdonnees()` pour l'affichage,
+  `questionsDe()` pour bilan et suivi). Vrais pour un nouveau parcours,
+  absents = comportement d'avant (ne rien changer chez les élèves).
+- Teste ton niveau (Explorer, pour tous ; « on prend les annales », Nathan) :
+  `src/lib/testNiveau.ts`, `TestNiveau.svelte`. Sujets CAN officiels de 2024
+  et après (`can<niv>a-<année>`, racine `CAN` du référentiel FR, même en
+  Suisse) ; `MetaExerciceCan` donne les questions de `sup2` (« 3-7-12 »).
+  10 parmi les questions 1 à 10 (repérage) puis 20 parmi les suivantes
+  (validation), 80 %, ceinture par niveau (CM1 blanche … Terminale noire
+  3e dan). Les sujets 2018-2023, « Spéciale année » (NY) et Aléa/CoopMaths
+  ne choisissent pas leurs questions. Vérifier : `node e2e/sonde-can.mjs`,
+  `node e2e/test-niveau.mjs` (pnpm dev).
 - Démonstration : `static/demo/parcours-demonstration.json`
   (`npx tsx scripts/demonstration.mts`), chargée et retirée dans les Réglages
   (enseignant), classe `LIEN_DEMONSTRATION` jamais synchronisée.

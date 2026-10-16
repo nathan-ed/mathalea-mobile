@@ -69,6 +69,7 @@ const estSeance = (id: string) => (v: unknown) => {
     optionnel(s.fin, estTexte) &&
     optionnel(s.soumise, (b) => typeof b === 'boolean') &&
     optionnel(s.code, estTexte) &&
+    optionnel(s.ordre, textesUniques) &&
     dictionnaireDe(s.graines, estTexte) &&
     dictionnaireDe(s.nbQuestions, (q) => estEntier(q) && q >= 0) &&
     dictionnaireDe(s.brouillons, (b) => dictionnaireDe(b, estTexte)) &&
@@ -112,12 +113,23 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
     listeDe(v, (o) => estObjet(o) && estTexte(o.libelle) && estTexte(o.niveau) && estTexte(o.theme)) &&
     sansDoublon((v as { libelle: string }[]).map((o) => o.libelle)),
   etiquettes: (v) => dictionnaireDe(v, textesUniques),
+  'test-niveau': (v) =>
+    dictionnaireDe(
+      v,
+      (e) =>
+        estObjet(e) &&
+        optionnel(e.tirage, (p) => estParcours(p) && (p as { id: string }).id.startsWith('test-niveau-')) &&
+        optionnel(e.reperage, (b) => typeof b === 'boolean') &&
+        optionnel(e.valideLe, estTexte),
+    ),
   'preferences-creation': (v) =>
     estObjet(v) &&
     estTexte(v.niveau) &&
     [1, 2, 3].includes(v.difficulte as number) &&
     ['une_question_par_page', 'un_exo_par_page', 'liste_exos'].includes(v.presentation as string) &&
-    ['question', 'page', 'parcours'].includes(v.correction as string),
+    ['question', 'page', 'parcours'].includes(v.correction as string) &&
+    optionnel(v.enTetesMasques, (b) => typeof b === 'boolean') &&
+    optionnel(v.melanger, (b) => typeof b === 'boolean'),
 }
 // Clés par parcours : le suffixe est l'identifiant (resultats : identifiant@version)
 const prefixes: Record<string, (v: unknown, suffixe: string) => boolean> = {
