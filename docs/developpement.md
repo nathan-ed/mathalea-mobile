@@ -329,12 +329,15 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
-## Prochaine version
+## 0.3.1 : Teste ton niveau en 15 questions (fait)
 
 - Teste ton niveau : une seule série de 15 questions classées par domaine,
   sans doublon, bilan direct par question ; barre de progression pour une
   question par page ; réponses dans une figure gardées avec la correction à
   la fin.
+- Réglages, « À propos » : lien vers le guide en ligne. Guide : page
+  technique « Format des parcours » (schéma JSON, exemple, consigne pour un
+  assistant) et skill `generer-parcours`.
 
 ## 0.3.0 : Teste ton niveau (fait)
 

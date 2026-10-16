@@ -12,6 +12,7 @@ Il n'y a ni compte ni mot de passe. Les réponses et les résultats des élèves
 4. [Créer un parcours sur le site MathALÉA](creer-sur-le-site.md), depuis un ordinateur.
 5. [Côté élève](eleves.md) : ajouter le dossier de la classe, travailler, voir ses progrès.
 6. [Tester avec des collègues](tester.md) : quoi essayer et comment faire un retour.
+7. [Format des parcours (technique)](format-parcours.md) : générer des parcours par un script ou avec un assistant.
 
 ## Comment les parcours arrivent aux élèves
 

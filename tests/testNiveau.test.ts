@@ -160,3 +160,41 @@ describe('questions mélangées', () => {
     expect(questionsOrdonnees(s)).toEqual(questionsDe(s))
   })
 })
+
+describe('format des parcours (guide)', async () => {
+  const { lireFichier } = await import('../src/lib/partage')
+  const textes: Record<string, string> = {
+    'format-parcours.md': (await import('../docs/guide/format-parcours.md?raw')).default,
+    'exemple-parcours.json': (await import('../docs/guide/exemple-parcours.json?raw')).default,
+    'parcours-mathalea.schema.json': (await import('../docs/guide/parcours-mathalea.schema.json?raw')).default,
+    demonstration: (await import('../static/demo/parcours-demonstration.json?raw')).default,
+  }
+  const guide = (f: string) => textes[f]
+  const schema = JSON.parse(guide('parcours-mathalea.schema.json'))
+  const champs = (def: string) => Object.keys(schema.$defs[def].properties)
+
+  it('l’exemple et le plus petit fichier de la page sont acceptés par l’application', () => {
+    expect(() => lireFichier(guide('exemple-parcours.json'))).not.toThrow()
+    const petit = /```json\n([\s\S]*?)\n```/.exec(guide('format-parcours.md'))![1]
+    expect(lireFichier(petit).classes[0].parcours[0].id).toBe('relatifs-5e')
+  })
+
+  it('le schéma décrit tous les champs de l’exemple et de la démonstration', () => {
+    for (const texte of [guide('exemple-parcours.json'), guide('demonstration')]) {
+      const f = lireFichier(texte)
+      const tous = [...f.classes.flatMap((c) => c.parcours), ...(f.bibliotheque?.parcours ?? [])]
+      for (const p of tous) {
+        for (const k of Object.keys(p)) expect(champs('parcours'), k).toContain(k)
+        for (const e of p.etapes) for (const k of Object.keys(e)) expect(champs('etape'), k).toContain(k)
+        for (const x of p.paliers ?? []) for (const k of Object.keys(x)) expect(champs('palier'), k).toContain(k)
+      }
+      for (const k of Object.keys(f)) expect(Object.keys(schema.properties), k).toContain(k)
+    }
+  })
+
+  it('un parcours au format du schéma, mais invalide, est refusé', () => {
+    const f = JSON.parse(guide('exemple-parcours.json'))
+    f.classes[0].parcours[0].presentation = 'tout'
+    expect(() => lireFichier(JSON.stringify(f))).toThrow('relatifs-5e')
+  })
+})

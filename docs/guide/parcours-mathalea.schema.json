@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coopmaths.forge.apps.education.fr/mathalea-mobile/parcours-mathalea.schema.json",
+  "title": "Fichier de parcours MathALÉA (classes-mathalea/1)",
+  "description": "Fichier déposé à la racine d'un dossier partagé et lu par l'application MathALÉA. La référence est le contrôle de l'application (src/lib/validation.ts et src/lib/partage.ts) : un fichier refusé par l'application est refusé en entier.",
+  "type": "object",
+  "required": ["format", "exporteLe", "classes"],
+  "properties": {
+    "format": { "const": "classes-mathalea/1" },
+    "exporteLe": { "type": "string", "description": "Date ISO 8601 de l'export. Entre deux banques d'un même dossier, la plus récente compte." },
+    "classes": {
+      "type": "array",
+      "description": "Noms de classe uniques ; dans une classe, chaque id de parcours une seule fois.",
+      "items": {
+        "type": "object",
+        "required": ["nom", "parcours"],
+        "properties": {
+          "nom": { "type": "string" },
+          "parcours": { "type": "array", "items": { "$ref": "#/$defs/parcours" }, "description": "Dans l'ordre vu par les élèves." }
+        }
+      }
+    },
+    "banque": { "type": "boolean", "description": "Publication complète d'un enseignant : dans un dossier, seule la banque la plus récente compte (un parcours retiré disparaît)." },
+    "bibliotheque": {
+      "type": "object",
+      "description": "Parcours sans classe et objectifs de l'enseignant. Les élèves l'ignorent ; l'application enseignant et la page du site la reprennent.",
+      "required": ["parcours"],
+      "properties": {
+        "parcours": { "type": "array", "items": { "$ref": "#/$defs/parcours" } },
+        "objectifs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["libelle", "niveau", "theme"],
+            "properties": {
+              "libelle": { "type": "string", "description": "Identifiant de l'objectif : unique dans la liste, repris tel quel dans etapes[].objectifs." },
+              "niveau": { "type": "string" },
+              "theme": { "type": "string" },
+              "code": { "type": "string", "description": "Objectif du programme dans le référentiel MathALÉA (ex. 5N2G)." }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "parcours": {
+      "type": "object",
+      "required": ["id", "version", "titre", "objectif", "niveau", "theme", "difficulte", "presentation", "correction", "etapes"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Stable : ne jamais le changer, il relie les résultats des élèves au parcours." },
+        "version": { "type": "integer", "minimum": 1, "description": "À augmenter à chaque modification diffusée : les élèves reçoivent la version la plus haute." },
+        "titre": { "type": "string" },
+        "objectif": { "type": "string", "description": "But du parcours, une phrase vue par les élèves." },
+        "niveau": { "type": "string", "description": "Texte libre. Valeurs proposées par l’éditeur : FR 6e, 5e, 4e, 3e, 2e, 1re, Terminale ; CH 9e, 10e, 11e, 1re Collège … 4e Collège." },
+        "theme": { "type": "string", "description": "Chapitre ; les parcours d'un même chapitre sont regroupés chez l'élève." },
+        "difficulte": { "enum": [1, 2, 3], "description": "1 Découverte, 2 Entraînement, 3 Approfondissement." },
+        "icone": { "type": "string", "description": "Classe boxicons, ex. bx-calculator." },
+        "presentation": { "enum": ["une_question_par_page", "un_exo_par_page", "liste_exos"] },
+        "correction": { "enum": ["question", "page", "parcours"], "description": "Correction après chaque question, à la fin de chaque page, ou à la fin (du palier avec des paliers)." },
+        "enTetesMasques": { "type": "boolean", "description": "Ni numéro ni titre d'exercice : les questions s'enchaînent." },
+        "melanger": { "type": "boolean", "description": "Questions des exercices mélangées (sans effet avec un_exo_par_page)." },
+        "etapes": { "type": "array", "items": { "$ref": "#/$defs/etape" } },
+        "paliers": {
+          "type": "array",
+          "description": "Découpe des étapes, dans l'ordre. Pris en compte seulement s'il y a au moins deux paliers et si la somme des nb est le nombre d'étapes.",
+          "items": { "$ref": "#/$defs/palier" }
+        },
+        "style": { "enum": ["paliers", "ceintures"] },
+        "premiereCeinture": { "type": "integer", "minimum": 0, "maximum": 6, "description": "0 blanche, 1 jaune, 2 orange, 3 verte, 4 bleue, 5 marron, 6 noire." }
+      }
+    },
+    "etape": {
+      "type": "object",
+      "description": "Un exercice MathALÉA, avec les paramètres de son URL sur le site (uuid, id, n, s, s2, s3, s4).",
+      "required": ["uuid", "titre"],
+      "properties": {
+        "uuid": { "type": "string", "description": "uuid= de l'URL du site : identifie l'exercice." },
+        "id": { "type": "string", "description": "id= de l'URL (référence du site, ex. 5N2G)." },
+        "titre": { "type": "string", "description": "Titre vu par l'élève ; le LaTeX entre $ est permis." },
+        "titreMasque": { "type": "boolean", "description": "L'élève voit « Exercice n »." },
+        "nbQuestions": { "type": "integer", "minimum": 1, "description": "n= de l'URL." },
+        "sup": { "type": ["string", "number", "boolean"], "description": "s= de l'URL (chaîne de préférence). Absent : valeur par défaut du site." },
+        "sup2": { "type": ["string", "number", "boolean"], "description": "s2= de l'URL." },
+        "sup3": { "type": ["string", "number", "boolean"], "description": "s3= de l'URL." },
+        "sup4": { "type": ["string", "number", "boolean"], "description": "s4= de l'URL." },
+        "objectifs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true, "description": "Libellés d'objectifs (bibliotheque.objectifs)." }
+      }
+    },
+    "palier": {
+      "type": "object",
+      "required": ["titre", "nb"],
+      "properties": {
+        "titre": { "type": "string" },
+        "nb": { "type": "integer", "minimum": 0, "description": "Nombre d'étapes du palier, prises dans l'ordre." },
+        "acces": { "enum": ["libre", "seuil"], "description": "Ignoré pour le premier palier." },
+        "seuil": { "type": "number", "minimum": 0, "maximum": 100, "description": "Pourcentage à atteindre au palier précédent (accès seuil). Par défaut 80." },
+        "ressource": { "$ref": "#/$defs/ressource", "description": "Pour revoir la notion, proposée tant que le palier n'est pas réussi." },
+        "pause": {
+          "type": "object",
+          "description": "Contenu affiché après le palier (point de cours, encouragement).",
+          "required": ["texte"],
+          "properties": { "texte": { "type": "string" }, "ressource": { "$ref": "#/$defs/ressource" } }
+        }
+      }
+    },
+    "ressource": {
+      "type": "object",
+      "required": ["titre", "lien"],
+      "properties": { "titre": { "type": "string" }, "lien": { "type": "string", "description": "Adresse publique (PDF, vidéo… sur un drive partagé par lien)." } }
+    }
+  }
+}

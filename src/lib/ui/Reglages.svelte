@@ -14,6 +14,7 @@
   import { choisirTheme, theme, type PreferenceTheme } from '$lib/theme.svelte'
   import { version } from '../../../package.json'
   import { ouvrirLien } from '$lib/fichiers'
+  const URL_GUIDE = 'https://coopmaths.forge.apps.education.fr/mathalea-mobile/'
 
   let {
     profil = $bindable(),
@@ -381,6 +382,10 @@
         MathALÉA {version} · licence AGPL-3.0 ·
         <a href="https://coopmaths.fr" class="text-coopmaths-action dark:text-coopmathsdark-action" onclick={ouvrirCoopmaths}>coopmaths.fr</a>
       </p>
+      <!-- Guide en ligne (Pages de la forge), dans le navigateur -->
+      <button type="button" class="self-start pl-2 text-sm text-coopmaths-action dark:text-coopmathsdark-action" style="min-height: 44px" onclick={() => void ouvrirLien(URL_GUIDE)}
+        >Guide d’utilisation</button
+      >
       <button type="button" class="self-start pl-2 text-sm text-coopmaths-action dark:text-coopmathsdark-action" style="min-height: 44px" onclick={ouvrirConfidentialite}
         >Politique de confidentialité</button
       >

@@ -33,6 +33,15 @@ function convertir(md) {
       i++
       continue
     }
+    // Bloc de code (exemples JSON) : tel quel
+    if (l.startsWith('```')) {
+      const code = []
+      i++
+      while (i < lignes.length && !lignes[i].startsWith('```')) code.push(lignes[i++])
+      i++
+      html.push(`<pre><code>${echapper(code.join('\n'))}</code></pre>`)
+      continue
+    }
     const h = /^(#{1,3}) (.*)$/.exec(l)
     if (h) {
       if (h[1] === '#') titre = h[2]
@@ -72,7 +81,7 @@ function convertir(md) {
     }
     let texte = l
     i++
-    while (i < lignes.length && lignes[i].trim() && !/^(#|!\[|\||\d+\. |- )/.test(lignes[i])) texte += ' ' + lignes[i++].trim()
+    while (i < lignes.length && lignes[i].trim() && !/^(#|!\[|\||\d+\. |- |```)/.test(lignes[i])) texte += ' ' + lignes[i++].trim()
     html.push(`<p>${enLigne(texte)}</p>`)
   }
   return { titre, corps: html.join('\n') }
@@ -101,4 +110,6 @@ for (const f of readdirSync(source).filter((f) => f.endsWith('.md'))) {
 }
 for (const f of readdirSync(join(source, 'images'))) copyFileSync(join(source, 'images', f), join(sortie, 'images', f))
 copyFileSync(join(source, 'guide.css'), join(sortie, 'guide.css'))
+// Fichiers téléchargeables (schéma et exemple du format des parcours)
+for (const f of readdirSync(source).filter((f) => f.endsWith('.json'))) copyFileSync(join(source, f), join(sortie, f))
 console.log(`Guide : ${readdirSync(source).filter((f) => f.endsWith('.md')).length} pages dans ${sortie}`)
