@@ -316,7 +316,7 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
-## Prochaine version
+## 0.3.0 : Teste ton niveau (fait)
 
 - Explorer : « Teste ton niveau », ceintures du CM1 (blanche) à la Terminale
   (noire, 3e dan) d'après les sujets de la Course aux nombres.
