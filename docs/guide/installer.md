@@ -32,9 +32,22 @@ Une application installée de cette façon ne se met pas à jour par le Play Sto
 Sur la [dernière version](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest), prenez le fichier qui correspond à votre ordinateur.
 
 - **Windows** : `…-windows-setup.exe`. Ouvrez-le d'un double-clic. Si Windows affiche un avertissement, cliquez sur « Informations complémentaires » puis « Exécuter quand même ».
-- **Mac récent (puce Apple)** : `…-macos-apple-silicon.dmg`. Glissez l'application dans Applications. La première fois, faites un clic droit puis « Ouvrir ».
-- **Mac Intel** : `…-macos-intel.dmg`. Même démarche.
+- **Mac récent (puce Apple)** : `…-macos-apple-silicon.dmg`. Voir plus bas.
+- **Mac Intel** : `…-macos-intel.dmg`. Voir plus bas.
 - **Linux** : prenez le `.deb`, le `.rpm` ou l'`.AppImage`, selon votre distribution.
+
+### Mac : premier lancement
+
+L'application n'est pas encore notariée par Apple. Au premier lancement, macOS peut dire qu'elle « est endommagée et ne peut pas être ouverte » ou qu'elle « ne peut pas être vérifiée ». Le fichier n'est pas abîmé : macOS bloque simplement les applications téléchargées hors de l'App Store qu'Apple n'a pas vérifiées.
+
+1. Ouvrez le `.dmg` et glissez MathALEA dans le dossier Applications.
+2. Ouvrez l'application Terminal (dans Applications, Utilitaires).
+3. Copiez la ligne `xattr -cr /Applications/MathALEA.app`, collez-la dans le Terminal et appuyez sur Entrée.
+4. Lancez MathALEA normalement. Cette manipulation ne se fait qu'une fois par version installée.
+
+Sans Terminal, il existe une autre solution, qui ne fonctionne pas toujours : lancez l'application une fois, puis ouvrez Réglages Système, « Confidentialité et sécurité », et cliquez sur « Ouvrir quand même » en bas de la page.
+
+Si macOS refuse déjà d'ouvrir le `.dmg`, tapez d'abord `xattr -c ` dans le Terminal, glissez le fichier `.dmg` dans la fenêtre du Terminal, puis appuyez sur Entrée.
 
 ## iPhone et iPad
 

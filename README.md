@@ -23,7 +23,7 @@ Dans [releases/](releases/), choisir la dernière version.
 | --- | --- | --- |
 | Android | `.apk` | Copier sur le téléphone, l'ouvrir, autoriser l'installation depuis cette source. |
 | Windows | `.msi` ou `-setup.exe` | Double-clic. Windows peut avertir (application non signée) : « Informations complémentaires », « Exécuter quand même ». |
-| macOS | `.dmg` (`aarch64` pour Apple Silicon, `x64` pour Intel) | Glisser l'application dans Applications. Premier lancement : clic droit, « Ouvrir » (application non notariée). |
+| macOS | `.dmg` (`aarch64` pour Apple Silicon, `x64` pour Intel) | Glisser l'application dans Applications, puis `xattr -cr /Applications/MathALEA.app` dans le Terminal (application non notariée : sans cela, macOS la dit « endommagée »). |
 | Linux | `.AppImage`, `.deb` ou `.rpm` | AppImage : `chmod +x` puis lancer. Debian/Ubuntu : `sudo apt install ./fichier.deb`. Fedora : `sudo dnf install ./fichier.rpm`. |
 | iOS | aucun pour l'instant | Voir « iPhone et iPad » ci-dessous. |
 
