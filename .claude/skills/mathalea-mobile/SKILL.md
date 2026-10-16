@@ -500,7 +500,10 @@ Environnement (machine de Nathan)
   `GOOGLE_PLAY_SERVICE_ACCOUNT` posé, API « Google Play Android Developer »
   activée le 16 octobre 2026 (projet 922562518325). Envoi à la main :
   `gh workflow run google-play.yml --repo nathan-ed/mathalea-mobile -f forcer=true -f piste=internal`.
-  0.3.0 envoyée en « Test interne » le 16 octobre 2026. Attention : le
+  0.3.0 envoyée en « Test interne » le 16 octobre 2026, puis 0.3.1. Le
+  `versionCode` est daté à l'heure (`AAMMJJHH`, UTC) : deux envois dans la
+  même heure sont refusés (« Version code … has already been used ») ;
+  relancer après l'heure pleine. Attention : le
   lundi, sans `piste`, l'envoi part en **production** (dernier tag `v*`, si
   nouveau moteur publié). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
   gros pour SendUserFile (30 Mo).
