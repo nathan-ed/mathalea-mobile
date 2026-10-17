@@ -537,7 +537,9 @@ Environnement (machine de Nathan)
   0.3.0 envoyée en « Test interne » le 16 octobre 2026, puis 0.3.1. Le
   `versionCode` est daté à l'heure (`AAMMJJHH`, UTC) : deux envois dans la
   même heure sont refusés (« Version code … has already been used ») ;
-  relancer après l'heure pleine. Attention : le
+  relancer après l'heure pleine. Test fermé (liste « Test 1 ») = piste
+  `alpha` ; une version pour le test interne et le fermé = deux envois dans
+  deux heures différentes (0.3.2, 17 octobre 2026). Attention : le
   lundi, sans `piste`, l'envoi part en **production** (dernier tag `v*`, si
   nouveau moteur publié). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
   gros pour SendUserFile (30 Mo).
