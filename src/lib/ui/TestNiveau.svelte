@@ -49,8 +49,7 @@
 
   <main class="flex-1 flex flex-col gap-3 p-4 zone-sure-bas">
     <p class="pl-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-      {NB_QUESTIONS} questions des sujets de la Course aux nombres, de tous les domaines. {SEUIL_TEST} % de réponses correctes donnent la ceinture du
-      niveau.
+      {NB_QUESTIONS} questions de tous les domaines. {SEUIL_TEST} % de réponses correctes donnent la ceinture du niveau.
     </p>
     {#if disponibles === null}
       <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">Lecture des sujets…</p>
@@ -86,7 +85,7 @@
         </button>
       {:else}
         <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-          Le moteur installé ne propose pas encore les sujets de la Course aux nombres.
+          Le moteur installé ne propose pas encore ce test.
         </p>
       {/each}
     {/if}

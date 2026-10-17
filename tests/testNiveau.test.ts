@@ -4,7 +4,7 @@ import { parcoursVide } from '../src/lib/bibliotheque'
 import type { ExerciceDuReferentiel } from '../src/lib/moteur'
 import { cleQuestion, fixerOrdre, melanger, nouvelleSeance, questionsDe, questionsOrdonnees } from '../src/lib/progression'
 import { cleInvalide } from '../src/lib/sauvegarde'
-import { NB_QUESTIONS, NIVEAUX_TEST, sujetsDu, tirerTest, type ClassementCan } from '../src/lib/testNiveau'
+import { NB_QUESTIONS, NIVEAUX_TEST, presenterTest, sujetsDu, tirerTest, type ClassementCan } from '../src/lib/testNiveau'
 import { estParcours } from '../src/lib/validation'
 
 const sujet = (id: string, titre = id, interactif = true): ExerciceDuReferentiel => ({ uuid: `u-${id}`, id, titre, niveau: 'CAN', theme: '6e', interactif })
@@ -94,6 +94,22 @@ describe('teste ton niveau', () => {
     // Référentiel tel que le moteur le donne : les sujets CM1 se distinguent par leur titre
     const ref = Object.keys(livre).map((id) => sujet(id, /^canc3a-.*b$/.test(id) ? 'CAN CM1' : 'CAN CM2'))
     for (const n of NIVEAUX_TEST) expect(sujetsDu(n, ref, livre).length, n.nom).toBeGreaterThan(0)
+  })
+
+  it('l’élève ne voit que le titre et la ceinture, jamais les sujets', () => {
+    const p = tirerTest(niveau('cm2'), [], 'g', 1, classement)
+    expect(p.titre).toBe('Teste ton niveau : CM2')
+    expect(p.objectif).toBe('Ceinture jaune : 80 % de réponses correctes.')
+    expect(JSON.stringify([p.titre, p.objectif, p.theme])).not.toMatch(/CAN|Course aux nombres/)
+    const q = tirerTest(niveau('6e'), sujets, 'g', 1, classement)
+    expect(q.etapes.length).toBeGreaterThan(0)
+    expect(q.etapes.every((e) => e.titreMasque)).toBe(true)
+    // Tirage enregistré par la 0.3.1 : textes refaits à la lecture
+    const ancien = { ...q, objectif: '15 questions de la Course aux nombres, 80 % pour obtenir la ceinture.', theme: 'Course aux nombres', etapes: q.etapes.map(({ titreMasque: _, ...e }) => e) }
+    const lu = presenterTest(ancien)
+    expect(lu.objectif).toBe('Ceinture orange : 80 % de réponses correctes.')
+    expect(lu.etapes.every((e) => e.titreMasque)).toBe(true)
+    expect(presenterTest({ ...q, id: 'autre' }).id).toBe('autre')
   })
 
   it('l’état du test est contrôlé dans une sauvegarde', () => {

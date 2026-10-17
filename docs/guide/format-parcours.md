@@ -94,7 +94,7 @@ Une étape reprend les paramètres de l'adresse de l'exercice sur le site MathAL
 
 Une adresse avec plusieurs exercices répète `uuid=…&id=…&n=…` : une étape par `uuid`, dans l'ordre. Un paramètre absent prend la valeur par défaut du site, qui suit ses évolutions.
 
-Autres champs : `titre` (obligatoire, vu par l'élève, LaTeX entre `$` permis), `titreMasque` (`true` : l'élève voit « Exercice n »), `objectifs` (libellés, voir plus bas). Le même exercice peut figurer deux fois avec des réglages différents.
+Autres champs : `titre` (obligatoire, vu par l'élève, LaTeX entre `$` permis), `titreMasque` (`true` : exercice absent de la liste vue par l'élève, sans titre pendant l'activité), `objectifs` (libellés, voir plus bas). Le même exercice peut figurer deux fois avec des réglages différents.
 
 Choisissez des exercices interactifs : ce sont ceux que l'application corrige. L'éditeur de l'application ne propose qu'eux.
 

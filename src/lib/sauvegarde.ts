@@ -70,6 +70,7 @@ const estSeance = (id: string) => (v: unknown) => {
     optionnel(s.soumise, (b) => typeof b === 'boolean') &&
     optionnel(s.code, estTexte) &&
     optionnel(s.ordre, textesUniques) &&
+    optionnel(s.papier, (x) => dictionnaireDe(x, (vue) => typeof vue === 'boolean')) &&
     dictionnaireDe(s.graines, estTexte) &&
     dictionnaireDe(s.nbQuestions, (q) => estEntier(q) && q >= 0) &&
     dictionnaireDe(s.brouillons, (b) => dictionnaireDe(b, estTexte)) &&

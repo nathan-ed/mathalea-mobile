@@ -138,6 +138,15 @@ async function chargerDepuis(base: string): Promise<Moteur> {
     document.head.prepend(lien)
   })
   const moteur = (await import(/* @vite-ignore */ base + manifeste.entree)) as Moteur
+  // Les tracés à main levée de MathALÉA (MainLevee) s'appuient sur le conteneur
+  // du site : sans lui, leurs segments disparaissent. Le moteur le crée depuis
+  // la 0.3.2, pas celui publié par mathalea.fr (version Google Play)
+  if (!document.getElementById('appMathalea')) {
+    const conteneur = document.createElement('div')
+    conteneur.id = 'appMathalea'
+    conteneur.hidden = true
+    document.body.appendChild(conteneur)
+  }
   await moteur.initialiser()
   return moteur
 }

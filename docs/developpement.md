@@ -37,7 +37,7 @@ un **paquet moteur** construit depuis le dépôt MathALÉA (branche
 | `src/lib/partage.ts` | fichier `parcours-mathalea.json` (plusieurs classes), lecture des drives |
 | `src/lib/bibliotheque.ts` | parcours de l'enseignant, classes, préférences, versions, publication (toute la bibliothèque) et reprise |
 | `src/lib/objectifs.ts` | objectifs (CSV, mémoire par exercice), états des paliers, suivi par objectif, ceintures obtenues |
-| `src/lib/testNiveau.ts` | « Teste ton niveau » : sujets de CAN par niveau, tirage des questions, ceintures |
+| `src/lib/testNiveau.ts` | « Teste ton niveau » : sujets de CAN par niveau, tirage des questions, textes vus par l'élève (`presenterTest`), ceintures |
 | `src/lib/sauvegarde.ts` | sauvegarde et restauration (avec retour arrière) |
 | `src/lib/stockage.ts` | SQLite dans Tauri, `localStorage` dans un navigateur |
 | `src-tauri/src/telechargement.rs` | téléchargement sans en-tête `Origin` |
@@ -328,6 +328,37 @@ ancienne app.
   captures `e2e/fiche-play.mjs`). Mots de passe des clés Android passés par
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
+
+## 0.3.2 : retours des testeurs, tous les exercices du site (fait)
+
+- Séance avec correction à la fin : plus de score « 0/15 » avant la
+  soumission ; la barre du bas reste au-dessus du clavier de MathALÉA même
+  quand il reste affiché sans focus.
+- Teste ton niveau : plus aucune mention de la CAN ni des sujets (titre et
+  ceinture seulement, tirages déjà enregistrés compris) ; supprimer une
+  tentative ramène aux niveaux ; un test n'est plus ajouté à l'accueil.
+- Suivi : tests passés et parcours de l'Explorer non ajoutés à l'accueil ;
+  ceintures du test (CM1 à Terminale) dans l'onglet Ceintures.
+- Exercice masqué par l'enseignant : absent de la fiche vue par l'élève.
+- Vérification : `e2e/test-niveau-reel.mjs` (vraies réponses, téléphone et
+  bureau) ; `e2e/paliers.mjs` suit l'ordre mélangé des questions.
+- Éditeur : tous les exercices du menu du site (FR ou CH selon le pays),
+  interactifs ou non, sauf « Égalité filles-garçons » que le site range à
+  part. Un exercice rangé deux fois dans un chapitre du référentiel (même
+  uuid, ex. « Fonctions » de Seconde) empêchait d'ouvrir le chapitre : une
+  ligne par exercice. `e2e/recherche.mjs` ouvre tous les chapitres.
+- Exercice non interactif : à faire sur papier, « Voir la correction » sous
+  la question ; hors du score, des questions passées et des seuils
+  (`Seance.papier`, clé de question → correction vue) ; bilan « Correction
+  vue ». Vérification : `e2e/papier.mjs`.
+- Moteur : les tracés à main levée (`MainLevee`, roughjs) cherchent le
+  conteneur `#appMathalea` du site ; sans lui, les segments disparaissaient
+  des figures. `initialiser()` le crée, et l'app aussi avant de l'appeler
+  (`src/lib/moteur.ts`) : la version Google Play prend le moteur publié par
+  mathalea.fr, qui ne le crée pas encore.
+- Réponse dans un trou (« 81 = … × … ») : MathLive n'envoie pas `input`,
+  « Vérifier » restait grisé avec la correction à chaque question ;
+  `BlocQuestion` écoute aussi `beforeinput` et `selection-change`.
 
 ## 0.3.1 : Teste ton niveau en 15 questions (fait)
 

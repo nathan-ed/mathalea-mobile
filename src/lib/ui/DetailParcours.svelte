@@ -79,6 +79,8 @@
     return k !== -1 ? k : paliers.findIndex((x) => x.ouvert && x.aRevoir)
   })
   const objectifsSuivis = $derived(resultatsParObjectif(parcours, resultats))
+  // Exercice masqué par l'enseignant : absent de la liste (ni titre, ni « Exercice n »)
+  const visibles = (etapes: number[]) => etapes.filter((i) => !parcours.etapes[i].titreMasque)
   const objectifsDe = (etapes: number[]) => [...new Set(etapes.flatMap((i) => parcours.etapes[i].objectifs ?? []))]
 
   function etat(k: number) {
@@ -103,8 +105,9 @@
 </script>
 
 {#snippet lignesExercices(etapes: number[])}
+  {#if visibles(etapes).length}
   <ul class="flex flex-col gap-1">
-    {#each etapes as i (i)}
+    {#each visibles(etapes) as i (i)}
       {@const r = resultats[i]}
       {@const reussi = r && r.complet && r.points >= r.sur}
       <li class="flex flex-row items-center gap-3 py-1">
@@ -118,10 +121,11 @@
           {#if reussi}<i class="bx bx-check text-base"></i>{:else}{i + 1}{/if}
         </span>
         <span class="min-w-0 flex-1 text-coopmaths-corpus dark:text-coopmathsdark-corpus">{titreEleve(parcours.etapes[i], i)}</span>
-        {#if r}<span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>{/if}
+        {#if r && r.sur > 0}<span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>{/if}
       </li>
     {/each}
   </ul>
+  {/if}
 {/snippet}
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -233,9 +237,10 @@
           {/if}
         {/each}
       </ol>
-    {:else}
+    {:else if visibles(parcours.etapes.map((_, i) => i)).length}
       <ul class={listeGroupee}>
-        {#each parcours.etapes as etape, i (i)}
+        {#each visibles(parcours.etapes.map((_, i) => i)) as i (i)}
+          {@const etape = parcours.etapes[i]}
           {@const r = resultats[i]}
           <li
             class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
@@ -244,7 +249,7 @@
             <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
               {titreEleve(etape, i)}
             </div>
-            {#if r}
+            {#if r && r.sur > 0}
               <span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>
             {/if}
           </li>

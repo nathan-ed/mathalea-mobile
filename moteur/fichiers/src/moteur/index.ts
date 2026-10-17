@@ -87,6 +87,14 @@ export async function initialiser() {
   if (typeof window.notify !== 'function') {
     window.notify = (message: unknown) => console.warn('[moteur]', message)
   }
+  // Les tracés à main levée (MainLevee, roughjs) s'appuient sur le conteneur
+  // du site : sans lui, leurs segments disparaissent des figures
+  if (!document.getElementById('appMathalea')) {
+    const conteneur = document.createElement('div')
+    conteneur.id = 'appMathalea'
+    conteneur.hidden = true
+    document.body.appendChild(conteneur)
+  }
   await loadMathLive()
 }
 

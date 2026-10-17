@@ -48,6 +48,8 @@
   const questions = $derived(questionsOrdonnees(seance))
   let questionsOuvertes: Record<string, boolean> = $state({})
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  const papier = $derived(b.parEtape.reduce((a, e) => a + e.papier, 0))
+  const vues = $derived(b.parEtape.reduce((a, e) => a + e.vues, 0))
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -55,13 +57,23 @@
 
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
     <div class="text-center py-4">
-      <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 3.5rem; line-height: 1">
-        {arrondi(b.points)} / {b.sur}
-      </div>
-      <div class="mt-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-        {b.pourcentage} % · {b.reussies} réponse{b.reussies > 1 ? 's' : ''} correcte{b.reussies > 1 ? 's' : ''}
-        {#if b.passees.length}· {b.passees.length} passée{b.passees.length > 1 ? 's' : ''}{/if}
-      </div>
+      {#if b.sur > 0}
+        <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 3.5rem; line-height: 1">
+          {arrondi(b.points)} / {b.sur}
+        </div>
+        <div class="mt-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+          {b.pourcentage} % · {b.reussies} réponse{b.reussies > 1 ? 's' : ''} correcte{b.reussies > 1 ? 's' : ''}
+          {#if b.passees.length}· {b.passees.length} passée{b.passees.length > 1 ? 's' : ''}{/if}
+        </div>
+      {:else}
+        <!-- Tout sur papier : pas de score, les corrections ouvertes -->
+        <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 3.5rem; line-height: 1">
+          {vues} / {papier}
+        </div>
+        <div class="mt-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+          correction{vues > 1 ? 's' : ''} vue{vues > 1 ? 's' : ''}
+        </div>
+      {/if}
       {#if test}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{test.message}</p>
       {:else if palier}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Bilan : {palier.nom.toLowerCase()}</p>{/if}
     </div>
@@ -124,7 +136,11 @@
               {titreEleve(parcours.etapes[e.etape], e.etape)}
             </div>
             <div class="flex flex-row items-center gap-2">
-              <span class={pastilleScore(e.sur ? (100 * e.points) / e.sur : 0)}>{arrondi(e.points)}/{e.sur}</span>
+              {#if e.sur > 0}
+                <span class={pastilleScore((100 * e.points) / e.sur)}>{arrondi(e.points)}/{e.sur}</span>
+              {:else}
+                <span class="shrink-0 whitespace-nowrap text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{e.vues === e.papier ? 'Correction vue' : 'Sur papier'}</span>
+              {/if}
               <i aria-hidden="true"
                 class="bx {ouvertes[e.etape] ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"
               ></i>

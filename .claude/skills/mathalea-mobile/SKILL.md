@@ -51,6 +51,21 @@ Design (« les dev MathALÉA en charge du design vont me tomber dessus »)
 - Icônes boxicons avec `aria-hidden="true"`.
 - Captures à vérifier à 390 px, en clair et en sombre.
 
+Vérification (Nathan, 17 octobre 2026 : « chaque release touche beaucoup de
+monde, on ne peut pas se permettre d'avoir des erreurs comme ça »)
+- Rien ne part sans avoir été parcouru **comme un élève** : vraies réponses
+  (case cochée, saisie au clavier), vrais boutons, jusqu'au bilan puis au
+  suivi. Un test qui écrit les réponses dans `localStorage` ne prouve rien
+  sur l'interface (c'est ainsi que le 0/15 et la fiche « CAN CM2 sujet 2024 »
+  sont passés en 0.3.1).
+- Téléphone (390 px, tactile) **et** fenêtre de bureau (testeurs sur Mac) ;
+  à chaque écran : bouton du bas visible et touchable (`elementFromPoint`),
+  aucun texte interdit (CAN, noms de sujets), clair et sombre.
+- Chaque chemin de sortie : quitter, reprendre, supprimer la tentative,
+  bouton retour. Vérifier où l'on arrive.
+- Relancer toutes les suites e2e, pas seulement celle du changement. Une
+  suite en échec n'est jamais « déjà cassée » : la réparer ou trouver le bug.
+
 Ergonomie décidée
 - Profil : tout le monde est élève ; « Je suis enseignant » (interrupteur en
   bas des Réglages, pas d'infobulle sur mobile) ajoute l'onglet Créer aux
@@ -173,6 +188,13 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   du code en session partagée ; `questionsOrdonnees()` pour l'affichage,
   `questionsDe()` pour bilan et suivi). Vrais pour un nouveau parcours,
   absents = comportement d'avant (ne rien changer chez les élèves).
+- Éditeur : « tout doit apparaître » (Nathan) : les exercices du menu du
+  site selon le pays (FR ou CH), interactifs ou non, sauf « Égalité
+  filles-garçons » (rangé à part sur le site). Un exercice non interactif se
+  fait sur papier : « Voir la correction », hors score, passées et seuils
+  (`Seance.papier`), bilan « Correction vue » (choix de Nathan). Le
+  référentiel a des doublons d'uuid dans un même chapitre : dédoublonner
+  toute liste à clé (`e2e/recherche.mjs` ouvre tous les chapitres).
 - Teste ton niveau (Explorer, pour tous ; « on prend les annales », Nathan) :
   `src/lib/testNiveau.ts`, `TestNiveau.svelte`. Sujets CAN officiels de 2024
   et après (`can<niv>a-<année>`, racine `CAN` du référentiel FR, même en
@@ -184,6 +206,18 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   titre, domaine ; une question reprise par deux sujets = même source),
   80 %, correction à la fin puis bilan direct par question, sans nom de
   sujet. Ceinture par niveau (CM1 blanche … Terminale noire 3e dan).
+  **Aucune mention de la CAN ni des sujets côté élève** (Nathan : « on ne
+  voulait plus de références à ces CAN ») : titre et ceinture seulement
+  (`presenterTest`, appliqué aussi aux tirages enregistrés), étapes
+  `titreMasque`. Un test n'a pas de fiche de parcours : supprimer une
+  tentative ramène aux niveaux, il n'est jamais ajouté à l'accueil. Pas de
+  score dans la séance avant la soumission (il afficherait 0/15).
+- Suivi : « tout doit y figurer, ce sont des ceintures comme les autres » :
+  tests passés (ligne par niveau, ceintures CM1 à Terminale dans l'onglet
+  Ceintures) et parcours de l'Explorer même non ajoutés à l'accueil
+  (`parcoursSuivis` dans `+page.svelte`).
+- `titreMasque` : l'exercice disparaît de la fiche vue par l'élève (ni titre,
+  ni « Exercice n ») et n'a pas de titre pendant l'activité.
   Les questions des sujets sont souvent importées d'un autre sujet (les 10
   premières communes à deux niveaux) : lire les imports du sujet, pas son
   dossier. Les sujets 2018-2023, « Spéciale année » (NY) et Aléa/CoopMaths
@@ -544,12 +578,18 @@ Environnement (machine de Nathan)
   `VITE_URL_EXPLORER=http://127.0.0.1:8702/s/Xk42demo/explorer/` ;
   `DOSSIER=<dossier> CAPTURES=e2e/captures node e2e/complet.mjs` →
   « TOUT VERT ». Vider `<dossier>/classe-3a` avant. Regarder les captures.
+- `node e2e/test-niveau-reel.mjs` (seulement `pnpm dev`, `THEME`, `NIVEAU`) :
+  test parcouru au toucher sur téléphone et bureau, suivi, suppression,
+  parcours de l'Explorer non ajouté, exercice masqué.
 - `node e2e/regressions.mjs` (seulement `pnpm dev`) : brouillon d'une question
   quittée aussitôt, Entrée avec correction à la fin, suivi d'une ancienne
   version. Vraie frappe clavier : la sonde réessaie tant que le champ
   MathLive n'est pas prêt (sinon résultats aléatoires).
 - Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
   par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
+- `node e2e/papier.mjs` et `node e2e/recherche.mjs` (seulement `pnpm dev`,
+  sans le serveur de dossier qui remplace l'Explorer) : exercice papier,
+  tous les chapitres.
 - `node e2e/retour.mjs` (seulement `pnpm dev` et le dossier « test ») :
   bouton retour (`page.goBack()`) à chaque niveau.
 - `node e2e/captures-enseignant.mjs <dossier>` : captures enseignant en clair
@@ -596,6 +636,11 @@ Environnement (machine de Nathan)
   `MetaInteractif2dEx<n>Q<i>` → JSON ; un champ retiré de la page renvoie
   un trou vide (lire la valeur LaTeX). Le bug (« la réponse n'a pas été
   prise en compte ») ne se voyait qu'avec la correction à la fin.
+- Tracés à main levée (`MainLevee`) : besoin de `div#appMathalea` dans la
+  page, créé par `initialiser()` du moteur ; sans lui, figures sans segments.
+- Champ à trous (« 81 = … × … ») : MathLive n'envoie ni `input` ni
+  `change`, seulement `beforeinput` et `selection-change` ; sa valeur LaTeX
+  n'est jamais vide (`trousVides`).
 - Le clavier de MathALÉA peut s'ouvrir juste après l'ouverture d'une
   `Feuille` (focus de la question suivante) et la recouvrir : masqué par
   `body:has(.feuille)` dans `app.css`.

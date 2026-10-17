@@ -31,7 +31,14 @@ toute modification.
 
 ## Vérifier avant de rendre
 
+Chaque release touche beaucoup de monde : rien ne passe sans vérification
+complète (détails dans le skill, « Vérification »).
+
 - `pnpm check` et `pnpm test` ; `cargo test` dans `src-tauri`.
+- Parcourir le changement comme un élève (vraies réponses, vrais boutons,
+  jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais
+  de réponses écrites directement dans le stockage pour conclure.
+- Toutes les suites e2e, pas seulement celle du changement.
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux
   captures, en clair et en sombre, à 390 px de large.
 - Ne rien commiter ni pousser sans demande explicite (sur ce projet, Nathan a

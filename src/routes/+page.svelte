@@ -59,7 +59,7 @@
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
-  import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, estTest, niveauDuTest, sujetsDu, tirerTest, type EtatTest } from '$lib/testNiveau'
+  import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, couleurDu, estTest, niveauDuTest, presenterTest, sujetsDu, tirerTest, type EtatTest } from '$lib/testNiveau'
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
@@ -171,7 +171,8 @@
       const s = seances[p.id]
       const enCours = !!s && !s.fin
       r[p.id] = {
-        fait: enCours && s ? premiersEssais(s).size : 0,
+        // Questions répondues, plus celles sur papier dont la correction a été vue
+        fait: enCours && s ? premiersEssais(s).size + Object.values(s.papier ?? {}).filter(Boolean).length : 0,
         sur: enCours && s ? questionsDe(s).length || totalQuestions(p) : totalQuestions(p),
         enCours,
         pourcentage: derniersComplets[p.id] ?? null,
@@ -198,7 +199,8 @@
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
     catalogue = await stockage.lire<Parcours[]>('explorer')
-    ajoutes = (await stockage.lire<Parcours[]>('ajoutes')) ?? []
+    // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau
+    ajoutes = ((await stockage.lire<Parcours[]>('ajoutes')) ?? []).filter((p) => !estTest(p.id))
     bibliotheque = await lireBibliotheque(stockage)
     importes = (await stockage.lire<Parcours[]>('importes')) ?? []
     classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
@@ -206,7 +208,9 @@
     etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
     preferences = (await stockage.lire<Preferences>('preferences-creation')) ?? {}
     etatTest = (await stockage.lire<EtatTest>('test-niveau')) ?? {}
+    for (const e of Object.values(etatTest)) if (e.tirage) e.tirage = presenterTest(e.tirage)
     for (const e of Object.values(etatTest)) if (e.tirage) await chargerParcours(e.tirage)
+    for (const p of catalogue ?? []) await chargerParcours(p)
     restaurationAnnulable = !!(await stockage.lire<string>(CLE_AVANT_RESTAURATION))
     for (const p of tous) await chargerParcours(p)
     vue = 'accueil'
@@ -257,7 +261,7 @@
       await stockage!.ecrire('explorer', recu)
       ajoutes = ajoutes.map((a) => recu.find((p) => p.id === a.id) ?? a)
       await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
-      for (const p of ajoutes) await chargerParcours(p)
+      for (const p of [...ajoutes, ...recu]) await chargerParcours(p)
     } catch (e) {
       // Hors connexion ou adresse indisponible : la copie locale reste affichée
       console.warn('Explorer', e)
@@ -265,6 +269,7 @@
   }
 
   async function basculerAjout(p: Parcours) {
+    if (estTest(p.id)) return
     ajoutes = ajoutes.some((a) => a.id === p.id) ? ajoutes.filter((a) => a.id !== p.id) : [...ajoutes, p]
     await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
     await chargerParcours(p)
@@ -343,7 +348,19 @@
   // Dernière ceinture obtenue, pour la tuile de l'Explorer
   const resumeTest = $derived.by(() => {
     const rang = NIVEAUX_TEST.findLastIndex((n) => etatTest[n.cle]?.valideLe)
-    return rang >= 0 ? `${ceintureDu(rang)} · ${NIVEAUX_TEST[rang].nom} validé` : 'Course aux nombres, du CM1 à la Terminale'
+    return rang >= 0 ? `${ceintureDu(rang)} · ${NIVEAUX_TEST[rang].nom} validé` : 'Du CM1 à la Terminale'
+  })
+  // Ceintures du test pour le Suivi : toutes, obtenues ou non, dès qu'un test a été passé
+  const ceinturesTest = $derived(
+    NIVEAUX_TEST.some((n) => etatTest[n.cle]?.tirage)
+      ? NIVEAUX_TEST.map((n, rang) => ({ nom: ceintureDu(rang), niveau: n.nom, couleur: couleurDu(rang), obtenue: !!etatTest[n.cle]?.valideLe }))
+      : [],
+  )
+  // Suivi : parcours des dossiers, de l'Explorer (même non ajoutés) et tests passés
+  const parcoursSuivis: Parcours[] = $derived.by(() => {
+    const vus = new Map(tous.map((p) => [p.id, p]))
+    for (const p of [...(catalogue ?? []), ...NIVEAUX_TEST.flatMap((n) => etatTest[n.cle]?.tirage ?? [])]) if (!vus.has(p.id)) vus.set(p.id, p)
+    return [...vus.values()]
   })
 
   async function ouvrirTest() {
@@ -499,7 +516,8 @@
     await supprimerSeance(stockage!, id)
     seances[id] = null
     if (seance?.parcours === id) seance = undefined
-    aller('parcours')
+    // Un test n'a pas de fiche de parcours : retour à ses niveaux
+    aller(estTest(id) ? 'test' : 'parcours')
   }
 
   function revenirAuxPassees() {
@@ -847,7 +865,14 @@
       }}
     >
       {#snippet suivi()}
-        <Suivi parcours={tous} {historiques} enCours={seances} onouvrir={ouvrir} />
+        <Suivi
+          parcours={parcoursSuivis}
+          {historiques}
+          enCours={seances}
+          {ceinturesTest}
+          onouvrir={(p) => (estTest(p.id) ? void ouvrirTest() : ouvrir(p))}
+          ontest={ouvrirTest}
+        />
       {/snippet}
       {#snippet espaceEnseignant()}
       <EspaceEnseignant

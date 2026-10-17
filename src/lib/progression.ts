@@ -28,6 +28,9 @@ export interface Seance {
   soumise?: boolean // validation à la fin du parcours : tentative soumise
   code?: string // session partagée : même code, mêmes exercices
   ordre?: string[] // questions mélangées (clés « étape-question »), tirées une fois
+  // Questions sans réponse à saisir (exercice non interactif), à faire sur
+  // papier : hors du score ; vrai quand l'élève a ouvert la correction
+  papier?: Record<string, boolean>
 }
 
 /** Codes de session : 5 caractères faciles à dicter (sans 0/o ni 1/l/i) */
@@ -147,14 +150,20 @@ export function premiersEssais(s: Seance) {
 /** Score d'une question entre 0 et 1 */
 export const valeur = (e: Essai | undefined) => (e && e.total > 0 ? e.points / e.total : e?.juste ? 1 : 0)
 
+/** Question à faire sur papier : ni réponse ni score */
+export const surPapier = (s: Seance, etape: number, question: number) => s.papier?.[cleQuestion(etape, question)] !== undefined
+
 export function bilan(s: Seance) {
   const premiers = premiersEssais(s)
-  const questions = questionsDe(s)
+  const toutes = questionsDe(s)
+  const questions = toutes.filter((q) => !surPapier(s, q.etape, q.question))
   const parEtape = s.etapes.map((etape) => {
     const qs = questions.filter((q) => q.etape === etape)
     const faites = qs.filter((q) => premiers.has(cleQuestion(q.etape, q.question)))
     const points = faites.reduce((a, q) => a + valeur(premiers.get(cleQuestion(q.etape, q.question))), 0)
-    return { etape, points, sur: qs.length, faites: faites.length }
+    const papier = toutes.filter((q) => q.etape === etape && surPapier(s, q.etape, q.question))
+    const vues = papier.filter((q) => s.papier![cleQuestion(q.etape, q.question)]).length
+    return { etape, points, sur: qs.length, faites: faites.length, papier: papier.length, vues }
   })
   const points = parEtape.reduce((a, e) => a + e.points, 0)
   const sur = parEtape.reduce((a, e) => a + e.sur, 0)
@@ -163,7 +172,8 @@ export function bilan(s: Seance) {
     parEtape,
     points,
     sur,
-    pourcentage: sur > 0 ? Math.round((100 * points) / sur) : 0,
+    // Rien à réussir (tout sur papier) : rien de manqué
+    pourcentage: sur > 0 ? Math.round((100 * points) / sur) : 100,
     reussies,
     faites: premiers.size,
     passees: questions.filter((q) => !premiers.has(cleQuestion(q.etape, q.question))),

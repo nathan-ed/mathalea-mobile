@@ -15,7 +15,7 @@ import { ceinturesObtenues, cleExercice, completerListe, etatsPaliers, maitrise,
 import { lireFichier, creerFichier } from '../src/lib/partage'
 import { estParcours } from '../src/lib/validation'
 import { cleInvalide } from '../src/lib/sauvegarde'
-import { nouvelleSeance, type ResultatEtape, type Seance } from '../src/lib/progression'
+import { bilan, nouvelleSeance, type ResultatEtape, type Seance } from '../src/lib/progression'
 
 const etape = (uuid: string, objectifs?: string[]) => ({ uuid, id: uuid, titre: uuid, nbQuestions: 2, ...(objectifs ? { objectifs } : {}) })
 
@@ -200,5 +200,26 @@ describe('suivi de l’élève', () => {
     expect(c[0].obtenue).toBe(false)
     c = ceinturesObtenues(p, [passage(p, [0, 1], 2, '2026-10-02T10:00:00Z'), passage(p, [2], 2, '2026-10-03T10:00:00Z')])
     expect(c.map((x) => x.obtenue)).toEqual([true, true, false])
+  })
+})
+
+describe('exercice sans réponse à saisir (sur papier)', () => {
+  it('reste hors du score, des questions passées et des seuils', () => {
+    const p = parcoursAPaliers()
+    // Exercice 0 : deux questions correctes ; exercice 1 : deux questions sur papier, une correction vue
+    const s = passage(p, [0], 2, '2026-10-17T10:00:00Z')
+    s.etapes = [0, 1]
+    s.nbQuestions[1] = 2
+    s.papier = { '1-0': true, '1-1': false }
+    const b = bilan(s)
+    expect([b.points, b.sur, b.pourcentage, b.passees.length]).toEqual([2, 2, 100, 0])
+    expect(b.parEtape[1]).toMatchObject({ sur: 0, papier: 2, vues: 1 })
+    // Tout sur papier : rien de manqué
+    const t = nouvelleSeance(p, 'test', 'complet', [1])
+    t.nbQuestions[1] = 2
+    t.papier = { '1-0': false, '1-1': false }
+    expect([bilan(t).sur, bilan(t).pourcentage, bilan(t).passees.length]).toEqual([0, 100, 0])
+    expect(cleInvalide({ 'seance:relatifs': s })).toBeUndefined()
+    expect(cleInvalide({ 'seance:relatifs': { ...s, papier: { '1-0': 'oui' } } })).toBe('seance:relatifs')
   })
 })

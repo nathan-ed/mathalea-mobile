@@ -129,8 +129,25 @@ function etapesDe(choix: Candidate[]): Etape[] {
       sup: 'false', // données aléatoires, pas celles du sujet officiel
       sup2: numeros.join('-'),
       sup3: 'false',
+      titreMasque: true, // l'élève ne voit jamais le nom du sujet
     }
   })
+}
+
+/**
+ * Textes vus par l'élève : titre et ceinture, sans référence aux sujets.
+ * Appliqué aussi aux tirages enregistrés par les versions précédentes.
+ */
+export function presenterTest(p: Parcours): Parcours {
+  const rang = niveauDuTest(p.id)
+  if (rang === -1) return p
+  return {
+    ...p,
+    titre: `Teste ton niveau : ${NIVEAUX_TEST[rang].nom}`,
+    objectif: `${ceintureDu(rang)} : ${SEUIL_TEST} % de réponses correctes.`,
+    theme: 'Teste ton niveau',
+    etapes: p.etapes.map((e) => ({ ...e, titreMasque: true })),
+  }
 }
 
 /**
@@ -159,13 +176,13 @@ export function tirerTest(
     `${graine}-2`,
     prises,
   )
-  return {
+  return presenterTest({
     id: `${PREFIXE_TEST}${niveau.cle}`,
     version,
-    titre: `Teste ton niveau : ${niveau.nom}`,
-    objectif: `${NB_QUESTIONS} questions de la Course aux nombres, ${SEUIL_TEST} % pour obtenir la ceinture.`,
+    titre: '',
+    objectif: '',
     niveau: niveau.nom,
-    theme: 'Course aux nombres',
+    theme: '',
     difficulte: 2,
     icone: 'bx-timer',
     presentation: 'une_question_par_page',
@@ -173,7 +190,7 @@ export function tirerTest(
     enTetesMasques: true,
     melanger: true,
     etapes: etapesDe([...automatismes, ...suite]),
-  }
+  })
 }
 
 export const estTest = (id: string | undefined) => !!id?.startsWith(PREFIXE_TEST)

@@ -4,7 +4,7 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
-  import { boutonInverse } from './classes'
+  import { boutonInverse, boutonLien } from './classes'
 
   let {
     moteur,
@@ -20,6 +20,8 @@
     onbrouillon,
     onvalider,
     onsaisie,
+    correctionVue = false,
+    onvoircorrection,
     aSaisi = $bindable(false),
   }: {
     moteur: Moteur
@@ -35,12 +37,16 @@
     onbrouillon: (saisies: Record<string, string>) => void
     onvalider?: () => void // touche Entrée
     onsaisie?: () => void
+    correctionVue?: boolean // question sans réponse à saisir : correction déjà ouverte
+    onvoircorrection?: () => void
     aSaisi?: boolean
   } = $props()
 
   let zone: HTMLDivElement
   let zoneCorrection: HTMLDivElement | undefined = $state()
   let resultat: ResultatVerification | null = $state(null)
+  // Question à faire sur papier (exercice non interactif) : l'élève ouvre la correction lui-même
+  let vue = $state(false)
   let erreur = $state('')
   let minuterie: ReturnType<typeof setTimeout> | undefined
   let enAttente = false
@@ -61,6 +67,12 @@
     return /\\placeholder\[champ1\](?:\[[^\]]*\])*\{(.*)\}/.exec(champ.value ?? '')?.[1] ?? ''
   }
 
+  /** Champ à trous (« 81 = … × … ») dont aucun trou n'est rempli : sa valeur LaTeX n'est jamais vide */
+  function trousVides(champ: HTMLElement & { getPrompts?: () => string[]; getPromptValue?: (p: string) => string }) {
+    const trous = champ.isConnected ? (champ.getPrompts?.() ?? []) : []
+    return trous.length > 0 && trous.every((t) => !champ.getPromptValue?.(t)?.trim())
+  }
+
   function lireSaisies(): Record<string, string> {
     const saisies: Record<string, string> = {}
     const figures: Record<string, Record<string, string>> = {}
@@ -73,11 +85,19 @@
         if (champ.checked) saisies[champ.id] = '1'
       } else {
         const v = (champ as HTMLInputElement).value
-        if (typeof v === 'string' && v.trim() !== '') saisies[champ.id] = v
+        if (typeof v === 'string' && v.trim() !== '' && !trousVides(champ)) saisies[champ.id] = v
       }
     }
     for (const [cle, valeurs] of Object.entries(figures)) saisies[cle] = JSON.stringify(valeurs)
     return saisies
+  }
+
+  // Dans un trou, MathLive n'envoie pas « input » : seulement « beforeinput »
+  // (avant le changement) et « selection-change ». On relit juste après.
+  function surSaisieTrou(e: Event) {
+    const type = e.type === 'beforeinput' ? 'input' : 'change'
+    // La question a pu quitter l'écran entre-temps
+    setTimeout(() => zone?.isConnected && surSaisie(new Event(type)))
   }
 
   function surSaisie(e: Event) {
@@ -105,6 +125,12 @@
     e.preventDefault()
     if (onvalider) onvalider()
     else if (!resultat && aSaisi) verifier()
+  }
+
+  async function voirCorrection() {
+    vue = true
+    onvoircorrection?.()
+    await afficherCorrection()
   }
 
   async function afficherCorrection() {
@@ -159,6 +185,10 @@
         await tick()
         aSaisi = Object.keys(lireSaisies()).length > 0
       }
+      if (!q.interactive && (correctionVue || lectureSeule)) {
+        vue = true
+        await afficherCorrection()
+      }
       if (verifierAuMontage) {
         try {
           await verifier()
@@ -174,6 +204,11 @@
     if (zone) moteur.ajusterFigures(zone)
     if (zoneCorrection) moteur.ajusterFigures(zoneCorrection)
   }
+  onMount(() => {
+    const z = zone
+    z.addEventListener('selection-change', surSaisieTrou)
+    return () => z.removeEventListener('selection-change', surSaisieTrou)
+  })
   onMount(() => {
     addEventListener('resize', surRedimension)
     return () => removeEventListener('resize', surRedimension)
@@ -199,6 +234,7 @@
     inert={lectureSeule}
     oninput={surSaisie}
     onchange={surSaisie}
+    onbeforeinput={surSaisieTrou}
     onkeydown={surTouche}
   ></div>
   {#if avecBouton && !resultat && !lectureSeule && q.interactive}
@@ -221,6 +257,14 @@
       </button>
     </div>
   {/if}
+  {#if !q.interactive && !vue && !lectureSeule}
+    <div>
+      <button type="button" class="{boutonLien} -ml-3" style="min-height: 44px" onclick={voirCorrection}>
+        <i aria-hidden="true" class="bx bx-show text-base"></i>
+        Voir la correction
+      </button>
+    </div>
+  {/if}
   {#if erreur}
     <p class="font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
   {/if}
@@ -231,7 +275,7 @@
   {/if}
 </div>
 
-{#if resultat}
+{#if resultat || vue}
   <div
     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 mb-4 ml-0 py-2 pl-4"
   >

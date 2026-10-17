@@ -40,7 +40,7 @@
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre="{parcours.titre} · {date}" {onretour}>
     {#snippet droite()}
-      <span class="px-3"><span class={pastille}>{arrondi(b.points)}/{b.sur}</span></span>
+      {#if b.sur > 0}<span class="px-3"><span class={pastille}>{arrondi(b.points)}/{b.sur}</span></span>{/if}
     {/snippet}
   </EnTete>
 

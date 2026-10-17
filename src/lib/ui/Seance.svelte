@@ -3,7 +3,7 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
-  import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
+  import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
   import { boutonAction, boutonInverse, boutonLien, pastille } from './classes'
   import EnTete from './EnTete.svelte'
@@ -143,6 +143,11 @@
       le: new Date().toISOString(),
     })
     delete seance.brouillons[cleQuestion(ref.etape, ref.question)]
+    sauver()
+  }
+
+  function enregistrerCorrectionVue(ref: Ref) {
+    seance.papier = { ...seance.papier, [cleQuestion(ref.etape, ref.question)]: true }
     sauver()
   }
 
@@ -306,7 +311,11 @@
       // Seulement si un champ (ou le clavier) a le focus : après une validation,
       // la barre reste en bas pendant que le clavier se referme
       const saisieEnCours = document.activeElement?.closest('math-field, mathalea-mathfield, #mathalea-virtual-keyboard') != null
-      hauteurClavier = saisieEnCours && clavier && h > 0 && getComputedStyle(clavier).display !== 'none' ? h : 0
+      const affiche = !!clavier && h > 0 && getComputedStyle(clavier).display !== 'none'
+      // Sans focus, le clavier peut rester affiché (WebKit, clavier qui se
+      // referme) : la barre passe au-dessus de sa partie visible, jamais dessous
+      const visible = affiche ? Math.max(0, Math.round(innerHeight - clavier!.getBoundingClientRect().top)) : 0
+      hauteurClavier = saisieEnCours && affiche ? h : visible > 8 ? visible : 0
     }, 120)
     try {
       for (const etape of seance.etapes) {
@@ -314,6 +323,11 @@
         exercices[etape] = ex
         seance.graines[etape] = ex.graine
         seance.nbQuestions[etape] = ex.questions.length
+        // Questions sans réponse à saisir : sur papier, hors du score
+        ex.questions.forEach((q, i) => {
+          const cle = cleQuestion(etape, i)
+          if (!q.interactive) seance.papier = { ...seance.papier, [cle]: seance.papier?.[cle] ?? false }
+        })
       }
       seance.moteur = moteur.VERSION_MOTEUR
       fixerOrdre(seance)
@@ -341,8 +355,9 @@
       </button>
     {/snippet}
     {#snippet droite()}
-      {#if pret}
-        <span class="px-3"><span class={pastille}>{arrondi(points)}/{liste.length}</span></span>
+      <!-- Correction à la fin : aucun score avant la soumission (il afficherait 0) -->
+      {#if pret && !(finale && !seance.soumise)}
+        <span class="px-3"><span class={pastille}>{arrondi(points)}/{liste.filter((q) => !surPapier(seance, q.etape, q.question)).length}</span></span>
       {/if}
     {/snippet}
   </EnTete>
@@ -446,6 +461,8 @@
             onbrouillon={(s) => enregistrerBrouillon(ref, s)}
             onvalider={parQuestion ? undefined : () => surEntree(i)}
             onsaisie={() => (avertissement = null)}
+            correctionVue={seance.papier?.[cleQuestion(ref.etape, ref.question)] === true}
+            onvoircorrection={() => enregistrerCorrectionVue(ref)}
           />
         {/each}
       {/key}

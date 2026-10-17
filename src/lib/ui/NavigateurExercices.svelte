@@ -52,7 +52,13 @@
   })
 
   const chapitres = $derived(niveau ? [...new Set(referentiel.filter((e) => e.niveau === niveau).map((e) => e.theme))] : [])
-  const liste = $derived(niveau && chapitre ? referentiel.filter((e) => e.niveau === niveau && e.theme === chapitre) : [])
+  // Le référentiel de MathALÉA range parfois un même exercice (même uuid) à
+  // plusieurs endroits : une seule ligne par exercice (clé des listes)
+  const uniques = (l: ExerciceDuReferentiel[]) => {
+    const vus = new Set<string>()
+    return l.filter((e) => !vus.has(e.uuid) && !!vus.add(e.uuid))
+  }
+  const liste = $derived(niveau && chapitre ? uniques(referentiel.filter((e) => e.niveau === niveau && e.theme === chapitre)) : [])
 
   const normaliser = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
   const resultats = $derived.by(() => {
@@ -63,10 +69,9 @@
       const id = normaliser(e.id)
       return id === requete ? 0 : id.startsWith(requete) ? 1 : id.includes(requete) ? 2 : 3
     }
-    return referentiel
-      .filter((e) => mots.every((m) => normaliser(`${e.id} ${e.titre} ${e.niveau} ${e.theme}`).includes(m)))
-      .sort((a, b) => rang(a) - rang(b))
-      .slice(0, 40)
+    return uniques(
+      referentiel.filter((e) => mots.every((m) => normaliser(`${e.id} ${e.titre} ${e.niveau} ${e.theme}`).includes(m))).sort((a, b) => rang(a) - rang(b)),
+    ).slice(0, 40)
   })
   const sansDollars = (t: string) => t.replace(/\$([^$]*)\$/g, '$1')
 
@@ -156,7 +161,7 @@
       {@render exercices(liste)}
     {:else if niveau}
       {#each chapitres as c (c)}
-        {@const nb = referentiel.filter((e) => e.niveau === niveau && e.theme === c).length}
+        {@const nb = uniques(referentiel.filter((e) => e.niveau === niveau && e.theme === c)).length}
         <Tuile icon="bx-book-content" title={c} subtitle="{nb} exercice{nb > 1 ? 's' : ''}" onclick={() => (chapitre = c)} />
       {/each}
     {:else}

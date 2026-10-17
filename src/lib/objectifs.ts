@@ -189,7 +189,8 @@ export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtap
     return {
       fini: rs.length > 0 && rs.every((r) => r?.complet),
       faits: rs.filter((r) => r).length,
-      pourcentage: sur > 0 ? Math.round((100 * points) / sur) : 0,
+      // Palier tout sur papier : rien de manqué
+      pourcentage: sur > 0 ? Math.round((100 * points) / sur) : 100,
     }
   })
   const ouverts: boolean[] = []

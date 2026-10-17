@@ -188,9 +188,16 @@ for (const theme of ['clair', 'sombre']) {
   ok(JSON.stringify(questions) === '[0,1]', 'séance : seulement les exercices du palier 1')
   // Premier exercice juste, le second (champ à trous) laissé faux : 50 %, le seuil choisi
   for (let n = 0; n < 4; n++) {
-    const etape = n < 2 ? 0 : 1
     await e.locator('main math-field').first().waitFor({ timeout: 15000 })
-    await saisir(e, 0, etape === 0 ? await reponseAttendue(e, id, etape, n % 2) : '0')
+    // Questions mélangées (nouveau parcours) : l'ordre affiché est celui tiré dans la séance
+    const [etape, q] = await e.evaluate(
+      ({ id, n }) => {
+        const s = JSON.parse(localStorage.getItem(`copie:seance:${id}`))
+        return (s.ordre?.[n] ?? `${n < 2 ? 0 : 1}-${n % 2}`).split('-').map(Number)
+      },
+      { id, n },
+    )
+    await saisir(e, 0, etape === 0 ? await reponseAttendue(e, id, etape, q) : '0')
     await e.getByRole('button', { name: 'Vérifier' }).click()
     await e.waitForTimeout(350)
     await e.getByRole('button', { name: n < 3 ? 'Question suivante' : 'Voir le bilan' }).click()

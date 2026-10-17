@@ -3,6 +3,7 @@
   import { paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
   import { MAITRISES, ceinturesObtenues, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
+  import { estTest } from '$lib/testNiveau'
   import { theme } from '$lib/theme.svelte'
   import { listeGroupee, pastille, pastilleScore } from './classes'
 
@@ -10,12 +11,16 @@
     parcours,
     historiques,
     enCours,
+    ceinturesTest = [],
     onouvrir,
+    ontest,
   }: {
     parcours: Parcours[]
     historiques: Record<string, Seance[]>
     enCours: Record<string, Seance | null>
+    ceinturesTest?: { nom: string; niveau: string; couleur: string; obtenue: boolean }[] // Teste ton niveau, du CM1 à la Terminale
     onouvrir: (p: Parcours) => void
+    ontest?: () => void
   } = $props()
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
@@ -90,7 +95,8 @@
 
   /** Exercices dont le dernier passage terminé n'est pas à 100 %, lus dans la copie figée de la séance */
   const aRetravailler = $derived(
-    parcours.flatMap((p) => {
+    // Teste ton niveau : questions tirées une fois, rien à retravailler exercice par exercice
+    parcours.filter((p) => !estTest(p.id)).flatMap((p) => {
       const dernier = (historiques[p.id] ?? []).at(-1)
       if (!dernier) return []
       return bilan(dernier)
@@ -117,13 +123,30 @@
   const vues = $derived([
     ['activite', 'Activité'],
     ['objectifs', 'Objectifs'],
-    ...(ceintures.length ? [['ceintures', 'Ceintures']] : []),
+    ...(ceintures.length || ceinturesTest.length ? [['ceintures', 'Ceintures']] : []),
   ])
   const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
 
   const fmtJour = (d: Date) => d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 </script>
+
+{#snippet rangee(liste: { nom: string; couleur: string; obtenue: boolean; niveau?: string }[])}
+  <ul class="flex flex-row flex-wrap gap-3">
+    {#each liste as x (x.nom)}
+      <li class="flex flex-col items-center gap-1" aria-label="{x.nom}{x.niveau ? ` (${x.niveau})` : ''} : {x.obtenue ? 'obtenue' : 'pas encore obtenue'}">
+        <span
+          class="relative inline-flex items-center justify-center w-14 h-7 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
+          {x.obtenue ? '' : 'opacity-30'}"
+          style="background-color: {x.couleur}"
+        >
+          {#if x.obtenue}<i aria-hidden="true" class="bx bx-check text-lg" style="color: {x.couleur === '#f5f5f4' || x.couleur === '#facc15' ? '#1c1917' : '#ffffff'}"></i>{/if}
+        </span>
+        <span class="text-xs {x.obtenue ? 'font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct' : discret}">{x.niveau ?? x.nom.replace('Ceinture ', '')}</span>
+      </li>
+    {/each}
+  </ul>
+{/snippet}
 
 <div class="flex flex-col gap-3 p-4">
   {#if essais.length === 0}
@@ -206,6 +229,16 @@
         {/each}
       {/if}
     {:else if vue === 'ceintures'}
+      {#if ceinturesTest.length}
+        {@const plusHaute = ceinturesTest.filter((x) => x.obtenue).at(-1)}
+        <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+          <button type="button" class="text-left" onclick={ontest}>
+            <span class="block font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Teste ton niveau</span>
+            <span class={discret}>{plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')} (${plusHaute.niveau})` : 'Aucune ceinture pour le moment'}</span>
+          </button>
+          {@render rangee(ceinturesTest)}
+        </section>
+      {/if}
       {#each ceintures as c (c.p.id)}
         {@const plusHaute = c.liste.filter((x) => x.obtenue).at(-1)}
         <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
@@ -213,20 +246,7 @@
             <span class="block font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.p.titre}</span>
             <span class={discret}>{plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')}` : 'Aucune ceinture pour le moment'}</span>
           </button>
-          <ul class="flex flex-row flex-wrap gap-3">
-            {#each c.liste as x (x.nom)}
-              <li class="flex flex-col items-center gap-1" aria-label="{x.nom} : {x.obtenue ? 'obtenue' : 'pas encore obtenue'}">
-                <span
-                  class="relative inline-flex items-center justify-center w-14 h-7 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
-                  {x.obtenue ? '' : 'opacity-30'}"
-                  style="background-color: {x.couleur}"
-                >
-                  {#if x.obtenue}<i aria-hidden="true" class="bx bx-check text-lg" style="color: {x.couleur === '#f5f5f4' || x.couleur === '#facc15' ? '#1c1917' : '#ffffff'}"></i>{/if}
-                </span>
-                <span class="text-xs {x.obtenue ? 'font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct' : discret}">{x.nom.replace('Ceinture ', '')}</span>
-              </li>
-            {/each}
-          </ul>
+          {@render rangee(c.liste)}
         </section>
       {/each}
     {:else}

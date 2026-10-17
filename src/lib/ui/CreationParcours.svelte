@@ -212,7 +212,9 @@
   )
 
   onMount(async () => {
-    referentiel = (await moteur.listerExercices(pays)).filter((e) => e.interactif)
+    // Tous les exercices du menu du site, interactifs ou non ; le site range
+    // « Égalité filles-garçons » à part (ressources partenaires)
+    referentiel = (await moteur.listerExercices(pays)).filter((e) => e.niveau !== 'Égalité filles-garçons')
   })
 
   async function decrire(uuid: string): Promise<DescriptionExercice | null> {
@@ -388,7 +390,7 @@
       <button type="button" class="min-w-0 flex-1 text-left" aria-expanded={ouvert === i} onclick={() => basculerExercice(i)}>
         <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{e.id ?? 'Exercice'}</div>
         <div class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus truncate">
-          {e.titreMasque ? `Exercice ${i + 1}` : e.titre.replace(/\$([^$]*)\$/g, '$1')}
+          {e.titreMasque ? 'Masqué aux élèves' : e.titre.replace(/\$([^$]*)\$/g, '$1')}
         </div>
         <div class="{discret} truncate">{resumeExercice(e)}</div>
       </button>
@@ -410,7 +412,7 @@
           </div>
           <button
             type="button"
-            aria-label={e.titreMasque ? 'Afficher le titre aux élèves' : 'Masquer le titre aux élèves'}
+            aria-label={e.titreMasque ? 'Montrer l’exercice aux élèves' : 'Masquer l’exercice aux élèves'}
             aria-pressed={e.titreMasque === true}
             class="p-2 text-coopmaths-action dark:text-coopmathsdark-action"
             onclick={() => (e.titreMasque = !e.titreMasque)}
@@ -418,6 +420,9 @@
             <i aria-hidden="true" class="bx {e.titreMasque ? 'bx-hide' : 'bx-show'} text-2xl"></i>
           </button>
         </div>
+        {#if e.titreMasque}
+          <p class={discret}>Absent de la liste vue par les élèves, sans titre pendant l’activité.</p>
+        {/if}
         <ReglagesExercice bind:etape={p.etapes[i]} description={descriptions[e.uuid] ?? null} />
         <div class="flex flex-col gap-2">
           <p class={sousTitre}>Objectifs</p>
