@@ -416,6 +416,10 @@ Environnement (machine de Nathan)
   `xml/file_paths` : `cache-path`), `ACTION_SEND` `application/json`.
   Commande appelée côté JS : `partager_fichier` (`fichiers.ts`,
   `partageNatif` = Tauri + Android). Ailleurs : fenêtre « Enregistrer sous ».
+  Sur Android, un panneau (`ChoixEnregistrement`) propose d'abord « Envoyer
+  vers une app » ou « Enregistrer sur le téléphone » (`enregistrer_fichier`,
+  `ACTION_CREATE_DOCUMENT`, rappel `@ActivityCallback`) : la feuille de
+  partage ne propose pas toujours d'enregistrer (demande de Nathan, 0.3.3).
 - Émulateur : AVD `mathalea` (Android 36, x86_64, sans Play) dans
   `~/.config/.android/avd` → exporter `ANDROID_AVD_HOME`. Lancement sans
   fenêtre : `emulator -avd mathalea -no-window -no-audio -no-snapshot -gpu swiftshader_indirect`,

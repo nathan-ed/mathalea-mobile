@@ -104,7 +104,7 @@ Sur votre drive (kDrive, Dropbox, Nextcloud…), créez un dossier et partagez-l
 
 ### 16. Publier
 
-Touchez « Publier ». Sur téléphone, choisissez l'application de votre drive puis le dossier partagé. Sur ordinateur, le fichier est enregistré : déposez-le ensuite dans le dossier partagé.
+Touchez « Publier ». Sur téléphone, choisissez l'application de votre drive puis le dossier partagé. Sur Android, « Enregistrer sur le téléphone » garde aussi le fichier dans un dossier de votre choix (Téléchargements, par exemple). Sur ordinateur, le fichier est enregistré : déposez-le ensuite dans le dossier partagé.
 
 ![Publier](images/creer-16-publier.png)
 

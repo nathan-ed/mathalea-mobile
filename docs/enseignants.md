@@ -178,9 +178,10 @@ Tant que le dossier partagé n'est pas renseigné, l'onglet Créer affiche une
    seule.
 2. Collez ce lien dans « Lien du dossier partagé », puis
    « Enregistrer le lien ».
-3. **Publier** enregistre `parcours-mathalea-<date>.json` (sur Android : ouvre
-   le partage, choisissez l'app de votre drive). Déposez-le dans le dossier ;
-   inutile de supprimer les anciens.
+3. **Publier** enregistre `parcours-mathalea-<date>.json`. Sur Android,
+   choisissez « Envoyer vers une app » (l'app de votre drive) ou
+   « Enregistrer sur le téléphone » (Téléchargements, par exemple). Déposez-le
+   dans le dossier ; inutile de supprimer les anciens.
 4. Donnez le lien aux élèves (projection, QR code, ENT…).
 
 Ensuite, une ligne en haut de l'onglet Créer dit où en est la diffusion :

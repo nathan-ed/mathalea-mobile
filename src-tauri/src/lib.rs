@@ -19,6 +19,7 @@ pub fn run() {
             moteur::moteur_telecharge,
             moteur::mettre_a_jour_moteur,
             partage::partager_fichier,
+            partage::enregistrer_fichier,
             partage::barre_etat,
             partage::marges
         ])

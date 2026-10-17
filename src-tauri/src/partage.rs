@@ -52,6 +52,28 @@ pub async fn partager_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String,
     }
 }
 
+/// Enregistre `texte` dans un fichier choisi avec le sélecteur de fichiers
+/// d'Android (Téléchargements, carte SD…) ; vrai si le fichier est écrit.
+/// Ailleurs : false (l'interface utilise la feuille de partage ou « Enregistrer sous »).
+#[tauri::command]
+pub async fn enregistrer_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String) -> Result<bool, String> {
+    #[cfg(target_os = "android")]
+    {
+        use tauri::Manager;
+        let p = app.state::<Partage<R>>();
+        let r = p
+            .0
+            .run_mobile_plugin::<serde_json::Value>("enregistrer", serde_json::json!({ "nom": nom, "texte": texte }))
+            .map_err(|e| e.to_string())?;
+        return Ok(r.get("enregistre").and_then(|v| v.as_bool()).unwrap_or(false));
+    }
+    #[cfg(not(target_os = "android"))]
+    {
+        let _ = (app, nom, texte);
+        Ok(false)
+    }
+}
+
 /// Icônes de la barre d'état claires (thème sombre de l'app) ou foncées ;
 /// `telephone` : l'app suit le thème du téléphone (iOS ne l'impose alors pas)
 #[tauri::command]

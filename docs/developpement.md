@@ -329,6 +329,15 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
+## 0.3.3 : enregistrer un export sur le téléphone (fait)
+
+- Android : chaque export (publication, parcours seul, sauvegarde, CSV)
+  propose « Envoyer vers une app » (feuille de partage) ou « Enregistrer sur
+  le téléphone » (sélecteur de fichiers d'Android, `ACTION_CREATE_DOCUMENT`,
+  commande `enregistrer_fichier`, `PartagePlugin.enregistrer`). La feuille de
+  partage ne proposait pas toujours d'enregistrer le fichier. iOS garde sa
+  feuille de partage (« Enregistrer dans Fichiers »).
+
 ## 0.3.2 : retours des testeurs, tous les exercices du site (fait)
 
 - Séance avec correction à la fin : plus de score « 0/15 » avant la

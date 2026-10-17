@@ -3,11 +3,13 @@ package fr.coopmaths.mathalea
 import android.app.Activity
 import android.content.ClipData
 import android.content.Intent
+import androidx.activity.result.ActivityResult
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import app.tauri.plugin.JSObject
+import app.tauri.annotation.ActivityCallback
 import app.tauri.annotation.Command
 import app.tauri.annotation.InvokeArg
 import app.tauri.annotation.TauriPlugin
@@ -54,6 +56,50 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
       invoke.resolve()
     } catch (e: Exception) {
       invoke.reject(e.message ?: "Partage impossible")
+    }
+  }
+
+  // Texte à écrire dans le fichier que l'utilisateur est en train de choisir
+  private var texteAEnregistrer: String? = null
+
+  /** Enregistre le fichier là où l'utilisateur le choisit (Téléchargements,
+   * carte SD…) avec le sélecteur de fichiers d'Android */
+  @Command
+  fun enregistrer(invoke: Invoke) {
+    try {
+      val args = invoke.parseArgs(PartagerArgs::class.java)
+      texteAEnregistrer = args.texte
+      val nom = File(args.nom).name
+      val choix = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = if (nom.endsWith(".csv")) "text/csv" else "application/json"
+        putExtra(Intent.EXTRA_TITLE, nom)
+      }
+      startActivityForResult(invoke, choix, "fichierChoisi")
+    } catch (e: Exception) {
+      invoke.reject(e.message ?: "Enregistrement impossible")
+    }
+  }
+
+  @ActivityCallback
+  fun fichierChoisi(invoke: Invoke, result: ActivityResult) {
+    val texte = texteAEnregistrer
+    texteAEnregistrer = null
+    val uri = result.data?.data
+    val r = JSObject()
+    if (result.resultCode != Activity.RESULT_OK || uri == null || texte == null) {
+      r.put("enregistre", false)
+      invoke.resolve(r)
+      return
+    }
+    try {
+      // « wt » : un fichier existant choisi est remplacé, pas complété
+      activity.contentResolver.openOutputStream(uri, "wt")?.use { it.write(texte.toByteArray(Charsets.UTF_8)) }
+        ?: throw Exception("Fichier inaccessible")
+      r.put("enregistre", true)
+      invoke.resolve(r)
+    } catch (e: Exception) {
+      invoke.reject(e.message ?: "Enregistrement impossible")
     }
   }
 

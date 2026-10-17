@@ -4,7 +4,7 @@
   import { CLE_AVANT_RESTAURATION, exporterSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
-  import { enregistrerFichier, partageNatif } from '$lib/fichiers'
+  import { enregistrerFichier } from '$lib/fichiers'
   import {
     adopter,
     ajouterClasse as ajouterClasseBibliotheque,
@@ -59,6 +59,7 @@
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
+  import ChoixEnregistrement from '$lib/ui/ChoixEnregistrement.svelte'
   import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, couleurDu, estTest, niveauDuTest, presenterTest, sujetsDu, tirerTest, type EtatTest } from '$lib/testNiveau'
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
@@ -641,9 +642,10 @@
   async function exporterUnParcours(id: string) {
     const f = exporterUn($state.snapshot(bibliotheque) as Bibliotheque, id)
     if (!f) return ''
-    if (!(await enregistrerFichier(f.nom, f.texte))) return 'Téléchargement annulé.'
+    const envoi = await enregistrerFichier(f.nom, f.texte)
+    if (!envoi) return 'Téléchargement annulé.'
     await sauverBibliotheque(f.bibliotheque)
-    return partageNatif ? `Choisissez l’app de votre drive et déposez ${f.nom} dans le dossier partagé.` : `${f.nom} enregistré.`
+    return envoi === 'partage' ? `Choisissez l’app de votre drive et déposez ${f.nom} dans le dossier partagé.` : `${f.nom} enregistré.`
   }
 
   // Parcours importés d'un fichier (collègue) : proposés dans « Éditer un parcours existant »
@@ -754,9 +756,10 @@
   async function exporterClasse() {
     const { texte, bibliotheque: b } = exporter($state.snapshot(bibliotheque) as Bibliotheque, $state.snapshot(objectifs) as Objectif[])
     const nom = nomHorodate('parcours-mathalea')
-    if (!(await enregistrerFichier(nom, texte))) return 'Export annulé.'
+    const envoi = await enregistrerFichier(nom, texte)
+    if (!envoi) return 'Export annulé.'
     await sauverBibliotheque(b)
-    return partageNatif
+    return envoi === 'partage'
       ? 'Choisissez l’app de votre drive et déposez le fichier dans le dossier partagé.'
       : `${nom} enregistré : déposez-le dans le dossier partagé.`
   }
@@ -970,3 +973,5 @@
   </div>
   {/key}
 </div>
+
+<ChoixEnregistrement />
