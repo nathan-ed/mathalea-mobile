@@ -496,8 +496,8 @@ Environnement (machine de Nathan)
   des noms uniformes `MathALEA-<v>-<système>.<ext>` + `SHA256SUMS`, et dans la
   release de la forge (un lien par fichier, liens sur `-/raw/main/…` pour
   pouvoir compléter après coup) :
-  `scripts/release.sh v0.1.1` (récupère la release GitHub, `APK_LOCALES=1`
-  ajoute les APK construites ici, crée ou complète la release via `glab api`).
+  `scripts/release.sh v0.1.1` (récupère la release GitHub et l'`.ipa` du
+  dernier run `ios.yml` réussi sur le commit du tag, `APK_LOCALES=1` ajoute les APK construites ici, crée ou complète la release via `glab api`).
   Relançable. Ordre voulu par Nathan : **APK d'abord**, puis le reste ; ranger
   ce qui est prêt sans attendre le reste. Penser à monter la version dans
   `package.json`, `src-tauri/tauri.conf.json` et `src-tauri/Cargo.toml`.
@@ -570,7 +570,9 @@ Environnement (machine de Nathan)
   nouveau moteur publié). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
   gros pour SendUserFile (30 Mo).
 - `.ipa` non signée pour iPhone (`ios.yml`, `ipa=true`,
-  `scripts/ios-sans-signature.sh`) jointe aux releases de la forge ;
+  `scripts/ios-sans-signature.sh`) jointe aux releases de la forge : lancer
+  `gh workflow run ios.yml --ref v<x> -f ipa=true` (ou sur main au même
+  commit) **avant** `scripts/release.sh`, qui la range avec le reste ;
   installation par Sideloadly (7 jours) décrite dans le guide. Non essayée
   sur un vrai iPhone. TestFlight attend le compte Apple Developer.
 - Clavier d'Android et double toucher : vérifier sur l'émulateur avec

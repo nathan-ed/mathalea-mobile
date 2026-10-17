@@ -4,6 +4,8 @@
 # puis crée ou complète la release de la forge (un lien par fichier).
 #
 #   scripts/release.sh v0.2.0             # tout ce que la CI GitHub a construit
+#                                         # (+ l'.ipa du dernier run ios.yml réussi
+#                                         #  sur le commit du tag, lancé avec ipa=true)
 #   APK_LOCALES=1 scripts/release.sh v0.2.0   # + les APK construites ici (prioritaires)
 #
 # Peut être relancé : les fichiers déjà présents sont remplacés, les liens
@@ -28,6 +30,7 @@ uniforme() {
     *.rpm) echo "MathALEA-$v-linux-x86_64.rpm" ;;
     *aarch64*.dmg) echo "MathALEA-$v-macos-apple-silicon.dmg" ;;
     *x64*.dmg) echo "MathALEA-$v-macos-intel.dmg" ;;
+    *ios-non-signee.ipa) echo "MathALEA-$v-ios-non-signee.ipa" ;;
     *.msi) echo "MathALEA-$v-windows.msi" ;;
     *setup.exe) echo "MathALEA-$v-windows-setup.exe" ;;
     *arm64*.apk | *aarch64*.apk) echo "MathALEA-$v-android-arm64.apk" ;;
@@ -48,6 +51,17 @@ if gh release view "$version" --repo "$depot_github" > /dev/null 2>&1; then
   gh release download "$version" --repo "$depot_github" --dir "$brut/github" --clobber
   ranger "$brut/github"
 fi
+# .ipa non signée : artefact du workflow ios.yml (pas dans la release GitHub)
+commit="$(git -C "$racine" rev-parse "$version^{commit}")"
+for run in $(gh run list --repo "$depot_github" --workflow ios.yml --status success --limit 30 \
+  --json databaseId,headSha --jq ".[] | select(.headSha == \"$commit\") | .databaseId"); do
+  if gh run download "$run" --repo "$depot_github" --name ipa-non-signee --dir "$brut/ios" > /dev/null 2>&1; then
+    echo "iOS (run $run) :"
+    ranger "$brut/ios"
+    break
+  fi
+done
+[ -d "$brut/ios" ] || echo "Pas d'.ipa : lancer ios.yml avec ipa=true sur $version, puis relancer ce script."
 if [ -n "${APK_LOCALES:-}" ]; then
   echo "APK construites ici :"
   mkdir -p "$brut/local"
