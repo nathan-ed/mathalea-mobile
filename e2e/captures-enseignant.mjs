@@ -15,7 +15,7 @@ for (const theme of ['clair', 'sombre']) {
   }, { bib, theme })
   const page = await ctx.newPage()
   await page.goto('http://localhost:1420/')
-  await page.getByRole('button', { name: 'Publier', exact: true }).waitFor()
+  await page.getByRole('tab', { name: 'Parcours', exact: true }).waitFor()
   await page.screenshot({ path: `${sortie}/ens-accueil-${theme}.png` })
   await page.getByRole('tab', { name: 'Classes', exact: true }).click()
   await page.screenshot({ path: `${sortie}/ens-classes-${theme}.png` })

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { adopter, definirLien, enregistrer, exporter, exporterUn, aExporter, reprendre, attribuer, nbAExporter, parcoursVide, parcoursDeClasse } from '../src/lib/bibliotheque'
+import { aJour, completerEmpreinte, sansEcartDrive, adopter, definirLien, enregistrer, exporter, exporterChoix, exporterUn, aExporter, reprendre, attribuer, nbAExporter, parcoursVide, parcoursDeClasse } from '../src/lib/bibliotheque'
 import { lireFichier } from '../src/lib/partage'
 import { graineDeSession, nouveauCode, nouvelleSeance } from '../src/lib/progression'
 
@@ -217,6 +217,60 @@ describe('téléchargements après la création', () => {
     expect(b.parcours[0].classes).toEqual(['Classe test'])
     b = enregistrer(b, ['Classe test'], { ...p, titre: 'Relatifs (repris)' })
     expect(b.parcours[0].parcours.version).toBe(4)
+  })
+
+  it('signale toute modification absente du dernier fichier complet, parcours sans classe compris', () => {
+    let b = enregistrer({ classes: [], parcours: [] }, [], brouillon('Sans classe'))
+    expect(aJour(b)).toBe(false)
+    b = exporter(b).bibliotheque
+    expect(aJour(b)).toBe(true)
+    b = enregistrer(b, [], { ...b.parcours[0].parcours, objectif: 'Additionner' })
+    expect(aJour(b)).toBe(false)
+    b = exporter(b).bibliotheque
+    b = attribuer(b, b.parcours[0].parcours.id, ['3e A'])
+    expect(aJour(b)).toBe(false)
+    b = exporter(b).bibliotheque
+    const objectifs = [{ libelle: 'Additionner des fractions', niveau: '4e', theme: 'Fractions' }]
+    expect(aJour(b, objectifs)).toBe(false)
+    // Un export de quelques parcours ne remplace pas le fichier complet
+    b = exporterChoix(exporter(b, objectifs).bibliotheque, [b.parcours[0].parcours.id])!.bibliotheque
+    expect(aJour(b, objectifs)).toBe(true)
+  })
+
+  it('bibliothèque d’une version précédente : pas de fausse alerte si elle a déjà été exportée', () => {
+    let b = exporter(enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))).bibliotheque
+    const ancienne = { ...b, empreinte: undefined }
+    expect(aJour(ancienne)).toBe(false)
+    expect(aJour(completerEmpreinte(ancienne))).toBe(true)
+    // Jamais exportée, ou un parcours en attente : l'alerte reste
+    const jamais = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
+    expect(completerEmpreinte(jamais)).toBe(jamais)
+    b = enregistrer(ancienne, ['3e A'], { ...b.parcours[0].parcours, objectif: 'Additionner' })
+    expect(aJour(completerEmpreinte(b))).toBe(false)
+  })
+
+  it('la démonstration ne rend pas le drive différent, sauf s’il l’était déjà', () => {
+    const avant = exporter(enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))).bibliotheque
+    const demo = enregistrer(avant, ['Démonstration'], { ...brouillon('Essai'), id: '' })
+    expect(aJour(sansEcartDrive(avant, [], demo, []))).toBe(true)
+    const modifiee = enregistrer(avant, [], { ...brouillon('Nouveau'), id: '' })
+    expect(aJour(sansEcartDrive(modifiee, [], enregistrer(modifiee, [], { ...brouillon('Essai'), id: '' }), []))).toBe(false)
+  })
+
+  it('exporte plusieurs parcours choisis dans un fichier, chacun dans ses classes', () => {
+    let b = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
+    b = enregistrer(b, [], { ...brouillon('Brouillon'), id: '' })
+    b = enregistrer(b, ['3e B'], { ...brouillon('Autre'), id: '' })
+    const ids = b.parcours.map((pe) => pe.parcours.id)
+    const f = exporterChoix(b, [ids[0], ids[1]])!
+    expect(f.nom).toMatch(/^parcours-choisis-2-/)
+    const lu = lireFichier(f.texte)
+    expect(lu.banque).toBeUndefined()
+    expect(lu.classes.map((c) => [c.nom, c.parcours.map((p) => p.titre)])).toEqual([
+      ['3e A', ['Fractions']],
+      ['Parcours', ['Brouillon']],
+    ])
+    expect(exporterChoix(b, [])).toBeNull()
   })
 })
 

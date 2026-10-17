@@ -185,7 +185,7 @@ if (!SEULEMENT || SEULEMENT === 'creer') {
   await lien.click()
   await p.waitForTimeout(400)
   await p.evaluate(() => scrollTo(0, 0))
-  const publier = p.getByRole('button', { name: /^Publier/ })
+  const publier = p.getByRole('button', { name: 'Mettre à jour', exact: true })
   await cap(p, 'creer-16-publier', publier)
   await publier.first().click()
   await p.waitForTimeout(600)

@@ -50,6 +50,10 @@ Design (« les dev MathALÉA en charge du design vont me tomber dessus »)
   pas de « min » de durée, pas de badge « Hors ligne » (tout est hors ligne).
 - Icônes boxicons avec `aria-hidden="true"`.
 - Captures à vérifier à 390 px, en clair et en sombre.
+- Tout changement d'interface : **montrer les captures à Nathan** (390 px,
+  clair et sombre, écrans touchés) avant de dire que c'est fini, sans
+  attendre qu'il les demande (« montre-moi une capture pour valider »). Prendre
+  la capture après les animations (panneaux, changement d'écran).
 
 Vérification (Nathan, 17 octobre 2026 : « chaque release touche beaucoup de
 monde, on ne peut pas se permettre d'avoir des erreurs comme ça »)
@@ -85,7 +89,8 @@ Ergonomie décidée
 - Ajout d'exercices comme sur le site : niveau, puis chapitre (noms du site),
   recherche, réglages (paramètres du site) et aperçu.
 - Après « Valider » / « Enregistrer et quitter » : panneau du bas qui propose
-  « Publier pour les élèves » et « Exporter ce parcours seul ». C'est « le
+  « Exporter tous les parcours », « Choisir les parcours à exporter » et, sans
+  classe, « Donner à des classes ». C'est « le
   plus important » : sans fichier, rien n'arrive aux élèves.
 - Réglages de l'app : chaque réglage s'applique aussitôt ; après un
   changement, bouton « Enregistrer et quitter » qui ramène à l'accueil.
@@ -133,7 +138,24 @@ Modèle (`src/lib/catalogue.ts`)
 Bibliothèque de l'enseignant (`src/lib/bibliotheque.ts`)
 - `enregistrer()` : modification d'un parcours déjà exporté = version
   suivante. Doit renvoyer `{ ...b, … }` (un oubli effaçait `lien`).
-- `exporter()` : banque complète, marque `exportee` par classe.
+- `exporter()` : banque complète (« Exporter tous les parcours »), marque
+  `exportee` par classe et pose `empreinte` (classes, parcours et
+  attributions, objectifs). `aJour()` compare : sinon bannière « Version
+  différente de celle du drive » / « Mettre à jour » sous la barre de chaque
+  écran (`EnTete`, état dans `rappelExport.svelte.ts`, hors séance), puis
+  « Fichier exporté : déposez-le sur le drive » jusqu'à `verifieLe` (dossier
+  relu par `actualiser()`) ; sans lien, « Drive pas encore configuré » /
+  « Configurer ». Croix : fermée jusqu'au prochain lancement.
+  `completerEmpreinte()` au lancement : une bibliothèque d'avant 0.3.4 déjà
+  exportée ne déclenche pas de fausse alerte. `sansEcartDrive()` : charger ou
+  retirer la démonstration ne rend pas le drive « différent ».
+  Nathan (17 octobre 2026) : par défaut on exporte **tout** ; l'attribution
+  aux classes vient ensuite ; bannière « toute petite, discrète », sans date
+  ni nom de fichier. Pas de message positif (« le dossier a le dernier
+  fichier ») : on ne signale que ce qui reste à faire, la bannière disparaît
+  quand c'est fait.
+- `exporterChoix(b, ids)` : quelques parcours (panneau « Exporter des
+  parcours », tous cochés par défaut ; tous cochés = fichier complet).
 - `exporterUn()` : un parcours seul (`parcours-<titre>.json`, nom stable pour remplacer le précédent). Ne compte
   pas comme exporté par classe, mais marque sa version diffusée (`exportee['']`) :
   sinon un parcours seul déposé dans le dossier restait en V1 après

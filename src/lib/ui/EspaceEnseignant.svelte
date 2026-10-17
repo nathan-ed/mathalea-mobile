@@ -3,9 +3,9 @@
   // niveau, on le donne ensuite à des classes. Trois vues : Parcours (la
   // bibliothèque, par niveau et chapitre), Classes (ce que chaque classe reçoit,
   // dans l'ordre vu par les élèves), Objectifs (liste de l'enseignant et
-  // exercices qui les travaillent). En haut : diffusion et Publier.
+  // exercices qui les travaillent). En haut : l'état du fichier complet et son export.
   import { paliersDe, type Parcours } from '$lib/catalogue'
-  import { aExporter, nbAExporter, parcoursDeClasse, type Bibliotheque, type ParcoursEnseignant } from '$lib/bibliotheque'
+  import { aExporter, aJour, parcoursDeClasse, type Bibliotheque, type ParcoursEnseignant } from '$lib/bibliotheque'
   import { NIVEAUX, type Pays } from '$lib/moteur'
   import { lireObjectifs, type Objectif } from '$lib/objectifs'
   import ChampTexte from './ChampTexte.svelte'
@@ -28,7 +28,7 @@
     onreglages,
     dernier = null,
     onfermerDernier,
-    onexporterUn,
+    onexporterChoix,
     onimporter,
     onreprendre,
     onverifier,
@@ -48,10 +48,10 @@
     oncreer: () => void
     onediter: (p: Parcours) => void
     onlien: (lien: string) => void
-    onexporter: () => Promise<string>
+    onexporter: () => Promise<string> // fichier complet : classes, tous les parcours, objectifs
     dernier?: string | null // parcours qui vient d'être enregistré
     onfermerDernier: () => void
-    onexporterUn: (id: string) => Promise<string>
+    onexporterChoix: (ids: string[]) => Promise<string> // parcours choisis, pour un collègue
     onimporter: (texte: string) => Promise<{ message: string; parcours: Parcours[] }>
     onreprendre: (source: { lien?: string; texte?: string }) => Promise<string> // bibliothèque publiée : autre appareil, page du site
     onverifier: () => Promise<string> // le dossier partagé contient-il la dernière publication ?
@@ -106,7 +106,8 @@
   $effect.pre(() => {
     lien = bibliotheque.lien ?? ''
   })
-  const nb = $derived(nbAExporter(bibliotheque))
+  // Le fichier complet exporté (celui du dossier partagé) contient-il tout ce qui est dans l'app ?
+  const aExporterTout = $derived(!aJour(bibliotheque, objectifs))
   // Parcours qui partent aux élèves : donnés à une classe, avec un titre et des exercices
   const prets = $derived(bibliotheque.parcours.filter((pe) => pe.classes.length && pe.parcours.titre.trim() && pe.parcours.etapes.length).length)
   const enregistre = $derived(dernier ? bibliotheque.parcours.find((pe) => pe.parcours.id === dernier) : undefined)
@@ -132,7 +133,7 @@
     return [
       pe.classes.length ? pe.classes.join(', ') : 'Aucune classe',
       paliers > 1 ? `${paliers} paliers` : `${n} exercice${n > 1 ? 's' : ''}`,
-      pe.classes.some((c) => aExporter(pe, c)) ? 'pas encore publié' : '',
+      pe.classes.some((c) => aExporter(pe, c)) ? 'différent du drive' : '',
     ]
       .filter(Boolean)
       .join(' · ')
@@ -163,7 +164,7 @@
 
   const sousTitreClasse = (pe: ParcoursEnseignant, classe: string) => {
     const n = pe.parcours.etapes.length
-    return [pe.parcours.theme, `${n} exercice${n > 1 ? 's' : ''}`, aExporter(pe, classe) ? 'pas encore publié' : ''].filter(Boolean).join(' · ')
+    return [pe.parcours.theme, `${n} exercice${n > 1 ? 's' : ''}`, aExporter(pe, classe) ? 'différent du drive' : ''].filter(Boolean).join(' · ')
   }
 
   // ---------- Objectifs ----------
@@ -250,15 +251,26 @@
     verification = false
   }
 
-  async function publier() {
-    message = await onexporter()
+  async function exporterTout() {
     onfermerDernier()
+    feuilleExport = false
+    // La bannière sous la barre dit la suite (déposer le fichier sur le drive)
+    message = ''
+    await onexporter()
   }
 
-  async function exporterDernier() {
-    const id = enregistre!.parcours.id
+  // « Choisir les parcours à exporter » : tous cochés, sauf depuis l'enregistrement d'un parcours
+  let feuilleExport = $state(false)
+  let choixExport: string[] = $state([])
+  function choisirExport(ids = bibliotheque.parcours.map((pe) => pe.parcours.id)) {
+    choixExport = ids
     onfermerDernier()
-    message = await onexporterUn(id)
+    feuilleExport = true
+  }
+  async function exporterChoisis() {
+    if (choixExport.length === bibliotheque.parcours.length) return exporterTout()
+    feuilleExport = false
+    message = await onexporterChoix(choixExport)
   }
 
   function enregistrerLien() {
@@ -350,12 +362,9 @@
             </li>
             <li class="flex flex-row gap-2">
               <i aria-hidden="true" class="{icone} text-xl bx-circle"></i>
-              <span>Publiez, puis déposez le fichier dans ce dossier.</span>
+              <span>Exportez tous les parcours, puis déposez le fichier dans ce dossier.</span>
             </li>
           </ol>
-          {#if prets}
-            <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={publier}>Publier pour les élèves</button>
-          {/if}
           {#if message}<p class={discret} role="status">{message}</p>{/if}
           <button
             type="button"
@@ -369,29 +378,13 @@
           </button>
         </section>
       {:else}
-        <!-- État de la diffusion : à publier, fichier prêt à déposer, ou trouvé dans le dossier partagé -->
-        {@const date = (iso: string) => new Date(iso).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
-        <p class="flex flex-row items-center gap-2 px-1 {texte}" role="status">
-          {#if nb}
-            <i aria-hidden="true" class="{icone} text-xl bx-error-circle"></i>
-            {nb === 1 ? 'Un parcours n’est pas encore publié.' : `${nb} parcours ne sont pas encore publiés.`}
-          {:else if prets && bibliotheque.verifieLe}
-            <i aria-hidden="true" class="{icone} text-xl bx-check-circle"></i>
-            Dernière publication présente dans le dossier partagé (vérifié le {date(bibliotheque.verifieLe)}).
-          {:else if prets && bibliotheque.publieLe}
-            <i aria-hidden="true" class="{icone} text-xl bx-time-five"></i>
-            Fichier du {date(bibliotheque.publieLe)} prêt : déposez-le dans le dossier partagé.
-          {:else if prets}
-            <i aria-hidden="true" class="{icone} text-xl bx-upload"></i>
-            Publiez pour créer le fichier des élèves.
-          {:else}
-            <i aria-hidden="true" class="{icone} text-xl bx-info-circle"></i>
-            Donnez un parcours à une classe : il sera publié dans votre dossier partagé.
+        <!-- L'état du drive est dans la bannière sous la barre -->
+        {#if !aExporterTout && bibliotheque.parcours.length}
+          {#if !prets}
+            <p class="px-1 {discret}">Donnez un parcours à une classe pour que les élèves le reçoivent.</p>
           {/if}
-        </p>
-        {#if nb}
-          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" disabled={!prets} onclick={publier}>Publier</button>
-        {:else if prets && bibliotheque.publieLe && !bibliotheque.verifieLe}
+        {/if}
+        {#if !aExporterTout && prets && bibliotheque.publieLe && !bibliotheque.verifieLe}
           <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" disabled={verification} onclick={verifier}>
             <i aria-hidden="true" class="bx bx-search-alt text-xl"></i> Vérifier le dossier partagé
           </button>
@@ -423,6 +416,9 @@
             {@render ligne('bx-folder', 'Dossier partagé', hote(bibliotheque.lien), () => (feuilleDossier = true))}
           {/if}
           {@render ligne('bx-folder-open', 'Éditer un parcours existant', 'Dossiers suivis, fichiers de collègues', () => (modelesOuverts = true))}
+          {#if bibliotheque.parcours.length}
+            {@render ligne('bx-export', 'Exporter des parcours', 'Tous, ou ceux choisis pour un collègue', () => choisirExport())}
+          {/if}
         </ul>
         {#each parNiveau as n (n.niveau)}
           <h2 class={titreSection}>{n.niveau || 'Sans niveau'}</h2>
@@ -569,24 +565,58 @@
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
         « {enregistre.parcours.titre} » enregistré (V{enregistre.parcours.version})
       </p>
-      {#if enregistre.classes.length}
-        <p class="text-sm">Donné à : {enregistre.classes.join(', ')}. Publiez pour que les élèves le reçoivent.</p>
-        {#if prets}
-          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={publier}>Publier pour les élèves</button>
-        {/if}
-      {:else}
-        <p class="text-sm">Il est dans votre bibliothèque. Donnez-le à une classe pour qu’il parte aux élèves.</p>
+      <p class="text-sm">
+        {enregistre.classes.length ? `Donné à : ${enregistre.classes.join(', ')}.` : 'Il n’est donné à aucune classe pour l’instant.'}
+        Exportez le fichier complet, puis déposez-le dans le dossier partagé.
+      </p>
+      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={exporterTout}>Exporter tous les parcours</button>
+      <button type="button" class={boutonLien} onclick={() => choisirExport([enregistre.parcours.id])}>Choisir les parcours à exporter</button>
+      {#if !enregistre.classes.length}
         <button
           type="button"
-          class="{boutonAction} w-full"
-          style="min-height: 44px"
+          class={boutonLien}
           onclick={() => {
             onfermerDernier()
             vue = 'classes'
           }}>Donner à des classes</button
         >
       {/if}
-      <button type="button" class={boutonLien} onclick={exporterDernier}>Exporter ce parcours seul</button>
+    </Feuille>
+  {:else if feuilleExport}
+    <Feuille onfermer={() => (feuilleExport = false)}>
+      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Exporter</p>
+      <p class="text-sm">Tous les parcours : le fichier complet du dossier partagé, à reprendre sur un autre appareil ou sur le site. Quelques-uns : un fichier pour un collègue.</p>
+      <div class="flex flex-col gap-2 overflow-y-auto" style="max-height: 45vh">
+        {#each parNiveau as n (n.niveau)}
+          <p class="pl-1 pt-1 text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">{n.niveau || 'Sans niveau'}</p>
+          <ul class={listeGroupee}>
+            {#each n.chapitres.flatMap((c) => c.parcours) as pe (pe.parcours.id)}
+              {@const coche = choixExport.includes(pe.parcours.id)}
+              <li>
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked={coche}
+                  class={elementListe}
+                  onclick={() => (choixExport = coche ? choixExport.filter((id) => id !== pe.parcours.id) : [...choixExport, pe.parcours.id])}
+                >
+                  <span class="flex flex-col min-w-0">
+                    <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{pe.parcours.titre || 'Sans titre'}</span>
+                    <span class="truncate {discret}">{pe.parcours.theme}</span>
+                  </span>
+                  <i aria-hidden="true" class="{icone} {coche ? 'bx-checkbox-checked' : 'bx-checkbox'}"></i>
+                </button>
+              </li>
+            {/each}
+          </ul>
+        {/each}
+      </div>
+      <button type="button" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!choixExport.length} onclick={exporterChoisis}>
+        {choixExport.length === bibliotheque.parcours.length ? 'Exporter tous les parcours' : `Exporter ${choixExport.length} parcours`}
+      </button>
+      {#if choixExport.length < bibliotheque.parcours.length}
+        <button type="button" class={boutonLien} onclick={() => (choixExport = bibliotheque.parcours.map((pe) => pe.parcours.id))}>Tout cocher</button>
+      {/if}
     </Feuille>
   {:else if feuilleDossier}
     <Feuille

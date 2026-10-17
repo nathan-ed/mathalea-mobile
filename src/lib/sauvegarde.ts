@@ -93,6 +93,7 @@ const estBibliotheque = (v: unknown) =>
   optionnel(v.lien, estTexte) &&
   optionnel(v.publieLe, estTexte) &&
   optionnel(v.verifieLe, estTexte) &&
+  optionnel(v.empreinte, estTexte) &&
   listeDe(v.classes, (c) => estObjet(c) && estTexte(c.nom)) &&
   sansDoublon((v.classes as { nom: string }[]).map((c) => c.nom)) &&
   listeDe(v.parcours, (pe) => estObjet(pe) && estParcours(pe.parcours) && textesUniques(pe.classes) && dictionnaireDe(pe.exportee, estNombre)) &&

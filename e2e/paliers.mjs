@@ -99,7 +99,7 @@ for (const theme of ['clair', 'sombre']) {
   await capTout(t, '2b-editeur-entier', theme)
   ok(!(await debordement(t)), 'éditeur : aucun débordement horizontal')
   await t.getByRole('button', { name: 'Valider le parcours' }).click()
-  ok(await t.getByText('Il est dans votre bibliothèque').isVisible(), 'après validation : pas de classes dans la création')
+  ok(await t.getByText('Il n’est donné à aucune classe pour l’instant.').isVisible(), 'après validation : pas de classes dans la création')
   await cap(t, '3-apres-validation', theme)
   // Attribution dans la vue Classes
   await t.getByRole('button', { name: 'Donner à des classes' }).click()
@@ -126,7 +126,7 @@ for (const theme of ['clair', 'sombre']) {
   parcoursCree = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours[0].parcours)
   // Publier : le fichier porte toute la bibliothèque ; un autre appareil la reprend
   await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-  const [publie] = await Promise.all([t.waitForEvent('download'), t.getByLabel('Mise en route').getByRole('button', { name: 'Publier pour les élèves' }).click()])
+  const [publie] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: 'Mettre à jour', exact: true }).click()])
   const fichier = `${captures}/publie-${theme}.json`
   await publie.saveAs(fichier)
   await t.context().close()

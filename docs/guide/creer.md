@@ -94,7 +94,7 @@ La classe a maintenant son parcours. Touchez « Parcours » pour revenir.
 
 ![La classe et son parcours](images/creer-14-classe.png)
 
-## Publier pour les élèves
+## Envoyer aux élèves
 
 ### 15. Le dossier partagé
 
@@ -102,21 +102,21 @@ Sur votre drive (kDrive, Dropbox, Nextcloud…), créez un dossier et partagez-l
 
 ![Lien du dossier partagé](images/creer-15-lien.png)
 
-### 16. Publier
+### 16. Exporter
 
-Touchez « Publier ». Sur téléphone, choisissez l'application de votre drive puis le dossier partagé. Sur Android, « Enregistrer sur le téléphone » garde aussi le fichier dans un dossier de votre choix (Téléchargements, par exemple). Sur ordinateur, le fichier est enregistré : déposez-le ensuite dans le dossier partagé.
+Touchez « Mettre à jour » dans la bannière sous la barre (ou « Exporter tous les parcours » après l'enregistrement d'un parcours). Sur téléphone, choisissez l'application de votre drive puis le dossier partagé. Sur Android, « Enregistrer sur le téléphone » garde aussi le fichier dans un dossier de votre choix (Téléchargements, par exemple). Sur ordinateur, le fichier est enregistré : déposez-le ensuite dans le dossier partagé.
 
-![Publier](images/creer-16-publier.png)
+![Exporter](images/creer-16-publier.png)
 
 ### 17. Vérifier
 
-« Vérifier le dossier partagé » permet de contrôler que les élèves recevront bien la dernière publication.
+La bannière « Fichier exporté : déposez-le sur le drive » reste jusqu'à ce que l'app trouve le fichier dans le dossier. « Vérifier le dossier partagé » le contrôle tout de suite.
 
-![Publication prête](images/creer-17-publie.png)
+![Fichier à déposer sur le drive](images/creer-17-publie.png)
 
 ## Ensuite
 
 - Un élève ne voit que les parcours donnés à sa classe.
-- Pour modifier un parcours, en ajouter un ou en retirer un d'une classe, faites-le dans l'application, puis publiez à nouveau et déposez le nouveau fichier dans le dossier. Rien ne change chez les élèves avant cette nouvelle publication. Les anciens fichiers peuvent rester dans le dossier : seul le plus récent compte.
-- « Exporter ce parcours seul » crée un fichier à part, pour un collègue par exemple. Déposé dans le dossier, il s'ajoute à la publication et y reste tant que vous ne le supprimez pas.
+- Pour modifier un parcours, en ajouter un ou en retirer un d'une classe, faites-le dans l'application : la bannière « Version différente de celle du drive » apparaît. Touchez « Mettre à jour » et déposez le nouveau fichier dans le dossier. Rien ne change chez les élèves avant ce dépôt. Les anciens fichiers peuvent rester dans le dossier : seul le plus récent compte.
+- « Exporter des parcours » permet de décocher des parcours : le fichier ne contient alors que ceux choisis, pour un collègue par exemple. Déposé dans le dossier, il s'ajoute à la publication et y reste tant que vous ne le supprimez pas.
 - Retirer un parcours n'efface rien chez l'élève. Ses résultats restent sur son appareil.

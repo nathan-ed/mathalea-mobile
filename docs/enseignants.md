@@ -91,8 +91,9 @@ modifier un parcours, touchez-le : tout est déjà rempli.
 
 En bas : « Aperçu élève » pour essayer, et « Valider le parcours ». Tant
 qu'il manque une information, la ligne « À compléter » dit laquelle. Le
-parcours entre dans votre bibliothèque ; le panneau qui s'ouvre propose de le
-donner à des classes (ou de publier s'il l'est déjà).
+parcours entre dans votre bibliothèque ; le panneau qui s'ouvre propose
+d'exporter tous les parcours (le fichier du drive), d'en choisir quelques-uns,
+ou de le donner à des classes.
 
 « Autres actions », en bas d'un parcours enregistré : **Dupliquer**,
 **Exporter ce parcours seul** et **Supprimer le parcours**.
@@ -178,21 +179,35 @@ Tant que le dossier partagé n'est pas renseigné, l'onglet Créer affiche une
    seule.
 2. Collez ce lien dans « Lien du dossier partagé », puis
    « Enregistrer le lien ».
-3. **Publier** enregistre `parcours-mathalea-<date>.json`. Sur Android,
+3. **Exporter tous les parcours** enregistre `parcours-mathalea-<date>.json`. Sur Android,
    choisissez « Envoyer vers une app » (l'app de votre drive) ou
    « Enregistrer sur le téléphone » (Téléchargements, par exemple). Déposez-le
    dans le dossier ; inutile de supprimer les anciens.
 4. Donnez le lien aux élèves (projection, QR code, ENT…).
 
-Ensuite, une ligne en haut de l'onglet Créer dit où en est la diffusion :
-combien de parcours ne sont pas encore publiés (avec **Publier**), ou que le
-fichier est prêt à déposer. « Vérifier le dossier partagé » relit alors le
-dossier et confirme que la dernière publication s'y trouve (l'app ne peut pas
-savoir si chaque élève l'a reçue). « Dossier partagé » ouvre le dossier sur votre
+Ensuite, une petite bannière sous la barre de chaque écran rappelle où en est
+le drive :
+
+- « Version différente de celle du drive » dès qu'un parcours, une classe ou
+  un objectif a changé dans l'app, parcours sans classe compris ;
+  **Mettre à jour** exporte le fichier complet ;
+- « Drive pas encore configuré » tant qu'aucun lien de dossier partagé n'est
+  enregistré ; **Configurer** ouvre le champ du lien ;
+- « Fichier exporté : déposez-le sur le drive » tant que l'app ne l'a pas
+  trouvé dans le dossier partagé (relu au retour dans l'app, ou avec
+  « Vérifier le dossier partagé » dans l'onglet Créer). L'app ne peut pas
+  savoir si chaque élève l'a reçu.
+
+La croix ferme la bannière jusqu'au prochain lancement de l'app.
+
+« Exporter des parcours » (onglet Créer) propose tous les parcours cochés :
+c'est le fichier complet. En décocher donne un fichier avec les seuls parcours
+choisis, pour un collègue ; déposé dans le dossier, il s'ajoute au fichier
+complet. « Dossier partagé » ouvre le dossier sur votre
 drive ou change le lien (celui des élèves ne change pas tant que vous gardez
 le même dossier).
 
-Le fichier publié contient toute votre bibliothèque : classes et ordre pour
+Le fichier complet contient toute votre bibliothèque : classes et ordre pour
 les élèves, mais aussi les parcours sans classe et vos objectifs (les élèves
 ne voient que les parcours de leur classe). Sur un autre appareil, « Reprendre
 ma bibliothèque publiée » (Mise en route) avec le lien de votre dossier, ou le

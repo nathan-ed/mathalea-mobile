@@ -19,7 +19,11 @@
     ecrireBibliotheque,
     enregistrer,
     exporter,
-    exporterUn,
+    exporterChoix,
+    empreinte,
+    aJour,
+    completerEmpreinte,
+    sansEcartDrive,
     deplacer,
     copie,
     CLASSE_SANS_NOM,
@@ -28,6 +32,7 @@
     supprimer,
     type Bibliotheque,
   } from '$lib/bibliotheque'
+  import { rappelExport } from '$lib/rappelExport.svelte'
   import { ceinturesObtenues, completerListe, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
   import { LIEN_DEMONSTRATION, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
   import {
@@ -206,6 +211,8 @@
     importes = (await stockage.lire<Parcours[]>('importes')) ?? []
     classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
     objectifs = (await stockage.lire<Objectif[]>('objectifs')) ?? []
+    const complete = completerEmpreinte(bibliotheque, objectifs)
+    if (complete !== bibliotheque) await sauverBibliotheque(complete)
     etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
     preferences = (await stockage.lire<Preferences>('preferences-creation')) ?? {}
     etatTest = (await stockage.lire<EtatTest>('test-niveau')) ?? {}
@@ -236,7 +243,14 @@
   function actualiser() {
     if (!pret || actualisation || Date.now() - actualiseLe < ECART_MINIMUM) return
     actualiseLe = Date.now()
-    actualisation = Promise.all([classes.length ? synchroniserClasses() : null, synchroniserExplorer(), moteur && moteurMisAJour ? chercherMoteur() : null]).finally(
+    // Fichier exporté pas encore vu sur le drive : il y est peut-être maintenant
+    const aVerifier = profil === 'enseignant' && bibliotheque.lien && bibliotheque.publieLe && !bibliotheque.verifieLe
+    actualisation = Promise.all([
+      classes.length ? synchroniserClasses() : null,
+      synchroniserExplorer(),
+      moteur && moteurMisAJour ? chercherMoteur() : null,
+      aVerifier ? verifierDossier() : null,
+    ]).finally(
       () => (actualisation = null),
     )
   }
@@ -639,13 +653,13 @@
     versCreer()
   }
 
-  async function exporterUnParcours(id: string) {
-    const f = exporterUn($state.snapshot(bibliotheque) as Bibliotheque, id)
+  async function exporterParcoursChoisis(ids: string[]) {
+    const f = exporterChoix($state.snapshot(bibliotheque) as Bibliotheque, ids)
     if (!f) return ''
     const envoi = await enregistrerFichier(f.nom, f.texte)
     if (!envoi) return 'Téléchargement annulé.'
     await sauverBibliotheque(f.bibliotheque)
-    return envoi === 'partage' ? `Choisissez l’app de votre drive et déposez ${f.nom} dans le dossier partagé.` : `${f.nom} enregistré.`
+    return envoi === 'partage' ? 'Fichier envoyé.' : 'Fichier exporté.'
   }
 
   // Parcours importés d'un fichier (collègue) : proposés dans « Éditer un parcours existant »
@@ -690,8 +704,12 @@
       const f = source.lien ? await lireFichierDistant(source.lien) : lireFichier(source.texte ?? '')
       let b = reprendre($state.snapshot(bibliotheque) as Bibliotheque, f)
       if (source.lien && !b.lien) b = definirLien(b, source.lien)
+      const liste = fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], f.bibliotheque?.objectifs ?? [])
+      // Rien de plus ici que dans le fichier complet repris : l'app est à jour avec lui
+      const duFichier = empreinte(reprendre({ classes: [], parcours: [] }, f), f.bibliotheque?.objectifs ?? [])
+      if (f.banque && duFichier === empreinte(b, liste)) b = { ...b, empreinte: duFichier, publieLe: f.exporteLe }
       await sauverBibliotheque(b)
-      if (f.bibliotheque?.objectifs?.length) await sauverObjectifs(fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], f.bibliotheque.objectifs))
+      if (f.bibliotheque?.objectifs?.length) await sauverObjectifs(liste)
       const ids = new Set([...f.classes.flatMap((c) => c.parcours), ...(f.bibliotheque?.parcours ?? [])].map((p) => p.id))
       const n = f.classes.length
       return `${ids.size} parcours repris${n ? `, ${n} classe${n > 1 ? 's' : ''}` : ''}.`
@@ -712,9 +730,12 @@
       classes = [...classes.filter((x) => x.lien !== LIEN_DEMONSTRATION), { lien: LIEN_DEMONSTRATION, nom: c.nom, disponibles: [c.nom], parcours: c.parcours, fichier: f.classes }]
       await ecrireClasses(stockage!, $state.snapshot(classes) as Classe[])
       for (const p of c.parcours) await chargerParcours(p)
-      await sauverBibliotheque(reprendre($state.snapshot(bibliotheque) as Bibliotheque, f))
-      let liste = $state.snapshot(objectifs) as Objectif[]
+      const avant = $state.snapshot(bibliotheque) as Bibliotheque
+      const objectifsAvant = $state.snapshot(objectifs) as Objectif[]
+      let liste = objectifsAvant
       for (const p of c.parcours) liste = completerListe(liste, p.etapes.flatMap((e) => e.objectifs ?? []), p.niveau, p.theme)
+      // Parcours d'essai : ils ne rendent pas le drive « différent »
+      await sauverBibliotheque(sansEcartDrive(avant, objectifsAvant, reprendre(avant, f), liste))
       await sauverObjectifs(liste)
       return `${c.parcours.length} parcours chargés : classe « ${c.nom} » dans Mes parcours, et votre bibliothèque dans Créer.`
     } catch (e) {
@@ -729,7 +750,8 @@
     classes = classes.filter((x) => x.lien !== LIEN_DEMONSTRATION)
     await ecrireClasses(stockage!, $state.snapshot(classes) as Classe[])
     const b = $state.snapshot(bibliotheque) as Bibliotheque
-    await sauverBibliotheque({ ...b, classes: b.classes.filter((x) => x.nom !== c.nom), parcours: b.parcours.filter((pe) => !ids.has(pe.parcours.id)) })
+    const o = $state.snapshot(objectifs) as Objectif[]
+    await sauverBibliotheque(sansEcartDrive(b, o, { ...b, classes: b.classes.filter((x) => x.nom !== c.nom), parcours: b.parcours.filter((pe) => !ids.has(pe.parcours.id)) }, o))
     return 'Parcours de démonstration retirés. Vos résultats d’essai restent dans le Suivi.'
   }
 
@@ -744,14 +766,36 @@
     try {
       const dossier = await lireFichierDistant(bibliotheque.lien)
       if (!publicationPresente(bibliotheque, dossier)) {
-        return 'Le dossier ne contient pas encore le dernier fichier publié : déposez-le, puis vérifiez à nouveau.'
+        return 'Le fichier n’est pas encore sur le drive.'
       }
+      // La bannière « déposez-le sur le drive » disparaît : rien d'autre à dire
       await sauverBibliotheque({ ...($state.snapshot(bibliotheque) as Bibliotheque), verifieLe: new Date().toISOString() })
-      return 'Le dossier contient la dernière publication : les élèves la reçoivent au prochain lancement de leur app.'
+      return ''
     } catch (e) {
       return (e as Error).message
     }
   }
+
+  // Rappel sous la barre de chaque écran (hors séance) : l'app a des modifications que le fichier complet n'a pas
+  // puis, une fois exporté, tant que le drive n'a pas ce fichier (relu au retour dans l'app)
+  // Sans dossier partagé : rappel de le configurer (champ de la mise en route, onglet Créer)
+  rappelExport.exporter = () => exporterClasse()
+  rappelExport.configurer = () => {
+    versCreer()
+    setTimeout(() => document.getElementById('lien-dossier')?.focus(), 400)
+  }
+  $effect(() => {
+    rappelExport.etat =
+      profil !== 'enseignant' || ['seance', 'test', 'bilan', 'relecture'].includes(vue) || !bibliotheque.parcours.length
+        ? null
+        : !aJour(bibliotheque, objectifs)
+          ? 'differente'
+          : !bibliotheque.lien
+            ? 'configurer'
+            : bibliotheque.publieLe && !bibliotheque.verifieLe
+              ? 'deposer'
+              : null
+  })
 
   async function exporterClasse() {
     const { texte, bibliotheque: b } = exporter($state.snapshot(bibliotheque) as Bibliotheque, $state.snapshot(objectifs) as Objectif[])
@@ -759,9 +803,7 @@
     const envoi = await enregistrerFichier(nom, texte)
     if (!envoi) return 'Export annulé.'
     await sauverBibliotheque(b)
-    return envoi === 'partage'
-      ? 'Choisissez l’app de votre drive et déposez le fichier dans le dossier partagé.'
-      : `${nom} enregistré : déposez-le dans le dossier partagé.`
+    return envoi === 'partage' ? 'Déposez le fichier sur le drive.' : 'Fichier exporté : déposez-le sur le drive.'
   }
 
 </script>
@@ -826,7 +868,7 @@
             onvalider={valider}
             onapercu={voirApercu}
             ondupliquer={creation.parcours.id ? (p) => creer(copie(p)) : undefined}
-            onexporter={creation.parcours.id ? () => exporterUnParcours(creation!.parcours.id) : undefined}
+            onexporter={creation.parcours.id ? () => exporterParcoursChoisis([creation!.parcours.id]) : undefined}
             onsupprimer={creation.parcours.id
               ? async () => {
                   await sauverBibliotheque(supprimer($state.snapshot(bibliotheque) as Bibliotheque, creation!.parcours.id))
@@ -887,7 +929,7 @@
         oncreer={() => creer()}
         {dernier}
         onfermerDernier={() => (dernier = null)}
-        onexporterUn={exporterUnParcours}
+        onexporterChoix={exporterParcoursChoisis}
         onimporter={importerFichier}
         onreprendre={reprendreBibliotheque}
         onverifier={verifierDossier}

@@ -23,6 +23,7 @@ export interface Bibliotheque {
   parcours: ParcoursEnseignant[] // l'ordre de la liste est celui présenté aux élèves
   publieLe?: string // date du dernier fichier publié (à déposer dans le dossier)
   verifieLe?: string // date où ce fichier a été trouvé dans le dossier partagé
+  empreinte?: string // contenu du dernier fichier complet exporté (voir aJour)
 }
 
 const CLE = 'bibliotheque'
@@ -227,10 +228,37 @@ const pret = (pe: ParcoursEnseignant) => pe.parcours.etapes.length > 0 && pe.par
 export const nbAExporter = (b: Bibliotheque) =>
   b.parcours.filter((pe) => pret(pe) && pe.classes.some((c) => aExporter(pe, c))).length
 
+/** Empreinte de ce que porte le fichier complet : classes, parcours et attributions, objectifs */
+export function empreinte(b: Bibliotheque, objectifs: Objectif[] = []) {
+  const texte = JSON.stringify([b.classes.map((c) => c.nom), b.parcours.map((pe) => [pe.parcours, pe.classes]), objectifs])
+  let h = 0x811c9dc5
+  for (let i = 0; i < texte.length; i++) h = Math.imul(h ^ texte.charCodeAt(i), 0x01000193)
+  return `${texte.length}-${(h >>> 0).toString(16)}`
+}
+
+/** Le dernier fichier complet exporté contient-il tout ce qui est dans l'app ? */
+export const aJour = (b: Bibliotheque, objectifs: Objectif[] = []) =>
+  !b.parcours.length || b.empreinte === empreinte(b, objectifs)
+
 /**
- * Fichier à déposer dans le dossier partagé : les classes (ce que lisent les
- * élèves) et toute la bibliothèque (parcours sans classe, objectifs), que
- * l'enseignant reprend sur un autre appareil. La bibliothèque est marquée exportée.
+ * Bibliothèque d'une version précédente, sans empreinte : déjà exportée et sans
+ * parcours en attente, elle est prise pour celle du drive (pas de fausse alerte
+ * à la mise à jour de l'app).
+ */
+export function completerEmpreinte(b: Bibliotheque, objectifs: Objectif[] = []): Bibliotheque {
+  if (b.empreinte !== undefined || !b.parcours.length || !b.publieLe || nbAExporter(b)) return b
+  return { ...b, empreinte: empreinte(b, objectifs) }
+}
+
+/** Changement qui ne concerne pas le drive (démonstration) : une bibliothèque à jour le reste */
+export const sansEcartDrive = (avant: Bibliotheque, objectifsAvant: Objectif[], apres: Bibliotheque, objectifsApres: Objectif[]): Bibliotheque =>
+  aJour(avant, objectifsAvant) ? { ...apres, empreinte: empreinte(apres, objectifsApres) } : apres
+
+/**
+ * Fichier complet, celui qu'on dépose dans le dossier partagé : les classes
+ * (ce que lisent les élèves) et toute la bibliothèque (parcours sans classe,
+ * objectifs), que l'enseignant reprend sur un autre appareil ou sur le site.
+ * La bibliothèque est marquée exportée.
  */
 export function exporter(b: Bibliotheque, objectifs: Objectif[] = []): { texte: string; bibliotheque: Bibliotheque } {
   const classes = b.classes
@@ -244,6 +272,7 @@ export function exporter(b: Bibliotheque, objectifs: Objectif[] = []): { texte: 
       // Le fichier est prêt : rien ne dit encore qu'il est dans le dossier partagé
       publieLe: (JSON.parse(texte) as FichierClasses).exporteLe,
       verifieLe: undefined,
+      empreinte: empreinte(b, objectifs),
       parcours: b.parcours.map((pe) =>
         pret(pe) ? { ...pe, exportee: Object.fromEntries(pe.classes.map((c) => [c, pe.parcours.version])) } : pe,
       ),
@@ -254,28 +283,41 @@ export function exporter(b: Bibliotheque, objectifs: Objectif[] = []): { texte: 
 /** Classe du fichier d'un parcours seul qui n'est donné à aucune classe */
 export const CLASSE_SANS_NOM = 'Parcours'
 
-/**
- * Un parcours seul, pour un collègue ou à déposer à côté de la banque dans le
- * dossier partagé. Sa version est marquée diffusée (clé '') : la modification
- * suivante ouvre une nouvelle version, sinon les élèves garderaient l'ancienne.
- */
-export function exporterUn(b: Bibliotheque, id: string): { nom: string; texte: string; bibliotheque: Bibliotheque } | null {
-  const pe = b.parcours.find((x) => x.parcours.id === id)
-  if (!pe) return null
-  const classes = (pe.classes.length ? pe.classes : [CLASSE_SANS_NOM]).map((nom) => ({ nom, parcours: [pe.parcours] }))
-  const base = pe.parcours.titre
+const nomDeFichier = (titre: string) =>
+  titre
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
-  const marque: ParcoursEnseignant = { ...pe, exportee: { ...pe.exportee, '': pe.parcours.version } }
+
+/**
+ * Quelques parcours choisis, pour un collègue ou à déposer à côté du fichier
+ * complet dans le dossier partagé (ils s'y ajoutent). Leur version est marquée
+ * diffusée (clé '') : la modification suivante ouvre une nouvelle version,
+ * sinon les élèves garderaient l'ancienne.
+ */
+export function exporterChoix(b: Bibliotheque, ids: string[]): { nom: string; texte: string; bibliotheque: Bibliotheque } | null {
+  const choisis = b.parcours.filter((pe) => ids.includes(pe.parcours.id))
+  if (!choisis.length) return null
+  const noms = [...new Set(choisis.flatMap((pe) => (pe.classes.length ? pe.classes : [CLASSE_SANS_NOM])))]
+  const classes = noms.map((nom) => ({
+    nom,
+    parcours: choisis.filter((pe) => (pe.classes.length ? pe.classes.includes(nom) : nom === CLASSE_SANS_NOM)).map((pe) => pe.parcours),
+  }))
+  const seul = choisis.length === 1 ? choisis[0].parcours : null
   return {
-    nom: nomHorodate(`parcours-${base || pe.parcours.id}`),
+    nom: nomHorodate(seul ? `parcours-${nomDeFichier(seul.titre) || seul.id}` : `parcours-choisis-${choisis.length}`),
     texte: creerFichier(classes),
-    bibliotheque: { ...b, parcours: b.parcours.map((x) => (x === pe ? marque : x)) },
+    bibliotheque: {
+      ...b,
+      parcours: b.parcours.map((pe) => (choisis.includes(pe) ? { ...pe, exportee: { ...pe.exportee, '': pe.parcours.version } } : pe)),
+    },
   }
 }
+
+/** Un parcours seul */
+export const exporterUn = (b: Bibliotheque, id: string) => exporterChoix(b, [id])
 
 /**
  * Reprend la bibliothèque d'un fichier publié (autre appareil, page du site) :

@@ -378,8 +378,17 @@ await t.getByRole('button', { name: 'Valider le parcours' }).click()
 ok(await t.getByText('« Fractions express » enregistré (V1)').isVisible(), 'après validation : panneau enregistré')
 ok((await t.getByLabel(/Nouvelle classe/).count()) === 0, 'après validation : aucune classe à choisir (attribution à part)')
 await cap(t, '9c-enregistre')
-const [seul] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: 'Exporter ce parcours seul' }).click()])
-ok(/^parcours-fractions-express-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/.test(seul.suggestedFilename()), 'parcours seul, nom horodaté : ' + seul.suggestedFilename())
+ok(await t.getByRole('button', { name: 'Exporter tous les parcours', exact: true }).isVisible(), 'après validation : export complet proposé')
+await t.getByRole('button', { name: 'Choisir les parcours à exporter' }).click()
+ok(await t.getByRole('checkbox', { name: /Fractions express/, checked: true }).isVisible(), 'choix des parcours : celui enregistré coché')
+// Un seul parcours dans la bibliothèque : le choix revient au fichier complet
+const [complet] = await Promise.all([t.waitForEvent('download'), t.getByRole('dialog').getByRole('button', { name: 'Exporter tous les parcours', exact: true }).click()])
+ok(/^parcours-mathalea-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/.test(complet.suggestedFilename()), 'export complet, nom horodaté : ' + complet.suggestedFilename())
+ok(!(await t.getByText('Version différente de celle du drive').isVisible()), 'rappel : disparu après l’export complet')
+ok(await t.getByText('Drive pas encore configuré').isVisible(), 'rappel : drive à configurer (pas de lien)')
+await t.getByRole('button', { name: 'Configurer', exact: true }).click()
+await t.waitForTimeout(600)
+ok(await t.evaluate(() => document.activeElement?.id === 'lien-dossier'), 'rappel : « Configurer » ouvre le champ du lien')
 // Attribution dans la vue Classes
 await t.getByRole('tab', { name: 'Classes', exact: true }).click()
 await t.getByLabel(/Nouvelle classe/).fill('3e A')
@@ -404,12 +413,12 @@ await t.getByRole('button', { name: /Dossier partagé/ }).click()
 ok(await t.getByRole('button', { name: 'Ouvrir le dossier' }).isVisible(), 'dossier partagé : ouvrir ou changer le lien')
 await t.goBack({ waitUntil: 'commit' })
 await t.waitForTimeout(300)
-ok(await t.getByText('Un parcours n’est pas encore publié.').isVisible(), 'état : parcours pas encore publié')
+ok(await t.getByText('Version différente de celle du drive').isVisible(), 'rappel : modifications pas encore exportées')
 
 async function exporterVersDossier() {
-  // Juste après un enregistrement, le panneau du bas propose de publier
-  const panneau = t.getByRole('button', { name: 'Publier pour les élèves' })
-  const bouton = (await panneau.isVisible()) ? panneau : t.getByRole('button', { name: 'Publier', exact: true })
+  // Juste après un enregistrement, le panneau du bas propose l'export complet ; sinon le rappel sous la barre
+  const panneau = t.getByRole('button', { name: 'Exporter tous les parcours', exact: true })
+  const bouton = (await panneau.isVisible()) ? panneau : t.getByRole('button', { name: 'Mettre à jour', exact: true })
   const [dl] = await Promise.all([t.waitForEvent('download'), bouton.click()])
   ok(/^parcours-mathalea-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/.test(dl.suggestedFilename()), 'publication horodatée : ' + dl.suggestedFilename())
   // Serveur local de test : il ne sait pas lister un dossier, nom fixe
@@ -418,10 +427,10 @@ async function exporterVersDossier() {
   return chemin
 }
 await exporterVersDossier()
-ok(await t.getByText(/prêt : déposez-le dans le dossier partagé/).isVisible(), 'état : fichier prêt à déposer, pas « à jour »')
+ok(await t.getByText('Fichier exporté : déposez-le sur le drive').isVisible(), 'rappel : fichier à déposer sur le drive')
 await t.getByRole('button', { name: 'Vérifier le dossier partagé' }).click()
-await t.getByText(/Dernière publication présente dans le dossier partagé/).waitFor({ timeout: 10000 })
-ok(true, 'état : publication trouvée dans le dossier après vérification')
+await t.getByText('Fichier exporté : déposez-le sur le drive').waitFor({ state: 'hidden', timeout: 10000 })
+ok(!(await t.getByText('Fichier exporté : déposez-le sur le drive').isVisible()), 'rappel : disparu quand le drive a le fichier')
 await cap(t, '10-enseignant')
 
 // L'élève ajoute la classe par le lien du dossier partagé
@@ -455,7 +464,7 @@ await t.waitForTimeout(300)
 await cap(t, '9b-modification')
 await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
 ok((await texte(t)).includes('V2'), 'modification après export : V2')
-ok(await t.getByText('Un parcours n’est pas encore publié.').isVisible(), 'état : V2 à publier')
+ok(await t.getByText('Version différente de celle du drive').isVisible(), 'rappel : V2 pas encore exportée')
 await exporterVersDossier()
 await a.getByRole('button', { name: 'Réglages' }).click()
 await a.getByRole('button', { name: 'Mettre à jour les parcours' }).click()

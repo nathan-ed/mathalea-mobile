@@ -329,6 +329,23 @@ ancienne app.
   l'environnement en CI (`scripts/cle-android.sh`). Premier travail iOS :
   partage natif (plugin Swift), barre d'état, workflow `ios.yml`.
 
+## 0.3.4 : tout exporter par défaut, bannière du drive (fait)
+
+- Enseignant : par défaut, on exporte tout (un fichier avec les classes, tous
+  les parcours, même sans classe, et les objectifs) ; le panneau après
+  l'enregistrement le propose d'abord, l'attribution aux classes vient
+  ensuite. « Exporter des parcours » : tous cochés (fichier complet), ou
+  quelques-uns pour un collègue (`exporterChoix`).
+- Petite bannière sous la barre de chaque écran (hors séance) : « Version
+  différente de celle du drive » / « Mettre à jour » dès que la bibliothèque
+  diffère du dernier fichier complet (`empreinte`, `aJour`) ; « Drive pas
+  encore configuré » / « Configurer » sans lien ; « Fichier exporté :
+  déposez-le sur le drive » jusqu'à ce que l'app le trouve dans le dossier
+  (relu au retour dans l'app). Croix : fermée jusqu'au prochain lancement.
+  Aucun message quand tout est à jour.
+- Bibliothèques d'avant 0.3.4 déjà exportées : pas de fausse alerte
+  (`completerEmpreinte`) ; la démonstration ne compte pas (`sansEcartDrive`).
+
 ## 0.3.3 : enregistrer un export sur le téléphone (fait)
 
 - Android : chaque export (publication, parcours seul, sauvegarde, CSV)
