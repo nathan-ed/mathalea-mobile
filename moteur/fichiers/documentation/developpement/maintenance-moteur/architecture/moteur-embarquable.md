@@ -29,10 +29,19 @@ SHA-256 de chaque fichier). Environ 70 Mo, 20 Mo compressé.
 | `ecrireReponses(reponses)`          | réinjecte des réponses (`mathaleaWriteStudentPreviousAnswers`)                                                                                  |
 | `monterClavier(cible)`              | monte `Keyboard.svelte` (clavier de MathALÉA)                                                                                                   |
 | `listerExercices('FR' \| 'CH')`     | exercices du référentiel du site, chargés à la demande                                                                                          |
+| `titreHtml(titre)`                  | titre d'exercice ou de chapitre avec ses formules rendues par KaTeX, comme dans le menu du site                                                 |
 | `definirLangue('fr-FR' \| 'fr-CH')` | `referentielLocale` ; en `fr-CH`, notations et vocabulaire suisses                                                                              |
 
 `API_MOTEUR` est incrémenté à chaque changement incompatible de cette API ;
 l'application hôte refuse un moteur dont la version d'API ne correspond pas.
+
+`listerExercices` suit le menu « Exercices aléatoires » du site : même tri
+(`sortArrayOfResourcesBasedOnPathThenId`, puis `prepareSubset` de
+`ReferentielNode.svelte` et `orderFollowingSchoolLevel` de `SideMenu.svelte`,
+reproduits dans `src/moteur/index.ts`) et, pour chaque exercice, le `chemin`
+des nœuds du menu avec leur libellé (« 2N : Calcul numérique ») et
+l'indication des sous-thèmes, que le site déplie d'office. Si ces fonctions du
+menu changent, reporter le changement dans le moteur.
 
 ## Différences avec le site
 

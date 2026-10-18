@@ -34,13 +34,13 @@ Plus bas, touchez « Ajouter des exercices ».
 
 ### 5. Le chapitre
 
-Les chapitres du niveau s'affichent, comme sur le site. Touchez celui qui vous intéresse.
+Les chapitres du niveau s'affichent, comme sur le site. Touchez celui qui vous intéresse (au lycée, un chapitre peut contenir des sous-chapitres).
 
 ![Chapitres](images/creer-5-chapitres.png)
 
 ### 6. L'exercice
 
-Touchez un exercice pour voir ses réglages et un aperçu.
+Les exercices sont rangés sous des intertitres, comme sur le site. Touchez un exercice pour voir ses réglages et un aperçu.
 
 ![Exercices du chapitre](images/creer-6-exercices.png)
 

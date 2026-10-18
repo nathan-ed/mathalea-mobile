@@ -5,6 +5,8 @@
 
   type Props = {
     title: string
+    /** Titre en HTML (formules rendues par KaTeX), à la place de title */
+    titleHtml?: string
     subtitle?: string
     icon?: string
     size?: 'large' | 'normal'
@@ -14,7 +16,7 @@
     epingle?: boolean
     onepingler?: () => void
   }
-  const { title, subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler }: Props = $props()
+  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler }: Props = $props()
 
   // Avec l'épingle, le fond est porté par l'enveloppe : la tuile et l'épingle forment une seule carte
   const sharedClasses = $derived(`w-full flex flex-row items-center justify-between gap-3 text-left rounded-2xl
@@ -37,7 +39,7 @@
         class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold
         {size === 'large' ? 'text-2xl' : 'text-base'}"
       >
-        {title}
+        {#if titleHtml}{@html titleHtml}{:else}{title}{/if}
       </div>
       {#if subtitle}
         <div class="mt-0.5 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">

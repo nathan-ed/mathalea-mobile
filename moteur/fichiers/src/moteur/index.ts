@@ -34,6 +34,18 @@ import {
 } from '../lib/types'
 import { referentielLocale } from '../lib/stores/languagesStore'
 import { loadMathLive } from '../modules/loaders'
+import katex from 'katex'
+import {
+  buildReferentiel,
+  codeToLevelTitle,
+  getAllEndings,
+} from '../lib/components/refUtils'
+import { sortArrayOfResourcesBasedOnPathThenId } from '../lib/components/sorting'
+import {
+  isExerciceItemInReferentiel,
+  isJSONReferentielEnding,
+  type JSONReferentielObject,
+} from '../lib/types/referentiels'
 
 export const API_MOTEUR = 1
 export const VERSION_MOTEUR: string =
@@ -351,6 +363,15 @@ export async function decrireExercice(
   }
 }
 
+/** Nœud du menu du site (niveau, chapitre, sous-chapitre…), tel qu'il s'y affiche */
+export interface NoeudDuReferentiel {
+  code: string
+  /** Libellé du site : « 2N : Calcul numérique », « Seconde », ou intitulé seul pour un sous-thème */
+  titre: string
+  /** Sous-thème (6N1A, 9NO1A…) : le site le montre déplié, en intertitre */
+  sousTheme: boolean
+}
+
 export interface ExerciceDuReferentiel {
   uuid: string
   id: string
@@ -360,12 +381,101 @@ export interface ExerciceDuReferentiel {
   interactif: boolean
   /** Objectif du programme sous lequel le site range l'exercice (programmes 2025 et suivants) */
   objectif?: { code: string; libelle: string }
+  /** Nœuds du menu du site, du niveau jusqu'au parent de l'exercice */
+  chemin: NoeudDuReferentiel[]
+}
+
+/**
+ * Sous-thème au sens du menu du site (ReferentielNode.svelte,
+ * `themeCodeisSubthemeCode`) : déplié d'office, sans code affiché.
+ */
+function estSousTheme(code: string): boolean {
+  const niveau = Array.from(code.replace('auto', ''))[0] ?? '6'
+  const normalise = code.replace(/^can/, '').replace('auto', '')
+  const n = /^\d/.test(normalise) ? normalise[0] : niveau
+  return (
+    new RegExp(`^${n}[A-Z]{1,2}\\d+[A-Z0-9]$`).test(normalise) ||
+    /^(3Auto)?[A-Z]\d+[A-Z0-9]$/.test(code) ||
+    /^[12]A-[A-Z]\d{1,2}$/.test(code)
+  )
+}
+
+/**
+ * Ordre des enfants d'un nœud du menu du site (ReferentielNode.svelte,
+ * `prepareSubset`), pour les exercices aléatoires.
+ */
+function ordonnerEnfants(
+  entrees: [string, unknown][],
+  courant: string | undefined,
+  niveaux: string[],
+): [string, unknown][] {
+  // Racine : ordre scolaire de codeToLevelList.json, puis les autres
+  // (SideMenu.svelte, `orderFollowingSchoolLevel`)
+  if (courant === undefined) {
+    const rang = (k: string) => (niveaux.includes(k) ? niveaux.indexOf(k) : Infinity)
+    return entrees.sort(([a], [b]) => {
+      const ra = rang(a)
+      const rb = rang(b)
+      return ra === rb ? 0 : ra - rb
+    })
+  }
+  if (courant.includes('CAN'))
+    return entrees.sort(([a], [b]) => niveaux.indexOf(a) - niveaux.indexOf(b))
+  const normalise = courant.replace(/^(auto|can)/, '')
+  if (/^[12T]/.test(normalise) && entrees.some(([k]) => k.toLowerCase().includes('-flash')))
+    return entrees.sort(([a], [b]) => {
+      const fa = a.toLowerCase().includes('-flash')
+      const fb = b.toLowerCase().includes('-flash')
+      if (fa !== fb) return fa ? -1 : 1
+      return a.localeCompare(b, 'fr', { numeric: true })
+    })
+  // Exercices : ordre du tri par chemin puis id (déjà appliqué)
+  if (entrees.length && entrees.every(([, v]) => isJSONReferentielEnding(v))) return entrees
+  const conteneurDeFeuilles = (v: unknown) => {
+    if (v === null || typeof v !== 'object' || Array.isArray(v)) return false
+    const enfants = Object.values(v as Record<string, unknown>)
+    return enfants.length > 0 && enfants.every((e) => isJSONReferentielEnding(e))
+  }
+  if (entrees.length && entrees.every(([, v]) => conteneurDeFeuilles(v)))
+    return entrees.sort(([a], [b]) => {
+      const aa = a.includes('auto')
+      const ab = b.includes('auto')
+      if (aa !== ab) return aa ? 1 : -1
+      return a.localeCompare(b, 'fr')
+    })
+  const prefixe = (k: string) => {
+    const m = k.match(/^(\d+)/)
+    return m ? parseInt(m[1], 10) : undefined
+  }
+  return entrees.sort(([a], [b]) => {
+    const na = prefixe(a)
+    const nb = prefixe(b)
+    if (na === undefined && nb === undefined) return 0
+    return (na ?? Infinity) - (nb ?? Infinity)
+  })
+}
+
+/**
+ * Titre (exercice, chapitre) avec ses formules rendues par KaTeX, comme dans
+ * le menu du site. HTML à insérer tel quel.
+ */
+export function titreHtml(titre: string): string {
+  const echappe = (t: string) =>
+    t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  return titre
+    .split(/(\$[^$]*\$)/g)
+    .map((morceau) =>
+      /^\$[^$]*\$$/.test(morceau)
+        ? katex.renderToString(morceau.slice(1, -1), { throwOnError: false })
+        : echappe(morceau),
+    )
+    .join('')
 }
 
 /**
  * Exercices du référentiel du site (menu « Exercices aléatoires »), pour
- * l'éditeur de parcours de l'hôte. Chargé à la demande : il n'alourdit pas
- * le démarrage.
+ * l'éditeur de parcours de l'hôte, dans l'ordre et avec les nœuds du menu du
+ * site. Chargé à la demande : il n'alourdit pas le démarrage.
  */
 export async function listerExercices(
   pays: 'FR' | 'CH' = 'FR',
@@ -374,23 +484,42 @@ export async function listerExercices(
     { default: referentiel },
     { default: themes },
     { default: chapitres },
+    { default: chapitresFR },
+    { default: chapitresCH },
+    { default: codesNiveaux },
   ] = await Promise.all([
     pays === 'CH'
       ? import('../json/referentiel2022CH.json')
       : import('../json/referentiel2022FR.json'),
     import('../json/codeToThemeList.json'),
-    // Noms des chapitres du menu du site (ReferentielNode.svelte)
     pays === 'CH'
       ? import('../json/levelsThemesListCH.json')
       : import('../json/levelsThemesList.json'),
+    // Le menu du site cherche les intitulés dans les deux listes
+    import('../json/levelsThemesList.json'),
+    import('../json/levelsThemesListCH.json'),
+    import('../json/codeToLevelList.json'),
   ])
   const nomsThemes = themes as Record<string, string | Record<string, string>>
   const nomsChapitres = chapitres as Record<string, { titre?: string }>
+  const intitules = {
+    ...(chapitresCH as Record<string, { titre?: string }>),
+    ...(chapitresFR as Record<string, { titre?: string }>),
+  }
   const nomTheme = (code: string) => {
     const c = nomsChapitres[code]?.titre
     if (c) return c
     const t = nomsThemes[code]
     return typeof t === 'string' ? t : (t?.['fr-FR'] ?? t?.['fr-CH'] ?? code)
+  }
+  // Libellé d'un nœud comme dans le menu du site (codeToLevelTitle + themeTitle)
+  const noeud = (code: string): NoeudDuReferentiel => {
+    const sousTheme = estSousTheme(code)
+    const intitule = Object.hasOwn(intitules, code) ? intitules[code]?.titre : undefined
+    if (sousTheme) return { code, titre: intitule || code, sousTheme }
+    const nom = codeToLevelTitle(code)
+    const base = typeof nom === 'string' && nom ? nom : code
+    return { code, titre: intitule ? `${base} : ${intitule}` : base, sousTheme }
   }
   // Niveau > chapitre > objectif > exercice : le troisième code est un objectif du programme
   const objectifDe = (chemin: string[]) => {
@@ -399,27 +528,34 @@ export async function listerExercices(
     const libelle = code ? nomsChapitres[code]?.titre : undefined
     return libelle ? { objectif: { code, libelle } } : {}
   }
+  // Même rangement que le site : tri par chemin puis id, puis ordre de chaque nœud
+  const brut = referentiel as unknown as JSONReferentielObject
+  const feuilles = getAllEndings(brut).filter((r) =>
+    isExerciceItemInReferentiel(r.resource),
+  )
+  const arbre = buildReferentiel(sortArrayOfResourcesBasedOnPathThenId(feuilles, brut))
+  const niveaux = Object.keys(codesNiveaux)
   const liste: ExerciceDuReferentiel[] = []
-  const parcourir = (noeud: unknown, chemin: string[]) => {
-    if (noeud == null || typeof noeud !== 'object') return
-    const n = noeud as Record<string, unknown>
-    if (typeof n.uuid === 'string' && typeof n.id === 'string') {
-      const features = n.features as
-        { interactif?: { isActive?: boolean } } | undefined
-      liste.push({
-        uuid: n.uuid,
-        id: n.id,
-        titre: String(n.titre ?? ''),
-        niveau: chemin[0] ?? '',
-        theme: nomTheme(chemin[1] ?? ''),
-        interactif: features?.interactif?.isActive === true,
-        ...objectifDe(chemin),
-      })
-      return
+  const parcourir = (n: Record<string, unknown>, chemin: string[]) => {
+    for (const [cle, valeur] of ordonnerEnfants(Object.entries(n), chemin.at(-1), niveaux)) {
+      if (valeur == null || typeof valeur !== 'object') continue
+      const v = valeur as Record<string, unknown>
+      if (typeof v.uuid === 'string' && typeof v.id === 'string') {
+        const features = v.features as
+          { interactif?: { isActive?: boolean } } | undefined
+        liste.push({
+          uuid: v.uuid,
+          id: v.id,
+          titre: String(v.titre ?? ''),
+          niveau: chemin[0] ?? '',
+          theme: nomTheme(chemin[1] ?? ''),
+          interactif: features?.interactif?.isActive === true,
+          ...objectifDe([...chemin, cle]),
+          chemin: chemin.map(noeud),
+        })
+      } else parcourir(v, [...chemin, cle])
     }
-    for (const [cle, valeur] of Object.entries(n))
-      parcourir(valeur, [...chemin, cle])
   }
-  parcourir(referentiel, [])
+  parcourir(arbre, [])
   return liste
 }

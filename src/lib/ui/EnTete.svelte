@@ -7,10 +7,11 @@
   import { rappelExport } from '$lib/rappelExport.svelte'
   let {
     titre,
+    titreHtml,
     onretour,
     gauche,
     droite,
-  }: { titre?: string; onretour?: () => void; gauche?: Snippet; droite?: Snippet } = $props()
+  }: { titre?: string; titreHtml?: string /* formules rendues, à la place de titre */; onretour?: () => void; gauche?: Snippet; droite?: Snippet } = $props()
   let defile = $state(false)
 </script>
 
@@ -28,7 +29,7 @@
       </button>
     {/if}
     {#if titre !== undefined}
-      <h1 class="min-w-0 flex-1 truncate px-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct">{titre}</h1>
+      <h1 class="min-w-0 flex-1 truncate px-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct">{#if titreHtml}{@html titreHtml}{:else}{titre}{/if}</h1>
     {:else}
       <div class="min-w-0 flex-1 flex flex-row items-center gap-2 px-3">
         <img src="/logo_mathalea.svg" alt="" class="h-8" />

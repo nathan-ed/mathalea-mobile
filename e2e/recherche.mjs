@@ -37,38 +37,44 @@ await champ.click()
 for (const c of 'Dériver') await page.keyboard.type(c, { delay: 80 })
 await page.waitForTimeout(500)
 const derive = await ids()
-ok(derive[0] === 'BP1FDEV02' && derive.every((id) => !id.startsWith('canc3D')), `« Dériver » : exercices de dérivation (${derive.slice(0, 3).join(', ')})`)
+ok(/^(1AN|BP1FDEV)/.test(derive[0] ?? '') && derive.every((id) => !id.startsWith('canc3D')), `« Dériver » : exercices de dérivation (${derive.slice(0, 3).join(', ')})`)
 ok(new Set(derive).size === derive.length, 'aucun exercice en double')
 await champ.fill('polynome')
 await page.waitForTimeout(400)
 ok((await page.locator('main').innerText()).includes('Dériver un polynôme'), '« polynome » : la liste suit la nouvelle recherche')
 await champ.fill('')
 
-// Chaque chapitre de chaque niveau s'ouvre (un doublon empêchait d'ouvrir
-// « Fonctions » en Seconde)
+// Chaque nœud du menu (niveau, chapitre, sous-chapitre…) s'ouvre et montre
+// quelque chose (un doublon empêchait d'ouvrir « Fonctions » en Seconde)
 const titres = async () => page.locator('main button .font-bold, main button h3').allInnerTexts()
-const niveaux = await titres()
+// Tuiles de nœuds (chevron vers la droite), pas les exercices
+const noeuds = async () => page.locator('main button:has(.bx-chevron-right) .font-bold').allInnerTexts()
+const niveaux = await noeuds()
 let fermes = []
-for (const n of niveaux) {
-  await page.getByRole('button', { name: new RegExp(`^${n}`) }).first().click()
-  for (const c of await titres()) {
+let ouverts = 0
+const explorer = async (chemin) => {
+  const liste = await noeuds()
+  for (const [i, c] of liste.entries()) {
     const avant = erreurs.length
-    await page.getByRole('button', { name: c, exact: false }).first().click()
-    const nb = await page.locator('main li').count()
-    if (!nb || erreurs.length > avant) fermes.push(`${n} / ${c}`)
+    await page.locator('main button:has(.bx-chevron-right)').nth(i).click()
+    ouverts++
+    const nb = await page.locator('main li, main button:has(.bx-chevron-right)').count()
+    if (!nb || erreurs.length > avant) fermes.push([...chemin, c].join(' / '))
+    await explorer([...chemin, c])
     await page.goBack()
-    await page.waitForTimeout(100)
+    await page.waitForTimeout(80)
+    const titre = (await page.locator('h1:visible').last().innerText()).replace(/\s+/g, ' ')
+    if (titre !== (chemin.at(-1) ?? 'Ajouter des exercices').replace(/\s+/g, ' ').trim()) throw new Error(`retour depuis ${[...chemin, c].join(' / ')} : « ${titre} »`)
   }
-  await page.goBack()
-  await page.waitForTimeout(100)
 }
-ok(niveaux.length > 5, `${niveaux.length} niveaux parcourus`)
+await explorer([])
+ok(niveaux.length > 5, `${niveaux.length} niveaux, ${ouverts} nœuds parcourus`)
 ok(fermes.length === 0, `tous les chapitres s'ouvrent${fermes.length ? ' sauf : ' + fermes.join(', ') : ''}`)
 ok(!niveaux.some((n) => /Égalité/.test(n)), '« Égalité filles-garçons » rangé à part, comme sur le site')
 
 // Comme sur le site : aussi les exercices non interactifs (3Z1, « Exercices de synthèse »)
-await page.getByRole('button', { name: /^3e/ }).first().click()
-ok((await titres()).includes('Exercices de synthèse'), '3e : « Exercices de synthèse » (non interactif) proposé')
+await page.getByRole('button', { name: /^Troisième/ }).first().click()
+ok((await titres()).some((t) => t.endsWith('Exercices de synthèse')), '3e : « Exercices de synthèse » (non interactif) proposé')
 await page.goBack()
 await page.waitForTimeout(200)
 await ctx.close()
@@ -94,7 +100,7 @@ await ctx.close()
   // Le niveau du parcours peut être ouvert d'office : remonter aux niveaux
   if (!(await titresCH()).includes('2e Collège')) await page.getByRole('button', { name: /Retour/ }).first().click().catch(() => {})
   await page.getByRole('button', { name: /^2e Collège/ }).first().click()
-  ok((await titresCH()).includes('Équations cartésiennes'), 'Suisse, 2e Collège : « Équations cartésiennes » (non interactif) proposé')
+  ok((await titresCH()).some((t) => t.endsWith('Équations cartésiennes')), 'Suisse, 2e Collège : « Équations cartésiennes » (non interactif) proposé')
   await ctx.close()
 }
 

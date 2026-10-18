@@ -130,7 +130,7 @@ if (!SEULEMENT || SEULEMENT === 'creer') {
   await cap(p, 'creer-4-ajouter', ajouter)
   await ajouter.click()
   // Le niveau du parcours est déjà choisi : on arrive sur ses chapitres
-  const chapitre = p.getByRole('button', { name: /^Nombres rationnels/ })
+  const chapitre = p.getByRole('button', { name: /Nombres rationnels/ })
   await chapitre.first().waitFor({ timeout: 20000 })
   await p.evaluate(() => scrollTo(0, 0))
   await cap(p, 'creer-5-chapitres', chapitre)

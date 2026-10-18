@@ -277,6 +277,20 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `besoinFormulaire{n}Numerique|Texte|CaseACocher` : nombre, liste,
   case, texte ; options « n : libellé » de l'info-bulle), `definirLangue`
   (`fr-CH` : `\cdot` au lieu de `\times`).
+- Navigateur d'exercices = menu « Exercices aléatoires » du site, à
+  l'identique (Nathan, 2026-10-18 : « le même affichage que sur le site ») :
+  `listerExercices` renvoie les exercices dans l'ordre du menu et leur
+  `chemin` (nœuds avec libellé du site « 2N : Calcul numérique », niveaux
+  « Seconde », `sousTheme`). Le FR a jusqu'à 4 niveaux de nœuds (2e › 2N ›
+  2N1 › 2N1A) : l'ancien découpage niveau › chapitre en faisait des listes de
+  100+ exercices. L'app descend nœud par nœud ; un sous-thème (6N1A, 9NO1A,
+  2N10) est un intertitre déplié, comme sur le site. Tri et libellés recopiés
+  de `ReferentielNode.svelte` (`prepareSubset`, `themeCodeisSubthemeCode`) et
+  `SideMenu.svelte` (`orderFollowingSchoolLevel`) : à resynchroniser s'ils
+  changent. `titreHtml` (KaTeX) pour titres, tuiles et en-tête. Vérifier :
+  `node e2e/referentiel-site.mjs FR|CH` (site sur 5199 :
+  `npx vite --port 5199` dans `mathalea`, sans `makeJson`), qui déplie tout
+  le menu du site et le compare au moteur.
 - `decrireExercice` est optionnelle côté app (`moteur.decrireExercice?.()`) :
   un moteur ancien n'a pas les réglages.
 - Valeur par défaut d'un paramètre : non stockée dans l'étape (l'exercice suit

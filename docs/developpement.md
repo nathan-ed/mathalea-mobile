@@ -22,7 +22,8 @@ un **paquet moteur** construit depuis le dépôt MathALÉA (branche
   d'API (`API_MOTEUR`).
 - API : `preparerExercice` (uuid, paramètres, graine), `afficher` (KaTeX,
   MathLive, figures), `verifier`, `ecrireReponses`, `monterClavier` (clavier
-  de MathALÉA), `listerExercices` (référentiel FR ou CH), `definirLangue`
+  de MathALÉA), `listerExercices` (référentiel FR ou CH, ordre et nœuds du
+  menu du site), `titreHtml` (formules des titres), `definirLangue`
   (`fr-CH` : notations suisses).
 - L'interface reprend les classes Tailwind de MathALÉA, compilées dans
   `moteur.css` : n'utiliser que des classes présentes dans le site
@@ -220,8 +221,9 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
 - Titres d'exercices : titre MathALÉA sans référence par défaut, modifiable ou
   masqué à la création (fait).
 - Séance : la barre d'actions ne suit plus le clavier qui se referme (fait).
-- Éditeur de parcours sur un seul écran ; navigateur d'exercices par niveau
-  et chapitre, réglages (`decrireExercice` du moteur) et aperçu (fait).
+- Éditeur de parcours sur un seul écran ; navigateur d'exercices identique au
+  menu du site (niveau, chapitre, sous-chapitre, sous-thèmes en intertitres,
+  même ordre ; vérifié par `e2e/referentiel-site.mjs`), réglages (`decrireExercice` du moteur) et aperçu (fait).
 - Dossiers partagés : tous les `.json` à la racine du dossier lus (pas les
   sous-dossiers), fusion par
   identifiant à la version la plus haute (`fusionner`) ; téléchargement de la
@@ -560,3 +562,19 @@ Reste à faire :
 - CI : quand le moteur sera dans MathALÉA, supprimer `moteur/` et construire
   depuis la forge. La release `moteur` du miroir GitHub ne sert plus (à
   supprimer).
+
+## 0.3.5 : référentiel affiché comme sur le site (fait)
+
+- « Ajouter des exercices » reprend le menu « Exercices aléatoires » du site :
+  niveaux nommés et rangés comme sur le site (« Sixième », « Bac Pro -
+  Seconde »), chapitres et sous-chapitres avec leur code (« 2N : Calcul
+  numérique » › « 2N1 : Nombres réels »), sous-thèmes en intertitres, même
+  ordre des exercices (flash d'abord, numéros dans l'ordre naturel), formules
+  rendues. Avant, le référentiel français était coupé en niveau › chapitre :
+  des listes de plus de 100 exercices, dans l'ordre brut du JSON.
+- Moteur : `listerExercices` donne le `chemin` de chaque exercice dans le menu
+  du site ; `titreHtml` rend les formules. Un moteur plus ancien garde
+  l'affichage niveau › chapitre.
+- Vérification : `node e2e/referentiel-site.mjs FR|CH` déplie tout le menu du
+  site et le compare au moteur (identique, hors exercices plus récents que le
+  commit du moteur).

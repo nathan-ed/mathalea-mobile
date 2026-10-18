@@ -344,7 +344,7 @@ await t.getByRole('radio', { name: 'Entraînement' }).click()
 await cap(t, '7-editeur')
 // Navigateur d'exercices : niveau puis chapitre, comme sur le site
 await t.getByRole('button', { name: 'Ajouter des exercices' }).click()
-ok(await t.getByRole('heading', { name: '4e' }).isVisible(), 'navigateur : ouvert au niveau du parcours')
+ok(await t.getByRole('heading', { name: 'Quatrième' }).isVisible(), 'navigateur : ouvert au niveau du parcours')
 await t.locator('main').getByRole('button').nth(1).click()
 ok((await t.locator('main li').count()) > 0, 'navigateur : exercices du chapitre')
 await t.getByRole('button', { name: 'Revenir en arrière' }).click()

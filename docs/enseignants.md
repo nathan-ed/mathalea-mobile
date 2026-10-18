@@ -71,7 +71,8 @@ modifier un parcours, touchez-le : tout est déjà rempli.
 - **Parcours** : titre, but (une phrase vue par les élèves), type
   (Découverte, Entraînement, Approfondissement).
 - **Exercices** : « Ajouter des exercices » ouvre le référentiel comme sur le
-  site (niveau, chapitre, ou recherche), avec réglages et aperçu. Un
+  site (mêmes niveaux, chapitres et sous-chapitres, dans le même ordre, ou
+  recherche), avec réglages et aperçu. Un
   exercice non interactif se fait sur papier : l'élève ouvre lui-même la
   correction et l'exercice ne compte pas dans le score. « Importer
   depuis un lien MathALÉA » reprend une feuille du site. Touchez un exercice

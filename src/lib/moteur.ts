@@ -54,6 +54,8 @@ export interface Moteur {
   listerExercices(pays?: Pays): Promise<ExerciceDuReferentiel[]>
   /** Absent des moteurs antérieurs au 2026-10-13 */
   decrireExercice?(uuid: string): Promise<DescriptionExercice>
+  /** Absent des moteurs antérieurs au 2026-10-18 */
+  titreHtml?(titre: string): string
   definirLangue(langue: 'fr-FR' | 'fr-CH'): void
 }
 
@@ -92,6 +94,14 @@ export interface ExerciceDuReferentiel {
   theme: string
   interactif: boolean
   objectif?: { code: string; libelle: string } // moteurs postérieurs au 2026-10-15
+  chemin?: NoeudDuReferentiel[] // nœuds du menu du site, moteurs postérieurs au 2026-10-18
+}
+
+/** Nœud du menu du site : niveau, chapitre, sous-chapitre… */
+export interface NoeudDuReferentiel {
+  code: string
+  titre: string // « 2N : Calcul numérique », « Seconde »
+  sousTheme: boolean // le site le montre déplié, en intertitre
 }
 
 interface Manifeste {
