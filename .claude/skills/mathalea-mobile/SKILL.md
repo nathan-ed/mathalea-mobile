@@ -314,7 +314,7 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   Nathan (`gh workflow enable google-play.yml --repo nathan-ed/mathalea-mobile`).
   Pour un envoi à la main pendant la pause : `enable`, `workflow run … -f
   piste=internal`, puis `disable` aussitôt (un run lancé continue). 0.4.0
-  (code 26101907) puis 0.4.1 envoyées ainsi en test interne le 2026-10-19.
+  (code 26101907), 0.4.1 et 0.4.2 envoyées ainsi en test interne le 2026-10-19.
   Réglage dans le code de session (`modeQr` : empreinte du code entier, pas
   une lettre, pour qu'un élève ne puisse pas choisir son mode) : aucun, après,
   avant la correction (correction à la fin et QR code avant les résultats),

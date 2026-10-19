@@ -246,6 +246,14 @@ plus récent remplace l'ancien.
   **objectifs** travaillés (meilleur niveau atteint, de « Insuffisante » à
   « Très bonne maîtrise », et la dernière fois travaillé, au toucher) et les
   **ceintures** obtenues.
+- **Révisions**, en haut de « Mes parcours » : les exercices des parcours
+  terminés reviennent au bon moment (le lendemain, dans 3 jours, une semaine,
+  puis plus espacés s'ils sont réussis), avec de nouvelles valeurs, mélangés
+  entre chapitres et sans titre. L'élève choisit 3, 6 ou 10 questions et les
+  chapitres à réviser ; aucun nombre d'exercices en retard n'est affiché. Rien à
+  régler côté enseignant. Les révisions comptent dans le suivi des objectifs.
+- L'icône QR code en haut de l'accueil lit le QR code d'une session projeté
+  par l'enseignant : l'élève arrive directement dans la session.
 - L'onglet Explorer propose les parcours de l'équipe MathALÉA ; l'élève peut
   en ajouter à son accueil.
 - « Teste ton niveau », en tête de l'Explorer, est ouvert à tous : questions

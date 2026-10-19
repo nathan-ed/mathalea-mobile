@@ -17,6 +17,9 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 3. Déposer le fichier dans un dossier partagé de votre drive, puis ajouter ce dossier sur un autre téléphone ou avec un élève ([Côté élève](eleves.md)).
 4. Essayer les paliers ou les ceintures : un seuil de réussite, une pause, une ressource pour revoir.
 5. Modifier le parcours, republier, et vérifier que la nouvelle version arrive chez l'élève.
+6. Lancer une session pour la classe : afficher ou exporter son QR code, le scanner depuis un autre téléphone, puis relever les réponses ([Sessions partagées](sessions.md)).
+7. Faire analyser les réponses par une IA : texte copié, ou dans l'application avec une clé d'API ou une IA locale.
+8. Terminer deux parcours, puis revenir le lendemain : la tuile « Révisions » propose une courte séance ([Révisions](revisions.md)).
 
 ## Nous dire ce qui ne va pas
 

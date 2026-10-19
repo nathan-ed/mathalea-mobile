@@ -22,6 +22,8 @@ Pour les élèves
 - Paliers et ceintures : on avance à son rythme, avec le seuil de réussite fixé par l’enseignant, des pauses et des ressources pour revoir.
 - Correction immédiate, clavier mathématique, figures.
 - Suivi par objectif : ce qui est réussi, ce qui reste à revoir.
+- Révisions espacées : les exercices déjà faits reviennent au bon moment, mélangés, en séances courtes de 3, 6 ou 10 questions.
+- Sessions de classe : un QR code projeté par l’enseignant, et toute la classe a les mêmes questions.
 - Fonctionne hors ligne une fois les parcours reçus.
 
 Pour les enseignants
@@ -29,6 +31,8 @@ Pour les enseignants
 - Bibliothèque rangée par niveau et chapitre, parcours donnés aux classes.
 - Objectifs du programme posés automatiquement, liste d’objectifs importable (CSV).
 - Publication en un fichier dans un dossier partagé : aucun compte, aucune inscription.
+- Réponses de la classe relevées par QR code, revérifiées par l’application : réussite, erreurs fréquentes, détail par élève.
+- Analyse des erreurs par une IA au choix (en ligne avec sa clé, ou locale), sans jamais lui envoyer un prénom.
 
 Respect de la vie privée
 Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil.
@@ -58,9 +62,24 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
 - **Sécurité des données** : aucune donnée collectée, aucune donnée partagée.
   Données chiffrées en transit : oui (HTTPS). Suppression : sans objet (rien
   n'est collecté ; tout disparaît à la désinstallation).
+  À revoir avec la nouvelle politique de confidentialité (0.4 : caméra pour
+  les QR codes, analyse par une IA choisie par l'enseignant, à sa demande) :
+  voir « À faire » dans `developpement.md`.
 - **Application gouvernementale, financière, de santé, d'actualités** : non.
 
 ## Notes de version
+
+Version 0.4.2 :
+
+```
+<fr-FR>
+- Révisions espacées : les exercices déjà faits reviennent au bon moment, mélangés, en séances de 3, 6 ou 10 questions.
+- Sessions de classe : QR code à projeter ou à envoyer en image ; les élèves le scannent depuis l'accueil.
+- Réponses de la classe relevées par QR code, analyse des erreurs par une IA au choix, sans prénom envoyé.
+</fr-FR>
+```
+
+Première version :
 
 ```
 <fr-FR>
