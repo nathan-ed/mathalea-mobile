@@ -42,6 +42,33 @@ export async function enregistrerFichier(nom: string, texte: string): Promise<En
   return 'fichier'
 }
 
+/** Image PNG (octets en base64) : partagée, enregistrée sur le téléphone, ou « Enregistrer sous » */
+export async function enregistrerImage(nom: string, base64: string): Promise<Enregistrement> {
+  if (partageNatif) {
+    const { invoke } = await import('@tauri-apps/api/core')
+    const choix = android ? await choisirEnregistrement(nom) : 'partager'
+    if (!choix) return false
+    const args = { nom, texte: '', base64 }
+    if (choix === 'enregistrer') return (await invoke<boolean>('enregistrer_fichier', args)) ? 'fichier' : false
+    return (await invoke<boolean>('partager_fichier', args)) ? 'partage' : false
+  }
+  const octets = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))
+  if (dansTauri) {
+    const { save } = await import('@tauri-apps/plugin-dialog')
+    const { writeFile } = await import('@tauri-apps/plugin-fs')
+    const chemin = await save({ defaultPath: nom, filters: [{ name: 'Image PNG', extensions: ['png'] }] })
+    if (!chemin) return false
+    await writeFile(chemin, octets)
+    return 'fichier'
+  }
+  const lien = document.createElement('a')
+  lien.href = URL.createObjectURL(new Blob([octets], { type: 'image/png' }))
+  lien.download = nom
+  lien.click()
+  setTimeout(() => URL.revokeObjectURL(lien.href), 1000)
+  return 'fichier'
+}
+
 /** Ouvre un lien (ressource d'un palier, dossier partagé) dans le navigateur du téléphone */
 export async function ouvrirLien(adresse: string) {
   try {

@@ -640,7 +640,9 @@ Reste à faire :
 - QR code de session (`invitation.ts`, `MASES1.` + JSON compressé) : code,
   copie du parcours sans pauses ni ressources, palier (`e`), version du
   moteur de l'enseignant (`m`). Affiché par `QrSession.svelte` (panneau de
-  session, « Sessions partagées ») ; lu par l'élève depuis l'accueil
+  session, « Sessions partagées ») ; enseignant : « Session pour la classe »
+  sur la page du parcours, panneau sans « Commencer la session » (bouton
+  principal : le QR code) ; lu par l'élève depuis l'accueil
   (`Scanner` en mode `session`), qui lance la séance sur cette copie et ajoute
   le parcours à `ajoutes`. Moteur de l'élève plus ancien (date de la version)
   : « Mets l'application à jour », « Continuer quand même ». Test :

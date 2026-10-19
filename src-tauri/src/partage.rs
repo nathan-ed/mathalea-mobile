@@ -34,42 +34,43 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
         .build()
 }
 
-/// Ouvre la feuille de partage avec le fichier `nom` contenant `texte`
+/// Ouvre la feuille de partage avec le fichier `nom` contenant `texte`, ou
+/// les octets `base64` (image)
 #[tauri::command]
-pub async fn partager_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String) -> Result<bool, String> {
+pub async fn partager_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String, base64: Option<String>) -> Result<bool, String> {
     #[cfg(mobile)]
     {
         use tauri::Manager;
         let p = app.state::<Partage<R>>();
-        p.0.run_mobile_plugin::<serde_json::Value>("partager", serde_json::json!({ "nom": nom, "texte": texte }))
+        p.0.run_mobile_plugin::<serde_json::Value>("partager", serde_json::json!({ "nom": nom, "texte": texte, "base64": base64 }))
             .map_err(|e| e.to_string())?;
         return Ok(true);
     }
     #[cfg(not(mobile))]
     {
-        let _ = (app, nom, texte);
+        let _ = (app, nom, texte, base64);
         Ok(false)
     }
 }
 
-/// Enregistre `texte` dans un fichier choisi avec le sélecteur de fichiers
+/// Enregistre `texte` (ou les octets `base64`) dans un fichier choisi avec le sélecteur de fichiers
 /// d'Android (Téléchargements, carte SD…) ; vrai si le fichier est écrit.
 /// Ailleurs : false (l'interface utilise la feuille de partage ou « Enregistrer sous »).
 #[tauri::command]
-pub async fn enregistrer_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String) -> Result<bool, String> {
+pub async fn enregistrer_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String, base64: Option<String>) -> Result<bool, String> {
     #[cfg(target_os = "android")]
     {
         use tauri::Manager;
         let p = app.state::<Partage<R>>();
         let r = p
             .0
-            .run_mobile_plugin::<serde_json::Value>("enregistrer", serde_json::json!({ "nom": nom, "texte": texte }))
+            .run_mobile_plugin::<serde_json::Value>("enregistrer", serde_json::json!({ "nom": nom, "texte": texte, "base64": base64 }))
             .map_err(|e| e.to_string())?;
         return Ok(r.get("enregistre").and_then(|v| v.as_bool()).unwrap_or(false));
     }
     #[cfg(not(target_os = "android"))]
     {
-        let _ = (app, nom, texte);
+        let _ = (app, nom, texte, base64);
         Ok(false)
     }
 }

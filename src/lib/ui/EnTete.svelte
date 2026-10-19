@@ -31,7 +31,7 @@
     {#if titre !== undefined}
       <h1 class="min-w-0 flex-1 truncate px-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct">{#if titreHtml}{@html titreHtml}{:else}{titre}{/if}</h1>
     {:else}
-      <div class="min-w-0 flex-1 flex flex-row items-center gap-2 px-3">
+      <div class="logo-entete min-w-0 flex-1 flex flex-row items-center gap-2 px-2">
         <img src="/logo_mathalea.svg" alt="" class="h-8" />
         <span class="font-logo9 tracking-tighter font-black text-2xl leading-none text-coopmaths-action dark:text-coopmathsdark-action">
           MathALÉA

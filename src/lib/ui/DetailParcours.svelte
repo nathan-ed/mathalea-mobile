@@ -98,6 +98,14 @@
       codeNote = c
     })
   })
+  function creerSession() {
+    codeNote = null
+    code = nouveauCode()
+    avecPrenom = false
+    palierSession = Math.max(0, courant)
+    session = 'creer'
+    feuille = null
+  }
   // QR code de la session, à projeter : les élèves le scannent depuis l'accueil
   let qrSession = $state(false)
   const invitation = $derived(versionMoteur && code ? encoderInvitation({ c: code, p: parcours, m: versionMoteur, ...(etapesSession ? { e: etapesSession } : {}) }) : '')
@@ -291,9 +299,14 @@
     {/if}
 
     <div class="flex flex-col gap-3">
-      {#if !avecPaliers}
+      {#if !avecPaliers && session === 'aucune'}
         <button type="button" class="{boutonAction} w-full" onclick={() => oncommencer()}>
           {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
+        </button>
+      {/if}
+      {#if onreleve && session === 'aucune'}
+        <button type="button" class="{boutonInverse} w-full" onclick={creerSession}>
+          <i aria-hidden="true" class="bx bx-group mr-1"></i> Session pour la classe
         </button>
       {/if}
       {#if explorer}
@@ -329,7 +342,11 @@
         <div class="text-center py-2">
           <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2.5rem; letter-spacing: 0.15em">{code}</div>
           <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            Donne ce code à {onreleve ? 'tes élèves' : 'tes camarades'}{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
+            {#if onreleve}
+              Code à donner aux élèves{avecPaliers ? ` avec le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''}, ou QR code à projeter.
+            {:else}
+              Donne ce code à tes camarades{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
+            {/if}
           </p>
         </div>
         {#if onreleve}
@@ -378,16 +395,23 @@
             </p>
           {/if}
         {/if}
-        {#if invitation}
-          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => (qrSession = true)}>
-            <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
-          </button>
-        {/if}
-        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onsession(code, avecPaliers ? paliers[palierSession].etapes : undefined)}>Commencer la session</button>
         {#if onreleve}
+          <!-- Enseignant : il ne fait pas la session, il la montre et la relève -->
+          {#if invitation}
+            <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => (qrSession = true)}>
+              <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
+            </button>
+          {/if}
           <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={onreleve}>
-            <i aria-hidden="true" class="bx bx-qr-scan text-xl"></i> Relever les réponses des élèves
+            <i aria-hidden="true" class="bx bx-list-ul text-xl"></i> Sessions partagées
           </button>
+        {:else}
+          {#if invitation}
+            <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => (qrSession = true)}>
+              <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
+            </button>
+          {/if}
+          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onsession(code, avecPaliers ? paliers[palierSession].etapes : undefined)}>Commencer la session</button>
         {/if}
       {:else if session === 'rejoindre'}
         <ChampTexte id="code-session" titre="Code de session" bind:valeur={code} />
@@ -461,14 +485,8 @@
       ...(enCours
         ? [action('bx-revision', avecPaliers ? `Refaire ${parcours.style === 'ceintures' ? 'cette ceinture' : 'ce palier'} depuis le début` : 'Tout refaire', onrefaire), action('bx-trash', 'Supprimer la tentative en cours', () => (feuille = 'suppression'))]
         : []),
-      action('bx-group', 'Session partagée', () => {
-        codeNote = null
-        code = nouveauCode()
-        avecPrenom = false
-        palierSession = Math.max(0, courant)
-        session = 'creer'
-        feuille = null
-      }),
+      // L'enseignant a son bouton sur la page (« Session pour la classe »)
+      ...(onreleve ? [] : [action('bx-group', 'Session partagée', creerSession)]),
       action('bx-log-in', 'Rejoindre une session', () => {
         code = ''
         palierSession = Math.max(0, courant)

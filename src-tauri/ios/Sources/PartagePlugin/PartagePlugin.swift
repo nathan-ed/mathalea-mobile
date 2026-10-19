@@ -5,6 +5,8 @@ import WebKit
 struct PartagerArgs: Decodable {
   let nom: String
   let texte: String
+  // Fichier binaire (image) : ses octets en base64, à la place du texte
+  let base64: String?
 }
 
 struct BarreEtatArgs: Decodable {
@@ -12,7 +14,7 @@ struct BarreEtatArgs: Decodable {
   let telephone: Bool
 }
 
-/// Feuille de partage d'iOS pour un fichier texte, apparence de la barre
+/// Feuille de partage d'iOS pour un fichier (texte ou image), apparence de la barre
 /// d'état selon le thème de l'app et zones sûres de l'écran (voir
 /// src-tauri/src/partage.rs ; équivalent Android : PartagePlugin.kt).
 class PartagePlugin: Plugin {
@@ -24,7 +26,12 @@ class PartagePlugin: Plugin {
     let fichier = dossier.appendingPathComponent(nom)
     do {
       try FileManager.default.createDirectory(at: dossier, withIntermediateDirectories: true)
-      try args.texte.write(to: fichier, atomically: true, encoding: .utf8)
+      if let b = args.base64 {
+        guard let octets = Data(base64Encoded: b) else { throw CocoaError(.fileWriteUnknown) }
+        try octets.write(to: fichier, options: .atomic)
+      } else {
+        try args.texte.write(to: fichier, atomically: true, encoding: .utf8)
+      }
     } catch {
       invoke.reject("Partage impossible : \(error.localizedDescription)")
       return

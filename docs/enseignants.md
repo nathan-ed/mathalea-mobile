@@ -258,7 +258,10 @@ plus récent remplace l'ancien.
 
 ## Sessions communes
 
-Dans un parcours, « Session partagée » donne un code (ex. `1k3lr`) ; avec des
+Dans un parcours, « Session pour la classe » (pour l'enseignant, sur la page
+du parcours ; « Session partagée » dans « Autres actions » pour un élève)
+donne un code (ex. `1k3lr`) et un QR code à projeter. L'enseignant ne fait pas
+la session lui-même : il affiche le QR code, puis la relève. Avec des
 paliers, la session porte sur un palier ouvert, choisi au lancement. Toutes les
 personnes qui entrent ce code avec « Rejoindre une session » ont exactement les
 mêmes exercices : utile pour corriger ensemble au tableau ou travailler en
@@ -266,7 +269,7 @@ groupe.
 
 ### Relever les réponses de la classe
 
-En créant la session (« Session partagée »), allumez « QR code des réponses
+En créant la session (« Session pour la classe »), allumez « QR code des réponses
 pour l'enseignant » et choisissez le moment :
 
 - **après la correction** : les élèves voient la correction comme d'habitude,

@@ -6,7 +6,11 @@ Une session partagée donne à toute la classe les mêmes questions, grâce à u
 
 ## 1. Créer la session et demander le QR code
 
-Dans un parcours, « Autres actions », puis « Session partagée ». Le code s'affiche. Allumez « QR code des réponses pour l'enseignant ».
+Dans un parcours, touchez « Session pour la classe ».
+
+![Session pour la classe](images/sessions-1a-bouton.png)
+
+Le code s'affiche. Allumez « QR code des réponses pour l'enseignant ».
 
 ![Demander le QR code](images/sessions-1-interrupteur.png)
 
@@ -29,7 +33,7 @@ Sans QR code demandé, la session se déroule comme avant.
 
 ### Lancer la session par un QR code
 
-Plutôt que le code, projetez le QR code de la session : touchez « Afficher le QR code de la session ».
+Vous ne faites pas la session vous-même : touchez « Afficher le QR code de la session » et projetez-le (le code fonctionne aussi).
 
 ![Afficher le QR code](images/sessions-2d-afficher.png)
 
@@ -65,7 +69,7 @@ Le QR code s'affiche, sur fond blanc, avec ses réponses (et son prénom si vous
 
 ## 3. Retrouver ses sessions et lire les QR codes
 
-Dans l'onglet Créer, touchez « Sessions partagées » (ou « Relever les réponses des élèves », sous le code de la session).
+Dans l'onglet Créer, touchez « Sessions partagées » (le même lien est sous le code de la session).
 
 ![Sessions partagées](images/sessions-6-espace.png)
 

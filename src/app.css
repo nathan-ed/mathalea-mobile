@@ -81,6 +81,23 @@ math-field,
 .bouton-icone:active {
   background-color: var(--app-presse);
 }
+/* Deux icônes à côté du logo (accueil) : moins larges, même hauteur à toucher */
+.bouton-icone-etroit {
+  width: 2.5rem;
+}
+/* Petits téléphones : « MathALÉA par CoopMaths » reste entier à côté des icônes */
+@media (max-width: 379px) {
+  .logo-entete {
+    gap: 0.375rem;
+    padding-inline: 0.25rem;
+  }
+  .logo-entete img {
+    height: 1.75rem;
+  }
+  .logo-entete > span:first-of-type {
+    font-size: 1.3rem;
+  }
+}
 
 /* Sur ordinateur et tablette, le contenu reste à une largeur de lecture */
 .colonne {

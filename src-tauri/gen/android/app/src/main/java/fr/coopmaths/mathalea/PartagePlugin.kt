@@ -3,6 +3,7 @@ package fr.coopmaths.mathalea
 import android.app.Activity
 import android.content.ClipData
 import android.content.Intent
+import android.util.Base64
 import androidx.activity.result.ActivityResult
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
@@ -20,7 +21,21 @@ import java.io.File
 @InvokeArg
 class PartagerArgs {
   lateinit var nom: String
-  lateinit var texte: String
+  var texte: String = ""
+  // Fichier binaire (image) : ses octets en base64, à la place du texte
+  var base64: String? = null
+}
+
+/** Contenu du fichier : octets de l'image, ou texte en UTF-8 */
+private fun octets(args: PartagerArgs): ByteArray =
+  args.base64?.let { Base64.decode(it, Base64.DEFAULT) } ?: args.texte.toByteArray(Charsets.UTF_8)
+
+/** Type du fichier d'après son extension */
+private fun typeDe(nom: String) = when {
+  nom.endsWith(".csv") -> "text/csv"
+  nom.endsWith(".txt") -> "text/plain"
+  nom.endsWith(".png") -> "image/png"
+  else -> "application/json"
 }
 
 @InvokeArg
@@ -30,7 +45,7 @@ class BarreEtatArgs {
   var telephone: Boolean = false
 }
 
-/** Feuille de partage d'Android pour un fichier texte et icônes de la barre
+/** Feuille de partage d'Android pour un fichier (texte ou image) et icônes de la barre
  * d'état selon le thème de l'app (voir src-tauri/src/partage.rs) */
 @TauriPlugin
 class PartagePlugin(private val activity: Activity) : Plugin(activity) {
@@ -42,11 +57,11 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
       dossier.mkdirs()
       // Nom sans chemin : le fichier reste dans le cache de l'app
       val fichier = File(dossier, File(args.nom).name)
-      fichier.writeText(args.texte)
+      fichier.writeBytes(octets(args))
       val uri = FileProvider.getUriForFile(activity, activity.packageName + ".fileprovider", fichier)
       val envoi = Intent(Intent.ACTION_SEND).apply {
-        // Parcours en JSON, liste d'objectifs en CSV
-        type = if (fichier.name.endsWith(".csv")) "text/csv" else "application/json"
+        // Parcours en JSON, objectifs en CSV, réponses en texte, QR code en image
+        type = typeDe(fichier.name)
         putExtra(Intent.EXTRA_STREAM, uri)
         putExtra(Intent.EXTRA_TITLE, fichier.name)
         clipData = ClipData.newRawUri(fichier.name, uri)
@@ -59,8 +74,8 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
     }
   }
 
-  // Texte à écrire dans le fichier que l'utilisateur est en train de choisir
-  private var texteAEnregistrer: String? = null
+  // Contenu à écrire dans le fichier que l'utilisateur est en train de choisir
+  private var aEnregistrer: ByteArray? = null
 
   /** Enregistre le fichier là où l'utilisateur le choisit (Téléchargements,
    * carte SD…) avec le sélecteur de fichiers d'Android */
@@ -68,11 +83,11 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
   fun enregistrer(invoke: Invoke) {
     try {
       val args = invoke.parseArgs(PartagerArgs::class.java)
-      texteAEnregistrer = args.texte
+      aEnregistrer = octets(args)
       val nom = File(args.nom).name
       val choix = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
-        type = if (nom.endsWith(".csv")) "text/csv" else "application/json"
+        type = typeDe(nom)
         putExtra(Intent.EXTRA_TITLE, nom)
       }
       startActivityForResult(invoke, choix, "fichierChoisi")
@@ -83,8 +98,8 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
 
   @ActivityCallback
   fun fichierChoisi(invoke: Invoke, result: ActivityResult) {
-    val texte = texteAEnregistrer
-    texteAEnregistrer = null
+    val texte = aEnregistrer
+    aEnregistrer = null
     val uri = result.data?.data
     val r = JSObject()
     if (result.resultCode != Activity.RESULT_OK || uri == null || texte == null) {
@@ -94,7 +109,7 @@ class PartagePlugin(private val activity: Activity) : Plugin(activity) {
     }
     try {
       // « wt » : un fichier existant choisi est remplacé, pas complété
-      activity.contentResolver.openOutputStream(uri, "wt")?.use { it.write(texte.toByteArray(Charsets.UTF_8)) }
+      activity.contentResolver.openOutputStream(uri, "wt")?.use { it.write(texte) }
         ?: throw Exception("Fichier inaccessible")
       r.put("enregistre", true)
       invoke.resolve(r)

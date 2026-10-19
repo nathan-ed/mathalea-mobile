@@ -604,8 +604,7 @@ async function avecParcours(profil) {
   return page
 }
 const prof = await avecParcours('enseignant')
-await prof.getByRole('button', { name: 'Autres actions' }).click()
-await prof.getByRole('button', { name: 'Session partagée' }).click()
+await prof.getByRole('button', { name: 'Session pour la classe' }).click()
 const interrupteur = prof.getByRole('switch', { name: 'QR code des réponses pour l’enseignant' })
 ok(!(await interrupteur.isChecked()), 'enseignant : pas de QR code par défaut')
 await guide(prof, 'sessions-1-interrupteur', interrupteur.locator('xpath=..'))
@@ -627,7 +626,7 @@ await prof.getByText(/Pas de correction pendant la session/).waitFor()
 await guide(prof, 'sessions-2b-code')
 const codeAvant = await codeDe()
 ok(codeAvant !== codeSansQr, `le choix change le code (${codeSansQr} → ${codeAvant})`)
-ok(await prof.getByRole('button', { name: 'Relever les réponses des élèves' }).isVisible(), 'enseignant : « Relever les réponses des élèves » sous le code')
+ok(await prof.getByRole('button', { name: 'Sessions partagées' }).isVisible() && !(await prof.getByRole('button', { name: 'Commencer la session' }).count()), 'enseignant : « Sessions partagées » sous le code, pas de « Commencer la session »')
 
 // La session créée est gardée : on peut partir et la relever plus tard
 await prof.getByRole('button', { name: 'Revenir en arrière' }).click()
@@ -658,6 +657,7 @@ await prof.waitForTimeout(300)
 ok((await prof.locator('main').innerText()).includes('Aucune session.'), 'session sans réponse : supprimée d’un toucher sur la croix')
 await prof.screenshot({ path: `${captures}/${nom}-reponses-6-session-enseignant.png` })
 const eleveSession = await avecParcours('eleve')
+ok(!(await eleveSession.getByRole('button', { name: 'Session pour la classe' }).count()), 'élève : pas de « Session pour la classe »')
 await eleveSession.getByRole('button', { name: 'Autres actions' }).click()
 await eleveSession.getByRole('button', { name: 'Session partagée' }).click()
 ok(!(await eleveSession.getByRole('switch', { name: /QR code des réponses/ }).count()), 'élève qui crée une session : pas de réglage de QR code')
