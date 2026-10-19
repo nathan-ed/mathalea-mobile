@@ -603,6 +603,40 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## Révisions espacées (à venir)
+
+- `revisions.ts`, sur l'appareil, sans réglage de l'enseignant (Nathan,
+  2026-10-19 : « complètement indépendant de l'enseignant », « l'élève peut
+  cocher les chapitres »). Clé `revisions` (`estRevisions` dans la sauvegarde).
+- Un élément par exercice (`cleExercice` : uuid et réglages), avec ses
+  objectifs, niveau, chapitre. Boîtes de Leitner 1 à 5, intervalles 1, 3, 7,
+  21, 56 jours (`INTERVALLES`). Entrée d'après la réussite au parcours (< 50 %
+  : 1, < 80 % : 2, sinon 3) ; révision réussie (toutes les questions) : boîte
+  suivante ; manquée : boîte précédente (pas retour au début, moins
+  décourageant). Un nouveau passage d'un exercice à revoir compte comme une
+  révision ; manqué (< 50 %), il revient le lendemain.
+- `integrerPassages` au lancement (tous les `historique:*`) et à chaque fin de
+  séance : un repère par exercice (`traites`, « parcours@début#étape »), compté
+  une seule fois, quand il est complet (questions passées reprises plus tard).
+  Exclus : exercices sur papier, Teste ton niveau, les révisions elles-mêmes.
+- Séance (`tirerRevision`) : 3, 6 ou 10 questions au choix de l'élève
+  (`taille`, 6 par défaut), une par exercice, les plus fragiles (boîte basse)
+  puis les plus en retard, à tour de rôle par chapitre ; jamais de stock
+  affiché (Nathan : « pas comme dans Anki, 90 questions d'un coup ») ;
+  `enTetesMasques`, `titreMasque` ;
+  ordre `entrelacer` (`fixerOrdre`, id `revisions`) : jamais deux questions du
+  même exercice à la suite. Résultats (`resultatsRevision`) une fois par
+  exercice et par séance ; bilan : titres dévoilés, « Revient dans… ».
+- Chapitres choisis (`chapitres` ; absent : tous, les nouveaux inclus).
+- Suivi : les séances de révision comptent pour les objectifs, qui gardent le
+  niveau et le chapitre du parcours d'origine (`objectifsTravailles`, passages
+  triés par date) ; solidité d'un objectif = boîte la plus basse de ses
+  exercices (à consolider 1-2, en bonne voie 3-4, durable 5). Ceintures jamais
+  retirées.
+- Vérification : `tests/revisions.test.ts`, `node e2e/revisions.mjs` (deux
+  parcours faits au clavier, horloge du navigateur avancée d'un jour puis
+  d'une semaine, séance, bilan, chapitres, suivi, sombre).
+
 ## 0.4.1 : sessions préparées, QR code de session (fait)
 
 - « Sessions partagées » (onglet Créer) garde toute session créée par

@@ -59,3 +59,7 @@ L'élève y voit le nombre de questions faites, de réponses correctes et de jou
 ## Session partagée avec l'enseignant
 
 L'enseignant affiche un QR code : touchez l'icône QR code en haut de l'accueil et visez-le, la session s'ouvre. Ou bien il donne un code : dans le parcours, « Autres actions », « Rejoindre une session », puis le code. Toute la classe a les mêmes questions. Si l'enseignant l'a demandé, l'élève lui montre ses réponses par un QR code (avec son prénom seulement si l'enseignant l'a demandé) : depuis son bilan, ou, dans certaines sessions, avant de voir ses résultats. Voir [Sessions partagées et réponses de la classe](sessions.md).
+
+## Révisions
+
+Les exercices des parcours terminés reviennent au bon moment, avec de nouvelles valeurs : tuile « Révisions » en haut de « Mes parcours ». Voir [Révisions](revisions.md).

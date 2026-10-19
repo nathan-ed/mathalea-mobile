@@ -234,6 +234,13 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `titreMasque`. Un test n'a pas de fiche de parcours : supprimer une
   tentative ramène aux niveaux, il n'est jamais ajouté à l'accueil. Pas de
   score dans la séance avant la soumission (il afficherait 0/15).
+- Révisions espacées (`revisions.ts`, `Revisions.svelte`, tuile en haut de
+  « Mes parcours ») : sur l'appareil, sans l'enseignant, l'élève peut choisir
+  ses chapitres (Nathan, 2026-10-19). Leitner 1, 3, 7, 21, 56 jours, échec =
+  boîte précédente, ceintures jamais retirées, séance de 3, 6 ou 10
+  questions au choix (une par exercice), jamais de stock affiché, séance
+  mélangée sans titres (`entrelacer`). Détails : `docs/developpement.md`, test
+  `node e2e/revisions.mjs` (horloge Playwright `page.clock`).
 - Suivi : « tout doit y figurer, ce sont des ceintures comme les autres » :
   tests passés (ligne par niveau, ceintures CM1 à Terminale dans l'onglet
   Ceintures) et parcours de l'Explorer même non ajoutés à l'accueil

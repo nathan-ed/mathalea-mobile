@@ -4,6 +4,7 @@
   import { MAITRISES, ceinturesObtenues, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { estTest } from '$lib/testNiveau'
+  import { SOLIDITES, soliditeObjectif, type Revisions } from '$lib/revisions'
   import { theme } from '$lib/theme.svelte'
   import { listeGroupee, pastille, pastilleScore } from './classes'
 
@@ -14,6 +15,8 @@
     ceinturesTest = [],
     onouvrir,
     ontest,
+    revisions = null,
+    passagesRevision = [],
   }: {
     parcours: Parcours[]
     historiques: Record<string, Seance[]>
@@ -21,6 +24,8 @@
     ceinturesTest?: { nom: string; niveau: string; couleur: string; obtenue: boolean }[] // Teste ton niveau, du CM1 à la Terminale
     onouvrir: (p: Parcours) => void
     ontest?: () => void
+    revisions?: Revisions | null // révisions espacées : solidité de chaque objectif dans le temps
+    passagesRevision?: Seance[] // séances de révision : elles comptent pour les objectifs
   } = $props()
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
@@ -107,8 +112,10 @@
 
   // ---------- Objectifs et ceintures ----------
   let vue: 'activite' | 'objectifs' | 'ceintures' = $state('activite')
-  const passagesTermines = $derived(parcours.flatMap((p) => historiques[p.id] ?? []))
+  const passagesTermines = $derived([...parcours.flatMap((p) => historiques[p.id] ?? []), ...passagesRevision])
   const objectifs = $derived(objectifsTravailles(passagesTermines))
+  // Solidité dans le temps (révisions espacées) d'un objectif, ou null
+  const sol = (libelle: string) => (revisions ? soliditeObjectif(revisions, libelle) : null)
   const objectifsParNiveau = $derived.by(() => {
     const niveaux = [...new Set(objectifs.map((o) => o.niveau))]
     return niveaux.map((niveau) => {
@@ -215,7 +222,9 @@
                         {/each}
                       </span>
                     </span>
-                    <span class="text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">{MAITRISES[m]} · {o.meilleur} %</span>
+                    <span class="text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">
+                      {MAITRISES[m]} · {o.meilleur} %{#if sol(o.libelle) !== null}<span class="font-light">{' · '}révision : {SOLIDITES[sol(o.libelle)!].toLowerCase()}</span>{/if}
+                    </span>
                     {#if objectifOuvert === o.libelle}
                       <span class={discret}>
                         Travaillé pour la dernière fois le {fmtDate(o.dernier)}, dans « {o.parcours} » ; {o.passages} exercice{o.passages > 1 ? 's' : ''} en tout.

@@ -26,6 +26,7 @@
     onqrmontre,
     prenom = '',
     onprenom,
+    revision = null,
   }: {
     parcours: Parcours
     seance: Seance
@@ -49,6 +50,8 @@
     onqrmontre?: () => void
     prenom?: string // prénom de l'élève, si la session le demande
     onprenom?: (p: string) => void
+    /** Séance de révision : pour chaque exercice, réussi ou non et quand il reviendra */
+    revision?: Record<number, { reussi: boolean; quand: string }> | null
   } = $props()
 
   const b = $derived(bilan(seance))
@@ -161,8 +164,16 @@
             aria-expanded={!!ouvertes[e.etape]}
             onclick={() => (ouvertes[e.etape] = !ouvertes[e.etape])}
           >
-            <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-              {titreEleve(parcours.etapes[e.etape], e.etape)}
+            <div class="min-w-0 flex flex-col text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              {#if revision}
+                <!-- Révision : le titre, caché pendant la séance, est dévoilé -->
+                <span>{titreEleve({ ...parcours.etapes[e.etape], titreMasque: false }, e.etape)}</span>
+                {#if revision[e.etape]}
+                  <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Revient {revision[e.etape].quand}</span>
+                {/if}
+              {:else}
+                {titreEleve(parcours.etapes[e.etape], e.etape)}
+              {/if}
             </div>
             <div class="flex flex-row items-center gap-2">
               {#if e.sur > 0}
@@ -185,7 +196,16 @@
     </ul>
     {/if}
 
-    {#if test}
+    {#if revision}
+      <div class="flex flex-col gap-3">
+        {#if b.passees.length > 0}
+          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onpassees}>
+            Répondre aux questions passées ({b.passees.length})
+          </button>
+        {/if}
+        <button type="button" class="{b.passees.length ? boutonInverse : boutonAction} w-full" style="min-height: 44px" onclick={onfermer}>Terminer</button>
+      </div>
+    {:else if test}
       <div class="flex flex-col gap-3">
         {#each test.actions as a, i (a.libelle)}
           <button type="button" class="{i === 0 ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={a.fn}>{a.libelle}</button>

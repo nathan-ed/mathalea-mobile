@@ -64,6 +64,19 @@
   import Relecture from '$lib/ui/Relecture.svelte'
   import Releve from '$lib/ui/Releve.svelte'
   import Scanner from '$lib/ui/Scanner.svelte'
+  import EcranRevisions from '$lib/ui/Revisions.svelte'
+  import {
+    aRevoir,
+    estRevision,
+    ID_REVISIONS,
+    integrerPassages,
+    prochaineRevision,
+    quand as quandRevision,
+    resultatsRevision,
+    revisionsVides,
+    tirerRevision,
+    type Revisions,
+  } from '$lib/revisions'
   import Feuille from '$lib/ui/Feuille.svelte'
   import { boutonAction, boutonInverse } from '$lib/ui/classes'
   import { noterSession, type Releve as TReleve } from '$lib/releve'
@@ -77,7 +90,7 @@
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'releve'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'releve' | 'revisions'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
@@ -236,6 +249,7 @@
     for (const p of catalogue ?? []) await chargerParcours(p)
     restaurationAnnulable = !!(await stockage.lire<string>(CLE_AVANT_RESTAURATION))
     for (const p of tous) await chargerParcours(p)
+    await chargerRevisions()
     vue = 'accueil'
     // Réglage Enseignant : l'app s'ouvre sur l'onglet Créer
     if (profil === 'enseignant') onglet = 'creer'
@@ -319,7 +333,7 @@
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, releve: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, releve: 1, revisions: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
   // L'aperçu garde l'éditeur monté : même écran pour l'animation
   const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
@@ -484,7 +498,45 @@
 
   /** Quitter une séance ou son bilan : le test revient à ses niveaux */
   function quitterSeance() {
-    aller(estTest(seance?.parcours) ? 'test' : 'parcours')
+    aller(estTest(seance?.parcours) ? 'test' : estRevision(seance?.parcours) ? 'revisions' : 'parcours')
+  }
+
+  // ---------- Révisions espacées (sur l'appareil, d'après les passages terminés) ----------
+  let revisions: Revisions = $state(revisionsVides())
+  let issuesRevision: Record<number, { reussi: boolean; quand: string }> | null = $state(null)
+  async function chargerRevisions() {
+    const avant = (await stockage!.lire<Revisions>('revisions')) ?? revisionsVides()
+    const cles = (await stockage!.cles()).filter((c) => c.startsWith('historique:'))
+    const passages = (await Promise.all(cles.map((c) => stockage!.lire<TSeance[]>(c)))).flatMap((h) => h ?? [])
+    revisions = integrerPassages(avant, passages, estTest)
+    if (revisions !== avant) await stockage!.ecrire('revisions', $state.snapshot(revisions))
+    seances[ID_REVISIONS] = await lireSeance(stockage!, ID_REVISIONS)
+    historiques[ID_REVISIONS] = await lireHistorique(stockage!, ID_REVISIONS)
+  }
+  const revisionEnCours = $derived(!!seances[ID_REVISIONS] && !seances[ID_REVISIONS]!.fin)
+  const resumeRevisions = $derived(
+    Object.keys(revisions.elements).length ? { dus: aRevoir(revisions).length, prochaine: prochaineRevision(revisions), enCours: revisionEnCours } : null,
+  )
+  /** Reprend la séance commencée, sinon en tire une nouvelle (exercices à revoir aujourd'hui) */
+  function lancerRevision() {
+    const commencee = seances[ID_REVISIONS]
+    if (commencee && !commencee.fin) {
+      actif = commencee.contenu
+      void lancer(commencee)
+      return
+    }
+    const p = tirerRevision(revisions)
+    if (!p || !moteur) return
+    actif = p
+    void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet'))
+  }
+  async function choisirTaille(n: number) {
+    revisions = { ...revisions, taille: n }
+    await stockage!.ecrire('revisions', $state.snapshot(revisions))
+  }
+  async function choisirChapitres(c: string[] | undefined) {
+    revisions = { ...revisions, chapitres: c }
+    await stockage!.ecrire('revisions', $state.snapshot(revisions))
   }
 
   // ---------- Élève ----------
@@ -583,6 +635,14 @@
     seances[s.parcours] = s
     historiques[s.parcours] = await lireHistorique(stockage!, s.parcours)
     if (estTest(s.parcours)) await noterTest(s)
+    // Révisions : une séance de révision fait avancer ou reculer ses exercices ;
+    // un autre passage terminé fait entrer les siens
+    if (estRevision(s.parcours)) {
+      const { revisions: suite, issues } = resultatsRevision(revisions, s)
+      revisions = suite
+      issuesRevision = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, { reussi: v.reussi, quand: quandRevision(v.apres.prochaine) }]))
+    } else revisions = integrerPassages(revisions, [s], estTest)
+    await stockage!.ecrire('revisions', $state.snapshot(revisions))
     // Pourcentage du parcours : seulement pour un passage sur tous ses exercices (pas un palier seul)
     if (s.type === 'complet' && s.etapes.length === s.contenu.etapes.length) {
       derniersComplets[s.parcours] = bilan(s).pourcentage
@@ -979,6 +1039,8 @@
       oncontinuer={commencer}
       onreglages={() => aller('reglages')}
       onscanner={moteur ? () => (scanSession = true) : undefined}
+      revisions={resumeRevisions}
+      onrevisions={() => aller('revisions')}
       ontest={moteur ? ouvrirTest : undefined}
       {resumeTest}
       onajouter={ajouterClasse}
@@ -997,6 +1059,8 @@
           {ceinturesTest}
           onouvrir={(p) => (estTest(p.id) ? void ouvrirTest() : ouvrir(p))}
           ontest={ouvrirTest}
+          {revisions}
+          passagesRevision={historiques[ID_REVISIONS] ?? []}
         />
       {/snippet}
       {#snippet espaceEnseignant()}
@@ -1057,6 +1121,8 @@
       onnoter={profil === 'enseignant' ? (code, precedent, etapes) => noterSessionCreee(actif!, code, precedent, etapes) : undefined}
       versionMoteur={moteur?.VERSION_MOTEUR}
     />
+  {:else if vue === 'revisions'}
+    <EcranRevisions {revisions} enCours={revisionEnCours} onlancer={lancerRevision} onchapitres={choisirChapitres} ontaille={choisirTaille} onretour={accueil} />
   {:else if vue === 'test'}
     <TestNiveau
       etat={etatTest}
@@ -1110,6 +1176,7 @@
       onfermer={quitterSeance}
       palier={palierDuBilan}
       test={testDuBilan}
+      revision={estRevision(seance.parcours) ? (issuesRevision ?? {}) : null}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
       onqrmontre={() => marquerQrMontre(seance!)}
       {prenom}

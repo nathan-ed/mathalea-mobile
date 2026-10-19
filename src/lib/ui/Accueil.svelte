@@ -15,6 +15,7 @@
 </script>
 
 <script lang="ts">
+  import { quand } from '$lib/revisions'
   import { organisationDe } from '$lib/catalogue'
   import type { Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
@@ -42,6 +43,8 @@
     oncontinuer,
     onreglages,
     onscanner,
+    revisions = null,
+    onrevisions,
     ontest,
     resumeTest = '',
     onajouter,
@@ -64,6 +67,8 @@
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
     onscanner?: () => void // QR code de session affiché par l'enseignant
+    revisions?: { dus: number; prochaine: string | null; enCours: boolean } | null // révisions espacées (null : rien de terminé)
+    onrevisions?: () => void
     ontest?: () => void // Teste ton niveau (moteur prêt)
     resumeTest?: string
     onajouter: (lien: string) => Promise<string | null>
@@ -206,6 +211,20 @@
             </p>
           {/each}
         {:else}
+          {#if revisions && onrevisions}
+            <Tuile
+              icon="bx-revision"
+              title="Révisions"
+              subtitle={revisions.enCours
+                ? 'Révision commencée'
+                : revisions.dus
+                  ? 'À revoir aujourd’hui'
+                  : revisions.prochaine
+                    ? `Prochaine révision ${quand(revisions.prochaine)}`
+                    : 'Aucun chapitre choisi'}
+              onclick={onrevisions}
+            />
+          {/if}
           {#if enCours.length}
             <h2 class={titreSection}>En cours</h2>
             {#each enCours as p (p.id)}

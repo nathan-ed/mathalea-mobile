@@ -3,6 +3,7 @@
 // l'app n'en stocke aucun. Une restauration invalide laisse tout intact.
 import type { Seance } from './progression'
 import { CLE_IA } from './analyse'
+import { estRevisions } from './revisions'
 import { estReleves } from './releve'
 import type { Stockage } from './stockage'
 import {
@@ -122,6 +123,7 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
     sansDoublon((v as { libelle: string }[]).map((o) => o.libelle)),
   etiquettes: (v) => dictionnaireDe(v, textesUniques),
   releves: estReleves,
+  revisions: estRevisions,
   prenom: estTexte,
   'test-niveau': (v) =>
     dictionnaireDe(

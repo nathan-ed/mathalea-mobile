@@ -181,7 +181,27 @@ export function fixerOrdre(s: Seance) {
   const valide = s.ordre && s.ordre.length === cles.length && cles.every((c) => s.ordre!.includes(c))
   if (valide) return
   const graine = s.code ? `${s.code}-${s.contenu.id}-v${s.contenu.version}-ordre` : `${Math.random()}`
-  s.ordre = melanger(cles, graine)
+  s.ordre = s.contenu.id === ID_REVISIONS ? entrelacer(cles, graine) : melanger(cles, graine)
+}
+
+/** Séance de révision espacée (revisions.ts) : parcours généré sur l'appareil */
+export const ID_REVISIONS = 'revisions'
+
+/**
+ * Pratique mélangée : exercices dans un ordre tiré, puis une question de
+ * chacun à tour de rôle ; deux questions d'un même exercice ne se suivent
+ * que s'il ne reste que lui.
+ */
+export function entrelacer(cles: string[], graine: string) {
+  const parExercice = new Map<string, string[]>()
+  for (const c of melanger(cles, graine)) {
+    const e = c.split('-')[0]
+    parExercice.set(e, [...(parExercice.get(e) ?? []), c])
+  }
+  const files = [...parExercice.values()]
+  const ordre: string[] = []
+  for (let i = 0; ordre.length < cles.length; i++) for (const f of files) if (f[i]) ordre.push(f[i])
+  return ordre
 }
 
 /** Questions dans l'ordre d'affichage : mélangé si la séance a un ordre tiré */

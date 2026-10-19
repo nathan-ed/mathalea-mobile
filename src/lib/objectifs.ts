@@ -227,21 +227,24 @@ export interface ObjectifTravaille {
  */
 export function objectifsTravailles(passages: Seance[]): ObjectifTravaille[] {
   const parObjectif = new Map<string, ObjectifTravaille>()
-  for (const s of passages) {
-    if (!s.fin) continue
+  const termines = passages.filter((s) => s.fin).sort((a, b) => a.fin!.localeCompare(b.fin!))
+  for (const s of termines) {
+    // Séance de révision : plusieurs chapitres mélangés, sans niveau ni chapitre ;
+    // l'objectif garde ceux du parcours où il a été travaillé
+    const melange = !s.contenu.niveau && !s.contenu.theme
     for (const e of bilan(s).parEtape) {
       if (!e.faites || !e.sur) continue
       const pourcentage = Math.round((100 * e.points) / e.sur)
       for (const libelle of s.contenu.etapes[e.etape]?.objectifs ?? []) {
         const avant = parObjectif.get(libelle)
-        const plusRecent = !avant || s.fin >= avant.dernier
+        const source = !melange || !avant
         parObjectif.set(libelle, {
           libelle,
-          niveau: plusRecent ? s.contenu.niveau : avant!.niveau,
-          theme: plusRecent ? s.contenu.theme : avant!.theme,
+          niveau: source ? s.contenu.niveau : avant.niveau,
+          theme: source ? s.contenu.theme : avant.theme,
           meilleur: Math.max(avant?.meilleur ?? 0, pourcentage),
-          dernier: plusRecent ? s.fin : avant!.dernier,
-          parcours: plusRecent ? s.contenu.titre : avant!.parcours,
+          dernier: s.fin!,
+          parcours: source ? s.contenu.titre : avant.parcours,
           passages: (avant?.passages ?? 0) + 1,
         })
       }
