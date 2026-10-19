@@ -603,7 +603,7 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
-## Réponses de la classe à une session partagée
+## 0.4.0 : réponses de la classe à une session partagée (fait)
 
 - Réglage de l'enseignant à la création de la session (`DetailParcours`,
   profil enseignant) : pas de QR code, après la correction, avant la
