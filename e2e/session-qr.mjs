@@ -7,7 +7,7 @@
 // Captures du guide (docs/guide/images/sessions-*.png) : GUIDE=docs/guide/images.
 import { chromium } from 'playwright'
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import { rmSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
@@ -202,5 +202,7 @@ await prof.screenshot({ path: `${captures}/session-qr-5-enseignant-sombre.png` }
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)
 await Promise.all([navE.close(), navA.close(), navB.close()])
+// Vidéos et images de la fausse caméra : environ 200 Mo par passage
+rmSync(dossier, { recursive: true, force: true })
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')
 process.exit(echecs ? 1 : 0)

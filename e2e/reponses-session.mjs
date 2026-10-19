@@ -11,7 +11,7 @@
 // Sans fausse caméra dans WebKit, les QR codes y sont relevés par une photo.
 import { chromium, webkit } from 'playwright'
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs'
+import { rmSync, mkdtempSync, writeFileSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
@@ -722,5 +722,7 @@ ok(!(await g.getByRole('button', { name: 'Montrer mes réponses à l’enseignan
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)
 await nav.close()
 await camera.close()
+// Vidéos et images de la fausse caméra : environ 200 Mo par passage
+rmSync(dossier, { recursive: true, force: true })
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')
 process.exit(echecs ? 1 : 0)
