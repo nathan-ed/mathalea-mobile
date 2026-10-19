@@ -3,12 +3,15 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
+  import { untrack } from 'svelte'
   import { couleurCeinture, nomPalier, titreEleve, type Parcours } from '$lib/catalogue'
   import { etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
   import { modeQr, nouveauCode, normaliserCode, type ModeQr } from '$lib/progression'
   import ChoixRadio from './ChoixRadio.svelte'
   import { reponsesDeSeance } from '$lib/releve'
+  import { encoderInvitation } from '$lib/invitation'
+  import QrSession from './QrSession.svelte'
   import { ouvrirLien } from '$lib/fichiers'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
@@ -34,6 +37,8 @@
     onsession,
     onsupprimer,
     onreleve,
+    onnoter,
+    versionMoteur,
   }: {
     parcours: Parcours
     resultats: Record<number, ResultatEtape>
@@ -52,6 +57,8 @@
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
     onreleve?: () => void // enseignant : réponses des élèves à la session (QR codes)
+    onnoter?: (code: string, precedent: string | null, etapes?: number[]) => void // enseignant : session à garder dans « Sessions partagées »
+    versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
   } = $props()
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
@@ -77,6 +84,23 @@
 
   const paliers = $derived(etatsPaliers(parcours, resultats))
   const avecPaliers = $derived(paliers.length > 1)
+  // Session créée par l'enseignant : notée dès que son code s'affiche (pour la
+  // lancer et la relever plus tard) ; un changement de réglage remplace le code
+  // noté par ce panneau, un autre palier met son QR code à jour
+  let codeNote: string | null = null
+  const etapesSession = $derived(avecPaliers ? paliers[palierSession]?.etapes : undefined)
+  $effect(() => {
+    if (session !== 'creer' || !onnoter || !code) return
+    const c = code
+    const e = etapesSession
+    untrack(() => {
+      onnoter(c, codeNote, e)
+      codeNote = c
+    })
+  })
+  // QR code de la session, à projeter : les élèves le scannent depuis l'accueil
+  let qrSession = $state(false)
+  const invitation = $derived(versionMoteur && code ? encoderInvitation({ c: code, p: parcours, m: versionMoteur, ...(etapesSession ? { e: etapesSession } : {}) }) : '')
   const memes = (a: number[], b: number[]) => a.length === b.length && a.every((x, i) => x === b[i])
   // Palier à faire : celui de la tentative en cours, sinon le premier ouvert pas terminé, sinon le premier à revoir
   const courant = $derived.by(() => {
@@ -354,6 +378,11 @@
             </p>
           {/if}
         {/if}
+        {#if invitation}
+          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => (qrSession = true)}>
+            <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
+          </button>
+        {/if}
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onsession(code, avecPaliers ? paliers[palierSession].etapes : undefined)}>Commencer la session</button>
         {#if onreleve}
           <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={onreleve}>
@@ -433,6 +462,7 @@
         ? [action('bx-revision', avecPaliers ? `Refaire ${parcours.style === 'ceintures' ? 'cette ceinture' : 'ce palier'} depuis le début` : 'Tout refaire', onrefaire), action('bx-trash', 'Supprimer la tentative en cours', () => (feuille = 'suppression'))]
         : []),
       action('bx-group', 'Session partagée', () => {
+        codeNote = null
         code = nouveauCode()
         avecPrenom = false
         palierSession = Math.max(0, courant)
@@ -477,5 +507,8 @@
         >
       </div>
     </Feuille>
+  {/if}
+  {#if qrSession && invitation}
+    <QrSession {invitation} {code} titre={parcours.titre} onfermer={() => (qrSession = false)} />
   {/if}
 </div>

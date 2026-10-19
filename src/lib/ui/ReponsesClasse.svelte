@@ -298,7 +298,7 @@
       document.execCommand('copy')
       zone.remove()
     }
-    message = 'Copié : colle-le dans l’assistant de ton choix. Les élèves y sont « Élève 1, 2… », sans prénom ; colle ensuite sa réponse ici pour retrouver les prénoms.'
+    message = 'Copié.'
   }
 
   async function analyser() {
@@ -419,10 +419,6 @@
               Analyse faite avec {releve.analyse.nbEleves} élève{releve.analyse.nbEleves > 1 ? 's' : ''} : refais-la pour compter les nouvelles réponses.
             </p>
           {/if}
-        {:else if !analyseEnCours}
-          <p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-            Les erreurs fréquentes, ce qu’elles révèlent, un retour par élève et une activité courte pour le prochain cours.
-          </p>
         {/if}
         {#if erreurIA}<p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreurIA}</p>{/if}
         {#if analyseEnCours}
@@ -453,10 +449,11 @@
           </button>
         {/if}
         {#if message}<p class="text-sm text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">{message}</p>{/if}
-        <p class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-          Aucun prénom n’est envoyé : l’IA ne voit que « Élève 1, 2, 3… » et l’app remet les prénoms ici.
-          {#if configIA}<button type="button" class="underline" onclick={ouvrirReglagesIA}>Réglages de l’IA</button>{/if}
-        </p>
+        {#if configIA && !analyseEnCours}
+          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={ouvrirReglagesIA}>
+            <i aria-hidden="true" class="bx bx-cog text-xl"></i> Réglages de l’IA
+          </button>
+        {/if}
       </section>
 
       <!-- Deux vues : par question, par élève -->
@@ -578,10 +575,6 @@
   {#if feuilleIA}
     <Feuille onfermer={() => (feuilleIA = false)}>
       <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de l’IA</p>
-      <p class="text-sm">
-        Pour obtenir l’analyse directement dans l’app. Clé et réglages restent sur cet appareil : ni publiés, ni mis dans les sauvegardes. Un service en
-        ligne facture chaque analyse sur le compte de la clé (quelques centimes) ; une IA locale ne coûte rien et garde tout sur ton réseau.
-      </p>
       <ChoixRadio nom="service-ia" valeur={reglage.service} options={Object.entries(SERVICES_IA).map(([v, s]) => ({ libelle: s.libelle, valeur: v as ServiceIA }))} onchange={changerService} />
       {#if avecAdresse}
         <ChampTexte id="adresse-ia" titre="Adresse de l’API" type="url" bind:valeur={reglage.adresse} />
@@ -619,7 +612,6 @@
   {#if feuilleColler}
     <Feuille onfermer={() => (feuilleColler = false)}>
       <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Réponse de l’IA</p>
-      <p class="text-sm">Colle la réponse de l’assistant : « Élève 1, 2, 3… » y redeviennent les prénoms, ici seulement.</p>
       <textarea
         id="reponse-ia"
         aria-label="Réponse de l’IA"

@@ -281,7 +281,7 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   monde répond à une session partagée, l'enseignant récupère et met tout dans
   une IA pour un retour rapide et anonyme des erreurs », « disponible sur
   toutes les plateformes ») : QR code de l'élève (`MesReponses`, `releve.ts`,
-  sans nom), relevé par l'enseignant (`Releve`, `Scanner`, `qr.ts`), recalcul
+  sans nom), relevé par l'enseignant (`Releve` = écran « Sessions partagées », `Scanner`, `qr.ts`), recalcul
   hors écran (`ReponsesClasse` : on ne croit jamais un score reçu ; énoncés
   comparés par empreinte), résumé, vues Questions et Élèves, « Copier pour
   une IA », « Coller la réponse d'une IA », analyse dans l'app (`ia.ts`) par
@@ -291,6 +291,13 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   seulement en réseau local. Prénom au choix de l'enseignant, **jamais envoyé
   à l'IA** (Nathan) : « Élève N » vers l'IA, consigne de garder ces numéros,
   `retraduire()` remet les prénoms à l'affichage.
+  Toute session avec QR créée par l'enseignant est gardée dès l'affichage du
+  code (Nathan : « si on quitte l'écran, on ne peut plus scanner », relever
+  une heure après le cours ; croix pour effacer les sessions de test).
+  QR code de session à projeter (`invitation.ts`, `QrSession`) : l'élève le
+  scanne depuis l'icône en haut de l'accueil et arrive dans la session, même
+  sans le parcours (copie portée par le QR) ; app plus ancienne prévenue.
+  Test : `node e2e/session-qr.mjs`.
   Politique de confidentialité : nouveau texte en attente dans
   `docs/confidentialite-brouillon.html`. Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant

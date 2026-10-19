@@ -281,12 +281,18 @@ il ne va que sur l'appareil de l'enseignant et n'est jamais envoyé à une IA ;
 sinon, « Élève 1, 2, 3… ».
 
 Le réglage est caché dans le code (une empreinte du code entier) : il suffit
-de le donner. Un élève ne peut pas changer le réglage en modifiant une
+de le donner. « Afficher le QR code de la session » montre un QR code à
+projeter : l'élève touche l'icône QR code en haut de son accueil et arrive
+directement dans la session, même sans avoir le parcours (le QR code en porte
+une copie). Une app aux exercices plus anciens que les vôtres le prévient. Un élève ne peut pas changer le réglage en modifiant une
 lettre, qui donnerait un réglage imprévisible et d'autres questions. Sans QR
 code demandé, rien ne change pour les élèves.
 
-Dans l'onglet Créer, « Réponses de sessions » (ou « Relever les réponses des
-élèves » sous le code) :
+Dans l'onglet Créer, « Sessions partagées » (ou « Relever les réponses des
+élèves » sous le code) : chaque session créée avec un QR code y est gardée
+dès que son code s'affiche, même sans réponse : la préparer avant le cours,
+réafficher son QR code, la relever plus tard (code, date, réglage, nombre
+d'élèves ; croix pour la supprimer).
 
 - **Lire les QR codes** : passez dans les rangs, les codes se lisent un par un à
   la caméra ; un même élève n'est compté qu'une fois.

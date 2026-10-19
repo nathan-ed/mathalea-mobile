@@ -412,3 +412,72 @@ describe('service d’IA de l’enseignant', () => {
     await expect(analyserAvecIA({ service: 'locale', modele: 'm' }, 't', () => {})).rejects.toThrow('Pas de réponse de http://localhost:11434/v1')
   })
 })
+
+import { noterSession } from '../src/lib/releve'
+
+describe('sessions créées par l’enseignant', () => {
+  const s = { parcours: 'fractions-5e', version: 2, titre: 'Fractions' }
+  it('notée sans réponse, remplacée si le réglage change, gardée une fois les réponses reçues', () => {
+    let l = noterSession([], { ...s, code: 'abcde' }, null, '2026-10-19')
+    expect(l).toEqual([{ cle: 'abcde|fractions-5e|2', code: 'abcde', parcours: 'fractions-5e', version: 2, titre: 'Fractions', le: '2026-10-19', recues: [], creee: true }])
+    l = noterSession(l, { ...s, code: 'fghij' }, 'abcde')
+    expect(l.map((r) => r.code)).toEqual(['fghij'])
+    // Autre palier, même code : son QR code est mis à jour
+    l = noterSession(l, { ...s, code: 'fghij', invitation: 'MASES1.x' }, 'fghij')
+    expect(l.length).toBe(1)
+    expect(l[0].invitation).toBe('MASES1.x')
+    // Une session qui a reçu des réponses n'est jamais retirée ainsi
+    const recu = ajouterReponses(l, { ...reponsesDeSeance(seanceDeSession())!, c: 'fghij', p: 'fractions-5e', v: 2 }).releves
+    expect(recu.length).toBe(1)
+    expect(recu[0].recues.length).toBe(1)
+    expect(recu[0].creee).toBe(true)
+    expect(noterSession(recu, { ...s, code: 'klmnp' }, 'fghij').length).toBe(2)
+    expect(cleInvalide({ releves: l })).toBeUndefined()
+  })
+})
+
+import { decoderInvitation, encoderInvitation, moteurPlusAncien } from '../src/lib/invitation'
+describe('QR code de session (enseignant → élèves)', () => {
+  const p: Parcours = {
+    id: 'relatifs-5e',
+    version: 3,
+    icone: 'bx-math',
+    titre: 'Relatifs',
+    objectif: '',
+    niveau: '5e',
+    theme: 'Nombres relatifs',
+    difficulte: 1,
+    presentation: 'une_question_par_page',
+    correction: 'question',
+    etapes: [
+      { uuid: 'cbc26', id: '5N2G', titre: 'Additionner', nbQuestions: 3 },
+      { uuid: '36e2a', id: '5N2H', titre: 'Soustraire', nbQuestions: 3, sup: '2' },
+    ],
+    paliers: [{ titre: 'Palier 1', nb: 1, pause: { texte: 'Bravo ! '.repeat(200) } }, { titre: 'Palier 2', nb: 1 }],
+  }
+  it('code, parcours figé, palier et version des exercices ; pauses retirées', () => {
+    const texte = encoderInvitation({ c: 'abcde', p, e: [1], m: '2026-10-18+f0f11dca8.b3675bc' })
+    expect(texte.startsWith('MASES1.')).toBe(true)
+    expect(texte.length).toBeLessThan(700)
+    const i = decoderInvitation(texte)!
+    expect(i.c).toBe('abcde')
+    expect(i.e).toEqual([1])
+    expect(i.m).toBe('2026-10-18+f0f11dca8.b3675bc')
+    expect(i.p.etapes).toEqual(p.etapes)
+    expect(i.p.version).toBe(3)
+    expect(i.p.paliers?.[0].pause).toBeUndefined()
+  })
+  it('refuse ce qui n’est pas un QR code de session bien formé', () => {
+    expect(decoderInvitation('MAREP1.xxx')).toBeNull()
+    expect(decoderInvitation('MASES1.!!!')).toBeNull()
+    expect(decoderInvitation(encoderInvitation({ c: 'abcde', p, e: [5], m: 'x' }))).toBeNull()
+    expect(decoderInvitation(encoderInvitation({ c: 'ab', p, m: 'x' }))).toBeNull()
+    expect(decoderInvitation(encoderInvitation({ c: 'abcde', p: { ...p, id: 'A B' }, m: 'x' }))).toBeNull()
+  })
+  it('app de l’élève plus ancienne que celle de l’enseignant', () => {
+    expect(moteurPlusAncien('2026-10-10+a.b', '2026-10-18+c.d')).toBe(true)
+    expect(moteurPlusAncien('2026-10-18+a.b', '2026-10-18+c.d')).toBe(false)
+    expect(moteurPlusAncien('2026-10-20+a.b', '2026-10-18+c.d')).toBe(false)
+    expect(moteurPlusAncien('dev', '2026-10-18+c.d')).toBe(false)
+  })
+})

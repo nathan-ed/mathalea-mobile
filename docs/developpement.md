@@ -603,6 +603,15 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.1 : sessions préparées, QR code de session (fait)
+
+- « Sessions partagées » (onglet Créer) garde toute session créée par
+  l'enseignant dès que son code s'affiche : la préparer avant le cours, la
+  lancer, la relever plus tard ; croix pour la supprimer.
+- QR code de session à projeter : l'élève le scanne depuis l'accueil et
+  arrive directement dans la session ; app plus ancienne prévenue.
+- Écrans de relevé et d'analyse allégés (textes inutiles retirés).
+
 ## 0.4.0 : réponses de la classe à une session partagée (fait)
 
 - Réglage de l'enseignant à la création de la session (`DetailParcours`,
@@ -623,7 +632,22 @@ Reste à faire :
   chaque question. Ni nom ni identifiant ; `d` (empreinte du début du
   passage) compte un passage une seule fois. Environ 300 caractères pour
   6 questions, correction L.
-- Enseignant : Créer, « Réponses de sessions » (`Releve.svelte`) : caméra
+- Sessions créées : dès qu'un code s'affiche chez l'enseignant
+  (`DetailParcours`, `onnoter`), un relevé vide est noté (`noterSession`,
+  `creee: true`, `invitation`) ; un changement de réglage dans le même
+  panneau remplace le code noté s'il n'a rien reçu, un autre palier met son QR
+  code à jour. Écritures en file dans `+page.svelte`.
+- QR code de session (`invitation.ts`, `MASES1.` + JSON compressé) : code,
+  copie du parcours sans pauses ni ressources, palier (`e`), version du
+  moteur de l'enseignant (`m`). Affiché par `QrSession.svelte` (panneau de
+  session, « Sessions partagées ») ; lu par l'élève depuis l'accueil
+  (`Scanner` en mode `session`), qui lance la séance sur cette copie et ajoute
+  le parcours à `ajoutes`. Moteur de l'élève plus ancien (date de la version)
+  : « Mets l'application à jour », « Continuer quand même ». Test :
+  `node e2e/session-qr.mjs`.
+- Enseignant : Créer, « Sessions partagées » (`Releve.svelte`, les plus
+  récentes d'abord ; sans réponse : code et « Lire les QR codes » ; croix,
+  confirmation seulement s'il y a des réponses) : caméra
   (`Scanner.svelte`, `getUserMedia` sur toutes les plateformes, lecture par
   jsQR ; pas de `BarcodeDetector`, qui fait planter l'app dans le WebView
   d'Android en passant par les services Google Play), import de photos (plusieurs

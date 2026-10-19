@@ -93,8 +93,8 @@ export function reponsesDeSeance(s: Seance, prenom?: string): ReponsesSession | 
   }
 }
 
-const versBase64 = (o: Uint8Array) => btoa(Array.from(o, (c) => String.fromCharCode(c)).join('')).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
-const depuisBase64 = (t: string) => {
+export const versBase64 = (o: Uint8Array) => btoa(Array.from(o, (c) => String.fromCharCode(c)).join('')).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+export const depuisBase64 = (t: string) => {
   const b = atob(t.replace(/-/g, '+').replace(/_/g, '/'))
   return Uint8Array.from(b, (c) => c.charCodeAt(0))
 }
@@ -158,7 +158,9 @@ export function estReleves(v: unknown): v is Releve[] {
           estChaine(r.analyse.texte) &&
           estChaine(r.analyse.le) &&
           typeof r.analyse.nbEleves === 'number' &&
-          (r.analyse.source === undefined || r.analyse.source === 'collee' || (estChaine(r.analyse.source) && r.analyse.source in SERVICES_IA)))),
+          (r.analyse.source === undefined || r.analyse.source === 'collee' || (estChaine(r.analyse.source) && r.analyse.source in SERVICES_IA)))) &&
+      (r.creee === undefined || r.creee === true) &&
+      (r.invitation === undefined || estChaine(r.invitation)),
   )
 }
 
@@ -181,9 +183,36 @@ export interface Releve {
   // Analyse demandée à une IA (service réglé par l'enseignant, ou réponse
   // d'une autre IA collée), telle que l'IA l'a écrite : élèves en « Élève N »
   analyse?: { texte: string; le: string; nbEleves: number; source?: ServiceIA | 'collee' }
+  creee?: true // session créée sur cet appareil (gardée même sans réponse)
+  invitation?: string // son QR code pour les élèves (invitation.ts), à réafficher
 }
 
 export const cleReleve = (r: Pick<ReponsesSession, 'c' | 'p' | 'v'>) => `${r.c}|${r.p}|${r.v}`
+
+/**
+ * Session créée par l'enseignant : gardée dans la liste, même sans réponse,
+ * pour la lancer et la relever plus tard. `precedent` : code noté juste avant
+ * par le même panneau (réglage changé), retiré s'il n'a rien reçu. Un même
+ * code noté de nouveau (autre palier) met son QR code à jour.
+ */
+export function noterSession(
+  releves: Releve[],
+  s: { code: string; parcours: string; version: number; titre: string; invitation?: string },
+  precedent: string | null,
+  le = new Date().toISOString(),
+): Releve[] {
+  const cle = (code: string) => cleReleve({ c: code, p: s.parcours, v: s.version })
+  const ici = cle(s.code)
+  let liste = precedent && precedent !== s.code ? releves.filter((r) => !(r.cle === cle(precedent) && r.creee && !r.recues.length)) : releves
+  const existant = liste.find((r) => r.cle === ici)
+  if (!existant) {
+    const r: Releve = { cle: ici, code: s.code, parcours: s.parcours, version: s.version, titre: s.titre, le, recues: [], creee: true }
+    liste = [s.invitation ? { ...r, invitation: s.invitation } : r, ...liste]
+  } else if (s.invitation && existant.invitation !== s.invitation) {
+    liste = liste.map((r) => (r.cle === ici ? { ...r, invitation: s.invitation } : r))
+  }
+  return liste
+}
 
 /** Ajoute des réponses ; un même passage n'est compté qu'une fois (le plus complet gardé) */
 export function ajouterReponses(releves: Releve[], r: ReponsesSession, le = new Date().toISOString()): { releves: Releve[]; nouveau: boolean } {

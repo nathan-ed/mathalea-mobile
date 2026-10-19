@@ -418,7 +418,7 @@
             {@render ligne('bx-folder', 'Dossier partagé', hote(bibliotheque.lien), () => (feuilleDossier = true))}
           {/if}
           {@render ligne('bx-folder-open', 'Éditer un parcours existant', 'Dossiers suivis, fichiers de collègues', () => (modelesOuverts = true))}
-          {@render ligne('bx-qr-scan', 'Réponses de sessions', 'QR codes des élèves après une session partagée', onreleve)}
+          {@render ligne('bx-qr-scan', 'Sessions partagées', 'Codes créés, QR codes et réponses des élèves', onreleve)}
           {#if bibliotheque.parcours.length}
             {@render ligne('bx-export', 'Exporter des parcours', 'Tous, ou ceux choisis pour un collègue', () => choisirExport())}
           {/if}

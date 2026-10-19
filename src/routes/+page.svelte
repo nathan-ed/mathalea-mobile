@@ -63,7 +63,11 @@
   import Reglages, { type Profil } from '$lib/ui/Reglages.svelte'
   import Relecture from '$lib/ui/Relecture.svelte'
   import Releve from '$lib/ui/Releve.svelte'
-  import type { Releve as TReleve } from '$lib/releve'
+  import Scanner from '$lib/ui/Scanner.svelte'
+  import Feuille from '$lib/ui/Feuille.svelte'
+  import { boutonAction, boutonInverse } from '$lib/ui/classes'
+  import { noterSession, type Releve as TReleve } from '$lib/releve'
+  import { decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
   import { CLE_IA, lireConfigIA, type ConfigIA } from '$lib/analyse'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
@@ -329,6 +333,19 @@
   const accueil = () => aller('accueil')
   // Réponses de sessions (enseignant) : relues à chaque ouverture
   let releveDepuis: Vue = 'accueil'
+  // Session avec QR code créée par l'enseignant : gardée pour la relever plus
+  // tard. Écritures en file : des changements de réglage rapprochés ne se croisent pas
+  let notes = Promise.resolve()
+  function noterSessionCreee(p: Parcours, code: string, precedent: string | null, etapes?: number[]) {
+    const invitation = moteur ? encoderInvitation({ c: code, p, m: moteur.VERSION_MOTEUR, ...(etapes ? { e: etapes } : {}) }) : undefined
+    notes = notes.then(async () => {
+      const avant = (await stockage!.lire<TReleve[]>('releves')) ?? []
+      const apres = noterSession(avant, { code, parcours: p.id, version: p.version, titre: p.titre, invitation }, precedent)
+      if (apres === avant) return
+      releves = apres
+      await stockage!.ecrire('releves', apres)
+    }).catch(() => {})
+  }
   async function ouvrirReleve() {
     releves = (await stockage!.lire<TReleve[]>('releves')) ?? []
     configIA = lireConfigIA(await stockage!.lire<unknown>(CLE_IA))
@@ -521,6 +538,34 @@
         : null,
     }
   })
+
+  // QR code de session affiché par l'enseignant : l'élève arrive directement
+  // dans la session, sur la copie du parcours portée par le QR code
+  let scanSession = $state(false)
+  let invitationAncienne: InvitationSession | null = $state(null)
+  async function lireInvitation(texte: string): Promise<'nouveau' | 'autre'> {
+    const inv = decoderInvitation(texte)
+    if (!inv) return 'autre'
+    scanSession = false
+    if (moteurPlusAncien(moteur!.VERSION_MOTEUR, inv.m)) invitationAncienne = inv
+    else await rejoindreSession(inv)
+    return 'nouveau'
+  }
+  async function rejoindreSession(inv: InvitationSession) {
+    invitationAncienne = null
+    const p = tous.find((x) => x.id === inv.p.id && x.version === inv.p.version) ?? inv.p
+    // Ajouté à l'accueil s'il n'y est pas : l'élève y retrouve son bilan et son QR code
+    if (!dansSources(p.id) && !estTest(p.id)) {
+      const deja = ajoutes.find((a) => a.id === p.id)
+      if (!deja || deja.version < p.version) {
+        ajoutes = [...ajoutes.filter((a) => a.id !== p.id), p]
+        await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
+      }
+    }
+    await chargerParcours(p)
+    actif = p
+    await lancer(nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', inv.e, inv.c))
+  }
 
   // Avec des paliers : la session porte sur un palier ouvert, choisi au lancement
   const session = (code: string, etapes?: number[]) => void lancer(nouvelleSeance(actif!, moteur!.VERSION_MOTEUR, 'complet', etapes, code))
@@ -933,6 +978,7 @@
       onouvrir={ouvrir}
       oncontinuer={commencer}
       onreglages={() => aller('reglages')}
+      onscanner={moteur ? () => (scanSession = true) : undefined}
       ontest={moteur ? ouvrirTest : undefined}
       {resumeTest}
       onajouter={ajouterClasse}
@@ -1008,6 +1054,8 @@
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
       onreleve={profil === 'enseignant' ? ouvrirReleve : undefined}
+      onnoter={profil === 'enseignant' ? (code, precedent, etapes) => noterSessionCreee(actif!, code, precedent, etapes) : undefined}
+      versionMoteur={moteur?.VERSION_MOTEUR}
     />
   {:else if vue === 'test'}
     <TestNiveau
@@ -1070,6 +1118,20 @@
   {/if}
   </div>
   {/key}
+  {#if scanSession}
+    <Scanner session nb={0} onlu={lireInvitation} onfermer={() => (scanSession = false)} />
+  {/if}
+  {#if invitationAncienne}
+    {@const inv = invitationAncienne}
+    <Feuille onfermer={() => (invitationAncienne = null)}>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Mets l’application à jour</p>
+      <p class="text-sm">Ton application a des exercices plus anciens que ceux de ton enseignant : certaines questions seront différentes.</p>
+      <div class="flex flex-row gap-3">
+        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (invitationAncienne = null)}>Annuler</button>
+        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => rejoindreSession(inv)}>Continuer quand même</button>
+      </div>
+    </Feuille>
+  {/if}
 </div>
 
 <ChoixEnregistrement />

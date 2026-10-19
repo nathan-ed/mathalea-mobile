@@ -41,6 +41,7 @@
     onouvrir,
     oncontinuer,
     onreglages,
+    onscanner,
     ontest,
     resumeTest = '',
     onajouter,
@@ -62,6 +63,7 @@
     onouvrir: (p: Parcours) => void
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
+    onscanner?: () => void // QR code de session affiché par l'enseignant
     ontest?: () => void // Teste ton niveau (moteur prêt)
     resumeTest?: string
     onajouter: (lien: string) => Promise<string | null>
@@ -163,6 +165,11 @@
   {:else}
     <EnTete>
       {#snippet droite()}
+        {#if onscanner}
+          <button type="button" aria-label="Scanner le QR code d’une session" onclick={onscanner} class="bouton-icone">
+            <i aria-hidden="true" class="bx bx-qr-scan text-2xl"></i>
+          </button>
+        {/if}
         <button type="button" aria-label="Réglages" onclick={onreglages} class="bouton-icone">
           <i aria-hidden="true" class="bx bx-cog text-2xl"></i>
         </button>
