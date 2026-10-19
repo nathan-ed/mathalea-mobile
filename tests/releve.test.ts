@@ -400,7 +400,7 @@ describe('service d’IA de l’enseignant', () => {
     expect(corps.stream).toBe(true)
     expect(corps.messages[0].content).toContain('Élève N')
     expect((appels[0].init.headers as Record<string, string>).authorization).toBeUndefined()
-  })
+  }, 30_000) // premier import du SDK d'Anthropic : lent dans un conteneur froid (CI)
 
   it('service compatible OpenAI : clé refusée, adresse injoignable', async () => {
     const { analyserAvecIA } = await import('../src/lib/ia')
@@ -410,7 +410,7 @@ describe('service d’IA de l’enseignant', () => {
       throw new TypeError('fetch failed')
     })
     await expect(analyserAvecIA({ service: 'locale', modele: 'm' }, 't', () => {})).rejects.toThrow('Pas de réponse de http://localhost:11434/v1')
-  })
+  }, 30_000)
 })
 
 import { noterSession } from '../src/lib/releve'

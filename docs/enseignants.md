@@ -295,7 +295,7 @@ Dans l'onglet Créer, « Sessions partagées » (ou « Relever les réponses des
 élèves » sous le code) : chaque session créée avec un QR code y est gardée
 dès que son code s'affiche, même sans réponse : la préparer avant le cours,
 réafficher son QR code, la relever plus tard (code, date, réglage, nombre
-d'élèves ; croix pour la supprimer).
+d'élèves ; croix pour la supprimer, après confirmation).
 
 - **Lire les QR codes** : passez dans les rangs, les codes se lisent un par un à
   la caméra ; un même élève n'est compté qu'une fois.

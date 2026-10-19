@@ -73,7 +73,7 @@ Dans l'onglet Créer, touchez « Sessions partagées » (le même lien est sous 
 
 ![Sessions partagées](images/sessions-6-espace.png)
 
-Chaque session créée avec un QR code y est gardée dès que son code s'affiche, même si vous quittez l'écran : vous pouvez noter le code pour plus tard, et relever les réponses une heure après le cours. Chaque ligne indique le code, la date, le réglage et le nombre d'élèves. La croix supprime une session ; si elle a déjà des réponses, l'application demande confirmation.
+Chaque session créée avec un QR code y est gardée dès que son code s'affiche, même si vous quittez l'écran : vous pouvez noter le code pour plus tard, et relever les réponses une heure après le cours. Chaque ligne indique le code, la date, le réglage et le nombre d'élèves. La croix supprime une session, après confirmation : pratique pour effacer les sessions d'essai ou restées sans réponse.
 
 ![La liste des sessions](images/sessions-6b-liste.png)
 

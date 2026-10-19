@@ -60,10 +60,9 @@
     if (r.quand === 'aucun') return 'Sans QR code des réponses'
     return `${r.quand === 'avant' ? 'QR code avant la correction' : 'QR code après la correction'}${r.prenom ? ', avec prénom' : ''}`
   }
-  // Sans réponse : rien à perdre, supprimée tout de suite ; sinon confirmation
-  async function croix(r: Releve) {
-    if (r.recues.length) aSupprimer = r
-    else await onsauver(releves.filter((x) => x.cle !== r.cle))
+  // Toujours une confirmation (panneau du bas)
+  function croix(r: Releve) {
+    aSupprimer = r
   }
 
   async function ajouter(texte: string): Promise<'nouveau' | 'deja' | 'autre'> {
@@ -191,7 +190,11 @@
   <Feuille onfermer={() => (aSupprimer = null)}>
     <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer la session {aSupprimer.code} ?</p>
     <p class="text-sm">
-      Les réponses de {aSupprimer.recues.length} élève{aSupprimer.recues.length > 1 ? 's' : ''}{aSupprimer.analyse ? ' et l’analyse de l’IA' : ''} seront effacées de cet appareil.
+      {#if aSupprimer.recues.length}
+        Les réponses de {aSupprimer.recues.length} élève{aSupprimer.recues.length > 1 ? 's' : ''}{aSupprimer.analyse ? ' et l’analyse de l’IA' : ''} seront effacées de cet appareil.
+      {:else}
+        La session et son code seront effacés de cet appareil.
+      {/if}
     </p>
     <div class="flex flex-row gap-3">
       <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (aSupprimer = null)}>Annuler</button>

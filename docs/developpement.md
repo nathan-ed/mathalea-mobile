@@ -603,7 +603,15 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
-## Révisions espacées (à venir)
+## 0.4.2 : révisions espacées, QR code de session exportable (fait)
+
+- Révisions espacées et mélangées (détails ci-dessous).
+- Enseignant : « Session pour la classe » sur la page du parcours, sans
+  « Commencer la session » ; QR code de session exportable en image (PNG).
+- Sessions partagées : suppression toujours confirmée.
+- Accueil : « MathALÉA par CoopMaths » entier dès 360 px.
+
+## Révisions espacées
 
 - `revisions.ts`, sur l'appareil, sans réglage de l'enseignant (Nathan,
   2026-10-19 : « complètement indépendant de l'enseignant », « l'élève peut
@@ -683,7 +691,7 @@ Reste à faire :
   `node e2e/session-qr.mjs`.
 - Enseignant : Créer, « Sessions partagées » (`Releve.svelte`, les plus
   récentes d'abord ; sans réponse : code et « Lire les QR codes » ; croix,
-  confirmation seulement s'il y a des réponses) : caméra
+  toujours avec confirmation) : caméra
   (`Scanner.svelte`, `getUserMedia` sur toutes les plateformes, lecture par
   jsQR ; pas de `BarcodeDetector`, qui fait planter l'app dans le WebView
   d'Android en passant par les services Google Play), import de photos (plusieurs
