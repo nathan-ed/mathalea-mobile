@@ -9,6 +9,9 @@
   <!-- Seul chiffrement : HTTPS du système (exempté), pas de déclaration d'exportation -->
   <key>ITSAppUsesNonExemptEncryption</key>
   <false/>
+  <!-- Caméra : l'enseignant lit les QR codes des réponses de ses élèves -->
+  <key>NSCameraUsageDescription</key>
+  <string>La caméra sert à lire les QR codes des réponses de vos élèves après une session partagée.</string>
   <key>LSApplicationCategoryType</key>
   <string>public.app-category.education</string>
 </dict>

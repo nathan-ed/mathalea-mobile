@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Ajouté par Tauri à l'Info.plist de l'app macOS -->
+<plist version="1.0">
+<dict>
+  <!-- Caméra : l'enseignant lit les QR codes des réponses de ses élèves -->
+  <key>NSCameraUsageDescription</key>
+  <string>La caméra sert à lire les QR codes des réponses de vos élèves après une session partagée.</string>
+</dict>
+</plist>

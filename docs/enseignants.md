@@ -264,6 +264,53 @@ personnes qui entrent ce code avec « Rejoindre une session » ont exactement le
 mêmes exercices : utile pour corriger ensemble au tableau ou travailler en
 groupe.
 
+### Relever les réponses de la classe
+
+En créant la session (« Session partagée »), allumez « QR code des réponses
+pour l'enseignant » et choisissez le moment :
+
+- **après la correction** : les élèves voient la correction comme d'habitude,
+  puis montrent leur QR code depuis leur bilan (« Montrer mes réponses à
+  l'enseignant ») ;
+- **avant la correction** : aucune correction pendant la session ; à la fin,
+  le QR code s'affiche d'abord, et l'élève voit ses résultats après « C'est
+  fait : voir mes résultats ».
+
+« Avec le prénom des élèves » (facultatif) : l'élève tape son prénom une fois,
+il ne va que sur l'appareil de l'enseignant et n'est jamais envoyé à une IA ;
+sinon, « Élève 1, 2, 3… ».
+
+Le réglage est caché dans le code (une empreinte du code entier) : il suffit
+de le donner. Un élève ne peut pas changer le réglage en modifiant une
+lettre, qui donnerait un réglage imprévisible et d'autres questions. Sans QR
+code demandé, rien ne change pour les élèves.
+
+Dans l'onglet Créer, « Réponses de sessions » (ou « Relever les réponses des
+élèves » sous le code) :
+
+- **Lire les QR codes** : passez dans les rangs, les codes se lisent un par un à
+  la caméra ; un même élève n'est compté qu'une fois.
+- **Importer des photos ou des fichiers** : une photo peut montrer plusieurs
+  téléphones posés sur la table ; un élève peut aussi vous envoyer un fichier
+  (« Envoyer un fichier à la place »).
+
+L'app regénère les questions de la session et revérifie elle-même chaque
+réponse : un QR code modifié ne fausse rien. En tête, un résumé (réussite
+moyenne, répartition des élèves, questions à reprendre). Vue Questions : des
+moins réussies aux plus réussies, taux de réussite et mauvaises réponses
+regroupées (« 999 : 2 élèves »), ou toutes les réponses avec qui a donné
+quoi. Vue Élèves : score de chacun, toutes ses réponses au toucher.
+
+Analyse par une IA : les élèves y sont « Élève 1, 2… », jamais un prénom ;
+l'app remet les prénoms dans la réponse, à l'affichage. « Copier pour une
+IA » prépare le texte pour l'assistant de votre choix, « Coller la réponse
+d'une IA » le relit. Pour l'analyse dans l'app, « Réglages de l'IA » : Claude,
+Mistral ou OpenAI (clé d'API, chaque analyse facturée sur son compte), IA
+locale (Ollama, LM Studio, gratuite) ou autre adresse compatible OpenAI.
+Réglages gardés sur l'appareil, jamais dans une sauvegarde ; `http://`
+seulement sur le réseau local. Pas à pas avec images : guide en ligne,
+« Sessions partagées et réponses de la classe ».
+
 ## Sauvegarde
 
 Réglages, « Exporter une sauvegarde » : un fichier avec les réglages, les liens,

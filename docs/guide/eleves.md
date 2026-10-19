@@ -55,3 +55,7 @@ L'élève y voit le nombre de questions faites, de réponses correctes et de jou
 - Pour changer de téléphone, l'élève touche « Exporter une sauvegarde » dans les Réglages, puis « Restaurer une sauvegarde » sur le nouveau téléphone.
 - L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, que l'élève peut ajouter lui-même.
 - En haut de l'Explorer, « Teste ton niveau » : 15 questions de Course aux nombres ; avec 12 bonnes réponses, l'élève gagne la ceinture du niveau. On commence au niveau que l'on veut.
+
+## Session partagée avec l'enseignant
+
+L'enseignant donne un code : « Autres actions », « Rejoindre une session », puis le code. Toute la classe a les mêmes questions. Si l'enseignant l'a demandé, l'élève lui montre ses réponses par un QR code (avec son prénom seulement si l'enseignant l'a demandé) : depuis son bilan, ou, dans certaines sessions, avant de voir ses résultats. Voir [Sessions partagées et réponses de la classe](sessions.md).

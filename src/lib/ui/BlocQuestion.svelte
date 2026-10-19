@@ -143,10 +143,20 @@
 
   export function focaliser(defiler = false) {
     if (defiler) zone?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-    // Premier champ vide, sinon le premier champ
-    const champs = [...(zone?.querySelectorAll<HTMLElement>('math-field, input:not([type=checkbox])') ?? [])]
-    const vide = champs.find((c) => !(c as HTMLInputElement).value?.trim())
-    ;(vide ?? champs[0])?.focus({ preventScroll: defiler })
+    // À l'image suivante, et seulement dans la page : MathLive lève une erreur
+    // sur un champ pas encore monté ou déjà retiré (changement de question
+    // rapide, constaté dans WebKit)
+    requestAnimationFrame(() => {
+      if (!zone?.isConnected) return
+      // Premier champ vide, sinon le premier champ
+      const champs = [...zone.querySelectorAll<HTMLElement>('math-field, input:not([type=checkbox])')].filter((c) => c.isConnected)
+      const vide = champs.find((c) => !(c as HTMLInputElement).value?.trim())
+      try {
+        ;(vide ?? champs[0])?.focus({ preventScroll: defiler })
+      } catch {
+        /* champ en cours de remplacement : rien à faire */
+      }
+    })
   }
 
   /** État de la question pour le garde-fou de la séance */

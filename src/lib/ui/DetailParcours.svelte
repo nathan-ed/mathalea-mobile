@@ -6,7 +6,9 @@
   import { couleurCeinture, nomPalier, titreEleve, type Parcours } from '$lib/catalogue'
   import { etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
-  import { nouveauCode, normaliserCode } from '$lib/progression'
+  import { modeQr, nouveauCode, normaliserCode, type ModeQr } from '$lib/progression'
+  import ChoixRadio from './ChoixRadio.svelte'
+  import { reponsesDeSeance } from '$lib/releve'
   import { ouvrirLien } from '$lib/fichiers'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
@@ -31,6 +33,7 @@
     onameliorer,
     onsession,
     onsupprimer,
+    onreleve,
   }: {
     parcours: Parcours
     resultats: Record<number, ResultatEtape>
@@ -48,12 +51,18 @@
     onameliorer: () => void
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
+    onreleve?: () => void // enseignant : réponses des élèves à la session (QR codes)
   } = $props()
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
   // Session partagée d'un parcours à paliers : un palier ouvert, le même pour tous
   let palierSession = $state(0)
   let code = $state('')
+  // Enseignant : QR code des réponses, porté par le code de session (modeQr)
+  let quandQr: Exclude<ModeQr, 'aucun'> = $state('apres')
+  let avecPrenom = $state(false)
+  const mode = $derived(modeQr(code))
+  const changerModeQr = (m: ModeQr) => (code = nouveauCode(m, avecPrenom))
   // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton
   let feuille: 'actions' | 'suppression' | null = $state(null)
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
@@ -296,10 +305,61 @@
         <div class="text-center py-2">
           <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2.5rem; letter-spacing: 0.15em">{code}</div>
           <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            Donne ce code à tes camarades{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
+            Donne ce code à {onreleve ? 'tes élèves' : 'tes camarades'}{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
           </p>
         </div>
+        {#if onreleve}
+          <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+            <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">QR code des réponses pour l’enseignant</span>
+            <input
+              type="checkbox"
+              role="switch"
+              class="interrupteur shrink-0"
+              checked={mode !== 'aucun'}
+              onchange={(e) => changerModeQr(e.currentTarget.checked ? quandQr : 'aucun')}
+            />
+          </label>
+          {#if mode !== 'aucun'}
+            <ChoixRadio
+              nom="moment-qr"
+              valeur={quandQr}
+              onchange={(v) => {
+                quandQr = v
+                changerModeQr(v)
+              }}
+              options={[
+                { libelle: 'Après la correction', valeur: 'apres' as const },
+                { libelle: 'Avant la correction', valeur: 'avant' as const },
+              ]}
+            />
+            <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+              <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Avec le prénom des élèves</span>
+              <input
+                type="checkbox"
+                role="switch"
+                class="interrupteur shrink-0"
+                checked={avecPrenom}
+                onchange={(e) => {
+                  avecPrenom = e.currentTarget.checked
+                  changerModeQr(quandQr)
+                }}
+              />
+            </label>
+            <p class={discret}>
+              {avecPrenom ? 'Chaque élève donne son prénom une fois ; il n’est jamais envoyé à une IA. ' : ''}
+              {mode === 'avant'
+                ? 'Pas de correction pendant la session. À la fin, chaque élève montre son QR code, puis voit ses résultats et les corrections.'
+                : 'Les élèves voient la correction comme prévu, puis montrent leur QR code depuis leur bilan.'}
+              Le réglage est dans le code : il suffit de le donner.
+            </p>
+          {/if}
+        {/if}
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onsession(code, avecPaliers ? paliers[palierSession].etapes : undefined)}>Commencer la session</button>
+        {#if onreleve}
+          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={onreleve}>
+            <i aria-hidden="true" class="bx bx-qr-scan text-xl"></i> Relever les réponses des élèves
+          </button>
+        {/if}
       {:else if session === 'rejoindre'}
         <ChampTexte id="code-session" titre="Code de session" bind:valeur={code} />
         <button
@@ -352,7 +412,12 @@
                 {date(s)}{s.type === 'ciblee' ? ' · reprise' : ''}{avecPaliers && paliers.findIndex((x) => memes(x.etapes, s.etapes)) !== -1 ? ` · ${nomPalier(parcours, paliers.findIndex((x) => memes(x.etapes, s.etapes))).toLowerCase()}` : ''}
               </div>
               <div class="flex flex-row items-center gap-2">
-                <span class={pastilleScore(b.pourcentage)}>{b.pourcentage} %</span>
+                {#if modeQr(s.code) === 'avant' && !s.qrMontre && reponsesDeSeance(s)}
+                  <!-- QR code avant la correction, pas encore montré : pas de résultat -->
+                  <span class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">QR code à montrer</span>
+                {:else}
+                  <span class={pastilleScore(b.pourcentage)}>{b.pourcentage} %</span>
+                {/if}
                 <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
               </div>
             </button>
@@ -369,6 +434,7 @@
         : []),
       action('bx-group', 'Session partagée', () => {
         code = nouveauCode()
+        avecPrenom = false
         palierSession = Math.max(0, courant)
         session = 'creer'
         feuille = null

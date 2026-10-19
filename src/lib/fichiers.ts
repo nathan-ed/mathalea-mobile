@@ -16,8 +16,9 @@ const android = dansTauri && /Android/i.test(navigator.userAgent)
 export type Enregistrement = 'partage' | 'fichier' | false
 
 export async function enregistrerFichier(nom: string, texte: string): Promise<Enregistrement> {
-  // Parcours en JSON, liste d'objectifs en CSV (tableur)
+  // Parcours en JSON, liste d'objectifs en CSV (tableur), réponses de session en texte
   const csv = nom.endsWith('.csv')
+  const txt = nom.endsWith('.txt')
   if (partageNatif) {
     const { invoke } = await import('@tauri-apps/api/core')
     const choix = android ? await choisirEnregistrement(nom) : 'partager'
@@ -28,13 +29,13 @@ export async function enregistrerFichier(nom: string, texte: string): Promise<En
   if (dansTauri) {
     const { save } = await import('@tauri-apps/plugin-dialog')
     const { writeTextFile } = await import('@tauri-apps/plugin-fs')
-    const chemin = await save({ defaultPath: nom, filters: [csv ? { name: 'CSV', extensions: ['csv'] } : { name: 'JSON', extensions: ['json'] }] })
+    const chemin = await save({ defaultPath: nom, filters: [csv ? { name: 'CSV', extensions: ['csv'] } : txt ? { name: 'Texte', extensions: ['txt'] } : { name: 'JSON', extensions: ['json'] }] })
     if (!chemin) return false
     await writeTextFile(chemin, texte)
     return 'fichier'
   }
   const lien = document.createElement('a')
-  lien.href = URL.createObjectURL(new Blob([texte], { type: csv ? 'text/csv' : 'application/json' }))
+  lien.href = URL.createObjectURL(new Blob([texte], { type: csv ? 'text/csv' : txt ? 'text/plain' : 'application/json' }))
   lien.download = nom
   lien.click()
   setTimeout(() => URL.revokeObjectURL(lien.href), 1000)

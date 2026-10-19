@@ -2,6 +2,8 @@
 // suivi complet, dans un fichier versionné. Aucun identifiant n'y figure :
 // l'app n'en stocke aucun. Une restauration invalide laisse tout intact.
 import type { Seance } from './progression'
+import { CLE_IA } from './analyse'
+import { estReleves } from './releve'
 import type { Stockage } from './stockage'
 import {
   classesDuFichier,
@@ -28,10 +30,12 @@ interface Sauvegarde {
 
 /** État avant la dernière restauration, pour l'annuler (jamais exporté) */
 export const CLE_AVANT_RESTAURATION = 'avant-restauration'
+/** Propres à cet appareil : ni exportées, ni effacées par une restauration (clé d'API de l'enseignant) */
+const CLES_DE_L_APPAREIL = [CLE_IA]
 
 export async function exporterSauvegarde(st: Stockage): Promise<string> {
   const donnees: Record<string, unknown> = {}
-  for (const cle of await st.cles()) if (cle !== CLE_AVANT_RESTAURATION) donnees[cle] = await st.lire(cle)
+  for (const cle of await st.cles()) if (cle !== CLE_AVANT_RESTAURATION && !CLES_DE_L_APPAREIL.includes(cle)) donnees[cle] = await st.lire(cle)
   const s: Sauvegarde = { format: FORMAT, creeeLe: new Date().toISOString(), donnees }
   return JSON.stringify(s)
 }
@@ -71,6 +75,8 @@ const estSeance = (id: string) => (v: unknown) => {
     optionnel(s.code, estTexte) &&
     optionnel(s.ordre, textesUniques) &&
     optionnel(s.papier, (x) => dictionnaireDe(x, (vue) => typeof vue === 'boolean')) &&
+    optionnel(s.empreintes, (x) => dictionnaireDe(x, estTexte)) &&
+    optionnel(s.qrMontre, (b) => typeof b === 'boolean') &&
     dictionnaireDe(s.graines, estTexte) &&
     dictionnaireDe(s.nbQuestions, (q) => estEntier(q) && q >= 0) &&
     dictionnaireDe(s.brouillons, (b) => dictionnaireDe(b, estTexte)) &&
@@ -115,6 +121,8 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
     listeDe(v, (o) => estObjet(o) && estTexte(o.libelle) && estTexte(o.niveau) && estTexte(o.theme)) &&
     sansDoublon((v as { libelle: string }[]).map((o) => o.libelle)),
   etiquettes: (v) => dictionnaireDe(v, textesUniques),
+  releves: estReleves,
+  prenom: estTexte,
   'test-niveau': (v) =>
     dictionnaireDe(
       v,
@@ -194,8 +202,8 @@ export async function restaurerSauvegarde(st: Stockage, texte: string) {
   for (const cle of await st.cles()) avant[cle] = await st.lire(cle)
   const copie = await exporterSauvegarde(st)
   try {
-    for (const cle of Object.keys(avant)) await st.effacer(cle)
-    for (const [cle, valeur] of Object.entries(s.donnees)) await st.ecrire(cle, valeur)
+    for (const cle of Object.keys(avant)) if (!CLES_DE_L_APPAREIL.includes(cle)) await st.effacer(cle)
+    for (const [cle, valeur] of Object.entries(s.donnees)) if (!CLES_DE_L_APPAREIL.includes(cle)) await st.ecrire(cle, valeur)
     await st.ecrire(CLE_AVANT_RESTAURATION, copie)
   } catch (e) {
     for (const cle of await st.cles()) await st.effacer(cle)

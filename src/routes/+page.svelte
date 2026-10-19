@@ -42,6 +42,7 @@
     lireHistorique,
     lireResultats,
     lireSeance,
+    modeQr,
     nouvelleSeance,
     premiersEssais,
     questionsDe,
@@ -61,6 +62,9 @@
   import EspaceEnseignant from '$lib/ui/EspaceEnseignant.svelte'
   import Reglages, { type Profil } from '$lib/ui/Reglages.svelte'
   import Relecture from '$lib/ui/Relecture.svelte'
+  import Releve from '$lib/ui/Releve.svelte'
+  import type { Releve as TReleve } from '$lib/releve'
+  import { CLE_IA, lireConfigIA, type ConfigIA } from '$lib/analyse'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
@@ -69,13 +73,15 @@
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'releve'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
   let moteur: Moteur | undefined = $state()
   let erreurMoteur = $state('')
   let profil: Profil | null = $state(null)
+  // Prénom que l'élève ajoute à son QR code quand la session le demande (sur l'appareil seulement)
+  let prenom = $state('')
   let pays: Pays = $state('FR')
   let vue: Vue = $state('accueil')
   // « creer » : seulement avec le réglage Enseignant
@@ -83,6 +89,10 @@
   let actif: Parcours | undefined = $state()
   let seance: TSeance | undefined = $state()
   let relue: TSeance | undefined = $state()
+  // Réponses de sessions partagées relevées par l'enseignant (QR codes)
+  let releves: TReleve[] = $state([])
+  // Clé d'API Anthropic de l'enseignant (analyse des erreurs) : propre à l'appareil
+  let configIA: ConfigIA | null = $state(null)
   let seances: Record<string, TSeance | null> = $state({})
   let resultats: Record<string, Record<number, ResultatEtape>> = $state({})
   let historiques: Record<string, TSeance[]> = $state({})
@@ -201,6 +211,7 @@
     stockage = await ouvrirStockage()
     profil = await stockage.lire<Profil>('profil')
     pays = (await stockage.lire<Pays>('pays')) ?? 'FR'
+    prenom = (await stockage.lire<string>('prenom')) ?? ''
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
@@ -304,7 +315,7 @@
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, releve: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
   // L'aperçu garde l'éditeur monté : même écran pour l'animation
   const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
@@ -316,6 +327,14 @@
   }
 
   const accueil = () => aller('accueil')
+  // Réponses de sessions (enseignant) : relues à chaque ouverture
+  let releveDepuis: Vue = 'accueil'
+  async function ouvrirReleve() {
+    releves = (await stockage!.lire<TReleve[]>('releves')) ?? []
+    configIA = lireConfigIA(await stockage!.lire<unknown>(CLE_IA))
+    releveDepuis = vue
+    aller('releve')
+  }
   // Espace enseignant : onglet « Créer » de l'accueil
   function versCreer() {
     creation = null
@@ -525,6 +544,21 @@
       await stockage!.ecrire(`complet:${s.parcours}`, derniersComplets[s.parcours])
     }
     aller('bilan')
+  }
+
+  async function changerPrenom(p: string) {
+    prenom = p
+    await stockage!.ecrire('prenom', p)
+  }
+
+  /** Session « QR code avant la correction » : QR code montré, les résultats se voient */
+  async function marquerQrMontre(s: TSeance) {
+    s.qrMontre = true
+    const enCours = await lireSeance(stockage!, s.parcours)
+    if (enCours?.debut === s.debut) await ecrireSeance(stockage!, { ...enCours, qrMontre: true })
+    const h = (await lireHistorique(stockage!, s.parcours)).map((x) => (x.debut === s.debut ? { ...x, qrMontre: true } : x))
+    await stockage!.ecrire(`historique:${s.parcours}`, h)
+    historiques[s.parcours] = h
   }
 
   async function supprimerTentative(id: string) {
@@ -948,6 +982,7 @@
         onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
         onexporter={exporterClasse}
         onreglages={() => aller('reglages')}
+        onreleve={ouvrirReleve}
       />
       {/snippet}
     </Accueil>
@@ -972,6 +1007,7 @@
       onameliorer={ameliorer}
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
+      onreleve={profil === 'enseignant' ? ouvrirReleve : undefined}
     />
   {:else if vue === 'test'}
     <TestNiveau
@@ -982,8 +1018,25 @@
       onreprendre={reprendreTest}
       onretour={accueil}
     />
+  {:else if vue === 'releve'}
+    <Releve
+      {releves}
+      {moteur}
+      niveauDe={(id) => bibliotheque.parcours.find((pe) => pe.parcours.id === id)?.parcours.niveau ?? ''}
+      {configIA}
+      onconfigIA={async (c) => {
+        configIA = c
+        if (c) await stockage!.ecrire(CLE_IA, c)
+        else await stockage!.effacer(CLE_IA)
+      }}
+      onsauver={async (r) => {
+        releves = r
+        await stockage!.ecrire('releves', $state.snapshot(r))
+      }}
+      onretour={() => (releveDepuis === 'parcours' && actif ? aller('parcours') : versCreer())}
+    />
   {:else if vue === 'relecture' && relue}
-    <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} />
+    <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} onqrmontre={() => marquerQrMontre(relue!)} {prenom} onprenom={changerPrenom} />
   {:else if vue === 'seance' && seance}
     {#key seance.debut}
       <Seance
@@ -991,7 +1044,7 @@
         bind:seance
         {moteur}
         onsauver={sauverSeance}
-        bilanDirect={estTest(seance.parcours)}
+        bilanDirect={estTest(seance.parcours) || (modeQr(seance.code) === 'avant' && !seance.qrMontre)}
         onquitter={quitterSeance}
         onterminer={terminer}
         onsupprimer={() => supprimerTentative(seance!.parcours)}
@@ -1010,6 +1063,9 @@
       palier={palierDuBilan}
       test={testDuBilan}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
+      onqrmontre={() => marquerQrMontre(seance!)}
+      {prenom}
+      onprenom={changerPrenom}
     />
   {/if}
   </div>

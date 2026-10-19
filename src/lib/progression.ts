@@ -31,13 +31,66 @@ export interface Seance {
   // Questions sans réponse à saisir (exercice non interactif), à faire sur
   // papier : hors du score ; vrai quand l'élève a ouvert la correction
   papier?: Record<string, boolean>
+  // Empreinte des énoncés vus, par étape (releve.ts) : en session partagée,
+  // l'enseignant vérifie qu'il revérifie bien les mêmes questions
+  empreintes?: Record<number, string>
+  // Session « QR code avant la correction » : QR code montré, résultats visibles
+  qrMontre?: boolean
 }
 
 /** Codes de session : 5 caractères faciles à dicter (sans 0/o ni 1/l/i) */
 const ALPHABET = '23456789abcdefghjkmnpqrstuvwxyz'
-export function nouveauCode() {
-  const octets = crypto.getRandomValues(new Uint8Array(5))
-  return Array.from(octets, (o) => ALPHABET[o % ALPHABET.length]).join('')
+
+/**
+ * QR code des réponses pour l'enseignant, choisi à la création de la session
+ * et porté par le code lui-même : une empreinte du code entier désigne le
+ * réglage, rien d'autre à transmettre aux élèves. Changer une lettre donne un
+ * réglage imprévisible (et d'autres questions : les graines viennent du code).
+ * - quand : aucun (pas de QR code), apres (correction comme prévu, puis
+ *   « Montrer mes réponses » au bilan), avant (correction à la fin, QR code
+ *   avant les résultats) ;
+ * - prenom : l'élève ajoute son prénom au QR code (jamais transmis à une IA).
+ */
+export type ModeQr = 'aucun' | 'apres' | 'avant'
+export interface ReglageQr {
+  quand: ModeQr
+  prenom: boolean
+}
+const REGLAGES_QR: ReglageQr[] = [
+  { quand: 'aucun', prenom: false },
+  { quand: 'apres', prenom: false },
+  { quand: 'avant', prenom: false },
+  { quand: 'apres', prenom: true },
+  { quand: 'avant', prenom: true },
+]
+
+/** Empreinte d'un code (FNV-1a, 32 bits) */
+function empreinteCode(code: string) {
+  let h = 0x811c9dc5
+  for (const c of `session-qr|${code}`) {
+    h ^= c.charCodeAt(0)
+    h = Math.imul(h, 0x01000193)
+  }
+  return h >>> 0
+}
+
+/** Réglage du QR code d'une session, lu dans son code (code tapé hors de ce format : aucun) */
+export function reglageQr(code: string | undefined): ReglageQr {
+  const c = normaliserCode(code ?? '')
+  if (c.length !== 5 || ![...c].every((l) => ALPHABET.includes(l))) return REGLAGES_QR[0]
+  return REGLAGES_QR[empreinteCode(c) % REGLAGES_QR.length]
+}
+export const modeQr = (code: string | undefined): ModeQr => reglageQr(code).quand
+
+/** Nouveau code de session, tiré jusqu'à tomber sur le réglage voulu (un essai sur cinq en moyenne) */
+export function nouveauCode(mode: ModeQr = 'aucun', prenom = false) {
+  const voulu = mode !== 'aucun' && prenom
+  for (;;) {
+    const octets = crypto.getRandomValues(new Uint8Array(5))
+    const code = Array.from(octets, (o) => ALPHABET[o % ALPHABET.length]).join('')
+    const r = reglageQr(code)
+    if (r.quand === mode && r.prenom === voulu) return code
+  }
 }
 export const normaliserCode = (code: string) => code.trim().toLowerCase().replace(/\s+/g, '')
 
@@ -63,9 +116,12 @@ export function nouvelleSeance(
 ): Seance {
   const graines: Record<number, string> = {}
   if (code) for (const e of etapes) graines[e] = graineDeSession(code, parcours, e)
+  const contenu: Parcours = JSON.parse(JSON.stringify(parcours))
+  // QR code avant la correction : aucune correction pendant la session, tout à la fin
+  if (code && modeQr(code) === 'avant') contenu.correction = 'parcours'
   return {
     parcours: parcours.id,
-    contenu: JSON.parse(JSON.stringify(parcours)),
+    contenu,
     type,
     etapes,
     moteur,

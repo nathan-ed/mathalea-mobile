@@ -26,6 +26,7 @@
     onlien,
     onexporter,
     onreglages,
+    onreleve,
     dernier = null,
     onfermerDernier,
     onexporterChoix,
@@ -63,6 +64,7 @@
     onobjectifs: (liste: Objectif[]) => void
     onexporterObjectifs: () => Promise<string>
     onreglages: () => void
+    onreleve: () => void // réponses des élèves à une session partagée (QR codes)
   } = $props()
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
@@ -416,6 +418,7 @@
             {@render ligne('bx-folder', 'Dossier partagé', hote(bibliotheque.lien), () => (feuilleDossier = true))}
           {/if}
           {@render ligne('bx-folder-open', 'Éditer un parcours existant', 'Dossiers suivis, fichiers de collègues', () => (modelesOuverts = true))}
+          {@render ligne('bx-qr-scan', 'Réponses de sessions', 'QR codes des élèves après une session partagée', onreleve)}
           {#if bibliotheque.parcours.length}
             {@render ligne('bx-export', 'Exporter des parcours', 'Tous, ou ceux choisis pour un collègue', () => choisirExport())}
           {/if}

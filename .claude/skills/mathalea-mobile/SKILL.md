@@ -277,6 +277,43 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `besoinFormulaire{n}Numerique|Texte|CaseACocher` : nombre, liste,
   case, texte ; options « n : libellé » de l'info-bulle), `definirLangue`
   (`fr-CH` : `\cdot` au lieu de `\times`).
+- Réponses de la classe à une session partagée (Nathan, 2026-10-18 : « tout le
+  monde répond à une session partagée, l'enseignant récupère et met tout dans
+  une IA pour un retour rapide et anonyme des erreurs », « disponible sur
+  toutes les plateformes ») : QR code de l'élève (`MesReponses`, `releve.ts`,
+  sans nom), relevé par l'enseignant (`Releve`, `Scanner`, `qr.ts`), recalcul
+  hors écran (`ReponsesClasse` : on ne croit jamais un score reçu ; énoncés
+  comparés par empreinte), résumé, vues Questions et Élèves, « Copier pour
+  une IA », « Coller la réponse d'une IA », analyse dans l'app (`ia.ts`) par
+  Claude, Mistral, OpenAI, une IA locale (Ollama, LM Studio) ou une autre
+  adresse au format OpenAI (Nathan, 2026-10-19 : « Claude, local ou autre
+  API ») ; réglage `cle-ia` (`ConfigIA`) jamais sauvegardé, `http://`
+  seulement en réseau local. Prénom au choix de l'enseignant, **jamais envoyé
+  à l'IA** (Nathan) : « Élève N » vers l'IA, consigne de garder ces numéros,
+  `retraduire()` remet les prénoms à l'affichage.
+  Politique de confidentialité : nouveau texte en attente dans
+  `docs/confidentialite-brouillon.html`. Ne jamais modifier
+  `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
+  un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
+  Réglage dans le code de session (`modeQr` : empreinte du code entier, pas
+  une lettre, pour qu'un élève ne puisse pas choisir son mode) : aucun, après,
+  avant la correction (correction à la fin et QR code avant les résultats),
+  chacun avec ou sans prénom. Vocabulaire : « Correcte / Incorrecte ».
+  Guide : `docs/guide/sessions.md`, captures par `GUIDE=docs/guide/images`.
+  Toute nouvelle clé de stockage doit avoir son validateur dans
+  `sauvegarde.ts` (sinon les sauvegardes ne se restaurent plus). Pièges : le
+  « ⊕ » des énoncés est le bouton « Ajouter une ligne » des réponses en
+  plusieurs étapes (`.pmla-add`) ; jsQR ne lit qu'un code par image (masquer
+  et relire) ; jamais `BarcodeDetector` : dans le WebView d'Android il appelle
+  les services Google Play et tue l'app (`FATAL EXCEPTION:
+  Chrome_InProcGpuThread`, `GooglePlayServicesMissingManifestValueException`,
+  vu dans l'émulateur Android 16) ; KaTeX écrit « − » (U+2212) pour un moins. Tests :
+  `node e2e/reponses-session.mjs` (Chromium, fausse caméra qui filme les QR
+  codes) et `NAVIGATEUR=webkit` (WebKit de Playwright : bibliothèques flite
+  manquantes remplacées par des bibliothèques vides dans
+  `~/.cache/ms-playwright/webkit-*/minibrowser-wpe/lib`, avec
+  `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1`). Émulateur Android :
+  `-camera-back videofile:<mp4>` fait filmer une vidéo des QR codes.
 - Navigateur d'exercices = menu « Exercices aléatoires » du site, à
   l'identique (Nathan, 2026-10-18 : « le même affichage que sur le site ») :
   `listerExercices` renvoie les exercices dans l'ordre du menu et leur

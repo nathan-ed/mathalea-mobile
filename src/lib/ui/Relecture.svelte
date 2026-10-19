@@ -5,11 +5,29 @@
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import { pastille } from './classes'
+  import { boutonInverse, pastille } from './classes'
   import EnTete from './EnTete.svelte'
+  import MesReponses from './MesReponses.svelte'
+  import { reponsesDeSeance } from '$lib/releve'
+  import { modeQr } from '$lib/progression'
 
-  let { parcours, seance, moteur, onretour }: { parcours: Parcours; seance: Seance; moteur: Moteur; onretour: () => void } =
-    $props()
+  let {
+    parcours,
+    seance,
+    moteur,
+    onretour,
+    onqrmontre,
+    prenom = '',
+    onprenom,
+  }: {
+    parcours: Parcours
+    seance: Seance
+    moteur: Moteur
+    onretour: () => void
+    onqrmontre?: () => void
+    prenom?: string
+    onprenom?: (p: string) => void
+  } = $props()
 
   let exercices: Record<number, ExercicePrepare> = $state({})
   let pret = $state(false)
@@ -18,6 +36,11 @@
   const premiers = $derived(premiersEssais(seance))
   const b = $derived(bilan(seance))
   const date = $derived(new Date(seance.fin ?? seance.debut).toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' }))
+  const pourEnseignant = $derived(reponsesDeSeance(seance))
+  let montrer = $state(false)
+  // QR code avant la correction, pas encore montré : il passe d'abord
+  let vu = $state(false)
+  const avant = $derived(!!pourEnseignant && modeQr(seance.code) === 'avant' && !seance.qrMontre && !vu)
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 
   function latex(noeud: HTMLElement, texte: string) {
@@ -36,6 +59,20 @@
     }
   })
 </script>
+
+{#if avant && pourEnseignant}
+  <MesReponses
+    reponses={pourEnseignant}
+    avant
+    onresultats={() => {
+      vu = true
+      onqrmontre?.()
+    }}
+    onfermer={onretour}
+  />
+{:else if montrer && pourEnseignant}
+  <MesReponses {prenom} {onprenom} reponses={pourEnseignant} onfermer={() => (montrer = false)} />
+{/if}
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre="{parcours.titre} · {date}" {onretour}>
@@ -81,6 +118,11 @@
           onbrouillon={() => {}}
         />
       {/each}
+      {#if pourEnseignant}
+        <button type="button" class="{boutonInverse} w-full my-6" style="min-height: 44px" onclick={() => (montrer = true)}>
+          <i aria-hidden="true" class="bx bx-qr text-xl"></i> Montrer mes réponses à l’enseignant
+        </button>
+      {/if}
     {/if}
   </main>
 </div>

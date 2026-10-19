@@ -426,9 +426,27 @@ ancienne app.
 
 ## À faire (sans version fixée)
 
+- **Politique de confidentialité** à mettre à jour avant de publier les
+  réponses de session (caméra, prénom, analyse par une IA) : texte prêt dans
+  `docs/confidentialite-brouillon.html`, à copier sur
+  `static/confidentialite.html` (publiée par le job `pages`). Pas avant la
+  fin de l'examen Google Play en cours (Nathan, 2026-10-19 : Google ne doit
+  pas l'évaluer sur la version examinée). Revoir aussi la « Sécurité des
+  données » de la Play Console (`docs/fiche-boutiques.md`).
+
 - Page `?v=parcours` du site : `enTetesMasques` et `melanger` repris (MR !9426, à fusionner).
 - Teste ton niveau : ajouter le CE1 et le CE2 (sujets présents dans le
   référentiel, `canCE1a`, `canCE2a`) si les collègues le souhaitent.
+- Bannière « Nouvelle version de l'app » (demande de Nathan, 2026-10-18) :
+  petite, par-dessus l'app, comme la plupart des apps, quand une version
+  plus récente existe ; bouton « Mettre à jour », croix (fermée jusqu'au
+  prochain lancement). Source selon l'installation : Google Play, API
+  « In-App Updates » (Play Core, mode flexible : téléchargement en fond puis
+  « Redémarrer ») par un petit plugin Kotlin ; APK, bureau et `.ipa` de la
+  forge, dernière release lue par l'API de la forge, lien vers la page de
+  téléchargement ; App Store plus tard, API de recherche d'Apple
+  (`itunes.apple.com/lookup?bundleId=`). Aucune donnée envoyée (simple
+  lecture, comme les mises à jour du moteur).
 
 - Retour vers l'enseignant (idée de Nathan, à reprendre plus tard). Rien ne
   quitte l'appareil sans un geste de l'élève ; pas de compte ni de serveur.
@@ -578,3 +596,68 @@ Reste à faire :
 - Vérification : `node e2e/referentiel-site.mjs FR|CH` déplie tout le menu du
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
+
+## Réponses de la classe à une session partagée
+
+- Réglage de l'enseignant à la création de la session (`DetailParcours`,
+  profil enseignant) : pas de QR code, après la correction, avant la
+  correction. Porté par le code (`modeQr`, `progression.ts`) : empreinte
+  FNV-1a du code entier modulo 3 ; `nouveauCode(mode)` tire des codes jusqu'à
+  tomber sur le mode voulu. Code hors format (autre longueur, lettre hors de
+  l'alphabet, comme `1k3lr` des tests) : aucun. Avant la correction : la copie
+  du parcours de la séance passe en correction à la fin, bilan direct
+  (`bilanDirect`), QR code avant le bilan et dans la relecture tant que
+  `Seance.qrMontre` est faux ; le passage n'affiche pas son score.
+- Élève : fin d'une session partagée (bilan, relecture), « Montrer mes
+  réponses à l'enseignant » : QR code (`MesReponses.svelte`) ou fichier
+  `.txt`. Contenu (`releve.ts`, `MAREP1.` + JSON compressé en base64) : code,
+  parcours, version, titre, exercices des étapes (uuid, nombre de questions,
+  `sup`…), ordre mélangé ou non, empreinte des énoncés vus par étape
+  (`Seance.empreintes`, texte sans balises), première réponse vérifiée de
+  chaque question. Ni nom ni identifiant ; `d` (empreinte du début du
+  passage) compte un passage une seule fois. Environ 300 caractères pour
+  6 questions, correction L.
+- Enseignant : Créer, « Réponses de sessions » (`Releve.svelte`) : caméra
+  (`Scanner.svelte`, `getUserMedia` sur toutes les plateformes, lecture par
+  jsQR ; pas de `BarcodeDetector`, qui fait planter l'app dans le WebView
+  d'Android en passant par les services Google Play), import de photos (plusieurs
+  codes : chaque code lu est masqué puis on relit, `qr.ts`) et de fichiers.
+  Relevés gardés sous `releves`.
+- Recalcul (`ReponsesClasse.svelte`) : questions regénérées avec les graines
+  de la session, réponses réinjectées et revérifiées hors écran comme dans la
+  relecture ; énoncés différents (autre moteur) mis à part. Verdicts gardés
+  (`Releve.calcul`), refaits si le moteur change. Questions des moins
+  réussies aux plus réussies, mauvaises réponses regroupées (écriture
+  normalisée ; réponse finale seule pour les réponses en plusieurs lignes).
+- Prénom (facultatif, choix de l'enseignant) : cinq réglages portés par
+  l'empreinte du code (aucun, après, avant, après avec prénom, avant avec
+  prénom). L'élève le tape une fois (`MesReponses`, clé `prenom`), il part
+  dans le QR (`n`). Sans prénom : « Élève N » dans l'ordre de réception.
+- Vue enseignant : résumé (moyenne, élèves sous 50 %, de 50 à 79 %, 80 % et
+  plus, questions sous 70 %), vues Questions (mauvaises ou toutes les
+  réponses avec les prénoms) et Élèves (`bilanDesEleves`, plus faibles
+  d'abord, détail au toucher).
+- IA et prénoms : l'IA ne reçoit que « Élève N » (`textePourIA`, consigne
+  `CONSIGNE_PSEUDONYMES` dans le texte et dans la consigne système : garder
+  exactement « Élève N », un par un). Texte de l'IA gardé tel quel
+  (`Releve.analyse`), prénoms remis à l'affichage par `retraduire()`
+  (rechercher-remplacer « Élève N », aussi pour une réponse collée).
+- Analyse dans l'app (`ia.ts`, chargé à la demande, `fetch` du plugin HTTP
+  dans Tauri) selon `ConfigIA` (`analyse.ts`) : Claude par le SDK
+  `@anthropic-ai/sdk` (modèle `claude-opus-5-5`, effort `medium`, repli
+  `fallbacks: "default"`) ; Mistral, OpenAI, IA locale (Ollama par défaut,
+  LM Studio) et autre adresse par `POST <adresse>/chat/completions` en flux
+  (format OpenAI), modèles proposés par `GET <adresse>/models`, blocs
+  `<think>` retirés (`sansReflexion`). `http://` refusé hors réseau local
+  (`erreurAdresse`), d'où le motif `http://*:*/*` du plugin HTTP
+  (`capabilities/default.json`). Réglage sous `cle-ia` (une chaîne seule,
+  d'avant, = clé Claude) : ni exporté ni effacé par une restauration
+  (`sauvegarde.ts`).
+- Caméra : Android `CAMERA` (facultative pour Google Play), iOS et macOS
+  `NSCameraUsageDescription`, Linux : flux média de WebKitGTK activé et
+  demande acceptée (`lib.rs`).
+- Vérification : `tests/releve.test.ts` ; `node e2e/reponses-session.mjs`
+  (fausse caméra de Chromium qui filme les QR codes des élèves, photo de
+  quatre téléphones, API Anthropic et Ollama simulés, réglages de session) et
+  `NAVIGATEUR=webkit` (WebKit de Playwright). Captures du guide
+  (`docs/guide/sessions.md`) : `GUIDE=docs/guide/images node e2e/reponses-session.mjs`.
