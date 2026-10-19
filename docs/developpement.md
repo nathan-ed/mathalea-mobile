@@ -433,6 +433,12 @@ ancienne app.
   fin de l'examen Google Play en cours (Nathan, 2026-10-19 : Google ne doit
   pas l'évaluer sur la version examinée). Revoir aussi la « Sécurité des
   données » de la Play Console (`docs/fiche-boutiques.md`).
+- **Envoi automatique Google Play en pause** depuis le 2026-10-19 (Nathan) :
+  workflow `google-play.yml` désactivé sur GitHub pendant l'examen de la
+  0.2.4, pour qu'aucune version ne parte seule en production. Le réactiver
+  après l'examen et la politique à jour :
+  `gh workflow enable google-play.yml --repo nathan-ed/mathalea-mobile`
+  (désactivé, il ne se lance pas non plus à la main).
 
 - Page `?v=parcours` du site : `enTetesMasques` et `melanger` repris (MR !9426, à fusionner).
 - Teste ton niveau : ajouter le CE1 et le CE2 (sujets présents dans le

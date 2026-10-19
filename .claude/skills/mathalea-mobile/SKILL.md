@@ -295,6 +295,9 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `docs/confidentialite-brouillon.html`. Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
   un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
+  Envoi automatique du lundi (`google-play.yml`) **désactivé** sur GitHub
+  le 2026-10-19 pendant cet examen ; le réactiver seulement sur demande de
+  Nathan (`gh workflow enable google-play.yml --repo nathan-ed/mathalea-mobile`).
   Réglage dans le code de session (`modeQr` : empreinte du code entier, pas
   une lettre, pour qu'un élève ne puisse pas choisir son mode) : aucun, après,
   avant la correction (correction à la fin et QR code avant les résultats),
