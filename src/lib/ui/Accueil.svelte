@@ -39,7 +39,10 @@
     enseignant = false,
     suivi,
     espaceEnseignant,
+    classesEnseignant,
     enClasse,
+    vueEleve = false,
+    onquitterVueEleve,
     onouvrir,
     oncontinuer,
     onreglages,
@@ -60,11 +63,14 @@
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
-    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classe'
-    enseignant?: boolean // réglage Enseignant : onglets Créer et En classe en plus
+    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe'
+    enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
     suivi: Snippet
-    espaceEnseignant?: Snippet
+    espaceEnseignant?: Snippet // bibliothèque (onglet Parcours, clé « creer »)
+    classesEnseignant?: Snippet
     enClasse?: Snippet // sessions de l'enseignant
+    vueEleve?: boolean // enseignant : Mes parcours et Suivi, comme les élèves
+    onquitterVueEleve?: () => void
     onouvrir: (p: Parcours) => void
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
@@ -148,13 +154,17 @@
   const niveaux = $derived([...new Set(explorables.map((p) => p.niveau))])
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
 
+  // Onglets de l'enseignant ; en vue élève, ceux des élèves
+  const espaceProf = $derived(enseignant && !vueEleve)
   // Onglet d'accueil, où l'app s'ouvre : « retour » y ramène avant de quitter l'app
-  const depart = $derived(enseignant ? 'creer' : 'mes')
+  // (en vue élève : Mes parcours, puis l'espace enseignant)
+  const depart = $derived(espaceProf ? 'creer' : 'mes')
   retourSi(
-    () => niveau !== null || onglet !== depart,
+    () => niveau !== null || onglet !== depart || (enseignant && vueEleve),
     () => {
       if (niveau) niveau = null
-      else changerOnglet(depart)
+      else if (onglet !== depart) changerOnglet(depart)
+      else onquitterVueEleve?.()
     },
   )
 
@@ -166,9 +176,11 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  {#if onglet === 'creer' && enseignant && espaceEnseignant}
+  {#if onglet === 'creer' && espaceProf && espaceEnseignant}
     {@render espaceEnseignant()}
-  {:else if onglet === 'classe' && enseignant && enClasse}
+  {:else if onglet === 'classes' && espaceProf && classesEnseignant}
+    {@render classesEnseignant()}
+  {:else if onglet === 'classe' && espaceProf && enClasse}
     {@render enClasse()}
   {:else}
   {#if onglet === 'explorer' && niveau}
@@ -188,6 +200,13 @@
     </EnTete>
   {/if}
 
+  {#if enseignant && vueEleve}
+    <div class="flex flex-row items-center gap-2 pl-4 pr-1 text-xs bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light" role="status">
+      <i aria-hidden="true" class="bx bx-mobile text-base text-coopmaths-action dark:text-coopmathsdark-action"></i>
+      <span class="min-w-0 flex-1 truncate py-2">Vue élève : l’app comme vos élèves la voient</span>
+      <button type="button" class="presse shrink-0 px-2 py-1.5 font-semibold text-coopmaths-action dark:text-coopmathsdark-action" onclick={() => onquitterVueEleve?.()}>Quitter</button>
+    </div>
+  {/if}
   <main class="flex-1 avec-onglets">
     {#if onglet === 'mes'}
       <div class="flex flex-col gap-3 p-4">
@@ -353,17 +372,18 @@
   {/if}
 
   <BarreOnglets
-    onglets={[
-      { cle: 'mes', libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
-      { cle: 'explorer', libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
-      { cle: 'suivi', libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
-      ...(enseignant
-        ? [
-            { cle: 'creer' as const, libelle: 'Créer', icone: 'bx-plus-circle', iconeActive: 'bxs-plus-circle' },
-            { cle: 'classe' as const, libelle: 'En classe', icone: 'bx-chalkboard', iconeActive: 'bxs-chalkboard' },
-          ]
-        : []),
-    ]}
+    onglets={espaceProf
+      ? [
+          { cle: 'creer' as const, libelle: 'Parcours', icone: 'bx-book-content', iconeActive: 'bxs-book-content' },
+          { cle: 'classes' as const, libelle: 'Classes', icone: 'bx-group', iconeActive: 'bxs-group' },
+          { cle: 'classe' as const, libelle: 'En classe', icone: 'bx-chalkboard', iconeActive: 'bxs-chalkboard' },
+          { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
+        ]
+      : [
+          { cle: 'mes' as const, libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
+          { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
+          { cle: 'suivi' as const, libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
+        ]}
     actif={onglet}
     onchoisir={(o) => {
       changerOnglet(o)

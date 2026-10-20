@@ -42,7 +42,7 @@ Une classe, un parcours, un exercice :
 ## Utiliser le fichier
 
 - **Pour les élèves** : déposez-le à la racine du dossier partagé de la classe. Tous les fichiers `.json` de la racine sont lus. Un parcours présent dans plusieurs fichiers est gardé à sa version la plus haute.
-- **Pour le modifier ensuite dans l'application** : onglet Créer, « Éditer un parcours existant », importer le fichier. Les parcours entrent dans votre bibliothèque avec leurs classes.
+- **Pour le modifier ensuite dans l'application** : onglet Parcours, « Éditer un parcours existant », importer le fichier. Les parcours entrent dans votre bibliothèque avec leurs classes.
 - **Sur le site** : page « Parcours pour l'application » (`?v=parcours`), bouton Ouvrir.
 
 ## Le fichier
@@ -146,4 +146,4 @@ N'inventez pas d'`uuid` : un exercice inconnu affiche une erreur chez l'élève.
 
 ## Vérifier
 
-Importez le fichier dans l'application (Créer, « Éditer un parcours existant »). S'il est refusé, le message dit pourquoi : fichier illisible, parcours invalide (avec son `id`), classe ou parcours en double. Ouvrez ensuite le parcours et touchez « Aperçu élève » pour l'essayer.
+Importez le fichier dans l'application (onglet Parcours, « Éditer un parcours existant »). S'il est refusé, le message dit pourquoi : fichier illisible, parcours invalide (avec son `id`), classe ou parcours en double. Ouvrez ensuite le parcours et touchez « Aperçu élève » pour l'essayer.

@@ -69,6 +69,16 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
 
 ## Notes de version
 
+Version 0.4.4 :
+
+```
+<fr-FR>
+- Enseignant : quatre onglets, Parcours, Classes, En classe et Explorer. « Vue élève » montre l'application comme vos élèves.
+- Chaque parcours a sa page : classes, publication, lancer une session, essayer, modifier.
+- Les sessions se rangent par classe.
+</fr-FR>
+```
+
 Version 0.4.3 :
 
 ```

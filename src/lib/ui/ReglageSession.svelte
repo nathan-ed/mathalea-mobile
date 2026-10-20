@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Session pour la classe (enseignant) : palier, QR code des réponses, puis
+  // Session pour la classe (enseignant) : classe, palier, QR code des réponses, puis
   // « Lancer la session », qui mène à la page de la session (onglet En classe).
   // Le réglage du QR code est porté par le code, tiré au lancement.
   import { nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
@@ -11,12 +11,16 @@
   let {
     parcours,
     palier = 0,
+    classes = [],
+    classe,
     onlancer,
     onfermer,
   }: {
     parcours: Parcours
     palier?: number // palier proposé d'abord (celui à faire)
-    onlancer: (code: string, etapes?: number[]) => void
+    classes?: string[] // classes de l'enseignant
+    classe?: string // classe proposée d'abord (seule classe du parcours)
+    onlancer: (code: string, etapes?: number[], classe?: string) => void
     onfermer: () => void
   } = $props()
 
@@ -25,21 +29,42 @@
   // L'enseignant choisit n'importe quel palier : ses propres résultats ne comptent pas
   // svelte-ignore state_referenced_locally
   let choisi = $state(palier)
+  // svelte-ignore state_referenced_locally
+  let classeChoisie: string | undefined = $state(classe)
   let avecQr = $state(false)
   let quand: Exclude<ModeQr, 'aucun'> = $state('apres')
   let avecPrenom = $state(false)
+  const titreGroupe = 'text-sm font-semibold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
 
   function lancer() {
-    onlancer(nouveauCode(avecQr ? quand : 'aucun', avecPrenom), avecPaliers ? paliers[choisi].etapes : undefined)
+    onlancer(nouveauCode(avecQr ? quand : 'aucun', avecPrenom), avecPaliers ? paliers[choisi].etapes : undefined, classeChoisie)
   }
 </script>
 
 <Feuille {onfermer}>
   <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Session pour la classe</p>
   <p class="-mt-2 {discret}">{parcours.titre}</p>
+  {#if classes.length}
+    <p class={titreGroupe}>Classe</p>
+    <div class="-mt-2 flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Classe de la session">
+      {#each classes as c (c)}
+        <button
+          type="button"
+          role="radio"
+          aria-checked={classeChoisie === c}
+          class="rounded-full px-3 py-1.5 text-sm border border-coopmaths-action dark:border-coopmathsdark-action
+          {classeChoisie === c
+            ? 'bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas'
+            : 'text-coopmaths-action dark:text-coopmathsdark-action'}"
+          onclick={() => (classeChoisie = classeChoisie === c ? undefined : c)}>{c}</button
+        >
+      {/each}
+    </div>
+  {/if}
   {#if avecPaliers}
-    <div class="flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Palier de la session">
+    <p class={titreGroupe}>{parcours.style === 'ceintures' ? 'Ceinture' : 'Palier'}</p>
+    <div class="-mt-2 flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Palier de la session">
       {#each paliers as _, k (k)}
         <button
           type="button"

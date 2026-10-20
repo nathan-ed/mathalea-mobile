@@ -7,7 +7,7 @@ compte, et l'application ne demande aucun mot de passe.
 
 ## Principe
 
-1. Vous créez vos parcours dans l'application (onglet Créer).
+1. Vous créez vos parcours dans l'application (onglet Parcours).
 2. Vous publiez : l'application enregistre un fichier daté, par exemple
    `parcours-mathalea-2026-10-14-15h32.json`.
 3. Vous le déposez dans un dossier de votre drive partagé par lien public
@@ -19,7 +19,7 @@ Un seul fichier contient toutes vos classes : un seul dossier, un seul lien
 pour tous vos élèves. Si le fichier contient plusieurs classes, chaque élève
 choisit la sienne la première fois ; vous, avec le réglage Enseignant, les
 voyez toutes et passez de l'une à l'autre par les pastilles en haut de
-« Mes parcours ».
+« Mes parcours » (Vue élève).
 
 ## Dossiers partagés
 
@@ -51,9 +51,11 @@ Dans l'application, collez ce lien sur l'accueil, puis « Ajouter le dossier ».
 ## Premier lancement
 
 Choisissez le programme (France ou Suisse). Puis, dans les Réglages (roue
-dentée), cochez **Je suis enseignant** : l'onglet **Créer** s'ajoute aux
-onglets des élèves (Mes parcours, Explorer, Suivi), que vous gardez pour
-essayer les parcours comme eux. Les élèves ne voient jamais Créer.
+dentée), cochez **Je suis enseignant** : l'application passe aux onglets de
+l'enseignant, **Parcours** (bibliothèque et objectifs), **Classes**, **En
+classe** (sessions) et **Explorer**. « Vue élève » (onglet Parcours) montre
+Mes parcours et Suivi comme les élèves ; « Quitter » ou le bouton retour en
+sort. Les élèves ne voient jamais ces onglets.
 
 En Suisse, l'éditeur propose les niveaux 9e à 4e Collège et le référentiel
 suisse de MathALÉA ; les exercices utilisent les notations suisses.
@@ -130,7 +132,7 @@ range (par exemple « Additionner deux nombres décimaux relatifs », 5N2G).
 Vous pouvez en retirer, en ajouter ou créer les vôtres ; un exercice ajouté
 plus tard avec les mêmes réglages reprend ses objectifs.
 
-La vue **Objectifs** de l'onglet Créer les liste par niveau et chapitre, avec
+La vue **Objectifs** de l'onglet Parcours les liste par niveau et chapitre, avec
 les exercices qui les travaillent. « Importer des objectifs » accepte un
 tableau CSV (colonnes code ; libellé ; niveau ; chapitre, en-tête facultatif),
 un texte collé (un objectif par ligne) ou le fichier d'un collègue, à répéter
@@ -138,21 +140,20 @@ au fil de l'année sans doublon. « Exporter la liste » produit un CSV.
 
 ### Bibliothèque et classes
 
-L'onglet Créer a trois vues :
-
-- **Parcours** : votre bibliothèque, par niveau puis chapitre, avec les
-  classes de chaque parcours. « Éditer un parcours existant » reprend un
-  parcours d'un collègue (dossier suivi ou fichier).
-- **Classes** : ce que reçoit chaque classe, dans l'ordre vu par les élèves.
-  « Choisir les parcours de… » coche les parcours de la bibliothèque ; « + »
-  ajoute une classe ; « … » la renomme ou la retire (ses parcours restent).
-- **Objectifs** : voir plus haut.
+- **Onglet Parcours**, vue Bibliothèque : vos parcours, par niveau puis
+  chapitre, avec les classes de chaque parcours. « Éditer un parcours
+  existant » reprend un parcours d'un collègue (dossier suivi ou fichier).
+  Vue Objectifs : voir plus haut.
+- **Onglet Classes** : ce que reçoit chaque classe, dans l'ordre vu par les
+  élèves, et ses sessions. « Choisir les parcours de… » coche les parcours de
+  la bibliothèque ; « + » ajoute une classe ; « … » la renomme ou la retire
+  (ses parcours restent).
 
 ### Démonstration
 
 Réglages, « Parcours de démonstration » (enseignant seulement) : une liste
 simple, des paliers et des ceintures, avec objectifs et pauses. Une classe
-« Démonstration » apparaît dans Mes parcours pour essayer comme un élève, et
+« Démonstration » apparaît dans Mes parcours (Vue élève) pour essayer comme un élève, et
 les mêmes parcours entrent dans votre bibliothèque. Un bouton les retire.
 
 ### Page du site
@@ -176,7 +177,7 @@ voir d'autre :
 
 ## Partager avec les élèves
 
-Tant que le dossier partagé n'est pas renseigné, l'onglet Créer affiche une
+Tant que le dossier partagé n'est pas renseigné, l'onglet Parcours affiche une
 « Mise en route » :
 
 1. Créez un dossier sur votre drive et partagez-le par lien public, en lecture
@@ -199,12 +200,12 @@ le drive :
   enregistré ; **Configurer** ouvre le champ du lien ;
 - « Fichier exporté : déposez-le sur le drive » tant que l'app ne l'a pas
   trouvé dans le dossier partagé (relu au retour dans l'app, ou avec
-  « Vérifier le dossier partagé » dans l'onglet Créer). L'app ne peut pas
+  « Vérifier le dossier partagé » dans l'onglet Parcours). L'app ne peut pas
   savoir si chaque élève l'a reçu.
 
 La croix ferme la bannière jusqu'au prochain lancement de l'app.
 
-« Exporter des parcours » (onglet Créer) propose tous les parcours cochés :
+« Exporter des parcours » (onglet Parcours) propose tous les parcours cochés :
 c'est le fichier complet. En décocher donne un fichier avec les seuls parcours
 choisis, pour un collègue ; déposé dans le dossier, il s'ajoute au fichier
 complet. « Dossier partagé » ouvre le dossier sur votre
@@ -269,8 +270,10 @@ plus récent remplace l'ancien.
 
 ## Sessions communes
 
-Enseignant : « Session pour la classe » sur la page d'un parcours, ou
-« Nouvelle session » dans l'onglet En classe. Un panneau règle la session,
+Enseignant : « Lancer une session » sur la page d'un parcours, ou
+« Nouvelle session » dans l'onglet En classe. Un panneau règle la session
+(classe, facultative : les sessions sont rangées par classe dans En classe et
+dans l'onglet Classes),
 puis « Lancer la session » ouvre sa page : un code (ex. `1k3lr`) et un QR code
 à projeter. L'enseignant ne fait pas la session lui-même : il la montre, puis
 la relève. Avec des paliers, la session porte sur un palier, choisi au

@@ -42,7 +42,12 @@
   const actualiser = () => (nbAffiche = releve.recues.length)
   const r = $derived(reglageQr(releve.code))
   const reglage = $derived(
-    r.quand === 'aucun' ? 'Sans QR code des réponses' : `${r.quand === 'avant' ? 'QR code avant la correction' : 'QR code après la correction'}${r.prenom ? ', avec prénom' : ''}`,
+    [
+      releve.classe,
+      r.quand === 'aucun' ? 'Sans QR code des réponses' : `${r.quand === 'avant' ? 'QR code avant la correction' : 'QR code après la correction'}${r.prenom ? ', avec prénom' : ''}`,
+    ]
+      .filter(Boolean)
+      .join(' · '),
   )
   const svg = $derived(releve.invitation ? dessinerQr(releve.invitation) : '')
   const discret = 'text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'

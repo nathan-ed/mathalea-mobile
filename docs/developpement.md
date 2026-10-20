@@ -603,7 +603,7 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
-## 0.4.4 : page d'un parcours pour l'enseignant
+## 0.4.4 : page d'un parcours, onglets de l'enseignant, sessions par classe (fait)
 
 - Plan d'ergonomie enseignant (Nathan, 2026-10-20), étape 1. Une tuile de la
   bibliothèque (vues Parcours et Classes) ouvre la page du parcours
@@ -615,9 +615,23 @@ Reste à faire :
   session ouverts depuis la page y reviennent (`creationDepuis`,
   `sessionDepuis`) ; « Valider » d'une modification aussi (une création garde
   le panneau d'après-enregistrement). Test : `node e2e/fiche-parcours.mjs`.
-- Étapes suivantes du plan : sessions rattachées à une classe ; publier en un
-  geste (« Ouvrir le dossier du drive », vérification automatique) ; onglets
-  de l'enseignant recentrés (décisions de Nathan en attente).
+- Onglets de l'enseignant (Nathan, 2026-10-20 : « oui ») : Parcours (clé
+  `creer` : bibliothèque et objectifs, `EspaceEnseignant` section
+  `parcours`), Classes (section `classes` : classes et leurs sessions), En
+  classe, Explorer. Mes parcours et Suivi passent en **vue élève**
+  (`vueEleve`, ligne « Vue élève » de la bibliothèque, bandeau « Quitter » ;
+  le bouton retour depuis Mes parcours en sort). Tout retour vers un onglet
+  enseignant referme la vue élève (`versCreer`, `versClasse`). « Donner à des
+  classes » (panneau d'après-enregistrement) ouvre l'onglet Classes. Une
+  barre d'onglets cachée par le clavier : refermer le clavier dans les tests
+  avant de toucher un onglet.
+- Sessions rattachées à une classe (Nathan : « oui ») : `Releve.classe`
+  (facultatif, contrôlé dans `estReleves`), choisie dans `ReglageSession`
+  (pastilles « Classe », la seule classe du parcours proposée d'abord) ;
+  En classe groupe par classe (puis « Sans classe »), l'onglet Classes montre
+  « Sessions de … » ; une session ouverte depuis Classes y revient.
+- Étape suivante du plan : publier en un geste (« Ouvrir le dossier du
+  drive », vérification automatique).
 
 ## 0.4.3 : onglet En classe, retour par l'accueil (fait)
 

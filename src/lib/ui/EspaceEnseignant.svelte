@@ -1,12 +1,16 @@
 <script lang="ts">
-  // Onglet Créer de l'accueil (réglage Enseignant). On crée un parcours pour un
-  // niveau, on le donne ensuite à des classes. Trois vues : Parcours (la
-  // bibliothèque, par niveau et chapitre), Classes (ce que chaque classe reçoit,
-  // dans l'ordre vu par les élèves), Objectifs (liste de l'enseignant et
-  // exercices qui les travaillent). En haut : l'état du fichier complet et son export.
+  // Onglets Parcours et Classes de l'enseignant (réglage Enseignant). On crée un
+  // parcours pour un niveau, on le donne ensuite à des classes. Onglet Parcours
+  // (section « parcours ») : la bibliothèque, par niveau et chapitre, et les
+  // Objectifs (liste de l'enseignant et exercices qui les travaillent) ; en
+  // haut, l'état du fichier complet et son export. Onglet Classes (section
+  // « classes ») : ce que chaque classe reçoit, dans l'ordre vu par les élèves,
+  // et ses sessions.
   import { paliersDe, type Parcours } from '$lib/catalogue'
   import { aExporter, aJour, parcoursDeClasse, type Bibliotheque, type ParcoursEnseignant } from '$lib/bibliotheque'
   import { NIVEAUX, type Pays } from '$lib/moteur'
+  import { reglageQr } from '$lib/progression'
+  import type { Releve } from '$lib/releve'
   import { lireObjectifs, type Objectif } from '$lib/objectifs'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
@@ -39,6 +43,11 @@
     onretirerClasse,
     onobjectifs,
     onexporterObjectifs,
+    section = 'parcours',
+    sessions = [],
+    onsession,
+    onvueEleve,
+    onclasses,
   }: {
     bibliotheque: Bibliotheque
     modeles: Parcours[] // parcours des dossiers suivis et fichiers importés que l'enseignant n'a pas déjà
@@ -63,6 +72,11 @@
     onobjectifs: (liste: Objectif[]) => void
     onexporterObjectifs: () => Promise<string>
     onreglages: () => void
+    section?: 'parcours' | 'classes'
+    sessions?: Releve[] // sessions de l'enseignant (section classes : celles de la classe affichée)
+    onsession?: (cle: string) => void
+    onvueEleve?: () => void // Mes parcours et Suivi, comme les élèves
+    onclasses?: () => void // onglet Classes
   } = $props()
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
@@ -78,7 +92,8 @@
     }`
 
   type Vue = 'parcours' | 'classes' | 'objectifs'
-  let vue: Vue = $state('parcours')
+  // svelte-ignore state_referenced_locally
+  let vue: Vue = $state(section === 'classes' ? 'classes' : 'parcours')
   // « Éditer un parcours existant » : sous-écran
   let modelesOuverts = $state(false)
   retourSi(() => modelesOuverts, () => (modelesOuverts = false))
@@ -140,6 +155,7 @@
   }
 
   // ---------- Classes ----------
+  const dateCourte = (iso: string) => new Date(iso).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
   let classeChoisie: string | null = $state(null)
   const classeVue = $derived(bibliotheque.classes.find((c) => c.nom === classeChoisie)?.nom ?? bibliotheque.classes[0]?.nom)
   let nouvelleClasse = $state('')
@@ -341,6 +357,7 @@
     </EnTete>
 
     <main class="flex-1 flex flex-col gap-3 p-4 avec-onglets {vue === 'parcours' ? 'avec-bouton-flottant' : ''}">
+      {#if section === 'parcours'}
       {#if !bibliotheque.lien}
         <!-- Mise en route : sans dossier partagé, rien n'arrive aux élèves -->
         <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="Mise en route">
@@ -392,9 +409,9 @@
         {#if message}<p class={discret} role="status">{message}</p>{/if}
       {/if}
 
-      <!-- Trois vues : bibliothèque, classes, objectifs -->
+      <!-- Deux vues : bibliothèque, objectifs (les classes ont leur onglet) -->
       <div class="flex flex-row gap-1 rounded-xl p-1 mt-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" role="tablist" aria-label="Vue">
-        {#each [['parcours', 'Parcours'], ['classes', 'Classes'], ['objectifs', 'Objectifs']] as [v, libelleVue] (v)}
+        {#each [['parcours', 'Bibliothèque'], ['objectifs', 'Objectifs']] as [v, libelleVue] (v)}
           <button
             type="button"
             role="tab"
@@ -409,6 +426,7 @@
           </button>
         {/each}
       </div>
+      {/if}
 
       {#if vue === 'parcours'}
         <ul class={listeGroupee}>
@@ -416,6 +434,9 @@
             {@render ligne('bx-folder', 'Dossier partagé', hote(bibliotheque.lien), () => (feuilleDossier = true))}
           {/if}
           {@render ligne('bx-folder-open', 'Éditer un parcours existant', 'Dossiers suivis, fichiers de collègues', () => (modelesOuverts = true))}
+          {#if onvueEleve}
+            {@render ligne('bx-mobile', 'Vue élève', 'Mes parcours et Suivi, comme vos élèves', onvueEleve)}
+          {/if}
           {#if bibliotheque.parcours.length}
             {@render ligne('bx-export', 'Exporter des parcours', 'Tous, ou ceux choisis pour un collègue', () => choisirExport())}
           {/if}
@@ -485,6 +506,16 @@
             <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" disabled={!bibliotheque.parcours.length} onclick={ouvrirChoix}>
               <i aria-hidden="true" class="bx bx-list-check text-xl"></i> Choisir les parcours de {classeVue}
             </button>
+            {@const sessionsClasse = sessions.filter((r) => r.classe === classeVue)}
+            {#if sessionsClasse.length && onsession}
+              <h2 class={titreSection}>Sessions de {classeVue}</h2>
+              <ul class={listeGroupee}>
+                {#each sessionsClasse as r (r.cle)}
+                  {@const q = reglageQr(r.code).quand}
+                  {@render ligne('bx-group', r.titre || 'Parcours', `Session ${r.code} · ${dateCourte(r.le)}${q === 'aucun' ? '' : ` · ${r.recues.length} réponse${r.recues.length > 1 ? 's' : ''}`}`, () => onsession(r.cle))}
+                {/each}
+              </ul>
+            {/if}
           {/if}
         {:else}
           <p class="px-1 {texte}">Une classe reçoit les parcours que vous lui donnez, dans l’ordre choisi ici.</p>
@@ -559,7 +590,7 @@
     {/if}
   {/if}
 
-  {#if enregistre}
+  {#if enregistre && section === 'parcours'}
     <!-- Juste après l'enregistrement : publier s'il est déjà donné à des classes ; sinon, la vue Classes -->
     <Feuille onfermer={onfermerDernier}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
@@ -577,7 +608,8 @@
           class={boutonLien}
           onclick={() => {
             onfermerDernier()
-            vue = 'classes'
+            if (onclasses) onclasses()
+            else vue = 'classes'
           }}>Donner à des classes</button
         >
       {/if}

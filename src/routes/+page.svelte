@@ -104,8 +104,10 @@
   let prenom = $state('')
   let pays: Pays = $state('FR')
   let vue: Vue = $state('accueil')
-  // « creer » et « classe » : seulement avec le réglage Enseignant
-  let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classe' = $state('mes')
+  // « creer » (Parcours), « classes » et « classe » (En classe) : seulement avec le
+  // réglage Enseignant ; « mes » et « suivi » pour lui seulement en vue élève
+  let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe' = $state('mes')
+  let vueEleve = $state(false)
   let actif: Parcours | undefined = $state()
   let seance: TSeance | undefined = $state()
   let relue: TSeance | undefined = $state()
@@ -333,7 +335,8 @@
   async function changerProfil(p: Profil) {
     profil = p
     // Réglage Enseignant coché : l'onglet Créer s'ouvre au retour des réglages
-    onglet = p === 'enseignant' ? 'creer' : onglet === 'creer' || onglet === 'classe' ? 'mes' : onglet
+    vueEleve = false
+    onglet = p === 'enseignant' ? 'creer' : ['creer', 'classes', 'classe'].includes(onglet) ? 'mes' : onglet
     await stockage!.ecrire('profil', p)
   }
 
@@ -358,19 +361,27 @@
     await stockage!.ecrire('releves', $state.snapshot(r))
   }
   /** Session lancée par l'enseignant : gardée pour la relever plus tard, puis sa page */
-  async function lancerSession(p: Parcours, code: string, etapes?: number[]) {
+  async function lancerSession(p: Parcours, code: string, etapes?: number[], classe?: string) {
     const invitation = moteur ? encoderInvitation({ c: code, p, m: moteur.VERSION_MOTEUR, ...(etapes ? { e: etapes } : {}) }) : undefined
-    await sauverReleves(noterSession($state.snapshot(releves) as TReleve[], { code, parcours: p.id, version: p.version, titre: p.titre, invitation }, null))
+    await sauverReleves(noterSession($state.snapshot(releves) as TReleve[], { code, parcours: p.id, version: p.version, titre: p.titre, invitation, classe }, null))
     ouvrirSession(cleReleve({ c: code, p: p.id, v: p.version }))
   }
-  // Page d'où la session a été ouverte : la page d'un parcours, sinon l'onglet En classe
-  let sessionDepuis: 'classe' | 'fiche' = 'classe'
+  // Page d'où la session a été ouverte : la page d'un parcours, l'onglet Classes, sinon l'onglet En classe
+  let sessionDepuis: 'classe' | 'classes' | 'fiche' = 'classe'
   function ouvrirSession(cle: string) {
-    sessionDepuis = vue === 'fiche' ? 'fiche' : 'classe'
+    sessionDepuis = vue === 'fiche' ? 'fiche' : vue === 'accueil' && onglet === 'classes' ? 'classes' : 'classe'
     sessionOuverte = cle
     aller('session')
   }
-  const retourSession = () => (sessionDepuis === 'fiche' && ficheOuverte ? aller('fiche') : versClasse())
+  function retourSession() {
+    if (sessionDepuis === 'fiche' && ficheOuverte) return aller('fiche')
+    if (sessionDepuis === 'classes') {
+      vueEleve = false
+      onglet = 'classes'
+      return aller('accueil')
+    }
+    versClasse()
+  }
 
   // Page d'un parcours de la bibliothèque (enseignant) ; l'éditeur et l'essai y reviennent
   let ficheId: string | null = $state(null)
@@ -393,13 +404,18 @@
     for (const p of [...bibliotheque.parcours.map((pe) => pe.parcours), ...tous]) if (p.id && (!vus.has(p.id) || vus.get(p.id)!.version < p.version)) vus.set(p.id, p)
     return [...vus.values()]
   })
+  const nomsClasses = $derived(bibliotheque.classes.map((c) => c.nom))
+  const classesDe = (id: string) => bibliotheque.parcours.find((pe) => pe.parcours.id === id)?.classes ?? []
+  // Un onglet de l'enseignant : la vue élève se referme
   function versClasse() {
+    vueEleve = false
     onglet = 'classe'
     aller('accueil')
   }
   // Espace enseignant : onglet « Créer » de l'accueil
   function versCreer() {
     creation = null
+    vueEleve = false
     onglet = 'creer'
     aller('accueil')
   }
@@ -407,7 +423,7 @@
     // Aperçu : retour à l'éditeur, qui protège lui-même le brouillon
     if (vue === 'apercu') return aller('creation')
     creation = null
-    onglet = profil === 'enseignant' ? 'creer' : 'mes'
+    onglet = profil === 'enseignant' && !vueEleve ? 'creer' : 'mes'
     accueil()
   }
 
@@ -991,6 +1007,50 @@
   <title>MathALÉA</title>
 </svelte:head>
 
+{#snippet espace(section: 'parcours' | 'classes')}
+      <EspaceEnseignant
+        {section}
+        sessions={releves}
+        onsession={ouvrirSession}
+        onclasses={() => {
+          onglet = 'classes'
+          scrollTo(0, 0)
+        }}
+        onvueEleve={() => {
+          vueEleve = true
+          onglet = 'mes'
+          aller('accueil')
+        }}
+        {bibliotheque}
+        modeles={modeles}
+        {objectifs}
+        {pays}
+        onouvrir={(pe) => ouvrirFiche(pe.parcours.id)}
+        oncreer={() => creer()}
+        {dernier}
+        onfermerDernier={() => (dernier = null)}
+        onexporterChoix={exporterParcoursChoisis}
+        onimporter={importerFichier}
+        onreprendre={reprendreBibliotheque}
+        onverifier={verifierDossier}
+        ondeplacer={(id, classe, sens) => sauverBibliotheque(deplacer($state.snapshot(bibliotheque) as Bibliotheque, id, classe, sens))}
+        onediter={async (p) => {
+          await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p, classesDuModele(p.id)))
+          const pe = bibliotheque.parcours.find((x) => x.parcours.id === p.id)!
+          creer(pe.parcours)
+        }}
+        onparcoursDeClasse={(classe, ids) => sauverBibliotheque(parcoursPourClasse($state.snapshot(bibliotheque) as Bibliotheque, classe, ids))}
+        onajouterClasse={(nom) => sauverBibliotheque(ajouterClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
+        onrenommerClasse={(avant, apres) => sauverBibliotheque(renommerClasse($state.snapshot(bibliotheque) as Bibliotheque, avant, apres))}
+        onretirerClasse={(nom) => sauverBibliotheque(retirerClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
+        onobjectifs={sauverObjectifs}
+        onexporterObjectifs={exporterListeObjectifs}
+        onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
+        onexporter={exporterClasse}
+        onreglages={() => aller('reglages')}
+      />
+{/snippet}
+
 <div class="colonne">
   {#if erreurMoteur}
     <p class="p-4 font-bold text-coopmaths-action" role="alert">Moteur MathALÉA indisponible : {erreurMoteur}</p>
@@ -1074,6 +1134,12 @@
       {resumes}
       {epingles}
       enseignant={profil === 'enseignant'}
+      {vueEleve}
+      onquitterVueEleve={() => {
+        vueEleve = false
+        onglet = 'creer'
+        scrollTo(0, 0)
+      }}
       bind:onglet
       onouvrir={ouvrir}
       oncontinuer={commencer}
@@ -1104,43 +1170,20 @@
         />
       {/snippet}
       {#snippet espaceEnseignant()}
-      <EspaceEnseignant
-        {bibliotheque}
-        modeles={modeles}
-        {objectifs}
-        {pays}
-        onouvrir={(pe) => ouvrirFiche(pe.parcours.id)}
-        oncreer={() => creer()}
-        {dernier}
-        onfermerDernier={() => (dernier = null)}
-        onexporterChoix={exporterParcoursChoisis}
-        onimporter={importerFichier}
-        onreprendre={reprendreBibliotheque}
-        onverifier={verifierDossier}
-        ondeplacer={(id, classe, sens) => sauverBibliotheque(deplacer($state.snapshot(bibliotheque) as Bibliotheque, id, classe, sens))}
-        onediter={async (p) => {
-          await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p, classesDuModele(p.id)))
-          const pe = bibliotheque.parcours.find((x) => x.parcours.id === p.id)!
-          creer(pe.parcours)
-        }}
-        onparcoursDeClasse={(classe, ids) => sauverBibliotheque(parcoursPourClasse($state.snapshot(bibliotheque) as Bibliotheque, classe, ids))}
-        onajouterClasse={(nom) => sauverBibliotheque(ajouterClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
-        onrenommerClasse={(avant, apres) => sauverBibliotheque(renommerClasse($state.snapshot(bibliotheque) as Bibliotheque, avant, apres))}
-        onretirerClasse={(nom) => sauverBibliotheque(retirerClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
-        onobjectifs={sauverObjectifs}
-        onexporterObjectifs={exporterListeObjectifs}
-        onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
-        onexporter={exporterClasse}
-        onreglages={() => aller('reglages')}
-      />
+        {@render espace('parcours')}
+      {/snippet}
+      {#snippet classesEnseignant()}
+        {@render espace('classes')}
       {/snippet}
       {#snippet enClasse()}
         <Releve
           {releves}
           parcours={parcoursSession}
+          classes={nomsClasses}
+          {classesDe}
           onsauver={sauverReleves}
           onouvrir={ouvrirSession}
-          onlancer={(p, code, etapes) => void lancerSession(p, code, etapes)}
+          onlancer={(p, code, etapes, classe) => void lancerSession(p, code, etapes, classe)}
           onreglages={() => aller('reglages')}
         />
       {/snippet}
@@ -1166,7 +1209,8 @@
       onameliorer={ameliorer}
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
-      onsessionClasse={profil === 'enseignant' ? (code, etapes) => void lancerSession(actif!, code, etapes) : undefined}
+      onsessionClasse={profil === 'enseignant' ? (code, etapes, classe) => void lancerSession(actif!, code, etapes, classe) : undefined}
+      classesEnseignant={nomsClasses}
       versionMoteur={moteur?.VERSION_MOTEUR}
     />
   {:else if vue === 'revisions'}
@@ -1199,13 +1243,13 @@
     {@const pe = ficheOuverte}
     <FicheParcours
       {pe}
-      classes={bibliotheque.classes.map((c) => c.nom)}
+      classes={nomsClasses}
       drive={!!bibliotheque.lien}
       sessions={releves.filter((r) => r.parcours === pe.parcours.id).sort((a, b) => b.le.localeCompare(a.le))}
       onretour={versCreer}
       onmodifier={() => creer(pe.parcours, 'fiche')}
       onessayer={() => voirApercu(pe.parcours, 'fiche')}
-      onlancer={(code, etapes) => void lancerSession(pe.parcours, code, etapes)}
+      onlancer={(code, etapes, classe) => void lancerSession(pe.parcours, code, etapes, classe)}
       onclasses={(c) => sauverBibliotheque(attribuer($state.snapshot(bibliotheque) as Bibliotheque, pe.parcours.id, c))}
       onexporter={() => exporterParcoursChoisis([pe.parcours.id])}
       ondupliquer={() => creer(copie(pe.parcours))}

@@ -8,7 +8,7 @@ On crée un parcours pour un niveau, puis on le donne à une ou plusieurs classe
 
 ## Créer le parcours
 
-### 1. Onglet Créer
+### 1. Onglet Parcours
 
 Touchez « Créer un parcours ».
 

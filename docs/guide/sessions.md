@@ -6,11 +6,11 @@ Une session partagée donne à toute la classe les mêmes questions, grâce à u
 
 ## 1. Créer la session et demander le QR code
 
-Dans un parcours, touchez « Session pour la classe ». Ou bien, dans l'onglet En classe, touchez « Nouvelle session » et choisissez le parcours.
+Sur la page d'un de vos parcours (onglet Parcours), touchez « Lancer une session ». Ou bien, dans l'onglet En classe, touchez « Nouvelle session » et choisissez le parcours. Un parcours de l'Explorer a aussi son bouton « Session pour la classe ».
 
 ![Session pour la classe](images/sessions-1a-bouton.png)
 
-Un panneau s'ouvre. Allumez « QR code des réponses pour l'enseignant ».
+Un panneau s'ouvre. Touchez la classe : la session sera rangée avec elle (la seule classe qui reçoit le parcours est déjà choisie ; touchez-la de nouveau pour ne rien choisir). Allumez ensuite « QR code des réponses pour l'enseignant ».
 
 ![Demander le QR code](images/sessions-1-interrupteur.png)
 
@@ -67,7 +67,7 @@ Le QR code s'affiche, sur fond blanc, avec ses réponses (et son prénom si vous
 
 ## 3. Retrouver ses sessions et lire les QR codes
 
-Toutes vos sessions sont dans l'onglet En classe, en bas de l'écran (il apparaît avec le réglage « Je suis enseignant »).
+Toutes vos sessions sont dans l'onglet En classe, en bas de l'écran, rangées par classe. Dans l'onglet Classes, chaque classe montre aussi les siennes.
 
 ![L'onglet En classe](images/sessions-6-espace.png)
 

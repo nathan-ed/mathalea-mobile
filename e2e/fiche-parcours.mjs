@@ -1,7 +1,7 @@
 // Page d'un parcours pour l'enseignant (pnpm dev seulement) : la tuile de la
 // bibliothèque ouvre la page du parcours ; classes au toucher, état de
 // publication, Essayer, Modifier, Lancer une session, Autres actions ; chaque
-// retour revient à la page, puis à Créer. Captures : CAPTURES=<dossier>.
+// retour revient à la page, puis à Parcours. Captures : CAPTURES=<dossier>.
 import { chromium } from 'playwright'
 
 const base = 'http://localhost:1420/'
@@ -97,9 +97,9 @@ for (const sombre of [false, true]) {
   await t.screenshot({ path: `${captures}/fiche-4-actions${s}.png` })
   await retour()
 
-  // Retour : Créer, accueil de l'enseignant
+  // Retour : Parcours, accueil de l'enseignant
   await retour()
-  ok((await t.locator('nav [role=tab][aria-selected=true]').innerText()).trim() === 'Créer', 'retour de la page : Créer')
+  ok((await t.locator('nav [role=tab][aria-selected=true]').innerText()).trim() === 'Parcours', 'retour de la page : Parcours')
 
   // Classes : la tuile ouvre aussi la page ; suppression confirmée
   await t.getByRole('tab', { name: 'Classes' }).click()
@@ -109,7 +109,7 @@ for (const sombre of [false, true]) {
   ok(await t.getByText('Supprimer « Relatifs express » ?').isVisible(), 'suppression : confirmation d’abord')
   await t.getByRole('button', { name: 'Supprimer', exact: true }).click()
   await t.waitForTimeout(400)
-  ok(!(await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours.length)), 'parcours supprimé, retour à Créer')
+  ok(!(await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours.length)), 'parcours supprimé, retour à Parcours')
   await ctx.close()
 }
 // Sans dossier partagé : rien n'arrive aux élèves, la page le dit

@@ -36,7 +36,7 @@
     onretour: () => void
     onmodifier: () => void
     onessayer: () => void
-    onlancer: (code: string, etapes?: number[]) => void
+    onlancer: (code: string, etapes?: number[], classe?: string) => void
     onclasses: (classes: string[]) => void
     onexporter: () => Promise<string>
     ondupliquer: () => void
@@ -147,7 +147,7 @@
             <button type="button" class={elementListe} onclick={() => onsession(r.cle)}>
               <span class="flex flex-col min-w-0">
                 <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Session {r.code} · {date(r.le)}</span>
-                <span class={discret}>{reglage(r.code)}</span>
+                <span class={discret}>{[r.classe, reglage(r.code)].filter(Boolean).join(' · ')}</span>
               </span>
               <span class="flex flex-row items-center gap-2 shrink-0">
                 {#if r.recues.length}<span class={pastille}>{r.recues.length}</span>{/if}
@@ -170,10 +170,12 @@
 {#if feuille === 'session'}
   <ReglageSession
     parcours={p}
+    {classes}
+    classe={pe.classes.length === 1 ? pe.classes[0] : undefined}
     onfermer={() => (feuille = null)}
-    onlancer={(code, etapes) => {
+    onlancer={(code, etapes, classe) => {
       feuille = null
-      onlancer(code, etapes)
+      onlancer(code, etapes, classe)
     }}
   />
 {:else if feuille === 'classe'}

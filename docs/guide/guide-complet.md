@@ -71,7 +71,14 @@ Détails : [Révisions](revisions.md).
 
 ## Côté enseignant
 
-Activez **Je suis enseignant** en bas des Réglages : les onglets **Créer** et **En classe** s'ajoutent à ceux des élèves, que vous gardez pour essayer vos parcours comme eux. Les élèves ne voient jamais ces onglets. L'application s'ouvre alors sur Créer.
+Activez **Je suis enseignant** en bas des Réglages. L'application s'ouvre alors sur vos quatre onglets :
+
+- **Parcours** : votre bibliothèque et vos objectifs ;
+- **Classes** : ce que reçoit chaque classe, et ses sessions ;
+- **En classe** : vos sessions ;
+- **Explorer** : les parcours de l'équipe MathALÉA et Teste ton niveau.
+
+Pour voir l'application comme vos élèves (Mes parcours, Suivi), touchez « Vue élève » dans l'onglet Parcours ; « Quitter », dans le bandeau, ou le bouton retour vous ramène. Les élèves ne voient jamais vos onglets.
 
 ### Créer un parcours
 
@@ -104,7 +111,7 @@ Un parcours peut aussi se préparer sur ordinateur, sur le site MathALÉA : [Cr�
 
 ### Objectifs
 
-Chaque exercice reçoit l'objectif du programme sous lequel MathALÉA le range. Vous en retirez, en ajoutez, en créez. La vue **Objectifs** de l'onglet Créer les liste par niveau et chapitre, avec les exercices qui les travaillent. « Importer des objectifs » accepte un tableau CSV, un texte collé ou le fichier d'un collègue ; « Exporter la liste » produit un CSV.
+Chaque exercice reçoit l'objectif du programme sous lequel MathALÉA le range. Vous en retirez, en ajoutez, en créez. La vue **Objectifs** de l'onglet Parcours les liste par niveau et chapitre, avec les exercices qui les travaillent. « Importer des objectifs » accepte un tableau CSV, un texte collé ou le fichier d'un collègue ; « Exporter la liste » produit un CSV.
 
 ### La page d'un parcours
 
@@ -119,17 +126,14 @@ Dans la bibliothèque, touchez un parcours : sa page réunit tout ce qu'on fait 
 
 ### Bibliothèque et classes
 
-L'onglet Créer a trois vues :
-
-- **Parcours** : votre bibliothèque, par niveau puis chapitre.
-- **Classes** : ce que reçoit chaque classe, dans l'ordre vu par les élèves. « + » ajoute une classe, « … » la renomme ou la retire.
-- **Objectifs** : voir plus haut.
+- **Onglet Parcours** : votre bibliothèque, par niveau puis chapitre (vue **Bibliothèque**), et vos objectifs (vue **Objectifs**).
+- **Onglet Classes** : ce que reçoit chaque classe, dans l'ordre vu par les élèves, et les sessions de la classe. « + » ajoute une classe, « … » la renomme ou la retire.
 
 On crée pour un niveau, on donne à des classes : un même parcours sert à toutes vos 5e.
 
 ### Publier
 
-- **Une fois** : un dossier sur votre drive, partagé par lien en lecture. Collez son lien dans la Mise en route de l'onglet Créer. Ce lien ne change plus : c'est celui de vos élèves, toute l'année.
+- **Une fois** : un dossier sur votre drive, partagé par lien en lecture. Collez son lien dans la Mise en route de l'onglet Parcours. Ce lien ne change plus : c'est celui de vos élèves, toute l'année.
 - **À chaque changement** : une petite bannière en haut de l'écran rappelle ce qui reste à faire. « Version différente de celle du drive » : **Mettre à jour** enregistre le fichier de toute votre bibliothèque. « Fichier exporté : déposez-le sur le drive » : déposez-le dans le dossier, sans supprimer les anciens. La bannière disparaît quand l'application voit le fichier dans le dossier.
 - **Versions** : un parcours modifié après publication passe en V2, V3… Les élèves la reçoivent au prochain lancement ; leurs résultats sont gardés, une séance commencée se termine dans sa version.
 
@@ -150,7 +154,8 @@ Le format des fichiers est documenté pour générer des parcours par un script 
 
 Illustré pas à pas : [Sessions et réponses de la classe](sessions.md).
 
-- **Une session** : toute la classe a exactement les mêmes questions. Onglet **En classe**, « Nouvelle session » (ou « Session pour la classe » sur la page d'un parcours), puis « Lancer la session ».
+- **Une session** : toute la classe a exactement les mêmes questions. Onglet **En classe**, « Nouvelle session » (ou « Lancer une session » sur la page d'un parcours). Choisissez la classe (facultatif), puis « Lancer la session ».
+- **Rangées par classe** : dans En classe, vos sessions sont groupées par classe ; dans l'onglet Classes, chaque classe montre les siennes.
 - **La page de la session** affiche son QR code et son code. Projetez-la : les élèves scannent le QR code depuis leur accueil, même s'ils n'ont pas le parcours, ou tapent le code.
 - **Les réponses de la classe** (si vous l'avez demandé au lancement) : chaque élève vous montre un QR code de ses réponses, après la correction ou avant (il voit alors ses résultats une fois le QR code lu). « Lire les QR codes » : passez dans les rangs, la caméra les lit un par un. Ou importez une photo de plusieurs téléphones, ou les fichiers des élèves.
 - **Ce que vous obtenez** : la réussite moyenne, les questions à reprendre, les mauvaises réponses regroupées (« 999 : 2 élèves »), le détail par élève. L'application revérifie elle-même chaque réponse : un QR code modifié ne fausse rien.

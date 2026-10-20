@@ -18,7 +18,7 @@ L'accueil attend le dossier de votre classe. Pour l'instant, touchez la roue den
 
 ## 3. « Je suis enseignant »
 
-En bas des Réglages, activez « Je suis enseignant ». Les onglets Créer (vos parcours) et En classe (vos sessions) apparaissent.
+En bas des Réglages, activez « Je suis enseignant ». L'application passe à vos onglets : Parcours, Classes, En classe et Explorer.
 
 ![Réglage Je suis enseignant](images/decouvrir-3-enseignant.png)
 
@@ -29,6 +29,10 @@ Juste en dessous, touchez « Charger les parcours de démonstration ». Revenez 
 ![Parcours de démonstration](images/decouvrir-4-demonstration.png)
 
 ## 5. Un parcours, côté élève
+
+Vous êtes sur l'onglet Parcours. Pour essayer comme un élève, touchez « Vue élève ».
+
+![Vue élève](images/decouvrir-5a-vue-eleve.png)
 
 Dans « Mes parcours », la classe Démonstration contient quatre parcours. Touchez « Relatifs en ceintures ».
 
@@ -48,9 +52,9 @@ Touchez une case : le clavier de MathALÉA s'ouvre. Répondez, puis touchez « S
 
 ## 8. Comment c'est fait
 
-Revenez à l'accueil et touchez l'onglet « Créer ».
+Quittez l'activité, puis touchez « Quitter » dans le bandeau « Vue élève » : vous retrouvez l'onglet Parcours.
 
-![Onglet Créer](images/decouvrir-8-onglet-creer.png)
+![Onglet Parcours](images/decouvrir-8-onglet-creer.png)
 
 ## 9. La bibliothèque
 

@@ -119,7 +119,7 @@ for (const theme of ['clair', 'sombre']) {
   await t.getByRole('button', { name: /^Additionner deux nombres décimaux relatifs 5N2G/ }).click()
   await cap(t, '6-objectifs', theme)
   // Nouveau parcours : derniers choix repris
-  await t.getByRole('tab', { name: 'Parcours', exact: true }).click()
+  await t.getByRole('tab', { name: 'Bibliothèque', exact: true }).click()
   await t.getByRole('button', { name: 'Créer un parcours' }).click()
   ok((await t.getByRole('radio', { name: '5e', checked: true }).count()) === 1, 'nouveau parcours : niveau repris du dernier')
   ok((await t.getByRole('radio', { name: 'Nombres relatifs' }).count()) === 1, 'nouveau parcours : chapitres du niveau proposés')
@@ -259,7 +259,8 @@ for (const theme of ['clair', 'sombre']) {
   await d.getByRole('button', { name: 'Charger les parcours de démonstration' }).click()
   await d.getByText(/parcours chargés/).waitFor()
   await d.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await d.getByRole('tab', { name: 'Mes parcours' }).click()
+  // L'enseignant essaie comme un élève : vue élève
+  await d.getByRole('button', { name: /^\s*Vue élève/ }).click()
   const accueilDemo = await texte(d)
   ok(accueilDemo.includes('Relatifs en ceintures') && accueilDemo.includes('Ceintures orange à bleue'), 'démonstration : ceintures visibles à l’accueil')
   await cap(d, '14-demo-accueil', theme)
@@ -268,7 +269,7 @@ for (const theme of ['clair', 'sombre']) {
   ok((await texte(d)).includes('Ceinture orange') && (await texte(d)).includes('Au moins 80 % à : ceinture orange'), 'démonstration : ceintures à partir de l’orange')
   await capTout(d, '15-demo-ceintures', theme)
   await d.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await d.getByRole('tab', { name: 'Créer' }).click()
+  await d.getByRole('button', { name: 'Quitter', exact: true }).click()
   ok((await texte(d)).includes('Relatifs en ceintures'), 'démonstration : parcours dans la bibliothèque')
   await d.getByRole('button', { name: 'Réglages' }).click()
   await d.getByRole('button', { name: 'Retirer les parcours de démonstration' }).click()

@@ -10,7 +10,7 @@ Android, iPhone, iPad, Windows, Mac ou Linux : voir [Installer l'application](in
 
 ## 2. Essayer en cinq minutes
 
-Choisissez France ou Suisse. Dans les Réglages (roue dentée), activez **Je suis enseignant**, puis touchez **Charger les parcours de démonstration**. Faites un parcours comme un élève : correction immédiate, clavier mathématique, paliers et ceintures.
+Choisissez France ou Suisse. Dans les Réglages (roue dentée), activez **Je suis enseignant**, puis touchez **Charger les parcours de démonstration**. Touchez « Vue élève » et faites un parcours comme un élève : correction immédiate, clavier mathématique, paliers et ceintures.
 
 Détails : [Découvrir en cinq minutes](decouvrir.md).
 
@@ -18,7 +18,7 @@ Détails : [Découvrir en cinq minutes](decouvrir.md).
 
 ## 3. Créer un parcours
 
-Onglet **Créer**, « Créer un parcours ». Un seul écran : niveau, chapitre, titre, puis « Ajouter des exercices » ouvre les exercices de MathALÉA, rangés comme sur le site, avec leurs réglages et un aperçu. « Valider le parcours ».
+Onglet **Parcours**, « Créer un parcours ». Un seul écran : niveau, chapitre, titre, puis « Ajouter des exercices » ouvre les exercices de MathALÉA, rangés comme sur le site, avec leurs réglages et un aperçu. « Valider le parcours ».
 
 Détails : [Créer un parcours](creer.md).
 
@@ -26,11 +26,11 @@ Détails : [Créer un parcours](creer.md).
 
 ## 4. Le donner à une classe
 
-Onglet Créer, vue **Classes** : « + » crée la classe (5e B, par exemple), puis cochez ses parcours. On crée pour un niveau ; on donne à autant de classes qu'on veut.
+Onglet **Classes** : « + » crée la classe (5e B, par exemple), puis cochez ses parcours. Ou, sur la page d'un parcours, touchez la classe. On crée pour un niveau ; on donne à autant de classes qu'on veut.
 
 ## 5. Publier pour les élèves
 
-Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien, et collez ce lien dans la Mise en route de l'onglet Créer.
+Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien, et collez ce lien dans la Mise en route de l'onglet Parcours.
 
 Puis, à chaque changement : la bannière en haut propose **Mettre à jour**. L'application enregistre un fichier ; déposez-le dans ce dossier. C'est tout.
 
@@ -44,7 +44,7 @@ Détails : [Côté élève](eleves.md).
 
 ## 7. En classe
 
-Onglet **En classe**, « Nouvelle session » : choisissez un parcours, puis « Lancer la session ». Projetez le QR code : les élèves le scannent depuis leur accueil et ont tous les mêmes questions. À la fin, lisez leurs QR codes de réponses : l'application vous montre ce que la classe a réussi et les erreurs fréquentes.
+Onglet **En classe**, « Nouvelle session » : choisissez un parcours et la classe, puis « Lancer la session ». Projetez le QR code : les élèves le scannent depuis leur accueil et ont tous les mêmes questions. À la fin, lisez leurs QR codes de réponses : l'application vous montre ce que la classe a réussi et les erreurs fréquentes.
 
 Détails : [Sessions et réponses de la classe](sessions.md).
 

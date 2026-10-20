@@ -36,6 +36,7 @@
     onsession,
     onsupprimer,
     onsessionClasse,
+    classesEnseignant = [],
     versionMoteur,
   }: {
     parcours: Parcours
@@ -54,7 +55,8 @@
     onameliorer: () => void
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
-    onsessionClasse?: (code: string, etapes?: number[]) => void // enseignant : lance la session et ouvre sa page (En classe)
+    onsessionClasse?: (code: string, etapes?: number[], classe?: string) => void // enseignant : lance la session et ouvre sa page (En classe)
+    classesEnseignant?: string[] // enseignant : ses classes, au choix pour la session
     versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
   } = $props()
 
@@ -446,10 +448,11 @@
     <ReglageSession
       {parcours}
       palier={Math.max(0, courant)}
+      classes={classesEnseignant}
       onfermer={() => (feuille = null)}
-      onlancer={(c, etapes) => {
+      onlancer={(c, etapes, classe) => {
         feuille = null
-        onsessionClasse(c, etapes)
+        onsessionClasse(c, etapes, classe)
       }}
     />
   {/if}

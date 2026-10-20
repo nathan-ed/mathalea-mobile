@@ -160,6 +160,7 @@ export function estReleves(v: unknown): v is Releve[] {
           typeof r.analyse.nbEleves === 'number' &&
           (r.analyse.source === undefined || r.analyse.source === 'collee' || (estChaine(r.analyse.source) && r.analyse.source in SERVICES_IA)))) &&
       (r.creee === undefined || r.creee === true) &&
+      (r.classe === undefined || (estChaine(r.classe) && r.classe.length <= 100)) &&
       (r.invitation === undefined || estChaine(r.invitation)),
   )
 }
@@ -185,6 +186,7 @@ export interface Releve {
   analyse?: { texte: string; le: string; nbEleves: number; source?: ServiceIA | 'collee' }
   creee?: true // session créée sur cet appareil (gardée même sans réponse)
   invitation?: string // son QR code pour les élèves (invitation.ts), à réafficher
+  classe?: string // classe choisie au lancement (sessions rangées par classe)
 }
 
 export const cleReleve = (r: Pick<ReponsesSession, 'c' | 'p' | 'v'>) => `${r.c}|${r.p}|${r.v}`
@@ -197,7 +199,7 @@ export const cleReleve = (r: Pick<ReponsesSession, 'c' | 'p' | 'v'>) => `${r.c}|
  */
 export function noterSession(
   releves: Releve[],
-  s: { code: string; parcours: string; version: number; titre: string; invitation?: string },
+  s: { code: string; parcours: string; version: number; titre: string; invitation?: string; classe?: string },
   precedent: string | null,
   le = new Date().toISOString(),
 ): Releve[] {
@@ -206,7 +208,7 @@ export function noterSession(
   let liste = precedent && precedent !== s.code ? releves.filter((r) => !(r.cle === cle(precedent) && r.creee && !r.recues.length)) : releves
   const existant = liste.find((r) => r.cle === ici)
   if (!existant) {
-    const r: Releve = { cle: ici, code: s.code, parcours: s.parcours, version: s.version, titre: s.titre, le, recues: [], creee: true }
+    const r: Releve = { cle: ici, code: s.code, parcours: s.parcours, version: s.version, titre: s.titre, le, recues: [], creee: true, ...(s.classe ? { classe: s.classe } : {}) }
     liste = [s.invitation ? { ...r, invitation: s.invitation } : r, ...liste]
   } else if (s.invitation && existant.invitation !== s.invitation) {
     liste = liste.map((r) => (r.cle === ici ? { ...r, invitation: s.invitation } : r))

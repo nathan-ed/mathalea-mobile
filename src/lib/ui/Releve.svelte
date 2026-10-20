@@ -1,6 +1,6 @@
 <script lang="ts">
   // Onglet En classe (enseignant) : nouvelle session, lecture des QR codes des
-  // réponses et sessions de l'enseignant, les plus récentes d'abord : celles
+  // réponses et sessions de l'enseignant, par classe, les plus récentes d'abord : celles
   // qu'il a lancées (gardées même sans réponse, pour les relever plus tard) et
   // celles dont il a lu des réponses. Une session s'ouvre sur sa page.
   import type { Parcours } from '$lib/catalogue'
@@ -15,6 +15,8 @@
   let {
     releves,
     parcours,
+    classes = [],
+    classesDe = () => [],
     onsauver,
     onouvrir,
     onlancer,
@@ -22,9 +24,11 @@
   }: {
     releves: Releve[]
     parcours: Parcours[] // parcours qu'on peut lancer en session (bibliothèque et dossiers suivis)
+    classes?: string[] // classes de l'enseignant, dans son ordre
+    classesDe?: (id: string) => string[] // classes qui reçoivent un parcours
     onsauver: (r: Releve[]) => Promise<void>
     onouvrir: (cle: string) => void
-    onlancer: (p: Parcours, code: string, etapes?: number[]) => void
+    onlancer: (p: Parcours, code: string, etapes?: number[], classe?: string) => void
     onreglages: () => void
   } = $props()
 
@@ -38,6 +42,12 @@
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const recentes = $derived([...releves].sort((a, b) => b.le.localeCompare(a.le)))
+  // Par classe, dans l'ordre des classes ; les sessions sans classe à la fin
+  const groupes = $derived.by(() => {
+    const avec = classes.map((c) => ({ titre: c, sessions: recentes.filter((r) => r.classe === c) })).filter((g) => g.sessions.length)
+    const autres = recentes.filter((r) => !r.classe || !classes.includes(r.classe))
+    return [...avec, ...(autres.length ? [{ titre: avec.length ? 'Sans classe' : 'Sessions', sessions: autres }] : [])]
+  })
   const parNiveau = $derived.by(() => {
     const groupes = new Map<string, Parcours[]>()
     for (const p of [...parcours].sort((a, b) => a.titre.localeCompare(b.titre, 'fr'))) groupes.set(p.niveau, [...(groupes.get(p.niveau) ?? []), p])
@@ -76,10 +86,10 @@
   {/if}
   <LectureReponses {releves} {onsauver} />
 
-  {#if recentes.length}
-    <h2 class={titreSection}>Sessions</h2>
+  {#each groupes as g (g.titre)}
+    <h2 class={titreSection}>{g.titre}</h2>
     <ul class={listeGroupee}>
-      {#each recentes as r (r.cle)}
+      {#each g.sessions as r (r.cle)}
         <li class="flex flex-row items-center bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
           <button type="button" class="flex-1 min-w-0 flex flex-row items-center justify-between gap-3 px-4 py-3 text-left" onclick={() => onouvrir(r.cle)}>
             <span class="flex flex-col min-w-0">
@@ -100,7 +110,7 @@
         </li>
       {/each}
     </ul>
-  {/if}
+  {/each}
 </main>
 
 {#if choix}
@@ -132,12 +142,15 @@
 
 {#if reglageOuvert && choisi}
   {@const p = choisi}
+  {@const recoivent = classesDe(p.id)}
   <ReglageSession
     parcours={p}
+    {classes}
+    classe={recoivent.length === 1 ? recoivent[0] : undefined}
     onfermer={() => (reglageOuvert = false)}
-    onlancer={(code, etapes) => {
+    onlancer={(code, etapes, classe) => {
       reglageOuvert = false
-      onlancer(p, code, etapes)
+      onlancer(p, code, etapes, classe)
     }}
   />
 {/if}

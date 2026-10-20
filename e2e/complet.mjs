@@ -324,13 +324,13 @@ ok(await a.getByRole('button', { name: /Fractions : les bases/ }).isVisible(), '
 // ---------- Enseignant ----------
 const t = await appareil('enseignant')
 await t.getByRole('button', { name: /France/ }).click()
-ok(!(await t.getByRole('tab', { name: 'Créer' }).isVisible()), 'premier lancement : pas d’onglet Créer sans le réglage Enseignant')
+ok(!(await t.getByRole('tab', { name: 'Parcours', exact: true }).isVisible()), 'premier lancement : pas d’onglet Parcours (enseignant) sans le réglage Enseignant')
 await t.getByRole('button', { name: 'Réglages' }).click()
 await t.getByRole('switch', { name: /Je suis enseignant/ }).check()
 await cap(t, '8b-reglage-enseignant')
 await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
-ok((await t.getByRole('tab', { name: 'Créer' }).getAttribute('aria-selected')) === 'true', 'réglage Enseignant : onglet Créer ouvert')
-ok(await t.getByRole('tab', { name: 'Mes parcours' }).isVisible(), 'enseignant : garde les onglets de l’élève')
+ok((await t.getByRole('tab', { name: 'Parcours', exact: true }).getAttribute('aria-selected')) === 'true', 'réglage Enseignant : onglet Parcours ouvert')
+ok((await t.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',') === 'Parcours,Classes,En classe,Explorer', 'enseignant : onglets Parcours, Classes, En classe, Explorer')
 await t.getByRole('button', { name: 'Créer un parcours' }).click()
 // Un seul écran : niveau, chapitre, parcours, exercices, pages et validation ; les classes viennent après
 ok(await t.getByText('À compléter : un niveau, un chapitre, un titre, un exercice').isVisible(), 'création : ce qui manque est indiqué')
@@ -389,7 +389,8 @@ ok(await t.getByText('Drive pas encore configuré').isVisible(), 'rappel : drive
 await t.getByRole('button', { name: 'Configurer', exact: true }).click()
 await t.waitForTimeout(600)
 ok(await t.evaluate(() => document.activeElement?.id === 'lien-dossier'), 'rappel : « Configurer » ouvre le champ du lien')
-// Attribution dans la vue Classes
+// Attribution dans l'onglet Classes (clavier refermé : la barre d'onglets revient)
+await t.evaluate(() => (document.activeElement)?.blur())
 await t.getByRole('tab', { name: 'Classes', exact: true }).click()
 await t.getByLabel(/Nouvelle classe/).fill('3e A')
 await t.getByRole('button', { name: 'Ajouter', exact: true }).click()
@@ -444,7 +445,7 @@ await a.getByRole('button', { name: 'Ajouter le dossier' }).click()
 await a.getByLabel('3e A').check({ timeout: 10000 })
 await a.waitForTimeout(500)
 await a.getByRole('button', { name: 'Revenir en arrière' }).click()
-ok(!(await a.getByRole('tab', { name: 'Créer' }).isVisible()), 'élève : jamais d’onglet Créer')
+ok(!(await a.getByRole('tab', { name: 'Parcours', exact: true }).isVisible()) && !(await a.getByRole('tab', { name: 'En classe' }).isVisible()), 'élève : jamais d’onglet enseignant')
 await a.getByRole('tab', { name: '3e A' }).click()
 ok((await texte(a)).includes('Fractions express'), 'élève : parcours de la classe reçu (pastilles de classes)')
 await cap(a, '6e-classes')
@@ -515,8 +516,9 @@ await t.getByLabel('Lien de partage du dossier').fill(lienTest)
 await t.getByRole('button', { name: 'Ajouter le dossier' }).click()
 await t.waitForTimeout(1500)
 await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-// L'enseignant voit toutes les classes du dossier, sans choisir
-await t.getByRole('tab', { name: 'Mes parcours' }).click()
+// L'enseignant voit toutes les classes du dossier, sans choisir (vue élève)
+await t.getByRole('tab', { name: 'Parcours', exact: true }).click()
+await t.getByRole('button', { name: /^\s*Vue élève/ }).click()
 ok(
   (await t.getByRole('tab', { name: 'Classe test' }).isVisible()) && (await t.getByRole('tab', { name: 'Autre classe' }).isVisible()),
   'enseignant : toutes les classes du dossier en pastilles',
@@ -524,7 +526,7 @@ ok(
 await t.getByRole('tab', { name: 'Autre classe' }).click()
 await t.waitForTimeout(300)
 await cap(t, '10c-enseignant-classes')
-await t.getByRole('tab', { name: 'Créer' }).click()
+await t.getByRole('button', { name: 'Quitter', exact: true }).click()
 await t.getByRole('button', { name: /Éditer un parcours existant/ }).click()
 await t.getByRole('button', { name: /Nombres relatifs/ }).first().click()
 ok(

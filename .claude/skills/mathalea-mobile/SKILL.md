@@ -72,9 +72,12 @@ monde, on ne peut pas se permettre d'avoir des erreurs comme ça »)
 
 Ergonomie décidée
 - Profil : tout le monde est élève ; « Je suis enseignant » (interrupteur en
-  bas des Réglages, pas d'infobulle sur mobile) ajoute l'onglet Créer aux
-  onglets élève, puis l'onglet En classe (sessions). « Les élèves ne devraient
-  jamais voir Créer. » Pas de choix
+  bas des Réglages, pas d'infobulle sur mobile) remplace les onglets par ceux
+  de l'enseignant (2026-10-20) : Parcours (bibliothèque, objectifs), Classes
+  (et leurs sessions), En classe (sessions), Explorer. Mes parcours et Suivi :
+  « Vue élève » (bandeau « Quitter »). « Les élèves ne devraient jamais voir
+  Créer. » Toucher un parcours de la bibliothèque ouvre sa page
+  (`FicheParcours`), pas l'éditeur. Une session porte sa classe (facultatif). Pas de choix
   du profil au premier lancement (programme seulement). L'enseignant voit
   toutes les classes de ses dossiers (pastilles), l'élève choisit la sienne.
 - Rien de chargé (« c'est hyper chargé », « pas joli ») : un seul bouton plein
@@ -98,7 +101,7 @@ Ergonomie décidée
 - Entrée : champ suivant (ajoute la classe saisie, importe le lien collé).
 - Un élève avec une seule classe voit directement son contenu.
 - Bouton retour (Nathan, 2026-10-20 : « on devrait toujours repasser par
-  l'écran d'accueil ») : l'onglet de départ (Créer pour l'enseignant, Mes
+  l'écran d'accueil ») : l'onglet de départ (Parcours pour l'enseignant, Mes
   parcours pour l'élève) est le seul d'où « retour » quitte l'app ; tout
   autre onglet y ramène. Vérifier par `node e2e/en-classe.mjs`.
 - Sessions de l'enseignant (2026-10-20) : tout au même endroit, l'onglet En

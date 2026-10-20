@@ -78,7 +78,7 @@ Le même fichier se reprend dans l'application du téléphone.
 
 ### 1. Reprendre ma bibliothèque publiée
 
-Dans l'onglet Créer, touchez « Reprendre ma bibliothèque publiée ».
+Dans l'onglet Parcours, touchez « Reprendre ma bibliothèque publiée ».
 
 ![Reprendre ma bibliothèque](images/importer-1-reprendre.png)
 

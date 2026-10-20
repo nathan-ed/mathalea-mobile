@@ -434,6 +434,13 @@ describe('sessions créées par l’enseignant', () => {
     expect(noterSession(recu, { ...s, code: 'klmnp' }, 'fghij').length).toBe(2)
     expect(cleInvalide({ releves: l })).toBeUndefined()
   })
+  it('classe choisie au lancement : gardée et acceptée dans une sauvegarde', () => {
+    const l = noterSession([], { ...s, code: 'abcde', classe: '5e B' }, null, '2026-10-20')
+    expect(l[0].classe).toBe('5e B')
+    expect(noterSession([], { ...s, code: 'abcde' }, null)[0]).not.toHaveProperty('classe')
+    expect(cleInvalide({ releves: l })).toBeUndefined()
+    expect(cleInvalide({ releves: [{ ...l[0], classe: 3 }] })).toBe('releves')
+  })
 })
 
 import { decoderInvitation, encoderInvitation, moteurPlusAncien } from '../src/lib/invitation'
