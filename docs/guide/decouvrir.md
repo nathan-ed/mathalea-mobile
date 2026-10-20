@@ -58,7 +58,13 @@ Vous y retrouvez les mêmes parcours. Touchez « Relatifs par paliers ».
 
 ![Bibliothèque](images/decouvrir-9-bibliotheque.png)
 
-## 10. Les paliers
+## 10. La page du parcours
+
+Elle réunit tout ce qu'on fait avec un parcours : le donner à des classes, lancer une session en classe, l'essayer comme un élève. Touchez « Modifier ».
+
+![La page du parcours](images/decouvrir-10a-page.png)
+
+## 11. Les paliers
 
 Chaque palier a son titre et ses exercices. On peut y ajouter une ressource pour revoir la notion, et une pause à la fin du palier (un mot pour les élèves, une mise en commun en classe…).
 

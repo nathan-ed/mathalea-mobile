@@ -7,6 +7,7 @@
   import { enregistrerFichier } from '$lib/fichiers'
   import {
     adopter,
+    attribuer,
     ajouterClasse as ajouterClasseBibliotheque,
     definirLien,
     parcoursPourClasse,
@@ -64,6 +65,7 @@
   import Relecture from '$lib/ui/Relecture.svelte'
   import Releve from '$lib/ui/Releve.svelte'
   import SessionClasse from '$lib/ui/SessionClasse.svelte'
+  import FicheParcours from '$lib/ui/FicheParcours.svelte'
   import Scanner from '$lib/ui/Scanner.svelte'
   import EcranRevisions from '$lib/ui/Revisions.svelte'
   import {
@@ -91,7 +93,7 @@
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'session' | 'revisions'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'session' | 'revisions' | 'fiche'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
@@ -336,7 +338,7 @@
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, session: 1, revisions: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, session: 1, revisions: 1, fiche: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
   // L'aperçu garde l'éditeur monté : même écran pour l'animation
   const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
@@ -361,9 +363,29 @@
     await sauverReleves(noterSession($state.snapshot(releves) as TReleve[], { code, parcours: p.id, version: p.version, titre: p.titre, invitation }, null))
     ouvrirSession(cleReleve({ c: code, p: p.id, v: p.version }))
   }
+  // Page d'où la session a été ouverte : la page d'un parcours, sinon l'onglet En classe
+  let sessionDepuis: 'classe' | 'fiche' = 'classe'
   function ouvrirSession(cle: string) {
+    sessionDepuis = vue === 'fiche' ? 'fiche' : 'classe'
     sessionOuverte = cle
     aller('session')
+  }
+  const retourSession = () => (sessionDepuis === 'fiche' && ficheOuverte ? aller('fiche') : versClasse())
+
+  // Page d'un parcours de la bibliothèque (enseignant) ; l'éditeur et l'essai y reviennent
+  let ficheId: string | null = $state(null)
+  const ficheOuverte = $derived(bibliotheque.parcours.find((pe) => pe.parcours.id === ficheId))
+  let creationDepuis: 'creer' | 'fiche' = 'creer'
+  function ouvrirFiche(id: string) {
+    ficheId = id
+    creation = null
+    aller('fiche')
+  }
+  const retourEditeur = () => {
+    if (creationDepuis === 'fiche' && ficheOuverte) {
+      creation = null
+      aller('fiche')
+    } else versCreer()
   }
   // Parcours qu'on peut lancer en session : bibliothèque et dossiers suivis, à leur version la plus récente
   const parcoursSession: Parcours[] = $derived.by(() => {
@@ -406,9 +428,10 @@
       seance: quitterSeance,
       bilan: quitterSeance,
       test: accueil,
-      creation: versCreer,
-      apercu: () => aller('creation'),
-      session: versClasse,
+      creation: retourEditeur,
+      apercu: () => aller(apercuDepuis),
+      session: retourSession,
+      fiche: versCreer,
     }
     retourDeBase(profil !== null ? (precedent[vue] ?? null) : null)
   })
@@ -765,7 +788,8 @@
     await ecrireBibliotheque(stockage!, $state.snapshot(b) as Bibliotheque)
   }
 
-  function creer(p: Parcours = parcoursVide(preferences)) {
+  function creer(p: Parcours = parcoursVide(preferences), depuis: 'creer' | 'fiche' = 'creer') {
+    creationDepuis = depuis
     creation = { parcours: p, cle: Date.now() }
     aller('creation')
   }
@@ -797,6 +821,9 @@
     etiquettes = memoriser($state.snapshot(etiquettes), p.etapes)
     await stockage!.ecrire('etiquettes', $state.snapshot(etiquettes))
     if (nouveaux.length) await sauverObjectifs(fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], nouveaux))
+    // Modification depuis la page du parcours : retour à cette page (l'état de
+    // publication y est, et la bannière propose de mettre le drive à jour)
+    if (creationDepuis === 'fiche' && p.id) return ouvrirFiche(p.id)
     // Création : l'identifiant est attribué par enregistrer(), c'est le dernier ajouté
     dernier = p.id || b.parcours.at(-1)!.parcours.id
     versCreer()
@@ -904,7 +931,10 @@
     return 'Parcours de démonstration retirés. Vos résultats d’essai restent dans le Suivi.'
   }
 
-  function voirApercu(p: Parcours) {
+  // L'aperçu revient à l'éditeur, ou à la page du parcours (« Essayer »)
+  let apercuDepuis: Vue = 'creation'
+  function voirApercu(p: Parcours, depuis: Vue = 'creation') {
+    apercuDepuis = depuis
     apercu = nouvelleSeance({ ...p, id: p.id || 'apercu' }, moteur!.VERSION_MOTEUR)
     aller('apercu')
   }
@@ -1024,14 +1054,14 @@
                   versCreer()
                 }
               : undefined}
-            onretour={versCreer}
+            onretour={retourEditeur}
           />
         {/key}
       </div>
     {/if}
     {#if vue === 'apercu' && apercu}
       {#key apercu.debut}
-        <Seance parcours={apercu.contenu} bind:seance={apercu} {moteur} onsauver={() => {}} onquitter={() => aller('creation')} onterminer={() => aller('creation')} />
+        <Seance parcours={apercu.contenu} bind:seance={apercu} {moteur} onsauver={() => {}} onquitter={() => aller(apercuDepuis)} onterminer={() => aller(apercuDepuis)} />
       {/key}
     {/if}
   {:else if vue === 'accueil'}
@@ -1079,7 +1109,7 @@
         modeles={modeles}
         {objectifs}
         {pays}
-        onouvrir={(pe) => creer(pe.parcours)}
+        onouvrir={(pe) => ouvrirFiche(pe.parcours.id)}
         oncreer={() => creer()}
         {dernier}
         onfermerDernier={() => (dernier = null)}
@@ -1163,7 +1193,27 @@
         else await stockage!.effacer(CLE_IA)
       }}
       onsauver={sauverReleves}
-      onretour={versClasse}
+      onretour={retourSession}
+    />
+  {:else if vue === 'fiche' && ficheOuverte}
+    {@const pe = ficheOuverte}
+    <FicheParcours
+      {pe}
+      classes={bibliotheque.classes.map((c) => c.nom)}
+      drive={!!bibliotheque.lien}
+      sessions={releves.filter((r) => r.parcours === pe.parcours.id).sort((a, b) => b.le.localeCompare(a.le))}
+      onretour={versCreer}
+      onmodifier={() => creer(pe.parcours, 'fiche')}
+      onessayer={() => voirApercu(pe.parcours, 'fiche')}
+      onlancer={(code, etapes) => void lancerSession(pe.parcours, code, etapes)}
+      onclasses={(c) => sauverBibliotheque(attribuer($state.snapshot(bibliotheque) as Bibliotheque, pe.parcours.id, c))}
+      onexporter={() => exporterParcoursChoisis([pe.parcours.id])}
+      ondupliquer={() => creer(copie(pe.parcours))}
+      onsupprimer={async () => {
+        await sauverBibliotheque(supprimer($state.snapshot(bibliotheque) as Bibliotheque, pe.parcours.id))
+        versCreer()
+      }}
+      onsession={ouvrirSession}
     />
   {:else if vue === 'relecture' && relue}
     <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} onqrmontre={() => marquerQrMontre(relue!)} {prenom} onprenom={changerPrenom} />

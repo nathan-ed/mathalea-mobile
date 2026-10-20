@@ -451,6 +451,8 @@ await cap(a, '6e-classes')
 
 // L'enseignant modifie : V2 ; l'élève la reçoit
 await t.getByRole('button', { name: /Fractions express/ }).first().click()
+// La tuile ouvre la page du parcours ; « Modifier » ouvre l'éditeur
+await t.getByRole('button', { name: 'Modifier' }).click()
 ok((await t.getByLabel('Titre', { exact: true }).inputValue()) === 'Fractions express', 'modification : tout est déjà rempli')
 await t.getByLabel('Titre', { exact: true }).fill('Fractions express (corrigé)')
 // Réglages de l'exercice repris tels qu'ils ont été choisis, modifiables sur place
@@ -463,6 +465,10 @@ await t.goBack({ waitUntil: 'commit' })
 await t.waitForTimeout(300)
 await cap(t, '9b-modification')
 await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
+await t.waitForTimeout(400)
+{ const f = await texte(t); ok(/V2 à publier pour/.test(f), `modification enregistrée : retour à la page du parcours, V2 à publier (${f.replace(/\s+/g, ' ').slice(0, 160)})`) }
+await t.getByRole('button', { name: 'Revenir en arrière' }).click()
+await t.waitForTimeout(400)
 ok((await texte(t)).includes('V2'), 'modification après export : V2')
 ok(await t.getByText('Version différente de celle du drive').isVisible(), 'rappel : V2 pas encore exportée')
 await exporterVersDossier()

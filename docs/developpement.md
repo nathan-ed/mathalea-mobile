@@ -603,6 +603,22 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.4 : page d'un parcours pour l'enseignant
+
+- Plan d'ergonomie enseignant (Nathan, 2026-10-20), étape 1. Une tuile de la
+  bibliothèque (vues Parcours et Classes) ouvre la page du parcours
+  (`FicheParcours.svelte`, vue `fiche`) au lieu de l'éditeur : état de
+  publication par classe (`aExporter`), « Lancer une session » (seul bouton
+  plein), Essayer (aperçu, `apercuDepuis`), Modifier, classes en pastilles
+  (`attribuer`), exercices, sessions du parcours, Autres actions (exporter
+  seul, dupliquer, supprimer avec confirmation). L'éditeur, l'aperçu et une
+  session ouverts depuis la page y reviennent (`creationDepuis`,
+  `sessionDepuis`) ; « Valider » d'une modification aussi (une création garde
+  le panneau d'après-enregistrement). Test : `node e2e/fiche-parcours.mjs`.
+- Étapes suivantes du plan : sessions rattachées à une classe ; publier en un
+  geste (« Ouvrir le dossier du drive », vérification automatique) ; onglets
+  de l'enseignant recentrés (décisions de Nathan en attente).
+
 ## 0.4.3 : onglet En classe, retour par l'accueil (fait)
 
 - Nathan (2026-10-20) : retrouver ses sessions demandait plusieurs onglets

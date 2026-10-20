@@ -63,8 +63,11 @@ suisse de MathALÉA ; les exercices utilisent les notations suisses.
 On crée un parcours pour un **niveau** ; on le donne ensuite à des classes,
 dans la vue Classes. « Créer un parcours » ouvre un seul écran, à remplir dans
 l'ordre que vous voulez ; niveau, type, pages et correction reprennent vos
-derniers choix (modifiables dans les Réglages, « Nouveau parcours »). Pour
-modifier un parcours, touchez-le : tout est déjà rempli.
+derniers choix (modifiables dans les Réglages, « Nouveau parcours »). Toucher
+un parcours de la bibliothèque ouvre sa page : état chez les élèves, classes
+(pastilles), « Lancer une session », « Essayer », « Modifier » (tout est déjà
+rempli), ses sessions, et dans « Autres actions » exporter, dupliquer,
+supprimer.
 
 - **Niveau** et **Chapitre** : les chapitres déjà utilisés à ce niveau
   viennent en premier ; touchez-en un ou tapez-en un nouveau.

@@ -106,6 +106,17 @@ Un parcours peut aussi se préparer sur ordinateur, sur le site MathALÉA : [Cr�
 
 Chaque exercice reçoit l'objectif du programme sous lequel MathALÉA le range. Vous en retirez, en ajoutez, en créez. La vue **Objectifs** de l'onglet Créer les liste par niveau et chapitre, avec les exercices qui les travaillent. « Importer des objectifs » accepte un tableau CSV, un texte collé ou le fichier d'un collègue ; « Exporter la liste » produit un CSV.
 
+### La page d'un parcours
+
+Dans la bibliothèque, touchez un parcours : sa page réunit tout ce qu'on fait avec lui.
+
+- Où il en est chez les élèves : « V2 publiée pour 5e A », « V3 à publier pour 5e B », ou donné à aucune classe.
+- **Lancer une session** pour la classe.
+- **Essayer** comme un élève, **Modifier** dans l'éditeur.
+- **Classes** : touchez une classe pour lui donner le parcours ou le lui retirer ; « + » en crée une.
+- Ses exercices, et ses sessions déjà lancées.
+- « Autres actions » : exporter ce parcours seul, dupliquer, supprimer.
+
 ### Bibliothèque et classes
 
 L'onglet Créer a trois vues :
