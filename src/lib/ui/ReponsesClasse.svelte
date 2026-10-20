@@ -3,7 +3,7 @@
   // moins réussies d'abord. L'app ne croit aucun score reçu : elle regénère les
   // questions de la session et revérifie chaque réponse elle-même, hors de
   // l'écran, comme la relecture d'un passage.
-  import { onMount, tick, untrack } from 'svelte'
+  import { onMount, tick, untrack, type Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import { enregistrerFichier } from '$lib/fichiers'
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
@@ -37,6 +37,7 @@
     onconfigIA,
     onmaj,
     onretour,
+    haut,
   }: {
     releve: Releve
     moteur: Moteur
@@ -45,6 +46,7 @@
     onconfigIA: (c: ConfigIA | null) => Promise<void>
     onmaj: (r: Releve) => void // verdicts recalculés, analyse : à garder
     onretour: () => void
+    haut?: Snippet // en tête de page : la session (code, QR code, lecture des réponses)
   } = $props()
 
   retourSi(() => true, () => onretour())
@@ -373,6 +375,7 @@
   </EnTete>
 
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
+    {@render haut?.()}
     {#if erreur}
       <p class="font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
     {:else if !calcul}

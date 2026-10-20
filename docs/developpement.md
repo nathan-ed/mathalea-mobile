@@ -603,6 +603,30 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.3 : onglet En classe, retour par l'accueil (fait)
+
+- Nathan (2026-10-20) : retrouver ses sessions demandait plusieurs onglets
+  (créées depuis Mes parcours, listées dans Créer). Onglet **En classe**
+  (enseignant, après Créer ; `Releve.svelte`) : « Nouvelle session » (choix
+  du parcours : bibliothèque et dossiers suivis), lecture des QR codes, liste
+  des sessions. « Sessions partagées » retiré de Créer.
+- Session de l'enseignant : panneau de réglages (`ReglageSession.svelte` :
+  palier, tous proposés ; QR code des réponses, moment, prénom), puis
+  « Lancer la session » mène à sa page (`SessionClasse.svelte`, vue
+  `session`) : QR code et code affichés, « Plein écran » (`QrSession`),
+  lecture des réponses (`LectureReponses.svelte`, aussi dans l'onglet) ; avec
+  des réponses, `ReponsesClasse` sous un en-tête de session (`haut`). La page
+  ne se met à jour qu'à la fermeture de la caméra ou après un import (sinon la
+  caméra se refermerait au premier QR code lu). Le code est tiré au lancement
+  et noté alors seulement (`lancerSession`) : plus de sessions d'essai notées
+  à chaque réglage.
+- Bouton retour : l'onglet d'accueil est celui où l'app s'ouvre (Créer pour
+  l'enseignant, Mes parcours pour l'élève) ; tout autre onglet y ramène avant
+  que l'app se ferme. Page de session → En classe → Créer. Avant, un
+  enseignant revenu sur Mes parcours quittait l'app au retour suivant.
+- Test : `node e2e/en-classe.mjs` (clair et sombre, retours, double retour
+  rapide, élève sans l'onglet).
+
 ## 0.4.2 : révisions espacées, QR code de session exportable (fait)
 
 - Révisions espacées et mélangées (détails ci-dessous).

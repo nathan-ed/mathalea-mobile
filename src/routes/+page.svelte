@@ -63,6 +63,7 @@
   import Reglages, { type Profil } from '$lib/ui/Reglages.svelte'
   import Relecture from '$lib/ui/Relecture.svelte'
   import Releve from '$lib/ui/Releve.svelte'
+  import SessionClasse from '$lib/ui/SessionClasse.svelte'
   import Scanner from '$lib/ui/Scanner.svelte'
   import EcranRevisions from '$lib/ui/Revisions.svelte'
   import {
@@ -79,7 +80,7 @@
   } from '$lib/revisions'
   import Feuille from '$lib/ui/Feuille.svelte'
   import { boutonAction, boutonInverse } from '$lib/ui/classes'
-  import { noterSession, type Releve as TReleve } from '$lib/releve'
+  import { cleReleve, noterSession, type Releve as TReleve } from '$lib/releve'
   import { decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
   import { CLE_IA, lireConfigIA, type ConfigIA } from '$lib/analyse'
   import Seance from '$lib/ui/Seance.svelte'
@@ -90,7 +91,7 @@
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'releve' | 'revisions'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'session' | 'revisions'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
@@ -101,8 +102,8 @@
   let prenom = $state('')
   let pays: Pays = $state('FR')
   let vue: Vue = $state('accueil')
-  // « creer » : seulement avec le réglage Enseignant
-  let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' = $state('mes')
+  // « creer » et « classe » : seulement avec le réglage Enseignant
+  let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classe' = $state('mes')
   let actif: Parcours | undefined = $state()
   let seance: TSeance | undefined = $state()
   let relue: TSeance | undefined = $state()
@@ -239,6 +240,8 @@
     importes = (await stockage.lire<Parcours[]>('importes')) ?? []
     classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
     objectifs = (await stockage.lire<Objectif[]>('objectifs')) ?? []
+    releves = (await stockage.lire<TReleve[]>('releves')) ?? []
+    configIA = lireConfigIA(await stockage.lire<unknown>(CLE_IA))
     const complete = completerEmpreinte(bibliotheque, objectifs)
     if (complete !== bibliotheque) await sauverBibliotheque(complete)
     etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
@@ -328,12 +331,12 @@
   async function changerProfil(p: Profil) {
     profil = p
     // Réglage Enseignant coché : l'onglet Créer s'ouvre au retour des réglages
-    onglet = p === 'enseignant' ? 'creer' : onglet === 'creer' ? 'mes' : onglet
+    onglet = p === 'enseignant' ? 'creer' : onglet === 'creer' || onglet === 'classe' ? 'mes' : onglet
     await stockage!.ecrire('profil', p)
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, releve: 1, revisions: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, session: 1, revisions: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
   // L'aperçu garde l'éditeur monté : même écran pour l'animation
   const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
@@ -345,26 +348,32 @@
   }
 
   const accueil = () => aller('accueil')
-  // Réponses de sessions (enseignant) : relues à chaque ouverture
-  let releveDepuis: Vue = 'accueil'
-  // Session avec QR code créée par l'enseignant : gardée pour la relever plus
-  // tard. Écritures en file : des changements de réglage rapprochés ne se croisent pas
-  let notes = Promise.resolve()
-  function noterSessionCreee(p: Parcours, code: string, precedent: string | null, etapes?: number[]) {
-    const invitation = moteur ? encoderInvitation({ c: code, p, m: moteur.VERSION_MOTEUR, ...(etapes ? { e: etapes } : {}) }) : undefined
-    notes = notes.then(async () => {
-      const avant = (await stockage!.lire<TReleve[]>('releves')) ?? []
-      const apres = noterSession(avant, { code, parcours: p.id, version: p.version, titre: p.titre, invitation }, precedent)
-      if (apres === avant) return
-      releves = apres
-      await stockage!.ecrire('releves', apres)
-    }).catch(() => {})
+  // Sessions de l'enseignant (onglet En classe) et celle ouverte sur sa page
+  let sessionOuverte: string | null = $state(null)
+  const releveOuvert = $derived(releves.find((r) => r.cle === sessionOuverte) ?? null)
+  async function sauverReleves(r: TReleve[]) {
+    releves = r
+    await stockage!.ecrire('releves', $state.snapshot(r))
   }
-  async function ouvrirReleve() {
-    releves = (await stockage!.lire<TReleve[]>('releves')) ?? []
-    configIA = lireConfigIA(await stockage!.lire<unknown>(CLE_IA))
-    releveDepuis = vue
-    aller('releve')
+  /** Session lancée par l'enseignant : gardée pour la relever plus tard, puis sa page */
+  async function lancerSession(p: Parcours, code: string, etapes?: number[]) {
+    const invitation = moteur ? encoderInvitation({ c: code, p, m: moteur.VERSION_MOTEUR, ...(etapes ? { e: etapes } : {}) }) : undefined
+    await sauverReleves(noterSession($state.snapshot(releves) as TReleve[], { code, parcours: p.id, version: p.version, titre: p.titre, invitation }, null))
+    ouvrirSession(cleReleve({ c: code, p: p.id, v: p.version }))
+  }
+  function ouvrirSession(cle: string) {
+    sessionOuverte = cle
+    aller('session')
+  }
+  // Parcours qu'on peut lancer en session : bibliothèque et dossiers suivis, à leur version la plus récente
+  const parcoursSession: Parcours[] = $derived.by(() => {
+    const vus = new Map<string, Parcours>()
+    for (const p of [...bibliotheque.parcours.map((pe) => pe.parcours), ...tous]) if (p.id && (!vus.has(p.id) || vus.get(p.id)!.version < p.version)) vus.set(p.id, p)
+    return [...vus.values()]
+  })
+  function versClasse() {
+    onglet = 'classe'
+    aller('accueil')
   }
   // Espace enseignant : onglet « Créer » de l'accueil
   function versCreer() {
@@ -376,7 +385,7 @@
     // Aperçu : retour à l'éditeur, qui protège lui-même le brouillon
     if (vue === 'apercu') return aller('creation')
     creation = null
-    onglet = 'mes'
+    onglet = profil === 'enseignant' ? 'creer' : 'mes'
     accueil()
   }
 
@@ -399,6 +408,7 @@
       test: accueil,
       creation: versCreer,
       apercu: () => aller('creation'),
+      session: versClasse,
     }
     retourDeBase(profil !== null ? (precedent[vue] ?? null) : null)
   })
@@ -1092,8 +1102,17 @@
         onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
         onexporter={exporterClasse}
         onreglages={() => aller('reglages')}
-        onreleve={ouvrirReleve}
       />
+      {/snippet}
+      {#snippet enClasse()}
+        <Releve
+          {releves}
+          parcours={parcoursSession}
+          onsauver={sauverReleves}
+          onouvrir={ouvrirSession}
+          onlancer={(p, code, etapes) => void lancerSession(p, code, etapes)}
+          onreglages={() => aller('reglages')}
+        />
       {/snippet}
     </Accueil>
   {:else if vue === 'parcours' && actif}
@@ -1117,8 +1136,7 @@
       onameliorer={ameliorer}
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
-      onreleve={profil === 'enseignant' ? ouvrirReleve : undefined}
-      onnoter={profil === 'enseignant' ? (code, precedent, etapes) => noterSessionCreee(actif!, code, precedent, etapes) : undefined}
+      onsessionClasse={profil === 'enseignant' ? (code, etapes) => void lancerSession(actif!, code, etapes) : undefined}
       versionMoteur={moteur?.VERSION_MOTEUR}
     />
   {:else if vue === 'revisions'}
@@ -1132,22 +1150,20 @@
       onreprendre={reprendreTest}
       onretour={accueil}
     />
-  {:else if vue === 'releve'}
-    <Releve
+  {:else if vue === 'session' && releveOuvert}
+    <SessionClasse
+      releve={releveOuvert}
       {releves}
       {moteur}
-      niveauDe={(id) => bibliotheque.parcours.find((pe) => pe.parcours.id === id)?.parcours.niveau ?? ''}
+      niveau={bibliotheque.parcours.find((pe) => pe.parcours.id === releveOuvert.parcours)?.parcours.niveau ?? ''}
       {configIA}
       onconfigIA={async (c) => {
         configIA = c
         if (c) await stockage!.ecrire(CLE_IA, c)
         else await stockage!.effacer(CLE_IA)
       }}
-      onsauver={async (r) => {
-        releves = r
-        await stockage!.ecrire('releves', $state.snapshot(r))
-      }}
-      onretour={() => (releveDepuis === 'parcours' && actif ? aller('parcours') : versCreer())}
+      onsauver={sauverReleves}
+      onretour={versClasse}
     />
   {:else if vue === 'relecture' && relue}
     <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} onqrmontre={() => marquerQrMontre(relue!)} {prenom} onprenom={changerPrenom} />

@@ -1,6 +1,6 @@
 // QR code de session (pnpm dev seulement, sans le serveur de dossier qui
 // remplace l'Explorer). L'enseignant crée une session, affiche son QR code, la
-// retrouve dans « Sessions partagées » ; un élève qui n'a pas le parcours
+// retrouve dans l'onglet En classe ; un élève qui n'a pas le parcours
 // scanne le QR code (fausse caméra de Chromium) et arrive dans la session ; un
 // élève dont l'app est plus ancienne est prévenu.
 //   CAPTURES=<dossier> node e2e/session-qr.mjs
@@ -123,16 +123,21 @@ await guide(prof, 'sessions-1a-bouton', boutonSession)
 await boutonSession.click()
 ok(!(await prof.getByRole('button', { name: 'Commencer la session' }).count()), 'enseignant : pas de « Commencer la session », il ne fait pas la session')
 await prof.getByRole('switch', { name: 'QR code des réponses pour l’enseignant' }).check()
+const lancerSession = prof.getByRole('button', { name: 'Lancer la session' })
+await lancerSession.click()
+// Lancer mène directement à la page de la session : QR code et code
+const qrPage = prof.locator('.qr-page')
+await qrPage.waitFor()
 const code = (await prof.locator('main .font-light').filter({ hasText: /^[2-9a-z]{5}$/ }).first().innerText()).trim()
-const boutonQr = prof.getByRole('button', { name: 'Afficher le QR code de la session' })
-ok(await boutonQr.isVisible(), `enseignant : « Afficher le QR code de la session » (code ${code})`)
-await guide(prof, 'sessions-2d-afficher', boutonQr)
-await boutonQr.click()
+ok(/^[2-9a-z]{5}$/.test(code) && (await prof.getByRole('heading', { name: 'Relatifs au tableau' }).isVisible()), `Lancer la session : page de la session, QR code et code ${code}`)
+ok((await qrPage.boundingBox()).width > 250, 'QR code affiché sur la page de la session')
+await guide(prof, 'sessions-2e-page')
+await prof.screenshot({ path: `${captures}/session-qr-0-page.png` })
+await prof.getByRole('button', { name: 'Plein écran', exact: true }).click()
 const qr = prof.locator('.qr-session')
 await qr.waitFor()
-ok((await prof.locator('main', { has: qr }).innerText()).includes(code), 'QR code de la session, avec son code')
+ok((await prof.locator('main', { has: qr }).innerText()).includes(code), 'QR code de la session en plein écran, avec son code')
 ok((await qr.boundingBox()).width > 300, 'QR code assez grand pour être projeté')
-await guide(prof, 'sessions-2e-qr')
 await prof.screenshot({ path: `${captures}/session-qr-1-enseignant.png` })
 // Image exportée (mail, drive) : c'est elle que l'élève scannera plus bas
 const [telechargement] = await Promise.all([prof.waitForEvent('download'), prof.getByRole('button', { name: 'Exporter l’image' }).click()])
@@ -143,16 +148,16 @@ ok(telechargement.suggestedFilename() === `session-${code}.png` && readFileSync(
 await prof.getByText('Image enregistrée.').waitFor()
 await prof.goBack()
 await prof.waitForTimeout(400)
-ok(!(await qr.count()) && (await prof.getByRole('button', { name: 'Sessions partagées' }).isVisible()), 'retour : le QR code se referme, la session reste')
-// Quitter, puis retrouver la session et son QR code dans « Sessions partagées »
-await prof.getByRole('button', { name: 'Revenir en arrière' }).click()
-await prof.waitForTimeout(300)
+ok(!(await qr.count()) && (await qrPage.isVisible()), 'retour : le plein écran se referme, la page de la session reste')
+// Retour : onglet En classe, la session y est
+await prof.goBack()
+await prof.waitForTimeout(400)
+ok((await prof.getByRole('tab', { name: 'En classe' }).getAttribute('aria-selected')) === 'true' && (await prof.getByRole('button', { name: /Relatifs au tableau/ }).isVisible()), 'retour : onglet En classe, avec la session')
 await prof.reload()
-await prof.getByRole('button', { name: /Sessions partagées/ }).click({ timeout: 60_000 })
+await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
 await prof.getByRole('button', { name: /Relatifs au tableau/ }).click()
-await prof.getByRole('dialog').getByRole('button', { name: 'Afficher le QR code de la session' }).click()
-await qr.waitFor()
-ok((await prof.locator('main', { has: qr }).innerText()).includes(code), 'Sessions partagées : le QR code se réaffiche plus tard')
+await qrPage.waitFor()
+ok((await prof.locator('main').innerText()).includes(code), 'En classe : la session et son QR code se réaffichent plus tard')
 const invitation = await prof.evaluate(() => JSON.parse(localStorage.getItem('copie:releves'))[0].invitation)
 ok(invitation?.startsWith('MASES1.'), 'session gardée avec son QR code')
 
@@ -203,11 +208,12 @@ ok((await b.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}
 // Thème sombre : accueil de l'élève et QR code de l'enseignant
 await prof.evaluate(() => localStorage.setItem('theme', 'sombre'))
 await prof.reload()
-await prof.getByRole('button', { name: /Sessions partagées/ }).click({ timeout: 60_000 })
+await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
+await prof.screenshot({ path: `${captures}/session-qr-5-en-classe-sombre.png` })
 await prof.getByRole('button', { name: /Relatifs au tableau/ }).click()
-await prof.getByRole('dialog').getByRole('button', { name: 'Afficher le QR code de la session' }).click()
-await qr.waitFor()
-await prof.screenshot({ path: `${captures}/session-qr-5-enseignant-sombre.png` })
+await qrPage.waitFor()
+await prof.waitForTimeout(500)
+await prof.screenshot({ path: `${captures}/session-qr-6-page-sombre.png` })
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)
 await Promise.all([navE.close(), navA.close(), navB.close()])

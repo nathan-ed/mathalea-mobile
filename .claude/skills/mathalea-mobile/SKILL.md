@@ -73,7 +73,8 @@ monde, on ne peut pas se permettre d'avoir des erreurs comme ça »)
 Ergonomie décidée
 - Profil : tout le monde est élève ; « Je suis enseignant » (interrupteur en
   bas des Réglages, pas d'infobulle sur mobile) ajoute l'onglet Créer aux
-  onglets élève. « Les élèves ne devraient jamais voir Créer. » Pas de choix
+  onglets élève, puis l'onglet En classe (sessions). « Les élèves ne devraient
+  jamais voir Créer. » Pas de choix
   du profil au premier lancement (programme seulement). L'enseignant voit
   toutes les classes de ses dossiers (pastilles), l'élève choisit la sienne.
 - Rien de chargé (« c'est hyper chargé », « pas joli ») : un seul bouton plein
@@ -96,6 +97,13 @@ Ergonomie décidée
   changement, bouton « Enregistrer et quitter » qui ramène à l'accueil.
 - Entrée : champ suivant (ajoute la classe saisie, importe le lien collé).
 - Un élève avec une seule classe voit directement son contenu.
+- Bouton retour (Nathan, 2026-10-20 : « on devrait toujours repasser par
+  l'écran d'accueil ») : l'onglet de départ (Créer pour l'enseignant, Mes
+  parcours pour l'élève) est le seul d'où « retour » quitte l'app ; tout
+  autre onglet y ramène. Vérifier par `node e2e/en-classe.mjs`.
+- Sessions de l'enseignant (2026-10-20) : tout au même endroit, l'onglet En
+  classe ; « Lancer la session » mène directement à la page de la session
+  (QR code et code affichés), jamais un détour par plusieurs onglets.
 
 Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce
@@ -288,7 +296,7 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   monde répond à une session partagée, l'enseignant récupère et met tout dans
   une IA pour un retour rapide et anonyme des erreurs », « disponible sur
   toutes les plateformes ») : QR code de l'élève (`MesReponses`, `releve.ts`,
-  sans nom), relevé par l'enseignant (`Releve` = écran « Sessions partagées », `Scanner`, `qr.ts`), recalcul
+  sans nom), relevé par l'enseignant (onglet En classe : `Releve` liste, `SessionClasse` page d'une session, `LectureReponses`, `Scanner`, `qr.ts`), recalcul
   hors écran (`ReponsesClasse` : on ne croit jamais un score reçu ; énoncés
   comparés par empreinte), résumé, vues Questions et Élèves, « Copier pour
   une IA », « Coller la réponse d'une IA », analyse dans l'app (`ia.ts`) par
@@ -298,13 +306,15 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   seulement en réseau local. Prénom au choix de l'enseignant, **jamais envoyé
   à l'IA** (Nathan) : « Élève N » vers l'IA, consigne de garder ces numéros,
   `retraduire()` remet les prénoms à l'affichage.
-  Toute session avec QR créée par l'enseignant est gardée dès l'affichage du
-  code (Nathan : « si on quitte l'écran, on ne peut plus scanner », relever
-  une heure après le cours ; croix pour effacer les sessions de test).
+  Toute session lancée par l'enseignant (`ReglageSession` puis « Lancer la
+  session ») est gardée (Nathan : « si on quitte l'écran, on ne peut plus
+  scanner », relever une heure après le cours ; croix pour effacer les
+  sessions de test). La page de session ne se rafraîchit qu'à la fermeture de
+  la caméra (sinon le scanner se refermerait au premier QR code).
   QR code de session à projeter (`invitation.ts`, `QrSession`) : l'élève le
   scanne depuis l'icône en haut de l'accueil et arrive dans la session, même
   sans le parcours (copie portée par le QR) ; app plus ancienne prévenue.
-  Test : `node e2e/session-qr.mjs`.
+  Tests : `node e2e/session-qr.mjs`, `node e2e/en-classe.mjs`.
   Politique de confidentialité : nouveau texte en attente dans
   `docs/confidentialite-brouillon.html`. Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant

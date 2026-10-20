@@ -1,4 +1,4 @@
-# Sessions partagées et réponses de la classe
+# Sessions et réponses de la classe
 
 [Retour aux guides](index.md)
 
@@ -6,11 +6,11 @@ Une session partagée donne à toute la classe les mêmes questions, grâce à u
 
 ## 1. Créer la session et demander le QR code
 
-Dans un parcours, touchez « Session pour la classe ».
+Dans un parcours, touchez « Session pour la classe ». Ou bien, dans l'onglet En classe, touchez « Nouvelle session » et choisissez le parcours.
 
 ![Session pour la classe](images/sessions-1a-bouton.png)
 
-Le code s'affiche. Allumez « QR code des réponses pour l'enseignant ».
+Un panneau s'ouvre. Allumez « QR code des réponses pour l'enseignant ».
 
 ![Demander le QR code](images/sessions-1-interrupteur.png)
 
@@ -25,19 +25,17 @@ Pour savoir qui a répondu quoi, allumez aussi « Avec le prénom des élèves �
 
 ![Avec le prénom des élèves](images/sessions-2c-prenom.png)
 
-Chaque choix donne un nouveau code. Le réglage est caché dans le code lui-même : il suffit de donner ce code aux élèves, qui touchent « Rejoindre une session ». Un élève ne peut pas changer le réglage en modifiant le code : une autre lettre donne un réglage imprévisible et d'autres questions, et ses réponses arriveraient sous un autre code.
+Touchez « Lancer la session ».
 
-![Le code de la session](images/sessions-2b-code.png)
+![Lancer la session](images/sessions-2b-lancer.png)
 
-Sans QR code demandé, la session se déroule comme avant.
+### La page de la session
 
-### Lancer la session par un QR code
+« Lancer la session » ouvre directement la page de la session, dans l'onglet En classe : son QR code et son code. Vous ne faites pas la session vous-même : projetez cette page (« Plein écran » agrandit le QR code et permet d'exporter son image). Les élèves peuvent aussi taper le code avec « Rejoindre une session ».
 
-Vous ne faites pas la session vous-même : touchez « Afficher le QR code de la session » et projetez-le (le code fonctionne aussi).
+![La page de la session](images/sessions-2e-page.png)
 
-![Afficher le QR code](images/sessions-2d-afficher.png)
-
-![Le QR code de la session](images/sessions-2e-qr.png)
+Le réglage est caché dans le code lui-même. Un élève ne peut pas le changer en modifiant le code : une autre lettre donne un réglage imprévisible et d'autres questions, et ses réponses arriveraient sous un autre code. Sans QR code des réponses, la session se déroule comme avant.
 
 L'élève touche l'icône QR code en haut de son accueil et vise le tableau : il arrive directement dans la session, sur le bon parcours et le bon palier, même s'il n'avait pas ce parcours. Le parcours s'ajoute à son accueil.
 
@@ -47,7 +45,7 @@ Si son application a des exercices plus anciens que les vôtres, elle lui demand
 
 ![Application à mettre à jour](images/sessions-2g-ancienne.png)
 
-La session est gardée dans « Sessions partagées » dès que son code s'affiche : vous pouvez la préparer avant le cours et réafficher son QR code en classe.
+La session est gardée dans l'onglet En classe : vous pouvez la préparer avant le cours et réafficher son QR code en classe.
 
 ## 2. Ce que fait l'élève
 
@@ -69,19 +67,19 @@ Le QR code s'affiche, sur fond blanc, avec ses réponses (et son prénom si vous
 
 ## 3. Retrouver ses sessions et lire les QR codes
 
-Dans l'onglet Créer, touchez « Sessions partagées » (le même lien est sous le code de la session).
+Toutes vos sessions sont dans l'onglet En classe, en bas de l'écran (il apparaît avec le réglage « Je suis enseignant »).
 
-![Sessions partagées](images/sessions-6-espace.png)
+![L'onglet En classe](images/sessions-6-espace.png)
 
-Chaque session créée avec un QR code y est gardée dès que son code s'affiche, même si vous quittez l'écran : vous pouvez noter le code pour plus tard, et relever les réponses une heure après le cours. Chaque ligne indique le code, la date, le réglage et le nombre d'élèves. La croix supprime une session, après confirmation : pratique pour effacer les sessions d'essai ou restées sans réponse.
+Chaque session lancée y est gardée, même si vous quittez l'écran : vous pouvez relever les réponses une heure après le cours. Chaque ligne indique le code, la date, le réglage et le nombre d'élèves. La croix supprime une session, après confirmation : pratique pour effacer les sessions d'essai ou restées sans réponse.
 
 ![La liste des sessions](images/sessions-6b-liste.png)
 
-Une session sans réponse affiche son code, à redonner aux élèves, et « Lire les QR codes ».
+Touchez une session pour retrouver sa page : son QR code, son code et « Lire les QR codes ».
 
 ![Une session sans réponse](images/sessions-6c-code.png)
 
-Touchez « Lire les QR codes ».
+Touchez « Lire les QR codes », sur la page de la session ou dans l'onglet En classe (les réponses vont toujours dans leur session).
 
 ![Lire les QR codes](images/sessions-7-lire.png)
 
@@ -98,7 +96,7 @@ La première fois, l'application demande l'accès à la caméra. Sans caméra (o
 
 ## 4. Les réponses de la classe
 
-Touchez la session dans la liste. L'application regénère les questions de la session et revérifie elle-même chaque réponse : un QR code modifié ne fausse rien.
+Touchez la session dans l'onglet En classe. Sa page montre en haut son code, son QR code et « Lire les QR codes » pour ajouter des réponses ; dessous, les réponses de la classe. L'application regénère les questions de la session et revérifie elle-même chaque réponse : un QR code modifié ne fausse rien.
 
 En tête, le résumé : la réussite moyenne, le nombre d'élèves sous 50 %, entre 50 et 79 % et à 80 % et plus, et les questions à reprendre (moins de 70 % de réussite).
 

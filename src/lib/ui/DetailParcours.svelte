@@ -3,15 +3,14 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { untrack } from 'svelte'
   import { couleurCeinture, nomPalier, titreEleve, type Parcours } from '$lib/catalogue'
   import { etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
-  import { modeQr, nouveauCode, normaliserCode, type ModeQr } from '$lib/progression'
-  import ChoixRadio from './ChoixRadio.svelte'
+  import { modeQr, nouveauCode, normaliserCode } from '$lib/progression'
   import { reponsesDeSeance } from '$lib/releve'
   import { encoderInvitation } from '$lib/invitation'
   import QrSession from './QrSession.svelte'
+  import ReglageSession from './ReglageSession.svelte'
   import { ouvrirLien } from '$lib/fichiers'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
@@ -36,8 +35,7 @@
     onameliorer,
     onsession,
     onsupprimer,
-    onreleve,
-    onnoter,
+    onsessionClasse,
     versionMoteur,
   }: {
     parcours: Parcours
@@ -56,8 +54,7 @@
     onameliorer: () => void
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
-    onreleve?: () => void // enseignant : réponses des élèves à la session (QR codes)
-    onnoter?: (code: string, precedent: string | null, etapes?: number[]) => void // enseignant : session à garder dans « Sessions partagées »
+    onsessionClasse?: (code: string, etapes?: number[]) => void // enseignant : lance la session et ouvre sa page (En classe)
     versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
   } = $props()
 
@@ -65,13 +62,9 @@
   // Session partagée d'un parcours à paliers : un palier ouvert, le même pour tous
   let palierSession = $state(0)
   let code = $state('')
-  // Enseignant : QR code des réponses, porté par le code de session (modeQr)
-  let quandQr: Exclude<ModeQr, 'aucun'> = $state('apres')
-  let avecPrenom = $state(false)
-  const mode = $derived(modeQr(code))
-  const changerModeQr = (m: ModeQr) => (code = nouveauCode(m, avecPrenom))
-  // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton
-  let feuille: 'actions' | 'suppression' | null = $state(null)
+  // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton ;
+  // « session » : réglages de la session pour la classe (enseignant)
+  let feuille: 'actions' | 'suppression' | 'session' | null = $state(null)
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
@@ -84,24 +77,9 @@
 
   const paliers = $derived(etatsPaliers(parcours, resultats))
   const avecPaliers = $derived(paliers.length > 1)
-  // Session créée par l'enseignant : notée dès que son code s'affiche (pour la
-  // lancer et la relever plus tard) ; un changement de réglage remplace le code
-  // noté par ce panneau, un autre palier met son QR code à jour
-  let codeNote: string | null = null
   const etapesSession = $derived(avecPaliers ? paliers[palierSession]?.etapes : undefined)
-  $effect(() => {
-    if (session !== 'creer' || !onnoter || !code) return
-    const c = code
-    const e = etapesSession
-    untrack(() => {
-      onnoter(c, codeNote, e)
-      codeNote = c
-    })
-  })
   function creerSession() {
-    codeNote = null
     code = nouveauCode()
-    avecPrenom = false
     palierSession = Math.max(0, courant)
     session = 'creer'
     feuille = null
@@ -304,8 +282,8 @@
           {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
         </button>
       {/if}
-      {#if onreleve && session === 'aucune'}
-        <button type="button" class="{boutonInverse} w-full" onclick={creerSession}>
+      {#if onsessionClasse && session === 'aucune'}
+        <button type="button" class="{boutonInverse} w-full" onclick={() => (feuille = 'session')}>
           <i aria-hidden="true" class="bx bx-group mr-1"></i> Session pour la classe
         </button>
       {/if}
@@ -342,77 +320,15 @@
         <div class="text-center py-2">
           <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2.5rem; letter-spacing: 0.15em">{code}</div>
           <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            {#if onreleve}
-              Code à donner aux élèves{avecPaliers ? ` avec le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''}, ou QR code à projeter.
-            {:else}
-              Donne ce code à tes camarades{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
-            {/if}
+            Donne ce code à tes camarades{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
           </p>
         </div>
-        {#if onreleve}
-          <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
-            <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">QR code des réponses pour l’enseignant</span>
-            <input
-              type="checkbox"
-              role="switch"
-              class="interrupteur shrink-0"
-              checked={mode !== 'aucun'}
-              onchange={(e) => changerModeQr(e.currentTarget.checked ? quandQr : 'aucun')}
-            />
-          </label>
-          {#if mode !== 'aucun'}
-            <ChoixRadio
-              nom="moment-qr"
-              valeur={quandQr}
-              onchange={(v) => {
-                quandQr = v
-                changerModeQr(v)
-              }}
-              options={[
-                { libelle: 'Après la correction', valeur: 'apres' as const },
-                { libelle: 'Avant la correction', valeur: 'avant' as const },
-              ]}
-            />
-            <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
-              <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Avec le prénom des élèves</span>
-              <input
-                type="checkbox"
-                role="switch"
-                class="interrupteur shrink-0"
-                checked={avecPrenom}
-                onchange={(e) => {
-                  avecPrenom = e.currentTarget.checked
-                  changerModeQr(quandQr)
-                }}
-              />
-            </label>
-            <p class={discret}>
-              {avecPrenom ? 'Chaque élève donne son prénom une fois ; il n’est jamais envoyé à une IA. ' : ''}
-              {mode === 'avant'
-                ? 'Pas de correction pendant la session. À la fin, chaque élève montre son QR code, puis voit ses résultats et les corrections.'
-                : 'Les élèves voient la correction comme prévu, puis montrent leur QR code depuis leur bilan.'}
-              Le réglage est dans le code : il suffit de le donner.
-            </p>
-          {/if}
-        {/if}
-        {#if onreleve}
-          <!-- Enseignant : il ne fait pas la session, il la montre et la relève -->
-          {#if invitation}
-            <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => (qrSession = true)}>
-              <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
-            </button>
-          {/if}
-          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={onreleve}>
-            <i aria-hidden="true" class="bx bx-list-ul text-xl"></i> Sessions partagées
+        {#if invitation}
+          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => (qrSession = true)}>
+            <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
           </button>
-        {:else}
-          {#if invitation}
-            <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => (qrSession = true)}>
-              <i aria-hidden="true" class="bx bx-qr text-xl"></i> Afficher le QR code de la session
-            </button>
-          {/if}
-          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onsession(code, avecPaliers ? paliers[palierSession].etapes : undefined)}>Commencer la session</button>
         {/if}
+        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onsession(code, avecPaliers ? paliers[palierSession].etapes : undefined)}>Commencer la session</button>
       {:else if session === 'rejoindre'}
         <ChampTexte id="code-session" titre="Code de session" bind:valeur={code} />
         <button
@@ -486,7 +402,7 @@
         ? [action('bx-revision', avecPaliers ? `Refaire ${parcours.style === 'ceintures' ? 'cette ceinture' : 'ce palier'} depuis le début` : 'Tout refaire', onrefaire), action('bx-trash', 'Supprimer la tentative en cours', () => (feuille = 'suppression'))]
         : []),
       // L'enseignant a son bouton sur la page (« Session pour la classe »)
-      ...(onreleve ? [] : [action('bx-group', 'Session partagée', creerSession)]),
+      ...(onsessionClasse ? [] : [action('bx-group', 'Session partagée', creerSession)]),
       action('bx-log-in', 'Rejoindre une session', () => {
         code = ''
         palierSession = Math.max(0, courant)
@@ -525,6 +441,17 @@
         >
       </div>
     </Feuille>
+  {/if}
+  {#if feuille === 'session' && onsessionClasse}
+    <ReglageSession
+      {parcours}
+      palier={Math.max(0, courant)}
+      onfermer={() => (feuille = null)}
+      onlancer={(c, etapes) => {
+        feuille = null
+        onsessionClasse(c, etapes)
+      }}
+    />
   {/if}
   {#if qrSession && invitation}
     <QrSession {invitation} {code} titre={parcours.titre} onfermer={() => (qrSession = false)} />

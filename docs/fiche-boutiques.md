@@ -69,6 +69,15 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
 
 ## Notes de version
 
+Version 0.4.3 :
+
+```
+<fr-FR>
+- Enseignant : nouvel onglet En classe, qui regroupe les sessions. « Lancer la session » affiche directement son QR code et son code.
+- Le bouton retour repasse toujours par l'accueil avant de quitter l'application.
+</fr-FR>
+```
+
 Version 0.4.2 :
 
 ```

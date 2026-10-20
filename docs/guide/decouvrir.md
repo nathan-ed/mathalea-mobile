@@ -18,7 +18,7 @@ L'accueil attend le dossier de votre classe. Pour l'instant, touchez la roue den
 
 ## 3. « Je suis enseignant »
 
-En bas des Réglages, activez « Je suis enseignant ». L'onglet Créer apparaît.
+En bas des Réglages, activez « Je suis enseignant ». Les onglets Créer (vos parcours) et En classe (vos sessions) apparaissent.
 
 ![Réglage Je suis enseignant](images/decouvrir-3-enseignant.png)
 

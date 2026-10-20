@@ -2,13 +2,13 @@
 
 [Retour aux guides](index.md)
 
-Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pour faire le tour.
+Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pour faire le tour ; la [Prise en main](prise-en-main.md) guide pas à pas.
 
 ## Installer
 
 - Android : en attendant le Play Store, écrivez sur Mattermost à Nathan Scheinmann avec l'adresse mail de votre compte Google pour recevoir le lien de test, ou installez le fichier APK. Tout est expliqué dans [Installer l'application](installer.md).
 - Ordinateur (Windows, Mac ou Linux) : la marche à suivre est dans [Installer l'application](installer.md).
-- iPhone et iPad : la version de test TestFlight arrive bientôt. Pour les curieux, une installation avec un ordinateur est déjà possible ; elle est décrite dans [Installer l'application](installer.md).
+- iPhone et iPad : la version de test s'installe avec un ordinateur, pas à pas : [Installer sur iPhone ou iPad](iphone.md).
 
 ## Ce qu'on peut essayer
 
@@ -17,7 +17,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 3. Déposer le fichier dans un dossier partagé de votre drive, puis ajouter ce dossier sur un autre téléphone ou avec un élève ([Côté élève](eleves.md)).
 4. Essayer les paliers ou les ceintures : un seuil de réussite, une pause, une ressource pour revoir.
 5. Modifier le parcours, republier, et vérifier que la nouvelle version arrive chez l'élève.
-6. Lancer une session pour la classe : afficher ou exporter son QR code, le scanner depuis un autre téléphone, puis relever les réponses ([Sessions partagées](sessions.md)).
+6. Lancer une session pour la classe (onglet En classe) : afficher ou exporter son QR code, le scanner depuis un autre téléphone, puis relever les réponses ([Sessions](sessions.md)).
 7. Faire analyser les réponses par une IA : texte copié, ou dans l'application avec une clé d'API ou une IA locale.
 8. Terminer deux parcours, puis revenir le lendemain : la tuile « Révisions » propose une courte séance ([Révisions](revisions.md)).
 

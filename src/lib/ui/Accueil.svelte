@@ -39,6 +39,7 @@
     enseignant = false,
     suivi,
     espaceEnseignant,
+    enClasse,
     onouvrir,
     oncontinuer,
     onreglages,
@@ -59,10 +60,11 @@
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
-    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer'
-    enseignant?: boolean // réglage Enseignant : onglet Créer en plus
+    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classe'
+    enseignant?: boolean // réglage Enseignant : onglets Créer et En classe en plus
     suivi: Snippet
     espaceEnseignant?: Snippet
+    enClasse?: Snippet // sessions de l'enseignant
     onouvrir: (p: Parcours) => void
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
@@ -146,11 +148,13 @@
   const niveaux = $derived([...new Set(explorables.map((p) => p.niveau))])
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
 
+  // Onglet d'accueil, où l'app s'ouvre : « retour » y ramène avant de quitter l'app
+  const depart = $derived(enseignant ? 'creer' : 'mes')
   retourSi(
-    () => niveau !== null || onglet !== 'mes',
+    () => niveau !== null || onglet !== depart,
     () => {
       if (niveau) niveau = null
-      else changerOnglet('mes')
+      else changerOnglet(depart)
     },
   )
 
@@ -164,6 +168,8 @@
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   {#if onglet === 'creer' && enseignant && espaceEnseignant}
     {@render espaceEnseignant()}
+  {:else if onglet === 'classe' && enseignant && enClasse}
+    {@render enClasse()}
   {:else}
   {#if onglet === 'explorer' && niveau}
     <EnTete titre={niveau} onretour={() => (niveau = null)} />
@@ -351,7 +357,12 @@
       { cle: 'mes', libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
       { cle: 'explorer', libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
       { cle: 'suivi', libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
-      ...(enseignant ? [{ cle: 'creer' as const, libelle: 'Créer', icone: 'bx-plus-circle', iconeActive: 'bxs-plus-circle' }] : []),
+      ...(enseignant
+        ? [
+            { cle: 'creer' as const, libelle: 'Créer', icone: 'bx-plus-circle', iconeActive: 'bxs-plus-circle' },
+            { cle: 'classe' as const, libelle: 'En classe', icone: 'bx-chalkboard', iconeActive: 'bxs-chalkboard' },
+          ]
+        : []),
     ]}
     actif={onglet}
     onchoisir={(o) => {
