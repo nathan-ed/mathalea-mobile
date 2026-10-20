@@ -144,12 +144,15 @@ export async function preparerExercice(
     exercice.nouvelleVersionWrapper(numero)
   }
   const contexte = mathaleaFormatExercice(composeQuestionContext(exercice))
-  const questions = (exercice.listeQuestions ?? []).map((enonce, i) => ({
-    contexte,
-    enonce: mathaleaFormatExercice(enonce),
-    correction: mathaleaFormatExercice(exercice.listeCorrections?.[i] ?? ''),
-    interactive: exercice.autoCorrection?.[i] != null,
-  }))
+  const questions = (exercice.listeQuestions ?? []).map((enonce, i) => {
+    const html = mathaleaFormatExercice(enonce)
+    return {
+      contexte,
+      enonce: html,
+      correction: mathaleaFormatExercice(exercice.listeCorrections?.[i] ?? ''),
+      interactive: indicesDeLaQuestion(exercice, i, html).length > 0,
+    }
+  })
   return {
     uuid: params.uuid,
     titre: exercice.titre ?? '',
@@ -209,16 +212,86 @@ export async function ecrireReponses(reponses: Record<string, string>) {
   await Promise.all(mathaleaWriteStudentPreviousAnswers(reponses))
 }
 
-function reponsesDeLaQuestion(exercice: IExercice, i: number) {
-  const motif = new RegExp(`Ex${exercice.numeroExercice}Q${i}(?!\\d)`)
-  return Object.fromEntries(
-    Object.entries(exercice.answers ?? {}).filter(([cle]) => motif.test(cle)),
+/**
+ * Rangs de autoCorrection vérifiés par la question i (rang dans listeQuestions).
+ * Ils diffèrent quand une question porte plusieurs réponses à part : Thales2D
+ * (3G20) range les deux longueurs de la question e aux rangs 2e et 2e+1. Les
+ * éléments de réponse portent leur rang dans leur id (champTexteEx<n>Q<k>,
+ * resultatCheckEx<n>Q<k>, MetaInteractif2dEx<n>Q<k>field<j>…) ou dans
+ * question-index. Sans élément repéré, le rang de la question.
+ */
+function indicesDeLaQuestion(
+  exercice: IExercice,
+  i: number,
+  html: string,
+): number[] {
+  const n = exercice.numeroExercice
+  const trouves = new Set<number>()
+  for (const m of html.matchAll(
+    new RegExp(`\\bid=["'][\\w-]*?Ex${n}Q(\\d+)(?!\\d)`, 'g'),
+  ))
+    trouves.add(Number(m[1]))
+  // Éléments de MathALÉA : question-index, ou index pour apigeom-figure (sans guillemets)
+  for (const balise of html.match(/<[a-z][\w-]*\s[^>]*>/gi) ?? []) {
+    if (!new RegExp(`\\snumero-exercice=["']?${n}(?![\\d])`).test(balise))
+      continue
+    const rang = /\s(?:question-)?index=["']?(\d+)/.exec(balise)
+    if (rang) trouves.add(Number(rang[1]))
+  }
+  const avecReponse = [...trouves]
+    .filter((k) => exercice.autoCorrection?.[k] != null)
+    .sort((a, b) => a - b)
+  if (avecReponse.length) return avecReponse
+  return exercice.autoCorrection?.[i] != null ? [i] : []
+}
+
+function reponsesDeLaQuestion(exercice: IExercice, indices: number[]) {
+  const motifs = indices.map(
+    (k) => new RegExp(`Ex${exercice.numeroExercice}Q${k}(?!\\d)`),
   )
+  return Object.fromEntries(
+    Object.entries(exercice.answers ?? {}).filter(([cle]) =>
+      motifs.some((motif) => motif.test(cle)),
+    ),
+  )
+}
+
+type Verification = {
+  isOk: boolean
+  feedback: string
+  score: { nbBonnesReponses: number; nbReponses: number }
+}
+
+/** Vérifie le rang k de autoCorrection, selon son type d'interactivité */
+function verifierRang(exercice: IExercice, k: number): Verification {
+  const type = exercice.autoCorrection[k]?.formatInteractif
+  if (type == null) {
+    return {
+      isOk: false,
+      feedback: '',
+      score: { nbBonnesReponses: 0, nbReponses: 0 },
+    }
+  }
+  if (type === 'cliqueFigure') {
+    return uniformiseResults(verifQuestionCliqueFigure(exercice, k))
+  }
+  if (type === 'custom') {
+    return uniformiseResults(exercice.correctionInteractive!(k))
+  }
+  const format = interactivityTypeToCustomElementFormat(type) ?? type
+  const entree = listOfCustomElements.includes(format)
+    ? Array.from(mathaleaCustomElementsRegistry).find(([tag]) => tag === format)
+    : undefined
+  if (entree == null || typeof entree[1].verifQuestion !== 'function') {
+    throw new Error(`Type d'interactivité non pris en charge : ${type}`)
+  }
+  return uniformiseResults(entree[1].verifQuestion(exercice, k))
 }
 
 /**
  * Vérifie la question i d'un exercice affiché. Même logique que la vue
- * « une question par page » de MathALÉA (QuestionParPage.svelte).
+ * « une question par page » de MathALÉA (QuestionParPage.svelte), pour chacun
+ * des rangs de réponse de la question : juste si tous le sont.
  */
 export function verifier(
   prepare: ExercicePrepare,
@@ -226,40 +299,20 @@ export function verifier(
 ): ResultatVerification {
   const exercice = prepare.interne
   exercice.answers ??= {}
-  const type = exercice.autoCorrection[i]?.formatInteractif
-  let resultat: {
-    isOk: boolean
-    feedback: string
-    score: { nbBonnesReponses: number; nbReponses: number }
-  }
-  if (type == null) {
-    resultat = {
-      isOk: false,
-      feedback: '',
-      score: { nbBonnesReponses: 0, nbReponses: 0 },
-    }
-  } else if (type === 'cliqueFigure') {
-    resultat = uniformiseResults(verifQuestionCliqueFigure(exercice, i))
-  } else if (type === 'custom') {
-    resultat = uniformiseResults(exercice.correctionInteractive!(i))
-  } else {
-    const format = interactivityTypeToCustomElementFormat(type) ?? type
-    const entree = listOfCustomElements.includes(format)
-      ? Array.from(mathaleaCustomElementsRegistry).find(
-          ([tag]) => tag === format,
-        )
-      : undefined
-    if (entree == null || typeof entree[1].verifQuestion !== 'function') {
-      throw new Error(`Type d'interactivité non pris en charge : ${type}`)
-    }
-    resultat = uniformiseResults(entree[1].verifQuestion(exercice, i))
-  }
+  const html = prepare.questions[i]?.enonce ?? exercice.listeQuestions?.[i] ?? ''
+  const indices = indicesDeLaQuestion(exercice, i, html)
+  const resultats = (indices.length ? indices : [i]).map((k) =>
+    verifierRang(exercice, k),
+  )
   return {
-    juste: resultat.isOk,
-    points: resultat.score.nbBonnesReponses,
-    total: resultat.score.nbReponses,
-    retour: resultat.feedback ?? '',
-    reponses: reponsesDeLaQuestion(exercice, i),
+    juste: resultats.every((r) => r.isOk),
+    points: resultats.reduce((s, r) => s + r.score.nbBonnesReponses, 0),
+    total: resultats.reduce((s, r) => s + r.score.nbReponses, 0),
+    retour: resultats
+      .map((r) => r.feedback ?? '')
+      .filter((f) => f.trim() !== '')
+      .join('<br>'),
+    reponses: reponsesDeLaQuestion(exercice, indices.length ? indices : [i]),
   }
 }
 
