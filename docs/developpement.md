@@ -25,6 +25,11 @@ un **paquet moteur** construit depuis le dépôt MathALÉA (branche
   de MathALÉA), `listerExercices` (référentiel FR ou CH, ordre et nœuds du
   menu du site), `titreHtml` (formules des titres), `definirLangue`
   (`fr-CH` : notations suisses).
+- `verifier(exercice, i)` : `i` est le rang dans `listeQuestions`, qui peut
+  porter plusieurs rangs de réponse (`autoCorrection`) : Thales2D (3G20)
+  range les deux longueurs de la question e aux rangs 2e et 2e+1. Le moteur
+  les retrouve dans les éléments de réponse de l'énoncé (id
+  `…Ex<n>Q<k>…`, `question-index`, `index` d'apigeom) et les vérifie tous.
 - L'interface reprend les classes Tailwind de MathALÉA, compilées dans
   `moteur.css` : n'utiliser que des classes présentes dans le site
   (`src/lib/ui/classes.ts`).
