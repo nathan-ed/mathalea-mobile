@@ -157,11 +157,16 @@ Contrôle de cohérence (graine `coherence`, 7 297 exercices) : valeur attendue
 par la vérification comparée au résultat mis en évidence dans la correction
 (`\color{#F15929}\boldsymbol{…}`). 110 désaccords, la plupart sans gravité
 (numérateur et dénominateur mis en évidence séparément, question à plusieurs
-éléments). Vérifiés à la main :
+éléments) ; contrôle affiné (`node e2e/audit-coherence.mjs`) : 8 restent,
+tous vérifiés à la main :
 - **a17d6** (6AutoA1-3, 6M2autoC-3, can6M2-04), « Mesurer différence d'aire
   par comptage », Q1 : rectangle de 35 cm², 14 carreaux orange ; la question
   demande l'aire de la **zone hachurée** = 21 cm² (la correction le dit),
   mais la réponse attendue est 14 : « 21 » est compté faux, « 14 » juste.
+- **CH 3a384**, « Effectuer un dénombrement (ancienne version) » : la
+  réponse attendue est le numéro de la question (« 1 », « 2 »…) au lieu du
+  résultat ; Q1 : 575 757 (C(39, 5), donné par la correction) est refusé,
+  « 1 » accepté ; Q2 : 564 129 refusé, « 2 » accepté.
 - **4P16 (63cdb) Q4** : 486 W·h en kW·s ; attendu 1 749,6 (exact), la
   correction affiche « 1 750 » ; « 1 750 » est refusé (« Résultat
   incorrect »). Arrondir la correction ou accepter l'arrondi.
@@ -375,5 +380,7 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   moteur, tout le référentiel (`UUIDS`, `GRAINE`, `PAYS`, `SORTIE`).
 - `node e2e/types.mjs` : chaque type de réponse dans la vraie app, justes et
   fausses, aller-retour, bilan.
+- `node e2e/audit-coherence.mjs` : valeur attendue comparée au résultat mis en
+  évidence dans la correction, tout le référentiel (quelques minutes).
 - `node e2e/interactions.mjs`, `node e2e/regressions.mjs` et les autres
   suites (README, `docs/developpement.md`).
