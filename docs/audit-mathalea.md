@@ -51,7 +51,8 @@ Exercices concernés (bonne réponse + 1 acceptée, sans `precisionUnite`) :
 6G5A-1 (91875, Q1 à 3), 6M1D (7433c, Q1, 2), 6M1autoE-1 (ab280, Q1), 6M2C
 (c6fbe, Q1, 2), 6M2C-1 (5e598, Q1), 6N4A-3 (5c5a3, Q1), 6N5-10 (b3aa4, Q1, 3),
 6P3E (9c78f, Q1 à 3), BP2AutoV3 (eb45e, Q1 à 3), BP2AutoV4 (d1514, Q1),
-can6a-CoopMaths (3a526, Q25), canc3a-2023 (57239, Q9).
+can6a-CoopMaths (3a526, Q25), canc3a-2023 (57239, Q9), CH 10FA1B-1 (b428f,
+réglage `sup=2`, Q2, 8 km : 9 km accepté).
 
 Tolérances explicites à vérifier (bonne réponse + 1 acceptée, voulu ?) :
 - 3G32-2 (5986b, Q3, 4, 7) : « 33,16 m », `precisionUnite: 1` (réponse au
@@ -60,6 +61,11 @@ Tolérances explicites à vérifier (bonne réponse + 1 acceptée, voulu ?) :
 - can5a-CoopMaths (9e40d) Q27 et 3G32-0, 3G32-1 : `precisionUnite: 1000` (km).
 - angles en degrés avec `precisionUnite: 1` : 6G7B-9 (493cf) et 5G3B-2
   (64099) Q1, attendu 85 °, 86 ° accepté (tous les réglages `sup2`, `sup3`) ;
+- CH 5999e et 5999f, « Calculer périmètre et aire de figures composées
+  (ancienne version) », réglage `sup3=2` (décimaux) : réponses au
+  dixième ou au centième (38,6 cm ; 63,61 cm²) avec `precisionUnite: 1`,
+  donc 39,6 cm et 64,61 cm² acceptés. `precisionUnite` semble pris pour un
+  nombre de décimales.
 - can6a-2023 (09430) Q9, réglage `sup2=true` : attendu 17 m,
   `precisionUnite: 1`, 18 m accepté.
 
@@ -175,6 +181,10 @@ juste, toutes justes, doublons.
 
 ### 1.8 À vérifier
 
+- TEM1-12 (b74bf), QCM à branches « Le calcul de AB est-il possible ? »,
+  graine `audit-jf` : le choix juste « Oui » porte le retour « Le calcul est
+  impossible. », et le choix faux « Non » déclare `points: 2`. Le score est
+  pourtant juste (matrice juste 2/2, un coefficient faux 1/2, « Non » 0/2).
 - 6N5-3 (7fb24), réglage `sup3=true` (« Certains problèmes peuvent être
   insolubles ») : 9 problèmes sur 10 insolubles (graine `audit-jf`), et pour
   ceux-ci la seule réponse juste est de ne rien cocher (toutes les
@@ -229,6 +239,12 @@ tous vérifiés à la main :
   sûrement toute réponse qui commence par un monôme littéral négatif. Dans
   la fonction : `if (e.operator === "Negate") return …Multiply…` devrait
   examiner l'opérande (`return L(e.ops[0])`) au lieu de conclure.
+  Réglages (audit des paramètres) : CH 10FA4C-9 (62111, « Multiplier des
+  monômes ») avec `sup=2`, `sup=3`, `sup2=1` : tout monôme négatif est
+  refusé. `sup2=1` Q5, attendu « −stz » : refusés `-stz`, `-s t z`, `-zts`,
+  `-1stz` ; question impossible à réussir. `sup=2` Q2, attendu
+  « −9/4 ryz² » : `-\frac{9}{4}ryz^2` refusé, `\frac{-9}{4}ryz^2` et
+  `-2,25ryz^2` acceptés.
 - **3L15-2 (0f844) Q1** : valeur attendue `-\sqrt{\dfrac{29}{7}};\sqrt{\dfrac{29}{7}`
   sans l'accolade finale ; la bonne réponse est comptée « 1 valeur correcte
   et 1 valeur incorrecte ».
@@ -260,6 +276,14 @@ tous vérifiés à la main :
   character in JSON at position 13 ») et le QCM s'affiche sans aucune case :
   question impossible à réussir. Correctif : construire l'attribut avec
   `JSON.stringify` (puis échapper pour l'attribut HTML).
+  Même défaut pour **1AN30-2 (cb7d9)**, réglage `sup3=true` : les 7 QCM
+  sans case.
+- **1AN14-6 (b32f2)**, réglage `sup2=true` (« Montrer que f′(x) = … ») :
+  l'énoncé donne la dérivée et n'affiche aucun champ, mais les 4 questions
+  restent interactives avec une réponse attendue (`autoCorrection` en
+  `mathalea-mathfield`) : l'élève ne peut rien saisir et chaque question
+  compte fausse. Avec ce réglage, les questions devraient être non
+  interactives (sur papier).
 - **3G95-17 (a7f28) et 3G95-17p (f3a91)**, « Déterminer un vecteur non nul
   orthogonal à deux vecteurs » et « Résoudre un système avec une infinité de
   solutions » : une solution juste écrite avec une fraction à un chiffre est
@@ -484,6 +508,20 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   `blob:`, `data:`) bloquerait les requêtes vers jsdelivr, mathgraph32 et
   podeduc (section 3). À essayer sur Android et iPhone avant de la livrer
   (chargement du moteur téléchargé, polices, figures, vidéos).
+  Une CSP sans `'unsafe-eval'` casserait aussi 6I1D (le programme Blockly
+  est exécuté par `new Function`).
+- Figures apigeom plus larges que l'écran (CM2N2E-1, 778c0 : droite graduée
+  de 792 px dans 390 px), vérifié dans une vraie séance à 390 px au doigt :
+  la figure a `touch-action: none`, un glissement dessus ne fait pas
+  défiler le cadre et crée un point (« A ») là où le doigt s'est posé ;
+  glisser sur la consigne « Cliquer pour créer un point. » au-dessus de la
+  figure fait défiler (344 px sur 458), mais les boutons partent avec. Les
+  points à placer au-delà de l'écran ne sont atteignables que par ce geste
+  peu évident. Pistes : réduire la figure à la largeur de l'écran (à
+  vérifier : précision du toucher sur des huitièmes à environ 10 px), ou
+  une indication « faire glisser au-dessus de la figure ». Côté MathALÉA :
+  ne créer le point qu'au relâcher d'un toucher immobile, et une largeur
+  de figure adaptée à l'écran.
 
 ## 6. Reste à tester
 
@@ -500,6 +538,13 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   « fausse » réponse était un autre diviseur juste) et les « Complète
   36 = … × … » des CAN (clé vide, comparaison propre à l'exercice qui
   accepte 4 × 9 et 6 × 6 et refuse 5 × 7).
+- `apigeom` (bonnes et mauvaises réponses par de vrais clics sur la
+  figure) : CM2N2A-1 (c28e5, fraction de l'unité, 5 types : juste accepté,
+  une case de trop et cases non contiguës refusées), CM2N2E-1 (778c0,
+  points sur une droite graduée, 2 graines : justes 3/3, un point décalé
+  2/3, A et B inversés 1/3). `checkCoords` avec `checkOnlyAbscissa`
+  compare quand même l'ordonnée (`he(_.y, a) === he(n, a)`) : sans effet
+  tant que les points restent sur l'axe.
 - `meta-custom` (vérification propre à l'exercice), bonnes et mauvaises
   réponses construites à partir de l'état interne de l'exercice : Roses
   (8 exercices, chaque type de question, 3, 5 et 9 valeurs, 3 graines) et
