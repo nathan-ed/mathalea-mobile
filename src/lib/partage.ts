@@ -254,7 +254,8 @@ export function lireFichier(texte: string): FichierClasses {
   const invalide = () => new Error('Ce fichier n’est pas un fichier de parcours MathALÉA valide.')
   let brut: Record<string, unknown>
   try {
-    brut = JSON.parse(texte)
+    // Fichier ré-enregistré par un éditeur Windows : marque BOM en tête
+    brut = JSON.parse(texte.replace(/^\uFEFF/, ''))
   } catch {
     throw invalide()
   }

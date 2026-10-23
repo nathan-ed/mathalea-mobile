@@ -20,6 +20,8 @@ describe('bibliothèque de l’enseignant', () => {
     const { texte, bibliotheque } = exporter(b)
     b = bibliotheque
     expect(lireFichier(texte).classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
+    // Ré-enregistré par un éditeur Windows (marque BOM en tête) : toujours lisible
+    expect(lireFichier('\uFEFF' + texte).classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
     expect(aExporter(b.parcours[0], '3e A') || aExporter(b.parcours[0], '3e B')).toBe(false)
     expect(nbAExporter(b)).toBe(0)
   })
