@@ -147,6 +147,11 @@ Rust `telecharger`.
   quittée aussitôt, Entrée avec correction à la fin, suivi après modification
   d'un parcours). Seul `pnpm dev` est nécessaire. Code de sortie 1 si un
   contrôle échoue (comme `pnpm e2e`).
+- `node e2e/types.mjs` (seulement `pnpm dev`) : chaque type de réponse de
+  MathALÉA (calcul, QCM, trous, plusieurs champs, champ sur une figure,
+  figure à cliquer, liste, solveur, tableau, texte, automatismes chargés
+  après coup) donné juste comme un élève, gardé après un aller-retour, compté
+  juste à la soumission et relu au bilan.
 
 ## Signature Android
 

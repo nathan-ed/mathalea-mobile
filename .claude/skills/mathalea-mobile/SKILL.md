@@ -699,6 +699,10 @@ Environnement (machine de Nathan)
   quittée aussitôt, Entrée avec correction à la fin, suivi d'une ancienne
   version. Vraie frappe clavier : la sonde réessaie tant que le champ
   MathLive n'est pas prêt (sinon résultats aléatoires).
+- `node e2e/types.mjs` (seulement `pnpm dev`) : un exercice par type de
+  réponse, bonne réponse donnée au toucher et au clavier, aller-retour,
+  soumission, bilan. Ne pas modifier `src/` pendant un passage : le
+  rechargement à chaud ramène la page à l'accueil (faux échecs).
 - Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
   par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
 - `node e2e/papier.mjs` et `node e2e/recherche.mjs` (seulement `pnpm dev`,
@@ -806,6 +810,19 @@ Environnement (machine de Nathan)
   premier texte en gras, focus gardé, hauteur limitée à la zone visible.
 - Ne jamais faire de capture du bureau de Nathan (`import -window root`) :
   données personnelles. Vérifier par Playwright avec ses données copiées.
+- Exercices qui chargent leurs questions après coup (`generationStatus`
+  « loading », Sélection d'automatismes 6e, 3e, 2de, 1re) : `chargerDepuis`
+  enveloppe `preparerExercice` (attente, puis même graine). can6a-Aléa le fait
+  sans `generationStatus` (événement `updateAsyncEx` seul) : encore
+  « chargement... », à corriger dans le moteur (`index.ts`).
+- Trou d'un champ MathLive relu dans sa valeur LaTeX (question quittée) : par
+  accolades équilibrées (`trouDansLatex`), jamais par une expression régulière
+  gourmande (« 6}\text{ cm » au lieu de « 6 »).
+- MathLive cherche polices et sons à côté de ses modules : `fontsDirectory`
+  et `soundsDirectory` fixés après `initialiser()`.
+- Colonnes `deuxColonnes`/`troisColonnes` (flottants en style) empilées dans
+  `app.css` ; une figure dans une liste en retrait se réduit à son bloc
+  (`ajusterFiguresEnRetrait`).
 
 ## 10. Feuille de route
 

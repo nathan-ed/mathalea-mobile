@@ -150,6 +150,7 @@ cd ../parcours-spikes/spike-sync && pnpm run server /tmp/drive # terminal 2 : do
 npx tsx e2e/preparer.mts /tmp/drive                        # dépose les parcours de test
 DOSSIER=/tmp/drive pnpm e2e
 node e2e/regressions.mjs    # défauts corrigés (brouillon, Entrée, suivi) : pnpm dev suffit
+node e2e/types.mjs          # chaque type de réponse : juste, gardée, relue au bilan (pnpm dev)
 node e2e/captures-enseignant.mjs /tmp/captures   # espace enseignant en clair et en sombre, 390 px
 ```
 
