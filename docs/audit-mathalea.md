@@ -221,10 +221,31 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   L'app est hors ligne et ne doit rien demander à Internet : utiliser la
   feuille de MathLive livrée avec le moteur. Vu dans 5N1J-1 (424b2),
   5N3autoE-2 (e1a0a) et les autres labyrinthes.
+- **Autres requêtes Internet** (relevé de tous les exercices, papier compris,
+  énoncés et corrections affichés) : `https://www.mathgraph32.org/js/MathJax3/es5/tex-svg.js`
+  chargé par 3G11 (18e25), 4G15 (0da6a), PEG20 (44b85), PEG21 (838fb),
+  PEG22 (b752a) (élément MathGraph32 ; les figures mathalea2d s'affichent
+  bien sans) ; vidéos `podeduc.apps.education.fr` intégrées dans TSG1-06
+  (3634f) et TSG1-08 (300a4). Rien d'autre sur 4 094 exercices.
 - **Référentiel CH** : il contient le modèle d'exercice
   « AchangerOBLIGATOIREMENT » (titre « Mettre le titre souhaité (assez
   descriptif mais pas trop long) ») et l'exercice de test « testEEE »
   (« Eric fait ses tests interactifs »), visibles dans « Non classés ».
+
+## 3 bis. Textes affichés
+
+Relevé du texte rendu (énoncés et corrections, graine `reseau`, 4 094
+exercices) : aucune erreur KaTeX, aucune préparation en échec.
+- « undefined » en tête de l'énoncé, juste avant le QCM, dans 5 exercices
+  CH : 83789 (produit), 4ed52 (division euclidienne), 884fe (comparer deux
+  fractions), b5324 (produit), f6jd7 (visualisation 3d). Le texte d'énoncé
+  passé au QCM vaut `undefined`.
+- 3AutoP04-3 (5bc80) Q1, correction : « On trouve
+  $AD={\color{#F15929}\boldsymbol{2,8}}\text{ cm}. » : `$` fermant
+  manquant, la formule s'affiche brute.
+- CH sebseb (schémas en boîte) Q8 : « $45\text{ cm}$ » affiché brut dans
+  l'énoncé (texte du schéma non rendu par KaTeX ?).
+- 6N2F-1 (6e828), correction : « Do,c » pour « Donc ».
 
 ## 4. Affichage à 390 px (téléphone)
 
@@ -283,9 +304,8 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
   10 013 éléments conformes ; nouveaux constats intégrés ci-dessus (2L22-3,
   2mTrigoFct-6, 1A-C14-4, 10FA4E-4). Une troisième graine reste utile.
-- Relevé des requêtes hors de l'appareil et des traces de génération
-  (« undefined », « NaN », LaTeX non rendu) sur tous les exercices, papier
-  compris (en cours).
+- Relevé des requêtes hors de l'appareil et des traces de génération :
+  fait (sections 3 et 3 bis).
 
 ## 7. Outils
 
