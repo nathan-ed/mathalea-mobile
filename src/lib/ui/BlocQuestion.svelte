@@ -96,7 +96,9 @@
       if (figure) {
         const v = trouDe(champ as HTMLElement & { value?: string; getPromptValue?: (p: string) => string })
         if (v.trim() !== '') (figures[figure[1]] ??= {})[champ.id] = v
-      } else if (champ instanceof HTMLInputElement && champ.type === 'checkbox') {
+      } else if (champ instanceof HTMLInputElement && (champ.type === 'checkbox' || champ.type === 'radio')) {
+        // QCM (cases ou boutons radio) : seulement ce qui est coché ; la valeur
+        // d'un radio (« on ») n'est pas une réponse
         if (champ.checked) saisies[champ.id] = '1'
       } else {
         const v = (champ as HTMLInputElement).value

@@ -246,6 +246,44 @@ for (const correction of ['question', 'parcours']) {
   }
 }
 
+// QCM à boutons radio jamais touché : « sans réponse » pour le garde-fou (la
+// valeur « on » d'un radio non coché comptait comme une réponse)
+{
+  const nom = 'canc3C05 QCM à boutons radio'
+  const p = {
+    id: 'interactions', version: 1, titre: 'Interactions', objectif: '', niveau: '6e', theme: 'Divers', difficulte: 1, icone: 'bx-shape-triangle',
+    presentation: 'liste_exos', correction: 'page',
+    etapes: [{ uuid: 'd0287', id: 'canc3C05', titre: 'QCM', nbQuestions: 1 }, { uuid: '385b7', id: 'canc3C01', titre: 'Calcul', nbQuestions: 1 }],
+  }
+  const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
+  await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
+  await ctx.addInitScript((p) => {
+    if (sessionStorage.getItem('pret')) return
+    sessionStorage.setItem('pret', '1')
+    localStorage.setItem('copie:profil', JSON.stringify('eleve'))
+    localStorage.setItem('copie:pays', JSON.stringify('FR'))
+    localStorage.setItem('copie:explorer', JSON.stringify([p]))
+  }, p)
+  const page = await ctx.newPage()
+  page.on('pageerror', (e) => erreurs.push(`${nom} : ${e.message}`))
+  await page.goto(base)
+  await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
+  await page.getByText('6e').first().click().catch(() => {})
+  await page.getByRole('button', { name: /^Interactions/ }).first().click({ timeout: 30_000 })
+  await page.getByRole('button', { name: /^Commencer/ }).first().click()
+  await page.locator('main input[type=radio]').first().waitFor({ timeout: 120_000 })
+  await page.waitForTimeout(1500)
+  await page.locator('main math-field').first().click()
+  await page.waitForTimeout(300)
+  await page.keyboard.type('5')
+  await page.waitForTimeout(500)
+  await page.getByRole('button', { name: 'Soumettre', exact: true }).click()
+  await page.waitForTimeout(600)
+  const panneau = (await page.getByRole('dialog').innerText().catch(() => '')).replace(/\s+/g, ' ')
+  ok(/sans réponse : Ex 1 · Q1/.test(panneau), `${nom} : jamais touché, « sans réponse » (${panneau.slice(0, 80)})`)
+  await ctx.close()
+}
+
 ok(erreurs.length === 0, `aucune erreur de page${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)
 await nav.close()
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')
