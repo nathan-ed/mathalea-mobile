@@ -2,7 +2,7 @@
   // Une question MathALÉA : affichage, brouillon, vérification, correction.
   // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
   import { onDestroy, onMount, tick } from 'svelte'
-  import { ajusterFiguresEnRetrait, elementsDeQuestion, trouDansLatex, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
+  import { ajusterFiguresEnRetrait, elementsDeQuestion, fragmentCorrection, trouDansLatex, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
   import { boutonInverse, boutonLien } from './classes'
 
@@ -208,7 +208,7 @@
   async function afficherCorrection() {
     await tick()
     if (zoneCorrection) {
-      zoneCorrection.innerHTML = q.correction
+      zoneCorrection.replaceChildren(fragmentCorrection(q.correction))
       await moteur.afficher(zoneCorrection)
       ajusterFiguresEnRetrait(moteur, zoneCorrection)
     }

@@ -254,13 +254,45 @@ export async function chercherMiseAJourMoteur(): Promise<string | null> {
  */
 export function elementsDeQuestion(ex: ExercicePrepare, i: number): number[] {
   const q = ex.questions[i]
-  const corriges = (ex.interne as { autoCorrection?: unknown[] }).autoCorrection ?? []
+  const corriges = (ex.interne as { autoCorrection?: ({ formatInteractif?: string } | undefined)[] }).autoCorrection ?? []
   const vus = new Set<number>()
-  for (const m of q?.enonce.matchAll(new RegExp(`Ex${ex.numero}Q(\\d+)(?!\\d)`, 'g')) ?? []) {
-    const k = Number(m[1])
-    if (corriges[k] != null) vus.add(k)
+  const motif = new RegExp(`\\b(?:id|mathfield-id)=["']([A-Za-z0-9-]*?)Ex${ex.numero}Q(\\d+)(R\\d+|field\\d+)?["']`, 'g')
+  for (const m of q?.enonce.matchAll(motif) ?? []) {
+    const k = Number(m[2])
+    const format = corriges[k]?.formatInteractif
+    if (format && elementDeReponse(m[1], m[3] ?? '', format)) vus.add(k)
   }
   return vus.size ? [...vus].sort((a, b) => a - b) : [i]
+}
+
+/**
+ * Élément qui porte la réponse d'une question de ce format : champ, case de
+ * QCM, élément de MathALÉA du même nom. Pas une figure ni un tableau affiché
+ * pour l'exemple : dans les Automatismes, leurs identifiants gardent la
+ * numérotation de leur exercice d'origine (« M2DpenteAffineEx0Q0 » dans la
+ * cinquième question) ; la cinquième question était alors vérifiée avec la
+ * première, et sa réponse vide effaçait celle de la première au bilan.
+ */
+function elementDeReponse(prefixe: string, suffixe: string, format: string): boolean {
+  const norme = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/^mathalea/, '')
+  const qcm = norme(format) === 'qcm'
+  if (prefixe === 'check') return qcm && suffixe.startsWith('R')
+  if (prefixe === 'champTexte') return !qcm && suffixe === ''
+  return norme(prefixe) === norme(format)
+}
+
+/**
+ * Correction prête à insérer. Celle d'un QCM reprend ses boutons radio, bonne
+ * réponse cochée, sous le même nom que ceux de l'énoncé : insérée telle quelle,
+ * elle décochait le choix de l'élève (un seul bouton coché par groupe), au
+ * bilan comme après « Vérifier ». Construite hors du document, ses boutons
+ * forment leur propre groupe.
+ */
+export function fragmentCorrection(html: string): DocumentFragment {
+  const modele = document.createElement('template')
+  modele.innerHTML = html
+  for (const bouton of modele.content.querySelectorAll<HTMLInputElement>('input[type=radio][name]')) bouton.name += '-correction'
+  return modele.content
 }
 
 /**

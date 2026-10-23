@@ -6,7 +6,7 @@
   import { onMount, tick, untrack, type Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import { enregistrerFichier } from '$lib/fichiers'
-  import { verifierQuestion, type ExercicePrepare, type Moteur } from '$lib/moteur'
+  import { fragmentCorrection, verifierQuestion, type ExercicePrepare, type Moteur } from '$lib/moteur'
   import { retourSi } from '$lib/navigation.svelte'
   import { cleQuestion, graineDeSession } from '$lib/progression'
   import {
@@ -258,6 +258,15 @@
   function rendu(noeud: HTMLElement, html: string) {
     const maj = (h: string) => {
       noeud.innerHTML = h
+      void moteur.afficher(noeud)
+    }
+    maj(html)
+    return { update: maj }
+  }
+  // Correction : ses boutons radio ne décochent pas ceux de l'énoncé affiché au-dessus
+  function renduCorrection(noeud: HTMLElement, html: string) {
+    const maj = (h: string) => {
+      noeud.replaceChildren(fragmentCorrection(h))
       void moteur.afficher(noeud)
     }
     maj(html)
@@ -533,7 +542,7 @@
               </button>
             </div>
             {#if ouvertes[q.cle]}
-              <div class="contenu-mathalea cadre-defilant text-coopmaths-corpus dark:text-coopmathsdark-corpus" use:rendu={questionDe(q.cle).ex?.questions[questionDe(q.cle).q].correction ?? ''}></div>
+              <div class="contenu-mathalea cadre-defilant text-coopmaths-corpus dark:text-coopmathsdark-corpus" use:renduCorrection={questionDe(q.cle).ex?.questions[questionDe(q.cle).q].correction ?? ''}></div>
             {/if}
           </section>
         {/each}
