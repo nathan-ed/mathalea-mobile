@@ -50,7 +50,8 @@ const estEssai = (v: unknown) => {
     estEntier(e.etape) &&
     estEntier(e.question) &&
     typeof e.juste === 'boolean' &&
-    estNombre(e.points) &&
+    // null : essai enregistré avant que l'app ne normalise les points du moteur
+    (estNombre(e.points) || e.points === null) &&
     estNombre(e.total) &&
     dictionnaireDe(e.reponses, estTexte) &&
     estTexte(e.le)

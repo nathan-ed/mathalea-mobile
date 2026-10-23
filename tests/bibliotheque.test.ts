@@ -126,6 +126,14 @@ describe('sauvegarde', async () => {
     expect(annule).toEqual({ profil: 'enseignant', 'complet:autre': 1 })
     expect(JSON.parse(await exporterSauvegarde(b.st)).donnees['avant-restauration']).toBeUndefined()
   })
+  it('restaure un essai aux points absents (moteur qui renvoyait null)', async () => {
+    const essai = { etape: 0, question: 0, juste: true, points: null, total: 1, reponses: {}, le: '2026-10-23' }
+    const donnees = { profil: 'eleve', 'seance:fractions': { ...seance, essais: [essai] } }
+    const texte = JSON.stringify({ format: 'sauvegarde-mathalea/1', creeeLe: '', donnees })
+    const b = memoire()
+    await restaurerSauvegarde(b.st, texte)
+    expect((b.d.get('seance:fractions') as typeof seance).essais[0]).toEqual(essai)
+  })
   it('résume une sauvegarde avant de la restaurer', async () => {
     const { resumerSauvegarde } = await import('../src/lib/sauvegarde')
     const texte = await exporterSauvegarde(memoire({ profil: 'eleve', 'historique:fractions': [seance] }).st)

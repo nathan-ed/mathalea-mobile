@@ -107,6 +107,17 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   passe, et « $⩾5$ » aussi. Impossible de réussir.
 - CH afd39 Q5 : attendu `$0$` ; « 0 » est refusé.
 
+### 1.5 bis N'importe quelle réponse acceptée, même vide
+
+- CH 90fd5 (identifier une hauteur et sa base associée), graine
+  `audit-jf-2`, Q1 : quand la figure n'a aucun angle droit (« On ne peut
+  donc pas déterminer de hauteur ni de base associée »), la vérification du
+  `multi-mathfield` renvoie juste pour des champs vides, « zzz » ou n'importe
+  quel segment, avec `points: null` (aucune valeur attendue, seulement un
+  `bareme`). Les champs ne permettent pas de répondre « impossible ».
+  `points: null` cassait aussi le score et les sauvegardes de l'app (corrigé
+  dans l'app, section 5).
+
 ### 1.6 Ensembles (`ensembleDeNombres`)
 
 - 2L22-3 (93432), graine `audit-jf-2`, Q4 : attendu {−1/2 ; −4/7} ; accepté
@@ -152,6 +163,10 @@ contient la fonction passe, et une formule juste sans elle est refusée.
 - **3L15-2 (0f844) Q1** : valeur attendue `-\sqrt{\dfrac{29}{7}};\sqrt{\dfrac{29}{7}`
   sans l'accolade finale ; la bonne réponse est comptée « 1 valeur correcte
   et 1 valeur incorrecte ».
+- **EgaliteFG4-3e-19 (c9362)**, « Sophie Germain : un QCM mystère », Q1 à
+  Q4 : `mathalea-qcm` avec `format=lettre` en mode interactif : aucune case à
+  cocher n'est affichée (seulement « A. B. C. » et les textes), l'élève ne
+  peut pas répondre.
 - **EgaliteFG1-6e-5 (a108d) Q1** (les femmes à l'Assemblée) :
   `formatInteractif: 'mathlive'` alors que la question affiche un
   `tableau-mathlive` ; toutes les cases justes donnent « erreur dans le
@@ -293,6 +308,10 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   questions : scores faussés dans les CAN 2025-2026, 6AutoA2-2, 6N2J-3…) ;
   correction de QCM qui décochait le choix de l'élève ;
 - cccb8da, a34137c, 76b5a0e : suites et bancs de test (section 7).
+- Résultats du moteur aux points absents (`points: null`) normalisés
+  (`resultatNormalise`) : la question juste comptait 0, et un tel essai
+  rendait toute sauvegarde impossible à restaurer ; la restauration accepte
+  désormais `points: null` pour les essais déjà enregistrés.
 
 ## 5 bis. À décider pour l'app
 
@@ -307,7 +326,8 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
 
 - Figures apigeom (80 éléments) et `meta-custom` (74) : vérifiés par une
   fonction propre à chaque exercice, pas de réponse à lire dans
-  `autoCorrection` ; à tester exercice par exercice dans l'app.
+  `autoCorrection`. Vérifié : sans réponse, les 75 exercices comptent faux,
+  sans erreur. Bonne réponse : à tester exercice par exercice dans l'app.
 - Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
   branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,

@@ -148,7 +148,11 @@ async function chargerDepuis(base: string): Promise<Moteur> {
     document.head.prepend(lien)
   })
   const module = (await import(/* @vite-ignore */ base + manifeste.entree)) as Moteur
-  const moteur: Moteur = { ...module, preparerExercice: (params, numero) => preparerComplet(module, params, numero) }
+  const moteur: Moteur = {
+    ...module,
+    preparerExercice: (params, numero) => preparerComplet(module, params, numero),
+    verifier: (exercice, question) => resultatNormalise(module.verifier(exercice, question)),
+  }
   // Les tracés à main levée de MathALÉA (MainLevee) s'appuient sur le conteneur
   // du site : sans lui, leurs segments disparaissent. Le moteur le crée depuis
   // la 0.3.2, pas celui publié par mathalea.fr (version Google Play)
@@ -185,6 +189,18 @@ async function preparerComplet(module: Moteur, params: ParamsExercice, numero: n
   while (statut() === 'loading' && Date.now() - debut < 60_000) await new Promise((ok) => setTimeout(ok, 100))
   if (statut() !== 'ready') throw new Error(`Exercice ${params.uuid} : questions non chargées`)
   return module.preparerExercice({ ...params, alea: ex.graine }, numero)
+}
+
+/**
+ * Résultat de vérification aux points toujours numériques. Certains éléments
+ * de MathALÉA renvoient `points: null` (CH 90fd5, multi-mathfield à barème) :
+ * la question juste valait 0 au score, et l'essai rendait toute la sauvegarde
+ * invalide à la restauration.
+ */
+export function resultatNormalise(r: ResultatVerification): ResultatVerification {
+  const total = Number.isFinite(r.total) ? r.total : 0
+  const points = Number.isFinite(r.points) ? r.points : r.juste ? total || 1 : 0
+  return { ...r, points, total }
 }
 
 /** « 2026-10-13+commit » → « 2026-10-13T00:00:00Z » : date du moteur livré */

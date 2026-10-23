@@ -17,3 +17,16 @@ describe('trouDansLatex', () => {
     expect(trouDansLatex('\\placeholder[champ2]{5}', 'champ1')).toBe('')
   })
 })
+
+import { resultatNormalise } from '../src/lib/moteur'
+describe('resultatNormalise', () => {
+  const base = { retour: '', reponses: {} }
+  it('points absents : total si juste, 0 sinon', () => {
+    expect(resultatNormalise({ ...base, juste: true, points: null as unknown as number, total: 1 }).points).toBe(1)
+    expect(resultatNormalise({ ...base, juste: false, points: null as unknown as number, total: 2 }).points).toBe(0)
+    expect(resultatNormalise({ ...base, juste: true, points: NaN, total: NaN })).toMatchObject({ points: 1, total: 0 })
+  })
+  it('résultat ordinaire inchangé', () => {
+    expect(resultatNormalise({ ...base, juste: false, points: 1, total: 3 })).toMatchObject({ points: 1, total: 3 })
+  })
+})
