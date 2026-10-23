@@ -149,6 +149,18 @@ juste, toutes justes, doublons.
   sont justes (nombre entier naturel) : voulu, mais la question ne teste
   alors rien.
 
+### 1.5 quater Calculatrice à touches cassées contournable au clavier
+
+can6C7-07 (0aaea), « Utiliser une calculatrice avec touches cassées »
+(`my-calculator`) : à la souris ou au doigt, les touches cassées sont
+inactives et le calcul juste est accepté (graines `audit-jf`, `g2`, `g3`,
+`g4` : « 9 − 1 », « 7 + 7 »… 1/1 ; résultat faux 0/1). Mais le clavier
+physique (`addKeyboardSupport`) ne tient pas compte des touches cassées :
+graine `audit-jf`, cible 8, touche 8 cassée, « 8 » puis Entrée tapés au
+clavier → valeur « 8 », 1/1. Sur ordinateur (fenêtre de bureau de l'app,
+site), la consigne se contourne. Correctif : appliquer
+`checkAndIncrementKeyUsage` aux touches du clavier physique.
+
 ### 1.6 Ensembles (`ensembleDeNombres`)
 
 - 2L22-3 (93432), graine `audit-jf-2`, Q4 : attendu {−1/2 ; −4/7} ; accepté
