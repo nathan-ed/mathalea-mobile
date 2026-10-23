@@ -623,6 +623,30 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   vectorielle (6cf42), points dans un repère quelconque (df171),
   symétriques de points (8d4bf), 2 graines : juste accepté, point décalé
   refusé, rien 0.
+  Cercles et disques de couleur et de rayon donnés (f8dee, 3 graines) :
+  juste 2/2 ; rayon, couleur ou cercle au lieu de disque faux : 1/2.
+  Symétriques axiaux nommés (26ea4) : juste 3/3, mauvais nom ou point
+  décalé 2/3.
+  6N3B (42fbx, définition du quotient, 2 graines) : points A et B sur la
+  droite graduée et les deux champs de la phrase justes 4/4 ; B décalé et
+  un champ faux 2/4. Ses champs sont numérotés `champTexteEx3Q100` à
+  `Q103` (hors de la numérotation des questions) : sans effet dans l'app,
+  qui lit les saisies dans la zone de la question.
+  Grilles EN-SquarO (e2024, points bleus attendus `positionsPointsBleus`)
+  et EN-Shikaku (ccf19, grille résolue par la sonde), 3 graines : solution
+  3/3 ; un point en moins ou en trop, un rectangle manquant ou deux qui se
+  chevauchent : 2/3 (barème par paliers annoncé) ; rien 0/3.
+  6fdab et b1e01 (`geoElements1/2`, tracer segment, droite et demi-droite
+  ; l'élève crée et nomme d'abord les points), 3 graines : juste 3/3,
+  demi-droite à l'envers ou segment au lieu de droite 2/3. La notation
+  affichée met le crochet fermant hors de la formule (`$[GH$)`, getter
+  `notation`).
+  1ed48 (Hypatie, `egaliteFG11`, Q1 : trois médiatrices en rouge, bleu,
+  vert) : Milieu puis Droite perpendiculaire 3/3, couleurs échangées 0/3,
+  une médiatrice manquante 2/3. Les objets `PerpendicularBisectorByPoints`
+  sont refusés (« n'est pas une droite unique ») alors que la correction de
+  l'exercice les utilise ; défaut latent tant que l'outil Médiatrice n'est
+  pas dans la barre (même cas que 0dbe7). Q2 et Q3 non testées.
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
