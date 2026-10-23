@@ -942,7 +942,7 @@
       // Parcours d'essai : ils ne rendent pas le drive « différent »
       await sauverBibliotheque(sansEcartDrive(avant, objectifsAvant, reprendre(avant, f), liste))
       await sauverObjectifs(liste)
-      return `${c.parcours.length} parcours chargés : classe « ${c.nom} » dans Mes parcours, et votre bibliothèque dans Créer.`
+      return `${c.parcours.length} parcours chargés : classe « ${c.nom} » dans Mes parcours, et votre bibliothèque dans Parcours.`
     } catch (e) {
       return `Chargement impossible : ${(e as Error).message}`
     }

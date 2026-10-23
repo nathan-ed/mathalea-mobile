@@ -126,6 +126,13 @@ math-field,
   max-width: 100%;
   overflow-x: auto;
 }
+/* Liste déroulante de MathALÉA ouverte en bas d'une question : ses options
+   passent au-dessus de la barre du bas de la séance (fixée, z-index 20), qui
+   les cachait (option « Faux » impossible à toucher dans une fenêtre de 860 px) */
+.contenu-mathalea liste-deroulante {
+  position: relative;
+  z-index: 30;
+}
 /* Cadre d'une question ou d'un énoncé : ce qui reste plus large que l'écran
    (figure apigeom de 600 px, formule à trous, tableau) y défile. Sans
    « contain: paint », Chrome sur téléphone élargit quand même la page à la

@@ -249,6 +249,9 @@
     zone.innerHTML = (avecContexte && q.contexte.trim() ? `<div class="mb-4">${q.contexte}</div>` : '') + `<div>${q.enonce}</div>`
     await moteur.afficher(zone)
     figuresACliquer()
+    mesurer()
+    // Figures construites un peu après l'affichage (apigeom, 3D)
+    setTimeout(mesurer, 600)
     if (essai) {
       // Déjà vérifiée : réponse, smiley et correction reviennent ; l'essai enregistré fait foi
       await moteur.ecrireReponses(essai.reponses)
@@ -280,10 +283,35 @@
     }
   })
 
+  /**
+   * Question plus large que l'écran (figure apigeom de 600 px, formule à trous,
+   * tableau) : elle défile dans son cadre (cadre-defilant, app.css), sinon toute
+   * la page s'élargit et la barre du bas sort de l'écran du téléphone. Seulement
+   * dans ce cas : le cadre coupe aussi ce qui dépasse en bas, comme une liste
+   * déroulante ouverte.
+   */
+  let large = $state(false)
+  function mesurer() {
+    if (large || !zone?.isConnected) return
+    const { left, right } = zone.getBoundingClientRect()
+    if (zone.scrollWidth > zone.clientWidth + 1) {
+      large = true
+      return
+    }
+    for (const el of zone.querySelectorAll(':scope *:not(svg *)')) {
+      const r = el.getBoundingClientRect()
+      if (r.width && (r.right > right + 1 || r.left < left - 1)) {
+        large = true
+        return
+      }
+    }
+  }
+
   // Rotation ou redimensionnement : les figures reprennent la bonne largeur
   const surRedimension = () => {
     if (zone) moteur.ajusterFigures(zone)
     if (zoneCorrection) moteur.ajusterFigures(zoneCorrection)
+    mesurer()
   }
   onMount(() => {
     const z = zone
@@ -307,9 +335,7 @@
 </script>
 
 <div class="container max-w-full grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4">
-  <!-- Figure ou formule plus large que l'écran : elle défile dans la question
-       (cadre-defilant, app.css) -->
-  <div class="cadre-defilant">
+  <div class={large ? 'cadre-defilant' : ''}>
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
       bind:this={zone}

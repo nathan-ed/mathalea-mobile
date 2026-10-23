@@ -94,6 +94,17 @@ const gestes = [
   }],
   ['can1D3-05 liste déroulante', 'ad915', async (p) => {
     await p.locator('main liste-deroulante').first().click()
+    await p.waitForTimeout(300)
+    // Options ouvertes visibles et touchables (un cadre défilant les coupait)
+    const visibles = await p.evaluate(() => {
+      const l = document.querySelector('main liste-deroulante')
+      return [...l.shadowRoot.querySelectorAll('[role=option]')].every((o) => {
+        const b = o.getBoundingClientRect()
+        const x = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2)
+        return x === l || l.contains(x)
+      })
+    })
+    ok(visibles, 'can1D3-05 liste déroulante : options ouvertes visibles et touchables')
     await p.locator('main [role="option"]').nth(1).click()
   }],
 ]
