@@ -296,6 +296,14 @@ tous vérifiés à la main :
   accepter `\d?frac(\d)(\d)` dans l'expression régulière, ou passer par
   le moteur de calcul (`ComputeEngine`). Seuls ces deux exercices analysent
   eux-mêmes les fractions des trous.
+- **6AutoF3-3 (1574f)**, « Ajouter des barres fractionnaires »
+  (`svg-selection`), graine `g5` : attendu 7/9, clé `0.7777777777777778`.
+  Les deux seules sélections possibles (1/3 + 1/9 + 1/3, éléments 3, 4, 8
+  ou 3, 8, 9) donnent la valeur `0.7777777777777777` et sont refusées
+  (comparaison exacte avec `nombreDecimalSeulement`) : question impossible
+  à réussir. Graines `audit-jf`, `g2`, `g3`, `g4`, `g6` : toutes les
+  sélections justes acceptées. Correctif : comparer avec une tolérance, ou
+  additionner en fractions (`FractionEtendue`) avant de comparer.
 - **5G5E-2 (c7c78)**, « Tracer une hauteur dans un triangle », graine
   `audit-jf` : triangle B(0 ; 0), O(3 ; −8), F(6 ; −4), hauteur issue de F
   construite exactement (Droite perpendiculaire à [BO] passant par F) :
@@ -660,6 +668,16 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   (4f449, 36 cases) 6/6, EN-TablesEffacees (34c33) 16/16 et 18/18,
   EN-Grimuku (01def) 6/6, EN-EtoileCalculs (e7f3a, champs MathLive) 8/8 ;
   une case fausse retire un point ; rien 0.
+  Demi-droite graduée interactive 6N3D-1 (cff13, 3 graines, à 390 px,
+  vrais clics : « Max+ », nombre de parts, « Placer le point », clic sur
+  l'axe) : point juste 1/1, avec une graduation deux fois plus fine 1/1,
+  point décalé d'une part 0/1. La clé contient `showwNegative` (coquille
+  de `showNegative`), sans effet sur la note.
+  `svg-selection` (1474f pièces de monnaie, 1574f barres fractionnaires,
+  1574a plaque de chocolat ; 3 graines, vrais clics, sous-ensemble de la
+  bonne somme) : juste 1/1, un élément de trop 0/1, rien 0/1 ; pour 1574f
+  toutes les combinaisons justes ont été essayées (défaut d'arrondi en
+  2.0).
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
