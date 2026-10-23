@@ -119,6 +119,17 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   `points: null` cassait aussi le score et les sauvegardes de l'app (corrigé
   dans l'app, section 5).
 
+### 1.5 ter QCM
+
+Contrôle des 3 236 QCM (deux graines, `qcm1` et `qcm2`) : aucune proposition
+juste, toutes justes, doublons.
+- CH 3a5ab (arbre de probabilités), graine `qcm1`, Q1 : « $p(B)=0,3$ »
+  proposé deux fois, l'un faux, l'autre juste (seule différence : une espace
+  finale dans le texte) ; l'élève qui coche le premier est compté faux.
+- 2N10-5 (ca9b7), graine `qcm1`, Q4 : les cinq ensembles (ℕ, ℤ, 𝔻, ℚ, ℝ)
+  sont justes (nombre entier naturel) : voulu, mais la question ne teste
+  alors rien.
+
 ### 1.6 Ensembles (`ensembleDeNombres`)
 
 - 2L22-3 (93432), graine `audit-jf-2`, Q4 : attendu {−1/2 ; −4/7} ; accepté
