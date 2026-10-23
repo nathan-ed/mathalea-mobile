@@ -71,7 +71,8 @@ Exercices concernés (borne décalée acceptée) : can2L3-04 (bdc96, Q1),
 can2a-NY2024 (dd9d0, Q30), can1a-NY2024 (ac288, Q27), can1a-NY2025 (7244e,
 Q16), can1a-NY2026 (214cd, Q16), canTSpea-NY2025 (90dad, Q16),
 canTSpea-NY2026 (91563, Q16), canTSpea-2025 (6ca87, Q28), CH 85bf3 (Q1),
-1A-C14-4 (97a0b, graine `audit-jf-2`, Q1 : ]−6 ; 1[ accepté pour ]−6 ; 0[).
+1A-C14-4 (97a0b, graine `audit-jf-2`, Q1 : ]−6 ; 1[ accepté pour ]−6 ; 0[),
+CH 6ca15 (graine `audit-jf-3`, Q27 : ]−∞ ; 2025[ accepté pour ]−∞ ; 2024[).
 
 Correctif : `intervalle: true` sur ces réponses ; et, dans le repli, ne pas
 conclure à l'égalité quand l'une des expressions n'est pas valide (`isValid`)
@@ -343,7 +344,9 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
   10 013 éléments conformes ; nouveaux constats intégrés ci-dessus (2L22-3,
-  2mTrigoFct-6, 1A-C14-4, 10FA4E-4). Une troisième graine reste utile.
+  2mTrigoFct-6, 1A-C14-4, 10FA4E-4). Troisième graine (`audit-jf-3`) :
+  9 970 éléments conformes, un seul nouveau cas (CH 6ca15, intervalle).
+  Les mêmes familles reviennent à chaque graine : la liste est stable.
 - Relevé des requêtes hors de l'appareil et des traces de génération :
   fait (sections 3 et 3 bis).
 
