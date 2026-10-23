@@ -402,6 +402,9 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   fonction propre à chaque exercice, pas de réponse à lire dans
   `autoCorrection`. Vérifié : sans réponse, les 75 exercices comptent faux,
   sans erreur. Bonne réponse : à tester exercice par exercice dans l'app.
+- Audit justes/fausses avec chaque valeur des réglages (6 624 variantes,
+  `LISTE=/tmp/claude-0/liste-params.json`, résultats
+  `/tmp/claude-0/audit-jf/params.jsonl`) : en cours le 23 octobre au soir.
 - Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
   branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
