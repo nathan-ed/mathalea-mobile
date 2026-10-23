@@ -119,7 +119,8 @@ async function auditer(page, e) {
     const formats = (ex) => (ex.interne.autoCorrection ?? []).map((a) => a?.formatInteractif ?? null)
 
     /** Remplit l'élément k ; renvoie la façon, ou null si on ne sait pas le remplir */
-    const remplir = (ex, k, juste) => remplirAC(ex.interne.autoCorrection[k] ?? {}, k, juste)
+    let exCourant
+    const remplir = (e, k, juste) => { exCourant = e; return remplirAC(e.interne.autoCorrection[k] ?? {}, k, juste) }
     function remplirAC(a, k, juste) {
       const v = a.valeur ?? {}
       const f = a.formatInteractif
@@ -129,12 +130,17 @@ async function auditer(page, e) {
       const cellules = cles.filter((c) => /^L\d+C\d+$/.test(c))
       const trous = cles.filter((c) => /^champ\d+$/.test(c))
       const surFigure = cles.filter((c) => /^field\d+$/.test(c))
-      if (a.propositions?.length && (f === 'qcm' || f === 'mathalea-qcm' || f === 'cliqueFigure' || f === 'clique-figure')) {
-        const statuts = a.propositions.map((p) => !!p.statut)
+      if ((a.propositions?.length || ((f === 'cliqueFigure' || f === 'clique-figure') && exCourant.interne.cliqueFiguresArray?.[k]?.length)) && (f === 'qcm' || f === 'mathalea-qcm' || f === 'cliqueFigure' || f === 'clique-figure')) {
+        const statuts = (a.propositions ?? []).map((p) => !!p.statut)
         const choix = juste ? statuts : (() => { const k0 = statuts.findIndex((s) => !s); return statuts.map((_, j) => j === k0) })()
         if (!juste && !choix.some(Boolean)) return { comment: 'aucune proposition fausse', saisis }
         if (f === 'cliqueFigure' || f === 'clique-figure') {
-          choix.forEach((c, j) => { if (c) { const el = champ(`cliquefigure${j}Ex${N}Q${k}`); if (el) { el.dispatchEvent(new MouseEvent('click', { bubbles: true })); saisis.push(`figure ${j}`) } } })
+          // Les solutions qui font foi : cliqueFiguresArray (propositions
+          // garde parfois l'ordre d'avant le mélange des figures, 6AutoG1-1)
+          const cfa = exCourant.interne.cliqueFiguresArray?.[k]
+          const sol = Array.isArray(cfa) && cfa.length ? cfa.map((x) => !!x.solution) : statuts
+          const choixCf = juste ? sol : (() => { const k0 = sol.findIndex((x) => !x); return sol.map((_, j) => j === k0) })()
+          choixCf.forEach((c, j) => { if (c) { const el = champ(cfa?.[j]?.id ?? `cliquefigure${j}Ex${N}Q${k}`); if (el) { el.dispatchEvent(new MouseEvent('click', { bubbles: true })); saisis.push(`figure ${j}`) } } })
           return { comment: 'figures touchées', saisis }
         }
         choix.forEach((c, j) => {

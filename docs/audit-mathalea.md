@@ -167,6 +167,11 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   Q4 : `mathalea-qcm` avec `format=lettre` en mode interactif : aucune case à
   cocher n'est affichée (seulement « A. B. C. » et les textes), l'élève ne
   peut pas répondre.
+- **CH 39232**, « Compléter un tableau de variations (démo) », Q1 : le
+  tableau rempli exactement avec la configuration attendue
+  (`autoCorrection[0].valeur.reponse.value`) obtient 3/4 ; une partie n'est
+  jamais validée. Le titre « (démo) » laisse penser qu'il ne devrait pas être
+  au référentiel.
 - **EgaliteFG1-6e-5 (a108d) Q1** (les femmes à l'Assemblée) :
   `formatInteractif: 'mathlive'` alors que la question affiche un
   `tableau-mathlive` ; toutes les cases justes donnent « erreur dans le
@@ -214,6 +219,12 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   le même `name` que ceux de l'énoncé (`checkEx<n>Q<i>`) ; affichée sous
   l'énoncé, la correction décoche le choix de l'élève. L'app construit la
   correction hors du document et renomme ces boutons (`fragmentCorrection`).
+- **Figures à cliquer, `propositions` désaccordées** : 6AutoG1-1 (83763) ;
+  les figures sont mélangées mais `autoCorrection[k].propositions` garde
+  l'ordre d'avant le mélange (la première toujours juste, graine `audit-jf` :
+  solutions réelles 4e, 2e, 1re figure). La vérification lit
+  `cliqueFiguresArray` et reste juste ; tout ce qui lit `propositions`
+  (QCM, AMC, relevés) désigne la mauvaise figure.
 - **`clique-figure`** : l'énoncé ne contient pas l'élément `<clique-figure>`
   qui rend les figures cliquables ; l'app le crée (`figuresACliquer`).
 - **MathLive** : `fontsDirectory` et `soundsDirectory` ne sont pas fixés ;
