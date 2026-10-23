@@ -655,6 +655,11 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   deux cases 0,3/1. La grille est dans une racine fantôme fermée
   (`attachShadow({ mode: 'closed' })`) ; en fin de partie l'élément clique
   `#buttonScoreEx<n>`, absent de l'app (sans effet).
+  Grilles à remplir, solution tapée case par case au clavier (2 graines) :
+  EN-Pyramide (fa607) 5/5, EN-KenKen (5b4fa) 4/4, EN-KillerSudoku
+  (4f449, 36 cases) 6/6, EN-TablesEffacees (34c33) 16/16 et 18/18,
+  EN-Grimuku (01def) 6/6, EN-EtoileCalculs (e7f3a, champs MathLive) 8/8 ;
+  une case fausse retire un point ; rien 0.
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
