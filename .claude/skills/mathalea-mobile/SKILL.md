@@ -108,6 +108,20 @@ Ergonomie décidée
   classe ; « Lancer la session » mène directement à la page de la session
   (QR code et code affichés), jamais un détour par plusieurs onglets.
 
+Tests d'exercices = audit de MathALÉA (Nathan, 2026-10-23)
+- Nathan contribue à MathALÉA et corrige lui-même le moteur et les
+  exercices : tout problème qui vient de MathALÉA ou du moteur (exercice qui
+  plante, figure fausse, réponse juste refusée, réponse fausse acceptée,
+  ressource manquante, graine non déterministe…) lui est rapporté avec
+  précision : id, uuid, pays, graine, question, champ, valeur attendue,
+  valeur saisie, résultat, extrait de code ou cause probable. « Côté moteur »
+  n'est jamais une raison de s'arrêter : on le signale, et on corrige dans
+  `moteur/fichiers/` quand c'est possible.
+- Toujours remplir **tous** les champs d'une question (pas seulement le
+  premier), et faire **deux passages** : bonnes réponses (toutes doivent être
+  acceptées) puis réponses fausses (aucune ne doit l'être). Détail : section 8,
+  « Justes et fausses ».
+
 Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce
   projet, Nathan a demandé de **pousser souvent**, même sans release prête.
@@ -676,6 +690,18 @@ Environnement (machine de Nathan)
 
 ## 8. Tests
 
+- Justes et fausses (exigence de Nathan, voir section 1) : pour chaque
+  exercice interactif, chaque question, chaque champ (champ MathLive, trous,
+  cases d'un tableau, champs sur une figure, QCM, listes, éléments de
+  MathALÉA), un passage avec les bonnes réponses tirées de
+  `autoCorrection[i]` (toutes acceptées) et un passage avec des réponses
+  fausses (nombre décalé, autre proposition, autre option : toutes
+  refusées). Sur tout le référentiel par l'API du moteur, puis un
+  échantillon par type dans la vraie app (`e2e/types.mjs`). Tout écart va à
+  Nathan : réponse juste refusée, réponse fausse acceptée, champ sans
+  correction, erreur de vérification. Distinguer ce qui vient du banc
+  (réponse attendue décrite par une règle, pas par une valeur) avant de
+  conclure.
 - `pnpm check` (svelte-check, 0 erreur et 0 avertissement),
   `pnpm test` (vitest : partage, drives simulés, fusion, versions, sessions,
   bibliothèque, sauvegarde), `cd src-tauri && cargo test` (moteur : signature,
