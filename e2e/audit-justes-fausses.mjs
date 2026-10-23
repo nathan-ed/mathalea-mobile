@@ -3,9 +3,9 @@
 // corrigé (autoCorrection[k]) rempli en entier deux fois, avec la bonne
 // réponse tirée de la correction automatique (doit être acceptée), puis avec
 // une réponse fausse (doit être refusée). Une ligne JSON par exercice.
-//   SORTIE=<fichier.jsonl> PARALLELE=4 [PAYS=FR|CH] [UUIDS=a,b] [DEBUT= FIN=] node e2e/audit-justes-fausses.mjs
+//   SORTIE=<fichier.jsonl> PARALLELE=4 [PAYS=FR|CH] [UUIDS=a,b] [LISTE=réglages.json] [DEBUT= FIN=] node e2e/audit-justes-fausses.mjs
 import { chromium } from 'playwright'
-import { appendFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 
 const sortie = process.env.SORTIE ?? '/tmp/audit-justes-fausses.jsonl'
 const GRAINE = process.env.GRAINE ?? 'audit-jf'
@@ -31,16 +31,16 @@ async function nouvellePage(pays) {
 }
 
 async function auditer(page, e) {
-  return page.evaluate(async ([uuid, graine, N]) => {
+  return page.evaluate(async ([uuid, graine, N, params]) => {
     const delai = (p, ms, quoi) => Promise.race([p, new Promise((_, ko) => setTimeout(() => ko(new Error('délai dépassé : ' + quoi)), ms))])
     const attendre = (ms) => new Promise((ok) => setTimeout(ok, ms))
     // Préparation comme l'app (exercices qui chargent leurs questions après coup)
     async function preparer() {
-      let ex = await M.preparerExercice({ uuid, alea: graine }, N)
+      let ex = await M.preparerExercice({ ...params, uuid, alea: graine }, N)
       if (ex.interne.generationStatus === 'loading') {
         const t = Date.now()
         while (ex.interne.generationStatus === 'loading' && Date.now() - t < 30000) await attendre(100)
-        ex = await M.preparerExercice({ uuid, alea: ex.graine }, N)
+        ex = await M.preparerExercice({ ...params, uuid, alea: ex.graine }, N)
       }
       return ex
     }
@@ -342,7 +342,7 @@ async function auditer(page, e) {
     res.elements = res.elements.filter(Boolean)
     z.innerHTML = ''
     return res
-  }, [e.uuid, GRAINE, N])
+  }, [e.uuid, GRAINE, N, e.params ?? {}])
 }
 
 const page0 = await nouvellePage('FR')
@@ -353,6 +353,8 @@ for (const pays of process.env.PAYS ? [process.env.PAYS] : ['FR', 'CH']) {
 }
 await page0.context().close()
 if (process.env.UUIDS) liste = liste.filter((e) => process.env.UUIDS.split(',').includes(e.uuid))
+// Liste fournie (exercices avec réglages : [{ uuid, id, pays, params: { sup: '2' } }])
+if (process.env.LISTE) liste = JSON.parse(readFileSync(process.env.LISTE, 'utf8'))
 liste = liste.slice(Number(process.env.DEBUT ?? 0), Number(process.env.FIN ?? 1e9))
 console.log(liste.length, 'exercices')
 if (!process.env.AJOUTER) writeFileSync(sortie, '')
