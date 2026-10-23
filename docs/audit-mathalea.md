@@ -616,6 +616,13 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   « Line ») mais l'outil Médiatrice n'est pas dans la barre. Hauteur
   c7c78 et médiane 63d3a : constructions justes 1/1 hormis le défaut
   d'arrondi (section 2.0).
+  Carrés et rectangles (e7bad, 95526, 01607, 1d6ca) : construction à la
+  règle et au compas 5/5, mauvaises dimensions 3/5 ou 4/5 (95526 accepte
+  tout rectangle, voulu), sommets libres 0/5. Vecteur dans un repère
+  (3a3ec, en vert comme l'énoncé le demande), point par égalité
+  vectorielle (6cf42), points dans un repère quelconque (df171),
+  symétriques de points (8d4bf), 2 graines : juste accepté, point décalé
+  refusé, rien 0.
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
@@ -627,7 +634,14 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   Blockly construit bloc par bloc d'après le trajet : juste accepté, un
   bloc en moins refusé), 6I1B-4 (formules justes acceptées, valeurs
   recopiées et formules fausses refusées). Constats en 1.7 bis, 2.0,
-  3 quater. Reste : 3b474, 9103e (anciennes versions de 5N1H), 46bae.
+  3 quater. 3b474 et 9103e (anciennes versions de 5N1H, 3 graines, toutes
+  les questions) : justes 2/2, étape fausse 1/2 ; résultat final faux 0/2
+  dans 5N1H et 3b474 mais 1/2 dans 9103e (le second point y suit le
+  quatrième trou). 46bae (`6I1B-5-old-old`, tableur, 10 types de
+  formules) : formule juste ou équivalente (`=B1*0.5` pour la moitié)
+  acceptée, valeur recopiée, formule fausse et cellule vide refusées. Avec
+  un seul type (« Double »), les trois cellules d'une question demandent
+  la même formule (`=B1*2` trois fois).
 - Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
   branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
