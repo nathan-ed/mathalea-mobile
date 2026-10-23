@@ -1,10 +1,11 @@
 // Chaque type de réponse de MathALÉA dans une vraie séance à 390 px (pnpm dev
-// seulement), correction à la fin : bonne réponse donnée comme un élève
-// (touche, clavier, case à cocher, liste), départ vers l'autre question puis
-// retour, soumission, bilan. Pour chaque exercice : la réponse reste après le
-// retour, elle compte juste, et le bilan la relit. Exercices qui chargent leurs
-// questions après coup compris (Automatismes 6e, 1re).
-//   CAPTURES=<dossier> THEME=clair|sombre node e2e/types.mjs
+// seulement), correction à la fin, en deux passages : bonne réponse donnée
+// comme un élève (touche, clavier, case à cocher, liste), puis réponse fausse.
+// Départ vers l'autre question puis retour, soumission, bilan. Pour chaque
+// exercice : la réponse reste après le retour, la bonne compte juste et la
+// fausse compte faux, le bilan la relit. Exercices qui chargent leurs questions
+// après coup compris (Automatismes 6e, 1re).
+//   CAPTURES=<dossier> THEME=clair|sombre [FILTRE=6A] node e2e/types.mjs
 import { chromium } from 'playwright'
 import { mkdirSync } from 'node:fs'
 
@@ -38,6 +39,7 @@ const liste = [
   ['FR', 'ce2ea', '1A automatismes (chargement différé)'],
 ]
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+if (process.env.FILTRE) liste.splice(0, liste.length, ...liste.filter(([, , nom]) => nom.includes(process.env.FILTRE)))
 
 async function seance(pays, uuid) {
   const p = {
@@ -110,6 +112,31 @@ async function taperDans(page, champ, texte, latex) {
 }
 
 /** Répond comme un élève ; renvoie la façon dont on a répondu */
+/** Réponse fausse plausible : nombre décalé, fraction décalée, sinon texte faux */
+function fausse(latex) {
+  const t = String(latex ?? '')
+  const nombre = t.replace(/\{,\}/g, ',').replace(/[\s\u202f\u00a0]|\\[,;: !]/g, '')
+  if (/^-?\d+([.,]\d+)?$/.test(nombre)) return String(Math.round((Number(nombre.replace(',', '.')) + 1) * 1e6) / 1e6).replace('.', ',')
+  const f = /^\\[dt]?frac\{(-?\d+)\}\{(\d+)\}$/.exec(nombre)
+  if (f) return `\\dfrac{${Number(f[1]) + 1}}{${f[2]}}`
+  if (/\d/.test(t)) return t.replace(/(\d+)(?!.*\d)/, (m) => String(Number(m) + 1))
+  return 'zzz'
+}
+/** La même question, mais avec des réponses fausses partout */
+function fausser(a) {
+  const tout = (o) => Object.fromEntries(Object.entries(o ?? {}).map(([k, v]) => [k, fausse(v)]))
+  const premiereFausse = a.propositions.findIndex((p) => !p)
+  return {
+    ...a,
+    reponse: a.type === 'liste-deroulante' ? a.reponse : a.reponse == null ? null : fausse(a.reponse),
+    eviter: a.type === 'liste-deroulante' ? a.reponse : undefined,
+    champs: tout(a.champs),
+    cellules: tout(a.cellules),
+    fields: tout(a.fields),
+    propositions: a.propositions.map((_, j) => j === premiereFausse),
+  }
+}
+
 async function repondre(page, a) {
   const main = page.locator('main .contenu-mathalea').first()
   const t = a.type
@@ -207,7 +234,16 @@ async function repondre(page, a) {
     }
     await l.click()
     await page.waitForTimeout(300)
-    const opt = page.locator('main [role="option"]').filter({ hasText: a.reponse })
+    if (a.eviter != null) {
+      // Réponse fausse : la première option qui n'est pas la bonne
+      const options = page.locator('main [role="option"]')
+      for (let j = 0; j < (await options.count()); j++) {
+        const texte = (await options.nth(j).innerText()).trim()
+        if (texte && texte !== a.eviter && !texte.startsWith('Choisir')) { await options.nth(j).click(); return `autre option « ${texte} »` }
+      }
+      return 'aucune autre option'
+    }
+    const opt = page.locator('main [role="option"]').filter({ hasText: new RegExp(`^\\s*${a.reponse.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`) })
     if (await opt.count()) { await opt.first().click(); return `option « ${a.reponse} »` }
     await page.locator('main [role="option"]').nth(1).click()
     return `option introuvable (${a.reponse}), 2e choisie`
@@ -238,38 +274,48 @@ const valeurs = (page, sel) =>
   }, sel)
 
 for (const [pays, uuid, nom] of liste) {
-  let page
-  try {
-    page = await seance(pays, uuid)
-    const a = await attendue(page)
-    const geste = await repondre(page, a)
-    await page.waitForTimeout(800)
-    const affiche = await valeurs(page, 'main .contenu-mathalea')
-    ok(!!affiche?.replace(/[\s|.]/g, ''), `${nom} : réponse affichée (${geste})`)
-    const onglets = page.getByRole('tablist', { name: 'Questions' }).getByRole('tab')
-    await onglets.nth(1).click()
-    await page.waitForTimeout(1200)
-    await onglets.nth(0).click()
-    await page.waitForTimeout(2000)
-    ok((await valeurs(page, 'main .contenu-mathalea')) === affiche, `${nom} : réponse gardée après un aller-retour`)
-    await page.screenshot({ path: `${captures}/types-${uuid}.png` })
-    await onglets.last().click()
-    await page.waitForTimeout(800)
-    await page.getByRole('button', { name: 'Soumettre la tentative' }).click()
-    await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 3000 }).catch(() => {})
-    await page.getByRole('button', { name: 'Voir le bilan' }).click({ timeout: 60_000 })
-    await page.waitForTimeout(1500)
-    const e = (await etat(page)).essai
-    ok(e?.juste === true, `${nom} : bonne réponse comptée juste (${e ? `${e.points}/${e.total}` : 'aucun essai'})`)
-    await page.locator('main li button').first().click()
-    await page.waitForTimeout(3000)
-    const relue = (await valeurs(page, 'main li')) ?? ''
-    ok(relue.startsWith(affiche.slice(0, 20)), `${nom} : réponse relue au bilan`)
-    ok(page.erreurs.length === 0, `${nom} : aucune erreur de page${page.erreurs.length ? ' : ' + page.erreurs.join(' | ') : ''}`)
-  } catch (err) {
-    ok(false, `${nom} : ${String(err).split('\n')[0].slice(0, 150)}`)
+  for (const juste of [true, false]) {
+    const quoi = juste ? 'bonne réponse' : 'réponse fausse'
+    let page
+    try {
+      page = await seance(pays, uuid)
+      let a = await attendue(page)
+      // Automatismes : leurs questions sont tirées au hasard ; ces entrées
+      // vérifient le chargement différé, sur une question de calcul ou un QCM
+      for (let essai = 0; nom.includes('automatismes') && !['mathalea-mathfield', 'mathlive', 'mathalea-qcm'].includes(a.type) && essai < 8; essai++) {
+        await page.context().close()
+        page = await seance(pays, uuid)
+        a = await attendue(page)
+      }
+      const geste = await repondre(page, juste ? a : fausser(a))
+      await page.waitForTimeout(800)
+      const affiche = await valeurs(page, 'main .contenu-mathalea')
+      ok(!!affiche?.replace(/[\s|.]/g, ''), `${nom}, ${quoi} : affichée (${geste})`)
+      const onglets = page.getByRole('tablist', { name: 'Questions' }).getByRole('tab')
+      await onglets.nth(1).click()
+      await page.waitForTimeout(1200)
+      await onglets.nth(0).click()
+      await page.waitForTimeout(2000)
+      ok((await valeurs(page, 'main .contenu-mathalea')) === affiche, `${nom}, ${quoi} : gardée après un aller-retour`)
+      if (juste) await page.screenshot({ path: `${captures}/types-${uuid}.png` })
+      await onglets.last().click()
+      await page.waitForTimeout(800)
+      await page.getByRole('button', { name: 'Soumettre la tentative' }).click()
+      await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 3000 }).catch(() => {})
+      await page.getByRole('button', { name: 'Voir le bilan' }).click({ timeout: 60_000 })
+      await page.waitForTimeout(1500)
+      const e = (await etat(page)).essai
+      ok(e?.juste === juste, `${nom}, ${quoi} : comptée ${juste ? 'juste' : 'fausse'} (${e ? `${e.points}/${e.total}` : 'aucun essai'})`)
+      await page.locator('main li button').first().click()
+      await page.waitForTimeout(3000)
+      const relue = (await valeurs(page, 'main li')) ?? ''
+      ok(relue.startsWith(affiche.slice(0, 20)), `${nom}, ${quoi} : relue au bilan`)
+      ok(page.erreurs.length === 0, `${nom}, ${quoi} : aucune erreur de page${page.erreurs.length ? ' : ' + page.erreurs.join(' | ') : ''}`)
+    } catch (err) {
+      ok(false, `${nom}, ${quoi} : ${String(err).split('\n')[0].slice(0, 150)}`)
+    }
+    await page?.context().close()
   }
-  await page?.context().close()
 }
 await nav.close()
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')

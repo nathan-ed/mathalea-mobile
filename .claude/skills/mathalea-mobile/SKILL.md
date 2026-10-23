@@ -702,6 +702,14 @@ Environnement (machine de Nathan)
   correction, erreur de vérification. Distinguer ce qui vient du banc
   (réponse attendue décrite par une règle, pas par une valeur) avant de
   conclure.
+  Banc : `node e2e/audit-justes-fausses.mjs` (pnpm dev ; `SORTIE`,
+  `PARALLELE`, `PAYS`, `UUIDS`, `GRAINE` ; une ligne JSON par exercice,
+  environ 1 h 30 pour les 3 628 exercices interactifs). Il convertit la valeur
+  attendue en saisie d'élève (intervalle `estDansIntervalle` → nombre du
+  milieu, unité → touche d'unité du clavier, écriture scientifique →
+  `×10^{n}`, fraction à réduire). Constats et correctifs proposés :
+  `docs/audit-mathalea.md`, à tenir à jour et à donner à Nathan.
+  `e2e/types.mjs` fait les deux passages dans la vraie app.
 - `pnpm check` (svelte-check, 0 erreur et 0 avertissement),
   `pnpm test` (vitest : partage, drives simulés, fusion, versions, sessions,
   bibliothèque, sauvegarde), `cd src-tauri && cargo test` (moteur : signature,
