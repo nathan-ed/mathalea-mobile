@@ -147,7 +147,8 @@ async function chargerDepuis(base: string): Promise<Moteur> {
     // Avant nos propres styles : l'app garde la main sur sa mise en page
     document.head.prepend(lien)
   })
-  const moteur = (await import(/* @vite-ignore */ base + manifeste.entree)) as Moteur
+  const module = (await import(/* @vite-ignore */ base + manifeste.entree)) as Moteur
+  const moteur: Moteur = { ...module, preparerExercice: (params, numero) => preparerComplet(module, params, numero) }
   // Les tracés à main levée de MathALÉA (MainLevee) s'appuient sur le conteneur
   // du site : sans lui, leurs segments disparaissent. Le moteur le crée depuis
   // la 0.3.2, pas celui publié par mathalea.fr (version Google Play)
@@ -158,7 +159,32 @@ async function chargerDepuis(base: string): Promise<Moteur> {
     document.body.appendChild(conteneur)
   }
   await moteur.initialiser()
+  // MathLive cherche ses polices et ses sons à côté de ses modules
+  // (morceaux/fonts, morceaux/sounds : introuvables) ; les polices KaTeX du
+  // moteur sont dans fonts/. Sans sons : il n'y en a pas dans le moteur.
+  const champ = (globalThis as { MathfieldElement?: { fontsDirectory: string | null; soundsDirectory: string | null } }).MathfieldElement
+  if (champ) {
+    champ.fontsDirectory = new URL('fonts/', new URL(base, location.href)).href
+    champ.soundsDirectory = null
+  }
   return moteur
+}
+
+/**
+ * Exercices qui chargent leurs questions après coup (Automatismes 6e, 3e, 2de,
+ * 1re, CAN 6e aléatoire) : la première génération ne contient que
+ * « chargement... », le site attend l'événement updateAsyncEx pour réafficher.
+ * Ici : attendre la fin du chargement, puis régénérer avec la même graine
+ * (questions alors en cache). Sans cela, la question restait « chargement... ».
+ */
+async function preparerComplet(module: Moteur, params: ParamsExercice, numero: number): Promise<ExercicePrepare> {
+  const ex = await module.preparerExercice(params, numero)
+  const statut = () => (ex.interne as { generationStatus?: string }).generationStatus
+  if (statut() !== 'loading') return ex
+  const debut = Date.now()
+  while (statut() === 'loading' && Date.now() - debut < 60_000) await new Promise((ok) => setTimeout(ok, 100))
+  if (statut() !== 'ready') throw new Error(`Exercice ${params.uuid} : questions non chargées`)
+  return module.preparerExercice({ ...params, alea: ex.graine }, numero)
 }
 
 /** « 2026-10-13+commit » → « 2026-10-13T00:00:00Z » : date du moteur livré */
@@ -235,6 +261,20 @@ export function elementsDeQuestion(ex: ExercicePrepare, i: number): number[] {
     if (corriges[k] != null) vus.add(k)
   }
   return vus.size ? [...vus].sort((a, b) => a - b) : [i]
+}
+
+/**
+ * Figures réduites à la largeur de leur propre bloc. ajusterFigures prend la
+ * largeur de tout l'élément : une figure dans une liste en retrait (correction
+ * en étapes 1., 2.…) en sortait encore de 5 à 25 px.
+ */
+export function ajusterFiguresEnRetrait(moteur: Moteur, element: HTMLElement) {
+  moteur.ajusterFigures(element)
+  const droite = element.getBoundingClientRect().right
+  for (const figure of element.querySelectorAll('.mathalea2d')) {
+    const bloc = figure.closest<HTMLElement>('.svgContainer')
+    if (bloc && element.contains(bloc) && figure.getBoundingClientRect().right > droite + 1) moteur.ajusterFigures(bloc)
+  }
 }
 
 /**

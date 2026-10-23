@@ -2,7 +2,7 @@
   // Une question MathALÉA : affichage, brouillon, vérification, correction.
   // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
   import { onDestroy, onMount, tick } from 'svelte'
-  import { elementsDeQuestion, trouDansLatex, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
+  import { ajusterFiguresEnRetrait, elementsDeQuestion, trouDansLatex, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
   import { boutonInverse, boutonLien } from './classes'
 
@@ -210,6 +210,7 @@
     if (zoneCorrection) {
       zoneCorrection.innerHTML = q.correction
       await moteur.afficher(zoneCorrection)
+      ajusterFiguresEnRetrait(moteur, zoneCorrection)
     }
   }
 
@@ -250,6 +251,7 @@
   onMount(async () => {
     zone.innerHTML = (avecContexte && q.contexte.trim() ? `<div class="mb-4">${q.contexte}</div>` : '') + `<div>${q.enonce}</div>`
     await moteur.afficher(zone)
+    ajusterFiguresEnRetrait(moteur, zone)
     figuresACliquer()
     mesurer()
     // Figures construites un peu après l'affichage (apigeom, 3D)
@@ -311,8 +313,8 @@
 
   // Rotation ou redimensionnement : les figures reprennent la bonne largeur
   const surRedimension = () => {
-    if (zone) moteur.ajusterFigures(zone)
-    if (zoneCorrection) moteur.ajusterFigures(zoneCorrection)
+    if (zone) ajusterFiguresEnRetrait(moteur, zone)
+    if (zoneCorrection) ajusterFiguresEnRetrait(moteur, zoneCorrection)
     mesurer()
   }
   onMount(() => {
