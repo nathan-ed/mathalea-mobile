@@ -151,6 +151,25 @@ contient la fonction passe, et une formule juste sans elle est refusée.
 
 ## 2. Bonnes réponses refusées
 
+### 2.0 Clé de réponse et correction en désaccord (élève juste compté faux)
+
+Contrôle de cohérence (graine `coherence`, 7 297 exercices) : valeur attendue
+par la vérification comparée au résultat mis en évidence dans la correction
+(`\color{#F15929}\boldsymbol{…}`). 110 désaccords, la plupart sans gravité
+(numérateur et dénominateur mis en évidence séparément, question à plusieurs
+éléments). Vérifiés à la main :
+- **a17d6** (6AutoA1-3, 6M2autoC-3, can6M2-04), « Mesurer différence d'aire
+  par comptage », Q1 : rectangle de 35 cm², 14 carreaux orange ; la question
+  demande l'aire de la **zone hachurée** = 21 cm² (la correction le dit),
+  mais la réponse attendue est 14 : « 21 » est compté faux, « 14 » juste.
+- **4P16 (63cdb) Q4** : 486 W·h en kW·s ; attendu 1 749,6 (exact), la
+  correction affiche « 1 750 » ; « 1 750 » est refusé (« Résultat
+  incorrect »). Arrondir la correction ou accepter l'arrondi.
+- **canc3a (32a0f) Q27** (CAN CM1) : réponse 24 (66 − 42) ; la correction
+  met en évidence 66 au lieu de 24.
+- **can6a-2021 (90c8c) Q18** : « Combien de millièmes dans une centaine ? »,
+  réponse 100 000 ; la correction met en évidence « 1 000 ».
+
 - **Réduction, signe moins en tête** : la règle `noTrivialFactor` (« Cette
   expression n'est pas assez réduite : elle contient un facteur trivial ou un
   terme nul », morceau `sameAffineSignTable`) renvoie vrai pour toute
