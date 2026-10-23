@@ -70,7 +70,8 @@ attendu ]16 ; +∞[, sont acceptés ]17 ; +∞[, ]100 ; +∞[, ]−∞ ; 16[ et 
 Exercices concernés (borne décalée acceptée) : can2L3-04 (bdc96, Q1),
 can2a-NY2024 (dd9d0, Q30), can1a-NY2024 (ac288, Q27), can1a-NY2025 (7244e,
 Q16), can1a-NY2026 (214cd, Q16), canTSpea-NY2025 (90dad, Q16),
-canTSpea-NY2026 (91563, Q16), canTSpea-2025 (6ca87, Q28), CH 85bf3 (Q1).
+canTSpea-NY2026 (91563, Q16), canTSpea-2025 (6ca87, Q28), CH 85bf3 (Q1),
+1A-C14-4 (97a0b, graine `audit-jf-2`, Q1 : ]−6 ; 1[ accepté pour ]−6 ; 0[).
 
 Correctif : `intervalle: true` sur ces réponses ; et, dans le repli, ne pas
 conclure à l'égalité quand l'une des expressions n'est pas valide (`isValid`)
@@ -106,7 +107,18 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   passe, et « $⩾5$ » aussi. Impossible de réussir.
 - CH afd39 Q5 : attendu `$0$` ; « 0 » est refusé.
 
-### 1.6 Variante de saisie refusée
+### 1.6 Ensembles (`ensembleDeNombres`)
+
+- 2L22-3 (93432), graine `audit-jf-2`, Q4 : attendu {−1/2 ; −4/7} ; accepté
+  {−1/2 ; −4/8}. La comparaison vérifie que chaque valeur saisie est dans
+  l'ensemble attendu et que le nombre de valeurs est le bon, mais ne repère
+  les doublons que s'ils sont écrits pareil ({−1/2 ; −1/2} est refusé :
+  « valeurs qui se répètent ») : −4/8 = −1/2 passe pour −4/7.
+- CH 2mTrigoFct-6 (a7c64), graine `audit-jf-2`, Q2 : la réponse attendue
+  {0 ; π/2 ; π ; 3π/2} est refusée (« Les nombres doivent tous être séparés
+  par un point-virgule »), avec \dfrac comme avec \frac.
+
+### 1.7 Variante de saisie refusée
 
 - 2N14-5 (acff) Q1, ranger 1,2 ; 3/4 ; 13/20 ; 13/21 : la vérification
   (`callback` de l'exercice) accepte `\frac{13}{21}<…` mais renvoie
@@ -114,7 +126,7 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   \dfrac{9}{4} » en console) pour `\dfrac`, forme de sa propre réponse
   attendue.
 
-### 1.7 À vérifier
+### 1.8 À vérifier
 
 - 6N1F-4 (6b534) : « 18/295 ≈ [champ1] soit environ [champ2] % » ; champ1
   accepte 0 et 1, champ2 accepte 6 et 7 (listes de valeurs par défaut et par
@@ -132,7 +144,8 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   terme nul », morceau `sameAffineSignTable`) renvoie vrai pour toute
   `Negate(Multiply(…))`. « −bx² + 5k² » est refusée (« La valeur est
   correcte » puis ce message) alors que « 5k² − bx² » passe. CH 10FA4C-8
-  (2f983) Q8, CH 10FA4F-10 (1cd08) Q8 (« −rt³ + 8t³ + 4rt − 32t »), et
+  (2f983) Q8, CH 10FA4F-10 (1cd08) Q8 (« −rt³ + 8t³ + 4rt − 32t »), CH
+  10FA4E-4 (4b495, graine `audit-jf-2`, Q4, « −tyz + 7yz + 19y − 7 »), et
   sûrement toute réponse qui commence par un monôme littéral négatif. Dans
   la fonction : `if (e.operator === "Negate") return …Multiply…` devrait
   examiner l'opérande (`return L(e.ops[0])`) au lieu de conclure.
@@ -267,7 +280,9 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   `autoCorrection` ; à tester exercice par exercice dans l'app.
 - Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
   branches avec justification par contre-exemple.
-- Audit justes/fausses avec une deuxième graine (`audit-jf-2`, en cours).
+- Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
+  10 013 éléments conformes ; nouveaux constats intégrés ci-dessus (2L22-3,
+  2mTrigoFct-6, 1A-C14-4, 10FA4E-4). Une troisième graine reste utile.
 - Relevé des requêtes hors de l'appareil et des traces de génération
   (« undefined », « NaN », LaTeX non rendu) sur tous les exercices, papier
   compris (en cours).
