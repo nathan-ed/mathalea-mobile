@@ -44,7 +44,15 @@
   }
 
   const texte = $derived(encoderReponses(demande && saisie.trim() ? { ...reponses, n: saisie.trim().slice(0, 40) } : reponses))
-  const svg = $derived(dessinerQr(texte))
+  // Trop de réponses pour un QR code (longues réponses en JSON : points
+  // cliquables, tableur…) : le fichier seulement, au lieu d'un écran planté
+  const svg = $derived.by(() => {
+    try {
+      return dessinerQr(texte)
+    } catch {
+      return null
+    }
+  })
   const nb = $derived(Object.keys(reponses.r).length)
   let envoi = $state('')
 
@@ -60,7 +68,8 @@
   <EnTete titre={avant ? 'Avant tes résultats' : 'Mes réponses pour l’enseignant'} onretour={onfermer} />
   <main class="flex-1 flex flex-col items-center gap-4 p-4 zone-sure-bas">
     <p class="text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-      Montre ce code à ton enseignant. Il contient tes {nb} réponse{nb > 1 ? 's' : ''}{demande ? ', avec ton prénom' : ', sans ton nom'}.
+      {#if svg}Montre ce code à ton enseignant.{:else}Tes réponses sont trop nombreuses pour un QR code : envoie-les à ton enseignant par un fichier.{/if}
+      Il contient tes {nb} réponse{nb > 1 ? 's' : ''}{demande ? ', avec ton prénom' : ', sans ton nom'}.
       {#if avant}Ensuite seulement, tu verras tes résultats et les corrections.{/if}
     </p>
     {#if avant && passees > 0 && onpassees}
@@ -77,21 +86,23 @@
       </div>
       <button type="button" class="{boutonAction} w-full" style="min-height: 44px" disabled={!saisie.trim()} onclick={valider}>Afficher mon QR code</button>
     {:else}
-    <!-- Fond blanc dans les deux thèmes : un QR code se lit mal en clair sur sombre -->
-    <div class="qr-reponses w-full rounded-2xl bg-white p-2" role="img" aria-label="QR code de mes réponses, session {reponses.c}">
-      {@html svg}
-    </div>
+    {#if svg}
+      <!-- Fond blanc dans les deux thèmes : un QR code se lit mal en clair sur sombre -->
+      <div class="qr-reponses w-full rounded-2xl bg-white p-2" role="img" aria-label="QR code de mes réponses, session {reponses.c}">
+        {@html svg}
+      </div>
+    {/if}
     <p class="text-sm text-center text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
       Session {reponses.c} · {reponses.t}
       {#if demande}· {saisie} <button type="button" class="underline" onclick={() => (confirme = false)}>Modifier</button>{/if}
     </p>
-    <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={envoyer}>
-      <i aria-hidden="true" class="bx bx-share-alt text-xl"></i> Envoyer un fichier à la place
+    <button type="button" class="{svg ? boutonLien : boutonAction} w-full justify-center" style="min-height: 44px" onclick={envoyer}>
+      <i aria-hidden="true" class="bx bx-share-alt text-xl"></i> {svg ? 'Envoyer un fichier à la place' : 'Envoyer mes réponses par un fichier'}
     </button>
     {#if envoi}<p class="text-sm text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">{envoi}</p>{/if}
     {/if}
     {#if avant && onresultats && (!demande || confirme)}
-      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onresultats}>C’est fait : voir mes résultats</button>
+      <button type="button" class="{svg ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={onresultats}>C’est fait : voir mes résultats</button>
     {/if}
   </main>
 </div>
