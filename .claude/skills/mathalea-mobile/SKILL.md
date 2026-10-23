@@ -117,6 +117,10 @@ Tests d'exercices = audit de MathALÉA (Nathan, 2026-10-23)
   valeur saisie, résultat, extrait de code ou cause probable. « Côté moteur »
   n'est jamais une raison de s'arrêter : on le signale, et on corrige dans
   `moteur/fichiers/` quand c'est possible.
+- Registre unique (Nathan, 2026-10-23 : « recense tout ce que tu trouves
+  dans un fichier Markdown ») : `docs/audit-mathalea.md`. Chaque constat
+  (MathALÉA ou app), chaque correctif fait (avec son commit) et ce qui reste
+  à tester y est noté au moment où on le trouve, puis commité et poussé.
 - Toujours remplir **tous** les champs d'une question (pas seulement le
   premier), et faire **deux passages** : bonnes réponses (toutes doivent être
   acceptées) puis réponses fausses (aucune ne doit l'être). Détail : section 8,
