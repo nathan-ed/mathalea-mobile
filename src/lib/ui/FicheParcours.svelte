@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Page d'un parcours pour l'enseignant (bibliothèque, onglet Créer) : tout ce
+  // Page d'un parcours pour l'enseignant (bibliothèque, onglet Parcours) : tout ce
   // qu'on fait sur un parcours au même endroit. Ses classes (pastilles à
   // toucher), où il en est chez les élèves, « Lancer une session », l'essayer,
   // le modifier, ses sessions ; exporter, dupliquer, supprimer dans « Autres

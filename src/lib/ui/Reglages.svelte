@@ -304,7 +304,7 @@
         <span class="flex flex-col gap-1 min-w-0">
           <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Je suis enseignant</span>
           <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            Ajoute l’onglet Créer pour préparer des parcours et les publier à vos classes.
+            Onglets de l’enseignant : créer des parcours, les donner à vos classes, lancer des sessions.
           </span>
         </span>
         <input

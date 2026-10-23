@@ -118,11 +118,22 @@ math-field,
   max-width: 100%;
   height: auto;
 }
-.contenu-mathalea table,
+/* Sauf le tableur de MathALÉA (jspreadsheet), dont les cellules ont besoin
+   d'un vrai tableau : en bloc, il ne mesurait plus que 2 px de large */
+.contenu-mathalea table:not(.jss_worksheet),
 .contenu-mathalea .katex-display {
   display: block;
   max-width: 100%;
   overflow-x: auto;
+}
+/* Cadre d'une question ou d'un énoncé : ce qui reste plus large que l'écran
+   (figure apigeom de 600 px, formule à trous, tableau) y défile. Sans
+   « contain: paint », Chrome sur téléphone élargit quand même la page à la
+   largeur du tableau (constaté à 551 px) : la barre du bas sort de l'écran. */
+.cadre-defilant {
+  min-width: 0;
+  overflow-x: auto;
+  contain: paint;
 }
 
 /* Clavier de MathALÉA (fixé en bas) : au-dessus de la barre de navigation
@@ -273,7 +284,7 @@ body:has(input:focus, textarea:focus) .barre-onglets {
 }
 
 /* Bouton flottant (action principale d'un écran), au-dessus de la zone sûre */
-/* Au-dessus de la barre d'onglets (onglet Créer) */
+/* Au-dessus de la barre d'onglets (onglets de l'enseignant) */
 .bouton-flottant {
   position: fixed;
   right: 1rem;

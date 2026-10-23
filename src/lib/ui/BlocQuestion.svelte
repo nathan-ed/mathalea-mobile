@@ -100,9 +100,22 @@
     setTimeout(() => zone?.isConnected && surSaisie(new Event(type)))
   }
 
+  // Question sans champ de saisie (horloge, tableur, liste déroulante, figure
+  // à colorier, glisser-déposer…) : l'élément de MathALÉA garde la réponse, qui
+  // ne se lit pas ici. Le premier geste dans la question suffit pour la vérifier
+  // (sinon « Vérifier » restait grisé : question impossible à faire).
+  let geste = false
+  function surGeste() {
+    if (geste || resultat || lectureSeule || !q.interactive || zone.querySelector('math-field[id], input[id]')) return
+    geste = true
+    aSaisi = true
+    onsaisie?.()
+  }
+
   function surSaisie(e: Event) {
     if (resultat) return
-    aSaisi = Object.keys(lireSaisies()).length > 0
+    surGeste()
+    aSaisi = Object.keys(lireSaisies()).length > 0 || geste
     // Seulement une vraie frappe : « change » arrive aussi quand le champ perd
     // le focus, par exemple à l'ouverture du panneau « Soumettre quand même ? »,
     // qui se refermait alors aussitôt (premier toucher perdu)
@@ -122,6 +135,8 @@
 
   function surTouche(e: KeyboardEvent) {
     if (e.key !== 'Enter') return
+    // Entrée dans un élément de MathALÉA (cellule du tableur, liste…) lui revient
+    if (!(e.target as HTMLElement).closest?.('math-field[id], input[id]')) return
     e.preventDefault()
     if (onvalider) onvalider()
     else if (!resultat && aSaisi) verifier()
@@ -161,7 +176,7 @@
 
   /** État de la question pour le garde-fou de la séance */
   export const etat = (): 'verifiee' | 'saisie' | 'vide' =>
-    resultat ? 'verifiee' : Object.keys(lireSaisies()).length ? 'saisie' : 'vide'
+    resultat ? 'verifiee' : Object.keys(lireSaisies()).length || geste ? 'saisie' : 'vide'
 
   export const estVerifiee = () => resultat !== null
 
@@ -236,17 +251,24 @@
 </script>
 
 <div class="container max-w-full grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4">
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div
-    bind:this={zone}
-    class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-    style="font-size: 1.15rem; line-height: 1.6; {lectureSeule ? 'pointer-events: none' : ''}"
-    inert={lectureSeule}
-    oninput={surSaisie}
-    onchange={surSaisie}
-    onbeforeinput={surSaisieTrou}
-    onkeydown={surTouche}
-  ></div>
+  <!-- Figure ou formule plus large que l'écran : elle défile dans la question
+       (cadre-defilant, app.css) -->
+  <div class="cadre-defilant">
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div
+      bind:this={zone}
+      class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+      style="font-size: 1.15rem; line-height: 1.6; {lectureSeule ? 'pointer-events: none' : ''}"
+      inert={lectureSeule}
+      oninput={surSaisie}
+      onchange={surSaisie}
+      onbeforeinput={surSaisieTrou}
+      onkeydown={surTouche}
+      onpointerupcapture={surGeste}
+      onkeyupcapture={surGeste}
+      ondropcapture={surGeste}
+    ></div>
+  </div>
   {#if avecBouton && !resultat && !lectureSeule && q.interactive}
     <div>
       <button

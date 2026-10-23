@@ -41,5 +41,6 @@
     </button>
   </div>
   {#if erreur}<p class="text-sm text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>{/if}
-  <div bind:this={zone} class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus"></div>
+  <!-- Figure plus large que l'écran : elle défile ici, la page garde sa largeur -->
+  <div bind:this={zone} class="contenu-mathalea cadre-defilant text-coopmaths-corpus dark:text-coopmathsdark-corpus"></div>
 </div>

@@ -258,7 +258,7 @@
     for (const p of tous) await chargerParcours(p)
     await chargerRevisions()
     vue = 'accueil'
-    // Réglage Enseignant : l'app s'ouvre sur l'onglet Créer
+    // Réglage Enseignant : l'app s'ouvre sur l'onglet Parcours
     if (profil === 'enseignant') onglet = 'creer'
     pret = true
     try {
@@ -334,7 +334,7 @@
 
   async function changerProfil(p: Profil) {
     profil = p
-    // Réglage Enseignant coché : l'onglet Créer s'ouvre au retour des réglages
+    // Réglage Enseignant coché : l'onglet Parcours s'ouvre au retour des réglages
     vueEleve = false
     onglet = p === 'enseignant' ? 'creer' : ['creer', 'classes', 'classe'].includes(onglet) ? 'mes' : onglet
     await stockage!.ecrire('profil', p)
@@ -412,7 +412,7 @@
     onglet = 'classe'
     aller('accueil')
   }
-  // Espace enseignant : onglet « Créer » de l'accueil
+  // Espace enseignant : onglet « Parcours » de l'accueil
   function versCreer() {
     creation = null
     vueEleve = false
@@ -973,7 +973,7 @@
 
   // Rappel sous la barre de chaque écran (hors séance) : l'app a des modifications que le fichier complet n'a pas
   // puis, une fois exporté, tant que le drive n'a pas ce fichier (relu au retour dans l'app)
-  // Sans dossier partagé : rappel de le configurer (champ de la mise en route, onglet Créer)
+  // Sans dossier partagé : rappel de le configurer (champ de la mise en route, onglet Parcours)
   rappelExport.exporter = () => exporterClasse()
   rappelExport.configurer = () => {
     versCreer()

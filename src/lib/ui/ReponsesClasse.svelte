@@ -487,7 +487,7 @@
                 <span class={pastilleScore(t)}>{t} % · {q.repondu} réponse{q.repondu > 1 ? 's' : ''}</span>
               {/if}
             </div>
-            <div class="enonce-releve contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus" use:rendu={enonceHtml(q.cle)}></div>
+            <div class="enonce-releve contenu-mathalea cadre-defilant text-coopmaths-corpus dark:text-coopmathsdark-corpus" use:rendu={enonceHtml(q.cle)}></div>
             {#if toutes[q.cle]}
               <div class="flex flex-col gap-1">
                 <p class="text-sm font-bold text-coopmaths-corpus dark:text-coopmathsdark-corpus">Toutes les réponses</p>
@@ -532,7 +532,7 @@
               </button>
             </div>
             {#if ouvertes[q.cle]}
-              <div class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus" use:rendu={questionDe(q.cle).ex?.questions[questionDe(q.cle).q].correction ?? ''}></div>
+              <div class="contenu-mathalea cadre-defilant text-coopmaths-corpus dark:text-coopmathsdark-corpus" use:rendu={questionDe(q.cle).ex?.questions[questionDe(q.cle).q].correction ?? ''}></div>
             {/if}
           </section>
         {/each}

@@ -1,6 +1,6 @@
 <script lang="ts">
   // Premier lancement : programme (France ou Suisse). Tout le monde commence
-  // en élève ; l'onglet Créer s'ajoute avec le réglage Enseignant.
+  // en élève ; les onglets de l'enseignant viennent avec le réglage Enseignant.
   import type { Pays } from '$lib/moteur'
   import EnTete from './EnTete.svelte'
   import Tuile from './Tuile.svelte'
