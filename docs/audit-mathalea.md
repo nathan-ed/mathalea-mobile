@@ -16,9 +16,11 @@ se comportent bien ; 104 acceptent une réponse fausse et 87 refusent la bonne,
 détaillés ci-dessous une fois écartés les cas où le banc ne pouvait pas
 deviner la réponse (règles décrites par une fonction : décomposition en
 facteurs premiers, « écrire le calcul et non le résultat », droite
-paramétrée). 243 éléments ne sont pas encore remplis par le banc (figures
-apigeom 80, meta-custom 74, glisser-déposer 32, couteau suisse 11, tableur 9,
-QCM à branches 6…) : à faire.
+paramétrée). Glisser-déposer, tableur, QCM à branches et couteau suisse
+sont remplis depuis (21 exercices). Restent hors du banc les éléments
+vérifiés par une fonction propre à l'exercice : figures apigeom (80),
+meta-custom (74), schéma en barre, éditeurs de grille et d'empilement de
+cubes, justifications par contre-exemple.
 
 ## 1. Comparaisons qui acceptent des réponses fausses
 
@@ -82,14 +84,26 @@ Même repli `isEqual` avec variables libres :
 Le repli fonctionne en revanche sur 426 expressions littérales ordinaires
 (3x + 2…) testées de la même façon.
 
-### 1.4 Réponses attendues écrites entre `$…$`
+### 1.4 Tableur : toute formule avec SOMME ou MOYENNE acceptée
+
+`MySpreadSheet.compareSheetFunction` : si la formule n'est pas identique au
+texte attendu, les deux formules sont recalculées dans deux tableurs cachés
+(`testSheet`, `testSheetUser`) avec des valeurs tirées au hasard. Ces
+tableurs ne semblent pas connaître les fonctions françaises : la formule
+attendue et celle de l'élève donnent la même erreur, donc toute formule qui
+contient la fonction passe, et une formule juste sans elle est refusée.
+6I1B-7 (e0f6b) Q1, attendu =SOMME(A1:D1) : acceptés =SOMME(A1:D1)+1,
+=SOMME(A1:C1) ; refusés =A1+B1+C1+D1 et =SUM(A1:D1). Même chose dans 3I13-1
+(ae07e) Q1 (=MOYENNE(A1:F1)+1 accepté) et Q2 (=SOMME(A1:D1)+1 accepté).
+
+### 1.5 Réponses attendues écrites entre `$…$`
 
 - CH 667d6 (raisonnement par récurrence) Q1 : attendu `$\geqslant 4$`. La
   saisie d'un élève, « ⩾4 », est refusée ; seule la chaîne avec dollars
   passe, et « $⩾5$ » aussi. Impossible de réussir.
 - CH afd39 Q5 : attendu `$0$` ; « 0 » est refusé.
 
-### 1.5 À vérifier
+### 1.6 À vérifier
 
 - 6N1F-4 (6b534) : « 18/295 ≈ [champ1] soit environ [champ2] % » ; champ1
   accepte 0 et 1, champ2 accepte 6 et 7 (listes de valeurs par défaut et par

@@ -119,8 +119,8 @@ async function auditer(page, e) {
     const formats = (ex) => (ex.interne.autoCorrection ?? []).map((a) => a?.formatInteractif ?? null)
 
     /** Remplit l'élément k ; renvoie la façon, ou null si on ne sait pas le remplir */
-    function remplir(ex, k, juste) {
-      const a = ex.interne.autoCorrection[k] ?? {}
+    const remplir = (ex, k, juste) => remplirAC(ex.interne.autoCorrection[k] ?? {}, k, juste)
+    function remplirAC(a, k, juste) {
       const v = a.valeur ?? {}
       const f = a.formatInteractif
       const saisis = []
@@ -240,6 +240,56 @@ async function auditer(page, e) {
           return { comment: `élément ${perso.tagName.toLowerCase()}`, saisis }
         }
         return { comment: `élément introuvable (${f})`, saisis }
+      }
+      if (f === 'dnd') {
+        // Glisser-déposer : une étiquette par emplacement (rectangle1…), dans l'ordre
+        const el = champ(`drag-and-dropEx${N}Q${k}`)
+        const places = cles.filter((c) => /^rectangle\d+$/.test(c)).sort((x, y) => Number(x.slice(9)) - Number(y.slice(9)))
+        if (!el || !places.length) return { comment: 'glisser-déposer introuvable', saisis }
+        // Valeur attendue « 6 » ou « 27|7|21 » : étiquettes etiquetteEx<n>Q<k>I6…
+        const ids = [...el.querySelectorAll('.etiquette')].map((e) => e.id)
+        const vals = places.map((c) => String(brut(v[c]?.value) ?? '').split('|').filter(Boolean))
+        let mis = vals
+        if (!juste) {
+          // Chaque emplacement reçoit une étiquette qu'il n'attend pas
+          mis = vals.map((attendu) => [ids.map((id) => id.split('I').pop()).find((x) => !attendu.includes(x))].filter(Boolean))
+          if (mis.some((m) => !m.length)) return { comment: 'aucune réponse fausse possible', saisis }
+        }
+        el.value = JSON.stringify(mis.map((l) => l.map((x) => `etiquetteEx${N}Q${k}I${x}`).join(';')))
+        saisis.push(JSON.stringify(mis))
+        return { comment: 'glisser-déposer', saisis }
+      }
+      if (f === 'mathalea-branching-qcm') {
+        const el = champ(`mathalea-branching-qcmEx${N}Q${k}`)
+        const choix = a.branchingQcm?.choices ?? []
+        const i = juste ? choix.findIndex((c) => c.statut) : choix.findIndex((c) => !c.statut)
+        if (!el || i < 0) return { comment: 'QCM à branches introuvable', saisis }
+        const suite = choix[i].followup?.expected ? saisie(choix[i].followup.expected, juste) : ''
+        el.value = JSON.stringify({ selectedIndex: i, followupAnswer: suite ?? '' })
+        saisis.push(`choix ${i} ${suite ?? ''}`)
+        return { comment: 'QCM à branches', saisis }
+      }
+      if (f === 'mathalea-couteau-suisse' && Array.isArray(a.elements)) {
+        // Chaque élément du couteau suisse, avec sa propre correction
+        for (const e of a.elements) {
+          const r = remplirAC({ ...e.autoCorrection, formatInteractif: e.formatInteractif }, e.questionIndex, juste)
+          saisis.push(`${e.formatInteractif} Q${e.questionIndex} : ${r?.comment ?? 'non rempli'} ${(r?.saisis ?? []).join(' ')}`)
+        }
+        return { comment: 'couteau suisse', saisis }
+      }
+      if (f === 'my-spreadsheet' && v.sheetAnswer?.goodAnswerFormulas) {
+        const el = champ(`my-spreadsheetEx${N}Q${k}`)
+        if (!el) return { comment: 'tableur introuvable', saisis }
+        const lignes = JSON.parse(JSON.stringify(el.value ?? []))
+        for (const { ref, formula } of v.sheetAnswer.goodAnswerFormulas) {
+          const col = ref.charCodeAt(0) - 65, lig = Number(ref.slice(1)) - 1
+          while (lignes.length <= lig) lignes.push([])
+          while (lignes[lig].length <= col) lignes[lig].push('')
+          lignes[lig][col] = juste ? formula : `${formula}+1`
+          saisis.push(`${ref}${lignes[lig][col]}`)
+        }
+        el.value = lignes
+        return { comment: 'tableur', saisis }
       }
       return null
     }
