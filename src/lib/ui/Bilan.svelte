@@ -60,7 +60,8 @@
   const premiers = $derived(premiersEssais(seance))
   const questions = $derived(questionsOrdonnees(seance))
   let questionsOuvertes: Record<string, boolean> = $state({})
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 12,5 / 15 »
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
   const papier = $derived(b.parEtape.reduce((a, e) => a + e.papier, 0))
   const vues = $derived(b.parEtape.reduce((a, e) => a + e.vues, 0))
   // Session partagée : réponses à montrer à l'enseignant (QR code)

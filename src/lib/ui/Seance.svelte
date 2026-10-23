@@ -78,7 +78,8 @@
     derniere ? 'Voir le bilan' : presentation === 'une_question_par_page' ? 'Question suivante' : 'Exercice suivant',
   )
 
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 12,5 / 15 »
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
 
   // Bilan direct : la relecture corrige toutes les questions sans être montrée,
   // puis le bilan s'ouvre (au plus tard après 10 s si une question échoue)

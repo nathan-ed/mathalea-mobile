@@ -422,7 +422,8 @@ export function textePourIA(
   eleves: EleveIA[] = [],
 ) {
   const pct = (q: BilanQuestion) => (q.repondu ? Math.round((100 * q.reussi) / q.repondu) : 0)
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 12,5 / 15 »
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
   const lignes = [
     `Séance de mathématiques${info.niveau ? ` (${info.niveau})` : ''} : « ${info.titre} ». Session commune, ${info.nbEleves} élève${info.nbEleves > 1 ? 's' : ''}, mêmes questions pour tous.`,
     'Pour chaque question : énoncé, correction attendue, taux de réussite, et mauvaises réponses données avec leur nombre (formules en LaTeX).',

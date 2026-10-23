@@ -135,7 +135,8 @@
   const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
 
   const fmtJour = (d: Date) => d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 12,5 / 15 »
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
 </script>
 
 {#snippet rangee(liste: { nom: string; couleur: string; obtenue: boolean; niveau?: string }[])}

@@ -41,7 +41,8 @@
   // QR code avant la correction, pas encore montré : il passe d'abord
   let vu = $state(false)
   const avant = $derived(!!pourEnseignant && modeQr(seance.code) === 'avant' && !seance.qrMontre && !vu)
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 12,5 / 15 »
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
 
   function latex(noeud: HTMLElement, texte: string) {
     noeud.textContent = texte

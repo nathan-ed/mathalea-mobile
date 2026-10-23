@@ -220,7 +220,8 @@
     return bilanDesEleves(ordre, releve.recues, c.verdicts, estHors(c)).sort((a, b) => pct(a) - pct(b) || a.numero - b.numero)
   })
   const nomDe = $derived(new Map(eleves.map((e) => [e.d, e.nom])))
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 12,5 / 15 »
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
   const pct = (e: { points: number; sur: number }) => (e.sur ? Math.round((100 * e.points) / e.sur) : 0)
   // Résumé : réussite moyenne, répartition des élèves, questions à reprendre
   const resume = $derived.by(() => {
