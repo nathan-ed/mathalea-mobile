@@ -45,6 +45,7 @@
     lireSeance,
     modeQr,
     nouvelleSeance,
+    normaliserCode,
     premiersEssais,
     questionsDe,
     questionsOrdonnees,
@@ -665,11 +666,23 @@
     }
     await chargerParcours(p)
     actif = p
-    await lancer(nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', inv.e, inv.c))
+    await lancer(seanceDeSession(p, inv.c, inv.e))
   }
 
+  /**
+   * Séance d'une session partagée. La même session déjà commencée (même code,
+   * mêmes exercices, même version) reprend là où elle en était : la rejoindre de
+   * nouveau (QR code rescanné, code retapé après « Reprendre plus tard »)
+   * effaçait les réponses déjà données.
+   */
+  function seanceDeSession(p: Parcours, code: string, etapes?: number[]) {
+    const s = seances[p.id]
+    const voulues = (etapes ?? p.etapes.map((_, i) => i)).join()
+    if (s && !s.fin && s.code === normaliserCode(code) && s.contenu.version === p.version && s.etapes.join() === voulues) return s
+    return nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes, code)
+  }
   // Avec des paliers : la session porte sur un palier ouvert, choisi au lancement
-  const session = (code: string, etapes?: number[]) => void lancer(nouvelleSeance(actif!, moteur!.VERSION_MOTEUR, 'complet', etapes, code))
+  const session = (code: string, etapes?: number[]) => void lancer(seanceDeSession(actif!, code, etapes))
 
   function ameliorer() {
     const etapes = etapesAAmeliorer(actif!, resultats[actif!.id] ?? {})
@@ -1192,7 +1205,7 @@
     <DetailParcours
       parcours={actif}
       resultats={resultats[actif.id] ?? {}}
-      enCours={resumes[actif.id]?.enCours ?? false}
+      enCours={!!seances[actif.id] && !seances[actif.id]!.fin}
       etapesEnCours={seances[actif.id] && !seances[actif.id]!.fin ? seances[actif.id]!.etapes : null}
       aAmeliorer={etapesAAmeliorer(actif, resultats[actif.id] ?? {})}
       epingle={dansSources(actif.id) ? epingles.includes(actif.id) : ajoutes.some((a) => a.id === actif!.id)}
