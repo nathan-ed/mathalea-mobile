@@ -716,6 +716,17 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   cases, de structure et d'opération, boutons « Griser ») : juste 4/4 ou
   5/5 ; opération fausse, une case fausse, ligne ou colonne hors sujet non
   grisée : un point de moins.
+  `guide-ane` 4G30-0 (327f2, état posé par `update`, 2 graines) : nombre
+  de parts et report justes 1/1, report faux 0/1 avec la longueur obtenue
+  en retour, rien 0/1 ; nombre de parts plafonné à 10. Le déplacement des
+  points au doigt n'est pas encore essayé.
+  `juniper-green` EN-Juniper-Green (cc308, vrais clics, coups légaux) :
+  toute suite menée jusqu'au blocage vaut 2/2, qu'elle compte 6 nombres
+  (1, 2, 4, 8, 16, 32) ou 17 ; arrêtée après un nombre 0/2 ; un nombre
+  interdit est ignoré avec une indication. La règle affichée (« à tour de
+  rôle », « le joueur qui ne peut plus jouer a perdu ») décrit une partie
+  à deux, alors que l'élève joue seul et gagne toujours : à reformuler, ou
+  noter selon la longueur de la suite.
   `traceur-de-courbe` 3F10-7, 4F11, d4c81 : notation conforme quand le
   tableau est bien rempli (valeurs justes 5/5 ; 3F10-7, parabole avec six
   x régulièrement espacés de −5 à 5 : 4/5, forme jugée trop approximative,
@@ -724,6 +735,14 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
+- Éléments sans clé exploitable par la sonde, testés un par un (vrais
+  clics ou état posé) : labyrinthes, grilles (pyramide, KenKen, sudoku,
+  tables, Grimuku, étoile), demi-droite, `svg-selection`, échiquiers,
+  traceur de courbe, calculatrice, guide-âne, Juniper Green (résultats
+  plus haut). Restent : `scratch-editor` (5I1C, 5I1D), `alea-iep-editeur`
+  (9 exercices de construction animée), 3dbda (6G1autoA, plusieurs
+  sous-consignes), Q2 et Q3 de 1ed48, déplacement des points du
+  guide-âne.
 - `meta-custom` (vérification propre à l'exercice), bonnes et mauvaises
   réponses construites à partir de l'état interne de l'exercice : Roses
   (8 exercices, chaque type de question, 3, 5 et 9 valeurs, 3 graines) et
