@@ -310,6 +310,8 @@ exercices) : aucune erreur KaTeX, aucune préparation en échec.
 - 6N2F-1 (6e828), correction : « Do,c » pour « Donc ».
 - CH 1972e (points remarquables du triangle), corrections : « le point K est
   le le centre du cercle inscrit », « le le centre de gravité au triangle ».
+  Q8 : l'option « On ne peut pas savoir » (`onpps`) figure deux fois dans la
+  liste déroulante (contrôle des 169 listes du référentiel : seul défaut).
 - CH addd5, « Reconnaître une fonction d'après sa courbe » : aucune courbe
   affichée ; énoncé « Choisir l'expression mathématique », une liste
   déroulante, correction « Vous avez choisi : . » (exercice inachevé ?).
