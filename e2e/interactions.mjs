@@ -20,11 +20,12 @@ const ok = (cond, msg) => {
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
 
 /** Séance d'un exercice seul (une question par page, correction à chaque question) */
-async function seance(nom, uuid, nbQuestions = 1) {
+async function seance(nom, uuid, nbQuestions = 1, correction = 'question') {
   const p = {
     id: 'interactions', version: 1, titre: 'Interactions', objectif: '', niveau: '6e', theme: 'Divers', difficulte: 1, icone: 'bx-shape-triangle',
-    presentation: 'une_question_par_page', correction: 'question',
-    etapes: [{ uuid, id: nom, titre: nom, nbQuestions }],
+    presentation: 'une_question_par_page', correction,
+    // Une question de calcul après : la correction à la fin oblige à quitter la question
+    etapes: [{ uuid, id: nom, titre: nom, nbQuestions }, ...(correction === 'parcours' ? [{ uuid: '385b7', id: 'canc3C01', titre: 'Calcul', nbQuestions: 1 }] : [])],
   }
   const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
@@ -157,7 +158,7 @@ for (const [nom, uuid] of [['6N3M trois champs par question', '8e07a'], ['6AutoA
     const m = /Q(\d+)(R(\d+))?$/.exec(id)
     const k = Number(m[1])
     if (m[2]) {
-      if (attendu[k][Number(m[3])]) await page.locator('#' + id).check({ force: true })
+      if (attendu[k][Number(m[3])]) await page.locator('#' + id).evaluate((c) => c.checked || c.click())
     } else {
       // Comme un élève : 4/6 pour une fraction, virgule décimale
       const texte = String(attendu[k]).replace(/\\dfrac\{(\d+)\}\{(\d+)\}/, '$1/$2').replace('.', ',')
@@ -175,6 +176,63 @@ for (const [nom, uuid] of [['6N3M trois champs par question', '8e07a'], ['6AutoA
   ok(score.includes('1/3'), `${nom} : deuxième question juste, tous ses éléments vérifiés (${score})`)
   await page.screenshot({ path: `${captures}/interactions-${uuid}-q2.png` })
   await page.context().close()
+}
+
+// Bonne réponse donnée par un geste, juste en correction immédiate comme à la
+// fin. À la fin, la question est quittée puis revérifiée à la soumission : sa
+// réponse doit survivre (brouillon des éléments sans champ). Figures à cliquer :
+// l'élément <clique-figure> n'existait pas à l'affichage, toucher ne faisait rien.
+/** Réponses attendues de la première étape de la séance (exercice régénéré) */
+const attendue = (page) =>
+  page.evaluate(async () => {
+    const s = JSON.parse(localStorage.getItem('copie:seance:interactions'))
+    const man = await (await fetch('/moteur/manifest.json')).json()
+    const m = await import('/moteur/' + man.entree)
+    const ex = await m.preparerExercice({ ...s.contenu.etapes[0], alea: s.graines[0] }, 70)
+    const a = ex.interne.autoCorrection[0]
+    return { valeur: a.valeur?.reponse?.value, solution: a.propositions?.findIndex((p) => p.statut), texte: ex.questions[0].enonce }
+  })
+const justes = [
+  ['CM2G5C-1 figure à cliquer', 'f57fe', async (page) => {
+    const { solution } = await attendue(page)
+    const b = await page.locator(`#cliquefigure${solution}Ex0Q0`).boundingBox()
+    await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2)
+  }],
+  ['can1D3-05 liste déroulante', 'ad915', async (page) => {
+    const { valeur } = await attendue(page)
+    await page.locator('main liste-deroulante').first().click()
+    await page.locator('main [role="option"]', { hasText: String(valeur) }).first().click()
+  }],
+  ['CM2N2A-1 colorier une fraction', 'c28e5', async (page) => {
+    // Bande graduée en 8, 10 ou 12 selon le dénominateur : colorier a/b de l'unité
+    const latex = await page.evaluate(() => document.querySelector('main .katex-mathml annotation')?.textContent ?? '')
+    const [, a, b] = /frac\{(\d+)\}\{(\d+)\}/.exec(latex).map(Number)
+    const t = b % 3 === 0 ? 12 : b % 5 === 0 ? 10 : 8
+    for (let i = 0; i < Math.round((a / b) * t); i++) {
+      const r = await page.locator('main #divFigure polygon').nth(i).boundingBox()
+      await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2)
+      await page.waitForTimeout(100)
+    }
+  }],
+]
+for (const correction of ['question', 'parcours']) {
+  for (const [nom, uuid, repondre] of justes) {
+    const page = await seance(nom, uuid, 1, correction)
+    await repondre(page)
+    await page.waitForTimeout(600)
+    if (correction === 'question') await verifier(page).click()
+    else {
+      const onglets = page.getByRole('tablist', { name: 'Questions' }).getByRole('tab')
+      await onglets.last().click()
+      await page.waitForTimeout(800)
+      await page.getByRole('button', { name: 'Soumettre la tentative' }).click()
+      await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 3000 }).catch(() => {})
+    }
+    await page.waitForTimeout(3000)
+    const juste = await page.evaluate(() => JSON.parse(localStorage.getItem('copie:seance:interactions')).essais.find((e) => e.etape === 0)?.juste)
+    ok(juste === true, `${nom}, correction ${correction === 'question' ? 'immédiate' : 'à la fin'} : bonne réponse comptée juste`)
+    await page.context().close()
+  }
 }
 
 ok(erreurs.length === 0, `aucune erreur de page${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)

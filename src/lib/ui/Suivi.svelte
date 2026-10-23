@@ -192,7 +192,11 @@
 
     {#if vue === 'objectifs'}
       {#if !objectifs.length}
-        <p class="py-6 text-center {discret}">Les objectifs de tes parcours apparaîtront ici dès que tu auras terminé un passage.</p>
+        <p class="py-6 text-center {discret}">
+          {toutesSeances.some((s) => s.fin)
+            ? 'Les parcours que tu as terminés n’ont pas d’objectifs. Ceux des parcours suivants apparaîtront ici.'
+            : 'Les objectifs de tes parcours apparaîtront ici dès que tu auras terminé un passage.'}
+        </p>
       {:else}
         <div class="flex flex-row flex-wrap items-center gap-x-3 gap-y-1 px-1 {discret}" aria-hidden="true">
           {#each MAITRISES as m, k (m)}

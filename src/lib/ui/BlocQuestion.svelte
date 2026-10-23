@@ -2,7 +2,7 @@
   // Une question MathALÉA : affichage, brouillon, vérification, correction.
   // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
   import { onDestroy, onMount, tick } from 'svelte'
-  import { verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
+  import { elementsDeQuestion, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
   import { boutonInverse, boutonLien } from './classes'
 
@@ -73,6 +73,21 @@
     return trous.length > 0 && trous.every((t) => !champ.getPromptValue?.(t)?.trim())
   }
 
+  /**
+   * Élément de MathALÉA sans champ MathLive (liste déroulante, horloge, tableur,
+   * labyrinthe…), identifié comme sa réponse : <élément>Ex<n>Q<i>. Sa valeur,
+   * texte ou objet en JSON, est la réponse que MathALÉA enregistre et réécrit.
+   */
+  const estElement = (el: Element) => el.tagName.includes('-') && el.tagName !== 'MATH-FIELD' && /Ex\d+Q\d+$/.test(el.id)
+  function valeurElement(el: HTMLElement & { value?: unknown }) {
+    try {
+      const v = el.value
+      return typeof v === 'string' ? v : v == null ? null : JSON.stringify(v)
+    } catch {
+      return null
+    }
+  }
+
   function lireSaisies(): Record<string, string> {
     const saisies: Record<string, string> = {}
     const figures: Record<string, Record<string, string>> = {}
@@ -89,6 +104,16 @@
       }
     }
     for (const [cle, valeurs] of Object.entries(figures)) saisies[cle] = JSON.stringify(valeurs)
+    // Éléments sans champ : seulement après un geste de l'élève (ou repris d'un
+    // brouillon), leur valeur par défaut n'est pas une réponse. Sans cela, avec la
+    // correction à la fin, leur réponse se perdait en changeant de question.
+    for (const el of zone.querySelectorAll<HTMLElement>('[id]')) {
+      if (!estElement(el) || (!geste && brouillon?.[el.id] === undefined)) continue
+      // Élément contenu dans un autre (couteau suisse) : l'englobant porte tout
+      if (el.parentElement?.closest('[id]') && estElement(el.parentElement.closest('[id]')!)) continue
+      const v = valeurElement(el)
+      if (v !== null) saisies[el.id] = v
+    }
     return saisies
   }
 
@@ -100,29 +125,59 @@
     setTimeout(() => zone?.isConnected && surSaisie(new Event(type)))
   }
 
-  // Question sans champ de saisie (horloge, tableur, liste déroulante, figure
-  // à colorier, glisser-déposer…) : l'élément de MathALÉA garde la réponse, qui
-  // ne se lit pas ici. Le premier geste dans la question suffit pour la vérifier
-  // (sinon « Vérifier » restait grisé : question impossible à faire).
+  // Geste dans un élément de MathALÉA sans champ (horloge, tableur, liste
+  // déroulante, figure à colorier, glisser-déposer…), ou dans une question qui
+  // n'a pas de champ : la réponse compte, « Vérifier » devient actif (il restait
+  // grisé : question impossible à faire) et le brouillon la garde.
   let geste = false
-  function surGeste() {
-    if (geste || resultat || lectureSeule || !q.interactive || zone.querySelector('math-field[id], input[id]')) return
+  function surGeste(e: Event) {
+    if (resultat || lectureSeule || !q.interactive) return
+    let dansElement = false
+    for (let el = e.target as HTMLElement | null; el && el !== zone; el = el.parentElement) if (estElement(el)) dansElement = true
+    if (!dansElement && zone.querySelector('math-field[id], input[id]')) return
+    if (!geste) onsaisie?.()
     geste = true
     aSaisi = true
-    onsaisie?.()
+    planifierBrouillon()
   }
 
   function surSaisie(e: Event) {
     if (resultat) return
-    surGeste()
+    if (e.target) surGeste(e)
     aSaisi = Object.keys(lireSaisies()).length > 0 || geste
     // Seulement une vraie frappe : « change » arrive aussi quand le champ perd
     // le focus, par exemple à l'ouverture du panneau « Soumettre quand même ? »,
     // qui se refermait alors aussitôt (premier toucher perdu)
     if (e.type === 'input') onsaisie?.()
+    planifierBrouillon()
+  }
+
+  function planifierBrouillon() {
     clearTimeout(minuterie)
     enAttente = true
     minuterie = setTimeout(envoyerBrouillon, 350)
+  }
+
+  /**
+   * Figures à cliquer (format clique-figure) : le site de MathALÉA crée à
+   * l'affichage l'élément <clique-figure> qui les rend cliquables ; le moteur ne
+   * le crée qu'à la vérification. Sans lui, toucher une figure ne faisait rien.
+   * Même élément que MathALÉA (Kre dans son code) : sa valeur est la réponse.
+   */
+  function figuresACliquer() {
+    const listes = (exercice.interne as { cliqueFiguresArray?: unknown[] }).cliqueFiguresArray
+    for (const k of elementsDeQuestion(exercice, question)) {
+      const id = `clique-figureEx${exercice.numero}Q${k}`
+      if (!Array.isArray(listes?.[k]) || zone.querySelector(`#${id}`)) continue
+      const el = document.createElement('clique-figure')
+      el.id = id
+      el.setAttribute('numero-exercice', String(exercice.numero))
+      el.setAttribute('question-index', String(k))
+      el.setAttribute('figures', JSON.stringify(listes[k]))
+      const resultat = zone.querySelector(`#resultatCheckEx${exercice.numero}Q${k}`)
+      if (resultat) resultat.before(el)
+      else zone.append(el)
+    }
   }
 
   /** Enregistre le brouillon en attente */
@@ -193,6 +248,7 @@
   onMount(async () => {
     zone.innerHTML = (avecContexte && q.contexte.trim() ? `<div class="mb-4">${q.contexte}</div>` : '') + `<div>${q.enonce}</div>`
     await moteur.afficher(zone)
+    figuresACliquer()
     if (essai) {
       // Déjà vérifiée : réponse, smiley et correction reviennent ; l'essai enregistré fait foi
       await moteur.ecrireReponses(essai.reponses)
