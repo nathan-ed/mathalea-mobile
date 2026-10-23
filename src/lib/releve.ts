@@ -241,15 +241,30 @@ export function ordreDesQuestions(r: Pick<ReponsesSession, 'c' | 'p' | 'v' | 'o'
 /**
  * Réponse lisible d'une question : ses champs dans l'ordre, séparés par « ; ».
  * Réponse en plusieurs étapes de calcul : la réponse finale seule (les étapes,
- * rangées à part par MathALÉA, restent pour la revérification).
+ * rangées à part par MathALÉA, restent pour la revérification). QCM : les cases
+ * cochées par leur rang (« case cochée : 2 ») et non l'état brut de chaque case
+ * (« 1 ; 0 ; [0] ») ; champ à trous : le contenu des trous à leur place ;
+ * horloge : l'heure.
  */
 export function texteReponse(champs: Record<string, string>) {
-  return Object.keys(champs)
+  const cles = Object.keys(champs)
     .filter((k) => !k.startsWith('possible-multi-lines-answer'))
     .sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }))
-    .map((k) => champs[k].trim())
-    .filter(Boolean)
-    .join(' ; ')
+  const cases = cles.filter((k) => /Q\d+R\d+$/.test(k))
+  const cochees = cases.filter((k) => champs[k] === '1').map((k) => Number(/R(\d+)$/.exec(k)![1]) + 1)
+  const parties = cles
+    // L'élément QCM répète les cases cochées
+    .filter((k) => !cases.includes(k) && !(cases.length && k.startsWith('mathalea-qcm')))
+    .map((k) => lisible(champs[k]))
+  if (cochees.length) parties.unshift(`${cochees.length > 1 ? 'cases cochées' : 'case cochée'} : ${cochees.join(', ')}`)
+  return parties.filter(Boolean).join(' ; ')
+}
+
+/** Valeur d'un champ, lisible : trous remplis à leur place, heure d'une horloge */
+function lisible(valeur: string) {
+  const t = valeur.trim().replace(/\\placeholder(?:\[[^\]]*\])*\{((?:[^{}]|\{[^{}]*\})*)\}/g, '$1')
+  const heure = /^\{"hour":(\d+),"minute":(\d+)/.exec(t)
+  return heure ? `${heure[1]}:${heure[2].padStart(2, '0')}` : t
 }
 
 /** Même réponse écrite autrement (espaces, virgule ou point décimal) : regroupées */

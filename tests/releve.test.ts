@@ -14,6 +14,7 @@ import {
   reponsesDeSeance,
   texteBrut,
   textePourIA,
+  texteReponse,
   type Releve,
   type ReponsesSession,
 } from '../src/lib/releve'
@@ -486,5 +487,21 @@ describe('QR code de session (enseignant → élèves)', () => {
     expect(moteurPlusAncien('2026-10-18+a.b', '2026-10-18+c.d')).toBe(false)
     expect(moteurPlusAncien('2026-10-20+a.b', '2026-10-18+c.d')).toBe(false)
     expect(moteurPlusAncien('dev', '2026-10-18+c.d')).toBe(false)
+  })
+})
+
+describe('réponse lisible pour l’enseignant et pour une IA', () => {
+  it('QCM : les cases cochées par leur rang, sans l’état brut de chaque case', () => {
+    expect(texteReponse({ 'mathalea-qcmEx3Q1': '[0]', Ex3Q1R0: '1', Ex3Q1R1: '0' })).toBe('case cochée : 1')
+    expect(texteReponse({ Ex0Q2R0: '1', Ex0Q2R1: '0', Ex0Q2R2: '1', 'mathalea-qcmEx0Q2': '[0,2]' })).toBe('cases cochées : 1, 3')
+    expect(texteReponse({ Ex0Q2R0: '0', Ex0Q2R1: '0' })).toBe('')
+  })
+  it('champ à trous : le contenu des trous à leur place', () => {
+    expect(texteReponse({ champTexteEx0Q0: '32\\times25=\\placeholder[champ1]{16}\\times50' })).toBe('32\\times25=16\\times50')
+    expect(texteReponse({ champTexteEx0Q0: '\\placeholder[champ1][correct][locked]{\\frac{1}{2}}+3' })).toBe('\\frac{1}{2}+3')
+  })
+  it('horloge : l’heure ; liste déroulante : le choix', () => {
+    expect(texteReponse({ 'interactive-clockEx0Q0': '{"hour":9,"minute":5,"second":0}' })).toBe('9:05')
+    expect(texteReponse({ 'liste-deroulanteEx0Q0': 'Vrai' })).toBe('Vrai')
   })
 })
