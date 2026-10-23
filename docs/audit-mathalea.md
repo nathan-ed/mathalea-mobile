@@ -328,6 +328,14 @@ suit le nombre réel). À déclarer non modifiable, ou à compléter :
 - 3 questions pour 5 demandées (29) : can6D1-03, CM2G2A-2, 6AutoN4-1, 6AutoN4-4, 6N2B-4, 6N2autoC-2, 6G3B-2, 4F12, 1AL11-1, CH 9ES1E-19, CH 1z5ph, CH 2e77f, CH 4cc5b, CH a4cbf, CH cd8eb, CH d3b6c, CH d6f1f, CH d631d, CH e0486, CH exemple-qcm-json, CH fhmbj, CH gbgfa, CH pl5rm, CH ps264, CH sdxi0, CH t25p6, CH tfw5s, CH xd0yc, CH PR-31.
 - 4 questions pour 5 demandées (39) : can6D1-04, can6D3-01, 5G2E-4, 5G2autoC, 5G6D, 4G20-5, 2A-N1-5, 2A-E3-3, 1A-C03-7, 1A-C03-9, CH 91304, CH 97290, CH 0es14, CH 1gyyf, CH 3dff8, CH 6e29b, CH 9t36i, CH 42fc1, CH 365f4, CH 471c3, CH 663ca, CH 816ad, CH 7057b, CH a8e1d, CH b799f, CH c6cbe, CH d3e8f, CH df646, CH e45ab, CH fec31, CH guufj, CH jcadx, CH jltht, CH p6rs9, CH psq01, CH rg0k0, CH toc9u, CH yhfer, CH yhwly.
 
+## 3 quater. Paramètres des exercices
+
+Chaque exercice préparé avec chaque valeur de chacun de ses paramètres
+réglables dans l'éditeur (`sup` à `sup4` : cases, listes, nombres jusqu'à
+12 ; 10 950 préparations) : aucun plantage, aucun exercice vide. Seuls
+défauts : le « undefined » de CH 4ed52 et f6jd7 (section 3 bis), quelle que
+soit la valeur de « sujet officiel ».
+
 ## 4. Affichage à 390 px (téléphone)
 
 - `deuxColonnes`/`troisColonnes` : colonnes flottantes de 40 % ; la figure
