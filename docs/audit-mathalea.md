@@ -294,6 +294,15 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   correction de QCM qui décochait le choix de l'élève ;
 - cccb8da, a34137c, 76b5a0e : suites et bancs de test (section 7).
 
+## 5 bis. À décider pour l'app
+
+- Politique de sécurité du WebView (`app.security.csp` vaut `null` dans
+  `src-tauri/tauri.conf.json`) : une CSP `connect-src`/`style-src`/
+  `script-src` limitée à l'app et au moteur (`self`, `moteur:`, `asset:`,
+  `blob:`, `data:`) bloquerait les requêtes vers jsdelivr, mathgraph32 et
+  podeduc (section 3). À essayer sur Android et iPhone avant de la livrer
+  (chargement du moteur téléchargé, polices, figures, vidéos).
+
 ## 6. Reste à tester
 
 - Figures apigeom (80 éléments) et `meta-custom` (74) : vérifiés par une
