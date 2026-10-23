@@ -297,6 +297,11 @@ exercices) : aucune erreur KaTeX, aucune préparation en échec.
 - CH sebseb (schémas en boîte) Q8 : « $45\text{ cm}$ » affiché brut dans
   l'énoncé (texte du schéma non rendu par KaTeX ?).
 - 6N2F-1 (6e828), correction : « Do,c » pour « Donc ».
+- CH 1972e (points remarquables du triangle), corrections : « le point K est
+  le le centre du cercle inscrit », « le le centre de gravité au triangle ».
+- CH addd5, « Reconnaître une fonction d'après sa courbe » : aucune courbe
+  affichée ; énoncé « Choisir l'expression mathématique », une liste
+  déroulante, correction « Vous avez choisi : . » (exercice inachevé ?).
 
 ## 4. Affichage à 390 px (téléphone)
 
