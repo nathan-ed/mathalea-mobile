@@ -201,9 +201,17 @@ const attendue = (page) =>
     const m = await import('/moteur/' + man.entree)
     const ex = await m.preparerExercice({ ...s.contenu.etapes[0], alea: s.graines[0] }, 70)
     const a = ex.interne.autoCorrection[0]
-    return { valeur: a.valeur?.reponse?.value, solution: a.propositions?.findIndex((p) => p.statut), texte: ex.questions[0].enonce }
+    return { valeur: a.valeur?.reponse?.value, champFigure: a.valeur?.field0?.value, solution: a.propositions?.findIndex((p) => p.statut), texte: ex.questions[0].enonce }
   })
 const justes = [
+  // Champ posé sur la figure, suivi de « cm² » : quitter la question relisait
+  // « 6}\text{ cm » au lieu de « 6 » (réponse juste comptée fausse)
+  ['6M2B-1 champ sur une figure', 'f36d5', async (page) => {
+    const { champFigure } = await attendue(page)
+    await page.locator('main math-field[id$="Q0field0"]').click()
+    await page.waitForTimeout(300)
+    await page.keyboard.type(String(champFigure).replace('.', ','), { delay: 30 })
+  }],
   ['CM2G5C-1 figure à cliquer', 'f57fe', async (page) => {
     const { solution } = await attendue(page)
     const b = await page.locator(`#cliquefigure${solution}Ex0Q0`).boundingBox()

@@ -237,6 +237,24 @@ export function elementsDeQuestion(ex: ExercicePrepare, i: number): number[] {
   return vus.size ? [...vus].sort((a, b) => a - b) : [i]
 }
 
+/**
+ * Contenu d'un trou (\placeholder[id]{…}) lu dans la valeur LaTeX d'un champ
+ * MathLive, accolades imbriquées comprises : « \placeholder[champ1]{6}\text{ cm}^2 »
+ * donne « 6 », et non « 6}\text{ cm » (réponse juste comptée fausse).
+ */
+export function trouDansLatex(latex: string, id: string): string {
+  const debut = new RegExp(`\\\\placeholder\\[${id}\\](?:\\[[^\\]]*\\])*\\{`).exec(latex)
+  if (!debut) return ''
+  let profondeur = 1
+  for (let i = debut.index + debut[0].length; i < latex.length; i++) {
+    const c = latex[i]
+    if (c === '\\') i++
+    else if (c === '{') profondeur++
+    else if (c === '}' && --profondeur === 0) return latex.slice(debut.index + debut[0].length, i)
+  }
+  return ''
+}
+
 /** Vérifie une question affichée : tous ses éléments corrigés, scores additionnés */
 export function verifierQuestion(moteur: Moteur, ex: ExercicePrepare, i: number): ResultatVerification {
   const elements = elementsDeQuestion(ex, i)

@@ -133,6 +133,26 @@ math-field,
   position: relative;
   z-index: 30;
 }
+/* Colonnes de MathALÉA (deuxColonnes, troisColonnes : blocs flottants de 40 %
+   environ) : l'une sous l'autre. Côte à côte, la figure « ci-contre »
+   commençait au milieu de l'écran et en sortait de 50 à 190 px sur téléphone
+   (une trentaine d'exercices : inéquations, symétries, Scratch…), et encore
+   de 12 à 67 px dans la colonne de 48rem d'une fenêtre de bureau. */
+.contenu-mathalea div[style*='float:left'],
+.contenu-mathalea div[style*='float: left'] {
+  float: none !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+}
+/* Tableau d'une seule ligne qui pose des figures côte à côte (programme
+   Scratch et sa grille, figures à cliquer) : sur téléphone, les cases passent
+   à la ligne */
+@media (max-width: 640px) {
+  .contenu-mathalea table:has(svg.mathalea2d) > tbody > tr:only-child > td {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
 /* Cadre d'une question ou d'un énoncé : ce qui reste plus large que l'écran
    (figure apigeom de 600 px, formule à trous, tableau) y défile. Sans
    « contain: paint », Chrome sur téléphone élargit quand même la page à la

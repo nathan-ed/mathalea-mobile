@@ -2,7 +2,7 @@
   // Une question MathALÉA : affichage, brouillon, vérification, correction.
   // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
   import { onDestroy, onMount, tick } from 'svelte'
-  import { elementsDeQuestion, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
+  import { elementsDeQuestion, trouDansLatex, verifierQuestion, type ExercicePrepare, type Moteur, type ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
   import { boutonInverse, boutonLien } from './classes'
 
@@ -64,7 +64,7 @@
   function trouDe(champ: HTMLElement & { value?: string; getPromptValue?: (p: string) => string }) {
     const v = champ.isConnected ? (champ.getPromptValue?.('champ1') ?? '') : ''
     if (v) return v
-    return /\\placeholder\[champ1\](?:\[[^\]]*\])*\{(.*)\}/.exec(champ.value ?? '')?.[1] ?? ''
+    return trouDansLatex(champ.value ?? '', 'champ1')
   }
 
   /** Champ à trous (« 81 = … × … ») dont aucun trou n'est rempli : sa valeur LaTeX n'est jamais vide */
