@@ -727,6 +727,12 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   rôle », « le joueur qui ne peut plus jouer a perdu ») décrit une partie
   à deux, alors que l'élève joue seul et gagne toujours : à reformuler, ou
   noter selon la longueur de la suite.
+  `scratch-editor` 5I1C (c1f91, solution de la clé chargée dans l'éditeur
+  par `workspaceJson`, 2 graines, 2 questions) : solution 1/1, un nombre
+  modifié 0/1, rien 0/1. 5I1D (c3f91) : la solution utilise des blocs
+  propres à l'exercice (`affecter_variable_5i1d_3_0`) que ce chargement ne
+  recrée pas (0 bloc), test non concluant ; le glisser-déposer des blocs au
+  doigt reste à essayer.
   `traceur-de-courbe` 3F10-7, 4F11, d4c81 : notation conforme quand le
   tableau est bien rempli (valeurs justes 5/5 ; 3F10-7, parabole avec six
   x régulièrement espacés de −5 à 5 : 4/5, forme jugée trop approximative,
@@ -739,7 +745,7 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   clics ou état posé) : labyrinthes, grilles (pyramide, KenKen, sudoku,
   tables, Grimuku, étoile), demi-droite, `svg-selection`, échiquiers,
   traceur de courbe, calculatrice, guide-âne, Juniper Green (résultats
-  plus haut). Restent : `scratch-editor` (5I1C, 5I1D), `alea-iep-editeur`
+  plus haut). Restent : 5I1D et le glisser-déposer Scratch au doigt, `alea-iep-editeur`
   (9 exercices de construction animée), 3dbda (6G1autoA, plusieurs
   sous-consignes), Q2 et Q3 de 1ed48, déplacement des points du
   guide-âne.
