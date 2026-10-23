@@ -58,6 +58,10 @@ Tolérances explicites à vérifier (bonne réponse + 1 acceptée, voulu ?) :
   cm, tolérance d'un mètre) ; 3G32-0, 3G32-3, 3G32-4, 3G42 : idem au mètre ;
 - 5G5D-1 (06b1a, Q1 à 3) : aires de 12 à 27 cm², `precisionUnite: 3` ;
 - can5a-CoopMaths (9e40d) Q27 et 3G32-0, 3G32-1 : `precisionUnite: 1000` (km).
+- angles en degrés avec `precisionUnite: 1` : 6G7B-9 (493cf) et 5G3B-2
+  (64099) Q1, attendu 85 °, 86 ° accepté (tous les réglages `sup2`, `sup3`) ;
+- can6a-2023 (09430) Q9, réglage `sup2=true` : attendu 17 m,
+  `precisionUnite: 1`, 18 m accepté.
 
 ### 1.2 Intervalles sans `intervalle: true` : tout intervalle ouvert accepté
 
@@ -88,6 +92,15 @@ Même repli `isEqual` avec variables libres :
 
 Le repli fonctionne en revanche sur 426 expressions littérales ordinaires
 (3x + 2…) testées de la même façon.
+
+### 1.3 bis Égalité de Pythagore : exposants non vérifiés
+
+4G20-1 (40c47), « Donner ou compléter une égalité de Pythagore », réglage
+`sup=2` (compléter $GI^2=\ldots$) : la comparaison vérifie les lettres et le
+signe mais pas les exposants. Attendu `HI^2-GH^2` ; acceptés `HI^2-GH^3`,
+`HI^3-GH^2`, `HI^3-GH^3`, `HI^2-GH^{2.5}`, `HI^2-GH^{-2}`. Même chose pour
+une somme (Q3 : `KL^2+KM^3` accepté). Refusés à juste titre : `HI^2-GH`
+(« Il manque au moins un carré »), `HI^2+GH^2`, `AB^2-CD^2`.
 
 ### 1.4 Tableur : toute formule avec SOMME ou MOYENNE acceptée
 
@@ -150,6 +163,15 @@ juste, toutes justes, doublons.
   attendue.
 
 ### 1.8 À vérifier
+
+- 6N5-3 (7fb24), réglage `sup3=true` (« Certains problèmes peuvent être
+  insolubles ») : 9 problèmes sur 10 insolubles (graine `audit-jf`), et pour
+  ceux-ci la seule réponse juste est de ne rien cocher (toutes les
+  propositions à `statut: false`, correction « Aucune donnée n'est utile »).
+  Aucune case « On ne peut pas répondre » : l'élève qui hésite ne peut pas
+  l'exprimer, et une question laissée blanche par oubli est comptée juste.
+  Dans l'app, la vérification d'un QCM vide est possible et juste ; à la
+  fin, l'app signale ces questions comme « sans réponse ».
 
 - 6N1F-4 (6b534) : « 18/295 ≈ [champ1] soit environ [champ2] % » ; champ1
   accepte 0 et 1, champ2 accepte 6 et 7 (listes de valeurs par défaut et par
@@ -220,6 +242,21 @@ tous vérifiés à la main :
 - **2F21-9 (99d4e) Q1** : tableau de signes, réponse attendue `"{}"`.
 - **testEEE (CH)** : `-2(x-4)` refusé avec `expressionsForcementReduites`
   (exercice de test dans le référentiel CH ?).
+- **can1E1-01 (ce463)**, « Simplifier des expressions exponentielles »,
+  réglage `sup3=true` (QCM) : l'attribut `propositions` de `mathalea-qcm`
+  contient du JSON dont les barres obliques inverses ne sont pas doublées
+  (`[{"texte":"$\mathrm{e}^{12}$",…`) ; `JSON.parse` échoue (« Bad escaped
+  character in JSON at position 13 ») et le QCM s'affiche sans aucune case :
+  question impossible à réussir. Correctif : construire l'attribut avec
+  `JSON.stringify` (puis échapper pour l'attribut HTML).
+- **6G6C-1 (bcbe1)**, « Justifier la construction des triangles via les
+  angles », réglage `sup=2` (« 2 angles et le 3ème en fonction du 1er ou du
+  2ème ») : toutes les propositions du QCM ont `statut: false`. Graine
+  `audit-jf`, Q1 : angles 5°, 43,75° et le triple de 43,75° ; la correction
+  conclut « On peut donc construire le triangle POT », mais « Le triangle
+  POT est constructible mais n'est pas plat » est compté faux ; seule une
+  réponse vide est comptée juste. Q1 à Q3 avec `sup=2`, et les questions de
+  ce type avec `sup=3` (Mélange, Q2 et Q3).
 - **Solveur, 4L15-1 (6463b)** : une dernière étape en fraction (« v = 5/4 »)
   compte fausse si l'élève n'a pas touché « Évaluer » ; juste après
   « Évaluer ».
@@ -249,6 +286,22 @@ tous vérifiés à la main :
   `alea-iep-editeur` (6A, graines qi1 Q4, qi2 Q9, qi6 Q10),
   `mathalea-solveur` (3Auto a531a, qi1 Q4, qi11 Q10),
   `possible-multi-lines-answer` (3Auto, qi3 Q9, qi7 Q8, qi11 Q6).
+- **Entrées d'`autoCorrection` orphelines** : plus d'entrées que de
+  questions, sans champ dans l'énoncé : 6AutoF1-2 (28e58, 4 pour 3),
+  5N2G-3 (ce849, 5 pour 4), CM2N1D-2 réglage `sup2=1` (49 entrées pour 3
+  questions, 47 sans champ). Sans effet dans l'app (elle compte les
+  questions), mais tout ce qui parcourt `autoCorrection` (score de
+  MathALÉA, AMC, export) compte des questions fantômes.
+  Même défaut quand le réglage « Valeur maximale » est petit (`sup=1`) :
+  l'exercice ne trouve plus de question nouvelle, s'arrête avant le nombre
+  demandé et laisse une entrée de plus que de questions (la question écartée
+  comme doublon a déjà reçu sa réponse) : CM2N3A-2 (ed7fc, 1 question pour
+  10, 2 entrées), CM2N3A-3 (3751c, 2 pour 10), 6N0A-1 (ace0a, 1 pour 10),
+  5N2I-1 (f2db1, 3 pour 5), 4C10-10 (857c1, 3 pour 10, un QCM fantôme),
+  5N5F (85d2d, 2 pour 5), 4C10-3 (153b9, 3 pour 10), 4C10-7 (0b020,
+  `sup3=1`, 4 pour 10). Enregistrer la réponse seulement après
+  `questionJamaisPosee`, et borner « Valeur maximale » à une valeur qui
+  permet le nombre de questions demandé.
 - **`tableau-hybride`** : chaque liste déroulante d'une case partage son
   `id` avec un `span` (`tableau-hybrideEx3Q0L1C3` deux fois).
 - **Corrections de QCM** : leurs boutons radio, bonne réponse cochée, portent
@@ -404,7 +457,13 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   sans erreur. Bonne réponse : à tester exercice par exercice dans l'app.
 - Audit justes/fausses avec chaque valeur des réglages (6 624 variantes,
   `LISTE=/tmp/claude-0/liste-params.json`, résultats
-  `/tmp/claude-0/audit-jf/params.jsonl`) : en cours le 23 octobre au soir.
+  `/tmp/claude-0/audit-jf/params.jsonl`) : en cours le 23 octobre au soir
+  (environ 2 500 variantes faites ; constats intégrés : 4G20-1, can1E1-01,
+  6G6C-1, 6N5-3, entrées orphelines, tolérances d'angles). Faux positifs de
+  l'outil écartés à la main : 5N1I-5 (« n'en indiquer qu'une seule » : la
+  « fausse » réponse était un autre diviseur juste) et les « Complète
+  36 = … × … » des CAN (clé vide, comparaison propre à l'exercice qui
+  accepte 4 × 9 et 6 × 6 et refuse 5 × 7).
 - Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
   branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
