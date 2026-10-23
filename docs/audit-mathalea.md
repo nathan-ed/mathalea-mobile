@@ -162,6 +162,17 @@ juste, toutes justes, doublons.
   \dfrac{9}{4} » en console) pour `\dfrac`, forme de sa propre réponse
   attendue.
 
+### 1.7 bis Écriture demandée non contrôlée
+
+- 6N3F-2 (ab44e), « Décomposer une fraction puis donner l'écriture
+  décimale » (réglage `sup3` par défaut) : le trou « écriture décimale »
+  accepte `\frac{5}{4}` (comparaison `isEqual`), la recopie de la fraction
+  de l'énoncé.
+- 5N1H (86fa8), « Utiliser la distributivité pour du calcul mental » :
+  l'étape « = … − … » attend 6 400 et 128 mais accepte `64\times100`
+  (comparaison `isSame` qui évalue). Moins grave : l'étape de calcul peut
+  être sautée.
+
 ### 1.8 À vérifier
 
 - 6N5-3 (7fb24), réglage `sup3=true` (« Certains problèmes peuvent être
@@ -249,6 +260,18 @@ tous vérifiés à la main :
   character in JSON at position 13 ») et le QCM s'affiche sans aucune case :
   question impossible à réussir. Correctif : construire l'attribut avec
   `JSON.stringify` (puis échapper pour l'attribut HTML).
+- **3G95-17 (a7f28) et 3G95-17p (f3a91)**, « Déterminer un vecteur non nul
+  orthogonal à deux vecteurs » et « Résoudre un système avec une infinité de
+  solutions » : une solution juste écrite avec une fraction à un chiffre est
+  refusée. MathLive renvoie `\frac72` (et non `\frac{7}{2}`) par
+  `getPromptValue` ; `valeurNumerique` ne reconnaît que
+  `\d?frac\{…\}\{…\}` et rend `null`. Graine `audit-jf` : vecteur
+  $(\frac{7}{2}; 6; \frac{13}{2})$ refusé alors que $(3{,}5; 6; 6{,}5)$ et
+  $(7; 12; 13)$ sont acceptés ; couple $(\frac{1}{2}; 2)$ refusé, $(0{,}5; 2)$
+  accepté. Correctif : lire `getPromptValue(champ, 'latex-expanded')`, ou
+  accepter `\d?frac(\d)(\d)` dans l'expression régulière, ou passer par
+  le moteur de calcul (`ComputeEngine`). Seuls ces deux exercices analysent
+  eux-mêmes les fractions des trous.
 - **6G6C-1 (bcbe1)**, « Justifier la construction des triangles via les
   angles », réglage `sup=2` (« 2 angles et le 3ème en fonction du 1er ou du
   2ème ») : toutes les propositions du QCM ont `statut: false`. Graine
@@ -389,6 +412,19 @@ réglables dans l'éditeur (`sup` à `sup4` : cases, listes, nombres jusqu'à
 défauts : le « undefined » de CH 4ed52 et f6jd7 (section 3 bis), quelle que
 soit la valeur de « sujet officiel ».
 
+Constats par combinaison de réglages (relevés en testant les réponses) :
+- **6I1B-4 (ae07c)**, « Programmer des calculs sur tableur » : avec le type
+  d'opérations « 4 : Division » seul, `preparerExercice` plante
+  (`TypeError: Cannot read properties of undefined (reading 'oldn')` dans
+  `nouvelleVersion`) pour 3 graines sur 5 avec 3 opérations et 5 sur 5 avec
+  5 opérations ; quand il ne plante pas, 1 ou 2 opérations au lieu de 3.
+  « 3 : Multiplication » seule : toujours 1 opération au lieu de 3 ou 5.
+  « 2 : Soustraction » avec 5 opérations : de 1 à 5 selon la graine.
+  Addition seule et mélange : nombre demandé respecté.
+- **6I1D (f320c)**, « Programmer le déplacement d'un bus » : « Nombre de
+  lignes (entre 2 et 8) » et « de colonnes » plafonnent à 5 (8 × 8 donne
+  5 × 5) ; 2 colonnes donnent 3 colonnes.
+
 ## 4. Affichage à 390 px (téléphone)
 
 - `deuxColonnes`/`troisColonnes` : colonnes flottantes de 40 % ; la figure
@@ -464,6 +500,15 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   « fausse » réponse était un autre diviseur juste) et les « Complète
   36 = … × … » des CAN (clé vide, comparaison propre à l'exercice qui
   accepte 4 × 9 et 6 × 6 et refuse 5 × 7).
+- `meta-custom` (vérification propre à l'exercice), bonnes et mauvaises
+  réponses construites à partir de l'état interne de l'exercice : Roses
+  (8 exercices, chaque type de question, 3, 5 et 9 valeurs, 3 graines) et
+  Yohaku (8 exercices, avec et sans aide, 3 graines) conformes ; 5N1H,
+  6N3F-2, 3G95-17, 3G95-17p, 6N2J-3 (listes `Q2t`/`Q2t+1`), 6I1D (programme
+  Blockly construit bloc par bloc d'après le trajet : juste accepté, un
+  bloc en moins refusé), 6I1B-4 (formules justes acceptées, valeurs
+  recopiées et formules fausses refusées). Constats en 1.7 bis, 2.0,
+  3 quater. Reste : 3b474, 9103e (anciennes versions de 5N1H), 46bae.
 - Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
   branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
