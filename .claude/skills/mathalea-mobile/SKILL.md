@@ -125,6 +125,20 @@ Tests d'exercices = audit de MathALÉA (Nathan, 2026-10-23)
   premier), et faire **deux passages** : bonnes réponses (toutes doivent être
   acceptées) puis réponses fausses (aucune ne doit l'être). Détail : section 8,
   « Justes et fausses ».
+- Figures et vérifications propres à l'exercice (`apigeom-figure`,
+  `meta-custom`, sans réponse dans `autoCorrection`) : lire la vérification
+  dans `static/moteur/morceaux/<id>-*.js` (passer le fichier dans
+  `npx prettier@3.3.3 --parser babel`), construire la bonne réponse depuis
+  l'état interne de l'exercice (`goodAnswers`, `roses`, `yohaku`,
+  `antecedents`, `listeSteps`…), puis la saisir par de vrais clics ou
+  touchers (Playwright `mouse.click`, `touchscreen.tap`), ou par l'API de la
+  figure (`figure.create('Point' | 'Segment' | 'Line' | 'Polygon' |
+  'CircleCenterPoint' | 'LineParallel' | 'PointIntersectionLL', …)`) quand
+  il faut des outils de construction. Toujours trois cas : juste, un détail
+  faux, rien. Au moins une figure par famille au doigt dans une vraie
+  séance à 390 px (gestes, boîte de nom, défilement du cadre).
+- Chaque réglage compte : une combinaison de réglages peut faire planter la
+  préparation ou réduire le nombre de questions (6I1B-4 « Division »).
 
 Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce

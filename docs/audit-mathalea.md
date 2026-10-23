@@ -296,6 +296,29 @@ tous vérifiés à la main :
   accepter `\d?frac(\d)(\d)` dans l'expression régulière, ou passer par
   le moteur de calcul (`ComputeEngine`). Seuls ces deux exercices analysent
   eux-mêmes les fractions des trous.
+- **5G5E-2 (c7c78)**, « Tracer une hauteur dans un triangle », graine
+  `audit-jf` : triangle B(0 ; 0), O(3 ; −8), F(6 ; −4), hauteur issue de F
+  construite exactement (Droite perpendiculaire à [BO] passant par F) :
+  0/1, « Aucune droite ne correspond à la réponse attendue ». La fonction
+  `ke` compare pentes et ordonnées à l'origine arrondies à 2 décimales
+  (`Math.round(x * 100) / 100`) : la droite tracée a une pente de
+  0,3749999999999999 (arrondie 0,37), l'attendue 0,375 (arrondie 0,38).
+  Toute pente ou ordonnée en « ,xx5 » est exposée. Graines `g2`, `g4`,
+  `g5`, `g6` : 1/1. Même fonction dans 5G5G-1 (63d3a, médiane). Correctif :
+  comparer avec une tolérance (`Math.abs(c - h) < 1e-6`), ou mieux, tester
+  que le point attendu est sur la droite et que la direction est
+  perpendiculaire.
+- **5G3A-4 (d37ea)**, « Construire l'image d'une figure par une symétrie
+  centrale », question « triangle » : seule la figure tracée avec l'outil
+  Polygone est acceptée (`checkPolygon`) ; le triangle tracé avec l'outil
+  Segment (proposé dans la barre) n'a que 1/2, alors que 6G7B-11 (symétrie
+  axiale) accepte les deux (`checkPolygon || trois checkSegment`). Graines
+  `audit-jf` Q3, `g2` Q1, `g3` Q1.
+- **5G3A-4 (d37ea)**, cas dégénéré : graine `g2`, Q6, « Construire l'image
+  de la droite (AV) par la symétrie de centre X » avec X(0 ; 0), A(−2 ; 4),
+  V(−4 ; 8) : la droite passe par le centre, son image est elle-même, déjà
+  tracée ; figure laissée vide : 1/2. Le tirage devrait écarter un centre
+  aligné avec les deux points.
 - **6G6C-1 (bcbe1)**, « Justifier la construction des triangles via les
   angles », réglage `sup=2` (« 2 angles et le 3ème en fonction du 1er ou du
   2ème ») : toutes les propositions du QCM ont `statut: false`. Graine
@@ -391,7 +414,8 @@ tous vérifiés à la main :
   (3634f) et TSG1-08 (300a4). Rien d'autre sur 4 094 exercices.
 - **Référentiel CH** : il contient le modèle d'exercice
   « AchangerOBLIGATOIREMENT » (titre « Mettre le titre souhaité (assez
-  descriptif mais pas trop long) ») et l'exercice de test « testEEE »
+  descriptif mais pas trop long) »), l'exercice « babybel » (titre
+  « TITRE », énoncé vide, une figure apigeom) et l'exercice de test « testEEE »
   (« Eric fait ses tests interactifs »), visibles dans « Non classés ».
 
 ## 3 bis. Textes affichés
@@ -499,6 +523,13 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   (`resultatNormalise`) : la question juste comptait 0, et un tel essai
   rendait toute sauvegarde impossible à restaurer ; la restauration accepte
   désormais `points: null` pour les essais déjà enregistrés.
+- Préparation qui plante selon la graine (6I1B-4 avec « Division »
+  seule : 3 graines sur 5) : toute la séance restait sur « Impossible de
+  préparer les exercices ». `preparerSansPlantage` refait la préparation
+  avec des graines dérivées (`graine~1`, `~2`, `~3`), les mêmes sur chaque
+  appareil (séance de classe et relevé de l'enseignant restent identiques) ;
+  la séance garde la graine qui a servi. Vérifié : 6 séances sur 6 prêtes,
+  l'une menée au tableur jusqu'au bilan (100 %).
 
 ## 5 bis. À décider pour l'app
 
@@ -545,6 +576,49 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   2/3, A et B inversés 1/3). `checkCoords` avec `checkOnlyAbscissa`
   compare quand même l'ordonnée (`he(_.y, a) === he(n, a)`) : sans effet
   tant que les points restent sur l'axe.
+  6N1G (e528e), 5N2E-1 (7cfbe), a9120, 6d576, 2ba53 : mêmes
+  résultats (juste accepté, point décalé ou inversé refusé). 6G7B-11 (4114e, symétrique d'un
+  segment, d'une droite, d'une demi-droite, d'un cercle, d'un triangle ;
+  objets créés par l'API de la figure, 3 graines) : image juste 2/2, point
+  décalé refusé, droite et segment pris à l'envers acceptés, demi-droite à
+  l'envers refusée (1/2 pour les points), figure vide 0/2.
+  4dadb (points nommés dans un repère) et 67c96 (symétriques de points
+  par rapport à un point), 2 graines : juste accepté, un point décalé
+  refusé, points justes mais non nommés refusés (l'élève doit les nommer
+  avec l'outil « Nommer »).
+  67c96 aussi au doigt, dans une vraie séance à 390 px : outil Point,
+  toucher à l'endroit du symétrique, nom tapé dans la boîte (`<dialog>`
+  avec champ texte, pas de `prompt()`), Valider, puis « Vérifier » de
+  l'app : 1/1 ; premier point mal nommé : 0,7/1.
+  580a6 (droite par un point et un vecteur directeur ou un coefficient)
+  et d45ce (droite d'équation cartésienne), 3 graines : droite juste 1/1,
+  fausse 0/1 ; c360e et 20c65 (représenter une fonction affine, 3 questions,
+  3 graines) : idem. Parallélogrammes 4d4a8 (`geoParallelogramme1`) et 784a7
+  (`geoParallelogramme2`) : construction de la correction (parallèles,
+  intersection D, côtés [CD] et [AD]) 5/5 ; D placé au bon endroit comme
+  point libre : 0/5 (« pas toujours parallèles », `checkParallel` secoue
+  la figure). Voulu pour 784a7 (« sans tracer de parallèles »), à préciser
+  dans l'énoncé de 4d4a8 (« Placer le point D… » ne dit pas qu'il faut le
+  construire). 4d4a8 : A, B, C toujours aux mêmes coordonnées, quelle que
+  soit la graine ; et une deuxième vérification de la même figure donne
+  1/5 après 5/5 (la vérification clique sur « SHAKE » et laisse la figure
+  dans un état qui fait échouer le second contrôle). Sans effet dans l'app,
+  qui ne vérifie qu'une fois et réaffiche le score enregistré.
+  79d64 et e514f (`geoTriangle1`, triangle de trois longueurs ; outils
+  Cercle centre-rayon, Point sur, intersection) : construction au compas
+  5/5, un rayon faux 2/5, sommets placés aux bonnes coordonnées comme points
+  libres 0/5 (« la distance n'est pas toujours égale »). Les deux
+  exercices donnent le même triangle (HIJ, 9, 3, 10) à graine égale.
+  Médiatrice 0dbe7 (6G3B, couleur imposée) : Milieu puis Droite
+  perpendiculaire de la bonne couleur 1/1 ; droite libre au bon endroit
+  0/1 ; mauvaise couleur 0/1. L'objet `PerpendicularBisector` serait
+  refusé (« n'est pas une droite », le contrôle exige un type contenant
+  « Line ») mais l'outil Médiatrice n'est pas dans la barre. Hauteur
+  c7c78 et médiane 63d3a : constructions justes 1/1 hormis le défaut
+  d'arrondi (section 2.0).
+  5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
+  hormis les deux constats en 2.0 (triangle en segments, droite passant par
+  le centre).
 - `meta-custom` (vérification propre à l'exercice), bonnes et mauvaises
   réponses construites à partir de l'état interne de l'exercice : Roses
   (8 exercices, chaque type de question, 3, 5 et 9 valeurs, 3 graines) et

@@ -175,6 +175,30 @@ async function chargerDepuis(base: string): Promise<Moteur> {
 }
 
 /**
+ * Certains exercices plantent selon la graine (6I1B-4 avec « Division »
+ * seule) : toute la séance restait bloquée. Autres essais avec des graines
+ * dérivées de la première, les mêmes sur chaque appareil (séance de classe,
+ * relevé de l'enseignant) ; la séance garde la graine qui a servi
+ * (`ex.graine`). Sans graine, chaque essai en tire une nouvelle.
+ */
+export async function preparerSansPlantage(
+  preparer: (params: ParamsExercice) => Promise<ExercicePrepare>,
+  params: ParamsExercice,
+  essais = 4,
+): Promise<ExercicePrepare> {
+  let premiere: unknown
+  for (let i = 0; i < essais; i++) {
+    const alea = i === 0 || params.alea === undefined ? params.alea : `${params.alea}~${i}`
+    try {
+      return await preparer({ ...params, alea })
+    } catch (e) {
+      premiere ??= e
+    }
+  }
+  throw premiere
+}
+
+/**
  * Exercices qui chargent leurs questions après coup (Automatismes 6e, 3e, 2de,
  * 1re, CAN 6e aléatoire) : la première génération ne contient que
  * « chargement... », le site attend l'événement updateAsyncEx pour réafficher.
@@ -182,7 +206,7 @@ async function chargerDepuis(base: string): Promise<Moteur> {
  * (questions alors en cache). Sans cela, la question restait « chargement... ».
  */
 async function preparerComplet(module: Moteur, params: ParamsExercice, numero: number): Promise<ExercicePrepare> {
-  const ex = await module.preparerExercice(params, numero)
+  const ex = await preparerSansPlantage((p) => module.preparerExercice(p, numero), params)
   const statut = () => (ex.interne as { generationStatus?: string }).generationStatus
   if (statut() !== 'loading') return ex
   const debut = Date.now()
