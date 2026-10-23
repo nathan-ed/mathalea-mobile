@@ -4,7 +4,8 @@
 // un tableau large élargissaient toute la page) ; après un geste dans la
 // question, « Vérifier » devient actif (il restait grisé sans champ MathLive :
 // question impossible à faire). Le tableur est rempli et vérifié pour de vrai ;
-// Entrée dans une cellule ne vérifie pas la question.
+// Entrée dans une cellule ne vérifie pas la question. Une question qui affiche
+// plusieurs éléments corrigés est vérifiée sur chacun d'eux.
 //   CAPTURES=<dossier> node e2e/interactions.mjs
 import { chromium } from 'playwright'
 
@@ -134,6 +135,46 @@ for (const [nom, uuid, geste] of gestes) {
     await page.screenshot({ path: `${captures}/interactions-tableur.png` })
     await page.context().close()
   }
+}
+
+// Plusieurs éléments corrigés dans une question (6N3M : trois champs ; 6AutoA1 :
+// deux QCM) : la deuxième question, bien répondue, compte juste. Avant, l'app
+// vérifiait l'élément de même rang, affiché dans la première question.
+for (const [nom, uuid] of [['6N3M trois champs par question', '8e07a'], ['6AutoA1 deux QCM par question', '95313']]) {
+  const page = await seance(nom, uuid, 3)
+  await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').nth(1).click()
+  await page.waitForTimeout(1500)
+  const attendu = await page.evaluate(async () => {
+    const s = JSON.parse(localStorage.getItem('copie:seance:interactions'))
+    const man = await (await fetch('/moteur/manifest.json')).json()
+    const m = await import('/moteur/' + man.entree)
+    const ex = await m.preparerExercice({ ...s.contenu.etapes[0], alea: s.graines[0] }, 50)
+    return ex.interne.autoCorrection.map((a) => a?.valeur?.reponse?.value ?? (a?.propositions ? a.propositions.map((p) => p.statut) : null))
+  })
+  const champs = await page.evaluate(() => [...document.querySelectorAll('main math-field[id], main input[type=checkbox][id]')].map((c) => c.id))
+  ok(champs.length > 1 && !champs.some((id) => /Q1(?!\d)/.test(id)), `${nom} : la deuxième question affiche d'autres éléments que le deuxième (${champs.join(', ')})`)
+  for (const id of champs) {
+    const m = /Q(\d+)(R(\d+))?$/.exec(id)
+    const k = Number(m[1])
+    if (m[2]) {
+      if (attendu[k][Number(m[3])]) await page.locator('#' + id).check({ force: true })
+    } else {
+      // Comme un élève : 4/6 pour une fraction, virgule décimale
+      const texte = String(attendu[k]).replace(/\\dfrac\{(\d+)\}\{(\d+)\}/, '$1/$2').replace('.', ',')
+      await page.locator('#' + id).click()
+      await page.waitForTimeout(400)
+      await page.keyboard.type(texte, { delay: 30 })
+      await page.keyboard.press('ArrowRight')
+      await page.keyboard.press('ArrowRight')
+    }
+  }
+  await page.waitForTimeout(500)
+  await verifier(page).click()
+  await page.waitForTimeout(1200)
+  const score = (await page.locator('header').innerText()).replace(/\s+/g, ' ')
+  ok(score.includes('1/3'), `${nom} : deuxième question juste, tous ses éléments vérifiés (${score})`)
+  await page.screenshot({ path: `${captures}/interactions-${uuid}-q2.png` })
+  await page.context().close()
 }
 
 ok(erreurs.length === 0, `aucune erreur de page${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)

@@ -6,7 +6,7 @@
   import { onMount, tick, untrack, type Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import { enregistrerFichier } from '$lib/fichiers'
-  import type { ExercicePrepare, Moteur } from '$lib/moteur'
+  import { verifierQuestion, type ExercicePrepare, type Moteur } from '$lib/moteur'
   import { retourSi } from '$lib/navigation.svelte'
   import { cleQuestion, graineDeSession } from '$lib/progression'
   import {
@@ -184,7 +184,7 @@
         for (const k of cles) {
           const q = Number(k.split('-')[1])
           try {
-            const v = moteur.verifier(ex, q)
+            const v = verifierQuestion(moteur, ex, q)
             verdicts[k] = { juste: v.juste, score: v.total > 0 ? v.points / v.total : v.juste ? 1 : 0 }
           } catch {
             /* question non vérifiable : ignorée */

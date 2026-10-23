@@ -217,3 +217,37 @@ export async function chercherMiseAJourMoteur(): Promise<string | null> {
   const { invoke } = await import('@tauri-apps/api/core')
   return invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: info.publieLe })
 }
+
+/**
+ * Éléments corrigés par MathALÉA (rangs de `autoCorrection`) d'une question
+ * affichée. D'ordinaire un seul, de même rang. Mais certains exercices placent
+ * plusieurs éléments dans une question (6AutoA1 : la deuxième affiche les cases
+ * Q2 et Q3, 6N3M trois champs) : ce sont ceux dont elle affiche les champs.
+ * Vérifier le seul élément de même rang laissait des réponses de côté et
+ * comptait faux des questions justes (élément affiché dans une autre question).
+ */
+export function elementsDeQuestion(ex: ExercicePrepare, i: number): number[] {
+  const q = ex.questions[i]
+  const corriges = (ex.interne as { autoCorrection?: unknown[] }).autoCorrection ?? []
+  const vus = new Set<number>()
+  for (const m of q?.enonce.matchAll(new RegExp(`Ex${ex.numero}Q(\\d+)(?!\\d)`, 'g')) ?? []) {
+    const k = Number(m[1])
+    if (corriges[k] != null) vus.add(k)
+  }
+  return vus.size ? [...vus].sort((a, b) => a - b) : [i]
+}
+
+/** Vérifie une question affichée : tous ses éléments corrigés, scores additionnés */
+export function verifierQuestion(moteur: Moteur, ex: ExercicePrepare, i: number): ResultatVerification {
+  const elements = elementsDeQuestion(ex, i)
+  if (elements.length === 1) return moteur.verifier(ex, elements[0])
+  const r = elements.map((k) => moteur.verifier(ex, k))
+  return {
+    juste: r.every((v) => v.juste),
+    // Un élément sans barème compte pour une réponse
+    points: r.reduce((a, v) => a + (v.total > 0 ? v.points : v.juste ? 1 : 0), 0),
+    total: r.reduce((a, v) => a + (v.total > 0 ? v.total : 1), 0),
+    retour: r.map((v) => v.retour).filter(Boolean).join(' '),
+    reponses: Object.assign({}, ...r.map((v) => v.reponses)),
+  }
+}
