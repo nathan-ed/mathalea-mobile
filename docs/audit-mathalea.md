@@ -678,6 +678,11 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   bonne somme) : juste 1/1, un élément de trop 0/1, rien 0/1 ; pour 1574f
   toutes les combinaisons justes ont été essayées (défaut d'arrondi en
   2.0).
+  `echiquier-probleme` 6N5-14, 6N5-15, 6N5-16 (b7f28, d91fc, f82a6 ;
+  2 graines, à 390 px : ajout de lignes et colonnes, listes d'en-têtes, de
+  cases, de structure et d'opération, boutons « Griser ») : juste 4/4 ou
+  5/5 ; opération fausse, une case fausse, ligne ou colonne hors sujet non
+  grisée : un point de moins.
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
