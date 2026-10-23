@@ -77,7 +77,9 @@ for (format of choisis) {
   const t = await appareil({ profil: 'enseignant', pays: 'FR', bibliotheque })
   await t.getByRole('button', { name: /^Relatifs par paliers/ }).waitFor()
   await cap(t, '5-bibliotheque')
+  // La tuile ouvre la page du parcours ; l'éditeur est derrière « Modifier »
   await t.getByRole('button', { name: /^Relatifs par paliers/ }).click()
+  await t.getByRole('button', { name: 'Modifier', exact: true }).click()
   await t.waitForTimeout(800)
   // Les paliers en haut de l'écran
   await t.getByLabel('Palier 1 : titre vu par les élèves').evaluate((el) => (el.closest('section')?.scrollIntoView({ block: 'start' }), scrollBy(0, -90)))

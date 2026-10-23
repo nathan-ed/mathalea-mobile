@@ -165,8 +165,12 @@ for (const a of appareils) {
   await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 5000 }).catch(() => {})
   await page.getByRole('button', { name: 'Voir le bilan' }).click({ timeout: 120_000 })
   await page.waitForTimeout(500)
+  // Deux retours au rythme d'un doigt : enchaînés dans la même tâche, le second
+  // partirait avant que la sentinelle de l'historique soit reposée
   await page.goBack()
+  await page.waitForTimeout(300)
   await page.goBack()
+  await page.waitForTimeout(300)
   await page.getByRole('tab', { name: 'Suivi' }).or(page.getByRole('button', { name: 'Suivi' })).first().click()
   await page.waitForTimeout(500)
   ok((await texte(page)).includes('Parcours Explorer'), 'suivi : parcours de l’Explorer non ajouté à l’accueil')
