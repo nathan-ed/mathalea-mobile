@@ -316,6 +316,18 @@ exercices) : aucune erreur KaTeX, aucune préparation en échec.
   affichée ; énoncé « Choisir l'expression mathématique », une liste
   déroulante, correction « Vous avez choisi : . » (exercice inachevé ?).
 
+## 3 ter. Nombre de questions
+
+Chaque exercice préparé avec 1 puis 5 questions demandées (7 789
+préparations) : aucun ne donne 0 question. 226 exercices qui ne déclarent pas
+`nbQuestionsModifiable: false` donnent moins de questions que demandé
+(l'enseignant règle 5 questions dans l'éditeur et en obtient moins ; l'app
+suit le nombre réel). À déclarer non modifiable, ou à compléter :
+- 1 question pour 5 demandées (148) : can5A-01, can5C6-04, CM2N4B-3, 6N2autoB-1, 5G2E, 5G3A-9, 5G5B-4, 5G5E-1, 3G12, 3G40, 2F21-10, 2S20-7, TSA2-33, TSA2-34, TSP1-10, TSP1-11, TSP2-10, TSP2-12, TSP2-13, TSP2-17, TSP2-18, TSP2-19, TSP3-10, TSG1-QCM04, CH 11FA2A-7, CH 1mF3-16, CH 3G93-6, CH 4mProbStat-4, CH 4mProbStat-8, CH 4mProbStat-9, CH 4mQCM-2, CH autres-3, CH 29957, CH 57688, CH 83663, CH 83800, CH 84545, CH 89612, CH 3acb0, CH 3ca11, CH 4b3b4, CH 4b8ca, CH 4f818, CH 5b0ab, CH 5dd79, CH 5e041, CH 5e27b, CH 6d3cf, CH 6eaec, CH 6f117, CH 7ab60, CH 7d7ee, CH 7e718, CH 8eaa0, CH 8eb0d, CH 8ef85, CH 8fa5c, CH 9b711, CH 9bfb4, CH 9e8a8, CH 9e9fb, CH 9fd0c, CH 41aff, CH 41d8d, CH 45e51, CH 48aff, CH 50ee5, CH 56e02, CH 62f5e, CH 67a5b, CH 71b1f, CH 77ef9, CH 83b36, CH 86c44, CH 90b1e, CH 93a9e, CH 94d92, CH 94db5, CH 416d2, CH 570b7, CH 691a7, CH 752b3, CH 764b2, CH 836b0, CH 999ee, CH 4650c, CH 5494d, CH 7372a, CH a03b4, CH a63b6, CH a601c, CH a2828, CH a9046, CH aa613, CH aaaaa, CH AchangerOBLIGATOIREMENT, CH ae01d, CH afbe8, CH agjju, CH b7d33, CH bc9a6, CH bc372, CH bd6d4, CH bd8e1, CH bdaaf, CH bdd72, CH c5b23, CH c573b, CH c1209, CH c3202, CH c9016, CH ca805, CH cd32b, CH cfa5e, CH d09fe, CH d8a6b, CH d873d, CH daf1d, CH dc224, CH dd1ed, CH de353, CH de363, CH df264, CH dff98, CH e1d48, CH e4f38, CH e6d46, CH e9e43, CH e12d9, CH e37a9, CH e8254, CH ecb98, CH ed974, CH ee42f, CH efdaf, CH f78d0, CH f3208, CH f5387, CH fa682, CH faefb, CH fb224, CH fca9d, CH fdadd, CH fe22f, CH fef8a, CH ff7fe, CH jnapmep0, CH q3sjw.
+- 2 questions pour 5 demandées (10) : 6AutoA2-2, 6M1B, 6M1autoE-4, 6G6C, 5G4autoB, 5G5D, 5G6F-2, CH 95d37, CH 603f6, CH ree46.
+- 3 questions pour 5 demandées (29) : can6D1-03, CM2G2A-2, 6AutoN4-1, 6AutoN4-4, 6N2B-4, 6N2autoC-2, 6G3B-2, 4F12, 1AL11-1, CH 9ES1E-19, CH 1z5ph, CH 2e77f, CH 4cc5b, CH a4cbf, CH cd8eb, CH d3b6c, CH d6f1f, CH d631d, CH e0486, CH exemple-qcm-json, CH fhmbj, CH gbgfa, CH pl5rm, CH ps264, CH sdxi0, CH t25p6, CH tfw5s, CH xd0yc, CH PR-31.
+- 4 questions pour 5 demandées (39) : can6D1-04, can6D3-01, 5G2E-4, 5G2autoC, 5G6D, 4G20-5, 2A-N1-5, 2A-E3-3, 1A-C03-7, 1A-C03-9, CH 91304, CH 97290, CH 0es14, CH 1gyyf, CH 3dff8, CH 6e29b, CH 9t36i, CH 42fc1, CH 365f4, CH 471c3, CH 663ca, CH 816ad, CH 7057b, CH a8e1d, CH b799f, CH c6cbe, CH d3e8f, CH df646, CH e45ab, CH fec31, CH guufj, CH jcadx, CH jltht, CH p6rs9, CH psq01, CH rg0k0, CH toc9u, CH yhfer, CH yhwly.
+
 ## 4. Affichage à 390 px (téléphone)
 
 - `deuxColonnes`/`troisColonnes` : colonnes flottantes de 40 % ; la figure
