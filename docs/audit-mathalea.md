@@ -1,6 +1,9 @@
-# Audit de MathALÉA (moteur et exercices)
+# Audit de l'app et de MathALÉA : registre des constats
 
-Constats relevés en testant l'app mobile, pour correction dans MathALÉA.
+Registre unique de tout ce que les tests ont trouvé (octobre 2026), tenu à
+jour à chaque étape : sections 1 à 4, constats pour MathALÉA (moteur et
+exercices) à corriger par Nathan ; section 5, correctifs déjà faits dans
+l'app ; section 6, ce qui reste à tester ; section 7, outils.
 Moteur : celui de `static/moteur` (commit de `moteur/COMMIT`), graine
 `audit-jf` sauf mention contraire, numéro d'exercice 3 (champs
 `champTexteEx3Q<i>`). « Q n » : n-ième question (rang `n - 1` de
@@ -103,7 +106,15 @@ contient la fonction passe, et une formule juste sans elle est refusée.
   passe, et « $⩾5$ » aussi. Impossible de réussir.
 - CH afd39 Q5 : attendu `$0$` ; « 0 » est refusé.
 
-### 1.6 À vérifier
+### 1.6 Variante de saisie refusée
+
+- 2N14-5 (acff) Q1, ranger 1,2 ; 3/4 ; 13/20 ; 13/21 : la vérification
+  (`callback` de l'exercice) accepte `\frac{13}{21}<…` mais renvoie
+  « erreur dans le programme » (« Invalid LaTeX fraction format:
+  \dfrac{9}{4} » en console) pour `\dfrac`, forme de sa propre réponse
+  attendue.
+
+### 1.7 À vérifier
 
 - 6N1F-4 (6b534) : « 18/295 ≈ [champ1] soit environ [champ2] % » ; champ1
   accepte 0 et 1, champ2 accepte 6 et 7 (listes de valeurs par défaut et par
@@ -191,6 +202,17 @@ contient la fonction passe, et une formule juste sans elle est refusée.
 - **Points cliquables** : 60 questions affichées ensemble figent la page
   environ 28 s.
 
+- **Requête Internet depuis le moteur** : le rendu MathLive des labyrinthes
+  (`mathalea-labyrinthe`, classe de typeset qui suit `Oq`) insère dans
+  l'ombre de l'élément `@import url("https://cdn.jsdelivr.net/npm/mathlive/mathlive-static.css")`.
+  L'app est hors ligne et ne doit rien demander à Internet : utiliser la
+  feuille de MathLive livrée avec le moteur. Vu dans 5N1J-1 (424b2),
+  5N3autoE-2 (e1a0a) et les autres labyrinthes.
+- **Référentiel CH** : il contient le modèle d'exercice
+  « AchangerOBLIGATOIREMENT » (titre « Mettre le titre souhaité (assez
+  descriptif mais pas trop long) ») et l'exercice de test « testEEE »
+  (« Eric fait ses tests interactifs »), visibles dans « Non classés ».
+
 ## 4. Affichage à 390 px (téléphone)
 
 - `deuxColonnes`/`troisColonnes` : colonnes flottantes de 40 % ; la figure
@@ -208,3 +230,53 @@ contient la fonction passe, et une formule juste sans elle est refusée.
 - CH 05b52 : « …la représentation graphique.` » (accent grave en trop).
 - CH ad5f5 (tracer des droites graduées) : énoncé réduit à une droite, sans
   consigne ni correction.
+
+## 5. Correctifs faits dans l'app (branche `claude/matalea-extensive-testing-6cdk6g`)
+
+Session 1 (balayage, parcours élève et enseignant, vraie app de bureau) :
+- 37a2533 : questions sans champ et figures larges utilisables sur téléphone
+  (cadre défilant, « Vérifier » actif après un geste) ;
+- bfc0ed4 : question qui affiche plusieurs éléments corrigés, tous vérifiés ;
+- 8f65780 : réponses des éléments sans champ gardées, figures à cliquer
+  actives (`<clique-figure>` créé) ;
+- d457c1a : session partagée rejointe de nouveau, réponses gardées ;
+- f44e254 : scores décimaux avec une virgule ;
+- 754269f : options de liste déroulante visibles ;
+- cd98bb5 : QCM à boutons radio, seul le choix coché compte ;
+- 1092081 : relevé de classe lisible (QCM, trous, horloge) ;
+- 819f6b3 : trop de réponses pour un QR code, envoi par fichier ;
+- dcf35d1 : fichier de parcours avec marque BOM lisible.
+
+Session 2 (figures, chaque type de réponse, justes et fausses) :
+- b9481f6 : colonnes de MathALÉA empilées (figure « ci-contre » qui sortait
+  de l'écran) ; tableaux de figures qui passent à la ligne ; champ posé sur
+  une figure suivi d'une unité, juste compté faux après un aller-retour
+  (`trouDansLatex`) ;
+- ebda74c : Automatismes chargés en entier (plus de « chargement... ») ;
+  polices et sons de MathLive ; figures d'une correction en retrait ;
+- c412350 : une question n'est vérifiée que sur ses propres éléments (mon
+  correctif de la session 1 associait des figures et des listes d'autres
+  questions : scores faussés dans les CAN 2025-2026, 6AutoA2-2, 6N2J-3…) ;
+  correction de QCM qui décochait le choix de l'élève ;
+- cccb8da, a34137c, 76b5a0e : suites et bancs de test (section 7).
+
+## 6. Reste à tester
+
+- Figures apigeom (80 éléments) et `meta-custom` (74) : vérifiés par une
+  fonction propre à chaque exercice, pas de réponse à lire dans
+  `autoCorrection` ; à tester exercice par exercice dans l'app.
+- Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
+  branches avec justification par contre-exemple.
+- Audit justes/fausses avec une deuxième graine (`audit-jf-2`, en cours).
+- Relevé des requêtes hors de l'appareil et des traces de génération
+  (« undefined », « NaN », LaTeX non rendu) sur tous les exercices, papier
+  compris (en cours).
+
+## 7. Outils
+
+- `node e2e/audit-justes-fausses.mjs` : justes et fausses par l'API du
+  moteur, tout le référentiel (`UUIDS`, `GRAINE`, `PAYS`, `SORTIE`).
+- `node e2e/types.mjs` : chaque type de réponse dans la vraie app, justes et
+  fausses, aller-retour, bilan.
+- `node e2e/interactions.mjs`, `node e2e/regressions.mjs` et les autres
+  suites (README, `docs/developpement.md`).
