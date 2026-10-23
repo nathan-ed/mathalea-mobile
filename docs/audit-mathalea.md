@@ -296,6 +296,27 @@ tous vérifiés à la main :
   accepter `\d?frac(\d)(\d)` dans l'expression régulière, ou passer par
   le moteur de calcul (`ComputeEngine`). Seuls ces deux exercices analysent
   eux-mêmes les fractions des trous.
+- **Traceur de courbe (`traceur-de-courbe`, 3F10-7 d4a81, 4F11 2ecde,
+  d4c81) : une saisie sur deux est perdue.** Tableau de valeurs à remplir
+  case par case : après une case remplie, la frappe dans la case suivante
+  disparaît (la case reste vide) et la page lève `Cannot read properties
+  of undefined (reading 'options')` (MathLive, `atomToString` dans
+  `getValue`) ; la case d'après fonctionne, la suivante non, etc. Reproduit
+  sur le moteur seul (clic + clavier) et dans l'app à 390 px au doigt, au
+  clavier virtuel de l'app (valeurs mêlées entre cases : « −13 », « 15 »)
+  et à la souris dans une fenêtre de bureau : 0/1 au lieu de 1/1. Cause
+  (`TraceurDeCourbe-*.js`) : au `change` d'une case, l'élément retrie les
+  colonnes par x, reconstruit tout son HTML (`render()` remplace
+  `innerHTML`, donc de nouveaux `math-field`) puis redonne le focus à la
+  case touchée (`he()` par `queueMicrotask`, avant que le nouveau champ
+  MathLive soit monté) ; `pendingPointerFocus` est en plus effacé dès
+  `setTimeout(…, 0)` après `pointerdown`, avant le `change` au doigt.
+  Les colonnes se retrient aussi sous les yeux de l'élève (une valeur tapée
+  en 2ᵉ colonne passe en 1ʳᵉ). Correctif : mettre à jour les valeurs et le
+  graphique sans recréer les champs (ou retrier seulement à la sortie du
+  tableau, `focusout` vers l'extérieur), et redonner le focus après
+  l'événement `mount` du champ. Exercice pratiquement impossible à réussir
+  au doigt.
 - **6AutoF3-3 (1574f)**, « Ajouter des barres fractionnaires »
   (`svg-selection`), graine `g5` : attendu 7/9, clé `0.7777777777777778`.
   Les deux seules sélections possibles (1/3 + 1/9 + 1/3, éléments 3, 4, 8
@@ -683,15 +704,11 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   cases, de structure et d'opération, boutons « Griser ») : juste 4/4 ou
   5/5 ; opération fausse, une case fausse, ligne ou colonne hors sujet non
   grisée : un point de moins.
-  `traceur-de-courbe` 3F10-7, 4F11, d4c81 (tableau de valeurs tapé case
-  par case) : valeurs justes 5/5 (3F10-7, parabole avec six x régulièrement
-  espacés de −5 à 5 : 4/5, forme jugée trop approximative, voulu), toutes
-  les images décalées 0/5, deux colonnes seulement 0/5. À signaler :
-  chaque saisie dans la ligne f(x) lève une erreur MathLive
-  (`Cannot read properties of undefined (reading 'options')` dans
-  `atomToString` / `getValue`), et le tableau se redessine après une
-  frappe : le champ suivant touché trop tôt ne reçoit pas le focus (à
-  vérifier au doigt sur téléphone).
+  `traceur-de-courbe` 3F10-7, 4F11, d4c81 : notation conforme quand le
+  tableau est bien rempli (valeurs justes 5/5 ; 3F10-7, parabole avec six
+  x régulièrement espacés de −5 à 5 : 4/5, forme jugée trop approximative,
+  voulu ; images décalées 0/5 ; deux colonnes 0/5). Saisie défaillante :
+  voir section 2.0.
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
