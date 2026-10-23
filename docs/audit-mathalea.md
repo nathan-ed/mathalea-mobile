@@ -647,6 +647,14 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   sont refusés (« n'est pas une droite unique ») alors que la correction de
   l'exercice les utilise ; défaut latent tant que l'outil Médiatrice n'est
   pas dans la barre (même cas que 0dbe7). Q2 et Q3 non testées.
+  Labyrinthes (`mathalea-labyrinthe` : 5N1J-1, 5N1L-3, 5N1autoA,
+  5N3autoE-2, labyvec ; 2 graines, vrais clics case par case, chemin en
+  8 voisins calculé depuis le modèle) : chemin complet 4/4, un mauvais clic
+  0/4 ou 1/4, rien 0/4. Au doigt dans une vraie séance à 390 px (5N1J-1) :
+  la grille tient en 358 px, chemin complet 1/1, chemin abandonné après
+  deux cases 0,3/1. La grille est dans une racine fantôme fermée
+  (`attachShadow({ mode: 'closed' })`) ; en fin de partie l'élément clique
+  `#buttonScoreEx<n>`, absent de l'app (sans effet).
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
