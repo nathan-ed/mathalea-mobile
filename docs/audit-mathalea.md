@@ -683,6 +683,15 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   cases, de structure et d'opération, boutons « Griser ») : juste 4/4 ou
   5/5 ; opération fausse, une case fausse, ligne ou colonne hors sujet non
   grisée : un point de moins.
+  `traceur-de-courbe` 3F10-7, 4F11, d4c81 (tableau de valeurs tapé case
+  par case) : valeurs justes 5/5 (3F10-7, parabole avec six x régulièrement
+  espacés de −5 à 5 : 4/5, forme jugée trop approximative, voulu), toutes
+  les images décalées 0/5, deux colonnes seulement 0/5. À signaler :
+  chaque saisie dans la ligne f(x) lève une erreur MathLive
+  (`Cannot read properties of undefined (reading 'options')` dans
+  `atomToString` / `getValue`), et le tableau se redessine après une
+  frappe : le champ suivant touché trop tôt ne reçoit pas le focus (à
+  vérifier au doigt sur téléphone).
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
