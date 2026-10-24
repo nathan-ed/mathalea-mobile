@@ -3,7 +3,8 @@
 Registre unique de tout ce que les tests ont trouvé (octobre 2026), tenu à
 jour à chaque étape : sections 1 à 4, constats pour MathALÉA (moteur et
 exercices) à corriger par Nathan ; section 5, correctifs déjà faits dans
-l'app ; section 6, ce qui reste à tester ; section 7, outils.
+l'app ; section 6, ce qui a été vérifié sans défaut et ce qui reste à tester ;
+section 7, outils. La synthèse ci-dessous classe les constats par priorité.
 Moteur : celui de `static/moteur` (commit de `moteur/COMMIT`), graine
 `audit-jf` sauf mention contraire, numéro d'exercice 3 (champs
 `champTexteEx3Q<i>`). « Q n » : n-ième question (rang `n - 1` de
@@ -20,10 +21,55 @@ détaillés ci-dessous une fois écartés les cas où le banc ne pouvait pas
 deviner la réponse (règles décrites par une fonction : décomposition en
 facteurs premiers, « écrire le calcul et non le résultat », droite
 paramétrée). Glisser-déposer, tableur, QCM à branches et couteau suisse
-sont remplis depuis (21 exercices). Restent hors du banc les éléments
-vérifiés par une fonction propre à l'exercice : figures apigeom (80),
-meta-custom (74), schéma en barre, éditeurs de grille et d'empilement de
-cubes, justifications par contre-exemple.
+sont remplis depuis (21 exercices). Même passage avec deux autres graines,
+puis avec chaque valeur de chaque réglage (6 624 variantes). Les éléments
+vérifiés par une fonction propre à l'exercice (figures apigeom,
+meta-custom, labyrinthes, grilles, traceur, Scratch…) ont été testés un
+par un les 23 et 24 octobre, par de vrais clics ou touchers quand c'était
+possible (section 6.2).
+
+## Synthèse
+
+À corriger en priorité : un élève qui répond juste est compté faux, ou la
+question est impossible à réussir.
+- Traceur de courbe (3F10-7, 4F11, d4c81) : une saisie sur deux est perdue
+  dans le tableau de valeurs (2.0).
+- Arrondis : hauteur exacte refusée dans 5G5E-2, même fonction dans 5G5G-1
+  (pente arrondie à 2 décimales) ; barres fractionnaires 6AutoF3-3, 7/9
+  refusé (2.0).
+- 3G95-17, 3G95-17p : fraction à un chiffre (`\frac72`) refusée (2.0).
+- Signe moins en tête refusé (`noTrivialFactor`) : 10FA4C-8, 10FA4C-9
+  (« −stz » impossible), 10FA4F-10, 10FA4E-4 (2.0).
+- QCM sans case (JSON mal échappé) : can1E1-01 et 1AN30-2 avec `sup3` ;
+  QCM sans bonne réponse : 6G6C-1 `sup=2` ; QCM `format=lettre` sans
+  case : EgaliteFG4-3e-19 (2.0).
+- Questions sans champ mais notées : 1AN14-6 `sup2` (2.0).
+- Clé fausse ou en désaccord avec la correction : a17d6, CH 3a384, 4P16,
+  canc3a Q27, can6a-2021 Q18, 3L15-2, CH 39232, EgaliteFG1-6e-5,
+  2mTrigoFct-5 et -7, 6G7B-10, 2F21-9 (2.0).
+- Automatismes : `question-index` non renuméroté, questions impossibles
+  (tableau-hybride, alea-iep-editeur, solveur, multi-lignes) (3).
+- 6I1B-4 « Division » seule : la préparation plante (3 quater ; l'app
+  refait désormais la préparation avec une autre graine, section 5).
+
+Réponses fausses acceptées (section 1) : unités à ±1 par défaut
+(`unitsCompare`, une trentaine d'exercices), intervalles ouverts, fonctions
+et indices, exposants de Pythagore (4G20-1), tableur SOMME et MOYENNE,
+réponses entre `$…$`, n'importe quelle réponse (CH 90fd5), QCM incohérents,
+ensembles, calculatrice à touches cassées contournable au clavier, écriture
+décimale non contrôlée (6N3F-2).
+
+Moteur embarquable (section 3) : chargement différé des Automatismes,
+identifiants non renumérotés, ressources absentes, requêtes Internet
+(labyrinthes, MathGraph32, vidéos), MathLive sans polices ni sons,
+exercices non déterministes, entrées d'`autoCorrection` orphelines.
+
+Autres : textes (3 bis : « undefined », coquilles, doublon de liste),
+226 exercices donnant moins de questions que demandé (3 ter), réglages
+qui réduisent ou cassent l'exercice (3 quater), affichage à 390 px (4).
+
+Pour l'app : correctifs faits (5) ; à décider (5 bis) : politique de
+sécurité du WebView, figures apigeom plus larges que l'écran au doigt.
 
 ## 1. Comparaisons qui acceptent des réponses fausses
 
@@ -595,16 +641,30 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   ne créer le point qu'au relâcher d'un toucher immobile, et une largeur
   de figure adaptée à l'écran.
 
-## 6. Reste à tester
+## 6. Tests faits et reste à tester
 
-- Figures apigeom (80 éléments) et `meta-custom` (74) : vérifiés par une
-  fonction propre à chaque exercice, pas de réponse à lire dans
-  `autoCorrection`. Vérifié : sans réponse, les 75 exercices comptent faux,
-  sans erreur. Bonne réponse : à tester exercice par exercice dans l'app.
+### 6.1 Reste à tester
+
+- `alea-iep-editeur` : les 9 exercices de construction animée (5G5B-5,
+  5G5E-3, 5G5G-2, 5G5G-3, 5G6B-2, 6AutoG2-3, 6AutoG2-4, 6G0-10…).
+- Scratch : 5I1D (solution non chargée par la sonde), glisser-déposer des
+  blocs au doigt.
+- 3dbda (6G1autoA, plusieurs sous-consignes de couleur et de position),
+  questions 2 et 3 de 1ed48, déplacement des points du guide-âne au doigt.
+- Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
+  branches avec justification par contre-exemple.
+
+### 6.2 Vérifié conforme (détail)
+
+- Éléments sans clé exploitable par la sonde, testés un par un (vrais
+  clics ou état posé) : labyrinthes, grilles (pyramide, KenKen, sudoku,
+  tables, Grimuku, étoile), demi-droite, `svg-selection`, échiquiers,
+  traceur de courbe, calculatrice, guide-âne, Juniper Green, Scratch
+  5I1C (résultats ci-dessous ; défauts trouvés en sections 1 et 2.0).
 - Audit justes/fausses avec chaque valeur des réglages (6 624 variantes,
   `LISTE=/tmp/claude-0/liste-params.json`, résultats
-  `/tmp/claude-0/audit-jf/params.jsonl`) : en cours le 23 octobre au soir
-  (environ 2 500 variantes faites ; constats intégrés : 4G20-1, can1E1-01,
+  `/tmp/claude-0/audit-jf/params.jsonl`) : fait le 23 octobre (6 624
+  variantes ; constats intégrés : 4G20-1, can1E1-01,
   6G6C-1, 6N5-3, entrées orphelines, tolérances d'angles). Faux positifs de
   l'outil écartés à la main : 5N1I-5 (« n'en indiquer qu'une seule » : la
   « fausse » réponse était un autre diviseur juste) et les « Complète
@@ -741,14 +801,6 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   5G3A-4 (d37ea, symétrie centrale, mêmes 5 types, 3 graines) : conforme
   hormis les deux constats en 2.0 (triangle en segments, droite passant par
   le centre).
-- Éléments sans clé exploitable par la sonde, testés un par un (vrais
-  clics ou état posé) : labyrinthes, grilles (pyramide, KenKen, sudoku,
-  tables, Grimuku, étoile), demi-droite, `svg-selection`, échiquiers,
-  traceur de courbe, calculatrice, guide-âne, Juniper Green (résultats
-  plus haut). Restent : 5I1D et le glisser-déposer Scratch au doigt, `alea-iep-editeur`
-  (9 exercices de construction animée), 3dbda (6G1autoA, plusieurs
-  sous-consignes), Q2 et Q3 de 1ed48, déplacement des points du
-  guide-âne.
 - `meta-custom` (vérification propre à l'exercice), bonnes et mauvaises
   réponses construites à partir de l'état interne de l'exercice : Roses
   (8 exercices, chaque type de question, 3, 5 et 9 valeurs, 3 graines) et
@@ -765,8 +817,6 @@ Session 2 (figures, chaque type de réponse, justes et fausses) :
   acceptée, valeur recopiée, formule fausse et cellule vide refusées. Avec
   un seul type (« Double »), les trois cellules d'une question demandent
   la même formule (`=B1*2` trois fois).
-- Schéma en barre, éditeurs de grille et d'empilement de cubes, QCM à
-  branches avec justification par contre-exemple.
 - Audit justes/fausses avec une deuxième graine (`audit-jf-2`) : fait,
   10 013 éléments conformes ; nouveaux constats intégrés ci-dessus (2L22-3,
   2mTrigoFct-6, 1A-C14-4, 10FA4E-4). Troisième graine (`audit-jf-3`) :
