@@ -64,7 +64,35 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
   n'est collecté ; tout disparaît à la désinstallation).
   À revoir avec la nouvelle politique de confidentialité (0.4 : caméra pour
   les QR codes, analyse par une IA choisie par l'enseignant, à sa demande) :
-  voir « À faire » dans `developpement.md`.
+  voir « À faire » dans `developpement.md`. Vérifié dans les pages de Google
+  le 25 octobre 2026, pour l'envoi de la 0.4 en production :
+  - Caméra (QR codes) : image lue sur l'appareil, rien n'est envoyé, aucune
+    déclaration.
+  - Analyse par une IA : à déclarer comme **collectée**, même si rien ne
+    parvient à l'association. Google compte tout envoi hors de l'appareil
+    « irrespective of whether data is transmitted to you or a third-party
+    server ». L'exception du drive de l'utilisateur exige que l'app
+    n'accède jamais aux données, or elle construit et envoie le texte.
+    Déclarer : contenus produits par l'utilisateur (réponses de la classe),
+    collecte **facultative**, fonctionnement de l'app, pas de publicité.
+  - **Aucun partage** : exceptions « specific user-initiated action » (envoi
+    à la demande de l'enseignant, vers le service et avec la clé qu'il a
+    choisis, désactivé par défaut) et données anonymisées (« Élève N »).
+  - Règle sur le contenu généré par IA : probablement hors champ (vise les
+    chatbots et générateurs d'images ou de voix ; hors champ : « Productivity
+    apps that use AI to improve an existing feature »). Par prudence, un
+    bouton « Signaler » sous l'analyse couvrirait l'exigence de signalement
+    dans l'app.
+  - Public cible et Familles : « aucun SDK tiers » reste exact (depuis 0.4.5,
+    Claude passe par une simple requête HTTP comme les autres services, sans
+    `@anthropic-ai/sdk`, choix de Nathan) ; « aucune donnée collectée » ne le
+    sera plus (voir plus haut). Expliquer en deux lignes au relecteur : option réservée à l'enseignant,
+    désactivée par défaut, service et clé fournis par lui, sans prénom.
+  - Repli si Google refuse : retirer l'analyse par IA de la version Play et
+    la garder dans l'APK de la forge.
+  Sources : https://support.google.com/googleplay/android-developer/answer/10787469,
+  https://support.google.com/googleplay/android-developer/answer/14094294,
+  https://support.google.com/googleplay/android-developer/answer/13985936.
 - **Application gouvernementale, financière, de santé, d'actualités** : non.
 
 ## Notes de version

@@ -1,10 +1,9 @@
 // Analyse des erreurs de la classe par une IA choisie par l'enseignant
-// (facultatif) : Claude par le SDK d'Anthropic, les autres (Mistral, OpenAI,
-// IA locale…) par l'API au format d'OpenAI. Chargé seulement au moment d'une
-// analyse (le SDK n'alourdit pas le démarrage). La clé reste sur l'appareil :
-// jamais dans une sauvegarde ni dans un fichier publié. Le texte envoyé ne
-// contient aucun prénom (élèves en « Élève N »).
-import Anthropic from '@anthropic-ai/sdk'
+// (facultatif) : Claude par l'API Messages d'Anthropic, les autres (Mistral,
+// OpenAI, IA locale…) par l'API au format d'OpenAI. Simples requêtes HTTP,
+// aucune bibliothèque d'un fournisseur dans l'app. La clé reste sur
+// l'appareil : jamais dans une sauvegarde ni dans un fichier publié. Le texte
+// envoyé ne contient aucun prénom (élèves en « Élève N »).
 import { parametresIA, SERVICES_IA, type ConfigIA } from './analyse'
 import { CONSIGNE_PSEUDONYMES } from './releve'
 import { dansTauri } from './stockage'
@@ -15,17 +14,6 @@ Mise en forme simple : titres courts commençant par « ## », listes à puces c
 ${CONSIGNE_PSEUDONYMES}`
 
 export class ErreurIA extends Error {}
-
-/** Message clair pour l'enseignant, selon l'erreur de l'API */
-function messageErreur(e: unknown) {
-  if (e instanceof Anthropic.AuthenticationError) return 'Clé d’API refusée par Anthropic : vérifie-la dans « Réglages de l’IA ».'
-  if (e instanceof Anthropic.PermissionDeniedError) return 'Cette clé d’API n’a pas accès à ce modèle.'
-  if (e instanceof Anthropic.RateLimitError) return 'Trop de demandes pour le moment : réessaie dans une minute.'
-  if (e instanceof Anthropic.APIConnectionError) return 'Pas de connexion avec Anthropic : vérifie la connexion internet.'
-  if (e instanceof Anthropic.BadRequestError) return `Demande refusée par Anthropic (${e.message}). Vérifie le crédit du compte de la clé.`
-  if (e instanceof Anthropic.APIError) return `Anthropic ne répond pas correctement (erreur ${e.status ?? 'inconnue'}) : réessaie plus tard.`
-  return `Analyse impossible : ${(e as Error)?.message ?? e}`
-}
 
 // Dans l'app, les requêtes partent du côté natif (plugin HTTP) : pas de
 // règles CORS du WebView, et une IA locale en http:// reste joignable
@@ -39,69 +27,129 @@ export async function analyserAvecIA(config: ConfigIA, texte: string, surTexte: 
   return config.service === 'claude' ? analyserAvecClaude(config, texte, surTexte, signal) : analyserCompatibleOpenAI(config, texte, surTexte, signal)
 }
 
-async function analyserAvecClaude(config: ConfigIA, texte: string, surTexte: (morceau: string) => void, signal?: AbortSignal): Promise<string> {
-  const { cle, modele } = parametresIA(config)
-  const options: NonNullable<ConstructorParameters<typeof Anthropic>[0]> = { apiKey: cle, dangerouslyAllowBrowser: true, maxRetries: 2 }
-  options.fetch = await fetchIA()
-  const client = new Anthropic(options)
+/** Lit un flux d'événements (lignes « data: {…} ») et passe chaque objet à surDonnee ; fin = « [DONE] » */
+async function lireFlux(rep: Response, surDonnee: (j: any) => void) {
+  const traiter = (bloc: string) => {
+    for (const ligne of bloc.split('\n')) {
+      const l = ligne.trim()
+      if (!l.startsWith('data:')) continue
+      const donnee = l.slice(5).trim()
+      if (!donnee || donnee === '[DONE]') continue
+      let j: unknown
+      try {
+        j = JSON.parse(donnee)
+      } catch {
+        continue // ligne incomplète
+      }
+      surDonnee(j)
+    }
+  }
+  let reste = ''
+  const lecteur = rep.body!.getReader()
+  const decodeur = new TextDecoder()
+  for (;;) {
+    const { done, value } = await lecteur.read()
+    reste += done ? '\n' : decodeur.decode(value, { stream: true })
+    const fin = reste.lastIndexOf('\n')
+    if (fin >= 0) {
+      traiter(reste.slice(0, fin))
+      reste = reste.slice(fin + 1)
+    }
+    if (done) break
+  }
+}
+
+/** Détail d'une réponse d'erreur (JSON), ou '' */
+async function detailErreur(rep: Response) {
   try {
-    const flux = client.beta.messages.stream(
-      {
-        model: modele,
-        max_tokens: 16000,
-        output_config: { effort: 'medium' },
-        // Refus d'un classifieur de sécurité : le serveur relance sur le modèle de repli recommandé
-        betas: ['server-side-fallback-2026-07-01'],
-        fallbacks: 'default',
-        system: CONSIGNE,
-        messages: [{ role: 'user', content: texte }],
-      },
-      { signal },
-    )
-    flux.on('text', (morceau) => surTexte(morceau))
-    const message = await flux.finalMessage()
-    if (message.stop_reason === 'refusal') throw new ErreurIA('L’assistant n’a pas pu analyser ce texte.')
-    return message.content.map((b) => (b.type === 'text' ? b.text : '')).join('')
+    const j = await rep.json()
+    return String(j?.error?.message ?? j?.message ?? j?.detail ?? '')
+  } catch {
+    return '' // corps illisible
+  }
+}
+
+/** Message clair selon la réponse d'Anthropic */
+async function erreurClaude(rep: Response) {
+  const detail = await detailErreur(rep)
+  if (rep.status === 401) return 'Clé d’API refusée par Anthropic : vérifie-la dans « Réglages de l’IA ».'
+  if (rep.status === 403) return 'Cette clé d’API n’a pas accès à ce modèle.'
+  if (rep.status === 429) return 'Trop de demandes pour le moment : réessaie dans une minute.'
+  if (rep.status === 400) return `Demande refusée par Anthropic${detail ? ` (${detail})` : ''}. Vérifie le crédit du compte de la clé.`
+  return `Anthropic ne répond pas correctement (erreur ${rep.status}) : réessaie plus tard.`
+}
+
+const attendre = (ms: number) => new Promise((ok) => setTimeout(ok, ms))
+
+async function analyserAvecClaude(config: ConfigIA, texte: string, surTexte: (morceau: string) => void, signal?: AbortSignal): Promise<string> {
+  const { adresse, cle, modele } = parametresIA(config)
+  const f = await fetchIA()
+  const requete = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': cle,
+      'anthropic-version': '2023-06-01',
+      // Refus d'un classifieur de sécurité : le serveur relance sur le modèle de repli recommandé
+      'anthropic-beta': 'server-side-fallback-2026-07-01',
+      // Requête directe depuis le navigateur (pnpm dev) ; sans effet dans l'app
+      'anthropic-dangerous-direct-browser-access': 'true',
+    },
+    body: JSON.stringify({
+      model: modele,
+      max_tokens: 16000,
+      stream: true,
+      output_config: { effort: 'medium' },
+      fallbacks: 'default',
+      system: CONSIGNE,
+      messages: [{ role: 'user', content: texte }],
+    }),
+    signal,
+  }
+  // Deux nouveaux essais sur une coupure, une surcharge ou trop de demandes
+  let rep: Response | undefined
+  for (let essai = 0; ; essai++) {
+    try {
+      rep = await f(`${adresse}/v1/messages`, requete)
+    } catch {
+      if (signal?.aborted) throw new ErreurIA('Analyse interrompue.')
+      rep = undefined
+    }
+    const passager = !rep || rep.status === 429 || rep.status >= 500
+    if (!passager || essai === 2) break
+    await attendre(1000 * 2 ** essai)
+    if (signal?.aborted) throw new ErreurIA('Analyse interrompue.')
+  }
+  if (!rep) throw new ErreurIA('Pas de connexion avec Anthropic : vérifie la connexion internet.')
+  if (!rep.ok) throw new ErreurIA(await erreurClaude(rep))
+  let complet = ''
+  let fin = ''
+  try {
+    await lireFlux(rep, (j) => {
+      if (j?.type === 'content_block_delta' && j.delta?.type === 'text_delta' && typeof j.delta.text === 'string') {
+        complet += j.delta.text
+        surTexte(j.delta.text)
+      } else if (j?.type === 'message_delta' && j.delta?.stop_reason) fin = j.delta.stop_reason
+      else if (j?.type === 'error') throw new ErreurIA(`Anthropic ne répond pas correctement (${j.error?.message ?? j.error?.type ?? 'erreur'}) : réessaie plus tard.`)
+    })
   } catch (e) {
     if (e instanceof ErreurIA) throw e
     if (signal?.aborted) throw new ErreurIA('Analyse interrompue.')
-    throw new ErreurIA(messageErreur(e))
+    throw new ErreurIA(`Analyse impossible : ${(e as Error)?.message ?? e}`)
   }
+  if (fin === 'refusal') throw new ErreurIA('L’assistant n’a pas pu analyser ce texte.')
+  if (!complet.trim()) throw new ErreurIA('L’IA n’a rien répondu : réessaie plus tard.')
+  return complet
 }
 
 /** Message clair selon la réponse d'un service compatible OpenAI */
 async function erreurCompatible(rep: Response, nom: string) {
-  let detail = ''
-  try {
-    const j = await rep.json()
-    detail = String(j?.error?.message ?? j?.message ?? j?.detail ?? '')
-  } catch {
-    /* corps illisible */
-  }
+  const detail = await detailErreur(rep)
   if (rep.status === 401 || rep.status === 403) return `Clé d’API refusée par ${nom} : vérifie-la dans « Réglages de l’IA ».`
   if (rep.status === 404) return `Adresse ou modèle introuvable${detail ? ` (${detail})` : ''} : vérifie-les dans « Réglages de l’IA ».`
   if (rep.status === 429) return 'Trop de demandes pour le moment, ou crédit épuisé : réessaie plus tard.'
   if (rep.status === 400) return `Demande refusée${detail ? ` (${detail})` : ''}. Vérifie le modèle et le crédit du compte.`
   return `${nom} ne répond pas correctement (erreur ${rep.status}) : réessaie plus tard.`
-}
-
-/** Texte des lignes « data: {…} » d'un flux (format OpenAI) ; fin = « [DONE] » */
-function morceauxDuFlux(bloc: string) {
-  const sortie: string[] = []
-  for (const ligne of bloc.split('\n')) {
-    const l = ligne.trim()
-    if (!l.startsWith('data:')) continue
-    const donnee = l.slice(5).trim()
-    if (!donnee || donnee === '[DONE]') continue
-    try {
-      const j = JSON.parse(donnee)
-      const t = j?.choices?.[0]?.delta?.content
-      if (typeof t === 'string') sortie.push(t)
-    } catch {
-      /* ligne incomplète ou autre événement */
-    }
-  }
-  return sortie
 }
 
 async function analyserCompatibleOpenAI(config: ConfigIA, texte: string, surTexte: (morceau: string) => void, signal?: AbortSignal): Promise<string> {
@@ -141,22 +189,12 @@ async function analyserCompatibleOpenAI(config: ConfigIA, texte: string, surText
       return t
     }
     let complet = ''
-    let reste = ''
-    const lecteur = rep.body!.getReader()
-    const decodeur = new TextDecoder()
-    for (;;) {
-      const { done, value } = await lecteur.read()
-      reste += done ? '\n' : decodeur.decode(value, { stream: true })
-      const fin = reste.lastIndexOf('\n')
-      if (fin >= 0) {
-        for (const m of morceauxDuFlux(reste.slice(0, fin))) {
-          complet += m
-          surTexte(m)
-        }
-        reste = reste.slice(fin + 1)
-      }
-      if (done) break
-    }
+    await lireFlux(rep, (j) => {
+      const t = j?.choices?.[0]?.delta?.content
+      if (typeof t !== 'string') return
+      complet += t
+      surTexte(t)
+    })
     if (!complet.trim()) throw new ErreurIA('L’IA n’a rien répondu : vérifie le modèle choisi.')
     return complet
   } catch (e) {

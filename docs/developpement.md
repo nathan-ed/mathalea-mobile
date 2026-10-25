@@ -603,6 +603,16 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.5 : Claude sans bibliothèque (fait)
+
+- Nathan (2026-10-25) : pas de SDK d'un fournisseur dans l'app, comme pour
+  Mistral, OpenAI et les IA locales. `ia.ts` appelle l'API Messages
+  d'Anthropic par `fetch` (en-têtes `x-api-key`, `anthropic-version`,
+  `anthropic-beta: server-side-fallback-2026-07-01`) et lit le flux
+  (`content_block_delta`, `stop_reason: "refusal"`, événement `error`) avec
+  le même lecteur que le format OpenAI (`lireFlux`). `@anthropic-ai/sdk`
+  retiré. Test : `node e2e/reponses-session.mjs` (API simulée).
+
 ## 0.4.4 : page d'un parcours, onglets de l'enseignant, sessions par classe (fait)
 
 - Plan d'ergonomie enseignant (Nathan, 2026-10-20), étape 1. Une tuile de la
@@ -771,9 +781,11 @@ Reste à faire :
   (`Releve.analyse`), prénoms remis à l'affichage par `retraduire()`
   (rechercher-remplacer « Élève N », aussi pour une réponse collée).
 - Analyse dans l'app (`ia.ts`, chargé à la demande, `fetch` du plugin HTTP
-  dans Tauri) selon `ConfigIA` (`analyse.ts`) : Claude par le SDK
-  `@anthropic-ai/sdk` (modèle `claude-opus-5-5`, effort `medium`, repli
-  `fallbacks: "default"`) ; Mistral, OpenAI, IA locale (Ollama par défaut,
+  dans Tauri) selon `ConfigIA` (`analyse.ts`) : Claude par
+  `POST https://api.anthropic.com/v1/messages` en flux (modèle
+  `claude-opus-5-5`, effort `medium`, repli `fallbacks: "default"`, deux
+  nouveaux essais sur 429, 5xx ou coupure ; aucune bibliothèque d'un
+  fournisseur depuis 0.4.5) ; Mistral, OpenAI, IA locale (Ollama par défaut,
   LM Studio) et autre adresse par `POST <adresse>/chat/completions` en flux
   (format OpenAI), modèles proposés par `GET <adresse>/models`, blocs
   `<think>` retirés (`sansReflexion`). `http://` refusé hors réseau local
