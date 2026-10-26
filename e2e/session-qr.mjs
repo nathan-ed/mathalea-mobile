@@ -115,6 +115,7 @@ const navE = await lancer()
 const prof = await contexte(navE, 'enseignant', [parcours])
 await prof.getByRole('tab', { name: 'Explorer' }).or(prof.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
 await prof.getByText('5e').first().click().catch(() => {})
+await prof.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
 await prof.getByRole('button', { name: /^Relatifs au tableau/ }).first().click({ timeout: 30_000 })
 // Enseignant : un bouton visible sur la page du parcours, pas dans « Autres actions »
 const boutonSession = prof.getByRole('button', { name: 'Session pour la classe' })

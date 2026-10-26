@@ -218,6 +218,14 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   `src/lib/partage.ts`, `VITE_URL_EXPLORER` pour les essais). Copie locale hors
   connexion ; « Ajouter à l'accueil » garde une copie du parcours, qui suit ses
   nouvelles versions.
+- Explorer par degré puis par chapitre (`src/lib/explorer.ts`) : degrés,
+  chapitres et leur ordre viennent du référentiel lu par le moteur
+  (`listerExercices(pays)`), seuls ceux qui ont des parcours apparaissent. Le
+  pays d'un parcours se déduit de son niveau (un degré suisse, sinon France) :
+  aucun champ de plus dans le fichier. Sans moteur, niveaux de l'éditeur.
+  « Commencer » ajoute le parcours à Mes parcours ; l'enseignant le reprend par
+  « Donner à des classes » (`adopter`, puis sa page). Test :
+  `node e2e/explorer.mjs` (catalogue d'essai servi en local, voir l'en-tête).
 - Titres d'exercices : titre MathALÉA sans référence par défaut, modifiable ou
   masqué à la création (fait).
 - Séance : la barre d'actions ne suit plus le clavier qui se referme (fait).

@@ -36,6 +36,7 @@
   import { rappelExport } from '$lib/rappelExport.svelte'
   import { ceinturesObtenues, completerListe, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
   import { LIEN_DEMONSTRATION, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
+  import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
     bilan,
     ecrireSeance,
@@ -172,6 +173,20 @@
   const parcoursDuDossier = (c: Classe) => [...c.parcours, ...(profil === 'enseignant' ? (c.fichier ?? []).flatMap((f) => f.parcours) : [])]
   // Explorer : catalogue de l'équipe MathALÉA (copie locale) et parcours ajoutés à l'accueil
   let catalogue: Parcours[] | null = $state(null)
+  // Degrés et chapitres du référentiel du pays (moteur), pour ranger l'Explorer ; degré et chapitre ouverts
+  let reperes: Repere[] | null = $state(null)
+  const explorer = $derived(arborescence(catalogue ?? [], pays, reperes ?? reperesParDefaut(pays)))
+  let explorerNiveau: string | null = $state(null)
+  let explorerChapitre: string | null = $state(null)
+  async function lireReperes() {
+    const p = pays
+    try {
+      const r = reperesDu((await moteur?.listerExercices(p)) ?? [])
+      if (p === pays) reperes = r.length ? r : null
+    } catch (e) {
+      console.warn('Référentiel', e)
+    }
+  }
   let ajoutes: Parcours[] = $state([])
   const tous: Parcours[] = $derived.by(() => {
     const vus = new Map<string, Parcours>()
@@ -265,6 +280,7 @@
       moteurMisAJour = await misesAJourMoteur()
       moteur = await chargerMoteur()
       moteur.definirLangue(pays === 'CH' ? 'fr-CH' : 'fr-FR')
+      void lireReperes()
     } catch (e) {
       erreurMoteur = (e as Error).message
     }
@@ -329,6 +345,9 @@
   async function changerPays(p: Pays) {
     pays = p
     moteur?.definirLangue(p === 'CH' ? 'fr-CH' : 'fr-FR')
+    reperes = null
+    explorerNiveau = explorerChapitre = null
+    void lireReperes()
     await stockage!.ecrire('pays', p)
   }
 
@@ -397,6 +416,11 @@
       creation = null
       aller('fiche')
     } else versCreer()
+  }
+  /** Parcours de l'Explorer repris par l'enseignant : dans sa bibliothèque, puis sa page (choix des classes) */
+  async function donnerAuxClasses(p: Parcours) {
+    await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, $state.snapshot(p) as Parcours))
+    ouvrirFiche(p.id)
   }
   // Parcours qu'on peut lancer en session : bibliothèque et dossiers suivis, à leur version la plus récente
   const parcoursSession: Parcours[] = $derived.by(() => {
@@ -610,6 +634,8 @@
   /** Tout le parcours, ou un palier ; une tentative en cours de ces exercices reprend là où elle en était */
   function commencer(p: Parcours, etapes?: number[]) {
     actif = p
+    // Parcours de l'Explorer : commencé, il rejoint Mes parcours
+    if (catalogue?.some((c) => c.id === p.id) && !dansSources(p.id) && !ajoutes.some((a) => a.id === p.id)) void basculerAjout(p)
     const existante = seances[p.id]
     const memes = !etapes || (existante && existante.etapes.join() === etapes.join())
     void lancer(existante && !existante.fin && memes ? existante : nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes))
@@ -1127,7 +1153,9 @@
   {:else if vue === 'accueil'}
     <Accueil
       {sources}
-      {catalogue}
+      {explorer}
+      bind:niveau={explorerNiveau}
+      bind:chapitre={explorerChapitre}
       {ajoutes}
       {aChoisir}
       {organisations}
@@ -1210,6 +1238,7 @@
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
       onsessionClasse={profil === 'enseignant' ? (code, etapes, classe) => void lancerSession(actif!, code, etapes, classe) : undefined}
+      ondonner={profil === 'enseignant' && !vueEleve && catalogue?.some((c) => c.id === actif!.id) ? () => void donnerAuxClasses(actif!) : undefined}
       classesEnseignant={nomsClasses}
       versionMoteur={moteur?.VERSION_MOTEUR}
     />

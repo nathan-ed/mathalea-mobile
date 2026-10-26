@@ -263,6 +263,17 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   dossier. Les sujets 2018-2023, « Spéciale année » (NY) et Aléa/CoopMaths
   ne choisissent pas leurs questions. Vérifier : `node e2e/sonde-can.mjs`,
   `node e2e/test-niveau.mjs` (pnpm dev).
+- Explorer par degré puis par chapitre (Nathan, 2026-10-26) : noms et ordre
+  repris du référentiel de MathALÉA (« si le référentiel change, il faut que
+  ça change »), `src/lib/explorer.ts` (`reperesDu`, `arborescence`) ; seuls
+  les degrés et chapitres qui ont des parcours apparaissent ; pays déduit du
+  niveau (aucun champ `pays`). « Commencer » ajoute à Mes parcours ;
+  enseignant : « Donner à des classes » (`adopter`, puis sa page). Sources
+  du catalogue dans `explorer/` (Suisse : `ch-4e-college.json`, chapitre
+  4mInt). Le référentiel se lit dans le moteur compilé (`listerExercices`),
+  même sans accès à la forge. Test : `node e2e/explorer.mjs`. À venir :
+  fiches de cours interactives avant une ceinture, « ceinture générale » de
+  chapitre (plusieurs parcours courts).
 - Démonstration : `static/demo/parcours-demonstration.json`
   (`npx tsx scripts/demonstration.mts`), chargée et retirée dans les Réglages
   (enseignant), classe `LIEN_DEMONSTRATION` jamais synchronisée.

@@ -1,0 +1,158 @@
+{
+  "format": "classes-mathalea/1",
+  "exporteLe": "2026-10-26T08:00:00.000Z",
+  "classes": [
+    {
+      "nom": "4e Collège",
+      "parcours": [
+        {
+          "id": "ch-4c-integrales",
+          "version": 1,
+          "titre": "Primitives et intégrales",
+          "objectif": "Trouver une primitive, calculer une intégrale et l'utiliser pour une aire.",
+          "niveau": "4e Collège",
+          "theme": "Intégration",
+          "difficulte": 2,
+          "icone": "bx-area",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "paliers": [
+            {
+              "titre": "Primitives",
+              "nb": 3
+            },
+            {
+              "titre": "Primitives de fonctions composées",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calculer une intégrale",
+              "nb": 4,
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Aires et valeur moyenne",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "b144a",
+              "nbQuestions": 3,
+              "titre": "Connaître le cours sur les primitives"
+            },
+            {
+              "uuid": "97303",
+              "id": "4mInt-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer une primitive sans composition"
+            },
+            {
+              "uuid": "219c5",
+              "id": "4mInt-3",
+              "nbQuestions": 2,
+              "titre": "Déterminer une primitive sans composition vérifiant une condition"
+            },
+            {
+              "uuid": "290c1",
+              "id": "4mInt-2",
+              "nbQuestions": 3,
+              "titre": "Déterminer une primitive d'une fonction composée"
+            },
+            {
+              "uuid": "dcf2d",
+              "id": "4mInt-4",
+              "nbQuestions": 2,
+              "titre": "Déterminer la primitive d'une fonction composée vérifiant une condition"
+            },
+            {
+              "uuid": "d4595",
+              "id": "TSA8-10",
+              "nbQuestions": 3,
+              "titre": "Connaître le cours sur le calcul intégral"
+            },
+            {
+              "uuid": "667d9",
+              "nbQuestions": 1,
+              "titre": "Encadrer une intégrale"
+            },
+            {
+              "uuid": "7d5ee",
+              "id": "4mInt-5",
+              "nbQuestions": 3,
+              "titre": "Calculer des intégrales sans composition"
+            },
+            {
+              "uuid": "b13e1",
+              "id": "4mInt-6",
+              "nbQuestions": 2,
+              "titre": "Calculer des intégrales de fonctions composées"
+            },
+            {
+              "uuid": "7b0fb",
+              "id": "4mInt-8",
+              "nbQuestions": 2,
+              "titre": "Calculer l'aire d'un domaine délimité par deux courbes"
+            },
+            {
+              "uuid": "00e95",
+              "id": "4mInt-7",
+              "nbQuestions": 1,
+              "titre": "Déterminer une valeur moyenne et appliquer le théorème de la moyenne"
+            }
+          ]
+        },
+        {
+          "id": "ch-4c-integrales-plus",
+          "version": 1,
+          "titre": "Intégration par parties et volumes",
+          "objectif": "Intégrer un produit et calculer le volume d'un solide de révolution.",
+          "niveau": "4e Collège",
+          "theme": "Intégration",
+          "difficulte": 3,
+          "icone": "bx-cylinder",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 4,
+          "paliers": [
+            {
+              "titre": "Intégration par parties",
+              "nb": 1
+            },
+            {
+              "titre": "Volumes de révolution",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "7773c",
+              "id": "TSA8-41",
+              "nbQuestions": 3,
+              "titre": "Calculer une intégrale avec une intégration par parties"
+            },
+            {
+              "uuid": "bae8f",
+              "id": "4mInt-9",
+              "nbQuestions": 2,
+              "titre": "Calculer un volume de révolution"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

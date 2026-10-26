@@ -19,6 +19,7 @@
   import { organisationDe } from '$lib/catalogue'
   import type { Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
+  import type { NiveauExplorer } from '$lib/explorer'
   import ChampTexte from './ChampTexte.svelte'
   import ContenuClasse, { type Organisation } from './ContenuClasse.svelte'
   import { boutonAction } from './classes'
@@ -29,13 +30,15 @@
 
   let {
     sources,
-    catalogue,
+    explorer,
     ajoutes,
     aChoisir,
     organisations,
     resumes,
     epingles,
     onglet = $bindable('mes'),
+    niveau = $bindable(null),
+    chapitre = $bindable(null),
     enseignant = false,
     suivi,
     espaceEnseignant,
@@ -57,13 +60,15 @@
     onepingler,
   }: {
     sources: Source[]
-    catalogue: Parcours[] | null // parcours de l'équipe MathALÉA (null : pas encore reçu)
+    explorer: NiveauExplorer[] // parcours de l'équipe MathALÉA du pays choisi, par degré et chapitre
     ajoutes: Parcours[] // parcours du catalogue ajoutés à l'accueil
     aChoisir: { lien: string; disponibles: string[] }[] // dossiers à plusieurs classes, classe pas encore choisie
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
     onglet?: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe'
+    niveau?: string | null // Explorer : degré ouvert (gardé au retour d'un parcours)
+    chapitre?: string | null // Explorer : chapitre ouvert
     enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
     suivi: Snippet
     espaceEnseignant?: Snippet // bibliothèque (onglet Parcours, clé « creer »)
@@ -117,7 +122,6 @@
   // Classe affichée quand il y en a plusieurs (pastilles) : la première par défaut
   let classeChoisie: string | null = $state(null)
   const classeVue = $derived(sources.find((s) => s.id === classeChoisie) ?? sources[0])
-  let niveau: string | null = $state(null)
 
   // Parcours de l'élève : ceux de ses dossiers et ceux ajoutés depuis Explorer
   const tous = $derived.by(() => {
@@ -127,7 +131,8 @@
     return [...vus.values()]
   })
   const ajoutesVisibles = $derived(ajoutes.filter((p) => !resumes[p.id]?.enCours && !epingles.includes(p.id)))
-  const explorables = $derived(catalogue ?? [])
+  const niveauOuvert = $derived(explorer.find((n) => n.niveau === niveau) ?? null)
+  const chapitreOuvert = $derived(niveauOuvert?.chapitres.find((c) => c.theme === chapitre) ?? null)
   const enCours = $derived(tous.filter((p) => resumes[p.id]?.enCours))
   const epinglesVisibles = $derived(
     epingles.map((id) => tous.find((p) => p.id === id)).filter((p): p is Parcours => !!p && !resumes[p.id]?.enCours),
@@ -143,15 +148,7 @@
       : [],
   )
 
-  /** Parcours groupés par thème, chaque groupe trié par difficulté (ordre de l'enseignant sinon) */
-  function parTheme(liste: Parcours[]) {
-    const groupes = new Map<string, Parcours[]>()
-    for (const p of liste) groupes.set(p.theme, [...(groupes.get(p.theme) ?? []), p])
-    return [...groupes.entries()].map(
-      ([theme, ps]) => [theme, ps.map((p, i) => ({ p, i })).sort((a, b) => a.p.difficulte - b.p.difficulte || a.i - b.i).map((x) => x.p)] as const,
-    )
-  }
-  const niveaux = $derived([...new Set(explorables.map((p) => p.niveau))])
+  const nbParcours = (n: NiveauExplorer) => n.chapitres.reduce((a, c) => a + c.parcours.length, 0)
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
 
   // Onglets de l'enseignant ; en vue élève, ceux des élèves
@@ -162,7 +159,8 @@
   retourSi(
     () => niveau !== null || onglet !== depart || (enseignant && vueEleve),
     () => {
-      if (niveau) niveau = null
+      if (chapitre) chapitre = null
+      else if (niveau) niveau = null
       else if (onglet !== depart) changerOnglet(depart)
       else onquitterVueEleve?.()
     },
@@ -171,6 +169,7 @@
   function changerOnglet(o: typeof onglet) {
     onglet = o
     niveau = null
+    chapitre = null
     recherche = ''
   }
 </script>
@@ -183,8 +182,10 @@
   {:else if onglet === 'classe' && espaceProf && enClasse}
     {@render enClasse()}
   {:else}
-  {#if onglet === 'explorer' && niveau}
-    <EnTete titre={niveau} onretour={() => (niveau = null)} />
+  {#if onglet === 'explorer' && chapitreOuvert}
+    <EnTete titre={chapitreOuvert.theme} onretour={() => (chapitre = null)} />
+  {:else if onglet === 'explorer' && niveauOuvert}
+    <EnTete titre={niveauOuvert.niveau} onretour={() => (niveau = null)} />
   {:else}
     <EnTete>
       {#snippet droite()}
@@ -341,13 +342,16 @@
           {/if}
         {/if}
       </div>
-    {:else if onglet === 'explorer' && niveau}
+    {:else if onglet === 'explorer' && chapitreOuvert}
       <div class="flex flex-col gap-3 p-4">
-        {#each parTheme(explorables.filter((p) => p.niveau === niveau)) as [theme, ps] (theme)}
-          <h2 class={titreSection}>{theme}</h2>
-          {#each ps as p (p.id)}
-            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
-          {/each}
+        {#each chapitreOuvert.parcours as p (p.id)}
+          <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
+        {/each}
+      </div>
+    {:else if onglet === 'explorer' && niveauOuvert}
+      <div class="flex flex-col gap-3 p-4">
+        {#each niveauOuvert.chapitres as c (c.theme)}
+          <Tuile icon="bx-folder" title={c.theme} subtitle="{c.parcours.length} parcours" onclick={() => (chapitre = c.theme)} />
         {/each}
       </div>
     {:else if onglet === 'explorer'}
@@ -356,9 +360,13 @@
           <Tuile icon="bx-timer" title="Teste ton niveau" subtitle={resumeTest} onclick={ontest} />
         {/if}
         <h2 class={titreSection}>Parcours proposés par l’équipe MathALÉA</h2>
-        {#each niveaux as n (n)}
-          {@const nb = explorables.filter((p) => p.niveau === n).length}
-          <Tuile icon="bx-book-content" title={n} subtitle="{nb} parcours" onclick={() => (niveau = n)} />
+        {#each explorer as n (n.niveau)}
+          <Tuile
+            icon="bx-book-content"
+            title={n.niveau}
+            subtitle={n.chapitres.length > 1 ? `${n.chapitres.length} chapitres · ${nbParcours(n)} parcours` : `${nbParcours(n)} parcours`}
+            onclick={() => (niveau = n.niveau)}
+          />
         {:else}
           <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
             Aucun parcours proposé pour le moment.

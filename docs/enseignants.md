@@ -258,8 +258,12 @@ plus récent remplace l'ancien.
   régler côté enseignant. Les révisions comptent dans le suivi des objectifs.
 - L'icône QR code en haut de l'accueil lit le QR code d'une session projeté
   par l'enseignant : l'élève arrive directement dans la session.
-- L'onglet Explorer propose les parcours de l'équipe MathALÉA ; l'élève peut
-  en ajouter à son accueil.
+- L'onglet Explorer propose les parcours de l'équipe MathALÉA du programme
+  choisi (France ou Suisse), par degré puis par chapitre, avec les noms du
+  référentiel de MathALÉA ; seuls les degrés qui ont des parcours apparaissent.
+  Un parcours commencé rejoint Mes parcours. L'enseignant le reprend avec
+  « Donner à des classes » : il entre dans sa bibliothèque, puis il choisit
+  les classes sur sa page.
 - « Teste ton niveau », en tête de l'Explorer, est ouvert à tous : questions
   des sujets de la Course aux nombres, du CM1 à la Terminale. Par niveau,
   15 questions de tous les domaines (nombres et calcul, mesures, géométrie,

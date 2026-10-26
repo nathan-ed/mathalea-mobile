@@ -47,6 +47,7 @@ for (const correction of ['question', 'parcours']) {
     await page.goto(base)
     await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
     await page.getByText('6e').first().click().catch(() => {})
+    await page.getByRole('button', { name: /^Géométrie/ }).first().click()
     await page.getByRole('button', { name: /^Parcours papier/ }).first().click({ timeout: 30_000 })
     await page.getByRole('button', { name: /^Commencer/ }).first().click()
     const voir = page.getByRole('button', { name: 'Voir la correction' }).filter({ visible: true })

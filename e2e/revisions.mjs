@@ -125,6 +125,7 @@ async function repondre(id, total, faux = []) {
 async function faireParcours(p, faux) {
   await page.getByRole('tab', { name: 'Explorer' }).click({ timeout: 60_000 })
   await page.getByText('5e').first().click().catch(() => {})
+  await page.getByRole('button', { name: new RegExp(`^${p.theme}`) }).first().click()
   await page.getByRole('button', { name: new RegExp(`^${p.titre}`) }).first().click({ timeout: 30_000 })
   await page.getByRole('button', { name: 'Commencer' }).click()
   await repondre(p.id, 2, faux)

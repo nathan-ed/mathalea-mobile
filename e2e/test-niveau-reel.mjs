@@ -125,7 +125,7 @@ for (const a of appareils) {
   await ctx.close()
 }
 
-// Explorer : un parcours fait sans l'ajouter à l'accueil compte dans le suivi ;
+// Explorer : un parcours fait depuis l'Explorer compte dans le suivi ;
 // un exercice masqué n'apparaît pas dans la fiche ; un test ajouté à l'accueil
 // par la 0.3.1 en disparaît
 {
@@ -153,6 +153,7 @@ for (const a of appareils) {
   ok(!(await texte(page, 'body')).includes('Teste ton niveau : CM2'), 'ancien test ajouté à l’accueil : retiré')
   await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click()
   await page.getByText('6e').first().click().catch(() => {})
+  await page.getByRole('button', { name: /^Calcul/ }).first().click()
   await page.getByRole('button', { name: /^Parcours Explorer/ }).first().click({ timeout: 30_000 })
   const fiche = await texte(page)
   ok(fiche.includes('Calcul visible') && !/Exercice 2|CAN 6e/.test(fiche), 'fiche : exercice masqué absent')
@@ -165,11 +166,14 @@ for (const a of appareils) {
   await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 5000 }).catch(() => {})
   await page.getByRole('button', { name: 'Voir le bilan' }).click({ timeout: 120_000 })
   await page.waitForTimeout(500)
+  // Un retour à la fois : l'app remet son entrée d'historique entre deux
   await page.goBack()
+  await page.waitForTimeout(300)
   await page.goBack()
+  await page.waitForTimeout(300)
   await page.getByRole('tab', { name: 'Suivi' }).or(page.getByRole('button', { name: 'Suivi' })).first().click()
   await page.waitForTimeout(500)
-  ok((await texte(page)).includes('Parcours Explorer'), 'suivi : parcours de l’Explorer non ajouté à l’accueil')
+  ok((await texte(page)).includes('Parcours Explorer'), 'suivi : parcours fait depuis l’Explorer')
   await ctx.close()
 }
 

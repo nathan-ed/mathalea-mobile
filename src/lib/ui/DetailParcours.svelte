@@ -36,6 +36,7 @@
     onsession,
     onsupprimer,
     onsessionClasse,
+    ondonner,
     classesEnseignant = [],
     versionMoteur,
   }: {
@@ -56,6 +57,7 @@
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
     onsessionClasse?: (code: string, etapes?: number[], classe?: string) => void // enseignant : lance la session et ouvre sa page (En classe)
+    ondonner?: () => void // enseignant, parcours de l'Explorer : le reprend dans sa bibliothèque pour ses classes
     classesEnseignant?: string[] // enseignant : ses classes, au choix pour la session
     versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
   } = $props()
@@ -289,7 +291,11 @@
           <i aria-hidden="true" class="bx bx-group mr-1"></i> Session pour la classe
         </button>
       {/if}
-      {#if explorer}
+      {#if explorer && ondonner}
+        <button type="button" class="{boutonInverse} w-full" onclick={ondonner}>
+          <i aria-hidden="true" class="bx bx-group mr-1"></i> Donner à des classes
+        </button>
+      {:else if explorer}
         <button type="button" class="{boutonInverse} w-full" aria-pressed={epingle} onclick={onepingler}>
           <i aria-hidden="true" class="bx {epingle ? 'bx-check' : 'bx-plus'} mr-1"></i>
           {epingle ? 'Ajouté à l’accueil' : 'Ajouter à l’accueil'}
