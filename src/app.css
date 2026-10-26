@@ -331,3 +331,26 @@ input.interrupteur:focus-visible {
   outline: 2px solid var(--app-action);
   outline-offset: 2px;
 }
+
+/* Fiches de cours : formules centrées qui défilent si elles sont trop
+   larges, listes à puces, curseurs aux couleurs de l'app */
+.texte-cours p + p,
+.texte-cours p + ul,
+.texte-cours ul + p {
+  margin-top: 0.5rem;
+}
+.texte-cours ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.formule-centree {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  padding-block: 0.25rem;
+}
+.curseur-cours {
+  accent-color: var(--app-action);
+}

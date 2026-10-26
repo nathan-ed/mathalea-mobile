@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
+  import { ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
+  import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
   import { CLE_AVANT_RESTAURATION, exporterSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
@@ -58,6 +59,7 @@
   import Accueil, { type Resume, type Source } from '$lib/ui/Accueil.svelte'
   import type { Organisation } from '$lib/ui/ContenuClasse.svelte'
   import Bilan from '$lib/ui/Bilan.svelte'
+  import Cours from '$lib/ui/Cours.svelte'
   import ChoixProfil from '$lib/ui/ChoixProfil.svelte'
   import CreationParcours from '$lib/ui/CreationParcours.svelte'
   import DetailParcours from '$lib/ui/DetailParcours.svelte'
@@ -94,7 +96,7 @@
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'session' | 'revisions' | 'fiche'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'session' | 'revisions' | 'fiche' | 'cours'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
@@ -110,6 +112,17 @@
   let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe' = $state('mes')
   let vueEleve = $state(false)
   let actif: Parcours | undefined = $state()
+  // Fiche de cours ouverte, l'écran d'où elle vient et, avant une séance, de quoi la lancer
+  let cours: { fiche: Fiche; depuis: Vue; ensuite?: () => void } | null = $state(null)
+  let fichesVues: string[] = $state([]) // fiches déjà montrées d'office (« id#palier »)
+  // Formules des fiches : KaTeX du moteur (centrées : style « display »)
+  const formule: RenduFormule = $derived((latex: string, centree: boolean) =>
+    moteur?.titreHtml ? moteur.titreHtml(`$${centree ? '\\displaystyle ' : ''}${latex}$`) : formuleBrute(latex, centree),
+  )
+  function ouvrirCours(fiche: Fiche, ensuite?: () => void) {
+    cours = { fiche, depuis: vue, ensuite }
+    aller('cours')
+  }
   let seance: TSeance | undefined = $state()
   let relue: TSeance | undefined = $state()
   // Réponses de sessions partagées relevées par l'enseignant (QR codes)
@@ -251,6 +264,7 @@
     prenom = (await stockage.lire<string>('prenom')) ?? ''
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
+    fichesVues = (await stockage.lire<string[]>('fiches-vues')) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
     catalogue = await stockage.lire<Parcours[]>('explorer')
     // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau
@@ -360,7 +374,7 @@
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, session: 1, revisions: 1, fiche: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, session: 1, revisions: 1, fiche: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2, cours: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
   // L'aperçu garde l'éditeur monté : même écran pour l'animation
   const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
@@ -638,7 +652,16 @@
     if (catalogue?.some((c) => c.id === p.id) && !dansSources(p.id) && !ajoutes.some((a) => a.id === p.id)) void basculerAjout(p)
     const existante = seances[p.id]
     const memes = !etapes || (existante && existante.etapes.join() === etapes.join())
-    void lancer(existante && !existante.fin && memes ? existante : nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes))
+    if (existante && !existante.fin && memes) return void lancer(existante)
+    const nouvelle = () => void lancer(nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes))
+    // Fiche de cours à lire d'abord, la première fois seulement
+    const f = ficheDe(p, etapes)
+    if (f?.fiche.avant && !fichesVues.includes(f.cle)) {
+      fichesVues = [...fichesVues, f.cle]
+      void stockage!.ecrire('fiches-vues', $state.snapshot(fichesVues))
+      return ouvrirCours(f.fiche, nouvelle)
+    }
+    nouvelle()
   }
 
   // Refaire : les mêmes exercices que la dernière tentative (un palier, ou tout le parcours)
@@ -655,6 +678,7 @@
       nom: nomPalier(actif, k),
       pause: etats[k].pause,
       ressource: etats[k].ressource,
+      fiche: etats[k].fiche,
       suite: suivant
         ? {
             nom: nomPalier(actif, k + 1),
@@ -1238,6 +1262,7 @@
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
       onsessionClasse={profil === 'enseignant' ? (code, etapes, classe) => void lancerSession(actif!, code, etapes, classe) : undefined}
+      onfiche={(f) => ouvrirCours(f)}
       ondonner={profil === 'enseignant' && !vueEleve && catalogue?.some((c) => c.id === actif!.id) ? () => void donnerAuxClasses(actif!) : undefined}
       classesEnseignant={nomsClasses}
       versionMoteur={moteur?.VERSION_MOTEUR}
@@ -1303,6 +1328,8 @@
         onsupprimer={() => supprimerTentative(seance!.parcours)}
       />
     {/key}
+  {:else if vue === 'cours' && cours}
+    <Cours fiche={cours.fiche} {formule} onretour={() => aller(cours!.depuis)} oncommencer={cours.ensuite} />
   {:else if vue === 'bilan' && seance && actif}
     <Bilan
       parcours={seance.contenu}
@@ -1317,6 +1344,7 @@
       test={testDuBilan}
       revision={estRevision(seance.parcours) ? (issuesRevision ?? {}) : null}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
+      onfiche={(f) => ouvrirCours(f)}
       onqrmontre={() => marquerQrMontre(seance!)}
       {prenom}
       onprenom={changerPrenom}

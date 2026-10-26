@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { titreEleve, type Parcours, type Pause, type Ressource } from '$lib/catalogue'
+  import { titreEleve, type Parcours, type Fiche, type Pause, type Ressource } from '$lib/catalogue'
   import { ouvrirLien } from '$lib/fichiers'
   import type { Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
@@ -22,6 +22,7 @@
     onfermer,
     palier = null,
     oncontinuer,
+    onfiche,
     test = null,
     onqrmontre,
     prenom = '',
@@ -41,9 +42,11 @@
       nom: string
       pause?: Pause
       ressource?: Ressource
+      fiche?: Fiche
       suite: { nom: string; ouvert: boolean; condition: string } | null
     } | null
     oncontinuer?: () => void // commence le palier suivant
+    onfiche?: (f: Fiche) => void // revoir la fiche de cours du palier
     /** Teste ton niveau : verdict et suites proposées, à la place des actions d'un parcours */
     test?: { message: string; actions: { libelle: string; fn: () => void }[] } | null
     /** Session « QR code avant la correction » : le QR code a été montré */
@@ -229,6 +232,11 @@
           <i aria-hidden="true" class="bx bx-lock-alt text-coopmaths-action dark:text-coopmathsdark-action"></i>
           Pour ouvrir {palier.suite.nom.toLowerCase()} : {palier.suite.condition}.
         </p>
+        {#if palier.fiche && onfiche}
+          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => onfiche(palier!.fiche!)}>
+            <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Revoir la fiche : {palier.fiche.titre}
+          </button>
+        {/if}
         {#if palier.ressource}
           <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => ouvrirLien(palier!.ressource!.lien)}>
             <i aria-hidden="true" class="bx bx-book-open text-xl"></i> Pour revoir : {palier.ressource.titre}

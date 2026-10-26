@@ -3,7 +3,7 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { couleurCeinture, nomPalier, titreEleve, type Parcours } from '$lib/catalogue'
+  import { couleurCeinture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
   import { modeQr, nouveauCode, normaliserCode } from '$lib/progression'
@@ -37,6 +37,7 @@
     onsupprimer,
     onsessionClasse,
     ondonner,
+    onfiche,
     classesEnseignant = [],
     versionMoteur,
   }: {
@@ -57,6 +58,7 @@
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
     onsessionClasse?: (code: string, etapes?: number[], classe?: string) => void // enseignant : lance la session et ouvre sa page (En classe)
+    onfiche?: (f: Fiche) => void // ouvre une fiche de cours
     ondonner?: () => void // enseignant, parcours de l'Explorer : le reprend dans sa bibliothèque pour ses classes
     classesEnseignant?: string[] // enseignant : ses classes, au choix pour la session
     versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
@@ -218,6 +220,11 @@
                   <p class={discret}>{objectifsPalier.length > 1 ? 'Objectifs' : 'Objectif'} : {objectifsPalier.join(' ; ')}</p>
                 {/if}
                 {@render lignesExercices(x.etapes)}
+                {#if x.fiche && onfiche}
+                  <button type="button" class="{x.aRevoir ? boutonInverse : boutonLien} w-full" onclick={() => onfiche(x.fiche!)}>
+                    <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Fiche : {x.fiche.titre}
+                  </button>
+                {/if}
                 {#if x.ressource}
                   <button type="button" class="{x.aRevoir ? boutonInverse : boutonLien} w-full" onclick={() => ouvrirLien(x.ressource!.lien)}>
                     <i aria-hidden="true" class="bx bx-book-open text-xl"></i> Pour revoir : {x.ressource.titre}
@@ -278,6 +285,12 @@
           </li>
         {/each}
       </ul>
+    {/if}
+
+    {#if !avecPaliers && parcours.fiche && onfiche}
+      <button type="button" class="{boutonLien} w-full" onclick={() => onfiche(parcours.fiche!)}>
+        <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Fiche : {parcours.fiche.titre}
+      </button>
     {/if}
 
     <div class="flex flex-col gap-3">

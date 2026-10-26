@@ -79,6 +79,30 @@
               "nb": 1,
               "pause": {
                 "texte": "Bravo ! Avant de soustraire, relis la règle des signes."
+              },
+              "fiche": {
+                "titre": "Additionner deux relatifs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "- Même signe : on additionne les distances à zéro et on garde le signe.\n- Signes contraires : on soustrait les distances à zéro et on prend le signe du nombre le plus éloigné de zéro."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $(-7)+(+3)$.",
+                    "etapes": [
+                      "Signes contraires : $7-3=4$.",
+                      "$-7$ est le plus éloigné de zéro : $(-7)+(+3)=-4$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $(-5)+(-2)$ ?",
+                    "reponse": -7,
+                    "explication": "Même signe : $5+2=7$, on garde le signe $-$."
+                  }
+                ]
               }
             },
             {

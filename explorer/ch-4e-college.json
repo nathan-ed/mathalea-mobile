@@ -22,25 +22,435 @@
           "paliers": [
             {
               "titre": "Primitives",
-              "nb": 3
+              "nb": 3,
+              "fiche": {
+                "titre": "Primitives",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Dériver, c'est passer de $F$ à $F'$. Chercher une **primitive**, c'est faire le chemin inverse : on connaît $f$ et on cherche une fonction $F$ dont la dérivée est $f$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Définition",
+                    "texte": "Soit $f$ une fonction définie sur un intervalle $I$. Une fonction $F$ est une **primitive** de $f$ sur $I$ si $F$ est dérivable sur $I$ et\n$$F'(x)=f(x)\\quad\\text{pour tout } x\\in I.$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "$F(x)=x^3$ est-elle une primitive de $f(x)=3x^2$ sur $\\mathbb{R}$ ?",
+                    "etapes": [
+                      "On dérive $F$ : $F'(x)=3x^2$.",
+                      "On retrouve exactement $f(x)$ : $F$ est une primitive de $f$ sur $\\mathbb{R}$."
+                    ]
+                  },
+                  {
+                    "type": "texte",
+                    "texte": "La fonction $G(x)=x^3+5$ convient aussi : la dérivée d'une constante est nulle. Une fonction a donc une infinité de primitives."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Toutes les primitives",
+                    "texte": "Si $F$ est une primitive de $f$ sur $I$, les primitives de $f$ sur $I$ sont les fonctions\n$$G(x)=F(x)+C,\\quad C\\in\\mathbb{R}.$$\nDeux primitives d'une même fonction diffèrent d'une constante."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Primitives à connaître",
+                    "texte": "- $k$ (constante) : $kx$\n- $x^n$, avec $n\\neq-1$ : $\\dfrac{x^{n+1}}{n+1}$\n- $\\dfrac{1}{x}$, sur $]0;+\\infty[$ : $\\ln(x)$\n- $\\mathrm{e}^x$ : $\\mathrm{e}^x$\n- $\\cos(x)$ : $\\sin(x)$\n- $\\sin(x)$ : $-\\cos(x)$"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Somme et multiple",
+                    "texte": "Si $F$ et $G$ sont des primitives de $f$ et de $g$, et si $k$ est un réel, alors $F+G$ est une primitive de $f+g$ et $k\\cdot F$ est une primitive de $k\\cdot f$. On cherche donc une primitive **terme par terme**."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver une primitive de $f(x)=4x^3-6x+\\dfrac{1}{x^2}$ sur $]0;+\\infty[$.",
+                    "etapes": [
+                      "On écrit chaque terme comme une puissance de $x$ : $\\dfrac{1}{x^2}=x^{-2}$.",
+                      "Terme par terme :\n$$4\\cdot\\dfrac{x^4}{4}=x^4,\\qquad -6\\cdot\\dfrac{x^2}{2}=-3x^2,\\qquad \\dfrac{x^{-1}}{-1}=-\\dfrac{1}{x}$$",
+                      "Donc $F(x)=x^4-3x^2-\\dfrac{1}{x}$.",
+                      "Contrôle : $F'(x)=4x^3-6x+\\dfrac{1}{x^2}=f(x)$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avec une racine",
+                    "enonce": "Trouver une primitive de $f(x)=\\sqrt{x}$ sur $]0;+\\infty[$.",
+                    "etapes": [
+                      "On écrit la racine comme une puissance : $\\sqrt{x}=x^{\\frac{1}{2}}$.",
+                      "$\\dfrac{x^{\\frac{3}{2}}}{\\frac{3}{2}}=\\dfrac{2}{3}x^{\\frac{3}{2}}$.",
+                      "Donc $F(x)=\\dfrac{2}{3}x\\sqrt{x}$."
+                    ]
+                  },
+                  {
+                    "type": "texte",
+                    "texte": "Parmi toutes les primitives, une seule prend une valeur donnée en un point. On écrit $F(x)=\\ldots+C$, puis on utilise la condition pour trouver $C$."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avec une condition",
+                    "enonce": "Trouver la primitive $F$ de $f(x)=2x+\\cos(x)$ telle que $F(0)=3$.",
+                    "etapes": [
+                      "Toutes les primitives : $F(x)=x^2+\\sin(x)+C$.",
+                      "$F(0)=0+0+C=C$, donc $C=3$.",
+                      "$F(x)=x^2+\\sin(x)+3$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Laquelle de ces fonctions est une primitive de $f(x)=\\sin(x)$ ?",
+                    "choix": [
+                      "$\\cos(x)$",
+                      "$-\\cos(x)+2$",
+                      "$-\\sin(x)$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$\\big(-\\cos(x)+2\\big)'=\\sin(x)$. Attention : la dérivée de $\\cos(x)$ est $-\\sin(x)$, pas $\\sin(x)$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$F$ est la primitive de $f(x)=3x^2$ telle que $F(1)=5$. Que vaut $F(2)$ ?",
+                    "reponse": 12,
+                    "explication": "$F(x)=x^3+C$ et $F(1)=1+C=5$, donc $C=4$. Ainsi $F(2)=8+4=12$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Pour **toutes** les primitives, ne pas oublier le $+C$.\n- $x^{-1}=\\dfrac{1}{x}$ fait exception : sa primitive est $\\ln(x)$.\n- Toujours contrôler en dérivant le résultat."
+                  }
+                ]
+              }
             },
             {
               "titre": "Primitives de fonctions composées",
               "nb": 2,
               "acces": "seuil",
-              "seuil": 80
+              "seuil": 80,
+              "fiche": {
+                "titre": "Primitives de fonctions composées",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Quand une fonction contient une expression $u(x)$ **et** sa dérivée $u'(x)$, elle est la dérivée d'une fonction composée. On reconnaît la forme, puis on remonte."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Formes à reconnaître",
+                    "texte": "Soit $u$ une fonction dérivable sur $I$.\n\n- $u'\\cdot u^n$, avec $n\\neq-1$ : $\\dfrac{u^{n+1}}{n+1}$\n- $\\dfrac{u'}{u}$, si $u>0$ sur $I$ : $\\ln(u)$\n- $\\dfrac{u'}{\\sqrt{u}}$, si $u>0$ sur $I$ : $2\\sqrt{u}$\n- $u'\\cdot\\mathrm{e}^{u}$ : $\\mathrm{e}^{u}$\n- $u'\\cdot\\cos(u)$ : $\\sin(u)$\n- $u'\\cdot\\sin(u)$ : $-\\cos(u)$\n- $f(ax+b)$, avec $a\\neq0$ : $\\dfrac{1}{a}F(ax+b)$, où $F$ est une primitive de $f$"
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver une primitive de $f(x)=2x\\,(x^2+1)^3$.",
+                    "etapes": [
+                      "On pose $u(x)=x^2+1$ ; alors $u'(x)=2x$.",
+                      "$f=u'\\cdot u^3$ : c'est la forme $u'\\cdot u^n$ avec $n=3$.",
+                      "$F(x)=\\dfrac{(x^2+1)^4}{4}$.",
+                      "Contrôle : $F'(x)=\\dfrac{4\\,(x^2+1)^3\\cdot2x}{4}=2x\\,(x^2+1)^3$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Il manque un facteur constant",
+                    "enonce": "Trouver une primitive de $f(x)=x\\,\\mathrm{e}^{x^2}$.",
+                    "etapes": [
+                      "On pose $u(x)=x^2$ ; alors $u'(x)=2x$. Il manque le facteur $2$.",
+                      "On l'ajoute en compensant : $f(x)=\\dfrac{1}{2}\\cdot2x\\,\\mathrm{e}^{x^2}$.",
+                      "$F(x)=\\dfrac{1}{2}\\,\\mathrm{e}^{x^2}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avec une racine",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{2x-1}{\\sqrt{x^2-x+4}}$ sur $\\mathbb{R}$.",
+                    "etapes": [
+                      "On pose $u(x)=x^2-x+4$ ; alors $u'(x)=2x-1$.",
+                      "$u(x)>0$ pour tout $x$ : son discriminant $1-16$ est négatif et son coefficient dominant est positif.",
+                      "$f=\\dfrac{u'}{\\sqrt{u}}$, donc $F(x)=2\\sqrt{x^2-x+4}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Forme $f(ax+b)$",
+                    "enonce": "Trouver une primitive de $f(x)=\\cos(3x+1)$.",
+                    "etapes": [
+                      "Une primitive de $\\cos$ est $\\sin$.",
+                      "Avec $a=3$ : $F(x)=\\dfrac{1}{3}\\sin(3x+1)$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une primitive de $f(x)=\\dfrac{2x}{x^2+1}$ est :",
+                    "choix": [
+                      "$\\ln(x^2+1)$",
+                      "$\\dfrac{1}{x^2+1}$",
+                      "$2\\ln(x^2+1)$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$f=\\dfrac{u'}{u}$ avec $u(x)=x^2+1>0$, donc $F(x)=\\ln(x^2+1)$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$F(x)=\\dfrac{1}{2}\\,\\mathrm{e}^{2x}+C$ est une primitive de $\\mathrm{e}^{2x}$. Quelle valeur de $C$ donne $F(0)=1$ ?",
+                    "reponse": 0.5,
+                    "explication": "$F(0)=\\dfrac{1}{2}+C=1$, donc $C=\\dfrac{1}{2}$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Seul un facteur **constant** se compense. Un facteur en $x$ ne se compense pas : $\\mathrm{e}^{x^2}$ seule n'a pas de primitive qui s'écrive avec les fonctions usuelles.\n- Vérifier la condition sur $u$ (par exemple $u>0$ pour $\\ln(u)$ et $\\sqrt{u}$).\n- Contrôler en dérivant."
+                  }
+                ]
+              }
             },
             {
               "titre": "Calculer une intégrale",
               "nb": 4,
               "acces": "seuil",
-              "seuil": 80
+              "seuil": 80,
+              "fiche": {
+                "titre": "Calculer une intégrale",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Soit $f$ une fonction continue et positive sur $[a;b]$. L'**intégrale** de $f$ de $a$ à $b$, notée $\\displaystyle\\int_a^b f(x)\\,\\mathrm{d}x$, est l'aire du domaine compris entre la courbe de $f$, l'axe des abscisses et les droites $x=a$ et $x=b$."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "x^2/4+1/2"
+                    ],
+                    "x": [
+                      0,
+                      4
+                    ],
+                    "y": [
+                      0,
+                      5
+                    ],
+                    "aire": {
+                      "de": "a",
+                      "a": "b"
+                    },
+                    "curseurs": {
+                      "a": [
+                        0,
+                        4,
+                        1,
+                        0.5
+                      ],
+                      "b": [
+                        0,
+                        4,
+                        3,
+                        0.5
+                      ]
+                    },
+                    "valeur": true,
+                    "legende": "Courbe de $f(x)=\\dfrac{x^2}{4}+\\dfrac{1}{2}$. Déplace $a$ et $b$ : l'aire ombrée et sa valeur changent."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Théorème fondamental",
+                    "texte": "Si $f$ est continue sur $[a;b]$ et si $F$ est une primitive de $f$ sur $[a;b]$, alors\n$$\\int_a^b f(x)\\,\\mathrm{d}x=\\big[F(x)\\big]_a^b=F(b)-F(a).$$"
+                  },
+                  {
+                    "type": "texte",
+                    "texte": "Le résultat ne dépend pas de la primitive choisie : la constante $C$ s'annule dans $F(b)-F(a)$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\displaystyle\\int_1^3 (x^2-2x)\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "Une primitive : $F(x)=\\dfrac{x^3}{3}-x^2$.",
+                      "$F(3)=9-9=0$ et $F(1)=\\dfrac{1}{3}-1=-\\dfrac{2}{3}$.",
+                      "$\\displaystyle\\int_1^3 (x^2-2x)\\,\\mathrm{d}x=0-\\left(-\\dfrac{2}{3}\\right)=\\dfrac{2}{3}$."
+                    ]
+                  },
+                  {
+                    "type": "texte",
+                    "texte": "Là où la courbe passe sous l'axe des abscisses, l'aire compte **négativement** : l'intégrale est une aire algébrique."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "x^2-2x"
+                    ],
+                    "x": [
+                      -0.5,
+                      3.5
+                    ],
+                    "y": [
+                      -1.5,
+                      3
+                    ],
+                    "aire": {
+                      "de": 0,
+                      "a": "b"
+                    },
+                    "curseurs": {
+                      "b": [
+                        0,
+                        3.5,
+                        2,
+                        0.25
+                      ]
+                    },
+                    "valeur": true,
+                    "legende": "Courbe de $f(x)=x^2-2x$. Pour quelle valeur de $b$ l'intégrale de $0$ à $b$ vaut-elle $0$ ?"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Propriétés",
+                    "texte": "- Bornes égales ou échangées :\n$$\\int_a^a f(x)\\,\\mathrm{d}x=0$$\n$$\\int_b^a f(x)\\,\\mathrm{d}x=-\\int_a^b f(x)\\,\\mathrm{d}x$$\n- Linéarité :\n$$\\int_a^b k\\cdot f(x)\\,\\mathrm{d}x=k\\int_a^b f(x)\\,\\mathrm{d}x$$\n$$\\int_a^b (f+g)(x)\\,\\mathrm{d}x=\\int_a^b f(x)\\,\\mathrm{d}x+\\int_a^b g(x)\\,\\mathrm{d}x$$\n- Relation de Chasles : $$\\int_a^c f(x)\\,\\mathrm{d}x=\\int_a^b f(x)\\,\\mathrm{d}x+\\int_b^c f(x)\\,\\mathrm{d}x$$\n- Signe : si $a\\leq b$ et $f\\geq0$ sur $[a;b]$, alors\n$$\\int_a^b f(x)\\,\\mathrm{d}x\\geq0$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\displaystyle\\int_0^{\\frac{\\pi}{2}} -4\\cos(x)\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "Une primitive : $F(x)=-4\\sin(x)$.",
+                      "$F\\left(\\dfrac{\\pi}{2}\\right)=-4$ et $F(0)=0$.",
+                      "L'intégrale vaut $-4-0=-4$. Elle est négative : sur $\\left[0;\\dfrac{\\pi}{2}\\right]$, la courbe est sous l'axe."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\displaystyle\\int_0^2 3x^2\\,\\mathrm{d}x$ ?",
+                    "reponse": 8,
+                    "explication": "Une primitive de $3x^2$ est $x^3$ : $\\big[x^3\\big]_0^2=8-0=8$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "On sait que $\\displaystyle\\int_0^1 f(x)\\,\\mathrm{d}x=2$ et $\\displaystyle\\int_1^3 f(x)\\,\\mathrm{d}x=5$. Que vaut $\\displaystyle\\int_0^3 f(x)\\,\\mathrm{d}x$ ?",
+                    "choix": [
+                      "$3$",
+                      "$7$",
+                      "$10$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Relation de Chasles : $2+5=7$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Encadrer avec des carreaux",
+                    "texte": "Sans primitive, on peut encadrer l'intégrale d'une fonction positive sur un quadrillage : les carreaux entièrement sous la courbe donnent une valeur trop petite, ceux qui sont sous la courbe ou la touchent donnent une valeur trop grande. On multiplie chaque nombre de carreaux par l'aire d'un carreau."
+                  }
+                ]
+              }
             },
             {
               "titre": "Aires et valeur moyenne",
               "nb": 2,
               "acces": "seuil",
-              "seuil": 80
+              "seuil": 80,
+              "fiche": {
+                "titre": "Aires et valeur moyenne",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "titre": "Aire entre deux courbes",
+                    "texte": "Si $f(x)\\geq g(x)$ sur $[a;b]$, l'aire du domaine compris entre les deux courbes et les droites $x=a$ et $x=b$ est\n$$\\mathcal{A}=\\int_a^b \\big(f(x)-g(x)\\big)\\,\\mathrm{d}x.$$\nOn soustrait toujours la courbe du bas à celle du haut."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "-x^2+4",
+                      "x+2"
+                    ],
+                    "x": [
+                      -3,
+                      2
+                    ],
+                    "y": [
+                      -1,
+                      5
+                    ],
+                    "aire": {
+                      "fonction": 0,
+                      "entre": 1,
+                      "de": -2,
+                      "a": 1
+                    },
+                    "valeur": true,
+                    "legende": "Parabole $f(x)=-x^2+4$ et droite $g(x)=x+2$ : le domaine qu'elles délimitent."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer l'aire du domaine délimité par $f(x)=-x^2+4$ et $g(x)=x+2$.",
+                    "etapes": [
+                      "Points d'intersection : $-x^2+4=x+2 \\iff x^2+x-2=0 \\iff x=-2$ ou $x=1$.",
+                      "Sur $[-2;1]$, la parabole est au-dessus de la droite : en $x=0$, $f(0)=4>g(0)=2$.",
+                      "$$\\mathcal{A}=\\int_{-2}^{1}\\big(-x^2+4-(x+2)\\big)\\,\\mathrm{d}x=\\int_{-2}^{1}\\big(-x^2-x+2\\big)\\,\\mathrm{d}x$$",
+                      "$$\\mathcal{A}=\\left[-\\dfrac{x^3}{3}-\\dfrac{x^2}{2}+2x\\right]_{-2}^{1}=\\dfrac{7}{6}-\\left(-\\dfrac{10}{3}\\right)=\\dfrac{9}{2}$$"
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Courbe et axe des abscisses",
+                    "texte": "Si $f$ change de signe sur $[a;b]$, l'aire entre sa courbe et l'axe des abscisses n'est pas $\\displaystyle\\int_a^b f(x)\\,\\mathrm{d}x$ : on découpe aux zéros de $f$ et on additionne les aires des morceaux. Là où $f\\leq0$, l'aire du morceau est l'opposé de son intégrale."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Valeur moyenne",
+                    "texte": "La **valeur moyenne** de $f$ sur $[a;b]$, avec $a<b$, est\n$$\\mu=\\frac{1}{b-a}\\int_a^b f(x)\\,\\mathrm{d}x.$$\nC'est la hauteur du rectangle de base $[a;b]$ qui a la même aire (algébrique) que le domaine sous la courbe."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "x^2",
+                      "3"
+                    ],
+                    "x": [
+                      -0.5,
+                      3.5
+                    ],
+                    "y": [
+                      -1,
+                      10
+                    ],
+                    "aire": {
+                      "de": 0,
+                      "a": 3
+                    },
+                    "valeur": true,
+                    "legende": "La droite $y=3$ donne la valeur moyenne de $f(x)=x^2$ sur $[0;3]$ : le rectangle de hauteur $3$ et de base $3$ a la même aire, $9$, que le domaine ombré."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Théorème de la moyenne",
+                    "texte": "Si $f$ est continue sur $[a;b]$, il existe au moins un nombre $c\\in[a;b]$ tel que $f(c)=\\mu$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer la valeur moyenne de $f(x)=x^2$ sur $[0;3]$, puis un nombre $c$ tel que $f(c)=\\mu$.",
+                    "etapes": [
+                      "$\\displaystyle\\int_0^3 x^2\\,\\mathrm{d}x=\\left[\\dfrac{x^3}{3}\\right]_0^3=9$.",
+                      "$\\mu=\\dfrac{1}{3-0}\\cdot9=3$.",
+                      "$c^2=3$ avec $c\\in[0;3]$, donc $c=\\sqrt{3}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la valeur moyenne de $f(x)=2x+1$ sur $[0;4]$ ?",
+                    "reponse": 5,
+                    "explication": "$\\displaystyle\\int_0^4(2x+1)\\,\\mathrm{d}x=\\big[x^2+x\\big]_0^4=20$, donc $\\mu=\\dfrac{20}{4}=5$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est l'aire du domaine compris entre $f(x)=x$ et $g(x)=x^2$ sur $[0;1]$ ?",
+                    "choix": [
+                      "$\\dfrac{1}{6}$",
+                      "$\\dfrac{5}{6}$",
+                      "$-\\dfrac{1}{6}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Sur $[0;1]$, $x\\geq x^2$, donc\n$$\\mathcal{A}=\\int_0^1(x-x^2)\\,\\mathrm{d}x=\\dfrac{1}{2}-\\dfrac{1}{3}=\\dfrac{1}{6}.$$\nUne aire n'est jamais négative."
+                  }
+                ]
+              }
             }
           ],
           "etapes": [

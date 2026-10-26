@@ -10,9 +10,14 @@ l'app : elle les lit dans ce dossier, comme ceux des enseignants.
   « Intégration »). L'app range l'Explorer par degré puis par chapitre dans
   l'ordre du référentiel et en déduit le pays (un degré suisse, sinon France).
 - Exercices interactifs, `uuid` lus sur le site ou dans le moteur.
+- Fiches de cours dans les paliers (`fiche`, format dans
+  `docs/guide/format-parcours.md`), rédigées pour l'app et relues avant d'être
+  déposées. Figures plus riches que les graphiques de l'app : images SVG ou
+  PNG produites par Typst ou TikZ, intégrées au fichier.
 
 Fichiers :
 
 - `ch-4e-college.json` : Suisse, 4e Collège, Intégration (chapitre 4mInt) :
-  « Primitives et intégrales » (ceintures blanche à verte) et « Intégration
-  par parties et volumes » (bleue et marron).
+  « Primitives et intégrales » (ceintures blanche à verte, une fiche par
+  ceinture, montrée d'office) et « Intégration par parties et volumes »
+  (bleue et marron, sans fiche pour l'instant).

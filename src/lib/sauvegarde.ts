@@ -112,6 +112,7 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
   classes: (v) => listeDe(v, estDossier) && sansDoublon((v as { lien: string }[]).map((c) => c.lien)),
   bibliotheque: estBibliotheque,
   epingles: textesUniques,
+  'fiches-vues': textesUniques, // fiches de cours déjà montrées d'office (« id#rang du palier »)
   chapitres: (v) => dictionnaireDe(v, (o) => estObjet(o) && textesUniques(o.ordre) && textesUniques(o.fermes)),
   explorer: parcoursUniques,
   ajoutes: parcoursUniques,

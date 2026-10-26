@@ -226,6 +226,15 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   « Commencer » ajoute le parcours à Mes parcours ; l'enseignant le reprend par
   « Donner à des classes » (`adopter`, puis sa page). Test :
   `node e2e/explorer.mjs` (catalogue d'essai servi en local, voir l'en-tête).
+- Fiches de cours (`Fiche` dans `catalogue.ts`, écran `Cours.svelte`) : portées
+  par le palier (`fiche`) ou le parcours, elles voyagent avec lui et la séance
+  en garde la copie. Blocs texte, retenir, exemple (étapes dévoilées),
+  question (non notée), graphique (tracé par l'app : `expression.ts`, sans eval,
+  `GraphiqueCours.svelte`), image (SVG ou PNG intégré, fait par Typst ou TikZ)
+  et lien. Texte enrichi `texteRiche.ts` (tout échappé, formules par
+  `titreHtml` du moteur). `avant` : montrée d'office avant la première séance
+  du palier (clé `fiches-vues`), puis « Fiche : … » sur la page du parcours et
+  « Revoir la fiche » au bilan sous le seuil. Format : `docs/guide/format-parcours.md`.
 - Titres d'exercices : titre MathALÉA sans référence par défaut, modifiable ou
   masqué à la création (fait).
 - Séance : la barre d'actions ne suit plus le clavier qui se referme (fait).

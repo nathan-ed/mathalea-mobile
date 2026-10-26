@@ -60,6 +60,7 @@
         "correction": { "enum": ["question", "page", "parcours"], "description": "Correction après chaque question, à la fin de chaque page, ou à la fin (du palier avec des paliers)." },
         "enTetesMasques": { "type": "boolean", "description": "Ni numéro ni titre d'exercice : les questions s'enchaînent." },
         "melanger": { "type": "boolean", "description": "Questions des exercices mélangées (sans effet avec un_exo_par_page)." },
+        "fiche": { "$ref": "#/$defs/fiche", "description": "Fiche de cours du parcours (parcours sans paliers) ; avec des paliers, celle du premier s'il n'en a pas." },
         "etapes": { "type": "array", "items": { "$ref": "#/$defs/etape" } },
         "paliers": {
           "type": "array",
@@ -101,7 +102,48 @@
           "description": "Contenu affiché après le palier (point de cours, encouragement).",
           "required": ["texte"],
           "properties": { "texte": { "type": "string" }, "ressource": { "$ref": "#/$defs/ressource" } }
-        }
+        },
+        "fiche": { "$ref": "#/$defs/fiche", "description": "Fiche de cours du palier." }
+      }
+    },
+    "fiche": {
+      "type": "object",
+      "description": "Fiche de cours lue dans l'application. Textes : **gras**, *italique*, listes (lignes « - »), formules LaTeX entre $ ou $$ (centrées).",
+      "required": ["titre", "blocs"],
+      "properties": {
+        "titre": { "type": "string" },
+        "avant": { "type": "boolean", "description": "Montrée d'office avant la première séance du palier (ou du parcours), avec « Commencer l'entraînement »." },
+        "blocs": { "type": "array", "items": { "$ref": "#/$defs/bloc" } }
+      }
+    },
+    "bloc": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["texte", "retenir", "exemple", "question", "graphique", "image", "lien"] },
+        "texte": { "type": "string", "description": "texte, retenir." },
+        "titre": { "type": "string", "description": "retenir et exemple (facultatif), lien (obligatoire)." },
+        "enonce": { "type": "string", "description": "exemple, question." },
+        "etapes": { "type": "array", "items": { "type": "string" }, "description": "exemple : étapes dévoilées une à une." },
+        "choix": { "type": "array", "items": { "type": "string" }, "minItems": 2, "description": "question à choix." },
+        "bonne": { "type": "integer", "minimum": 0, "description": "question à choix : rang de la bonne réponse (0 : la première)." },
+        "reponse": { "type": "number", "description": "question à réponse numérique (sans choix)." },
+        "explication": { "type": "string", "description": "question : montrée après la réponse." },
+        "fonctions": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "graphique : expressions en x et en noms de curseurs (x^2/4+1/2, a*sin(x), exp, ln, sqrt, pi, e)." },
+        "x": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "graphique : fenêtre en abscisse." },
+        "y": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "graphique : fenêtre en ordonnée." },
+        "aire": {
+          "type": "object",
+          "description": "graphique : aire ombrée sous la fonction (rang dans fonctions, 0 par défaut) ou entre deux fonctions ; bornes : nombre ou nom de curseur.",
+          "required": ["de", "a"],
+          "properties": { "fonction": { "type": "integer", "minimum": 0 }, "entre": { "type": "integer", "minimum": 0 }, "de": { "type": ["number", "string"] }, "a": { "type": ["number", "string"] } }
+        },
+        "curseurs": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 4 }, "description": "graphique : nom d'une lettre (ni x ni e) : [min, max, valeur, pas]." },
+        "valeur": { "type": "boolean", "description": "graphique : affiche la valeur de l'intégrale (ou de l'aire entre deux fonctions)." },
+        "legende": { "type": "string", "description": "graphique, image." },
+        "src": { "type": "string", "description": "image : data:image/svg+xml, png, jpeg ou webp, dans le fichier." },
+        "alt": { "type": "string", "description": "image : description pour qui ne la voit pas." },
+        "lien": { "type": "string", "description": "lien : adresse https (PDF, vidéo)." }
       }
     },
     "ressource": {

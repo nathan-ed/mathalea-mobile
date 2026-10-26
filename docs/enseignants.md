@@ -264,6 +264,11 @@ plus récent remplace l'ancien.
   Un parcours commencé rejoint Mes parcours. L'enseignant le reprend avec
   « Donner à des classes » : il entre dans sa bibliothèque, puis il choisit
   les classes sur sa page.
+- Un palier peut avoir sa fiche de cours (formules, graphiques à manipuler,
+  exemples pas à pas, questions qui ne comptent pas). Elle s'affiche d'office
+  avant la première séance si elle est prévue ainsi, puis reste sur la page
+  du parcours et revient au bilan quand le palier n'est pas réussi. Format :
+  guide, « Format des parcours ».
 - « Teste ton niveau », en tête de l'Explorer, est ouvert à tous : questions
   des sujets de la Course aux nombres, du CM1 à la Terminale. Par niveau,
   15 questions de tous les domaines (nombres et calcul, mesures, géométrie,

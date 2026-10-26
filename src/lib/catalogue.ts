@@ -31,6 +31,41 @@ export interface Pause {
 }
 
 /**
+ * Fiche de cours : lue dans l'app avant de s'entraîner (d'office la première
+ * fois si `avant`), puis gardée comme ressource. Portée par le parcours, elle
+ * voyage avec lui et la séance en garde la copie figée.
+ */
+export interface Fiche {
+  titre: string
+  avant?: boolean // montrée d'office avant la première séance du palier (ou du parcours)
+  blocs: Bloc[]
+}
+
+/**
+ * Blocs d'une fiche. Les textes acceptent **gras**, *italique*, les listes
+ * (lignes « - ») et les formules LaTeX entre $ (dans la ligne) ou $$ (centrées).
+ */
+export type Bloc =
+  | { type: 'texte'; texte: string }
+  | { type: 'retenir'; titre?: string; texte: string } // encadré « À retenir »
+  | { type: 'exemple'; titre?: string; enonce: string; etapes: string[] } // étapes dévoilées une à une
+  | { type: 'question'; enonce: string; choix?: string[]; bonne?: number; reponse?: number; explication: string } // non notée
+  | ({ type: 'graphique' } & Graphique)
+  | { type: 'image'; src: string; alt: string; legende?: string } // SVG ou PNG dans le fichier (data:)
+  | { type: 'lien'; titre: string; lien: string } // PDF, vidéo… ouvert hors de l'app
+
+/** Graphique tracé par l'app : courbes, aire ombrée entre deux bornes, curseurs */
+export interface Graphique {
+  fonctions: string[] // expressions en x (et en noms de curseurs) : « x^2/4+1/2 », « a*sin(x) »
+  x: [number, number]
+  y: [number, number]
+  aire?: { fonction?: number; entre?: number; de: number | string; a: number | string } // bornes : nombre ou nom de curseur
+  curseurs?: Record<string, [number, number, number] | [number, number, number, number]> // min, max, valeur, pas
+  valeur?: boolean // affiche la valeur de l'intégrale, calculée
+  legende?: string
+}
+
+/**
  * Palier : suite d'exercices consécutifs du parcours. Les étapes restent une
  * seule liste (les anciennes versions de l'app ignorent les paliers et
  * affichent tout le parcours).
@@ -42,6 +77,7 @@ export interface Palier {
   seuil?: number // pourcentage à atteindre au palier précédent (accès « seuil »)
   ressource?: Ressource // pour revoir la notion, mise en avant tant que le palier n'est pas réussi
   pause?: Pause // affichée après le palier
+  fiche?: Fiche // cours du palier
 }
 
 export interface Parcours {
@@ -62,6 +98,7 @@ export interface Parcours {
   premiereCeinture?: number // rang dans CEINTURES de la première ceinture (0 : blanche)
   enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
   melanger?: boolean // questions de plusieurs exercices dans un ordre mélangé (sauf un exercice par page)
+  fiche?: Fiche // cours du parcours entier (parcours sans paliers, ou fiche générale)
 }
 
 /** Ordre mélangé : seulement si une page ou le parcours mêle plusieurs exercices */
@@ -97,7 +134,10 @@ export const couleurCeinture = (p: OptionsCeintures, k: number) => CEINTURES[Mat
 export function paliersDe(p: Parcours) {
   const paliers = p.paliers ?? []
   const valides = paliers.length > 1 && paliers.reduce((a, x) => a + x.nb, 0) === p.etapes.length
-  if (!valides) return [{ titre: '', etapes: p.etapes.map((_, i) => i), acces: 'libre' as Acces, seuil: 0, ressource: undefined as Ressource | undefined, pause: undefined as Pause | undefined }]
+  if (!valides)
+    return [
+      { titre: '', etapes: p.etapes.map((_, i) => i), acces: 'libre' as Acces, seuil: 0, ressource: undefined as Ressource | undefined, pause: undefined as Pause | undefined, fiche: p.fiche },
+    ]
   let debut = 0
   return paliers.map((x, k) => {
     const etapes = Array.from({ length: x.nb }, (_, j) => debut + j)
@@ -109,8 +149,21 @@ export function paliersDe(p: Parcours) {
       seuil: x.seuil ?? 80,
       ressource: x.ressource,
       pause: x.pause,
+      fiche: x.fiche ?? (k === 0 ? p.fiche : undefined),
     }
   })
+}
+
+/**
+ * Fiche de cours de ces exercices : celle de leur palier (la fiche du
+ * parcours compte pour le premier), avec la clé qui retient qu'elle a été
+ * montrée d'office.
+ */
+export function ficheDe(p: Parcours, etapes?: number[]): { fiche: Fiche; cle: string } | null {
+  const paliers = paliersDe(p)
+  const k = etapes ? paliers.findIndex((x) => x.etapes.join() === etapes.join()) : 0
+  const fiche = paliers[k]?.fiche ?? (k <= 0 ? p.fiche : undefined)
+  return fiche ? { fiche, cle: `${p.id}#${Math.max(k, 0)}` } : null
 }
 
 /** Organisation en quelques mots, pour les tuiles : « 3 paliers », « Ceintures orange à bleue » */

@@ -271,9 +271,15 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   enseignant : « Donner à des classes » (`adopter`, puis sa page). Sources
   du catalogue dans `explorer/` (Suisse : `ch-4e-college.json`, chapitre
   4mInt). Le référentiel se lit dans le moteur compilé (`listerExercices`),
-  même sans accès à la forge. Test : `node e2e/explorer.mjs`. À venir :
-  fiches de cours interactives avant une ceinture, « ceinture générale » de
-  chapitre (plusieurs parcours courts).
+  même sans accès à la forge (moteur extrait d'un `.deb` de release si
+  besoin). Test : `node e2e/explorer.mjs`. À venir : « ceinture générale »
+  de chapitre (plusieurs parcours courts), à confirmer par Nathan.
+- Fiches de cours (Nathan, 2026-10-26) : écrites par Claude, relues « très
+  attentivement » par Nathan ; s'inspirer d'Alloprof sans copier. Pas
+  d'éditeur dans l'app. Graphiques tracés par l'app (« ne pas utiliser tout
+  le moteur »), figures riches en SVG/PNG faites par Typst ou TikZ. Fiche
+  d'office la première fois si `avant`, sinon ressource du parcours. Voir
+  `docs/developpement.md` (Fiches de cours) ; à reporter sur `?v=parcours`.
 - Démonstration : `static/demo/parcours-demonstration.json`
   (`npx tsx scripts/demonstration.mts`), chargée et retirée dans les Réglages
   (enseignant), classe `LIEN_DEMONSTRATION` jamais synchronisée.

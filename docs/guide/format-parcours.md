@@ -71,6 +71,7 @@ Une classe, un parcours, un exercice :
 | `correction` | **obligatoire** ; `question`, `page` ou `parcours` (à la fin, ou à la fin du palier) |
 | `enTetesMasques` | facultatif ; `true` : ni numéro ni titre d'exercice, les questions s'enchaînent |
 | `melanger` | facultatif ; `true` : questions des exercices mélangées (sans effet avec `un_exo_par_page`) |
+| `fiche` | facultatif ; fiche de cours d'un parcours sans paliers, voir « Fiches de cours » |
 | `etapes` | **obligatoire** ; liste d'exercices, dans l'ordre |
 | `paliers` | facultatif ; découpe en paliers, voir plus bas |
 | `style` | facultatif ; `paliers` ou `ceintures` |
@@ -110,8 +111,46 @@ Choisissez des exercices interactifs : ce sont ceux que l'application corrige. L
 | `seuil` | pourcentage à atteindre au palier précédent, de 0 à 100 (80 par défaut) |
 | `ressource` | `{ "titre", "lien" }` : pour revoir la notion, proposée tant que le palier n'est pas réussi |
 | `pause` | `{ "texte", "ressource" }` : affichée après le palier |
+| `fiche` | fiche de cours du palier, voir plus bas |
 
 `style` : `paliers` (Palier 1, 2…) ou `ceintures`. `premiereCeinture` : rang de la première ceinture, de `0` à `6` (blanche, jaune, orange, verte, bleue, marron, noire). Au-delà de la noire viennent les dan.
+
+## Fiches de cours
+
+Une fiche est une page de cours lue dans l'application : texte, formules, graphiques que l'élève manipule, exemples résolus pas à pas, petites questions avec un retour immédiat, qui ne comptent pas. Elle se place dans un palier (`fiche` du palier) ou dans un parcours sans paliers (`fiche` du parcours). Avec `"avant": true`, elle s'affiche d'office avant la première séance, avec « Commencer l'entraînement » en bas ; sinon, et ensuite, elle reste accessible depuis la page du parcours (« Fiche : … ») et depuis le bilan quand le palier n'est pas réussi.
+
+| Champ de la fiche | Valeur |
+| --- | --- |
+| `titre` | texte (obligatoire) |
+| `avant` | `true` : montrée d'office la première fois |
+| `blocs` | liste de blocs, dans l'ordre (obligatoire) |
+
+Dans les textes : `**gras**`, `*italique*`, listes (lignes commençant par `- `, une ligne sans tiret continue l'élément), formules LaTeX entre `$` (dans la ligne) ou `$$` (centrées, sur leur ligne). Un paragraphe vide sépare deux paragraphes.
+
+| Bloc (`type`) | Champs |
+| --- | --- |
+| `texte` | `texte` |
+| `retenir` | `texte`, `titre` (« À retenir » par défaut) : encadré |
+| `exemple` | `enonce`, `etapes` (dévoilées une à une), `titre` (« Exemple » par défaut) |
+| `question` | `enonce`, `explication`, et soit `choix` (au moins deux) avec `bonne` (rang, 0 pour la première), soit `reponse` (nombre) |
+| `graphique` | `fonctions` (expressions en `x` : `x^2/4+1/2`, `2e^(-x)`, `a*sin(x)`), `x` et `y` (fenêtre `[min, max]`), facultatifs : `aire` (`de`, `a`, `fonction`, `entre`), `curseurs` (`{ "a": [min, max, valeur, pas] }`), `valeur` (`true` : valeur de l'intégrale), `legende` |
+| `image` | `src` (`data:image/svg+xml…` ou PNG, dans le fichier), `alt`, `legende` |
+| `lien` | `titre`, `lien` (https : PDF, vidéo) |
+
+Graphiques : fonctions `sin`, `cos`, `tan`, `exp`, `ln`, `log`, `sqrt`, `abs`, constantes `pi` et `e`, multiplication sous-entendue (`2x`, `3(x+1)`). Une borne d'`aire` est un nombre ou le nom d'un curseur (une lettre, ni `x` ni `e`). Une expression qui ne se calcule pas rend le fichier invalide. Pour une figure plus riche, produisez une image SVG ou PNG (Typst, TikZ…) et mettez-la dans un bloc `image`.
+
+```json
+{
+  "titre": "Calculer une intégrale",
+  "avant": true,
+  "blocs": [
+    { "type": "retenir", "titre": "Théorème fondamental", "texte": "$$\\int_a^b f(x)\\,\\mathrm{d}x=F(b)-F(a)$$" },
+    { "type": "graphique", "fonctions": ["x^2/4+1/2"], "x": [0, 4], "y": [0, 5], "aire": { "de": "a", "a": "b" }, "curseurs": { "a": [0, 4, 1, 0.5], "b": [0, 4, 3, 0.5] }, "valeur": true },
+    { "type": "exemple", "enonce": "Calculer $\\int_1^3 2x\\,\\mathrm{d}x$.", "etapes": ["Une primitive : $x^2$.", "$3^2-1^2=8$."] },
+    { "type": "question", "enonce": "Que vaut $\\int_0^2 3x^2\\,\\mathrm{d}x$ ?", "reponse": 8, "explication": "$\\big[x^3\\big]_0^2=8$." }
+  ]
+}
+```
 
 ## Objectifs
 
