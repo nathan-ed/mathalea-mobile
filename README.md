@@ -9,6 +9,7 @@ connaît aucun compte ni mot de passe.
 - Prise en main pas à pas, avec captures : https://coopmaths.forge.apps.education.fr/mathalea-mobile/ (sources : [docs/guide](docs/guide/index.md), captures `node e2e/guide.mjs`)
 - Guide enseignant détaillé : [docs/enseignants.md](docs/enseignants.md)
 - Développement, architecture, à faire : [docs/developpement.md](docs/developpement.md)
+- À reporter sur la page `?v=parcours` du site (fiches de cours) : [docs/a-reporter-site-parcours.md](docs/a-reporter-site-parcours.md)
 - Installateurs : [releases/](releases/)
 
 Dossiers de démonstration (sept parcours) à coller dans l'application :

@@ -279,7 +279,10 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   d'éditeur dans l'app. Graphiques tracés par l'app (« ne pas utiliser tout
   le moteur »), figures riches en SVG/PNG faites par Typst ou TikZ. Fiche
   d'office la première fois si `avant`, sinon ressource du parcours. Voir
-  `docs/developpement.md` (Fiches de cours) ; à reporter sur `?v=parcours`.
+  `docs/developpement.md` (Fiches de cours). Report sur `?v=parcours` :
+  Nathan le fait lui-même en local d'après `docs/a-reporter-site-parcours.md`.
+- Parcours de l'Explorer : seulement des exercices référencés dans le
+  référentiel du pays (pas « Non classés », pas d'exercice français en Suisse).
 - Démonstration : `static/demo/parcours-demonstration.json`
   (`npx tsx scripts/demonstration.mts`), chargée et retirée dans les Réglages
   (enseignant), classe `LIEN_DEMONSTRATION` jamais synchronisée.

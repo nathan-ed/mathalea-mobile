@@ -108,7 +108,7 @@ for (const [appareil, theme] of [
   // Référentiel lu par le moteur : attendre qu'il ait rangé l'Explorer
   await e.waitForTimeout(1500)
   const racine = await texte(e)
-  ok(racine.includes('4e Collège') && racine.includes('2 parcours'), `${suffixe} : degré 4e Collège, 2 parcours`)
+  ok(racine.includes('4e Collège') && racine.includes('1 parcours'), `${suffixe} : degré 4e Collège, 1 parcours`)
   ok(!/\b9e\b|\b10e\b|\b11e\b|1re Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
   ok(!racine.includes('5e') && !racine.includes('Nombres relatifs'), `${suffixe} : aucun parcours français en Suisse`)
   ok(!(await debordement(e)), `${suffixe} : pas de défilement horizontal`)
@@ -118,14 +118,14 @@ for (const [appareil, theme] of [
   await e.waitForTimeout(300)
   ok((await titre(e)) === '4e Collège', `${suffixe} : écran du degré`)
   const chapitre = e.getByRole('button', { name: /^Intégration/ })
-  ok((await texte(e)).includes('Intégration 2 parcours'), `${suffixe} : chapitre du référentiel avec ses parcours`)
+  ok((await texte(e)).includes('Intégration 1 parcours'), `${suffixe} : chapitre du référentiel avec ses parcours`)
   await cap(e, `2-chapitres-${suffixe}`)
 
   await chapitre.click()
   await e.waitForTimeout(300)
   ok((await titre(e)) === 'Intégration', `${suffixe} : écran du chapitre`)
   const liste = await texte(e)
-  ok(liste.indexOf('Primitives et intégrales') !== -1 && liste.indexOf('Primitives et intégrales') < liste.indexOf('Intégration par parties'), `${suffixe} : parcours de Découverte à Approfondissement`)
+  ok(liste.includes('Primitives et intégrales') && liste.includes('6 ceintures') || liste.includes('Ceintures blanche à marron'), `${suffixe} : parcours du chapitre, ses ceintures`)
   await cap(e, `3-parcours-${suffixe}`)
 
   // Bouton retour du téléphone : chapitre, degré, Explorer, puis Mes parcours
@@ -196,10 +196,10 @@ for (const [appareil, theme] of [
     await e.waitForTimeout(400)
     if (libelle.includes('bilan')) break
   }
-  ok(n + 1 === 8, `${suffixe} : 8 questions dans la ceinture blanche (${n + 1})`)
-  ok(types.has('case') && types.has('champ'), `${suffixe} : vrai/faux et expressions saisies`)
+  ok(n + 1 === 5, `${suffixe} : 5 questions dans la ceinture blanche (${n + 1})`)
+  ok(types.has('champ'), `${suffixe} : expressions saisies au clavier`)
   const bilan = await texte(e)
-  ok(/\d+ \/ 8/.test(bilan), `${suffixe} : bilan sur 8 questions`)
+  ok(/\d+ \/ 5/.test(bilan), `${suffixe} : bilan sur 5 questions`)
   await cap(e, `6-bilan-${suffixe}`)
   ok(await e.getByRole('button', { name: 'Revoir la fiche : Primitives' }).isVisible(), `${suffixe} : bilan sous le seuil, fiche à revoir`)
   await e.getByRole('button', { name: 'Voir la carte du parcours' }).click()

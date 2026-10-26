@@ -9,7 +9,7 @@
           "id": "ch-4c-integrales",
           "version": 1,
           "titre": "Primitives et intégrales",
-          "objectif": "Trouver une primitive, calculer une intégrale, y compris avec ln et exp, et l'utiliser pour une aire.",
+          "objectif": "Trouver une primitive, calculer une intégrale, y compris avec ln et exp, et l'utiliser pour une aire ou un volume.",
           "niveau": "4e Collège",
           "theme": "Intégration",
           "difficulte": 2,
@@ -22,7 +22,7 @@
           "paliers": [
             {
               "titre": "Primitives",
-              "nb": 3,
+              "nb": 2,
               "fiche": {
                 "titre": "Primitives",
                 "avant": true,
@@ -206,7 +206,7 @@
             },
             {
               "titre": "Calculer une intégrale",
-              "nb": 4,
+              "nb": 2,
               "acces": "seuil",
               "seuil": 80,
               "fiche": {
@@ -331,18 +331,13 @@
                     ],
                     "bonne": 1,
                     "explication": "Relation de Chasles : $2+5=7$."
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Encadrer avec des carreaux",
-                    "texte": "Sans primitive, on peut encadrer l'intégrale d'une fonction positive sur un quadrillage : les carreaux entièrement sous la courbe donnent une valeur trop petite, ceux qui sont sous la courbe ou la touchent donnent une valeur trop grande. On multiplie chaque nombre de carreaux par l'aire d'un carreau."
                   }
                 ]
               }
             },
             {
               "titre": "Exponentielle et logarithme",
-              "nb": 4,
+              "nb": 2,
               "acces": "seuil",
               "seuil": 80,
               "fiche": {
@@ -555,14 +550,105 @@
                   }
                 ]
               }
+            },
+            {
+              "titre": "Volumes de révolution",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Volumes de révolution",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "On fait tourner autour de l'axe des abscisses le domaine compris entre la courbe de $f$, l'axe et les droites $x=a$ et $x=b$. On obtient un **solide de révolution** : un cône, un cylindre, une coupe…"
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "sqrt(x)",
+                      "-sqrt(x)"
+                    ],
+                    "x": [
+                      0,
+                      4.5
+                    ],
+                    "y": [
+                      -2.5,
+                      2.5
+                    ],
+                    "aire": {
+                      "fonction": 0,
+                      "entre": 1,
+                      "de": 0,
+                      "a": "b"
+                    },
+                    "curseurs": {
+                      "b": [
+                        0.5,
+                        4.5,
+                        4,
+                        0.5
+                      ]
+                    },
+                    "legende": "Coupe du solide obtenu en faisant tourner la courbe de $f(x)=\\sqrt{x}$ autour de l'axe des abscisses, de $0$ à $b$."
+                  },
+                  {
+                    "type": "texte",
+                    "texte": "On découpe le solide en tranches très fines, perpendiculaires à l'axe. En $x$, la tranche est un disque de rayon $|f(x)|$, d'aire $\\pi\\, f(x)^2$. On additionne ces aires de $a$ à $b$ : c'est une intégrale."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Volume",
+                    "texte": "Si $f$ est continue sur $[a;b]$, le volume du solide de révolution est\n$$V=\\pi\\int_a^b f(x)^2\\,\\mathrm{d}x$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Le cône",
+                    "enonce": "Retrouver le volume d'un cône de rayon $r$ et de hauteur $h$.",
+                    "etapes": [
+                      "Le cône s'obtient en faisant tourner la droite $f(x)=\\dfrac{r}{h}\\,x$ sur $[0;h]$.",
+                      "$$V=\\pi\\int_0^h \\dfrac{r^2}{h^2}\\,x^2\\,\\mathrm{d}x=\\pi\\,\\dfrac{r^2}{h^2}\\left[\\dfrac{x^3}{3}\\right]_0^h$$",
+                      "$V=\\dfrac{\\pi r^2 h}{3}$ : la formule connue du cône."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer le volume engendré par $f(x)=-2x+3$ entre $x=1$ et $x=3$.",
+                    "etapes": [
+                      "$f(x)^2=(-2x+3)^2=4x^2-12x+9$.",
+                      "Une primitive : $\\dfrac{4x^3}{3}-6x^2+9x$. Elle vaut $9$ en $3$ et $\\dfrac{13}{3}$ en $1$.",
+                      "$$V=\\pi\\left(9-\\dfrac{13}{3}\\right)=\\dfrac{14\\pi}{3}$$"
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "On fait tourner $f(x)=2$ sur $[0;3]$ : on obtient un cylindre. Son volume vaut $k\\pi$. Que vaut $k$ ?",
+                    "reponse": 12,
+                    "explication": "$V=\\pi\\displaystyle\\int_0^3 2^2\\,\\mathrm{d}x=\\pi\\cdot4\\cdot3=12\\pi$, comme $\\pi r^2h$ avec $r=2$ et $h=3$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel est le volume engendré par $f(x)=\\sqrt{x}$ sur $[0;4]$ ?",
+                    "choix": [
+                      "$8\\pi$",
+                      "$16\\pi$",
+                      "$\\dfrac{16\\pi}{3}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$f(x)^2=x$, donc $V=\\pi\\displaystyle\\int_0^4 x\\,\\mathrm{d}x=\\pi\\left[\\dfrac{x^2}{2}\\right]_0^4=8\\pi$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- On élève $f(x)$ au carré **avant** d'intégrer.\n- Ne pas oublier le facteur $\\pi$.\n- Un volume est toujours positif : $f(x)^2\\geq0$."
+                  }
+                ]
+              }
             }
           ],
           "etapes": [
-            {
-              "uuid": "b144a",
-              "nbQuestions": 3,
-              "titre": "Connaître le cours sur les primitives"
-            },
             {
               "uuid": "97303",
               "id": "4mInt-1",
@@ -588,17 +674,6 @@
               "titre": "Déterminer la primitive d'une fonction composée vérifiant une condition"
             },
             {
-              "uuid": "d4595",
-              "id": "TSA8-10",
-              "nbQuestions": 3,
-              "titre": "Connaître le cours sur le calcul intégral"
-            },
-            {
-              "uuid": "667d9",
-              "nbQuestions": 1,
-              "titre": "Encadrer une intégrale"
-            },
-            {
               "uuid": "7d5ee",
               "id": "4mInt-5",
               "nbQuestions": 3,
@@ -617,16 +692,6 @@
               "titre": "Calculer la dérivée de $\\ln(u)$"
             },
             {
-              "uuid": "fe22f",
-              "nbQuestions": 1,
-              "titre": "Déterminer une primitive avec un logarithme"
-            },
-            {
-              "uuid": "ed974",
-              "nbQuestions": 1,
-              "titre": "Déterminer une primitive d'une exponentielle"
-            },
-            {
               "uuid": "0f7aa",
               "id": "4mExpLog-1",
               "nbQuestions": 3,
@@ -643,42 +708,6 @@
               "id": "4mInt-7",
               "nbQuestions": 1,
               "titre": "Déterminer une valeur moyenne et appliquer le théorème de la moyenne"
-            }
-          ]
-        },
-        {
-          "id": "ch-4c-integrales-plus",
-          "version": 1,
-          "titre": "Intégration par parties et volumes",
-          "objectif": "Intégrer un produit et calculer le volume d'un solide de révolution.",
-          "niveau": "4e Collège",
-          "theme": "Intégration",
-          "difficulte": 3,
-          "icone": "bx-cylinder",
-          "presentation": "une_question_par_page",
-          "correction": "question",
-          "enTetesMasques": true,
-          "melanger": true,
-          "style": "ceintures",
-          "premiereCeinture": 4,
-          "paliers": [
-            {
-              "titre": "Intégration par parties",
-              "nb": 1
-            },
-            {
-              "titre": "Volumes de révolution",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80
-            }
-          ],
-          "etapes": [
-            {
-              "uuid": "7773c",
-              "id": "TSA8-41",
-              "nbQuestions": 3,
-              "titre": "Calculer une intégrale avec une intégration par parties"
             },
             {
               "uuid": "bae8f",

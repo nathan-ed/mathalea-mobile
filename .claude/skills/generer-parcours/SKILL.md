@@ -21,7 +21,9 @@ change, mettre à jour la page, le schéma et l'exemple (un test les compare,
    chaînes). Ne jamais inventer d'uuid. Dans ce dépôt, le référentiel est
    lisible par le moteur (`listerExercices`) ou dans le clone
    `~/.cache/mathalea-mobile/mathalea/src/json/referentiel2022FR.json`.
-   Exercices interactifs seulement.
+   Exercices interactifs seulement, et **référencés** dans le référentiel du
+   pays (Nathan, 2026-10-26) : jamais « Non classés » ni un exercice pris dans
+   le référentiel de l'autre pays.
 2. Parcours : `id` en minuscules et tirets, stable ; `version` 1 pour un
    nouveau, +1 pour toute modification d'un parcours diffusé ; `titre`,
    `objectif` (une phrase pour l'élève), `niveau`, `theme`, `difficulte`

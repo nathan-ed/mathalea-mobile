@@ -9,7 +9,10 @@ l'app : elle les lit dans ce dossier, comme ceux des enseignants.
 - `niveau` et `theme` : noms du référentiel de MathALÉA (« 4e Collège »,
   « Intégration »). L'app range l'Explorer par degré puis par chapitre dans
   l'ordre du référentiel et en déduit le pays (un degré suisse, sinon France).
-- Exercices interactifs, `uuid` lus sur le site ou dans le moteur.
+- Seulement des exercices **référencés** dans le référentiel du pays, au
+  degré du parcours ou dans ses chapitres (jamais « Non classés » ni un
+  exercice d'un autre pays). Interactifs, `uuid` lus sur le site ou dans le
+  moteur.
 - Fiches de cours dans les paliers (`fiche`, format dans
   `docs/guide/format-parcours.md`), rédigées pour l'app et relues avant d'être
   déposées. Figures plus riches que les graphiques de l'app : images SVG ou
@@ -18,6 +21,7 @@ l'app : elle les lit dans ce dossier, comme ceux des enseignants.
 Fichiers :
 
 - `ch-4e-college.json` : Suisse, 4e Collège, Intégration (chapitre 4mInt) :
-  « Primitives et intégrales » (ceintures blanche à bleue, une fiche par
-  ceinture, montrée d'office) et « Intégration par parties et volumes »
-  (bleue et marron, sans fiche pour l'instant).
+  « Primitives et intégrales », six ceintures (blanche à marron) : primitives,
+  fonctions composées, intégrale, exponentielle et logarithme, aires et
+  valeur moyenne, volumes de révolution. Exercices 4mInt, 4mAna-1 et
+  4mExpLog-1 ; une fiche par ceinture, montrée d'office.
