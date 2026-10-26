@@ -125,7 +125,7 @@ Une fiche est une page de cours lue dans l'application : texte, formules, graphi
 | `avant` | `true` : montrée d'office la première fois |
 | `blocs` | liste de blocs, dans l'ordre (obligatoire) |
 
-Dans les textes : `**gras**`, `*italique*`, listes (lignes commençant par `- `, une ligne sans tiret continue l'élément), formules LaTeX entre `$` (dans la ligne) ou `$$` (centrées, sur leur ligne). Un paragraphe vide sépare deux paragraphes.
+Dans les textes : `**gras**`, `*italique*`, listes (lignes commençant par `- `, une ligne sans tiret continue l'élément), formules LaTeX entre `$` (dans la ligne) ou `$$` (centrées, sur leur ligne). Un paragraphe vide sépare deux paragraphes. Les titres des blocs acceptent aussi des formules entre `$`.
 
 | Bloc (`type`) | Champs |
 | --- | --- |

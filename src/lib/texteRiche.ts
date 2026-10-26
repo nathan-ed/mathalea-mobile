@@ -50,3 +50,10 @@ export function texteRiche(texte: string, formule: RenduFormule = formuleBrute):
     })
     .join('')
 }
+
+/** Titre court (encadré, exemple) : texte échappé et formules entre $, sur une ligne */
+export const titreRiche = (titre: string, formule: RenduFormule = formuleBrute) =>
+  titre
+    .split(/(\$[^$]+\$)/g)
+    .map((m) => (/^\$[^$]+\$$/.test(m) ? formule(m.slice(1, -1), false) : echapper(m)))
+    .join('')

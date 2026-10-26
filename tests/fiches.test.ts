@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { compiler, integrale } from '../src/lib/expression'
-import { texteRiche } from '../src/lib/texteRiche'
+import { texteRiche, titreRiche } from '../src/lib/texteRiche'
 
 const valeur = (texte: string, x: number, autres: Record<string, number> = {}) => compiler(texte, ['x', ...Object.keys(autres)])!({ x, ...autres })
 
@@ -39,6 +39,10 @@ describe('Texte des fiches', () => {
 
   it('formules dans la ligne et centrées, sans toucher à leur contenu', () => {
     expect(texteRiche('Si $a*b$ alors\n$$\\int_a^b f(x)\\,dx$$', rendu)).toBe('<p>Si [L:a*b] alors<span class="formule-centree">[C:\\int_a^b f(x)\\,dx]</span></p>')
+  })
+
+  it('titres : formules entre $, le reste échappé', () => {
+    expect(titreRiche('Forme $f(ax+b)$ <b>', rendu)).toBe('Forme [L:f(ax+b)] &lt;b&gt;')
   })
 
   it('échappe le HTML', () => {

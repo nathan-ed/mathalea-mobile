@@ -18,6 +18,6 @@ l'app : elle les lit dans ce dossier, comme ceux des enseignants.
 Fichiers :
 
 - `ch-4e-college.json` : Suisse, 4e Collège, Intégration (chapitre 4mInt) :
-  « Primitives et intégrales » (ceintures blanche à verte, une fiche par
+  « Primitives et intégrales » (ceintures blanche à bleue, une fiche par
   ceinture, montrée d'office) et « Intégration par parties et volumes »
   (bleue et marron, sans fiche pour l'instant).

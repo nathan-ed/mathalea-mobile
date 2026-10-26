@@ -9,7 +9,7 @@
           "id": "ch-4c-integrales",
           "version": 1,
           "titre": "Primitives et intégrales",
-          "objectif": "Trouver une primitive, calculer une intégrale et l'utiliser pour une aire.",
+          "objectif": "Trouver une primitive, calculer une intégrale, y compris avec ln et exp, et l'utiliser pour une aire.",
           "niveau": "4e Collège",
           "theme": "Intégration",
           "difficulte": 2,
@@ -341,6 +341,110 @@
               }
             },
             {
+              "titre": "Exponentielle et logarithme",
+              "nb": 4,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Exponentielle et logarithme",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Deux fonctions reviennent sans cesse : l'exponentielle, qui est sa propre dérivée, et le logarithme népérien, dont la dérivée est $\\dfrac{1}{x}$. Elles donnent les primitives qui manquaient : celle de $\\dfrac{1}{x}$ et celles des fonctions de la forme $u'\\,\\mathrm{e}^{u}$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dérivées à connaître",
+                    "texte": "- $\\big(\\mathrm{e}^{x}\\big)'=\\mathrm{e}^{x}$ et $\\big(\\mathrm{e}^{u}\\big)'=u'\\,\\mathrm{e}^{u}$\n- $\\big(\\ln(x)\\big)'=\\dfrac{1}{x}$ sur $]0;+\\infty[$ et $\\big(\\ln(u)\\big)'=\\dfrac{u'}{u}$ si $u>0$"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Primitives",
+                    "texte": "- $\\mathrm{e}^{x}$ : $\\mathrm{e}^{x}$\n- $\\mathrm{e}^{ax+b}$, avec $a\\neq0$ : $\\dfrac{1}{a}\\,\\mathrm{e}^{ax+b}$\n- $u'\\,\\mathrm{e}^{u}$ : $\\mathrm{e}^{u}$\n- $\\dfrac{1}{x}$ : $\\ln(x)$ sur $]0;+\\infty[$, $\\ln(-x)$ sur $]-\\infty;0[$, donc $\\ln|x|$\n- $\\dfrac{u'}{u}$ : $\\ln|u|$, sur un intervalle où $u$ ne s'annule pas\n- $\\dfrac{a}{ax+b}$ : $\\ln|ax+b|$"
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "1/x"
+                    ],
+                    "x": [
+                      0,
+                      5
+                    ],
+                    "y": [
+                      0,
+                      3
+                    ],
+                    "aire": {
+                      "de": 1,
+                      "a": "b"
+                    },
+                    "curseurs": {
+                      "b": [
+                        1,
+                        5,
+                        2,
+                        0.01
+                      ]
+                    },
+                    "valeur": true,
+                    "legende": "Courbe de $f(x)=\\dfrac{1}{x}$. L'aire de $1$ à $b$ vaut $\\ln(b)$ : pour quelle valeur de $b$ vaut-elle $1$ ?"
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver la primitive $F$ de $f(x)=\\mathrm{e}^{4x-2}$ telle que $F(0)=-4$.",
+                    "etapes": [
+                      "Forme $\\mathrm{e}^{ax+b}$ avec $a=4$ : $F(x)=\\dfrac{1}{4}\\,\\mathrm{e}^{4x-2}+C$.",
+                      "$F(0)=\\dfrac{1}{4}\\,\\mathrm{e}^{-2}+C=-4$, donc $C=-4-\\dfrac{1}{4}\\,\\mathrm{e}^{-2}$.",
+                      "$$F(x)=\\dfrac{1}{4}\\,\\mathrm{e}^{4x-2}-4-\\dfrac{1}{4}\\,\\mathrm{e}^{-2}$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\displaystyle\\int_2^5 \\dfrac{2}{2x+1}\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "On pose $u(x)=2x+1$ ; alors $u'(x)=2$, et $u(x)>0$ sur $[2;5]$.",
+                      "$\\dfrac{2}{2x+1}=\\dfrac{u'}{u}$ : une primitive est $\\ln(2x+1)$.",
+                      "$$\\int_2^5 \\dfrac{2}{2x+1}\\,\\mathrm{d}x=\\ln(11)-\\ln(5)=\\ln\\left(\\dfrac{11}{5}\\right)$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Coefficient de x négatif",
+                    "enonce": "Calculer $\\displaystyle\\int_{-3}^{3} \\dfrac{-1}{-x+4}\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "On pose $u(x)=-x+4$ ; alors $u'(x)=-1$, et $u(x)>0$ sur $[-3;3]$ (de $7$ à $1$).",
+                      "$\\dfrac{-1}{-x+4}=\\dfrac{u'}{u}$ : une primitive est $\\ln(-x+4)$.",
+                      "$$\\int_{-3}^{3} \\dfrac{-1}{-x+4}\\,\\mathrm{d}x=\\ln(1)-\\ln(7)=-\\ln(7)$$"
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une primitive de $f(x)=\\dfrac{3}{3x-5}$ sur $\\left]\\dfrac{5}{3};+\\infty\\right[$ est :",
+                    "choix": [
+                      "$\\ln(3x-5)$",
+                      "$3\\ln(3x-5)$",
+                      "$\\dfrac{1}{3}\\ln(3x-5)$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$f=\\dfrac{u'}{u}$ avec $u(x)=3x-5>0$ sur cet intervalle : $F(x)=\\ln(3x-5)$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\displaystyle\\int_0^{\\ln(2)} \\mathrm{e}^{x}\\,\\mathrm{d}x$ ?",
+                    "reponse": 1,
+                    "explication": "$\\big[\\mathrm{e}^{x}\\big]_0^{\\ln(2)}=\\mathrm{e}^{\\ln(2)}-\\mathrm{e}^{0}=2-1=1$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\ln(u)$ n'existe que si $u>0$ : vérifier le signe de $u$ sur l'intervalle.\n- Ne pas confondre $\\dfrac{1}{x^2}$, de primitive $-\\dfrac{1}{x}$, et $\\dfrac{1}{x}$, de primitive $\\ln(x)$.\n- $\\mathrm{e}^{x^2}$ n'est pas de la forme $u'\\,\\mathrm{e}^{u}$ : il manque le facteur $2x$."
+                  }
+                ]
+              }
+            },
+            {
               "titre": "Aires et valeur moyenne",
               "nb": 2,
               "acces": "seuil",
@@ -505,6 +609,28 @@
               "id": "4mInt-6",
               "nbQuestions": 2,
               "titre": "Calculer des intégrales de fonctions composées"
+            },
+            {
+              "uuid": "25135",
+              "id": "4mAna-1",
+              "nbQuestions": 2,
+              "titre": "Calculer la dérivée de $\\ln(u)$"
+            },
+            {
+              "uuid": "fe22f",
+              "nbQuestions": 1,
+              "titre": "Déterminer une primitive avec un logarithme"
+            },
+            {
+              "uuid": "ed974",
+              "nbQuestions": 1,
+              "titre": "Déterminer une primitive d'une exponentielle"
+            },
+            {
+              "uuid": "0f7aa",
+              "id": "4mExpLog-1",
+              "nbQuestions": 3,
+              "titre": "Calculer une intégrale avec un logarithme"
             },
             {
               "uuid": "7b0fb",

@@ -5,7 +5,7 @@
   import type { Fiche } from '$lib/catalogue'
   import { ouvrirLien } from '$lib/fichiers'
   import { retourSi } from '$lib/navigation.svelte'
-  import { texteRiche, type RenduFormule } from '$lib/texteRiche'
+  import { texteRiche, titreRiche, type RenduFormule } from '$lib/texteRiche'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import GraphiqueCours from './GraphiqueCours.svelte'
@@ -42,14 +42,14 @@
       {#if bloc.type === 'texte'}
         <div class="texte-cours leading-relaxed">{@html riche(bloc.texte)}</div>
       {:else if bloc.type === 'retenir'}
-        <section class="flex flex-col gap-2 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label={bloc.titre ?? 'À retenir'}>
-          <h2 class={etiquette}>{bloc.titre ?? 'À retenir'}</h2>
+        <section class="flex flex-col gap-2 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label={(bloc.titre ?? 'À retenir').replace(/\$/g, '')}>
+          <h2 class={etiquette}>{@html titreRiche(bloc.titre ?? 'À retenir', formule)}</h2>
           <div class="texte-cours leading-relaxed">{@html riche(bloc.texte)}</div>
         </section>
       {:else if bloc.type === 'exemple'}
         {@const vues = etapes[i] ?? 0}
-        <section class="flex flex-col gap-3 rounded-2xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" aria-label={bloc.titre ?? 'Exemple'}>
-          <h2 class={etiquette}>{bloc.titre ?? 'Exemple'}</h2>
+        <section class="flex flex-col gap-3 rounded-2xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" aria-label={(bloc.titre ?? 'Exemple').replace(/\$/g, '')}>
+          <h2 class={etiquette}>{@html titreRiche(bloc.titre ?? 'Exemple', formule)}</h2>
           <div class="texte-cours leading-relaxed">{@html riche(bloc.enonce)}</div>
           {#each bloc.etapes.slice(0, vues) as e, k (k)}
             <div class="texte-cours leading-relaxed border-l-4 border-coopmaths-struct-light dark:border-coopmathsdark-struct-light pl-4">{@html riche(e)}</div>
