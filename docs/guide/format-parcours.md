@@ -137,6 +137,8 @@ Dans les textes : `**gras**`, `*italique*`, listes (lignes commençant par `- `,
 | `image` | `src` (`data:image/svg+xml…` ou PNG, dans le fichier), `alt`, `legende` |
 | `lien` | `titre`, `lien` (https : PDF, vidéo) |
 
+Une fiche peut aussi vivre seule, dans un fichier `fiche-<titre>.json` : `{ "format": "fiche-mathalea/1", "fiche": { … } }`. La page « Parcours pour l'application » du site MathALÉA (`?v=parcours`) les écrit sans en garder aucune : onglet « Fiches » (ouvrir, modifier, télécharger), ou sous chaque palier d'un parcours (« Ajouter une fiche de cours », « Importer une fiche », modification avec l'aperçu, « Télécharger »). Une fiche arrive aux élèves par le parcours qui la porte.
+
 Graphiques : fonctions `sin`, `cos`, `tan`, `exp`, `ln`, `log`, `sqrt`, `abs`, constantes `pi` et `e`, multiplication sous-entendue (`2x`, `3(x+1)`). Une borne d'`aire` est un nombre ou le nom d'un curseur (une lettre, ni `x` ni `e`). Une expression qui ne se calcule pas rend le fichier invalide. Pour une figure plus riche, produisez une image SVG ou PNG (Typst, TikZ…) et mettez-la dans un bloc `image`.
 
 ```json

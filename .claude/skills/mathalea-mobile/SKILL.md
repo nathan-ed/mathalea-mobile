@@ -209,6 +209,12 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   (`git fetch` en HTTPS avec glab), une branche par changement depuis
   `origin/main`, puis push et MR (`glab mr create -R coopmaths/mathalea`).
   Exemple : MR !9426 (`enTetesMasques`, `melanger`).
+- Fiches de cours : contenu de l'app seulement (Nathan, 2026-10-26 : « le
+  site n'a pas les fiches, elles sont dans l'application ; idem pour les
+  parcours que l'on propose »). Le site est l'éditeur : onglet Fiches et
+  fiches par palier (branche `parcours-fiches` de MathALÉA, détail dans
+  `docs/a-reporter-site-parcours.md`). Ligne éditoriale et contrôle : skill
+  `fiches-cours`, `npx tsx scripts/verifier-fiche.mts`.
 - Page du site `?v=parcours` : dans `main` de MathALÉA depuis octobre 2026
   (la première MR a été fusionnée). Worktree
   `~/Documents/projets/mathalea-parcours` (ancienne branche `parcours-enseignants`),

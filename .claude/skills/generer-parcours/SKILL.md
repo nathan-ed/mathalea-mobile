@@ -8,7 +8,8 @@ description: Générer ou modifier un fichier de parcours MathALÉA (format clas
 Référence complète (champs, règles, exemple, consigne pour un assistant) :
 `docs/guide/format-parcours.md`, publiée dans le guide en ligne
 (https://coopmaths.forge.apps.education.fr/mathalea-mobile/format-parcours.html).
-Schéma : `docs/guide/parcours-mathalea.schema.json`. Exemple complet :
+Fiches de cours d'un palier : skill `fiches-cours` (ligne éditoriale,
+contrôle). Schéma : `docs/guide/parcours-mathalea.schema.json`. Exemple complet :
 `docs/guide/exemple-parcours.json`. La vérité reste le contrôle de l'app
 (`src/lib/validation.ts`, `lireFichier` dans `src/lib/partage.ts`) : si l'un
 change, mettre à jour la page, le schéma et l'exemple (un test les compare,
