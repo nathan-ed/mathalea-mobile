@@ -2,7 +2,7 @@
 // sauvegardes). Tout ce que l'interface lit est contrôlé, y compris l'unicité
 // des noms et identifiants qui servent de clés aux listes : un doublon ou une
 // valeur manquante y provoque un écran vide.
-import type { Etape, Fiche, Parcours } from './catalogue'
+import { COULEURS_GRAPHIQUE, FORMES_POINT, TRAITS, type Etape, type Fiche, type Parcours } from './catalogue'
 import { compiler } from './expression'
 
 export const estObjet = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v)
@@ -37,6 +37,9 @@ export function estEtape(v: unknown): v is Etape {
 
 // Fiches de cours : chaque bloc selon son type ; graphiques dont les
 // expressions se calculent, images intégrées au fichier (SVG ou PNG)
+const estCouleur = (c: unknown) => (COULEURS_GRAPHIQUE as readonly unknown[]).includes(c)
+const estStyle = (v: unknown) =>
+  estObjet(v) && optionnel(v.trait, (t) => (TRAITS as readonly unknown[]).includes(t)) && optionnel(v.couleur, estCouleur)
 const estIntervalle = (v: unknown) => listeDe(v, estNombre) && (v as number[]).length === 2 && (v as number[])[0] < (v as number[])[1]
 function estGraphique(g: Record<string, unknown>) {
   const curseurs = g.curseurs ?? {}
@@ -53,7 +56,23 @@ function estGraphique(g: Record<string, unknown>) {
     estIntervalle(g.y) &&
     optionnel(g.aire, (a) => estObjet(a) && borne(a.de) && borne(a.a) && optionnel(a.fonction, fonction) && optionnel(a.entre, fonction)) &&
     optionnel(g.valeur, (b) => typeof b === 'boolean') &&
-    optionnel(g.legende, estTexte)
+    optionnel(g.legende, estTexte) &&
+    optionnel(g.styles, (l) => listeDe(l, estStyle) && (l as unknown[]).length <= (g.fonctions as unknown[]).length) &&
+    optionnel(g.points, (l) =>
+      listeDe(l, (p) =>
+        estObjet(p) &&
+        borne(p.x) &&
+        // y donné, ou point sur une courbe
+        (p.y === undefined ? fonction(p.sur) : borne(p.y) && p.sur === undefined) &&
+        optionnel(p.forme, (f) => (FORMES_POINT as readonly unknown[]).includes(f)) &&
+        optionnel(p.couleur, estCouleur) &&
+        optionnel(p.nom, estTexte) &&
+        optionnel(p.coordonnees, (b) => typeof b === 'boolean'),
+      ),
+    ) &&
+    optionnel(g.textes, (l) =>
+      listeDe(l, (t) => estObjet(t) && borne(t.x) && borne(t.y) && estTexte(t.texte) && optionnel(t.couleur, estCouleur)),
+    )
   )
 }
 const IMAGE = /^data:image\/(svg\+xml|png|jpeg|webp)[;,]/

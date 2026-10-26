@@ -133,9 +133,15 @@ Dans les textes : `**gras**`, `*italique*`, listes (lignes commençant par `- `,
 | `retenir` | `texte`, `titre` (« À retenir » par défaut) : encadré |
 | `exemple` | `enonce`, `etapes` (dévoilées une à une), `titre` (« Exemple » par défaut) |
 | `question` | `enonce`, `explication`, et soit `choix` (au moins deux) avec `bonne` (rang, 0 pour la première), soit `reponse` (nombre) |
-| `graphique` | `fonctions` (expressions en `x` : `x^2/4+1/2`, `2e^(-x)`, `a*sin(x)`), `x` et `y` (fenêtre `[min, max]`), facultatifs : `aire` (`de`, `a`, `fonction`, `entre`), `curseurs` (`{ "a": [min, max, valeur, pas] }`), `valeur` (`true` : valeur de l'intégrale), `legende` |
+| `graphique` | `fonctions` (expressions en `x` : `x^2/4+1/2`, `2e^(-x)`, `a*sin(x)`), `x` et `y` (fenêtre `[min, max]`), facultatifs : `aire` (`de`, `a`, `fonction`, `entre`), `curseurs` (`{ "a": [min, max, valeur, pas] }`), `valeur` (`true` : valeur de l'intégrale), `styles`, `points`, `textes` (voir plus bas), `legende` |
 | `image` | `src` (`data:image/svg+xml…` ou PNG, dans le fichier), `alt`, `legende` |
 | `lien` | `titre`, `lien` (https : PDF, vidéo) |
+
+Style des courbes, points et textes (facultatifs ; une version ancienne de l'app les ignore) :
+
+- `styles` : un objet par fonction, dans l'ordre : `trait` (`plein`, `tirets`, `pointilles`), `couleur` (`bleu`, `orange`, `vert`, `gris`). Sans style : trait plein, bleu puis orange.
+- `points` : `x`, puis `y` ou `sur` (rang de la courbe : le point est posé dessus) ; `forme` (`plein` par défaut, `vide`, `croix`), `couleur`, `nom` (« A », formule entre `$` acceptée), `coordonnees` (`true` : affiche « (1,5 ; 2) »). `x` et `y` sont des nombres ou des noms de curseurs : le point suit le curseur.
+- `textes` : `x`, `y`, `texte` (formules entre `$`), `couleur` ; le texte est centré sur le point.
 
 Une fiche peut aussi vivre seule, dans un fichier `fiche-<titre>.json` : `{ "format": "fiche-mathalea/1", "fiche": { … } }`. La page « Parcours pour l'application » du site MathALÉA (`?v=parcours`) les écrit sans en garder aucune : onglet « Fiches » (ouvrir, modifier, télécharger), ou sous chaque palier d'un parcours (« Ajouter une fiche de cours », « Importer une fiche », modification avec l'aperçu, « Télécharger »). Une fiche arrive aux élèves par le parcours qui la porte.
 

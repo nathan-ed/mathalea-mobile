@@ -1,10 +1,10 @@
 <script lang="ts">
   // Graphique d'une fiche de cours, tracé par l'app (sans le moteur) :
   // courbes, aire ombrée entre deux bornes, curseurs et valeur calculée.
-  import type { Graphique } from '$lib/catalogue'
+  import type { Coordonnee, CouleurGraphique, Graphique } from '$lib/catalogue'
   import { compiler, integrale } from '$lib/expression'
   import type { RenduFormule } from '$lib/texteRiche'
-  import { texteRiche } from '$lib/texteRiche'
+  import { texteRiche, titreRiche } from '$lib/texteRiche'
 
   let { graphique, formule }: { graphique: Graphique; formule: RenduFormule } = $props()
 
@@ -80,11 +80,40 @@
         : formule(`\\int_{${nombre(aire.a)}}^{${nombre(aire.b)}} f(x)\\,\\mathrm{d}x\\approx ${nombre(aire.valeur)}`, false)
       : '',
   )
-  const couleurs = ['var(--app-struct)', 'var(--app-action)']
+  const COULEURS: Record<CouleurGraphique, string> = {
+    bleu: 'var(--app-struct)',
+    orange: 'var(--app-action)',
+    vert: 'var(--app-vert)',
+    gris: 'var(--app-gris)',
+  }
+  const TIRETS = { plein: undefined, tirets: '7 5', pointilles: '1.5 4' }
+  const couleurCourbe = (k: number) => COULEURS[graphique.styles?.[k]?.couleur ?? (k % 2 ? 'orange' : 'bleu')]
   const nomsCourbes = ['f', 'g', 'h']
+
+  // Points et textes : coordonnées fixes ou suivant un curseur
+  const coord = (c: Coordonnee) => (typeof c === 'number' ? c : (valeurs[c] ?? 0))
+  const dedans = (x: number, y: number) => Number.isFinite(y) && x >= x0 && x <= x1 && y >= y0 && y <= y1
+  const points = $derived(
+    (graphique.points ?? []).map((p) => {
+      const x = coord(p.x)
+      const y = p.y !== undefined ? coord(p.y) : f(p.sur ?? 0)(x)
+      return { ...p, x, y, couleur: COULEURS[p.couleur ?? 'bleu'], visible: dedans(x, y) }
+    }),
+  )
+  const textes = $derived(
+    (graphique.textes ?? []).map((t) => ({ ...t, x: coord(t.x), y: coord(t.y), couleur: t.couleur ? COULEURS[t.couleur] : undefined })),
+  )
+  /** Nom et coordonnées d'un point : « A(1,5 ; 2) » */
+  const etiquette = (p: { nom?: string; coordonnees?: boolean; x: number; y: number }) =>
+    (p.nom ? titreRiche(p.nom, formule) : '') +
+    (p.coordonnees ? formule(`\\left(${nombre(p.x)}\\,;\\,${nombre(p.y)}\\right)`, false) : '')
+  // Position en pourcentage du cadre, pour les étiquettes posées sur le dessin
+  const gauche = (x: number) => `${(X(x) / L) * 100}%`
+  const haut = (y: number) => `${(Y(y) / H) * 100}%`
 </script>
 
 <figure class="flex flex-col gap-2 m-0">
+  <div class="relative">
   <svg viewBox="0 0 {L} {H}" class="w-full h-auto" role="img" aria-label={graphique.legende ?? 'Graphique'}>
     <defs>
       <clipPath id="cadre-{graphique.fonctions.join()}">
@@ -110,7 +139,14 @@
         <line x1={X(0)} x2={X(0)} y1={Y(y0)} y2={Y(y1)} stroke="var(--app-discret)" stroke-width="1.3" />
       {/if}
       {#each graphique.fonctions as _, k (k)}
-        <path d={trace(f(k))} fill="none" stroke={couleurs[k % 2]} stroke-width="2.2" />
+        <path
+          d={trace(f(k))}
+          fill="none"
+          stroke={couleurCourbe(k)}
+          stroke-width="2.2"
+          stroke-dasharray={TIRETS[graphique.styles?.[k]?.trait ?? 'plein']}
+          stroke-linecap="round"
+        />
       {/each}
       {#if aire}
         {#each [['a', aire.a], ['b', aire.b]] as [nom, v] (nom)}
@@ -122,10 +158,30 @@
     </g>
     {#if graphique.fonctions.length > 1}
       {#each graphique.fonctions as _, k (k)}
-        <text x={L - marge.d - 4} y={marge.h + 14 + 14 * k} text-anchor="end" font-size="12" font-style="italic" fill={couleurs[k % 2]}>{nomsCourbes[k] ?? ''}</text>
+        <text x={L - marge.d - 4} y={marge.h + 14 + 14 * k} text-anchor="end" font-size="12" font-style="italic" fill={couleurCourbe(k)}>{nomsCourbes[k] ?? ''}</text>
       {/each}
     {/if}
+    {#each points as p, k (k)}
+      {#if p.visible}
+        {#if p.forme === 'croix'}
+          <path d="M{X(p.x) - 4},{Y(p.y) - 4} L{X(p.x) + 4},{Y(p.y) + 4} M{X(p.x) - 4},{Y(p.y) + 4} L{X(p.x) + 4},{Y(p.y) - 4}" stroke={p.couleur} stroke-width="2" stroke-linecap="round" />
+        {:else}
+          <circle cx={X(p.x)} cy={Y(p.y)} r="3.6" fill={p.forme === 'vide' ? 'var(--app-fond)' : p.couleur} stroke={p.couleur} stroke-width="1.8" />
+        {/if}
+      {/if}
+    {/each}
   </svg>
+  {#each points as p, k (k)}
+    {#if p.visible && (p.nom || p.coordonnees)}
+      <span class="etiquette-graphique" style="left: {gauche(p.x)}; top: {haut(p.y)}; color: {p.couleur}; translate: 5px -110%">{@html etiquette(p)}</span>
+    {/if}
+  {/each}
+  {#each textes as t, k (k)}
+    {#if dedans(t.x, t.y)}
+      <span class="etiquette-graphique" style="left: {gauche(t.x)}; top: {haut(t.y)}; translate: -50% -50%{t.couleur ? `; color: ${t.couleur}` : ''}">{@html titreRiche(t.texte, formule)}</span>
+    {/if}
+  {/each}
+  </div>
   {#each noms as n (n)}
     {@const c = graphique.curseurs![n]}
     <label class="flex flex-row items-center gap-3 text-sm">

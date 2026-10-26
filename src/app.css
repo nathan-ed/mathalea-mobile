@@ -15,6 +15,8 @@
   --app-action: var(--color-coopmaths-action);
   --app-struct: var(--color-coopmaths-struct);
   --app-discret: var(--color-coopmaths-corpus-lightest);
+  --app-vert: var(--color-coopmaths-warn);
+  --app-gris: var(--color-coopmaths-corpus-light);
 }
 .dark {
   --app-fond: var(--color-coopmathsdark-canvas);
@@ -23,6 +25,8 @@
   --app-action: var(--color-coopmathsdark-action);
   --app-struct: var(--color-coopmathsdark-struct);
   --app-discret: var(--color-coopmathsdark-corpus-lightest);
+  --app-vert: var(--color-coopmaths-warn); /* le « warn » sombre est rose : on garde le vert */
+  --app-gris: var(--color-coopmathsdark-corpus-light);
 }
 
 html,
@@ -353,4 +357,13 @@ input.interrupteur:focus-visible {
 }
 .curseur-cours {
   accent-color: var(--app-action);
+}
+
+/* Nom d'un point ou texte posé sur un graphique de fiche */
+.etiquette-graphique {
+  position: absolute;
+  font-size: 0.8rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  pointer-events: none;
 }

@@ -88,6 +88,14 @@ convient aussi… »). Pas plus d'une idée par bloc.
   (f, g, h).
 - Fenêtre (`x`, `y`) serrée autour de ce qu'il faut voir, axes inclus si
   utiles.
+- Style des courbes (`styles`) : couleurs de la charte (`bleu`, `orange`,
+  `vert`, `gris`), trait `plein`, `tirets` ou `pointilles` ; par exemple la
+  tangente en tirets gris, la courbe en bleu.
+- Points (`points`) : `plein`, `vide` (borne exclue, point à placer) ou
+  `croix` ; `nom` court (« A ») et `coordonnees: true` si la valeur compte.
+  Un point dont `x` est un curseur et posé `sur` une courbe la parcourt.
+- Textes (`textes`) : nom d'une courbe (« $\mathcal{C}_f$ ») ou d'une zone,
+  posés là où ils ne cachent rien.
 - Aire : bornes sur des curseurs (`"de": "a", "a": "b"`) pour que l'élève les
   déplace ; `entre` pour une aire entre deux courbes.
 - Figure plus riche (solide, tableau, schéma) : image SVG ou PNG produite par

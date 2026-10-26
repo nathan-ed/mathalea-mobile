@@ -63,6 +63,42 @@ export interface Graphique {
   curseurs?: Record<string, [number, number, number] | [number, number, number, number]> // min, max, valeur, pas
   valeur?: boolean // affiche la valeur de l'intégrale, calculée
   legende?: string
+  styles?: StyleCourbe[] // dans l'ordre des fonctions (absent : trait plein, bleu puis orange)
+  points?: PointGraphique[]
+  textes?: TexteGraphique[]
+}
+
+/** Couleurs de MathALÉA proposées dans les graphiques */
+export const COULEURS_GRAPHIQUE = ['bleu', 'orange', 'vert', 'gris'] as const
+export type CouleurGraphique = (typeof COULEURS_GRAPHIQUE)[number]
+export const TRAITS = ['plein', 'tirets', 'pointilles'] as const
+export const FORMES_POINT = ['plein', 'vide', 'croix'] as const
+
+export interface StyleCourbe {
+  trait?: (typeof TRAITS)[number]
+  couleur?: CouleurGraphique
+}
+
+/** Coordonnée : nombre ou nom de curseur (le point suit alors le curseur) */
+export type Coordonnee = number | string
+
+/** Point : y donné, ou sur la courbe `sur` (rang dans fonctions) */
+export interface PointGraphique {
+  x: Coordonnee
+  y?: Coordonnee
+  sur?: number
+  forme?: (typeof FORMES_POINT)[number] // plein par défaut
+  couleur?: CouleurGraphique
+  nom?: string // « A », formule acceptée entre $
+  coordonnees?: boolean // affiche (x ; y) à côté du point
+}
+
+/** Texte posé dans le repère, centré sur (x ; y) ; formules entre $ */
+export interface TexteGraphique {
+  x: Coordonnee
+  y: Coordonnee
+  texte: string
+  couleur?: CouleurGraphique
 }
 
 /**

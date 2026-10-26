@@ -44,6 +44,7 @@
     }
   },
   "$defs": {
+    "couleurGraphique": { "enum": ["bleu", "orange", "vert", "gris"] },
     "parcours": {
       "type": "object",
       "required": ["id", "version", "titre", "objectif", "niveau", "theme", "difficulte", "presentation", "correction", "etapes"],
@@ -140,6 +141,9 @@
         },
         "curseurs": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 4 }, "description": "graphique : nom d'une lettre (ni x ni e) : [min, max, valeur, pas]." },
         "valeur": { "type": "boolean", "description": "graphique : affiche la valeur de l'intégrale (ou de l'aire entre deux fonctions)." },
+        "styles": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "trait": { "enum": ["plein", "tirets", "pointilles"] }, "couleur": { "$ref": "#/$defs/couleurGraphique" } } }, "description": "graphique : style de chaque courbe, dans l'ordre des fonctions." },
+        "points": { "type": "array", "items": { "type": "object", "required": ["x"], "properties": { "x": { "type": ["number", "string"] }, "y": { "type": ["number", "string"] }, "sur": { "type": "integer", "minimum": 0 }, "forme": { "enum": ["plein", "vide", "croix"] }, "couleur": { "$ref": "#/$defs/couleurGraphique" }, "nom": { "type": "string" }, "coordonnees": { "type": "boolean" } } }, "description": "graphique : points ; y (nombre ou curseur) ou sur (rang de la courbe qui porte le point) ; nom et coordonnées affichés au choix." },
+        "textes": { "type": "array", "items": { "type": "object", "required": ["x", "y", "texte"], "properties": { "x": { "type": ["number", "string"] }, "y": { "type": ["number", "string"] }, "texte": { "type": "string" }, "couleur": { "$ref": "#/$defs/couleurGraphique" } } }, "description": "graphique : textes centrés sur (x ; y), formules entre $." },
         "legende": { "type": "string", "description": "graphique, image." },
         "src": { "type": "string", "description": "image : data:image/svg+xml, png, jpeg ou webp, dans le fichier." },
         "alt": { "type": "string", "description": "image : description pour qui ne la voit pas." },
