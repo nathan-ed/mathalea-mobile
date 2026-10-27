@@ -273,6 +273,13 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   questions au choix (une par exercice), jamais de stock affiché, séance
   mélangée sans titres (`entrelacer`). Détails : `docs/developpement.md`, test
   `node e2e/revisions.mjs` (horloge Playwright `page.clock`).
+- Changer d'appareil (Nathan, 2026-10-27 : « s'ils changent de téléphone,
+  qu'ils puissent récupérer leur session ») : sauvegarde complète
+  (`sauvegarde.ts`), « Récupérer mes données » sur le premier écran
+  (`ChoixProfil`), aperçu commun (`ConfirmationRestauration`, séances en
+  cours comptées). Plus tard (demandé, pas fait) : plusieurs appareils en
+  parallèle (fusion plutôt que remplacement), fichier partagé depuis un
+  drive en lecture seule. Test : `node e2e/changer-appareil.mjs`.
 - Suivi : « tout doit y figurer, ce sont des ceintures comme les autres » :
   tests passés (ligne par niveau, ceintures CM1 à Terminale dans l'onglet
   Ceintures) et parcours de l'Explorer même non ajoutés à l'accueil

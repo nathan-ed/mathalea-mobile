@@ -354,3 +354,8 @@ vos parcours et le suivi. « Restaurer une sauvegarde » montre d'abord ce qu'el
 contient (date, dossiers, passages) et demande confirmation ; l'état remplacé
 est gardé, et « Annuler la dernière restauration » le rétablit. Une sauvegarde
 invalide ne modifie rien.
+
+Nouvel appareil : au premier lancement, « Récupérer mes données » (sous le
+choix du programme) restaure une sauvegarde directement, après le même
+aperçu. Un élève qui change de téléphone garde ainsi ses séances en cours et
+son suivi.

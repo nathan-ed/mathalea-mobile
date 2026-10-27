@@ -127,7 +127,15 @@ describe('sauvegarde', async () => {
   it('résume une sauvegarde avant de la restaurer', async () => {
     const { resumerSauvegarde } = await import('../src/lib/sauvegarde')
     const texte = await exporterSauvegarde(memoire({ profil: 'eleve', 'historique:fractions': [seance] }).st)
-    expect(resumerSauvegarde(texte)).toMatchObject({ dossiers: 0, passages: 1, enseignant: false })
+    expect(resumerSauvegarde(texte)).toMatchObject({ dossiers: 0, passages: 1, enCours: 0, enseignant: false })
+    // Séance en cours : comptée, emportée et restaurée telle quelle (nouvel appareil vide)
+    const enCours = { ...seance, position: 2 }
+    const texte2 = await exporterSauvegarde(memoire({ profil: 'eleve', 'seance:fractions': enCours, 'seance:fini': null }).st)
+    expect(resumerSauvegarde(texte2)).toMatchObject({ passages: 0, enCours: 1 })
+    const neuf = memoire({})
+    await restaurerSauvegarde(neuf.st, texte2)
+    expect(neuf.d.get('seance:fractions')).toEqual(JSON.parse(JSON.stringify(enCours)))
+    expect(neuf.d.get('profil')).toBe('eleve')
   })
   it('refuse une sauvegarde au bon format mais au contenu mal formé, sans rien effacer', async () => {
     const avant = { profil: 'eleve', 'historique:fractions': [seance] }

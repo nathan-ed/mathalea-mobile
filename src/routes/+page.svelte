@@ -824,7 +824,8 @@
 
   async function sauvegarder() {
     const nom = `sauvegarde-mathalea-${new Date().toISOString().slice(0, 10)}.json`
-    return (await enregistrerFichier(nom, await exporterSauvegarde(stockage!))) ? `${nom} enregistré.` : 'Sauvegarde annulée.'
+    const fait = await enregistrerFichier(nom, await exporterSauvegarde(stockage!))
+    return fait === 'partage' ? 'Sauvegarde envoyée.' : fait ? `${nom} enregistré.` : 'Sauvegarde annulée.'
   }
 
   async function restaurer(texte: string) {
@@ -1121,6 +1122,8 @@
         await changerProfil('eleve')
         accueil()
       }}
+      onresumer={resumerSauvegarde}
+      onrestaurer={restaurer}
     />
   {:else if vue === 'reglages'}
     <Reglages

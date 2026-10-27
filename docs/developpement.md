@@ -155,6 +155,9 @@ Rust `telecharger`.
   quittée aussitôt, Entrée avec correction à la fin, suivi après modification
   d'un parcours). Seul `pnpm dev` est nécessaire. Code de sortie 1 si un
   contrôle échoue (comme `pnpm e2e`).
+- `node e2e/changer-appareil.mjs` : un élève change de téléphone (sauvegarde
+  exportée, « Récupérer mes données » au premier lancement, séance en cours
+  reprise et terminée, suivi). Seul `pnpm dev` (`BASE=` pour un autre port).
 
 ## Signature Android
 

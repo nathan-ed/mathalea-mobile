@@ -194,6 +194,7 @@ export function resumerSauvegarde(texte: string) {
     dossiers: Array.isArray(d.classes) ? d.classes.length : 0,
     parcoursEnseignant: bibliotheque?.parcours?.length ?? 0,
     passages: cles.filter((c) => c.startsWith('historique:')).reduce((a, c) => a + ((d[c] as unknown[] | null)?.length ?? 0), 0),
+    enCours: cles.filter((c) => c.startsWith('seance:') && d[c] && !(d[c] as Seance).fin).length,
     enseignant: d.profil === 'enseignant',
   }
 }

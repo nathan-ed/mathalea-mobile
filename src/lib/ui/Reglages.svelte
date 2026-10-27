@@ -10,10 +10,12 @@
   import ChoixRadio from './ChoixRadio.svelte'
   import { boutonAction, boutonInverse, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
+  import ConfirmationRestauration from './ConfirmationRestauration.svelte'
   import Feuille from './Feuille.svelte'
   import { choisirTheme, theme, type PreferenceTheme } from '$lib/theme.svelte'
   import { version } from '../../../package.json'
   import { ouvrirLien } from '$lib/fichiers'
+  import type { resumerSauvegarde } from '$lib/sauvegarde'
   const URL_GUIDE = 'https://coopmaths.forge.apps.education.fr/mathalea-mobile/'
 
   let {
@@ -48,7 +50,7 @@
     onchoisirClasse: (lien: string, classe: string) => void
     onexporterSauvegarde: () => Promise<string>
     onrestaurer: (texte: string) => Promise<string>
-    onresumer: (texte: string) => { creeeLe: string; dossiers: number; parcoursEnseignant: number; passages: number; enseignant: boolean }
+    onresumer: typeof resumerSauvegarde
     onannulerRestauration: (() => Promise<string>) | null // la dernière restauration peut être annulée
     moteur: InfoMoteur | null
     miseAJourMoteur: string | null // version installée, active au prochain lancement
@@ -280,6 +282,7 @@
 
     <section class="flex flex-col gap-3">
       <h2 class={titreSection}>Sauvegarde</h2>
+      <p class="pl-2 {texteDiscret}">Pour changer d’appareil : exportez une sauvegarde, envoyez le fichier sur le nouvel appareil, puis touchez « Récupérer mes données » à son premier lancement.</p>
       <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageSauvegarde = await onexporterSauvegarde())}>
         Exporter une sauvegarde
       </button>
@@ -420,29 +423,15 @@
     </Feuille>
   {/if}
   {#if aRestaurer}
-    {@const r = aRestaurer.resume}
-    <Feuille onfermer={() => (aRestaurer = null)}>
-      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Remplacer les données de cet appareil ?</p>
-      <p class="text-sm">
-        Sauvegarde du {new Date(r.creeeLe).toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })} :
-        {r.dossiers} dossier{r.dossiers > 1 ? 's' : ''} suivi{r.dossiers > 1 ? 's' : ''}, {r.passages} passage{r.passages > 1 ? 's' : ''} terminé{r.passages > 1 ? 's' : ''}{r.enseignant
-          ? `, ${r.parcoursEnseignant} parcours dans la bibliothèque`
-          : ''}.
-      </p>
-      <p class="text-sm">Tout ce qui est sur cet appareil est remplacé. L’état actuel est gardé : « Annuler la dernière restauration » le rétablit.</p>
-      <div class="flex flex-row gap-3">
-        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (aRestaurer = null)}>Annuler</button>
-        <button
-          type="button"
-          class="{boutonAction} flex-1"
-          style="min-height: 44px"
-          onclick={async () => {
-            const texte = aRestaurer!.texte
-            aRestaurer = null
-            messageSauvegarde = await onrestaurer(texte)
-          }}>Remplacer</button
-        >
-      </div>
-    </Feuille>
+    <ConfirmationRestauration
+      resume={aRestaurer.resume}
+      remplacer
+      onannuler={() => (aRestaurer = null)}
+      onconfirmer={async () => {
+        const texte = aRestaurer!.texte
+        aRestaurer = null
+        messageSauvegarde = await onrestaurer(texte)
+      }}
+    />
   {/if}
 </div>

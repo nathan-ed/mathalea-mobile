@@ -52,7 +52,7 @@ L'élève y voit le nombre de questions faites, de réponses correctes et de jou
 
 - Sans connexion, l'élève travaille quand même. Les nouveaux parcours arrivent à la prochaine connexion.
 - Un parcours commencé se reprend là où il s'est arrêté.
-- Pour changer de téléphone, l'élève touche « Exporter une sauvegarde » dans les Réglages, puis « Restaurer une sauvegarde » sur le nouveau téléphone.
+- Pour changer de téléphone, l'élève touche « Exporter une sauvegarde » dans les Réglages et envoie le fichier sur le nouveau téléphone (AirDrop, message, drive). Au premier lancement du nouveau téléphone, « Récupérer mes données » reprend tout : dossiers, parcours terminés, séance en cours (à la question où elle s'était arrêtée), suivi.
 - L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, rangés par degré puis par chapitre selon le programme choisi (France ou Suisse). Un parcours commencé s'ajoute à Mes parcours.
 - Certains parcours ont des fiches de cours : formules, graphiques à manipuler, exemples pas à pas et petites questions qui ne comptent pas. La fiche s'ouvre la première fois avant l'entraînement, puis reste sur la page du parcours.
 - En haut de l'Explorer, « Teste ton niveau » : 15 questions de Course aux nombres ; avec 12 bonnes réponses, l'élève gagne la ceinture du niveau. On commence au niveau que l'on veut.
