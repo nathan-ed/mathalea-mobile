@@ -43,7 +43,7 @@
       pause?: Pause
       ressource?: Ressource
       fiche?: Fiche
-      suite: { nom: string; ouvert: boolean; condition: string } | null
+      suite: { nom: string; ouvert: boolean; condition: string; attendDate?: boolean } | null
     } | null
     oncontinuer?: () => void // commence le palier suivant
     onfiche?: (f: Fiche) => void // revoir la fiche de cours du palier
@@ -229,7 +229,7 @@
       {/if}
       {#if palier?.suite && !palier.suite.ouvert && b.passees.length === 0}
         <p class="text-sm text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">
-          <i aria-hidden="true" class="bx bx-lock-alt text-coopmaths-action dark:text-coopmathsdark-action"></i>
+          <i aria-hidden="true" class="bx {palier.suite.attendDate ? 'bx-calendar' : 'bx-lock-alt'} text-coopmaths-action dark:text-coopmathsdark-action"></i>
           Pour ouvrir {palier.suite.nom.toLowerCase()} : {palier.suite.condition}.
         </p>
         {#if palier.fiche && onfiche}
@@ -245,14 +245,14 @@
       {/if}
       <button
         type="button"
-        class="{b.passees.length === 0 && !(palier?.suite?.ouvert && oncontinuer) && (palier || nbAAmeliorer === 0) ? boutonAction : boutonInverse} w-full"
+        class="{b.passees.length === 0 && !(palier?.suite?.ouvert && oncontinuer) && !palier?.suite?.attendDate && (palier || nbAAmeliorer === 0) ? boutonAction : boutonInverse} w-full"
         style="min-height: 44px"
         onclick={onrefaire}
       >
         {palier ? `Refaire : ${palier.nom.toLowerCase()}` : 'Tout refaire'}
       </button>
       {#if palier}
-        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={onfermer}>Voir la carte du parcours</button>
+        <button type="button" class="{b.passees.length === 0 && palier.suite?.attendDate ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={onfermer}>Voir la carte du parcours</button>
       {:else}
         <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => navigation.versAccueil()}>
           Retour à l’accueil

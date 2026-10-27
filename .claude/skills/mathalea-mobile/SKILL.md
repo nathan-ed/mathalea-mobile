@@ -188,7 +188,22 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `libre`|`seuil`, `seuil`, `ressource` (pour revoir), `pause` (contenu après
   le palier : « une pause du type on peut insérer un contenu théorique… un
   bravo »), `style` `paliers`|`ceintures`, `premiereCeinture` (on peut
-  commencer à l'orange). Ne pas dire « jalon ». Couleurs des ceintures : seule
+  commencer à l'orange), `ouverture` (2026-10-27, « débloquer les paliers
+  avec une date ») : instant avec le décalage de l'enseignant, **8 h** du jour
+  choisi (Nathan : « 8:00 matin » ; `HEURE_OUVERTURE`, `ouvertureDuJour`,
+  `2026-11-12T08:00:00+01:00`), écrit aux élèves « à partir du jeudi 12
+  novembre à 8 h ». Nathan : « c'est
+  selon l'appareil du prof, c'est lui qui fait foi » ; jamais l'horloge du
+  téléphone de l'élève : heure des serveurs (`heure.svelte.ts`, en-tête Date
+  de mathalea.fr et forge.apps.education.fr, la plus petite : coopmaths.fr
+  avait 22 min de retard), hors ligne = fermé avec « connexion à internet
+  nécessaire ». Fermé en plus de l'accès (ET), aussi pour le premier palier ;
+  garde-fou dans `commencer` ; les sessions (QR, code) passent outre. Éditeur :
+  puce « À partir d'une date » puis le champ date seul, **aucun texte en
+  dessous** (Nathan : « ça surcharge pour rien »). Une app plus ancienne ignore
+  le champ. Test : `node e2e/ouverture-paliers.mjs` (relais `/__heure` simulé,
+  téléphone avancé, hors ligne, passage de 8 h). Site : branche
+  `parcours-ouverture-date` (worktree `mathalea-ouverture`). Ne pas dire « jalon ». Couleurs des ceintures : seule
   exception à la charte, sur la ceinture elle-même (`CEINTURES`).
 - Une séance = un palier ; pourcentage du parcours seulement pour un passage
   complet ; tuile « 1/3 » ; session partagée sur un palier ouvert ; bilan de

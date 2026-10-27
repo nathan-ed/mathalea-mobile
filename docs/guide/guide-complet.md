@@ -27,7 +27,7 @@ Illustré pas à pas : [Côté élève](eleves.md).
 ### Un parcours
 
 - **Liste simple** : les exercices et un bouton « Commencer ».
-- **Paliers ou ceintures** : une carte par palier, son état écrit en toutes lettres (« À faire », « En cours », « Réussi · 85 % », « Au moins 80 % à : palier 1 »), ses objectifs et ses exercices. Un seul bouton, sur le palier à faire. Un palier s'ouvre quand le précédent est réussi au seuil fixé par l'enseignant, ou dès le départ s'il l'a voulu.
+- **Paliers ou ceintures** : une carte par palier, son état écrit en toutes lettres (« À faire », « En cours », « Réussi · 85 % », « Au moins 80 % à : palier 1 », « À partir du jeudi 12 novembre »), ses objectifs et ses exercices. Un seul bouton, sur le palier à faire. Un palier s'ouvre quand le précédent est réussi au seuil fixé par l'enseignant, ou dès le départ s'il l'a voulu.
 - **Ressource pour revoir** : un lien (fiche, vidéo) mis en avant tant que le palier n'est pas réussi.
 - **Pause** : entre deux paliers, un mot de l'enseignant (point de cours, consigne, mise en commun), lu à la fin du palier.
 
@@ -107,6 +107,7 @@ Un parcours peut aussi se préparer sur ordinateur, sur le site MathALÉA : [Cr�
 - **Paliers** : le parcours se découpe en étapes, une par objectif au départ ; vous ajustez.
 - **Ceintures** : la même chose avec des ceintures de couleur. La première ceinture se choisit (une 5e peut commencer à l'orange).
 - **Pour accéder à un palier** : réussir le précédent au seuil choisi (50 à 100 %, 80 % par défaut), ou « Ouvert à tout moment ».
+- **À partir d'une date** : le palier reste fermé avant ce jour, même seuil atteint, et s'ouvre ce jour-là à 8 h, à l'heure de l'enseignant. L'app de l'élève vérifie l'heure sur internet (changer l'heure du téléphone n'ouvre rien).
 - **Ressource pour revoir** et **pause après le palier** : voir côté élève.
 
 ### Objectifs

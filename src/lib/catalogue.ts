@@ -111,6 +111,7 @@ export interface Palier {
   nb: number // nombre d'exercices, pris dans l'ordre des étapes
   acces?: Acces // ignoré pour le premier palier
   seuil?: number // pourcentage à atteindre au palier précédent (accès « seuil »)
+  ouverture?: string // instant d'ouverture, 8 h du jour choisi chez l'enseignant (« 2026-11-12T08:00:00+01:00 ») ; fermé avant, en plus de l'accès
   ressource?: Ressource // pour revoir la notion, mise en avant tant que le palier n'est pas réussi
   pause?: Pause // affichée après le palier
   fiche?: Fiche // cours du palier
@@ -166,13 +167,73 @@ export function nomPalier(p: OptionsCeintures, k: number) {
 
 export const couleurCeinture = (p: OptionsCeintures, k: number) => CEINTURES[Math.min(rangCeinture(p, k), CEINTURES.length - 1)].couleur
 
+/** Jour de l'appareil, au format AAAA-MM-JJ (celui des dates d'ouverture) */
+export function jourLocal(d = new Date()) {
+  const deux = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${deux(d.getMonth() + 1)}-${deux(d.getDate())}`
+}
+
+/** Date valide au format AAAA-MM-JJ (pas de 31 février) */
+export function estJour(v: unknown): v is string {
+  if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false
+  const [a, m, j] = v.split('-').map(Number)
+  const d = new Date(a, m - 1, j)
+  return d.getFullYear() === a && d.getMonth() === m - 1 && d.getDate() === j
+}
+
+/** Heure d'ouverture d'un palier le jour choisi (Nathan : « 8:00 matin ») */
+export const HEURE_OUVERTURE = 8
+
+/**
+ * Ouverture d'un palier au jour choisi : 8 h ce jour-là dans le fuseau de
+ * l'appareil de l'enseignant (heure d'été comprise), décalage écrit en clair.
+ */
+export function ouvertureDuJour(jour: string) {
+  const [a, m, j] = jour.split('-').map(Number)
+  const decalage = -new Date(a, m - 1, j, HEURE_OUVERTURE).getTimezoneOffset()
+  const deux = (n: number) => String(n).padStart(2, '0')
+  const signe = decalage < 0 ? '-' : '+'
+  return `${jour}T${deux(HEURE_OUVERTURE)}:00:00${signe}${deux(Math.floor(Math.abs(decalage) / 60))}:${deux(Math.abs(decalage) % 60)}`
+}
+
+/** Instant d'ouverture valide : « AAAA-MM-JJTHH:MM:SS » suivi de « Z » ou du décalage */
+export function estOuverture(v: unknown): v is string {
+  return typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-]\d{2}:\d{2})$/.test(v) && estJour(v.slice(0, 10)) && Number.isFinite(Date.parse(v))
+}
+
+/** Jour de l'ouverture chez l'enseignant (AAAA-MM-JJ) */
+export const jourOuverture = (ouverture: string) => ouverture.slice(0, 10)
+
+/** « jeudi 12 novembre à 8 h » (« à 8 h 30 »), heure de l'enseignant */
+export function momentOuverture(ouverture: string, aujourdhui = jourLocal()) {
+  const h = Number(ouverture.slice(11, 13))
+  const min = ouverture.slice(14, 16)
+  return `${jourEnLettres(jourOuverture(ouverture), aujourdhui)} à ${h} h${min === '00' ? '' : ` ${min}`}`
+}
+
+/** « jeudi 12 novembre », avec l'année si ce n'est pas celle de `aujourdhui` */
+export function jourEnLettres(jour: string, aujourdhui = jourLocal()) {
+  const [a, m, j] = jour.split('-').map(Number)
+  const memeAnnee = jour.slice(0, 4) === aujourdhui.slice(0, 4)
+  return new Date(a, m - 1, j).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', ...(memeAnnee ? {} : { year: 'numeric' }) })
+}
+
 /** Paliers d'un parcours avec les rangs de leurs étapes ; sans paliers valides, un seul palier */
 export function paliersDe(p: Parcours) {
   const paliers = p.paliers ?? []
   const valides = paliers.length > 1 && paliers.reduce((a, x) => a + x.nb, 0) === p.etapes.length
   if (!valides)
     return [
-      { titre: '', etapes: p.etapes.map((_, i) => i), acces: 'libre' as Acces, seuil: 0, ressource: undefined as Ressource | undefined, pause: undefined as Pause | undefined, fiche: p.fiche },
+      {
+        titre: '',
+        etapes: p.etapes.map((_, i) => i),
+        acces: 'libre' as Acces,
+        seuil: 0,
+        ouverture: undefined as string | undefined,
+        ressource: undefined as Ressource | undefined,
+        pause: undefined as Pause | undefined,
+        fiche: p.fiche,
+      },
     ]
   let debut = 0
   return paliers.map((x, k) => {
@@ -183,6 +244,7 @@ export function paliersDe(p: Parcours) {
       etapes,
       acces: k === 0 ? ('libre' as Acces) : (x.acces ?? 'libre'),
       seuil: x.seuil ?? 80,
+      ouverture: x.ouverture,
       ressource: x.ressource,
       pause: x.pause,
       fiche: x.fiche ?? (k === 0 ? p.fiche : undefined),

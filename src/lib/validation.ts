@@ -2,7 +2,7 @@
 // sauvegardes). Tout ce que l'interface lit est contrôlé, y compris l'unicité
 // des noms et identifiants qui servent de clés aux listes : un doublon ou une
 // valeur manquante y provoque un écran vide.
-import { COULEURS_GRAPHIQUE, FORMES_POINT, TRAITS, type Etape, type Fiche, type Parcours } from './catalogue'
+import { COULEURS_GRAPHIQUE, FORMES_POINT, TRAITS, estOuverture, type Etape, type Fiche, type Parcours } from './catalogue'
 import { compiler } from './expression'
 
 export const estObjet = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v)
@@ -112,6 +112,7 @@ const estPalier = (v: unknown) =>
   (v.nb as number) >= 0 &&
   optionnel(v.acces, (a) => ACCES.includes(a as string)) &&
   optionnel(v.seuil, (n) => estNombre(n) && (n as number) >= 0 && (n as number) <= 100) &&
+  optionnel(v.ouverture, estOuverture) &&
   optionnel(v.ressource, estRessource) &&
   optionnel(v.pause, (x) => estObjet(x) && estTexte(x.texte) && optionnel(x.ressource, estRessource)) &&
   optionnel(v.fiche, estFiche)

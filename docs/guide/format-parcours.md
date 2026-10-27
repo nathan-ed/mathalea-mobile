@@ -109,6 +109,7 @@ Choisissez des exercices interactifs : ce sont ceux que l'application corrige. L
 | `nb` | nombre d'étapes (obligatoire) |
 | `acces` | `libre` ou `seuil` ; ignoré pour le premier palier |
 | `seuil` | pourcentage à atteindre au palier précédent, de 0 à 100 (80 par défaut) |
+| `ouverture` | instant d'ouverture avec le décalage horaire de l'enseignant, 8 h du jour choisi (`2026-11-12T08:00:00+01:00`) : le palier est fermé avant, en plus de `acces` ; aussi pour le premier palier. L'app le compare à l'heure lue sur internet, pas à celle du téléphone |
 | `ressource` | `{ "titre", "lien" }` : pour revoir la notion, proposée tant que le palier n'est pas réussi |
 | `pause` | `{ "texte", "ressource" }` : affichée après le palier |
 | `fiche` | fiche de cours du palier, voir plus bas |

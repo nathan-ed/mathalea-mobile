@@ -32,15 +32,36 @@ function relaisTelechargement() {
         res.end(String(e));
       }
     });
+  // Heure d'un serveur (en-tête Date), illisible depuis une page web (CORS) :
+  // GET /__heure?url=<adresse https> renvoie { date }, comme le lit l'app (heure.svelte.ts)
+  /** @param {import('vite').Connect.Server} serveur */
+  const brancherHeure = (serveur) =>
+    serveur.use("/__heure", async (/** @type {any} */ req, /** @type {any} */ res) => {
+      try {
+        const cible = new URL(new URL(req.url ?? "", "http://x").searchParams.get("url") ?? "");
+        if (cible.protocol !== "https:") {
+          res.statusCode = 400;
+          return res.end("Adresse refusée");
+        }
+        const r = await fetch(cible, { method: "HEAD", cache: "no-store" });
+        res.setHeader("content-type", "application/json");
+        res.end(JSON.stringify({ date: r.headers.get("date") }));
+      } catch (e) {
+        res.statusCode = 502;
+        res.end(String(e));
+      }
+    });
   return {
     name: "relais-telechargement",
     /** @param {import('vite').ViteDevServer} s */
     configureServer(s) {
       brancher(s.middlewares);
+      brancherHeure(s.middlewares);
     },
     /** @param {import('vite').PreviewServer} s */
     configurePreviewServer(s) {
       brancher(s.middlewares);
+      brancherHeure(s.middlewares);
     },
   };
 }

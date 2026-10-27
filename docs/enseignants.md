@@ -114,6 +114,15 @@ partir du deuxième :
 
 - **Pour y accéder** : réussir le palier précédent avec le seuil choisi (50 à
   100 %, 80 % par défaut), ou « Ouvert à tout moment ».
+- **À partir d'une date** (aussi pour le premier palier) : le palier reste
+  fermé avant ce jour, même si le seuil est atteint ; il s'ouvre ce jour-là à
+  8 h, à votre heure (celle de l'appareil où vous l'avez réglé). L'app de l'élève
+  vérifie l'heure sur internet : avancer l'horloge du téléphone n'y change
+  rien, et hors ligne le palier reste fermé (« connexion à internet
+  nécessaire »). Pratique pour suivre la progression de la classe (une
+  ceinture par semaine). Une session lancée en classe sur ce palier reste
+  possible avant la date. Les élèves dont l'app est antérieure à cette
+  option voient le palier ouvert : leur demander de mettre l'app à jour.
 - **Ressource pour revoir** : lien vers un PDF ou une vidéo de votre drive,
   mise en avant tant que le palier n'est pas réussi.
 - **Pause après le palier** : un contenu entre deux paliers (point de cours,

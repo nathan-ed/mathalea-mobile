@@ -53,7 +53,15 @@ Règles :
 - Aucune donnée ne quitte l'appareil ; l'app ne stocke aucun identifiant.
 - Paliers : `paliers` donne le nombre d'exercices de chacun (les étapes
   restent une liste ; une ancienne app affiche tout le parcours), `acces`
-  (`libre`, `seuil`), `seuil`, `ressource`, `pause` (contenu après le palier) ;
+  (`libre`, `seuil`), `seuil`, `ouverture` (instant avec le décalage de
+  l'enseignant, 8 h du jour choisi (`HEURE_OUVERTURE`) : `2026-11-12T08:00:00+01:00` ; fermé
+  avant, en plus de l'accès ; comparé à l'heure des serveurs, jamais à
+  l'horloge du téléphone : `heure.svelte.ts`, en-tête `Date` d'une requête
+  HEAD vers mathalea.fr et forge.apps.education.fr, la plus petite des deux,
+  avancée par `performance.now()`, relue au retour dans l'app et toutes les
+  10 minutes, seulement si un parcours a des dates ; hors ligne, fermé ; dans
+  le navigateur, relais `/__heure` de `vite.config.js`), `ressource`, `pause` (contenu
+  après le palier) ;
   `style` (`paliers`, `ceintures`) et `premiereCeinture`. Une séance porte sur
   un palier (`etapes`) ; le pourcentage du parcours (`complet:<id>`) ne vient
   que d'un passage sur toutes ses étapes.

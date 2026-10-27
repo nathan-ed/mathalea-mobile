@@ -3,8 +3,9 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { couleurCeinture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
+  import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
   import { modeQr, nouveauCode, normaliserCode } from '$lib/progression'
   import { reponsesDeSeance } from '$lib/releve'
@@ -81,7 +82,11 @@
   const dejaFait = $derived(Object.keys(resultats).length > 0)
   const nbQuestions = $derived(parcours.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0))
 
-  const paliers = $derived(etatsPaliers(parcours, resultats))
+  const paliers = $derived(etatsPaliers(parcours, resultats, heure.maintenant))
+  // Dates d'ouverture : l'heure des serveurs fait foi
+  $effect(() => {
+    if (parcours.paliers?.some((x) => x.ouverture)) exigerHeure()
+  })
   const avecPaliers = $derived(paliers.length > 1)
   const etapesSession = $derived(avecPaliers ? paliers[palierSession]?.etapes : undefined)
   function creerSession() {
@@ -110,7 +115,14 @@
 
   function etat(k: number) {
     const x = paliers[k]
-    if (!x.ouvert) return { icone: 'bx-lock-alt', texte: `Au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}` }
+    // Seuil à atteindre (jamais pour le premier palier, sans précédent)
+    const seuilManque = k > 0 && x.acces === 'seuil' && !(paliers[k - 1].fini && paliers[k - 1].pourcentage >= x.seuil)
+    const seuil = () => `au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}`
+    if (x.avantOuverture) {
+      const date = `À partir du ${momentOuverture(x.ouverture!)}${x.heureAVerifier ? ' · connexion à internet nécessaire pour vérifier la date' : ''}`
+      return { icone: 'bx-calendar', texte: seuilManque ? `${date} · ${seuil()}` : date }
+    }
+    if (!x.ouvert && k > 0) return { icone: 'bx-lock-alt', texte: `Au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}` }
     if (enCours && courant === k) return { icone: 'bx-play-circle', texte: 'En cours' }
     if (x.fini && x.aRevoir) return { icone: 'bx-revision', texte: `À revoir · ${x.pourcentage} %` }
     if (x.fini) return { icone: 'bx-check-circle', texte: `Réussi · ${x.pourcentage} %` }

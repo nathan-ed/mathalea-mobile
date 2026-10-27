@@ -2,7 +2,7 @@
 // La liste est rangée par niveau et chapitre ; un fichier au format
 // objectifs-mathalea/1 (le sien, celui d'un collègue ou de Coopmaths) la complète.
 import type { Etape, Parcours } from './catalogue'
-import { couleurCeinture, nomPalier, paliersDe } from './catalogue'
+import { couleurCeinture, momentOuverture, nomPalier, paliersDe } from './catalogue'
 import { bilan, type ResultatEtape, type Seance } from './progression'
 import { estObjet, estTexte, listeDe, optionnel } from './validation'
 
@@ -178,9 +178,13 @@ export const SEUIL_PAR_DEFAUT = 80
 /**
  * Paliers d'après les derniers résultats. Un palier « seuil » s'ouvre quand le
  * précédent est terminé avec au moins le seuil ; un palier terminé sous la
- * réussite attendue (seuil du suivant, sinon 80 %) est « à revoir ».
+ * réussite attendue (seuil du suivant, sinon 80 %) est « à revoir ». Un
+ * palier avec une date d'ouverture reste fermé avant cet instant, quel que
+ * soit son accès (`avantOuverture`). `maintenant` : heure des serveurs
+ * (heure.svelte.ts) ; inconnue (hors ligne), le palier reste fermé et
+ * `heureAVerifier` dit que la date est peut-être passée (`appareil`).
  */
-export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtape>) {
+export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtape>, maintenant: number | null, appareil = Date.now()) {
   const paliers = paliersDe(p)
   const bilans = paliers.map((x) => {
     const rs = x.etapes.map((i) => resultats[i])
@@ -194,15 +198,33 @@ export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtap
     }
   })
   const ouverts: boolean[] = []
+  const instants = paliers.map((x) => (x.ouverture ? Date.parse(x.ouverture) : null))
+  const avantOuverture = instants.map((t) => t !== null && (maintenant === null || maintenant < t))
+  const heureAVerifier = instants.map((t) => t !== null && maintenant === null && appareil >= t)
   paliers.forEach((x, k) => {
+    if (avantOuverture[k]) return ouverts.push(false)
     if (k === 0 || x.acces !== 'seuil') return ouverts.push(true)
     ouverts.push(ouverts[k - 1] && bilans[k - 1].fini && bilans[k - 1].pourcentage >= x.seuil)
   })
   return paliers.map((x, k) => {
     const suivant = paliers[k + 1]
     const attendu = suivant?.acces === 'seuil' ? suivant.seuil : SEUIL_PAR_DEFAUT
-    return { ...x, ...bilans[k], ouvert: ouverts[k], attendu, aRevoir: bilans[k].fini && bilans[k].pourcentage < attendu }
+    return { ...x, ...bilans[k], ouvert: ouverts[k], avantOuverture: avantOuverture[k], heureAVerifier: heureAVerifier[k], attendu, aRevoir: bilans[k].fini && bilans[k].pourcentage < attendu }
   })
+}
+
+type EtatPalier = ReturnType<typeof etatsPaliers>[number]
+
+/**
+ * Ce qui manque pour ouvrir le palier `x` (fermé), d'après le précédent :
+ * « à partir du jeudi 12 novembre », « au moins 80 % (tu as 75 %) », ou les deux.
+ */
+export function conditionPalier(x: EtatPalier, precedent: EtatPalier) {
+  const date = !x.avantOuverture ? '' : `à partir du ${momentOuverture(x.ouverture!)}${x.heureAVerifier ? ' (connexion à internet nécessaire pour vérifier la date)' : ''}`
+  const atteint = precedent.fini && precedent.pourcentage >= x.seuil
+  const seuil =
+    x.acces === 'seuil' && !atteint ? `au moins ${x.seuil} % (${precedent.fini ? `tu as ${precedent.pourcentage} %` : 'termine tous ses exercices'})` : ''
+  return date && seuil ? `${date}, avec ${seuil}` : date || seuil
 }
 
 // ---------- Suivi de l'élève ----------

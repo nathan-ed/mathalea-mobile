@@ -5,7 +5,7 @@
   // pages et validation. Tout reste modifiable dans n'importe quel ordre.
   // Les classes se choisissent ensuite : on crée pour un niveau, on donne à une classe.
   import { onMount, untrack } from 'svelte'
-  import { CEINTURES, ICONES, couleurCeinture, iconeProposee, melange, nomPalier, type Etape, type Palier, type Parcours, type Ressource, type StylePaliers } from '$lib/catalogue'
+  import { CEINTURES, ICONES, couleurCeinture, estJour, estOuverture, iconeProposee, jourOuverture, ouvertureDuJour, melange, nomPalier, type Etape, type Palier, type Parcours, type Ressource, type StylePaliers } from '$lib/catalogue'
   import { chapitres, chapitresDeBibliotheque, etapesDepuisLienMathalea, type Bibliotheque, type ChapitreConnu } from '$lib/bibliotheque'
   import { NIVEAUX, type DescriptionExercice, type ExerciceDuReferentiel, type Moteur, type Pays } from '$lib/moteur'
   import { cleExercice, type Objectif } from '$lib/objectifs'
@@ -189,6 +189,12 @@
     if (paliers.length < 2) p.paliers = undefined
   }
 
+  /** Date d'ouverture : demandée (champ vide à remplir) ou retirée */
+  function basculerOuverture(x: Palier) {
+    if (x.ouverture === undefined) x.ouverture = ''
+    else delete x.ouverture
+  }
+
   function choisirAcces(x: Palier, acces: Palier['acces']) {
     x.acces = acces
     if (acces === 'seuil') x.seuil ??= 80
@@ -206,6 +212,7 @@
       [!p.titre.trim(), 'un titre'],
       [p.etapes.length === 0, 'un exercice'],
       [p.etapes.length > 0 && avecPaliers && p.paliers!.some((x) => x.nb === 0), 'un exercice dans chaque palier'],
+      [avecPaliers && p.paliers!.some((x) => x.ouverture !== undefined && !estOuverture(x.ouverture)), 'une date d’ouverture'],
     ]
       .filter(([manque]) => manque)
       .map(([, libelle]) => libelle as string),
@@ -328,7 +335,12 @@
     return `${questions} · Réglages et aperçu`
   }
 
-  const instantane = () => $state.snapshot(p) as Parcours
+  const instantane = () => {
+    const copie = $state.snapshot(p) as Parcours
+    // Date d'ouverture demandée mais pas encore choisie : pas de date
+    for (const x of copie.paliers ?? []) if (x.ouverture !== undefined && !estOuverture(x.ouverture)) delete x.ouverture
+    return copie
+  }
 
   /** Objectifs posés dans ce parcours qui manquent à la liste de l'enseignant */
   function objectifsNouveaux(): Objectif[] {
@@ -593,6 +605,21 @@
                   {/each}
                 </div>
               {/if}
+            {/if}
+            {#if k === 0}<p class={sousTitre}>Pour y accéder</p>{/if}
+            <div class="flex flex-row flex-wrap gap-2">
+              <button type="button" aria-pressed={x.ouverture !== undefined} class={puce(x.ouverture !== undefined)} onclick={() => basculerOuverture(x)}>
+                <i aria-hidden="true" class="bx bx-calendar"></i> À partir d’une date
+              </button>
+            </div>
+            {#if x.ouverture !== undefined}
+              <!-- Jour choisi : 8 h chez l'enseignant, son fuseau fait foi -->
+              <ChampTexte
+                id="ouverture-palier-{k}"
+                titre="{nomPalier(p, k)} : date d’ouverture"
+                type="date"
+                bind:valeur={() => (x.ouverture ? jourOuverture(x.ouverture) : ''), (v) => (x.ouverture = estJour(v) ? ouvertureDuJour(v) : '')}
+              />
             {/if}
             {#if groupes[k].length}
               <ul class={listeGroupee}>

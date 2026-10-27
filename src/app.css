@@ -367,3 +367,8 @@ input.interrupteur:focus-visible {
   white-space: nowrap;
   pointer-events: none;
 }
+
+/* Champs natifs (date) : sélecteur et icône aux couleurs du thème choisi */
+.dark input[type='date'] {
+  color-scheme: dark;
+}

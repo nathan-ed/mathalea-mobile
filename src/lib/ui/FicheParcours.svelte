@@ -4,7 +4,7 @@
   // toucher), où il en est chez les élèves, « Lancer une session », l'essayer,
   // le modifier, ses sessions ; exporter, dupliquer, supprimer dans « Autres
   // actions ».
-  import { organisationDe, paliersDe } from '$lib/catalogue'
+  import { momentOuverture, nomPalier, organisationDe, paliersDe } from '$lib/catalogue'
   import { aExporter, type ParcoursEnseignant } from '$lib/bibliotheque'
   import { reglageQr } from '$lib/progression'
   import type { Releve } from '$lib/releve'
@@ -129,6 +129,12 @@
     </div>
 
     <h2 class={titreSection}>{paliersDe(p).length > 1 ? organisationDe(p) : 'Exercices'}</h2>
+    {#each paliersDe(p).map((x, k) => ({ x, k })).filter(({ x }) => x.ouverture) as { x, k } (k)}
+      <p class="pl-2 flex flex-row items-center gap-1 {discret}">
+        <i aria-hidden="true" class="bx bx-calendar text-base"></i>
+        {nomPalier(p, k)} : à partir du {momentOuverture(x.ouverture!)}
+      </p>
+    {/each}
     <ul class={listeGroupee}>
       {#each p.etapes as e, i (i)}
         <li class="flex flex-row items-baseline gap-3 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">

@@ -35,7 +35,8 @@
     type Bibliotheque,
   } from '$lib/bibliotheque'
   import { rappelExport } from '$lib/rappelExport.svelte'
-  import { ceinturesObtenues, completerListe, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
+  import { heure, suivreHeure } from '$lib/heure.svelte'
+  import { ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
   import { LIEN_DEMONSTRATION, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
@@ -327,7 +328,9 @@
     const minuteur = setInterval(auPremierPlan, 10 * 60_000)
     document.addEventListener('visibilitychange', auPremierPlan)
     window.addEventListener('online', auPremierPlan)
+    const arreterHeure = suivreHeure()
     return () => {
+      arreterHeure()
       clearInterval(minuteur)
       document.removeEventListener('visibilitychange', auPremierPlan)
       window.removeEventListener('online', auPremierPlan)
@@ -653,6 +656,9 @@
     const existante = seances[p.id]
     const memes = !etapes || (existante && existante.etapes.join() === etapes.join())
     if (existante && !existante.fin && memes) return void lancer(existante)
+    // Palier fermé (seuil pas atteint, date d'ouverture pas arrivée) : rien ne se lance
+    const palier = etapes && etatsPaliers(p, resultats[p.id] ?? {}, heure.maintenant).find((x) => x.etapes.join() === etapes.join())
+    if (palier && !palier.ouvert) return
     const nouvelle = () => void lancer(nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes))
     // Fiche de cours à lire d'abord, la première fois seulement
     const f = ficheDe(p, etapes)
@@ -669,7 +675,7 @@
   /** Bilan d'une séance de palier : nom, pause, et palier suivant avec son état d'après les nouveaux résultats */
   const palierDuBilan = $derived.by(() => {
     if (!seance || !actif || seance.contenu.id !== actif.id) return null
-    const etats = etatsPaliers(actif, resultats[actif.id] ?? {})
+    const etats = etatsPaliers(actif, resultats[actif.id] ?? {}, heure.maintenant)
     if (etats.length < 2) return null
     const k = etats.findIndex((x) => x.etapes.join() === seance!.etapes.join())
     if (k === -1) return null
@@ -684,7 +690,9 @@
             nom: nomPalier(actif, k + 1),
             ouvert: suivant.ouvert,
             etapes: suivant.etapes,
-            condition: `au moins ${suivant.seuil} % (${etats[k].fini ? `tu as ${etats[k].pourcentage} %` : 'termine tous ses exercices'})`,
+            condition: conditionPalier(suivant, etats[k]),
+            // Réussite suffisante : seule la date d'ouverture manque
+            attendDate: suivant.avantOuverture && (suivant.acces !== 'seuil' || (etats[k].fini && etats[k].pourcentage >= suivant.seuil)),
           }
         : null,
     }
