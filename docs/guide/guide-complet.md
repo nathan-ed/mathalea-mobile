@@ -161,7 +161,6 @@ Illustré pas à pas : [Sessions et réponses de la classe](sessions.md).
 - **Les réponses de la classe** (si vous l'avez demandé au lancement) : chaque élève vous montre un QR code de ses réponses, après la correction ou avant (il voit alors ses résultats une fois le QR code lu). « Lire les QR codes » : passez dans les rangs, la caméra les lit un par un. Ou importez une photo de plusieurs téléphones, ou les fichiers des élèves.
 - **Ce que vous obtenez** : la réussite moyenne, les questions à reprendre, les mauvaises réponses regroupées (« 999 : 2 élèves »), le détail par élève. L'application revérifie elle-même chaque réponse : un QR code modifié ne fausse rien.
 - **Prénoms** : facultatifs. Sans eux, « Élève 1, 2, 3… ».
-- **Analyse par une IA** : un texte prêt à coller dans l'assistant de votre choix, ou l'analyse directement dans l'application (Claude, Mistral, OpenAI avec votre clé, ou une IA locale, gratuite). L'IA ne voit jamais un prénom.
 - Toutes vos sessions restent dans l'onglet En classe : préparez-les avant le cours, relevez les réponses plus tard.
 
 ## Réglages
@@ -176,7 +175,7 @@ Illustré pas à pas : [Sessions et réponses de la classe](sessions.md).
 
 ## Vie privée
 
-Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil. L'application télécharge des parcours (vos dossiers partagés, l'Explorer) et les mises à jour des exercices ; elle n'envoie rien sur l'élève. Les réponses d'une session passent d'un téléphone à l'autre, par QR code. Seule l'analyse par une IA, si l'enseignant la demande, envoie les réponses de la classe au service qu'il a choisi, sans aucun prénom. [Politique de confidentialité](../confidentialite.md).
+Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil. L'application télécharge des parcours (vos dossiers partagés, l'Explorer) et les mises à jour des exercices ; elle n'envoie rien sur l'élève. Les réponses d'une session passent d'un téléphone à l'autre, par QR code. [Politique de confidentialité](../confidentialite.md).
 
 ## Questions fréquentes
 

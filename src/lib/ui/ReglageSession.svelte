@@ -98,7 +98,7 @@
       <input type="checkbox" role="switch" class="interrupteur shrink-0" bind:checked={avecPrenom} />
     </label>
     <p class={discret}>
-      {avecPrenom ? 'Chaque élève donne son prénom une fois ; il n’est jamais envoyé à une IA. ' : ''}
+      {avecPrenom ? 'Chaque élève donne son prénom une fois. ' : ''}
       {quand === 'avant'
         ? 'Pas de correction pendant la session. À la fin, chaque élève montre son QR code, puis voit ses résultats et les corrections.'
         : 'Les élèves voient la correction comme prévu, puis montrent leur QR code depuis leur bilan.'}

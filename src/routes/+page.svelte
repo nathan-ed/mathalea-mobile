@@ -88,7 +88,6 @@
   import { boutonAction, boutonInverse } from '$lib/ui/classes'
   import { cleReleve, noterSession, type Releve as TReleve } from '$lib/releve'
   import { decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
-  import { CLE_IA, lireConfigIA, type ConfigIA } from '$lib/analyse'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
@@ -128,8 +127,6 @@
   let relue: TSeance | undefined = $state()
   // Réponses de sessions partagées relevées par l'enseignant (QR codes)
   let releves: TReleve[] = $state([])
-  // Clé d'API Anthropic de l'enseignant (analyse des erreurs) : propre à l'appareil
-  let configIA: ConfigIA | null = $state(null)
   let seances: Record<string, TSeance | null> = $state({})
   let resultats: Record<string, Record<number, ResultatEtape>> = $state({})
   let historiques: Record<string, TSeance[]> = $state({})
@@ -275,7 +272,6 @@
     classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
     objectifs = (await stockage.lire<Objectif[]>('objectifs')) ?? []
     releves = (await stockage.lire<TReleve[]>('releves')) ?? []
-    configIA = lireConfigIA(await stockage.lire<unknown>(CLE_IA))
     const complete = completerEmpreinte(bibliotheque, objectifs)
     if (complete !== bibliotheque) await sauverBibliotheque(complete)
     etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
@@ -1292,12 +1288,6 @@
       {releves}
       {moteur}
       niveau={bibliotheque.parcours.find((pe) => pe.parcours.id === releveOuvert.parcours)?.parcours.niveau ?? ''}
-      {configIA}
-      onconfigIA={async (c) => {
-        configIA = c
-        if (c) await stockage!.ecrire(CLE_IA, c)
-        else await stockage!.effacer(CLE_IA)
-      }}
       onsauver={sauverReleves}
       onretour={retourSession}
     />

@@ -160,7 +160,7 @@
     <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer la session {aSupprimer.code} ?</p>
     <p class="text-sm">
       {#if aSupprimer.recues.length}
-        Les réponses de {aSupprimer.recues.length} élève{aSupprimer.recues.length > 1 ? 's' : ''}{aSupprimer.analyse ? ' et l’analyse de l’IA' : ''} seront effacées de cet appareil.
+        Les réponses de {aSupprimer.recues.length} élève{aSupprimer.recues.length > 1 ? 's' : ''} seront effacées de cet appareil.
       {:else}
         La session et son code seront effacés de cet appareil.
       {/if}

@@ -3,7 +3,7 @@
 // Quatre élèves rejoignent la même session et répondent pour de vrai (bonnes et
 // mauvaises réponses), puis montrent leur QR code ; l'enseignant les lit à la
 // caméra (fausse caméra de Chromium qui filme les QR codes), revoit les
-// réponses de la classe revérifiées par son app, copie le texte pour une IA,
+// réponses de la classe revérifiées par son app (résumé, questions, élèves),
 // importe une photo de quatre téléphones et le fichier d'un cinquième élève.
 //   CAPTURES=<dossier> node e2e/reponses-session.mjs
 // Moteur WebKit (Safari, iPhone, Mac, WebView de Linux) : NAVIGATEUR=webkit.
@@ -370,7 +370,7 @@ await t.screenshot({ path: `${captures}/${nom}-reponses-3-liste.png` })
 
 // ---------- Réponses de la classe, revérifiées par l'app de l'enseignant ----------
 await t.getByRole('button', { name: /Relatifs en classe/ }).click()
-await t.getByRole('button', { name: 'Copier pour une IA' }).waitFor({ timeout: 120_000 })
+await t.locator('section[aria-label="Résumé de la classe"]').waitFor({ timeout: 120_000 })
 const vueClasse = (await t.locator('body').innerText()).replace(/\s+/g, ' ')
 ok(vueClasse.includes('5 élèves'), 'cinq élèves comptés')
 // Résumé : Léa 6/6, Tom 4/6, Inès 4/6, Noé 5/6, Eva 5/6
@@ -421,126 +421,11 @@ await t.getByRole('tab', { name: 'Questions' }).click()
 await t.locator('section[aria-label="Question 1"]').getByRole('button', { name: 'Voir la correction' }).click()
 ok((await t.locator('section[aria-label="Question 1"] .katex').count()) > 0, 'correction de la question 1 affichée (formules rendues)')
 
-// Texte pour une IA
-await t.getByRole('button', { name: 'Copier pour une IA' }).click()
-ok(await t.getByText('Copié.', { exact: true }).waitFor({ timeout: 10_000 }).then(() => true, () => false), 'copie : confirmation affichée')
-if (!avecWebkit) {
-  const copie = await t.evaluate(() => navigator.clipboard.readText())
-  ok(copie.includes('5 élèves') && copie.includes('Question 1 (réussite : 40 %, 5 réponses)'), 'texte copié : élèves et réussite')
-  ok(copie.includes('999 (2)') && copie.includes('-5 (1)'), 'texte copié : mauvaises réponses avec leur nombre')
-  ok(copie.includes('Correction :') && copie.includes('conception erronée'), 'texte copié : corrections et consigne pour l’IA')
-  ok(!/r54z4-|MAREP1/.test(copie) && !/Léa|Tom|Inès|Noé|Eva/.test(copie), 'texte copié : aucun prénom')
-  ok(copie.includes('Élève 1 (6/6)') && copie.includes('Élève 2 (4/6) : Q1 999 (incorrecte)') && copie.includes('Élève N'), 'texte copié : élèves en « Élève N », avec la consigne de garder ces numéros')
-  writeFileSync(`${captures}/reponses-texte-ia.txt`, copie)
-}
-
-// ---------- Analyse par Claude (API simulée : aucun appel réel, aucun crédit) ----------
-const requetesIA = []
-let reponseIA = 'ok'
-await ctxT.route('https://api.anthropic.com/**', async (route) => {
-  const req = route.request()
-  requetesIA.push({ entetes: await req.allHeaders(), corps: req.postDataJSON() })
-  if (reponseIA === 'refus') return route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ type: 'error', error: { type: 'authentication_error', message: 'invalid x-api-key' } }) })
-  const texte = '## Erreur fréquente\n- **999** : réponse au hasard, à revoir avec $(-18)+(+16)$.\n- Activité de 5 minutes : additionner deux relatifs sur une droite graduée.\n## Par élève\n- Élève 2 : répond au hasard, à interroger.\n- Élève 3 : confond les signes.'
-  const ev = (type, data) => `event: ${type}\ndata: ${JSON.stringify({ type, ...data })}\n\n`
-  const morceaux = texte.match(/.{1,40}/gs)
-  const corps =
-    ev('message_start', { message: { id: 'msg_essai', type: 'message', role: 'assistant', model: 'claude-opus-5-5', content: [], stop_reason: null, stop_sequence: null, usage: { input_tokens: 10, output_tokens: 1 } } }) +
-    ev('content_block_start', { index: 0, content_block: { type: 'text', text: '' } }) +
-    morceaux.map((m) => ev('content_block_delta', { index: 0, delta: { type: 'text_delta', text: m } })).join('') +
-    ev('content_block_stop', { index: 0 }) +
-    ev('message_delta', { delta: { stop_reason: 'end_turn', stop_sequence: null }, usage: { output_tokens: 50 } }) +
-    ev('message_stop', {})
-  return route.fulfill({ status: 200, headers: { 'content-type': 'text/event-stream', 'access-control-allow-origin': '*' }, body: corps })
-})
-await guide(t, 'sessions-10-copier', t.locator('section[aria-label="Analyse par une IA"]'))
-await t.getByRole('button', { name: 'Analyser dans l’app avec une IA' }).click()
-ok(await t.getByRole('radio', { name: 'Claude (Anthropic)' }).isChecked(), 'réglages de l’IA : Claude par défaut')
-ok(await t.getByRole('button', { name: 'Enregistrer', exact: true }).isDisabled(), 'réglages de l’IA : rien d’enregistrable sans clé')
-await t.getByLabel('Clé d’API', { exact: true }).fill('sk-ant-essai-123')
-await guide(t, 'sessions-11-cle', t.getByRole('button', { name: 'Enregistrer', exact: true }))
-await t.screenshot({ path: `${captures}/${nom}-reponses-5-cle-ia.png` })
-await t.getByRole('button', { name: 'Enregistrer', exact: true }).click()
-const blocIA = t.locator('section[aria-label="Analyse par une IA"]')
-await blocIA.getByText('Activité de 5 minutes').waitFor({ timeout: 30_000 })
-ok(requetesIA.length === 1, 'analyse : une requête à l’API')
-const { entetes, corps } = requetesIA[0]
-ok(corps.model === 'claude-opus-5-5' && corps.fallbacks === 'default' && corps.stream === true, `requête : modèle ${corps.model}, repli « default », en flux`)
-ok(entetes['x-api-key'] === 'sk-ant-essai-123' && /server-side-fallback-2026-07-01/.test(entetes['anthropic-beta'] ?? ''), 'requête : clé de l’enseignant et en-tête du repli')
-const envoye = JSON.stringify(corps.messages)
-ok(envoye.includes('999 (2)') && !/MAREP1|r54z4-|champTexte|Ex0Q/.test(envoye), 'requête : erreurs de la classe, aucune donnée technique')
-ok(!/Léa|Tom|Inès|Noé|Eva/.test(JSON.stringify(corps)) && envoye.includes('Élève 3 (4/6)'), 'requête : aucun prénom, élèves en « Élève N »')
-ok(/Élève N/.test(JSON.stringify(corps.system ?? '')), 'requête : consigne système de garder « Élève N »')
-// Correspondance réelle « Élève N » → prénom : ordre de réception gardé par l'app
-const prenoms = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:releves'))[0].recues.map((r) => r.n))
-await blocIA.getByText(prenoms[1]).first().waitFor({ timeout: 10_000 })
-const affichee = (await blocIA.innerText()).replace(/\s+/g, ' ')
-ok(affichee.includes(`${prenoms[1]} : répond au hasard`) && affichee.includes(`${prenoms[2]} : confond les signes`) && !/Élève [23]/.test(affichee), `analyse affichée : « Élève 2 » et « Élève 3 » redeviennent ${prenoms[1]} et ${prenoms[2]}`)
-ok((await blocIA.locator('ul li').count()) === 4 && (await blocIA.locator('strong').innerText()) === '999', 'analyse affichée : puces et gras')
-ok((await blocIA.locator('.katex').count()) > 0, 'analyse affichée : formule rendue')
-await blocIA.scrollIntoViewIfNeeded()
-await t.screenshot({ path: `${captures}/${nom}-reponses-5-analyse.png` })
-await guide(t, 'sessions-12-analyse', blocIA)
-// Clé refusée : message clair, l'analyse précédente reste
-reponseIA = 'refus'
-await blocIA.getByRole('button', { name: 'Refaire l’analyse' }).click()
-await blocIA.getByRole('alert').waitFor({ timeout: 30_000 })
-ok((await blocIA.getByRole('alert').innerText()).includes('Clé d’API refusée'), 'clé refusée : message clair')
-ok(await blocIA.getByText('Activité de 5 minutes').isVisible(), 'clé refusée : l’analyse précédente reste affichée')
-reponseIA = 'ok'
-// La clé n'est jamais dans une sauvegarde
-const sauvegarde = await t.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('copie:')).map((k) => k.slice(6)))
-ok(sauvegarde.includes('cle-ia'), 'clé gardée sur l’appareil')
-
-// Réouverture : verdicts gardés, rien à revérifier
-await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-await t.getByRole('button', { name: /Relatifs en classe/ }).click()
-const debut = Date.now()
-await t.getByRole('button', { name: 'Copier pour une autre IA' }).waitFor({ timeout: 30_000 })
-ok(Date.now() - debut < 5000, `réouverture sans revérification (${Date.now() - debut} ms)`)
-ok(await t.locator('section[aria-label="Analyse par une IA"]').getByText('Activité de 5 minutes').isVisible(), 'réouverture : analyse gardée, sans nouvel appel')
-ok(requetesIA.length === 2, 'aucun appel à l’API à la réouverture')
-ok(await t.getByRole('button', { name: 'Refaire l’analyse' }).isVisible(), 'avec une clé : l’analyse par Claude est le bouton principal')
-// Réponse d'une autre IA, collée : les numéros redeviennent des prénoms
-await t.getByRole('button', { name: 'Coller la réponse d’une IA' }).click()
-await t.getByRole('textbox', { name: 'Réponse de l’IA' }).fill('## Bilan\nÉlève 5 doit revoir l’addition. Élève 1 peut aider Élève 4.')
-await guide(t, 'sessions-12b-coller', t.getByRole('button', { name: 'Enregistrer', exact: true }))
-await t.getByRole('button', { name: 'Enregistrer', exact: true }).click()
-const colle = (await t.locator('section[aria-label="Analyse par une IA"]').innerText()).replace(/\s+/g, ' ')
-ok(colle.includes(`${prenoms[4]} doit revoir l’addition. ${prenoms[0]} peut aider ${prenoms[3]}.`) && colle.includes('Analyse de l’IA'), `réponse collée : prénoms remis (${prenoms[4]}, ${prenoms[0]}, ${prenoms[3]})`)
-
-// ---------- IA locale (Ollama simulé sur localhost:11434) ----------
-const requetesLocales = []
-await ctxT.route('http://localhost:11434/**', async (route) => {
-  const req = route.request()
-  const cors = { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'GET, POST' }
-  if (req.method() === 'OPTIONS') return route.fulfill({ status: 204, headers: cors })
-  if (req.url().endsWith('/v1/models')) return route.fulfill({ status: 200, headers: { ...cors, 'content-type': 'application/json' }, body: JSON.stringify({ object: 'list', data: [{ id: 'qwen3:8b' }, { id: 'llama3.2' }] }) })
-  requetesLocales.push({ entetes: await req.allHeaders(), corps: req.postDataJSON() })
-  const texte = '<think>Je regarde les erreurs.</think>\n## Bilan local\n- Élève 4 : bien, peut expliquer $-5$ à Élève 5.'
-  const corps = texte.match(/.{1,25}/gs).map((m) => `data: ${JSON.stringify({ choices: [{ delta: { content: m } }] })}\n\n`).join('') + 'data: [DONE]\n\n'
-  return route.fulfill({ status: 200, headers: { ...cors, 'content-type': 'text/event-stream' }, body: corps })
-})
-await t.getByRole('button', { name: 'Réglages de l’IA' }).click()
-await t.getByRole('radio', { name: /IA locale/ }).check()
-ok((await t.getByLabel('Adresse de l’API').inputValue()) === 'http://localhost:11434/v1', 'IA locale : adresse d’Ollama proposée')
-ok(await t.getByText('À compléter : Modèle manquant.').isVisible(), 'IA locale : modèle à choisir')
-await t.getByRole('group', { name: 'Modèles disponibles' }).getByRole('button', { name: 'qwen3:8b' }).click({ timeout: 10_000 })
-ok((await t.getByLabel('Modèle', { exact: true }).inputValue()) === 'qwen3:8b', 'IA locale : modèles installés proposés au toucher')
-await guide(t, 'sessions-11b-locale', t.getByRole('button', { name: 'Enregistrer', exact: true }))
-await t.screenshot({ path: `${captures}/${nom}-reponses-5-ia-locale.png` })
-// Une adresse http:// hors du réseau local est refusée
-await t.getByLabel('Adresse de l’API').fill('http://api.exemple.fr/v1')
-ok(await t.getByText(/n’est acceptée que sur le réseau local/).isVisible(), 'adresse http:// sur internet refusée')
-await t.getByLabel('Adresse de l’API').fill('http://localhost:11434/v1')
-await t.getByRole('button', { name: 'Enregistrer', exact: true }).click()
-await blocIA.getByText('Bilan local').waitFor({ timeout: 30_000 })
-ok(requetesLocales.length === 1 && requetesLocales[0].corps.model === 'qwen3:8b' && requetesLocales[0].corps.stream === true, 'IA locale : une requête, modèle choisi, en flux')
-ok(!/Léa|Tom|Inès|Noé|Eva/.test(JSON.stringify(requetesLocales[0].corps)) && JSON.stringify(requetesLocales[0].corps).includes('Élève 3 (4/6)'), 'IA locale : aucun prénom envoyé')
-ok(!requetesLocales[0].entetes.authorization, 'IA locale : aucune clé envoyée')
-const locale = (await blocIA.innerText()).replace(/\s+/g, ' ')
-ok(locale.includes('Analyse par l’IA locale') && locale.includes(`${prenoms[3]} : bien, peut expliquer`) && locale.includes(prenoms[4]) && !locale.includes('Je regarde'), `IA locale : prénoms remis, raisonnement masqué (${locale.slice(0, 120)})`)
-ok(await blocIA.getByRole('button', { name: 'Refaire l’analyse' }).isVisible(), 'IA locale : analyse gardée, bouton principal')
+// Aucune IA dans cette version : ni bouton, ni section, ni réglage
+ok(
+  !(await t.getByRole('button', { name: /IA/ }).count()) && !(await t.locator('section[aria-label*="IA"]').count()) && !/\bIA\b/.test(await t.locator('body').innerText()),
+  'aucune analyse par une IA proposée',
+)
 
 // Bureau, puis thème sombre (choisi dans les réglages, comme un utilisateur)
 await t.setViewportSize({ width: 1200, height: 800 })
@@ -551,7 +436,7 @@ await t.evaluate(() => localStorage.setItem('theme', 'sombre'))
 await t.reload()
 await t.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
 await t.getByRole('button', { name: /Relatifs en classe/ }).click()
-await t.getByRole('button', { name: 'Copier pour une autre IA' }).waitFor({ timeout: 30_000 })
+await t.locator('section[aria-label="Résumé de la classe"]').waitFor({ timeout: 30_000 })
 await t.waitForTimeout(800)
 await t.screenshot({ path: `${captures}/${nom}-reponses-4-classe-sombre.png` })
 
@@ -616,7 +501,7 @@ ok(await prof.getByRole('radio', { name: 'Après la correction' }).isChecked(), 
 const casePrenom = prof.getByRole('switch', { name: 'Avec le prénom des élèves' })
 ok(!(await casePrenom.isChecked()), 'enseignant : sans prénom par défaut')
 await casePrenom.check()
-await prof.getByText(/jamais envoyé à une IA/).waitFor()
+await prof.getByText(/Chaque élève donne son prénom une fois/).waitFor()
 await guide(prof, 'sessions-2c-prenom', casePrenom.locator('xpath=..'))
 await casePrenom.uncheck()
 await guide(prof, 'sessions-2-moment', prof.getByText('Avant la correction'))

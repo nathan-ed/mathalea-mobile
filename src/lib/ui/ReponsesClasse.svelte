@@ -3,9 +3,8 @@
   // moins réussies d'abord. L'app ne croit aucun score reçu : elle regénère les
   // questions de la session et revérifie chaque réponse elle-même, hors de
   // l'écran, comme la relecture d'un passage.
-  import { onMount, tick, untrack, type Snippet } from 'svelte'
+  import { onMount, tick, type Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
-  import { enregistrerFichier } from '$lib/fichiers'
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
   import { retourSi } from '$lib/navigation.svelte'
   import { cleQuestion, graineDeSession } from '$lib/progression'
@@ -13,28 +12,18 @@
     bilanDesEleves,
     bilanDesQuestions,
     empreinteEnonces,
-    retraduire,
     ordreDesQuestions,
-    texteBrut,
-    textePourIA,
     type ExerciceReleve,
     type Releve,
     type VerdictQuestion,
   } from '$lib/releve'
-  import { configIncomplete, htmlAnalyse, parametresIA, sansReflexion, SERVICES_IA, type ConfigIA, type ServiceIA } from '$lib/analyse'
-  import { ouvrirLien } from '$lib/fichiers'
-  import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastille, pastilleScore } from './classes'
-  import ChampTexte from './ChampTexte.svelte'
-  import ChoixRadio from './ChoixRadio.svelte'
+  import { boutonInverse, listeGroupee, pastille, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
-  import Feuille from './Feuille.svelte'
 
   let {
     releve,
     moteur,
     niveau = '',
-    configIA = null,
-    onconfigIA,
     onmaj,
     onretour,
     haut,
@@ -42,72 +31,12 @@
     releve: Releve
     moteur: Moteur
     niveau?: string
-    configIA?: ConfigIA | null // service d'IA de l'enseignant (facultatif)
-    onconfigIA: (c: ConfigIA | null) => Promise<void>
-    onmaj: (r: Releve) => void // verdicts recalculés, analyse : à garder
+    onmaj: (r: Releve) => void // verdicts recalculés : à garder
     onretour: () => void
     haut?: Snippet // en tête de page : la session (code, QR code, lecture des réponses)
   } = $props()
 
   retourSi(() => true, () => onretour())
-
-  // Analyse par une IA (facultative : service et clé d'API de l'enseignant)
-  let analyse = $state(untrack(() => releve.analyse?.texte ?? ''))
-  let analyseEnCours = $state(false)
-  let erreurIA = $state('')
-  let arret: AbortController | null = null
-  const pret = $derived(!!configIA && !configIncomplete(configIA))
-  const nomIA = $derived(configIA ? SERVICES_IA[configIA.service].nom : '')
-  const titreAnalyse = $derived.by(() => {
-    const source = analyseEnCours ? configIA?.service : releve.analyse?.source
-    if (source === 'collee' || !source) return analyse || !configIA ? 'Analyse de l’IA' : `Analyse par ${nomIA}`
-    return `Analyse par ${SERVICES_IA[source].nom}`
-  })
-
-  // Réglages de l'IA (panneau du bas) : service, clé, adresse, modèle
-  let feuilleIA = $state(false)
-  let reglage = $state<{ service: ServiceIA; cle: string; adresse: string; modele: string }>({ service: 'claude', cle: '', adresse: '', modele: '' })
-  let modelesProposes: string[] = $state([])
-  const serviceReglage = $derived(SERVICES_IA[reglage.service])
-  const configReglage = $derived<ConfigIA>({
-    service: reglage.service,
-    cle: reglage.cle.trim() || undefined,
-    adresse: reglage.adresse.trim() || undefined,
-    modele: reglage.modele.trim() || undefined,
-  })
-  const manque = $derived(configIncomplete(configReglage))
-  const avecAdresse = $derived(reglage.service === 'locale' || reglage.service === 'autre')
-
-  function ouvrirReglagesIA() {
-    const c = configIA
-    reglage = c
-      ? { service: c.service, cle: c.cle ?? '', adresse: parametresIA(c).adresse, modele: c.service === 'claude' ? '' : parametresIA(c).modele }
-      : { service: 'claude', cle: '', adresse: '', modele: '' }
-    modelesProposes = []
-    feuilleIA = true
-  }
-  // Un autre service : son adresse et son modèle par défaut, la clé à ressaisir
-  function changerService(v: ServiceIA) {
-    const s = SERVICES_IA[v]
-    reglage = { service: v, cle: v === configIA?.service ? (configIA.cle ?? '') : '', adresse: s.adresse, modele: s.modele }
-    modelesProposes = []
-  }
-  // IA locale ou autre adresse : modèles installés proposés au toucher
-  $effect(() => {
-    if (!feuilleIA || !avecAdresse) return
-    const c = configReglage
-    if (!c.adresse || configIncomplete({ ...c, modele: 'x' })) return
-    const ctrl = new AbortController()
-    const minuterie = setTimeout(async () => {
-      const { listerModeles } = await import('$lib/ia')
-      const liste = await listerModeles(c, ctrl.signal)
-      if (!ctrl.signal.aborted) modelesProposes = liste.slice(0, 12)
-    }, 400)
-    return () => {
-      clearTimeout(minuterie)
-      ctrl.abort()
-    }
-  })
 
   let zoneVerif: HTMLDivElement
   let exercices: Record<number, ExercicePrepare> = $state({})
@@ -117,7 +46,6 @@
   let progression = $state('')
   let erreur = $state('')
   let ouvertes: Record<string, boolean> = $state({})
-  let message = $state('')
 
   // Exercices de la session : les mêmes pour tous les élèves (même code, même version)
   const exercicesSession = $derived.by(() => {
@@ -270,101 +198,6 @@
       .map((p) => (/^[\s\S]*[\\^_{}]|^[-+\d.,/=<>()\s×÷a-z]+$/i.test(p) ? `$${echapper(p)}$` : echapper(p)))
       .join(' ; ')
 
-  const texteIA = $derived(
-    textePourIA(
-      { titre: releve.titre, niveau, nbEleves },
-      [...questions]
-        .sort((a, b) => a.rang - b.rang)
-        .map((q) => {
-          const { ex, q: i } = questionDe(q.cle)
-          return { ...q, enonce: ex ? texteBrut(`${i === 0 ? ex.questions[i].contexte : ''} ${ex.questions[i].enonce}`) : '', correction: ex ? texteBrut(ex.questions[i].correction) : '' }
-        }),
-      // Seulement le numéro, le score et les réponses : jamais le prénom
-      [...eleves].sort((a, b) => a.numero - b.numero).map(({ pseudo, points, sur, details }) => ({ pseudo, points, sur, details })),
-    ),
-  )
-  // Analyse affichée avec les prénoms (l'IA n'a vu que « Élève N »)
-  const analyseAffichee = $derived(retraduire(sansReflexion(analyse), eleves))
-
-  async function copier() {
-    try {
-      await navigator.clipboard.writeText(texteIA)
-    } catch {
-      // Repli des WebView sans presse-papiers asynchrone
-      const zone = document.createElement('textarea')
-      zone.value = texteIA
-      zone.style.position = 'fixed'
-      zone.style.opacity = '0'
-      document.body.appendChild(zone)
-      zone.select()
-      document.execCommand('copy')
-      zone.remove()
-    }
-    message = 'Copié.'
-  }
-
-  async function analyser() {
-    const config = configIA
-    if (!config || configIncomplete(config)) {
-      ouvrirReglagesIA()
-      return
-    }
-    erreurIA = ''
-    analyse = ''
-    analyseEnCours = true
-    arret = new AbortController()
-    try {
-      const { analyserAvecIA } = await import('$lib/ia')
-      const texte = sansReflexion(await analyserAvecIA(config, texteIA, (m) => (analyse += m), arret.signal))
-      analyse = texte
-      onmaj({ ...releve, analyse: { texte, le: new Date().toISOString(), nbEleves, source: config.service } })
-    } catch (e) {
-      erreurIA = (e as Error).message
-      analyse = releve.analyse?.texte ?? ''
-    } finally {
-      analyseEnCours = false
-      arret = null
-    }
-  }
-
-  async function enregistrerReglagesIA() {
-    if (manque) return
-    const c = configReglage
-    // Valeurs par défaut du service non gardées : elles suivent l'app
-    const s = SERVICES_IA[c.service]
-    await onconfigIA({
-      service: c.service,
-      ...(c.cle ? { cle: c.cle } : {}),
-      ...(c.adresse && c.adresse !== s.adresse && c.service !== 'claude' ? { adresse: c.adresse } : {}),
-      ...(c.modele && c.modele !== s.modele && c.service !== 'claude' ? { modele: c.modele } : {}),
-    })
-    feuilleIA = false
-    await tick()
-    void analyser()
-  }
-
-  async function oublierIA() {
-    await onconfigIA(null)
-    feuilleIA = false
-  }
-
-  // Réponse d'une autre IA, collée : gardée telle quelle, prénoms remis à l'affichage
-  let feuilleColler = $state(false)
-  let collee = $state('')
-  function enregistrerCollee() {
-    const texte = collee.trim()
-    if (!texte) return
-    analyse = texte
-    erreurIA = ''
-    onmaj({ ...releve, analyse: { texte, le: new Date().toISOString(), nbEleves, source: 'collee' } })
-    feuilleColler = false
-    collee = ''
-  }
-
-  async function enregistrerTexte() {
-    const fait = await enregistrerFichier(`reponses-session-${releve.code}.txt`, texteIA)
-    if (fait) message = 'Texte enregistré.'
-  }
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -407,55 +240,6 @@
           <p class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">
             {horsVersion} élève{horsVersion > 1 ? 's avaient' : ' avait'} une autre version des exercices : certaines de leurs réponses ne sont pas comptées.
           </p>
-        {/if}
-      </section>
-
-      <!-- Analyse par une IA : élèves en « Élève N », prénoms remis ici -->
-      <section class="flex flex-col gap-3 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="Analyse par une IA">
-        <h2 class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
-          {titreAnalyse}
-        </h2>
-        {#if analyse}
-          <div class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus" aria-live="polite" use:rendu={htmlAnalyse(analyseAffichee)}></div>
-          {#if !analyseEnCours && releve.analyse && releve.analyse.nbEleves !== nbEleves}
-            <p class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-              Analyse faite avec {releve.analyse.nbEleves} élève{releve.analyse.nbEleves > 1 ? 's' : ''} : refais-la pour compter les nouvelles réponses.
-            </p>
-          {/if}
-        {/if}
-        {#if erreurIA}<p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreurIA}</p>{/if}
-        {#if analyseEnCours}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => arret?.abort()}>
-            <i aria-hidden="true" class="bx bx-loader-alt bx-spin text-xl"></i> Analyse en cours… Arrêter
-          </button>
-        {:else if pret}
-          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={analyser}>
-            <i aria-hidden="true" class="bx bx-bot text-xl"></i> {analyse ? 'Refaire l’analyse' : `Analyser avec ${nomIA}`}
-          </button>
-          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={copier}>
-            <i aria-hidden="true" class="bx bx-copy text-xl"></i> Copier pour une autre IA
-          </button>
-        {:else}
-          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={copier}>
-            <i aria-hidden="true" class="bx bx-copy text-xl"></i> Copier pour une IA
-          </button>
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={analyser}>
-            <i aria-hidden="true" class="bx bx-bot text-xl"></i> Analyser dans l’app avec une IA
-          </button>
-        {/if}
-        {#if !analyseEnCours}
-          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => ((collee = ''), (feuilleColler = true))}>
-            <i aria-hidden="true" class="bx bx-paste text-xl"></i> Coller la réponse d’une IA
-          </button>
-          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={enregistrerTexte}>
-            <i aria-hidden="true" class="bx bx-share-alt text-xl"></i> Enregistrer ou partager le texte
-          </button>
-        {/if}
-        {#if message}<p class="text-sm text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">{message}</p>{/if}
-        {#if configIA && !analyseEnCours}
-          <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={ouvrirReglagesIA}>
-            <i aria-hidden="true" class="bx bx-cog text-xl"></i> Réglages de l’IA
-          </button>
         {/if}
       </section>
 
@@ -575,59 +359,6 @@
       {/if}
     {/if}
   </main>
-  {#if feuilleIA}
-    <Feuille onfermer={() => (feuilleIA = false)}>
-      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de l’IA</p>
-      <ChoixRadio nom="service-ia" valeur={reglage.service} options={Object.entries(SERVICES_IA).map(([v, s]) => ({ libelle: s.libelle, valeur: v as ServiceIA }))} onchange={changerService} />
-      {#if avecAdresse}
-        <ChampTexte id="adresse-ia" titre="Adresse de l’API" type="url" bind:valeur={reglage.adresse} />
-      {/if}
-      <ChampTexte
-        id="cle-ia"
-        titre={serviceReglage.cleRequise ? 'Clé d’API' : 'Clé d’API (facultative)'}
-        type="password"
-        bind:valeur={reglage.cle}
-      />
-      {#if reglage.service !== 'claude'}
-        <ChampTexte id="modele-ia" titre="Modèle" bind:valeur={reglage.modele} />
-        {#if modelesProposes.length}
-          <div class="flex flex-row flex-wrap gap-2" role="group" aria-label="Modèles disponibles">
-            {#each modelesProposes as m (m)}
-              <button type="button" class="{boutonInverse}" style="min-height: 36px" aria-pressed={reglage.modele === m} onclick={() => (reglage.modele = m)}>{m}</button>
-            {/each}
-          </div>
-        {/if}
-      {/if}
-      {#if serviceReglage.lienCle}
-        <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={() => ouvrirLien(serviceReglage.lienCle!)}>
-          <i aria-hidden="true" class="bx bx-link-external text-xl"></i> Créer une clé sur {new URL(serviceReglage.lienCle).hostname}
-        </button>
-      {/if}
-      {#if manque}<p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">À compléter : {manque}</p>{/if}
-      <div class="flex flex-row gap-3">
-        {#if configIA}
-          <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={oublierIA}>Oublier</button>
-        {/if}
-        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" disabled={!!manque} onclick={enregistrerReglagesIA}>Enregistrer</button>
-      </div>
-    </Feuille>
-  {/if}
-  {#if feuilleColler}
-    <Feuille onfermer={() => (feuilleColler = false)}>
-      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Réponse de l’IA</p>
-      <textarea
-        id="reponse-ia"
-        aria-label="Réponse de l’IA"
-        rows="8"
-        bind:value={collee}
-        class="w-full rounded-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus p-2"
-      ></textarea>
-      <div class="flex flex-row gap-3">
-        <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (feuilleColler = false)}>Annuler</button>
-        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" disabled={!collee.trim()} onclick={enregistrerCollee}>Enregistrer</button>
-      </div>
-    </Feuille>
-  {/if}
   <!-- Vérification hors de l'écran : les champs de MathALÉA doivent exister dans la page -->
   <div bind:this={zoneVerif} class="zone-verif contenu-mathalea" aria-hidden="true"></div>
 </div>

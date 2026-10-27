@@ -4,16 +4,12 @@ import {
   ajouterReponses,
   bilanDesEleves,
   bilanDesQuestions,
-  CONSIGNE_PSEUDONYMES,
   elevesDe,
-  retraduire,
   decoderReponses,
   empreinteEnonces,
   encoderReponses,
   ordreDesQuestions,
   reponsesDeSeance,
-  texteBrut,
-  textePourIA,
   type Releve,
   type ReponsesSession,
 } from '../src/lib/releve'
@@ -232,7 +228,7 @@ describe('réponses d’une session partagée', () => {
     const recues = [passage('a', '9/10', 'Léa'), passage('b', '1'), passage('c', '9/10', 'Tom')]
     const v = (j: boolean) => ({ juste: j, score: j ? 1 : 0 })
     const verdicts = { a: { '0-0': v(false), '0-1': v(true) }, b: { '0-0': v(true), '0-1': v(true) }, c: { '0-0': v(false), '0-1': v(false) } }
-    expect(elevesDe(recues).map((e) => [e.nom, e.pseudo])).toEqual([['Léa', 'Élève 1'], ['Élève 2', 'Élève 2'], ['Tom', 'Élève 3']])
+    expect(elevesDe(recues).map((e) => [e.nom, e.numero])).toEqual([['Léa', 1], ['Élève 2', 2], ['Tom', 3]])
     const eleves = bilanDesEleves(['0-0', '0-1'], recues, verdicts, () => false)
     expect(eleves.map((e) => `${e.nom} ${e.points}/${e.sur}`)).toEqual(['Léa 1/2', 'Élève 2 2/2', 'Tom 0/2'])
     expect(eleves[0].details[0]).toEqual({ cle: '0-0', rang: 1, reponse: '9/10', juste: false })
@@ -242,42 +238,8 @@ describe('réponses d’une session partagée', () => {
       { reponse: '9/10', nb: 2, juste: false, passages: ['a', 'c'] },
     ])
   })
-
-  it('jamais de prénom vers une IA : élèves en « Élève N », prénoms remis à l’affichage', () => {
-    const passage = (d: string, rep: string, n: string): ReponsesSession => ({ c: 'x', p: 'p', v: 1, t: '', d, x: { 0: { u: 'u' } }, r: { '0-0': { champTexteEx0Q0: rep } }, n })
-    const recues = [passage('a', '9/10', 'Léa'), passage('b', '1', 'Tom'), passage('c', '7', 'Inès')]
-    const verdicts = { a: { '0-0': { juste: false, score: 0 } }, b: { '0-0': { juste: true, score: 1 } }, c: { '0-0': { juste: false, score: 0 } } }
-    const questions = bilanDesQuestions(['0-0'], recues, verdicts, () => false).map((q) => ({ ...q, enonce: 'Calculer', correction: '1' }))
-    const eleves = bilanDesEleves(['0-0'], recues, verdicts, () => false)
-    // Seulement ce que l'IA doit voir : pseudonyme, score, réponses
-    const pourIA = eleves.map(({ pseudo, points, sur, details }) => ({ pseudo, points, sur, details }))
-    const texte = textePourIA({ titre: 'Fractions', nbEleves: 3 }, questions, pourIA)
-    for (const prenom of ['Léa', 'Tom', 'Inès']) expect(texte).not.toContain(prenom)
-    expect(texte).toContain('Élève 1 (0/1) : Q1 9/10 (incorrecte)')
-    expect(texte).toContain('Élève 2 (1/1) : Q1 1 (correcte)')
-    expect(texte).toContain(CONSIGNE_PSEUDONYMES)
-    // Réponse de l'IA : les numéros redeviennent des prénoms, chez l'enseignant seulement
-    const reponse = '## Élève 1\nÉlève 1 additionne les dénominateurs. élève 3 aussi. Élève 12 inconnu.'
-    expect(retraduire(reponse, elevesDe(recues))).toBe('## Léa\nLéa additionne les dénominateurs. Inès aussi. Élève 12 inconnu.')
-    // Sans prénom donné : le numéro reste
-    expect(retraduire('Élève 2 réussit.', [{ numero: 2, nom: 'Élève 2' }])).toBe('Élève 2 réussit.')
-  })
-
-  it('texte pour une IA : énoncé, correction, mauvaises réponses, sans donnée d’élève', () => {
-    expect(texteBrut('<p>Calculer&nbsp;$2+3$ :</p><math-field id="champTexteEx0Q0"></math-field><br>Fin')).toBe('Calculer $2+3$ :\n…\nFin')
-    const texte = textePourIA({ titre: 'Fractions', niveau: '5e', nbEleves: 24 }, [
-      { cle: '0-0', rang: 1, repondu: 24, reussi: 9, erreurs: [{ reponse: '\\frac{9}{10}', nb: 9 }], reponses: [], horsVersion: 0, enonce: 'Calculer $\\frac{2}{5}+\\frac{1}{5}\\times 3$', correction: '$=1$' },
-      { cle: '0-1', rang: 2, repondu: 0, reussi: 0, erreurs: [], reponses: [], horsVersion: 0, enonce: 'Rien', correction: '' },
-    ])
-    expect(texte).toContain('24 élèves')
-    expect(texte).toContain('Question 1 (réussite : 38 %, 24 réponses)')
-    expect(texte).toContain('\\frac{9}{10} (9)')
-    expect(texte).not.toContain('Question 2')
-    expect(texte).toContain('conception erronée')
-  })
 })
 
-import { CLE_IA, htmlAnalyse } from '../src/lib/analyse'
 import { cleInvalide, exporterSauvegarde, lireSauvegarde, restaurerSauvegarde } from '../src/lib/sauvegarde'
 import type { Stockage } from '../src/lib/stockage'
 
@@ -302,11 +264,11 @@ function memoire(depart: Record<string, unknown> = {}): Stockage & { donnees: Ma
   }
 }
 
-describe('relevés dans la sauvegarde, clé d’API à part', () => {
+describe('relevés dans la sauvegarde, clé d’API (ancienne version) jamais exportée', () => {
   const r = reponsesDeSeance(seanceDeSession())!
   const releves = ajouterReponses([], r).releves
   const avecCalcul: Releve[] = [
-    { ...releves[0], calcul: { moteur: 'm', verdicts: { [r.d]: { '0-0': { juste: true, score: 1 } } }, hors: {} }, analyse: { texte: '## Bilan', le: '2026-10-18', nbEleves: 1 } },
+    { ...releves[0], calcul: { moteur: 'm', verdicts: { [r.d]: { '0-0': { juste: true, score: 1 } } }, hors: {} } },
   ]
 
   it('les relevés et l’empreinte des énoncés d’une séance passent le contrôle', () => {
@@ -317,100 +279,17 @@ describe('relevés dans la sauvegarde, clé d’API à part', () => {
   })
 
   it('la clé d’API n’est jamais exportée, et une restauration la garde', async () => {
-    const st = memoire({ profil: 'enseignant', releves: avecCalcul, [CLE_IA]: 'sk-ant-secret' })
+    const st = memoire({ profil: 'enseignant', releves: avecCalcul, 'cle-ia': 'sk-ant-secret' })
     const texte = await exporterSauvegarde(st)
     expect(texte).not.toContain('sk-ant-secret')
     expect(lireSauvegarde(texte).donnees.releves).toEqual(avecCalcul)
     // Restauration d'une autre sauvegarde : la clé reste, le reste est remplacé
     const autre = await exporterSauvegarde(memoire({ profil: 'eleve' }))
     await restaurerSauvegarde(st, autre)
-    expect(await st.lire(CLE_IA)).toBe('sk-ant-secret')
+    expect(await st.lire('cle-ia')).toBe('sk-ant-secret')
     expect(await st.lire('profil')).toBe('eleve')
     expect(await st.lire('releves')).toBeNull()
   })
-
-  it('mise en forme de l’analyse : titres, puces, gras, formules gardées, HTML échappé', () => {
-    const html = htmlAnalyse('## Erreur fréquente\n- **9/10** : calcul de gauche à droite, $\\frac{2}{5}+\\frac{1}{5}\\times 3$\n- autre <script>\n\n1. Activité\nFin')
-    expect(html).toContain('<p class="mt-3 font-bold')
-    expect(html).toContain('<ul class="list-disc pl-5"><li><strong>9/10</strong>')
-    expect(html).toContain('$\\frac{2}{5}+\\frac{1}{5}\\times 3$')
-    expect(html).toContain('&lt;script&gt;')
-    expect(html).toContain('<ol class="list-decimal pl-5"><li>Activité</li></ol>')
-    expect(html).toContain('<p class="mt-2">Fin</p>')
-  })
-})
-
-import { configIncomplete, erreurAdresse, lireConfigIA, parametresIA, sansReflexion } from '../src/lib/analyse'
-import { afterEach, vi } from 'vitest'
-
-describe('service d’IA de l’enseignant', () => {
-  afterEach(() => vi.unstubAllGlobals())
-
-  it('une clé seule (avant 0.4.0) reste une clé Claude ; un réglage abîmé est ignoré', () => {
-    expect(lireConfigIA('sk-ant-x')).toEqual({ service: 'claude', cle: 'sk-ant-x' })
-    expect(lireConfigIA({ service: 'locale', modele: ' qwen3 ' })).toEqual({ service: 'locale', cle: undefined, adresse: undefined, modele: 'qwen3' })
-    expect(lireConfigIA({ service: 'inconnu' })).toBeNull()
-    expect(lireConfigIA(42)).toBeNull()
-  })
-
-  it('valeurs par défaut du service, ce qui manque', () => {
-    expect(parametresIA({ service: 'mistral', cle: 'k' })).toEqual({ adresse: 'https://api.mistral.ai/v1', modele: 'mistral-large-latest', cle: 'k' })
-    expect(parametresIA({ service: 'claude', cle: 'k', adresse: 'https://ailleurs' }).adresse).toBe('https://api.anthropic.com')
-    expect(configIncomplete({ service: 'openai' })).toBe('Clé d’API manquante.')
-    expect(configIncomplete({ service: 'locale' })).toBe('Modèle manquant.')
-    expect(configIncomplete({ service: 'locale', modele: 'llama3.2' })).toBeNull()
-    expect(configIncomplete({ service: 'autre', modele: 'm' })).toBe('Adresse manquante.')
-  })
-
-  it('http seulement sur le réseau local : les réponses ne passent jamais en clair sur internet', () => {
-    for (const a of ['https://api.exemple.fr/v1', 'http://localhost:11434/v1', 'http://192.168.1.20:1234/v1', 'http://10.0.0.2:8080', 'http://pc-prof.local:11434/v1', 'http://172.20.1.1/v1', 'http://[::1]:11434'])
-      expect(erreurAdresse(a), a).toBeNull()
-    for (const a of ['http://api.exemple.fr/v1', 'http://172.32.0.1/v1', 'ftp://x', 'localhost:11434']) expect(erreurAdresse(a), a).not.toBeNull()
-  })
-
-  it('le raisonnement d’un modèle local n’est pas montré', () => {
-    expect(sansReflexion('<think>je réfléchis</think>\n## Bilan')).toBe('## Bilan')
-    expect(sansReflexion('<think>en cours…')).toBe('')
-  })
-
-  it('service compatible OpenAI : flux lu morceau par morceau, aucun prénom envoyé', async () => {
-    const appels: { url: string; init: RequestInit }[] = []
-    const lignes = ['## Bilan', '\n- Élève 2 : ', 'confond les signes.'].map((t) => `data: ${JSON.stringify({ choices: [{ delta: { content: t } }] })}\n\n`)
-    vi.stubGlobal('fetch', async (url: string, init: RequestInit) => {
-      appels.push({ url, init })
-      // Découpage au milieu d'une ligne, comme sur le réseau
-      const tout = new TextEncoder().encode(lignes.join('') + 'data: [DONE]\n\n')
-      const corps = new ReadableStream({
-        start(c) {
-          c.enqueue(tout.slice(0, 30))
-          c.enqueue(tout.slice(30))
-          c.close()
-        },
-      })
-      return new Response(corps, { status: 200, headers: { 'content-type': 'text/event-stream' } })
-    })
-    const { analyserAvecIA } = await import('../src/lib/ia')
-    const recus: string[] = []
-    const texte = await analyserAvecIA({ service: 'locale', modele: 'qwen3' }, 'Élève 1 (2/3) : …', (m) => recus.push(m))
-    expect(texte).toBe('## Bilan\n- Élève 2 : confond les signes.')
-    expect(recus.length).toBe(3)
-    expect(appels[0].url).toBe('http://localhost:11434/v1/chat/completions')
-    const corps = JSON.parse(String(appels[0].init.body))
-    expect(corps.model).toBe('qwen3')
-    expect(corps.stream).toBe(true)
-    expect(corps.messages[0].content).toContain('Élève N')
-    expect((appels[0].init.headers as Record<string, string>).authorization).toBeUndefined()
-  }, 30_000) // premier import du SDK d'Anthropic : lent dans un conteneur froid (CI)
-
-  it('service compatible OpenAI : clé refusée, adresse injoignable', async () => {
-    const { analyserAvecIA } = await import('../src/lib/ia')
-    vi.stubGlobal('fetch', async () => new Response(JSON.stringify({ error: { message: 'bad key' } }), { status: 401 }))
-    await expect(analyserAvecIA({ service: 'mistral', cle: 'k' }, 't', () => {})).rejects.toThrow('Clé d’API refusée par Mistral')
-    vi.stubGlobal('fetch', async () => {
-      throw new TypeError('fetch failed')
-    })
-    await expect(analyserAvecIA({ service: 'locale', modele: 'm' }, 't', () => {})).rejects.toThrow('Pas de réponse de http://localhost:11434/v1')
-  }, 30_000)
 })
 
 import { noterSession } from '../src/lib/releve'

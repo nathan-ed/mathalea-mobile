@@ -342,14 +342,11 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   toutes les plateformes ») : QR code de l'élève (`MesReponses`, `releve.ts`,
   sans nom), relevé par l'enseignant (onglet En classe : `Releve` liste, `SessionClasse` page d'une session, `LectureReponses`, `Scanner`, `qr.ts`), recalcul
   hors écran (`ReponsesClasse` : on ne croit jamais un score reçu ; énoncés
-  comparés par empreinte), résumé, vues Questions et Élèves, « Copier pour
-  une IA », « Coller la réponse d'une IA », analyse dans l'app (`ia.ts`) par
-  Claude, Mistral, OpenAI, une IA locale (Ollama, LM Studio) ou une autre
-  adresse au format OpenAI (Nathan, 2026-10-19 : « Claude, local ou autre
-  API ») ; réglage `cle-ia` (`ConfigIA`) jamais sauvegardé, `http://`
-  seulement en réseau local. Prénom au choix de l'enseignant, **jamais envoyé
-  à l'IA** (Nathan) : « Élève N » vers l'IA, consigne de garder ces numéros,
-  `retraduire()` remet les prénoms à l'affichage.
+  comparés par empreinte), résumé, vues Questions et Élèves. Prénom au choix
+  de l'enseignant. **Aucune IA dans l'app** (Nathan, 2026-10-27, pour l'App
+  Store) : « Copier pour une IA », « Coller la réponse », analyse dans l'app
+  (Claude, Mistral, OpenAI, IA locale) et leurs réglages sont gardés sur la
+  branche locale `analyse-ia`, à ne pas remettre dans main sans sa demande.
   Toute session lancée par l'enseignant (`ReglageSession` puis « Lancer la
   session ») est gardée (Nathan : « si on quitte l'écran, on ne peut plus
   scanner », relever une heure après le cours ; croix pour effacer les

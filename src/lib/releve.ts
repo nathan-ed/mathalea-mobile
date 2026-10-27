@@ -4,7 +4,6 @@
 // revérifie chaque réponse (voir ReponsesClasse.svelte).
 import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
 import { cleQuestion, melanger, modeQr, premiersEssais, reglageQr, surPapier, type Seance } from './progression'
-import { SERVICES_IA, type ServiceIA } from './analyse'
 
 /** Début du texte d'un QR code de réponses (version du format) */
 export const PREFIXE_REPONSES = 'MAREP1.'
@@ -31,7 +30,7 @@ export interface ReponsesSession {
   o?: 1 // questions mélangées (ordre tiré du code)
   e?: Record<number, string> // empreinte des énoncés vus, par étape
   r: Record<string, Record<string, string>> // première réponse vérifiée, par question (« étape-question »)
-  n?: string // prénom, seulement si le code de session le demande ; jamais transmis à une IA
+  n?: string // prénom, seulement si le code de session le demande
 }
 
 /** Empreinte courte (FNV-1a, base 36) */
@@ -153,12 +152,6 @@ export function estReleves(v: unknown): v is Releve[] {
           ) &&
           estObjet(r.calcul.hors) &&
           Object.values(r.calcul.hors).every((l) => Array.isArray(l) && l.every((e) => typeof e === 'number')))) &&
-      (r.analyse === undefined ||
-        (estObjet(r.analyse) &&
-          estChaine(r.analyse.texte) &&
-          estChaine(r.analyse.le) &&
-          typeof r.analyse.nbEleves === 'number' &&
-          (r.analyse.source === undefined || r.analyse.source === 'collee' || (estChaine(r.analyse.source) && r.analyse.source in SERVICES_IA)))) &&
       (r.creee === undefined || r.creee === true) &&
       (r.classe === undefined || (estChaine(r.classe) && r.classe.length <= 100)) &&
       (r.invitation === undefined || estChaine(r.invitation)),
@@ -181,9 +174,6 @@ export interface Releve {
     verdicts: Record<string, Record<string, VerdictQuestion>> // passage → question → verdict
     hors: Record<string, number[]> // passage → étapes aux questions différentes (autre version du moteur)
   }
-  // Analyse demandée à une IA (service réglé par l'enseignant, ou réponse
-  // d'une autre IA collée), telle que l'IA l'a écrite : élèves en « Élève N »
-  analyse?: { texte: string; le: string; nbEleves: number; source?: ServiceIA | 'collee' }
   creee?: true // session créée sur cet appareil (gardée même sans réponse)
   invitation?: string // son QR code pour les élèves (invitation.ts), à réafficher
   classe?: string // classe choisie au lancement (sessions rangées par classe)
@@ -324,12 +314,11 @@ export function bilanDesQuestions(
 export interface Eleve {
   d: string
   numero: number
-  pseudo: string // « Élève N » : seule désignation transmise à une IA
-  nom: string // prénom, ou le pseudonyme
+  nom: string // prénom, ou « Élève N »
 }
 
 export function elevesDe(recues: ReponsesSession[]): Eleve[] {
-  return recues.map((r, i) => ({ d: r.d, numero: i + 1, pseudo: `Élève ${i + 1}`, nom: r.n?.trim() || `Élève ${i + 1}` }))
+  return recues.map((r, i) => ({ d: r.d, numero: i + 1, nom: r.n?.trim() || `Élève ${i + 1}` }))
 }
 
 export interface DetailEleve {
@@ -367,92 +356,4 @@ export function bilanDesEleves(
     })
     return { ...e, points, sur, details }
   })
-}
-
-/**
- * Remet les prénoms dans un texte écrit par une IA : « Élève 3 » devient le
- * prénom de l'élève 3 (s'il l'a donné). Seulement à l'affichage, chez
- * l'enseignant : l'IA n'a jamais vu que les numéros.
- */
-export function retraduire(texte: string, eleves: Pick<Eleve, 'numero' | 'nom'>[]) {
-  const noms = new Map(eleves.map((e) => [e.numero, e.nom]))
-  // « Élève 3 », « élève 3 », « Eleve 3 » ; pas « Élève 31 » pour l'élève 3
-  return texte.replace(/(?<![\p{L}\p{N}])[ÉE]l[èe]ve\s+(\d+)(?!\p{N})/giu, (tout, n: string) => noms.get(Number(n)) ?? tout)
-}
-
-/** Texte brut d'un énoncé ou d'une correction MathALÉA (HTML), formules gardées en LaTeX */
-export function texteBrut(html: string) {
-  return html
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/(p|div|li|tr|h\d)>/gi, '\n')
-    .replace(/<(math-field|input)[^>]*>(<\/math-field>)?/gi, ' … ')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, '&')
-    .replace(/[ \t]+/g, ' ')
-    .replace(/ *\n */g, '\n')
-    .replace(/\n{2,}/g, '\n')
-    .trim()
-}
-
-/** Règle donnée à l'IA : les élèves restent des numéros (les prénoms sont remis par l'app) */
-export const CONSIGNE_PSEUDONYMES =
-  'Les élèves sont désignés par « Élève 1 », « Élève 2 », « Élève 3 »… Garde exactement ces désignations : analyse les données élève par élève et, dans ton retour, cite chaque élève uniquement sous la forme « Élève N », un par un (jamais « Élèves 2 et 3 », jamais « le troisième élève »).'
-
-/** Ce qu'une IA reçoit d'un élève : son numéro, jamais son prénom */
-export interface EleveIA {
-  pseudo: string
-  points: number
-  sur: number
-  details: { rang: number; reponse: string | null; juste: boolean | null }[]
-}
-
-/**
- * Texte à coller dans un assistant (IA) : énoncés, corrections, réussite et
- * réponses de la classe, puis les réponses de chaque élève sous un numéro
- * (« Élève 3 »). Aucun prénom : l'app les remet dans la réponse de l'IA.
- */
-export function textePourIA(
-  info: { titre: string; niveau?: string; nbEleves: number },
-  questions: (BilanQuestion & { enonce: string; correction: string })[],
-  eleves: EleveIA[] = [],
-) {
-  const pct = (q: BilanQuestion) => (q.repondu ? Math.round((100 * q.reussi) / q.repondu) : 0)
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
-  const lignes = [
-    `Séance de mathématiques${info.niveau ? ` (${info.niveau})` : ''} : « ${info.titre} ». Session commune, ${info.nbEleves} élève${info.nbEleves > 1 ? 's' : ''}, mêmes questions pour tous.`,
-    'Pour chaque question : énoncé, correction attendue, taux de réussite, et mauvaises réponses données avec leur nombre (formules en LaTeX).',
-    '',
-  ]
-  for (const q of questions) {
-    if (!q.repondu) continue
-    lignes.push(`Question ${q.rang} (réussite : ${pct(q)} %, ${q.repondu} réponse${q.repondu > 1 ? 's' : ''})`)
-    lignes.push(`Énoncé : ${q.enonce}`)
-    lignes.push(`Correction : ${q.correction}`)
-    lignes.push(q.erreurs.length ? `Mauvaises réponses : ${q.erreurs.map((e) => `${e.reponse} (${e.nb})`).join(' · ')}` : 'Aucune mauvaise réponse.')
-    lignes.push('')
-  }
-  if (eleves.length) {
-    lignes.push('Réponses de chaque élève (correcte ou incorrecte, question par question) :')
-    for (const e of eleves) {
-      const rep = e.details
-        .filter((d) => d.reponse !== null)
-        .map((d) => `Q${d.rang} ${d.reponse} ${d.juste === null ? '(non vérifiée)' : d.juste ? '(correcte)' : '(incorrecte)'}`)
-        .join(' ; ')
-      lignes.push(`${e.pseudo} (${arrondi(e.points)}/${e.sur}) : ${rep || 'aucune réponse'}`)
-    }
-    lignes.push('')
-    lignes.push(CONSIGNE_PSEUDONYMES)
-    lignes.push('')
-  }
-  lignes.push(
-    'Pour chaque question réussie à moins de 70 % : quelle conception erronée explique chaque mauvaise réponse fréquente ? Quelle courte activité de 5 minutes proposer au prochain cours pour la travailler ?' +
-      (eleves.length ? ' Puis, pour chaque élève en difficulté, une phrase sur ce qui lui pose problème et une piste pour l’aider.' : '') +
-      ' Termine par les deux points prioritaires. Réponds en français, de façon concise.',
-  )
-  return lignes.join('\n')
 }

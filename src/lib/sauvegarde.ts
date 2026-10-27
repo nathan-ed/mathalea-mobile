@@ -2,7 +2,6 @@
 // suivi complet, dans un fichier versionné. Aucun identifiant n'y figure :
 // l'app n'en stocke aucun. Une restauration invalide laisse tout intact.
 import type { Seance } from './progression'
-import { CLE_IA } from './analyse'
 import { estRevisions } from './revisions'
 import { estReleves } from './releve'
 import type { Stockage } from './stockage'
@@ -31,8 +30,12 @@ interface Sauvegarde {
 
 /** État avant la dernière restauration, pour l'annuler (jamais exporté) */
 export const CLE_AVANT_RESTAURATION = 'avant-restauration'
-/** Propres à cet appareil : ni exportées, ni effacées par une restauration (clé d'API de l'enseignant) */
-const CLES_DE_L_APPAREIL = [CLE_IA]
+/**
+ * Propres à cet appareil : ni exportées, ni effacées par une restauration.
+ * « cle-ia » : clé d'API d'une IA, gardée par les versions qui avaient
+ * l'analyse par une IA (branche analyse-ia) ; jamais dans une sauvegarde.
+ */
+const CLES_DE_L_APPAREIL = ['cle-ia']
 
 export async function exporterSauvegarde(st: Stockage): Promise<string> {
   const donnees: Record<string, unknown> = {}

@@ -21,7 +21,7 @@ Choisissez ensuite quand l'élève montre son QR code :
 
 ![Choisir le moment](images/sessions-2-moment.png)
 
-Pour savoir qui a répondu quoi, allumez aussi « Avec le prénom des élèves ». Le prénom ne va que sur votre appareil : il n'est jamais envoyé à une IA. Sans cette option, les élèves apparaissent comme « Élève 1, 2, 3… », dans l'ordre de lecture.
+Pour savoir qui a répondu quoi, allumez aussi « Avec le prénom des élèves ». Le prénom ne va que sur votre appareil. Sans cette option, les élèves apparaissent comme « Élève 1, 2, 3… », dans l'ordre de lecture.
 
 ![Avec le prénom des élèves](images/sessions-2c-prenom.png)
 
@@ -113,36 +113,6 @@ En tête, le résumé : la réussite moyenne, le nombre d'élèves sous 50 %, en
 **Vue Élèves.** Les élèves, des plus en difficulté aux plus à l'aise, avec leur score. Touchez un élève pour voir toutes ses réponses, correctes et incorrectes.
 
 ![La vue Élèves](images/sessions-9c-eleves.png)
-
-## 5. Une analyse des erreurs par une IA
-
-L'IA ne voit jamais un prénom. Chaque élève y devient « Élève 1 », « Élève 2 »…, et la consigne lui demande de garder ces numéros dans sa réponse. L'application remet ensuite les prénoms, sur votre écran seulement. Si l'IA écrit autrement (« le troisième élève »), ce passage reste simplement anonyme.
-
-**Sans réglage.** « Copier pour une IA » prépare un texte à coller dans l'assistant de votre choix : énoncés, corrections, taux de réussite, mauvaises réponses et réponses de chaque élève sous son numéro. Il demande quelles conceptions erronées expliquent les erreurs fréquentes, quelle courte activité proposer au prochain cours, et une piste pour chaque élève en difficulté. « Enregistrer ou partager le texte » l'envoie vers une autre application du téléphone.
-
-![Copier pour une IA](images/sessions-10-copier.png)
-
-Collez ensuite la réponse de l'assistant avec « Coller la réponse d'une IA » : les numéros y redeviennent des prénoms.
-
-![Coller la réponse](images/sessions-12b-coller.png)
-
-**Directement dans l'application.** « Analyser dans l'app avec une IA » ouvre les réglages de l'IA. Choisissez le service :
-
-- **Claude (Anthropic)**, **Mistral** ou **OpenAI** : il suffit d'une clé d'API, à créer sur le site du service (le lien est dans les réglages). Chaque analyse est facturée sur le compte de la clé (quelques centimes).
-- **IA locale** (Ollama, LM Studio…) : gratuite, et rien ne sort de votre réseau. L'adresse d'Ollama est proposée ; les modèles installés s'affichent, touchez-en un. Pour LM Studio, l'adresse est `http://localhost:1234/v1`.
-- **Autre adresse compatible OpenAI** : un service qui suit le même format (celui de votre établissement, par exemple). Adresse, modèle et, si besoin, clé.
-
-![Les réglages de l'IA](images/sessions-11-cle.png)
-
-![Une IA locale](images/sessions-11b-locale.png)
-
-Clé et réglages restent sur votre appareil : ils ne sont ni publiés ni mis dans vos sauvegardes. Une adresse en `http://` n'est acceptée que sur le réseau local (votre ordinateur, l'école) ; sur internet, il faut `https://`.
-
-L'analyse s'affiche au fur et à mesure, avec les prénoms. Elle reste enregistrée avec la session. « Refaire l'analyse » la relance, par exemple après avoir relevé de nouvelles réponses ; « Réglages de l'IA », en bas, change de service.
-
-![L'analyse](images/sessions-12-analyse.png)
-
-**IA locale depuis le téléphone.** `localhost` désigne l'appareil lui-même. Si l'IA tourne sur votre ordinateur et que vous analysez sur le téléphone, mettez l'adresse de l'ordinateur sur le réseau (par exemple `http://192.168.1.20:11434/v1`), et lancez Ollama pour qu'il accepte les autres appareils (`OLLAMA_HOST=0.0.0.0`). Un petit modèle peut couper un texte long : pour une grande classe, préférez un modèle récent à grande fenêtre de contexte.
 
 ## Bon à savoir
 

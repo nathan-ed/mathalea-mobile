@@ -3,7 +3,6 @@
   // « Lancer la session ». Sans réponse : QR code et code à montrer aux élèves,
   // puis lecture des QR codes des réponses. Avec des réponses : celles de la
   // classe (ReponsesClasse), le code et le QR code restant à portée.
-  import type { ConfigIA } from '$lib/analyse'
   import type { Moteur } from '$lib/moteur'
   import { reglageQr } from '$lib/progression'
   import { dessinerQr } from '$lib/qr'
@@ -19,8 +18,6 @@
     releves,
     moteur,
     niveau = '',
-    configIA = null,
-    onconfigIA,
     onsauver,
     onretour,
   }: {
@@ -28,8 +25,6 @@
     releves: Releve[]
     moteur: Moteur
     niveau?: string
-    configIA?: ConfigIA | null
-    onconfigIA: (c: ConfigIA | null) => Promise<void>
     onsauver: (r: Releve[]) => Promise<void>
     onretour: () => void
   } = $props()
@@ -64,8 +59,6 @@
       {releve}
       {moteur}
       {niveau}
-      {configIA}
-      {onconfigIA}
       onmaj={(x) => onsauver(releves.map((y) => (y.cle === x.cle ? x : y)))}
       {onretour}
     >

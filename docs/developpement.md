@@ -452,7 +452,7 @@ ancienne app.
 ## À faire (sans version fixée)
 
 - **Politique de confidentialité** à mettre à jour avant de publier les
-  réponses de session (caméra, prénom, analyse par une IA) : texte prêt dans
+  réponses de session (caméra, prénom) : texte prêt dans
   `docs/confidentialite-brouillon.html`, à copier sur
   `static/confidentialite.html` (publiée par le job `pages`). Pas avant la
   fin de l'examen Google Play en cours (Nathan, 2026-10-19 : Google ne doit
@@ -628,7 +628,21 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
-## 0.4.5 : Claude sans bibliothèque (fait)
+## Analyse par une IA mise de côté
+
+- Nathan (2026-10-27) : pas d'IA dans l'app pour la publication sur l'App
+  Store. Retirés : `ia.ts`, `analyse.ts`, « Copier pour une IA », « Coller la
+  réponse d'une IA », analyse dans l'app (Claude, Mistral, OpenAI, IA locale),
+  réglages de l'IA, `Releve.analyse`, `textePourIA`, `retraduire`, motif
+  `http://*:*/*` du plugin HTTP (revenu à `http://*:8702/*`). Gardés : caméra
+  et import des QR codes, résumé de la classe, vues Questions et Élèves,
+  prénom facultatif. Un ancien relevé qui porte une `analyse` reste lisible
+  (champ ignoré) ; la clé `cle-ia` d'une ancienne version reste hors des
+  sauvegardes (`CLES_DE_L_APPAREIL`).
+- Le travail est gardé sur la branche locale `analyse-ia` (main plus le
+  retour de ce retrait), à reprendre plus tard.
+
+## 0.4.5 : Claude sans bibliothèque (fait, retiré depuis)
 
 - Nathan (2026-10-25) : pas de SDK d'un fournisseur dans l'app, comme pour
   Mistral, OpenAI et les IA locales. `ia.ts` appelle l'API Messages
@@ -800,29 +814,12 @@ Reste à faire :
   plus, questions sous 70 %), vues Questions (mauvaises ou toutes les
   réponses avec les prénoms) et Élèves (`bilanDesEleves`, plus faibles
   d'abord, détail au toucher).
-- IA et prénoms : l'IA ne reçoit que « Élève N » (`textePourIA`, consigne
-  `CONSIGNE_PSEUDONYMES` dans le texte et dans la consigne système : garder
-  exactement « Élève N », un par un). Texte de l'IA gardé tel quel
-  (`Releve.analyse`), prénoms remis à l'affichage par `retraduire()`
-  (rechercher-remplacer « Élève N », aussi pour une réponse collée).
-- Analyse dans l'app (`ia.ts`, chargé à la demande, `fetch` du plugin HTTP
-  dans Tauri) selon `ConfigIA` (`analyse.ts`) : Claude par
-  `POST https://api.anthropic.com/v1/messages` en flux (modèle
-  `claude-opus-5-5`, effort `medium`, repli `fallbacks: "default"`, deux
-  nouveaux essais sur 429, 5xx ou coupure ; aucune bibliothèque d'un
-  fournisseur depuis 0.4.5) ; Mistral, OpenAI, IA locale (Ollama par défaut,
-  LM Studio) et autre adresse par `POST <adresse>/chat/completions` en flux
-  (format OpenAI), modèles proposés par `GET <adresse>/models`, blocs
-  `<think>` retirés (`sansReflexion`). `http://` refusé hors réseau local
-  (`erreurAdresse`), d'où le motif `http://*:*/*` du plugin HTTP
-  (`capabilities/default.json`). Réglage sous `cle-ia` (une chaîne seule,
-  d'avant, = clé Claude) : ni exporté ni effacé par une restauration
-  (`sauvegarde.ts`).
+- Analyse par une IA : retirée depuis, voir « Analyse par une IA mise de côté ».
 - Caméra : Android `CAMERA` (facultative pour Google Play), iOS et macOS
   `NSCameraUsageDescription`, Linux : flux média de WebKitGTK activé et
   demande acceptée (`lib.rs`).
 - Vérification : `tests/releve.test.ts` ; `node e2e/reponses-session.mjs`
   (fausse caméra de Chromium qui filme les QR codes des élèves, photo de
-  quatre téléphones, API Anthropic et Ollama simulés, réglages de session) et
+  quatre téléphones, réglages de session, aucune IA proposée) et
   `NAVIGATEUR=webkit` (WebKit de Playwright). Captures du guide
   (`docs/guide/sessions.md`) : `GUIDE=docs/guide/images node e2e/reponses-session.mjs`.

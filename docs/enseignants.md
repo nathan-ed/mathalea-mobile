@@ -314,7 +314,7 @@ pour l'enseignant » et choisissez le moment :
   fait : voir mes résultats ».
 
 « Avec le prénom des élèves » (facultatif) : l'élève tape son prénom une fois,
-il ne va que sur l'appareil de l'enseignant et n'est jamais envoyé à une IA ;
+il ne va que sur l'appareil de l'enseignant ;
 sinon, « Élève 1, 2, 3… ».
 
 Le réglage est caché dans le code (une empreinte du code entier) : il suffit
@@ -344,14 +344,7 @@ moins réussies aux plus réussies, taux de réussite et mauvaises réponses
 regroupées (« 999 : 2 élèves »), ou toutes les réponses avec qui a donné
 quoi. Vue Élèves : score de chacun, toutes ses réponses au toucher.
 
-Analyse par une IA : les élèves y sont « Élève 1, 2… », jamais un prénom ;
-l'app remet les prénoms dans la réponse, à l'affichage. « Copier pour une
-IA » prépare le texte pour l'assistant de votre choix, « Coller la réponse
-d'une IA » le relit. Pour l'analyse dans l'app, « Réglages de l'IA » : Claude,
-Mistral ou OpenAI (clé d'API, chaque analyse facturée sur son compte), IA
-locale (Ollama, LM Studio, gratuite) ou autre adresse compatible OpenAI.
-Réglages gardés sur l'appareil, jamais dans une sauvegarde ; `http://`
-seulement sur le réseau local. Pas à pas avec images : guide en ligne,
+Pas à pas avec images : guide en ligne,
 « Sessions partagées et réponses de la classe ».
 
 ## Sauvegarde

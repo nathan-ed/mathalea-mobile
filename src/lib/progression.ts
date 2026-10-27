@@ -49,7 +49,7 @@ const ALPHABET = '23456789abcdefghjkmnpqrstuvwxyz'
  * - quand : aucun (pas de QR code), apres (correction comme prévu, puis
  *   « Montrer mes réponses » au bilan), avant (correction à la fin, QR code
  *   avant les résultats) ;
- * - prenom : l'élève ajoute son prénom au QR code (jamais transmis à une IA).
+ * - prenom : l'élève ajoute son prénom au QR code.
  */
 export type ModeQr = 'aucun' | 'apres' | 'avant'
 export interface ReglageQr {
