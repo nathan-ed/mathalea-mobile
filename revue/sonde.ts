@@ -373,12 +373,18 @@ function remplir(i: number, saisie: Saisie, corr: string): Remplissage {
         return res
       }
       case 'liste-deroulante': {
-        const el = mf(`ex${n}Q${i}`)
+        // <liste-deroulante id="liste-deroulanteEx0Q0"> (ancien format : ex0Q0)
+        const el = mf(`liste-deroulanteEx${n}Q${i}`) ?? mf(`ex${n}Q${i}`)
         const r = valeur?.reponse?.value
-        if (!el || r == null) return non('liste absente ou sans valeur')
+        if (!el) return non('liste absente de la page')
+        if (r == null) return non('liste sans valeur attendue')
         if (saisie === 'evidence') return non('liste : évidence non comparée')
+        // Mauvaise réponse : un autre choix de la liste (une valeur hors liste est ignorée)
+        const autres = ((el.selectableChoices ?? []) as AC[])
+          .map((c) => String(el.choiceValue?.(c) ?? ''))
+          .filter((x) => x !== '' && x !== texte(r))
         const v =
-          saisie === 'correcte' ? texte(r) : saisie === 'incorrecte' ? '__faux__' : ''
+          saisie === 'correcte' ? texte(r) : saisie === 'incorrecte' ? (autres[0] ?? '') : ''
         el.value = v
         res.valeurs.liste = v
         return res
