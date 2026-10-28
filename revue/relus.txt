@@ -1917,3 +1917,8 @@ dc090
 dc3d2
 5N1L-2
 5N1autoA-2
+5N1autoA-1
+5N1autoA-3
+5N1autoA-4
+5N1autoA-5
+5N1autoC-1

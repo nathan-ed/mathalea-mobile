@@ -240,4 +240,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9067 ; T5 Espaces 1231 ; T6 Points de suspension 532 ; T4  480 ; T2  371 ; R2 Tutoiement, impératif 187 ; T3  127 ; R5 Virgule 100 ; N6 Écriture algébrique 77 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; T1 Espace avant % 29 ; X2 Formule cassée 12 ; R10 Français 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9110 ; T5 Espaces 1282 ; T6 Points de suspension 541 ; T4  480 ; T2  371 ; R2 Tutoiement, impératif 252 ; T3  129 ; R5 Virgule 100 ; N6 Écriture algébrique 78 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; T1 Espace avant % 29 ; X2 Formule cassée 12 ; R10 Français 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
