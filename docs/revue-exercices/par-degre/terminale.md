@@ -1,17 +1,17 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **130 sur 293**. Constats confirmés : **109**.
+Exercices relus : **148 sur 293**. Constats confirmés : **127**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 24 |
-| Rendu cassé (formule, débordement, erreur) | 5 |
-| Mise en évidence (miseEnEvidence et champs) | 9 |
+| Contenu mathématique faux | 27 |
+| Rendu cassé (formule, débordement, erreur) | 6 |
+| Mise en évidence (miseEnEvidence et champs) | 10 |
 | Typographie (nombres, espaces, notations) | 16 |
-| Rédaction (français, titres, consignes) | 55 |
+| Rédaction (français, titres, consignes) | 68 |
 
 ## Contenu mathématique faux
 
@@ -39,6 +39,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA1-46 | C1 Contenu mathématique faux | « ≈ » devant des valeurs exactes : $u_2\approx 11\,375$ alors que u_2=11 375 est calculé exactement plus haut. | Choisir « = » ou « \approx » selon que texNombre(terme, 1) arrondit ou non. | src/exercices/TSpe/TSA1-46.ts:150 |
 | TSA1-47 | C1 Contenu mathématique faux | De u_n>8 000, la correction tire « 8 000-u_n ⩽ 0 » puis « décroissante », alors que l'inégalité stricte donne une suite strictement décroissante ; la phrase « la suite (v_n) est géométrique de raison 0,75 » est ensuite répétée telle quelle. | « 8 000-u_n&lt;0 », « u_{n+1}-u_n&lt;0 », « strictement décroissante » ; supprimer la phrase répétée (ligne 158 ou celle qui la précède). | src/exercices/TSpe/TSA1-47.ts:139 |
 | TSA2-32 | C1 Contenu mathématique faux | Correction : « Soit $x\in\mathbb{R}$. On résout $x+4>0$ » alors que la fonction est définie sur $\mathbb R\setminus\{-4\}$ ; limites en $-4^-$ et $-4^+$ mises en évidence séparément (M8 : un trou par limite, ordre de lecture à vérifier). | « Soit $x\in\mathbb R\setminus\{-4\}$ » ou « Soit $x\in\mathbb R$ » avant le tableau seulement. | src/exercices/TSpe/TSA2-32.ts |
+| TSA6-04 | C1 Contenu mathématique faux | Correction fausse : la valeur mise en évidence est « F(x) = 7/3 x³ − 3x² + 4x » (le terme en x² est −3x² au lieu de −3/2 x²), alors que la bonne proposition du QCM est 7/3 x³ − 3/2 x² + 4x ; l'énoncé de la correction écrit « f(x) = 7x² − 3 + 4 » (le x est oublié) ; $ f $ avec espaces dans les dollars. | Mettre en évidence la proposition cochée ; « -3x+4 ». | src/exercices/TSpe/TSA6-04.ts |
+| TSA6-05 | C1 Contenu mathématique faux | Correction fausse : « une primitive de f est y = 4/3 x³ + 1/2 x² » alors que y' = 4x² − x donne y = 4/3 x³ − 1/2 x² (bonne proposition du QCM) ; on parle d'une primitive de « y » (de y') puis de « f » (jamais défini) ; « (E) : » avec insécable à l'intérieur du dollar. | Corriger le signe ; « y est une primitive de y' » ; remplacer f. | src/exercices/TSpe/TSA6-05.ts |
+| TSA6-07 | C1 Contenu mathématique faux | Correction : « f croissante équivaut à f'>0 » est faux (f'⩾0) ; « donc$F''=f'>0$ » sans espace après « donc » ; affirmation de l'énoncé « alors f est croissante équivaut à F convexe » : syntaxe lourde (« si et seulement si »). | f' ⩾ 0 et F'' ⩾ 0 ; « donc $F''$ » ; reformuler « f est croissante sur I si et seulement si F est convexe sur I ». | src/exercices/TSpe/TSA6-07.ts |
 | TSA1-20 | C1 Contenu mathématique faux | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. | Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | TSpe/TSA1-20.ts |
 | TSA1-27 | C1 Contenu mathématique faux | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. | Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | TSpe/TSA1-27.ts |
 
@@ -50,6 +53,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-37 | X5 Débordement à 390 px | Correction : justifications en \text{…} au bout des lignes du aligned (« On multiplie et on divise par la quantité conjuguée », « car (a-b)(a+b)=a^2-b^2 ») : la ligne dépasse 390 px ; intervalle $]-\infty;\dfrac{7}{2}]$ sans espaces. | Phrases sous les lignes plutôt que dans l'aligned ; \,;\, dans les intervalles. | src/exercices/TSpe/TSA2-37.ts |
 | TSA2-43 | X5 Débordement à 390 px | Justifications en \text{} au bout des lignes du aligned (« car e^{-4x}>0 ») : dépassement de 390 px ; « Par composition : » sur une ligne seule. | Phrases sous le calcul. | src/exercices/TSpe/TSA2-43.ts |
 | TSA3-46 | X6  | Repères de 176 px : les graduations de l'axe des abscisses et de l'axe des ordonnées se chevauchent près de l'origine (« -1  5  -5 » illisible) ; les propositions du QCM sont des SVG entiers (aucun texte alternatif) avec une feuille &lt;style> à sélecteur #exercice0 qui ne vaut que pour le premier exercice de la page ; bonne réponse non mise en évidence (M3, 24 cas). | Graduer une valeur sur deux ; aria-label sur les SVG ; style par classe et non par identifiant. | src/exercices/TSpe/TSA3-46.ts |
+| TSA5-30 | X3  | Correction : balises « &lt;/div> &lt;/div> » affichées en texte devant « Le discriminant est null » (7 cas X3) ; « null » (nul) ; « La fonction log est défine » (définie, ln) ; $\mathcal{f}_0$ ; réponse ℝ\{2} refusée avec le message « Il faut donner un intervalle ou une réunion d'intervalles » alors que l'énoncé demande « le domaine de définition » sans exiger la forme (3 I1). | Fermer les div proprement ; nul ; définie ; accepter ℝ\{2} ou préciser « sous forme d'intervalles ». | src/exercices/TSpe/TSA5-30.ts |
 | TSA1-12 | X5 Débordement à 390 px | Correction à 390 px : le calcul aligné avec ses justifications en vert (« ← hypothèse de récurrence ») élargit la page à 451 px ; « \text{car 2n+6=2(n+1)+4} » écrit en texte droit au lieu de formule. | Justifications sous chaque ligne sur petit écran ; « car $2n+6=2(n+1)+4$ ». | TSpe/TSA1-12.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
@@ -63,6 +67,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-41 | M3  | QCM dont les propositions sont des expressions de limites (lim_{x→+∞} f(x)) : la correction met en évidence la valeur de la limite (−∞) et non la proposition cochée ; « f(x) \lt -2x+4 » (\lt au lieu de &lt;). | Mettre en évidence la proposition (la limite en +∞) ou écrire « La limite déterminable est celle en +∞ ». | src/exercices/TSpe/TSA2-41.ts |
 | TSA3-44 | M8 Évidences et champs | Deux trous (abscisse, ordonnée) mais une seule mise en évidence couvrant tout « I(-1 ; 14) » : l'élève ne voit pas la valeur de chaque trou ; « $1\times(-1)^3$ » avec un facteur 1 inutile. | Deux miseEnEvidence : $I(\,⟦-1⟧\,;\,⟦14⟧\,)$ ; supprimer le facteur 1. | src/exercices/TSpe/TSA3-44.ts |
 | TSA5-20 | M1 Évidence refusée par le champ | Équation a^x=b : l'ensemble solution S={2} mis en évidence avec \left\{ \right\} alors que le champ du trou ne prend que le nombre (42 refus M1) ; « si, et seulement si, » avec virgule. | Mettre en évidence 2 seul ; « si et seulement si ». | src/exercices/TSpe/TSA5-20.ts |
+| TSA5-40 | M3  | Vrai/Faux : « L'affirmation est ⟦vraie⟧ » avec le mot seul en évidence (12 M3) ; « vaut 1 » correct. | « Vrai » en évidence. | src/exercices/TSpe/TSA5-40.ts |
 | TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
 | TSA1-30 | M5 Texte en évidence | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. | « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | TSpe/TSA1-30.ts |
 
@@ -119,6 +124,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-QCM10 | R1 Titre | « au point d'abscisse 1 » : nombre hors des $ ; phrase de l'énoncé sans ponctuation avant les propositions. | « d'abscisse $1$ … est : ». | src/exercices/QCMBac/A2022/Polynesie2022_2Q5.ts |
 | TSA5-QCM01 | R3  | Espaces irrégulières dans les formules ($f(x)= 0,05 - …$) ; bonne réponse non mise en évidence (M3). | Uniformiser ; proposition en évidence. | src/exercices/QCMBac/A2023/AmNordAout2023Q1.ts |
 | TSA4-QCM01 | R3  | « $[-2⍽; 4]$ » intervalle avec insécable avant mais pas après ; mélange de ~;~ et de ; selon les propositions ; bonne réponse non mise en évidence (M3). | $[-2~;~4]$ partout ; proposition en évidence. | src/exercices/QCMBac/A2023/AmNordAout2023Q2.ts |
+| TSA6-QCM02 | R3  | « Une des primitives F » (une primitive) ; $\dfrac12$ sans accolades ; correction sans mise en évidence (M3/M6). | « Une primitive F de f » ; \dfrac{1}{2}. | src/exercices/QCMBac/A2023/Metropole2023Q2.ts |
+| TSA6-QCM01 | R3  | « définie sur $\mathbb R$ par: » sans espace avant les deux-points (11 T3) ; correction sans mise en évidence de la proposition (M3, M6) ; $F^{\prime}(x)$ au lieu de F'(x). | « par : » ; F'(x) ; proposition en évidence. | src/exercices/QCMBac/A2023/NouvelleCaledonie2023Q2.ts |
+| TSA6-QCM03 | R16  | Titre « équa. diff. » abrégé ; « La solution f de l'équation différentielle … telle que f(0)=3 » espace dans f(0) =3 ; « l'équation différentiel » (différentielle) dans la correction ; 12 M3. | Titre sans abréviation ; différentielle. | src/exercices/QCMBac/A2024/Polynesie2024Q4.ts |
 | TSA2-QCM02 | R16  | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. | « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | src/exercices/QCMStatiques/Convexite1.ts:35 |
 | TSA3-40 | R1 Titre | « au point d'abscisse 3 », « point P d'abscisse 5 » : nombres hors des $ ; QCM : la bonne proposition n'est pas mise en évidence dans la correction (M3, 16 cas). | $3$ et $5$ entre dollars ; mettre la proposition correcte en évidence. | src/exercices/QCMStatiques/QCMBacConvexite.ts |
 | TSA2-QCM15 | R1 Titre | Propositions du QCM avec nombres hors des $ : « arithmétique de raison 2 » ; intervalles écrits sans espaces $]-\infty;-3]$ (les autres QCM utilisent ~;~). | « raison $2$ » ; $]-\infty~;~-3]$. | src/exercices/QCMStatiques/Shuffle.ts |
@@ -145,6 +153,16 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA4-40 | R13  | Correction : « A la calculatrice » sans accent (À). | « À la calculatrice ». | src/exercices/TSpe/TSA4-40.ts |
 | TSA5-10 | R1 Titre | Correction : « pour tous réels a et b strictement positifs » : a, b et n hors des $ ; espaces insécables inutiles (⍽) avant les formules. | $a$, $b$, $n$ entre dollars. | src/exercices/TSpe/TSA5-10.ts |
 | TSA5-11 | R16  | Énoncé écrit avec \log(x) alors que le titre parle de \ln(x) ; 14 corrections avec points de suspension ; 5 figures plus larges que 390 px. | Uniformiser \ln. | src/exercices/TSpe/TSA5-11.ts |
+| TSA5-21 | R16  | Correction : la ligne « x ln(2) ⩾ ln(32) » est écrite deux fois de suite ; « car \ln(2)>0 » avec \text{car} collé (« \text{car} \ln(2) ») sans espace. | Supprimer la ligne en double ; \text{ car }. | src/exercices/TSpe/TSA5-21.ts |
+| TSA5-22 | R16  | Le domaine de l'équation est noté $\mathcal{D}_f$ sans fonction f ; \ln(e^{10}) avec e en italique (\mathrm{e}) ; intervalle mis en évidence « ]-7/8 ; +∞[ » refusé par le champ (22 M1) ; $ \mathcal{D}_f=⟦…⟧$ avec espace en début de dollar. | $\mathcal{D}$ ; \mathrm{e} ; saisie de l'intervalle à vérifier. | src/exercices/TSpe/TSA5-22.ts |
+| TSA5-31 | R16  | Correction : « est de la forme ln(u) » : ln en italique sans \ln ; « et donc que la dérivée est » (que en trop) ; « f'(x) » écrit f^\prime et f' sur la même page. | \ln(u) ; « donc la dérivée est ». | src/exercices/TSpe/TSA5-31.ts |
+| TSA5-32 | R16  | Correction : « comme somme de termes positifs.. » (double point) ; « strictement positif » alors que 8>0 suffit : justification imprécise ; bonne réponse non mise en évidence (12 M3). | Un seul point ; « comme somme de termes positifs dont 8 > 0 ». | src/exercices/TSpe/TSA5-32.ts |
+| TSA5-33 | R16  | Intervalle « \left]0\,;+\infty\right[ » avec une seule espace fine ; mêmes remarques sur la remarque finale (sans forme indéterminée) ; 4 pages > 390 px. | \,;\, des deux côtés. | src/exercices/TSpe/TSA5-33.ts |
+| TSA5-41 | R3  | Énoncé : intervalle « $]0; +\infty[$ » avec point-virgule collé au crochet et espace seulement après ($]0~;~+\infty[$ ailleurs) ; sujet de synthèse en un seul paragraphe de 7 consignes sans numérotation (la correction suit les questions mais l'énoncé ne les numérote pas) ; 26 R5 phrases sans virgule. | Numéroter les questions ; $]0\,;\,+\infty[$ ; virgules. | src/exercices/TSpe/TSA5-41.ts |
+| TSA5-42 | R3  | Notation « f\prime(x) » et « f\prime\prime(x) » : f' et f'' à écrire f'(x), f''(x) comme dans les autres exercices ; 6 phrases sans virgule après « Or ». | f'(x) ; « Or, ». | src/exercices/TSpe/TSA5-42.ts |
+| TSA6-01 | R3  | Intervalle $]-4;+\infty[$ sans espaces ; « f(x)=…, est la fonction : » virgule avant « est » ; « 4x +17 » espace irrégulière dans les propositions ; $\quad$ pour aligner « et ». | $]-4\,;\,+\infty[$ ; supprimer la virgule ; $4x+17$. | src/exercices/TSpe/TSA6-01.ts |
+| TSA6-02 | R3  | « où C∈ℝ » avec ou sans virgule selon les propositions (la 3e n'en a pas) ; « F(x)=-1\times\ln » (écrire -\ln) ; phrase de conclusion avec espace avant le point ; M3 (3 cas). | Virgule partout ; -\ln(x+4)+C. | src/exercices/TSpe/TSA6-02.ts |
+| TSA6-03 | R16  | « sont sous la forme » (sont de la forme) ; « La seule primitive F … telle que F(0)=4 est la fonction définie par : » ; $\mathrm{e}^{-1}$ ok. | « sont de la forme ». | src/exercices/TSpe/TSA6-03.ts |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
