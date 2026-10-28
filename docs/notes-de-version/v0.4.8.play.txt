@@ -1,0 +1,1 @@
+Correctif : les écrans défilent de nouveau au doigt. Depuis la version précédente, les Réglages, l'accueil et les pages plus hautes que l'écran restaient bloqués en haut.

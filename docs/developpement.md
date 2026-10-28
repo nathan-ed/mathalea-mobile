@@ -631,6 +631,20 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.8 : défilement au doigt rétabli (fait)
+
+- Depuis 0.4.6, aucun écran ne défilait au doigt ni à la molette (Réglages,
+  accueil, séance) : avec `overflow-x: clip` sur `html`, le `body` ne
+  transmet plus son `overflow` à la fenêtre, et son `overflow-x: hidden`
+  (donc `overflow-y: auto`) en faisait un conteneur de défilement à la
+  hauteur de son contenu, qui prenait le geste sans défiler. `scrollTo`
+  marchait : les tests qui font défiler par programme ne voyaient rien.
+- `body` passe à `overflow-x: clip` (pas de conteneur de défilement) ; un
+  contenu plus large que l'écran n'élargit toujours pas la page.
+- Test : `node e2e/defilement.mjs` (vrais glissés `Input.dispatchTouchEvent`,
+  molette du bureau, contenu de 1200 px). `Input.synthesizeScrollGesture` ne
+  fait rien en mode sans fenêtre : ne pas s'y fier.
+
 ## 0.4.7 : QR code de classe et de dossier (fait)
 
 - Nathan (2026-10-28) : « juste le fait de scanner, ça rajoute toutes les

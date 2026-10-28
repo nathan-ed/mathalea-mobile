@@ -837,6 +837,10 @@ Environnement (machine de Nathan)
   octet.
 - Script bash avec `set -e` : `[ -n "$x" ] && cmd` en fin de boucle arrête le
   script quand le test est faux ; écrire `if …; then …; fi`.
+- Jamais `overflow-x: hidden` (ni `auto`) sur `body` tant que `html` a
+  `overflow-x: clip` : le body devient un conteneur de défilement qui prend le
+  doigt sans défiler (aucun écran ne défilait en 0.4.6 et 0.4.7). Vérifier
+  tout changement de `overflow` par `node e2e/defilement.mjs` (vrais glissés).
 - Pas de `transform` dans une animation d'écran : il fait du conteneur le
   repère des éléments `fixed` (barres du bas, clavier) ; animer `left`.
 - Le clavier MathALÉA (fixé, au premier plan) recouvre ce qui s'ouvre en bas :
