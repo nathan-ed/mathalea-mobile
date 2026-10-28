@@ -186,6 +186,7 @@ async function passer(page, e) {
           c({ ...ctx, regle: 'X6', gravite: 2, extrait: 'même graine, énoncés différents (aléa hors nouvelleVersion ?)' })
         await page.evaluate((p) => window.sonde.preparer(p, 0), params)
       }
+      if (!prep.questions.length) c({ ...ctx, regle: 'X4', gravite: 2, extrait: 'aucune question générée pour cette combinaison de paramètres' })
       // Contrôles du texte
       const vu = (cle) => (deja.has(cle) ? true : (deja.add(cle), false))
       if (!vu('consigne:' + prep.consigne)) for (const x of controler(prep.consigne, { type: 'consigne' })) c({ ...ctx, ...x, ou: 'consigne' })

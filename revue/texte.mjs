@@ -26,6 +26,7 @@ for (const f of existsSync(dossier) ? readdirSync(dossier) : []) {
   passe(s.titre, 'titre', 'titre', {})
   for (const v of s.variantes ?? []) {
     const ctx = { variante: v.variante, graine: v.graine }
+    if (!v.questions.length) lignes.push(JSON.stringify({ ...base, ...ctx, regle: 'X4', gravite: 2, ou: 'série', extrait: 'aucune question générée pour cette combinaison de paramètres' }))
     passe(v.consigne, 'consigne', 'consigne', ctx)
     passe(v.introduction, 'enonce', 'introduction', ctx)
     for (const c of controlerSerie(v.questions)) if (c.regle === 'X1') lignes.push(JSON.stringify({ ...base, ...ctx, ...c, ou: 'série' }))
