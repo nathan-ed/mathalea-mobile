@@ -98,11 +98,12 @@ for (const v of s.variantes ?? []) {
   console.log(`\n## ${v.variante} (graine ${v.graine})`)
   if (v.consigne) console.log(`consigne : ${compact(v.consigne)}`)
   if (v.introduction) console.log(`intro : ${compact(v.introduction)}`)
-  v.questions.forEach((q, i) => {
+  const court = opts.includes('--court')
+  v.questions.slice(0, court ? 2 : undefined).forEach((q, i) => {
     console.log(`Q${i + 1} [${q.format}${q.interactive ? '' : ', non interactive'}] ${compact(q.enonce)}`)
     console.log(`  → ${compact(q.correction)}`)
     const r = v.reponses?.[i]
-    if (r && Object.keys(r).length) console.log(`  attendu : ${JSON.stringify(r)}`)
+    if (!court && r && Object.keys(r).length) console.log(`  attendu : ${JSON.stringify(r)}`)
   })
 }
 if (s.nonInteractif) {

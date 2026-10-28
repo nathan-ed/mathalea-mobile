@@ -175,6 +175,7 @@ export function controler(html, o) {
       for (const m of t.matchAll(/\b(oeu\p{L}*|coeur\p{L}*|soeur\p{L}*|noeud\p{L}*|voeu\p{L}*|boeuf\p{L}*|oe(?=il))/giu)) {
         ajoute('R10', 5, `ligature œ manquante « ${m[0]} » : ${extrait(t, m.index)}`)
       }
+      for (const m of t.matchAll(/\b(que|de|Que|De) (?=[AEIOUYÉÈÊÂÎ][a-zéèêàâîïôûç]+\b)/gu)) ajoute('R10', 5, `élision manquante « ${m[1]} ${t.slice(m.index + m[0].length).split(/\s/)[0]} » : ${extrait(t, m.index)}`)
       for (const m of t.matchAll(/\p{L}- \p{L}|\p{L} -\p{L}/gu)) ajoute('R10', 5, `trait d'union et espace : ${extrait(t, m.index)}`)
       // R2 consignes à l'impératif (deuxième personne)
       if (o.type === 'consigne' || o.type === 'titre' || o.type === 'enonce') {

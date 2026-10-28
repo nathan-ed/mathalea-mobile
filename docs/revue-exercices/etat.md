@@ -28,7 +28,7 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 1. Banc en marche ? (`tail -1 revue/banc.log`). Sinon le relancer (il reprend).
 2. Relire les exercices suivants dans l'ordre de `revue/referentiel.json`,
    en sautant ceux de `revue/relus.txt` et ceux pas encore passés au banc.
-   Prochain : `canc3C01` (puis can6a-2018…) (le sujet aléatoire `canc3a`, très long,
+   Prochain : `can6a-2018` (le sujet aléatoire `canc3a`, très long,
    s'appuie sur `src/exercices/can/c3/_Canc3a.ts` : le relire par le code).
 3. Trier les constats graves du banc (I1, I2, I4, M1, X1, X3, X6) : faux
    positif → `revue/ecartes.jsonl`, vrai → laissé ou précisé avec noter.mjs.
