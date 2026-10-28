@@ -43,8 +43,9 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
    journal des CAN vidé avant) : une attente `\sqrt3` n'est pas un défaut.
 2. Relire les exercices suivants dans l'ordre de `revue/referentiel.json`,
    en sautant ceux de `revue/relus.txt` et ceux pas encore passés au banc.
-   `node revue/suivants.mjs 20` donne les suivants. Le sujet aléatoire
-   `canc3a` (très long) se relit par le code (`src/exercices/can/c3/_Canc3a.ts`).
+   `node revue/suivants.mjs 20` donne les suivants. Toutes les CAN sont
+   relues (28 octobre) ; on poursuit avec le hors-CAN (CM1, CM2, 6e…) au fil
+   du banc.
    Confirmer un refus à la main : `node revue/essayer.mjs <id> <graine>
    '<paramètres>' <nb> <question> <saisie>…` (graine et paramètres dans la
    sortie du banc).
