@@ -15,3 +15,4 @@
 {"id":"6N2E-3","regle":"M1","raison":"six champs par question en sous-questions : la sonde associe les évidences dans le mauvais ordre"}
 {"id":"6N2E-3","regle":"M8","raison":"idem"}
 {"id":"6N1G","regle":"X3","motif":"empilées","raison":"défaut du moteur de l app (ajusterFigures), consigné sous moteur-app"}
+{"id":"6N3O","regle":"M1","motif":"plusieurs mises en évidence par question (calcul détaillé puis réponse) : la sonde les associe aux champs dans l’ordre"}
