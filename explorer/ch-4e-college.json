@@ -1,15 +1,15 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-10-26T08:00:00.000Z",
+  "exporteLe": "2026-10-28T08:00:00.000Z",
   "classes": [
     {
       "nom": "4e Collège",
       "parcours": [
         {
           "id": "ch-4c-integrales",
-          "version": 1,
-          "titre": "Primitives et intégrales",
-          "objectif": "Trouver une primitive, calculer une intégrale, y compris avec ln et exp, et l'utiliser pour une aire ou un volume.",
+          "version": 2,
+          "titre": "Calcul intégral",
+          "objectif": "Encadrer une aire, trouver une primitive, calculer une intégrale et s'en servir pour une valeur moyenne, une aire ou un volume.",
           "niveau": "4e Collège",
           "theme": "Intégration",
           "difficulte": 2,
@@ -21,8 +21,169 @@
           "style": "ceintures",
           "paliers": [
             {
+              "titre": "Rappels de dérivées",
+              "nb": 3,
+              "fiche": {
+                "titre": "Rappels de dérivées",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Chercher une primitive, c'est dériver à l'envers : il faut donc savoir dériver sans hésiter. Ce palier reprend les règles de dérivation."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dérivées à connaître",
+                    "texte": "- $\\big(x^n\\big)'=n\\,x^{n-1}$\n- $\\big(\\sqrt{x}\\big)'=\\dfrac{1}{2\\sqrt{x}}$\n- $\\big(\\sin(x)\\big)'=\\cos(x)$ et $\\big(\\cos(x)\\big)'=-\\sin(x)$\n- $\\big(\\tan(x)\\big)'=1+\\tan^2(x)=\\dfrac{1}{\\cos^2(x)}$\n- $\\big(\\mathrm{e}^x\\big)'=\\mathrm{e}^x$ et $\\big(\\ln(x)\\big)'=\\dfrac{1}{x}$"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Règles de dérivation",
+                    "texte": "- Somme et multiple : $(u+v)'=u'+v'$ et $(k\\cdot u)'=k\\cdot u'$\n- Produit : $(u\\cdot v)'=u'\\cdot v+u\\cdot v'$\n- Quotient : $\\left(\\dfrac{u}{v}\\right)'=\\dfrac{u'\\cdot v-u\\cdot v'}{v^2}$\n- Composée : $\\big(f(g(x))\\big)'=f'\\big(g(x)\\big)\\cdot g'(x)$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Produit",
+                    "enonce": "Dériver $h(x)=x^2\\sin(x)$.",
+                    "etapes": [
+                      "Produit avec $u(x)=x^2$ et $v(x)=\\sin(x)$ : $u'(x)=2x$ et $v'(x)=\\cos(x)$.",
+                      "$h'(x)=2x\\sin(x)+x^2\\cos(x)$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Quotient",
+                    "enonce": "Dériver $h(x)=\\dfrac{2x}{x^2+1}$.",
+                    "etapes": [
+                      "Quotient avec $u(x)=2x$ et $v(x)=x^2+1$ : $u'(x)=2$ et $v'(x)=2x$.",
+                      "$$h'(x)=\\dfrac{2\\cdot(x^2+1)-2x\\cdot2x}{(x^2+1)^2}$$",
+                      "$$h'(x)=\\dfrac{2-2x^2}{(x^2+1)^2}$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Composée",
+                    "enonce": "Dériver $h(x)=\\cos(x^3+2)$.",
+                    "etapes": [
+                      "Fonction extérieure : $\\cos$, de dérivée $-\\sin$. Fonction intérieure : $g(x)=x^3+2$, de dérivée $3x^2$.",
+                      "$h'(x)=-\\sin(x^3+2)\\cdot3x^2=-3x^2\\sin(x^3+2)$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La dérivée de $f(x)=(3x+1)^4$ est :",
+                    "choix": [
+                      "$4\\,(3x+1)^3$",
+                      "$12\\,(3x+1)^3$",
+                      "$4\\cdot3x$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Composée : $4\\,(3x+1)^3\\cdot(3x+1)'=4\\,(3x+1)^3\\cdot3=12\\,(3x+1)^3$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$f(x)=x\\sqrt{x}$. Que vaut $f'(4)$ ?",
+                    "reponse": 3,
+                    "explication": "$f(x)=x^{\\frac{3}{2}}$, donc $f'(x)=\\dfrac{3}{2}\\,x^{\\frac{1}{2}}=\\dfrac{3}{2}\\sqrt{x}$ et $f'(4)=\\dfrac{3}{2}\\cdot2=3$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $(u\\cdot v)'\\neq u'\\cdot v'$.\n- Composée : ne pas oublier de multiplier par la dérivée de la fonction intérieure.\n- Quotient : $u'v-uv'$ dans cet ordre, et le dénominateur au carré."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Aire et sommes de Darboux",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Aire et sommes de Darboux",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Comment mesurer l'aire sous une courbe qui n'est pas faite de segments ? On l'encadre entre deux escaliers de rectangles, puis on affine le découpage."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Subdivision régulière",
+                    "texte": "On découpe $[a;b]$ en $n$ sous-intervalles de même longueur, le **pas**\n$$h=\\dfrac{b-a}{n}.$$\nLes points de la subdivision sont $x_k=a+k\\cdot h$, pour $k=0,1,\\ldots,n$ : $x_0=a$ et $x_n=b$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Sommes inférieure et supérieure",
+                    "texte": "Sur chaque sous-intervalle $[x_{i-1};x_i]$, on note $m_i$ le minimum et $M_i$ le maximum de $f$.\n\n- Somme inférieure : $s_n=h\\cdot(m_1+m_2+\\ldots+m_n)$\n- Somme supérieure : $S_n=h\\cdot(M_1+M_2+\\ldots+M_n)$\n\nSi $f\\geqslant0$, l'aire $\\mathcal{A}$ sous la courbe vérifie $s_n\\leqslant\\mathcal{A}\\leqslant S_n$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Fonction monotone",
+                    "texte": "- $f$ croissante : le minimum est au bord gauche, $m_i=f(x_{i-1})$, et le maximum au bord droit, $M_i=f(x_i)$.\n- $f$ décroissante : c'est l'inverse."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Encadrer l'aire sous la courbe de $f(x)=x^2$ sur $[0;2]$ avec $n=4$.",
+                    "etapes": [
+                      "Pas : $h=\\dfrac{2-0}{4}=0{,}5$. Points : $0$ ; $0{,}5$ ; $1$ ; $1{,}5$ ; $2$.",
+                      "Valeurs de $f$ : $0$ ; $0{,}25$ ; $1$ ; $2{,}25$ ; $4$. La fonction est croissante sur $[0;2]$.",
+                      "$s_4=0{,}5\\cdot(0+0{,}25+1+2{,}25)=1{,}75$",
+                      "$S_4=0{,}5\\cdot(0{,}25+1+2{,}25+4)=3{,}75$",
+                      "Donc $1{,}75\\leqslant\\mathcal{A}\\leqslant3{,}75$."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Notation $\\Sigma$",
+                    "texte": "$$\\sum_{k=1}^{n}a_k=a_1+a_2+\\ldots+a_n$$\nDeux sommes utiles :\n$$\\sum_{k=1}^{n}k=\\dfrac{n(n+1)}{2}$$\n$$\\sum_{k=1}^{n}k^2=\\dfrac{n(n+1)(2n+1)}{6}$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Passer à la limite",
+                    "enonce": "Calculer $S_n$ pour $f(x)=x$ sur $[0;1]$, puis sa limite.",
+                    "etapes": [
+                      "Pas : $h=\\dfrac{1}{n}$. La fonction est croissante : $M_k=f\\left(\\dfrac{k}{n}\\right)=\\dfrac{k}{n}$.",
+                      "$$S_n=\\dfrac{1}{n}\\sum_{k=1}^{n}\\dfrac{k}{n}=\\dfrac{1}{n^2}\\cdot\\dfrac{n(n+1)}{2}=\\dfrac{n+1}{2n}$$",
+                      "$$\\lim_{n\\to+\\infty}\\dfrac{n+1}{2n}=\\dfrac{1}{2}$$",
+                      "C'est l'aire du triangle de base $1$ et de hauteur $1$."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Intégrale définie",
+                    "texte": "Si $f$ est continue sur $[a;b]$, les suites $(s_n)$ et $(S_n)$ ont la même limite. Ce nombre est l'**intégrale** de $f$ de $a$ à $b$ :\n$$\\int_a^b f(x)\\,\\mathrm{d}x=\\lim_{n\\to+\\infty}s_n=\\lim_{n\\to+\\infty}S_n.$$"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$f$ est décroissante sur $[a;b]$. Pour la somme supérieure, on prend sur chaque sous-intervalle la valeur de $f$ :",
+                    "choix": [
+                      "au bord gauche",
+                      "au bord droit",
+                      "au milieu"
+                    ],
+                    "bonne": 0,
+                    "explication": "$f$ décroît : sa plus grande valeur sur $[x_{i-1};x_i]$ est $f(x_{i-1})$, au bord gauche."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$f(x)=2x+1$ sur $[0;2]$, avec $n=2$. Que vaut $S_2$ ?",
+                    "reponse": 8,
+                    "explication": "$h=1$ et $f$ est croissante : $S_2=1\\cdot\\big(f(1)+f(2)\\big)=3+5=8$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Le pas vaut $\\dfrac{b-a}{n}$, pas $\\dfrac{1}{n}$.\n- Pour une fonction qui n'est pas monotone, chercher le minimum et le maximum sur chaque sous-intervalle.\n- On a toujours $s_n\\leqslant S_n$ : sinon, les rôles sont inversés."
+                  }
+                ]
+              }
+            },
+            {
               "titre": "Primitives",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Primitives",
                 "avant": true,
@@ -56,7 +217,7 @@
                   {
                     "type": "retenir",
                     "titre": "Primitives à connaître",
-                    "texte": "- $k$ (constante) : $kx$\n- $x^n$, avec $n\\neq-1$ : $\\dfrac{x^{n+1}}{n+1}$\n- $\\dfrac{1}{x}$, sur $]0;+\\infty[$ : $\\ln(x)$\n- $\\mathrm{e}^x$ : $\\mathrm{e}^x$\n- $\\cos(x)$ : $\\sin(x)$\n- $\\sin(x)$ : $-\\cos(x)$"
+                    "texte": "- $k$ (constante) : $kx$\n- $x^n$, avec $n\\neq-1$ : $\\dfrac{x^{n+1}}{n+1}$\n- $\\sqrt{x}=x^{\\frac{1}{2}}$ : $\\dfrac{2}{3}x\\sqrt{x}$\n- $\\cos(x)$ : $\\sin(x)$\n- $\\sin(x)$ : $-\\cos(x)$"
                   },
                   {
                     "type": "retenir",
@@ -68,7 +229,7 @@
                     "enonce": "Trouver une primitive de $f(x)=4x^3-6x+\\dfrac{1}{x^2}$ sur $]0;+\\infty[$.",
                     "etapes": [
                       "On écrit chaque terme comme une puissance de $x$ : $\\dfrac{1}{x^2}=x^{-2}$.",
-                      "Terme par terme :\n$$4\\cdot\\dfrac{x^4}{4}=x^4,\\qquad -6\\cdot\\dfrac{x^2}{2}=-3x^2,\\qquad \\dfrac{x^{-1}}{-1}=-\\dfrac{1}{x}$$",
+                      "Terme par terme : $4\\cdot\\dfrac{x^4}{4}=x^4$, $-6\\cdot\\dfrac{x^2}{2}=-3x^2$ et $\\dfrac{x^{-1}}{-1}=-\\dfrac{1}{x}$.",
                       "Donc $F(x)=x^4-3x^2-\\dfrac{1}{x}$.",
                       "Contrôle : $F'(x)=4x^3-6x+\\dfrac{1}{x^2}=f(x)$."
                     ]
@@ -117,7 +278,7 @@
                   {
                     "type": "retenir",
                     "titre": "Pièges",
-                    "texte": "- Pour **toutes** les primitives, ne pas oublier le $+C$.\n- $x^{-1}=\\dfrac{1}{x}$ fait exception : sa primitive est $\\ln(x)$.\n- Toujours contrôler en dérivant le résultat."
+                    "texte": "- Pour **toutes** les primitives, ne pas oublier le $+C$.\n- $x^{-1}=\\dfrac{1}{x}$ fait exception : la formule donnerait une division par $0$. Sa primitive viendra avec le logarithme.\n- Toujours contrôler en dérivant le résultat."
                   }
                 ]
               }
@@ -138,7 +299,7 @@
                   {
                     "type": "retenir",
                     "titre": "Formes à reconnaître",
-                    "texte": "Soit $u$ une fonction dérivable sur $I$.\n\n- $u'\\cdot u^n$, avec $n\\neq-1$ : $\\dfrac{u^{n+1}}{n+1}$\n- $\\dfrac{u'}{u}$, si $u>0$ sur $I$ : $\\ln(u)$\n- $\\dfrac{u'}{\\sqrt{u}}$, si $u>0$ sur $I$ : $2\\sqrt{u}$\n- $u'\\cdot\\mathrm{e}^{u}$ : $\\mathrm{e}^{u}$\n- $u'\\cdot\\cos(u)$ : $\\sin(u)$\n- $u'\\cdot\\sin(u)$ : $-\\cos(u)$\n- $f(ax+b)$, avec $a\\neq0$ : $\\dfrac{1}{a}F(ax+b)$, où $F$ est une primitive de $f$"
+                    "texte": "Soit $u$ une fonction dérivable sur $I$.\n\n- $u'\\cdot u^n$, avec $n\\neq-1$ : $\\dfrac{u^{n+1}}{n+1}$\n- $\\dfrac{u'}{\\sqrt{u}}$, si $u>0$ sur $I$ : $2\\sqrt{u}$\n- $u'\\cdot\\cos(u)$ : $\\sin(u)$\n- $u'\\cdot\\sin(u)$ : $-\\cos(u)$\n- $f(ax+b)$, avec $a\\neq0$ : $\\dfrac{1}{a}F(ax+b)$, où $F$ est une primitive de $f$"
                   },
                   {
                     "type": "exemple",
@@ -153,11 +314,11 @@
                   {
                     "type": "exemple",
                     "titre": "Il manque un facteur constant",
-                    "enonce": "Trouver une primitive de $f(x)=x\\,\\mathrm{e}^{x^2}$.",
+                    "enonce": "Trouver une primitive de $f(x)=x\\cos(x^2)$.",
                     "etapes": [
                       "On pose $u(x)=x^2$ ; alors $u'(x)=2x$. Il manque le facteur $2$.",
-                      "On l'ajoute en compensant : $f(x)=\\dfrac{1}{2}\\cdot2x\\,\\mathrm{e}^{x^2}$.",
-                      "$F(x)=\\dfrac{1}{2}\\,\\mathrm{e}^{x^2}$."
+                      "On l'ajoute en compensant : $f(x)=\\dfrac{1}{2}\\cdot2x\\cos(x^2)$.",
+                      "$F(x)=\\dfrac{1}{2}\\sin(x^2)$."
                     ]
                   },
                   {
@@ -181,25 +342,25 @@
                   },
                   {
                     "type": "question",
-                    "enonce": "Une primitive de $f(x)=\\dfrac{2x}{x^2+1}$ est :",
+                    "enonce": "Une primitive de $f(x)=\\cos(x)\\sin^2(x)$ est :",
                     "choix": [
-                      "$\\ln(x^2+1)$",
-                      "$\\dfrac{1}{x^2+1}$",
-                      "$2\\ln(x^2+1)$"
+                      "$\\dfrac{\\sin^3(x)}{3}$",
+                      "$-\\dfrac{\\cos^3(x)}{3}$",
+                      "$\\dfrac{\\cos(x)\\sin^3(x)}{3}$"
                     ],
                     "bonne": 0,
-                    "explication": "$f=\\dfrac{u'}{u}$ avec $u(x)=x^2+1>0$, donc $F(x)=\\ln(x^2+1)$."
+                    "explication": "$f=u'\\cdot u^2$ avec $u(x)=\\sin(x)$ : $F(x)=\\dfrac{\\sin^3(x)}{3}$."
                   },
                   {
                     "type": "question",
-                    "enonce": "$F(x)=\\dfrac{1}{2}\\,\\mathrm{e}^{2x}+C$ est une primitive de $\\mathrm{e}^{2x}$. Quelle valeur de $C$ donne $F(0)=1$ ?",
+                    "enonce": "$F(x)=\\dfrac{1}{2}\\sin(2x)+C$ est une primitive de $\\cos(2x)$. Quelle valeur de $C$ donne $F\\left(\\dfrac{\\pi}{4}\\right)=1$ ?",
                     "reponse": 0.5,
-                    "explication": "$F(0)=\\dfrac{1}{2}+C=1$, donc $C=\\dfrac{1}{2}$."
+                    "explication": "$F\\left(\\dfrac{\\pi}{4}\\right)=\\dfrac{1}{2}\\sin\\left(\\dfrac{\\pi}{2}\\right)+C=\\dfrac{1}{2}+C=1$, donc $C=\\dfrac{1}{2}$."
                   },
                   {
                     "type": "retenir",
                     "titre": "Pièges",
-                    "texte": "- Seul un facteur **constant** se compense. Un facteur en $x$ ne se compense pas : $\\mathrm{e}^{x^2}$ seule n'a pas de primitive qui s'écrive avec les fonctions usuelles.\n- Vérifier la condition sur $u$ (par exemple $u>0$ pour $\\ln(u)$ et $\\sqrt{u}$).\n- Contrôler en dérivant."
+                    "texte": "- Seul un facteur **constant** se compense. Un facteur en $x$ ne se compense pas : $\\cos(x^2)$ seule n'a pas de primitive qui s'écrive avec les fonctions usuelles.\n- Vérifier la condition sur $u$ (par exemple $u>0$ pour $\\sqrt{u}$).\n- Contrôler en dérivant."
                   }
                 ]
               }
@@ -304,7 +465,7 @@
                   {
                     "type": "retenir",
                     "titre": "Propriétés",
-                    "texte": "- Bornes égales ou échangées :\n$$\\int_a^a f(x)\\,\\mathrm{d}x=0$$\n$$\\int_b^a f(x)\\,\\mathrm{d}x=-\\int_a^b f(x)\\,\\mathrm{d}x$$\n- Linéarité :\n$$\\int_a^b k\\cdot f(x)\\,\\mathrm{d}x=k\\int_a^b f(x)\\,\\mathrm{d}x$$\n$$\\int_a^b (f+g)(x)\\,\\mathrm{d}x=\\int_a^b f(x)\\,\\mathrm{d}x+\\int_a^b g(x)\\,\\mathrm{d}x$$\n- Relation de Chasles : $$\\int_a^c f(x)\\,\\mathrm{d}x=\\int_a^b f(x)\\,\\mathrm{d}x+\\int_b^c f(x)\\,\\mathrm{d}x$$\n- Signe : si $a\\leq b$ et $f\\geq0$ sur $[a;b]$, alors\n$$\\int_a^b f(x)\\,\\mathrm{d}x\\geq0$$"
+                    "texte": "- Bornes égales ou échangées :\n$$\\int_a^a f(x)\\,\\mathrm{d}x=0$$\n$$\\int_b^a f(x)\\,\\mathrm{d}x=-\\int_a^b f(x)\\,\\mathrm{d}x$$\n\n- Linéarité :\n$$\\int_a^b k\\cdot f(x)\\,\\mathrm{d}x=k\\int_a^b f(x)\\,\\mathrm{d}x$$\n$$\\int_a^b (f+g)(x)\\,\\mathrm{d}x=\\int_a^b f(x)\\,\\mathrm{d}x+\\int_a^b g(x)\\,\\mathrm{d}x$$\n\n- Additivité : $$\\int_a^c f(x)\\,\\mathrm{d}x=\\int_a^b f(x)\\,\\mathrm{d}x+\\int_b^c f(x)\\,\\mathrm{d}x$$\n- Signe : si $a\\leq b$ et $f\\geq0$ sur $[a;b]$, alors\n$$\\int_a^b f(x)\\,\\mathrm{d}x\\geq0$$"
                   },
                   {
                     "type": "exemple",
@@ -330,46 +491,155 @@
                       "$10$"
                     ],
                     "bonne": 1,
-                    "explication": "Relation de Chasles : $2+5=7$."
+                    "explication": "Additivité de l'intégrale : $2+5=7$."
                   }
                 ]
               }
             },
             {
-              "titre": "Exponentielle et logarithme",
-              "nb": 2,
+              "titre": "Valeur moyenne",
+              "nb": 3,
               "acces": "seuil",
               "seuil": 80,
               "fiche": {
-                "titre": "Exponentielle et logarithme",
+                "titre": "Valeur moyenne",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "texte",
-                    "texte": "Deux fonctions reviennent sans cesse : l'exponentielle, qui est sa propre dérivée, et le logarithme népérien, dont la dérivée est $\\dfrac{1}{x}$. Elles donnent les primitives qui manquaient : celle de $\\dfrac{1}{x}$ et celles des fonctions de la forme $u'\\,\\mathrm{e}^{u}$."
+                    "texte": "Une température relevée toute une journée, un débit qui varie sans cesse : leur moyenne ne se calcule pas avec quelques valeurs, mais avec une intégrale."
                   },
                   {
                     "type": "retenir",
-                    "titre": "Dérivées à connaître",
-                    "texte": "- $\\big(\\mathrm{e}^{x}\\big)'=\\mathrm{e}^{x}$ et $\\big(\\mathrm{e}^{u}\\big)'=u'\\,\\mathrm{e}^{u}$\n- $\\big(\\ln(x)\\big)'=\\dfrac{1}{x}$ sur $]0;+\\infty[$ et $\\big(\\ln(u)\\big)'=\\dfrac{u'}{u}$ si $u>0$"
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Primitives",
-                    "texte": "- $\\mathrm{e}^{x}$ : $\\mathrm{e}^{x}$\n- $\\mathrm{e}^{ax+b}$, avec $a\\neq0$ : $\\dfrac{1}{a}\\,\\mathrm{e}^{ax+b}$\n- $u'\\,\\mathrm{e}^{u}$ : $\\mathrm{e}^{u}$\n- $\\dfrac{1}{x}$ : $\\ln(x)$ sur $]0;+\\infty[$, $\\ln(-x)$ sur $]-\\infty;0[$, donc $\\ln|x|$\n- $\\dfrac{u'}{u}$ : $\\ln|u|$, sur un intervalle où $u$ ne s'annule pas\n- $\\dfrac{a}{ax+b}$ : $\\ln|ax+b|$"
+                    "titre": "Définition",
+                    "texte": "La **valeur moyenne** de $f$, continue sur $[a;b]$, est\n$$\\mu=\\dfrac{1}{b-a}\\int_a^b f(x)\\,\\mathrm{d}x.$$\nC'est la hauteur du rectangle de base $[a;b]$ qui a la même aire (algébrique) que le domaine sous la courbe."
                   },
                   {
                     "type": "graphique",
                     "fonctions": [
-                      "1/x"
+                      "x^2",
+                      "3"
                     ],
                     "x": [
-                      0,
-                      5
+                      -0.5,
+                      3.5
                     ],
                     "y": [
-                      0,
-                      3
+                      -1,
+                      10
+                    ],
+                    "aire": {
+                      "de": 0,
+                      "a": 3
+                    },
+                    "valeur": true,
+                    "styles": [
+                      {
+                        "couleur": "bleu"
+                      },
+                      {
+                        "couleur": "gris",
+                        "trait": "tirets"
+                      }
+                    ],
+                    "legende": "La droite $y=3$ donne la valeur moyenne de $f(x)=x^2$ sur $[0;3]$ : le rectangle de hauteur $3$ et de base $3$ a la même aire, $9$, que le domaine ombré."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Théorème de la moyenne",
+                    "texte": "Si $f$ est continue sur $[a;b]$, il existe au moins un nombre $c\\in[a;b]$ tel que\n$$\\int_a^b f(x)\\,\\mathrm{d}x=f(c)\\cdot(b-a),$$\nc'est-à-dire $f(c)=\\mu$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer la valeur moyenne de $f(x)=x^2$ sur $[0;3]$, puis un nombre $c$ tel que $f(c)=\\mu$.",
+                    "etapes": [
+                      "$\\displaystyle\\int_0^3 x^2\\,\\mathrm{d}x=\\left[\\dfrac{x^3}{3}\\right]_0^3=9$.",
+                      "$\\mu=\\dfrac{1}{3-0}\\cdot9=3$.",
+                      "$c^2=3$ avec $c\\in[0;3]$, donc $c=\\sqrt{3}$ ($-\\sqrt{3}$ n'est pas dans l'intervalle)."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Variation d'une grandeur",
+                    "texte": "Si $Q'=f$ est le taux de variation d'une grandeur $Q$, alors\n$$Q(b)-Q(a)=\\int_a^b f(t)\\,\\mathrm{d}t.$$\nUnités : celle de $f$ multipliée par celle de $t$. Un débit en litres par seconde, intégré sur des secondes, donne des litres."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "En contexte",
+                    "enonce": "Un réservoir se vide avec un débit $d(t)=-t^2+60$ litres par seconde, pour $0\\leqslant t\\leqslant6$. Calculer sa contenance et le débit moyen.",
+                    "etapes": [
+                      "Volume écoulé : $$\\int_0^6(-t^2+60)\\,\\mathrm{d}t=\\left[-\\dfrac{t^3}{3}+60t\\right]_0^6$$",
+                      "$$\\int_0^6(-t^2+60)\\,\\mathrm{d}t=-72+360=288$$",
+                      "Le réservoir contient $288$ litres.",
+                      "Débit moyen : $\\dfrac{288}{6-0}=48$ litres par seconde."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Trouver une borne",
+                    "enonce": "$f(x)=3x^2-4x+2$. Déterminer $b>0$ pour que la valeur moyenne de $f$ sur $[0;b]$ soit $5$.",
+                    "etapes": [
+                      "$$\\int_0^b f(x)\\,\\mathrm{d}x=\\big[x^3-2x^2+2x\\big]_0^b$$\n$$\\int_0^b f(x)\\,\\mathrm{d}x=b^3-2b^2+2b$$",
+                      "$\\mu(b)=\\dfrac{b^3-2b^2+2b}{b}=b^2-2b+2$.",
+                      "$b^2-2b+2=5\\iff b^2-2b-3=0\\iff b=3$ ou $b=-1$.",
+                      "Comme $b>0$ : $b=3$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la valeur moyenne de $f(x)=2x+1$ sur $[0;4]$ ?",
+                    "reponse": 5,
+                    "explication": "$\\displaystyle\\int_0^4(2x+1)\\,\\mathrm{d}x=\\big[x^2+x\\big]_0^4=20$, donc $\\mu=\\dfrac{20}{4}=5$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la valeur moyenne de $\\sin(x)$ sur $[0;\\pi]$ ?",
+                    "choix": [
+                      "$\\dfrac{2}{\\pi}$",
+                      "$0$",
+                      "$2$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$\\displaystyle\\int_0^{\\pi}\\sin(x)\\,\\mathrm{d}x=\\big[-\\cos(x)\\big]_0^{\\pi}=2$, puis on divise par la longueur $\\pi$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Ne pas oublier de diviser par $b-a$.\n- Une valeur moyenne peut être négative.\n- Le nombre $c$ du théorème doit appartenir à $[a;b]$ : écarter les autres solutions."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Aires",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Aires",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Une intégrale compte négativement ce qui est sous l'axe des abscisses. Pour une aire géométrique, il faut donc savoir où la fonction change de signe."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Aire signée et aire géométrique",
+                    "texte": "- $\\displaystyle\\int_a^b f(x)\\,\\mathrm{d}x$ est l'**aire signée** : les parties sous l'axe comptent négativement.\n- L'**aire géométrique** est $\\displaystyle\\mathcal{A}=\\int_a^b|f(x)|\\,\\mathrm{d}x$.\n\nEn pratique, on découpe $[a;b]$ aux zéros de $f$ et on additionne les aires des morceaux. Là où $f\\leqslant0$, l'aire du morceau est l'opposé de son intégrale."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "-x^2+4x-3"
+                    ],
+                    "x": [
+                      0.5,
+                      5.5
+                    ],
+                    "y": [
+                      -9,
+                      2
                     ],
                     "aire": {
                       "de": 1,
@@ -379,79 +649,28 @@
                       "b": [
                         1,
                         5,
-                        2,
-                        0.01
+                        5,
+                        0.25
                       ]
                     },
                     "valeur": true,
-                    "legende": "Courbe de $f(x)=\\dfrac{1}{x}$. L'aire de $1$ à $b$ vaut $\\ln(b)$ : pour quelle valeur de $b$ vaut-elle $1$ ?"
+                    "legende": "Courbe de $f(x)=-x^2+4x-3$. Au-delà de $b=3$, la courbe passe sous l'axe : l'intégrale diminue alors que l'aire augmente."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Trouver la primitive $F$ de $f(x)=\\mathrm{e}^{4x-2}$ telle que $F(0)=-4$.",
+                    "titre": "Courbe et axe des abscisses",
+                    "enonce": "$f(x)=-x^2+4x-3$ sur $[1;5]$. Calculer l'intégrale, puis l'aire géométrique.",
                     "etapes": [
-                      "Forme $\\mathrm{e}^{ax+b}$ avec $a=4$ : $F(x)=\\dfrac{1}{4}\\,\\mathrm{e}^{4x-2}+C$.",
-                      "$F(0)=\\dfrac{1}{4}\\,\\mathrm{e}^{-2}+C=-4$, donc $C=-4-\\dfrac{1}{4}\\,\\mathrm{e}^{-2}$.",
-                      "$$F(x)=\\dfrac{1}{4}\\,\\mathrm{e}^{4x-2}-4-\\dfrac{1}{4}\\,\\mathrm{e}^{-2}$$"
+                      "Zéros : $-x^2+4x-3=0\\iff x=1$ ou $x=3$. $f\\geqslant0$ sur $[1;3]$, $f\\leqslant0$ sur $[3;5]$.",
+                      "Primitive : $F(x)=-\\dfrac{x^3}{3}+2x^2-3x$. $F(1)=-\\dfrac{4}{3}$, $F(3)=0$, $F(5)=-\\dfrac{20}{3}$.",
+                      "$$\\int_1^5 f(x)\\,\\mathrm{d}x=F(5)-F(1)=-\\dfrac{16}{3}$$",
+                      "Aire : $\\big(F(3)-F(1)\\big)-\\big(F(5)-F(3)\\big)$, c'est-à-dire $$\\mathcal{A}=\\dfrac{4}{3}+\\dfrac{20}{3}=8$$"
                     ]
                   },
-                  {
-                    "type": "exemple",
-                    "enonce": "Calculer $\\displaystyle\\int_2^5 \\dfrac{2}{2x+1}\\,\\mathrm{d}x$.",
-                    "etapes": [
-                      "On pose $u(x)=2x+1$ ; alors $u'(x)=2$, et $u(x)>0$ sur $[2;5]$.",
-                      "$\\dfrac{2}{2x+1}=\\dfrac{u'}{u}$ : une primitive est $\\ln(2x+1)$.",
-                      "$$\\int_2^5 \\dfrac{2}{2x+1}\\,\\mathrm{d}x=\\ln(11)-\\ln(5)=\\ln\\left(\\dfrac{11}{5}\\right)$$"
-                    ]
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Coefficient de x négatif",
-                    "enonce": "Calculer $\\displaystyle\\int_{-3}^{3} \\dfrac{-1}{-x+4}\\,\\mathrm{d}x$.",
-                    "etapes": [
-                      "On pose $u(x)=-x+4$ ; alors $u'(x)=-1$, et $u(x)>0$ sur $[-3;3]$ (de $7$ à $1$).",
-                      "$\\dfrac{-1}{-x+4}=\\dfrac{u'}{u}$ : une primitive est $\\ln(-x+4)$.",
-                      "$$\\int_{-3}^{3} \\dfrac{-1}{-x+4}\\,\\mathrm{d}x=\\ln(1)-\\ln(7)=-\\ln(7)$$"
-                    ]
-                  },
-                  {
-                    "type": "question",
-                    "enonce": "Une primitive de $f(x)=\\dfrac{3}{3x-5}$ sur $\\left]\\dfrac{5}{3};+\\infty\\right[$ est :",
-                    "choix": [
-                      "$\\ln(3x-5)$",
-                      "$3\\ln(3x-5)$",
-                      "$\\dfrac{1}{3}\\ln(3x-5)$"
-                    ],
-                    "bonne": 0,
-                    "explication": "$f=\\dfrac{u'}{u}$ avec $u(x)=3x-5>0$ sur cet intervalle : $F(x)=\\ln(3x-5)$."
-                  },
-                  {
-                    "type": "question",
-                    "enonce": "Combien vaut $\\displaystyle\\int_0^{\\ln(2)} \\mathrm{e}^{x}\\,\\mathrm{d}x$ ?",
-                    "reponse": 1,
-                    "explication": "$\\big[\\mathrm{e}^{x}\\big]_0^{\\ln(2)}=\\mathrm{e}^{\\ln(2)}-\\mathrm{e}^{0}=2-1=1$."
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Pièges",
-                    "texte": "- $\\ln(u)$ n'existe que si $u>0$ : vérifier le signe de $u$ sur l'intervalle.\n- Ne pas confondre $\\dfrac{1}{x^2}$, de primitive $-\\dfrac{1}{x}$, et $\\dfrac{1}{x}$, de primitive $\\ln(x)$.\n- $\\mathrm{e}^{x^2}$ n'est pas de la forme $u'\\,\\mathrm{e}^{u}$ : il manque le facteur $2x$."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Aires et valeur moyenne",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Aires et valeur moyenne",
-                "avant": true,
-                "blocs": [
                   {
                     "type": "retenir",
                     "titre": "Aire entre deux courbes",
-                    "texte": "Si $f(x)\\geq g(x)$ sur $[a;b]$, l'aire du domaine compris entre les deux courbes et les droites $x=a$ et $x=b$ est\n$$\\mathcal{A}=\\int_a^b \\big(f(x)-g(x)\\big)\\,\\mathrm{d}x.$$\nOn soustrait toujours la courbe du bas à celle du haut."
+                    "texte": "L'aire du domaine compris entre les courbes de $f$ et $g$ et les droites $x=a$ et $x=b$ est\n$$\\mathcal{A}=\\int_a^b\\big|f(x)-g(x)\\big|\\,\\mathrm{d}x.$$\nSur un intervalle où $f\\geqslant g$, on intègre $f-g$ : la courbe du dessus moins celle du dessous."
                   },
                   {
                     "type": "graphique",
@@ -478,64 +697,15 @@
                   },
                   {
                     "type": "exemple",
+                    "titre": "Deux courbes",
                     "enonce": "Calculer l'aire du domaine délimité par $f(x)=-x^2+4$ et $g(x)=x+2$.",
                     "etapes": [
                       "Points d'intersection : $-x^2+4=x+2 \\iff x^2+x-2=0 \\iff x=-2$ ou $x=1$.",
                       "Sur $[-2;1]$, la parabole est au-dessus de la droite : en $x=0$, $f(0)=4>g(0)=2$.",
-                      "$$\\mathcal{A}=\\int_{-2}^{1}\\big(-x^2+4-(x+2)\\big)\\,\\mathrm{d}x=\\int_{-2}^{1}\\big(-x^2-x+2\\big)\\,\\mathrm{d}x$$",
-                      "$$\\mathcal{A}=\\left[-\\dfrac{x^3}{3}-\\dfrac{x^2}{2}+2x\\right]_{-2}^{1}=\\dfrac{7}{6}-\\left(-\\dfrac{10}{3}\\right)=\\dfrac{9}{2}$$"
+                      "$$\\mathcal{A}=\\int_{-2}^{1}\\big(-x^2-x+2\\big)\\,\\mathrm{d}x$$",
+                      "Primitive : $F(x)=-\\dfrac{x^3}{3}-\\dfrac{x^2}{2}+2x$, avec $F(1)=\\dfrac{7}{6}$ et $F(-2)=-\\dfrac{10}{3}$.",
+                      "$$\\mathcal{A}=\\dfrac{7}{6}+\\dfrac{10}{3}=\\dfrac{9}{2}$$"
                     ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Courbe et axe des abscisses",
-                    "texte": "Si $f$ change de signe sur $[a;b]$, l'aire entre sa courbe et l'axe des abscisses n'est pas $\\displaystyle\\int_a^b f(x)\\,\\mathrm{d}x$ : on découpe aux zéros de $f$ et on additionne les aires des morceaux. Là où $f\\leq0$, l'aire du morceau est l'opposé de son intégrale."
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Valeur moyenne",
-                    "texte": "La **valeur moyenne** de $f$ sur $[a;b]$, avec $a<b$, est\n$$\\mu=\\frac{1}{b-a}\\int_a^b f(x)\\,\\mathrm{d}x.$$\nC'est la hauteur du rectangle de base $[a;b]$ qui a la même aire (algébrique) que le domaine sous la courbe."
-                  },
-                  {
-                    "type": "graphique",
-                    "fonctions": [
-                      "x^2",
-                      "3"
-                    ],
-                    "x": [
-                      -0.5,
-                      3.5
-                    ],
-                    "y": [
-                      -1,
-                      10
-                    ],
-                    "aire": {
-                      "de": 0,
-                      "a": 3
-                    },
-                    "valeur": true,
-                    "legende": "La droite $y=3$ donne la valeur moyenne de $f(x)=x^2$ sur $[0;3]$ : le rectangle de hauteur $3$ et de base $3$ a la même aire, $9$, que le domaine ombré."
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Théorème de la moyenne",
-                    "texte": "Si $f$ est continue sur $[a;b]$, il existe au moins un nombre $c\\in[a;b]$ tel que $f(c)=\\mu$."
-                  },
-                  {
-                    "type": "exemple",
-                    "enonce": "Calculer la valeur moyenne de $f(x)=x^2$ sur $[0;3]$, puis un nombre $c$ tel que $f(c)=\\mu$.",
-                    "etapes": [
-                      "$\\displaystyle\\int_0^3 x^2\\,\\mathrm{d}x=\\left[\\dfrac{x^3}{3}\\right]_0^3=9$.",
-                      "$\\mu=\\dfrac{1}{3-0}\\cdot9=3$.",
-                      "$c^2=3$ avec $c\\in[0;3]$, donc $c=\\sqrt{3}$."
-                    ]
-                  },
-                  {
-                    "type": "question",
-                    "enonce": "Quelle est la valeur moyenne de $f(x)=2x+1$ sur $[0;4]$ ?",
-                    "reponse": 5,
-                    "explication": "$\\displaystyle\\int_0^4(2x+1)\\,\\mathrm{d}x=\\big[x^2+x\\big]_0^4=20$, donc $\\mu=\\dfrac{20}{4}=5$."
                   },
                   {
                     "type": "question",
@@ -546,7 +716,18 @@
                       "$-\\dfrac{1}{6}$"
                     ],
                     "bonne": 0,
-                    "explication": "Sur $[0;1]$, $x\\geq x^2$, donc\n$$\\mathcal{A}=\\int_0^1(x-x^2)\\,\\mathrm{d}x=\\dfrac{1}{2}-\\dfrac{1}{3}=\\dfrac{1}{6}.$$\nUne aire n'est jamais négative."
+                    "explication": "Sur $[0;1]$, $x\\geqslant x^2$, donc\n$$\\mathcal{A}=\\int_0^1(x-x^2)\\,\\mathrm{d}x=\\dfrac{1}{2}-\\dfrac{1}{3}=\\dfrac{1}{6}.$$\nUne aire n'est jamais négative."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est l'aire géométrique entre la courbe de $f(x)=x$ et l'axe des abscisses, sur $[-1;1]$ ?",
+                    "reponse": 1,
+                    "explication": "L'intégrale vaut $0$, mais l'aire est $\\dfrac{1}{2}+\\dfrac{1}{2}=1$ : deux triangles, l'un sous l'axe, l'autre au-dessus."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Chercher d'abord les zéros de $f$ ou les points d'intersection des courbes.\n- Intégrer la courbe du dessus moins celle du dessous ; si elles se croisent dans $[a;b]$, découper.\n- Une aire n'est jamais négative."
                   }
                 ]
               }
@@ -623,6 +804,21 @@
                     ]
                   },
                   {
+                    "type": "retenir",
+                    "titre": "Entre deux courbes",
+                    "texte": "Si $0\\leqslant f(x)\\leqslant g(x)$ sur $[a;b]$, le solide est creux : chaque tranche est une couronne. Son volume est\n$$V=\\pi\\int_a^b\\Big(g(x)^2-f(x)^2\\Big)\\,\\mathrm{d}x.$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une couronne",
+                    "enonce": "On fait tourner le domaine compris entre $f(x)=x^2$ et $g(x)=x$ sur $[0;1]$. Calculer le volume.",
+                    "etapes": [
+                      "Sur $[0;1]$, $0\\leqslant x^2\\leqslant x$ : $g$ est au-dessus.",
+                      "$$V=\\pi\\int_0^1\\big(x^2-x^4\\big)\\,\\mathrm{d}x=\\pi\\left[\\dfrac{x^3}{3}-\\dfrac{x^5}{5}\\right]_0^1$$",
+                      "$V=\\pi\\left(\\dfrac{1}{3}-\\dfrac{1}{5}\\right)=\\dfrac{2\\pi}{15}$."
+                    ]
+                  },
+                  {
                     "type": "question",
                     "enonce": "On fait tourner $f(x)=2$ sur $[0;3]$ : on obtient un cylindre. Son volume vaut $k\\pi$. Que vaut $k$ ?",
                     "reponse": 12,
@@ -642,13 +838,37 @@
                   {
                     "type": "retenir",
                     "titre": "Pièges",
-                    "texte": "- On élève $f(x)$ au carré **avant** d'intégrer.\n- Ne pas oublier le facteur $\\pi$.\n- Un volume est toujours positif : $f(x)^2\\geq0$."
+                    "texte": "- On élève $f(x)$ au carré **avant** d'intégrer.\n- Entre deux courbes : $g^2-f^2$, pas $(g-f)^2$.\n- Ne pas oublier le facteur $\\pi$.\n- Un volume est toujours positif."
                   }
                 ]
               }
             }
           ],
           "etapes": [
+            {
+              "uuid": "7fccd",
+              "id": "4mAna-4",
+              "nbQuestions": 2,
+              "titre": "Dériver une fonction composée"
+            },
+            {
+              "uuid": "ce9e6",
+              "id": "4mAna-5",
+              "nbQuestions": 2,
+              "titre": "Dériver un produit de fonctions"
+            },
+            {
+              "uuid": "85c63",
+              "id": "4mAna-6",
+              "nbQuestions": 2,
+              "titre": "Dériver un quotient de fonctions"
+            },
+            {
+              "uuid": "adf78",
+              "id": "4mInt-10",
+              "nbQuestions": 2,
+              "titre": "Encadrer une aire par des sommes inférieures et supérieures"
+            },
             {
               "uuid": "97303",
               "id": "4mInt-1",
@@ -686,34 +906,1036 @@
               "titre": "Calculer des intégrales de fonctions composées"
             },
             {
-              "uuid": "25135",
-              "id": "4mAna-1",
+              "uuid": "00e95",
+              "id": "4mInt-7",
               "nbQuestions": 2,
-              "titre": "Calculer la dérivée de $\\ln(u)$"
+              "titre": "Déterminer une valeur moyenne et appliquer le théorème de la moyenne"
             },
             {
-              "uuid": "0f7aa",
-              "id": "4mExpLog-1",
-              "nbQuestions": 3,
-              "titre": "Calculer une intégrale avec un logarithme"
+              "uuid": "c9471",
+              "id": "4mInt-12",
+              "nbQuestions": 1,
+              "titre": "Résoudre des problèmes de valeur moyenne"
+            },
+            {
+              "uuid": "4b128",
+              "id": "4mInt-13",
+              "nbQuestions": 1,
+              "titre": "Déterminer une borne connaissant la valeur moyenne"
+            },
+            {
+              "uuid": "58877",
+              "id": "4mInt-11",
+              "nbQuestions": 2,
+              "titre": "Calculer une intégrale et l'aire entre une courbe et l'axe des abscisses"
             },
             {
               "uuid": "7b0fb",
               "id": "4mInt-8",
               "nbQuestions": 2,
-              "titre": "Calculer l'aire d'un domaine délimité par deux courbes"
-            },
-            {
-              "uuid": "00e95",
-              "id": "4mInt-7",
-              "nbQuestions": 1,
-              "titre": "Déterminer une valeur moyenne et appliquer le théorème de la moyenne"
+              "titre": "Calculer l'aire d'un domaine délimité par deux courbes",
+              "sup": "1-1-1-1-0*0"
             },
             {
               "uuid": "bae8f",
               "id": "4mInt-9",
               "nbQuestions": 2,
               "titre": "Calculer un volume de révolution"
+            }
+          ]
+        },
+        {
+          "id": "ch-4c-exp-log",
+          "version": 1,
+          "titre": "Exponentielle et logarithme",
+          "objectif": "Calculer avec ln et exp : propriétés, équations, dérivées, primitives, limites, aires et volumes.",
+          "niveau": "4e Collège",
+          "theme": "Exponentielles et logarithmes",
+          "difficulte": 2,
+          "icone": "bx-trending-up",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "paliers": [
+            {
+              "titre": "Le logarithme naturel",
+              "nb": 3,
+              "fiche": {
+                "titre": "Le logarithme naturel",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "La formule $\\displaystyle\\int x^r\\,\\mathrm{d}x=\\dfrac{x^{r+1}}{r+1}+C$ ne marche pas pour $r=-1$ : aucune puissance n'a $\\dfrac{1}{x}$ pour dérivée. Le théorème fondamental en fournit pourtant une primitive, à laquelle on donne un nom."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Définition",
+                    "texte": "Le **logarithme naturel** est la fonction définie sur $]0;+\\infty[$ par\n$$\\ln(x)=\\int_1^x\\dfrac{1}{t}\\,\\mathrm{d}t.$$\nC'est la primitive de $\\dfrac{1}{x}$ sur $]0;+\\infty[$ qui s'annule en $1$."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "1/x"
+                    ],
+                    "x": [
+                      0,
+                      5
+                    ],
+                    "y": [
+                      0,
+                      3
+                    ],
+                    "aire": {
+                      "de": 1,
+                      "a": "b"
+                    },
+                    "curseurs": {
+                      "b": [
+                        0.25,
+                        5,
+                        2,
+                        0.01
+                      ]
+                    },
+                    "valeur": true,
+                    "legende": "Courbe de $\\dfrac{1}{t}$. L'intégrale de $1$ à $b$ vaut $\\ln(b)$ : elle est négative pour $b<1$. Pour quelle valeur de $b$ vaut-elle $1$ ?"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Premières propriétés",
+                    "texte": "- Domaine : $]0;+\\infty[$.\n- $\\ln(1)=0$.\n- $\\ln'(x)=\\dfrac{1}{x}>0$ : $\\ln$ est strictement croissante.\n- $\\ln(x)<0$ si $0<x<1$ et $\\ln(x)>0$ si $x>1$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Propriétés algébriques",
+                    "texte": "Pour tous $x,y>0$ et tout rationnel $r$ :\n\n- $\\ln(x\\cdot y)=\\ln(x)+\\ln(y)$\n- $\\ln\\left(\\dfrac{x}{y}\\right)=\\ln(x)-\\ln(y)$ et $\\ln\\left(\\dfrac{1}{y}\\right)=-\\ln(y)$\n- $\\ln(x^r)=r\\ln(x)$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Exprimer en fonction de $\\ln(x)$",
+                    "enonce": "Pour $x>0$, écrire $3\\ln(x^2)-\\ln(x^3)+2\\ln\\left(\\dfrac{1}{x}\\right)$ en fonction de $\\ln(x)$.",
+                    "etapes": [
+                      "$3\\ln(x^2)=6\\ln(x)$ et $\\ln(x^3)=3\\ln(x)$.",
+                      "$2\\ln\\left(\\dfrac{1}{x}\\right)=-2\\ln(x)$.",
+                      "Total : $6\\ln(x)-3\\ln(x)-2\\ln(x)=\\ln(x)$."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Résoudre une équation",
+                    "texte": "$\\ln$ est strictement croissante : $\\ln(a)=\\ln(b)\\iff a=b$, pour $a,b>0$. Et $\\ln(a)=k\\iff a=\\mathrm{e}^k$.\n\nOn commence toujours par le **domaine** : chaque argument de $\\ln$ doit être strictement positif."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Résoudre $\\ln(2x-2)=1$.",
+                    "etapes": [
+                      "Domaine : $2x-2>0\\iff x>1$.",
+                      "$\\ln(2x-2)=1\\iff2x-2=\\mathrm{e}$.",
+                      "$x=\\dfrac{\\mathrm{e}+2}{2}\\approx2{,}36$, qui est bien dans le domaine."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Deux logarithmes",
+                    "enonce": "Résoudre $\\ln(x-1)+\\ln(x+2)=\\ln(4x-2)$.",
+                    "etapes": [
+                      "Domaine : $x>1$, $x>-2$ et $x>\\dfrac{1}{2}$, donc $x>1$.",
+                      "On regroupe : $\\ln\\big((x-1)(x+2)\\big)=\\ln(4x-2)$, d'où $(x-1)(x+2)=4x-2$.",
+                      "$x^2+x-2=4x-2\\iff x^2-3x=0\\iff x=0$ ou $x=3$.",
+                      "$0$ n'est pas dans le domaine : $S=\\{3\\}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\ln(3)+\\ln(5)$ vaut :",
+                    "choix": [
+                      "$\\ln(8)$",
+                      "$\\ln(15)$",
+                      "$\\ln(3)\\cdot\\ln(5)$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Logarithme d'un produit : $\\ln(3)+\\ln(5)=\\ln(3\\cdot5)=\\ln(15)$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Résoudre $\\ln(x+3)+\\ln(x-3)=\\ln(16)$. Quelle est la solution ?",
+                    "reponse": 5,
+                    "explication": "Domaine : $x>3$. $(x+3)(x-3)=16\\iff x^2=25$, donc $x=5$ ($-5$ n'est pas dans le domaine)."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\ln(x+y)\\neq\\ln(x)+\\ln(y)$.\n- Vérifier que chaque solution est dans le domaine.\n- $\\ln(x^2)=2\\ln(x)$ seulement si $x>0$ ; en général, $\\ln(x^2)=2\\ln|x|$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Dériver avec ln",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Dériver avec ln",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Le logarithme se dérive comme toute fonction : avec la règle de dérivation en chaîne, la dérivée de $\\ln(u)$ se calcule à partir de $u$ et de $u'$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dérivées",
+                    "texte": "- $\\big(\\ln(x)\\big)'=\\dfrac{1}{x}$ sur $]0;+\\infty[$\n- $\\big(\\ln(u(x))\\big)'=\\dfrac{u'(x)}{u(x)}$, si $u>0$ sur l'intervalle\n- $\\big(\\ln|x|\\big)'=\\dfrac{1}{x}$ sur $\\mathbb{R}\\setminus\\{0\\}$"
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Dériver $f(x)=\\ln(x^2+1)$.",
+                    "etapes": [
+                      "$u(x)=x^2+1>0$ et $u'(x)=2x$.",
+                      "$f'(x)=\\dfrac{2x}{x^2+1}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Coefficient négatif",
+                    "enonce": "Dériver $f(x)=\\ln(-7x+3)$ sur $\\left]-\\infty;\\dfrac{3}{7}\\right[$.",
+                    "etapes": [
+                      "$u(x)=-7x+3>0$ sur cet intervalle, et $u'(x)=-7$.",
+                      "$f'(x)=\\dfrac{-7}{-7x+3}=\\dfrac{7}{7x-3}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avec un produit",
+                    "enonce": "Dériver $f(x)=x\\ln(x)-x$ sur $]0;+\\infty[$.",
+                    "etapes": [
+                      "Produit : $\\big(x\\ln(x)\\big)'=1\\cdot\\ln(x)+x\\cdot\\dfrac{1}{x}=\\ln(x)+1$.",
+                      "$f'(x)=\\ln(x)+1-1=\\ln(x)$.",
+                      "Donc $x\\ln(x)-x$ est une primitive de $\\ln(x)$ : un résultat à retenir."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Simplifier avant de dériver",
+                    "enonce": "Dériver $f(x)=\\ln(x^3)$ sur $]0;+\\infty[$.",
+                    "etapes": [
+                      "On simplifie d'abord : $\\ln(x^3)=3\\ln(x)$.",
+                      "$f'(x)=\\dfrac{3}{x}$. Avec la formule : $\\dfrac{3x^2}{x^3}=\\dfrac{3}{x}$, même résultat."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La dérivée de $f(x)=\\ln(5x)$ sur $]0;+\\infty[$ est :",
+                    "choix": [
+                      "$\\dfrac{1}{5x}$",
+                      "$\\dfrac{5}{x}$",
+                      "$\\dfrac{1}{x}$"
+                    ],
+                    "bonne": 2,
+                    "explication": "$\\dfrac{(5x)'}{5x}=\\dfrac{5}{5x}=\\dfrac{1}{x}$. Autre voie : $\\ln(5x)=\\ln(5)+\\ln(x)$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$f(x)=\\ln(x^2+3)$. Que vaut $f'(1)$ ?",
+                    "reponse": 0.5,
+                    "explication": "$f'(x)=\\dfrac{2x}{x^2+3}$, donc $f'(1)=\\dfrac{2}{4}=0{,}5$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\big(\\ln(u)\\big)'\\neq\\dfrac{1}{u}$ : on multiplie par $u'$.\n- $\\ln(u)$ n'existe que si $u>0$ : préciser l'intervalle.\n- Simplifier avec les propriétés de $\\ln$ avant de dériver allège le calcul."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Primitives avec ln",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Primitives avec ln",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "La primitive qui manquait, celle de $\\dfrac{1}{x}$, est maintenant connue. Elle donne toutes les primitives de la forme $\\dfrac{u'}{u}$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Primitive d'une forme $\\dfrac{u'}{u}$",
+                    "texte": "Si $g$ est dérivable et ne s'annule pas sur un intervalle $I$ :\n$$\\int\\dfrac{g'(x)}{g(x)}\\,\\mathrm{d}x=\\ln|g(x)|+C.$$\nCas particuliers, pour $a\\neq0$ :\n$$\\int\\dfrac{1}{x}\\,\\mathrm{d}x=\\ln|x|+C$$\n$$\\int\\dfrac{1}{ax+b}\\,\\mathrm{d}x=\\dfrac{1}{a}\\ln|ax+b|+C$$"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Méthode",
+                    "texte": "- Repérer au dénominateur une fonction $g$ que l'on sait dériver.\n- Calculer $g'$ : le numérateur doit lui être **proportionnel**.\n- Écrire l'expression sous la forme $k\\cdot\\dfrac{g'(x)}{g(x)}$ et conclure : $k\\ln|g(x)|+C$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{2x}{x^2+1}$.",
+                    "etapes": [
+                      "$g(x)=x^2+1$ et $g'(x)=2x$ : le numérateur est exactement $g'$.",
+                      "$F(x)=\\ln(x^2+1)$, sans valeur absolue car $x^2+1>0$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Ajuster le coefficient",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{x}{x^2-4}$ sur $]2;+\\infty[$.",
+                    "etapes": [
+                      "$g(x)=x^2-4$ et $g'(x)=2x$ : il manque le facteur $2$.",
+                      "$f(x)=\\dfrac{1}{2}\\cdot\\dfrac{2x}{x^2-4}$.",
+                      "$F(x)=\\dfrac{1}{2}\\ln(x^2-4)$, car $x^2-4>0$ sur cet intervalle."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avec $\\ln$ au dénominateur",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{3}{x\\big(1+\\ln(x)\\big)}$ sur $\\left]\\mathrm{e}^{-1};+\\infty\\right[$.",
+                    "etapes": [
+                      "$g(x)=1+\\ln(x)$ et $g'(x)=\\dfrac{1}{x}$.",
+                      "$f(x)=3\\cdot\\dfrac{\\frac{1}{x}}{1+\\ln(x)}=3\\cdot\\dfrac{g'(x)}{g(x)}$.",
+                      "Sur l'intervalle, $\\ln(x)>-1$, donc $g(x)>0$ : $F(x)=3\\ln\\big(1+\\ln(x)\\big)$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une intégrale",
+                    "enonce": "Calculer $\\displaystyle\\int_1^2\\dfrac{3}{3x-1}\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "$g(x)=3x-1$, $g'(x)=3$, et $g>0$ sur $[1;2]$.",
+                      "$$\\int_1^2\\dfrac{3}{3x-1}\\,\\mathrm{d}x=\\big[\\ln(3x-1)\\big]_1^2$$",
+                      "$$\\int_1^2\\dfrac{3}{3x-1}\\,\\mathrm{d}x=\\ln(5)-\\ln(2)=\\ln\\left(\\dfrac{5}{2}\\right)$$"
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Puissance de $\\ln$",
+                    "texte": "La forme $u'\\cdot u^n$ s'applique aussi avec $u=\\ln$ :\n$$\\int\\dfrac{\\ln(x)^2}{x}\\,\\mathrm{d}x=\\dfrac{\\ln(x)^3}{3}+C.$$"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une primitive de $f(x)=\\dfrac{1}{2x+1}$ sur $\\left]-\\dfrac{1}{2};+\\infty\\right[$ est :",
+                    "choix": [
+                      "$\\ln(2x+1)$",
+                      "$\\dfrac{1}{2}\\ln(2x+1)$",
+                      "$2\\ln(2x+1)$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$f=\\dfrac{1}{2}\\cdot\\dfrac{2}{2x+1}$ : il faut compenser le facteur $2$ de $g'(x)=2$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\displaystyle\\int_0^{\\mathrm{e}-1}\\dfrac{1}{x+1}\\,\\mathrm{d}x$ ?",
+                    "reponse": 1,
+                    "explication": "$\\big[\\ln(x+1)\\big]_0^{\\mathrm{e}-1}=\\ln(\\mathrm{e})-\\ln(1)=1$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Si le numérateur n'est pas proportionnel à $g'$, la méthode ne s'applique pas telle quelle (par exemple $\\dfrac{1}{x^2+1}$).\n- $\\ln|g|$ : la valeur absolue ne s'enlève que si $g>0$ sur l'intervalle.\n- $g$ ne doit pas s'annuler sur l'intervalle d'intégration."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Graphe et limites",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Graphe et limites",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Pour tracer une fonction logarithmique, il faut son domaine et son comportement aux bords. Tout part du graphe de $\\ln$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Limites de $\\ln$",
+                    "texte": "$$\\lim_{x\\to+\\infty}\\ln(x)=+\\infty\\qquad\\lim_{x\\to0^+}\\ln(x)=-\\infty$$\nL'axe des ordonnées, $x=0$, est asymptote verticale. $\\ln$ est une bijection de $]0;+\\infty[$ sur $\\mathbb{R}$."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "ln(x)",
+                      "ln(x+a)+b"
+                    ],
+                    "x": [
+                      -3,
+                      6
+                    ],
+                    "y": [
+                      -4,
+                      4
+                    ],
+                    "curseurs": {
+                      "a": [
+                        -2,
+                        2,
+                        1,
+                        0.5
+                      ],
+                      "b": [
+                        -2,
+                        2,
+                        0,
+                        0.5
+                      ]
+                    },
+                    "styles": [
+                      {
+                        "couleur": "gris",
+                        "trait": "tirets"
+                      },
+                      {
+                        "couleur": "bleu"
+                      }
+                    ],
+                    "legende": "Courbe de $\\ln$ (tirets) et de $\\ln(x+a)+b$. Que deviennent l'asymptote et le domaine quand $a$ change ?"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Transformations",
+                    "texte": "- $\\ln(x)+k$ : translation verticale.\n- $\\ln(x+k)$ : translation horizontale de $-k$, domaine $]-k;+\\infty[$.\n- $-\\ln(x)$ : symétrie par rapport à l'axe des abscisses.\n- $\\ln(-x)$ : symétrie par rapport à l'axe des ordonnées, domaine $]-\\infty;0[$.\n- $|\\ln(x)|$ : la partie sous l'axe est repliée au-dessus.\n- $\\ln|x|$ : domaine $\\mathbb{R}\\setminus\\{0\\}$, courbe symétrique par rapport à l'axe des ordonnées.\n- $2\\ln(x)$ : étirement vertical."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Domaine et bords de $\\ln(u(x))$",
+                    "texte": "- Domaine : les solutions de $u(x)>0$.\n- En une borne finie $\\alpha$ : si $u(x)\\to0^+$, alors $\\ln(u(x))\\to-\\infty$ ; si $u(x)\\to+\\infty$, alors $\\ln(u(x))\\to+\\infty$. Dans les deux cas, $x=\\alpha$ est asymptote verticale.\n- En $\\pm\\infty$ : limite de $u$, puis on compose par $\\ln$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "$f(x)=\\ln\\left(\\dfrac{x^2}{x+1}\\right)$. Domaine et asymptotes verticales.",
+                    "etapes": [
+                      "$x^2\\geqslant0$ : le quotient est strictement positif si et seulement si $x+1>0$ et $x\\neq0$.",
+                      "Domaine : $]-1;0[\\,\\cup\\,]0;+\\infty[$.",
+                      "En $0$ : l'argument tend vers $0^+$, donc $f(x)\\to-\\infty$.",
+                      "En $-1^+$ : l'argument tend vers $+\\infty$, donc $f(x)\\to+\\infty$. Les droites $x=0$ et $x=-1$ sont asymptotes verticales."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Différence de deux logarithmes",
+                    "enonce": "Calculer $\\displaystyle\\lim_{x\\to+\\infty}\\big(\\ln(3x-9)-\\ln(3x+6)\\big)$.",
+                    "etapes": [
+                      "Chaque terme tend vers $+\\infty$ : on regroupe en un seul logarithme.",
+                      "$\\ln(3x-9)-\\ln(3x+6)=\\ln\\left(\\dfrac{3x-9}{3x+6}\\right)$.",
+                      "Le quotient tend vers $1$, donc par la règle de composition la limite vaut $\\ln(1)=0$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un quotient",
+                    "enonce": "Calculer $\\displaystyle\\lim_{x\\to1^-}\\dfrac{-2x-3\\ln(x)}{\\ln(x)}$.",
+                    "etapes": [
+                      "Numérateur : il tend vers $-2$.",
+                      "Dénominateur : $\\ln(x)$ tend vers $0$ en restant négatif, car $x<1$.",
+                      "Par la règle du quotient, la limite vaut $+\\infty$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Le domaine de $f(x)=\\ln(4-x^2)$ est :",
+                    "choix": [
+                      "$]-2;2[$",
+                      "$]-\\infty;-2[\\,\\cup\\,]2;+\\infty[$",
+                      "$\\mathbb{R}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Il faut $4-x^2>0\\iff x^2<4\\iff-2<x<2$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut $\\displaystyle\\lim_{x\\to+\\infty}\\big(\\ln(\\mathrm{e}x+1)-\\ln(x)\\big)$ ?",
+                    "reponse": 1,
+                    "explication": "$\\ln\\left(\\dfrac{\\mathrm{e}x+1}{x}\\right)$ et le quotient tend vers $\\mathrm{e}$ : la limite vaut $\\ln(\\mathrm{e})=1$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\ln(u)\\to-\\infty$ seulement si $u\\to0^+$, pas si $u\\to0$ en restant négatif (hors domaine).\n- Une différence de deux logarithmes qui tendent vers $+\\infty$ : regrouper en un seul $\\ln$.\n- Toujours le domaine avant les limites."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Décomposition en éléments simples",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Décomposition en éléments simples",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Une fraction rationnelle dont le dénominateur se factorise se découpe en fractions simples $\\dfrac{a}{x-\\alpha}$. Chacune a une primitive en $\\ln$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Décomposer",
+                    "texte": "Si $\\alpha\\neq\\beta$, on cherche $a$ et $b$ tels que\n$$\\dfrac{px+q}{(x-\\alpha)(x-\\beta)}=\\dfrac{a}{x-\\alpha}+\\dfrac{b}{x-\\beta}.$$\nOn réduit au même dénominateur et on identifie les numérateurs ; remplacer $x$ par $\\alpha$ puis par $\\beta$ donne $a$ et $b$ directement."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{1}{x^2-4}$.",
+                    "etapes": [
+                      "$x^2-4=(x-2)(x+2)$. On cherche $\\dfrac{1}{(x-2)(x+2)}=\\dfrac{a}{x-2}+\\dfrac{b}{x+2}$.",
+                      "Numérateurs : $1=a(x+2)+b(x-2)$.",
+                      "$x=2$ : $1=4a$, donc $a=\\dfrac{1}{4}$. $x=-2$ : $1=-4b$, donc $b=-\\dfrac{1}{4}$.",
+                      "$$F(x)=\\dfrac{1}{4}\\ln|x-2|-\\dfrac{1}{4}\\ln|x+2|$$\n$$F(x)=\\dfrac{1}{4}\\ln\\left|\\dfrac{x-2}{x+2}\\right|$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Numérateur affine",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{3x+1}{(x-1)(x+1)}$.",
+                    "etapes": [
+                      "$3x+1=a(x+1)+b(x-1)$.",
+                      "$x=1$ : $4=2a$, donc $a=2$. $x=-1$ : $-2=-2b$, donc $b=1$.",
+                      "$f(x)=\\dfrac{2}{x-1}+\\dfrac{1}{x+1}$, donc $F(x)=2\\ln|x-1|+\\ln|x+1|$."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Numérateur de degré trop grand",
+                    "texte": "Si le degré du numérateur est supérieur ou égal à celui du dénominateur, on divise d'abord. Par exemple\n$$\\dfrac{x^2-5x-1}{x}=x-5-\\dfrac{1}{x}.$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Degré 2 sur degré 1",
+                    "enonce": "Calculer $\\displaystyle\\int_1^2\\dfrac{x^2-5x-1}{x}\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "$\\dfrac{x^2-5x-1}{x}=x-5-\\dfrac{1}{x}$.",
+                      "Primitive : $\\dfrac{x^2}{2}-5x-\\ln(x)$, sur $[1;2]$ où $x>0$.",
+                      "$$\\left(2-10-\\ln(2)\\right)-\\left(\\dfrac{1}{2}-5\\right)=-\\dfrac{7}{2}-\\ln(2)$$"
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\dfrac{1}{x(x-1)}$ est égal à :",
+                    "choix": [
+                      "$\\dfrac{1}{x-1}-\\dfrac{1}{x}$",
+                      "$\\dfrac{1}{x}-\\dfrac{1}{x-1}$",
+                      "$\\dfrac{1}{x}+\\dfrac{1}{x-1}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$\\dfrac{1}{x-1}-\\dfrac{1}{x}=\\dfrac{x-(x-1)}{x(x-1)}=\\dfrac{1}{x(x-1)}$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\dfrac{5}{(x-2)(x+3)}=\\dfrac{a}{x-2}+\\dfrac{b}{x+3}$. Que vaut $a$ ?",
+                    "reponse": 1,
+                    "explication": "$5=a(x+3)+b(x-2)$. En $x=2$ : $5=5a$, donc $a=1$ (et $b=-1$)."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- Factoriser complètement le dénominateur avant de décomposer.\n- Diviser d'abord si le numérateur est de degré trop grand.\n- Les primitives s'écrivent avec des valeurs absolues : $\\ln|x-\\alpha|$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "La fonction exponentielle",
+              "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "La fonction exponentielle",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "$\\ln$ est une bijection de $]0;+\\infty[$ sur $\\mathbb{R}$ : chaque réel est le logarithme d'un seul nombre positif. La fonction qui retrouve ce nombre est l'exponentielle."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Définition",
+                    "texte": "La fonction **exponentielle** $\\exp:\\mathbb{R}\\to\\,]0;+\\infty[$ est la réciproque de $\\ln$ :\n$$\\ln(a)=b\\iff a=\\exp(b).$$\n$\\exp(\\ln(x))=x$ pour $x>0$ et $\\ln(\\exp(x))=x$ pour tout réel $x$.\n\nOn note $\\mathrm{e}=\\exp(1)\\approx2{,}718$ ; alors $\\exp(x)=\\mathrm{e}^x$."
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "exp(x)",
+                      "ln(x)",
+                      "x"
+                    ],
+                    "x": [
+                      -3,
+                      4
+                    ],
+                    "y": [
+                      -3,
+                      4
+                    ],
+                    "styles": [
+                      {
+                        "couleur": "bleu"
+                      },
+                      {
+                        "couleur": "orange"
+                      },
+                      {
+                        "couleur": "gris",
+                        "trait": "pointilles"
+                      }
+                    ],
+                    "legende": "Les courbes de $\\mathrm{e}^x$ (bleu) et de $\\ln(x)$ (orange) sont symétriques par rapport à la droite $y=x$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Propriétés",
+                    "texte": "- $\\mathrm{e}^x>0$ pour tout réel $x$, et $\\mathrm{e}^0=1$.\n- $\\mathrm{e}^{x+y}=\\mathrm{e}^x\\cdot\\mathrm{e}^y$, $\\mathrm{e}^{x-y}=\\dfrac{\\mathrm{e}^x}{\\mathrm{e}^y}$, $\\left(\\mathrm{e}^x\\right)^r=\\mathrm{e}^{rx}$.\n- $\\displaystyle\\lim_{x\\to-\\infty}\\mathrm{e}^x=0$ (asymptote horizontale $y=0$) et $\\displaystyle\\lim_{x\\to+\\infty}\\mathrm{e}^x=+\\infty$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dérivées",
+                    "texte": "$$\\big(\\mathrm{e}^x\\big)'=\\mathrm{e}^x\\qquad\\big(\\mathrm{e}^{u(x)}\\big)'=u'(x)\\cdot\\mathrm{e}^{u(x)}$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une inconnue en exposant",
+                    "enonce": "Résoudre $2^x=176$.",
+                    "etapes": [
+                      "On applique $\\ln$ des deux côtés : $\\ln(2^x)=\\ln(176)$.",
+                      "$x\\ln(2)=\\ln(176)$.",
+                      "$x=\\dfrac{\\ln(176)}{\\ln(2)}\\approx7{,}459$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Deux bases",
+                    "enonce": "Résoudre $2^{x+3}=5^{4x-3}$.",
+                    "etapes": [
+                      "$\\ln$ des deux côtés : $(x+3)\\ln(2)=(4x-3)\\ln(5)$.",
+                      "On regroupe les termes en $x$ : $x\\big(\\ln(2)-4\\ln(5)\\big)=-3\\ln(5)-3\\ln(2)$.",
+                      "$$x=\\dfrac{3\\ln(5)+3\\ln(2)}{4\\ln(5)-\\ln(2)}$$\n$$x=\\dfrac{3\\ln(10)}{4\\ln(5)-\\ln(2)}\\approx1{,}202$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Dériver",
+                    "enonce": "Dériver $h(x)=\\mathrm{e}^{3x^2-1}$.",
+                    "etapes": [
+                      "$u(x)=3x^2-1$ et $u'(x)=6x$.",
+                      "$h'(x)=6x\\,\\mathrm{e}^{3x^2-1}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La dérivée de $\\mathrm{e}^{-2x}$ est :",
+                    "choix": [
+                      "$-2\\,\\mathrm{e}^{-2x}$",
+                      "$\\mathrm{e}^{-2x}$",
+                      "$-2x\\,\\mathrm{e}^{-2x-1}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$u(x)=-2x$ et $u'(x)=-2$ : $\\big(\\mathrm{e}^{-2x}\\big)'=-2\\,\\mathrm{e}^{-2x}$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Résoudre $\\mathrm{e}^x\\cdot\\mathrm{e}^{x+1}=\\mathrm{e}^7$. Quelle est la solution ?",
+                    "reponse": 3,
+                    "explication": "$\\mathrm{e}^{2x+1}=\\mathrm{e}^7\\iff2x+1=7\\iff x=3$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\mathrm{e}^x+\\mathrm{e}^y\\neq\\mathrm{e}^{x+y}$.\n- $\\mathrm{e}^x$ n'est jamais nul ni négatif : $\\mathrm{e}^x=-2$ n'a pas de solution.\n- En dérivant $\\mathrm{e}^{u}$, ne pas oublier le facteur $u'$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Primitives avec l'exponentielle",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Primitives avec l'exponentielle",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "L'exponentielle est sa propre dérivée : chaque formule de dérivation avec $\\mathrm{e}$ donne une formule de primitive."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Primitives",
+                    "texte": "- $\\mathrm{e}^x$ : $\\mathrm{e}^x$\n- $\\mathrm{e}^{ax+b}$, avec $a\\neq0$ : $\\dfrac{1}{a}\\,\\mathrm{e}^{ax+b}$\n- $u'\\cdot\\mathrm{e}^{u}$ : $\\mathrm{e}^{u}$\n- $\\dfrac{\\mathrm{e}^x}{\\mathrm{e}^x+c}$, avec $c>0$ : $\\ln(\\mathrm{e}^x+c)$, forme $\\dfrac{u'}{u}$\n- $\\mathrm{e}^x\\left(\\mathrm{e}^x+c\\right)^n$ : $\\dfrac{\\left(\\mathrm{e}^x+c\\right)^{n+1}}{n+1}$, forme $u'\\cdot u^n$"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Méthode",
+                    "texte": "- Identifier l'exposant $u(x)$ et calculer $u'(x)$.\n- Vérifier que le reste de l'expression est **proportionnel** à $u'(x)$.\n- Écrire la primitive $k\\cdot\\mathrm{e}^{u(x)}$ et contrôler en dérivant."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver une primitive de $f(x)=-5\\,\\mathrm{e}^{3x-5}$.",
+                    "etapes": [
+                      "Forme $\\mathrm{e}^{ax+b}$ avec $a=3$.",
+                      "$F(x)=-\\dfrac{5}{3}\\,\\mathrm{e}^{3x-5}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Il manque un facteur constant",
+                    "enonce": "Calculer $\\displaystyle\\int_0^1 x\\,\\mathrm{e}^{-x^2}\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "$u(x)=-x^2$, $u'(x)=-2x$ : le facteur $x$ lui est proportionnel.",
+                      "$x\\,\\mathrm{e}^{-x^2}=-\\dfrac{1}{2}\\cdot(-2x)\\,\\mathrm{e}^{-x^2}$ : une primitive est $-\\dfrac{1}{2}\\,\\mathrm{e}^{-x^2}$.",
+                      "$$\\int_0^1 x\\,\\mathrm{e}^{-x^2}\\,\\mathrm{d}x=\\left[-\\dfrac{1}{2}\\,\\mathrm{e}^{-x^2}\\right]_0^1$$\n$$\\int_0^1 x\\,\\mathrm{e}^{-x^2}\\,\\mathrm{d}x=\\dfrac{1}{2}\\left(1-\\mathrm{e}^{-1}\\right)\\approx0{,}32$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un quotient",
+                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{\\mathrm{e}^x}{\\mathrm{e}^x+2}$.",
+                    "etapes": [
+                      "$u(x)=\\mathrm{e}^x+2>0$ et $u'(x)=\\mathrm{e}^x$ : forme $\\dfrac{u'}{u}$.",
+                      "$F(x)=\\ln(\\mathrm{e}^x+2)$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une puissance",
+                    "enonce": "Trouver une primitive de $f(x)=4\\left(\\mathrm{e}^x+5\\right)^2\\mathrm{e}^x$.",
+                    "etapes": [
+                      "$u(x)=\\mathrm{e}^x+5$ et $u'(x)=\\mathrm{e}^x$ : forme $4\\,u'\\cdot u^2$.",
+                      "$F(x)=\\dfrac{4}{3}\\left(\\mathrm{e}^x+5\\right)^3$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une primitive de $f(x)=2x\\,\\mathrm{e}^{x^2}$ est :",
+                    "choix": [
+                      "$\\mathrm{e}^{x^2}$",
+                      "$x^2\\,\\mathrm{e}^{x^2}$",
+                      "$2\\,\\mathrm{e}^{x^2}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$f=u'\\cdot\\mathrm{e}^{u}$ avec $u(x)=x^2$ : $F(x)=\\mathrm{e}^{x^2}$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\displaystyle\\int_0^{\\ln(3)}\\mathrm{e}^x\\,\\mathrm{d}x$ ?",
+                    "reponse": 2,
+                    "explication": "$\\big[\\mathrm{e}^x\\big]_0^{\\ln(3)}=\\mathrm{e}^{\\ln(3)}-\\mathrm{e}^0=3-1=2$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\mathrm{e}^{x^2}$ seule, sans facteur $x$, n'a pas de primitive qui s'écrive avec les fonctions usuelles.\n- Ne pas oublier $\\dfrac{1}{a}$ devant $\\mathrm{e}^{ax+b}$.\n- Seul un facteur constant se compense."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Autres bases",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Exponentielles et logarithmes de base a",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Avec $\\ln$ et $\\exp$, on définit les puissances de n'importe quelle base $a>0$, et le logarithme qui les inverse."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Définitions",
+                    "texte": "Pour $a>0$ et tout réel $x$ :\n$$a^x=\\mathrm{e}^{x\\ln(a)}.$$\nPour $a>0$, $a\\neq1$ et $x>0$ :\n$$\\log_a(x)=\\dfrac{\\ln(x)}{\\ln(a)}.$$\nLe logarithme décimal est $\\log=\\log_{10}$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dérivées et primitives",
+                    "texte": "- $\\big(a^x\\big)'=\\ln(a)\\cdot a^x$ et $\\big(a^{u}\\big)'=u'\\cdot\\ln(a)\\cdot a^{u}$\n- $\\displaystyle\\int a^x\\,\\mathrm{d}x=\\dfrac{a^x}{\\ln(a)}+C$\n- $\\big(\\log_a(x)\\big)'=\\dfrac{1}{x\\ln(a)}$"
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Dériver $f(x)=10^{x^2+4x}$.",
+                    "etapes": [
+                      "$u(x)=x^2+4x$ et $u'(x)=2x+4$.",
+                      "$f'(x)=(2x+4)\\ln(10)\\cdot10^{x^2+4x}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Dériver $f(x)=2\\log(x)$.",
+                    "etapes": [
+                      "$\\log(x)=\\dfrac{\\ln(x)}{\\ln(10)}$.",
+                      "$f'(x)=\\dfrac{2}{x\\ln(10)}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une primitive",
+                    "enonce": "Trouver une primitive de $f(x)=2^{3x}$.",
+                    "etapes": [
+                      "$2^{3x}=\\mathrm{e}^{3x\\ln(2)}$ : forme $\\mathrm{e}^{ax}$ avec $a=3\\ln(2)$.",
+                      "$F(x)=\\dfrac{2^{3x}}{3\\ln(2)}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Changement de base",
+                    "enonce": "Écrire $\\log_3(8)-\\log_3(4)$ sous la forme $\\dfrac{\\ln(\\ldots)}{\\ln(\\ldots)}$.",
+                    "etapes": [
+                      "$\\log_3$ a les mêmes propriétés que $\\ln$ : $\\log_3(8)-\\log_3(4)=\\log_3(2)$.",
+                      "$\\log_3(2)=\\dfrac{\\ln(2)}{\\ln(3)}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La dérivée de $3^x$ est :",
+                    "choix": [
+                      "$\\ln(3)\\cdot3^x$",
+                      "$x\\cdot3^{x-1}$",
+                      "$3^x$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$3^x=\\mathrm{e}^{x\\ln(3)}$, donc $\\big(3^x\\big)'=\\ln(3)\\cdot3^x$. La variable est dans l'exposant."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut $\\log_2(32)$ ?",
+                    "reponse": 5,
+                    "explication": "$\\log_2(32)=\\dfrac{\\ln(32)}{\\ln(2)}=\\dfrac{5\\ln(2)}{\\ln(2)}=5$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\big(a^x\\big)'\\neq x\\,a^{x-1}$ : la variable est dans l'exposant.\n- La base d'un logarithme est différente de $1$.\n- Ne pas oublier le facteur $\\ln(a)$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Aires et volumes",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Aires et volumes avec exp et ln",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Les aires et les volumes se calculent comme au chapitre précédent. Les primitives en $\\ln$ et en $\\exp$ en élargissent le champ."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Sous une hyperbole",
+                    "enonce": "Calculer l'aire sous la courbe de $y=\\dfrac{1}{2x-1}$ entre $x=1$ et $x=3$.",
+                    "etapes": [
+                      "Sur $[1;3]$, $2x-1>0$ : la courbe est au-dessus de l'axe.",
+                      "Une primitive : $\\dfrac{1}{2}\\ln(2x-1)$.",
+                      "$$\\int_1^3\\dfrac{1}{2x-1}\\,\\mathrm{d}x=\\dfrac{\\ln(5)}{2}\\approx0{,}80$$"
+                    ]
+                  },
+                  {
+                    "type": "graphique",
+                    "fonctions": [
+                      "exp(x)",
+                      "(e-1)x+1"
+                    ],
+                    "x": [
+                      -1,
+                      2
+                    ],
+                    "y": [
+                      0,
+                      4
+                    ],
+                    "aire": {
+                      "fonction": 1,
+                      "entre": 0,
+                      "de": 0,
+                      "a": 1
+                    },
+                    "valeur": true,
+                    "legende": "Courbe de $\\mathrm{e}^x$ et droite passant par $(0;1)$ et $(1;\\mathrm{e})$ : sur $[0;1]$, la droite est au-dessus."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Entre deux courbes",
+                    "enonce": "Calculer l'aire du domaine compris entre $f(x)=\\mathrm{e}^x$ et $g(x)=(\\mathrm{e}-1)x+1$, qui se coupent en $x=0$ et $x=1$.",
+                    "etapes": [
+                      "Sur $[0;1]$, la droite est au-dessus : en $x=\\dfrac{1}{2}$, $g\\approx1{,}86>f\\approx1{,}65$.",
+                      "$$\\mathcal{A}=\\int_0^1\\Big((\\mathrm{e}-1)x+1-\\mathrm{e}^x\\Big)\\,\\mathrm{d}x$$",
+                      "Primitive : $\\dfrac{\\mathrm{e}-1}{2}x^2+x-\\mathrm{e}^x$.",
+                      "$$\\mathcal{A}=\\dfrac{\\mathrm{e}-1}{2}+1-\\mathrm{e}+1=\\dfrac{3-\\mathrm{e}}{2}\\approx0{,}14$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Sous la courbe de $\\ln$",
+                    "enonce": "Calculer $\\displaystyle\\int_1^{\\mathrm{e}}\\ln(x)\\,\\mathrm{d}x$.",
+                    "etapes": [
+                      "Une primitive de $\\ln(x)$ est $x\\ln(x)-x$.",
+                      "$$\\big[x\\ln(x)-x\\big]_1^{\\mathrm{e}}=(\\mathrm{e}-\\mathrm{e})-(0-1)=1$$"
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un volume",
+                    "enonce": "On fait tourner la courbe de $f(x)=\\dfrac{1}{\\sqrt{x}}$ sur $[1;4]$ autour de l'axe des abscisses. Calculer le volume.",
+                    "etapes": [
+                      "$f(x)^2=\\dfrac{1}{x}$.",
+                      "$$V=\\pi\\int_1^4\\dfrac{1}{x}\\,\\mathrm{d}x=\\pi\\big[\\ln(x)\\big]_1^4=\\pi\\ln(4)$$"
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "L'aire sous la courbe de $\\dfrac{1}{x}$ entre $x=1$ et $x=\\mathrm{e}$ vaut :",
+                    "choix": [
+                      "$1$",
+                      "$\\mathrm{e}$",
+                      "$\\mathrm{e}-1$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$\\big[\\ln(x)\\big]_1^{\\mathrm{e}}=\\ln(\\mathrm{e})-\\ln(1)=1$. C'est la définition de $\\mathrm{e}$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\displaystyle\\int_0^{\\ln(4)}\\mathrm{e}^x\\,\\mathrm{d}x$ ?",
+                    "reponse": 3,
+                    "explication": "$\\mathrm{e}^{\\ln(4)}-\\mathrm{e}^0=4-1=3$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\ln(x)<0$ sur $]0;1[$ : la courbe y est sous l'axe.\n- Placer les courbes avant d'intégrer : la courbe de $\\mathrm{e}^x$ est sous ses cordes.\n- Un volume se calcule avec $f(x)^2$."
+                  }
+                ]
+              }
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "2c0b2",
+              "id": "2mLogExp-3",
+              "nbQuestions": 2,
+              "titre": "Exprimer en fonction de ln(x)",
+              "sup2": "true"
+            },
+            {
+              "uuid": "305fd",
+              "id": "2mLogExp-4",
+              "nbQuestions": 2,
+              "titre": "Résoudre une équation avec le logarithme naturel"
+            },
+            {
+              "uuid": "2l11f",
+              "id": "2mLogExp-11",
+              "nbQuestions": 2,
+              "titre": "Résoudre des équations logarithmiques",
+              "sup": "5",
+              "sup2": "true"
+            },
+            {
+              "uuid": "25135",
+              "id": "4mAna-1",
+              "nbQuestions": 3,
+              "titre": "Calculer la dérivée de ln(u)",
+              "sup": "4"
+            },
+            {
+              "uuid": "7fccd",
+              "id": "4mAna-4",
+              "nbQuestions": 2,
+              "titre": "Dériver une fonction composée avec ln",
+              "sup": "0-0-0-0-0-0-0-1*1-1-0-0-0-0-0-0-0"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 3,
+              "titre": "Déterminer une primitive avec ln",
+              "sup": "1-1-1-0-1-0-0"
+            },
+            {
+              "uuid": "0f7aa",
+              "id": "4mExpLog-1",
+              "nbQuestions": 2,
+              "titre": "Calculer une intégrale avec un logarithme"
+            },
+            {
+              "uuid": "c8872",
+              "id": "4mExpLog-4",
+              "nbQuestions": 1,
+              "titre": "Associer des transformations de la fonction logarithme à leurs courbes"
+            },
+            {
+              "uuid": "ba864",
+              "id": "4mExpLog-6",
+              "nbQuestions": 3,
+              "titre": "Calculer une limite avec le logarithme"
+            },
+            {
+              "uuid": "e0648",
+              "id": "4mExpLog-3",
+              "nbQuestions": 2,
+              "titre": "Décomposer en éléments simples pour calculer une intégrale"
+            },
+            {
+              "uuid": "rvjcl",
+              "id": "2mLogExp-12",
+              "nbQuestions": 2,
+              "titre": "Résoudre des équations exponentielles",
+              "sup": "3",
+              "sup2": "true"
+            },
+            {
+              "uuid": "7fccd",
+              "id": "4mAna-4",
+              "nbQuestions": 2,
+              "titre": "Dériver une fonction composée avec exp",
+              "sup": "0-0-0-0-0-0-1-0*1-1-0-0-0-0-0-0-0"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 3,
+              "titre": "Déterminer une primitive avec l'exponentielle",
+              "sup": "0-0-1-1-0-1-0"
+            },
+            {
+              "uuid": "c7b5a",
+              "id": "4mExpLog-5",
+              "nbQuestions": 3,
+              "titre": "Dériver des fonctions exponentielles et logarithmes de base a"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 2,
+              "titre": "Déterminer une primitive d'une exponentielle de base a",
+              "sup": "0-0-0-0-0-0-1"
+            },
+            {
+              "uuid": "2l10e",
+              "id": "2mLogExp-10",
+              "nbQuestions": 2,
+              "titre": "Utiliser les propriétés des logarithmes",
+              "sup": "true"
+            },
+            {
+              "uuid": "7b0fb",
+              "id": "4mInt-8",
+              "nbQuestions": 2,
+              "titre": "Calculer l'aire d'un domaine délimité par deux courbes",
+              "sup": "0-0-0-0-1*0"
             }
           ]
         }

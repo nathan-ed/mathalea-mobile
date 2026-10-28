@@ -36,7 +36,7 @@ Les exercices de MathALÉA dans la poche de vos élèves : des parcours que vous
 3. [Créer un parcours dans l'application](creer.md) et le donner à une classe.
 4. [Créer un parcours sur le site MathALÉA](creer-sur-le-site.md), depuis un ordinateur.
 5. [Côté élève](eleves.md) : ajouter le dossier de la classe, travailler, voir ses progrès.
-6. [Sessions et réponses de la classe](sessions.md) : les mêmes questions pour toute la classe, les réponses relevées par QR code, les erreurs analysées.
+6. [Sessions et réponses de la classe](sessions.md) : les mêmes questions pour toute la classe, les réponses relevées par QR code, les erreurs les plus fréquentes.
 7. [Révisions](revisions.md) : la répétition espacée, sans rien régler.
 8. [Tester avec des collègues](tester.md) : quoi essayer et comment faire un retour.
 9. [Format des parcours (technique)](format-parcours.md) : générer des parcours par un script ou avec un assistant.

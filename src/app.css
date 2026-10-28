@@ -352,6 +352,10 @@ input.interrupteur:focus-visible {
   list-style: disc;
   padding-left: 1.25rem;
 }
+/* Fractions hautes (\dfrac) d'un élément à l'autre : elles ne se touchent pas */
+.texte-cours li + li {
+  margin-top: 0.375rem;
+}
 .formule-centree {
   display: block;
   max-width: 100%;

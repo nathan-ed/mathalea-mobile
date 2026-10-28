@@ -27,3 +27,16 @@ Ce que fait la branche :
 (`catalogue.ts`, `validation.ts`, `expression.ts`, `texteRiche.ts`,
 `Cours.svelte`, `GraphiqueCours.svelte`) se reporte dans ces fichiers du
 site, et inversement.
+
+## Date d'ouverture d'un palier (0.4.5, à reporter)
+
+L'app lit `ouverture` sur un palier (voir `catalogue.ts`, `estOuverture`,
+`ouvertureDuJour`) : instant « AAAA-MM-JJT08:00:00 » avec le décalage horaire de
+l'enseignant, valable aussi pour le premier palier. L'éditeur du site ne la
+connaît pas : ni champ « À partir d'une date » (sous « Pour y accéder »), ni
+conservation du champ quand on modifie un parcours déjà daté (à vérifier :
+`parcoursEditing.ts` reconstruit des objets de palier). À faire dans la même
+branche que les fiches : type `ouverture?: string` (`parcoursTypes.ts`),
+contrôle (`parcoursFile.ts`), champ jour dans `ParcoursEditor.svelte`
+(« À partir d'une date », 8 h affichées), schéma `ParcoursSchema.svelte` (palier
+fermé avant la date).

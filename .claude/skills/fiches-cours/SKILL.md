@@ -9,6 +9,27 @@ Une fiche se lit **sur un téléphone, avant de s'entraîner** (d'office la
 première fois avec `"avant": true`, puis depuis la page du parcours et le
 bilan d'un palier raté). Elle prépare les exercices du palier, rien de plus.
 
+## But : de la remédiation, pas un cours (Nathan, 2026-10-28)
+
+- L'élève a déjà suivi le cours et fait des exercices en classe. Il vient
+  sur l'app pour s'entraîner (préparer une évaluation) ou parce qu'il n'a pas
+  compris. La fiche est une **aide à la résolution des exercices
+  interactifs du palier**, brève, à la manière d'Alloprof (s'en inspirer,
+  sans copier). Ce n'est ni un cours numérique ni un substitut du cours.
+- Le cours de Nathan (cours2627, par ex. `4M1/theorie/`) sert de
+  **référence de vocabulaire, de notations et de syntaxe** : mêmes noms de
+  propriétés, mêmes écritures. On ne le recopie pas.
+- Contenu : théorie minimale (formules et règles utiles au palier), un
+  exemple ou un exercice résolu représentatif des exercices interactifs qui
+  suivent, la méthode. Pas de preuve, pas de remarque historique, pas de
+  section entière du cours.
+- Pas d'exercices papier-crayon dans la fiche : ni listes d'exercices à
+  calculer, ni exercices des séries. Les exercices, ce sont les étapes
+  MathALÉA interactives du palier.
+- Écarté : générer les fiches en convertissant le cours Typst
+  (`skill-sort/skills/cours-mathalea/parcours.py`, essai du 2026-10-28) ;
+  le résultat recopiait le cours, trop long, avec les séries.
+
 Format exact (blocs, champs, expressions des graphiques) :
 `docs/guide/format-parcours.md`, « Fiches de cours ». Vérité : `estFiche`
 dans `src/lib/validation.ts`. Modèle de référence : les six fiches de

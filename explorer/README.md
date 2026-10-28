@@ -20,8 +20,15 @@ l'app : elle les lit dans ce dossier, comme ceux des enseignants.
 
 Fichiers :
 
-- `ch-4e-college.json` : Suisse, 4e Collège, Intégration (chapitre 4mInt) :
-  « Primitives et intégrales », six ceintures (blanche à marron) : primitives,
-  fonctions composées, intégrale, exponentielle et logarithme, aires et
-  valeur moyenne, volumes de révolution. Exercices 4mInt, 4mAna-1 et
-  4mExpLog-1 ; une fiche par ceinture, montrée d'office.
+- `ch-4e-college.json` : Suisse, 4e Collège, deux parcours à ceintures
+  suivant le cours de 4M1, une fiche par ceinture, montrée d'office.
+  - « Calcul intégral » (chapitre 4mInt), huit ceintures (blanche à noire,
+    2e dan) : rappels de dérivées, sommes de Darboux, primitives, fonctions
+    composées, intégrale, valeur moyenne, aires, volumes de révolution.
+    Exercices 4mAna-4 à 6 et 4mInt-1 à 13.
+  - « Exponentielle et logarithme » (chapitre 4mExpLog), neuf ceintures
+    (blanche à noire, 3e dan) : logarithme naturel, dériver avec ln,
+    primitives avec ln, graphe et limites, éléments simples, exponentielle,
+    primitives avec exp, autres bases, aires et volumes. Exercices
+    4mExpLog-1 à 6, 4mAna-1 et 4, 4mInt-8, et 2mLogExp-3, 4, 10, 11, 12
+    (2e Collège : pas encore d'équivalent en 4e Collège).
