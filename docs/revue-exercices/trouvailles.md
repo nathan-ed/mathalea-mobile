@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1279 exercices passés sur 4190**.
-Constats regroupés : 6151 (un groupe = même exercice, même règle,
+Avancement : **1283 exercices passés sur 4190**.
+Constats regroupés : 6185 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -35,8 +35,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 16 | 27 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 14 | 265 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 14 | 18 |
-| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 15 | 15 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 16 | 20 |
+| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 16 | 16 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 9 | 9 |
 | 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 143 | 875 |
@@ -45,44 +45,45 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 59 | 118 |
 | 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 85 | 85 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 51 | 56 |
-| 3 Mise en évidence | [N1 Nombre hors $](#n1) | 6 | 6 |
-| 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 2 | 2 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 52 | 57 |
+| 3 Mise en évidence | [N1 Nombre hors $](#n1) | 7 | 7 |
+| 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
-| 3 Mise en évidence | [R1 Titre](#r1) | 3 | 3 |
+| 3 Mise en évidence | [R1 Titre](#r1) | 4 | 4 |
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
 | 3 Mise en évidence | [R14 ](#r14) | 5 | 5 |
-| 3 Mise en évidence | [R16 ](#r16) | 2 | 2 |
+| 3 Mise en évidence | [R16 ](#r16) | 3 | 3 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 1 | 1 |
 | 3 Mise en évidence | [T5 Espaces en trop](#t5) | 2 | 2 |
 | 3 Mise en évidence | [T6 Points de suspension](#t6) | 1 | 1 |
-| 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 1 | 1 |
+| 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 1 | 1 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 11 | 11 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 319 | 489 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 321 | 493 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 16 | 22 |
 | 4 Typographie | [N3 Point décimal](#n3) | 16 | 20 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 5 | 5 |
 | 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 38 | 46 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
-| 4 Typographie | [R1 Titre](#r1) | 5 | 5 |
+| 4 Typographie | [R1 Titre](#r1) | 7 | 7 |
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
+| 4 Typographie | [R16 ](#r16) | 1 | 1 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
-| 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 2 | 2 |
+| 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 3 | 3 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 17 | 22 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 14 | 15 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 127 | 185 |
-| 4 Typographie | [T4 Guillemets](#t4) | 40 | 58 |
-| 4 Typographie | [T5 Espaces en trop](#t5) | 3 | 3 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 129 | 187 |
+| 4 Typographie | [T4 Guillemets](#t4) | 41 | 59 |
+| 4 Typographie | [T5 Espaces en trop](#t5) | 4 | 4 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
-| 4 Typographie | [X3 undefined, NaN…](#x3) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 208 | 263 |
+| 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 209 | 267 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 139 | 685 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
@@ -98,12 +99,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 32 | 43 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 287 | 500 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 302 | 473 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 289 | 502 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 304 | 477 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 28 | 28 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 42 | 51 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 44 | 53 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
 | 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 18 | 18 |
 
@@ -687,6 +688,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6a-Aléa (CAN) | série q1 | correction vide | ×18 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | CM1N1E (cm1) | src/exercices/CM1/CM1N1E.ts | 24 combinaisons de paramètres sur 71 ne génèrent aucune question (exemples : sup=3 sup2=6 sup3=7 ; sup=4 sup2=1 sup3=3 ; sup=5 sup2=1 sup3=4) : l'exercice reste vide (aucune boucle de tirage ne trouve de nombre). → Limiter les combinaisons proposées ou prévoir un repli quand cpt atteint la limite. | ×1 |
 | CM1N1E (cm1) | série | aucune question générée pour cette combinaison de paramètres | ×24 ; sup=3 sup2=6 sup3=7 sup4=true sup5=true ; sup=4 sup2=1 sup3=3 sup4=true sup5=true… (revue-20-a) |
+| EN-EtoileCalculs (EN) | série q1 | énoncé vide | ×130 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
+| EN-Gratte-ciel (EN) | série q1 | énoncé vide | ×18 ; sup=3 ; sup=1… (revue-0-a) |
 | TEC1-41 (Terminale) | série q1 | énoncé vide | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
 | TSA2-QCM06 (Terminale) | série q1 | correction vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 
@@ -706,6 +709,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1H (6e) | 6e/6N1H.ts | Trois décimales à 390 px : environ 3 px entre deux graduations des millièmes, lecture impossible sur téléphone ; le point A recouvre l'étiquette 3,96 (capture 002-a-enonce). → Zoom (loupe) ou droite plus courte autour des points sur petit écran. | ×1 |
 | 6N1H-3 (6e) | 6e/6N1H-3.ts | Zooms successifs à 390 px : les droites du zoom se superposent et leurs étiquettes se chevauchent (« 10,2 10, 21 10, 22… » illisibles, capture 000-a-correction) ; au millième, la lecture est impossible sur téléphone. → Espacer verticalement les droites, n'écrire que les graduations extrêmes du zoom sur petit écran, texNombre pour les étiquettes. | ×1 |
 | 6N1J (6e) | 6e/6N0A-10.ts | Six champs à trous sur une ligne : à 390 px, le dernier champ sort de l'écran une fois rempli (même défaut que 6N0A-10). → Voir 6N0A-10. | ×1 |
+| 6N2E-1 (6e) | 6e/6N2E-1.ts | Correction à 390 px : les lignes du calcul aligné sortent de l'écran (« = 1076 × 1 × … », « = (846 », capture 000-a-correction), et la multiplication posée s'affiche au-dessus du numéro de la question. → Couper les égalités (une transformation par ligne) ou réduire l'alignement sur petit écran. | ×1 |
 | can2F24-04 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:201 | Commentaire « Comme la fonction racine carrée est strictement croissante… » écrit en \text dans un aligned après \qquad : ligne de 866 px, coupée à 390 px (capture), illisible sur téléphone. Même chose pour can2F24-05 (fonction cube, 803 px) → sortir la phrase de la formule (texte après le aligned) | ×1 |
 | can2F24-05 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:183 | Commentaire en \text dans l'aligned (« Comme la fonction cube est strictement croissante… ») : 803 px, coupé à 390 px → phrase hors de la formule | ×1 |
 | can2P1-03 (CAN) | src/exercices/can/1e/can1P12-05.ts | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px → tableau plus étroit (en-tête « Face », « P ») | ×1 |
@@ -2175,6 +2179,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1F-4 (6e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×34 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N1H-1 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 3 champ(s) | ×52 ; sup=7 ; sup=1… (revue-0-a) |
 | 6N1H-1 (6e) | 6e/6N1H-1.ts | Correction : les abscisses attendues sont écrites sous l'axe en noir, sans mise en évidence ; en Q2 l'étiquette « 4 » et la réponse « 4,3 » se chevauchent (« 44,3 », capture 000-a-correction). → Réponses en évidence (orange) et décalées sous la graduation ; texNombre pour la virgule. | ×1 |
+| 6N2D (6e) | 6e/6N2D.ts | « Produit initial donné » : le produit 351 est donné dans l'énoncé (pas de champ) mais reste mis en évidence dans la correction ; la correction garde « a) » sans « b) ». → Pas d'évidence sur le produit donné ; retirer « a) » quand il n'y a qu'une étape. | ×1 |
 | 6N2E-3 (6e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 2 champ(s) | ×16 ; sup=1 sup2=true ; sup=1 sup2=false (revue-1-a) |
 | 6N2K-1 (6e) |  q2 multi-mathfield | 0 mise(s) en évidence pour 2 champ(s) | ×41 ; sup=9 ; sup=1… (revue-0-a) |
 | 6N2K-3 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 2 champ(s) | ×26 ; sup=1 ; sup=2… (revue-0-a) |
@@ -2236,6 +2241,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0B-4 (6e) | 6e/6N0B-4.ts:63 | Énoncés « je le divise par 9 puis je soustrais 9 au résultat … si j'obtiens 1 ? » : tous les nombres hors $. → $${operande1}$, $${arrivee}$… | ×1 |
 | 6N1A-1 (6e) | 6e/6N1A-1.ts:79 | Énoncés « 9 unités, 5 dixièmes et 8 centièmes », « 7 centièmes » : nombres hors $. → `$${a}$ unités, $${b}$ dixièmes…` | ×1 |
 | 6N1A-7 (6e) | 6e/6N1A-7.ts:274 | Indices « On trouve 4 au rang des unités. », « Mon chiffre des dixièmes est 3. », « composé de 5 chiffres » : chiffres hors $ (la correction les écrit en $). → `On trouve $${chiffre}$ au rang des ${nom}.` | ×1 |
+| 6N2B-4 (6e) | 6e/6N2B-4.ts | Correction « Prenons un exemple : 34,9. » : nombre hors $ (virgule non typographique, pas d'espace des milliers). → `Prenons un exemple : $${texNombre(exemple)}$.` | ×1 |
 
 ## N2
 
@@ -2245,6 +2251,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6N0A-12 (6e) | 6e/6N0A-12.ts:150 | Correction : « A = 3\,500+140+7 = 3647 », résultat mis en évidence sans espace des milliers. → miseEnEvidence(texNombre(a * b, 0)) | ×1 |
 | 6N0A-5 (6e) | 6e/6N0A-5.ts:101 | Différence : « 1689 - 770 », nombre de quatre chiffres sans espace des milliers (a jusqu'à 1 998 écrit brut). → texNombre(a) dans l'énoncé et la correction. | ×1 |
+| 6N2E-1 (6e) | 6e/6N2E-1.ts | « 1076 × 907 = 975 932 », « 10,76 = 1076/100 » : nombres de quatre chiffres sans espace des milliers (les autres le sont). → texNombre(1076) | ×1 |
 
 ## N3
 
@@ -2266,6 +2273,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-9 (6e) | 6e/6N0A-9.ts:157 | Paramètre « Encadrer entre deux multiples de 10 » et « … de 10, forcément consécutifs » : même énoncé et même attente (multiples consécutifs) ; la seule différence est l'exclusion des nombres déjà multiples. Même chose pour 100. → Renommer : « … (le nombre peut être un multiple de 10) » / « … (le nombre n'est pas un multiple de 10) ». | ×1 |
 | 6N1G-1 (6e) | 6e/6N1G-1.ts | Option « Le pas secondaire vaut 0.5 ou 0.1 » : on obtient aussi un pas de 0,01 (A(0,14), B(0,32), sup=1, graine revue-2-a). → Libellé fidèle aux pas tirés, ou limiter les pas à 0,5 et 0,1. | ×1 |
 | 6N1J (6e) | 6e/6N0A-10.ts:261 | « Tous les nombres ont la même partie entière » coché avec « Mélange » des types : les nombres ont des parties entières différentes (93,41 ; 97 ; 98, graine revue-9-a), les entiers tirés ignorent l'option. → Avec cette option, exclure les entiers ou leur donner la même partie entière. | ×1 |
+| 6N2D (6e) | 6e/6N2D.ts | Options du paramètre en LaTeX brut, visibles telles quelles dans les réglages : « nb1$\times$10^p1 $\times$ nb2 »… → « Premier facteur multiplié par une puissance de 10 », etc. | ×1 |
 
 ## R10
 
@@ -2298,6 +2306,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6N1A (6e) | 6e/6N1A.ts | « Inférieurs à 10 » avec « Milliers » (ou « Centaines ») : questions sans objet, « Le chiffre des milliers du nombre $3$ est : 0 » quatre fois de suite (sup=1, sup3=1). → Ne proposer que les rangs présents dans les nombres du niveau choisi. | ×1 |
 | 6N1B (6e) | 6e/6N1B.ts | Sans les mots (sup3 décoché), « vers l'unité » donne des questions sans objet : « $1\,000 =$ … unités », « $100 =$ … unités » (réponse recopiée de l'énoncé). → Avec sup3 décoché, écrire l'unité de départ en mots (« 1 millier = … unités ») ou exclure la conversion vers les unités. | ×1 |
+| 6N2A-4 (6e) | 6e/6N2A-4.ts | Second nombre sans décimale : il peut valoir 0 (« $3,86-0$ », graine revue-2-a), calcul sans objet. → Tirer le second nombre à partir de 1. | ×1 |
 
 ## R2
 
@@ -2331,6 +2340,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N1H-4 (6e) | 6e/6N1H-4.ts | À 390 px, les noms des points des zooms se chevauchent (« EGK », « A GP », G et C confondus, capture 000-a-enonce), alors que le point à lire est l'un d'eux. → Écarter les étiquettes (positions alternées au-dessus et en dessous) sur petit écran. | ×1 |
+| 6N2E (6e) | 6e/6N2E.ts | Correction à 390 px : les deux façons de poser chaque produit, prévues côte à côte ($\phantom{espace}$), passent l'une sous l'autre ; la première s'affiche au-dessus du numéro « 1. » et semble appartenir à la question précédente (capture 000-a-correction). → Les empiler explicitement sous le numéro (ou n'en garder qu'une sur petit écran). | ×1 |
 
 ## X4
 
@@ -2451,6 +2461,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1H-3 (6e) | énoncé non interactif q1 | « 1 » hors $ : re entier et d'une fraction décimale inférieure à 1, et sous forme d'une seule fraction décimale. | ×1 |
 | 6N2autoB-2 (6e) | correction q1 | « 1 » hors $ : Il y a 1 cube unité. Il y a 7 plaques représentant chacun ‖ « 7 » hors $ : Il y a 1 cube unité. Il y a 7 plaques représentant chacune ‖ « 6 » hors $ : . Il y a 6 barres représentant chacune | ×30 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N2autoC (6e) | titre | « 10 » hors $ : Multiplier un nombre décimal par 10, 100 ou 1 000 | ×4 |
+| 6N2autoC-2 (6e) | correction q1 | « 34,9 » hors $ : Prenons un exemple : 34,9. ‖ « 928 » hors $ : Prenons un exemple : 928. | ×91 ; sup=false sup2=true sup3=1 sup4=true ; sup=true sup2=true sup3=1 sup4=true… (revue-0-a) |
 | 6N2B (6e) | titre | « 0,1 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui c ‖ « 0,01 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convien ‖ « 0,001 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient) | ×3 |
 | 6N2B-1 (6e) | titre | « 0,1 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule) | ×3 |
 | 6N2B-2 (6e) | titre | « 0,1 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (QCM) | ×3 |
@@ -2693,6 +2704,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N4B-3 (cm2) | consigne | « 5 » hors $ : e un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellem ‖ « 4 » hors $ : égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des par | ×2 ; sup=1 sup2= (revue-0-a) |
 | CM2N4B-4 (cm2) | src/exercices/CM2/CM2N4B-4.ts | Tirage et nombre cible écrits hors formules (« Voici le tirage : 100 ; 5 ; 8 … Et le nombre à trouver est : 923. ») ; titre avec guillemets droits « "compte est bon" » (aussi CM2N4B-3) → $100$ ; $5$… ; « Le compte est bon » | ×1 |
 | CM2N4B-4 (cm2) | énoncé q1 | « 100 » hors $ : Voici le tirage : 100 ; 5 ; 8 ; 3 ; 7 ; 10. Et le nombre à trouver e ‖ « 5 » hors $ : Voici le tirage : 100 ; 5 ; 8 ; 3 ; 7 ; 10. Et le nombre à trouver est : 9 ‖ « 8 » hors $ : Voici le tirage : 100 ; 5 ; 8 ; 3 ; 7 ; 10. Et le nombre à trouver est : 923. | ×210 ; sup=1 ; sup=2… (revue-0-a) |
+| EN-Gratte-ciel (EN) | consigne | « 10 » hors $ : du ciel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ‖ « 20 » hors $ : iel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ran ‖ « 30 » hors $ : Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même rangée, l | ×24 ; sup=3 ; sup=1… (revue-0-a) |
+| EN-Gratte-ciel (EN) | correction q1 | « 20 » hors $ : 20 10 30 ‖ « 10 » hors $ : 10 ‖ « 10 » hors $ : 10 20 | ×136 ; sup=3 ; sup=1… (revue-0-a) |
+| EN-Gratte-ciel (EN) | correction non interactive q1 | « 20 » hors $ : 20 10 30 | ×9 |
 | HPC103 (HP) | correction q2 | « 1 » hors $ : est possible et c'est une matrice qui a 1 lignes et 2 colonnes. ‖ « 2 » hors $ : t possible et c'est une matrice qui a 1 lignes et 2 colonnes. | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
 | PEA13 (PE) | énoncé q7 | « 14 » hors $ : Pour le défilé du 14 juillet, Manon dirige une fanfare composée de | ×1 ; sup=11 nb=10 (revue-11-a) |
 | PEG20 (PE) | correction q1 | « 5 » hors $ : 5 points régulièrement espacés nommés ‖ « 5 » hors $ : (car le dénominateur de la fraction est 5). On trace la parallèle à ‖ « 3 » hors $ : (car le numérateur de la fraction est 3). On place | ×3 ; défaut (revue-0-a) |
@@ -3032,6 +3046,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-3 (6e) | 6e/6N1A-3.ts:26 | Titre « Recomposer un décimal ou un entier » alors que toutes les questions demandent de « Décomposer le nombre ». → Titre « Décomposer un décimal ou un entier », ou énoncé de recomposition. | ×1 |
 | 6N1F-2 (6e) | 6e/6N1F-2.ts | Option du paramètre « Ériture sans le mot virgule » (coquille). → « Écriture sans le mot virgule » | ×1 |
 | 6N1H-3 (6e) | 6e/6N1H-3.ts | Libellé du paramètre « Enoncé avec « nombre mixte » » (É sans accent). → « Énoncé avec « nombre mixte » » | ×1 |
+| 6N2A-4 (6e) | 6e/6N2A-4.ts | Libellé du paramètre « Nombre de décimales sur le deucième nombre » (coquille). → « deuxième » | ×1 |
+| 6N2B-2 (6e) | 6e/6N2B-2.ts | Option « Fraction décimale à retrouver » : la réponse attendue est un décimal ($0,001$), aucune fraction n'est proposée. → « Facteur 0,1 ; 0,01 ou 0,001 à retrouver » | ×1 |
 
 ## R10
 
@@ -3043,6 +3059,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0B-1 (6e) | 6e/6N0B-1.ts:129 | Double numérotation « 1. a) », « 2. b) » : numAlpha(i) ajouté à la numérotation de l'exercice. → Retirer numAlpha(i). | ×1 |
 | 6N1A-5 (6e) | 6e/6N1A-5.ts | Libellé du paramètre « Décomposition avec que des entiers à un chiffre » (« avec que » incorrect). → « Décomposition avec uniquement des entiers à un chiffre » | ×1 |
 | 6N1J (6e) | 6e/6N0A-10.ts:317 | « Les nombres à classer ont toutes la même partie entière » (accord : « ont tous »). → « ont tous la même partie entière » | ×1 |
+
+## R16
+
+**R16** (gravité 4 : Typographie)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| 6N2D (6e) | 6e/6N2D.ts | Étape répétée à l'identique : « 83 × 9 000 = 83 × 9 × 1 000 = 83 × 9 × 1 000 = 747 × 1 000 » (second facteur ×10^p). → Supprimer l'étape en double dans ce cas. | ×1 |
 
 ## R4
 
@@ -3062,6 +3086,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6AutoT1-6 (6e) | ch/10GM3B-6.ts:127 | Consigne vide (une espace) quand sup2 ou sup3 : l'exercice s'affiche sans aucune consigne. → Donner une consigne (« Convertir les durées suivantes. »). | ×1 |
 | 6N0A-8 (6e) | 6e/6N0A-8.ts | Consigne réduite à « Penser, si besoin, à mettre les espaces nécessaires. » (aucune consigne de travail), et « … repéré par $A$ : [champ] . » (point détaché du champ). → Consigne « Lire l'abscisse de chaque point. » puis le rappel des espaces si les nombres dépassent 999. | ×1 |
+| 6N2B (6e) | 6e/6N2B.ts | Consigne « Compléter les pointillés. » alors qu'en interactif ce sont des champs à remplir (pas de pointillés). → « Compléter. » ou consigne selon this.interactif. | ×1 |
 
 ## T1
 
@@ -3131,6 +3156,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1F-3 (6e) | introduction | espace ordinaire (sécable) avant « : » : La première fraction est facultative : elle sera corrigée, mais ne sera pas prise en c | ×1 ; sup=1 (revue-0-a) |
 | 6N1K (6e) | consigne | espace ordinaire (sécable) avant « ? » : die du nombre à l'unité, au dixième et au centième ? | ×1 ; sup=1 sup2=1 (revue-0-a) |
 | 6N1M (6e) | correction q1 | « e: » sans espace insécable : au dixième: ‖ « é: » sans espace insécable : à l'unité: ‖ « e: » sans espace insécable : au centième: | ×26 ; sup=4 ; sup=1… (revue-0-a) |
+| 6N2autoB-5 (6e) | consigne | espace ordinaire (sécable) avant « : » : Compléter : | ×1 ; sup=4 sup2=3 sup3=3 sup4=1 (revue-0-a) |
+| 6N2autoC-2 (6e) | titre | espace ordinaire (sécable) avant « ? » : le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | 6N2B (6e) | titre | espace ordinaire (sécable) avant « ; » : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui conv ‖ espace ordinaire (sécable) avant « ; » : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient) | ×2 |
 | 6N2B-1 (6e) | titre | espace ordinaire (sécable) avant « ; » : Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule) | ×2 |
 | 6N2B-2 (6e) | titre | espace ordinaire (sécable) avant « ; » : Multiplier par 0,1 ; 0,01 ; 0,001 (QCM) | ×2 |
@@ -3343,6 +3370,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeS07 (CAN) | correction q1 | guillemet sans insécable : . Nous avons donc une forme indeterminée du type « ‖ guillemet sans insécable : », donc nous allons factoriser | ×20 ; défaut ; défaut nb=10 (revue-0-a) |
 | canTSpeS08 (CAN) | correction q1 | guillemet sans insécable : . Nous avons donc une forme indeterminée du type « ‖ guillemet sans insécable : », donc nous allons factoriser | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
 | canTSpeS09 (CAN) | correction q1 | guillemet sans insécable : . Nous avons donc une forme indeterminée du type « ‖ guillemet sans insécable : », donc nous allons factoriser | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
+| EN-EtoileCalculs (EN) | correction q1 | guillemet sans insécable : .Flèche « ‖ guillemet sans insécable : » : ‖ guillemet sans insécable : . Flèche « | ×1000 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | TEA1-15 (Terminale) | correction q1 | guillemet sans insécable : la propriété : « ‖ guillemet sans insécable : ». Initialisation. Pour ‖ guillemet sans insécable : s’énonce : « | ×4 ; défaut (revue-0-a) |
 | TEA1-35 (Terminale) | correction q1 | guillemet sans insécable : la propriété : « ‖ guillemet sans insécable : ». Initialisation. Pour | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEG1-21 (Terminale) | énoncé q1 | guillemet sans insécable : abétique. Saisir la matrice à l'aide de la touche « Matrice ». ‖ guillemet sans insécable : Saisir la matrice à l'aide de la touche « Matrice ». | ×56 ; sup=3 sup2=3 sup3=false ; sup=1 sup2=1 sup3=true… (revue-0-a) |
@@ -3380,6 +3408,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-5 (6e) | 6e/6N0A-5.ts:104 | « Comme  $…$ » (deux espaces) et « … = 9$. &lt;br> » (espace avant le saut de ligne), « est égal à : $9 - 0 = 9$ » (le dernier chiffre est le résultat, pas le calcul). → « Le dernier chiffre de … est celui de $9 - 0 = 9$. » | ×1 |
 | 6N1C-2 (6e) | 6e/6N1C-2.ts | « Placer le point $A\left(5\,800\right).$ » : point final dans la formule ; lettres A, D, G, J, M en interactif (B, C… sautées). → `$A(5\,800)$.` | ×1 |
 | 6N1E (6e) | 6e/6N1E.ts:163 | Correction suivie d'une virgule isolée après le tableau (« )},` »). → Retirer la virgule après tableauColonneLigne(...). | ×1 |
+| 6N2B-3 (6e) | 6e/6N2B-3.ts | « le chiffre des unités ( 4 ) » : espaces à l'intérieur des parenthèses ; point final dans la formule (« $0,847.$ »). → « ($4$) », point hors des $. | ×1 |
 
 ## T6
 
@@ -3415,6 +3444,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N0A-12 (6e) | 6e/6N0A-12.ts | Case d'en-tête « × » sur fond rouge vif, hors charte, et champ du résultat placé avant le tableau alors que la consigne fait remplir le tableau d'abord. → En-tête dans la couleur des autres en-têtes ; champ du résultat sous le tableau. | ×1 |
+| 6N2A-1 (6e) | 6e/6N2A-1.ts | Soustraction posée à 390 px : les retenues « +1 » du bas touchent la ligne du résultat (749, 897), qui se superpose à elles (capture 000-a-correction). → Marge sous la ligne des retenues. | ×1 |
 
 ## X5
 
@@ -3585,6 +3615,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3C-3 (cm2) | correction | page de 461 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | CM2N3C-4 (cm2) | correction | page de 414 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | CM2N3C-7 (cm2) | correction | page de 444 px pour 390 px | ×4 ; sup=4-8 ; sup=8 (revue-0-a) |
+| EN-Gratte-ciel (EN) | énoncé q1 | table.tableauMathlive de 572 px pour 390 px | ×16 ; sup=3 ; sup=2… (revue-0-a) |
+| EN-Gratte-ciel (EN) | énoncé | page de 588 px pour 390 px | ×11 ; sup=3 ; sup=2… (revue-0-a) |
+| EN-Gratte-ciel (EN) | correction | page de 393 px pour 390 px | ×9 ; sup=3 ; sup=4… (revue-0-a) |
+| EN-Gratte-ciel (EN) | correction q1 | table.tableauMathlive de 452 px pour 390 px | ×6 ; sup=4 ; sup=5… (revue-3-a) |
 | HPC102 (HP) | correction | page de 680 px pour 390 px | ×5 ; sup=1 ; sup=2… (revue-0-a) |
 | HPC102 (HP) | énoncé | page de 1592 px pour 390 px | ×1 ; sup=2 (revue-1-a) |
 | HPC103 (HP) | correction | page de 402 px pour 390 px | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
@@ -5324,6 +5358,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-7 (6e) | énoncé non interactif q1 | double espace : Je suis un mystérieux nombre composé de 5 chiffres, tous différents les uns | ×2 |
 | 6N1F-2 (6e) | énoncé q1 | double espace : ire le nombre vingt virgule zéro-deux en chiffres : [champ] ‖ double espace : le nombre quatre-vingts virgule deux en chiffres : [champ] ‖ double espace : quatre-vingts virgule zéro-zéro-sept en chiffres : [champ] | ×44 ; sup=2 sup2=1 sup3=1 ; sup=2 sup2=1 sup3=2… (revue-6-a) |
 | 6N1I (6e) | consigne | double espace : Compléter avec le signe ou =. | ×1 ; défaut (revue-0-a) |
+| 6N2autoC-2 (6e) | titre | espace avant ponctuation : r que le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | 6N2B-4 (6e) | titre | espace avant ponctuation : r que le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | 6N2G-1 (6e) | énoncé q1 | double espace : ramme. Si Zoé décidait d'acheter un kilogramme de cerises avec ‖ double espace : me. Si Karole décidait d'acheter un kilogramme de carottes avec ‖ double espace : mme. Si Julie décidait d'acheter un kilogramme de carottes avec | ×24 ; sup=8 sup2=true sup3=true sup4=1 ; sup=8 sup2=true sup3=true sup4=2… (revue-96-a) |
 | 6N2I-2 (6e) | énoncé q1 | double espace : € b) Si Ursule décidait d'acheter un kilogramme de cacahuètes fraiches avec ‖ double espace : € b) Si Karole décidait d'acheter un kilogramme de fraises avec ‖ double espace : € b) Si Océane décidait d'acheter un kilogramme de prunes avec | ×34 ; sup=7-8 sup2=false sup3=false sup4=3 ; sup=7-8 sup2=true sup3=true sup4=1… (revue-0-a) |
@@ -5748,6 +5783,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N1D-1 (cm2) | énoncé q1 | espace avant ponctuation : nviennent (unité(s) ou dizaine(s) ou centaine(s) ou ...). [champ] Remettre les étiquettes au bon | ×32 ; sup=true sup2=4-5-6 sup4=1 sup5=true ; sup=true sup2=4-5-6 sup4=1 sup5=false… (revue-1-a) |
 | CM2N2A-4 (cm2) | src/exercices/CM2/CM2N2A-4.ts:396 | « Sélectionner$\dfrac{1}{6}$ de la plaque », « Hachurer$…$ » : espace manquante avant la fraction → `${…} $${frac.texFraction}$` | ×1 |
 | CM2N4B-1 (cm2) | consigne | double espace : Calculer les expressions suivantes. | ×1 ; sup=1-2-3 sup2=200 sup3=2 (revue-0-a) |
+| EN-Gratte-ciel (EN) | consigne | double espace : e du ciel. Chaque case contient un immeuble de ou 10 étages. Les immeubles d’une même ran | ×1 ; sup=1 (revue-1-a) |
 | HPC103 (HP) | correction q1 | espace avant ponctuation : colonnes . La matrice ‖ espace avant ponctuation : colonnes . Le produit ‖ espace avant ponctuation : colonne . Le produit | ×24 ; défaut ; défaut nb=10 (revue-0-a) |
 | HPC105 (HP) | correction q3 | double espace : . On en déduit que la matrice de | ×2 ; sup=1 (revue-1-a) |
 | PEN11 (PE) | correction q1 | double espace : Ce nombre peut s'écrire sous la forme d'une fraction irréductible qui a un facteur différen | ×4 ; sup=3-7-11-13 ; sup=3-7-11-13 nb=10 (revue-0-a) |
@@ -5973,8 +6009,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2autoB-1 (6e) | src/exercices/6e/6N2autoB-1.ts:246 | « ... » : 6 : n/10 = ... + .../10 + .../100 | ×1 |
 | 6N2autoB-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....+\dfrac{....}{100}+\dfrac{$ ‖ points de suspension en maths (\ldots) : $....+\dfrac{....}{100}+\dfrac{....}{10}$ ‖ points de suspension en maths (\ldots) : $....$ | ×37 |
 | 6N2autoB-4 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $= ..............................$ | ×80 |
+| 6N2autoB-5 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{1}{....} = 0,01$ ‖ points de suspension en maths (\ldots) : $....~ = \dfrac{1}{10}$ ‖ points de suspension en maths (\ldots) : $....~ = \dfrac{1}{1\,000}$ | ×3 |
 | 6N2autoC (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×8 |
 | 6N2autoC-2 (6e) | src/exercices/6e/6N2autoC-2.ts:8 | « ... » : Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ? | ×1 |
+| 6N2autoC-2 (6e) | titre | points de suspension : que le chiffre des unités devienne le chiffre des ... ? | ×1 |
+| 6N2autoC-2 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $............$ ‖ points de suspension en maths (\ldots) : $....................$ ‖ points de suspension en maths (\ldots) : $84,7 \times 100 =................$ | ×95 |
 | 6N2B (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $919,77 \times ....&nbsp;&nbsp;=&nbsp;&nbsp;0$ ‖ points de suspension en maths (\ldots) : $.... \times 0,01&nbsp;&nbsp;=&$ ‖ points de suspension en maths (\ldots) : $26,813 \times 0,1&nbsp;&nbsp;=....$ | ×4 |
 | 6N2B-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $~~ = ~~\phantom{......}880$ ‖ points de suspension en maths (\ldots) : $~~ = ~~\phantom{......}919\,770$ | ×8 |
 | 6N2B-2 (6e) | énoncé q1 | points de suspension en maths (\ldots) : $................ \times 0,001&$ ‖ points de suspension en maths (\ldots) : $................ \times 0,001&nbs$ ‖ points de suspension en maths (\ldots) : $................ \times 0,001&nbsp;&$ | ×196 ; sup=false sup2=4 ; sup=true sup2=1… (revue-0-a) |
@@ -6247,6 +6286,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFG6.ts:109 | « ... » : L'écart le plus important se situe entre l'école élémentaire (très féminisée) et le collège, où la proportion de femmes chute nettement. Une explication possibl | ×1 |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFG12.ts:66 | « ... » : Réponse possible parmi de nombreuses grandeurs : la température, l'énergie, la force, l'aire, l'intensité électrique, la concentration...&lt;br>La durée : minutes, | ×1 |
 | EgaliteFG4-3e-20 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFG20.ts:59 | « ... » : .&lt;br>Shakuntala Devi était capable de résoudre mentalement des calculs bien plus vite que des ordinateurs de son époque. Pourtant, elle fut souvent présentée co | ×1 |
+| EN-Gratte-ciel (EN) | énoncé non interactif q1 | points de suspension : ... ... ... | ×9 |
 | _automatismesCan.ts (hors référentiel) | src/exercices/_automatismesCan.ts:303 | « ... » : chargement... | ×1 |
 | 6e/_Construire_par_symetrie.ts (hors référentiel) | src/exercices/6e/_Construire_par_symetrie.ts:50 | « ... » : Construire par symétrie... | ×1 |
 | beta/QcmJsonGenerator.ts (hors référentiel) | src/exercices/beta/QcmJsonGenerator.ts:71 | « ... » : Correct ! $\\pi \\approx 3,14159...$ | ×1 |
@@ -6394,6 +6434,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N2E-2 (cm2) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×210 ; sup=1 sup2=false sup3=true ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | CM2N2E-3 (cm2) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×70 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-0-a) |
 | CM2N4B-1 (cm2) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×1270 ; sup=1-2-3 sup2=200 sup3=2 ; sup=1-2-3 sup2=1 sup3=1… (revue-0-a) |
+| EN-EtoileCalculs (EN) |  q1 etoile-calculs | format etoile-calculs : à tester à la main | ×130 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
+| EN-Gratte-ciel (EN) |  q1 tableau-hybride | format tableau-hybride : à tester à la main | ×19 ; sup=3 ; sup=1… (revue-0-a) |
 | PET13 (PE) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×64 ; sup=9 ; sup=1… (revue-0-a) |
 | PET14 (PE) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×64 ; sup=9 ; sup=1… (revue-0-a) |
 | TEC1-41 (Terminale) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
