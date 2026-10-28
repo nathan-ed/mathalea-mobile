@@ -89,6 +89,22 @@ Version 0.4.7 (production, depuis la 0.2.4, 500 caractères au plus) :
 </fr-FR>
 ```
 
+Version 0.4.8 (depuis la 0.2.4 : les 0.4.6 et 0.4.7 ne sont pas parties en
+production ; texte dans `docs/notes-de-version/v0.4.8.play.txt`) :
+
+```
+<fr-FR>
+- Rejoindre sa classe en scannant un QR code projeté par l'enseignant.
+- Sessions de classe : QR code projeté, réponses relevées par QR code.
+- Espace enseignant en quatre onglets, avec « Vue élève ».
+- Teste ton niveau : 15 questions et un bilan.
+- Fiches de cours, révisions espacées, paliers ouverts à une date.
+- Tous les exercices du site, explorés par degré et chapitre.
+- Changer d'appareil : « Récupérer mes données ».
+- Les écrans défilent de nouveau au doigt.
+</fr-FR>
+```
+
 Version 0.4.6 (depuis la 0.2.4, 500 caractères au plus) :
 
 ```
