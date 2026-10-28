@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **4 exercices passés sur 4190**.
-Constats regroupés : 1448 (un groupe = même exercice, même règle,
+Avancement : **13 exercices passés sur 4190**.
+Constats regroupés : 1251 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -17,38 +17,37 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
 | 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 1 | 1 |
-| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 2 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 1 | 1 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 4 | 10 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 55 | 207 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 54 | 113 |
-| 3 Mise en évidence | [M7 Explication en orange](#m7) | 19 | 53 |
+| 3 Mise en évidence | [M7 Explication en orange](#m7) | 18 | 49 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 34 | 52 |
-| 4 Typographie | [N3 Point décimal](#n3) | 3 | 3 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 9 | 20 |
+| 4 Typographie | [N2 Séparateur des milliers](#n2) | 1 | 1 |
+| 4 Typographie | [N3 Point décimal](#n3) | 1 | 1 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 1 | 1 |
+| 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 11 | 15 |
-| 4 Typographie | [T2 Unité (espace, \text)](#t2) | 29 | 79 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 4 | 4 |
-| 4 Typographie | [T4 Guillemets](#t4) | 4 | 7 |
+| 4 Typographie | [T2 Unité (espace, \text)](#t2) | 13 | 33 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 1 | 1 |
+| 4 Typographie | [T4 Guillemets](#t4) | 1 | 2 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 1 | 1 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 4 | 12 |
-| 5 Rédaction | [N1 Nombre hors $](#n1) | 8 | 8 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 13 | 20 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 7 | 9 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 8 | 19 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 3 | 5 |
 | 5 Rédaction | [R1 Titre](#r1) | 41 | 41 |
-| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 6 | 20 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 45 | 65 |
-| 5 Rédaction | [R3 Point final](#r3) | 2 | 2 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 8 | 11 |
+| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 7 | 25 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 36 | 48 |
+| 5 Rédaction | [R3 Point final](#r3) | 3 | 3 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 3 | 4 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 2 |
-| 5 Rédaction | [T4 Guillemets](#t4) | 5 | 5 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 36 | 74 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 83 | 185 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 1 | 1 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 11 | 25 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 57 | 145 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 3 | 7 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
 
 ## C1
@@ -58,15 +57,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q2.ts:69 | Q2 : la correction dit « Pour passer des mm au m, on multiplie par 1 000 » (et « des cm au m, on multiplie par 100 ») : c'est l'inverse, on divise (ou : pour passer des m aux mm, on multiplie). → Pour passer des $\text{m}$ aux $\text{mm}$, on multiplie par $1\,000$. | ×1 |
-
-## X2
-
-**Formule cassée (KaTeX, $)** (gravité 2 : Rendu cassé)
-
-| Exercice | Où | Constat | Tirages |
-| --- | --- | --- | --- |
-| can6C2-09 (CAN) | correction q1 | nombre impair de $ : \text{donc } 7 \times 21 = {\color{#F15929}\boldsymbol{147}}$ | ×4 ; défaut nb=10 (revue-1-a) |
-| can6C2-09 (CAN) | correction q8 | nombre impair de $ : text{donc } 16 \times 36 = {\color{#F15929}\boldsymbol{576}}$ | ×1 ; défaut nb=10 (revue-1-a) |
 
 ## X3
 
@@ -98,7 +88,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| canc3a-2023 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["6","7","2","21","3","14","1","42"] ; attendu : {"champ":"6;7"} | ×1 ; défaut (revue-0-a) |
+| canc3a-2023 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["1","25"] ; attendu : {"champ":"1 h 25 min"} | ×2 ; défaut (revue-0-a) |
+| canc3a-2023 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["30"] ; attendu : {"champ":"30\\operatorname{cm}"} | ×2 ; défaut (revue-0-a) |
+| canc3a-2023 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["59","2"] ; attendu : {"champ":"59;2"} | ×2 ; défaut (revue-0-a) |
+| canc3a-2023 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["2","10"] ; attendu : {"champ":"\\dfrac{2}{10}"} | ×4 ; défaut (revue-0-a) |
+| canc3a-2023 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["5","7","1","35"] ; attendu : {"champ":"5;7"} | ×1 ; défaut (revue-0-b) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q16, Q19 : fraction réponse mise en évidence en deux morceaux (numérateur et dénominateur séparés $\dfrac{⟦2⟧}{⟦10⟧}$) : la valeur saisie attendue n'apparaît pas comme une seule mise en évidence. → miseEnEvidence('\\dfrac{2}{10}') | ×1 |
+| canc3a-2025 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10 h 15 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2025b (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10 h 15 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-NY2024 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["21","12"] ; attendu : {"champ":"21 h 12 min"} | ×1 ; défaut (revue-0-b) |
 
 ## M2
 
@@ -478,14 +477,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5P1-04 (CAN) | src/exercices/can/5e/can5P1-04.ts:86 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Pour calculer $\\dfrac{1}{7}$ d'une quantité, on la divise par $7$. &lt;br> Ainsi, $\\dfrac{1}{7}\ | ×1 |
 | can5P1-04 (CAN) | src/exercices/can/5e/can5P1-04.ts:100 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Pour calculer $\\dfrac{1}{4}$ d'une quantité, on la divise par $4$. &lt;br> Ainsi, $\\dfra | ×1 |
 | can6a-2023 (CAN) | src/exercices/can/6e/can6a-2023.ts:691 | texteEnCouleur sans couleur (orange par défaut) : 'ans' | ×1 |
-| can6a-2023 (CAN) | correction q11 | texte orange (texteEnCouleur sans couleur) : ans. | ×1 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-1-a) |
 | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts:39 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Comme $1$ L $=100$ cL, le nombre cherché est donné par la différence : $100-${a}=${100 - a}$. ` | ×1 |
 | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts:51 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Comme $1$ L $=100$ cL, le nombre cherché est donné par la différence : $100-${a}=${100 - a}$. ` | ×1 |
 | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts:62 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 1 | ×1 |
 | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts:73 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 1 | ×1 |
-| canc3C05 (CAN) | correction q1 | texte orange (texteEnCouleur sans couleur) : Mentalement on peut soustraire les chiffres des unités des deux nombres : | ×3 ; défaut nb=10 (revue-1-a) |
-| canc3C05 (CAN) | correction q7 | texte orange (texteEnCouleur sans couleur) : Mentalement on peut ajouter seulement les chiffres des unités des deux nombres : | ×2 ; défaut nb=10 (revue-1-a) |
-| canc3C05 (CAN) | correction q10 | texte orange (texteEnCouleur sans couleur) : Mentalement on peut soustraire les chiffres des unités des deux nombres (en empr | ×1 ; défaut nb=10 (revue-1-a) |
 | CM2G3D-1 (cm2) | src/exercices/CM2/CM2G3D-1.ts:834 | texteEnCouleur sans couleur (orange par défaut) : `Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment( | ×1 |
 | CM2G3D-1 (cm2) | src/exercices/CM2/CM2G3D-1.ts:836 | texteEnCouleur sans couleur (orange par défaut) : `Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$` | ×1 |
 | CM2G3D-1 (cm2) | src/exercices/CM2/CM2G3D-1.ts:838 | texteEnCouleur sans couleur (orange par défaut) : `Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 1)}\\text{ | ×1 |
@@ -516,29 +511,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6a-2024 (CAN) | énoncé q17 | « 15 » hors $ : Joachim a 15 billes. Il en a 5 fois moins que Romain. Romain ‖ « 5 » hors $ : Joachim a 15 billes. Il en a 5 fois moins que Romain. Romain a [champ] billes ‖ « 12 » hors $ : Léo a 12 billes. Il en a 4 fois moins que Lola. Lola a | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2024 (CAN) | correction q27 | « 5 » hors $ : . En effet, il y a 5 carrés dans le rectangle et la zone grisée couvr | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2024 (CAN) | énoncé non interactif q17 | « 15 » hors $ : Joachim a 15 billes. Il en a 5 fois moins que Romain. Romain ‖ « 5 » hors $ : Joachim a 15 billes. Il en a 5 fois moins que Romain. Romain a | ×2 |
-| can6a-NY2025 (CAN) | correction q29 | « 0 » hors $ : (0 h) au | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2026 (CAN) | correction q29 | « 0 » hors $ : (0 h) au | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6C1-03 (CAN) | titre | « 5 » hors $ : Connaître les tables de multiplication (de 5 à 9) | ×2 |
-| can6C1-06 (CAN) | titre | « 100 » hors $ : Déterminer le complément à 100 | ×1 |
-| can6C1-09 (CAN) | titre | « 4 » hors $ : Multiplier un nombre par 4 ou 8 | ×2 |
-| can6C2-01 (CAN) | titre | « 5 » hors $ : Multiplier un nombre pair par 5 | ×1 |
-| can6C2-05 (CAN) | titre | « 9 » hors $ : Diviser par 9 | ×1 |
-| can6C2-09 (CAN) | correction q1 | « 7 » hors $ : \text{donc } 7 \times 21 = {\color{#F15929}\boldsymbol{147}} ‖ « 147 » hors $ : {donc } 7 \times 21 = {\color{#F15929}\boldsymbol{147}} ‖ « 576 » hors $ : donc } 16 \times 36 = {\color{#F15929}\boldsymbol{576}} | ×15 ; défaut nb=10 (revue-1-a) |
-| can6C2-10 (CAN) | titre | « 0,5 » hors $ : Multiplier astucieusement par 0,5 | ×1 |
-| can6C2-11 (CAN) | titre | « 5 » hors $ : Diviser astucieusement par 5, 4, 8 ou 0,5 ‖ « 0,5 » hors $ : Diviser astucieusement par 5, 4, 8 ou 0,5 | ×4 |
-| can6C3-03 (CAN) | titre | « 1 » hors $ : Trouver le complément à 1 avec un seul chiffre différent de 0 ‖ « 0 » hors $ : complément à 1 avec un seul chiffre différent de 0 | ×2 |
-| can6C3-04 (CAN) | titre | « 1 » hors $ : Trouver le complément à 1 avec des centièmes | ×1 |
-| can6C3-05 (CAN) | titre | « 0,1 » hors $ : Multiplier par 0,1, 0,01 ou 0,001 | ×3 |
-| can6C3-06 (CAN) | titre | « 0 » hors $ : Multiplier deux décimaux compris entre 0 et 1 | ×2 |
-| can6C4-01 (CAN) | titre | « 3 » hors $ : Trouver le reste d’une division par 3 | ×1 |
-| can6C4-01 (CAN) | correction q1 | « 2 » hors $ : . En enlevant 2 unités à ‖ « 1 » hors $ : . En enlevant 1 unité à | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C4-03 (CAN) | correction q1 | « 8 » hors $ : par 8. On en déduit que le paysagiste pourra fai ‖ « 5 » hors $ : par 5. Cela signifie qu’il pourra former ‖ « 6 » hors $ : par 6. Cela signifie que la documentaliste pourra rem | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C52-02 (CAN) | titre | « 1 » hors $ : Comparer une fraction avec 1 | ×1 |
-| canc3a (CAN) | énoncé q18 | « 8 » hors $ : Quel est le périmètre d'un carré de côté 8 ? [champ] ‖ « 40 » hors $ : La moitié de la moitié de 40 [champ] | ×9 ; sup= ; sup=18… (revue-0-a) |
-| canc3a (CAN) | énoncé non interactif q18 | « 8 » hors $ : Quel est le périmètre d'un carré de côté 8 ? | ×1 |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q25 : « une figure d'aire 5 unités d'aire », « une figure de 5 unités d'aire » : nombres hors $. → $5$ unités d'aire | ×1 |
 | canc3a-2023 (CAN) | énoncé q25 | « 5 » hors $ : Marina veut construire une figure d'aire 5 unités d'aire (uA). Combien de petits car | ×1 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | correction q25 | « 5 » hors $ : petits carreaux. Ainsi, une figure de 5 unités d'aire se représente par une figure de | ×1 ; défaut (revue-0-a) |
@@ -547,15 +519,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2024 (CAN) | correction q28 | « 0 » hors $ : (0 h) au | ×1 ; défaut (revue-0-a) |
 | canc3a-NY2025 (CAN) | correction q29 | « 0 » hors $ : (0 h) au | ×2 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-NY2026 (CAN) | correction q29 | « 0 » hors $ : (0 h) au | ×2 ; sup=false ; sup=true (revue-0-a) |
-| canc3C05 (CAN) | correction q2 | « 139 » hors $ : s'obtient en multipliant le chiffre des unités de 139 et celui de 202. Donc le chiffre des unités de ‖ « 202 » hors $ : tipliant le chiffre des unités de 139 et celui de 202. Donc le chiffre des unités de ‖ « 20 » hors $ : On va retirer le plus grand multiple de 20 possible de | ×10 ; défaut nb=10 (revue-1-a) |
-| canc3C19 (CAN) | correction q3 | « 7 » hors $ : Chacun des 7 enfants (Teresa et ses six amis) a le même nombr ‖ « 5 » hors $ : Chacun des 5 enfants (Lisa et ses quatre amis) a le même nomb | ×2 ; défaut nb=10 (revue-1-a) |
-| canc3C22 (CAN) | titre | « 10 » hors $ : Multiplier par 10, 100, 1000 | ×3 |
-| canc3C23 (CAN) | titre | « 10 » hors $ : Déterminer le complément à 10, 100, 1000 | ×3 |
-| canc3D04 (CAN) | énoncé q1 | « 11 » hors $ : Placer correctement les aiguilles pour indiquer 11 h 25. [champ] ‖ « 25 » hors $ : cer correctement les aiguilles pour indiquer 11 h 25. [champ] ‖ « 25 » hors $ : acer correctement les aiguilles pour indiquer 3 h 25. [champ] | ×24 ; sup=false ; sup=true… (revue-0-a) |
-| canc3D04 (CAN) | correction q1 | « 22 » hors $ : . Remarque : 22 h correspond à 10 h du soir. | ×2 ; sup=true (revue-1-a) |
-| canc3D04 (CAN) | énoncé non interactif q1 | « 11 » hors $ : Placer correctement les aiguilles pour indiquer 11 h 25. [champ] ‖ « 25 » hors $ : cer correctement les aiguilles pour indiquer 11 h 25. [champ] | ×2 |
-| canc3N03 (CAN) | énoncé q1 | « 3 » hors $ : re que l'on peut écrire avec les trois chiffres : 3, 4 et 7 ? [champ] ‖ « 4 » hors $ : que l'on peut écrire avec les trois chiffres : 3, 4 et 7 ? [champ] ‖ « 7 » hors $ : 'on peut écrire avec les trois chiffres : 3, 4 et 7 ? [champ] | ×33 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3N03 (CAN) | énoncé non interactif q1 | « 3 » hors $ : re que l'on peut écrire avec les trois chiffres : 3, 4 et 7 ? ‖ « 4 » hors $ : que l'on peut écrire avec les trois chiffres : 3, 4 et 7 ? ‖ « 7 » hors $ : 'on peut écrire avec les trois chiffres : 3, 4 et 7 ? | ×3 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q18 | Q18 : « Placer correctement les aiguilles pour indiquer 11 h 25. » : nombres hors $ (et seule consigne à l'infinitif du sujet). → indiquer $11~\text{h}~25$. | ×1 |
 | canCE1a-2025 (CAN) | correction q15 | « 1 » hors $ : [champ] Figure 1 [champ] Figure 4 [champ] Fig ‖ « 4 » hors $ : [champ] Figure 1 [champ] Figure 4 [champ] Figure 3 [champ] Fig ‖ « 3 » hors $ : [champ] Figure 4 [champ] Figure 3 [champ] Figure 2 Le carré ( | ×20 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) | énoncé q18 | « 11 » hors $ : Placer correctement les aiguilles pour indiquer 11 h 25. [champ] ‖ « 25 » hors $ : cer correctement les aiguilles pour indiquer 11 h 25. [champ] | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -569,14 +532,20 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE2a-2025 (CAN) | correction q15 | « 9 » hors $ : . La bonne réponse était : Il y a 9 fois 6 et il reste 2. ‖ « 2 » hors $ : bonne réponse était : Il y a 9 fois 6 et il reste 2. ‖ « 5 » hors $ : onne réponse était : Il y a 7 fois 10 et il reste 5. | ×6 ; sup=false ; sup=true (revue-0-a) |
 | canCE2a-2025 (CAN) | énoncé non interactif q13 | « 70 » hors $ : Un drone coûte 70 €. Je paye avec 2 billets de 50 €. Combien doit ‖ « 2 » hors $ : Un drone coûte 70 €. Je paye avec 2 billets de 50 €. Combien doit-on me rendre ? ‖ « 238 » hors $ : re suis-je ? Je suis un nombre compris entre 238 et 300 et mon chiffre des dizaines est 3. | ×6 |
 
+## N2
+
+**Séparateur des milliers** (gravité 4 : Typographie)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| canc3a-2024 (CAN) | src/exercices/can/canc3a-2024 | Q28 : correction « $1$ L $=1000$ mL » (séparateur, unités hors maths) ; Q3 (sujet officiel) : « ⟦2500⟧ » sans séparateur ni point. → $1~\text{L}=1\,000~\text{mL}$ | ×1 |
+
 ## N3
 
 **Point décimal** (gravité 4 : Typographie)
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6C53-03 (CAN) | correction q1 | point décimal : $frac{8}{28} +\dfrac{4}{28} \\[0.7em] &={\color{}\boldsymbol{$ ‖ point décimal : $oldsymbol{\dfrac{12}{28}}} \\[0.7em] &= {\color{}\boldsymbol$ ‖ point décimal : $dfrac{2}{8} + \dfrac{4}{8} \\[0.7em] &={\color{}\boldsymbol{$ | ×17 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C53-04 (CAN) | correction q1 | point décimal : $ac{12}{42} + \dfrac{7}{42} \\[0.7em] &= {\color{}\boldsymbol$ ‖ point décimal : $ac{15}{20} - \dfrac{4}{20} \\[0.7em] &= {\color{}\boldsymbol$ ‖ point décimal : $rac{4}{20} + \dfrac{5}{20} \\[0.7em] &= {\color{}\boldsymbol$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts:629 | Q12 : réponse mise en évidence « 0.18 » (point décimal) : miseEnEvidence(sortie.reponse) sans texNombre. → miseEnEvidence(texNombre(sortie.reponse, 2)) | ×1 |
 
 ## N7
@@ -586,6 +555,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts:1468 | Q27 : « $4,3$ € » : prix sans le zéro des centimes. → texPrix : $4{,}30$ € | ×1 |
+
+## R4
+
+**Dernière phrase en saisie libre** (gravité 4 : Typographie)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| canc3a-2024 (CAN) | src/exercices/can/canc3a-2024/canc3a-2024-Q23.ts:35 | Q23 : énoncé « La moitié de $54$ » suivi du champ, sans verbe (« est »), en interactif comme en non interactif. → La moitié de $54$ est : | ×1 |
 
 ## T1
 
@@ -615,45 +592,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6a-2018 (CAN) | correction q18 | unité sans espace : $1\text{ cm}^2$ ‖ unité sans espace : $0,5\text{ cm}^2$ ‖ unité sans espace : $es 1 \text{ cm}^2+ 3 \times 0,5\text{ cm}^2={\color{}\boldsy$ | ×10 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | énoncé q28 | unité sans espace : $5\text{ m}^3=$ | ×2 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | énoncé non interactif q28 | unité sans espace : $5\text{ m}^3=$ | ×1 |
-| can6a-2021 (CAN) | énoncé q9 | unité sans espace : $7\text{ cm}$ ‖ unité sans espace : $120\text{ km}$ ‖ unité sans espace : $4\text{ m}$ | ×4 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | correction q21 | unité sans espace : $120\text{ km}$ ‖ unité sans espace : $1\text{ m}$ ‖ unité sans espace : $=100\text{ cm}$ | ×5 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé non interactif q9 | unité sans espace : $7\text{ cm}$ ‖ unité sans espace : $120\text{ km}$ ‖ unité sans espace : $4\text{ m}$ | ×4 |
-| can6a-2022 (CAN) | énoncé q17 | unité sans espace : $34\text{ cm}$ ‖ unité sans espace : $2\text{ dm}$ ‖ unité sans espace : $2\text{ mm}$ | ×6 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | correction q17 | unité sans espace : $34\text{ cm}$ | ×3 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | énoncé non interactif q17 | unité sans espace : $34\text{ cm}$ ‖ unité sans espace : $2\text{ dm}$ ‖ unité sans espace : $2\text{ mm}$ | ×6 |
-| can6a-2023 (CAN) | énoncé q7 | unité sans espace : $20\text{ min}+50\text{ min}=$ ‖ unité sans espace : $251\text{ cm}$ ‖ unité sans espace : $251\text{ mm}$ | ×15 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) | correction q18 | unité sans espace : $2\times 4=8\text{ mm}$ ‖ unité sans espace : $40\text{ km}$ | ×6 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) | énoncé non interactif q7 | unité sans espace : $20\text{ min}+50\text{ min}=$ ‖ unité sans espace : $251\text{ cm}$ ‖ unité sans espace : $251\text{ mm}$ | ×9 |
-| can6a-2024 (CAN) | énoncé q16 | unité sans espace : $280\text{ g}$ ‖ unité sans espace : $240\text{ km}$ | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2024 (CAN) | correction q16 | unité sans espace : $280\text{ g}\div 4 \times 3=70\t$ ‖ unité sans espace : $280\text{ g}\div 4 \times 3=70\text{ g}\times 3={\color{}\b$ ‖ unité sans espace : $2\times 120\text{ km}=240\text{ km}$ | ×13 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2024 (CAN) | énoncé non interactif q16 | unité sans espace : $280\text{ g}$ ‖ unité hors \text : $\text{450\,mL}+....\,\text{mL} =1\, \t$ | ×2 |
-| can6a-2025 (CAN) | correction q10 | unité sans espace : $4\text{ m}$ ‖ unité sans espace : $4\text{ km}$ ‖ unité sans espace : $4\text{ cm}$ | ×25 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2025 (CAN) | énoncé q13 | unité sans espace : $55\text{ dm}+45\text{ dm}=$ ‖ unité sans espace : $38\text{ cm}$ ‖ unité sans espace : $185\text{ mm}$ | ×7 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2025 (CAN) | énoncé non interactif q13 | unité sans espace : $55\text{ dm}+45\text{ dm}= ....$ ‖ unité sans espace : $55\text{ dm}+45\text{ dm}= .... \text{ hm}$ ‖ unité sans espace : $38\text{ cm}$ | ×4 |
-| can6a-2026 (CAN) | énoncé q13 | unité sans espace : $5,5\text{ kg}+500\text{ g}=$ ‖ unité sans espace : $4\text{ kg}$ ‖ unité sans espace : $28\text{ cm}$ | ×14 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2026 (CAN) | correction q13 | unité sans espace : $500\text{ g}=0,5\text{ kg}$ ‖ unité sans espace : $10\text{ kg}$ ‖ unité sans espace : $12 + 2\times \text{?} = 28\text{ cm}$ | ×16 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2026 (CAN) | énoncé non interactif q13 | unité sans espace : $5,5\text{ kg}+500\text{ g}=$ ‖ unité sans espace : $4\text{ kg}$ ‖ unité sans espace : $28\text{ cm}$ | ×7 |
-| can6a-NY2024 (CAN) | énoncé q19 | unité sans espace : $2\,024\text{ cm}$ | ×1 ; défaut (revue-0-a) |
-| can6a-NY2024 (CAN) | correction q19 | unité sans espace : $1\text{ m}$ ‖ unité sans espace : $=100\text{ cm}$ ‖ unité sans espace : $1\text{ cm}$ | ×5 ; défaut (revue-0-a) |
-| can6a-NY2024 (CAN) | énoncé non interactif q19 | unité sans espace : $2\,024\text{ cm}$ | ×1 |
-| can6a-NY2025 (CAN) | énoncé q11 | unité sans espace : $2\,025\text{ m}$ | ×1 ; sup=false (revue-0-a) |
-| can6a-NY2025 (CAN) | correction q11 | unité sans espace : $1\text{ m}$ ‖ unité sans espace : $=100\text{ cm}$ ‖ unité sans espace : $2\,025\text{ m}={\color{}\boldsymbo$ | ×7 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2025 (CAN) | énoncé non interactif q11 | unité sans espace : $2\,025\text{ m}$ | ×1 |
-| can6a-NY2026 (CAN) | énoncé q11 | unité sans espace : $2\,026\text{ m}$ | ×1 ; sup=false (revue-0-a) |
-| can6a-NY2026 (CAN) | correction q11 | unité sans espace : $1\text{ m}$ ‖ unité sans espace : $=100\text{ cm}$ ‖ unité sans espace : $2\,026\text{ m}={\color{}\boldsymbo$ | ×7 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2026 (CAN) | énoncé non interactif q11 | unité sans espace : $2\,026\text{ m}$ | ×1 |
-| canc3a (CAN) | énoncé q12 | unité sans espace : $25\text{ km}$ ‖ unité sans espace : $2,1\text{ m}$ ‖ unité sans espace : $3,3\text{ cm}$ | ×132 ; sup= ; sup=12… (revue-0-a) |
-| canc3a (CAN) | correction q5 | unité sans espace : $3 \times 2,5\text{ cm}$ | ×12 ; sup=22 ; sup=31 (revue-22-a) |
-| canc3a (CAN) | énoncé non interactif q12 | unité sans espace : $25\text{ km}$ ‖ unité sans espace : $2,1\text{ m}$ | ×5 |
 | canc3a-2023 (CAN) | énoncé q7 | unité sans espace : $30\text{ min }+55 \text{ min }=$ ‖ unité sans espace : $30\text{ m}$ ‖ unité sans espace : $30\text{ dm}$ | ×10 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | correction q21 | unité sans espace : $1\text{ h}$ ‖ unité sans espace : $80\text{ km}$ ‖ unité sans espace : $15\text{ min}$ | ×9 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | énoncé non interactif q7 | unité sans espace : $30\text{ min }+55 \text{ min }=$ ‖ unité sans espace : $30\text{ m}$ ‖ unité sans espace : $30\text{ dm}$ | ×10 |
 | canc3a-2024 (CAN) | énoncé q16 | unité sans espace : $360\text{ m}$ ‖ unité sans espace : $240\text{ km}$ | ×2 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2024 (CAN) | correction q16 | unité sans espace : $360\text{ m}$ ‖ unité sans espace : $3\times 110\text{ km}={\color{}\boldsymb$ ‖ unité sans espace : $240\text{ km}$ | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2024 (CAN) | énoncé non interactif q16 | unité sans espace : $360\text{ m}$ ‖ unité hors \text : $\text{450\,mL}+....\,\text{mL} =1\, \t$ | ×2 |
+| canc3a-2025 (CAN) | src/exercices/can/canc3a-2025 | Q6, Q8, Q13, Q23, Q27 : heures, masses et prix avec unité hors maths (« $9$ h $45$ min », « $18$ g », « $2,70$ € », « $5$ euros » à côté de « € »). → $9~\text{h}~45~\text{min}$ | ×1 |
 | canc3a-2025 (CAN) | correction q10 | unité sans espace : $4\text{ m}$ ‖ unité sans espace : $4\text{ km}$ ‖ unité sans espace : $4\text{ cm}$ | ×14 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2025 (CAN) | énoncé q18 | unité sans espace : $36\text{ cm}$ | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2025 (CAN) | énoncé non interactif q18 | unité sans espace : $36\text{ cm}$ ‖ unité sans espace : $320\text{ min }= ~.... ~\text{h$ | ×3 |
@@ -675,20 +620,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2026 (CAN) | énoncé q11 | unité sans espace : $2\,026\text{ m}$ | ×1 ; sup=false (revue-0-a) |
 | canc3a-NY2026 (CAN) | correction q11 | unité sans espace : $1\text{ m}$ ‖ unité sans espace : $=100\text{ cm}$ ‖ unité sans espace : $2\,026\text{ m}={\color{}\boldsymbo$ | ×7 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-NY2026 (CAN) | énoncé non interactif q11 | unité sans espace : $2\,026\text{ m}$ | ×1 |
-| canc3C18 (CAN) | énoncé q1 | unité sans espace : $134\text{ km}$ | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C18 (CAN) | correction q1 | unité sans espace : $134\text{ km}$ | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C18 (CAN) | énoncé non interactif q1 | unité sans espace : $134\text{ km}$ | ×2 |
-| canc3D03 (CAN) | énoncé q1 | unité sans espace : $1\text{ h } 30$ | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3D03 (CAN) | correction q1 | unité sans espace : $(1\text{ h }+1\text{ h })+(30\t$ ‖ unité sans espace : $(1\text{ h }+1\text{ h })+(30\text{ min }+1$ ‖ unité sans espace : $(1\text{ h }+1\text{ h })+(30\text{ min }+10\text{ min })=$ | ×50 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3D03 (CAN) | énoncé non interactif q1 | unité sans espace : $1\text{ h } 30$ | ×2 |
-| canc3M01 (CAN) | énoncé q1 | unité sans espace : $7\text{ g }= 70$ ‖ unité sans espace : $6\text{ m }= 0,06$ ‖ unité sans espace : $9\text{ L }= 90$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3M01 (CAN) | correction q1 | unité sans espace : $7\text{ g }= 70{\color{}\bolds$ ‖ unité sans espace : $6\text{ m }= 0,06{\color{}\bol$ ‖ unité sans espace : $9\text{ L }= 90{\color{}\bolds$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3M01 (CAN) | énoncé non interactif q1 | unité sans espace : $7\text{ g }= 70$ | ×1 |
-| canc3M02 (CAN) | énoncé q1 | unité sans espace : $9\text{ cm}$ | ×4 ; défaut nb=10 (revue-1-a) |
-| canc3M02 (CAN) | correction q7 | unité sans espace : $23\text{ cm}$ ‖ unité sans espace : $23-9=14\text{ cm}$ | ×2 ; défaut nb=10 (revue-1-a) |
-| canc3M03 (CAN) | énoncé q1 | unité sans espace : $4\text{ cg}+14\text{ mg }=$ ‖ unité sans espace : $9\text{ dam}+13\text{ dm }=$ ‖ unité sans espace : $6\text{ hL}+10\text{ daL }=$ | ×17 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3M03 (CAN) | correction q1 | unité sans espace : $4\text{ cg }=40\text{ mg }$ ‖ unité sans espace : $4\text{ cg}+14\text{ mg } = 40\text$ ‖ unité sans espace : $cg}+14\text{ mg } = 40\text{ mg}+14\text{ mg }$ | ×52 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3M03 (CAN) | énoncé non interactif q1 | unité sans espace : $4\text{ cg}+14\text{ mg }= .... \text{ mg}$ | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q8.ts:39 | Q8 : propositions et correction « $45$ s », « $15$ min » : unité hors maths, sans \text ni espace insécable dans la formule. → $45~\text{s}$ | ×1 |
 | canCE1a-2026 (CAN) | src/exercices/can/canCE1a-2026/canCE1-2026-Q8.ts | Q8 : propositions « $25$ m », « $25$ g », « $25$ cm » : unité hors maths. → $25~\text{cm}$ | ×1 |
 | canCE2-2026 (CAN) | src/exercices/can/canCE2a-2026 | Q4, Q6, Q13 : « $4\,000$ g », « $1$ kg $= 1\,000$ g », « $10$ € » : unités hors maths ; Q13 « J'ai donné: » sans espace insécable, corrections sans point final. → $4~\text{kg}=4\,000~\text{g}$ | ×1 |
@@ -701,9 +632,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6C2-02 (CAN) | consigne | espace ordinaire (sécable) avant « : » : Calculer : | ×1 ; défaut (revue-0-a) |
-| can6C2-03 (CAN) | consigne | espace ordinaire (sécable) avant « : » : Calculer : | ×1 ; défaut (revue-0-a) |
-| can6C3-02 (CAN) | consigne | espace ordinaire (sécable) avant « : » : Calculer : | ×1 ; sup2=false (revue-0-a) |
 | canCE2-2026 (CAN) | correction q13 | « é: » sans espace insécable : J'ai donné: | ×2 ; sup=false ; sup=true (revue-0-a) |
 
 ## T4
@@ -712,11 +640,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| canc3C08 (CAN) | énoncé q1 | guillemet sans insécable : Isabelle dit à Nawel : « J'ai ‖ guillemet sans insécable : € de moins que toi ». Combien d'argent en t ‖ guillemet sans insécable : Léa dit à Gabrielle : « J'ai | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C08 (CAN) | énoncé non interactif q1 | guillemet sans insécable : Isabelle dit à Nawel : « J'ai ‖ guillemet sans insécable : € de moins que toi ». Combien d'argent en t | ×2 |
-| canc3C23 (CAN) | correction q3 | guillemet sans insécable : , on peut penser : « Combien faut-il ajouter à ‖ guillemet sans insécable : ? » | ×4 ; défaut nb=10 (revue-1-a) |
-| canc3N08 (CAN) | énoncé q1 | guillemet sans insécable : Dans la suite répétitive « ABABAB ‖ guillemet sans insécable : », quelle est la ‖ guillemet sans insécable : Dans la suite répétitive « ABCABCABC | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3N08 (CAN) | énoncé non interactif q1 | guillemet sans insécable : Dans la suite répétitive « ABABAB ‖ guillemet sans insécable : », quelle est la | ×2 |
 | canCE1a-2025 (CAN) | énoncé q4 | guillemet sans insécable : cases et tombe sur « recule de ‖ guillemet sans insécable : cases ». Magalie doit alors aller sur la case [champ] ‖ guillemet sans insécable : cases ». Zoé doit alors aller sur la case [champ] . | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) | énoncé non interactif q4 | guillemet sans insécable : cases et tombe sur « recule de ‖ guillemet sans insécable : cases ». Magalie doit alors aller sur la case | ×2 |
 
@@ -734,7 +657,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| canc3a-2023 (CAN) | correction | page de 393 px pour 390 px | ×1 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q10 : correction « soixante-et-un-mille-cinquante = 61 000 + 50 = 61 050 » coupée à droite à 390 px (formule d'un seul tenant, mot dans \text). → Mot hors formule, formule à la ligne. | ×1 |
+| canc3a-2024 (CAN) | correction | page de 415 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026 (CAN) | énoncé | page de 400 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026 (CAN) | correction | page de 437 px pour 390 px | ×1 ; sup=false (revue-0-b) |
+| canc3a-2026b (CAN) | énoncé | page de 400 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-NY2024 (CAN) | correction | page de 398 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| canc3a-NY2025 (CAN) | correction | page de 504 px pour 390 px | ×1 ; sup=false (revue-0-b) |
+| canc3a-NY2026 (CAN) | correction | page de 560 px pour 390 px | ×1 ; sup=false (revue-0-b) |
 
 ## M3
 
@@ -742,6 +673,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| canc3a-2024 (CAN) |  q10 qcm | QCM : bonne proposition (54cm) absente de la mise en évidence (54) | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2025 (CAN) |  q15 qcm | QCM : bonne proposition (figureb) absente de la mise en évidence (b) | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2025 (CAN) |  q16 qcm | QCM : bonne proposition (figurea) absente de la mise en évidence (a) | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×2 ; sup=false (revue-0-a) |
+| canc3a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×2 ; sup=true (revue-1-a) |
+| canc3a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=false (revue-0-b) |
 | canCE1a-2025 (CAN) |  q2 qcm | QCM : bonne proposition (1m=1000mm) absente de la mise en évidence (1000mm) | ×1 ; sup=false (revue-0-a) |
 | canCE1a-2025 (CAN) |  q8 qcm | QCM : bonne proposition (45s) absente de la mise en évidence (45) | ×1 ; sup=false (revue-0-a) |
 | canCE1a-2025 (CAN) |  q2 qcm | QCM : bonne proposition (1m=100cm) absente de la mise en évidence (100cm) | ×3 ; sup=false ; sup=true (revue-0-b) |
@@ -755,46 +693,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE2a-2025 (CAN) |  q11 qcm | QCM : bonne proposition () absente de la mise en évidence (troisième) | ×2 ; sup=false ; sup=true (revue-0-b) |
 | canCE2a-2025 (CAN) |  q11 qcm | QCM : bonne proposition () absente de la mise en évidence (première) | ×1 ; sup=true (revue-1-b) |
 
-## N1
-
-**Nombre hors $** (gravité 5 : Rédaction)
-
-| Exercice | Où | Constat | Tirages |
-| --- | --- | --- | --- |
-| can6a-2018 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2018 | ×1 |
-| can6a-2021 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2021 | ×1 |
-| can6a-2022 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2022 | ×1 |
-| can6a-2023 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2023 | ×1 |
-| can6a-2024 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2024 | ×1 |
-| can6a-2025 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2025 | ×1 |
-| can6a-2026 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2026 | ×1 |
-| can6a-NY2024 (CAN) | titre | ordinal « 6ème » hors $ : CAN Spéciale année 2024 - 6ème | ×1 |
-
 ## N2
 
 **Séparateur des milliers** (gravité 5 : Rédaction)
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6a-2018 (CAN) | correction q3 | nombre à 4 chiffres sans séparateur : $3928=392\times 10+8$ ‖ nombre à 4 chiffres sans séparateur : $3928$ | ×2 ; sup2=false (revue-1-a) |
-| can6a-2021 (CAN) | correction q10 | nombre à 4 chiffres sans séparateur : $3861=386\times 10+1$ ‖ nombre à 4 chiffres sans séparateur : $3861$ | ×2 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé q16 | nombre à 4 chiffres sans séparateur : $3788$ | ×2 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé non interactif q16 | nombre à 4 chiffres sans séparateur : $3788$ | ×2 |
-| can6a-2022 (CAN) | énoncé q11 | nombre à 4 chiffres sans séparateur : $7,4\times 1000=$ | ×1 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | correction q11 | nombre à 4 chiffres sans séparateur : $7,4\times 1000={\color{}\boldsymbol{7\,4$ ‖ nombre à 4 chiffres sans séparateur : $times 24={\color{}\boldsymbol{2400}}$ | ×2 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | énoncé non interactif q11 | nombre à 4 chiffres sans séparateur : $7,4\times 1000=$ | ×1 |
-| can6a-2024 (CAN) | correction q12 | nombre à 4 chiffres sans séparateur : $mes 5,5= {\color{}\boldsymbol{5500}}$ ‖ nombre à 4 chiffres sans séparateur : $=1000$ ‖ nombre à 4 chiffres sans séparateur : $imes 100={\color{}\boldsymbol{2500}}$ | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2024 (CAN) | correction q6 | nombre à 4 chiffres sans séparateur : $2\,024\div 1000={\color{}\boldsymbol{2,02$ | ×1 ; défaut (revue-0-a) |
-| can6C2-04 (CAN) | correction q1 | nombre à 4 chiffres sans séparateur : $8 \times 3,47\times 125 = 1000 \times 3,47 = {\color{}\b$ ‖ nombre à 4 chiffres sans séparateur : $1000$ | ×9 ; sup=false ; sup=false nb=10 (revue-0-a) |
-| can6C2-07 (CAN) | correction q1 | nombre à 4 chiffres sans séparateur : $4\,729+999=4\,729+\underbrace{1000-1}_{999}=5\,729-1=5\,728$ ‖ nombre à 4 chiffres sans séparateur : $9\,723-999=9\,723\underbrace{-1000+1}_{-999}=8\,723+1=8\,724$ | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C3-03 (CAN) | correction q2 | nombre à 4 chiffres sans séparateur : $1000$ | ×6 ; défaut nb=10 (revue-1-a) |
 | canc3a-2024 (CAN) | correction q28 | nombre à 4 chiffres sans séparateur : $=1000$ ‖ nombre à 4 chiffres sans séparateur : $imes 100={\color{}\boldsymbol{2500}}$ | ×2 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-NY2024 (CAN) | correction q2 | nombre à 4 chiffres sans séparateur : $20\,240\times 1000={\color{}\boldsymbol{20\,$ ‖ nombre à 4 chiffres sans séparateur : $2\,024\times 1000={\color{}\boldsymbol{2\,0$ | ×2 ; défaut (revue-0-a) |
 | canc3a-NY2024 (CAN) | énoncé q8 | nombre à 4 chiffres sans séparateur : $2\,024\times 1000$ | ×1 ; défaut (revue-0-a) |
 | canc3a-NY2024 (CAN) | énoncé non interactif q8 | nombre à 4 chiffres sans séparateur : $2\,024\times 1000$ | ×1 |
-| canc3C01 (CAN) | énoncé q2 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 ; défaut nb=10 (revue-1-a) |
-| canc3C01 (CAN) | correction q2 | nombre à 4 chiffres sans séparateur : $1000\times 2 = {\color{}\bolds$ | ×1 ; défaut nb=10 (revue-1-a) |
-| canc3C18 (CAN) | correction q4 | nombre à 4 chiffres sans séparateur : $22\,500 -1200=21\,300$ | ×1 ; défaut nb=10 (revue-1-a) |
 | canCE2a-2025 (CAN) | correction q7 | nombre à 4 chiffres sans séparateur : $2+7\,000={\color{}\boldsymbol{9622}}$ | ×1 ; sup=false (revue-0-a) |
 
 ## R1
@@ -851,7 +759,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6a-2023 (CAN) | correction q22 | mot répété « en en » : . Ainsi, en en | ×1 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false (revue-0-a) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts:1182 | Q22 : « Ainsi, en en 1 h et 15 min » (mot répété). → Ainsi, en $1~\text{h}$ et $15~\text{min}$ | ×1 |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts:393 | Q8 : « oeufs » (œufs), double espace « boites de  $4$ ». → œufs ; boîtes de $4$ | ×1 |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q24 : correction « $140 = 1$ centaines et $4$ dizaines » : accord (1 centaine), égalité coupée entre maths et texte. → $140 = 1$ centaine et $4$ dizaines | ×1 |
@@ -859,6 +766,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-2023 (CAN) | énoncé q8 | ligature œ manquante « oeufs » : oeufs, combien de boites de ‖ ligature œ manquante « oeufs » : oeufs dois-je utiliser ? [champ] | ×2 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | correction q22 | mot répété « en en » : . Ainsi, en en | ×1 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | énoncé non interactif q8 | ligature œ manquante « oeufs » : oeufs, combien de boites de ‖ ligature œ manquante « oeufs » : oeufs dois-je utiliser ? ‖ mot répété « object Object » : lus que Zacharie. Combien de billes a Zacharie ? [object Object] | ×3 |
+| canc3a-2024 (CAN) | src/exercices/can/canc3a-2024/canc3a-2024-Q16.ts:43 | Q16 : « est éagl à » (coquille). → est égal à | ×1 |
+| canc3a-2024 (CAN) | src/exercices/can/can6a-2024/can6a-2024-Q18.ts:91 | Q18 : « le nombre de carreaux entier » (accord). → carreaux entiers | ×1 |
+| canc3a-2024 (CAN) | src/exercices/can/canc3a-2024 | Q24 : « complète. : » (point puis deux-points) ; Q4 : « carreaux de chocolats » puis « carreaux de chocolat ». → Sachant que $18\times 8=144$, compléter : | ×1 |
+| canc3a-2025 (CAN) | src/exercices/can/canc3a-2025/canc3a-2025-Q13.ts:35 | Q13 : « Il faur donc » (coquille). → Il faut donc | ×1 |
+| canc3a-2025 (CAN) | src/exercices/can/can6a-2025/can6a-2025-Q16.ts:91 | Q16 : « La figure A est composé » (accord). → est composée | ×1 |
+| canc3a-2025 (CAN) | src/exercices/can/canc3a-2025/canc3a-2025-Q29.ts:33 | Q29 : « pour passer des cm au mm » (aux) ; même tournure « des cm au m » dans can6M4-03, can6M4-05, can6a-2021. → pour passer des $\text{cm}$ aux $\text{mm}$ | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q12.ts:29 | Q12 : « Combien en reste-il ? » (t euphonique manquant). → Combien en reste-t-il ? | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q14.ts:32 | Q14 : correction « se lit quatre- vingts . » : espaces dans la balise &lt;i> (« quatre- vingts » puis espace avant le point). → quatre-&lt;i>vingts&lt;/i>. | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q15.ts | Q15 (sup=false) : « Quelle est la figure ayant que $4$ axes de symétrie ? » (tournure fautive). → Quelle figure a exactement $4$ axes de symétrie ? | ×1 |
@@ -879,21 +792,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 4C20-4 (4e) | src/exercices/4e/4C20-4.ts:58 | consigne à l'impératif : Compare les fractions suivantes. | ×1 |
-| can6a-2018 (CAN) | énoncé q4 | impératif : Complète : ‖ impératif : Donne l'écriture décimale de ‖ impératif : Détermine l'abscisse du point A : On donnera le | ×14 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | énoncé non interactif q4 | impératif : Complète : ‖ impératif : Donne l'écriture décimale de ‖ impératif : Détermine l'abscisse du point A : On donnera le | ×7 |
-| can6a-2021 (CAN) | énoncé q12 | impératif : Donne l'écriture décimale de ‖ impératif : Complète : ‖ impératif : Recopie le nombre le plus proche de | ×5 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé non interactif q12 | impératif : Donne l'écriture décimale de ‖ impératif : Complète : ‖ impératif : Recopie le nombre le plus proche de | ×5 |
-| can6a-2022 (CAN) | énoncé q3 | impératif : Complète : ‖ impératif : Écris en chiffres : Deux-millions- ‖ impératif : Détermine l'abscisse du point A : On donnera le | ×8 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | énoncé non interactif q3 | impératif : Complète : ‖ impératif : Écris en chiffres : Deux-millions- ‖ impératif : Détermine l'abscisse du point A : On donnera le | ×8 |
-| can6a-2023 (CAN) | énoncé q6 | impératif : Complète : ‖ deuxième personne : œufs, combien de boîtes de ‖ deuxième personne : œufs dois-je utiliser ? [champ] boîtes | ×16 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) | énoncé non interactif q6 | impératif : Complète : ‖ deuxième personne : œufs, combien de boîtes de ‖ impératif : Choisis parmi les propositions suivantes la hauteu | ×7 |
-| can6a-2024 (CAN) | énoncé q3 | impératif : Écris le nombre égal à ‖ impératif : Complète. [champ] ‖ impératif : Complète. | ×14 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2024 (CAN) | énoncé non interactif q3 | impératif : Écris le nombre égal à ‖ impératif : Complète. ‖ impératif : Complète : | ×7 |
-| can6a-2025 (CAN) | énoncé q4 | impératif : Écris, en chiffres, le nombre : mille-cinq [ ‖ impératif : Complète. [champ] ‖ impératif : Coche la bonne réponse. Une voiture peut mesu | ×19 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2025 (CAN) | énoncé non interactif q4 | impératif : Écris, en chiffres, le nombre : mille-cinq ‖ impératif : Complète. ‖ impératif : Coche la bonne réponse. Une voiture peut mesu | ×10 |
-| can6a-2026 (CAN) | énoncé q1 | impératif : Complète. [champ] ‖ impératif : Complète. ‖ deuxième personne : Viens-tu à vélo ? [champ] | ×20 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2026 (CAN) | énoncé non interactif q1 | impératif : Complète. ‖ deuxième personne : Viens-tu à vélo ? [champ] ‖ impératif : . Complète. | ×11 |
-| can6C4-03 (CAN) | énoncé q6 | deuxième personne : . Combien de rangées complètes peut-il former ? [champ] rangée(s) | ×3 ; défaut nb=10 (revue-1-a) |
 | canc3a-2023 (CAN) | énoncé q6 | impératif : Complète : ‖ impératif : Écris les deux nombres séparés par un point-virgu ‖ impératif : Choisis parmi les propositions suivantes la hauteu | ×9 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | énoncé non interactif q6 | impératif : Complète : ‖ impératif : Choisis parmi les propositions suivantes la hauteu ‖ impératif : Écris en chiffres le nombre : soixante-et-un-mil | ×7 |
 | canc3a-2024 (CAN) | énoncé q3 | impératif : Écris le nombre égal à ‖ impératif : Complète. [champ] ‖ impératif : Complète. | ×16 ; sup=false ; sup=true (revue-0-a) |
@@ -906,8 +804,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-2026 (CAN) | énoncé non interactif q1 | impératif : Complète. ‖ deuxième personne : Viens-tu à vélo ? [champ] ‖ impératif : . Complète. | ×11 |
 | canc3a-2026b (CAN) | énoncé q1 | impératif : Complète. [champ] ‖ impératif : Complète. ‖ deuxième personne : Viens-tu à vélo ? [champ] | ×26 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2026b (CAN) | énoncé non interactif q1 | impératif : Complète. ‖ deuxième personne : Viens-tu à vélo ? [champ] ‖ impératif : . Complète. | ×14 |
-| canc3C08 (CAN) | énoncé q1 | deuxième personne : € de moins que toi ». Combien d'argent ‖ deuxième personne : € et tu as | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C08 (CAN) | énoncé non interactif q1 | deuxième personne : € de moins que toi ». Combien d'argent | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025 | Tout le sujet est à l'impératif et au tutoiement (« Coche », « Écris », « Calcule », « Complète », « comptes-tu ») contre la règle de l'infinitif ; à arbitrer pour le CE1 (formulation du sujet officiel ?). | ×1 |
 | canCE1a-2025 (CAN) | énoncé q2 | impératif : Coche la bonne réponse. [champ] ‖ impératif : Écris un nombre qui a ‖ impératif : Coche le nombre qui est entre | ×22 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) | énoncé non interactif q2 | impératif : Coche la bonne réponse. [champ] ‖ impératif : Écris un nombre qui a ‖ impératif : Coche le nombre qui est entre | ×11 |
@@ -950,6 +846,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| canc3a-2024 (CAN) | src/exercices/can/canc3a-2024/canc3a-2024-Q15.ts | Q15 : « Le périmètre de ce rectangle est égal à [champ] cm » sans point, correction sans unité ni point (« $(6+4)\times 2=…=20$ »). → … $=20~\text{cm}$. | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q17.ts:34 | Q17 : « Il y a [champ] pattes » sans point final (texteApres 'pattes'). → texteApres: 'pattes.' | ×1 |
 | canCE1a-2026 (CAN) | src/exercices/can/canCE1a-2026 | Q12, Q13, Q17 : phrase terminée par le champ sans point (texteApres « cartes », « oreilles », rien après « Le double de 19 est : »). → texteApres: 'cartes.' | ×1 |
 
@@ -959,15 +856,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6C2-04 (CAN) | correction q1 | pas de virgule avant « alors » : . Il reste alors à multiplier par | ×12 ; sup=false ; sup=true… (revue-0-a) |
-| canc3a (CAN) | correction q28 | pas de virgule avant « soit » : min soit | ×7 ; sup= ; sup=28 (revue-0-a) |
 | canc3a-2023 (CAN) | correction q26 | pas de virgule après « Or » : centièmes. Or | ×1 ; défaut (revue-0-a) |
-| canc3C07 (CAN) | énoncé q4 | pas de virgule avant « soit » : ans soit | ×1 ; défaut nb=10 (revue-1-a) |
-| canc3C08 (CAN) | énoncé q1 | pas de virgule avant « soit » : € soit | ×1 ; défaut (revue-0-a) |
-| canc3C08 (CAN) | correction q1 | pas de virgule avant « soit » : ) soit | ×5 ; défaut nb=10 (revue-1-a) |
-| canc3C08 (CAN) | énoncé non interactif q1 | pas de virgule avant « soit » : € soit | ×1 |
-| canc3D02 (CAN) | correction q1 | pas de virgule avant « soit » : graduations soit | ×10 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3N08 (CAN) | correction q1 | pas de virgule avant « alors » : est impair alors la ‖ pas de virgule avant « alors » : est pair alors la | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
+| canc3a-2024 (CAN) | src/exercices/can/canc3a-2024/canc3a-2024-Q11.ts:47 | Q11 : « Comme … est égal à $4,416$ alors, le plus grand nombre » : virgule après « alors » au lieu d'avant. → …égal à $4{,}416$, alors le plus grand nombre… | ×1 |
 | canCE1a-2025 (CAN) | énoncé q4 | pas de virgule avant « alors » : cases ». Magalie doit alors aller sur la case [champ] . ‖ pas de virgule avant « soit » : cris un nombre dans lequel on entend vingt et qui soit plus grand que ‖ pas de virgule avant « alors » : cases ». Zoé doit alors aller sur la case [champ] . | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) | énoncé non interactif q4 | pas de virgule avant « alors » : cases ». Magalie doit alors aller sur la case ‖ pas de virgule avant « soit » : cris un nombre dans lequel on entend vingt et qui soit plus grand que | ×2 |
 
@@ -980,56 +870,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6P3D-2 (6e) | src/exercices/6e/6P3D-2.ts:401 | Compléter le tableau de proportionnalité ci dessous. | ×1 |
 | TSA2-QCM03 (Terminale) | src/exercices/QCMStatiques/Convexite2.ts:42 | C'est un résultat de cours. La fonction étant concave sur l'intervalle $[a;b]$, les tangentes sont au dessous de la courbe $\\mathcal {C_f}$ et les cordes en de | ×1 |
 
-## T4
-
-**Guillemets** (gravité 5 : Rédaction)
-
-| Exercice | Où | Constat | Tirages |
-| --- | --- | --- | --- |
-| can6a-2022 (CAN) | correction q18 | guillemets droits : g, pour passer des "kg" au "g", on multiplie par | ×2 ; défaut (revue-0-a) |
-| canc3C07 (CAN) | titre | guillemets droits : Résoudre un problème avec "de plus", "de moins" | ×2 |
-| canc3C08 (CAN) | titre | guillemets droits : Résoudre un problème avec "de plus", "de moins"* | ×2 |
-| canc3C09 (CAN) | titre | guillemets droits : Résoudre un problème avec "fois plus", "fois moins" | ×2 |
-| canc3C10 (CAN) | titre | guillemets droits : Résoudre un problème avec "fois plus", "fois moins"* | ×2 |
-
 ## T5
 
 **Espaces en trop** (gravité 5 : Rédaction)
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can6a-2018 (CAN) | énoncé q13 | double espace : abscisse du point A : On donnera le résultat sous forme décimale. ‖ double espace : que sa sœur. Combien de billes sa sœur a-t-elle ? [champ] ‖ double espace : Recopie le plus grand nombre : | ×6 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | correction q27 | double espace : Puisque Océane en a ‖ double espace : Puisque Alice en a | ×2 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | énoncé non interactif q10 | espace avant ponctuation : vis pèsent ....... g. ‖ double espace : abscisse du point A : On donnera le résultat sous forme décimale. ‖ double espace : œufs est .... œufs. | ×10 |
-| can6a-2021 (CAN) | correction q4 | double espace : , le nombre écrit sous le point d'interrogation c ‖ double espace : , pour passer des | ×2 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé q10 | double espace : Combien y a-t-il de dizaines en tout dans ‖ double espace : Recopie le nombre le plus proche de | ×2 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé non interactif q10 | double espace : Combien y a-t-il de dizaines en tout dans ‖ double espace : Recopie le nombre le plus proche de | ×2 |
-| can6a-2022 (CAN) | énoncé q9 | double espace : est : [champ] ‖ double espace : abscisse du point A : On donnera le résultat sous forme décimale. | ×2 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | correction q18 | double espace : g, pour passer des "kg" au "g", on multiplie par | ×1 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | énoncé non interactif q24 | double espace : abscisse du point A : On donnera le résultat sous forme décimale. | ×1 |
-| can6a-2023 (CAN) | correction q4 | double espace : Le double de ‖ double espace : Puisque Lisa en a ‖ double espace : ongueur du rectangle B. On en déduit que la largeur du rectangle B est aussi | ×4 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) | énoncé q11 | double espace : fois plus que sa sœur. Combien de billes sa sœur a-t-elle ? [champ] billes. ‖ double espace : de est deux fois plus âgé que Karole. Jean-Claude a [champ] ans. | ×2 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) | énoncé non interactif q7 | espace avant ponctuation : ..... h ..... min ‖ double espace : fois plus que sa sœur. Combien de billes sa sœur a-t-elle ? | ×2 |
-| can6a-2024 (CAN) | énoncé q4 | double espace : carreaux de chocolat pèsent [champ] g | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2024 (CAN) | correction q4 | double espace : g, donc ‖ double espace : On commence par calculer | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2025 (CAN) | énoncé q8 | double espace : morceaux de sucre pèsent [champ] g. ‖ double espace : g est égal à [champ] g. ‖ double espace : €. On me rend [champ] € | ×6 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2025 (CAN) | correction q8 | double espace : g, donc | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2026 (CAN) | énoncé non interactif q26 | double espace : . [figure] | ×1 |
-| can6a-NY2024 (CAN) | énoncé q23 | double espace : ra-t-il à payer ensuite pour le dernier versement ? [champ] € | ×1 ; défaut (revue-0-a) |
-| can6a-NY2025 (CAN) | correction q4 | double espace : Le nombre cherché vérifie l'égalité : ‖ double espace : , alors ‖ double espace : Mehdi possède | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2025 (CAN) | énoncé q13 | double espace : Quel est le périmètre de ce triangle ? ‖ double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2025 (CAN) | énoncé non interactif q13 | double espace : Quel est le périmètre de ce triangle ? ‖ double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×2 |
-| can6a-NY2026 (CAN) | correction q4 | double espace : Le nombre cherché vérifie l'égalité : ‖ double espace : , alors | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2026 (CAN) | énoncé q13 | double espace : Quel est le périmètre de ce triangle ? ‖ double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2026 (CAN) | énoncé non interactif q13 | double espace : Quel est le périmètre de ce triangle ? ‖ double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×2 |
-| can6C1-07 (CAN) | correction q1 | double espace : Le nombre cherché vérifie l'égalité : | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C2-01 (CAN) | correction q1 | double espace : ou bien d'abord diviser par ‖ double espace : , puis multiplier par | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C3-05 (CAN) | correction q1 | double espace : Ainsi, le chiffre des unités devient le chiffre des dixièmes. ‖ double espace : rendre le centième. Ainsi, le chiffre des unités devient le chiffre des centièmes. | ×7 ; défaut nb=10 (revue-1-a) |
-| can6C4-03 (CAN) | correction q1 | double espace : élève sans place dans une rangée. ‖ double espace : élèves sans place dans une rangée. | ×4 ; défaut nb=10 (revue-1-a) |
-| can6C51-01 (CAN) | correction q1 | double espace : . Ainsi, le nombre qui, multiplié par | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C53-05 (CAN) | correction q1 | double espace : re ces deux nombres. Le plus petit multiple commun de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3a (CAN) | énoncé q29 | espace avant ponctuation : minutes elle fait .... tours. [champ] ‖ espace avant ponctuation : minutes il fait .... tours. [champ] | ×32 ; sup= ; sup=29… (revue-0-a) |
-| canc3a (CAN) | énoncé non interactif q29 | espace avant ponctuation : minutes elle fait .... tours. | ×1 |
 | canc3a-2023 (CAN) | correction q11 | double espace : Puisque Zoé en a | ×1 ; défaut (revue-0-a) |
 | canc3a-2024 (CAN) | énoncé q4 | double espace : carreaux de chocolat pèsent [champ] g ‖ double espace : billes et Wendy en a ‖ double espace : billes et Lola en a | ×6 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2024 (CAN) | correction q4 | double espace : g, donc ‖ double espace : On commence par calculer | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -1049,23 +895,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2026 (CAN) | correction q4 | double espace : Le nombre cherché vérifie l'égalité : ‖ double espace : , alors | ×3 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-NY2026 (CAN) | énoncé q13 | double espace : Quel est le périmètre de ce triangle ? ‖ double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-NY2026 (CAN) | énoncé non interactif q13 | double espace : Quel est le périmètre de ce triangle ? ‖ double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×2 |
-| canc3C07 (CAN) | énoncé q1 | double espace : ans de moins que Gaspard. ‖ double espace : ballons de moins que Lilian. ‖ double espace : ballons de moins que Lilian. Sachant | ×21 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C07 (CAN) | correction q1 | double espace : ans de moins que Nawel. Il a donc ( ‖ double espace : ballons de moins que Lilian donc Lilian a ‖ double espace : ballons de plus que Isabelle. Il | ×43 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C07 (CAN) | énoncé non interactif q1 | double espace : ans de moins que Gaspard. | ×1 |
-| canc3C08 (CAN) | correction q1 | double espace : €. Isabelle a ‖ double espace : € de moins que Nawel signifie que Nawel a ‖ double espace : € de plus que Isabelle. Nawel a donc : | ×39 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C08 (CAN) | énoncé q1 | double espace : ballons de moins que Lilian. ‖ double espace : ballons de moins que Lilian. Sachant ‖ espace avant ponctuation : garçons . Il y a | ×18 ; défaut nb=10 (revue-1-a) |
-| canc3C09 (CAN) | énoncé q1 | double espace : fois plus que Béatrice. Combien de biscuits a Béatrice ? ‖ double espace : fois plus que Béatrice. Combien de biscuits a Béatrice ? [champ] biscuits ‖ double espace : fois moins de biscuits que Yvette qui en a | ×21 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C09 (CAN) | correction q1 | double espace : Puisque Julien a ‖ double espace : fois plus que Béatrice, Béatrice en a ‖ double espace : Yvette a | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C09 (CAN) | énoncé non interactif q1 | double espace : fois plus que Béatrice. Combien de biscuits a Béatrice ? | ×2 |
-| canc3C10 (CAN) | énoncé q1 | double espace : fois plus. Combien de clous ont-ils ensembl ‖ double espace : fois plus que Isabelle. Combien de ballo ‖ double espace : que Isabelle. Combien de ballons ont-ils ensemble ? [champ] ballons | ×23 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C10 (CAN) | correction q1 | double espace : Gabrielle a ‖ double espace : fois plus, il en a donc ‖ double espace : Puisque Yann a | ×39 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C10 (CAN) | énoncé non interactif q1 | double espace : fois plus. Combien de clous ont-ils ensembl | ×1 |
-| canc3C17 (CAN) | énoncé q1 | double espace : euros. Combien a-t-elle d'argent maintenant sur son compte ? [champ] ‖ double espace : € et un casque à | ×3 ; défaut nb=10 (revue-1-a) |
-| canc3C17 (CAN) | correction q3 | double espace : Dans la journée, le vendeur a vendu un VTT à ‖ double espace : € et un casque à ‖ double espace : €, puis il a dépensé | ×5 ; défaut nb=10 (revue-1-a) |
-| canc3C18 (CAN) | correction q3 | double espace : € à Rémi pour acheter son jeu. ‖ double espace : € à Xavier pour acheter son jeu. | ×2 ; défaut nb=10 (revue-1-a) |
-| canc3C20 (CAN) | énoncé q3 | double espace : Pour un concert, il y a ‖ double espace : €. Chaque tee-shirt coûte | ×4 ; défaut nb=10 (revue-1-a) |
-| canc3M02 (CAN) | énoncé q3 | double espace : Quel est le périmètre de ce triangle ? La fig ‖ double espace : Le périmètre de ce carré est ‖ double espace : Quel est le périmètre de ce triangle ? | ×3 ; défaut nb=10 (revue-1-a) |
-| canc3M02 (CAN) | correction q4 | double espace : Il s'agit d'un carré. Son côté est donc le quart de son périmètre, soit ‖ double espace : , on obtient la somme des deux longueurs égales du triangle en effectuant la différence ‖ double espace : . On obtient la longueur cherchée en divisant par | ×3 ; défaut nb=10 (revue-1-a) |
 | canCE1a-2025 (CAN) | énoncé q4 | double espace : cases ». Magalie doit alors aller sur la case [champ] . ‖ double espace : Écris un nombre qui a ‖ double espace : Écris un nombre dans lequel on entend vingt et qui soit plus grand que | ×8 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) | correction q4 | double espace : Magalie arrive donc sur la case ‖ espace avant ponctuation : se lit quatre- vingts . ‖ double espace : parts. Chaque part correspond à | ×5 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) | énoncé non interactif q4 | double espace : cases ». Magalie doit alors aller sur la case ‖ double espace : Écris un nombre qui a ‖ double espace : Écris un nombre dans lequel on entend vingt et qui soit plus grand que | ×4 |
@@ -1188,38 +1017,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2autoC-2 (6e) | src/exercices/6e/6N2autoC-2.ts:8 | « ... » : Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | 6N2B-4 (6e) | src/exercices/6e/6N2B-4.ts:25 | « ... » : Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | 6N5-8 (6e) | src/exercices/6e/6N5-8.ts:19 | « ... » : Résoudre des problèmes de type : ... de plus ou ... de moins | ×1 |
-| can6a-2018 (CAN) | énoncé q4 | points de suspension en maths (\ldots) : $.... \times 7=42$ ‖ points de suspension en maths (\ldots) : $.... &lt; \dfrac{5}{3} &lt; \ldots$ ‖ points de suspension en maths (\ldots) : $2\times .... =20$ | ×4 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | correction q29 | points de suspension : lui qui a le plus grand chiffre des centièmes, etc... Le plus grand nombre est donc : | ×2 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $.... \times 7=42$ ‖ points de suspension : vis pèsent ....... g. | ×18 |
-| can6a-2021 (CAN) | énoncé q2 | points de suspension en maths (\ldots) : $9\times .... =81$ ‖ points de suspension en maths (\ldots) : $1,5+....=10$ ‖ points de suspension en maths (\ldots) : $....$ | ×3 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $9\times .... =81$ ‖ points de suspension en maths (\ldots) : $....\text{ cm}$ | ×15 |
-| can6a-2022 (CAN) | énoncé q3 | points de suspension en maths (\ldots) : $34+.... =100$ ‖ points de suspension en maths (\ldots) : $8+4=....+2$ ‖ points de suspension en maths (\ldots) : $9\times .... =72$ | ×3 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension : est : .... ‖ points de suspension en maths (\ldots) : $34+.... =100$ | ×21 |
-| can6a-2023 (CAN) | énoncé q6 | points de suspension en maths (\ldots) : $.... \times .... =42$ ‖ points de suspension en maths (\ldots) : $4,9+.... =10$ ‖ points de suspension en maths (\ldots) : $....$ | ×8 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) | énoncé non interactif q6 | points de suspension en maths (\ldots) : $.... \times .... =42$ ‖ points de suspension : ..... h ..... min ‖ points de suspension en maths (\ldots) : $4,9+.... =10$ | ×7 |
-| can6a-2024 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $9+3= .... -6$ ‖ points de suspension en maths (\ldots) : $9 \times .... = 54$ | ×15 |
-| can6a-2025 (CAN) | énoncé non interactif q2 | points de suspension en maths (\ldots) : $4\times ....=36$ ‖ points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $1 +\dfrac{9}{10} =\dfrac{....}{10}$ | ×14 |
-| can6a-2026 (CAN) | correction q11 | points de suspension en maths (\ldots) : $n{aligned} 28\times 25 &= .... \times 50\\ &= \under$ ‖ points de suspension en maths (\ldots) : $times 50\\ &= \underbrace{.... \times 2}_{28}\times 25\\$ ‖ points de suspension en maths (\ldots) : $in{aligned} 12\times 5 &= .... \times 10\\ &= \under$ | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-2026 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $81=....\times....$ ‖ points de suspension en maths (\ldots) : $9\,388+300=....$ ‖ points de suspension en maths (\ldots) : $19\times .... = 1\,900$ | ×15 |
 | can6a-Aléa (CAN) | src/exercices/can/6e/can6a-alea.ts:90 | « ... » : Une lettre seule (C, G, M, N...) ou un début de code (C5, N2) sélectionne toutes les rubriques correspondantes | ×1 |
 | can6a-Aléa (CAN) | src/exercices/can/6e/can6a-alea.ts:270 | « ... » : chargement... | ×1 |
-| can6a-Aléa (CAN) | énoncé q1 | points de suspension : chargement... | ×1 ; sup=All (revue-0-a) |
-| can6a-NY2024 (CAN) | énoncé non interactif q19 | points de suspension en maths (\ldots) : $....\text{ m}$ | ×1 |
-| can6a-NY2025 (CAN) | correction q4 | points de suspension en maths (\ldots) : $.... -2=2\,030$ ‖ points de suspension en maths (\ldots) : $2\,030= .... -3$ | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2025 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $....~-2=2\,025+5$ ‖ points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $....~ \times 2\,025=202\,500$ | ×9 |
-| can6a-NY2026 (CAN) | correction q4 | points de suspension en maths (\ldots) : $.... -2=2\,031$ ‖ points de suspension en maths (\ldots) : $2\,028= .... -1$ | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can6a-NY2026 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $.... -2=2\,026+5$ ‖ points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $.... \times 2\,026=202\,600$ | ×8 |
-| can6C1-07 (CAN) | correction q1 | points de suspension en maths (\ldots) : $19= .... -2$ ‖ points de suspension en maths (\ldots) : $14= .... +6$ ‖ points de suspension en maths (\ldots) : $.... -2=15$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C1-07 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $10+9= .... -2$ | ×1 |
-| can6C2-09 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
-| can6C51-03 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{1}{9} =\dfrac{....}{45}$ | ×1 |
-| can6C51-04 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $.... + \dfrac{1}{4} = \dfrac{3$ | ×1 |
-| can6C52-01 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{27}{7} \quad .... \quad \dfrac{10}{7}$ | ×1 |
-| can6C52-02 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{21}{40}\quad .... \quad 1$ | ×1 |
-| can6C52-03 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{9}{50}\quad\quad....\quad\quad\dfrac{1}{10}$ | ×1 |
-| can6C52-04 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{21}{40}\quad .... \quad \dfrac{18}{7}$ | ×1 |
-| canc3a (CAN) | énoncé q16 | points de suspension en maths (\ldots) : $.... - 9=1,2$ ‖ points de suspension en maths (\ldots) : $7 \times .... = 35$ ‖ points de suspension en maths (\ldots) : $.... + 2,1=4,2$ | ×121 ; sup= ; sup=16… (revue-0-a) |
-| canc3a (CAN) | énoncé non interactif q16 | points de suspension en maths (\ldots) : $.... - 9=1,2$ ‖ points de suspension en maths (\ldots) : $7 \times .... = 35$ ‖ points de suspension en maths (\ldots) : $.... + 2,1=4,2$ | ×6 |
 | canc3a-2023 (CAN) | énoncé q6 | points de suspension en maths (\ldots) : $.... \times .... =42$ ‖ points de suspension en maths (\ldots) : $0\text{ min }+55 \text{ min }=.... \text{ h } .... \text{ mi$ ‖ points de suspension en maths (\ldots) : $\text{ min }=.... \text{ h } .... \text{ min }$ | ×8 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | énoncé non interactif q6 | points de suspension en maths (\ldots) : $.... \times .... =42$ ‖ points de suspension en maths (\ldots) : $0\text{ min }+55 \text{ min }=.... \text{ h } .... \text{ mi$ ‖ points de suspension en maths (\ldots) : $\text{ min }=.... \text{ h } .... \text{ min }$ | ×9 |
 | canc3a-2024 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $9+3= .... -6$ ‖ points de suspension en maths (\ldots) : $9 \times .... = 54$ | ×15 |
@@ -1234,16 +1033,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2025 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $....~-2=2\,025+5$ ‖ points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $2\,025\times .... =2\,025\,000$ | ×8 |
 | canc3a-NY2026 (CAN) | correction q4 | points de suspension en maths (\ldots) : $.... -2=2\,031$ ‖ points de suspension en maths (\ldots) : $2\,028= .... -1$ | ×2 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-NY2026 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $.... -2=2\,026+5$ ‖ points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $2\,026\times .... =2\,026\,000$ | ×7 |
-| canc3C03 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $.... \times 3=18$ | ×1 |
-| canc3C13 (CAN) | énoncé q1 | points de suspension en maths (\ldots) : $2\times .... \times 3 =48$ ‖ points de suspension en maths (\ldots) : $4\times 5 \times .... =120$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C13 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $2\times .... \times 3 =48$ | ×1 |
-| canc3C14 (CAN) | énoncé q1 | points de suspension en maths (\ldots) : $40\div .... =8$ ‖ points de suspension en maths (\ldots) : $.... \div 6=7$ | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3C14 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $40\div .... =8$ | ×1 |
-| canc3M01 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
-| canc3M03 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $4\text{ cg}+14\text{ mg }= .... \text{ mg}$ | ×1 |
-| canc3N07 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $4\,388=....$ ‖ points de suspension en maths (\ldots) : $....$ | ×2 |
-| canc3N08 (CAN) | énoncé q1 | points de suspension en maths (\ldots) : $....$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3N08 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | canCE1a-2025 (CAN) | énoncé non interactif q4 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $p;10&nbsp;&nbsp;;&nbsp;&nbsp;{....}&nbsp;&nbsp;;&nbsp;&nbsp;$ ‖ points de suspension en maths (\ldots) : $6 \times .... = 36$ | ×4 |
 | canCE1a-2026 (CAN) | énoncé non interactif q3 | points de suspension en maths (\ldots) : $384 + 70 = ....$ ‖ points de suspension en maths (\ldots) : $29~;~25~;~{....}~;~17~;~13$ ‖ points de suspension en maths (\ldots) : $....$ | ×4 |
 | canCE2-2026 (CAN) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $9\times .... =45$ ‖ points de suspension en maths (\ldots) : $.... +186=190$ ‖ points de suspension en maths (\ldots) : $....$ | ×12 |
@@ -1271,6 +1060,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| canc3a-2026 (CAN) |  q1 fillInTheBlank | aucune valeur attendue | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026 (CAN) |  q4 meta-interactif-2d | format meta-interactif-2d : à tester à la main | ×8 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026 (CAN) |  q26 apigeom-figure | format apigeom-figure : à tester à la main | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026b (CAN) |  q1 fillInTheBlank | aucune valeur attendue | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026b (CAN) |  q4 meta-interactif-2d | format meta-interactif-2d : à tester à la main | ×12 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2026b (CAN) |  q26 apigeom-figure | format apigeom-figure : à tester à la main | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canCE1a-2025 (CAN) |  q18 interactive-clock | format interactive-clock : à tester à la main | ×4 ; sup=false ; sup=true (revue-0-a) |
 
 ## R1
