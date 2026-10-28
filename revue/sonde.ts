@@ -201,13 +201,24 @@ function bonne(r: AC): string {
   return clavier(v)
 }
 
-/** Forme que produit le clavier MathLive : \sqrt3 → \sqrt{3}, \frac12 → \frac{1}{2}.
- * Une attente écrite sans accolades et comparée en texte refuse la saisie réelle. */
+let champCache: AC = null
+/** Forme qu'a la saisie quand l'élève la tape au clavier : MathLive retire les
+ * accolades des arguments d'un seul caractère (\frac34, \sqrt2, x^2) et garde
+ * les autres (\frac{13}{4}). Mesuré sur un champ réel (28 octobre 2026). On ne
+ * garde le résultat que s'il ne diffère que par les accolades. */
 function clavier(v: string): string {
-  return v
-    .replace(/\\(d?frac)(\d)(\d)/g, '\\$1{$2}{$3}')
-    .replace(/\\(d?frac)(\{[^{}]*\})(\d)/g, '\\$1$2{$3}')
-    .replace(/\\sqrt(\d|[a-z](?![a-z]))/g, '\\sqrt{$1}')
+  try {
+    if (!champCache) {
+      champCache = document.createElement('math-field')
+      champCache.style.display = 'none'
+      document.body.append(champCache)
+    }
+    champCache.value = v
+    const t = String(champCache.getValue('latex-expanded') ?? v)
+    return t.replace(/[{}\s]/g, '') === v.replace(/[{}\s]/g, '') ? t : v
+  } catch {
+    return v
+  }
 }
 
 /** Nettoie une valeur mise en évidence pour la saisir dans un champ */
@@ -263,7 +274,7 @@ function remplir(i: number, saisie: Saisie, corr: string): Remplissage {
         else if (saisie === 'incorrecte') v = fausse(bonne(r))
         else if (saisie === 'evidence') {
           if (ev.length === 0) return non('aucune mise en évidence')
-          v = ev[ev.length - 1]
+          v = clavier(ev[ev.length - 1])
         }
         if (el.tagName === 'MATH-FIELD') el.value = v
         else el.value = v
@@ -287,7 +298,7 @@ function remplir(i: number, saisie: Saisie, corr: string): Remplissage {
           if (saisie === 'correcte') v = bonne(a)
           else if (saisie === 'incorrecte') v = fausse(bonne(a))
           else if (saisie === 'evidence')
-            v = ev[ev.length - champs.length + j]
+            v = clavier(ev[ev.length - champs.length + j])
           el.setPromptValue(k, v, {})
           res.valeurs[k] = v
         })
@@ -311,7 +322,7 @@ function remplir(i: number, saisie: Saisie, corr: string): Remplissage {
           if (saisie === 'correcte') v = bonne(a)
           else if (saisie === 'incorrecte') v = fausse(bonne(a))
           else if (saisie === 'evidence')
-            v = ev[ev.length - champs.length + j]
+            v = clavier(ev[ev.length - champs.length + j])
           valeurs[k] = v
         })
         hote.value = valeurs
@@ -410,7 +421,7 @@ export async function essai(i: number, v: string) {
   await rendre('enonce')
   const el = mf(`champTexteEx${ex.numero}Q${i}`)
   if (!el) return null
-  el.value = v
+  el.value = clavier(v)
   el.dispatchEvent(new Event('input', { bubbles: true }))
   await new Promise((r) => setTimeout(r, 60))
   try {

@@ -31,9 +31,12 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
    `--filtre '^(?!can)[^0-9]' --travailleurs 2` (`banc-b.log`), lancées par
    `setsid nohup … < /dev/null &`. Arrêtée : la relancer (elle reprend) ;
    avant, retirer du journal les lignes des exercices absents de `fait.txt`.
-   Depuis le 28 octobre vers 13 h, la bonne réponse est saisie sous la forme
-   du clavier (`\sqrt{3}`, `\frac{1}{2}`) : une attente écrite `\sqrt3`
-   comparée en texte ressort en I1.
+   Saisie « comme au clavier » (`clavier()` dans `sonde.ts`) : MathLive
+   retire les accolades des arguments d'un seul caractère quand l'élève tape
+   (`\frac34`, `\sqrt2`, `x^2`, mais `\frac{13}{4}`), mesuré sur un champ
+   réel le 28 octobre. Le banc saisit les bonnes réponses et les mises en
+   évidence sous cette forme. Les CAN ont été repassées avec (`--refaire`,
+   journal des CAN vidé avant) : une attente `\sqrt3` n'est pas un défaut.
 2. Relire les exercices suivants dans l'ordre de `revue/referentiel.json`,
    en sautant ceux de `revue/relus.txt` et ceux pas encore passés au banc.
    `node revue/suivants.mjs 20` donne les suivants. Le sujet aléatoire
