@@ -62,9 +62,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| canTSpea-NY2025 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
+| canTSpeE03 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | TSA5-30 | I1 Bonne réponse refusée | 3 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | TSG2-30 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | TTE-11 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
+| canTSpea-NY2025 | I2 Réponse fausse acceptée | 2 | réponse fausse acceptée |
+| canTSpea-NY2026 | I2 Réponse fausse acceptée | 3 | réponse fausse acceptée |
 | TEG1-21 | I2 Réponse fausse acceptée | 46 | réponse fausse acceptée |
 | TEM1-14 | I2 Réponse fausse acceptée | 60 | réponse fausse acceptée |
 | TEM1-15 | I2 Réponse fausse acceptée | 48 | réponse fausse acceptée |
