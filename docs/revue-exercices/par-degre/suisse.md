@@ -19,7 +19,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | bc372 | X1 Erreur | 3 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
 | a343t | X2 Formule cassée | 14 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m |
 | afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
+| c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 7180 ; T4  458 ; T2  371 ; T6 Points de suspension 219 ; T5 Espaces 177 ; R2 Tutoiement, impératif 94 ; T3  72 ; N2 Séparateur des milliers 55 ; R5 Virgule 43 ; N6 Écriture algébrique 40 ; X3  38 ; M7  33 ; X2 Formule cassée 12 ; R6  1 ; R10 Français 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 7351 ; T4  460 ; T2  371 ; T6 Points de suspension 225 ; T5 Espaces 177 ; R2 Tutoiement, impératif 133 ; T3  124 ; R5 Virgule 99 ; N2 Séparateur des milliers 55 ; N6 Écriture algébrique 52 ; X3  38 ; M7  33 ; X2 Formule cassée 12 ; R10 Français 12 ; R6  1.
