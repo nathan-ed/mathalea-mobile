@@ -1,0 +1,1989 @@
+{
+  "format": "classes-mathalea/1",
+  "exporteLe": "2026-10-28T19:45:58.586Z",
+  "classes": [
+    {
+      "nom": "EVACOM 11LC",
+      "parcours": [
+        {
+          "id": "evacom-11lc-revision",
+          "version": 1,
+          "titre": "Réviser l’EVACOM 11LC",
+          "objectif": "Revoir progressivement les savoir-faire évalués dans les sujets EVACOM 11LC depuis 2018.",
+          "niveau": "11e",
+          "theme": "EVACOM 11LC",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Calculer avec les fractions",
+              "nb": 6,
+              "fiche": {
+                "titre": "Calculer avec les fractions",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une somme exige un dénominateur commun. Pour multiplier, on multiplie les numérateurs entre eux et les dénominateurs entre eux. Diviser par une fraction revient à multiplier par son inverse."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 2/3 + 1/6.",
+                    "etapes": [
+                      "2/3 = 4/6.",
+                      "4/6 + 1/6 = 5/6."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut 2/3 + 1/6 ?",
+                    "choix": [
+                      "5/6",
+                      "3/9",
+                      "3/6"
+                    ],
+                    "bonne": 0,
+                    "explication": "On convertit 2/3 en 4/6 avant d’additionner."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Puissances et écritures des nombres",
+              "nb": 4,
+              "fiche": {
+                "titre": "Puissances et écritures des nombres",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une puissance répète une multiplication ; la racine carrée d’un carré parfait redonne son côté positif. En notation scientifique, le nombre devant la puissance de 10 est au moins 1 et inférieur à 10."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Écrire 32 000 en notation scientifique.",
+                    "etapes": [
+                      "32 000 = 3,2 × 10 000.",
+                      "Donc 32 000 = 3,2 × 10⁴."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle écriture est scientifique pour 32 000 ?",
+                    "choix": [
+                      "3,2 × 10⁴",
+                      "32 × 10³",
+                      "0,32 × 10⁵"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le nombre placé devant 10⁴ doit être compris entre 1 et 10."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calcul littéral : comprendre et réduire",
+              "nb": 4,
+              "fiche": {
+                "titre": "Calcul littéral : comprendre et réduire",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Remplacer une lettre par un nombre demande de conserver les parenthèses, surtout si le nombre est négatif. On additionne seulement les termes de même nature."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 2x + 3 pour x = −4.",
+                    "etapes": [
+                      "On remplace x : 2 × (−4) + 3.",
+                      "Le résultat est −8 + 3 = −5."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut 2x + 3 pour x = −4 ?",
+                    "choix": [
+                      "−5",
+                      "−11",
+                      "5"
+                    ],
+                    "bonne": 0,
+                    "explication": "2 × (−4) + 3 = −8 + 3 = −5."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Développer et transformer",
+              "nb": 4,
+              "fiche": {
+                "titre": "Développer et transformer",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Développer, c’est multiplier chaque terme d’une parenthèse. Pour isoler une grandeur, on applique la même opération inverse aux deux membres."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Développer 3(x + 2).",
+                    "etapes": [
+                      "3 multiplie x et 2.",
+                      "On obtient 3x + 6."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut 3(x + 2) ?",
+                    "choix": [
+                      "3x + 6",
+                      "3x + 2",
+                      "x + 6"
+                    ],
+                    "bonne": 0,
+                    "explication": "La distributivité donne 3 × x + 3 × 2."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Mettre en équation et résoudre",
+              "nb": 4,
+              "fiche": {
+                "titre": "Mettre en équation et résoudre",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On choisit une inconnue, on écrit une égalité qui traduit les données, puis on effectue la même transformation dans les deux membres."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Résoudre 3x + 2 = 14.",
+                    "etapes": [
+                      "On soustrait 2 : 3x = 12.",
+                      "On divise par 3 : x = 4."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle valeur résout 3x + 2 = 14 ?",
+                    "choix": [
+                      "4",
+                      "6",
+                      "12"
+                    ],
+                    "bonne": 0,
+                    "explication": "3 × 4 + 2 = 14."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Pythagore et mesures du plan",
+              "nb": 6,
+              "fiche": {
+                "titre": "Pythagore et mesures du plan",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Avant Pythagore, on repère le plus grand côté. Pour une aire de disque, on élève le rayon au carré avant de multiplier par π."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un triangle rectangle a pour côtés de l’angle droit 6 cm et 8 cm. Trouver l’hypoténuse.",
+                    "etapes": [
+                      "Son carré vaut 6² + 8² = 100.",
+                      "L’hypoténuse mesure 10 cm."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est l’hypoténuse ?",
+                    "choix": [
+                      "10 cm",
+                      "14 cm",
+                      "100 cm"
+                    ],
+                    "bonne": 0,
+                    "explication": "√(6² + 8²) = √100 = 10 cm."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Résoudre des problèmes composés",
+              "nb": 4,
+              "fiche": {
+                "titre": "Résoudre des problèmes composés",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Dans un problème à plusieurs étapes, on écrit ce que représente l’inconnue et on garde les unités. On vérifie le résultat dans la situation initiale."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un rectangle a une aire de 24 cm² et une longueur de 6 cm. Trouver sa largeur.",
+                    "etapes": [
+                      "Aire = longueur × largeur.",
+                      "La largeur vaut 24 ÷ 6 = 4 cm."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la largeur ?",
+                    "choix": [
+                      "4 cm",
+                      "18 cm",
+                      "144 cm"
+                    ],
+                    "bonne": 0,
+                    "explication": "La grandeur manquante est 24 ÷ 6 = 4 cm."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "51ab4",
+              "id": "9NO3F-12",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
+              "objectifs": [
+                "Additionner et soustraire des fractions (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "5f429",
+              "id": "9NO3F-4",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions",
+              "objectifs": [
+                "Additionner et soustraire des fractions (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "3ee4e",
+              "id": "10NO3A-3",
+              "nbQuestions": 3,
+              "titre": "Multiplier ou/et diviser des fractions",
+              "objectifs": [
+                "Multiplier et diviser des fractions (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "55354",
+              "id": "10NO3A-5",
+              "nbQuestions": 3,
+              "titre": "Diviser des fractions",
+              "objectifs": [
+                "Multiplier et diviser des fractions (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "ddb83",
+              "id": "9NO3E-1",
+              "nbQuestions": 3,
+              "titre": "Calculer la fraction d'un nombre",
+              "objectifs": [
+                "Prendre une fraction ou un pourcentage (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "612a5",
+              "id": "10FA2B-19",
+              "nbQuestions": 3,
+              "titre": "Calculer une proportion ou appliquer un pourcentage",
+              "objectifs": [
+                "Prendre une fraction ou un pourcentage (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "eb865",
+              "id": "10NO3D-25",
+              "nbQuestions": 3,
+              "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+              "objectifs": [
+                "Calculer puissances et racines simples (EVACOM 11LC)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "f5cbd",
+              "id": "10NO3E-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
+              "objectifs": [
+                "Calculer puissances et racines simples (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "a0d17",
+              "id": "10NO3F-1",
+              "nbQuestions": 3,
+              "titre": "Associer un nombre décimal à sa notation scientifique",
+              "objectifs": [
+                "Utiliser la notation scientifique (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "762fe",
+              "id": "10NO3F-2",
+              "nbQuestions": 3,
+              "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+              "objectifs": [
+                "Utiliser la notation scientifique (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "17e39",
+              "id": "10FA4B-2",
+              "nbQuestions": 3,
+              "titre": "Calculer la valeur d'une expression littérale avec une ou deux variables",
+              "objectifs": [
+                "Substituer une valeur (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "d05d3",
+              "id": "9FA4A-1",
+              "nbQuestions": 3,
+              "titre": "Calculer une expression littérale simple pour une valeur donnée",
+              "objectifs": [
+                "Substituer une valeur (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "85d2d",
+              "id": "10FA4C-1",
+              "nbQuestions": 3,
+              "titre": "Réduire une expression littérale",
+              "objectifs": [
+                "Réduire une expression (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "cc129",
+              "id": "10FA4C-6",
+              "nbQuestions": 3,
+              "titre": "Réduire, si possible, une expression littérale simple",
+              "objectifs": [
+                "Réduire une expression (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "56a2d",
+              "id": "10FA4C-10",
+              "nbQuestions": 3,
+              "titre": "Développer avec la simple distributivité",
+              "objectifs": [
+                "Développer une expression (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "1cd08",
+              "id": "1mCL1-6",
+              "nbQuestions": 3,
+              "titre": "Développer une expression à l'aide de la distributivité simple et double",
+              "objectifs": [
+                "Développer une expression (EVACOM 11LC)"
+              ],
+              "sup": "2",
+              "sup2": "1",
+              "sup3": "1",
+              "sup4": "1"
+            },
+            {
+              "uuid": "c42f7",
+              "id": "11FA4E-1",
+              "nbQuestions": 3,
+              "titre": "Exprimer une variable en fonction des autres (formules avec sommes/produits/quotients)",
+              "objectifs": [
+                "Isoler une grandeur dans une formule (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "96bac",
+              "id": "11GM3-4",
+              "nbQuestions": 3,
+              "titre": "Exprimer une variable en fonction des autres à  partir de formules mathématiques",
+              "objectifs": [
+                "Isoler une grandeur dans une formule (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "5a6f2",
+              "id": "10FA5A-5",
+              "nbQuestions": 3,
+              "titre": "Mettre en équation un problème sans objectif de résolution",
+              "objectifs": [
+                "Traduire une situation (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "2d15c",
+              "id": "10FA5A-6",
+              "nbQuestions": 3,
+              "titre": "Écrire l'équation modélisant un problème",
+              "objectifs": [
+                "Traduire une situation (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "12d4b",
+              "id": "10FA5C-1",
+              "nbQuestions": 3,
+              "titre": "Résoudre une équation du premier degré à solutions entières",
+              "objectifs": [
+                "Résoudre une équation (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "23bdc",
+              "id": "10FA5C-2",
+              "nbQuestions": 3,
+              "titre": "Résoudre une équation du premier degré",
+              "objectifs": [
+                "Résoudre une équation (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "bd660",
+              "id": "10GM1D-3",
+              "nbQuestions": 3,
+              "titre": "Calculer une longueur avec le théorème de Pythagore",
+              "objectifs": [
+                "Calculer une longueur avec Pythagore (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "b18e8",
+              "id": "10GM1D-5",
+              "nbQuestions": 3,
+              "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
+              "objectifs": [
+                "Calculer une longueur avec Pythagore (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "ab5d4",
+              "id": "11GM1A-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer si un triangle est rectangle ou pas",
+              "objectifs": [
+                "Vérifier si un triangle est rectangle (EVACOM 11LC)"
+              ],
+              "sup": "3",
+              "sup2": "true"
+            },
+            {
+              "uuid": "5344c",
+              "id": "5344c",
+              "nbQuestions": 3,
+              "titre": "Déterminer si un triangle est rectangle",
+              "objectifs": [
+                "Vérifier si un triangle est rectangle (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "f9a03",
+              "id": "10GM1B-6",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et/ou aire de disques",
+              "objectifs": [
+                "Calculer aires et portions de disque (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "ff387",
+              "id": "10GM1C-2",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et aire de portions de disques",
+              "objectifs": [
+                "Calculer aires et portions de disque (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "cd2f2",
+              "id": "10FA5D-3",
+              "nbQuestions": 3,
+              "titre": "Résoudre un problème mêlant équations et périmètre et aire d'un rectangle",
+              "objectifs": [
+                "Résoudre un problème par équation (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "b9e01",
+              "id": "10FA5C-7",
+              "nbQuestions": 3,
+              "titre": "Résoudre une équation du premier degré (utilisant éventuellement la distributivité)",
+              "objectifs": [
+                "Résoudre un problème par équation (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "96bac",
+              "id": "11GM3-4",
+              "nbQuestions": 3,
+              "titre": "Exprimer une variable en fonction des autres à  partir de formules mathématiques",
+              "objectifs": [
+                "Calculer une grandeur manquante (EVACOM 11LC)"
+              ]
+            },
+            {
+              "uuid": "6999f",
+              "id": "9GM1C-3",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et aire de figures composées",
+              "objectifs": [
+                "Calculer une grandeur manquante (EVACOM 11LC)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "EVACOM 11LS",
+      "parcours": [
+        {
+          "id": "evacom-11ls-revision",
+          "version": 1,
+          "titre": "Réviser l’EVACOM 11LS",
+          "objectif": "Revoir progressivement les savoir-faire évalués dans les sujets EVACOM 11LS depuis 2018.",
+          "niveau": "11e",
+          "theme": "EVACOM 11LS",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Fractions, puissances et carrés",
+              "nb": 4,
+              "fiche": {
+                "titre": "Fractions, puissances et carrés",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une somme de fractions demande un dénominateur commun. Une puissance est un produit répété ; la racine carrée de 49 est le nombre positif dont le carré vaut 49."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 1/2 + 1/3.",
+                    "etapes": [
+                      "On choisit le dénominateur 6 : 1/2 = 3/6 et 1/3 = 2/6.",
+                      "La somme vaut 5/6."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut 1/2 + 1/3 ?",
+                    "choix": [
+                      "5/6",
+                      "2/5",
+                      "1/6"
+                    ],
+                    "bonne": 0,
+                    "explication": "3/6 + 2/6 = 5/6."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Calculer avec les racines",
+              "nb": 4,
+              "fiche": {
+                "titre": "Calculer avec les racines",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On extrait d’une racine un facteur carré parfait. On additionne ensuite seulement les racines qui portent sur le même nombre."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Simplifier √75.",
+                    "etapes": [
+                      "75 = 25 × 3.",
+                      "√75 = √25 × √3 = 5√3."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la forme simplifiée de √75 ?",
+                    "choix": [
+                      "5√3",
+                      "25√3",
+                      "3√5"
+                    ],
+                    "bonne": 0,
+                    "explication": "On extrait le carré parfait 25."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Notation scientifique et lettres",
+              "nb": 4,
+              "fiche": {
+                "titre": "Notation scientifique et lettres",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "La notation scientifique écrit un nombre sous la forme a × 10ⁿ avec 1 ≤ a < 10. En calcul littéral, on ne regroupe que les termes de même nature."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Réduire 3x + 2x − 4.",
+                    "etapes": [
+                      "3x et 2x sont des termes de même nature.",
+                      "L’expression devient 5x − 4."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut 3x + 2x − 4 ?",
+                    "choix": [
+                      "5x − 4",
+                      "5x",
+                      "x − 4"
+                    ],
+                    "bonne": 0,
+                    "explication": "On ajoute 3x et 2x ; le terme constant reste −4."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Développer avec les identités",
+              "nb": 4,
+              "fiche": {
+                "titre": "Développer avec les identités",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le carré d’une somme contient trois termes : a² + 2ab + b². Le terme du milieu apparaît deux fois dans le produit."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Développer (x + 3)².",
+                    "etapes": [
+                      "(x + 3)² = (x + 3)(x + 3).",
+                      "On obtient x² + 6x + 9."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel est le terme du milieu de (x + 3)² ?",
+                    "choix": [
+                      "6x",
+                      "3x",
+                      "9x"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le terme du milieu vaut 2 × x × 3 = 6x."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Factoriser et résoudre",
+              "nb": 4,
+              "fiche": {
+                "titre": "Factoriser et résoudre",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Factoriser, c’est écrire une somme sous forme de produit. Une équation du premier degré se résout en conservant l’égalité à chaque étape."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Factoriser 3x + 6.",
+                    "etapes": [
+                      "3 est commun aux deux termes.",
+                      "3x + 6 = 3(x + 2)."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle factorisation de 3x + 6 convient ?",
+                    "choix": [
+                      "3(x + 2)",
+                      "3(x + 6)",
+                      "x(3 + 6)"
+                    ],
+                    "bonne": 0,
+                    "explication": "3 × x + 3 × 2 = 3(x + 2)."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Formules et géométrie",
+              "nb": 6,
+              "fiche": {
+                "titre": "Formules et géométrie",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour isoler une lettre, on applique une opération inverse dans les deux membres. Pour vérifier qu’un triangle est rectangle, on compare le carré du plus long côté à la somme des carrés des deux autres."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un triangle a des côtés de 5 cm, 12 cm et 13 cm. Est-il rectangle ?",
+                    "etapes": [
+                      "13² = 169.",
+                      "5² + 12² = 25 + 144 = 169 : il est rectangle."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Ce triangle est-il rectangle ?",
+                    "choix": [
+                      "Oui",
+                      "Non",
+                      "On ne peut pas savoir"
+                    ],
+                    "bonne": 0,
+                    "explication": "Les deux calculs donnent 169 : la réciproque de Pythagore s’applique."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Solides et volumes",
+              "nb": 7,
+              "fiche": {
+                "titre": "Solides et volumes",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le volume d’un prisme ou d’un cylindre vaut aire de la base × hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise 4πr³/3."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer le volume d’un cône de rayon 3 cm et de hauteur 4 cm.",
+                    "etapes": [
+                      "Aire de la base : π × 3² = 9π cm².",
+                      "Volume : 9π × 4 ÷ 3 = 12π cm³."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel est le volume de ce cône ?",
+                    "choix": [
+                      "12π cm³",
+                      "36π cm³",
+                      "9π cm³"
+                    ],
+                    "bonne": 0,
+                    "explication": "On multiplie l’aire de la base par la hauteur, puis on divise par 3."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "51ab4",
+              "id": "9NO3F-12",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
+              "objectifs": [
+                "Calculer avec les fractions (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "3ee4e",
+              "id": "10NO3A-3",
+              "nbQuestions": 3,
+              "titre": "Multiplier ou/et diviser des fractions",
+              "objectifs": [
+                "Calculer avec les fractions (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "eb865",
+              "id": "10NO3D-25",
+              "nbQuestions": 3,
+              "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+              "objectifs": [
+                "Calculer puissances et carrés (EVACOM 11LS)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "f5cbd",
+              "id": "10NO3E-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
+              "objectifs": [
+                "Calculer puissances et carrés (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "d9495",
+              "id": "1mCN-8",
+              "nbQuestions": 3,
+              "titre": "Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$",
+              "objectifs": [
+                "Extraire un facteur d’une racine (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "99b29",
+              "id": "1mCN-7",
+              "nbQuestions": 3,
+              "titre": "Connaitre les propriétés calculatoires des racines carrées",
+              "objectifs": [
+                "Extraire un facteur d’une racine (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "12b72",
+              "id": "1mCN-9",
+              "nbQuestions": 3,
+              "titre": "Simplifier une somme de racines carrées",
+              "objectifs": [
+                "Simplifier et encadrer des racines (EVACOM 11LS)"
+              ],
+              "sup": "1",
+              "sup2": "true"
+            },
+            {
+              "uuid": "516d2",
+              "id": "10NO3E-4",
+              "nbQuestions": 3,
+              "titre": "Encadrer une racine carrée et en donner un arrondi",
+              "objectifs": [
+                "Simplifier et encadrer des racines (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "a0d17",
+              "id": "10NO3F-1",
+              "nbQuestions": 3,
+              "titre": "Associer un nombre décimal à sa notation scientifique",
+              "objectifs": [
+                "Utiliser la notation scientifique (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "762fe",
+              "id": "10NO3F-2",
+              "nbQuestions": 3,
+              "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+              "objectifs": [
+                "Utiliser la notation scientifique (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "17e39",
+              "id": "10FA4B-2",
+              "nbQuestions": 3,
+              "titre": "Calculer la valeur d'une expression littérale avec une ou deux variables",
+              "objectifs": [
+                "Substituer et réduire (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "85d2d",
+              "id": "10FA4C-1",
+              "nbQuestions": 3,
+              "titre": "Réduire une expression littérale",
+              "objectifs": [
+                "Substituer et réduire (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "1cd08",
+              "id": "1mCL1-6",
+              "nbQuestions": 3,
+              "titre": "Développer une expression à l'aide de la distributivité simple et double",
+              "objectifs": [
+                "Développer des produits (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "877a9",
+              "id": "11FA4A-1",
+              "nbQuestions": 3,
+              "titre": "Développer $(a+b)^2$",
+              "objectifs": [
+                "Développer des produits (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "5a4ad",
+              "id": "11FA4A-2",
+              "nbQuestions": 3,
+              "titre": "Développer $(a-b)^2$",
+              "objectifs": [
+                "Reconnaître les identités remarquables (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "7f0cf",
+              "id": "1mCL1-8",
+              "nbQuestions": 3,
+              "titre": "Compléter une identité remarquable à trou",
+              "objectifs": [
+                "Reconnaître les identités remarquables (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "0ee90",
+              "id": "1mCL2-0",
+              "nbQuestions": 3,
+              "titre": "Factoriser une expression littérale (Niveau 1)",
+              "objectifs": [
+                "Factoriser une expression (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "0bd00",
+              "id": "11FA4C-2",
+              "nbQuestions": 3,
+              "titre": "Factoriser avec les identités remarquables",
+              "objectifs": [
+                "Factoriser une expression (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "23bdc",
+              "id": "10FA5C-2",
+              "nbQuestions": 3,
+              "titre": "Résoudre une équation du premier degré",
+              "objectifs": [
+                "Résoudre des équations (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "b9e01",
+              "id": "10FA5C-7",
+              "nbQuestions": 3,
+              "titre": "Résoudre une équation du premier degré (utilisant éventuellement la distributivité)",
+              "objectifs": [
+                "Résoudre des équations (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "96bac",
+              "id": "11GM3-4",
+              "nbQuestions": 3,
+              "titre": "Exprimer une variable en fonction des autres à  partir de formules mathématiques",
+              "objectifs": [
+                "Transformer une formule (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "14e86",
+              "id": "11FA4E-3",
+              "nbQuestions": 3,
+              "titre": "Exprimer une variable en fonction des autres (formules avec carrés/racines carrées)",
+              "objectifs": [
+                "Transformer une formule (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "bd660",
+              "id": "10GM1D-3",
+              "nbQuestions": 3,
+              "titre": "Calculer une longueur avec le théorème de Pythagore",
+              "objectifs": [
+                "Appliquer Pythagore (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "b18e8",
+              "id": "10GM1D-5",
+              "nbQuestions": 3,
+              "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
+              "objectifs": [
+                "Appliquer Pythagore (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "ab5d4",
+              "id": "11GM1A-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer si un triangle est rectangle ou pas",
+              "objectifs": [
+                "Vérifier si un triangle est rectangle (EVACOM 11LS)"
+              ],
+              "sup": "3",
+              "sup2": "true"
+            },
+            {
+              "uuid": "5344c",
+              "id": "5344c",
+              "nbQuestions": 3,
+              "titre": "Déterminer si un triangle est rectangle",
+              "objectifs": [
+                "Vérifier si un triangle est rectangle (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "051aa",
+              "id": "9ES2A-6",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre des solides",
+              "objectifs": [
+                "Reconnaître des solides et leurs patrons (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "f57fe",
+              "id": "9ES2B-1",
+              "nbQuestions": 3,
+              "titre": "Choisir le patron de cube",
+              "objectifs": [
+                "Reconnaître des solides et leurs patrons (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "6ec4a",
+              "id": "10GM2A-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un prisme droit",
+              "objectifs": [
+                "Calculer des volumes simples (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "c7b58",
+              "id": "10GM2B-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un cylindre (avec figure)",
+              "objectifs": [
+                "Calculer des volumes simples (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "f0128",
+              "id": "11GM2A-2",
+              "nbQuestions": 3,
+              "titre": "Calculer un volume de pyramide",
+              "objectifs": [
+                "Calculer les volumes de pyramides, cônes et boules (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "f0d92",
+              "id": "11GM2B-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un cône (avec figure)",
+              "objectifs": [
+                "Calculer les volumes de pyramides, cônes et boules (EVACOM 11LS)"
+              ]
+            },
+            {
+              "uuid": "c2f91",
+              "id": "11GM2C-2",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'une boule",
+              "objectifs": [
+                "Calculer les volumes de pyramides, cônes et boules (EVACOM 11LS)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "EVACOM TAF",
+      "parcours": [
+        {
+          "id": "evacom-taf-revision",
+          "version": 1,
+          "titre": "Réviser l’EVACOM TAF",
+          "objectif": "Revoir progressivement les savoir-faire évalués dans les sujets EVACOM TAF depuis 2018.",
+          "niveau": "11e",
+          "theme": "EVACOM TAF",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Lire et placer les nombres",
+              "nb": 4,
+              "fiche": {
+                "titre": "Lire et placer les nombres",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Sur une droite graduée, on repère le pas entre deux traits avant de placer un nombre. Un pourcentage est une fraction dont le dénominateur est 100."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Placer 0,5 sur une droite graduée de 0 à 1.",
+                    "etapes": [
+                      "0,5 est la moitié de 1.",
+                      "On place donc le point au milieu entre 0 et 1."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle écriture vaut 50 % ?",
+                    "choix": [
+                      "0,5",
+                      "0,05",
+                      "5"
+                    ],
+                    "bonne": 0,
+                    "explication": "50 % = 50/100 = 0,5."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Respecter l’ordre des calculs",
+              "nb": 6,
+              "fiche": {
+                "titre": "Respecter l’ordre des calculs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On calcule d’abord ce qui est entre parenthèses, puis les puissances, les produits et les quotients, enfin les sommes et les différences."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 4 + 3 × 2.",
+                    "etapes": [
+                      "On calcule le produit : 3 × 2 = 6.",
+                      "On ajoute 4 : le résultat est 10."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut 4 + 3 × 2 ?",
+                    "choix": [
+                      "10",
+                      "14",
+                      "18"
+                    ],
+                    "bonne": 0,
+                    "explication": "La multiplication précède l’addition : 4 + 6 = 10."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calculer avec les fractions",
+              "nb": 4,
+              "fiche": {
+                "titre": "Calculer avec les fractions",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour additionner des fractions, on les écrit avec un même dénominateur. On simplifie le résultat si le numérateur et le dénominateur ont un diviseur commun."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 1/2 + 1/4.",
+                    "etapes": [
+                      "1/2 = 2/4.",
+                      "2/4 + 1/4 = 3/4."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut 1/2 + 1/4 ?",
+                    "choix": [
+                      "3/4",
+                      "2/6",
+                      "1/6"
+                    ],
+                    "bonne": 0,
+                    "explication": "On garde le dénominateur commun : 2/4 + 1/4 = 3/4."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Fractions et pourcentages en situation",
+              "nb": 6,
+              "fiche": {
+                "titre": "Fractions et pourcentages en situation",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Prendre trois quarts d’une quantité revient à la partager en quatre parts égales, puis à en prendre trois. Pour 20 %, on prend 20 centièmes."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer les trois quarts de 20.",
+                    "etapes": [
+                      "Un quart de 20 vaut 5.",
+                      "Trois quarts valent 3 × 5 = 15."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel est 25 % de 80 ?",
+                    "choix": [
+                      "20",
+                      "25",
+                      "40"
+                    ],
+                    "bonne": 0,
+                    "explication": "25 % est un quart ; un quart de 80 vaut 20."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Convertir les unités",
+              "nb": 4,
+              "fiche": {
+                "titre": "Convertir les unités",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour une longueur, deux unités voisines diffèrent d’un facteur 10. Pour une aire, ce facteur vaut 100 ; pour un volume, 1 000. Une heure vaut 60 minutes."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir 2 h 30 min en minutes.",
+                    "etapes": [
+                      "2 h = 120 min.",
+                      "120 min + 30 min = 150 min."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien de minutes font 2 h 30 min ?",
+                    "choix": [
+                      "150",
+                      "230",
+                      "120"
+                    ],
+                    "bonne": 0,
+                    "explication": "Deux heures font 120 minutes ; on ajoute 30 minutes."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Mesurer des figures planes",
+              "nb": 6,
+              "fiche": {
+                "titre": "Mesurer des figures planes",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le périmètre mesure le contour ; l’aire mesure la surface. Pour un cercle de rayon r, le périmètre vaut 2πr et l’aire vaut πr²."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer le périmètre d’un cercle de rayon 3 cm.",
+                    "etapes": [
+                      "La formule est 2πr.",
+                      "Avec r = 3 cm, on obtient 6π cm."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel est le périmètre d’un cercle de rayon 3 cm ?",
+                    "choix": [
+                      "6π cm",
+                      "9π cm",
+                      "3π cm"
+                    ],
+                    "bonne": 0,
+                    "explication": "On utilise 2πr, soit 2 × π × 3 = 6π cm."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Résoudre des problèmes géométriques",
+              "nb": 6,
+              "fiche": {
+                "titre": "Résoudre des problèmes géométriques",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Dans un triangle rectangle, le carré de l’hypoténuse égale la somme des carrés des deux autres côtés. Le volume d’un cylindre vaut l’aire de sa base multipliée par sa hauteur."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver l’hypoténuse d’un triangle rectangle de côtés 3 cm et 4 cm.",
+                    "etapes": [
+                      "Son carré vaut 3² + 4² = 25.",
+                      "L’hypoténuse mesure donc 5 cm."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est l’hypoténuse de ce triangle ?",
+                    "choix": [
+                      "5 cm",
+                      "7 cm",
+                      "25 cm"
+                    ],
+                    "bonne": 0,
+                    "explication": "On calcule √(3² + 4²) = √25 = 5 cm."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "6d577",
+              "id": "9QCM-22",
+              "nbQuestions": 3,
+              "titre": "Lire l'abscisse d'un point sur une droite graduée",
+              "objectifs": [
+                "Placer et comparer des nombres (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "b8e31",
+              "id": "9QCM-24",
+              "nbQuestions": 3,
+              "titre": "Lire l'abscisse fractionnaire d'un point sur une droite graduée",
+              "objectifs": [
+                "Placer et comparer des nombres (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "2359a",
+              "id": "9NO3C-9",
+              "nbQuestions": 3,
+              "titre": "Lier nombre décimal, fraction décimale et pourcentage",
+              "objectifs": [
+                "Relier fraction, décimal et pourcentage (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "91d72",
+              "id": "9NO3C-17",
+              "nbQuestions": 3,
+              "titre": "Passer d'une fraction à une écriture décimale et inversement",
+              "objectifs": [
+                "Relier fraction, décimal et pourcentage (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "01873",
+              "id": "9NO1G-11",
+              "nbQuestions": 3,
+              "titre": "Poser additions et soustractions de nombres décimaux",
+              "objectifs": [
+                "Calculer avec des décimaux (EVACOM TAF)"
+              ],
+              "sup": "4",
+              "sup3": "4"
+            },
+            {
+              "uuid": "52939",
+              "id": "9NO1G-14",
+              "nbQuestions": 3,
+              "titre": "Poser des multiplications de nombres décimaux",
+              "objectifs": [
+                "Calculer avec des décimaux (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "4c10a",
+              "id": "9NO1F-2",
+              "nbQuestions": 3,
+              "titre": "Calculer en utilisant les priorités opératoires",
+              "objectifs": [
+                "Appliquer les priorités (EVACOM TAF)"
+              ],
+              "sup": "3"
+            },
+            {
+              "uuid": "2d79c",
+              "id": "10NO1-1",
+              "nbQuestions": 3,
+              "titre": "Calculer en utilisant les priorités opératoires et les puissances",
+              "objectifs": [
+                "Appliquer les priorités (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "17e39",
+              "id": "10FA4B-2",
+              "nbQuestions": 3,
+              "titre": "Calculer la valeur d'une expression littérale avec une ou deux variables",
+              "objectifs": [
+                "Substituer dans une expression (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "d05d3",
+              "id": "9FA4A-1",
+              "nbQuestions": 3,
+              "titre": "Calculer une expression littérale simple pour une valeur donnée",
+              "objectifs": [
+                "Substituer dans une expression (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "51ab4",
+              "id": "9NO3F-12",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
+              "objectifs": [
+                "Additionner et soustraire des fractions (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "5f429",
+              "id": "9NO3F-4",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions",
+              "objectifs": [
+                "Additionner et soustraire des fractions (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "f8f4e",
+              "id": "9NO3B-2",
+              "nbQuestions": 3,
+              "titre": "Simplifier des fractions",
+              "objectifs": [
+                "Simplifier et décomposer (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "7f50c",
+              "id": "9NO1B-3",
+              "nbQuestions": 3,
+              "titre": "Décomposer en facteurs premiers",
+              "objectifs": [
+                "Simplifier et décomposer (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "ddb83",
+              "id": "9NO3E-1",
+              "nbQuestions": 3,
+              "titre": "Calculer la fraction d'un nombre",
+              "objectifs": [
+                "Prendre une fraction d’une quantité (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "e81fe",
+              "id": "11QCM-42",
+              "nbQuestions": 3,
+              "titre": "Calculer une fraction d'un paiement",
+              "objectifs": [
+                "Prendre une fraction d’une quantité (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "fb422",
+              "id": "can6P2-03",
+              "nbQuestions": 3,
+              "titre": "Résoudre un problème de calcul de pourcentage par complément à 100%",
+              "objectifs": [
+                "Calculer un pourcentage et un complément (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "612a5",
+              "id": "10FA2B-19",
+              "nbQuestions": 3,
+              "titre": "Calculer une proportion ou appliquer un pourcentage",
+              "objectifs": [
+                "Calculer un pourcentage et un complément (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "f7a15",
+              "id": "9FA2A-1",
+              "nbQuestions": 3,
+              "titre": "Compléter un tableau de proportionnalité avec les propriétés de linéarité",
+              "objectifs": [
+                "Utiliser la proportionnalité (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "091ac",
+              "id": "9FA2A-4",
+              "nbQuestions": 3,
+              "titre": "Déterminer une valeur manquante dans un tableau de proportionnalité",
+              "objectifs": [
+                "Utiliser la proportionnalité (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "504ae",
+              "id": "9GM3B-1",
+              "nbQuestions": 3,
+              "titre": "Convertir des longueurs, masses, capacités, prix ou unités informatiques",
+              "objectifs": [
+                "Convertir longueurs et durées (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "4f8f4",
+              "id": "9GM3A-4",
+              "nbQuestions": 3,
+              "titre": "Convertir en min vers h et min ou en s vers min et s",
+              "objectifs": [
+                "Convertir longueurs et durées (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "6225c",
+              "id": "9GM1A-6",
+              "nbQuestions": 3,
+              "titre": "Convertir des aires",
+              "objectifs": [
+                "Convertir aires et volumes (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "f4d29",
+              "id": "10GM3A-2",
+              "nbQuestions": 3,
+              "titre": "Convertir des volumes ou des capacités",
+              "objectifs": [
+                "Convertir aires et volumes (EVACOM TAF)"
+              ],
+              "sup": "3",
+              "sup4": "2"
+            },
+            {
+              "uuid": "065d1",
+              "id": "9GM1B-13",
+              "nbQuestions": 3,
+              "titre": "Calculer le périmètre et/ou l'aire de polygones usuels",
+              "objectifs": [
+                "Calculer périmètres et aires (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "f9a03",
+              "id": "10GM1B-6",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et/ou aire de disques",
+              "objectifs": [
+                "Calculer périmètres et aires (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "5db4b",
+              "id": "10GM1C-1",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre de portions de disques",
+              "objectifs": [
+                "Travailler les portions de disque (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "ff387",
+              "id": "10GM1C-2",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et aire de portions de disques",
+              "objectifs": [
+                "Travailler les portions de disque (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "1f334",
+              "id": "1mG1-3",
+              "nbQuestions": 3,
+              "titre": "Connaitre le vocabulaire sur les angles",
+              "objectifs": [
+                "Reconnaître et mesurer des angles (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "ff2ce",
+              "id": "9ES1B-5",
+              "nbQuestions": 3,
+              "titre": "Mesurer un angle avec rapporteur intégré",
+              "objectifs": [
+                "Reconnaître et mesurer des angles (EVACOM TAF)"
+              ],
+              "sup3": "1"
+            },
+            {
+              "uuid": "bd660",
+              "id": "10GM1D-3",
+              "nbQuestions": 3,
+              "titre": "Calculer une longueur avec le théorème de Pythagore",
+              "objectifs": [
+                "Utiliser Pythagore (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "b18e8",
+              "id": "10GM1D-5",
+              "nbQuestions": 3,
+              "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
+              "objectifs": [
+                "Utiliser Pythagore (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "c7b58",
+              "id": "10GM2B-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un cylindre (avec figure)",
+              "objectifs": [
+                "Calculer des volumes usuels (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "e4c72",
+              "id": "10GM2B-2",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un cylindre (sans figure)",
+              "objectifs": [
+                "Calculer des volumes usuels (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "051aa",
+              "id": "9ES2A-6",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre des solides",
+              "objectifs": [
+                "Reconnaître des solides et des patrons (EVACOM TAF)"
+              ]
+            },
+            {
+              "uuid": "f57fe",
+              "id": "9ES2B-1",
+              "nbQuestions": 3,
+              "titre": "Choisir le patron de cube",
+              "objectifs": [
+                "Reconnaître des solides et des patrons (EVACOM TAF)"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "bibliotheque": {
+    "parcours": [],
+    "objectifs": [
+      {
+        "libelle": "Placer et comparer des nombres (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Relier fraction, décimal et pourcentage (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Calculer avec des décimaux (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Appliquer les priorités (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Substituer dans une expression (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Additionner et soustraire des fractions (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Simplifier et décomposer (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Prendre une fraction d’une quantité (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Calculer un pourcentage et un complément (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Utiliser la proportionnalité (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Convertir longueurs et durées (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Convertir aires et volumes (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Calculer périmètres et aires (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Travailler les portions de disque (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Reconnaître et mesurer des angles (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Utiliser Pythagore (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Calculer des volumes usuels (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Reconnaître des solides et des patrons (EVACOM TAF)",
+        "niveau": "11e",
+        "theme": "EVACOM TAF"
+      },
+      {
+        "libelle": "Additionner et soustraire des fractions (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Multiplier et diviser des fractions (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Prendre une fraction ou un pourcentage (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Calculer puissances et racines simples (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Utiliser la notation scientifique (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Substituer une valeur (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Réduire une expression (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Développer une expression (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Isoler une grandeur dans une formule (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Traduire une situation (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Résoudre une équation (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Calculer une longueur avec Pythagore (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Vérifier si un triangle est rectangle (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Calculer aires et portions de disque (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Résoudre un problème par équation (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Calculer une grandeur manquante (EVACOM 11LC)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LC"
+      },
+      {
+        "libelle": "Calculer avec les fractions (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Calculer puissances et carrés (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Extraire un facteur d’une racine (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Simplifier et encadrer des racines (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Utiliser la notation scientifique (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Substituer et réduire (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Développer des produits (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Reconnaître les identités remarquables (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Factoriser une expression (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Résoudre des équations (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Transformer une formule (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Appliquer Pythagore (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Vérifier si un triangle est rectangle (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Reconnaître des solides et leurs patrons (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Calculer des volumes simples (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Calculer les volumes de pyramides, cônes et boules (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      }
+    ]
+  }
+}
