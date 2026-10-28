@@ -5,17 +5,24 @@ Store Connect). Captures : `node e2e/fiche-play.mjs <dossier>` (pnpm dev,
 parcours de démonstration ; téléphone 1620 × 2880, tablette 7 pouces
 1440 × 2304, tablette 10 pouces 1600 × 2560 : accueil, paliers, ceintures,
 question, bibliothèque, éditeur) ; image de présentation 1024 × 500 :
-logo de l'en-tête de l'app agrandi ; icône 512 × 512 : `src-tauri/icons/icon.png`.
+`node e2e/image-presentation.mjs docs/play-store` (en-tête de l'app agrandi,
+niveaux de la France et de la Suisse romande, deux écrans) ; icône 512 × 512 :
+`src-tauri/icons/icon.png`.
+
+Images de la fiche du 28 octobre 2026 (version 0.4.6) : `docs/play-store/`
+(téléphone 9:16 : accueil avec l'icône de scan, paliers, ceintures, question,
+fiche de cours et ceintures de « Primitives » rognées depuis les captures
+d'Explorer ; image de présentation).
 
 ## Fiche
 
 - **Nom** : MathALÉA
 - **Description courte** (80 caractères au plus) :
-  Parcours d’exercices de maths corrigés, du collège au lycée, même hors ligne.
+  Parcours d’exercices de maths corrigés, pour la France et la Suisse, hors ligne.
 - **Description complète** :
 
 ```
-MathALÉA, par CoopMaths, propose des parcours d’exercices de mathématiques corrigés aussitôt, du collège au lycée (programmes de France et de Suisse romande). Chaque exercice est généré au hasard : on peut le refaire autant de fois qu’on veut, avec de nouvelles questions.
+MathALÉA, par CoopMaths, propose des parcours d’exercices de mathématiques corrigés aussitôt : de la 6e à la Terminale (programmes de France) et de la 9e à la 4e du Collège (programmes de Suisse romande). Chaque exercice est généré au hasard : on peut le refaire autant de fois qu’on veut, avec de nouvelles questions.
 
 Pour les élèves
 - Les parcours de la classe arrivent du dossier partagé de l’enseignant (kDrive, Dropbox, Nextcloud…).
@@ -68,6 +75,19 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
 - **Application gouvernementale, financière, de santé, d'actualités** : non.
 
 ## Notes de version
+
+Version 0.4.7 (production, depuis la 0.2.4, 500 caractères au plus) :
+
+```
+<fr-FR>
+- Rejoindre sa classe en scannant un QR code : l'enseignant le projette, l'élève le vise depuis son accueil, sans lien à saisir.
+- Sessions de classe : QR code projeté par l'enseignant, réponses relevées par QR code.
+- Espace enseignant en quatre onglets, avec « Vue élève ».
+- Teste ton niveau, fiches de cours, révisions espacées, paliers ouverts à une date.
+- Tous les exercices du site, explorés par degré et chapitre.
+- Changer d'appareil : « Récupérer mes données ».
+</fr-FR>
+```
 
 Version 0.4.6 (depuis la 0.2.4, 500 caractères au plus) :
 
