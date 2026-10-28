@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1564 exercices passés sur 4190**.
-Constats regroupés : 7508 (un groupe = même exercice, même règle,
+Avancement : **1568 exercices passés sur 4190**.
+Constats regroupés : 7531 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -19,14 +19,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [C1 Contenu mathématique faux ou ambigu](#c1) | 1 | 1 |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 14 | 16 |
 | 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 15 | 15 |
-| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 16 | 19 |
+| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 17 | 20 |
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 2 | 2 |
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 3 | 5 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 6 | 19 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 2 | 2 |
-| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 27 | 27 |
+| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 28 | 28 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 7 | 7 |
 | 2 Rendu cassé | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 2 Rendu cassé | [M8 Nombre de mises en évidence et de champs différents](#m8) | 3 | 3 |
@@ -37,17 +37,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 18 | 29 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 15 | 269 |
-| 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
+| 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 7 | 20 |
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 166 | 308 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
-| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 17 | 17 |
+| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 18 | 18 |
+| 3 Mise en évidence | [C2 ](#c2) | 1 | 1 |
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 163 | 895 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 164 | 896 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
-| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 60 | 121 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 123 | 124 |
+| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 124 | 125 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 55 | 60 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
@@ -57,7 +58,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 5 | 5 |
 | 3 Mise en évidence | [R13 ](#r13) | 2 | 2 |
 | 3 Mise en évidence | [R14 ](#r14) | 7 | 7 |
-| 3 Mise en évidence | [R16 ](#r16) | 6 | 6 |
+| 3 Mise en évidence | [R16 ](#r16) | 11 | 11 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 3 | 3 |
 | 3 Mise en évidence | [R3 Point final](#r3) | 1 | 1 |
 | 3 Mise en évidence | [T5 Espaces en trop](#t5) | 4 | 4 |
@@ -70,28 +71,29 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 416 | 629 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 417 | 630 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 17 | 23 |
 | 4 Typographie | [N3 Point décimal](#n3) | 17 | 21 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 7 | 7 |
 | 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 38 | 46 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
-| 4 Typographie | [R1 Titre](#r1) | 9 | 9 |
+| 4 Typographie | [R1 Titre](#r1) | 10 | 10 |
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 7 | 7 |
 | 4 Typographie | [R14 ](#r14) | 1 | 1 |
 | 4 Typographie | [R16 ](#r16) | 5 | 5 |
+| 4 Typographie | [R3 Point final](#r3) | 1 | 1 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 4 | 4 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 19 | 26 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 15 | 19 |
 | 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 300 | 502 |
-| 4 Typographie | [T4 Guillemets](#t4) | 109 | 152 |
+| 4 Typographie | [T4 Guillemets](#t4) | 110 | 153 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 5 | 5 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 312 | 389 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 313 | 391 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 161 | 737 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 39 | 44 |
@@ -108,13 +110,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 33 | 44 |
 | 5 Rédaction | [T5 Espaces en trop](#t5) | 300 | 517 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 337 | 516 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 338 | 517 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 30 | 30 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 62 | 72 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 63 | 73 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 20 | 20 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 21 | 21 |
 
 ## C1
 
@@ -182,6 +184,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoT1-6 (6e) |  q7 multi-mathfield | champ absent de la page | ×1 ; sup=1 sup2=true sup3=false nb=10 (revue-12-a) |
 | 6N0A-1 (6e) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | 6N0A-1 (6e) | 6e/6N0A-1.ts:63 | Valeur maximale 1 (réglage permis, minimum 1) : randint(2, 1) donne des questions sans champ ni réponse. → Minimum 2 pour le paramètre, ou Math.max(2, this.sup). | ×1 |
+| 6N3autoD-6 (6e) |  q9 fillInTheBlank | champ absent de la page | ×1 ; sup=3-4-5-6-7-8-9 sup2=4 (revue-4-b) |
 | 6N3O (6e) |  q4 multi-mathfield | champ absent de la page | ×16 ; sup=10 sup2=1 sup3=1 ; sup=10 sup2=2 sup3=2… (revue-45-a) |
 | BP2CCF10 (BP2) |  q4 mathlive | champ absent de la page | ×1 ; sup=2 sup2=true (revue-3-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×17 ; sup=All ; sup=All nb=10 (revue-0-a) |
@@ -278,6 +281,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2G-1 (6e) | 6e/6N5-2.ts | Version « masses » : la correction parle d'objets au lieu de kilogrammes, « Ursule et son oncle achèteraient 15 cacahuètes fraiches », « Céline ne payerait que 8 cacahuètes fraiches », « Schona et son frère achèteraient 18 prunes » ; énoncé « quelle somme d'argent paierait-ils à eux deux ? » (accord : « paieraient-ils »). → « … achèteraient $15$ kilogrammes de cacahuètes », « paieraient-ils ». | ×1 |
 | 6N2K-1 (6e) | 6e/6N2K-1.ts:166 | Séjour au ski : la correction annonce « Effectuons l'addition de 37 et 29 » (prix d'un forfait et d'une nuit) puis pose $609 + 777$ : les nombres annoncés ne sont pas ceux additionnés ; « 609 € d'hôtels » (« d'hôtel »). → `Effectuons l'addition de $${texNombre(prixHotelTotal)}$ et $${texNombre(prixForfaitTotal)}$.` | ×1 |
 | 6N3O (6e) | src/exercices/6e/6N3O.ts:254 | Thème 9 : « consomme 8 % de son réservoir par 100 km, alors pour 100 km, elle utilise … L de carburant » attend 8 L : un pourcentage du réservoir n'est pas un nombre de litres. → Réécrire le thème en restant dans les pourcentages (« … % du réservoir ») ou donner la capacité du réservoir. | ×1 |
+| 6N3O-1 (6e) | src/exercices/6e/6N3O-1.ts:377 | Thème 15 : « Une bouteille contient 10 cl de jus, dont 3 cg de sucre. Quel est le pourcentage de sucre ? » attend 30 % : un pourcentage ne se calcule pas entre des cl et des cg (3 cg dans 10 cl font environ 0,3 % en masse) ; correction « 100 cl jus ». → Donner le jus en g (ou le sucre en cl d'un sirop), ou changer de contexte ; « 100 cl de jus ». | ×1 |
 | can2a-2021 (CAN) | src/exercices/can/2e/can2a-2021.ts:959 | Q25 : « Il y a $b$ boules rouges » alors que b est le nombre de boules vertes (« Il y a $2$ boules rouges sur un total de $6$ » pour 4 rouges). → Il y a $${a}$ boules rouges sur un total de… | ×1 |
 | can3a-2022 (CAN) | src/exercices/can/3e/can3a-2022.ts:300 | Q4 (cm → m) : « pour passer des m au cm, on divise par 100 » (sens inversé, même erreur que can4a-2022). → pour passer des $\text{cm}$ aux $\text{m}$, on divise par $100$ | ×1 |
 | can4a-2022 (CAN) | src/exercices/can/4e/can4a-2022.ts:318 | Q4 (cm → m) : « pour passer des m au cm, on divise par 100 » : sens inversé (on passe des cm aux m en divisant). → Ainsi, pour passer des $\text{cm}$ aux $\text{m}$, on divise par $100$. | ×1 |
@@ -719,6 +723,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoS1-4 (6e) | énoncé q1 | $12$ &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:250px;' > [champ] &lt;/ta | ×1 ; sup=2 (revue-2-a) |
 | 6AutoS1-4 (6e) | correction q1 | ta-largeur1='40'> &lt;div id='cols-responsive1-undefined'style='min-width:100px;' > On repo | ×1 ; sup=2 (revue-2-a) |
 | 6AutoS1-4 (6e) | correction q1 | }}$. &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:250px;' > &lt;table | ×1 ; sup=2 (revue-2-a) |
+| 6N3autoD-5 (6e) | énoncé q1 | $45$ $16$ $60$ $16$ $1$ $45$ $5$ $63$ $16$ $72$ $NaN$ $54$ $40$ $12$ &lt;br>&lt;br> | ×1 ; sup3=2 (revue-2-a) |
+| 6N3autoD-5 (6e) | énoncé q1 | $100$ $63$ $100$ $10$ $48$ $40$ $49$ $100$ $10$ $NaN$ $81$ $9$ $20$ &lt;br>&lt;br> | ×1 ; sup3=3 (revue-3-a) |
 | canc3a-2023 (CAN) | énoncé non interactif q11 | que Zacharie. Combien de billes a Zacharie&nbsp;? [object Object] | ×1 |
 | TSA5-30 (Terminale) | correction q1 | ] &lt;/div> &lt;/div>Le discriminant est null, donc $2x^2-8x+8$ s'annule en $2$ et est du s | ×1 ; sup=3 sup2=true (revue-4-a) |
 | TSA5-30 (Terminale) | correction q2 | ] &lt;/div> &lt;/div>Le discriminant est null, donc $-27x^2+162x-243$ s'annule en $3$ et es | ×1 ; sup=3 sup2=true (revue-4-a) |
@@ -1088,6 +1094,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6N2J-3 (6e) | 6e/6N2J-3.ts | Justification fausse pour la seconde réponse : « 45 n'est pas un diviseur de 734 car le reste de la division euclidienne de 734 par 16 n'est pas 0 » (le reste par 45 n'est pas étudié). → Justifier chaque réponse par sa propre division (734 = 45 × 16 + 14). | ×1 |
 | 6N3O (6e) | src/exercices/6e/6N3O.ts:308 | Thème 14 : « parcourt 35 % de son trajet en montée, alors pour 100 km parcourus, … km sont parcourus » : la réponse ne dit plus « en montée » ; l'unité '$\text{ km}$' précédée d'une espace donne une espace double. → texteApres : « km sont parcourus en montée. », unité « km » comme les autres thèmes. | ×1 |
+| 6N3Q-4 (6e) | src/exercices/6e/6N3Q-4.ts:120 | Avec réduction : chaque ligne est arrondie au centime à l'affichage, mais le total TTC est calculé sur les valeurs non arrondies : 864,06 + 172,81 = 1 036,87 alors que la correction donne 1 036,88. L'élève qui suit le tableau est compté faux. → Calculer chaque ligne à partir de la ligne arrondie précédente (arrondi(…, 2)), ou dire d'arrondir à la fin. | ×1 |
 | can3a-2024 (CAN) | src/exercices/can/can3a-2024/can3-2024-Q13.ts:59 | Q13 : la première ligne de la correction recopie l'expression avec « $+x$ » écrit en dur alors que l'énoncé a « $-x$ » (${signe(e)}x) ; Q11, Q23 (et can3a-2025) : « en ajoutant $-13$ dans chacun des membres ». → …${rienSi1(d)}x^2${signe(e)}x&=… | ×1 |
 | can4G2-03 (CAN) | src/exercices/can/4e/can4G2-03.ts:125 | Correction « Le triangle $ILK$ est un agrandissement du triangle $ILK$ » : le même triangle deux fois (le petit triangle est $IJM$) ; lignes 125 et 194. → …agrandissement du triangle $${nom[0]}${nom[1]}${nom[4]}$ | ×1 |
 | can5a-2020 (CAN) | src/exercices/can/5e/can5a-2020.ts:817 | Q17 : quand a×5=100, la correction écrit « $10\times b$ soit $5b$ » (facteur 10 au lieu de 5) ; « de couleurs marron » (couleur), répété lignes 811 à 829. → $5\times ${b}$ soit $${5 * b}$ sont de couleur marron | ×1 |
@@ -1103,6 +1110,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA1-46 (Terminale) | src/exercices/TSpe/TSA1-46.ts:150 | « ≈ » devant des valeurs exactes : $u_2\approx 11\,375$ alors que u_2=11 375 est calculé exactement plus haut. → Choisir « = » ou « \approx » selon que texNombre(terme, 1) arrondit ou non. | ×1 |
 | TSA1-47 (Terminale) | src/exercices/TSpe/TSA1-47.ts:139 | De u_n>8 000, la correction tire « 8 000-u_n ⩽ 0 » puis « décroissante », alors que l'inégalité stricte donne une suite strictement décroissante ; la phrase « la suite (v_n) est géométrique de raison 0,75 » est ensuite répétée telle quelle. → « 8 000-u_n&lt;0 », « u_{n+1}-u_n&lt;0 », « strictement décroissante » ; supprimer la phrase répétée (ligne 158 ou celle qui la précède). | ×1 |
 | TSA2-QCM09 (Terminale) | src/exercices/QCMBac/2021/metropole092021_2Q3.ts | Correction incomplète : elle conclut au point d'inflexion à partir de f''(-2,5)=0 seul, sans le changement de signe de f'' (qui écarte aussi « convexe » et « concave sur R ») ; « On peut affirmer que: » sans espace ; mêmes valeurs à chaque question. → Ajouter : 10x+25 change de signe en -2,5 (négatif avant, positif après), donc f'' change de signe : f concave puis convexe, C seul point d'inflexion. | ×1 |
+
+## C2
+
+**C2** (gravité 3 : Mise en évidence)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| 6N3Q (6e) | src/exercices/6e/6N3Q.ts:118 | Le paramètre « Plusieurs méthodes » (sup) est sans effet : le code teste this.sup2 (la liste des pourcentages, toujours non vide), donc les méthodes multiples s'affichent même case décochée. → Remplacer if (this.sup2) par if (this.sup). | ×1 |
 
 ## I1
 
@@ -1164,6 +1179,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2E-5 (6e) |  q5 mathlive | valeur en évidence refusée par le champ : ["116,01","19,61","2\\,984,667","13,062"] ; attendu : {"champ":"95,334"} | ×5 ; sup=0 nb=10 (revue-5-a) |
 | 6N2E-5 (6e) |  q7 mathlive | valeur en évidence refusée par le champ : ["21,496","2,364","75,130\\,38","1,891\\,5"] ; attendu : {"champ":"789,415\\,2"} | ×1 ; sup=0 nb=10 (revue-5-a) |
 | 6N2K-2 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"0","champ2":"13","champ3":"13"} ; attendu : {"champ1":"36","champ2":"0","champ3":"13"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N3autoD-2 (6e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"6","champ2":"5"} ; attendu : {"champ1":"5","champ2":"6"} | ×433 ; sup=4 sup2=4 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 6N3H-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"5","champ2":"6"} ; attendu : {"champ1":"6","champ2":"5"} | ×222 ; sup=13 sup2=4 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 6N3M-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"1,2","champ2":"1,8"} ; attendu : {"champ1":"1.8","champ2":"1.2"} | ×16 ; sup=4 sup2=true ; sup=4 sup2=false… (revue-6-a) |
 | 6N3O (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"88","champ2":"22","champ3":"22"} ; attendu : {"champ1":"44","champ2":"88","champ3":"22"} | ×284 ; sup=1 sup2=5 sup3=5 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
@@ -2325,6 +2341,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1K-1 (6e) | 6e/6N1K-1.ts | Le chiffre qui décide de l'arrondi (« 9 758,32⟦2⟧7 ») est mis en évidence en orange comme une réponse, et la réponse en évidence commence par une espace (« $${miseEnEvidence(' 9\,758,3')}$ »). → Chiffre décisif en bleu ou souligné ; évidence sur la valeur seule. | ×1 |
 | 6N1M (6e) | 6e/6N1M.ts | Le chiffre des dixièmes du nombre encadré est mis en évidence (« 9\,858,⟦9⟧99 ») comme une réponse, en plus des deux bornes attendues. → Chiffre repère en bleu (bleuMathalea) ; orange réservé aux deux bornes. | ×1 |
 | 6N3M-2 (6e) | 6e/6N3M-2.ts | Correction en \textcolor{red} / \textcolor{blue} (hors couleurs de MathALÉA), « $\textbf{Donc}$ » et les rapports en \mathbf dans une formule : aucune miseEnEvidence sur les deux rapports à trouver. → Texte hors formule (« Donc ») et rapports en miseEnEvidence ; couleurs de la charte pour les segments. | ×1 |
+| 6N3Q-3 (6e) | src/exercices/6e/6N3Q-3.ts:379 | Augmentation : l'espace insécable est mise dans miseEnEvidence ($…=⟦94,20 ⟧€$), qui ne montre donc pas exactement la saisie attendue, à l'inverse de la réduction (ligne 285). → miseEnEvidence(texPrix(montantAugmentation)) puis ${sp()}€, comme pour la réduction. | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:286 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:373 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:378 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
@@ -2398,6 +2415,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-3 (6e) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | 6N1G (6e) | série q1 | aucune mise en évidence dans la correction | ×50 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N1H-1 (6e) | série q1 | aucune mise en évidence dans la correction | ×52 ; sup=7 ; sup=1… (revue-0-a) |
+| 6N3autoD-4 (6e) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | 6N3D-1 (6e) | série q1 | aucune mise en évidence dans la correction | ×50 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
 | 6N3D-2 (6e) | série q1 | aucune mise en évidence dans la correction | ×550 ; sup=2 sup2=true sup3=1 sup4=2 ; sup=1 sup2=true sup3=1 sup4=1… (revue-0-a) |
 | 6N3E (6e) | série q1 | aucune mise en évidence dans la correction | ×74 ; sup=true sup2=true sup3=4 ; sup=true sup2=true sup3=1… (revue-0-a) |
@@ -2757,9 +2775,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A (6e) | 6e/6N1A.ts | « Inférieurs à 10 » avec « Milliers » (ou « Centaines ») : questions sans objet, « Le chiffre des milliers du nombre $3$ est : 0 » quatre fois de suite (sup=1, sup3=1). → Ne proposer que les rangs présents dans les nombres du niveau choisi. | ×1 |
 | 6N1B (6e) | 6e/6N1B.ts | Sans les mots (sup3 décoché), « vers l'unité » donne des questions sans objet : « $1\,000 =$ … unités », « $100 =$ … unités » (réponse recopiée de l'énoncé). → Avec sup3 décoché, écrire l'unité de départ en mots (« 1 millier = … unités ») ou exclure la conversion vers les unités. | ×1 |
 | 6N2A-4 (6e) | 6e/6N2A-4.ts | Second nombre sans décimale : il peut valoir 0 (« $3,86-0$ », graine revue-2-a), calcul sans objet. → Tirer le second nombre à partir de 1. | ×1 |
+| 6N3autoD (6e) | src/exercices/6e/6N3autoD.ts:219 | Correction : « son chiffre des unités est $0$, ou $5$ » et « n'est pas $0$, ou $5$ » (virgule fautive, « ni … ni ») ; « il faudrait plutôt dire $4395$ est un multiple de $5$ » sans espace des milliers ni guillemets (lignes 211 et 204 utilisent texNombre). → « est $0$ ou $5$ », « n'est ni $0$ ni $5$ » ; « il faudrait plutôt dire : « $${texNombre(a)}$ est un multiple de $${N}$ » ». | ×1 |
+| 6N3O-1 (6e) | src/exercices/6e/6N3O-1.ts:133 | « … brebis. quel est le pourcentage » (minuscule après un point) ; paramètre « Romans dans uee bibliothèque » ; correction « soit $66$ % » avec % hors des $ et espace ordinaire. → « Quel » ; « une » ; $${miseEnEvidence(reponse)}\,\%$. | ×1 |
 | 6N3P (6e) | src/exercices/6e/6N3P.ts:90 | Thème déplacements, correction : « Les élèves qui en deux-roues ou qui en voiture représentent » (verbe manquant), somme coupée en deux $…$ (« $30\,\%$ + $35\,\%=65\,\%$ ») et « $100-65\,\%$ » sans % sur 100 (les autres thèmes écrivent $100\,\%-…$). → « Les élèves qui se déplacent ${moy1} ou ${moy2} représentent $p1\,\%+p2\,\%=…$ », puis « $100\,\%-…$ ». | ×1 |
+| 6N3Q-3 (6e) | src/exercices/6e/6N3Q-3.ts:305 | « Les frais de transport annuels de Nathalie coûte » (accord) ; prix initial sans espace des milliers ($1156$ €) ; « 1er janvier » sans exposant. → Accorder le verbe (situation au pluriel) ; texNombre(prixIntial) ; 1$^{\text{er}}$ janvier. | ×1 |
+| 6N3Q-4 (6e) | src/exercices/6e/6N3Q-4.ts:85 | « Designations » sans accent ; prix unitaires identiques pour deux articles différents (aiguillettes et glaces à 69,40) ; colonne des prix sans unité ; tableau de 468 px à 390 px. → « Désignations » ; tirer les prix sans remise ; « Prix unitaires H.T. (€) » ; colonnes plus étroites (abréviations ou retour à la ligne). | ×1 |
 | TSA1-32 (Terminale) | src/exercices/TSpe/TSA1-32.ts:104 | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». → Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | ×1 |
 | TSA1-42 (Terminale) | src/exercices/TSpe/TSA1-42.ts:190 | « Quelle que soit la quantité de prises » (des prises se comptent) ; « la 14e prise » sans exposant. → « Quel que soit le nombre de prises » ; $14^{\text{e}}$. | ×1 |
+| TSA2-QCM12 (Terminale) | src/exercices/QCMBac/A2022/Metropole2022_1Q3.ts | Correction : « On en déduit que f'' positive » (verbe manquant), « croissante sur ]0 ; 2] » puis « positive sur [0 ; 2] » (bornes différentes), et la conclusion ne dit pas que f'' ⩾ 0 donne la convexité. → « On en déduit que f'' est positive sur [0 ; 2], donc f est convexe sur [0 ; 2]. » avec les mêmes bornes partout. | ×1 |
 
 ## R2
 
@@ -2971,6 +2994,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2K-2 (6e) | énoncé non interactif q1 | « 9 » hors $ : des colliers avec des perles. Il décide de mettre 9 perles jaunes et 6 perles rouges par collier. Il ‖ « 6 » hors $ : es perles. Il décide de mettre 9 perles jaunes et 6 perles rouges par collier. Il possède 229 perles ‖ « 229 » hors $ : jaunes et 6 perles rouges par collier. Il possède 229 perles rouges et 324 perles jaunes. a) Combie | ×4 |
 | 6N2K-3 (6e) | correction q1 | « 11 » hors $ : 11 est inférieur à 23, l'égalité ‖ « 23 » hors $ : par 23. On a donc : 74 le quotient et 11 le reste. ‖ « 61 » hors $ : . Le quotient est 61 et le reste est 0. | ×79 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N3A-2 (6e) | correction q1 | « 5 » hors $ : en divisant le numérateur et le dénominateur par 5. | ×119 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=2 sup3=true… (revue-1-a) |
+| 6N3autoD-6 (6e) | consigne | « 1 » hors $ : Compléter avec deux nombres entiers différents de 1. | ×1 ; sup=3-4-5-6-7-8-9 sup2=9 (revue-0-a) |
 | 6N3D-1 (6e) | correction q1 | « 9 » hors $ : On construit le segment [OT] de longueur 9 cm, puis on le partage en 5 parties égales. ‖ « 5 » hors $ : ment [OT] de longueur 9 cm, puis on le partage en 5 parties égales. Le point A est placé su ‖ « 10 » hors $ : ment [OT] de longueur 5 cm, puis on le partage en 10 parties égales. Le point A est placé s | ×60 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
 | 6N3F-2 (6e) | titre | « 1 » hors $ : fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale | ×1 |
 | 6N3F-2 (6e) | consigne | « 1 » hors $ : d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale. ‖ « 1 » hors $ : d'un nombre entier et d'une fraction inférieure à 1. | ×2 ; sup=2-4-4-5-5-5-8-8-10-10-10-10 sup2=true sup3=true ; sup=2-4-4-5-5-5-8-8-10-10-10-10 sup2=true sup3=false (revue-0-a) |
@@ -3668,6 +3692,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2autoD-1 (6e) | 6e/6N2autoD-1.ts | Même titre que 6N2autoC (« Multiplier un nombre décimal par 10, 100 ou 1 000 ») pour un autre exercice, rangé dans 6N2autoD (division). → Titre distinctif (« Multiplier par 10, 100, 1 000 : produit ou facteur à trouver »). | ×1 |
 | 6N2B-2 (6e) | 6e/6N2B-2.ts | Option « Fraction décimale à retrouver » : la réponse attendue est un décimal ($0,001$), aucune fraction n'est proposée. → « Facteur 0,1 ; 0,01 ou 0,001 à retrouver » | ×1 |
 | 6N2E-6 (6e) | 6e/6N2E-6.ts | Libellé du paramètre « Nombre de décimales sur le deucième nombre » (coquille, même texte dans 6N2A-4 et 5N2autoA). → « deuxième » | ×1 |
+| TSA2-QCM10 (Terminale) | src/exercices/QCMBac/A2022/Polynesie2022_2Q5.ts | « au point d'abscisse 1 » : nombre hors des $ ; phrase de l'énoncé sans ponctuation avant les propositions. → « d'abscisse $1$ … est : ». | ×1 |
 
 ## R10
 
@@ -3702,6 +3727,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3O (6e) | src/exercices/6e/6N3O.ts:274 | « jeux vidéos » (énoncé et paramètre) ; pourcentage écrit $44\ \%$ au lieu de $44\,\%$. → « jeux vidéo » ; \,\% partout. | ×1 |
 | TSA1-48 (Terminale) | src/exercices/TSpe/TSA1-48.ts:198 | Encadrement d'une ligne en bloc centré \[\begin{aligned}0&&lt;q&lt;1\end{aligned}\] au milieu d'une phrase (« Comme [bloc] cette même propriété… »), sans virgule ; double & inutile. Les affirmations 1 et « Toute suite croissante… » n'ont pas l'étiquette « Affirmation : » des autres. → Écrire « Comme $0&lt;q&lt;1$, cette même propriété… » en ligne ; ajouter « Affirmation : » partout. | ×1 |
 | TSA2-QCM02 (Terminale) | src/exercices/QCMStatiques/Convexite1.ts:35 | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. → « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | ×1 |
+
+## R3
+
+**Point final** (gravité 4 : Typographie)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| 6N3Q-2 (6e) | src/exercices/6e/6N3Q-2.ts:79 | Pourcentage écrit avec deux espaces insécables ($50 ${sp()}${sp()}\%$, une seule pour les masses) ; « le montant en euro » ; melons de 133 g. → $${pourcent[i]}\,\%$ ; « en euros » ; masses de melon réalistes (en kg ou plus de 800 g). | ×1 |
 
 ## R4
 
@@ -4301,6 +4334,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0B-4 (6e) | correction q1 | guillemet sans insécable : On peut « faire les calculs à l'envers » : | ×26 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N2K-1 (6e) | énoncé q1 | guillemet sans insécable : 149 pièces d'or. Le capitaine dit à ses hommes : « Vous avez bien travaillé, partagez-vous le tréso ‖ guillemet sans insécable : le trésor, je me contenterai du reste. » [champ] | ×12 ; sup=9 ; sup=7… (revue-0-a) |
 | 6N2K-1 (6e) | énoncé non interactif q1 | guillemet sans insécable : 149 pièces d'or. Le capitaine dit à ses hommes : « Vous avez bien travaillé, partagez-vous le tréso ‖ guillemet sans insécable : le trésor, je me contenterai du reste. » Le capitaine est-il vraiment généreux ? a) Com | ×2 |
+| 6N3autoD-6 (6e) | titre | guillemet sans insécable : Connaître les tables de multiplication « à l'envers » ‖ guillemet sans insécable : nnaître les tables de multiplication « à l'envers » | ×2 |
 | BP1SP02 (BP1) | énoncé q1 | guillemet sans insécable : it les évènements suivants : C : « la personne choisie fait partie des cadres » ; ‖ guillemet sans insécable : C : « la personne choisie fait partie des cadres » ; F : « la personne choisie est u ‖ guillemet sans insécable : sie fait partie des cadres » ; F : « la personne choisie est une femme ». [champ] | ×44 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1SP02 (BP1) | énoncé non interactif q1 | guillemet sans insécable : it les évènements suivants : C : « la personne choisie fait partie des cadres » ; ‖ guillemet sans insécable : C : « la personne choisie fait partie des cadres » ; F : « la personne choisie est u ‖ guillemet sans insécable : sie fait partie des cadres » ; F : « la personne choisie est une femme ». a) Calculer | ×6 |
 | can1a-2026 (CAN) | correction q27 | guillemet sans insécable : nc d'abord décroissante puis croissante (parabole « tournée vers le haut »). Ainsi, ‖ guillemet sans insécable : puis croissante (parabole « tournée vers le haut »). Ainsi, ‖ guillemet sans insécable : nc d'abord croissante puis décroissante (parabole « tournée vers le bas »). Ainsi, | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -4552,6 +4586,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2D (6e) | correction | page de 548 px pour 390 px | ×49 ; sup=4 sup2=1 sup3=false sup4=false ; sup=1 sup2=1 sup3=true sup4=false… (revue-0-a) |
 | 6N2E-1 (6e) | correction | page de 526 px pour 390 px | ×7 ; sup=true sup2=3 ; sup=true sup2=1… (revue-0-a) |
 | 6N2K-3 (6e) | correction | page de 425 px pour 390 px | ×1 ; sup=2 (revue-1-b) |
+| 6N3autoD-5 (6e) | énoncé q1 | table.tableauMathlive de 827 px pour 390 px | ×8 ; sup3= ; sup3=1… (revue-0-a) |
+| 6N3autoD-5 (6e) | énoncé | page de 843 px pour 390 px | ×8 ; sup3= ; sup3=1… (revue-0-a) |
 | 6N3B (6e) | énoncé | page de 790 px pour 390 px | ×7 ; sup=3 ; sup=1… (revue-0-a) |
 | 6N3B (6e) | correction q1 | div.svgContainer de 750 px pour 390 px | ×44 ; sup=3 ; sup=1… (revue-0-a) |
 | 6N3B (6e) | correction | page de 766 px pour 390 px | ×7 ; sup=3 ; sup=1… (revue-0-a) |
@@ -7350,6 +7386,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2B-4 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $............$ ‖ points de suspension en maths (\ldots) : $....................$ ‖ points de suspension en maths (\ldots) : $84,7 \times 0,01 =................$ | ×95 |
 | 6N2F-1 (6e) | énoncé non interactif q1 | points de suspension : ... | ×15 |
 | 6N2J-3 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $............$ | ×48 |
+| 6N3autoD-6 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $40= ........ \times ........$ | ×40 |
 | 6N3B (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×4 |
 | 6N3D-2 (6e) | correction q1 | points de suspension : ... Le point A est placé sur la troisième graduati ‖ points de suspension : ... Le point A est placé sur la quatrième graduati ‖ points de suspension : ... Le point A est placé sur la sixième graduation | ×135 ; sup=1 sup2=false sup3=1 sup4=1 ; sup=1 sup2=false sup3=1 sup4=2… (revue-10-a) |
 | 6N3F-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $1 = \dfrac{....}{6}$ | ×4 |
@@ -7771,6 +7808,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1G (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×50 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N2autoB-1 (6e) |  q1 tableauMathlive | aucune valeur attendue | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
 | 6N2J-3 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N3autoD-4 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | 6N3B (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×22 ; sup=3 ; sup=1… (revue-0-a) |
 | 6N3D-1 (6e) |  q1 demi-droite-interactive | format demi-droite-interactive : à tester à la main | ×50 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
 | 6N3D-2 (6e) |  q1 demi-droite-interactive | format demi-droite-interactive : à tester à la main | ×550 ; sup=2 sup2=true sup3=1 sup4=2 ; sup=1 sup2=true sup3=1 sup4=1… (revue-0-a) |
@@ -8306,6 +8344,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-7 (6e) |  | 2376 combinaisons : 100 passées (couverture par paires) | ×1 |
 | 6N2autoC (6e) |  | 240 combinaisons : 31 passées (couverture par paires) | ×1 |
 | 6N2E (6e) |  | 256 combinaisons : 17 passées (couverture par paires) | ×1 |
+| 6N3autoD-2 (6e) |  | 1536 combinaisons : 73 passées (couverture par paires) | ×1 |
 | 6N3H-1 (6e) |  | 4992 combinaisons : 109 passées (couverture par paires) | ×1 |
 | 6N3O (6e) |  | 375 combinaisons : 78 passées (couverture par paires) | ×1 |
 | can2N10-05 (CAN) |  | 243 combinaisons : 81 passées (couverture par paires) | ×1 |
