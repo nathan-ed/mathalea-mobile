@@ -1,21 +1,23 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **37 sur 293**. Constats confirmés : **26**.
+Exercices relus : **45 sur 293**. Constats confirmés : **33**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 8 |
+| Contenu mathématique faux | 9 |
+| Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 2 |
-| Typographie (nombres, espaces, notations) | 7 |
-| Rédaction (français, titres, consignes) | 9 |
+| Typographie (nombres, espaces, notations) | 11 |
+| Rédaction (français, titres, consignes) | 10 |
 
 ## Contenu mathématique faux
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| TSA1-QCM03 | C1 Contenu mathématique faux | Code Python faux : « u=1,2$*$u+12 » (en Python, 1,2 est un couple : il faut 1.2), propositions « u$\leqslant 10000$ » (symbole mathématique au lieu de « u &lt;= 10000 ») ; code écrit en texte et en formules mêlés, sans police à chasse fixe ; « par: » sans espace. | Bloc de code (police fixe) : « u = 1.2*u + 12 », propositions « u &lt;= 10000 », « u > 10000 »… comme dans le sujet. | QCMBac/A2023/metropoleSept2023Q3.ts |
 | canTSpea-NY2025 | C1 Contenu mathématique faux | Mêmes questions que can2a-NY2025 / can1a-NY2025, mêmes défauts (Q28 exposant 2 024, Q4 « pout », Q25 OUI/NON, Q3 « $....$ . », Q6 $\dfrac{1}{2033}$) ; Q13 « coeffcient » ; Q21 « $-2025x^2$ » et « $-4050x$ » sans séparateur ; Q12 couple ⟦(1\,012;1\,017)⟧ mis en évidence d'un bloc pour deux champs | voir can2a-NY2025 ; texNombre ; une évidence par champ | src/exercices/can/canNY-2025 |
 | canTSpea-NY2026 | C1 Contenu mathématique faux | Mêmes questions et défauts que can1a-NY2026 / can2a-NY2026 ; Q13 « coeffcient » ; Q21 « $-2026x^2$ », « $-4052x$ » sans séparateur ; Q12 couple mis en évidence d'un bloc pour deux champs | voir can2a-NY2026 | src/exercices/can/canNY-2026 |
 | canTSpea-2025 | C1 Contenu mathématique faux | Questions reprises de can2a-2025 et can1a-2025, mêmes défauts (Q3 constant -6, Q7 « nombnre », Q10 « 1+ », Q11 « $9,4=9\text{ h}…$ », Q27 « taux d'évolution globale ») ; Q16 : « $S={\\${miseEnEvidence(…)}\\}$ » (accolade de groupe au lieu de \{, rendu correct par hasard) | voir can2a-2025, can1a-2025 ; $S=\\{…\\}$ | src/exercices/can/canTspea-2025/canTspea-2025-Q16.ts:47 |
@@ -24,6 +26,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeE01 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE01.ts:51 |
 | canTSpeE02 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE02.ts:51 |
 | canTSpeE03 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE03.ts:51 |
+
+## Rendu cassé (formule, débordement, erreur)
+
+| Exercice | Règle | Constat | Correction proposée | Fichier |
+| --- | --- | --- | --- | --- |
+| TSA1-12 | X5 Débordement à 390 px | Correction à 390 px : le calcul aligné avec ses justifications en vert (« ← hypothèse de récurrence ») élargit la page à 451 px ; « \text{car 2n+6=2(n+1)+4} » écrit en texte droit au lieu de formule. | Justifications sous chaque ligne sur petit écran ; « car $2n+6=2(n+1)+4$ ». | TSpe/TSA1-12.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
 
@@ -36,6 +44,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| TSA1-QCM01 | N1 Nombre hors $ | « $\left(v_{n}\right)$ converge vers 0 . » : 0 hors $ et espace avant le point ; correction réduite à « $\dfrac{0}{+\infty}\to 0$ » (quotient de limites écrit comme une fraction, sans phrase). | « converge vers $0$. » ; « Par quotient, $\lim\dfrac{v_n}{u_n}=0$, donc la suite converge. » | QCMBac/A2023/AmNordAout2023Q3.ts |
+| TSA1-QCM02 | T5 Espaces | « définie … par: », « La suite $(u_n)$ est: » (deux-points collés) ; correction « Si pour tout entier naturel $n$, : » (virgule et deux-points), sans point final ; « arithmétique de raison 2 » (2 hors $) ; en interactif la bonne proposition n'est pas mise en évidence (seulement « réponse A » en non interactif). | Espaces insécables avant « : », $2$, conclusion « … géométrique de raison $\mathrm{e}^2$. » avec la proposition en évidence. | QCMBac/A2023/metropoleSept2023Q2.ts |
+| TSA1-QCM04 | N1 Nombre hors $ | « géométrique de raison 1,2 » hors $ (proposition et conclusion), « par: », « est: » sans espace insécable. | « raison $1,2$ » ; « par : ». | QCMBac/A2023/metropoleSept2023Q4.ts |
 | canTEA3-01 | T9 Mot en italique | « $PGCD(3;19)$ » : lettres en italique dans la formule | $\text{PGCD}(3\,;\,19)$ | src/exercices/can/Ex/canTEA3-01.ts |
 | canTEC1-03 | T9 Mot en italique | « $z = -3-5i$ », « $-iz$ » : i en italique (le reste de la série écrit \mathrm{i}) ; « $\mathcal{Im}(-iz)$ » ; « $~~z$ » | \mathrm{i} ; \operatorname{Im} | src/exercices/can/Ex/canTEC1-03.ts |
 | canTEC1-04 | T9 Mot en italique | « $\left(\mathrm{-i}\right)^{8}$ » : signe moins dans \mathrm ; « $\left(\mathrm{i}^{4}\right)^{1}$ » | $(-\mathrm{i})^{8}$ ; exposant 1 omis | src/exercices/can/Ex/canTEC1-04.ts |
@@ -43,6 +54,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTEC2-05 | N6 Écriture algébrique | Forme algébrique mise en évidence « $\sqrt{3}-1\mathrm{i}$ » (coefficient 1 écrit) | $\sqrt3-\mathrm{i}$ | src/exercices/can/Ex/canTEC2-05.ts |
 | canTSpeAN15 | T9 Mot en italique | « la fonction $ln(u)$ » : ln en italique | $\ln(u)$ | src/exercices/can/TSpe/canTSpeAN15.ts |
 | canTSpeS03 | T9 Mot en italique | $e^{-n}$ en italique (constante e) ; $n\to\infty$ (aussi canTSpeS02, S04, S05, S06) | \mathrm{e}^{-n} ; n\to+\infty | src/exercices/can/TSpe/canTSpeS03.ts |
+| TSA1-10 | N1 Nombre hors $ | Justifications en vert : « On ajoute 3. » (nombre hors $) ; « $\dfrac{1}{1}$ » laissé tel quel quand $a=1$. | « On ajoute $3$. » ; écrire $1$. | TSpe/TSA1-10.ts |
 
 ## Rédaction (français, titres, consignes)
 
@@ -57,6 +69,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeS08 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS08.ts |
 | canTSpeS08 | R1 Titre | Titre « Limite de $\sqrt(n)-n^p$ » : \sqrt(n) mal écrit (rend la racine de « ( ») | $\sqrt{n}-n^p$ | src/exercices/can/TSpe/canTSpeS08.ts:7 |
 | canTSpeS09 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS09.ts |
+| TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
 
