@@ -1,7 +1,7 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **75 sur 293**. Constats confirmés : **64**.
+Exercices relus : **77 sur 293**. Constats confirmés : **66**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -11,7 +11,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 2 |
 | Mise en évidence (miseEnEvidence et champs) | 4 |
 | Typographie (nombres, espaces, notations) | 13 |
-| Rédaction (français, titres, consignes) | 26 |
+| Rédaction (français, titres, consignes) | 28 |
 
 ## Contenu mathématique faux
 
@@ -87,8 +87,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-QCM07 | R14  | Exercice « _alea » mais toujours les mêmes valeurs : avec 10 questions, dix fois la même question (A(0;5), B(1;20)). Sans le préambule (paramètre décoché), l'énoncé se réduit à « On peut affirmer que : » sans figure ni données. | Aléatoiriser les valeurs ou limiter à une question ; sans préambule, garder au moins la figure. | src/exercices/QCMBac/2021/metropole092021_2Q1_alea.ts |
 | TSA2-QCM06 | R14  | Correction vide (this.correction = '') : l'élève n'a aucune explication, ni la bonne réponse en mode non interactif. | Rédiger la correction : signe de f'' lu sur la courbe, f' croissante puis décroissante, maximum en xC ; pourquoi les trois autres sont fausses. | src/exercices/QCMBac/A2022/Etrangers2022_1Q2_alea.ts:74 |
 | TSA2-QCM12 | R16  | Correction : « On en déduit que f'' positive » (verbe manquant), « croissante sur ]0 ; 2] » puis « positive sur [0 ; 2] » (bornes différentes), et la conclusion ne dit pas que f'' ⩾ 0 donne la convexité. | « On en déduit que f'' est positive sur [0 ; 2], donc f est convexe sur [0 ; 2]. » avec les mêmes bornes partout. | src/exercices/QCMBac/A2022/Metropole2022_1Q3.ts |
+| TSA2-QCM14 | R16  | Titre « Métropole 05/22 : exponentielle. » avec point final ; correction « La solution est donc une seule solution » (tautologie), « admet dans R : » avec espace ordinaire avant les deux-points du QCM. | Titre sans point ; « Le nombre de solutions est donc : une seule. » | src/exercices/QCMBac/A2022/Metropole2022_1Q6.ts |
 | TSA2-QCM10 | R1 Titre | « au point d'abscisse 1 » : nombre hors des $ ; phrase de l'énoncé sans ponctuation avant les propositions. | « d'abscisse $1$ … est : ». | src/exercices/QCMBac/A2022/Polynesie2022_2Q5.ts |
 | TSA2-QCM02 | R16  | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. | « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | src/exercices/QCMStatiques/Convexite1.ts:35 |
+| TSA2-QCM15 | R1 Titre | Propositions du QCM avec nombres hors des $ : « arithmétique de raison 2 » ; intervalles écrits sans espaces $]-\infty;-3]$ (les autres QCM utilisent ~;~). | « raison $2$ » ; $]-\infty~;~-3]$. | src/exercices/QCMStatiques/Shuffle.ts |
 | TSA1-32 | R16  | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». | Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | src/exercices/TSpe/TSA1-32.ts:104 |
 | TSA1-40 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. | texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | src/exercices/TSpe/TSA1-40.ts:92 |
 | TSA1-42 | R16  | « Quelle que soit la quantité de prises » (des prises se comptent) ; « la 14e prise » sans exposant. | « Quel que soit le nombre de prises » ; $14^{\text{e}}$. | src/exercices/TSpe/TSA1-42.ts:190 |
