@@ -70,7 +70,9 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 5. `node revue/flottants.mjs` : réponses attendues écrites en flottant
    (`12.135000000000002`) ; confirmer chacune avec `essayer.mjs` (certaines
    comparaisons tolèrent l'écart, d'autres refusent la bonne réponse).
-6. `node revue/texte.mjs && node revue/rapport.mjs`, commit, push.
+6. `node revue/texte.mjs && node revue/rapport.mjs && node revue/degres.mjs`
+   (résumés par degré dans `par-degre/`, demandés par Nathan pour commencer
+   les corrections au fil de l'eau), commit, push.
 
 ## Remettre l'environnement en place (conteneur neuf)
 
