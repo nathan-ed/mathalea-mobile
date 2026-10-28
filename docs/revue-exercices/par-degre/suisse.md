@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **179 sur 1168**. Constats confirmés : **151**.
+Exercices relus : **210 sur 1168**. Constats confirmés : **167**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 23 |
+| Rendu cassé (formule, débordement, erreur) | 25 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 96 |
+| Rédaction (français, titres, consignes) | 110 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -44,6 +44,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | c5503 | X4  | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) | Afficher l'affirmation dans la question QCM | relecture |
 | c9893 | X4  | Correction vide (QCM notation scientifique) | Ajouter une correction | relecture |
 | c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
+| cce0c | X4  | Exercice bêta : énoncé « patronEnT » (identifiant interne) et correction « Correction 1 de type 2 » sans contenu | Texte réel ou exercice à retirer du référentiel | relecture |
+| cd736 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
 | a9f31 | X4  | « Créer une animation de construction aux instruments (Instrumenpoche) » : outil d'enseignant (éditeur IEP) sans question ni correction (4 X4) : à retirer des exercices proposés aux élèves ; 2 pages > 390 px. | Retirer pour les élèves. | src/exercices/CH/a9f31.ts |
@@ -106,6 +108,17 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | c9016 | R1 Titre | Correction : « le quart de 80 » : 80 hors $ | $80$ | relecture |
 | ca8a9 | R16  | Titre « un nouveaux prix » ; correction « appliquant la augmente de $20\,\%$ au prix initial » (phrase cassée) | « un nouveau prix » ; « en appliquant l'augmentation de $20\,\%$ » | relecture |
 | cbaad | R16  | Correction : « L'préimage est… » (élision fautive, féminin) | « La préimage » | relecture |
+| cc23e | R16  | Titre « Effetuer une multiplication avec 25 » | « Effectuer » | relecture |
+| ccf1d | R16  | Titre « Mulitiplier des mutiples de dix » | « Multiplier des multiples de dix » | relecture |
+| cd32b | R16  | Correction : « $2,7 = 2 \text{ h } + …$ » sans unité à gauche | $2,7\text{ h}=…$ | relecture |
+| cd736 | R16  | Énoncé : « retranchant $3$ dixièmes à $2\,025$ » (retrancher … de) ; correction « $2\,025 -0,3$ » espace asymétrique | « à partir de » / $2\,025-0,3$ | relecture |
+| cd8eb | R2 Tutoiement, impératif | Correction : unités \textbf{h} et \textbf{min} dans miseEnEvidence | miseEnEvidence(21) \text{h} … | relecture |
+| ce3da | R16  | Titre terminé par « ** » et apostrophe typographique « d’un » | Retirer « ** » | relecture |
+| cea02 | R1 Titre | Nombres hors $ : « motif n° 6 », « 2 colonnes », « 1 ligne » (correction) | Nombres entre $ | relecture |
+| cee5d | R16  | Guillemets droits \x27Pile\x27 / \x27Face\x27 | Guillemets français « Pile » | relecture |
+| ch2pn | R16  | Titre « littéralee » | « littérale » | relecture |
+| d077f | R16  | Intervalles $[-1;4]$, $]-\infty;0]$ sans espaces autour de « ; » (déjà vu : ~;~) | Utiliser $[-1\,;\,4]$ | relecture |
+| cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
 | a0d16 | R10 Français | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. | $300\,000=$ en un dollar ; titre cohérent. | src/exercices/CH/a0d16.ts |
 | a12ef | R16  | Correction : « et $452$ est vient juste après $428$ » (faute de frappe : « est » en trop) ; « Entoure » (consigne papier dans une app tactile ; « Choisir ») ; énoncé « qui vient juste après 428 » ambigu (432 serait le suivant) ; 26 R2. | « 452 vient juste après 428 » ; « Choisir ». | src/exercices/CH/a12ef.ts |
@@ -194,6 +207,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | c6cbe | R16  | Titre « Trouver un inverse ou un opposé » alors que l'exercice ne demande que l'opposé de −2 025 ; correction juste. | Titre « l'opposé ». | src/exercices/CH/c6cbe.ts |
 | c8a2b | R3  | « Donner un diviseur de 213 autre que 1 et lui-même » : plusieurs réponses valables (3, 71) : le champ n'accepte que ? (à tester) ; correction juste. | Accepter 3 et 71. | src/exercices/CH/c8a2b.ts |
 | c8fe9 | R16  | Programme Scratch « Aller en bas :: motion stack » (même défaut que 6I1B) ; 144 T3 ; 120 N1 ; 26 pages > 390 px. | Vérifier le rendu. | src/exercices/CH/c8fe9.ts |
+| d3b6c | R2 Tutoiement, impératif | Correction : « un parallélogramme quelconque » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/dnbAutomatismes/dnb-2026-06-amerique-du-nord-automatisme-Q3.ts |
+| cea02 | R2 Tutoiement, impératif | Correction : « ⟦n°7⟧ » texte dans miseEnEvidence alors que le champ attend 7 | n° 7 avec seul 7 en évidence | src/exercices/dnbAutomatismes/dnb-2026-06-centres-etrangers-Q2.ts |
+| croiss | R2 Tutoiement, impératif | Correction : « croissante sur ]0 ; +∞[ » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/QCMBrevet/A2019/CroissanceFonctions.ts |
 
 ## Constats graves du banc, à confirmer
 
@@ -210,4 +226,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 8773 ; T5 Espaces 1192 ; T6 Points de suspension 532 ; T4  480 ; T2  371 ; R2 Tutoiement, impératif 187 ; T3  127 ; R5 Virgule 100 ; N6 Écriture algébrique 77 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; X2 Formule cassée 12 ; R10 Français 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; T1 Espace avant % 1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9067 ; T5 Espaces 1231 ; T6 Points de suspension 532 ; T4  480 ; T2  371 ; R2 Tutoiement, impératif 187 ; T3  127 ; R5 Virgule 100 ; N6 Écriture algébrique 77 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; T1 Espace avant % 29 ; X2 Formule cassée 12 ; R10 Français 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
