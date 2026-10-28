@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **262 sur 1168**. Constats confirmés : **189**.
+Exercices relus : **283 sur 1168**. Constats confirmés : **196**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 28 |
+| Rendu cassé (formule, débordement, erreur) | 29 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 129 |
+| Rédaction (français, titres, consignes) | 135 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -49,6 +49,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | d631d | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | d7fe8 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | da2fc | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| e3045 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
 | a9f31 | X4  | « Créer une animation de construction aux instruments (Instrumenpoche) » : outil d'enseignant (éditeur IEP) sans question ni correction (4 X4) : à retirer des exercices proposés aux élèves ; 2 pages > 390 px. | Retirer pour les élèves. | src/exercices/CH/a9f31.ts |
@@ -129,13 +130,19 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | d9p5e | R16  | Énoncé : « Combien de fois $\dfrac{5}{6}$ dans $\dfrac{5}{2}$ ? » (verbe manquant) | « Combien de fois $\dfrac{5}{6}$ y a-t-il dans … ? » | relecture |
 | dabbf | R16  | Titre terminé par un point | Retirer le point | relecture |
 | debc6 | R16  | Exponentielle « e » en romain absente : $ke^{-ax}$, $ke^0$ (pas $\mathrm{e}$), contrairement à d2a2d | Utiliser \mathrm{e} | relecture |
+| e1938 | R1 Titre | Énoncé : « 18 yaourts », « 5 », « 7 », « 6 » hors $ | Nombres entre $ | relecture |
 | e6bf9 | R16  | Énoncé : « Dans $24$, combien de fois $4$ ? » (verbe manquant) | « Dans $24$, combien de fois y a-t-il $4$ ? » | relecture |
+| e70ce | R16  | Titre terminé par une espace | Retirer | relecture |
 | e7bad | R16  | Correction : « 4 angles droits… quatre côtés… 3 angles droits » : chiffres et lettres mêlés | Harmoniser | relecture |
 | e9cf0 | R1 Titre | Énoncé : « 15 € », « 1 billet de 20 € » hors $ ; correction « $20$ € - $15$ € $ = 5$ € » (trait d'union au lieu de −, $ mal placés) ; titre « Ordre de grandeur » sans rapport | $15$ €, $20$ € ; $20-15=5$ ; titre « Rendre la monnaie » | relecture |
+| e46e6 | R16  | Correction : intervalle $[-7;1[$ sans espaces autour de « ; » | $[-7\,;\,1[$ | src/exercices/2e/200F3-02.ts |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
+| e1938 | R16  | Énoncé : « cette experience aléatoire » (accent) | « expérience » | src/exercices/2e/2P10-5Old.ts |
 | dc3d2 | R1 Titre | Énoncé et correction : nombres hors $ (« 10 + 9 + 4 + 6 + 8 = 37 », « 0,243 ») | Nombres entre $ | src/exercices/2e/2S20-1Old.ts |
+| e564b | R5 Virgule | Consigne « Calculer » sans point final | « Calculer. » | src/exercices/4e/4G20-3Old.ts |
 | dc629 | R16  | Correction : « $R = diametre \div 2$ » (sans accent, en italique) ; énoncé « arrondi au $\text{ dm}^3$ près » (espace dans \text) | $R=\text{diamètre}\div 2$ ; « au $\text{dm}^3$ près » | src/exercices/5e/5G2E-6Old.ts |
 | d88d6 | R2 Tutoiement, impératif | Correction : « l'égalité n'est pas vraie » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/5e/5L15-Old.ts |
+| e7919 | R5 Virgule | Énoncé : « …a pour équation : $7x-2y+4=0$ Donner les coordonnées… » (point manquant avant « Donner ») | Ajouter un point | src/exercices/can/1e/can1G08-old.ts |
 | daf1d | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs | Corriger le titre (ou la question) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts |
 | e9cf0 | R13  | Correction : « J'ai donné $1$ billets de $20$ € » (accord) | « $1$ billet » | src/exercices/can/canCE2a-2025/canCE2-2025-Q13.ts |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
