@@ -928,3 +928,13 @@ can3C1-04
 6N2K-2
 6N2K-3
 6N2K-4
+6N2autoB-1
+6N2autoB-2
+6N2autoB-3
+6N2autoB-4
+6N2autoB-5
+6N2autoC
+6N2autoC-2
+6N2autoD
+6N2autoD-1
+6N2autoE
