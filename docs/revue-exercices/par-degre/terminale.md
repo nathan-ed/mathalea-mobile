@@ -1,16 +1,16 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **45 sur 293**. Constats confirmés : **33**.
+Exercices relus : **54 sur 293**. Constats confirmés : **38**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 9 |
+| Contenu mathématique faux | 11 |
 | Rendu cassé (formule, débordement, erreur) | 1 |
-| Mise en évidence (miseEnEvidence et champs) | 2 |
-| Typographie (nombres, espaces, notations) | 11 |
+| Mise en évidence (miseEnEvidence et champs) | 3 |
+| Typographie (nombres, espaces, notations) | 13 |
 | Rédaction (français, titres, consignes) | 10 |
 
 ## Contenu mathématique faux
@@ -26,6 +26,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeE01 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE01.ts:51 |
 | canTSpeE02 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE02.ts:51 |
 | canTSpeE03 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE03.ts:51 |
+| TSA1-20 | C1 Contenu mathématique faux | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. | Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | TSpe/TSA1-20.ts |
+| TSA1-27 | C1 Contenu mathématique faux | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. | Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | TSpe/TSA1-27.ts |
 
 ## Rendu cassé (formule, débordement, erreur)
 
@@ -39,6 +41,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | --- | --- | --- |
 | canTSpea-2026 | M4 QCM : évidence ≠ proposition | Q24 (QCM OUI/NON) : « (proche de $0$ mais non nul) » inutile et trompeur ; mise en évidence « pas colinéaires (NON) » au lieu de la proposition « NON » ; propositions en capitales | « Le déterminant est non nul : les vecteurs ne sont pas colinéaires. » et Non en évidence | src/exercices/can/canTspea-2026/canTspea-2026-Q24.ts:70 |
 | canTSpeE06 | M1 Évidence refusée par le champ | Seul le radicande est mis en évidence ($\sqrt{⟦236⟧}$) alors que le champ attend $\sqrt{236}$ ; norme notée \vert\vert au lieu de \\| | $${miseEnEvidence(`\\sqrt{${…}}`)}$ ; \\|\vec u\\| | src/exercices/can/TSpe/canTSpeE06.ts:47 |
+| TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
 
 ## Typographie (nombres, espaces, notations)
 
@@ -55,6 +58,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeAN15 | T9 Mot en italique | « la fonction $ln(u)$ » : ln en italique | $\ln(u)$ | src/exercices/can/TSpe/canTSpeAN15.ts |
 | canTSpeS03 | T9 Mot en italique | $e^{-n}$ en italique (constante e) ; $n\to\infty$ (aussi canTSpeS02, S04, S05, S06) | \mathrm{e}^{-n} ; n\to+\infty | src/exercices/can/TSpe/canTSpeS03.ts |
 | TSA1-10 | N1 Nombre hors $ | Justifications en vert : « On ajoute 3. » (nombre hors $) ; « $\dfrac{1}{1}$ » laissé tel quel quand $a=1$. | « On ajoute $3$. » ; écrire $1$. | TSpe/TSA1-10.ts |
+| TSA1-22 | N5 Négatif sans parenthèses | « $\lim_{n\to+\infty}-5n^{2}=-\infty$ », « $\lim -\dfrac{2}{n}=0$ » : terme négatif sans parenthèses après lim (lu comme $-\lim$) ; titre « par somme ou quotient » alors que les questions ne sont que des sommes (graines revue-0-a, revue-1-a). | $\lim\left(-5n^2\right)$ ; vérifier la présence des quotients. | TSpe/TSA1-22.ts |
+| TSA1-23 | N5 Négatif sans parenthèses | Même écriture que TSA1-22 : « $\lim_{n\to+\infty}-2n=-\infty$ », « $\lim -1=-1$ » sans parenthèses. | $\lim\left(-2n\right)$ | TSpe/TSA1-23.ts |
 
 ## Rédaction (français, titres, consignes)
 

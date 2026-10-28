@@ -12,5 +12,5 @@ Résumés intermédiaires (`node revue/degres.mjs`), mis à jour au fil de la re
 | [3e](3e.md) | 76 / 364 | 14 | 4 | 0 |
 | [2de](2de.md) | 155 / 615 | 116 | 20 | 4 |
 | [1re](1re.md) | 85 / 325 | 42 | 8 | 6 |
-| [Terminale](terminale.md) | 45 / 293 | 33 | 9 | 25 |
+| [Terminale](terminale.md) | 54 / 293 | 38 | 11 | 25 |
 | [Autres](autres.md) | 0 / 268 | 1 | 0 | 7 |

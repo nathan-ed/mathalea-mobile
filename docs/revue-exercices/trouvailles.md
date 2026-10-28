@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1456 exercices passés sur 4190**.
-Constats regroupés : 7098 (un groupe = même exercice, même règle,
+Avancement : **1481 exercices passés sur 4190**.
+Constats regroupés : 7240 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -37,15 +37,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 17 | 28 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 14 | 265 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 122 | 222 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 147 | 272 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 18 | 18 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
-| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 10 | 10 |
+| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 12 | 12 |
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 160 | 884 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
-| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 60 | 119 |
+| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 60 | 120 |
 | 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 118 | 119 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 55 | 60 |
@@ -68,10 +68,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 391 | 596 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 397 | 602 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 17 | 23 |
 | 4 Typographie | [N3 Point décimal](#n3) | 17 | 21 |
-| 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 5 | 5 |
+| 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 7 | 7 |
 | 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 38 | 46 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
 | 4 Typographie | [R1 Titre](#r1) | 9 | 9 |
@@ -81,14 +81,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 4 | 4 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 19 | 24 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 15 | 19 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 258 | 420 |
-| 4 Typographie | [T4 Guillemets](#t4) | 82 | 125 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 282 | 468 |
+| 4 Typographie | [T4 Guillemets](#t4) | 93 | 136 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 5 | 5 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 273 | 349 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 293 | 369 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 156 | 720 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 38 | 42 |
@@ -96,7 +96,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 45 | 62 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 111 | 154 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 99 | 159 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 101 | 161 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
 | 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 120 | 173 |
@@ -913,6 +913,56 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-094 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-095 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-095 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-096 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-096 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-097 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-097 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-098 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-098 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-099 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-099 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-100 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-100 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-101 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-101 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-102 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-102 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-103 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-103 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-104 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-104 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-105 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-105 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-106 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-106 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-107 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-107 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-108 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-108 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-109 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-109 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-110 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-110 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-111 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-111 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-112 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-112 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-113 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-113 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-114 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-114 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-115 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-115 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-116 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-116 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-117 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-117 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-118 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-118 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-119 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-119 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-120 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-120 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | série q1 | énoncé vide | ×130 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | série q1 | énoncé vide | ×18 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Grimuku (EN) | série q1 | énoncé vide | ×58 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
@@ -981,6 +1031,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6a-2026 (CAN) | src/exercices/can/can6a-2026/can6a-2026-Q18.ts:39 | Q18 : « La moitié de $116$ dixièmes est $58$. » (il manque « dixièmes » : 58 ≠ 5,8) ; « $5{,}8$ unités » (accord, pluriel dès 2). Mêmes Q5, Q11 (pointillés en correction), Q30 (« partager en 10 ») que canc3a-2026. → La moitié de $116$ dixièmes est $58$ dixièmes. | ×1 |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts:582 | Q11 : correction « Puisque Zoé en a 3 de plus, sa sœur en a 3 de moins » : l'autre enfant (Zacharie…) n'est pas forcément une sœur ; double espace « en  a », espace avant « : ». → Puisque ${prenom1} en a $b$ de plus, ${prenom2} en a $b$ de moins, soit : | ×1 |
 | canc3C07 (CAN) | src/exercices/can/c3/canc3C07.ts:107 | Correction inversée (branche « prenom2 a b ans de moins que prenom1 ») : énoncé « Nawel a $2$ ans de moins que Gaspard », correction « Gaspard a $2$ ans de moins que Nawel. Il a donc… » (prénoms échangés ; « Il » pour une fille possible). → ${prenom2} a $b$ ans de moins que ${prenom1}. ${prenom2} a donc… | ×1 |
+| TSA1-20 (Terminale) | TSpe/TSA1-20.ts | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. → Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | ×1 |
+| TSA1-27 (Terminale) | TSpe/TSA1-27.ts | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. → Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | ×1 |
 
 ## I1
 
@@ -2229,6 +2281,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TEC1-42 (Terminale) | src/exercices/TEx/TEC1-42.ts:263 | texte dans miseEnEvidence : \text{et} | ×1 |
 | TEC1-43 (Terminale) | src/exercices/TEx/TEC1-43.ts:155 | texte dans miseEnEvidence : \text{et} | ×1 |
 | TEG1-11 (Terminale) | src/exercices/TEx/TEG1-11.ts:113 | texte dans miseEnEvidence : \text{${mot} | ×1 |
+| TSA1-26 (Terminale) | TSpe/TSA1-26.ts | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). → texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | ×1 |
 | TSA1-26 (Terminale) | src/exercices/TSpe/TSA1-26.ts:60 | texte dans miseEnEvidence : \text{Pas de limite} | ×1 |
 | TSA1-27 (Terminale) | src/exercices/TSpe/TSA1-27.ts:210 | texte dans miseEnEvidence : \text{Pas de limite} | ×1 |
 | TSA1-30 (Terminale) | src/exercices/TSpe/TSA1-30.ts:69 | texte dans miseEnEvidence : \text{Pas de limite} | ×1 |
@@ -3116,6 +3169,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-088 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : : Catherine Pelachaud — Nicolas Loubet — CC BY-NC 2.0 Super-pouvoir : Créatrice d'avata | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-092 (Égalité filles-garçons) | consigne | « 100 » hors $ : qu'elle fait : A orchestré l'architecture de Tera 100 Le truc stylé : Ses machines font 1 mil ‖ « 1 » hors $ : Tera 100 Le truc stylé : Ses machines font 1 million de milliards d'opérations/s Parco | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-093 (Égalité filles-garçons) | consigne | « 4.0 » hors $ : Source : Alain Comment — CC BY-SA 4.0 Super-pouvoir : Bibliothécaire in | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-096 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : Source : Photonquantique / MyScienceWork — CC BY 2.0 Super-pouvoir : Traductrice des o | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-101 (Égalité filles-garçons) | consigne | « 4.0 » hors $ : orner Source : Lamiot — CC BY-SA 4.0 Super-pouvoir : Bâtisseuse d'un n | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-104 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : dia Commons — Gert-Martin Greuel / MFO — CC BY-SA 2.0 DE Super-pouvoir : Exploratrice d | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-105 (Égalité filles-garçons) | consigne | « 42 » hors $ : s le code Ce qu'elle fait : Dirige l'École 42 Le truc stylé : Révèle des génies du cod | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-106 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : dia Commons — Gert-Martin Greuel / MFO — CC BY-SA 2.0 DE Super-pouvoir : Maîtresse des | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-117 (Égalité filles-garçons) | consigne | « 370 » hors $ : athématicienne et philosophe de l'Antiquité (vers 370-415) | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | consigne | « 10 » hors $ : du ciel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ‖ « 20 » hors $ : iel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ran ‖ « 30 » hors $ : Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même rangée, l | ×24 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction q1 | « 20 » hors $ : 20 10 30 ‖ « 10 » hors $ : 10 ‖ « 10 » hors $ : 10 20 | ×136 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction non interactive q1 | « 20 » hors $ : 20 10 30 | ×9 |
@@ -3395,6 +3454,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can2F25-08 (CAN) | src/exercices/can/2e/can2F3-03_old.ts | « Or $-3^3=-27$ » : la base négative doit être entre parenthèses ($(-3)^3$) ; écrite ainsi l'égalité ne dit pas que $-3$ est solution → $${ecritureParentheseSiNegatif(a)}^3$ | ×1 |
 | can3S1-04 (CAN) | correction q2 | négatif sans parenthèses : $2\times -0,5=-1$ | ×1 ; défaut nb=10 (revue-1-a) |
 | TEA1-25 (Terminale) | correction q3 | négatif sans parenthèses : $-5a=11\times -5q-20$ ‖ négatif sans parenthèses : $-5a=11\times -5q-22+2$ ‖ négatif sans parenthèses : $-5a=11\times -5q+11\times (-2)+2$ | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA1-22 (Terminale) | TSpe/TSA1-22.ts | « $\lim_{n\to+\infty}-5n^{2}=-\infty$ », « $\lim -\dfrac{2}{n}=0$ » : terme négatif sans parenthèses après lim (lu comme $-\lim$) ; titre « par somme ou quotient » alors que les questions ne sont que des sommes (graines revue-0-a, revue-1-a). → $\lim\left(-5n^2\right)$ ; vérifier la présence des quotients. | ×1 |
+| TSA1-23 (Terminale) | TSpe/TSA1-23.ts | Même écriture que TSA1-22 : « $\lim_{n\to+\infty}-2n=-\infty$ », « $\lim -1=-1$ » sans parenthèses. → $\lim\left(-2n\right)$ | ×1 |
 | TSG2-33 (Terminale) | correction q2 | négatif sans parenthèses : $t =-\dfrac{2}{7}\times -3-\dfrac{20}{7}~~$ ‖ négatif sans parenthèses : $times \left(-3\right)-27\\ y=5\times -3+3\\ z=8\times -3+35\$ ‖ négatif sans parenthèses : $ght)-27\\ y=5\times -3+3\\ z=8\times -3+35\end{cases}\quad\q$ | ×7 ; sup=false nb=10 (revue-2-a) |
 | TSP4-10 (Terminale) | correction q2 | négatif sans parenthèses : $arité de l'espérance} \\ &= n \times -1 \\ &= -100 \end{alig$ | ×2 ; sup=3 (revue-3-a) |
 
@@ -3877,6 +3938,54 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-092 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Sophie Proust Source : Inria Super-pouvoir : Cheffe de su ‖ espace ordinaire (sécable) avant « : » : Source : Inria Super-pouvoir : Cheffe de supercalculateurs Ce qu'elle f ‖ espace ordinaire (sécable) avant « : » : Cheffe de supercalculateurs Ce qu'elle fait : A orchestré l'architecture de Tera 100 L | ×15 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-093 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Marie-Christine Rousset | ×1 |
 | Portraits-093 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Marie-Christine Rousset Source : Alain Comment — CC BY-SA 4.0 Super ‖ espace ordinaire (sécable) avant « : » : Comment — CC BY-SA 4.0 Super-pouvoir : Bibliothécaire intelligente Ce qu'elle f ‖ espace ordinaire (sécable) avant « : » : Bibliothécaire intelligente Ce qu'elle fait : Connecte les bases de données mondiales | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-094 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Isabelle Ryl | ×1 |
+| Portraits-094 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Isabelle Ryl Source : PRAIRIE-PSAI Super-pouvoir : Bâtis ‖ espace ordinaire (sécable) avant « : » : Source : PRAIRIE-PSAI Super-pouvoir : Bâtisseuse d'IA Ce qu'elle fait : Lie mé ‖ espace ordinaire (sécable) avant « : » : r-pouvoir : Bâtisseuse d'IA Ce qu'elle fait : Lie médecine et IA pour sauver des vies | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-095 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Myriam Saadé | ×1 |
+| Portraits-095 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Myriam Saadé Source : École des Ponts ParisTech Super-po ‖ espace ordinaire (sécable) avant « : » : ole des Ponts ParisTech Super-pouvoir : Architecte numérique de l'environnement ‖ espace ordinaire (sécable) avant « : » : umérique de l'environnement Ce qu'elle fait : Elle utilise l'informatique pour simuler l'impa | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-096 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Laure Saint-Raymond | ×1 |
+| Portraits-096 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Laure Saint-Raymond Source : Photonquantique / MyScienceWork — CC BY 2.0 ‖ espace ordinaire (sécable) avant « : » : ScienceWork — CC BY 2.0 Super-pouvoir : Traductrice des océans Ce qu'elle fait : ‖ espace ordinaire (sécable) avant « : » : ir : Traductrice des océans Ce qu'elle fait : Modélise les courants marins Le truc sty | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-097 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Fatiha Saïs | ×1 |
+| Portraits-097 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Fatiha Saïs Source : site personnel Super-pouvoir : Dét ‖ espace ordinaire (sécable) avant « : » : Source : site personnel Super-pouvoir : Détective de la cohérence des données Ce ‖ espace ordinaire (sécable) avant « : » : de la cohérence des données Ce qu'elle fait : Elle travaille sur l'intelligence artificielle | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-098 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sylvia Serfaty | ×1 |
+| Portraits-098 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Sylvia Serfaty Source : Olivier Boulanger / New York University ‖ espace ordinaire (sécable) avant « : » : r / New York University Super-pouvoir : Architecte des forces Ce qu'elle fait : ‖ espace ordinaire (sécable) avant « : » : oir : Architecte des forces Ce qu'elle fait : Étudie comment des millions de particules s'org | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-099 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Anne Siegel | ×1 |
+| Portraits-099 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Anne Siegel Source : Xavier Pierre / CNRS Super-pouvoir ‖ espace ordinaire (sécable) avant « : » : : Xavier Pierre / CNRS Super-pouvoir : Décodeuse d'algues Ce qu'elle fait : Mod ‖ espace ordinaire (sécable) avant « : » : ouvoir : Décodeuse d'algues Ce qu'elle fait : Modélise le métabolisme marin Le truc st | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-100 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Marie-Luce Taupin | ×1 |
+| Portraits-100 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Marie-Luce Taupin Source : Christophe Peus / Université Paris-Saclay ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Statisticienne du vivant Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : : Statisticienne du vivant Ce qu'elle fait : Extrait des infos de données biologiques | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-101 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Véronique Torner | ×1 |
+| Portraits-101 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Véronique Torner Source : Lamiot — CC BY-SA 4.0 Super-pouvoi ‖ espace ordinaire (sécable) avant « : » : : Lamiot — CC BY-SA 4.0 Super-pouvoir : Bâtisseuse d'un numérique responsable Ce ‖ espace ordinaire (sécable) avant « : » : d'un numérique responsable Ce qu'elle fait : Crée des services en code libre Le truc | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-102 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Florence Tupin | ×1 |
+| Portraits-102 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Florence Tupin Source : Télécom Paris Super-pouvoir : Nett ‖ espace ordinaire (sécable) avant « : » : Source : Télécom Paris Super-pouvoir : Nettoyeuse d'images satellites Ce qu'ell ‖ espace ordinaire (sécable) avant « : » : toyeuse d'images satellites Ce qu'elle fait : Répare les images radars depuis l’espace | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-103 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Amandine Véber | ×1 |
+| Portraits-103 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Amandine Véber Source : iMPT / CNRS Super-pouvoir : Modéli ‖ espace ordinaire (sécable) avant « : » : Source : iMPT / CNRS Super-pouvoir : Modélisatrice de populations Ce qu'elle ‖ espace ordinaire (sécable) avant « : » : odélisatrice de populations Ce qu'elle fait : Simule la transmission de gènes chez les animau | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-104 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Michèle Vergne | ×1 |
+| Portraits-104 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Michèle Vergne Source : Wikimedia Commons — Gert-Martin Greuel / MFO — ‖ espace ordinaire (sécable) avant « : » : / MFO — CC BY-SA 2.0 DE Super-pouvoir : Exploratrice des symétries Ce qu'elle fa ‖ espace ordinaire (sécable) avant « : » : Exploratrice des symétries Ce qu'elle fait : Étudie les liens entre algèbre et géométrie | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-105 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sophie Viger | ×1 |
+| Portraits-105 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Sophie Viger Source : photo fournie Super-pouvoir : Ouvr ‖ espace ordinaire (sécable) avant « : » : Source : photo fournie Super-pouvoir : Ouvreuse de portes vers le code Ce qu'el ‖ espace ordinaire (sécable) avant « : » : euse de portes vers le code Ce qu'elle fait : Dirige l'École 42 Le truc stylé : Révèle | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-106 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Claire Voisin | ×1 |
+| Portraits-106 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Claire Voisin Source : Wikimedia Commons — Gert-Martin Greuel / MFO — ‖ espace ordinaire (sécable) avant « : » : / MFO — CC BY-SA 2.0 DE Super-pouvoir : Maîtresse des formes abstraites Ce qu'el ‖ espace ordinaire (sécable) avant « : » : resse des formes abstraites Ce qu'elle fait : Experte en géométrie algébrique Le truc | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-107 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Muriel Boulakia | ×1 |
+| Portraits-107 (Égalité filles-garçons) | consigne | « s! » sans espace insécable : p://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay Super-p ‖ espace ordinaire (sécable) avant « : » : sailles Muriel Boulakia Source : Christophe Peus, http://www.chrispeus.com/ — Ex ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Modélise le cœur humain avec des équations | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-108 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Lucia Clarotto | ×1 |
+| Portraits-108 (Égalité filles-garçons) | consigne | « s! » sans espace insécable : p://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay Super-p ‖ espace ordinaire (sécable) avant « : » : rsailles Lucia Clarotto Source : Christophe Peus, http://www.chrispeus.com/ — Ex ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Prédit les phénomènes environnementaux grâce au | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-109 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Camille Coron | ×1 |
+| Portraits-109 (Égalité filles-garçons) | consigne | « s! » sans espace insécable : p://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay Super-p ‖ espace ordinaire (sécable) avant « : » : ersailles Camille Coron Source : Christophe Peus, http://www.chrispeus.com/ — Ex ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Utilise les maths pour lutter contre les mousti | ×24 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-110 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Aline Lefebvre-Lepot (livret Versailles) | ×1 |
+| Portraits-110 (Égalité filles-garçons) | consigne | « s! » sans espace insécable : p://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay Super-p ‖ espace ordinaire (sécable) avant « : » : es Aline Lefebvre-Lepot Source : Christophe Peus, http://www.chrispeus.com/ — Ex ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Modélise le comportement du sable et des grains | ×21 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-111 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Yilin Wang | ×1 |
+| Portraits-111 (Égalité filles-garçons) | consigne | « s! » sans espace insécable : p://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay Super-p ‖ espace ordinaire (sécable) avant « : » : e Versailles Yilin Wang Source : Christophe Peus, http://www.chrispeus.com/ — Ex ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Construit des ponts entre des mathématiques que | ×21 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-112 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Maëva Arlandis | ×1 |
+| Portraits-112 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : rsailles Maëva Arlandis Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Ingénieure en robotique passionnée de mécanique ‖ espace ordinaire (sécable) avant « : » : mécanique et d'électronique Ce qu'elle fait : « J'ai toujours apprécié les sciences et la méc | ×21 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-113 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Marie Zeidler | ×1 |
+| Portraits-113 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : ersailles Marie Zeidler Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Formatrice en gestion de projet, passée de la b ‖ espace ordinaire (sécable) avant « : » : la biochimie au management Ce qu'elle fait : Après un baccalauréat scientifique, elle s'orie | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-114 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Rabetrano Miora Andriambololo-Nivo | ×1 |
+| Portraits-114 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : o Miora Andriambololo-Nivo Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Consultante en IA, passée de la logique mathéma ‖ espace ordinaire (sécable) avant « : » : ogique mathématique au code Ce qu'elle fait : « J'ai toujours aimé résoudre des problèmes : l | ×24 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-115 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Laura Schittecatte | ×1 |
+| Portraits-115 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : lles Laura Schittecatte Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Ingénieure en physico-chimie, docteure passionn ‖ espace ordinaire (sécable) avant « : » : sciences depuis le collège Ce qu'elle fait : Au collège et au lycée, elle a toujours adoré l | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-116 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Catherine Langlet | ×1 |
+| Portraits-116 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : illes Catherine Langlet Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Pilote d'évaluation design automobile, tombée d ‖ espace ordinaire (sécable) avant « : » : la mécanique dès l'enfance Ce qu'elle fait : Passionnée d'automobile depuis toute petite grâ | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-117 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Hypatie d'Alexandrie | ×1 |
+| Portraits-117 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : es Hypatie d'Alexandrie Source : Jules Maurice Gaspard (1908) — Wikimedia Common ‖ espace ordinaire (sécable) avant « : » : Commons, domaine public Super-pouvoir : Enseigne les mathématiques, l'astronomie et la ‖ espace ordinaire (sécable) avant « : » : la philosophie à Alexandrie Ce qu'elle fait : Hypatie, mathématicienne et philosophe de l'Ant | ×15 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Grimuku (EN) | consigne | espace ordinaire (sécable) avant « : » : d’une flèche. Les chiffres déjà écrits sont donnés : ils ne sont pas à trouver. | ×2 ; sup=2 sup2=1 sup3=true ; sup=2 sup2=1 sup3=true nb=10 (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | espace ordinaire (sécable) avant « : » : ment choisi. Ne pas choisir un nombre déjà utilisé : le joueur qui ne peut plus jouer a perdu. Un ch | ×1 ; défaut (revue-0-a) |
 | EN-KenKen (EN) | consigne | espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici la soustraction, la multiplication et la di ‖ espace ordinaire (sécable) avant « : » : d’importance. Les nombres déjà écrits sont donnés : ils ne sont pas à trouver. ‖ espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici l’addition, la soustraction et la division. | ×55 ; sup=2 sup2=1-2-3-4 sup3=1 sup4=true ; sup=1 sup2=1-2-3-4 sup3=1 sup4=true… (revue-0-a) |
@@ -4110,6 +4219,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé q9 | guillemet sans insécable : oral. Sujet 1 - Que pensez-vous de cette phrase ? « Pour faire une femme médecin, il faut lui faire ‖ guillemet sans insécable : je me le demande, que resterait-il de la femme ? » (Docteur Montanier, 1868). Sujet 2 - Comment exp ‖ guillemet sans insécable : à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'interne provisoire » à l'Hôpi | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif q9 | guillemet sans insécable : oral. Sujet 1 - Que pensez-vous de cette phrase ? « Pour faire une femme médecin, il faut lui faire ‖ guillemet sans insécable : je me le demande, que resterait-il de la femme ? » (Docteur Montanier, 1868). Sujet 2 - Comment exp ‖ guillemet sans insécable : à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'interne provisoire » à l'Hôpi | ×4 |
 | Portraits-005 (Égalité filles-garçons) | consigne | guillemet sans insécable : — photographie Marie-Pierre Dieterlé — exposition « Mathématiques, informatique… avec elles ! » — CC ‖ guillemet sans insécable : ition « Mathématiques, informatique… avec elles ! » — CC BY-ND 4.0 (reproduction autorisée sans modi | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-107 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Muriel Boulakia ‖ guillemet sans insécable : ophe Peus, http://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-108 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Lucia Clarotto ‖ guillemet sans insécable : ophe Peus, http://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-109 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Camille Coron ‖ guillemet sans insécable : ophe Peus, http://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-110 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Aline Lefebvre-Lepot ‖ guillemet sans insécable : ophe Peus, http://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-111 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Yilin Wang ‖ guillemet sans insécable : ophe Peus, http://www.chrispeus.com/ — Exposition « Just Do Maths! », Université Paris-Saclay | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-112 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Maëva Arlandis ‖ guillemet sans insécable : Maëva Arlandis Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×24 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-113 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Marie Zeidler ‖ guillemet sans insécable : Marie Zeidler Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-114 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Rabetrano Miora Andr ‖ guillemet sans insécable : driambololo-Nivo Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-115 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Laura Schittecatte ‖ guillemet sans insécable : ura Schittecatte Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-116 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Catherine Langlet ‖ guillemet sans insécable : atherine Langlet Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-117 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Hypatie d'Alexandrie | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | correction q1 | guillemet sans insécable : .Flèche « ‖ guillemet sans insécable : » : ‖ guillemet sans insécable : . Flèche « | ×1000 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | guillemet sans insécable : indication et n’arrête pas la partie. Cliquer sur « Vérifier les réponses » arrête la partie en cour ‖ guillemet sans insécable : as la partie. Cliquer sur « Vérifier les réponses » arrête la partie en cours et affiche le score. | ×2 ; défaut (revue-0-a) |
 | TEA1-15 (Terminale) | correction q1 | guillemet sans insécable : la propriété : « ‖ guillemet sans insécable : ». Initialisation. Pour ‖ guillemet sans insécable : s’énonce : « | ×4 ; défaut (revue-0-a) |
@@ -4431,6 +4551,26 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-091 (Égalité filles-garçons) | énoncé | page de 512 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | Portraits-093 (Égalité filles-garçons) | énoncé | page de 447 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | Portraits-095 (Égalité filles-garçons) | énoncé | page de 414 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-096 (Égalité filles-garçons) | énoncé | page de 533 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-098 (Égalité filles-garçons) | énoncé | page de 484 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-100 (Égalité filles-garçons) | énoncé | page de 497 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-101 (Égalité filles-garçons) | énoncé | page de 402 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-104 (Égalité filles-garçons) | énoncé | page de 649 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-106 (Égalité filles-garçons) | énoncé | page de 649 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-107 (Égalité filles-garçons) | énoncé | page de 818 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-108 (Égalité filles-garçons) | énoncé | page de 818 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-109 (Égalité filles-garçons) | énoncé | page de 818 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-110 (Égalité filles-garçons) | énoncé | page de 818 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-111 (Égalité filles-garçons) | énoncé | page de 818 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-112 (Égalité filles-garçons) | énoncé | page de 813 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-113 (Égalité filles-garçons) | énoncé | page de 806 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-114 (Égalité filles-garçons) | énoncé | page de 806 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-115 (Égalité filles-garçons) | énoncé | page de 806 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-116 (Égalité filles-garçons) | énoncé | page de 806 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-117 (Égalité filles-garçons) | énoncé | page de 653 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-118 (Égalité filles-garçons) | énoncé | page de 671 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-119 (Égalité filles-garçons) | énoncé | page de 669 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-120 (Égalité filles-garçons) | énoncé | page de 759 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | EN-Gratte-ciel (EN) | énoncé q1 | table.tableauMathlive de 572 px pour 390 px | ×16 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | énoncé | page de 588 px pour 390 px | ×11 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction | page de 393 px pour 390 px | ×9 ; sup=3 ; sup=4… (revue-0-a) |
@@ -5917,6 +6057,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG6-1e-9 (Égalité filles-garçons) | consigne | deuxième personne : s la réforme du lycée en 2019, de nombreuses enquêtes semblent montrer que le choix des enseignement ‖ deuxième personne : l'enseignement supérieur ou de métiers. Les enquêtes révèlent qu'au niveau national les filles sont | ×2 ; défaut (revue-0-a) |
 | EgaliteFG6-1e-9 (Égalité filles-garçons) | énoncé q5 | deuxième personne : points entre HLP et NSI) préfigure-t-il, selon toi, des choix futurs différents pour les filles e ‖ deuxième personne : ents de spécialité de chaque élève de première de ton établissement, puis regrouper et traiter ces d ‖ deuxième personne : Ces données confirment-elles, dans ton lycée, que le genre exerce une influence sur l | ×3 ; défaut (revue-0-a) |
 | Portraits-002 (Égalité filles-garçons) | consigne | deuxième personne : : Calcule les meilleures stratégies pour les athlètes Le truc stylé : Optimise l'effort des c | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-107 (Égalité filles-garçons) | consigne | deuxième personne : rmant des mesures médicales en informations concrètes sur l'état d'un cœur. Elle travaille également | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-109 (Égalité filles-garçons) | consigne | deuxième personne : mathématiques pour répondre à des questions concrètes en biologie, en écologie et en santé publique, | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | can/can6a-2024/can6a-2024-Q14.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q14.ts:23 | consigne à l'impératif : Complète : | ×1 |
 | can/can6a-2024/can6a-2024-Q28.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q28.ts:51 | consigne à l'impératif : Complète : | ×1 |
 | can/can6a-2024/can6a-2024-Q5.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q5.ts:32 | consigne à l'impératif : Complète.  | ×1 |
