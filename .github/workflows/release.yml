@@ -47,8 +47,42 @@ jobs:
           name: moteur
           path: static/moteur
 
-  bureau:
+  # Parcours de l'app au doigt et au clavier, comme un élève : aucun binaire
+  # n'est construit si une suite échoue (0.4.6 et 0.4.7 sont parties avec des
+  # écrans qui ne défilaient plus au doigt). Suites lancées avec pnpm dev seul.
+  e2e:
     needs: moteur
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suites:
+          - defilement un-toucher regressions changer-appareil
+          - classe-qr en-classe fiche-parcours session-qr
+          - ouverture-paliers paliers papier recherche
+          - reponses-session revisions test-niveau test-niveau-reel
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: moteur
+          path: static/moteur
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check && pnpm test
+      - run: bash scripts/e2e-ci.sh ${{ matrix.suites }}
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: captures-e2e-${{ strategy.job-index }}
+          path: ${{ runner.temp }}/captures
+
+  bureau:
+    needs: [moteur, e2e]
     if: ${{ !inputs.cibles || inputs.cibles == 'tout' || inputs.cibles == 'bureau' }}
     strategy:
       fail-fast: false
@@ -98,7 +132,7 @@ jobs:
           args: ${{ matrix.args }}
 
   android:
-    needs: moteur
+    needs: [moteur, e2e]
     if: ${{ !inputs.cibles || inputs.cibles == 'tout' || inputs.cibles == 'android' }}
     runs-on: ubuntu-latest
     steps:

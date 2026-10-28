@@ -51,7 +51,7 @@ jobs:
       - name: Dernière version de l'app
         run: |
           # Script du moteur publié pris sur la branche principale, avant de changer de version
-          cp scripts/moteur-publie.mjs scripts/cle-android.sh "$RUNNER_TEMP/"
+          cp scripts/moteur-publie.mjs scripts/cle-android.sh scripts/e2e-ci.sh "$RUNNER_TEMP/"
           tag=$(git describe --tags --abbrev=0 --match 'v*')
           git checkout "$tag"
           echo "TAG=$tag" >> "$GITHUB_ENV"
@@ -99,6 +99,14 @@ jobs:
           workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
         if: steps.suite.outputs.ok
+      # L'app de la boutique, avec le moteur publié, parcourue au doigt comme
+      # un élève : rien n'est envoyé si une suite échoue (0.4.6 et 0.4.7 sont
+      # parties avec des écrans qui ne défilaient plus au doigt)
+      - name: Parcours e2e
+        if: steps.suite.outputs.ok
+        run: |
+          cp "$RUNNER_TEMP/e2e-ci.sh" scripts/e2e-ci.sh
+          bash scripts/e2e-ci.sh defilement un-toucher regressions changer-appareil test-niveau-reel
       # Clé d'importation de Google Play ; à défaut, celle des APK
       - name: Clé de signature
         if: steps.suite.outputs.ok && steps.cles.outputs.signature

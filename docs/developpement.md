@@ -644,6 +644,13 @@ Reste à faire :
 - Test : `node e2e/defilement.mjs` (vrais glissés `Input.dispatchTouchEvent`,
   molette du bureau, contenu de 1200 px). `Input.synthesizeScrollGesture` ne
   fait rien en mode sans fenêtre : ne pas s'y fier.
+- Pour que cela ne reparte plus : `tests/defilement.test.ts` (à chaque push,
+  refuse un `overflow` de `body` qui en fait un conteneur de défilement sous le
+  clip de `html`) ; job `e2e` de `release.yml` (16 suites en 4 groupes, avec le
+  moteur de la release), dont dépendent les jobs `bureau` et `android` ; étape
+  « Parcours e2e » de `google-play.yml` (moteur publié) avant la construction
+  du `.aab`. Les deux passent par `scripts/e2e-ci.sh <suites>` (Chromium de
+  Playwright, `pnpm dev`, code 1 si une suite échoue).
 
 ## 0.4.7 : QR code de classe et de dossier (fait)
 

@@ -48,6 +48,10 @@ complète (détails dans le skill, « Vérification »).
   jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais
   de réponses écrites directement dans le stockage pour conclure.
 - Toutes les suites e2e, pas seulement celle du changement.
+- Défilement au doigt : `node e2e/defilement.mjs` après tout changement de CSS
+  de page (`overflow`, `position`, `touch-action`, `height`). `release.yml` et
+  `google-play.yml` lancent les suites e2e (`scripts/e2e-ci.sh`) et ne
+  construisent ni n'envoient rien si l'une échoue.
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux
   captures, en clair et en sombre, à 390 px de large.
 - Toute release porte sa note de version : écrire `docs/notes-de-version/<vX.Y.Z>.md`
