@@ -1,23 +1,31 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **266 sur 293**. Constats confirmés : **245**.
+Exercices relus : **292 sur 293**. Constats confirmés : **271**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
+| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 9 |
 | Contenu mathématique faux | 34 |
-| Rendu cassé (formule, débordement, erreur) | 10 |
-| Mise en évidence (miseEnEvidence et champs) | 18 |
+| Rendu cassé (formule, débordement, erreur) | 11 |
+| Mise en évidence (miseEnEvidence et champs) | 23 |
 | Typographie (nombres, espaces, notations) | 28 |
-| Rédaction (français, titres, consignes) | 154 |
+| Rédaction (français, titres, consignes) | 166 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| TEG1-21 | I2 Réponse fausse acceptée | Même défaut (46 I2 : matrice + 1 acceptée) ; matrice d'adjacence vérifiée plausible ; guillemets sans insécables (92 T4). | Idem TEM1-14. | src/exercices/TSpe/TEG1-21.ts |
+| TEM1-14 | I2 Réponse fausse acceptée | Réponse fausse acceptée : la matrice juste suivie de « +1 » est jugée correcte (60 cas I2, mathlive ; même famille que 6M4C : un terme additionnel est ignoré — non reproduit à la main sur l'autre question tirée par essayer.mjs, à confirmer) ; mise en évidence de plusieurs matrices refusée (M1) ; 80 guillemets/T4. | Vérifier la comparaison de matrices ; une évidence par champ. | src/exercices/TSpe/TEM1-14.ts |
+| TEM1-15 | I2 Réponse fausse acceptée | Même défaut (matrice + 1 acceptée, 48 I2) ; « $1,30~\text{€}$ » ; 32 T4. | Idem TEM1-14. | src/exercices/TSpe/TEM1-15.ts |
+| TEM1-22 | I2 Réponse fausse acceptée | Même défaut (68 I2) ; consigne « Saisir la matrice à l'aide de la touche « Matrice » » : guillemets sans insécables (68 T4) ; AB=-9I_2 : calcul vérifié ; 8 pages > 390 px. | Idem. | src/exercices/TSpe/TEM1-22.ts |
+| TEM1-23 | I2 Réponse fausse acceptée | Même défaut que TEM1-14/15/22 (34 I2 : matrice + 1 acceptée) ; calculs vérifiés (A²=[[7,6],[-6,-5]] ; A²-2A=-I₂) ; guillemets « Matrice » sans insécables (68 T4). | Idem. | src/exercices/TSpe/TEM1-23.ts |
+| TEM1-24 | I2 Réponse fausse acceptée | Même défaut (136 I2) ; système (S) imbriqué \begin{cases}\begin{aligned}…\end{aligned}\end{cases} ; A, X, B en évidence en bloc. | Idem. | src/exercices/TSpe/TEM1-24.ts |
+| TEM1-25 | I2 Réponse fausse acceptée | Même défaut (84 I2 : matrice + 1 acceptée) ; 56 guillemets/T4 ; système résolu correctement (x=2, y=1). | Idem TEM1-14. | src/exercices/TSpe/TEM1-25.ts |
+| TEM1-31 | I2 Réponse fausse acceptée | Même défaut (56 I2 : matrice + 1 acceptée) ; consigne « touche « Matrice » » guillemets sans insécables (56 T4). | Idem. | src/exercices/TSpe/TEM1-31.ts |
 | TSP3-01 | I2 Réponse fausse acceptée | Exercice non interactif (interactifReady=false) rendu interactif par l'app (défaut connu) : le champ a pour attendu tout le HTML de la correction et une réponse fausse (la correction suivie de « x ») est acceptée (12 I2) ; 230 guillemets sans insécables (« l'évènement : « le candidat … » ») ; « évènement » (événement, rectification) ; 23 phrases sans virgule. | Côté app : respecter interactifReady ; côté exercice : guillemets français insécables. | src/exercices/TSpe/TSP3-01.ts |
 
 ## Contenu mathématique faux
@@ -72,6 +80,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-43 | X5 Débordement à 390 px | Justifications en \text{} au bout des lignes du aligned (« car e^{-4x}>0 ») : dépassement de 390 px ; « Par composition : » sur une ligne seule. | Phrases sous le calcul. | src/exercices/TSpe/TSA2-43.ts |
 | TSA3-46 | X6  | Repères de 176 px : les graduations de l'axe des abscisses et de l'axe des ordonnées se chevauchent près de l'origine (« -1  5  -5 » illisible) ; les propositions du QCM sont des SVG entiers (aucun texte alternatif) avec une feuille &lt;style> à sélecteur #exercice0 qui ne vaut que pour le premier exercice de la page ; bonne réponse non mise en évidence (M3, 24 cas). | Graduer une valeur sur deux ; aria-label sur les SVG ; style par classe et non par identifiant. | src/exercices/TSpe/TSA3-46.ts |
 | TSA5-30 | X3  | Correction : balises « &lt;/div> &lt;/div> » affichées en texte devant « Le discriminant est null » (7 cas X3) ; « null » (nul) ; « La fonction log est défine » (définie, ln) ; $\mathcal{f}_0$ ; réponse ℝ\{2} refusée avec le message « Il faut donner un intervalle ou une réunion d'intervalles » alors que l'énoncé demande « le domaine de définition » sans exiger la forme (3 I1). | Fermer les div proprement ; nul ; définie ; accepter ℝ\{2} ou préciser « sous forme d'intervalles ». | src/exercices/TSpe/TSA5-30.ts |
+| TTE-11 | X3  | Reprend TSA5-30 (domaine de définition de \log) : balises « &lt;/div> &lt;/div> » affichées en texte dans la correction (11 X3) ; $\mathcal{f}_0$ ; réponse ℝ\{a} refusée avec « Il faut donner un intervalle » (4 I1) ; doublon du chapitre TSA5. | Voir TSA5-30. | src/exercices/TSpe/TTE-11.ts |
 | TSA1-12 | X5 Débordement à 390 px | Correction à 390 px : le calcul aligné avec ses justifications en vert (« ← hypothèse de récurrence ») élargit la page à 451 px ; « \text{car 2n+6=2(n+1)+4} » écrit en texte droit au lieu de formule. | Justifications sous chaque ligne sur petit écran ; « car $2n+6=2(n+1)+4$ ». | TSpe/TSA1-12.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
@@ -85,6 +94,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TEC1-11 | M1 Évidence refusée par le champ | Trous « Re(z)= … ; Im(z)= … » : la correction met en évidence « \operatorname{Re}(z)=-1 » et « \operatorname{Im}(z)=0 » (avec le nom et le signe =) alors que chaque trou attend seulement la valeur (-1, 0) : la saisie des valeurs en évidence est refusée (18 M1). | Mettre en évidence -1 et 0 seuls. | src/exercices/TSpe/TEC1-11.ts |
 | TEC1-42 | M8 Évidences et champs | Deux champs x et y combinés dans un seul « z= » : la mise en évidence donne x+iy mais le champ attend z (11 M1) ; calculs vérifiés (système x+5y=18 ; x-5y=-12). | Mettre en évidence z = x + iy. | src/exercices/TSpe/TEC1-42.ts |
 | TEC1-43 | M8 Évidences et champs | Équation du second degré : champ « z_0=… » et deuxième solution : la mise en évidence donne les deux racines dans une seule évidence (13 M1/M8) ; « 3z^2+18z+27=0. » point final dans le dollar ; 8 T3. | Une évidence par solution ; point hors du dollar. | src/exercices/TSpe/TEC1-43.ts |
+| TEM1-12 | M3  | Exercice « branching-qcm » (106 IM, 106 M3) à tester à la main ; la correction utilise \textcolor{blue}{…} (couleur écrite en dur) dans un array pour montrer le produit ; 31 pages > 390 px. | Tester à la main ; miseEnEvidence. | src/exercices/TSpe/TEM1-12.ts |
+| TEM1-21 | M8 Évidences et champs | Matrice inverse en 4 trous : une évidence pour toute la matrice (22 M8) ; « Justifier que A est inversible » : aucun champ pour la justification (le déterminant 1 est calculé dans la correction) ; calcul vérifié (5×(-3)-4×(-4)=1). | Une évidence par trou ; supprimer « Justifier… ». | src/exercices/TSpe/TEM1-21.ts |
 | TSA2-10 | M3  | QCM : la correction ne met en évidence que les deux limites (2 et +∞), pas la proposition complète cochée ; la bonne réponse n'est pas rapprochée des choix (pas de « réponse A »). | Mettre en évidence la proposition entière, ou ajouter « La bonne réponse est : ». | src/exercices/TSpe/TSA2-10.ts |
 | TSA2-11 | M3  | Même constat : seules les équations x=-1 et y=4 sont en évidence, pas la proposition correcte du QCM ; double espace dans « $\mathcal{C}_f$  admet ». | Mettre en évidence la proposition entière ; supprimer l'espace en trop. | src/exercices/TSpe/TSA2-11.ts |
 | TSA2-41 | M3  | QCM dont les propositions sont des expressions de limites (lim_{x→+∞} f(x)) : la correction met en évidence la valeur de la limite (−∞) et non la proposition cochée ; « f(x) \lt -2x+4 » (\lt au lieu de &lt;). | Mettre en évidence la proposition (la limite en +∞) ou écrire « La limite déterminable est celle en +∞ ». | src/exercices/TSpe/TSA2-41.ts |
@@ -94,6 +105,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSG1-07 | M1 Évidence refusée par le champ | 12 M1 : valeurs en évidence refusées (multi-champs a, b, c) ; énoncé : « un bureau » mal placé après « qui élira ensuite en son sein, un bureau » (virgule entre le complément et l'objet) ; « 6 adhérents parmi 38 » hors $ dans la correction. | « qui élira ensuite un bureau en son sein » ; $6$, $38$. | src/exercices/TSpe/TSG1-07.ts |
 | TSG2-13 | M1 Évidence refusée par le champ | Norme : la correction met en évidence « 45 » sous la racine ($\sqrt{⟦45⟧}$) alors que le champ attend la norme \sqrt{45} (ou 3\sqrt{5}) : valeur refusée (12 M1) ; la racine n'est pas simplifiée (3√5) ; \vert\vert au lieu de \\|\cdot\\|. | Mettre \sqrt{45}=3\sqrt5 en évidence ; \left\\|\vec u\right\\|. | src/exercices/TSpe/TSG2-13.ts |
 | TSG2-26 | M1 Évidence refusée par le champ | 9 M1 : la valeur en évidence (distance) refusée par le champ ; « le point A de coordonnées $(3~;~-1~;~3)$ » : A hors des $ ; système paramétrique avec (d) répété ($(d)$⍽: $\begin{cases}…$). | Tester la forme attendue (racine simplifiée) ; $A$. | src/exercices/TSpe/TSG2-26.ts |
+| TTE-5 | M1 Évidence refusée par le champ | Reprend TSA5-20 (équations a^x=b) : l'ensemble S={2} mis en évidence avec accolades alors que le trou ne prend que le nombre (90 M1) ; doublon du chapitre TSA5 (à fusionner). | Voir TSA5-20. | src/exercices/TSpe/TTE-5.ts |
+| TTE-7 | M1 Évidence refusée par le champ | Reprend TSA5-22 avec \log : intervalle mis en évidence refusé (21 M1, 1 X1) ; $\mathcal{D}_f$ sans fonction f ; « $8x+7> 0$ » espaces. | Idem TSA5-22. | src/exercices/TSpe/TTE-7.ts |
+| TTE-9 | M1 Évidence refusée par le champ | Équation x^9=4 : 8 M1 et 4 X1 (erreurs d'exécution du banc, à repasser) ; mise en évidence de S={\sqrt[9]{4}} probablement refusée. | Repasser l'exercice ; accepter 4^{1/9}. | src/exercices/TSpe/TTE-9.ts |
 | TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
 | TSA1-30 | M5 Texte en évidence | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. | « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | TSpe/TSA1-30.ts |
 
@@ -209,6 +223,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TEC1-51 | R16  | Énoncé : deux consignes dans une phrase (« Exprimer … Déterminer … ») sans numérotation, un seul champ aligné ; 26 phrases sans virgule ; « Z∈ℝ ». | Numéroter les questions. | src/exercices/TSpe/TEC1-51.ts |
 | TEC3-01 | R3  | Notation « \mathrm{i} » droite dans TEC3 alors que TEC1 écrit i en italique : incohérence du nombre complexe i entre chapitres ; « z=-6+6\mathrm{i} » correct ; « d'une part » coupé. | Choisir i ou \mathrm{i} pour tout le site (règle MathALÉA). | src/exercices/TSpe/TEC3-01.ts |
 | TEC3-03 | R10 Français | « $Acos(3t+\phi)$ » : cos sans antislash (italique : A·c·o·s) dans l'énoncé et la correction ; titre contenant la formule LaTeX entière ($\cos(\theta+\theta^\prime)=…$) ; \theta^\prime au lieu de \theta' ; 20 phrases sans virgule. | $A\cos(3t+\varphi)$ ; titre en texte. | src/exercices/TSpe/TEC3-03.ts |
+| TEG1-11 | R10 Français | Correction : « Les arcs du graphe G sont $A\to $C$$, $B\to $C$$ … » : dollars imbriqués et mal fermés (nombre impair de $ : 14 X2), le rendu affiche des $ parasites ; « ⟦\textbf{non}⟧ » texte dans la mise en évidence (9 R2) ; 28 M1. | $A\to C$ ; texteEnCouleurEtGras('non'). | src/exercices/TSpe/TEG1-11.ts |
+| TEM1-11 | R16  | Consigne : « Si le produit A×B est possible, effectuer le calcul. Faire de même pour B×A » (« faire de même » infinitif) ; correction non revue en détail ; 28 doubles espaces. | Reformuler à l'impératif ; consigne à vérifier. | src/exercices/TSpe/TEM1-11.ts |
+| TEM1-13 | R5 Virgule | 39 phrases sans virgule dans la récurrence (« Pour n=1, le membre de droite … ») ; formule \left(-2\right)^{n} avec \left\right inutiles ; 86 N6 ; 8 pages > 390 px. | Virgules ; supprimer \left\right. | src/exercices/TSpe/TEM1-13.ts |
+| TEM1-32 | R16  | Énoncé : « deux stations, notées A et B » : A et B hors des $ ; même défaut I2 (64 : matrice + 1 acceptée) ; système a_{n+1}, b_{n+1} imbriqué cases+aligned. | $A$ et $B$ ; idem. | src/exercices/TSpe/TEM1-32.ts |
+| TEM1-33 | R3  | 112 T4 (guillemets) ; 42 N6 ; 19 pages > 390 px (récurrence avec matrices 2×2 en ligne) ; « Calculons AC+B » : la matrice C n'est pas définie dans le texte visible. | Définir C ; couper les lignes. | src/exercices/TSpe/TEM1-33.ts |
 | TSA1-32 | R16  | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». | Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | src/exercices/TSpe/TSA1-32.ts:104 |
 | TSA1-40 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. | texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | src/exercices/TSpe/TSA1-40.ts:92 |
 | TSA1-42 | R16  | « Quelle que soit la quantité de prises » (des prises se comptent) ; « la 14e prise » sans exposant. | « Quel que soit le nombre de prises » ; $14^{\text{e}}$. | src/exercices/TSpe/TSA1-42.ts:190 |
@@ -287,6 +306,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSP2-16 | C2  | Correction réduite à « p(X=n)=0,09^n » sans phrase : pas de lien avec n=48 ni avec la proposition cochée ; p minuscule. | Expliquer « n succès d'affilée : 0,09^n ». | src/exercices/TSpe/TSP2-16.ts |
 | TSP2-20 | R1 Titre | Titre « Tirer des boules avec remise dans une urne. » avec point final ; énoncé : « 10 boules rouges et 9 boules bleues », « 4 tirages » nombres hors des $ ; « a) … » items « b) c) d) e) » dans une seule ligne multi-mathfield. | Titre sans point ; $10$, $9$, $4$ entre dollars. | src/exercices/TSpe/TSP2-20.ts |
 | TSP3-10 | R16  | Correction : « On a trivialement : » (espace avant les deux-points, adverbe familier) ; « Var » et « p(X=…) » minuscule dans 15 propositions (R9) ; « s'il obtient 1 » : 1 hors des $ ; « 3 € ; » avec point-virgule collé. | « On a : » ; P majuscule ; $1$. | src/exercices/TSpe/TSP3-10.ts |
+| TTE-10 | R3  | « \log(0,000\,01) » : séparation en milliers décimale correcte mais « 0,000 01 » (virgule \log) ; 6 N6 ; exercice sans correction visible dans la sortie. | Ajouter la correction (\log(10^{-5})=-5). | src/exercices/TSpe/TTE-10.ts |
+| TTE-12 | R3  | « f_{1}(x)={0,2}^x » : accolades autour de 0,2 et de 5 (« {5}^x ») ; fonctions séparées par \qquad sans virgule dans un seul dollar enchaîné (« $…$$\qquad$$…$ ») ; 52 doubles espaces. | $f_1(x)=0{,}2^x$ ; une seule formule. | src/exercices/TSpe/TTE-12.ts |
+| TTE-13 | R3  | « (1\,;\,2) » ; correction juste (a=2) ; 9 N6 ; « $a^{1}=2$ » exposant 1 inutile (R10). | $a=2$ directement. | src/exercices/TSpe/TTE-13.ts |
+| TTE-2 | R16  | Énoncé : « baisse de 60 % » : correct ; « Taux moyen d'évolution par minute de la population de bactéries arrondi à 0,1 % près : » phrase trop longue ; calcul vérifié (0,4^{1/120}-1) ; « $C=1-\dfrac{60}{100}=0,4$ ». | Raccourcir : « Arrondir à 0,1 % près ». | src/exercices/TSpe/TTE-2.ts |
+| TTE-3 | R16  | Reprend TSA5-21 (mêmes énoncés) : ligne « x ln(2) ⩾ ln(32) » en double et « car ln(2)>0 » collé ; 6 T3 ; doublon du chapitre TSA5 (à fusionner). | Voir TSA5-21 ; mutualiser. | src/exercices/TSpe/TTE-3.ts |
+| TTE-6 | R1 Titre | Reprend TSA5-10 avec \log : « pour tous réels a et b strictement positifs » a, b, n hors des $ ; 17 doubles espaces ; \log(\dots) sans \left\right nécessaires. | Idem TSA5-10. | src/exercices/TSpe/TTE-6.ts |
+| TTE-8 | R3  | Consigne : « Soit $x > 0$,exprimer les nombres suivants » : espace manquante après la virgule ; titre « log(x) » sans $ ; 14 T6. | « Soit $x>0$, exprimer… ». | src/exercices/TSpe/TTE-8.ts |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer

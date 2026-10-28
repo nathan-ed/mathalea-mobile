@@ -22,3 +22,4 @@
 {"id":"6G1autoB","regle":"I1","motif":"liste déroulante dont la valeur contient des espaces (« isocèle et rectangle ») saisie sans espaces par la sonde : à tester à la main"}
 {"id":"6G6D-1","regle":"I1","motif":"liste déroulante dont la valeur contient des espaces (« isocèle rectangle ») saisie sans espaces par la sonde : à tester à la main"}
 {"id":"TSG2-30","regle":"I1","motif":"champ de représentation paramétrique (composant spécial) : la sonde y écrit un JSON, non testable automatiquement ; à tester à la main"}
+{"id":"6P1autoA-4","regle":"I1","motif":"réponse en texte libre à espaces (« Lundi, de 11 h 15 à 12 h 15 ») saisie sans espaces par la sonde dans un multi-mathfield : à tester à la main"}
