@@ -11,3 +11,4 @@
 {"id":"CM2N2F-1","regle":"M1","motif":""}
 {"id":"CM2N2F-1","regle":"R10","motif":"de de"}
 {"id":"CM2N3A-5","regle":"N1","motif":"divise un nombre par"}
+{"id":"6N1L","regle":"M1","raison":"plusieurs champs par question (indices i*n+k) : la sonde compare les évidences de toute la question à la première attente"}

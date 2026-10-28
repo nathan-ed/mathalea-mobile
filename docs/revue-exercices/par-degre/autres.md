@@ -20,7 +20,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | BP2CCF10 | I4 Question sans champ | 1 | champ absent de la page |
+| PET12 | X2 Formule cassée | 34 | « $ » visible :  article, un élève va saisir dans la cellule D2 la formule =$B$2*C2 =$B$2*C2, puis étirer la cellule vers le bas jusqu’e |
+| PET13 | X2 Formule cassée | 26 | « $ » visible : asseur 7 10 70 5 Dans la cellule D2, on a saisi la formule =$B$2*C2 =$B$2*C2, puis on a étiré la cellule vers le bas jus |
+| PET14 | X2 Formule cassée | 14 | « $ » visible : 1. Il faut saisir dans la cellule C2 la formule =B2/B$5*100 =B2/B$5*100 puis étirer la cellule vers le bas. D’aut |
+| PET15 | X2 Formule cassée | 182 | « $ » visible : 2. Dans la cellule C7 d’un tableur, on a saisi la formule =B$1+C$6 =B$1+C$6. Cette cellule est ensuite copiée dans la ce |
+| PET16 | X2 Formule cassée | 57 | « $ » visible : a cellule B5 du tableur ci-dessous, on a saisi la formule =A$6*$C4 =A$6*$C4. Cette cellule est ensuite copiée dans la ce |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 198 ; T5 Espaces 163 ; T6 Points de suspension 88 ; T4  50 ; R5 Virgule 15 ; R6  13 ; R10 Français 6 ; R2 Tutoiement, impératif 5 ; T3  4 ; N6 Écriture algébrique 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1106 ; T5 Espaces 167 ; R5 Virgule 115 ; T6 Points de suspension 114 ; N2 Séparateur des milliers 91 ; N6 Écriture algébrique 87 ; T4  50 ; R6  13 ; T3  6 ; R10 Français 6 ; R2 Tutoiement, impératif 5 ; T1 Espace avant % 2.

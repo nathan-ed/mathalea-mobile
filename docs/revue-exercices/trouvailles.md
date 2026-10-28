@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1250 exercices passés sur 4190**.
-Constats regroupés : 5715 (un groupe = même exercice, même règle,
+Avancement : **1279 exercices passés sur 4190**.
+Constats regroupés : 6151 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -25,85 +25,87 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 6 | 19 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 1 | 1 |
-| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 18 | 18 |
+| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 19 | 19 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 4 | 4 |
 | 2 Rendu cassé | [M8 Nombre de mises en évidence et de champs différents](#m8) | 2 | 2 |
 | 2 Rendu cassé | [N3 Point décimal](#n3) | 1 | 1 |
-| 2 Rendu cassé | [R14 ](#r14) | 2 | 2 |
+| 2 Rendu cassé | [R10 Français (accords, fautes, coquilles)](#r10) | 1 | 1 |
+| 2 Rendu cassé | [R14 ](#r14) | 3 | 3 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 16 | 27 |
-| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 9 | 76 |
+| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 14 | 265 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 14 | 18 |
-| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 13 | 13 |
+| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 15 | 15 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 9 | 9 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 140 | 768 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 143 | 875 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
-| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 57 | 116 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 82 | 82 |
+| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 59 | 118 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 85 | 85 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 49 | 53 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 51 | 56 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 6 | 6 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 2 | 2 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
-| 3 Mise en évidence | [R1 Titre](#r1) | 2 | 2 |
+| 3 Mise en évidence | [R1 Titre](#r1) | 3 | 3 |
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
 | 3 Mise en évidence | [R14 ](#r14) | 5 | 5 |
 | 3 Mise en évidence | [R16 ](#r16) | 2 | 2 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 1 | 1 |
-| 3 Mise en évidence | [T5 Espaces en trop](#t5) | 1 | 1 |
+| 3 Mise en évidence | [T5 Espaces en trop](#t5) | 2 | 2 |
 | 3 Mise en évidence | [T6 Points de suspension](#t6) | 1 | 1 |
+| 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 1 | 1 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 11 | 11 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 300 | 451 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 319 | 489 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 16 | 22 |
 | 4 Typographie | [N3 Point décimal](#n3) | 16 | 20 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 5 | 5 |
-| 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 36 | 44 |
+| 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 38 | 46 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
-| 4 Typographie | [R1 Titre](#r1) | 4 | 4 |
-| 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 2 | 2 |
+| 4 Typographie | [R1 Titre](#r1) | 5 | 5 |
+| 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 2 | 2 |
-| 4 Typographie | [T1 Espace avant %](#t1) | 16 | 21 |
+| 4 Typographie | [T1 Espace avant %](#t1) | 17 | 22 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 14 | 15 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 125 | 183 |
-| 4 Typographie | [T4 Guillemets](#t4) | 39 | 56 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 127 | 185 |
+| 4 Typographie | [T4 Guillemets](#t4) | 40 | 58 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 3 | 3 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 201 | 246 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 208 | 263 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 138 | 678 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 139 | 685 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 65 | 91 |
-| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 42 | 58 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 70 | 100 |
+| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 44 | 61 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
-| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 109 | 149 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 85 | 136 |
+| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 110 | 153 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 87 | 140 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 105 | 144 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 110 | 153 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 10 | 14 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 32 | 43 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 283 | 494 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 295 | 463 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 287 | 500 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 302 | 473 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
-| 5 Rédaction | [X4 Question en double ou vide](#x4) | 27 | 27 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 39 | 48 |
+| 5 Rédaction | [X4 Question en double ou vide](#x4) | 28 | 28 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 42 | 51 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 15 | 15 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 18 | 18 |
 
 ## I1
 
@@ -252,6 +254,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N1A-7 (6e) | 6e/6N1A-7.ts | « Je suis un nombre à 3 chiffres » (dizaines, unités, dixièmes) avec un chiffre des dixièmes nul : la bonne réponse proposée est $12$ (2 chiffres), à côté de $10,2$ et $20,1$ (sup=1, sup2=5-9, graine revue-1-a, Q2). → Exclure 0 pour le rang le plus bas d'un décimal (ou le plus haut), ou ne pas annoncer le nombre de chiffres dans ce cas. | ×1 |
+| 6N1J (6e) | 6e/6N0A-10.ts:309 | Ordre décroissant : la correction détaillée commence par « Pour ranger les nombres dans l'ordre croissant, on procède en deux temps » (texte figé, sup=2, graine revue-12-a). → `dans l'ordre ${ordre}` | ×1 |
 | can2a-2021 (CAN) | src/exercices/can/2e/can2a-2021.ts:959 | Q25 : « Il y a $b$ boules rouges » alors que b est le nombre de boules vertes (« Il y a $2$ boules rouges sur un total de $6$ » pour 4 rouges). → Il y a $${a}$ boules rouges sur un total de… | ×1 |
 | can3a-2022 (CAN) | src/exercices/can/3e/can3a-2022.ts:300 | Q4 (cm → m) : « pour passer des m au cm, on divise par 100 » (sens inversé, même erreur que can4a-2022). → pour passer des $\text{cm}$ aux $\text{m}$, on divise par $100$ | ×1 |
 | can4a-2022 (CAN) | src/exercices/can/4e/can4a-2022.ts:318 | Q4 (cm → m) : « pour passer des m au cm, on divise par 100 » : sens inversé (on passe des cm aux m en divisant). → Ainsi, pour passer des $\text{cm}$ aux $\text{m}$, on divise par $100$. | ×1 |
@@ -298,12 +301,21 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6N1F (6e) | 6e/6N1F.ts:287 | Forme initiale « fraction décimale » : pourcentage de la correction écrit brut, « 1097.5 % » (point décimal) et « 1522 % » (sans espace), alors que les autres branches passent par texNombre. → miseEnEvidence(texNombre(formePourc, 1)) | ×1 |
 
+## R10
+
+**Français (accords, fautes, coquilles)** (gravité 2 : Rendu cassé)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| 6N1K-1 (6e) | 6e/6N1K-1.ts:274 | Coquille « L'arrondiY à l'unité de … » dans la correction (arrondi à l'unité par excès). → « L'arrondi à l'unité de … » | ×1 |
+
 ## R14
 
 **R14** (gravité 2 : Rendu cassé)
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoE1-1 (6e) | 6e/6G8A-2.ts | Avec un seul type de solide coché (sup=1), les cinq questions sont identiques (« Je suis un pavé droit dont toutes les arêtes sont de même longueur », graine revue-1-a). → Limiter nbQuestions au nombre de devinettes disponibles, ou varier les énoncés. | ×1 |
 | 6N0A-7 (6e) | 6e/6N0A-7.ts:129 | Questions en double en interactif ($20$ en Q2 et Q3, sup2=1) : le test de doublon compare texte, qui contient l'identifiant du champ, propre à chaque question. → Tester le doublon sur nombre (questionJamaisPosee(i, nombre)). | ×1 |
 | 6N1E (6e) | 6e/6N1E.ts:66 | Plusieurs questions : tous les tableaux reprennent les mêmes six nombres (tableauDeNombres tiré une fois hors de la boucle, indexé par k de 0 à 5), seules les cases masquées changent (nb=10, graine revue-3-a : 0,96 ; 0,44 ; 0,69 ; 0,95 ; 0,97 ; 0,21 dix fois). → Tirer les nombres dans la boucle des questions (ou indexer par 6 × i + k). | ×1 |
 
@@ -434,6 +446,195 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N1D-2 (cm2) | src/exercices/CM2/CM2N1D-2.ts:297 | Type « Donner le nombre » avec 1 chiffre (sup2=1) : énoncé « … de l'égalité. =$ » ($ visible) et correction « {\color…\boldsymbol{$0}}$ » (erreur KaTeX « 0}} ») ; mises en évidence avec les mots (⟦6~\text{dizaines}⟧) alors que le champ attend « dizaines » ou un nombre → $=$ avant le champ ; une valeur par champ en évidence | ×1 |
 | CM2N1D-2 (cm2) | énoncé q1 | nombre impair de $ : le nombre correspondant au premier membre de l'égalité.&lt;br>=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×2 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-19-a) |
 | CM2N1D-2 (cm2) | correction q1 | nombre impair de $ : ={\color{#F15929}\boldsymbol{0}}$ | ×1 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false (revue-19-a) |
+| PET12 (PE) | énoncé q4 | « $ » visible :  article, un élève va saisir dans la cellule D2 la formule =$B$2*C2 =$B$2*C2, puis étirer la cellule vers le bas jusqu’e | ×1 ; sup=1 (revue-1-b) |
+| PET12 (PE) | correction q4 | « $ » visible : 4. La formule =$B$2*C2 =$B$2*C2 est fausse : le signe $ $ bloque la cellule | ×1 ; sup=1 (revue-1-b) |
+| PET12 (PE) | énoncé q1 | « $ » visible : , un élève va saisir dans la cellule C2 la formule =B2*100/B$6 =B2*100/B$6, puis étirer la cellule vers le bas jusqu’en  | ×2 ; sup=5 (revue-5-a) |
+| PET12 (PE) | correction q1 | « $ » visible : 1. La formule =B2*100/B$6 =B2*100/B$6 est juste : elle permet de calculer le pource | ×2 ; sup=5 (revue-5-a) |
+| PET12 (PE) | correction q2 | « $ » visible : e devient =B3/B7*100 =B3/B7*100. Une formule juste est =B2/B$6*100 =B2/B$6*100. | ×1 ; sup=5 (revue-5-a) |
+| PET12 (PE) | correction q4 | « $ » visible : B3:B5)*100 =B3/SOMME(B3:B5)*100. Une formule juste est =B2/B$5*100 =B2/B$5*100. | ×2 ; sup=5 (revue-5-a) |
+| PET12 (PE) | énoncé q1 | « $ » visible : l, un élève va saisir dans la cellule C2 la formule =100*B2/$B$5 =100*B2/$B$5, puis étirer la cellule vers le bas jusqu’ | ×1 ; sup=5 (revue-5-b) |
+| PET12 (PE) | énoncé q3 | « $ » visible : otal, un élève va saisir dans la cellule C2 la formule =B2/B$5 =B2/B$5, puis étirer la cellule vers le bas jusqu’en C4.  | ×1 ; sup=5 (revue-5-b) |
+| PET12 (PE) | énoncé q4 | « $ » visible : total, un élève va saisir dans la cellule C2 la formule =B2/$B$5*100 =B2/$B$5*100, puis étirer la cellule vers le bas ju | ×1 ; sup=5 (revue-5-b) |
+| PET12 (PE) | correction q1 | « $ » visible : 1. La formule =100*B2/$B$5 =100*B2/$B$5 est juste : elle permet de calculer le pou | ×1 ; sup=5 (revue-5-b) |
+| PET12 (PE) | correction q3 | « $ » visible : 3. La formule =B2/B$5 =B2/B$5 est fausse : elle calcule une proportion comprise | ×1 ; sup=5 (revue-5-b) |
+| PET12 (PE) | correction q4 | « $ » visible : 4. La formule =B2/$B$5*100 =B2/$B$5*100 est juste : elle permet de calculer le | ×1 ; sup=5 (revue-5-b) |
+| PET12 (PE) | énoncé q1 | « $ » visible :  TVA), un élève va saisir dans la cellule C3 la formule =B3*$B$1/100 =B3*$B$1/100, puis étirer la cellule vers le bas ju | ×3 ; sup=6 (revue-6-a) |
+| PET12 (PE) | énoncé q2 | « $ » visible : , un élève va saisir dans la cellule C3 la formule =B3*(100+$B$1)/100 =B3*(100+$B$1)/100, puis étirer la cellule vers le | ×3 ; sup=6 (revue-6-a) |
+| PET12 (PE) | énoncé q4 | « $ » visible : ), un élève va saisir dans la cellule C3 la formule =B3*(1+B$1/100) =B3*(1+B$1/100), puis étirer la cellule vers le bas  | ×1 ; sup=6 (revue-6-a) |
+| PET12 (PE) | correction q1 | « $ » visible : 1. La formule =B3*$B$1/100 =B3*$B$1/100 est fausse : elle calcule seulement le | ×3 ; sup=6 (revue-6-a) |
+| PET12 (PE) | correction q2 | « $ » visible : 2. La formule =B3*(100+$B$1)/100 =B3*(100+$B$1)/100 est juste : elle permet de calc | ×3 ; sup=6 (revue-6-a) |
+| PET12 (PE) | correction q4 | « $ » visible : 4. La formule =B3*(1+B$1/100) =B3*(1+B$1/100) est juste : elle permet de calculer  | ×1 ; sup=6 (revue-6-a) |
+| PET12 (PE) | énoncé q4 | « $ » visible : A), un élève va saisir dans la cellule C3 la formule =B3*(1+$B$1) =B3*(1+$B$1), puis étirer la cellule vers le bas jusqu | ×1 ; sup=6 (revue-6-b) |
+| PET12 (PE) | correction q4 | « $ » visible : 4. La formule =B3*(1+$B$1) =B3*(1+$B$1) est fausse : il manque la division par 10 | ×1 ; sup=6 (revue-6-b) |
+| PET12 (PE) | énoncé q1 | « $ » visible : otal, un élève va saisir dans la cellule C2 la formule =B2/B$6*100 =B2/B$6*100, puis étirer la cellule vers le bas jusqu | ×1 ; sup=9 nb=10 (revue-9-a) |
+| PET12 (PE) | correction q1 | « $ » visible : 1. La formule =B2/B$6*100 =B2/B$6*100 est juste : elle permet de calculer le po | ×1 ; sup=9 nb=10 (revue-9-a) |
+| PET12 (PE) | correction q7 | « $ » visible : =B4*(1+B2/100) =B4*(1+B2/100). Une formule juste est =B3*(1+$B$1/100) =B3*(1+$B$1/100). | ×1 ; sup=9 nb=10 (revue-9-a) |
+| PET13 (PE) | énoncé q3 | « $ » visible : asseur 7 10 70 5 Dans la cellule D2, on a saisi la formule =$B$2*C2 =$B$2*C2, puis on a étiré la cellule vers le bas jus | ×2 ; sup=1 (revue-1-a) |
+| PET13 (PE) | correction q3 | « $ » visible : 3. La formule =$B$2*C2 =$B$2*C2 est fausse : le signe $ $ bloque la cellule | ×2 ; sup=1 (revue-1-a) |
+| PET13 (PE) | énoncé q3 | « $ » visible : 5 Total 50 6 Dans la cellule C2, on a saisi la formule =B2/B$5 =B2/B$5, puis on a étiré la cellule vers le bas jusqu’en  | ×1 ; sup=5 (revue-5-a) |
+| PET13 (PE) | correction q1 | « $ » visible : le total. Il faut saisir dans la cellule C2 la formule =B2/B$5*100 =B2/B$5*100 puis étirer la cellule vers le bas. Avec  | ×6 ; sup=5 ; sup=9 nb=10 (revue-5-a) |
+| PET13 (PE) | correction q3 | « $ » visible : 3. La formule =B2/B$5 =B2/B$5 est fausse : elle calcule une proportion comprise | ×1 ; sup=5 (revue-5-a) |
+| PET13 (PE) | énoncé q1 | « $ » visible : re 110 2.31 8 Dans la cellule C3, on a saisi la formule =B3*$B$1/100 =B3*$B$1/100, puis on a étiré la cellule vers le ba | ×1 ; sup=6 (revue-6-a) |
+| PET13 (PE) | énoncé q2 | « $ » visible : lavier 60 6 6 Dans la cellule C3, on a saisi la formule =B3*$B$1/100 =B3*$B$1/100, puis on a étiré la cellule vers le ba | ×1 ; sup=6 (revue-6-a) |
+| PET13 (PE) | énoncé q3 | « $ » visible : vre 50 2.75 6 Dans la cellule C3, on a saisi la formule =B3*$B$1/100 =B3*$B$1/100, puis on a étiré la cellule vers le ba | ×1 ; sup=6 (revue-6-a) |
+| PET13 (PE) | correction q1 | « $ » visible : 1. La formule =B3*$B$1/100 =B3*$B$1/100 est fausse : elle calcule seulement le | ×5 ; sup=6 ; sup=9 nb=10 (revue-6-a) |
+| PET13 (PE) | énoncé q1 | « $ » visible : s 60 390 8 Dans la cellule C3, on a saisi la formule =B3*(1+$B$1) =B3*(1+$B$1), puis on a étiré la cellule vers le bas j | ×1 ; sup=6 (revue-6-b) |
+| PET13 (PE) | énoncé q2 | « $ » visible : e 100 102.1 8 Dans la cellule C3, on a saisi la formule =B3+$B$1 =B3+$B$1, puis on a étiré la cellule vers le bas jusqu’ | ×1 ; sup=6 (revue-6-b) |
+| PET13 (PE) | énoncé q3 | « $ » visible : rtable 20 4 8 Dans la cellule C3, on a saisi la formule =B3*$B$1/100 =B3*$B$1/100, puis on a étiré la cellule vers le ba | ×1 ; sup=6 (revue-6-b) |
+| PET13 (PE) | correction q1 | « $ » visible : 1. La formule =B3*(1+$B$1) =B3*(1+$B$1) est fausse : il manque la division par 10 | ×1 ; sup=6 (revue-6-b) |
+| PET13 (PE) | correction q2 | « $ » visible : 2. La formule =B3+$B$1 =B3+$B$1 est fausse : elle ajoute le taux (en pourcenta | ×1 ; sup=6 (revue-6-b) |
+| PET13 (PE) | énoncé q7 | « $ » visible : mpe 120 6.6 8 Dans la cellule C3, on a saisi la formule =B3*$B$1/100 =B3*$B$1/100, puis on a étiré la cellule vers le ba | ×1 ; sup=9 nb=10 (revue-9-a) |
+| PET14 (PE) | correction q1 | « $ » visible : 1. Il faut saisir dans la cellule C2 la formule =B2/B$5*100 =B2/B$5*100 puis étirer la cellule vers le bas. D’aut | ×7 ; sup=5 ; sup=9 nb=10 (revue-5-a) |
+| PET14 (PE) | correction q1 | « $ » visible : 1. Il faut saisir dans la cellule C3 la formule =B3*(1+$B$1/100) =B3*(1+$B$1/100) puis étirer la cellule vers le ba | ×7 ; sup=6 ; sup=9 nb=10 (revue-6-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule C7 d’un tableur, on a saisi la formule =B$1+C$6 =B$1+C$6. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=4 (revue-0-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule B4 d’un tableur, on a saisi la formule =$C$3*C2 =$C$3*C2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=4 (revue-0-a) |
+| PET15 (PE) | correction q2 | « $ » visible : mule, les références sont modifiées de la façon suivante : B$1 B$1 : la ligne est bloquée, la colonne est décalée de 3 : | ×7 ; sup=4 sup2=4 ; sup=1 sup2=4… (revue-0-a) |
+| PET15 (PE) | correction q3 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $C$3 $C$3 est bloquée en colonne et en ligne : elle reste $C | ×3 ; sup=4 sup2=4 ; sup=1 sup2=3… (revue-0-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule E2 d’un tableur, on a saisi la formule =C$6*$D3 =C$6*$D3. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=4 (revue-0-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule C5 d’un tableur, on a saisi la formule =$A$2-E5 =$A$2-E5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=4 (revue-0-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule B7 d’un tableur, on a saisi la formule =$C4+$D2 =$C4+$D2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=4 (revue-0-b) |
+| PET15 (PE) | correction q1 | « $ » visible : mule, les références sont modifiées de la façon suivante : C$6 C$6 : la ligne est bloquée, la colonne est décalée de 1 : | ×7 ; sup=4 sup2=4 ; sup=1 sup2=2… (revue-0-b) |
+| PET15 (PE) | correction q2 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $A$2 $A$2 est bloquée en colonne et en ligne : elle reste $A | ×12 ; sup=4 sup2=4 ; sup=1 sup2=3… (revue-0-b) |
+| PET15 (PE) | correction q4 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $C4 $C4 : la colonne est bloquée, la ligne est décalée de 1  | ×6 ; sup=4 sup2=4 ; sup=2 sup2=2… (revue-0-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule D4 d’un tableur, on a saisi la formule =C$7*A$1 =C$7*A$1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule E7 d’un tableur, on a saisi la formule =A$7*$A1 =A$7*$A1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule C8 d’un tableur, on a saisi la formule =A$2-C$6 =A$2-C$6. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C3 d’un tableur, on a saisi la formule =$D5+D$5 =$D5+D$5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) | correction q2 | « $ » visible : mule, les références sont modifiées de la façon suivante : A$7 A$7 : la ligne est bloquée, la colonne est décalée de 1 : | ×6 ; sup=1 sup2=2 ; sup=3 sup2=2… (revue-2-a) |
+| PET15 (PE) | correction q4 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $D5 $D5 : la colonne est bloquée, la ligne est décalée de 0  | ×4 ; sup=1 sup2=2 ; sup=3 sup2=2… (revue-2-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule C8 d’un tableur, on a saisi la formule =$A3-E$1 =$A3-E$1. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule D6 d’un tableur, on a saisi la formule =$D1+B$7 =$D1+B$7. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule B2 d’un tableur, on a saisi la formule =D$8*$D1 =D$8*$D1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule E5 d’un tableur, on a saisi la formule =$B6*E$2 =$B6*E$2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) | correction q1 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $A3 $A3 : la colonne est bloquée, la ligne est décalée de 0  | ×6 ; sup=1 sup2=2 ; sup=2 sup2=2… (revue-2-b) |
+| PET15 (PE) | correction q3 | « $ » visible : mule, les références sont modifiées de la façon suivante : D$8 D$8 : la ligne est bloquée, la colonne est décalée de 1 : | ×4 ; sup=1 sup2=2 ; sup=2 sup2=2… (revue-2-b) |
+| PET15 (PE) | correction q4 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $B6 $B6 : la colonne est bloquée, la ligne est décalée de 0  | ×3 ; sup=1 sup2=2 ; sup=3 sup2=4… (revue-2-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible :  Dans la cellule B7 d’un tableur, on a saisi la formule =A7-$C$5 =A7-$C$5. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule C2 d’un tableur, on a saisi la formule =$C$8*B6 =$C$8*B6. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible :  Dans la cellule C3 d’un tableur, on a saisi la formule =C4-$B$8 =C4-$B$8. Cette cellule est ensuite copiée dans la cell | ×2 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule D7 d’un tableur, on a saisi la formule =$A$2-B4 =$A$2-B4. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) | correction q1 | « $ » visible :  est décalée de 3 colonnes vers la droite et devient D7 D7. $C$5 $C$5 est bloquée en colonne et en ligne : elle reste $C | ×1 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) | correction q3 | « $ » visible :  est décalée de 3 colonnes vers la droite et devient F4 F4. $B$8 $B$8 est bloquée en colonne et en ligne : elle reste $B | ×3 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule C3 d’un tableur, on a saisi la formule =C1+$B$2 =C1+$B$2. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=1 sup2=3 (revue-3-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule C4 d’un tableur, on a saisi la formule =$D$5*C8 =$D$5*C8. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=3 (revue-3-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C4 d’un tableur, on a saisi la formule =$B$2*B4 =$B$2*B4. Cette cellule est ensuite copiée dans la c | ×2 ; sup=1 sup2=3 ; sup=4 sup2=3 (revue-3-b) |
+| PET15 (PE) | correction q3 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $D$5 $D$5 est bloquée en colonne et en ligne : elle reste $D | ×4 ; sup=1 sup2=3 ; sup=1 sup2=4… (revue-3-b) |
+| PET15 (PE) | correction q4 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $B$2 $B$2 est bloquée en colonne et en ligne : elle reste $B | ×6 ; sup=1 sup2=3 ; sup=1 sup2=4… (revue-3-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule B2 d’un tableur, on a saisi la formule =$B$7+C5 =$B$7+C5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=4 (revue-4-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule C4 d’un tableur, on a saisi la formule =C$2*A$8 =C$2*A$8. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=1 sup2=4 (revue-4-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C8 d’un tableur, on a saisi la formule =$D$1+A7 =$D$1+A7. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=4 (revue-4-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule C7 d’un tableur, on a saisi la formule =$A$6*C3 =$A$6*C3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=1 sup2=4 (revue-4-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule B8 d’un tableur, on a saisi la formule =B$7-C$6 =B$7-C$6. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=1 sup2=4 (revue-4-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule C7 d’un tableur, on a saisi la formule =$C4*$F6 =$C4*$F6. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule F4 d’un tableur, on a saisi la formule =$A4*$B7 =$A4*$B7. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule B6 d’un tableur, on a saisi la formule =D$6*$F2 =D$6*$F2. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule D5 d’un tableur, on a saisi la formule =$A5*E$3 =$A5*E$3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule F3 d’un tableur, on a saisi la formule =C$2-$F4 =C$2-$F4. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule B5 d’un tableur, on a saisi la formule =$A3+$E3 =$A3+$E3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule C3 d’un tableur, on a saisi la formule =F$5+$A1 =F$5+$A1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C2 d’un tableur, on a saisi la formule =D$5*$F2 =D$5*$F2. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) | correction q3 | « $ » visible : mule, les références sont modifiées de la façon suivante : F$5 F$5 : la ligne est bloquée, la colonne est décalée de 0 : | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule E3 d’un tableur, on a saisi la formule =$B$5+F6 =$B$5+F6. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule B3 d’un tableur, on a saisi la formule =F1*$B$1 =F1*$B$1. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible :  Dans la cellule C2 d’un tableur, on a saisi la formule =E5-$B$3 =E5-$B$3. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule B5 d’un tableur, on a saisi la formule =$A$3*F2 =$A$3*F2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) | correction q2 | « $ » visible :  elle est décalée de 3 lignes vers le bas et devient F4 F4. $B$1 $B$1 est bloquée en colonne et en ligne : elle reste $B | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) | correction q3 | « $ » visible :  elle est décalée de 3 lignes vers le bas et devient E8 E8. $B$3 $B$3 est bloquée en colonne et en ligne : elle reste $B | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible :  Dans la cellule B2 d’un tableur, on a saisi la formule =A5-$D$3 =A5-$D$3. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule F2 d’un tableur, on a saisi la formule =A1-$D$5 =A1-$D$5. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible :  Dans la cellule D2 d’un tableur, on a saisi la formule =B3*$B$3 =B3*$B$3. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule F2 d’un tableur, on a saisi la formule =$C$6-E6 =$C$6-E6. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) | correction q1 | « $ » visible :  elle est décalée de 3 lignes vers le bas et devient A8 A8. $D$3 $D$3 est bloquée en colonne et en ligne : elle reste $D | ×2 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) | correction q3 | « $ » visible :  elle est décalée de 2 lignes vers le bas et devient B5 B5. $B$3 $B$3 est bloquée en colonne et en ligne : elle reste $B | ×1 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule E4 d’un tableur, on a saisi la formule =B$2+$A4 =B$2+$A4. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 sup2=4 (revue-8-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule B2 d’un tableur, on a saisi la formule =E2*$C$4 =E2*$C$4. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=4 (revue-8-a) |
+| PET15 (PE) | correction q2 | « $ » visible :  elle est décalée de 3 lignes vers le bas et devient E5 E5. $C$4 $C$4 est bloquée en colonne et en ligne : elle reste $C | ×1 ; sup=2 sup2=4 (revue-8-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule F4 d’un tableur, on a saisi la formule =E$2*$C1 =E$2*$C1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 sup2=4 (revue-8-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule C7 d’un tableur, on a saisi la formule =B4*$B$6 =B4*$B$6. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 sup2=4 (revue-8-b) |
+| PET15 (PE) | correction q1 | « $ » visible : mule, les références sont modifiées de la façon suivante : E$2 E$2 : la ligne est bloquée, la colonne est décalée de 0 : | ×2 ; sup=2 sup2=4 ; sup=4 sup2=4 nb=10 (revue-8-b) |
+| PET15 (PE) | correction q2 | « $ » visible : : elle est décalée de 1 ligne vers le bas et devient B5 B5. $B$6 $B$6 est bloquée en colonne et en ligne : elle reste $B | ×1 ; sup=2 sup2=4 (revue-8-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule D3 d’un tableur, on a saisi la formule =$D1*C$7 =$D1*C$7. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule E3 d’un tableur, on a saisi la formule =A$3*$D3 =A$3*$D3. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule D3 d’un tableur, on a saisi la formule =D$5*C$4 =D$5*C$4. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C6 d’un tableur, on a saisi la formule =$C2-$C4 =$C2-$C4. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule C3 d’un tableur, on a saisi la formule =C$4-A$5 =C$4-A$5. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule D5 d’un tableur, on a saisi la formule =$C3-$C7 =$C3-$C7. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule C4 d’un tableur, on a saisi la formule =C$3*$A6 =C$3*$A6. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule E3 d’un tableur, on a saisi la formule =A$2*$C4 =A$2*$C4. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule E2 d’un tableur, on a saisi la formule =$A$4*E5 =$A$4*E5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule B3 d’un tableur, on a saisi la formule =$A$7*A3 =$A$7*A3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible :  Dans la cellule C2 d’un tableur, on a saisi la formule =B1-$A$2 =B1-$A$2. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible :  Dans la cellule C4 d’un tableur, on a saisi la formule =B3*$A$1 =B3*$A$1. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) | correction q3 | « $ » visible : nes vers la droite et 1 ligne vers le bas et devient E2 E2. $A$2 $A$2 est bloquée en colonne et en ligne : elle reste $A | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) | correction q4 | « $ » visible : es vers la droite et 3 lignes vers le bas et devient E6 E6. $A$1 $A$1 est bloquée en colonne et en ligne : elle reste $A | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule B5 d’un tableur, on a saisi la formule =$A$2*D6 =$A$2*D6. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule B5 d’un tableur, on a saisi la formule =C6+$C$3 =C6+$C$3. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule E6 d’un tableur, on a saisi la formule =$B$1+A6 =$B$1+A6. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible :  Dans la cellule E4 d’un tableur, on a saisi la formule =B5-$E$3 =B5-$E$3. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) | correction q2 | « $ » visible : es vers la droite et 2 lignes vers le bas et devient F8 F8. $C$3 $C$3 est bloquée en colonne et en ligne : elle reste $C | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) | correction q4 | « $ » visible : ne vers la droite et 3 lignes vers le bas et devient C8 C8. $E$3 $E$3 est bloquée en colonne et en ligne : elle reste $E | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule B3 d’un tableur, on a saisi la formule =$A$1-B5 =$A$1-B5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=4 (revue-12-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule D5 d’un tableur, on a saisi la formule =B$6-B$7 =B$6-B$7. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=4 (revue-12-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C5 d’un tableur, on a saisi la formule =B$5*$E4 =B$5*$E4. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=3 sup2=4 (revue-12-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule C3 d’un tableur, on a saisi la formule =$A$4-D5 =$A$4-D5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=4 (revue-12-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule D4 d’un tableur, on a saisi la formule =$D2+$C1 =$D2+$C1. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=4 (revue-12-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C6 d’un tableur, on a saisi la formule =$B3-B$5 =$B3-B$5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=3 sup2=4 (revue-12-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule D3 d’un tableur, on a saisi la formule =$C4+$A3 =$C4+$A3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule C2 d’un tableur, on a saisi la formule =A$1+B$1 =A$1+B$1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule B6 d’un tableur, on a saisi la formule =A$4*D$5 =A$4*D$5. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule C6 d’un tableur, on a saisi la formule =$B4+$B3 =$B4+$B3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule B5 d’un tableur, on a saisi la formule =$C2+$C5 =$C2+$C5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule B3 d’un tableur, on a saisi la formule =B$2*C$3 =B$2*C$3. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule E3 d’un tableur, on a saisi la formule =$A6*A$2 =$A6*A$2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule B5 d’un tableur, on a saisi la formule =$A4+D$2 =$A4+D$2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule C5 d’un tableur, on a saisi la formule =$D$1-A5 =$D$1-A5. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) | énoncé q2 | « $ » visible : 2. Dans la cellule D5 d’un tableur, on a saisi la formule =$A$4+D4 =$A$4+D4. Cette cellule est ensuite copiée dans la c | ×2 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible :  Dans la cellule E8 d’un tableur, on a saisi la formule =D1+$A$7 =D1+$A$7. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) | correction q3 | « $ » visible : e est décalée de 1 colonne vers la droite et devient E1 E1. $A$7 $A$7 est bloquée en colonne et en ligne : elle reste $A | ×1 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule B7 d’un tableur, on a saisi la formule =$B$2*B3 =$B$2*B3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) | énoncé q2 | « $ » visible :  Dans la cellule B4 d’un tableur, on a saisi la formule =C1-$C$4 =C1-$C$4. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) | énoncé q3 | « $ » visible :  Dans la cellule C7 d’un tableur, on a saisi la formule =A5*$B$5 =A5*$B$5. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) | correction q2 | « $ » visible :  elle est décalée de 3 lignes vers le bas et devient C4 C4. $C$4 $C$4 est bloquée en colonne et en ligne : elle reste $C | ×1 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) | correction q3 | « $ » visible : nne vers la droite et 1 ligne vers le bas et devient B6 B6. $B$5 $B$5 est bloquée en colonne et en ligne : elle reste $B | ×1 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) | énoncé q1 | « $ » visible : 1. Dans la cellule D5 d’un tableur, on a saisi la formule =$E$2+C2 =$E$2+C2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | énoncé q3 | « $ » visible : 3. Dans la cellule C2 d’un tableur, on a saisi la formule =B$4-$B2 =B$4-$B2. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | énoncé q4 | « $ » visible : 4. Dans la cellule E5 d’un tableur, on a saisi la formule =E$8-E$3 =E$8-E$3. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | énoncé q6 | « $ » visible : 6. Dans la cellule C3 d’un tableur, on a saisi la formule =$A$3+B4 =$A$3+B4. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | énoncé q7 | « $ » visible : 7. Dans la cellule C4 d’un tableur, on a saisi la formule =$D$6+E3 =$D$6+E3. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | énoncé q8 | « $ » visible : 8. Dans la cellule B4 d’un tableur, on a saisi la formule =C$6-$C8 =C$6-$C8. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | énoncé q10 | « $ » visible :  Dans la cellule B4 d’un tableur, on a saisi la formule =C2-$A$6 =C2-$A$6. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | correction q1 | « $ » visible : rmule, les références sont modifiées de la façon suivante : $E$2 $E$2 est bloquée en colonne et en ligne : elle reste $E | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) | correction q10 | « $ » visible : es vers la droite et 2 lignes vers le bas et devient F4 F4. $A$6 $A$6 est bloquée en colonne et en ligne : elle reste $A | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET16 (PE) | énoncé q1 | « $ » visible : a cellule B5 du tableur ci-dessous, on a saisi la formule =A$6*$C4 =A$6*$C4. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 (revue-0-a) |
+| PET16 (PE) | énoncé q3 | « $ » visible : 2/SOMME(B2:B5)*100 =B2/SOMME(B2:B5)*100 Proposition B : =B2/$B$6*100 =B2/$B$6*100 Proposition C : =B2/B6*100 =B2/B6*100  | ×1 ; sup=4 (revue-0-a) |
+| PET16 (PE) | correction q1 | « $ » visible : les références qui ne sont pas bloquées par le signe dollar $ $ sont modifiées. La cellule E6 contient donc la formule = | ×3 ; sup=4 ; sup=2 (revue-0-a) |
+| PET16 (PE) | correction q2 | « $ » visible : a colonne 𝐴 A reste celle du nombre de la ligne : on écrit $A2 $A2 (colonne bloquée). Lors de l’étirement vers le bas,  | ×11 ; sup=4 ; sup=1… (revue-0-a) |
+| PET16 (PE) | correction q3 | « $ » visible : er fixe lors de l’étirement est bloquée par le signe dollar $ $, alors que les autres références sont décalées. La propo | ×12 ; sup=4 ; sup=3… (revue-0-a) |
+| PET16 (PE) | énoncé q1 | « $ » visible : ire la cellule vers le bas jusqu’en C6. Proposition A : =B3*$B$1/100 =B3*$B$1/100 Proposition B : =B3*(1+B1/100) =B3*(1+ | ×1 ; sup=4 (revue-0-b) |
+| PET16 (PE) | énoncé q2 | « $ » visible : a cellule C3 du tableur ci-dessous, on a saisi la formule =E$7+$C$4 =E$7+$C$4. Cette cellule est ensuite copiée dans la  | ×1 ; sup=4 (revue-0-b) |
+| PET16 (PE) | correction q2 | « $ » visible : les références qui ne sont pas bloquées par le signe dollar $ $ sont modifiées. La cellule D3 contient donc la formule = | ×4 ; sup=4 ; sup=2… (revue-0-b) |
+| PET16 (PE) | énoncé q1 | « $ » visible : cellule C3 du tableur ci-dessous, on a saisi la formule =D5+$F$5 =D5+$F$5. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 (revue-2-a) |
+| PET16 (PE) | énoncé q2 | « $ » visible : cellule E2 du tableur ci-dessous, on a saisi la formule =F4+$A$2 =F4+$A$2. Cette cellule est ensuite copiée dans la cell | ×1 ; sup=2 (revue-2-a) |
+| PET16 (PE) | énoncé q3 | « $ » visible : la cellule D5 du tableur ci-dessous, on a saisi la formule =$E5*E$1 =$E5*E$1. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 (revue-2-a) |
+| PET16 (PE) | correction q1 | « $ » visible : les références qui ne sont pas bloquées par le signe dollar $ $ sont modifiées. La cellule C4 contient donc la formule = | ×1 ; sup=2 (revue-2-a) |
+| PET16 (PE) | énoncé q1 | « $ » visible : a cellule D2 du tableur ci-dessous, on a saisi la formule =A$3*$A2 =A$3*$A2. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=2 (revue-2-b) |
+| PET16 (PE) | énoncé q2 | « $ » visible : la cellule F4 du tableur ci-dessous, on a saisi la formule =$B$5*F2 =$B$5*F2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 (revue-2-b) |
+| PET16 (PE) | énoncé q3 | « $ » visible : la cellule E5 du tableur ci-dessous, on a saisi la formule =$E2+C$2 =$E2+C$2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=2 (revue-2-b) |
+| PET16 (PE) | correction q2 | « $ » visible : les références qui ne sont pas bloquées par le signe dollar $ $ sont modifiées. La cellule F5 contient donc la formule = | ×2 ; sup=2 ; sup=4 nb=10 (revue-2-b) |
+| PET16 (PE) | énoncé q1 | « $ » visible : la cellule vers le bas jusqu’en C5. Proposition A : =100*B2/$B$6 =100*B2/$B$6 Proposition B : =B2/B6*100 =B2/B6*100 Prop | ×1 ; sup=3 (revue-3-a) |
+| PET16 (PE) | énoncé q2 | « $ » visible :  la cellule vers le bas jusqu’en C5. Proposition A : =B3+B3*$B$1/100 =B3+B3*$B$1/100 Proposition B : =B3*(1+B1/100) =B3* | ×1 ; sup=3 (revue-3-a) |
+| PET16 (PE) | énoncé q3 | « $ » visible : ire la cellule vers le bas jusqu’en C5. Proposition A : =B2/$B$6*100 =B2/$B$6*100 Proposition B : =B2/B6*100 =B2/B6*100  | ×1 ; sup=3 (revue-3-a) |
+| PET16 (PE) | énoncé q1 | « $ » visible : ire la cellule vers le bas jusqu’en C7. Proposition A : =B3+$B$1 =B3+$B$1 Proposition B : =B3*(1+B1/100) =B3*(1+B1/100)  | ×1 ; sup=3 (revue-3-b) |
+| PET16 (PE) | énoncé q2 | « $ » visible : position A : =B2/B5*100 =B2/B5*100 Proposition B : =B2*100/B$5 =B2*100/B$5 Proposition C : =B2/B$5 =B2/B$5 Quelle propos | ×1 ; sup=3 (revue-3-b) |
+| PET16 (PE) | énoncé q3 | « $ » visible : ire la cellule vers le bas jusqu’en C5. Proposition A : =B3+$B$1 =B3+$B$1 Proposition B : =B3*(1+$B$1/100) =B3*(1+$B$1/1 | ×1 ; sup=3 (revue-3-b) |
+| PET16 (PE) | énoncé q1 | « $ » visible : a cellule D5 du tableur ci-dessous, on a saisi la formule =B$6*$B1 =B$6*$B1. Cette cellule est ensuite copiée dans la ce | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | énoncé q3 | « $ » visible : on A : =B3*(1+B1/100) =B3*(1+B1/100) Proposition B : =B3*(1+$B$1/100) =B3*(1+$B$1/100) Proposition C : =B3+$B$1 =B3+$B$1 | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | énoncé q4 | « $ » visible : la cellule D4 du tableur ci-dessous, on a saisi la formule =$C1+D2 =$C1+D2. Cette cellule est ensuite copiée dans la cel | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | énoncé q6 | « $ » visible : re la cellule vers le bas jusqu’en C4. Proposition A : =B2/B$5*100 =B2/B$5*100 Proposition B : =B2/SOMME(B2:B4)*100 =B2/ | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | énoncé q7 | « $ » visible : la cellule B2 du tableur ci-dessous, on a saisi la formule =$E2-$A2 =$E2-$A2. Cette cellule est ensuite copiée dans la c | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | énoncé q8 | « $ » visible :  la cellule vers le bas jusqu’en C7. Proposition A : =B3*(1+$B$1/100) =B3*(1+$B$1/100) Proposition B : =B3*(1+B1/100) =B | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | énoncé q10 | « $ » visible : on A : =B3*(1+B1/100) =B3*(1+B1/100) Proposition B : =B3*(1+$B$1) =B3*(1+$B$1) Proposition C : =B3+B3*$B$1/100 =B3+B3*$B | ×1 ; sup=4 nb=10 (revue-4-a) |
+| PET16 (PE) | correction q7 | « $ » visible : les références qui ne sont pas bloquées par le signe dollar $ $ sont modifiées. La cellule B5 contient donc la formule = | ×1 ; sup=4 nb=10 (revue-4-a) |
 | TEC1-51 (Terminale) | correction q4 | « $ » visible : quent, on a 𝑍 ∈ 𝑅 Z∈R si et seulement si 𝑥 = 0 x=0, avec $z\neqi$. 𝑥 = 0 ⟺ 𝑥 = 0 x=0⟺x=0. Ainsi, les solutions sont | ×1 ; défaut nb=10 (revue-1-a) |
 | TEG1-11 (Terminale) | correction q1 | nombre impair de $ : c la réponse est ${\color{#F15929}\boldsymbol{\textbf{oui}}}$.&lt;/li> &lt;/ol> | ×6 ; sup=3 sup2=3 ; sup=1 sup2=2… (revue-0-a) |
 | TEG1-11 (Terminale) | correction q1 | nombre impair de $ : c la réponse est ${\color{#F15929}\boldsymbol{\textbf{non}}}$.&lt;/li> &lt;/ol> | ×4 ; sup=1 sup2=1 ; sup=3 sup2=3 nb=10 (revue-1-a) |
@@ -503,6 +704,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1E (6e) | 6e/6N1E.ts | Tableau de 6 colonnes à 390 px : seules 3 colonnes sont visibles (capture 000-a-reponses), le reste est coupé à droite. → Tableau en 6 lignes et 3 colonnes (formes en colonnes) sur petit écran, ou deux tableaux de 3. | ×1 |
 | 6N1E-1 (6e) | 6e/6N1E-1.ts | Même tableau de 6 colonnes que 6N1E : à 390 px, la moitié des colonnes est hors de l'écran. → Tableau transposé (3 colonnes) sur petit écran. | ×1 |
 | 6N1H (6e) | 6e/6N1H.ts | Trois décimales à 390 px : environ 3 px entre deux graduations des millièmes, lecture impossible sur téléphone ; le point A recouvre l'étiquette 3,96 (capture 002-a-enonce). → Zoom (loupe) ou droite plus courte autour des points sur petit écran. | ×1 |
+| 6N1H-3 (6e) | 6e/6N1H-3.ts | Zooms successifs à 390 px : les droites du zoom se superposent et leurs étiquettes se chevauchent (« 10,2 10, 21 10, 22… » illisibles, capture 000-a-correction) ; au millième, la lecture est impossible sur téléphone. → Espacer verticalement les droites, n'écrire que les graduations extrêmes du zoom sur petit écran, texNombre pour les étiquettes. | ×1 |
+| 6N1J (6e) | 6e/6N0A-10.ts | Six champs à trous sur une ligne : à 390 px, le dernier champ sort de l'écran une fois rempli (même défaut que 6N0A-10). → Voir 6N0A-10. | ×1 |
 | can2F24-04 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:201 | Commentaire « Comme la fonction racine carrée est strictement croissante… » écrit en \text dans un aligned après \qquad : ligne de 866 px, coupée à 390 px (capture), illisible sur téléphone. Même chose pour can2F24-05 (fonction cube, 803 px) → sortir la phrase de la formule (texte après le aligned) | ×1 |
 | can2F24-05 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:183 | Commentaire en \text dans l'aligned (« Comme la fonction cube est strictement croissante… ») : 803 px, coupé à 390 px → phrase hors de la formule | ×1 |
 | can2P1-03 (CAN) | src/exercices/can/1e/can1P12-05.ts | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px → tableau plus étroit (en-tête « Face », « P ») | ×1 |
@@ -579,17 +782,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1F (6e) |  q4 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"+","champ2":"\\dfrac{148}{1\\,000}","champ3":"\\dfrac{6\\,148}{1\\,000}","champ4":"614,8"} ; attendu : {"champ1":"6","champ2":"\\dfrac{148}{1\\,000}","champ3":"\\dfrac{6\\,148}{1\\,000}","champ4":"614.8"} | ×3 ; sup=3 sup2=false sup3=true ; sup=5 sup2=false sup3=true nb=10 (revue-11-a) |
 | 6N1F-2 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : [] ; attendu : {"champ":"cent-soixante-et-un unités et neuf centièmes"} | ×1 ; sup=3 sup2=1 sup3=3 (revue-14-a) |
 | 6N1F-3 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["32~\\%"] ; attendu : {"champ":"32"} | ×12 ; sup=2 (revue-1-a) |
-| 6N1L (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1,1","1","1,061","1,06"] ; attendu : {"champ":"1"} | ×2 ; sup=1 sup2=5 ; sup=1 sup2=5 nb=10 (revue-0-b) |
-| 6N1L (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1,969","2","1,97","1,9"] ; attendu : {"champ":"1.97"} | ×2 ; sup=2 sup2=5 ; sup=1 sup2=5 nb=10 (revue-9-a) |
-| 6N1L (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1","0,15","0,147","0,2"] ; attendu : {"champ":"0.147"} | ×3 ; sup=2 sup2=5 ; sup=1 sup2=5 nb=10 (revue-9-b) |
-| 6N1L (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,244","0,2","0","0,24"] ; attendu : {"champ":"0.2"} | ×3 ; sup=3 sup2=5 ; sup=1 sup2=5 nb=10 (revue-14-a) |
-| 6N1L (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1","1,256","2","1,257","1,256","1,2","1","1,25","1,25","1,3","1,3","1,26"] ; attendu : {"champ":"1.25"} | ×1 ; sup=4 sup2=5 (revue-19-a) |
-| 6N1L (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1","0,506","0,50","0","0,51","0,50","0,507","0,6","0,5","0,506","0,5","1"] ; attendu : {"champ":"0.5"} | ×1 ; sup=4 sup2=5 (revue-19-b) |
-| 6N1L (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["0","0,06","0,1","0,063"] ; attendu : {"champ":"3"} | ×1 ; sup=1 sup2=5 nb=10 (revue-20-a) |
-| 6N1L (6e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2,619","2,62","2,6","3"] ; attendu : {"champ":"5.12"} | ×1 ; sup=1 sup2=5 nb=10 (revue-20-a) |
 | 6N1M (6e) |  q1 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"9\\,859"} ; attendu : {"champ1":"9858.9","champ2":"9859"} | ×7 ; sup=4 ; sup=2… (revue-0-a) |
 | 6N1M (6e) |  q2 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"7","champ2":"7\\,588"} ; attendu : {"champ1":"7587","champ2":"7588"} | ×13 ; sup=4 ; sup=1… (revue-0-a) |
 | 6N1M (6e) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"8\\,886,2"} ; attendu : {"champ1":"8886.19","champ2":"8886.2"} | ×22 ; sup=4 ; sup=2… (revue-0-a) |
+| 6N2autoC (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{919}{10}"] ; attendu : {"champ":"91.9"} | ×48 ; sup=1 sup2=3 sup3=3 sup4=true ; sup=1 sup2=4 sup3=4 sup4=true… (revue-4-a) |
+| 6N2autoC (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{2}{1\\,000}"] ; attendu : {"champ":"0.002"} | ×15 ; sup=2 sup2=2 sup3=3 sup4=false ; sup=2 sup2=4 sup3=5 sup4=false… (revue-8-a) |
 | 6N2E-3 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"1\\,565,304","champ2":"15\\,653,04"} ; attendu : {"champ1":"392.98","champ2":"15653.04"} | ×3 ; sup=3 sup2=false ; sup=2 sup2=false… (revue-0-a) |
 | 6N2E-3 (6e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"25\\,918,7","champ2":"2,591\\,87"} ; attendu : {"champ1":"9.081","champ2":"2.59187"} | ×5 ; sup=3 sup2=false ; sup=2 sup2=false… (revue-0-a) |
 | 6N2E-3 (6e) |  q3 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"76,912","champ2":"769,12"} ; attendu : {"champ1":"92.8","champ2":"769.12"} | ×6 ; sup=3 sup2=false ; sup=2 sup2=true… (revue-0-a) |
@@ -610,6 +807,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2E-5 (6e) |  q4 mathlive | valeur en évidence refusée par le champ : ["16,743","2,143","39,447\\,9","1,860\\,75"] ; attendu : {"champ":"26,88"} | ×1 ; sup=0 nb=10 (revue-5-a) |
 | 6N2E-5 (6e) |  q5 mathlive | valeur en évidence refusée par le champ : ["116,01","19,61","2\\,984,667","13,062"] ; attendu : {"champ":"95,334"} | ×5 ; sup=0 nb=10 (revue-5-a) |
 | 6N2E-5 (6e) |  q7 mathlive | valeur en évidence refusée par le champ : ["21,496","2,364","75,130\\,38","1,891\\,5"] ; attendu : {"champ":"789,415\\,2"} | ×1 ; sup=0 nb=10 (revue-5-a) |
+| 6N2K-2 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"0","champ2":"13","champ3":"13"} ; attendu : {"champ1":"36","champ2":"0","champ3":"13"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1AUTO091 (BP1) |  q1 mathlive | valeur en évidence refusée par le champ : ["3\\,375\\text{ dm}^3"] ; attendu : {"champ":"3375\\operatorname{dm^3}"} | ×4 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=false… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q2 mathlive | valeur en évidence refusée par le champ : ["180\\text{ cm}^3"] ; attendu : {"champ":"180\\operatorname{cm^3}"} | ×8 ; sup=1 sup2=false sup3=false ; sup=2 sup2=true sup3=false… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\,728\\text{ cm}^3"] ; attendu : {"champ":"1728\\operatorname{cm^3}"} | ×4 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=false… (revue-0-a) |
@@ -1150,6 +1348,118 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }18"] ; attendu : {"champ":"1;2;3;6;9;18"} | ×1 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }4\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }12\\text{&nbsp;; }18\\text{&nbsp;; }27\\text{&nbsp;; }36\\text{&nbsp;; }54\\text{&nbsp;; }108"] ; attendu : {"champ":"1;2;3;4;6;9;12;18;27;36;54;108"} | ×1 ; défaut (revue-0-b) |
 | PEA13 (PE) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"field0":"1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }5\\text{&nbsp;; }8\\text{&nbsp;; }11\\text{&nbsp;; }17\\text{&nbsp;; }26\\text{&nbsp;; }35\\text{&nbsp;; }53\\text{&nbsp;; }107"} ; attendu : {"field0":"1;2;3;5;8;11;17;26;35;53;107"} | ×6 ; sup=11 ; sup=5… (revue-0-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=E5+B7}"] ; attendu : {"champ":"=E5+B7"} | ×1 ; sup=4 sup2=4 (revue-0-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=E\\$1+F\\$6}"] ; attendu : {"champ":"=E$1+F$6"} | ×1 ; sup=4 sup2=4 (revue-0-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C\\$3*E4}"] ; attendu : {"champ":"=$C$3*E4"} | ×2 ; sup=4 sup2=4 ; sup=1 sup2=3 (revue-0-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=B6*A8}"] ; attendu : {"champ":"=B6*A8"} | ×1 ; sup=4 sup2=4 (revue-0-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=D\\$6*\\$D5}"] ; attendu : {"champ":"=D$6*$D5"} | ×1 ; sup=4 sup2=4 (revue-0-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$2-E8}"] ; attendu : {"champ":"=$A$2-E8"} | ×1 ; sup=4 sup2=4 (revue-0-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=C4*C6}"] ; attendu : {"champ":"=C4*C6"} | ×2 ; sup=4 sup2=4 ; sup=2 sup2=1 (revue-0-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C5+\\$D3}"] ; attendu : {"champ":"=$C5+$D3"} | ×1 ; sup=4 sup2=4 (revue-0-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=D1*C1}"] ; attendu : {"champ":"=D1*C1"} | ×3 ; sup=1 sup2=1 ; sup=2 sup2=1 (revue-1-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=B8-C5}"] ; attendu : {"champ":"=B8-C5"} | ×1 ; sup=1 sup2=1 (revue-1-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=D4+D1}"] ; attendu : {"champ":"=D4+D1"} | ×2 ; sup=1 sup2=1 ; sup=1 sup2=4 (revue-1-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=E4+F6}"] ; attendu : {"champ":"=E4+F6"} | ×1 ; sup=1 sup2=1 (revue-1-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=D4+E1}"] ; attendu : {"champ":"=D4+E1"} | ×1 ; sup=1 sup2=1 (revue-1-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=C7*F4}"] ; attendu : {"champ":"=C7*F4"} | ×1 ; sup=1 sup2=1 (revue-1-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=D5-D6}"] ; attendu : {"champ":"=D5-D6"} | ×3 ; sup=1 sup2=1 ; sup=1 sup2=4… (revue-1-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=E\\$7*C\\$1}"] ; attendu : {"champ":"=E$7*C$1"} | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=B\\$7*\\$A1}"] ; attendu : {"champ":"=B$7*$A1"} | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=D\\$2-F\\$6}"] ; attendu : {"champ":"=D$2-F$6"} | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D5+E\\$5}"] ; attendu : {"champ":"=$D5+E$5"} | ×1 ; sup=1 sup2=2 (revue-2-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A3-F\\$1}"] ; attendu : {"champ":"=$A3-F$1"} | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D1+D\\$7}"] ; attendu : {"champ":"=$D1+D$7"} | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=E\\$8*\\$D1}"] ; attendu : {"champ":"=E$8*$D1"} | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B6*F\\$2}"] ; attendu : {"champ":"=$B6*F$2"} | ×1 ; sup=1 sup2=2 (revue-2-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=D7-\\$C\\$5}"] ; attendu : {"champ":"=D7-$C$5"} | ×1 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=F4-\\$B\\$8}"] ; attendu : {"champ":"=F4-$B$8"} | ×2 ; sup=1 sup2=3 (revue-3-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$2-D4}"] ; attendu : {"champ":"=$A$2-D4"} | ×2 ; sup=1 sup2=3 ; sup=3 sup2=4 (revue-3-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=F1+\\$B\\$2}"] ; attendu : {"champ":"=F1+$B$2"} | ×1 ; sup=1 sup2=3 (revue-3-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D\\$5*D8}"] ; attendu : {"champ":"=$D$5*D8"} | ×1 ; sup=1 sup2=3 (revue-3-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B\\$2*C4}"] ; attendu : {"champ":"=$B$2*C4"} | ×1 ; sup=1 sup2=3 (revue-3-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B\\$7+E5}"] ; attendu : {"champ":"=$B$7+E5"} | ×1 ; sup=1 sup2=4 (revue-4-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=F\\$2*D\\$8}"] ; attendu : {"champ":"=F$2*D$8"} | ×1 ; sup=1 sup2=4 (revue-4-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D\\$1+B7}"] ; attendu : {"champ":"=$D$1+B7"} | ×1 ; sup=1 sup2=4 (revue-4-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$6*F3}"] ; attendu : {"champ":"=$A$6*F3"} | ×4 ; sup=1 sup2=4 ; sup=2 sup2=3… (revue-4-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=C\\$7-D\\$6}"] ; attendu : {"champ":"=C$7-D$6"} | ×1 ; sup=1 sup2=4 (revue-4-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=C2+C4}"] ; attendu : {"champ":"=C2+C4"} | ×1 ; sup=1 sup2=4 (revue-4-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=B6-B5}"] ; attendu : {"champ":"=B6-B5"} | ×1 ; sup=2 sup2=1 (revue-5-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=F3-C6}"] ; attendu : {"champ":"=F3-C6"} | ×2 ; sup=2 sup2=1 ; sup=3 sup2=1 (revue-5-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=F5+A6}"] ; attendu : {"champ":"=F5+A6"} | ×1 ; sup=2 sup2=1 (revue-5-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=D4*B6}"] ; attendu : {"champ":"=D4*B6"} | ×2 ; sup=2 sup2=1 ; sup=2 sup2=4 (revue-5-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=A6+C3}"] ; attendu : {"champ":"=A6+C3"} | ×1 ; sup=2 sup2=1 (revue-5-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=C4+E8}"] ; attendu : {"champ":"=C4+E8"} | ×2 ; sup=2 sup2=1 ; sup=3 sup2=4 (revue-5-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C5*\\$F7}"] ; attendu : {"champ":"=$C5*$F7"} | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A5*\\$B8}"] ; attendu : {"champ":"=$A5*$B8"} | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=D\\$6*\\$F4}"] ; attendu : {"champ":"=D$6*$F4"} | ×2 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A7*E\\$3}"] ; attendu : {"champ":"=$A7*E$3"} | ×1 ; sup=2 sup2=2 (revue-6-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=C\\$2-\\$F7}"] ; attendu : {"champ":"=C$2-$F7"} | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A6+\\$E6}"] ; attendu : {"champ":"=$A6+$E6"} | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=F\\$5+\\$A4}"] ; attendu : {"champ":"=F$5+$A4"} | ×1 ; sup=2 sup2=2 (revue-6-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B\\$5+F8}"] ; attendu : {"champ":"=$B$5+F8"} | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=F4*\\$B\\$1}"] ; attendu : {"champ":"=F4*$B$1"} | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=E8-\\$B\\$3}"] ; attendu : {"champ":"=E8-$B$3"} | ×1 ; sup=2 sup2=3 (revue-7-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=A8-\\$D\\$3}"] ; attendu : {"champ":"=A8-$D$3"} | ×2 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=B5*\\$B\\$3}"] ; attendu : {"champ":"=B5*$B$3"} | ×3 ; sup=2 sup2=3 ; sup=2 sup2=4… (revue-7-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C\\$6-E8}"] ; attendu : {"champ":"=$C$6-E8"} | ×1 ; sup=2 sup2=3 (revue-7-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=B\\$2+\\$A5}"] ; attendu : {"champ":"=B$2+$A5"} | ×1 ; sup=2 sup2=4 (revue-8-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=E5*\\$C\\$4}"] ; attendu : {"champ":"=E5*$C$4"} | ×1 ; sup=2 sup2=4 (revue-8-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=B6+E4}"] ; attendu : {"champ":"=B6+E4"} | ×1 ; sup=2 sup2=4 (revue-8-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=F6+D5}"] ; attendu : {"champ":"=F6+D5"} | ×3 ; sup=2 sup2=4 ; sup=4 sup2=1 (revue-8-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=E\\$2*\\$C4}"] ; attendu : {"champ":"=E$2*$C4"} | ×1 ; sup=2 sup2=4 (revue-8-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=F3*D4}"] ; attendu : {"champ":"=F3*D4"} | ×1 ; sup=3 sup2=1 (revue-9-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=D6*E7}"] ; attendu : {"champ":"=D6*E7"} | ×2 ; sup=3 sup2=1 (revue-9-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=F8*E5}"] ; attendu : {"champ":"=F8*E5"} | ×1 ; sup=3 sup2=1 (revue-9-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=F4-D4}"] ; attendu : {"champ":"=F4-D4"} | ×4 ; sup=3 sup2=1 ; sup=3 sup2=4… (revue-9-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=D8-E4}"] ; attendu : {"champ":"=D8-E4"} | ×1 ; sup=3 sup2=1 (revue-9-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D2*E\\$7}"] ; attendu : {"champ":"=$D2*E$7"} | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=B\\$3*\\$D5}"] ; attendu : {"champ":"=B$3*$D5"} | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=E\\$5*D\\$4}"] ; attendu : {"champ":"=E$5*D$4"} | ×1 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C3-\\$C5}"] ; attendu : {"champ":"=$C3-$C5"} | ×2 ; sup=3 sup2=2 (revue-10-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=F\\$4-D\\$5}"] ; attendu : {"champ":"=F$4-D$5"} | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=F\\$3*\\$A8}"] ; attendu : {"champ":"=F$3*$A8"} | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=B\\$2*\\$C7}"] ; attendu : {"champ":"=B$2*$C7"} | ×1 ; sup=3 sup2=2 (revue-10-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$7*D4}"] ; attendu : {"champ":"=$A$7*D4"} | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=E2-\\$A\\$2}"] ; attendu : {"champ":"=E2-$A$2"} | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=E6*\\$A\\$1}"] ; attendu : {"champ":"=E6*$A$1"} | ×1 ; sup=3 sup2=3 (revue-11-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=F8+\\$C\\$3}"] ; attendu : {"champ":"=F8+$C$3"} | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B\\$1+B8}"] ; attendu : {"champ":"=$B$1+B8"} | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=C8-\\$E\\$3}"] ; attendu : {"champ":"=C8-$E$3"} | ×1 ; sup=3 sup2=3 (revue-11-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=D\\$6-D\\$7}"] ; attendu : {"champ":"=D$6-D$7"} | ×1 ; sup=3 sup2=4 (revue-12-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=C\\$5*\\$E6}"] ; attendu : {"champ":"=C$5*$E6"} | ×1 ; sup=3 sup2=4 (revue-12-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$4-F6}"] ; attendu : {"champ":"=$A$4-F6"} | ×1 ; sup=3 sup2=4 (revue-12-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D5+\\$C4}"] ; attendu : {"champ":"=$D5+$C4"} | ×1 ; sup=3 sup2=4 (revue-12-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B4-D\\$5}"] ; attendu : {"champ":"=$B4-D$5"} | ×1 ; sup=3 sup2=4 (revue-12-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=A4+D7}"] ; attendu : {"champ":"=A4+D7"} | ×1 ; sup=4 sup2=1 (revue-13-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=D3+C7}"] ; attendu : {"champ":"=D3+C7"} | ×1 ; sup=4 sup2=1 (revue-13-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=D8*F6}"] ; attendu : {"champ":"=D8*F6"} | ×1 ; sup=4 sup2=1 (revue-13-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=B5+C8}"] ; attendu : {"champ":"=B5+C8"} | ×1 ; sup=4 sup2=1 (revue-13-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=F4+B5}"] ; attendu : {"champ":"=F4+B5"} | ×1 ; sup=4 sup2=1 (revue-13-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C5+\\$A4}"] ; attendu : {"champ":"=$C5+$A4"} | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=D\\$1+E\\$1}"] ; attendu : {"champ":"=D$1+E$1"} | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=C\\$4*F\\$5}"] ; attendu : {"champ":"=C$4*F$5"} | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B6+\\$B5}"] ; attendu : {"champ":"=$B6+$B5"} | ×1 ; sup=4 sup2=2 (revue-14-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$C5+\\$C8}"] ; attendu : {"champ":"=$C5+$C8"} | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=C\\$2*D\\$3}"] ; attendu : {"champ":"=C$2*D$3"} | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A6*B\\$2}"] ; attendu : {"champ":"=$A6*B$2"} | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A6+F\\$2}"] ; attendu : {"champ":"=$A6+F$2"} | ×1 ; sup=4 sup2=2 (revue-14-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D\\$1-C7}"] ; attendu : {"champ":"=$D$1-C7"} | ×1 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$4+D7}"] ; attendu : {"champ":"=$A$4+D7"} | ×2 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=E1+\\$A\\$7}"] ; attendu : {"champ":"=E1+$A$7"} | ×1 ; sup=4 sup2=3 (revue-15-a) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$B\\$2*E3}"] ; attendu : {"champ":"=$B$2*E3"} | ×2 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=C4-\\$C\\$4}"] ; attendu : {"champ":"=C4-$C$4"} | ×1 ; sup=4 sup2=3 (revue-15-b) |
+| PET15 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$E\\$2+D4}"] ; attendu : {"champ":"=$E$2+D4"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=E4-C4}"] ; attendu : {"champ":"=E4-C4"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\text{=E\\$4-\\$B2}"] ; attendu : {"champ":"=E$4-$B2"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{=F\\$8-F\\$3}"] ; attendu : {"champ":"=F$8-F$3"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q5 mathlive | valeur en évidence refusée par le champ : ["\\text{=F3-F5}"] ; attendu : {"champ":"=F3-F5"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q6 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A\\$3+E6}"] ; attendu : {"champ":"=$A$3+E6"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q7 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$D\\$6+E5}"] ; attendu : {"champ":"=$D$6+E5"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q8 mathlive | valeur en évidence refusée par le champ : ["\\text{=F\\$6-\\$C8}"] ; attendu : {"champ":"=F$6-$C8"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q9 mathlive | valeur en évidence refusée par le champ : ["\\text{=B8-F5}"] ; attendu : {"champ":"=B8-F5"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET15 (PE) |  q10 mathlive | valeur en évidence refusée par le champ : ["\\text{=F4-\\$A\\$6}"] ; attendu : {"champ":"=F4-$A$6"} | ×1 ; sup=4 sup2=4 nb=10 (revue-16-a) |
+| PET16 (PE) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A2*B\\$1}"] ; attendu : {"champ":"=$A2*B$1"} | ×8 ; sup=4 ; sup=1… (revue-0-a) |
+| PET16 (PE) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{=\\$A2+B\\$1}"] ; attendu : {"champ":"=$A2+B$1"} | ×3 ; sup=1 ; sup=4 nb=10 (revue-1-b) |
 | TEC1-11 (Terminale) |  q1 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\operatorname{Re}(z)=-1","champ2":"\\operatorname{Im}(z)=0"} ; attendu : {"champ1":"-1","champ2":"0"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEC1-11 (Terminale) |  q2 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\operatorname{Re}(z)=4","champ2":"\\operatorname{Im}(z)=3"} ; attendu : {"champ1":"4","champ2":"3"} | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEC1-11 (Terminale) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\operatorname{Re}(z)=-\\dfrac{6}{\\sqrt{6}}","champ2":"\\operatorname{Im}(z)=\\dfrac{6}{\\sqrt{6}}"} ; attendu : {"champ1":"-\\dfrac{6}{\\sqrt6}","champ2":"\\dfrac{6}{\\sqrt6}"} | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -1621,6 +1931,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6M4C (6e) | src/exercices/6e/6M4C.ts:195 | texte dans miseEnEvidence : \text{semaines} | ×1 |
 | 6M4C (6e) | src/exercices/6e/6M4C.ts:207 | texte dans miseEnEvidence : \text{semaine} | ×1 |
 | 6M4C-1 (6e) | src/exercices/6e/6M4C-1.ts:113 | texte dans miseEnEvidence : \text{~min~} | ×1 |
+| 6N1K-1 (6e) | 6e/6N1K-1.ts | Le chiffre qui décide de l'arrondi (« 9 758,32⟦2⟧7 ») est mis en évidence en orange comme une réponse, et la réponse en évidence commence par une espace (« $${miseEnEvidence(' 9\,758,3')}$ »). → Chiffre décisif en bleu ou souligné ; évidence sur la valeur seule. | ×1 |
+| 6N1M (6e) | 6e/6N1M.ts | Le chiffre des dixièmes du nombre encadré est mis en évidence (« 9\,858,⟦9⟧99 ») comme une réponse, en plus des deux bornes attendues. → Chiffre repère en bleu (bleuMathalea) ; orange réservé aux deux bornes. | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:286 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:373 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:378 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
@@ -1713,6 +2025,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | PEG20 (PE) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | PEG21 (PE) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | PEG22 (PE) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=2 ; sup=1 (revue-0-a) |
+| PEG23 (PE) | série q1 | aucune mise en évidence dans la correction | ×226 ; sup=1 sup2=0 sup3=0 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
+| PEG24 (PE) | série q1 | aucune mise en évidence dans la correction | ×226 ; sup=1 sup2=0 sup3=0 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
+| PEN23 (PE) | série q1 | aucune mise en évidence dans la correction | ×13 ; sup= ; sup=1… (revue-0-a) |
 | TEA1-33 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×5 ; sup=1 ; sup=2… (revue-1-a) |
 | TSA1-10 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×20 ; sup=5 ; sup=1… (revue-0-a) |
 | TSA1-12 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -1859,7 +2174,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1F-3 (6e) | 6e/6N1F-3.ts | Quatre champs (fraction intermédiaire, fraction sur 100, pourcentage) mais seul le pourcentage est en évidence, et « 40~% » est mis en évidence avec le signe % que le champ n'attend pas ; facteurs en \color{blue}, hors couleurs de MathALÉA. → Évidence sur le numérateur sur 100 et sur le nombre du pourcentage seul ; facteurs en bleuMathalea. | ×1 |
 | 6N1F-4 (6e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×34 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N1H-1 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 3 champ(s) | ×52 ; sup=7 ; sup=1… (revue-0-a) |
+| 6N1H-1 (6e) | 6e/6N1H-1.ts | Correction : les abscisses attendues sont écrites sous l'axe en noir, sans mise en évidence ; en Q2 l'étiquette « 4 » et la réponse « 4,3 » se chevauchent (« 44,3 », capture 000-a-correction). → Réponses en évidence (orange) et décalées sous la graduation ; texNombre pour la virgule. | ×1 |
 | 6N2E-3 (6e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 2 champ(s) | ×16 ; sup=1 sup2=true ; sup=1 sup2=false (revue-1-a) |
+| 6N2K-1 (6e) |  q2 multi-mathfield | 0 mise(s) en évidence pour 2 champ(s) | ×41 ; sup=9 ; sup=1… (revue-0-a) |
+| 6N2K-3 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 2 champ(s) | ×26 ; sup=1 ; sup=2… (revue-0-a) |
 | can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q7.ts:61 | Q7 : la fraction non simplifiée ⟦\dfrac{4}{6}⟧ est mise en évidence, puis simplifiée en $\dfrac{2}{3}$ sans évidence → mettre en évidence la forme finale | ×1 |
 | can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q14.ts | Q14 : deux mises en évidence (⟦45⟧ pour Δ, ⟦2⟧ pour le nombre de solutions) pour un seul champ → seul le nombre de solutions en évidence | ×1 |
 | can1D1-05 (CAN) | src/exercices/can/1e/can1D1-05.ts:183 | Deux mises en évidence pour un champ (⟦4(x-2)+6⟧ puis ⟦4x-2⟧) ; en $x=0$ : « $2(x+0)+2$ » (ecritureAlgebrique(-0)) → seule la forme réduite en évidence ; traiter nbre=0 | ×1 |
@@ -1947,6 +2265,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6N0A-9 (6e) | 6e/6N0A-9.ts:157 | Paramètre « Encadrer entre deux multiples de 10 » et « … de 10, forcément consécutifs » : même énoncé et même attente (multiples consécutifs) ; la seule différence est l'exclusion des nombres déjà multiples. Même chose pour 100. → Renommer : « … (le nombre peut être un multiple de 10) » / « … (le nombre n'est pas un multiple de 10) ». | ×1 |
 | 6N1G-1 (6e) | 6e/6N1G-1.ts | Option « Le pas secondaire vaut 0.5 ou 0.1 » : on obtient aussi un pas de 0,01 (A(0,14), B(0,32), sup=1, graine revue-2-a). → Libellé fidèle aux pas tirés, ou limiter les pas à 0,5 et 0,1. | ×1 |
+| 6N1J (6e) | 6e/6N0A-10.ts:261 | « Tous les nombres ont la même partie entière » coché avec « Mélange » des types : les nombres ont des parties entières différentes (93,41 ; 97 ; 98, graine revue-9-a), les entiers tirés ignorent l'option. → Avec cette option, exclure les entiers ou leur donner la même partie entière. | ×1 |
 
 ## R10
 
@@ -1995,6 +2314,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N0A-7 (6e) | 6e/6N0A-7.ts:112 | Non interactif : « $80\,070\,100\,789 :  $ », deux-points dans la formule (espace insécable et espaces doubles). → `$${texNombre(nombre)}$ : ` | ×1 |
+| 6N1M (6e) | 6e/6N1M.ts | Correction réduite à « au dixième: $ 9\,858,9 &lt; … $ » : phrase sans majuscule ni verbe, deux-points sans espace insécable, espace au début de la formule. → « Encadrement au dixième : $9\,858,9 &lt; 9\,858,999 &lt; 9\,859$. » | ×1 |
 
 ## T6
 
@@ -2003,6 +2323,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N1A-3 (6e) | 6e/6N1A-3.ts:309 | Aide « ($1, 10, 100,... $ ou bien $0,1, 0,01,...$) » : virgules décimales et virgules de liste mêlées (« 0,1, 0,01 »), points de suspension collés à la virgule. → « ($1$ ; $10$ ; $100$… ou $0,1$ ; $0,01$…) » | ×1 |
+
+## X3
+
+**undefined, NaN…** (gravité 3 : Mise en évidence)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| 6N1H-4 (6e) | 6e/6N1H-4.ts | À 390 px, les noms des points des zooms se chevauchent (« EGK », « A GP », G et C confondus, capture 000-a-enonce), alors que le point à lire est l'un d'eux. → Écarter les étiquettes (positions alternées au-dessus et en dessous) sur petit écran. | ×1 |
 
 ## X4
 
@@ -2121,6 +2449,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1H-2 (6e) | énoncé non interactif q1 | « 1 » hors $ : re entier et d'une fraction décimale inférieure à 1. | ×1 |
 | 6N1H-3 (6e) | énoncé q1 | « 1 » hors $ : re entier et d'une fraction décimale inférieure à 1, et sous forme d'une seule fraction décimale. | ×13 ; sup=3 sup2=false ; sup=1 sup2=false… (revue-0-a) |
 | 6N1H-3 (6e) | énoncé non interactif q1 | « 1 » hors $ : re entier et d'une fraction décimale inférieure à 1, et sous forme d'une seule fraction décimale. | ×1 |
+| 6N2autoB-2 (6e) | correction q1 | « 1 » hors $ : Il y a 1 cube unité. Il y a 7 plaques représentant chacun ‖ « 7 » hors $ : Il y a 1 cube unité. Il y a 7 plaques représentant chacune ‖ « 6 » hors $ : . Il y a 6 barres représentant chacune | ×30 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N2autoC (6e) | titre | « 10 » hors $ : Multiplier un nombre décimal par 10, 100 ou 1 000 | ×4 |
 | 6N2B (6e) | titre | « 0,1 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui c ‖ « 0,01 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convien ‖ « 0,001 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient) | ×3 |
 | 6N2B-1 (6e) | titre | « 0,1 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule) | ×3 |
 | 6N2B-2 (6e) | titre | « 0,1 » hors $ : Multiplier par 0,1 ; 0,01 ; 0,001 (QCM) | ×3 |
@@ -2131,7 +2461,22 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2G (6e) | correction q1 | « 9 » hors $ : Le partage se ferait entre 9 personnes. | ×24 ; sup=8 sup2=true sup3=true sup4=1 ; sup=8 sup2=true sup3=true sup4=2… (revue-96-a) |
 | 6N2I-1 (6e) | correction q1 | « 4 » hors $ : Le partage se ferait entre 4 personnes. | ×34 ; sup=7-8 sup2=false sup3=false sup4=3 ; sup=7-8 sup2=true sup3=true sup4=1… (revue-0-a) |
 | 6N2I-1 (6e) | correction non interactive q1 | « 4 » hors $ : Le partage se ferait entre 4 personnes. | ×1 |
+| 6N2J (6e) | correction q1 | « 1 » hors $ : Lorsqu'on divise un nombre par 1, le quotient est le nombre initial : | ×12 ; sup=1 sup2=true sup3=1 ; sup=2 sup2=true sup3=1… (revue-1-a) |
 | 6N2J-2 (6e) | titre | « 2 » hors $ : Effectuer divisions euclidiennes - Niveau 2 | ×1 |
+| 6N2K (6e) | titre | « 1 » hors $ : des problèmes utilisant la division euclidienne (1) | ×1 |
+| 6N2K (6e) | énoncé q1 | « 136 » hors $ : Aujourd'hui, nous sommes dimanche. Dans 136 jours, quel jour de la semaine serons-nous ? ‖ « 97 » hors $ : Aujourd'hui, nous sommes mardi. Dans 97 jours, quel jour de la semaine serons-nous ? [ ‖ « 136 » hors $ : Aujourd'hui, nous sommes mercredi. Dans 136 jours, quel jour de la semaine serons-nous ? | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N2K (6e) | correction q1 | « 136 » hors $ : Posons la division euclidienne de 136 par 7. ‖ « 19 » hors $ : Il se sera écoulé 19 semaines complètes et 3 jours. Donc nous serons ‖ « 3 » hors $ : Il se sera écoulé 19 semaines complètes et 3 jours. Donc nous serons 3 jours de plus que dim | ×55 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N2K (6e) | énoncé non interactif q1 | « 136 » hors $ : Aujourd'hui, nous sommes dimanche. Dans 136 jours, quel jour de la semaine serons-nous ? | ×1 |
+| 6N2K (6e) | correction non interactive q1 | « 136 » hors $ : Posons la division euclidienne de 136 par 7. ‖ « 19 » hors $ : Il se sera écoulé 19 semaines complètes et 3 jours. Donc nous serons ‖ « 3 » hors $ : Il se sera écoulé 19 semaines complètes et 3 jours. Donc nous serons 3 jours de plus que dim | ×5 |
+| 6N2K-1 (6e) | titre | « 2 » hors $ : des problèmes utilisant la division euclidienne (2) | ×1 |
+| 6N2K-1 (6e) | énoncé q1 | « 15 » hors $ : Une bande de 15 pirates et leur capitaine doivent se partager u ‖ « 149 » hors $ : t leur capitaine doivent se partager un trésor de 149 pièces d'or. Le capitaine dit à ses hommes : « ‖ « 429 » hors $ : Un fermier ramasse 429 oeufs et souhaite les ranger dans des boîtes d | ×97 ; sup=9 ; sup=1… (revue-0-a) |
+| 6N2K-1 (6e) | correction q2 | « 429 » hors $ : a) Posons la division euclidienne de 429 par 12. ‖ « 35 » hors $ : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeu ‖ « 9 » hors $ : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour | ×197 ; sup=9 ; sup=1… (revue-0-a) |
+| 6N2K-1 (6e) | énoncé non interactif q1 | « 15 » hors $ : Une bande de 15 pirates et leur capitaine doivent se partager u ‖ « 149 » hors $ : t leur capitaine doivent se partager un trésor de 149 pièces d'or. Le capitaine dit à ses hommes : « ‖ « 429 » hors $ : Un fermier ramasse 429 oeufs et souhaite les ranger dans des boîtes d | ×8 |
+| 6N2K-1 (6e) | correction non interactive q2 | « 429 » hors $ : a) Posons la division euclidienne de 429 par 12. ‖ « 35 » hors $ : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeu ‖ « 9 » hors $ : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour | ×17 |
+| 6N2K-2 (6e) | titre | « 3 » hors $ : des problèmes utilisant la division euclidienne (3) | ×1 |
+| 6N2K-2 (6e) | énoncé q1 | « 9 » hors $ : des colliers avec des perles. Il décide de mettre 9 perles jaunes et 6 perles rouges par collier. Il ‖ « 6 » hors $ : es perles. Il décide de mettre 9 perles jaunes et 6 perles rouges par collier. Il possède 229 perles ‖ « 229 » hors $ : jaunes et 6 perles rouges par collier. Il possède 229 perles rouges et 324 perles jaunes. [champ] | ×44 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N2K-2 (6e) | énoncé non interactif q1 | « 9 » hors $ : des colliers avec des perles. Il décide de mettre 9 perles jaunes et 6 perles rouges par collier. Il ‖ « 6 » hors $ : es perles. Il décide de mettre 9 perles jaunes et 6 perles rouges par collier. Il possède 229 perles ‖ « 229 » hors $ : jaunes et 6 perles rouges par collier. Il possède 229 perles rouges et 324 perles jaunes. a) Combie | ×4 |
+| 6N2K-3 (6e) | correction q1 | « 11 » hors $ : 11 est inférieur à 23, l'égalité ‖ « 23 » hors $ : par 23. On a donc : 74 le quotient et 11 le reste. ‖ « 61 » hors $ : . Le quotient est 61 et le reste est 0. | ×79 ; sup=1 ; sup=2… (revue-0-a) |
 | BP1AUTO056 (BP1) | correction q1 | « 1 » hors $ : a) À chaque fois que l'on avance de 1 unité d'abscisses, on descend de ‖ « 1 » hors $ : a) À chaque fois que l'on avance de 1 unité d'abscisses, on monte de | ×49 ; sup=3 sup2=3 sup3=3 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | BP2AutoE4 (BP2) | titre | « 10 » hors $ : Effectuer des calculs avec les puissances de 10 (QCM) | ×1 |
 | BP2AutoP1 (BP2) | énoncé q1 | « 6 » hors $ : 6]. Si besoin, les solutions doivent être séparées ‖ « 6 » hors $ : 6] est : [champ] ‖ « 5 » hors $ : 5] est : [champ] Résoudre graphiquement l'inéq | ×60 ; sup=1 sup2=10 ; sup=1 sup2=1… (revue-0-a) |
@@ -2353,6 +2698,27 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | PEG20 (PE) | correction q1 | « 5 » hors $ : 5 points régulièrement espacés nommés ‖ « 5 » hors $ : (car le dénominateur de la fraction est 5). On trace la parallèle à ‖ « 3 » hors $ : (car le numérateur de la fraction est 3). On place | ×3 ; défaut (revue-0-a) |
 | PEG21 (PE) | correction q1 | « 3 » hors $ : On place 3 points ‖ « 2 » hors $ : (pour cela on choisit 2 points | ×2 ; défaut (revue-0-a) |
 | PEG22 (PE) | correction q1 | « 2 » hors $ : (pour cela on choisit 2 points | ×2 ; sup=2 ; sup=1 (revue-0-a) |
+| PEN11 (PE) | correction q1 | « 2 » hors $ : action irréductible qui a un facteur différent de 2 et 5 au dénominateur, il n'est donc pas décimal. ‖ « 5 » hors $ : n irréductible qui a un facteur différent de 2 et 5 au dénominateur, il n'est donc pas décimal. | ×8 ; sup=3-7-11-13 ; sup=3-7-11-13 nb=10 (revue-0-a) |
+| PEN14 (PE) | correction q1 | « 6 » hors $ : a une période à 6 chiffres. | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN14 (PE) | correction non interactive q1 | « 6 » hors $ : a une période à 6 chiffres. | ×1 |
+| PEN15 (PE) | correction q1 | « 5 » hors $ : 5 n'est pas divisible par 13, donc ‖ « 2 » hors $ : pour dénominateur un nombre premier différent de 2 et 5 donc ‖ « 5 » hors $ : dénominateur un nombre premier différent de 2 et 5 donc | ×5 ; défaut (revue-0-a) |
+| PEN15 (PE) | correction non interactive q3 | « 6 » hors $ : a une période à 6 chiffres. | ×1 |
+| PEN21 (PE) | énoncé q1 | « 3 » hors $ : sont écrits en base 3. Exprimer leur écriture en base dix. ‖ « 7 » hors $ : Écrire en base 7 le nombre dont l'écriture décimale est 1899. ‖ « 3 » hors $ : Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base 3 ? Commen | ×29 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN21 (PE) | correction q3 | « 3 » hors $ : En base 3 les chiffres sont 0, 1, 2 donc le plus grand nom ‖ « 0 » hors $ : En base 3 les chiffres sont 0, 1, 2 donc le plus grand nombre à 3 chiffres est ‖ « 3 » hors $ : chiffres sont 0, 1, 2 donc le plus grand nombre à 3 chiffres est | ×31 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN21-1 (PE) | titre | « 12 » hors $ : Passer de la base 12 ou 16 à la base 10 et inversement | ×3 |
+| PEN21-1 (PE) | introduction | « 12 » hors $ : Les symboles que l'on utilise en base 12 sont les dix chiffres habituels, la lettre A po ‖ « 10 » hors $ : dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités. ‖ « 11 » hors $ : r désigner 10 unités et la lettre B pour désigner 11 unités. | ×10 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN21-1 (PE) | énoncé q1 | « 12 » hors $ : sont écrits en base 12. Donner leur écriture en base 10. ‖ « 10 » hors $ : t écrits en base 12. Donner leur écriture en base 10. ‖ « 3 » hors $ : Quel est le plus petit nombre à 3 chiffres que l'on peut écrire en base 12. Commen | ×34 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN21-1 (PE) | correction q2 | « 12 » hors $ : En base 12 le plus petit chiffre est ‖ « 3 » hors $ : donc le plus petit nombre à 3 chiffres est | ×2 ; défaut (revue-0-a) |
+| PEN22 (PE) | correction q1 | « 3 » hors $ : En base 3 : ‖ « 0 » hors $ : donc on écrit 0 et on retient 1. Au rang des ‖ « 1 » hors $ : donc on écrit A et on retient 1. Finalement, | ×112 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
+| PEN22 (PE) | correction non interactive q1 | « 3 » hors $ : En base 3 : ‖ « 0 » hors $ : donc on écrit 0 et on retient 1. Au rang des ‖ « 1 » hors $ : donc on écrit A et on retient 1. Finalement, | ×17 |
+| PEN23 (PE) | énoncé q1 | « 5 » hors $ : Écrire la table de Pythagore en base 5. | ×3 ; sup= ; sup=1… (revue-0-a) |
+| PEN23 (PE) | correction q2 | « 5 » hors $ : En base 5 : ‖ « 2 » hors $ : On écrit 2 et on retient 2. ‖ « 2 » hors $ : On écrit 2 et on retient 1. Calcul de | ×317 ; sup= ; sup=1… (revue-0-a) |
+| PEN23 (PE) | correction non interactive q2 | « 5 » hors $ : En base 5 : ‖ « 2 » hors $ : On écrit 2 et on retient 2. ‖ « 2 » hors $ : On écrit 2 et on retient 1. Calcul de | ×26 |
+| PET11 (PE) | correction q1 | « 12 » hors $ : . La cellule D1 affiche 12. | ×34 ; sup=6 ; sup=1… (revue-0-a) |
+| PET12 (PE) | correction q1 | « 2 » hors $ : est fausse : la racine carrée ne porte que sur B2^2 ; il faut des parenthèses autour de toute la som ‖ « 2 » hors $ : faut des parenthèses autour de toute la somme B2^2+C2^2. Quand on étire la cellule vers le bas, les ‖ « 2 » hors $ : des parenthèses autour de toute la somme B2^2+C2^2. Quand on étire la cellule vers le bas, les réfé | ×3 ; sup=8 (revue-8-a) |
+| PET13 (PE) | correction q1 | « 100 » hors $ : est fausse : elle retire C2/100 euros ; il faut retirer C2 % de B2, c'est-à-di ‖ « 100 » hors $ : ; il faut retirer C2 % de B2, c'est-à-dire B2×C2/100. Il faut saisir dans la cellule D2 la formule | ×4 ; sup=2 (revue-2-a) |
+| PET15 (PE) | correction q1 | « 3 » hors $ : La copie de E4 vers E7 décale la formule de 3 lignes vers le bas. Dans la formule, les référen ‖ « 3 » hors $ : n’est pas bloquée : elle est décalée de 3 lignes vers le bas et devient ‖ « 3 » hors $ : La copie de C7 vers F7 décale la formule de 3 colonnes vers la droite. Dans la formule, les ré | ×249 ; sup=4 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
+| PET16 (PE) | correction q1 | « 3 » hors $ : La copie de B5 vers E6 décale la formule de 3 colonnes vers la droite et 1 ligne vers le bas : ‖ « 1 » hors $ : décale la formule de 3 colonnes vers la droite et 1 ligne vers le bas : les références qui ne sont p ‖ « 1 » hors $ : La copie de C3 vers C4 décale la formule de 1 ligne vers le bas : les références qui ne sont p | ×8 ; sup=4 ; sup=2… (revue-0-a) |
 | TEA1-26 (Terminale) | correction q1 | « 1 » hors $ : . 1) En additionnant les deux égalités, on obtient : ‖ « 2 » hors $ : . 2) En soustrayant les deux égalités, on obtient : | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-26 (Terminale) | énoncé non interactif q1 | « 1 » hors $ : . 1) Déterminer le reste de la division euclidienne ‖ « 2 » hors $ : ... 2) Déterminer le reste de la division euclidienne | ×2 |
 | TEA2-01 (Terminale) | correction q1 | « 46 » hors $ : Le dernier reste non nul est 46. | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -2615,6 +2981,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeS04 (CAN) | énoncé q1 | coefficient 1 écrit : $u_n = \dfrac{-5-1n}{n}$ | ×1 ; défaut nb=10 (revue-1-a) |
 | canTSpeS04 (CAN) | correction q1 | coefficient 1 écrit : $\dfrac{-5-1n}{n}=\dfrac{-5}{n}-1$ ‖ coefficient 1 écrit : $limits_{n\to\infty} \dfrac{-5-1n}{n}={\color{}\boldsymbol{-1$ | ×2 ; défaut nb=10 (revue-1-a) |
 | PEG22 (PE) | correction q1 | coefficient 1 écrit : $CD=1u$ | ×1 ; sup=2 (revue-0-a) |
+| PEG23 (PE) | correction q1 | coefficient 1 écrit : $OI = 1u$ | ×1 ; sup=1 sup2=0 sup3=0 (revue-0-a) |
+| PEG24 (PE) | correction q1 | coefficient 1 écrit : $OI = 1u$ | ×1 ; sup=1 sup2=0 sup3=0 (revue-0-a) |
 | TEC1-13 (Terminale) | correction q1 | coefficient 1 écrit : $(1-3i)\\ &=-1\times1+3i+1i-3i^2\\ &=2+4i\\$ | ×1 ; sup=2 (revue-2-a) |
 | TEC1-14 (Terminale) | correction q6 | coefficient 1 écrit : $(-3+i)(-3-i) &=-3^2-(1i)^2\\ &=9-1i^2\\$ ‖ coefficient 1 écrit : $&=-3^2-(1i)^2\\ &=9-1i^2\\ &=9+1\\$ | ×2 ; défaut nb=10 (revue-1-a) |
 | TEC1-41 (Terminale) | correction q5 | coefficient 1 écrit : $(14 + 1i)z-7 - 16i=0$ | ×1 ; sup=false sup2=1 nb=10 (revue-4-a) |
@@ -2663,6 +3031,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0B-3 (6e) | 6e/6N0B-3.ts | Titre « Traduire une expression par une phrase » mais l'exercice demande seulement le type du calcul (liste somme, différence, produit, quotient). → Titre « Reconnaître le type d'un calcul », ou demander la phrase. | ×1 |
 | 6N1A-3 (6e) | 6e/6N1A-3.ts:26 | Titre « Recomposer un décimal ou un entier » alors que toutes les questions demandent de « Décomposer le nombre ». → Titre « Décomposer un décimal ou un entier », ou énoncé de recomposition. | ×1 |
 | 6N1F-2 (6e) | 6e/6N1F-2.ts | Option du paramètre « Ériture sans le mot virgule » (coquille). → « Écriture sans le mot virgule » | ×1 |
+| 6N1H-3 (6e) | 6e/6N1H-3.ts | Libellé du paramètre « Enoncé avec « nombre mixte » » (É sans accent). → « Énoncé avec « nombre mixte » » | ×1 |
 
 ## R10
 
@@ -2670,8 +3039,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoE1-1 (6e) | 6e/6G8A-2.ts:330 | « Je suis un/une [champ] » : barre oblique dans la phrase de l'élève. → Champ seul après « Je suis : », ou article choisi selon la réponse. | ×1 |
 | 6N0B-1 (6e) | 6e/6N0B-1.ts:129 | Double numérotation « 1. a) », « 2. b) » : numAlpha(i) ajouté à la numérotation de l'exercice. → Retirer numAlpha(i). | ×1 |
 | 6N1A-5 (6e) | 6e/6N1A-5.ts | Libellé du paramètre « Décomposition avec que des entiers à un chiffre » (« avec que » incorrect). → « Décomposition avec uniquement des entiers à un chiffre » | ×1 |
+| 6N1J (6e) | 6e/6N0A-10.ts:317 | « Les nombres à classer ont toutes la même partie entière » (accord : « ont tous »). → « ont tous la même partie entière » | ×1 |
 
 ## R4
 
@@ -2719,6 +3090,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | apps/_ExternalApp.ts (hors référentiel) | src/exercices/apps/_ExternalApp.ts:41 | % sans espace insécable : 100% | ×1 |
 | apps/_ExternalApp.ts (hors référentiel) | src/exercices/apps/_ExternalApp.ts:47 | % sans espace insécable : 100% | ×1 |
 | c9016 (Non classés) | src/exercices/can/can2a-2025/can2a-2025-Q4.ts:7 | % sans espace insécable : Appliquer 25 % sur un nombre | ×1 |
+| PET13 (PE) | correction q1 | « 2 % » sans espace insécable : sse : elle retire C2/100 euros ; il faut retirer C2 % de B2, c'est-à-dire B2×C2/100. Il faut saisir | ×2 ; sup=2 (revue-2-a) |
 
 ## T2
 
@@ -2807,6 +3179,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-6 (cm2) | correction q4 | espace ordinaire (sécable) avant « : » : , on doit faire la soustraction : | ×2 ; défaut nb=10 (revue-1-a) |
 | CM2N3J-1 (cm2) | consigne | espace ordinaire (sécable) avant « : » : Calculer : | ×1 ; défaut (revue-0-a) |
 | CM2N3J-2 (cm2) | consigne | espace ordinaire (sécable) avant « : » : Calculer : | ×1 ; défaut (revue-0-a) |
+| PEN22 (PE) | consigne | espace ordinaire (sécable) avant « : » : Poser et effectuer les calculs suivants : | ×1 ; sup=3 sup2=3 (revue-0-a) |
+| PEN23 (PE) | consigne | espace ordinaire (sécable) avant « : » : Poser et effectuer les calculs suivants : | ×1 ; sup= (revue-0-a) |
 | TEA1-32 (Terminale) | consigne | espace ordinaire (sécable) avant « ? » : ffirmations suivantes sont-elles vraies ou fausses ? | ×1 ; défaut (revue-0-a) |
 | TEC1-43 (Terminale) | correction q2 | espace ordinaire (sécable) avant « : » : : | ×5 ; sup=2 ; sup=1… (revue-0-a) |
 | TSA1-42 (Terminale) | correction q1 | espace ordinaire (sécable) avant « : » : . Ainsi : ‖ espace ordinaire (sécable) avant « : » : : cette expression ne peut pas être supérieure ou ‖ espace ordinaire (sécable) avant « : » : d’après le cours sur les suites géométriques, que : | ×3 ; défaut (revue-0-a) |
@@ -2939,6 +3313,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N0B-4 (6e) | correction q1 | guillemet sans insécable : On peut « faire les calculs à l'envers » : | ×26 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N2K-1 (6e) | énoncé q1 | guillemet sans insécable : 149 pièces d'or. Le capitaine dit à ses hommes : « Vous avez bien travaillé, partagez-vous le tréso ‖ guillemet sans insécable : le trésor, je me contenterai du reste. » [champ] | ×12 ; sup=9 ; sup=7… (revue-0-a) |
+| 6N2K-1 (6e) | énoncé non interactif q1 | guillemet sans insécable : 149 pièces d'or. Le capitaine dit à ses hommes : « Vous avez bien travaillé, partagez-vous le tréso ‖ guillemet sans insécable : le trésor, je me contenterai du reste. » Le capitaine est-il vraiment généreux ? a) Com | ×2 |
 | BP1SP02 (BP1) | énoncé q1 | guillemet sans insécable : it les évènements suivants : C : « la personne choisie fait partie des cadres » ; ‖ guillemet sans insécable : C : « la personne choisie fait partie des cadres » ; F : « la personne choisie est u ‖ guillemet sans insécable : sie fait partie des cadres » ; F : « la personne choisie est une femme ». [champ] | ×44 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1SP02 (BP1) | énoncé non interactif q1 | guillemet sans insécable : it les évènements suivants : C : « la personne choisie fait partie des cadres » ; ‖ guillemet sans insécable : C : « la personne choisie fait partie des cadres » ; F : « la personne choisie est u ‖ guillemet sans insécable : sie fait partie des cadres » ; F : « la personne choisie est une femme ». a) Calculer | ×6 |
 | can1a-2026 (CAN) | correction q27 | guillemet sans insécable : nc d'abord décroissante puis croissante (parabole « tournée vers le haut »). Ainsi, ‖ guillemet sans insécable : puis croissante (parabole « tournée vers le haut »). Ainsi, ‖ guillemet sans insécable : nc d'abord croissante puis décroissante (parabole « tournée vers le bas »). Ainsi, | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -3085,9 +3461,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1H-4 (6e) | énoncé | page de 400 px pour 390 px | ×9 ; sup=6 sup2=3 ; sup=7 sup2=3… (revue-6-a) |
 | 6N1H-4 (6e) | correction | page de 400 px pour 390 px | ×9 ; sup=6 sup2=3 ; sup=7 sup2=3… (revue-6-a) |
 | 6N1J (6e) | correction | page de 455 px pour 390 px | ×37 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-1-a) |
+| 6N2autoB-1 (6e) | énoncé q1 | table.tableauMathlive de 523 px pour 390 px | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
+| 6N2autoB-1 (6e) | énoncé | page de 539 px pour 390 px | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
+| 6N2autoB-1 (6e) | correction q1 | table.tableauMathlive de 523 px pour 390 px | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
+| 6N2autoB-1 (6e) | correction | page de 539 px pour 390 px | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
 | 6N2C-1 (6e) | correction | page de 398 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | 6N2D (6e) | correction | page de 548 px pour 390 px | ×49 ; sup=4 sup2=1 sup3=false sup4=false ; sup=1 sup2=1 sup3=true sup4=false… (revue-0-a) |
 | 6N2E-1 (6e) | correction | page de 526 px pour 390 px | ×7 ; sup=true sup2=3 ; sup=true sup2=1… (revue-0-a) |
+| 6N2K-3 (6e) | correction | page de 425 px pour 390 px | ×1 ; sup=2 (revue-1-b) |
 | BP1AUTO061 (BP1) | correction | page de 544 px pour 390 px | ×10 ; sup=4 sup2=3 ; sup=1 sup2=2… (revue-0-a) |
 | BP1AUTO091 (BP1) | correction | page de 450 px pour 390 px | ×17 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | BP1AUTO094 (BP1) | correction | page de 443 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
@@ -3210,6 +3591,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | HPC104 (HP) | correction | page de 525 px pour 390 px | ×3 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
 | HPC105 (HP) | énoncé | page de 505 px pour 390 px | ×3 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
 | PEA11 (PE) | correction | page de 685 px pour 390 px | ×1 ; défaut (revue-0-b) |
+| PEN21-1 (PE) | correction | page de 398 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| PET12 (PE) | énoncé q2 | table.jss_worksheet de 455 px pour 390 px | ×44 ; sup=9 ; sup=1… (revue-0-a) |
+| PET12 (PE) | énoncé | page de 534 px pour 390 px | ×13 ; sup=9 ; sup=1… (revue-0-a) |
+| PET13 (PE) | énoncé q2 | table.jss_worksheet de 478 px pour 390 px | ×34 ; sup=9 ; sup=1… (revue-0-a) |
+| PET13 (PE) | énoncé | page de 534 px pour 390 px | ×13 ; sup=9 ; sup=1… (revue-0-a) |
+| PET13 (PE) | correction q2 | table.jss_worksheet de 478 px pour 390 px | ×34 ; sup=9 ; sup=1… (revue-0-a) |
+| PET13 (PE) | correction | page de 534 px pour 390 px | ×13 ; sup=9 ; sup=1… (revue-0-a) |
+| PET14 (PE) | énoncé q2 | table.jss_worksheet de 478 px pour 390 px | ×34 ; sup=9 ; sup=1… (revue-0-a) |
+| PET14 (PE) | énoncé | page de 534 px pour 390 px | ×13 ; sup=9 ; sup=1… (revue-0-a) |
+| PET14 (PE) | correction q2 | table.jss_worksheet de 478 px pour 390 px | ×34 ; sup=9 ; sup=1… (revue-0-a) |
+| PET14 (PE) | correction | page de 534 px pour 390 px | ×13 ; sup=9 ; sup=1… (revue-0-a) |
+| PET16 (PE) | énoncé | page de 408 px pour 390 px | ×4 ; sup=4 ; sup=3… (revue-0-b) |
 | TEA1-10 (Terminale) | correction | page de 763 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-15 (Terminale) | correction | page de 583 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | TEA1-21 (Terminale) | correction | page de 393 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -3359,6 +3752,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoA1 (6e) |  q4 qcm | QCM : bonne proposition (autantl'unquel'autre) absente de la mise en évidence (lerectanglehachuréaunpérimètreplusgrandqueceluidelafigurecoloriéelerectanglehach) | ×1 ; sup=13 sup2=3 nb=10 (revue-52-a) |
 | 6AutoA2 (6e) |  q1 qcm | QCM : bonne proposition (8032) absente de la mise en évidence () | ×115 ; sup=1 sup2=true sup3=1 sup4=true sup5=1-2-3 ; sup=1 sup2=true sup3=1 sup4=true sup5=1… (revue-1-a) |
 | 6AutoA2 (6e) |  q1 qcm | QCM : bonne proposition (0,00002) absente de la mise en évidence () | ×77 ; sup=2 sup2=true sup3=1 sup4=true sup5=1-2-3 ; sup=2 sup2=true sup3=1 sup4=true sup5=1… (revue-33-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (uncube) absente de la mise en évidence (cube) | ×12 ; sup=1 sup2=3 ; sup=8 sup2=3 (revue-3-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (unpavédroit) absente de la mise en évidence (pavédroit) | ×12 ; sup=2 sup2=3 ; sup=8 sup2=3 (revue-6-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (unprismedroit) absente de la mise en évidence (prismedroit) | ×12 ; sup=3 sup2=3 ; sup=8 sup2=3 (revue-9-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (uncylindre) absente de la mise en évidence (cylindre) | ×12 ; sup=4 sup2=3 ; sup=8 sup2=3 (revue-12-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (unepyramide) absente de la mise en évidence (pyramide) | ×12 ; sup=5 sup2=3 ; sup=8 sup2=3 (revue-15-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (uncône) absente de la mise en évidence (cône) | ×10 ; sup=6 sup2=3 (revue-18-a) |
+| 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (uneboule) absente de la mise en évidence (boule) | ×10 ; sup=7 sup2=3 (revue-21-a) |
 | 6AutoF1-2 (6e) |  q4 qcm | QCM : bonne proposition (nombreentier) absente de la mise en évidence () | ×11 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=2 sup3=2… (revue-1-b) |
 | 6AutoG1-3 (6e) |  q1 qcm | QCM : bonne proposition (txsu / usxt) absente de la mise en évidence () | ×1 ; sup= (revue-0-a) |
 | 6AutoG1-3 (6e) |  q2 qcm | QCM : bonne proposition (uncôté) absente de la mise en évidence () | ×2 ; sup= (revue-0-a) |
@@ -4075,8 +4475,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-5 (6e) | énoncé q5 | nombre à 4 chiffres sans séparateur : $1014 - 199$ | ×1 ; sup=3 nb=10 (revue-3-a) |
 | 6N0A-5 (6e) | correction q5 | nombre à 4 chiffres sans séparateur : $1014 - 199$ | ×1 ; sup=3 nb=10 (revue-3-a) |
 | 6N1F (6e) | correction q1 | nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1097.5}}~\%$ ‖ nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1079}}~\%$ | ×4 ; sup=5 sup2=false sup3=true ; sup=2 sup2=true sup3=true… (revue-0-a) |
+| 6N2autoB-1 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $\dfrac{{\color{}\boldsymbol{1000}}}{100}$ | ×2 ; sup=5 (revue-5-a) |
+| 6N2autoB-2 (6e) | consigne | nombre à 4 chiffres sans séparateur : $\dfrac{1}{1000}$ | ×1 ; défaut (revue-0-a) |
+| 6N2autoB-2 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $\dfrac{1}{1000}$ | ×21 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N2E-1 (6e) | correction q2 | nombre à 4 chiffres sans séparateur : $1076 \times 907=975\,932$ ‖ nombre à 4 chiffres sans séparateur : $10,76=\dfrac{1076}{100}=1076 \times 0,01$ ‖ nombre à 4 chiffres sans séparateur : $10,76 \times 907&=\dfrac{1076}{100} \times 907\\$ | ×16 ; sup=true sup2=3 ; sup=true sup2=1 (revue-0-a) |
 | 6N2E-1 (6e) | correction non interactive q2 | nombre à 4 chiffres sans séparateur : $1076 \times 907=975\,932$ ‖ nombre à 4 chiffres sans séparateur : $10,76=\dfrac{1076}{100}=1076 \times 0,01$ ‖ nombre à 4 chiffres sans séparateur : $10,76 \times 907&=\dfrac{1076}{100} \times 907\\$ | ×8 |
+| 6N2K-3 (6e) | énoncé non interactif q2 | nombre à 4 chiffres sans séparateur : $1220$ | ×2 |
 | can1a-2022 (CAN) | correction q23 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 ; sup=true (revue-1-a) |
 | can1a-2025 (CAN) | correction q19 | nombre à 4 chiffres sans séparateur : $8100>0$ | ×1 ; sup=false (revue-0-a) |
 | can1S1-04 (CAN) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1400$ | ×2 ; défaut nb=10 (revue-1-a) |
@@ -4143,6 +4547,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-7 (cm2) | énoncé q1 | nombre à 4 chiffres sans séparateur : $8905 + 9404 =$ ‖ nombre à 4 chiffres sans séparateur : $= 6251$ ‖ nombre à 4 chiffres sans séparateur : $8603~+$ | ×96 ; sup=9999 sup2=1 ; sup=9999 sup2=2… (revue-73-a) |
 | CM2N3G-1 (cm2) | correction q4 | nombre à 4 chiffres sans séparateur : $frac{34}{{\color{}\boldsymbol{1000}}}\times100 = \$ ‖ nombre sans séparateur de milliers : $frac{15}{{\color{}\boldsymbol{10000}}}\times100 =$ ‖ nombre à 4 chiffres sans séparateur : $rac{482}{{\color{}\boldsymbol{1000}}}\times10 = \d$ | ×4 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false… (revue-8-a) |
 | CM2N3G-2 (cm2) | correction q1 | nombre à 4 chiffres sans séparateur : $rac{337}{{\color{}\boldsymbol{1000}}}\times100 = \$ ‖ nombre sans séparateur de milliers : $rac{504}{{\color{}\boldsymbol{10000}}}\times1\,000$ | ×2 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false (revue-8-a) |
+| PEN21 (PE) | énoncé q1 | nombre à 4 chiffres sans séparateur : $(1222)_3$ | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN21 (PE) | correction q1 | nombre à 4 chiffres sans séparateur : $(1222)_3=1\times3^3+2\times3^2+$ ‖ nombre à 4 chiffres sans séparateur : $1899=(5352)_7$ ‖ nombre à 4 chiffres sans séparateur : $(1000)_3$ | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN22 (PE) | énoncé q1 | nombre à 4 chiffres sans séparateur : $(221)_{3} + (1002)_{3}$ ‖ nombre à 4 chiffres sans séparateur : $(2122)_{4} - (1332)_{4}$ ‖ nombre sans séparateur de milliers : $(10000)_{2} + (111)_{2}$ | ×30 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
+| PEN22 (PE) | correction q1 | nombre à 4 chiffres sans séparateur : $(221)_{3} + (1002)_{3} = ({\color{}\boldsym$ ‖ nombre à 4 chiffres sans séparateur : $(2122)_{4} - (1332)_{4} = ({\color{}\boldsym$ ‖ nombre à 4 chiffres sans séparateur : $_{16} = ({\color{}\boldsymbol{1021}})_{16}$ | ×42 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
+| PEN22 (PE) | correction non interactive q1 | nombre à 4 chiffres sans séparateur : $(221)_{3} + (1002)_{3} = ({\color{}\boldsym$ ‖ nombre à 4 chiffres sans séparateur : $(2122)_{4} - (1332)_{4} = ({\color{}\boldsym$ ‖ nombre à 4 chiffres sans séparateur : $_{16} = ({\color{}\boldsymbol{1021}})_{16}$ | ×3 |
 | TEA1-37 (Terminale) | correction q1 | nombre à 4 chiffres sans séparateur : $19^{3}=6859=27\times 254+1$ ‖ nombre sans séparateur de milliers : $26^{3}=17576=31\times 567-1$ ‖ nombre à 4 chiffres sans séparateur : $17^{3}=4913=27\times 182-1$ | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSA1-43 (Terminale) | énoncé q1 | nombre à 4 chiffres sans séparateur : $u_n>1000$ ‖ nombre sans séparateur de milliers : $u_n>10000$ ‖ nombre à 4 chiffres sans séparateur : $w_n>5000$ | ×10 ; sup=false ; sup=true… (revue-0-a) |
 | TSA1-43 (Terminale) | correction q1 | nombre à 4 chiffres sans séparateur : $u>1000$ ‖ nombre à 4 chiffres sans séparateur : $u\leqslant 1000$ ‖ nombre à 4 chiffres sans séparateur : $u=1000$ | ×80 ; sup=false ; sup=true… (revue-0-a) |
@@ -4192,6 +4601,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpea-NY2026 (CAN) | correction q7 | exposant 1 : $lor{}\boldsymbol{2,026\times10^1}}$ | ×1 ; sup=false (revue-0-a) |
 | canTSpeAN13 (CAN) | correction q9 | exposant 1 : $\times 0-4 \ln\left(\mathrm{e}^{1}\right)+5\times (-2)\\$ | ×1 ; défaut nb=10 (revue-1-a) |
 | canTSpeS09 (CAN) | correction q2 | exposant 1 : ${\dfrac{4}{n^3}-1}{\dfrac{1}{n^1}}$ ‖ exposant 1 : $imits_{n\to\infty} \dfrac{1}{n^1}=0$ ‖ exposant 1 : ${\dfrac{7}{n^6}+1}{\dfrac{1}{n^1}}$ | ×4 ; défaut nb=10 (revue-1-a) |
+| PEN16 (PE) | correction q1 | exposant 1 : $10^{1}=10$ | ×50 ; sup=1 sup2=1 sup3=1 sup4=false sup5=true ; sup=1 sup2=1 sup3=1 sup4=true sup5=true… (revue-0-a) |
+| PEN22 (PE) | correction q1 | exposant 1 : $3^1$ | ×30 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
+| PEN22 (PE) | correction non interactive q1 | exposant 1 : $3^1$ | ×4 |
 | TEA1-35 (Terminale) | correction q1 | exposant 1 : $12^{2n}-98^n=12^{2\times 1}-98^1=144-98=46=23\times 2$ ‖ exposant 1 : $9^{2n}-104^n=9^{2\times 1}-104^1=81-104=(-23)=23\times (-1)$ ‖ exposant 1 : $^{2n}-101^n=20^{2\times 1}-101^1=400-101=299=23\times 13$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-36 (Terminale) | correction q1 | exposant 1 : $36^{1} \equiv 36 \equiv 10 \,\,[$ ‖ exposant 1 : $t(36^{6}\right)^{60} \times 36^{1}$ ‖ exposant 1 : $^{361} \equiv 1^{60} \times 36^{1} = 36^{1} \equiv 10 \,\,[1$ | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-37 (Terminale) | correction q2 | exposant 1 : $63+1}\\ &=(8^{2})^{63}\times 8^{1}\\ &\equiv 1^{63}\times 8^$ ‖ exposant 1 : $8^{1}\\ &\equiv 1^{63}\times 8^{1}\,[21]\\ &\equiv 1\times 8$ ‖ exposant 1 : $^{1}\,[21]\\ &\equiv 1\times 8^{1}\,[21]\\ &\equiv 8\,[21] \$ | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -4321,6 +4733,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1K-1 (6e) | correction q2 | mot répété « de de » : Une valeur approchée au dixième par défaut de de | ×5 ; sup=2 ; sup=7 nb=10 (revue-2-a) |
 | 6N2G (6e) | correction q1 | mot répété « ne ne » : Hélène ne payerait que ‖ mot répété « ne ne » : Grâce à son bon de réduction, Hélène ne paierait que | ×3 ; sup=1-2-5-6 sup2=true sup3=false sup4=1 ; sup=4 sup2=false sup3=false sup4=1… (revue-4-a) |
 | 6N2G-1 (6e) | correction q1 | mot répété « ne ne » : Grâce à son bon de réduction, Hélène ne paierait que ‖ mot répété « ne ne » : Hélène ne payerait que | ×3 ; sup=4 sup2=true sup3=false sup4=1 ; sup=6 sup2=true sup3=false sup4=2… (revue-51-a) |
+| 6N2K-1 (6e) | énoncé q2 | ligature œ manquante « oeufs » : Un fermier ramasse 429 oeufs et souhaite les ranger dans des boîtes de 12 ‖ ligature œ manquante « oeufs » : Un fermier ramasse 208 oeufs et souhaite les ranger dans des boîtes de 6. | ×7 ; sup=9 ; sup=2… (revue-0-a) |
+| 6N2K-1 (6e) | correction q2 | ligature œ manquante « oeufs » : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour u ‖ ligature œ manquante « oeufs » : ra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour une boîte. ‖ ligature œ manquante « oeufs » : Il lui manquera 3 oeufs pour en remplir une de plus. | ×21 ; sup=9 ; sup=2… (revue-0-a) |
+| 6N2K-1 (6e) | énoncé non interactif q2 | ligature œ manquante « oeufs » : Un fermier ramasse 429 oeufs et souhaite les ranger dans des boîtes de 12 ‖ ligature œ manquante « oeufs » : ièrement faudra-t-il ? b) Combien manque-t-il d'oeufs pour en remplir une de plus ? | ×2 |
+| 6N2K-1 (6e) | correction non interactive q2 | ligature œ manquante « oeufs » : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour u ‖ ligature œ manquante « oeufs » : ra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour une boîte. ‖ ligature œ manquante « oeufs » : Il lui manquera 3 oeufs pour en remplir une de plus. | ×3 |
 | BP1CF01 (BP1) | correction q2 | mot répété « est est » : est est | ×4 ; défaut nb=10 (revue-1-a) |
 | BP2CCF5 (BP2) | correction q1 | mot répété « ne ne » : Grâce à son bon de réduction, Hélène ne paierait que ‖ mot répété « ne ne » : Hélène ne payerait que | ×2 ; sup=4 sup2=false sup3=false sup4=1 ; sup=6 sup2=false sup3=true sup4=2 (revue-57-a) |
 | can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q20.ts:90 | Q20 à Q22 : « À partir du graphique ci-dessous qui représente une fonction $f$ et une tangente à cette représentation. » : phrase sans verbe principal → Le graphique ci-dessous représente une fonction $f$ et une tangente à sa courbe. | ×1 |
@@ -4473,6 +4889,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2G-1 (6e) | énoncé non interactif q1 | deuxième personne : Ursule repère des cacahuètes fraiches dans un magazine de publicité à ‖ deuxième personne : kilogrammes de cacahuètes fraiches ? b) Quel serait le prix de ‖ deuxième personne : kilogrammes de cacahuètes fraiches ? c) Si Ursule achetait | ×5 |
 | 6N2I-2 (6e) | énoncé q1 | deuxième personne : Ursule repère des cacahuètes fraiches dans un magazine de publicité à ‖ deuxième personne : Ursule décidait d'acheter un kilogramme de cacahuètes fraiches avec ‖ deuxième personne : rsule décidait d'acheter un kilogramme de cacahuètes fraiches avec | ×9 ; sup=7-8 sup2=false sup3=false sup4=3 ; sup=7-8 sup2=true sup3=true sup4=3… (revue-0-a) |
 | 6N2I-2 (6e) | énoncé non interactif q1 | deuxième personne : Ursule repère des cacahuètes fraiches dans un magazine de publicité à ‖ deuxième personne : Ursule décidait d'acheter un kilogramme de cacahuètes fraiches avec ‖ deuxième personne : rsule décidait d'acheter un kilogramme de cacahuètes fraiches avec | ×3 |
+| 6N2K-1 (6e) | énoncé q2 | deuxième personne : asse 429 oeufs et souhaite les ranger dans des boîtes de 12. [champ] | ×7 ; sup=9 ; sup=2… (revue-0-a) |
+| 6N2K-1 (6e) | énoncé non interactif q2 | deuxième personne : asse 429 oeufs et souhaite les ranger dans des boîtes de 12. a) Combien de boîtes remplies entièreme ‖ deuxième personne : es ranger dans des boîtes de 12. a) Combien de boîtes remplies entièrement faudra-t-il ? b) Combie | ×2 |
+| 6N2K-3 (6e) | énoncé q1 | impératif : Utilise l'égalité suivante pour donner le quotient | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| 6N2K-3 (6e) | énoncé non interactif q1 | impératif : Utilise l'égalité suivante pour donner le quotient | ×4 |
 | can2a-2023 (CAN) | énoncé q21 | impératif : . Détermine la longueur | ×2 ; sup2=false ; sup2=true (revue-0-a) |
 | can2a-2023 (CAN) | énoncé non interactif q21 | impératif : . Détermine la longueur | ×1 |
 | can2N10-02 (CAN) | src/exercices/can/2e/can2N10-02.ts:50 | Correction : « Comptez-les ! » (impératif adressé à l'élève) ; guillemets droits « "comprises" » → On peut les compter ; « comprises » | ×1 |
@@ -4632,6 +5052,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1J (6e) | correction q1 | pas de virgule avant « alors » : e les parties entières sont identiques : On compare alors les parties décimales sous forme de fracti | ×58 ; sup=1 sup2=5 sup3=false ; sup=1 sup2=2 sup3=true… (revue-0-a) |
 | 6N2E-1 (6e) | correction q1 | pas de virgule après « Or » : . Or | ×22 ; sup=true sup2=3 ; sup=true sup2=1… (revue-0-a) |
 | 6N2E-1 (6e) | correction non interactive q1 | pas de virgule après « Or » : . Or | ×4 |
+| 6N2K-1 (6e) | énoncé q1 | pas de virgule avant « soit » : nnes. Ils hésitent sur la disposition de la salle : soit mettre 12 places par rangée, soit 15 place ‖ pas de virgule avant « soit » : nnes. Ils hésitent sur la disposition de la salle : soit mettre 9 places par rangée, soit 12 places | ×5 ; sup=8 ; sup=9 nb=10 (revue-8-a) |
 | BP1AA07 (BP1) | correction q1 | pas de virgule après « Or » : . Or | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1SP02 (BP1) | énoncé non interactif q1 | pas de virgule avant « soit » : partie des cadres. Quelle est la probabilité que ce soit une femme ? | ×1 |
 | can1a-2025 (CAN) | correction q29 | pas de virgule avant « alors » : . On obtient alors | ×2 ; sup=false ; sup=true (revue-0-a) |
@@ -4702,6 +5123,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeAN30 (CAN) | correction q1 | pas de virgule avant « alors » : . Il vient alors | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | canTSpeS01 (CAN) | correction q1 | pas de virgule après « Or » : Or | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
 | PEA13 (PE) | correction q1 | pas de virgule avant « soit » : cm (dans le sens de la largeur). Pour que ce soit le plus petit carré possible, on cherche le | ×3 ; sup=10 ; sup=11 nb=10 (revue-10-a) |
+| PEN14 (PE) | correction q1 | pas de virgule avant « soit » : décimale soit ‖ pas de virgule avant « soit » : donc identique à la dernière décimale de la période soit | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN14 (PE) | correction non interactive q1 | pas de virgule avant « soit » : décimale soit | ×1 |
+| PEN15 (PE) | correction q3 | pas de virgule avant « soit » : décimale soit | ×1 ; défaut (revue-0-a) |
+| PEN15 (PE) | correction non interactive q3 | pas de virgule avant « soit » : décimale soit | ×1 |
+| PET15 (PE) | énoncé q1 | pas de virgule avant « alors » : s la cellule E7. [champ] Quelle formule contient alors la cellule E7 ? E7 : [champ] [champ] ‖ pas de virgule avant « alors » : s la cellule F7. [champ] Quelle formule contient alors la cellule F7 ? F7 : [champ] [champ] ‖ pas de virgule avant « alors » : s la cellule D6. [champ] Quelle formule contient alors la cellule D6 ? D6 : [champ] [champ] | ×74 ; sup=4 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
+| PET15 (PE) | énoncé non interactif q1 | pas de virgule avant « alors » : s la cellule E7. [champ] Quelle formule contient alors la cellule E7 ? ‖ pas de virgule avant « alors » : s la cellule F7. [champ] Quelle formule contient alors la cellule F7 ? ‖ pas de virgule avant « alors » : s la cellule D6. [champ] Quelle formule contient alors la cellule D6 ? | ×4 |
+| PET16 (PE) | énoncé q1 | pas de virgule avant « alors » : ans la cellule E6. [champ] Quel nombre s’affiche alors dans la cellule E6 ? [champ] ‖ pas de virgule avant « alors » : ans la cellule C4. [champ] Quel nombre s’affiche alors dans la cellule C4 ? [champ] ‖ pas de virgule avant « alors » : ans la cellule D6. [champ] Quel nombre s’affiche alors dans la cellule D6 ? [champ] | ×7 ; sup=4 ; sup=2… (revue-0-a) |
+| PET16 (PE) | énoncé non interactif q1 | pas de virgule avant « alors » : ans la cellule E6. [champ] Quel nombre s’affiche alors dans la cellule E6 ? | ×1 |
 | TEA1-11 (Terminale) | correction q1 | pas de virgule avant « alors » : . Il existe alors un entier | ×1 ; défaut (revue-0-a) |
 | TEA1-15 (Terminale) | correction q1 | pas de virgule après « Or » : . Or | ×1 ; défaut (revue-0-a) |
 | TEA1-16 (Terminale) | correction q1 | pas de virgule avant « alors » : . Il existe alors un entier | ×1 ; sup=1 (revue-1-a) |
@@ -4899,6 +5328,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2G-1 (6e) | énoncé q1 | double espace : ramme. Si Zoé décidait d'acheter un kilogramme de cerises avec ‖ double espace : me. Si Karole décidait d'acheter un kilogramme de carottes avec ‖ double espace : mme. Si Julie décidait d'acheter un kilogramme de carottes avec | ×24 ; sup=8 sup2=true sup3=true sup4=1 ; sup=8 sup2=true sup3=true sup4=2… (revue-96-a) |
 | 6N2I-2 (6e) | énoncé q1 | double espace : € b) Si Ursule décidait d'acheter un kilogramme de cacahuètes fraiches avec ‖ double espace : € b) Si Karole décidait d'acheter un kilogramme de fraises avec ‖ double espace : € b) Si Océane décidait d'acheter un kilogramme de prunes avec | ×34 ; sup=7-8 sup2=false sup3=false sup4=3 ; sup=7-8 sup2=true sup3=true sup4=1… (revue-0-a) |
 | 6N2I-2 (6e) | énoncé non interactif q1 | double espace : ? b) Si Ursule décidait d'acheter un kilogramme de cacahuètes fraiches avec | ×1 |
+| 6N2K (6e) | correction q1 | double espace : es et 3 jours. Donc nous serons 3 jours de plus que dimanche, soit mercredi. ‖ double espace : es et 5 jours. Donc nous serons 5 jours de plus que dimanche, soit vendredi. ‖ double espace : es et 6 jours. Donc nous serons 6 jours de plus que mardi, soit lundi. | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N2K (6e) | correction non interactive q1 | double espace : es et 3 jours. Donc nous serons 3 jours de plus que dimanche, soit mercredi. | ×1 |
+| 6N2K-1 (6e) | correction q1 | double espace : Chaque pirate aura 129 pièces. b) Il restera 7 pièces d'or. | ×5 ; sup=3 ; sup=9 nb=10 (revue-3-a) |
+| 6N2K-1 (6e) | énoncé q1 | double espace : e la salle : soit mettre 12 places par rangée, soit 15 places par rangée. Ils décident de choisir l ‖ double espace : de la salle : soit mettre 9 places par rangée, soit 12 places par rangée. Ils décident de choisir l ‖ double espace : e la salle : soit mettre 15 places par rangée, soit 9 places par rangée. Ils décident de choisir la | ×5 ; sup=8 ; sup=9 nb=10 (revue-8-a) |
+| 6N2K-3 (6e) | consigne | double espace : Répondre aux questions suivantes sans poser la division. | ×1 ; sup=1 (revue-0-a) |
 | BP1AUTO061 (BP1) | correction q1 | double espace : , son ordonnée est l'image de son abscisse. | ×21 ; sup=4 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | BP1CF01 (BP1) | énoncé q1 | double espace : Augmenter une valeur de ‖ double espace : Diminuer une valeur de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1CF01 (BP1) | énoncé non interactif q1 | double espace : Augmenter une valeur de | ×1 |
@@ -5316,6 +5750,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N4B-1 (cm2) | consigne | double espace : Calculer les expressions suivantes. | ×1 ; sup=1-2-3 sup2=200 sup3=2 (revue-0-a) |
 | HPC103 (HP) | correction q1 | espace avant ponctuation : colonnes . La matrice ‖ espace avant ponctuation : colonnes . Le produit ‖ espace avant ponctuation : colonne . Le produit | ×24 ; défaut ; défaut nb=10 (revue-0-a) |
 | HPC105 (HP) | correction q3 | double espace : . On en déduit que la matrice de | ×2 ; sup=1 (revue-1-a) |
+| PEN11 (PE) | correction q1 | double espace : Ce nombre peut s'écrire sous la forme d'une fraction irréductible qui a un facteur différen | ×4 ; sup=3-7-11-13 ; sup=3-7-11-13 nb=10 (revue-0-a) |
 | TEA1-34 (Terminale) | correction q1 | double espace : On observe que si | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEC1-51 (Terminale) | correction q2 | double espace : . Ainsi, on obtient : | ×3 ; défaut nb=10 (revue-1-a) |
 | TEM1-11 (Terminale) | correction q1 | espace avant ponctuation : colonnes . La matrice ‖ espace avant ponctuation : colonnes . Le produit ‖ espace avant ponctuation : colonne . Le produit | ×24 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -5536,6 +5971,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1M (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $.... &lt; 9\,858,999 &lt; ....$ ‖ points de suspension en maths (\ldots) : $....~&lt;~8\,886,199~&lt;~....$ | ×8 |
 | 6N1M-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $30,99&lt;&nbsp;&nbsp;&nbsp;....................&nbsp;&nbs$ ‖ points de suspension en maths (\ldots) : $30,99&lt;&nbsp;&nbsp;&nbsp;....................&nbsp;&nbsp;&$ ‖ points de suspension en maths (\ldots) : $30,99&lt;&nbsp;&nbsp;&nbsp;....................&nbsp;&nbsp;&nbs$ | ×36 |
 | 6N2autoB-1 (6e) | src/exercices/6e/6N2autoB-1.ts:246 | « ... » : 6 : n/10 = ... + .../10 + .../100 | ×1 |
+| 6N2autoB-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....+\dfrac{....}{100}+\dfrac{$ ‖ points de suspension en maths (\ldots) : $....+\dfrac{....}{100}+\dfrac{....}{10}$ ‖ points de suspension en maths (\ldots) : $....$ | ×37 |
+| 6N2autoB-4 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $= ..............................$ | ×80 |
+| 6N2autoC (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×8 |
 | 6N2autoC-2 (6e) | src/exercices/6e/6N2autoC-2.ts:8 | « ... » : Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | 6N2B (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $919,77 \times ....&nbsp;&nbsp;=&nbsp;&nbsp;0$ ‖ points de suspension en maths (\ldots) : $.... \times 0,01&nbsp;&nbsp;=&$ ‖ points de suspension en maths (\ldots) : $26,813 \times 0,1&nbsp;&nbsp;=....$ | ×4 |
 | 6N2B-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $~~ = ~~\phantom{......}880$ ‖ points de suspension en maths (\ldots) : $~~ = ~~\phantom{......}919\,770$ | ×8 |
@@ -5817,6 +6255,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | c0f91 (Non classés) | src/exercices/QCMStatiques/QCMBacSuites.ts:381 | « ... » : def seuil() :\n n=0\n u=15\n while ... ...:\n n=n+1\n u=1,2*u+12\n return(n) | ×1 |
 | exemple-qcm-json (Non classés) | src/exercices/modèlesExos/ExempleQcmJson.ts:54 | « ... » : Correct ! $\\pi \\approx 3,14159...$ | ×1 |
 | PEG20 (PE) | correction q1 | points de suspension : ... On trace le segment | ×1 ; défaut (revue-0-a) |
+| PEN14 (PE) | correction q1 | points de suspension en maths (\ldots) : $frac{18}{13}\approx 1,384\,615....$ ‖ points de suspension en maths (\ldots) : $\dfrac{9}{7}\approx 1,285\,714....$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| PEN14 (PE) | correction non interactive q1 | points de suspension en maths (\ldots) : $frac{18}{13}\approx 1,384\,615....$ | ×1 |
+| PEN15 (PE) | correction q3 | points de suspension en maths (\ldots) : $dfrac{5}{13}\approx 0,384\,615....$ | ×1 ; défaut (revue-0-a) |
+| PEN15 (PE) | correction non interactive q3 | points de suspension en maths (\ldots) : $dfrac{5}{13}\approx 0,384\,615....$ | ×1 |
+| PET12 (PE) | correction q2 | points de suspension : tirant la cellule vers le bas, elle devient B7, B8… au lieu de rester sur le total. Quand on étire l ‖ points de suspension : tirant la cellule vers le bas, elle devient B2, B3… au lieu de rester sur le taux de TVA. Quand on é | ×2 ; sup=5 ; sup=9 nb=10 (revue-5-a) |
+| PET13 (PE) | correction q1 | points de suspension : tirant la cellule vers le bas, elle devient B6, B7… au lieu de rester sur le total. Il faut saisir d | ×3 ; sup=5 ; sup=9 nb=10 (revue-5-a) |
+| PET16 (PE) | correction q3 | points de suspension : tirant la cellule vers le bas, elle devient B7, B8… au lieu de rester sur le total. ‖ points de suspension : tirant la cellule vers le bas, elle devient B7, B8… au lieu de rester sur le total. La proposition C ‖ points de suspension : tirant la cellule vers le bas, elle devient B2, B3… au lieu de rester sur le taux de TVA. La proposi | ×7 ; sup=4 ; sup=3… (revue-0-a) |
 | PR-31 (Primaire) | src/exercices/6e/6N12-1.ts:8 | « ... » : Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ? | ×1 |
 | TEA1-21 (Terminale) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×4 |
 | TEA1-26 (Terminale) | énoncé non interactif q1 | points de suspension : ... 2) Déterminer le reste de la division euclidi ‖ points de suspension : ... | ×2 |
@@ -5867,6 +6312,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoE1-1 (6e) | série q2 | question 2 identique à la question 1 | ×100 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | 6AutoF3-2 (6e) | série q4 | question 4 identique à la question 3 | ×1 ; sup=false sup2=2 (revue-7-a) |
 | 6AutoN1 (6e) | série q5 | question 5 identique à la question 3 | ×2 ; sup=3 sup2=4 sup3=false nb=10 (revue-24-a) |
 | 6AutoP1 (6e) | série q9 | question 9 identique à la question 8 | ×2 ; défaut (revue-0-a) |
@@ -5917,6 +6363,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1C-2 (6e) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×60 ; sup=2 ; sup=1… (revue-0-a) |
 | 6N1F-3 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; sup=1 ; sup=1 nb=10 (revue-0-a) |
 | 6N1G (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×50 ; sup=1 ; sup=2… (revue-0-a) |
+| 6N2autoB-1 (6e) |  q1 tableauMathlive | aucune valeur attendue | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
 | 6N2J-3 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP2AutoK1 (BP2) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×138 ; sup=true sup3=true sup4=false sup5=1 ; sup=true sup3=true sup4=true sup5=1… (revue-0-a) |
 | BP2FONC28 (BP2) |  q1 tableau-signes-variations | format tableau-signes-variations : à tester à la main | ×4 ; sup=3 (revue-2-a) |
@@ -5947,6 +6394,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N2E-2 (cm2) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×210 ; sup=1 sup2=false sup3=true ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | CM2N2E-3 (cm2) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×70 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-0-a) |
 | CM2N4B-1 (cm2) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×1270 ; sup=1-2-3 sup2=200 sup3=2 ; sup=1-2-3 sup2=1 sup3=1… (revue-0-a) |
+| PET13 (PE) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×64 ; sup=9 ; sup=1… (revue-0-a) |
+| PET14 (PE) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×64 ; sup=9 ; sup=1… (revue-0-a) |
 | TEC1-41 (Terminale) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
 | TEM1-12 (Terminale) |  q1 mathalea-branching-qcm | format mathalea-branching-qcm : à tester à la main | ×106 ; sup=2 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
 
@@ -6428,6 +6877,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-3 (6e) |  | 2730 combinaisons : 92 passées (couverture par paires) | ×1 |
 | 6N1A-4 (6e) |  | 588 combinaisons : 50 passées (couverture par paires) | ×1 |
 | 6N1A-7 (6e) |  | 2376 combinaisons : 100 passées (couverture par paires) | ×1 |
+| 6N2autoC (6e) |  | 240 combinaisons : 31 passées (couverture par paires) | ×1 |
 | 6N2E (6e) |  | 256 combinaisons : 17 passées (couverture par paires) | ×1 |
 | can2N10-05 (CAN) |  | 243 combinaisons : 81 passées (couverture par paires) | ×1 |
 | can2N10-06 (CAN) |  | 243 combinaisons : 82 passées (couverture par paires) | ×1 |
@@ -6435,3 +6885,5 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2G5B-2 (cm2) |  | 504 combinaisons : 45 passées (couverture par paires) | ×1 |
 | CM2N1D-2 (cm2) |  | 720 combinaisons : 46 passées (couverture par paires) | ×1 |
 | CM2N4D-1 (cm2) |  | 640 combinaisons : 41 passées (couverture par paires) | ×1 |
+| PEG23 (PE) |  | 1000 combinaisons : 113 passées (couverture par paires) | ×1 |
+| PEG24 (PE) |  | 1000 combinaisons : 113 passées (couverture par paires) | ×1 |
