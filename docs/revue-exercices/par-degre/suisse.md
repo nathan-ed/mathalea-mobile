@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **304 sur 1168**. Constats confirmés : **207**.
+Exercices relus : **314 sur 1168**. Constats confirmés : **214**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 30 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 145 |
+| Rédaction (français, titres, consignes) | 152 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -140,6 +140,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | exemple-qcm-json | R16  | Exercice modèle : « 3,14159... » (trois points tapés), e en italique, retours « Correct ! », « vous avez inversé » ; exemple visible dans le référentiel | \ldots ; \mathrm{e} | relecture |
 | f0064 | R16  | Titre terminé par une espace | Retirer | relecture |
 | f0cad | R16  | Titre « Somme de nombre relatifs » | « nombres relatifs » | relecture |
+| f13e3 | R16  | Titre « Résoudre une équation trigonométrique » alors que l'on calcule une longueur | « Calculer une longueur avec le sinus » | relecture |
+| f5a23 | R16  | Énoncé : « connaitre l'aire du triangle $UVW$ » sans point final ; titre « Connaitre »; propositions en \times, correction en \cdot | Point final ; Connaître ; \cdot ou \times partout | relecture |
+| f6jd7 | R16  | Titre « Visualisation 3d » (3D) | « Visualisation 3D » | relecture |
+| f9a02 | R3  | Unités « \text{ cm}^2 » avec espace dans \text pour l'aire mais pas pour le périmètre (« \text{cm} ») | Harmoniser \text{ cm}^2 | relecture |
 | ebd89 | R16  | Titre « Calculer la dérivée de $\lambda u$ » alors que la question est une dérivée d'une fonction affine | Corriger le titre | src/exercices/1e/1AN14-1Old.ts |
 | e46e6 | R16  | Correction : intervalle $[-7;1[$ sans espaces autour de « ; » | $[-7\,;\,1[$ | src/exercices/2e/200F3-02.ts |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
@@ -152,6 +156,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | e7919 | R5 Virgule | Énoncé : « …a pour équation : $7x-2y+4=0$ Donner les coordonnées… » (point manquant avant « Donner ») | Ajouter un point | src/exercices/can/1e/can1G08-old.ts |
 | daf1d | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs | Corriger le titre (ou la question) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts |
 | f0e17 | R16  | Énoncé : « deux notes ($11$ et $10$) coefficient $1$ » (de coefficient) | « de coefficient $1$ » | src/exercices/can/can2a-2025/can2a-2025-Q21.ts |
+| f3a3e | R16  | Titre « Nombre de dizaines » alors que la question porte sur les centaines | « Nombre de centaines » | src/exercices/can/can6a-2025/can6a-2025-Q3.ts |
+| f6jd7 | R10 Français | Énoncé : le mot « undefined » s'affiche devant le QCM (`this.question += monQcm.texte` alors que this.question n'est pas initialisé) | this.question = monQcm.texte (ou initialiser à "") | src/exercices/can/canCE2a-2025/canCE2-2025-Q11.ts:369 |
 | e9cf0 | R13  | Correction : « J'ai donné $1$ billets de $20$ € » (accord) | « $1$ billet » | src/exercices/can/canCE2a-2025/canCE2-2025-Q13.ts |
 | evon2 | R16  | Énoncé : « Quel est la pente… » ; correction : « coeffcient » (déjà vu dans can2L2-03) | « Quelle est la pente » ; « coefficient » | src/exercices/can/canNY-2026/canTNY-2026-Q13.ts |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
@@ -243,6 +249,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | c8a2b | R3  | « Donner un diviseur de 213 autre que 1 et lui-même » : plusieurs réponses valables (3, 71) : le champ n'accepte que ? (à tester) ; correction juste. | Accepter 3 et 71. | src/exercices/CH/c8a2b.ts |
 | c8fe9 | R16  | Programme Scratch « Aller en bas :: motion stack » (même défaut que 6I1B) ; 144 T3 ; 120 N1 ; 26 pages > 390 px. | Vérifier le rendu. | src/exercices/CH/c8fe9.ts |
 | d3b6c | R2 Tutoiement, impératif | Correction : « un parallélogramme quelconque » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/dnbAutomatismes/dnb-2026-06-amerique-du-nord-automatisme-Q3.ts |
+| f5a23 | R16  | Correction : « en prenant $[UW]$ comme base, la hauteur correspondante est $[VW]$ » alors que la bonne réponse utilise $VH$ (la hauteur est $[VH]$) | « la hauteur correspondante est $[VH]$ » | src/exercices/dnbAutomatismes/dnb-2026-06-antilles-Q3.ts |
 | cea02 | R2 Tutoiement, impératif | Correction : « ⟦n°7⟧ » texte dans miseEnEvidence alors que le champ attend 7 | n° 7 avec seul 7 en évidence | src/exercices/dnbAutomatismes/dnb-2026-06-centres-etrangers-Q2.ts |
 | eed49 | R12  | Énoncé en \cdot, propositions du QCM en \times ; correction ⟦9\cdot 2^{5}⟧ différente de la proposition cochée « 9\times 2^{5} » | Un seul symbole | src/exercices/EAMPremiere/EAM-ANnonSpe-2026-Q3.ts |
 | eb3f5 | R12  | QCM : propositions en \times (« $960 \times 0,2$ ») alors que la correction utilise \cdot : multiplication notée de deux façons dans le même exercice | Un seul symbole | src/exercices/EAMPremiere/EAM-CETechno-2026-Q3.ts |
@@ -268,4 +275,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9905 ; T5 Espaces 1324 ; T6 Points de suspension 554 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 277 ; T3  130 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10015 ; T5 Espaces 1324 ; T6 Points de suspension 556 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 278 ; T3  130 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
