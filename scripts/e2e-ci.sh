@@ -13,6 +13,11 @@ pnpm exec playwright install --with-deps chromium
 chrome="$(ls -d "$HOME"/.cache/ms-playwright/chromium-*/chrome-linux64/chrome | sort | tail -1)"
 if [ "$(id -u)" = 0 ]; then ln -sf "$chrome" /usr/bin/chromium; else sudo ln -sf "$chrome" /usr/bin/chromium; fi
 
+# Fausse caméra des suites QR : image Pillow (python3 -I) filmée par ffmpeg
+if ! python3 -I -c 'import PIL' 2>/dev/null || ! command -v ffmpeg > /dev/null; then
+  if [ "$(id -u)" = 0 ]; then apt-get install -y python3-pil ffmpeg; else sudo apt-get install -y python3-pil ffmpeg; fi
+fi
+
 journal="${RUNNER_TEMP:-/tmp}/pnpm-dev.log"
 # Groupe de processus à part : pnpm, sh et vite arrêtés ensemble à la fin
 setsid pnpm dev > "$journal" 2>&1 &
