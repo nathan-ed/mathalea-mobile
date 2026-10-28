@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1481 exercices passés sur 4190**.
-Constats regroupés : 7240 (un groupe = même exercice, même règle,
+Avancement : **1549 exercices passés sur 4190**.
+Constats regroupés : 7444 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -19,45 +19,47 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [C1 Contenu mathématique faux ou ambigu](#c1) | 1 | 1 |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 14 | 16 |
 | 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 15 | 15 |
-| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 15 | 18 |
+| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 16 | 19 |
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 2 | 2 |
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 2 | 4 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 6 | 19 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 2 | 2 |
-| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 22 | 22 |
+| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 23 | 23 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 7 | 7 |
 | 2 Rendu cassé | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 2 Rendu cassé | [M8 Nombre de mises en évidence et de champs différents](#m8) | 3 | 3 |
 | 2 Rendu cassé | [N3 Point décimal](#n3) | 1 | 1 |
 | 2 Rendu cassé | [R10 Français (accords, fautes, coquilles)](#r10) | 3 | 3 |
 | 2 Rendu cassé | [R14 ](#r14) | 3 | 3 |
+| 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 4 | 4 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
-| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 17 | 28 |
-| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 14 | 265 |
+| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 18 | 29 |
+| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 15 | 269 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 147 | 272 |
-| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 18 | 18 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 165 | 307 |
+| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
-| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 12 | 12 |
+| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 15 | 15 |
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 160 | 884 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 162 | 892 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
-| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 60 | 120 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 118 | 119 |
+| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 60 | 121 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 121 | 122 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 55 | 60 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
-| 3 Mise en évidence | [R1 Titre](#r1) | 4 | 4 |
+| 3 Mise en évidence | [R1 Titre](#r1) | 6 | 6 |
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 5 | 5 |
 | 3 Mise en évidence | [R13 ](#r13) | 2 | 2 |
 | 3 Mise en évidence | [R14 ](#r14) | 6 | 6 |
-| 3 Mise en évidence | [R16 ](#r16) | 3 | 3 |
+| 3 Mise en évidence | [R16 ](#r16) | 5 | 5 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 3 | 3 |
+| 3 Mise en évidence | [R3 Point final](#r3) | 1 | 1 |
 | 3 Mise en évidence | [T5 Espaces en trop](#t5) | 4 | 4 |
 | 3 Mise en évidence | [T6 Points de suspension](#t6) | 1 | 1 |
 | 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 4 | 4 |
@@ -68,7 +70,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 397 | 602 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 412 | 623 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 17 | 23 |
 | 4 Typographie | [N3 Point décimal](#n3) | 17 | 21 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 7 | 7 |
@@ -79,39 +81,39 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R16 ](#r16) | 2 | 2 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 4 | 4 |
-| 4 Typographie | [T1 Espace avant %](#t1) | 19 | 24 |
+| 4 Typographie | [T1 Espace avant %](#t1) | 19 | 25 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 15 | 19 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 282 | 468 |
-| 4 Typographie | [T4 Guillemets](#t4) | 93 | 136 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 299 | 501 |
+| 4 Typographie | [T4 Guillemets](#t4) | 109 | 152 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 5 | 5 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 293 | 369 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 308 | 384 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 156 | 720 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 160 | 730 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 38 | 42 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 72 | 102 |
-| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 45 | 62 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 73 | 103 |
+| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 46 | 64 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 111 | 154 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 101 | 161 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 105 | 169 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 120 | 173 |
-| 5 Rédaction | [R6 Majuscule sans accent](#r6) | 10 | 14 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 123 | 177 |
+| 5 Rédaction | [R6 Majuscule sans accent](#r6) | 11 | 15 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
-| 5 Rédaction | [T4 Guillemets](#t4) | 32 | 43 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 294 | 507 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 319 | 497 |
+| 5 Rédaction | [T4 Guillemets](#t4) | 33 | 44 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 298 | 514 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 331 | 510 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 29 | 29 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 59 | 69 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 62 | 72 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 19 | 19 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 20 | 20 |
 
 ## C1
 
@@ -179,6 +181,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoT1-6 (6e) |  q7 multi-mathfield | champ absent de la page | ×1 ; sup=1 sup2=true sup3=false nb=10 (revue-12-a) |
 | 6N0A-1 (6e) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | 6N0A-1 (6e) | 6e/6N0A-1.ts:63 | Valeur maximale 1 (réglage permis, minimum 1) : randint(2, 1) donne des questions sans champ ni réponse. → Minimum 2 pour le paramètre, ou Math.max(2, this.sup). | ×1 |
+| 6N3O (6e) |  q4 multi-mathfield | champ absent de la page | ×16 ; sup=10 sup2=1 sup3=1 ; sup=10 sup2=2 sup3=2… (revue-45-a) |
 | BP2CCF10 (BP2) |  q4 mathlive | champ absent de la page | ×1 ; sup=2 sup2=true (revue-3-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×17 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | can6a-CoopMaths (CAN) |  q22 mathlive | champ absent de la page | ×19 ; sup=1 ; sup=5… (revue-1-a) |
@@ -289,6 +292,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q2.ts:69 | Q2 : la correction dit « Pour passer des mm au m, on multiplie par 1 000 » (et « des cm au m, on multiplie par 100 ») : c'est l'inverse, on divise (ou : pour passer des m aux mm, on multiplie). → Pour passer des $\text{m}$ aux $\text{mm}$, on multiplie par $1\,000$. | ×1 |
 | CM2N3G-1 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:395 | Cas « facteur manquant » (champ avant le produit) : l'énoncé affiche la fraction deux fois, « $\dfrac{99}{100}\times$ [champ] $\times\dfrac{99}{100}=\dfrac{990}{100}$ », alors que la correction est « ⟦10⟧$\times\dfrac{99}{100}=\dfrac{990}{100}$ » (texte += puis texteApres: texte) → construire l'énoncé une seule fois : champ puis $\times\dfrac{99}{100}=…$ | ×1 |
 | CM2N3G-2 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:395 | Cas « facteur manquant » (champ avant le produit) : l'énoncé affiche la fraction deux fois, « $\dfrac{99}{100}\times$ [champ] $\times\dfrac{99}{100}=\dfrac{990}{100}$ », alors que la correction est « ⟦10⟧$\times\dfrac{99}{100}=\dfrac{990}{100}$ » (texte += puis texteApres: texte) → construire l'énoncé une seule fois : champ puis $\times\dfrac{99}{100}=…$ | ×1 |
+| TSA1-44 (Terminale) | src/exercices/TSpe/TSA1-44.ts:119 | Appel Python écrit $\mathtt{seuil(0,001)}$ : avec la virgule, Python passe deux arguments (0 et 1) et la fonction plante ; l'élève qui recopie l'appel n'obtient pas 200. → Écrire l'appel avec un point (seuil(0.001)) en texteCode, comme dans le programme. | ×1 |
 | TSA1-QCM03 (Terminale) | QCMBac/A2023/metropoleSept2023Q3.ts | Code Python faux : « u=1,2$*$u+12 » (en Python, 1,2 est un couple : il faut 1.2), propositions « u$\leqslant 10000$ » (symbole mathématique au lieu de « u &lt;= 10000 ») ; code écrit en texte et en formules mêlés, sans police à chasse fixe ; « par: » sans espace. → Bloc de code (police fixe) : « u = 1.2*u + 12 », propositions « u &lt;= 10000 », « u > 10000 »… comme dans le sujet. | ×1 |
 
 ## I1
@@ -351,6 +355,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-7 (6e) | 6e/6N0A-7.ts:129 | Questions en double en interactif ($20$ en Q2 et Q3, sup2=1) : le test de doublon compare texte, qui contient l'identifiant du champ, propre à chaque question. → Tester le doublon sur nombre (questionJamaisPosee(i, nombre)). | ×1 |
 | 6N1E (6e) | 6e/6N1E.ts:66 | Plusieurs questions : tous les tableaux reprennent les mêmes six nombres (tableauDeNombres tiré une fois hors de la boucle, indexé par k de 0 à 5), seules les cases masquées changent (nb=10, graine revue-3-a : 0,96 ; 0,44 ; 0,69 ; 0,95 ; 0,97 ; 0,21 dix fois). → Tirer les nombres dans la boucle des questions (ou indexer par 6 × i + k). | ×1 |
 
+## R2
+
+**Impératif ou tutoiement** (gravité 2 : Rendu cassé)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| TSA1-40 (Terminale) | src/exercices/TSpe/TSA1-40.ts:92 | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. → texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | ×1 |
+| TSA1-44 (Terminale) | src/exercices/TSpe/TSA1-44.ts:172 | Texte dans miseEnEvidence : « f est strictement croissante sur … » et « (u_n) converge vers 1 » (\text{…}). → Phrase en texteEnCouleurEtGras, intervalle et 1 seuls en miseEnEvidence. | ×1 |
+| TSA1-45 (Terminale) | src/exercices/TSpe/TSA1-45.ts:142 | Texte dans miseEnEvidence : « (v_n) est géométrique de raison 0,85 et de premier terme v_0=… ». → Phrase en texteEnCouleurEtGras, raison et premier terme seuls en miseEnEvidence. | ×1 |
+| TSA1-46 (Terminale) | src/exercices/TSpe/TSA1-46.ts:129 | Texte dans miseEnEvidence : « strictement décroissante », « géométrique de raison 0,75 ». → texteEnCouleurEtGras pour le texte, miseEnEvidence pour la raison seule. | ×1 |
+
 ## T8
 
 **Commande LaTeX collée** (gravité 2 : Rendu cassé)
@@ -383,6 +398,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-3 (6e) |  | console : [bugsnag] Event failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1928:32) | ×1 |
 | 6N2A-4 (6e) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=3 sup2=1-2 sup3=0 sup4=true (revue-98-a) |
 | 6N2A-4 (6e) |  | génération : page.evaluate: Target page, context or browser has been closed | ×60 ; sup=3 sup2=1-2 sup3=0 sup4=true ; sup=3 sup2=1-2 sup3=0 sup4=false… (revue-98-b) |
+| 6N3M (6e) |  | arrêt : délai de 10 min dépassé | ×1 |
 | can2F4-03 (CAN) |  | rendu enonce : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-b) |
 | can2F4-03 (CAN) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-b) |
 | can2F4-03 (CAN) |  | génération : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut nb=10 (revue-1-a) |
@@ -479,6 +495,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N1D-2 (cm2) | src/exercices/CM2/CM2N1D-2.ts:297 | Type « Donner le nombre » avec 1 chiffre (sup2=1) : énoncé « … de l'égalité. =$ » ($ visible) et correction « {\color…\boldsymbol{$0}}$ » (erreur KaTeX « 0}} ») ; mises en évidence avec les mots (⟦6~\text{dizaines}⟧) alors que le champ attend « dizaines » ou un nombre → $=$ avant le champ ; une valeur par champ en évidence | ×1 |
 | CM2N1D-2 (cm2) | énoncé q1 | nombre impair de $ : le nombre correspondant au premier membre de l'égalité.&lt;br>=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×2 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-19-a) |
 | CM2N1D-2 (cm2) | correction q1 | nombre impair de $ : ={\color{#F15929}\boldsymbol{0}}$ | ×1 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false (revue-19-a) |
+| a343t (Non classés) | énoncé q1 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×3 ; sup=false ; sup=false nb=10 (revue-0-a) |
+| a343t (Non classés) | énoncé q1 | nombre impair de $ : que de nombres&nbsp;: $50$&nbsp;; $75$&nbsp;; $100$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×2 ; sup=true ; sup=false nb=10 (revue-1-a) |
+| a343t (Non classés) | énoncé q1 | nombre impair de $ : ue de nombres&nbsp;: $75$&nbsp;; $150$&nbsp;; $225$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×4 ; sup=false nb=10 (revue-2-a) |
+| a343t (Non classés) | énoncé q6 | nombre impair de $ : e de nombres&nbsp;: $130$&nbsp;; $195$&nbsp;; $260$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×3 ; sup=false nb=10 (revue-2-a) |
 | PET12 (PE) | énoncé q4 | « $ » visible :  article, un élève va saisir dans la cellule D2 la formule =$B$2*C2 =$B$2*C2, puis étirer la cellule vers le bas jusqu’e | ×1 ; sup=1 (revue-1-b) |
 | PET12 (PE) | correction q4 | « $ » visible : 4. La formule =$B$2*C2 =$B$2*C2 est fausse : le signe $ $ bloque la cellule | ×1 ; sup=1 (revue-1-b) |
 | PET12 (PE) | énoncé q1 | « $ » visible : , un élève va saisir dans la cellule C2 la formule =B2*100/B$6 =B2*100/B$6, puis étirer la cellule vers le bas jusqu’en  | ×2 ; sup=5 (revue-5-a) |
@@ -963,6 +983,32 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-119 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-120 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-120 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-121 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-121 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-122 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-122 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-123 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-123 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-124 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-124 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-125 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-125 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-126 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-126 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-127 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-127 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-128 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-128 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-129 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-129 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-130 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-130 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-131 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-131 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-132 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-132 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-133 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-133 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | série q1 | énoncé vide | ×130 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | série q1 | énoncé vide | ×18 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Grimuku (EN) | série q1 | énoncé vide | ×58 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
@@ -974,6 +1020,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-Shikaku (EN) | série q1 | énoncé vide | ×2 ; sup=5 sup2=5 sup3=3 (revue-0-a) |
 | EN-SquarO (EN) | série q1 | énoncé vide | ×14 ; sup=5 sup2=5 sup3=false sup4=1 ; sup=5 sup2=5 sup3=false sup4=2… (revue-7-a) |
 | EN-TablesEffacees (EN) | série q1 | énoncé vide | ×20 ; sup=3 ; sup=1… (revue-0-a) |
+| a1e38 (Non classés) | série q1 | correction vide | ×96 ; sup=1 sup3=4 ; sup=1 sup3=1… (revue-0-a) |
+| a9f31 (Non classés) | série q1 | énoncé vide | ×2 ; défaut (revue-0-a) |
+| a9f31 (Non classés) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
+| a9f71 (Non classés) | série q1 | énoncé vide | ×2 ; défaut (revue-0-a) |
+| a9f71 (Non classés) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
+| a9f82 (Non classés) | série q1 | énoncé vide | ×2 ; sup=100 (revue-0-a) |
+| a9f82 (Non classés) | série q1 | correction vide | ×2 ; sup=100 (revue-0-a) |
+| a9f83 (Non classés) | série q1 | énoncé vide | ×10 ; sup=0 ; sup=1… (revue-0-a) |
+| a9f83 (Non classés) | série q1 | correction vide | ×10 ; sup=0 ; sup=1… (revue-0-a) |
 | TEC1-41 (Terminale) | série q1 | énoncé vide | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
 | TSA2-QCM06 (Terminale) | série q1 | correction vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 
@@ -1001,6 +1056,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can2P1-03 (CAN) | src/exercices/can/1e/can1P12-05.ts | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px → tableau plus étroit (en-tête « Face », « P ») | ×1 |
 | CM2N2E-1 (cm2) | src/exercices/CM2/CM2N2E-1.ts | Droite graduée apigeom de 750 à 830 px : à 390 px seule la partie de 0 à environ 1,5 est visible, les points à placer (ex. $\dfrac{8}{2}$) sont hors de l'écran (capture revue/captures/cm2/CM2N2E-1) → unité plus petite ou figure ajustée à la largeur (côté MathALÉA), ou défilement horizontal du conteneur (côté app) | ×1 |
 | CM2N2E-2 (cm2) | src/exercices/CM2/CM2N2E-2.ts | Droite graduée apigeom de 750 à 830 px : à 390 px seule la partie de 0 à environ 1,5 est visible, les points à placer (ex. $\dfrac{8}{2}$) sont hors de l'écran (capture revue/captures/cm2/CM2N2E-2) → unité plus petite ou figure ajustée à la largeur (côté MathALÉA), ou défilement horizontal du conteneur (côté app) | ×1 |
+| TSA1-42 (Terminale) | src/exercices/TSpe/TSA1-42.ts:199 | Correction, partie A question 5 : justifications en \text{} au bout de chaque ligne du aligned (« car, pour a>0 et b>0, a strictement inférieur à b ⟺ … ») : la ligne dépasse largement les 390 px. → Sortir les justifications de l'aligned (phrases sous le calcul) ou les raccourcir (« car ln est strictement croissante sur ]0 ; +∞[ »). | ×1 |
 
 ## X6
 
@@ -1033,6 +1089,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3C07 (CAN) | src/exercices/can/c3/canc3C07.ts:107 | Correction inversée (branche « prenom2 a b ans de moins que prenom1 ») : énoncé « Nawel a $2$ ans de moins que Gaspard », correction « Gaspard a $2$ ans de moins que Nawel. Il a donc… » (prénoms échangés ; « Il » pour une fille possible). → ${prenom2} a $b$ ans de moins que ${prenom1}. ${prenom2} a donc… | ×1 |
 | TSA1-20 (Terminale) | TSpe/TSA1-20.ts | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. → Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | ×1 |
 | TSA1-27 (Terminale) | TSpe/TSA1-27.ts | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. → Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | ×1 |
+| TSA1-33 (Terminale) | src/exercices/TSpe/TSA1-33.ts:290 | « ≈ » posé d'office devant u_2, u_3 et u_4, même quand la valeur est exacte (u_2≈6,75 ; avec u_0=12 : u_2≈9, u_3≈8,5, u_4≈8,25), et « = » devant u_1 même si elle était arrondie. → Choisir « = » ou « \approx » selon que texNombre(termes[k], 3) arrondit ou non. | ×1 |
+| TSA1-46 (Terminale) | src/exercices/TSpe/TSA1-46.ts:150 | « ≈ » devant des valeurs exactes : $u_2\approx 11\,375$ alors que u_2=11 375 est calculé exactement plus haut. → Choisir « = » ou « \approx » selon que texNombre(terme, 1) arrondit ou non. | ×1 |
+| TSA1-47 (Terminale) | src/exercices/TSpe/TSA1-47.ts:139 | De u_n>8 000, la correction tire « 8 000-u_n ⩽ 0 » puis « décroissante », alors que l'inégalité stricte donne une suite strictement décroissante ; la phrase « la suite (v_n) est géométrique de raison 0,75 » est ensuite répétée telle quelle. → « 8 000-u_n&lt;0 », « u_{n+1}-u_n&lt;0 », « strictement décroissante » ; supprimer la phrase répétée (ligne 158 ou celle qui la précède). | ×1 |
 
 ## I1
 
@@ -1096,6 +1155,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2K-2 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"0","champ2":"13","champ3":"13"} ; attendu : {"champ1":"36","champ2":"0","champ3":"13"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N3H-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"5","champ2":"6"} ; attendu : {"champ1":"6","champ2":"5"} | ×222 ; sup=13 sup2=4 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 6N3M-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"1,2","champ2":"1,8"} ; attendu : {"champ1":"1.8","champ2":"1.2"} | ×16 ; sup=4 sup2=true ; sup=4 sup2=false… (revue-6-a) |
+| 6N3O (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"88","champ2":"22","champ3":"22"} ; attendu : {"champ1":"44","champ2":"88","champ3":"22"} | ×284 ; sup=1 sup2=5 sup3=5 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
+| 6N3O (6e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"110","champ2":"2,2","champ3":"2,2"} ; attendu : {"champ1":"22","champ2":"110","champ3":"2,2"} | ×482 ; sup=1 sup2=5 sup3=5 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q1 mathlive | valeur en évidence refusée par le champ : ["3\\,375\\text{ dm}^3"] ; attendu : {"champ":"3375\\operatorname{dm^3}"} | ×4 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=false… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q2 mathlive | valeur en évidence refusée par le champ : ["180\\text{ cm}^3"] ; attendu : {"champ":"180\\operatorname{cm^3}"} | ×8 ; sup=1 sup2=false sup3=false ; sup=2 sup2=true sup3=false… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\,728\\text{ cm}^3"] ; attendu : {"champ":"1728\\operatorname{cm^3}"} | ×4 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=false… (revue-0-a) |
@@ -1654,6 +1715,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{géométrique de raison }0{,}84"] ; attendu : {"champ":"0.84"} | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q5 mathlive | valeur en évidence refusée par le champ : ["u_n=25\\times 0{,}84^n+125"] ; attendu : {"champ":"25"} | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG7-Tle-20 (Égalité filles-garçons) |  q7 mathlive | valeur en évidence refusée par le champ : ["67{,}3\\,\\%"] ; attendu : {"champ":"67.3"} | ×16 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| a8c21 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["7\\,587","7","7\\,588"] ; attendu : {"champ":"9859"} | ×8 ; sup=4 ; sup=1… (revue-0-a) |
+| a8c21 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["8\\,886,19","9","8\\,886,2"] ; attendu : {"champ":"7587"} | ×4 ; sup=4 ; sup=4 nb=10 (revue-0-a) |
+| a8c21 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["6\\,826,9","9","6\\,827"] ; attendu : {"champ":"2168.19"} | ×3 ; sup=4 ; sup=2… (revue-0-b) |
+| a8c21 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["4\\,179","9","4\\,180"] ; attendu : {"champ":"6826.9"} | ×3 ; sup=4 ; sup=4 nb=10 (revue-0-b) |
+| a8c21 (Non classés) |  q4 mathlive | valeur en évidence refusée par le champ : ["3\\,389,9","9","3\\,390"] ; attendu : {"champ":"6827"} | ×3 ; sup=4 ; sup=4 nb=10 (revue-0-b) |
+| a8c21 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["8\\,622,7","7","8\\,622,8"] ; attendu : {"champ":"6629.9"} | ×12 ; sup=2 ; sup=3… (revue-2-a) |
 | PEA11 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }5\\text{&nbsp;; }6\\text{&nbsp;; }10\\text{&nbsp;; }15\\text{&nbsp;; }25\\text{&nbsp;; }30\\text{&nbsp;; }50\\text{&nbsp;; }75\\text{&nbsp;; }150"] ; attendu : {"champ":"1;2;3;5;6;10;15;25;30;50;75;150"} | ×2 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }18"] ; attendu : {"champ":"1;2;3;6;9;18"} | ×1 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }4\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }12\\text{&nbsp;; }18\\text{&nbsp;; }27\\text{&nbsp;; }36\\text{&nbsp;; }54\\text{&nbsp;; }108"] ; attendu : {"champ":"1;2;3;4;6;9;12;18;27;36;54;108"} | ×1 ; défaut (revue-0-b) |
@@ -2284,6 +2351,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA1-26 (Terminale) | TSpe/TSA1-26.ts | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). → texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | ×1 |
 | TSA1-26 (Terminale) | src/exercices/TSpe/TSA1-26.ts:60 | texte dans miseEnEvidence : \text{Pas de limite} | ×1 |
 | TSA1-27 (Terminale) | src/exercices/TSpe/TSA1-27.ts:210 | texte dans miseEnEvidence : \text{Pas de limite} | ×1 |
+| TSA1-30 (Terminale) | TSpe/TSA1-30.ts | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. → « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | ×1 |
 | TSA1-30 (Terminale) | src/exercices/TSpe/TSA1-30.ts:69 | texte dans miseEnEvidence : \text{Pas de limite} | ×1 |
 | TSA1-40 (Terminale) | src/exercices/TSpe/TSA1-40.ts:92 | texte dans miseEnEvidence : \text{décroissante} | ×1 |
 | TSA1-40 (Terminale) | src/exercices/TSpe/TSA1-40.ts:96 | texte dans miseEnEvidence : \text{convergente} | ×1 |
@@ -2368,6 +2436,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-SquarO (EN) | série q1 | aucune mise en évidence dans la correction | ×28 ; sup=5 sup2=5 sup3=true sup4=7 ; sup=5 sup2=5 sup3=true sup4=1… (revue-0-a) |
 | EN-TablesEffacees (EN) | série q1 | aucune mise en évidence dans la correction | ×20 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Zeros (EN) | série q1 | aucune mise en évidence dans la correction | ×82 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
+| a2ac2 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
+| a309b (Non classés) | série q1 | aucune mise en évidence dans la correction | ×6 ; défaut (revue-0-a) |
+| a55d2 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=true ; sup=false… (revue-0-a) |
 | PEG20 (PE) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | PEG21 (PE) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | PEG22 (PE) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=2 ; sup=1 (revue-0-a) |
@@ -2623,6 +2694,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1G-1 (6e) | 6e/6N1G-1.ts | Option « Le pas secondaire vaut 0.5 ou 0.1 » : on obtient aussi un pas de 0,01 (A(0,14), B(0,32), sup=1, graine revue-2-a). → Libellé fidèle aux pas tirés, ou limiter les pas à 0,5 et 0,1. | ×1 |
 | 6N1J (6e) | 6e/6N0A-10.ts:261 | « Tous les nombres ont la même partie entière » coché avec « Mélange » des types : les nombres ont des parties entières différentes (93,41 ; 97 ; 98, graine revue-9-a), les entiers tirés ignorent l'option. → Avec cette option, exclure les entiers ou leur donner la même partie entière. | ×1 |
 | 6N2D (6e) | 6e/6N2D.ts | Options du paramètre en LaTeX brut, visibles telles quelles dans les réglages : « nb1$\times$10^p1 $\times$ nb2 »… → « Premier facteur multiplié par une puissance de 10 », etc. | ×1 |
+| TSA1-45 (Terminale) | src/exercices/TSpe/TSA1-45.ts:69 | Énoncé : « 15 % des clients » et « 900 nouveaux clients » hors des $ (le reste de l'énoncé les met). → Taux et apport entre $ : $15\,\%$ et $900$ (texNombre). | ×1 |
+| TSA1-47 (Terminale) | src/exercices/TSpe/TSA1-47.ts:108 | Années entre $ : « En $2024$ », « l’année $2025$ » (les années restent hors des maths). → Écrire ${anneeInitiale} et ${anneeInitiale + 1} sans $. | ×1 |
 
 ## R10
 
@@ -2667,6 +2740,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A (6e) | 6e/6N1A.ts | « Inférieurs à 10 » avec « Milliers » (ou « Centaines ») : questions sans objet, « Le chiffre des milliers du nombre $3$ est : 0 » quatre fois de suite (sup=1, sup3=1). → Ne proposer que les rangs présents dans les nombres du niveau choisi. | ×1 |
 | 6N1B (6e) | 6e/6N1B.ts | Sans les mots (sup3 décoché), « vers l'unité » donne des questions sans objet : « $1\,000 =$ … unités », « $100 =$ … unités » (réponse recopiée de l'énoncé). → Avec sup3 décoché, écrire l'unité de départ en mots (« 1 millier = … unités ») ou exclure la conversion vers les unités. | ×1 |
 | 6N2A-4 (6e) | 6e/6N2A-4.ts | Second nombre sans décimale : il peut valoir 0 (« $3,86-0$ », graine revue-2-a), calcul sans objet. → Tirer le second nombre à partir de 1. | ×1 |
+| TSA1-32 (Terminale) | src/exercices/TSpe/TSA1-32.ts:104 | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». → Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | ×1 |
+| TSA1-42 (Terminale) | src/exercices/TSpe/TSA1-42.ts:190 | « Quelle que soit la quantité de prises » (des prises se comptent) ; « la 14e prise » sans exposant. → « Quel que soit le nombre de prises » ; $14^{\text{e}}$. | ×1 |
 
 ## R2
 
@@ -2677,6 +2752,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-6 (6e) | 6e/6N0A-6.ts:423 | Glisser-déposer : « Déplace les étiquettes pour former le nombre en lettres. » (tutoiement) sous une consigne au vouvoiement ; la banque de 40 étiquettes est répétée à chaque question (5 fois sur l'écran à 390 px). → « Déplacer les étiquettes pour écrire le nombre en lettres. » | ×1 |
 | 6N2J-4 (6e) | 6e/6N2J-4.ts | Consigne « … détermine, pour chaque égalité proposée, le mot adapté » (tutoiement) ; option « Pour enlever aucun mot » (« Pour n'enlever aucun mot »). → « … déterminer, pour chaque égalité proposée, le mot adapté au nombre désigné. » | ×1 |
 | 6N2K-3 (6e) | 6e/6N2K-3.ts | « Utilise l'égalité suivante… » (tutoiement) sous une consigne au vouvoiement ; « on a pris 7 trop de fois » (« on a pris 7 une fois de trop ») ; « On a donc : 74 le quotient et 11 le reste ». → « Utiliser l'égalité… » ; « Le quotient est $74$ et le reste est $11$. » | ×1 |
+
+## R3
+
+**Point final** (gravité 3 : Mise en évidence)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| TSA1-43 (Terminale) | src/exercices/TSpe/TSA1-43.ts:46 | Seuil écrit sans espace des milliers dans les maths de l'énoncé, des propositions et de la correction : $u_n>10000$, $w\leqslant 2000$. → texNombre(seuil) dans les $…$ (garder 10000 dans le code Python). | ×1 |
 
 ## T5
 
@@ -2877,6 +2960,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3K-2 (6e) | énoncé q1 | « 4 » hors $ : On place bout à bout 4 segments de longueurs respectives | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N3K-2 (6e) | énoncé non interactif q1 | « 4 » hors $ : On place bout à bout 4 segments de longueurs respectives | ×4 |
 | 6N3M-1 (6e) | correction q1 | « 4 » hors $ : Comme l'heure est partagée en 4 parts égales, chaque part représente | ×28 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-0-a) |
+| 6N3P (6e) | titre | « 100 » hors $ : oblèmes de calcul de pourcentage par complément à 100% | ×1 |
 | BP1AUTO056 (BP1) | correction q1 | « 1 » hors $ : a) À chaque fois que l'on avance de 1 unité d'abscisses, on descend de ‖ « 1 » hors $ : a) À chaque fois que l'on avance de 1 unité d'abscisses, on monte de | ×49 ; sup=3 sup2=3 sup3=3 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | BP2AutoE4 (BP2) | titre | « 10 » hors $ : Effectuer des calculs avec les puissances de 10 (QCM) | ×1 |
 | BP2AutoP1 (BP2) | énoncé q1 | « 6 » hors $ : 6]. Si besoin, les solutions doivent être séparées ‖ « 6 » hors $ : 6] est : [champ] ‖ « 5 » hors $ : 5] est : [champ] Résoudre graphiquement l'inéq | ×60 ; sup=1 sup2=10 ; sup=1 sup2=1… (revue-0-a) |
@@ -3175,6 +3259,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-105 (Égalité filles-garçons) | consigne | « 42 » hors $ : s le code Ce qu'elle fait : Dirige l'École 42 Le truc stylé : Révèle des génies du cod | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-106 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : dia Commons — Gert-Martin Greuel / MFO — CC BY-SA 2.0 DE Super-pouvoir : Maîtresse des | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-117 (Égalité filles-garçons) | consigne | « 370 » hors $ : athématicienne et philosophe de l'Antiquité (vers 370-415) | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-127 (Égalité filles-garçons) | consigne | « 13 » hors $ : Le truc stylé : Elle a multiplié deux nombres à 13 chiffres en moins de 30 secondes, un record mon ‖ « 30 » hors $ : multiplié deux nombres à 13 chiffres en moins de 30 secondes, un record mondial ! Parcours : | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-129 (Égalité filles-garçons) | consigne | « 11 » hors $ : ré le succès de missions historiques comme Apollo 11. Le truc stylé : Avant chaque lancement, | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-132 (Égalité filles-garçons) | consigne | « 14 » hors $ : tion d'ImageNet. Cette base de données massive de 14 millions d'images a été le catalyseur de la rév | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | consigne | « 10 » hors $ : du ciel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ‖ « 20 » hors $ : iel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ran ‖ « 30 » hors $ : Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même rangée, l | ×24 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction q1 | « 20 » hors $ : 20 10 30 ‖ « 10 » hors $ : 10 ‖ « 10 » hors $ : 10 20 | ×136 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction non interactive q1 | « 20 » hors $ : 20 10 30 | ×9 |
@@ -3191,6 +3278,23 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-SquarO (EN) | énoncé non interactif q1 | « 11 » hors $ : Cette grille doit contenir 11 points bleus. [champ] | ×1 |
 | EN-Zeros (EN) | consigne | « 1 » hors $ : Cette grille contient une fois chaque chiffre de 1 à 3 par ligne et par colonne auquels on aura pu ‖ « 3 » hors $ : te grille contient une fois chaque chiffre de 1 à 3 par ligne et par colonne auquels on aura pu ajou ‖ « 0 » hors $ : olonne auquels on aura pu ajouter un ou plusieurs 0. La somme des cases est indiquée en haut pour un | ×39 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | HPC103 (HP) | correction q2 | « 1 » hors $ : est possible et c'est une matrice qui a 1 lignes et 2 colonnes. ‖ « 2 » hors $ : t possible et c'est une matrice qui a 1 lignes et 2 colonnes. | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
+| a1e38 (Non classés) | énoncé q1 | « 1 » hors $ : Motif 1 : Pour le motif 43, il y a 87 soleils. Pour le m ‖ « 43 » hors $ : Motif 1 : Pour le motif 43, il y a 87 soleils. Pour le motif ‖ « 2 » hors $ : Motif 2 : Pour le motif 43, il y a 85 carrés. Pour le mo | ×5202 ; sup=1 sup3=4 ; sup=1 sup3=1… (revue-0-a) |
+| a1e38 (Non classés) | énoncé non interactif q1 | « 1 » hors $ : Motif 1 : Pour le motif 43, il y a 87 soleils. Pour le m ‖ « 43 » hors $ : Motif 1 : Pour le motif 43, il y a 87 soleils. Pour le motif ‖ « 2 » hors $ : Motif 2 : Pour le motif 43, il y a 85 carrés. Pour le mo | ×147 |
+| a2ac2 (Non classés) | correction q1 | « 4 » hors $ : possède exactement 4 solutions. | ×1 ; défaut (revue-0-a) |
+| a2ac2 (Non classés) | correction non interactive q1 | « 4 » hors $ : possède exactement 4 solutions. | ×1 |
+| a309b (Non classés) | énoncé q1 | « 1 » hors $ : Question 1 | ×3 ; défaut (revue-0-a) |
+| a309b (Non classés) | correction q1 | « 1 » hors $ : Correction 1 | ×3 ; défaut (revue-0-a) |
+| a343j (Non classés) | titre | « 100 » hors $ : Complément à 100 | ×1 |
+| a343n (Non classés) | titre | « 100 » hors $ : Multiplication par 100 de nombres décimaux | ×1 |
+| a343s (Non classés) | titre | « 3 » hors $ : Produit de 3 facteurs | ×1 |
+| a343v (Non classés) | énoncé q1 | « 21 » hors $ : On donne le tableau de proportionnalité : 21 42 3 ? | ×36 ; sup=false ; sup=true… (revue-0-a) |
+| a343v (Non classés) | énoncé non interactif q1 | « 21 » hors $ : On donne le tableau de proportionnalité : 21 42 3 ? | ×3 |
+| a49d5 (Non classés) | titre | « 3 » hors $ : Calculer avec des puissances (3) | ×1 |
+| a55d2 (Non classés) | correction q1 | « 2 » hors $ : [champ] 2 [champ] 3 [champ] 5 [ ‖ « 3 » hors $ : [champ] 2 [champ] 3 [champ] 5 [champ] 9 [ ‖ « 5 » hors $ : [champ] 2 [champ] 3 [champ] 5 [champ] 9 [champ] 10 | ×85 ; sup=true ; sup=false… (revue-0-a) |
+| a55d2 (Non classés) | correction non interactive q1 | « 2 » hors $ : Rappel des critères de divisibilité : Par 2 : un nombre est divisible par 2 si son chiffre d ‖ « 2 » hors $ : isibilité : Par 2 : un nombre est divisible par 2 si son chiffre des unités est 0, 2, 4, 6 ou 8, d ‖ « 0 » hors $ : est divisible par 2 si son chiffre des unités est 0, 2, 4, 6 ou 8, donc | ×41 |
+| a5ab7 (Non classés) | correction q1 | « 1 » hors $ : ons les valeurs de la série par ordre croissant : 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 5, 5, 5, 6, 6, 6, 7, ‖ « 2 » hors $ : les valeurs de la série par ordre croissant : 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7, ‖ « 2 » hors $ : s valeurs de la série par ordre croissant : 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7, | ×960 ; sup=true sup2=true sup3=false sup4=true sup5=true ; sup=true sup2=true sup3=true sup4=true sup5=true… (revue-0-a) |
+| autres-1 (Non classés) | énoncé q1 | « 2 » hors $ : ancé ? quand @greenFlag est cliqué répéter [2] fois avancer de [15] pas attendre [1] ‖ « 15 » hors $ : lag est cliqué répéter [2] fois avancer de [15] pas attendre [1] secondes fin ‖ « 1 » hors $ : [2] fois avancer de [15] pas attendre [1] secondes fin Le lutin a avancé de [ | ×36 ; sup=false ; sup=true… (revue-0-a) |
+| autres-1 (Non classés) | énoncé non interactif q1 | « 2 » hors $ : ancé ? quand @greenFlag est cliqué répéter [2] fois avancer de [15] pas attendre [1] ‖ « 15 » hors $ : lag est cliqué répéter [2] fois avancer de [15] pas attendre [1] secondes fin ‖ « 1 » hors $ : [2] fois avancer de [15] pas attendre [1] secondes fin | ×3 |
 | PEA13 (PE) | énoncé q7 | « 14 » hors $ : Pour le défilé du 14 juillet, Manon dirige une fanfare composée de | ×1 ; sup=11 nb=10 (revue-11-a) |
 | PEG20 (PE) | correction q1 | « 5 » hors $ : 5 points régulièrement espacés nommés ‖ « 5 » hors $ : (car le dénominateur de la fraction est 5). On trace la parallèle à ‖ « 3 » hors $ : (car le numérateur de la fraction est 3). On place | ×3 ; défaut (revue-0-a) |
 | PEG21 (PE) | correction q1 | « 3 » hors $ : On place 3 points ‖ « 2 » hors $ : (pour cela on choisit 2 points | ×2 ; défaut (revue-0-a) |
@@ -3600,6 +3704,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5I1D (5e) | src/exercices/5e/5I1D.ts:1087 | % sans espace insécable : 100% | ×1 |
 | 6I1B-8 (6e) | src/exercices/6e/6I1B-8.ts:364 | % sans espace insécable : 50% | ×2 |
 | 6N3P (6e) | src/exercices/6e/6N3P.ts:20 | % sans espace insécable : Résoudre des problèmes de calcul de pourcentage par complément à 100% | ×1 |
+| 6N3P (6e) | titre | « 0% » sans espace insécable : lèmes de calcul de pourcentage par complément à 100% | ×1 |
 | 6N3Q-1 (6e) | src/exercices/6e/6N3Q-1.ts:22 | % sans espace insécable : Prendre 1 %, 10 % ou 50 % d'un nombre | ×1 |
 | 6N3Q-3 (6e) | src/exercices/6e/6N3Q-3.ts:155 | % sans espace insécable : 1 : Valeurs entières et 10%, 20%...\n2 : Valeurs entières et 10%, 20%... mais aussi 25% et 50%\n3 : Valeurs entières et 4%, 23%...\n4 : Une décimale comme 34,5% | ×1 |
 | can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q10.ts:35 | Q10 : « $90$ $\%$ de $90$ » : % dans une formule séparée (espace normale sécable avant %) ; doubles espaces « $\%$  de » → $90\,\%$ de $90$ | ×1 |
@@ -3986,10 +4091,43 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-116 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : illes Catherine Langlet Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Pilote d'évaluation design automobile, tombée d ‖ espace ordinaire (sécable) avant « : » : la mécanique dès l'enfance Ce qu'elle fait : Passionnée d'automobile depuis toute petite grâ | ×18 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-117 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Hypatie d'Alexandrie | ×1 |
 | Portraits-117 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : es Hypatie d'Alexandrie Source : Jules Maurice Gaspard (1908) — Wikimedia Common ‖ espace ordinaire (sécable) avant « : » : Commons, domaine public Super-pouvoir : Enseigne les mathématiques, l'astronomie et la ‖ espace ordinaire (sécable) avant « : » : la philosophie à Alexandrie Ce qu'elle fait : Hypatie, mathématicienne et philosophe de l'Ant | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-118 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sophie Germain (livret Versailles) | ×1 |
+| Portraits-118 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : rsailles Sophie Germain Source : Auteur inconnu, début XIXe siècle — Wikimedia C ‖ espace ordinaire (sécable) avant « : » : Commons, domaine public Super-pouvoir : Pionnière de la théorie des nombres premiers ‖ espace ordinaire (sécable) avant « : » : héorie des nombres premiers Ce qu'elle fait : Sophie Germain est une pionnière des mathématiq | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-119 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Ada Lovelace | ×1 |
+| Portraits-119 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Versailles Ada Lovelace Source : Margaret Sarah Carpenter (1836) — Wikimedia Com ‖ espace ordinaire (sécable) avant « : » : Commons, domaine public Super-pouvoir : Première programmeuse de l'histoire Ce q ‖ espace ordinaire (sécable) avant « : » : programmeuse de l'histoire Ce qu'elle fait : Ada Lovelace, souvent considérée comme la premi | ×21 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-120 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Florence Nightingale | ×1 |
+| Portraits-120 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : es Florence Nightingale Source : Henry Hering (vers 1860), National Portrait Gal ‖ espace ordinaire (sécable) avant « : » : Commons, domaine public Super-pouvoir : Pionnière de la visualisation statistique des d ‖ espace ordinaire (sécable) avant « : » : stique des données de santé Ce qu'elle fait : Florence Nightingale est surtout connue pour so | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-121 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Emmy Noether | ×1 |
+| Portraits-121 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Versailles Emmy Noether Source : Auteur inconnu (vers 1900-1910) — Wikimedia Com ‖ espace ordinaire (sécable) avant « : » : Commons, domaine public Super-pouvoir : Révolutionne l'algèbre abstraite et relie symét ‖ espace ordinaire (sécable) avant « : » : relie symétrie et physique Ce qu'elle fait : Emmy Noether est une mathématicienne allemande | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-122 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Julia Robinson | ×1 |
+| Portraits-122 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : rsailles Julia Robinson Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : A contribué à résoudre le dixième problème de H ‖ espace ordinaire (sécable) avant « : » : dixième problème de Hilbert Ce qu'elle fait : Julia Robinson était une mathématicienne améric | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-123 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Mary Cartwright | ×1 |
+| Portraits-123 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : sailles Mary Cartwright Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Pionnière de la théorie du chaos Ce qu'e ‖ espace ordinaire (sécable) avant « : » : ière de la théorie du chaos Ce qu'elle fait : Mary Cartwright était une mathématicienne brita | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-124 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Dorothy Vaughan | ×1 |
+| Portraits-124 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : sailles Dorothy Vaughan Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Pionnière afro-américaine du calcul à la NASA ‖ espace ordinaire (sécable) avant « : » : ricaine du calcul à la NASA Ce qu'elle fait : Dorothy Vaughan était une mathématicienne et in | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-125 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Gladys West | ×1 |
+| Portraits-125 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Versailles Gladys West Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : A rendu le GPS possible grâce à la géodésie ‖ espace ordinaire (sécable) avant « : » : ossible grâce à la géodésie Ce qu'elle fait : Gladys West est une mathématicienne américaine | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-126 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sally Ride | ×1 |
+| Portraits-126 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e Versailles Sally Ride Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Première femme américaine dans l'espace ‖ espace ordinaire (sécable) avant « : » : me américaine dans l'espace Ce qu'elle fait : Sally Ride a été la première femme américaine d | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-127 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Shakuntala Devi | ×1 |
+| Portraits-127 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : sailles Shakuntala Devi Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Prodige du calcul mental, surnommée « l'ordinat ‖ espace ordinaire (sécable) avant « : » : mée « l'ordinateur humain » Ce qu'elle fait : Surnommée « l'ordinateur humain », Shakuntala D | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-128 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Maryam Mirzakhani | ×1 |
+| Portraits-128 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : illes Maryam Mirzakhani Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Première femme lauréate de la médaille Fields ‖ espace ordinaire (sécable) avant « : » : réate de la médaille Fields Ce qu'elle fait : Première femme lauréate de la Médaille Fields, | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-129 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Katherine Johnson | ×1 |
+| Portraits-129 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : illes Katherine Johnson Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Calcule les trajectoires des missions Mercury e ‖ espace ordinaire (sécable) avant « : » : missions Mercury et Apollo Ce qu'elle fait : Katherine Johnson, mathématicienne afro-américa | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-130 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Valérie Thomas | ×1 |
+| Portraits-130 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : rsailles Valérie Thomas Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Inventrice de la projection tridimensionnelle i ‖ espace ordinaire (sécable) avant « : » : tridimensionnelle illusoire Ce qu'elle fait : Valérie Thomas est une inventrice et scientifiq | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-131 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Claire Voisin (livret Versailles) | ×1 |
+| Portraits-131 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : ersailles Claire Voisin Source : Illustration — Livret « Sur le chemin de l'égal ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Fait avancer la conjecture de Hodge, un problèm ‖ espace ordinaire (sécable) avant « : » : ème à un million de dollars Ce qu'elle fait : Claire Voisin est une mathématicienne française | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-132 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Fei-Fei Li | ×1 |
+| Portraits-132 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e Versailles Fei-Fei Li Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Surnommée la « marraine de l'IA moderne » ‖ espace ordinaire (sécable) avant « : » : marraine de l'IA moderne » Ce qu'elle fait : Fei-Fei Li est une professeure d'informatique à | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-133 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Timnit Gebru | ×1 |
+| Portraits-133 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Versailles Timnit Gebru Source : Livret « Sur le chemin de l'égalité en mathémat ‖ espace ordinaire (sécable) avant « : » : Académie de Versailles Super-pouvoir : Dénonce les biais des systèmes d'intelligence a ‖ espace ordinaire (sécable) avant « : » : d'intelligence artificielle Ce qu'elle fait : Timnit Gebru est une chercheuse de renommée mon | ×15 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Grimuku (EN) | consigne | espace ordinaire (sécable) avant « : » : d’une flèche. Les chiffres déjà écrits sont donnés : ils ne sont pas à trouver. | ×2 ; sup=2 sup2=1 sup3=true ; sup=2 sup2=1 sup3=true nb=10 (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | espace ordinaire (sécable) avant « : » : ment choisi. Ne pas choisir un nombre déjà utilisé : le joueur qui ne peut plus jouer a perdu. Un ch | ×1 ; défaut (revue-0-a) |
 | EN-KenKen (EN) | consigne | espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici la soustraction, la multiplication et la di ‖ espace ordinaire (sécable) avant « : » : d’importance. Les nombres déjà écrits sont donnés : ils ne sont pas à trouver. ‖ espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici l’addition, la soustraction et la division. | ×55 ; sup=2 sup2=1-2-3-4 sup3=1 sup4=true ; sup=1 sup2=1-2-3-4 sup3=1 sup4=true… (revue-0-a) |
 | EN-KillerSudoku (EN) | consigne | espace ordinaire (sécable) avant « : » : deux fois dans une cage. Aucun nombre n’est donné : une cage d’une seule case donne directement son | ×3 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
+| a8c21 (Non classés) | correction q1 | « e: » sans espace insécable : au dixième: ‖ « é: » sans espace insécable : à l'unité: ‖ « e: » sans espace insécable : au centième: | ×26 ; sup=4 ; sup=1… (revue-0-a) |
 | PEN22 (PE) | consigne | espace ordinaire (sécable) avant « : » : Poser et effectuer les calculs suivants : | ×1 ; sup=3 sup2=3 (revue-0-a) |
 | PEN23 (PE) | consigne | espace ordinaire (sécable) avant « : » : Poser et effectuer les calculs suivants : | ×1 ; sup= (revue-0-a) |
 | TEA1-32 (Terminale) | consigne | espace ordinaire (sécable) avant « ? » : ffirmations suivantes sont-elles vraies ou fausses ? | ×1 ; défaut (revue-0-a) |
@@ -4230,6 +4368,22 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-115 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Laura Schittecatte ‖ guillemet sans insécable : ura Schittecatte Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-116 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Catherine Langlet ‖ guillemet sans insécable : atherine Langlet Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-117 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Hypatie d'Alexandrie | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-118 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Sophie Germain ‖ guillemet sans insécable : tylé : Elle a dû utiliser un pseudonyme masculin, « Monsieur Le Blanc », pour pouvoir correspondre a | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-119 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Ada Lovelace | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-120 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Florence Nightingale | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-121 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Emmy Noether ‖ guillemet sans insécable : e théorique. Considérée par Albert Einstein comme « le génie mathématique créatif le plus considérab | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-122 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Julia Robinson ‖ guillemet sans insécable : n Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-123 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Mary Cartwright ‖ guillemet sans insécable : t Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-124 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dorothy Vaughan ‖ guillemet sans insécable : n Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-125 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Gladys West ‖ guillemet sans insécable : t Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-126 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Sally Ride ‖ guillemet sans insécable : e Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-127 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Shakuntala Devi ‖ guillemet sans insécable : i Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×24 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-128 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Maryam Mirzakhani ‖ guillemet sans insécable : i Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-129 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Katherine Johnson ‖ guillemet sans insécable : n Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-130 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Valérie Thomas ‖ guillemet sans insécable : s Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-131 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Claire Voisin ‖ guillemet sans insécable : n Source : Illustration — Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-132 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Fei-Fei Li ‖ guillemet sans insécable : es Fei-Fei Li Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×24 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-133 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Timnit Gebru ‖ guillemet sans insécable : Timnit Gebru Source : Livret « Sur le chemin de l'égalité en mathématiques pour | ×12 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | correction q1 | guillemet sans insécable : .Flèche « ‖ guillemet sans insécable : » : ‖ guillemet sans insécable : . Flèche « | ×1000 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | guillemet sans insécable : indication et n’arrête pas la partie. Cliquer sur « Vérifier les réponses » arrête la partie en cour ‖ guillemet sans insécable : as la partie. Cliquer sur « Vérifier les réponses » arrête la partie en cours et affiche le score. | ×2 ; défaut (revue-0-a) |
 | TEA1-15 (Terminale) | correction q1 | guillemet sans insécable : la propriété : « ‖ guillemet sans insécable : ». Initialisation. Pour ‖ guillemet sans insécable : s’énonce : « | ×4 ; défaut (revue-0-a) |
@@ -4571,6 +4725,19 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-118 (Égalité filles-garçons) | énoncé | page de 671 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | Portraits-119 (Égalité filles-garçons) | énoncé | page de 669 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | Portraits-120 (Égalité filles-garçons) | énoncé | page de 759 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-121 (Égalité filles-garçons) | énoncé | page de 664 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-122 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-123 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-124 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-125 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-126 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-127 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-128 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-129 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-130 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-131 (Égalité filles-garçons) | énoncé | page de 878 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-132 (Égalité filles-garçons) | énoncé | page de 806 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-133 (Égalité filles-garçons) | énoncé | page de 806 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | EN-Gratte-ciel (EN) | énoncé q1 | table.tableauMathlive de 572 px pour 390 px | ×16 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | énoncé | page de 588 px pour 390 px | ×11 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction | page de 393 px pour 390 px | ×9 ; sup=3 ; sup=4… (revue-0-a) |
@@ -4588,6 +4755,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | HPC103 (HP) | correction | page de 402 px pour 390 px | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
 | HPC104 (HP) | correction | page de 525 px pour 390 px | ×3 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
 | HPC105 (HP) | énoncé | page de 505 px pour 390 px | ×3 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
+| a9f31 (Non classés) | énoncé | page de 490 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| a9f71 (Non classés) | énoncé | page de 491 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | PEA11 (PE) | correction | page de 685 px pour 390 px | ×1 ; défaut (revue-0-b) |
 | PEN21-1 (PE) | correction | page de 398 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | PET12 (PE) | énoncé q2 | table.jss_worksheet de 455 px pour 390 px | ×44 ; sup=9 ; sup=1… (revue-0-a) |
@@ -5243,6 +5412,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG7-Tle-18 (Égalité filles-garçons) |  q7 qcm | QCM : bonne proposition (oui,ladroitey=0) absente de la mise en évidence (y=0) | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q3 qcm | QCM : bonne proposition (oui,carelleestdécroissanteetminorée(parexemplepar0)) absente de la mise en évidence (convergente) | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q7 qcm | QCM : bonne proposition (partiellement:ellesstabilisentlenombred'étudiantesà125aulieudelelaissertendrever) absente de la mise en évidence () | ×4 ; sup=true ; sup=false (revue-0-a) |
+| a01f3 (Non classés) |  q1 qcm | QCM : bonne proposition (\dfrac14) absente de la mise en évidence (\dfrac19) | ×1 ; sup=false nb=10 (revue-2-a) |
+| a01f3 (Non classés) |  q2 qcm | QCM : bonne proposition () absente de la mise en évidence (\dfrac15) | ×9 ; sup=false nb=10 (revue-2-a) |
+| a12ef (Non classés) |  q1 qcm | QCM : bonne proposition (452) absente de la mise en évidence (238) | ×1 ; sup=false nb=10 (revue-2-a) |
+| a12ef (Non classés) |  q2 qcm | QCM : bonne proposition () absente de la mise en évidence (446) | ×9 ; sup=false nb=10 (revue-2-a) |
+| a55d2 (Non classés) |  q1 qcm | QCM : bonne proposition (2 / 5 / 10) absente de la mise en évidence () | ×8 ; sup=true ; sup=false… (revue-0-a) |
+| a55d2 (Non classés) |  q2 qcm | QCM : bonne proposition (2) absente de la mise en évidence () | ×9 ; sup=true ; sup=false… (revue-0-a) |
+| a55d2 (Non classés) |  q3 qcm | QCM : bonne proposition (3 / 9) absente de la mise en évidence () | ×5 ; sup=true ; sup=false… (revue-0-a) |
+| a55d2 (Non classés) |  q4 qcm | QCM : bonne proposition (aucundecesnombres) absente de la mise en évidence () | ×5 ; sup=true ; sup=false… (revue-0-a) |
+| a55d2 (Non classés) |  q1 qcm | QCM : bonne proposition (2 / 3 / 5 / 9 / 10) absente de la mise en évidence () | ×3 ; sup=true ; sup=false… (revue-0-b) |
+| a59w1 (Non classés) |  q1 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-32 (Terminale) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (l'affirmationestfausse.) | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-33 (Terminale) |  q1 qcm | QCM : bonne proposition (s=\1+8n,\n\in\mathbbz\\cup\3+8n,\n\in\mathbbz\\cup\5+8n,\n\in\mathbbz\\cup\7+8n,) absente de la mise en évidence (13571357) | ×2 ; sup=4 ; sup=4 nb=10 (revue-0-a) |
 | TEA1-33 (Terminale) |  q1 qcm | QCM : bonne proposition (s=\3+7n,\n\in\mathbbz\\cup\5+7n,\n\in\mathbbz\) absente de la mise en évidence (3535) | ×8 ; sup=4 ; sup=2… (revue-0-b) |
@@ -5590,6 +5769,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-7 (cm2) | énoncé q1 | nombre à 4 chiffres sans séparateur : $8905 + 9404 =$ ‖ nombre à 4 chiffres sans séparateur : $= 6251$ ‖ nombre à 4 chiffres sans séparateur : $8603~+$ | ×96 ; sup=9999 sup2=1 ; sup=9999 sup2=2… (revue-73-a) |
 | CM2N3G-1 (cm2) | correction q4 | nombre à 4 chiffres sans séparateur : $frac{34}{{\color{}\boldsymbol{1000}}}\times100 = \$ ‖ nombre sans séparateur de milliers : $frac{15}{{\color{}\boldsymbol{10000}}}\times100 =$ ‖ nombre à 4 chiffres sans séparateur : $rac{482}{{\color{}\boldsymbol{1000}}}\times10 = \d$ | ×4 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false… (revue-8-a) |
 | CM2N3G-2 (cm2) | correction q1 | nombre à 4 chiffres sans séparateur : $rac{337}{{\color{}\boldsymbol{1000}}}\times100 = \$ ‖ nombre sans séparateur de milliers : $rac{504}{{\color{}\boldsymbol{10000}}}\times1\,000$ | ×2 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false (revue-8-a) |
+| a343q (Non classés) | correction q1 | nombre à 4 chiffres sans séparateur : $3\cdot 1000 + 5\cdot 0,1 = 3\,000+0,5$ ‖ nombre à 4 chiffres sans séparateur : $3\cdot 1000 + 2\cdot 0,01 = 3\,000+0,$ ‖ nombre à 4 chiffres sans séparateur : $2\cdot 1000 + 5\cdot 0,001 = 2\,000+0$ | ×6 ; sup=false ; sup=true… (revue-0-a) |
 | PEN21 (PE) | énoncé q1 | nombre à 4 chiffres sans séparateur : $(1222)_3$ | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
 | PEN21 (PE) | correction q1 | nombre à 4 chiffres sans séparateur : $(1222)_3=1\times3^3+2\times3^2+$ ‖ nombre à 4 chiffres sans séparateur : $1899=(5352)_7$ ‖ nombre à 4 chiffres sans séparateur : $(1000)_3$ | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | PEN22 (PE) | énoncé q1 | nombre à 4 chiffres sans séparateur : $(221)_{3} + (1002)_{3}$ ‖ nombre à 4 chiffres sans séparateur : $(2122)_{4} - (1332)_{4}$ ‖ nombre sans séparateur de milliers : $(10000)_{2} + (111)_{2}$ | ×30 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
@@ -5645,6 +5825,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeAN13 (CAN) | correction q9 | exposant 1 : $\times 0-4 \ln\left(\mathrm{e}^{1}\right)+5\times (-2)\\$ | ×1 ; défaut nb=10 (revue-1-a) |
 | canTSpeS09 (CAN) | correction q2 | exposant 1 : ${\dfrac{4}{n^3}-1}{\dfrac{1}{n^1}}$ ‖ exposant 1 : $imits_{n\to\infty} \dfrac{1}{n^1}=0$ ‖ exposant 1 : ${\dfrac{7}{n^6}+1}{\dfrac{1}{n^1}}$ | ×4 ; défaut nb=10 (revue-1-a) |
 | EgaliteFG7-Tle-17 (Égalité filles-garçons) | correction q7 | exposant 1 : $=1)=\dbinom{7}{1}\times 0{,}24^1\times 0{,}76^6\approx {\col$ | ×1 ; sup=true (revue-0-a) |
+| a0d16 (Non classés) | correction q4 | exposant 1 : $color{}\boldsymbol{3,4\cdot 10^{1}}}$ ‖ exposant 1 : $8,303\cdot 10^{1} = {\color{}\boldsymbol{83$ ‖ exposant 1 : ${\color{}\boldsymbol{7\cdot 10^{1}}}$ | ×3 ; sup=1 sup2=2 ; sup=2 sup2=3… (revue-1-a) |
+| a0d16 (Non classés) | énoncé q1 | exposant 1 : $8,303\cdot 10^{1}$ | ×1 ; sup=2 sup2=3 (revue-5-a) |
 | PEN16 (PE) | correction q1 | exposant 1 : $10^{1}=10$ | ×50 ; sup=1 sup2=1 sup3=1 sup4=false sup5=true ; sup=1 sup2=1 sup3=1 sup4=true sup5=true… (revue-0-a) |
 | PEN22 (PE) | correction q1 | exposant 1 : $3^1$ | ×30 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | PEN22 (PE) | correction non interactive q1 | exposant 1 : $3^1$ | ×4 |
@@ -6076,7 +6258,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 698bb (Non classés) | src/exercices/can/canc3a-2025/canc3a-2025-Q19.ts:35 | consigne à l'impératif : Complète.  | ×1 |
 | 8c3df (Non classés) | src/exercices/can/canCE1a-2026/canCE1-2026-Q11.ts:27 | consigne à l'impératif : Complète cette suite logique. | ×1 |
 | 9f722 (Non classés) | src/exercices/can/canc3a-CM1-2026/canc3a-CM1-2026-Q14.ts:31 | consigne à l'impératif : Complète. | ×1 |
+| a12ef (Non classés) | énoncé q1 | impératif : Entoure le nombre qui a | ×11 ; sup=false ; sup=true… (revue-0-a) |
+| a12ef (Non classés) | énoncé non interactif q1 | impératif : Entoure le nombre qui a | ×1 |
 | a2993 (Non classés) | src/exercices/can/canCE1a-2026/canCE1-2026-Q18.ts:210 | consigne à l'impératif : Coche la pendule qui indique ${heureAffichage}.&lt;br>${dessin}&lt;br> | ×1 |
+| a343a (Non classés) | énoncé q1 | impératif : Détermine le reste de la division euclidienne de | ×12 ; sup=false ; sup=true… (revue-0-a) |
+| a343a (Non classés) | énoncé non interactif q1 | impératif : Détermine le reste de la division euclidienne de | ×1 |
+| a343t (Non classés) | énoncé q1 | impératif : Complète cette suite logique de nombres : | ×12 ; sup=false ; sup=true… (revue-0-a) |
+| a343t (Non classés) | énoncé non interactif q1 | impératif : Complète cette suite logique de nombres : | ×1 |
+| autres-13 (Non classés) | énoncé q1 | impératif : Complète la suite de nombres. | ×9 ; défaut ; défaut nb=10 (revue-0-a) |
+| autres-13 (Non classés) | énoncé non interactif q1 | impératif : Complète la suite de nombres. | ×1 |
 | b5563 (Non classés) | src/exercices/can/canCE1a-2026/canCE1-2026-Q20.ts:151 | consigne à l'impératif : Coche la représentation de la fraction un demi. | ×1 |
 | b949c (Non classés) | src/exercices/can/canCE1a-2026/canCE1-2026-Q15.ts:243 | consigne à l'impératif : Coche le numéro de la figure qui a deux angles droits. | ×1 |
 | d4573 (Non classés) | src/exercices/can/can6a-2025/can6a-2025-Q9.ts:34 | consigne à l'impératif : Complète.  | ×1 |
@@ -6208,6 +6398,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG7-Tle-17 (Égalité filles-garçons) | énoncé non interactif q2 | pas de virgule avant « soit » : que l'élève soit une fille et admise en CPGE. ‖ pas de virgule avant « soit » : que cet élève soit un garçon ? ‖ pas de virgule avant « soit » : robabilité qu'un seul des sept élèves tirés au sort soit admis en CPGE (arrondie au centième). | ×4 |
 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé q9 | pas de virgule avant « alors » : non autorisée à concourir à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'int | ×2 ; sup=true sup2=true ; sup=false sup2=true (revue-0-a) |
 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif q9 | pas de virgule avant « alors » : non autorisée à concourir à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'int | ×1 |
+| Portraits-123 (Égalité filles-garçons) | consigne | pas de virgule avant « soit » : od a inspiré la théorie du chaos bien avant qu'elle soit célèbre ! Parcours : Mathématicienne | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-132 (Égalité filles-garçons) | consigne | pas de virgule avant « soit » : e l'IA actuelle et milite pour que cette discipline soit centrée sur l'humain et l'inclusion. | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| a2b75 (Non classés) | correction q1 | pas de virgule avant « soit » : te avec cette observation (les autres valeurs étant soit trop petites, soit supérieures au quart res | ×4 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
+| a2b75 (Non classés) | correction non interactive q1 | pas de virgule avant « soit » : te avec cette observation (les autres valeurs étant soit trop petites, soit supérieures au quart res | ×1 |
 | PEA13 (PE) | correction q1 | pas de virgule avant « soit » : cm (dans le sens de la largeur). Pour que ce soit le plus petit carré possible, on cherche le | ×3 ; sup=10 ; sup=11 nb=10 (revue-10-a) |
 | PEN14 (PE) | correction q1 | pas de virgule avant « soit » : décimale soit ‖ pas de virgule avant « soit » : donc identique à la dernière décimale de la période soit | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | PEN14 (PE) | correction non interactive q1 | pas de virgule avant « soit » : décimale soit | ×1 |
@@ -6299,6 +6493,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6N3-02 (CAN) | src/exercices/can/6e/can6N3-02.ts | Énoncé « Determiner l'abscisse du point $A$. » (accent manquant) ; correction « du point A » hors maths, sans point final. → Déterminer l'abscisse du point $A$. | ×1 |
 | CM2N2E-2 (cm2) | correction q1 | majuscule sans accent : pas. A partir de la graduation | ×14 ; sup=3 sup2=true sup3=true ; sup=3 sup2=false sup3=true… (revue-8-a) |
 | CM2N2U-2 (cm2) | src/exercices/CM2/CM2N2U-2.ts | Libellé du paramètre « Enoncé avec « nombre mixte » » (majuscule sans accent) → Énoncé | ×1 |
+| a343q (Non classés) | titre | majuscule sans accent : Ecriture décimale | ×1 |
 | TSA3-42 (Terminale) | titre | majuscule sans accent : Etudier la convexité d'une fonction (QCM issus suj | ×1 |
 | TSA4-40 (Terminale) | correction q1 | majuscule sans accent : . A la calculatrice, on trouve une valeur approc | ×12 ; sup=6 ; sup=5… (revue-0-a) |
 | TSA4-40 (Terminale) | correction non interactive q1 | majuscule sans accent : . A la calculatrice, on trouve une valeur approc | ×1 |
@@ -6362,6 +6557,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N4B-2 (cm2) | titre | guillemets droits : Jouer au "compte est bon" | ×1 |
 | CM2N4B-3 (cm2) | titre | guillemets droits : Jouer au "compte est bon" en version semi-aléatoire | ×1 |
 | CM2N4B-4 (cm2) | titre | guillemets droits : Jouer au "compte est bon" original | ×1 |
+| a1e38 (Non classés) | énoncé q1 | guillemets droits : éléments dans le ratio "carré bleu : carré gris : rond" de ‖ guillemets droits : , le ratio "carré bleu : carré gris : rond" est de ‖ guillemets droits : éléments dans le ratio "soleil : étoile : hexagone" de | ×324 ; sup=5 sup3=1 ; sup=5 sup3=2… (revue-24-a) |
 | TSG1-QCM03 (Terminale) | énoncé q1 | guillemets droits : cette urne, sans remise. On appelle "tirage" la liste non ordonnée des numéros des 4 b | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSG1-QCM03 (Terminale) | énoncé non interactif q1 | guillemets droits : cette urne, sans remise. On appelle "tirage" la liste non ordonnée des numéros des 4 b | ×1 |
 | TSG1-QCM04 (Terminale) | énoncé q1 | guillemets droits : une pièce de monnaie. Le résultat d'un lancer est "pile" ou "face". On note la liste ordonnée d ‖ guillemets droits : de monnaie. Le résultat d'un lancer est "pile" ou "face". On note la liste ordonnée des dix rés | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -6423,6 +6619,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3D (6e) | correction q1 | double espace : . [figure] [figure] [figure] [figure] ‖ double espace : . [figure] [figure] [figure] [figure] [fi | ×75 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N3L (6e) | consigne | double espace : Donner la valeur des calculs suivants. La réponse doit être four | ×1 ; sup=false sup2=true (revue-2-a) |
 | 6N3N (6e) | énoncé q1 | double espace : des voix et Céline a obtenu ‖ double espace : des voix et Hugo a obtenu ‖ double espace : des voix et Kamel a obtenu | ×3 ; sup=2 ; sup=3 nb=10 (revue-2-a) |
+| 6N3O (6e) | énoncé non interactif q1 | double espace : g de cet aliment, il y a ... g de sucres. b) On peut ‖ double espace : g de cet aliment, il y a ... g de sucres. b) On peut en d ‖ espace avant ponctuation : g de cet aliment, il y a ... g de sucres. b) On peut | ×45 |
+| 6N3P (6e) | énoncé q1 | double espace : en voiture et les autres à pied. Quel est le pourcen ‖ double espace : el est le pourcentage des élèves qui se déplacent à pied ? [champ] % | ×2 ; défaut nb=10 (revue-1-a) |
+| 6N3P (6e) | correction q1 | double espace : des élèves de ce collège se déplacent à pied. | ×1 ; défaut nb=10 (revue-1-a) |
 | BP1AUTO061 (BP1) | correction q1 | double espace : , son ordonnée est l'image de son abscisse. | ×21 ; sup=4 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | BP1CF01 (BP1) | énoncé q1 | double espace : Augmenter une valeur de ‖ double espace : Diminuer une valeur de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1CF01 (BP1) | énoncé non interactif q1 | double espace : Augmenter une valeur de | ×1 |
@@ -6843,6 +7042,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-Gratte-ciel (EN) | consigne | double espace : e du ciel. Chaque case contient un immeuble de ou 10 étages. Les immeubles d’une même ran | ×1 ; sup=1 (revue-1-a) |
 | HPC103 (HP) | correction q1 | espace avant ponctuation : colonnes . La matrice ‖ espace avant ponctuation : colonnes . Le produit ‖ espace avant ponctuation : colonne . Le produit | ×24 ; défaut ; défaut nb=10 (revue-0-a) |
 | HPC105 (HP) | correction q3 | double espace : . On en déduit que la matrice de | ×2 ; sup=1 (revue-1-a) |
+| a49d5 (Non classés) | énoncé q1 | double espace : un entier. À quelle expression est égale | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
+| a49d5 (Non classés) | énoncé non interactif q1 | double espace : un entier. À quelle expression est égale | ×1 |
+| autres-1 (Non classés) | énoncé q1 | double espace : de combien de pas le lutin a-t-il avancé ? quand @greenFlag est cliqué répéter [2] fois ava ‖ double espace : de pas le lutin a-t-il avancé ? quand @greenFlag est cliqué répéter [2] fois avancer de [15 ‖ double espace : l avancé ? quand @greenFlag est cliqué répéter [2] fois avancer de [15] pas attendre | ×96 ; sup=false ; sup=true… (revue-0-a) |
+| autres-1 (Non classés) | énoncé non interactif q1 | double espace : de combien de pas le lutin a-t-il avancé ? quand @greenFlag est cliqué répéter [2] fois ava ‖ double espace : de pas le lutin a-t-il avancé ? quand @greenFlag est cliqué répéter [2] fois avancer de [15 ‖ double espace : l avancé ? quand @greenFlag est cliqué répéter [2] fois avancer de [15] pas attendre | ×8 |
 | PEN11 (PE) | correction q1 | double espace : Ce nombre peut s'écrire sous la forme d'une fraction irréductible qui a un facteur différen | ×4 ; sup=3-7-11-13 ; sup=3-7-11-13 nb=10 (revue-0-a) |
 | TEA1-34 (Terminale) | correction q1 | double espace : On observe que si | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEC1-51 (Terminale) | correction q2 | double espace : . Ainsi, on obtient : | ×3 ; défaut nb=10 (revue-1-a) |
@@ -7092,6 +7295,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3I-1 (6e) | énoncé non interactif q1 | points de suspension : ... | ×12 |
 | 6N3I-3 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{89}{100}\quad\quad....\quad\quad\dfrac{9}{10}$ | ×5 |
 | 6N3I-4 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{30}{16}\quad....\quad\dfrac{29}{16}$ | ×8 |
+| 6N3O (6e) | énoncé non interactif q1 | points de suspension : g de cet aliment, il y a ... g de sucres. b) On peut en ‖ points de suspension : g de cet aliment contiennent ... g de sucres. c) On peut au ‖ points de suspension : g de cet aliment contiennent ... g de sucres. | ×15 |
 | 6N5-8 (6e) | src/exercices/6e/6N5-8.ts:19 | « ... » : Résoudre des problèmes de type : ... de plus ou ... de moins | ×1 |
 | BP2AutoD3 (BP2) | énoncé q1 | points de suspension : La moyenne de la série ci-dessous est ... | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP2AutoD3 (BP2) | énoncé non interactif q1 | points de suspension : La moyenne de la série ci-dessous est ... | ×1 |
@@ -7369,6 +7573,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | beta/QcmJsonGenerator.ts (hors référentiel) | src/exercices/beta/QcmJsonGenerator.ts:71 | « ... » : Correct ! $\\pi \\approx 3,14159...$ | ×1 |
 | can/can5a-2024/can5a-2024-Q23.ts (hors référentiel) | src/exercices/can/can5a-2024/can5a-2024-Q23.ts:68 | « ... » : Si on part du haut, on a $1$ cube de côté, ce qui fait $1$ cube, puis $2$ cubes de côtés ce qui fait $2\\times2=4$ cubes...&lt;br> | ×1 |
 | can/can6a-2024/can6a-2024-Q14.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q14.ts:6 | « ... » : Multiplier par 0,1... | ×1 |
+| a343b (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| a343k (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| a343m (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $=....$ | ×1 |
+| a343p (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| a343t (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| a343w (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....\text{ m}$ | ×1 |
+| a3f3b (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....\text{ cm}^3$ | ×1 |
+| a3x3b (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| a55d2 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $}{\|l\|c\|c\|c\|c\|c\|} \hline \text{... est divisible} & \text{par$ | ×1 |
+| a55d2 (Non classés) | correction non interactive q1 | points de suspension en maths (\ldots) : $}{\|l\|c\|c\|c\|c\|c\|} \hline \text{... est divisible} & \text{par$ | ×1 |
+| a8c21 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $............ &lt; 9\,858,999 &lt; .$ ‖ points de suspension en maths (\ldots) : $............ &lt; 9\,858,999 &lt; ....$ ‖ points de suspension en maths (\ldots) : $............ &lt; 9\,858,999 &lt; .......$ | ×32 |
+| autres-13 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | c0f91 (Non classés) | src/exercices/QCMStatiques/QCMBacSuites.ts:381 | « ... » : def seuil() :\n n=0\n u=15\n while ... ...:\n n=n+1\n u=1,2*u+12\n return(n) | ×1 |
 | exemple-qcm-json (Non classés) | src/exercices/modèlesExos/ExempleQcmJson.ts:54 | « ... » : Correct ! $\\pi \\approx 3,14159...$ | ×1 |
 | PEG20 (PE) | correction q1 | points de suspension : ... On trace le segment | ×1 ; défaut (revue-0-a) |
@@ -7530,6 +7746,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-Shikaku (EN) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×2 ; sup=5 sup2=5 sup3=3 (revue-0-a) |
 | EN-SquarO (EN) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×28 ; sup=5 sup2=5 sup3=true sup4=7 ; sup=5 sup2=5 sup3=true sup4=1… (revue-0-a) |
 | EN-TablesEffacees (EN) |  q1 tables-effacees-grille | format tables-effacees-grille : à tester à la main | ×20 ; sup=3 ; sup=1… (revue-0-a) |
+| a01f3 (Non classés) |  q2 qcm | aucune proposition | ×9 ; sup=false nb=10 (revue-2-a) |
+| a12ef (Non classés) |  q2 qcm | aucune proposition | ×9 ; sup=false nb=10 (revue-2-a) |
+| a9f71 (Non classés) |  q1 diagram-builder | format diagram-builder : à tester à la main | ×2 ; défaut (revue-0-a) |
 | PET13 (PE) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×64 ; sup=9 ; sup=1… (revue-0-a) |
 | PET14 (PE) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×64 ; sup=9 ; sup=1… (revue-0-a) |
 | TEC1-41 (Terminale) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
@@ -8016,6 +8235,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2autoC (6e) |  | 240 combinaisons : 31 passées (couverture par paires) | ×1 |
 | 6N2E (6e) |  | 256 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 6N3H-1 (6e) |  | 4992 combinaisons : 109 passées (couverture par paires) | ×1 |
+| 6N3O (6e) |  | 375 combinaisons : 78 passées (couverture par paires) | ×1 |
 | can2N10-05 (CAN) |  | 243 combinaisons : 81 passées (couverture par paires) | ×1 |
 | can2N10-06 (CAN) |  | 243 combinaisons : 82 passées (couverture par paires) | ×1 |
 | CM1N1E (cm1) |  | 1680 combinaisons : 71 passées (couverture par paires) | ×1 |

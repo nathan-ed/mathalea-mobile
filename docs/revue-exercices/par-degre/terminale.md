@@ -1,17 +1,17 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **54 sur 293**. Constats confirmés : **38**.
+Exercices relus : **64 sur 293**. Constats confirmés : **53**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 11 |
-| Rendu cassé (formule, débordement, erreur) | 1 |
-| Mise en évidence (miseEnEvidence et champs) | 3 |
+| Contenu mathématique faux | 15 |
+| Rendu cassé (formule, débordement, erreur) | 2 |
+| Mise en évidence (miseEnEvidence et champs) | 4 |
 | Typographie (nombres, espaces, notations) | 13 |
-| Rédaction (français, titres, consignes) | 10 |
+| Rédaction (français, titres, consignes) | 19 |
 
 ## Contenu mathématique faux
 
@@ -26,6 +26,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeE01 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE01.ts:51 |
 | canTSpeE02 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE02.ts:51 |
 | canTSpeE03 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE03.ts:51 |
+| TSA1-33 | C1 Contenu mathématique faux | « ≈ » posé d'office devant u_2, u_3 et u_4, même quand la valeur est exacte (u_2≈6,75 ; avec u_0=12 : u_2≈9, u_3≈8,5, u_4≈8,25), et « = » devant u_1 même si elle était arrondie. | Choisir « = » ou « \approx » selon que texNombre(termes[k], 3) arrondit ou non. | src/exercices/TSpe/TSA1-33.ts:290 |
+| TSA1-44 | C1 Contenu mathématique faux | Appel Python écrit $\mathtt{seuil(0,001)}$ : avec la virgule, Python passe deux arguments (0 et 1) et la fonction plante ; l'élève qui recopie l'appel n'obtient pas 200. | Écrire l'appel avec un point (seuil(0.001)) en texteCode, comme dans le programme. | src/exercices/TSpe/TSA1-44.ts:119 |
+| TSA1-46 | C1 Contenu mathématique faux | « ≈ » devant des valeurs exactes : $u_2\approx 11\,375$ alors que u_2=11 375 est calculé exactement plus haut. | Choisir « = » ou « \approx » selon que texNombre(terme, 1) arrondit ou non. | src/exercices/TSpe/TSA1-46.ts:150 |
+| TSA1-47 | C1 Contenu mathématique faux | De u_n>8 000, la correction tire « 8 000-u_n ⩽ 0 » puis « décroissante », alors que l'inégalité stricte donne une suite strictement décroissante ; la phrase « la suite (v_n) est géométrique de raison 0,75 » est ensuite répétée telle quelle. | « 8 000-u_n&lt;0 », « u_{n+1}-u_n&lt;0 », « strictement décroissante » ; supprimer la phrase répétée (ligne 158 ou celle qui la précède). | src/exercices/TSpe/TSA1-47.ts:139 |
 | TSA1-20 | C1 Contenu mathématique faux | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. | Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | TSpe/TSA1-20.ts |
 | TSA1-27 | C1 Contenu mathématique faux | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. | Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | TSpe/TSA1-27.ts |
 
@@ -33,6 +37,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| TSA1-42 | X5 Débordement à 390 px | Correction, partie A question 5 : justifications en \text{} au bout de chaque ligne du aligned (« car, pour a>0 et b>0, a strictement inférieur à b ⟺ … ») : la ligne dépasse largement les 390 px. | Sortir les justifications de l'aligned (phrases sous le calcul) ou les raccourcir (« car ln est strictement croissante sur ]0 ; +∞[ »). | src/exercices/TSpe/TSA1-42.ts:199 |
 | TSA1-12 | X5 Débordement à 390 px | Correction à 390 px : le calcul aligné avec ses justifications en vert (« ← hypothèse de récurrence ») élargit la page à 451 px ; « \text{car 2n+6=2(n+1)+4} » écrit en texte droit au lieu de formule. | Justifications sous chaque ligne sur petit écran ; « car $2n+6=2(n+1)+4$ ». | TSpe/TSA1-12.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
@@ -42,6 +47,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpea-2026 | M4 QCM : évidence ≠ proposition | Q24 (QCM OUI/NON) : « (proche de $0$ mais non nul) » inutile et trompeur ; mise en évidence « pas colinéaires (NON) » au lieu de la proposition « NON » ; propositions en capitales | « Le déterminant est non nul : les vecteurs ne sont pas colinéaires. » et Non en évidence | src/exercices/can/canTspea-2026/canTspea-2026-Q24.ts:70 |
 | canTSpeE06 | M1 Évidence refusée par le champ | Seul le radicande est mis en évidence ($\sqrt{⟦236⟧}$) alors que le champ attend $\sqrt{236}$ ; norme notée \vert\vert au lieu de \\| | $${miseEnEvidence(`\\sqrt{${…}}`)}$ ; \\|\vec u\\| | src/exercices/can/TSpe/canTSpeE06.ts:47 |
 | TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
+| TSA1-30 | M5 Texte en évidence | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. | « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | TSpe/TSA1-30.ts |
 
 ## Typographie (nombres, espaces, notations)
 
@@ -74,6 +80,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeS08 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS08.ts |
 | canTSpeS08 | R1 Titre | Titre « Limite de $\sqrt(n)-n^p$ » : \sqrt(n) mal écrit (rend la racine de « ( ») | $\sqrt{n}-n^p$ | src/exercices/can/TSpe/canTSpeS08.ts:7 |
 | canTSpeS09 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS09.ts |
+| TSA1-32 | R16  | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». | Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | src/exercices/TSpe/TSA1-32.ts:104 |
+| TSA1-40 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. | texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | src/exercices/TSpe/TSA1-40.ts:92 |
+| TSA1-42 | R16  | « Quelle que soit la quantité de prises » (des prises se comptent) ; « la 14e prise » sans exposant. | « Quel que soit le nombre de prises » ; $14^{\text{e}}$. | src/exercices/TSpe/TSA1-42.ts:190 |
+| TSA1-43 | R3  | Seuil écrit sans espace des milliers dans les maths de l'énoncé, des propositions et de la correction : $u_n>10000$, $w\leqslant 2000$. | texNombre(seuil) dans les $…$ (garder 10000 dans le code Python). | src/exercices/TSpe/TSA1-43.ts:46 |
+| TSA1-44 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « f est strictement croissante sur … » et « (u_n) converge vers 1 » (\text{…}). | Phrase en texteEnCouleurEtGras, intervalle et 1 seuls en miseEnEvidence. | src/exercices/TSpe/TSA1-44.ts:172 |
+| TSA1-45 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « (v_n) est géométrique de raison 0,85 et de premier terme v_0=… ». | Phrase en texteEnCouleurEtGras, raison et premier terme seuls en miseEnEvidence. | src/exercices/TSpe/TSA1-45.ts:142 |
+| TSA1-45 | R1 Titre | Énoncé : « 15 % des clients » et « 900 nouveaux clients » hors des $ (le reste de l'énoncé les met). | Taux et apport entre $ : $15\,\%$ et $900$ (texNombre). | src/exercices/TSpe/TSA1-45.ts:69 |
+| TSA1-46 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « strictement décroissante », « géométrique de raison 0,75 ». | texteEnCouleurEtGras pour le texte, miseEnEvidence pour la raison seule. | src/exercices/TSpe/TSA1-46.ts:129 |
+| TSA1-47 | R1 Titre | Années entre $ : « En $2024$ », « l’année $2025$ » (les années restent hors des maths). | Écrire ${anneeInitiale} et ${anneeInitiale + 1} sans $. | src/exercices/TSpe/TSA1-47.ts:108 |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
