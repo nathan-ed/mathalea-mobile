@@ -3,11 +3,11 @@
 // (`pnpm build:moteur`) et chargé à l'exécution par une application hôte, qui
 // peut ainsi recevoir les nouveaux exercices sans être mise à jour.
 // L'API est versionnée par API_MOTEUR : l'hôte refuse un moteur incompatible.
-import 'katex/dist/katex.min.css'
 import 'boxicons/css/boxicons.min.css'
-import '../app.css'
+import 'katex/dist/katex.min.css'
 import seedrandom from 'seedrandom'
 import { mount, unmount } from 'svelte'
+import '../app.css'
 
 import Keyboard from '../components/keyboard/Keyboard.svelte'
 
@@ -27,12 +27,12 @@ import {
   mathaleaRenderDiv,
 } from '../lib/mathalea'
 import { mathaleaWriteStudentPreviousAnswers } from '../lib/mathaleaUtils'
+import { referentielLocale } from '../lib/stores/languagesStore'
 import {
   interactivityTypeToCustomElementFormat,
   type IExercice,
   type InterfaceParams,
 } from '../lib/types'
-import { referentielLocale } from '../lib/stores/languagesStore'
 import { loadMathLive } from '../modules/loaders'
 import katex from 'katex'
 import {
@@ -61,7 +61,10 @@ export interface ParamsExercice {
   sup2?: string
   sup3?: string
   sup4?: string
+  sup5?: string
   alea?: string
+  /** false : énoncés sans champs de réponse ni QCM cliquables (export, impression). Par défaut : true */
+  interactif?: boolean
 }
 
 export interface QuestionPreparee {
@@ -129,16 +132,17 @@ export async function preparerExercice(
   numero: number,
 ): Promise<ExercicePrepare> {
   const exercice = await mathaleaLoadExerciceFromUuid(params.uuid)
+  const interactif = params.interactif !== false
   const p: InterfaceParams = {
     ...params,
     alea: params.alea ?? mathaleaGenerateSeed(),
-    interactif: '1',
+    interactif: interactif ? '1' : '0',
   } as InterfaceParams
   mathaleaHandleParamOfOneExercice(exercice, p)
-  exercice.interactif = true
+  exercice.interactif = interactif
   exercice.numeroExercice = numero
   if (exercice.typeExercice === 'simple') {
-    mathaleaHandleExerciceSimple(exercice, true, numero)
+    mathaleaHandleExerciceSimple(exercice, interactif, numero)
   } else if (typeof exercice.nouvelleVersionWrapper === 'function') {
     seedrandom(String(exercice.seed), { global: true })
     exercice.nouvelleVersionWrapper(numero)
@@ -277,7 +281,7 @@ export function monterClavier(cible: HTMLElement): () => void {
 
 /** Paramètre réglable d'un exercice, comme dans le formulaire du site (Settings.svelte) */
 export interface ParametreExercice {
-  cle: 'sup' | 'sup2' | 'sup3' | 'sup4'
+  cle: 'sup' | 'sup2' | 'sup3' | 'sup4' | 'sup5'
   titre: string
   type: 'nombre' | 'liste' | 'case' | 'texte'
   max?: number // nombre : de 1 à max
@@ -303,7 +307,7 @@ const optionsDe = (aide: string) =>
     .map((m) => ({ valeur: m[1], libelle: m[2].trim() }))
 
 /**
- * Nombre de questions et paramètres (sup à sup4) d'un exercice, avec leurs
+ * Nombre de questions et paramètres (sup à sup5) d'un exercice, avec leurs
  * valeurs par défaut, pour l'éditeur de parcours de l'hôte.
  */
 export async function decrireExercice(
@@ -311,7 +315,7 @@ export async function decrireExercice(
 ): Promise<DescriptionExercice> {
   const e = await mathaleaLoadExerciceFromUuid(uuid)
   const parametres: ParametreExercice[] = []
-  const suffixes = ['', '2', '3', '4'] as const
+  const suffixes = ['', '2', '3', '4', '5'] as const
   for (const n of suffixes) {
     const cle = `sup${n}` as ParametreExercice['cle']
     const exo = e as unknown as Record<string, unknown>

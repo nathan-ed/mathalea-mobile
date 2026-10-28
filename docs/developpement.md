@@ -542,9 +542,8 @@ Le mécanisme est en place (0.1.1) ; le moteur est publié avec le site sur
   (`tasks/publier_moteur.mjs`) et dépose `moteur-<version>.tar.gz`, puis
   `mise-a-jour.json` (version, API, date, taille, SHA-256) et
   `mise-a-jour.json.sig` (signature Ed25519) dans `REMOTE_RELEASES_PATH`.
-  Ces fichiers sont dans `moteur/fichiers/tasks/` et le correctif
-  `moteur/mathalea.patch` (`package.json`, `.env.example`) en attendant la
-  MR. Deux scripts séparés plutôt qu'un seul : le moteur peut être republié
+  Ces fichiers sont dans MathALÉA depuis la MR !9394 (copie dans
+  `moteur/fichiers/tasks/`). Deux scripts séparés plutôt qu'un seul : le moteur peut être republié
   seul, et un échec du moteur (clé absente) n'empêche pas le site de partir.
 - Clé : mode d'emploi pour qui publie dans
   `moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`
@@ -611,9 +610,10 @@ Reste à faire :
 - Essayer sur iPhone (TestFlight) et sur d'autres téléphones Android :
   clavier, figures, PDF, mode avion.
 - Clé d'API Google pour lire les dossiers Google Drive.
-- CI : quand le moteur sera dans MathALÉA, supprimer `moteur/` et construire
-  depuis la forge. La release `moteur` du miroir GitHub ne sert plus (à
-  supprimer).
+- CI : le moteur est dans MathALÉA (MR !9394) ; reverser nos ajouts de
+  `moteur/fichiers/src/moteur/index.ts` (`chemin`, `titreHtml`,
+  `appMathalea`), puis supprimer `moteur/` et construire depuis la forge. La
+  release `moteur` du miroir GitHub ne sert plus (à supprimer).
 
 ## 0.3.5 : référentiel affiché comme sur le site (fait)
 
@@ -630,6 +630,20 @@ Reste à faire :
 - Vérification : `node e2e/referentiel-site.mjs FR|CH` déplie tout le menu du
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
+
+## 0.4.6 : moteur au main de MathALÉA, tableaux larges (fait)
+
+- Moteur construit au `main` de MathALÉA du 27 octobre 2026 (8757328d), où le
+  moteur est fusionné : `moteur/mathalea.patch` supprimé, `index.ts` fusionné
+  à trois voies (`sup5` et `interactif: false` de MathALÉA, `chemin`,
+  `titreHtml` et `appMathalea` de l'app).
+- Un tableau plus large que l'écran (5N2B) élargissait toute la page sur
+  téléphone, et le clavier de MathALÉA, qui suit `innerWidth`, s'élargissait
+  avec : page décalée, boutons du bas coupés. `overflow-x: clip` sur `html`
+  (sur `body`, il ne suffit pas).
+- Aussi depuis 0.4.5 : paliers ouverts à une date, analyse par une IA mise de
+  côté, « Récupérer mes données » au premier lancement, Explorer par degré
+  et parcours suisses, fiches de cours.
 
 ## Analyse par une IA mise de côté
 

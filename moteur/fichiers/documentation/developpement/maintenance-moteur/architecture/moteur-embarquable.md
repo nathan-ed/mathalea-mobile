@@ -23,7 +23,7 @@ SHA-256 de chaque fichier). Environ 70 Mo, 20 Mo compressé.
 | Fonction                            | Rôle                                                                                                                                            |
 | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `initialiser()`                     | charge MathLive ; `window.notify` remplacé par un simple journal (pas de Bugsnag)                                                               |
-| `preparerExercice(params, numero)`  | charge l'exercice par uuid, applique les paramètres (`n`, `s`…) et la graine, renvoie titre, graine et questions (contexte, énoncé, correction) |
+| `preparerExercice(params, numero)`  | charge l'exercice par uuid, applique les paramètres (`n`, `s`…) et la graine, renvoie titre, graine et questions (contexte, énoncé, correction) ; avec `interactif: false`, énoncés imprimables (sans champs ni QCM cliquables) |
 | `afficher(element)`                 | KaTeX, MathLive, figures réduites à la largeur de l'élément (`ajusterFigures`)                                                                  |
 | `verifier(exercice, i)`             | vérifie la question `i`, même logique que `QuestionParPage.svelte`                                                                              |
 | `ecrireReponses(reponses)`          | réinjecte des réponses (`mathaleaWriteStudentPreviousAnswers`)                                                                                  |

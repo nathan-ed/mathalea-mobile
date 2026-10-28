@@ -320,10 +320,14 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
 - Jamais importé dans le code : chargé à l'exécution depuis `static/moteur`
   (non versionné). Contrat : `src/lib/moteur.ts` (`API_ATTENDUE = 1`).
 - Source : `moteur/` = `COMMIT` (commit de MathALÉA), `fichiers/`
-  (`src/moteur/index.ts`, `vite.moteur.config.ts`), `version.patch`
-  (`version.ts` sans appel réseau). `pnpm moteur` (`scripts/moteur.sh`) clone
+  (`src/moteur/index.ts`, `vite.moteur.config.ts`…). Le moteur est dans
+  le `main` de MathALÉA depuis la MR !9394 (plus de correctif) ; nos
+  `fichiers/` y sont en avance (`chemin`, `titreHtml`, `appMathalea`) et
+  `main` a ses ajouts (`sup5`, `interactif: false`) : en changeant
+  `COMMIT`, fusionner à trois voies `src/moteur/index.ts` (base : version de
+  307c21e7a). `pnpm moteur` (`scripts/moteur.sh`) clone
   MathALÉA à ce commit dans `~/.cache/mathalea-mobile/mathalea` (ou
-  `MATHALEA_CACHE`), y copie `fichiers/`, applique le correctif, construit
+  `MATHALEA_CACHE`), y copie `fichiers/`, construit
   (6 Go de RAM, environ 2 min) et copie `dist-moteur` dans `static/moteur`.
   Le clone est remis à l'état exact du commit à chaque fois : n'y rien éditer.
   Éditer le moteur = éditer `moteur/fichiers/`. Version du moteur :

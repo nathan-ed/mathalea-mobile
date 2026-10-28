@@ -29,6 +29,11 @@
   --app-gris: var(--color-coopmathsdark-corpus-light);
 }
 
+html {
+  /* Sur un téléphone, un contenu plus large que l'écran élargit sinon toute
+     la page (et le clavier de MathALÉA, qui suit la largeur de la fenêtre) */
+  overflow-x: clip;
+}
 html,
 body {
   margin: 0;

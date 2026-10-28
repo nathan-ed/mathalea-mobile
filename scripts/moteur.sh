@@ -18,7 +18,6 @@ git cat-file -e "$commit^{commit}" 2>/dev/null || git fetch origin "$commit"
 git checkout -q -f "$commit"
 git clean -q -fd -e node_modules
 cp -r "$racine/moteur/fichiers/." .
-git apply "$racine/moteur/mathalea.patch"
 
 # Version : date, commit de MathALÉA, empreinte des fichiers de moteur/
 empreinte="$(cd "$racine/moteur" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)"
