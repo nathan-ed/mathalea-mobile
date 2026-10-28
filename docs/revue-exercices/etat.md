@@ -31,6 +31,9 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
   comptée dans le score (TSA4-41, canTEC2-02, canTEC2-03, canTEC2-05 au
   28 octobre). Le site ne le fait pas. Correction proposée : tenir compte de
   `exercice.interactifReady`. Pas modifié sans accord (release, e2e complets).
+- Exercices à questions chargées de façon asynchrone (meta-custom : 6A,
+  can6a-Aléa, automatismes) : restent à « chargement... » dans le moteur de
+  l'app (preparerExercice n'attend pas leur chargement).
 - `optionsDe` ne lit pas les aides « 1 & 2 : … » (voir plus bas).
 
 ## Prochaine étape (à chaque réveil)

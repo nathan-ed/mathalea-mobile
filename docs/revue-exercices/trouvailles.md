@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **511 exercices passés sur 4190**.
-Constats regroupés : 4096 (un groupe = même exercice, même règle,
+Avancement : **536 exercices passés sur 4190**.
+Constats regroupés : 4113 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -16,7 +16,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
-| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 6 | 7 |
+| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 6 | 8 |
 | 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 13 | 15 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 10 | 33 |
@@ -24,17 +24,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 1 | 3 |
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 16 | 33 |
-| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 5 | 66 |
+| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 5 | 67 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 4 | 13 |
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 6 | 7 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 5 | 5 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 4 | 4 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 9 | 9 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 49 | 263 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 51 | 266 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 10 | 10 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 57 | 116 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 48 | 48 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 49 | 49 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 25 | 28 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 1 | 1 |
@@ -55,29 +55,29 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [T6 Points de suspension](#t6) | 3 | 3 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 75 | 102 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 77 | 104 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 25 | 32 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 61 | 427 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 62 | 428 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 57 | 80 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 58 | 81 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 25 | 33 |
 | 5 Rédaction | [R1 Titre](#r1) | 48 | 59 |
-| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 94 | 134 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 79 | 128 |
+| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 97 | 137 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 81 | 130 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
 | 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 66 | 90 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 6 | 7 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 24 | 25 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 236 | 422 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 237 | 423 |
 | 5 Rédaction | [T6 Points de suspension](#t6) | 264 | 425 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 2 | 2 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 20 | 20 |
 | 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 26 | 35 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 7 | 7 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 8 | 8 |
 
 ## I1
 
@@ -86,6 +86,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6AutoE1-1 (6e) |  q1 mathlive | bonne réponse refusée (0/1)  | ×27 ; sup=8 sup2=1 ; sup=2 sup2=1… (revue-0-a) |
+| 6AutoE1-1 (6e) | src/exercices/6e/6G8A-2.ts:330 | Réponses en deux mots refusées : « pavé droit », « prisme droit » (même écrits exactement) sont jugés faux, seules les formes courtes « pavé », « prisme » passent (confirmé avec revue/essayer.mjs). Le champ texte est créé sans espace (data-space=false, clavier sans touche espace) et la vérification compare la saisie sans espace à « pavé droit » → ajouteChampTexte(…, { espace: true, … }) et clavier alphanumericAvecEspace, ou réponses acceptées sans espace | ×1 |
 | 6AutoN4-1 (6e) |  q2 liste-deroulante | bonne réponse refusée (0/1)  | ×7 ; sup=2 sup2=3 ; sup=2 sup2=4… (revue-6-a) |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:59 | Réponse attendue calculée en flottant : 5^4×0,2^4 donne 1.0000000000000002 ; la bonne réponse « 1 » saisie par l'élève est refusée (vu au banc : la mise en évidence ⟦1⟧ est refusée). Même risque pour 4^b×0,25^b et 5^b×0,4^b → this.reponse = (4 * a) ** b arrondi : arrondi(5 ** b * a ** b) ou calcul exact | ×1 |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:48 | Confirmé avec revue/essayer.mjs : « 32 » refusé pour $5^{5}\times 0,4^{5}$ (attendu 32.00000000000001), « 1 » refusé pour $5^{4}\times 0,2^{4}$ → arrondi(…) sur this.reponse (lignes 48 et 59) | ×1 |
@@ -259,6 +260,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can1D3-03 (CAN) | énoncé q3 | nombre impair de $ : la fonction définie par $f(x)=\dfrac{5}{4x-4}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×2 ; défaut nb=10 (revue-1-a) |
 | can1D3-03 (CAN) | énoncé q4 | nombre impair de $ : la fonction définie par $f(x)=\dfrac{2}{x+1}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×1 ; défaut nb=10 (revue-1-a) |
 | can5a-2025 (CAN) | énoncé q14 | nombre impair de $ : ue de nombres&nbsp;: $75$&nbsp;; $150$&nbsp;; $225$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×1 ; sup=false (revue-0-a) |
+| can5D-01 (CAN) | correction q1 | « $ » visible : 1. 45 45 min = 45 60 = 60 45 ​ h = 3 4 = 4 3 ​ h = =0,75$ h. Ainsi, 2 2 h 45 45 min = = 2 , 75 2,75 h. | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
 | can5D-01 (CAN) | correction q1 | nombre impair de $ : nsi, $2$ h $45$ min $=$ ${\color{#F15929}\boldsymbol{2,75}}$ h. | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | can5D-01 (CAN) | correction q4 | nombre impair de $ : insi, $5$ h $30$ min $=$ ${\color{#F15929}\boldsymbol{5,5}}$ h. | ×2 ; défaut nb=10 (revue-1-a) |
 | CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1= ~unité$ | ×1 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true (revue-1-a) |
@@ -452,6 +454,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5a-CoopMaths (CAN) |  q30 mathlive | valeur en évidence refusée par le champ : ["9,60"] ; attendu : {"champ":"9,60€"} | ×3 ; sup=31 ; sup=30 (revue-0-b) |
 | can5a-NY2024 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21h06min"} | ×4 ; défaut (revue-0-a) |
 | can5C4-02 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["12,135"] ; attendu : {"champ":"12.135000000000002"} | ×1 ; défaut nb=10 (revue-1-a) |
+| can5D-01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4","45"] ; attendu : {"champ":"4h45min"} | ×7 ; défaut ; défaut nb=10 (revue-0-b) |
+| can5D-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4","45"] ; attendu : {"champ":"4h45min"} | ×6 ; défaut ; défaut nb=10 (revue-0-b) |
 | can6a-2018 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["4","40"] ; attendu : {"champ":"4h40min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["4","5"] ; attendu : {"champ":"\\dfrac45"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["1","2"] ; attendu : {"champ":"1;2"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
@@ -513,6 +517,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeE06 (CAN) | src/exercices/can/TSpe/canTSpeE06.ts:47 | Seul le radicande est mis en évidence ($\sqrt{⟦236⟧}$) alors que le champ attend $\sqrt{236}$ ; norme notée \vert\vert au lieu de \\| → $${miseEnEvidence(`\\sqrt{${…}}`)}$ ; \\|\vec u\\| | ×1 |
 | CM2D3B-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["85"] ; attendu : {"champ":"1 h 25 min"} | ×4 ; sup=3 sup3=true ; sup=3 sup3=false (revue-4-a) |
 | CM2D3B-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["10","40","50"] ; attendu : {"champ":"120"} | ×8 ; sup=1 sup3=false nb=10 (revue-6-a) |
+| CM2D3B-2 (cm2) | src/exercices/CM2/CM2D3B-2.ts | Durée demandée « (en h et min) » : la correction met en évidence ⟦85⟧ minutes ; la réponse attendue « 1 h 25 min » n'est pas mise en évidence (« soit 1 heure 25 minutes » en texte normal) ; nombres hors $ dans tout l'exercice (« parcourt 8 $\text{km}$ en 40 minutes ») → mettre en évidence $1$ h $25$ min ; $8$ km, $40$ min | ×1 |
 | CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(3\\times 1\\,000)+(2\\times 100)+(3\\times 1)"] ; attendu : {"champ":"3"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false (revue-0-a) |
 | CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["88\\,600"] ; attendu : {"champ":"2"} | ×10 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=true sup2=5 sup3=5 sup4=1 sup5=false… (revue-0-a) |
 | CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(6\\times 100\\,000)+(8\\times 10\\,000)+(2\\times 1\\,000)+(5\\times 100)+(1\\times 10)+(7\\times 1)"] ; attendu : {"champ":"3"} | ×2 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-0-a) |
@@ -1040,6 +1045,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5a-2020 (CAN) | série q18 | aucune mise en évidence dans la correction | ×2 ; sup= (revue-0-a) |
 | can5a-2022 (CAN) | série q12 | aucune mise en évidence dans la correction | ×4 ; sup2=false ; sup2=true (revue-0-a) |
 | can6C6-09 (CAN) | src/exercices/can/6e/can6C6-09.ts | Correction « $\dfrac{5}{5}-⟦\dfrac{4}{5}⟧=\dfrac{1}{5}$ (vert) » : la donnée 4/5 est en orange, le résultat en vert dans la formule ; l'orange est réservé au résultat final. → $\dfrac{5}{5}-\dfrac{4}{5}=⟦\dfrac{1}{5}⟧$ | ×1 |
+| CM1C2E (cm1) | série q1 | aucune mise en évidence dans la correction | ×128 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=2… (revue-1-a) |
 | CM2D3B-1 (cm2) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=1 sup2=true sup3=false ; sup=1 sup2=false sup3=false (revue-2-a) |
 | CM2G2A-1 (cm2) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-0-a) |
 | CM2G2A-2 (cm2) | série q1 | aucune mise en évidence dans la correction | ×33 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-0-a) |
@@ -1442,7 +1448,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM1C1K (cm1) | titre | « 5 » hors $ : Multiplier un nombre par 5 | ×1 |
 | CM1C2C (cm1) | correction q3 | « 1 » hors $ : Méthode 1 : [ ‖ « 2 » hors $ : e] [figure] Méthode 2 : [ | ×202 ; sup=3 sup2=3 sup3=4 ; sup=2 sup2=1 sup3=1… (revue-0-a) |
 | CM1C2C (cm1) | correction non interactive q3 | « 1 » hors $ : Méthode 1 : [ ‖ « 2 » hors $ : e] [figure] Méthode 2 : [ | ×4 |
-| CM1C2E (cm1) | correction q1 | « 1 » hors $ : Lorsqu'on multiplie par 1, le produit est le nombre initial, ici | ×32 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=2… (revue-1-a) |
+| CM1C2E (cm1) | correction q1 | « 1 » hors $ : Lorsqu'on multiplie par 1, le produit est le nombre initial, ici | ×64 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=2… (revue-1-a) |
 | CM1N1E (cm1) | src/exercices/CM1/CM1N1E.ts | Énoncés « composé de 4 chiffres », « On trouve 4 au rang des unités », « est 3 » : chiffres hors $ ; corrections « c'est bien le chiffre des dizaines . » (espace avant le point). → $4$ chiffres ; $4$ ; …des dizaines. | ×1 |
 | CM1N1E (cm1) | énoncé q1 | « 4 » hors $ : Je suis un mystérieux nombre entier composé de 4 chiffres, tous différents les uns des autres. a) ‖ « 4 » hors $ : tous différents les uns des autres. a) On trouve 4 au rang des unités. b) La moitié de mon chiffre ‖ « 3 » hors $ : Je suis un nombre entier à 3 chiffres, tous différents. a) Le chiffre des un | ×114 ; sup=4 sup2=3 sup3=1-2-7-8 sup4=true sup5=true ; sup=1 sup2=1 sup3=1-2-7-8 sup4=true sup5=true… (revue-0-a) |
 | CM1N1E (cm1) | correction q1 | « 0 » hors $ : ), donc le chiffre est soit 0. Le nombre mystère est donc ‖ « 9 » hors $ : ), donc le chiffre est soit 9, soit 8, soit 7. Les indices ne suffisent pas, à ‖ « 8 » hors $ : ), donc le chiffre est soit 9, soit 8, soit 7. Les indices ne suffisent pas, à eux seu | ×117 ; sup=1 sup2=2 sup3=1 sup4=false sup5=false ; sup=1 sup2=3 sup3=2 sup4=true sup5=false… (revue-2-a) |
@@ -1940,6 +1946,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoS1-4 (6e) | correction | page de 637 px pour 390 px | ×6 ; sup=3 ; sup=1… (revue-0-a) |
 | 6N0A-10 (6e) | correction | page de 455 px pour 390 px | ×7 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N0A-2 (6e) | énoncé | page de 442 px pour 390 px | ×66 ; sup=1 sup2=7 sup3=1 ; sup=1 sup2=8 sup3=1… (revue-7-a) |
+| can4a-2021 (CAN) | correction | page de 493 px pour 390 px | ×4 ; sup2=false ; sup2=true (revue-0-a) |
+| can4a-2022 (CAN) | correction | page de 403 px pour 390 px | ×3 ; sup2=false ; sup2=true (revue-0-a) |
 | can5a-2020 (CAN) | correction | page de 493 px pour 390 px | ×2 ; sup= (revue-0-a) |
 | can5a-2021 (CAN) | énoncé q26 | table.tableauMathlive de 527 px pour 390 px | ×2 ; sup= (revue-0-a) |
 | can5a-2021 (CAN) | énoncé | page de 543 px pour 390 px | ×2 ; sup= (revue-0-a) |
@@ -2093,6 +2101,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (unepyramide) absente de la mise en évidence (pyramide) | ×12 ; sup=5 sup2=3 ; sup=8 sup2=3 (revue-15-a) |
 | 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (uncône) absente de la mise en évidence (cône) | ×10 ; sup=6 sup2=3 (revue-18-a) |
 | 6AutoE1-1 (6e) |  q1 qcm | QCM : bonne proposition (uneboule) absente de la mise en évidence (boule) | ×10 ; sup=7 sup2=3 (revue-21-a) |
+| 6AutoF1-2 (6e) |  q4 qcm | QCM : bonne proposition (nombreentier) absente de la mise en évidence () | ×11 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=2 sup3=2… (revue-1-b) |
 | 6AutoG1-3 (6e) |  q1 qcm | QCM : bonne proposition (txsu / usxt) absente de la mise en évidence () | ×1 ; sup= (revue-0-a) |
 | 6AutoG1-3 (6e) |  q2 qcm | QCM : bonne proposition (uncôté) absente de la mise en évidence () | ×2 ; sup= (revue-0-a) |
 | 6AutoG1-3 (6e) |  q3 qcm | QCM : bonne proposition (unsommet) absente de la mise en évidence () | ×2 ; sup= (revue-0-a) |
@@ -2542,6 +2551,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6AutoA2 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $km}\\ &=72,5 \times1000 ~\text{m} \times1000 ~\te$ ‖ nombre à 4 chiffres sans séparateur : $,5 \times1000 ~\text{m} \times1000 ~\text{m}\\ &=7$ ‖ nombre à 4 chiffres sans séparateur : $91 \times1000 ~\text{m} \times1000 ~\text{m}\\ &=2$ | ×24 ; sup=1 sup2=true sup3=1 sup4=false sup5=1-2-3 ; sup=1 sup2=true sup3=2 sup4=false sup5=1-2-3… (revue-5-a) |
+| 6AutoF1-2 (6e) | correction q3 | nombre à 4 chiffres sans séparateur : $500\div2500$ | ×1 ; sup=500 sup2=500 sup3=1 (revue-169-a) |
 | 6AutoN1-2 (6e) | correction q3 | nombre à 4 chiffres sans séparateur : $frac{10}{{\color{}\boldsymbol{1000}}}$ | ×1 ; sup=2 sup2=2 (revue-5-a) |
 | 6AutoN2 (6e) | correction q8 | nombre à 4 chiffres sans séparateur : $\dfrac{402}{1000} = {\color{}\boldsymbol{0$ ‖ nombre à 4 chiffres sans séparateur : $\dfrac{6004}{100} = {\color{}\boldsym$ ‖ nombre à 4 chiffres sans séparateur : $\dfrac{1001}{10} = {\color{}\boldsymb$ | ×29 ; sup=1-2 sup2=true sup3=true ; sup=1-2 sup2=true sup3=false… (revue-0-a) |
 | 6AutoS1 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1000}}$ | ×1 ; sup=2 sup2=2 sup3=1-2-3 (revue-15-a) |
@@ -2735,6 +2745,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | transversal (?) | grep « passer des $\\text{…}$ au $ » dans src/exercices | « pour passer des $\text{m}$ au $\text{cm}$ » (aux) dans 26 corrections : can6M4-03 (8 fois), can6M4-05 (4), can6M3-01, can6a-2021 (790, 806), can6a-2025-Q29, canc3a-2025-Q29, canc3a-CM1-2025-Q29, can3a-2026-Q4 (3), can5a-2024-Q9 (3), can3a-2022 (300, 317), can5a-2022 (346, 360), can4a-2022 (318, 330). → pour passer des $\text{m}$ aux $\text{cm}$ | ×1 |
+| 6AutoF1 (6e) | src/exercices/6e/6AutoF1.ts | Correction « on peut aussi ecrire » (accent) ; nombres hors $ (« divisée en 6 secteurs … 4 sont colorés ») → écrire ; $6$ secteurs, $4$ | ×1 |
 | 6AutoS1-3 (6e) | énoncé q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. [champ] | ×2 ; sup=3 (revue-0-a) |
 | 6AutoS1-3 (6e) | énoncé non interactif q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. [champ] | ×2 |
 | 6AutoS1-4 (6e) | énoncé q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. un cours de SVT a lieu le Jeudi. un cours | ×2 ; sup=3 (revue-0-a) |
@@ -2864,6 +2875,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeS08 (CAN) | src/exercices/can/TSpe/canTSpeS08.ts | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ → indéterminée ; n\to+\infty | ×1 |
 | canTSpeS09 (CAN) | src/exercices/can/TSpe/canTSpeS09.ts | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ → indéterminée ; n\to+\infty | ×1 |
 | CM2D1A-1 (cm2) | énoncé q1 | élision manquante « de Isabelle, » : p] Plusieurs amis reviennent du marché. Il s'agit de Isabelle, Nassim, Magalie et Lisa. Isabelle rap ‖ élision manquante « de Olivier » : p] Plusieurs amis reviennent du marché. Il s'agit de Olivier et Guillaume. Olivier rapporte ‖ élision manquante « de Olivier » : p] Plusieurs amis reviennent du marché. Il s'agit de Olivier et William. Olivier rapporte | ×5 ; sup=true sup2=2 sup3=4 sup4=true ; sup=true sup2=3 sup3=1 sup4=true… (revue-15-a) |
+| CM2G3D-1 (cm2) | src/exercices/CM2/CM2G3D-1.ts:838 | « on peut vérifier que tous les côtés du carré mesure environ » (accord) ; phrase d'auto-correction en orange (texteEnCouleur par défaut) ; même code dans CM2G3D-2 → mesurent ; texteEnCouleur(…, bleu) ou texte normal | ×1 |
+| CM2G5C-1 (cm2) | src/exercices/CM2/CM2G5C-1.ts:279 | « Le dessin 2 poséde des faces » (deux fois) ; « Procédons par élimination: » (espace avant :) ; numéros de dessins et nombres de faces hors $ → possède ; élimination : ; $4$, $5$ faces | ×1 |
 | CM2I1B-1 (cm2) | correction q1 | mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Blanc Blanc » : ient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Rose Rose » : On obtient la série de couleurs suivante : Rose Rose Orange Blanc Noir | ×37 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=5 sup4=true… (revue-0-a) |
 | CM2I1B-1 (cm2) | correction non interactive q1 | mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Blanc Blanc » : ient la série de couleurs suivante : Blanc Blanc Blanc Blanc | ×2 |
 | CM2N2U-3 (cm2) | src/exercices/CM2/CM2N2U-3.ts | Point isolé après le champ (« point $A$ : [champ] . ») → retirer le point | ×1 |
@@ -2972,7 +2985,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE2-2026 (CAN) | énoncé non interactif q1 | impératif : Complète. ‖ impératif : Coche la bonne réponse. 4 kilogrammes, c'est [cham ‖ impératif : Calcule : | ×9 |
 | canCE2a-2025 (CAN) | énoncé q3 | impératif : Complète la case grise. ‖ impératif : Calcule : ‖ impératif : Coche la bonne réponse pour | ×8 ; sup=false ; sup=true (revue-0-a) |
 | canCE2a-2025 (CAN) | énoncé non interactif q3 | impératif : Complète la case grise. ‖ impératif : Calcule : ‖ impératif : Coche la bonne réponse pour | ×4 |
+| CM2D3B-1 (cm2) | src/exercices/CM2/CM2D3B-1.ts | « trouve combien pèse un pétoncle » (impératif, 2e personne) ; « $2\,100\text{ g}\div 42$ = $50$ g » (égalité coupée hors formule) ; version tableau : « 100 fois ? .... ? » avec nombres hors $ → Trouver combien… ; $2\,100\text{ g}\div 42=50\text{ g}$ | ×1 |
 | CM2G2A-1 (cm2) | src/exercices/CM2/CM2G2B-2.ts:244 | Correction : « Pour la perpendiculaire en $B$, contrôle la position du point $E$ » (tutoiement) → on peut contrôler la position du point $E$ | ×1 |
+| CM2G2B-2 (cm2) | src/exercices/CM2/CM2G2B-2.ts | Consigne « c) Tracer la droite … et nomme $M$ » : « nomme » au lieu de « nommer » (alors que le reste est à l'infinitif) ; correction « contrôle la position du point $E$ » → nommer ; on peut contrôler | ×1 |
 | CM2G5B-1 (cm2) | énoncé q1 | deuxième personne : est un cube. Parmi les arêtes proposées, citer toutes celles parallèles à [ ‖ deuxième personne : est un cube. Parmi les arêtes proposées, citer toutes celles perpendiculaire ‖ deuxième personne : est un pavé droit. Parmi les arêtes proposées, citer toutes celles parallèles à [ | ×26 ; sup=1 sup2=1 sup3=5 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | CM2G5B-1 (cm2) | énoncé non interactif q1 | deuxième personne : est un cube. Citer toutes les arêtes parallèles à [ | ×1 |
 | CM2N4B-1 (cm2) | src/lib/customElements/PossibleMultiLinesAnswerElement.ts:73 | Aide du composant de réponse en plusieurs lignes : « Tu peux directement donner le résultat ou cliquer sur le + … » (tutoiement, partagé par tous les exercices qui l'utilisent) → « Donner directement le résultat ou toucher + pour calculer en plusieurs étapes. » | ×1 |
@@ -3590,6 +3605,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2G2B-1 (cm2) | énoncé non interactif q1 | double espace : ction, comparer ces mesures avec celles données par l'ordinateur dans la correction. | ×1 |
 | CM2G2B-2 (cm2) | énoncé q1 | double espace : ction, comparer ces mesures avec celles données par l'ordinateur dans la correction. | ×13 ; sup=1 sup2=true ; sup=2 sup2=true… (revue-0-a) |
 | CM2G2B-2 (cm2) | énoncé non interactif q1 | double espace : ction, comparer ces mesures avec celles données par l'ordinateur dans la correction. | ×1 |
+| CM2G5B-1 (cm2) | src/exercices/6e/_Solide_6e.ts | Arêtes notées « [$JF$] », « [$⟦KG⟧$] » : crochets hors de la formule → $[JF]$ | ×1 |
 | CM2G5C-1 (cm2) | correction q1 | double espace : Les faces 4 et 6 vont se superposer. - Le dessin 3 poséde des ‖ double espace : Les faces 3 et 6 vont se superposer. Le dessin 1 posséde 6 fa ‖ double espace : Les faces 2 et 6 vont se superposer. Les faces 1 et 5 vont se | ×27 ; sup2=true ; sup2=false… (revue-0-a) |
 | CM2G5C-1 (cm2) | correction non interactive q1 | double espace : Les faces 4 et 6 vont se superposer. - Le dessin 3 poséde des ‖ double espace : Les faces 3 et 6 vont se superposer. Le dessin 1 posséde 6 fa | ×2 |
 | CM2I1B-1 (cm2) | énoncé q1 | double espace : amme et trouver la succession de couleur. quand @greenFlag est cliqué aller à x: [150] y: [5 ‖ double espace : ver la succession de couleur. quand @greenFlag est cliqué aller à x: [150] y: [50] s'orien ‖ double espace : ienter à [180] avancer de [40] pas tourner gauche de [90] degrés Note la couleur :: list tourner | ×694 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
@@ -4601,6 +4617,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoF1-2 (6e) |  | 507 combinaisons : 170 passées (couverture par paires) | ×1 |
 | 6AutoN4-5 (6e) |  | 270 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 6N0A-2 (6e) |  | 468 combinaisons : 118 passées (couverture par paires) | ×1 |
 | 6N0A-6 (6e) |  | 252 combinaisons : 43 passées (couverture par paires) | ×1 |
