@@ -7,7 +7,7 @@
 //   MATHALEA=~/mathalea-main node revue/banc.mjs [--filtre <regex>] [--limite n]
 //     [--travailleurs n] [--sans-captures] [--refaire]
 // Serveur de dev de MathALÉA lancé sur 5173 (npx vite --port 5173).
-import { appendFileSync, copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
@@ -36,8 +36,13 @@ const DOSSIER_SORTIES = join(ici, 'sorties')
 mkdirSync(DOSSIER_CAPTURES, { recursive: true })
 mkdirSync(DOSSIER_SORTIES, { recursive: true })
 
-copyFileSync(join(ici, 'sonde.ts'), join(MATHALEA, 'revue-sonde.ts'))
-writeFileSync(
+// Écrire seulement si le contenu change : une écriture fait recharger par vite
+// les pages des autres instances du banc en cours (exercices interrompus).
+const ecrireSiChange = (f, contenu) => {
+  if (!existsSync(f) || readFileSync(f, 'utf8') !== contenu) writeFileSync(f, contenu)
+}
+ecrireSiChange(join(MATHALEA, 'revue-sonde.ts'), readFileSync(join(ici, 'sonde.ts'), 'utf8'))
+ecrireSiChange(
   join(MATHALEA, 'revue-banc.html'),
   `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Banc</title>
 <style>body{margin:0;background:#fff;font-family:system-ui,sans-serif}#zone{width:390px;padding:12px 16px;box-sizing:border-box}#zone .question{margin:0 0 14px}</style></head>

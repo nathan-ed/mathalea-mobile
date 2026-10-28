@@ -25,11 +25,15 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 
 ## Prochaine étape (à chaque réveil)
 
-1. Banc en marche ? CAN : fini le 28 octobre. Hors CAN, deux instances
-   aux filtres disjoints (`tail -1 revue/banc.log revue/banc-b.log`) :
-   `--filtre '^(?!can)[0-9]' --travailleurs 3` (journal `banc.log`) et
+1. Banc en marche ? Trois instances aux filtres disjoints
+   (`tail -n 1 revue/banc-can.log revue/banc.log revue/banc-b.log`) :
+   `--filtre '^can' --travailleurs 2` (`banc-can.log`),
+   `--filtre '^(?!can)[0-9]' --travailleurs 2` (`banc.log`) et
    `--filtre '^(?!can)[^0-9]' --travailleurs 2` (`banc-b.log`), lancées par
-   `setsid nohup … < /dev/null &`. Arrêtée : la relancer (elle reprend) ;
+   `setsid nohup … < /dev/null &`. Le banc n'écrit la sonde et la page dans
+   MathALÉA que si elles changent : sinon vite recharge les pages des autres
+   instances (X1 « Execution context was destroyed », « reading 'preparer' »,
+   exercices à repasser : retirer leurs lignes du journal et de `fait.txt`). Arrêtée : la relancer (elle reprend) ;
    avant, retirer du journal les lignes des exercices absents de `fait.txt`.
    Saisie « comme au clavier » (`clavier()` dans `sonde.ts`) : MathLive
    retire les accolades des arguments d'un seul caractère quand l'élève tape
