@@ -1,0 +1,3486 @@
+{
+  "format": "classes-mathalea/1",
+  "exporteLe": "2026-10-28T14:05:50.747Z",
+  "classes": [
+    {
+      "nom": "Préqualifiant",
+      "parcours": [
+        {
+          "id": "prq-nombres-ecritures-reperage",
+          "version": 10,
+          "titre": "Situer et comparer les nombres",
+          "objectif": "Lire les rangs, placer, comparer et encadrer des nombres entiers et décimaux.",
+          "niveau": "Préqualifiant",
+          "theme": "Nombres",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Comparer et ranger les entiers",
+              "nb": 2,
+              "fiche": {
+                "titre": "Comparer et ranger les entiers",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour comparer deux entiers, on regarde les chiffres de gauche à droite jusqu’au premier qui diffère."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Comparer 4 305 et 4 350.",
+                    "etapes": [
+                      "Les milliers et les centaines sont identiques.",
+                      "Aux dizaines, 0 est inférieur à 5 : 4 305 < 4 350."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel nombre est le plus grand ?",
+                    "choix": [
+                      "4 350",
+                      "4 305",
+                      "Ils sont égaux"
+                    ],
+                    "bonne": 0,
+                    "explication": "Les milliers et les centaines sont identiques. On compare donc les dizaines : 5 dizaines dépassent 0 dizaine."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Comprendre les rangs",
+              "nb": 2,
+              "fiche": {
+                "titre": "Comprendre les rangs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le chiffre des centaines est au troisième rang depuis la droite. Le nombre de centaines compte les centaines entières."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Dans 4 305, distinguer le chiffre des centaines et le nombre de centaines entières.",
+                    "etapes": [
+                      "Le chiffre des centaines est le chiffre au troisième rang depuis la droite : 3.",
+                      "4 305 contient 43 centaines entières et 5 unités : le nombre de centaines est 43."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Dans 5 207, combien y a-t-il de centaines entières ?",
+                    "choix": [
+                      "52",
+                      "2",
+                      "5"
+                    ],
+                    "bonne": 0,
+                    "explication": "Dans 5 207, on peut faire 52 paquets de 100 et il reste 7 unités. Le chiffre au rang des centaines est pourtant 2."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Lire les décimaux",
+              "nb": 2,
+              "fiche": {
+                "titre": "Lire les décimaux",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Après la virgule viennent les dixièmes, les centièmes, puis les millièmes."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Décomposer 4,27.",
+                    "etapes": [
+                      "4,27 contient 4 unités, 2 dixièmes et 7 centièmes.",
+                      "$4,27=4+\\dfrac{2}{10}+\\dfrac{7}{100}$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Décomposer un nombre",
+              "nb": 2,
+              "fiche": {
+                "titre": "Décomposer un nombre",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour décomposer un nombre, on additionne la valeur de chacun de ses chiffres."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Décomposer 4 305.",
+                    "etapes": [
+                      "4 305 = 4 000 + 300 + 5.",
+                      "Le chiffre des dizaines est 0 : il n’ajoute rien à la somme."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la décomposition de 5 207 ?",
+                    "choix": [
+                      "5 000 + 200 + 7",
+                      "5 000 + 20 + 7",
+                      "500 + 200 + 7"
+                    ],
+                    "bonne": 0,
+                    "explication": "Dans 5 207, le 5 vaut 5 000, le 2 vaut 200 et le 7 vaut 7. Le chiffre des dizaines vaut 0."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Se repérer sur une droite",
+              "nb": 2,
+              "fiche": {
+                "titre": "Se repérer sur une droite",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Sur une droite graduée, on commence par trouver l’écart entre deux graduations voisines."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une unité est partagée en dix parts égales. Quelle est la troisième graduation après 0 ?",
+                    "etapes": [
+                      "Chaque graduation vaut un dixième.",
+                      "La troisième graduation correspond à $\\dfrac{3}{10}=0,3$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Comparer et ranger",
+              "nb": 2,
+              "fiche": {
+                "titre": "Comparer et ranger",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour comparer des décimaux, on aligne les virgules."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Comparer 2,08 et 2,1.",
+                    "etapes": [
+                      "On écrit 2,1 sous la forme 2,10.",
+                      "Comme 8 centièmes sont inférieurs à 10 centièmes, $2,08<2,10$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Encadrer et intercaler",
+              "nb": 2,
+              "fiche": {
+                "titre": "Encadrer et intercaler",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour intercaler un nombre, on en cherche un strictement compris entre les deux nombres donnés."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Quel nombre est compris entre 2,4 et 2,5 ?",
+                    "etapes": [
+                      "On peut écrire 2,40 < 2,45 < 2,50.",
+                      "Donc 2,45 est compris entre les deux bornes."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel nombre est entre 2,4 et 2,5 ?",
+                    "choix": [
+                      "2,45",
+                      "2,6",
+                      "2,3"
+                    ],
+                    "bonne": 0,
+                    "explication": "En écrivant 2,4 sous la forme 2,40 et 2,5 sous la forme 2,50, on voit que 2,45 se trouve entre les deux."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "a7aa7",
+              "id": "a7aa7",
+              "nbQuestions": 3,
+              "titre": "Comparer deux nombres entiers",
+              "objectifs": [
+                "Comparer et ranger les entiers (Situer et comparer les nombres)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "3bba9",
+              "id": "3bba9",
+              "nbQuestions": 2,
+              "titre": "Ranger des nombres entiers",
+              "objectifs": [
+                "Comparer et ranger les entiers (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "7efdf",
+              "id": "7efdf",
+              "nbQuestions": 3,
+              "titre": "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...",
+              "objectifs": [
+                "Comprendre les rangs (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "6498e",
+              "id": "6498e",
+              "nbQuestions": 3,
+              "titre": "Décomposer un nombre entier",
+              "objectifs": [
+                "Comprendre les rangs (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "6ee89",
+              "id": "6ee89",
+              "nbQuestions": 3,
+              "titre": "Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)",
+              "objectifs": [
+                "Lire les décimaux (Situer et comparer les nombres)"
+              ],
+              "sup": "1",
+              "sup2": "1-2-3-4",
+              "sup3": "5-6"
+            },
+            {
+              "uuid": "63f03",
+              "id": "9NO3A-10",
+              "nbQuestions": 3,
+              "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+              "objectifs": [
+                "Lire les décimaux (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "dcf22",
+              "id": "dcf22",
+              "nbQuestions": 3,
+              "titre": "Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes",
+              "objectifs": [
+                "Décomposer un nombre (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "6ee89",
+              "id": "6ee89",
+              "nbQuestions": 3,
+              "titre": "Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)",
+              "objectifs": [
+                "Décomposer un nombre (Situer et comparer les nombres)"
+              ],
+              "sup": "2",
+              "sup2": "1-2",
+              "sup3": "5-6-7"
+            },
+            {
+              "uuid": "6d577",
+              "id": "9QCM-22",
+              "nbQuestions": 3,
+              "titre": "Lire l'abscisse d'un point sur une droite graduée",
+              "objectifs": [
+                "Se repérer sur une droite (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "1c3b0",
+              "id": "1c3b0",
+              "nbQuestions": 3,
+              "titre": "Compléter sur une droite graduée",
+              "objectifs": [
+                "Se repérer sur une droite (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "be1e4",
+              "id": "PR-38",
+              "nbQuestions": 3,
+              "titre": "Comparer des nombres décimaux",
+              "objectifs": [
+                "Comparer et ranger (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "b86b9",
+              "id": "PR-41",
+              "nbQuestions": 3,
+              "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
+              "objectifs": [
+                "Encadrer et intercaler (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "a8c22",
+              "id": "PR-42",
+              "nbQuestions": 3,
+              "titre": "Encadrer un décimal",
+              "objectifs": [
+                "Encadrer et intercaler (Situer et comparer les nombres)"
+              ]
+            },
+            {
+              "uuid": "b86b9",
+              "id": "PR-41",
+              "nbQuestions": 3,
+              "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
+              "objectifs": [
+                "Encadrer et intercaler (Situer et comparer les nombres)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prq-calculs-decimaux-relatifs",
+          "version": 10,
+          "titre": "Calculer avec les décimaux et les relatifs",
+          "objectif": "Calculer avec les décimaux et les relatifs en respectant les priorités.",
+          "niveau": "Préqualifiant",
+          "theme": "Calculs",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Choisir une opération",
+              "nb": 2,
+              "fiche": {
+                "titre": "Choisir une opération",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On choisit l’opération d’après ce que demande l’énoncé."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trois billets coûtent 4 francs chacun. Quel calcul donne le prix total ?",
+                    "etapes": [
+                      "Le même prix de 4 francs est répété trois fois.",
+                      "On calcule 3 multiplié par 4."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quatre cahiers à 2 francs coûtent :",
+                    "choix": [
+                      "4 multiplié par 2",
+                      "4 + 2",
+                      "4 - 2"
+                    ],
+                    "bonne": 0,
+                    "explication": "Chaque cahier coûte 2 francs. Pour quatre cahiers, on prend quatre fois ce prix : 4 multiplié par 2."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Additionner et soustraire des décimaux",
+              "nb": 2,
+              "fiche": {
+                "titre": "Additionner et soustraire des décimaux",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Dans une opération posée, les virgules s’alignent."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 3,4 + 1,28.",
+                    "etapes": [
+                      "On aligne les virgules : 3,40 + 1,28.",
+                      "On obtient 4,68."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Multiplier des décimaux",
+              "nb": 2,
+              "fiche": {
+                "titre": "Multiplier des décimaux",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Dans une multiplication, on additionne le nombre de décimales des deux facteurs."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 1,2 multiplié par 0,3.",
+                    "etapes": [
+                      "On calcule d’abord 12 multiplié par 3 : on obtient 36.",
+                      "Les deux facteurs comptent deux chiffres après la virgule au total. Le résultat est 0,36."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Multiplier et diviser par 10, 100, 1 000",
+              "nb": 2,
+              "fiche": {
+                "titre": "Multiplier et diviser par 10, 100, 1 000",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Multiplier par 10 décale chaque chiffre d’un rang vers la gauche."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 2,5 multiplié par 10.",
+                    "etapes": [
+                      "Chaque chiffre avance d’un rang : 2,5 devient 25."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut 3,2 multiplié par 10 ?",
+                    "choix": [
+                      "32",
+                      "3,20",
+                      "320"
+                    ],
+                    "bonne": 0,
+                    "explication": "Multiplier 3,2 par 10 décale chaque chiffre d’un rang vers la gauche : 3 unités deviennent 3 dizaines et 2 dixièmes deviennent 2 unités."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Additionner et soustraire des relatifs",
+              "nb": 2,
+              "fiche": {
+                "titre": "Additionner et soustraire des relatifs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Soustraire un relatif revient à ajouter son opposé."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $(-7)-(-2)$.",
+                    "etapes": [
+                      "Soustraire $-2$ revient à ajouter $+2$.",
+                      "$(-7)+2=-5$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Multiplier et diviser des relatifs",
+              "nb": 2,
+              "fiche": {
+                "titre": "Multiplier et diviser des relatifs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le produit de deux nombres de même signe est positif. Sinon, il est négatif."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $(-3)\\cdot4$.",
+                    "etapes": [
+                      "Les signes sont différents : le produit est négatif.",
+                      "$3\\cdot4=12$, donc $(-3)\\cdot4=-12$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Enchaîner les calculs",
+              "nb": 2,
+              "fiche": {
+                "titre": "Enchaîner les calculs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On calcule d’abord les parenthèses, puis les puissances, les produits et les sommes."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 2 + 3 multiplié par 4.",
+                    "etapes": [
+                      "Le produit se calcule d’abord : 3 multiplié par 4 vaut 12.",
+                      "Puis 2 + 12 = 14."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut 5 + 2 multiplié par 3 ?",
+                    "choix": [
+                      "11",
+                      "21",
+                      "15"
+                    ],
+                    "bonne": 0,
+                    "explication": "On calcule d’abord 2 multiplié par 3, ce qui donne 6, puis on ajoute 5 : le résultat est 11."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "32e02",
+              "id": "9NO1E-1",
+              "nbQuestions": 3,
+              "titre": "Connaitre le vocabulaire lié aux 4 opérations",
+              "objectifs": [
+                "Choisir une opération (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "cd0d8",
+              "id": "9NO1F-7",
+              "nbQuestions": 3,
+              "titre": "Traduire une phrase par une expression et la calculer",
+              "objectifs": [
+                "Choisir une opération (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "01873",
+              "id": "9NO1G-11",
+              "nbQuestions": 3,
+              "titre": "Poser additions et soustractions de nombres décimaux",
+              "objectifs": [
+                "Additionner et soustraire des décimaux (Calculer avec les décimaux et les relatifs)"
+              ],
+              "sup": "4",
+              "sup3": "4"
+            },
+            {
+              "uuid": "dc09e",
+              "id": "dc09e",
+              "nbQuestions": 3,
+              "titre": "Additionner, soustraire des nombres décimaux à une ou deux décimales",
+              "objectifs": [
+                "Additionner et soustraire des décimaux (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "52939",
+              "id": "9NO1G-14",
+              "nbQuestions": 3,
+              "titre": "Poser des multiplications de nombres décimaux",
+              "objectifs": [
+                "Multiplier des décimaux (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "c5e16",
+              "id": "c5e16",
+              "nbQuestions": 3,
+              "titre": "Multiplier ou diviser un nombre décimal par 10, 100 ou 1 000",
+              "objectifs": [
+                "Multiplier et diviser par 10, 100, 1 000 (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "c5e16",
+              "id": "c5e16",
+              "nbQuestions": 3,
+              "titre": "Multiplier ou diviser un nombre décimal par 10, 100 ou 1 000",
+              "objectifs": [
+                "Multiplier et diviser par 10, 100, 1 000 (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "5ec3c",
+              "id": "5ec3c",
+              "nbQuestions": 3,
+              "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000",
+              "objectifs": [
+                "Multiplier et diviser par 10, 100, 1 000 (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "0b020",
+              "id": "9NO2C-9",
+              "nbQuestions": 3,
+              "titre": "Opérations avec deux entiers relatifs",
+              "objectifs": [
+                "Additionner et soustraire des relatifs (Calculer avec les décimaux et les relatifs)"
+              ],
+              "sup": "1",
+              "sup2": "3-4",
+              "sup3": "10"
+            },
+            {
+              "uuid": "f6ea7",
+              "id": "9NO2B-18",
+              "nbQuestions": 3,
+              "titre": "Effectuer un enchaînement d'additions et de soustractions de nombres relatifs",
+              "objectifs": [
+                "Additionner et soustraire des relatifs (Calculer avec les décimaux et les relatifs)"
+              ]
+            },
+            {
+              "uuid": "745ba",
+              "id": "9NO2C-1",
+              "nbQuestions": 3,
+              "titre": "Calculer des produits et des quotients de nombres relatifs",
+              "objectifs": [
+                "Multiplier et diviser des relatifs (Calculer avec les décimaux et les relatifs)"
+              ],
+              "sup": "3",
+              "sup2": "1"
+            },
+            {
+              "uuid": "0b020",
+              "id": "9NO2C-9",
+              "nbQuestions": 3,
+              "titre": "Opérations avec deux entiers relatifs",
+              "objectifs": [
+                "Additionner et soustraire des relatifs (Calculer avec les décimaux et les relatifs)"
+              ],
+              "sup": "1",
+              "sup2": "1-2",
+              "sup3": "10"
+            },
+            {
+              "uuid": "4c10a",
+              "id": "9NO1F-2",
+              "nbQuestions": 3,
+              "titre": "Calculer en utilisant les priorités opératoires",
+              "objectifs": [
+                "Enchaîner les calculs (Calculer avec les décimaux et les relatifs)"
+              ],
+              "sup": "3"
+            },
+            {
+              "uuid": "62f66",
+              "id": "9NO2C-13",
+              "nbQuestions": 3,
+              "titre": "Effectuer des calculs avec des priorités opératoires",
+              "objectifs": [
+                "Enchaîner les calculs (Calculer avec les décimaux et les relatifs)"
+              ],
+              "sup": "3"
+            }
+          ]
+        },
+        {
+          "id": "prq-puissances-carres-racines",
+          "version": 10,
+          "titre": "Puissances, carrés et racines",
+          "objectif": "Calculer des puissances et des racines, puis utiliser la notation scientifique.",
+          "niveau": "Préqualifiant",
+          "theme": "Puissances",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Calculer un carré",
+              "nb": 2,
+              "fiche": {
+                "titre": "Calculer un carré",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le carré d’un nombre est le produit de ce nombre par lui-même."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer 4 au carré.",
+                    "etapes": [
+                      "4 au carré signifie 4 multiplié par 4.",
+                      "On obtient 16."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut 5 au carré ?",
+                    "choix": [
+                      "25",
+                      "10",
+                      "125"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le carré de 5 signifie 5 multiplié par 5, soit 25."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Écrire une puissance",
+              "nb": 2,
+              "fiche": {
+                "titre": "Écrire une puissance",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "L’exposant indique combien de fois on multiplie la base par elle-même."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Écrire 3 multiplié par 3 multiplié par 3 sous forme de puissance.",
+                    "etapes": [
+                      "Le facteur 3 apparaît trois fois.",
+                      "On écrit $3^3$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calculer des puissances",
+              "nb": 2,
+              "fiche": {
+                "titre": "Calculer des puissances",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une puissance se calcule avant une somme."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $2^3$.",
+                    "etapes": [
+                      "$2^3=2\\cdot2\\cdot2$.",
+                      "Le résultat est 8."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Utiliser les règles des puissances",
+              "nb": 2,
+              "fiche": {
+                "titre": "Utiliser les règles des puissances",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Quand on multiplie des puissances de même base, on additionne les exposants."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $2^3\\cdot 2^2$.",
+                    "etapes": [
+                      "Les bases sont identiques : on additionne les exposants.",
+                      "$2^3\\cdot 2^2=2^5=32$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $3^2\\cdot 3^3$ ?",
+                    "choix": [
+                      "$3^5$",
+                      "$3^6$",
+                      "$9^5$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Les deux puissances ont la même base, 3. On garde cette base et on additionne 2 et 3 : on obtient $3^5$."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Reconnaître les carrés parfaits",
+              "nb": 2,
+              "fiche": {
+                "titre": "Reconnaître les carrés parfaits",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "La racine carrée d’un carré parfait est le nombre positif ou nul dont on a calculé le carré."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\sqrt{49}$.",
+                    "etapes": [
+                      "On cherche le nombre positif dont le carré vaut 49.",
+                      "Comme $7^2=49$, on a $\\sqrt{49}=7$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Encadrer une racine",
+              "nb": 2,
+              "fiche": {
+                "titre": "Encadrer une racine",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour encadrer une racine carrée, on cherche deux carrés parfaits qui encadrent le nombre."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Encadrer $\\sqrt{20}$ entre deux entiers.",
+                    "etapes": [
+                      "$4^2=16$ et $5^2=25$.",
+                      "Donc $4<\\sqrt{20}<5$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Notation scientifique",
+              "nb": 2,
+              "fiche": {
+                "titre": "Notation scientifique",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "En notation scientifique, on écrit un nombre sous la forme $a\\cdot10^n$, avec $1\\leq a<10$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Écrire 3 500 en notation scientifique.",
+                    "etapes": [
+                      "On écrit 3 500 = 3,5 multiplié par 1 000.",
+                      "Donc $3\\,500=3,5\\cdot 10^3$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la notation scientifique de 42 000 ?",
+                    "choix": [
+                      "$4,2\\cdot 10^4$",
+                      "$42\\cdot 10^3$",
+                      "$0,42\\cdot 10^5$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$42\\cdot10^3$ représente bien 42 000, mais 42 est trop grand pour une écriture scientifique. On écrit $4,2\\cdot10^4$."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "e564e",
+              "id": "9NO1D-4",
+              "nbQuestions": 3,
+              "titre": "Calculer un carré",
+              "objectifs": [
+                "Calculer un carré (Puissances, carrés et racines)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "97ff7",
+              "id": "97ff7",
+              "nbQuestions": 3,
+              "titre": "Calculer un carré ou une racine carrée",
+              "objectifs": [
+                "Calculer un carré (Puissances, carrés et racines)"
+              ],
+              "sup": "1-2",
+              "sup2": "12",
+              "sup3": "true"
+            },
+            {
+              "uuid": "1d078",
+              "id": "9NO1D-1",
+              "nbQuestions": 3,
+              "titre": "Utiliser la notation puissance",
+              "objectifs": [
+                "Écrire une puissance (Puissances, carrés et racines)"
+              ],
+              "sup": "2",
+              "sup2": "1",
+              "sup4": "1"
+            },
+            {
+              "uuid": "36f8b",
+              "id": "9NO1D-2",
+              "nbQuestions": 3,
+              "titre": "Donner l'écriture entière d'une puissance",
+              "objectifs": [
+                "Écrire une puissance (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "eb865",
+              "id": "10NO3D-25",
+              "nbQuestions": 3,
+              "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+              "objectifs": [
+                "Calculer des puissances (Puissances, carrés et racines)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "125bd",
+              "id": "10NO3D-5",
+              "nbQuestions": 3,
+              "titre": "Transformer une écriture de puissance en écriture décimale ou fractionnaire",
+              "objectifs": [
+                "Calculer des puissances (Puissances, carrés et racines)"
+              ],
+              "sup": "false",
+              "sup2": "true"
+            },
+            {
+              "uuid": "a8a2e",
+              "id": "10NO3D-27",
+              "nbQuestions": 3,
+              "titre": "Écrire sous la forme $a^n$ en utilisant les formules sur les puissances",
+              "objectifs": [
+                "Utiliser les règles des puissances (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "6b2e5",
+              "id": "10NO3D-21",
+              "nbQuestions": 3,
+              "titre": "Utiliser les règles de calculs avec des puissances de 10",
+              "objectifs": [
+                "Utiliser les règles des puissances (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "f5cbd",
+              "id": "10NO3E-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
+              "objectifs": [
+                "Reconnaître les carrés parfaits (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "1d078",
+              "id": "9NO1D-1",
+              "nbQuestions": 3,
+              "titre": "Utiliser la notation puissance",
+              "objectifs": [
+                "Écrire une puissance (Puissances, carrés et racines)"
+              ],
+              "sup": "2",
+              "sup2": "1",
+              "sup4": "1"
+            },
+            {
+              "uuid": "516d2",
+              "id": "10NO3E-4",
+              "nbQuestions": 3,
+              "titre": "Encadrer une racine carrée et en donner un arrondi",
+              "objectifs": [
+                "Encadrer une racine (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "f5cbd",
+              "id": "10NO3E-1",
+              "nbQuestions": 3,
+              "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
+              "objectifs": [
+                "Reconnaître les carrés parfaits (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "a0d17",
+              "id": "10NO3F-1",
+              "nbQuestions": 3,
+              "titre": "Associer un nombre décimal à sa notation scientifique",
+              "objectifs": [
+                "Notation scientifique (Puissances, carrés et racines)"
+              ]
+            },
+            {
+              "uuid": "762fe",
+              "id": "10NO3F-2",
+              "nbQuestions": 3,
+              "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+              "objectifs": [
+                "Notation scientifique (Puissances, carrés et racines)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prq-donnees-raisonnement",
+          "version": 10,
+          "titre": "Lire une situation, traduire et vérifier",
+          "objectif": "Lire des données, choisir les calculs utiles et contrôler ses résultats.",
+          "niveau": "Préqualifiant",
+          "theme": "Raisonnement",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Lire un diagramme",
+              "nb": 3,
+              "fiche": {
+                "titre": "Lire un diagramme",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour lire un diagramme, on vérifie le nom des axes et leurs unités."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une barre atteint 12 sur un diagramme. Que lit-on ?",
+                    "etapes": [
+                      "On lit la valeur sur l’axe gradué : 12.",
+                      "On vérifie l’unité indiquée par le diagramme."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que faut-il lire avant les barres ?",
+                    "choix": [
+                      "Le titre et les axes",
+                      "Le nom de l’auteur",
+                      "La couleur du fond"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le titre et les axes indiquent ce que représente chaque barre. Sans eux, le nombre lu n’a pas de sens."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Prélever les données utiles",
+              "nb": 2,
+              "fiche": {
+                "titre": "Prélever les données utiles",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On relève les données qui servent à répondre à la question."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un diagramme donne 4 vélos et 6 trottinettes. Combien y a-t-il de trottinettes ?",
+                    "etapes": [
+                      "La question porte seulement sur les trottinettes.",
+                      "On lit 6 sur la barre correspondante."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Traduire en calcul",
+              "nb": 2,
+              "fiche": {
+                "titre": "Traduire en calcul",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Avant de calculer, on indique ce que représente chaque nombre."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Cinq sacs pèsent chacun 3 kg. Quel calcul donne leur masse totale ?",
+                    "etapes": [
+                      "La masse de 3 kg est répétée cinq fois.",
+                      "On écrit 5 multiplié par 3, soit 15 kg."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Organiser plusieurs calculs",
+              "nb": 2,
+              "fiche": {
+                "titre": "Organiser plusieurs calculs",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Quand un problème comporte plusieurs étapes, on écrit un calcul pour chacune."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trois cahiers coûtent 4 francs chacun et deux stylos coûtent 2 francs chacun. Quel est le prix total ?",
+                    "etapes": [
+                      "Les cahiers coûtent 3 multiplié par 4, soit 12 francs.",
+                      "Les stylos coûtent 2 multiplié par 2, soit 4 francs.",
+                      "Le total est 12 + 4 = 16 francs."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Deux cahiers à 5 francs et trois stylos à 1 franc coûtent :",
+                    "choix": [
+                      "13 francs",
+                      "11 francs",
+                      "16 francs"
+                    ],
+                    "bonne": 0,
+                    "explication": "Les cahiers coûtent 2 multiplié par 5, soit 10 francs. Les stylos coûtent 3 multiplié par 1, soit 3 francs. On paie 13 francs."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Estimer un résultat",
+              "nb": 2,
+              "fiche": {
+                "titre": "Estimer un résultat",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On estime le résultat pour repérer une erreur de calcul."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Estimer 49 multiplié par 21.",
+                    "etapes": [
+                      "49 est proche de 50 et 21 de 20.",
+                      "50 multiplié par 20 vaut 1 000 : le produit cherché est proche de 1 000."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Vérifier une égalité",
+              "nb": 2,
+              "fiche": {
+                "titre": "Vérifier une égalité",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une égalité est vraie si ses deux membres ont la même valeur."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Vérifier l’égalité $2+3=6$.",
+                    "etapes": [
+                      "Le membre de gauche vaut 5.",
+                      "Le membre de droite vaut 6 : l’égalité est fausse."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Résoudre et contrôler un problème",
+              "nb": 2,
+              "fiche": {
+                "titre": "Résoudre et contrôler un problème",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Dans la réponse, on indique le résultat et son unité."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une place coûte 8 francs. Combien coûtent trois places si l’on paie aussi 2 francs de frais ?",
+                    "etapes": [
+                      "Trois places coûtent 3 multiplié par 8, soit 24 francs.",
+                      "Avec les frais, on paie 24 + 2 = 26 francs."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Deux places à 8 francs et 2 francs de frais coûtent :",
+                    "choix": [
+                      "18 francs",
+                      "20 francs",
+                      "16 francs"
+                    ],
+                    "bonne": 0,
+                    "explication": "Les deux places coûtent 2 multiplié par 8, soit 16 francs. On ajoute ensuite les 2 francs de frais : 18 francs."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "adac4",
+              "id": "9FA3A-4",
+              "nbQuestions": 3,
+              "titre": "Lire des données représentées dans un diagramme",
+              "objectifs": [
+                "Lire un diagramme (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "9926a",
+              "id": "9FA3A-1",
+              "nbQuestions": 1,
+              "titre": "Lire un diagramme en bâtons",
+              "objectifs": [
+                "Lire un diagramme (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "81c7b",
+              "id": "9FA3A-2",
+              "nbQuestions": 3,
+              "titre": "Interpréter un diagramme en barres",
+              "objectifs": [
+                "Lire un diagramme (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "81c7b",
+              "id": "9FA3A-2",
+              "nbQuestions": 3,
+              "titre": "Interpréter un diagramme en barres",
+              "objectifs": [
+                "Prélever les données utiles (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "3ba7a",
+              "id": "9FA3A-5",
+              "nbQuestions": 3,
+              "titre": "Calculer un effectif total à partir d'un diagramme en barres",
+              "objectifs": [
+                "Prélever les données utiles (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "cd0d8",
+              "id": "9NO1F-7",
+              "nbQuestions": 3,
+              "titre": "Traduire une phrase par une expression et la calculer",
+              "objectifs": [
+                "Traduire en calcul (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "34cce",
+              "id": "9NO1F-6",
+              "nbQuestions": 3,
+              "titre": "Écrire un enchaînement de calculs à partir d'un problème",
+              "objectifs": [
+                "Traduire en calcul (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "2z3e5",
+              "id": "9NO1F-4",
+              "nbQuestions": 3,
+              "titre": "Organiser des calculs en une seule ligne",
+              "objectifs": [
+                "Organiser plusieurs calculs (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "34cce",
+              "id": "9NO1F-6",
+              "nbQuestions": 3,
+              "titre": "Écrire un enchaînement de calculs à partir d'un problème",
+              "objectifs": [
+                "Organiser plusieurs calculs (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "de779",
+              "id": "de779",
+              "nbQuestions": 3,
+              "titre": "Trouver un ordre de grandeur (QCM)",
+              "objectifs": [
+                "Estimer un résultat (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "2e229",
+              "id": "2e229",
+              "nbQuestions": 3,
+              "titre": "Estimer un ordre de grandeur",
+              "objectifs": [
+                "Estimer un résultat (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "d8841",
+              "id": "10FA5B-3",
+              "nbQuestions": 3,
+              "titre": "Tester une égalité",
+              "objectifs": [
+                "Vérifier une égalité (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "b9893",
+              "id": "b9893",
+              "nbQuestions": 3,
+              "titre": "Vérifier si un nombre est solution d’une équation",
+              "objectifs": [
+                "Vérifier une égalité (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "b74c6",
+              "id": "9FA2B-16",
+              "nbQuestions": 3,
+              "titre": "Résoudre des problèmes : Les courses",
+              "objectifs": [
+                "Résoudre et contrôler un problème (Lire une situation, traduire et vérifier)"
+              ]
+            },
+            {
+              "uuid": "4f77c",
+              "id": "9FA2B-18",
+              "nbQuestions": 3,
+              "titre": "Résoudre le problème complexe du spectacle",
+              "objectifs": [
+                "Résoudre et contrôler un problème (Lire une situation, traduire et vérifier)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prq-grandeurs-conversions",
+          "version": 10,
+          "titre": "Grandeurs, unités et conversions",
+          "objectif": "Comprendre les préfixes et convertir des grandeurs simples ou composées.",
+          "niveau": "Préqualifiant",
+          "theme": "Grandeurs et mesures",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Comprendre les préfixes usuels",
+              "nb": 2,
+              "fiche": {
+                "titre": "Comprendre les préfixes usuels",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le préfixe kilo multiplie l’unité par 1 000 ; milli la divise par 1 000."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Que signifie le préfixe kilo dans kilomètre ?",
+                    "etapes": [
+                      "Kilo signifie mille.",
+                      "Un kilomètre correspond donc à mille mètres."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien de mètres y a-t-il dans un kilomètre ?",
+                    "choix": [
+                      "1 000",
+                      "100",
+                      "10"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le préfixe kilo signifie mille. On multiplie donc le nombre d’unités par 1 000."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Utiliser les préfixes",
+              "nb": 2,
+              "fiche": {
+                "titre": "Utiliser les préfixes",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour convertir une unité avec un préfixe, on utilise le rapport indiqué par ce préfixe."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Combien de mètres y a-t-il dans 2 km ?",
+                    "etapes": [
+                      "Le préfixe kilo signifie mille.",
+                      "2 km correspondent à 2 000 m."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Convertir longueurs et masses",
+              "nb": 2,
+              "fiche": {
+                "titre": "Convertir longueurs et masses",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une conversion change l’unité, mais pas la quantité mesurée."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir 1,5 kg en grammes.",
+                    "etapes": [
+                      "1 kg vaut 1 000 g.",
+                      "1,5 kg valent 1 500 g."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Convertir capacités et prix",
+              "nb": 2,
+              "fiche": {
+                "titre": "Convertir capacités et prix",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le résultat doit être écrit dans l’unité demandée."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir 2 L en mL.",
+                    "etapes": [
+                      "1 L = 1 000 mL.",
+                      "2 L = 2 000 mL."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "3 L valent :",
+                    "choix": [
+                      "3 000 mL",
+                      "300 mL",
+                      "30 mL"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le préfixe milli signifie un millième. Un litre contient donc 1 000 millilitres ; 3 litres en contiennent 3 000."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Convertir les durées",
+              "nb": 2,
+              "fiche": {
+                "titre": "Convertir les durées",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une heure vaut 60 minutes."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir 1 h 25 min en minutes.",
+                    "etapes": [
+                      "Une heure vaut 60 minutes.",
+                      "60 + 25 = 85 : cela fait 85 minutes."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Convertir aires et volumes",
+              "nb": 2,
+              "fiche": {
+                "titre": "Convertir aires et volumes",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Entre deux unités voisines, le facteur est 100 pour une aire et 1 000 pour un volume."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir 2 m² en cm².",
+                    "etapes": [
+                      "1 m vaut 100 cm, donc 1 m² vaut 10 000 cm².",
+                      "2 m² valent 20 000 cm²."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Convertir vitesses et grandeurs composées",
+              "nb": 2,
+              "fiche": {
+                "titre": "Convertir vitesses et grandeurs composées",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour convertir une vitesse, on convertit séparément la distance et le temps."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir 36 km/h en m/s.",
+                    "etapes": [
+                      "36 km = 36 000 m et 1 h = 3 600 s.",
+                      "36 000 divisé par 3 600 vaut 10 : la vitesse est 10 m/s."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "72 km/h valent :",
+                    "choix": [
+                      "20 m/s",
+                      "2 m/s",
+                      "200 m/s"
+                    ],
+                    "bonne": 0,
+                    "explication": "Pour passer de km/h à m/s, on divise par 3,6. Ainsi, 72 km/h correspondent à 20 m/s."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "5d1e2",
+              "id": "9GM1A-2",
+              "nbQuestions": 3,
+              "titre": "Connaitre les préfixes utilisés dans les unités",
+              "objectifs": [
+                "Comprendre les préfixes usuels (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "7d71b",
+              "id": "9GM1A-1",
+              "nbQuestions": 3,
+              "titre": "Connaître la signification des préfixes de milli à kilo, voire tera",
+              "objectifs": [
+                "Comprendre les préfixes usuels (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "5d1e2",
+              "id": "9GM1A-2",
+              "nbQuestions": 3,
+              "titre": "Connaitre les préfixes utilisés dans les unités",
+              "objectifs": [
+                "Comprendre les préfixes usuels (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "ab9ff",
+              "id": "9GM1A-4",
+              "nbQuestions": 3,
+              "titre": "Convertir des longueurs ou des masses",
+              "objectifs": [
+                "Utiliser les préfixes (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "ab9ff",
+              "id": "9GM1A-4",
+              "nbQuestions": 3,
+              "titre": "Convertir des longueurs ou des masses",
+              "objectifs": [
+                "Convertir longueurs et masses (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "504ae",
+              "id": "9GM3B-1",
+              "nbQuestions": 3,
+              "titre": "Convertir des longueurs, masses, capacités, prix ou unités informatiques",
+              "objectifs": [
+                "Convertir longueurs et masses (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "504ae",
+              "id": "9GM3B-1",
+              "nbQuestions": 3,
+              "titre": "Convertir des longueurs, masses, capacités, prix ou unités informatiques",
+              "objectifs": [
+                "Convertir capacités et prix (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "ab9ff",
+              "id": "9GM1A-4",
+              "nbQuestions": 3,
+              "titre": "Convertir des longueurs ou des masses",
+              "objectifs": [
+                "Convertir longueurs et masses (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "4f8f4",
+              "id": "9GM3A-4",
+              "nbQuestions": 3,
+              "titre": "Convertir en min vers h et min ou en s vers min et s",
+              "objectifs": [
+                "Convertir les durées (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "185f8",
+              "id": "9GM3A-6",
+              "nbQuestions": 3,
+              "titre": "Convertir des durées en heures décimales ou en minutes",
+              "objectifs": [
+                "Convertir les durées (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "6225c",
+              "id": "9GM1A-6",
+              "nbQuestions": 3,
+              "titre": "Convertir des aires",
+              "objectifs": [
+                "Convertir aires et volumes (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "f4d29",
+              "id": "10GM3A-2",
+              "nbQuestions": 3,
+              "titre": "Convertir des volumes ou des capacités",
+              "objectifs": [
+                "Convertir aires et volumes (Grandeurs, unités et conversions)"
+              ],
+              "sup": "3",
+              "sup4": "2"
+            },
+            {
+              "uuid": "cv001",
+              "id": "11GM3A-2",
+              "nbQuestions": 3,
+              "titre": "Convertir des vitesses entre m/s et km/h",
+              "objectifs": [
+                "Convertir vitesses et grandeurs composées (Grandeurs, unités et conversions)"
+              ]
+            },
+            {
+              "uuid": "63cdb",
+              "id": "11GM3A-1",
+              "nbQuestions": 3,
+              "titre": "Convertir des grandeurs composées",
+              "objectifs": [
+                "Convertir vitesses et grandeurs composées (Grandeurs, unités et conversions)"
+              ],
+              "sup": "1-3"
+            }
+          ]
+        },
+        {
+          "id": "prq-figures-angles-solides",
+          "version": 10,
+          "titre": "Figures, angles et solides",
+          "objectif": "Reconnaître les figures et les solides, mesurer les angles et utiliser les transformations.",
+          "niveau": "Préqualifiant",
+          "theme": "Géométrie",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Nommer les figures",
+              "nb": 2,
+              "fiche": {
+                "titre": "Nommer les figures",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On nomme une figure d’après ses côtés et ses angles."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Dans le triangle ABC, l’angle en A mesure 90°. Comment nomme-t-on ce triangle ?",
+                    "etapes": [
+                      "Un angle de 90° est droit. ABC est donc un triangle rectangle en A."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Dans le triangle DEF, l’angle en E mesure 90°. Où est-il rectangle ?",
+                    "choix": [
+                      "En E",
+                      "En D",
+                      "En F"
+                    ],
+                    "bonne": 0,
+                    "explication": "Dans DEF, c’est l’angle en E qui mesure 90°. Le triangle est donc rectangle en E."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Repérer droites et angles",
+              "nb": 2,
+              "fiche": {
+                "titre": "Repérer droites et angles",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour nommer un angle, on indique son sommet et ses deux côtés."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Dans l’angle ABC, quel est le sommet ?",
+                    "etapes": [
+                      "Le sommet d’un angle est indiqué par la lettre du milieu.",
+                      "Le sommet est B."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Mesurer un angle",
+              "nb": 2,
+              "fiche": {
+                "titre": "Mesurer un angle",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On place le centre du rapporteur sur le sommet de l’angle."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Comment placer le rapporteur pour mesurer un angle ?",
+                    "etapes": [
+                      "On place son centre sur le sommet de l’angle.",
+                      "On aligne le zéro sur un côté, puis on lit la graduation où passe l’autre côté."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Reconnaître les quadrilatères",
+              "nb": 2,
+              "fiche": {
+                "titre": "Reconnaître les quadrilatères",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Un carré a quatre côtés égaux et quatre angles droits."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un carré possède quatre côtés égaux.",
+                    "etapes": [
+                      "Ses côtés sont égaux et ses quatre angles sont droits.",
+                      "Ces propriétés permettent de le reconnaître, même tourné."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien d’angles droits possède un carré ?",
+                    "choix": [
+                      "4",
+                      "2",
+                      "0"
+                    ],
+                    "bonne": 0,
+                    "explication": "Un carré a quatre angles droits. Ses quatre côtés sont aussi de même longueur."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Décrire les solides et patrons",
+              "nb": 2,
+              "fiche": {
+                "titre": "Décrire les solides et patrons",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Sur un solide, une arête sépare deux faces."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Combien de faces possède un cube ?",
+                    "etapes": [
+                      "On repère les faces opposées deux à deux.",
+                      "Le cube possède six faces."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Reconnaître les symétries",
+              "nb": 2,
+              "fiche": {
+                "titre": "Reconnaître les symétries",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une symétrie centrale correspond à un demi-tour."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une figure subit une symétrie centrale de centre O. Comment trouver l’image d’un point A ?",
+                    "etapes": [
+                      "On trace la droite AO.",
+                      "On place l’image de l’autre côté de O, à la même distance."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Utiliser les transformations",
+              "nb": 2,
+              "fiche": {
+                "titre": "Utiliser les transformations",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Une translation conserve les longueurs, les angles et le parallélisme."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une figure est déplacée de 3 carreaux vers la droite.",
+                    "etapes": [
+                      "Tous ses points se déplacent de la même façon.",
+                      "Les longueurs et les angles restent les mêmes."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une translation conserve-t-elle les longueurs ?",
+                    "choix": [
+                      "Oui",
+                      "Non",
+                      "Seulement pour les carrés"
+                    ],
+                    "bonne": 0,
+                    "explication": "Une translation déplace tous les points de la même façon : elle ne modifie pas la longueur des segments."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "e8d33",
+              "id": "9ES1B-7",
+              "nbQuestions": 3,
+              "titre": "Connaitre le vocabulaire de base des angles",
+              "objectifs": [
+                "Nommer les figures (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "4e52e",
+              "id": "9ES1E-5",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre un quadrilatère particulier à partir de ses propriétés",
+              "objectifs": [
+                "Reconnaître les quadrilatères (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "e8d33",
+              "id": "9ES1B-7",
+              "nbQuestions": 3,
+              "titre": "Connaitre le vocabulaire de base des angles",
+              "objectifs": [
+                "Repérer droites et angles (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "1f334",
+              "id": "1mG1-3",
+              "nbQuestions": 3,
+              "titre": "Connaitre le vocabulaire sur les angles",
+              "objectifs": [
+                "Repérer droites et angles (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "ff2ce",
+              "id": "9ES1B-5",
+              "nbQuestions": 3,
+              "titre": "Mesurer un angle avec rapporteur intégré",
+              "objectifs": [
+                "Mesurer un angle (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "e8d33",
+              "id": "9ES1B-7",
+              "nbQuestions": 3,
+              "titre": "Connaitre le vocabulaire de base des angles",
+              "objectifs": [
+                "Repérer droites et angles (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "4e52e",
+              "id": "9ES1E-5",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre un quadrilatère particulier à partir de ses propriétés",
+              "objectifs": [
+                "Reconnaître les quadrilatères (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "b6c33",
+              "id": "b6c33",
+              "nbQuestions": 3,
+              "titre": "Reconnaître un quadrilatère grâce au codage",
+              "objectifs": [
+                "Reconnaître les quadrilatères (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "051aa",
+              "id": "9ES2A-6",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre des solides",
+              "objectifs": [
+                "Décrire les solides et patrons (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "95371",
+              "id": "9ES2A-5",
+              "nbQuestions": 3,
+              "titre": "Trouver le nom d'un solide par ses caractéristiques",
+              "objectifs": [
+                "Décrire les solides et patrons (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "328b2",
+              "id": "9ES1E-21",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre des figures symétriques",
+              "objectifs": [
+                "Reconnaître les symétries (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "428b2",
+              "id": "9ES3C-13",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre une symétrie centrale",
+              "objectifs": [
+                "Reconnaître les symétries (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "6ddc5",
+              "id": "9ES3A-2",
+              "nbQuestions": 3,
+              "titre": "Déterminer graphiquement des images par des translations",
+              "objectifs": [
+                "Utiliser les transformations (Figures, angles et solides)"
+              ]
+            },
+            {
+              "uuid": "428b2",
+              "id": "9ES3C-13",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre une symétrie centrale",
+              "objectifs": [
+                "Reconnaître les symétries (Figures, angles et solides)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prq-perimetres-aires-volumes",
+          "version": 10,
+          "titre": "Périmètres, aires et volumes",
+          "objectif": "Calculer des périmètres, des aires et des volumes, y compris sur des figures composées.",
+          "niveau": "Préqualifiant",
+          "theme": "Mesures géométriques",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Compter sur un quadrillage",
+              "nb": 2,
+              "fiche": {
+                "titre": "Compter sur un quadrillage",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le périmètre mesure le tour d’une figure. L’aire mesure sa surface."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une figure couvre 4 carreaux entiers et 2 demi-carreaux. Quelle est son aire ?",
+                    "etapes": [
+                      "Deux demi-carreaux forment un carreau entier.",
+                      "La figure couvre donc 5 carreaux entiers."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une figure couvre 3 carreaux et 2 demi-carreaux. Combien de carreaux couvre-t-elle ?",
+                    "choix": [
+                      "4",
+                      "5",
+                      "3"
+                    ],
+                    "bonne": 0,
+                    "explication": "Deux demi-carreaux forment un carreau entier. On ajoute ce carreau aux trois carreaux entiers : cela fait quatre."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Calculer un périmètre",
+              "nb": 2,
+              "fiche": {
+                "titre": "Calculer un périmètre",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour calculer un périmètre, on additionne les longueurs du contour."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer le périmètre d’un rectangle de côtés 4 cm et 3 cm.",
+                    "etapes": [
+                      "On additionne les quatre côtés.",
+                      "4 + 3 + 4 + 3 = 14 : le périmètre vaut 14 cm."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calculer une aire simple",
+              "nb": 2,
+              "fiche": {
+                "titre": "Calculer une aire simple",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "L’aire d’un rectangle est sa longueur multipliée par sa largeur."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer l’aire d’un triangle de base 6 cm et de hauteur 4 cm.",
+                    "etapes": [
+                      "L’aire vaut base multipliée par hauteur, puis divisée par 2.",
+                      "6 multiplié par 4 puis divisé par 2 donne 12 cm²."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Choisir les dimensions utiles",
+              "nb": 2,
+              "fiche": {
+                "titre": "Choisir les dimensions utiles",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "La hauteur est perpendiculaire à la base choisie."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Aire d’un rectangle de 6 cm sur 2 cm.",
+                    "etapes": [
+                      "Aire = longueur multipliée par largeur.",
+                      "6 multiplié par 2 = 12 cm²."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Aire d’un rectangle de 4 cm sur 3 cm ?",
+                    "choix": [
+                      "12 cm²",
+                      "7 cm²",
+                      "14 cm²"
+                    ],
+                    "bonne": 0,
+                    "explication": "Pour un rectangle, on multiplie la longueur par la largeur. Ici, 4 multiplié par 3 donne 12 cm²."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calculer avec les disques",
+              "nb": 2,
+              "fiche": {
+                "titre": "Calculer avec les disques",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le diamètre est le double du rayon."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un disque a un rayon de 3 cm. Calculer son aire.",
+                    "etapes": [
+                      "L’aire d’un disque vaut $\\pi r^2$.",
+                      "Avec $r=3$, elle vaut $9\\pi$ cm²."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Calculer les volumes usuels",
+              "nb": 2,
+              "fiche": {
+                "titre": "Calculer les volumes usuels",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Un volume se mesure en unités cubes."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Un prisme a une base de 6 cm² et une hauteur de 4 cm. Calculer son volume.",
+                    "etapes": [
+                      "Le volume d’un prisme vaut aire de la base multipliée par hauteur.",
+                      "6 multiplié par 4 donne 24 cm³."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Décomposer des figures et calculer des aires",
+              "nb": 2,
+              "fiche": {
+                "titre": "Décomposer des figures et calculer des aires",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On découpe la figure en formes connues, puis on additionne leurs aires."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Une figure contient deux rectangles de 4 cm² et 6 cm², sans chevauchement.",
+                    "etapes": [
+                      "On additionne leurs aires.",
+                      "L’aire totale vaut 4 + 6 = 10 cm²."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Deux parties de 5 cm² et 3 cm², sans chevauchement, ont une aire totale de :",
+                    "choix": [
+                      "8 cm²",
+                      "15 cm²",
+                      "2 cm²"
+                    ],
+                    "bonne": 0,
+                    "explication": "Les deux parties ne se chevauchent pas : on peut additionner directement leurs aires, 5 cm² et 3 cm²."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "83be3",
+              "id": "9GM1B-5",
+              "nbQuestions": 3,
+              "titre": "Trouver une aire ou un périmètre par comptage",
+              "objectifs": [
+                "Compter sur un quadrillage (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "9ff3c",
+              "id": "9GM1B-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le périmètre de polygones usuels",
+              "objectifs": [
+                "Calculer un périmètre (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "9ff3c",
+              "id": "9GM1B-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le périmètre de polygones usuels",
+              "objectifs": [
+                "Calculer un périmètre (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "d1514",
+              "id": "9GM1B-11",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et/ou aire de carrés, rectangles et triangles rectangles",
+              "objectifs": [
+                "Calculer un périmètre (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "f36d5",
+              "id": "9GM1B-9",
+              "nbQuestions": 3,
+              "titre": "Calculer l’aire d’un carré, d’un rectangle, ou d’un triangle",
+              "objectifs": [
+                "Calculer une aire simple (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "06b1a",
+              "id": "9GM1B-18",
+              "nbQuestions": 3,
+              "titre": "Calculer l'aire de triangles",
+              "objectifs": [
+                "Calculer une aire simple (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "06b1a",
+              "id": "9GM1B-18",
+              "nbQuestions": 3,
+              "titre": "Calculer l'aire de triangles",
+              "objectifs": [
+                "Choisir les dimensions utiles (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "6999f",
+              "id": "9GM1C-3",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et aire de figures composées",
+              "objectifs": [
+                "Décomposer des figures et calculer des aires (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "f9a03",
+              "id": "10GM1B-6",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et/ou aire de disques",
+              "objectifs": [
+                "Calculer avec les disques (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "ff387",
+              "id": "10GM1C-2",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et aire de portions de disques",
+              "objectifs": [
+                "Calculer avec les disques (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "6ec4a",
+              "id": "10GM2A-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un prisme droit",
+              "objectifs": [
+                "Calculer les volumes usuels (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "e4c72",
+              "id": "10GM2B-2",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un cylindre (sans figure)",
+              "objectifs": [
+                "Calculer les volumes usuels (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "6999f",
+              "id": "9GM1C-3",
+              "nbQuestions": 3,
+              "titre": "Calculer périmètre et aire de figures composées",
+              "objectifs": [
+                "Décomposer des figures et calculer des aires (Périmètres, aires et volumes)"
+              ]
+            },
+            {
+              "uuid": "06b1a",
+              "id": "9GM1B-18",
+              "nbQuestions": 3,
+              "titre": "Calculer l'aire de triangles",
+              "objectifs": [
+                "Calculer une aire simple (Périmètres, aires et volumes)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prq-divisibilite-decomposition",
+          "version": 10,
+          "titre": "Divisibilité et décomposition",
+          "objectif": "Utiliser les critères de divisibilité, les facteurs premiers, le PGDC et le PPMC.",
+          "niveau": "Préqualifiant",
+          "theme": "Arithmétique",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Reconnaître diviseurs et multiples",
+              "nb": 2,
+              "fiche": {
+                "titre": "Reconnaître diviseurs et multiples",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Si $a$ divise $b$, alors $b$ est un multiple de $a$."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "24 est-il un multiple de 3 ?",
+                    "etapes": [
+                      "24 = 3 multiplié par 8.",
+                      "Donc 24 est un multiple de 3, et 3 est un diviseur de 24."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel nombre est un multiple de 4 ?",
+                    "choix": [
+                      "20",
+                      "18",
+                      "22"
+                    ],
+                    "bonne": 0,
+                    "explication": "20 est un multiple de 4 parce qu’on peut écrire 20 comme 4 multiplié par un entier : 5."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Critères de 2, 5 et 10",
+              "nb": 2,
+              "fiche": {
+                "titre": "Critères de 2, 5 et 10",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour 2, 5 et 10, on regarde le chiffre des unités."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "135 est-il divisible par 5 ?",
+                    "etapes": [
+                      "Le chiffre des unités est 5.",
+                      "135 est donc divisible par 5."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Critères de 3 et 9",
+              "nb": 2,
+              "fiche": {
+                "titre": "Critères de 3 et 9",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour 3 et 9, on additionne les chiffres du nombre."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "234 est-il divisible par 3 ?",
+                    "etapes": [
+                      "On additionne les chiffres : 2 + 3 + 4 = 9.",
+                      "9 est divisible par 3, donc 234 aussi."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Lister diviseurs et multiples",
+              "nb": 2,
+              "fiche": {
+                "titre": "Lister diviseurs et multiples",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Si un nombre est divisible par $a$, il s’écrit $a\\cdot b$ : $a$ et $b$ forment une paire de diviseurs."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Lister les diviseurs de 12.",
+                    "etapes": [
+                      "On cherche les produits qui donnent 12 : 1 multiplié par 12, 2 multiplié par 6 et 3 multiplié par 4.",
+                      "Les diviseurs sont 1, 2, 3, 4, 6 et 12."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Lequel est un diviseur de 12 ?",
+                    "choix": [
+                      "3",
+                      "5",
+                      "7"
+                    ],
+                    "bonne": 0,
+                    "explication": "Un diviseur donne un quotient entier. Comme 12 divisé par 3 vaut 4, 3 est un diviseur de 12."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Décomposer en facteurs premiers",
+              "nb": 2,
+              "fiche": {
+                "titre": "Décomposer en facteurs premiers",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Un nombre premier a exactement deux diviseurs : 1 et lui-même."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Décomposer 60 en facteurs premiers.",
+                    "etapes": [
+                      "60 = 2 multiplié par 30 = 2 multiplié par 2 multiplié par 15.",
+                      "Comme 15 = 3 multiplié par 5, $60=2^2\\cdot3\\cdot5$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Trouver PGDC et PPMC",
+              "nb": 2,
+              "fiche": {
+                "titre": "Trouver PGDC et PPMC",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le PGDC utilise les facteurs communs ; le PPMC prend tous les facteurs nécessaires."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Trouver le PGDC et le PPMC de 12 et 18.",
+                    "etapes": [
+                      "$12=2^2\\cdot3$ et $18=2\\cdot3^2$.",
+                      "Le PGDC vaut $2\\cdot3=6$ ; le PPMC vaut $2^2\\cdot3^2=36$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Résoudre un problème de divisibilité",
+              "nb": 2,
+              "fiche": {
+                "titre": "Résoudre un problème de divisibilité",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour former le plus grand nombre de groupes identiques, on cherche un PGDC. Pour retrouver une coïncidence périodique, on cherche un PPMC."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "On veut faire le plus grand nombre de groupes identiques avec 12 jetons rouges et 18 jetons bleus.",
+                    "etapes": [
+                      "Le nombre de groupes doit diviser 12 et 18.",
+                      "Le PGDC de 12 et 18 est 6 : on peut faire 6 groupes."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien de groupes au maximum avec 8 jetons rouges et 12 bleus ?",
+                    "choix": [
+                      "4",
+                      "8",
+                      "12"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le nombre de groupes doit diviser 8 et 12. Le plus grand diviseur commun est 4 : on peut former quatre groupes identiques."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "918c2",
+              "id": "9NO1A-3",
+              "nbQuestions": 3,
+              "titre": "Dire si un entier donné est un diviseur ou multiple d'un autre",
+              "objectifs": [
+                "Reconnaître diviseurs et multiples (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "af4b1",
+              "id": "9NO1A-2",
+              "nbQuestions": 3,
+              "titre": "Reconnaitre diviseur, multiple, divisible",
+              "objectifs": [
+                "Reconnaître diviseurs et multiples (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "4a128",
+              "id": "9NO1A-4",
+              "nbQuestions": 3,
+              "titre": "Utiliser les critères de divisibilité",
+              "objectifs": [
+                "Critères de 2, 5 et 10 (Divisibilité et décomposition)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "fa3ec",
+              "id": "9NO1A-5",
+              "nbQuestions": 3,
+              "titre": "Utiliser des critères de divisibilité de de 2, 3, 5, 9 et 10",
+              "objectifs": [
+                "Critères de 2, 5 et 10 (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "4a128",
+              "id": "9NO1A-4",
+              "nbQuestions": 3,
+              "titre": "Utiliser les critères de divisibilité",
+              "objectifs": [
+                "Critères de 3 et 9 (Divisibilité et décomposition)"
+              ],
+              "sup": "2"
+            },
+            {
+              "uuid": "fa3ec",
+              "id": "9NO1A-5",
+              "nbQuestions": 3,
+              "titre": "Utiliser des critères de divisibilité de de 2, 3, 5, 9 et 10",
+              "objectifs": [
+                "Critères de 3 et 9 (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "108ab",
+              "id": "9NO1A-11",
+              "nbQuestions": 3,
+              "titre": "Écrire la liste de tous les diviseurs d'un entier",
+              "objectifs": [
+                "Lister diviseurs et multiples (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "d2d85",
+              "id": "9NO1A-8",
+              "nbQuestions": 3,
+              "titre": "Écrire la liste des premiers multiples d'un entier",
+              "objectifs": [
+                "Lister diviseurs et multiples (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "7f50c",
+              "id": "9NO1B-3",
+              "nbQuestions": 3,
+              "titre": "Décomposer en facteurs premiers",
+              "objectifs": [
+                "Décomposer en facteurs premiers (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "1eaf7",
+              "id": "9NO1B-11",
+              "nbQuestions": 3,
+              "titre": "Décomposer un nombre entier en produit de (petits) facteurs premiers",
+              "objectifs": [
+                "Décomposer en facteurs premiers (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "b6918",
+              "id": "9NO1C-1",
+              "nbQuestions": 3,
+              "titre": "Calculer un PGCD de tête",
+              "objectifs": [
+                "Trouver PGDC et PPMC (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "ff20c",
+              "id": "9NO1C-2",
+              "nbQuestions": 3,
+              "titre": "Déterminer le PPCM à partir des décompositions en produits de facteurs premiers",
+              "objectifs": [
+                "Trouver PGDC et PPMC (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "8e05e",
+              "id": "9NO1A-18",
+              "nbQuestions": 3,
+              "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
+              "objectifs": [
+                "Résoudre un problème de divisibilité (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "ff20c",
+              "id": "9NO1C-2",
+              "nbQuestions": 3,
+              "titre": "Déterminer le PPCM à partir des décompositions en produits de facteurs premiers",
+              "objectifs": [
+                "Trouver PGDC et PPMC (Divisibilité et décomposition)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prq-fractions-representer-calculer",
+          "version": 10,
+          "titre": "Fractions : représenter, comparer, calculer",
+          "objectif": "Représenter, comparer et calculer avec des fractions.",
+          "niveau": "Préqualifiant",
+          "theme": "Fractions",
+          "difficulte": 2,
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Représenter une fraction",
+              "nb": 2,
+              "fiche": {
+                "titre": "Représenter une fraction",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Le dénominateur donne le nombre de parts égales ; le numérateur donne le nombre de parts prises."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Représenter 3/4 d’une unité.",
+                    "etapes": [
+                      "Partage l’unité en 4 parts égales.",
+                      "Prends-en 3 : cela représente 3/4."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Dans 3/4, que signifie 4 ?",
+                    "choix": [
+                      "Le nombre de parts égales",
+                      "Le nombre de parts prises",
+                      "Le nombre d’unités"
+                    ],
+                    "bonne": 0,
+                    "explication": "Dans $\\dfrac34$, le 4 partage chaque unité en quatre parts égales. Le 3 indique qu’on en prend trois."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Placer et comparer les fractions",
+              "nb": 2,
+              "fiche": {
+                "titre": "Placer et comparer les fractions",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour placer une fraction, on partage chaque unité en parts égales."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Comparer $\\dfrac{3}{4}$ et $\\dfrac{2}{4}$.",
+                    "etapes": [
+                      "Les deux fractions ont le même dénominateur.",
+                      "Comme 3 est supérieur à 2, $\\dfrac{3}{4}>\\dfrac{2}{4}$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Trouver des fractions équivalentes",
+              "nb": 2,
+              "fiche": {
+                "titre": "Trouver des fractions équivalentes",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On obtient une fraction équivalente en multipliant ou en divisant ses deux termes par le même nombre non nul."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Simplifier $\\dfrac{6}{8}$.",
+                    "etapes": [
+                      "6 et 8 sont divisibles par 2.",
+                      "En divisant les deux termes par 2, on obtient $\\dfrac{3}{4}$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Relier fraction, décimal et pourcentage",
+              "nb": 2,
+              "fiche": {
+                "titre": "Relier fraction, décimal et pourcentage",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Un pourcentage est une fraction de dénominateur 100."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Écrire $\\dfrac14$ en décimal et en pourcentage.",
+                    "etapes": [
+                      "$\\dfrac14=0,25$.",
+                      "$0,25=25\\%$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\dfrac12$ en pourcentage ?",
+                    "choix": [
+                      "50 %",
+                      "25 %",
+                      "20 %"
+                    ],
+                    "bonne": 0,
+                    "explication": "La moitié d’une unité vaut 0,5. Sur 100 parts, cela représente 50 parts : $\\dfrac12=50\\%$."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Additionner et soustraire",
+              "nb": 2,
+              "fiche": {
+                "titre": "Additionner et soustraire",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Pour additionner des fractions, on les met d’abord au même dénominateur."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\dfrac{1}{3}+\\dfrac{1}{6}$.",
+                    "etapes": [
+                      "$\\dfrac{1}{3}=\\dfrac{2}{6}$.",
+                      "$\\dfrac{2}{6}+\\dfrac{1}{6}=\\dfrac{3}{6}=\\dfrac{1}{2}$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Multiplier, diviser et prendre une fraction",
+              "nb": 2,
+              "fiche": {
+                "titre": "Multiplier, diviser et prendre une fraction",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "Diviser par une fraction revient à multiplier par son inverse."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\dfrac{2}{3}\\cdot\\dfrac{3}{4}$.",
+                    "etapes": [
+                      "On multiplie les numérateurs et les dénominateurs : $\\dfrac{6}{12}$.",
+                      "On simplifie : $\\dfrac{6}{12}=\\dfrac{1}{2}$."
+                    ]
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Enchaîner les calculs fractionnaires",
+              "nb": 2,
+              "fiche": {
+                "titre": "Enchaîner les calculs fractionnaires",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "texte": "On calcule d’abord les parenthèses et on simplifie le résultat à la fin."
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $\\dfrac12+\\dfrac13\\cdot\\dfrac34$.",
+                    "etapes": [
+                      "On commence par le produit : $\\dfrac13\\cdot\\dfrac34=\\dfrac14$.",
+                      "Puis $\\dfrac12+\\dfrac14=\\dfrac34$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien vaut $\\dfrac12+\\dfrac12\\cdot\\dfrac12$ ?",
+                    "choix": [
+                      "$\\dfrac34$",
+                      "$1$",
+                      "$\\dfrac12$"
+                    ],
+                    "bonne": 0,
+                    "explication": "La multiplication passe avant l’addition : $\\dfrac12\\cdot\\dfrac12=\\dfrac14$, puis $\\dfrac12+\\dfrac14=\\dfrac34$."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "1574a",
+              "id": "9NO3A-1",
+              "nbQuestions": 3,
+              "titre": "Représenter une fraction avec une plaque de chocolat",
+              "objectifs": [
+                "Représenter une fraction (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "9cb7e",
+              "id": "9NO3C-5",
+              "nbQuestions": 3,
+              "titre": "Passer d'une écriture fractionnaire à une fraction",
+              "objectifs": [
+                "Représenter une fraction (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "b8e31",
+              "id": "9QCM-24",
+              "nbQuestions": 3,
+              "titre": "Lire l'abscisse fractionnaire d'un point sur une droite graduée",
+              "objectifs": [
+                "Placer et comparer les fractions (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "d7e11",
+              "id": "9NO3D-7",
+              "nbQuestions": 3,
+              "titre": "Comparer deux fractions (dénominateurs multiples)",
+              "objectifs": [
+                "Placer et comparer les fractions (Fractions : représenter, comparer, calculer)"
+              ],
+              "sup": "4",
+              "sup2": "false"
+            },
+            {
+              "uuid": "0e77e",
+              "id": "9NO3B-1",
+              "nbQuestions": 3,
+              "titre": "Amplifier ou simplifier une fraction",
+              "objectifs": [
+                "Trouver des fractions équivalentes (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "f8f4e",
+              "id": "9NO3B-2",
+              "nbQuestions": 3,
+              "titre": "Simplifier des fractions",
+              "objectifs": [
+                "Trouver des fractions équivalentes (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "91d72",
+              "id": "9NO3C-17",
+              "nbQuestions": 3,
+              "titre": "Passer d'une fraction à une écriture décimale et inversement",
+              "objectifs": [
+                "Relier fraction, décimal et pourcentage (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "2359a",
+              "id": "9NO3C-9",
+              "nbQuestions": 3,
+              "titre": "Lier nombre décimal, fraction décimale et pourcentage",
+              "objectifs": [
+                "Relier fraction, décimal et pourcentage (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "51ab4",
+              "id": "9NO3F-12",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
+              "objectifs": [
+                "Additionner et soustraire (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "5f429",
+              "id": "9NO3F-4",
+              "nbQuestions": 3,
+              "titre": "Additionner ou soustraire deux fractions",
+              "objectifs": [
+                "Additionner et soustraire (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "3ee4e",
+              "id": "10NO3A-3",
+              "nbQuestions": 3,
+              "titre": "Multiplier ou/et diviser des fractions",
+              "objectifs": [
+                "Multiplier, diviser et prendre une fraction (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "55354",
+              "id": "10NO3A-5",
+              "nbQuestions": 3,
+              "titre": "Diviser des fractions",
+              "objectifs": [
+                "Multiplier, diviser et prendre une fraction (Fractions : représenter, comparer, calculer)"
+              ]
+            },
+            {
+              "uuid": "18ddd",
+              "id": "11NO2-1",
+              "nbQuestions": 3,
+              "titre": "Effectuer des calculs avec des fractions et les priorités  opératoires",
+              "objectifs": [
+                "Enchaîner les calculs fractionnaires (Fractions : représenter, comparer, calculer)"
+              ],
+              "sup": "1"
+            },
+            {
+              "uuid": "75f80",
+              "id": "10NO3B-6",
+              "nbQuestions": 3,
+              "titre": "Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes",
+              "objectifs": [
+                "Enchaîner les calculs fractionnaires (Fractions : représenter, comparer, calculer)"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "bibliotheque": {
+    "parcours": [],
+    "objectifs": [
+      {
+        "libelle": "Comparer et ranger les entiers (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Comprendre les rangs (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Lire les décimaux (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Décomposer un nombre (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Se repérer sur une droite (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Comparer et ranger (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Encadrer et intercaler (Situer et comparer les nombres)",
+        "niveau": "Préqualifiant",
+        "theme": "Nombres"
+      },
+      {
+        "libelle": "Choisir une opération (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Additionner et soustraire des décimaux (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Multiplier des décimaux (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Multiplier et diviser par 10, 100, 1 000 (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Additionner et soustraire des relatifs (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Multiplier et diviser des relatifs (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Enchaîner les calculs (Calculer avec les décimaux et les relatifs)",
+        "niveau": "Préqualifiant",
+        "theme": "Calculs"
+      },
+      {
+        "libelle": "Calculer un carré (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Écrire une puissance (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Calculer des puissances (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Utiliser les règles des puissances (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Reconnaître les carrés parfaits (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Encadrer une racine (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Notation scientifique (Puissances, carrés et racines)",
+        "niveau": "Préqualifiant",
+        "theme": "Puissances"
+      },
+      {
+        "libelle": "Lire un diagramme (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Prélever les données utiles (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Traduire en calcul (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Organiser plusieurs calculs (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Estimer un résultat (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Vérifier une égalité (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Résoudre et contrôler un problème (Lire une situation, traduire et vérifier)",
+        "niveau": "Préqualifiant",
+        "theme": "Raisonnement"
+      },
+      {
+        "libelle": "Comprendre les préfixes usuels (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Utiliser les préfixes (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Convertir longueurs et masses (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Convertir capacités et prix (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Convertir les durées (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Convertir aires et volumes (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Convertir vitesses et grandeurs composées (Grandeurs, unités et conversions)",
+        "niveau": "Préqualifiant",
+        "theme": "Grandeurs et mesures"
+      },
+      {
+        "libelle": "Nommer les figures (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Repérer droites et angles (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Mesurer un angle (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Reconnaître les quadrilatères (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Décrire les solides et patrons (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Reconnaître les symétries (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Utiliser les transformations (Figures, angles et solides)",
+        "niveau": "Préqualifiant",
+        "theme": "Géométrie"
+      },
+      {
+        "libelle": "Compter sur un quadrillage (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Calculer un périmètre (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Calculer une aire simple (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Choisir les dimensions utiles (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Calculer avec les disques (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Calculer les volumes usuels (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Décomposer des figures et calculer des aires (Périmètres, aires et volumes)",
+        "niveau": "Préqualifiant",
+        "theme": "Mesures géométriques"
+      },
+      {
+        "libelle": "Reconnaître diviseurs et multiples (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Critères de 2, 5 et 10 (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Critères de 3 et 9 (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Lister diviseurs et multiples (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Décomposer en facteurs premiers (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Trouver PGDC et PPMC (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Résoudre un problème de divisibilité (Divisibilité et décomposition)",
+        "niveau": "Préqualifiant",
+        "theme": "Arithmétique"
+      },
+      {
+        "libelle": "Représenter une fraction (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      },
+      {
+        "libelle": "Placer et comparer les fractions (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      },
+      {
+        "libelle": "Trouver des fractions équivalentes (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      },
+      {
+        "libelle": "Relier fraction, décimal et pourcentage (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      },
+      {
+        "libelle": "Additionner et soustraire (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      },
+      {
+        "libelle": "Multiplier, diviser et prendre une fraction (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      },
+      {
+        "libelle": "Enchaîner les calculs fractionnaires (Fractions : représenter, comparer, calculer)",
+        "niveau": "Préqualifiant",
+        "theme": "Fractions"
+      }
+    ]
+  }
+}

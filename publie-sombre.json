@@ -1,0 +1,192 @@
+{
+  "format": "classes-mathalea/1",
+  "exporteLe": "2026-10-28T06:54:05.678Z",
+  "classes": [
+    {
+      "nom": "5e A",
+      "parcours": [
+        {
+          "id": "relatifs-en-trois-paliers-j9a3o",
+          "version": 1,
+          "titre": "Relatifs en trois paliers",
+          "objectif": "Additionner et soustraire des nombres relatifs",
+          "niveau": "5e",
+          "theme": "Nombres relatifs",
+          "difficulte": 1,
+          "icone": "bx-calculator",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "etapes": [
+            {
+              "uuid": "cbc26",
+              "id": "5N2G",
+              "nbQuestions": 2,
+              "titre": "Additionner deux nombres relatifs",
+              "objectifs": [
+                "Additionner deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "61b4a",
+              "id": "5N2G-1",
+              "nbQuestions": 2,
+              "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
+              "objectifs": [
+                "Additionner deux nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "36e2a",
+              "id": "5N2H",
+              "nbQuestions": 2,
+              "titre": "Additionner 5 nombres relatifs",
+              "objectifs": [
+                "Additionner plusieurs nombres décimaux relatifs"
+              ]
+            },
+            {
+              "uuid": "b6982",
+              "id": "5N2I",
+              "nbQuestions": 2,
+              "titre": "Soustraire deux nombres relatifs",
+              "objectifs": [
+                "Soustraire deux nombres décimaux relatifs"
+              ]
+            }
+          ],
+          "paliers": [
+            {
+              "titre": "Additionner",
+              "nb": 2,
+              "pause": {
+                "texte": "Bravo ! On met en commun en classe : comment additionner deux nombres de signes contraires ?"
+              }
+            },
+            {
+              "titre": "Soustraire",
+              "nb": 1,
+              "acces": "seuil",
+              "seuil": 50,
+              "ressource": {
+                "titre": "Fiche : soustraire un relatif",
+                "lien": "https://kdrive.infomaniak.com/app/share/1/fiche.pdf"
+              }
+            },
+            {
+              "titre": "Pour aller plus loin",
+              "nb": 1,
+              "acces": "libre",
+              "seuil": 80
+            }
+          ],
+          "style": "paliers"
+        }
+      ]
+    }
+  ],
+  "banque": true,
+  "bibliotheque": {
+    "parcours": [
+      {
+        "id": "relatifs-en-trois-paliers-j9a3o",
+        "version": 1,
+        "titre": "Relatifs en trois paliers",
+        "objectif": "Additionner et soustraire des nombres relatifs",
+        "niveau": "5e",
+        "theme": "Nombres relatifs",
+        "difficulte": 1,
+        "icone": "bx-calculator",
+        "presentation": "une_question_par_page",
+        "correction": "question",
+        "enTetesMasques": true,
+        "melanger": true,
+        "etapes": [
+          {
+            "uuid": "cbc26",
+            "id": "5N2G",
+            "nbQuestions": 2,
+            "titre": "Additionner deux nombres relatifs",
+            "objectifs": [
+              "Additionner deux nombres décimaux relatifs"
+            ]
+          },
+          {
+            "uuid": "61b4a",
+            "id": "5N2G-1",
+            "nbQuestions": 2,
+            "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
+            "objectifs": [
+              "Additionner deux nombres décimaux relatifs"
+            ]
+          },
+          {
+            "uuid": "36e2a",
+            "id": "5N2H",
+            "nbQuestions": 2,
+            "titre": "Additionner 5 nombres relatifs",
+            "objectifs": [
+              "Additionner plusieurs nombres décimaux relatifs"
+            ]
+          },
+          {
+            "uuid": "b6982",
+            "id": "5N2I",
+            "nbQuestions": 2,
+            "titre": "Soustraire deux nombres relatifs",
+            "objectifs": [
+              "Soustraire deux nombres décimaux relatifs"
+            ]
+          }
+        ],
+        "paliers": [
+          {
+            "titre": "Additionner",
+            "nb": 2,
+            "pause": {
+              "texte": "Bravo ! On met en commun en classe : comment additionner deux nombres de signes contraires ?"
+            }
+          },
+          {
+            "titre": "Soustraire",
+            "nb": 1,
+            "acces": "seuil",
+            "seuil": 50,
+            "ressource": {
+              "titre": "Fiche : soustraire un relatif",
+              "lien": "https://kdrive.infomaniak.com/app/share/1/fiche.pdf"
+            }
+          },
+          {
+            "titre": "Pour aller plus loin",
+            "nb": 1,
+            "acces": "libre",
+            "seuil": 80
+          }
+        ],
+        "style": "paliers"
+      }
+    ],
+    "objectifs": [
+      {
+        "libelle": "Additionner deux nombres décimaux relatifs",
+        "code": "5N2G",
+        "niveau": "5e",
+        "theme": "Nombres relatifs"
+      },
+      {
+        "libelle": "Additionner plusieurs nombres décimaux relatifs",
+        "code": "5N2H",
+        "niveau": "5e",
+        "theme": "Nombres relatifs"
+      },
+      {
+        "libelle": "Soustraire deux nombres décimaux relatifs",
+        "code": "5N2I",
+        "niveau": "5e",
+        "theme": "Nombres relatifs"
+      }
+    ]
+  }
+}

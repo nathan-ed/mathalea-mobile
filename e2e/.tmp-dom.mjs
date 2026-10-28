@@ -1,0 +1,15 @@
+import { chromium } from 'playwright'
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const page = await (await nav.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })).newPage()
+await page.goto('http://localhost:1420/')
+const r = await page.evaluate(async () => {
+  const man = await (await fetch('/moteur/manifest.json')).json()
+  const m = await import('/moteur/' + man.entree)
+  await m.initialiser()
+  const ex = await m.preparerExercice({ uuid: '6d93f', nbQuestions: 2 }, 0).catch(() => null)
+  const l = (await m.listerExercices('FR')).find((e) => e.id === '5N2B')
+  const ex2 = await m.preparerExercice({ uuid: l.uuid, nbQuestions: 2 }, 0)
+  return ex2.questions[0].enonce.slice(0, 1500)
+})
+console.log(r)
+await nav.close()

@@ -1,0 +1,13 @@
+import { chromium } from 'playwright'
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const p = await (await nav.newContext({ viewport: { width: 1280, height: 900 } })).newPage()
+await p.goto('http://localhost:5197/alea/?v=parcours', { timeout: 240000 })
+await p.getByRole('button', { name: 'Créer un parcours' }).click({ timeout: 240000 })
+await p.locator('label:has-text("Niveau") select').first().selectOption('5e')
+await p.getByRole('button', { name: 'Ajouter des exercices' }).first().click()
+await p.getByPlaceholder(/Thème, identifiant/).fill('5N1D')
+await p.waitForTimeout(2500)
+console.log(await p.locator('button[title^="Ajouter cet exercice"]').count())
+console.log((await p.locator('body').innerText()).slice(0, 600))
+await p.screenshot({ path: 'g1.png' })
+await nav.close()

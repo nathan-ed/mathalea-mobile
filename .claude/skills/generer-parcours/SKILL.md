@@ -39,6 +39,16 @@ change, mettre à jour la page, le schéma et l'exemple (un test les compare,
    `npx tsx -e "import('./src/lib/partage.ts').then(m => m.lireFichier(require('fs').readFileSync('<fichier>','utf8')))"`
    ne doit rien afficher ; sinon le message dit quel parcours est invalide.
 
+## Construire une progression par ceintures
+
+- Partir des savoir-faire et de leurs prérequis, pas de l'ordre d'un tableau de programme. Déplacer une notion introduite trop tôt, fusionner les répétitions et écarter les objectifs hors du chapitre. Formuler ce qui est réellement entraîné, même si cela diffère légèrement du libellé administratif.
+- Une ceinture teste son savoir-faire principal avec assez de questions variées. Prévoir en général au moins deux exercices et contrôler le nombre de questions **effectivement générées** : `nbQuestions` demandé peut être ignoré par un `ExerciceSimple`. Le second exercice peut réviser un prérequis ou une notion connexe, mais ne doit pas prendre toute la place.
+- Lire les sources des exercices retenus : un titre ou un UUID interactif ne garantit ni le bon contenu ni la difficulté annoncée. Examiner `sup` à `sup4`, leurs valeurs par défaut, les familles mélangées et les limites du formulaire. Éviter les variantes `Old` quand une version actuelle existe. Tester plusieurs graines dans le moteur livré avec l'app, puis l'aperçu élève sur téléphone.
+- Relire la suite des questions d'une ceinture et l'ordre des ceintures : aucune fraction avant sa représentation, aucune racine avant les carrés, aucune technique avancée sans préparation. Si un exercice ne peut pas être réglé pour le savoir-faire visé, le remplacer ou signaler la lacune ; ne pas renommer seulement le titre.
+- Étiqueter chaque **exercice** avec l'objectif qu'il travaille réellement. Une révision espacée garde l'objectif du prérequis ; elle ne compte pas comme preuve de maîtrise de l'objectif nouveau. Vérifier les résultats par objectif en plus du seuil de la ceinture.
+- Pour les fiches, appliquer `fiches-cours`. Dans « À retenir », écrire une règle utilisable, jamais le libellé de l'objectif. L'exemple résolu et, s'il y en a une, la petite question portent sur cette ceinture. Le retour explique le raisonnement en français naturel. Éviter les longues réponses en toutes lettres si elles n'apportent rien à l'apprentissage mathématique sur mobile.
+- Livrer avec le JSON une courte liste des savoir-faire non couverts par le moteur actuel et une idée précise d'exercice à créer. Augmenter la version des parcours déjà importés avant de rediffuser, sinon l'app peut garder l'ancienne copie.
+
 ## Rédaction
 
 Français, titres d'élève courts (sans la référence du site), aucun tiret

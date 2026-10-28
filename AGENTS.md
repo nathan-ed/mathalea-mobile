@@ -8,6 +8,15 @@ toute modification.
 
 ## Règles
 
+### Rédiger des parcours pédagogiques
+
+- Dans une fiche, « À retenir » contient une règle ou une méthode utilisable, jamais le libellé de la compétence. Écrire comme on expliquerait en classe, sans formule de slogan ni tournure artificielle.
+- Chaque exemple résolu et chaque petite question portent sur le savoir-faire de la ceinture où ils figurent. Éviter les étapes qui répètent la même idée. Vérifier les calculs et les distinctions de vocabulaire, notamment « chiffre des centaines » et « nombre de centaines ».
+- Donner un exemple résolu à chaque ceinture. Le retour d'une petite question explique le raisonnement en français naturel ; il ne se limite pas à répéter la bonne réponse. Relire ensemble règle, exemple, question et retour dans l'aperçu élève.
+- Pour les parcours mobiles de Préqualifiant, éviter les exercices qui demandent d'écrire des nombres en toutes lettres ou d'autres longues réponses en français quand l'écriture n'est pas l'objectif mathématique utile.
+- Prévoir plusieurs exercices par ceinture pour varier l'évaluation. Un exercice connexe ou un prérequis peut servir de révision espacée, à condition que le savoir-faire principal reste réellement interrogé. Noter séparément ce qui manque au catalogue interactif et proposer une famille d'exercices à créer.
+- Étiqueter chaque exercice avec le savoir-faire qu'il interroge réellement. Une question de révision ne doit pas gonfler la maîtrise affichée de l'objectif nouveau. Vérifier l'ordre des ceintures avec les questions générées, pas seulement leurs titres.
+
 - Français partout (interface, commentaires, documentation). Pas de tiret cadratin.
 - Design : couleurs, polices et icônes de MathALÉA (classes Tailwind compilées
   dans `static/moteur/moteur.css`, voir `src/lib/ui/classes.ts`), formes d'une
