@@ -239,6 +239,7 @@ export function controlerSerie(questions) {
   const vus = new Map()
   questions.forEach((q, i) => {
     const cle = (q.enonce ?? '').replace(/Ex\d+Q\d+/g, '')
+    if (/^\s*chargement\.\.\.\s*$/i.test(q.enonce ?? '')) constats.push({ regle: 'X1', gravite: 1, q: i, extrait: 'énoncé resté à « chargement... » (questions chargées après la génération)' })
     if (cle && vus.has(cle)) constats.push({ regle: 'X4', gravite: 5, q: i, extrait: `question ${i + 1} identique à la question ${vus.get(cle) + 1}` })
     else vus.set(cle, i)
     if (!visible(q.enonce ?? '').trim() && !/<svg|<img|math-field/.test(q.enonce ?? '')) constats.push({ regle: 'X4', gravite: 2, q: i, extrait: 'énoncé vide' })

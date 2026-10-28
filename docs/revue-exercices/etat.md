@@ -32,7 +32,10 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
    s'appuie sur `src/exercices/can/c3/_Canc3a.ts` : le relire par le code).
 3. Trier les constats graves du banc (I1, I2, I4, M1, X1, X3, X6) : faux
    positif → `revue/ecartes.jsonl`, vrai → laissé ou précisé avec noter.mjs.
-4. `node revue/texte.mjs && node revue/rapport.mjs`, commit, push.
+4. Après le banc : passe complémentaire pour les options de paramètres que
+   `optionsDe` ne lit pas (aides « 1 & 2 : … » ; lire les besoinFormulaire
+   bruts dans la sonde).
+5. `node revue/texte.mjs && node revue/rapport.mjs`, commit, push.
 
 ## Remettre l'environnement en place (conteneur neuf)
 

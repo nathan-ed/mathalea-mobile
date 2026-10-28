@@ -6,7 +6,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { controler } from './controles.mjs'
+import { controler, controlerSerie } from './controles.mjs'
 
 const ici = dirname(fileURLToPath(import.meta.url))
 const ref = JSON.parse(readFileSync(join(ici, 'referentiel.json'), 'utf8'))
@@ -28,6 +28,7 @@ for (const f of existsSync(dossier) ? readdirSync(dossier) : []) {
     const ctx = { variante: v.variante, graine: v.graine }
     passe(v.consigne, 'consigne', 'consigne', ctx)
     passe(v.introduction, 'enonce', 'introduction', ctx)
+    for (const c of controlerSerie(v.questions)) if (c.regle === 'X1') lignes.push(JSON.stringify({ ...base, ...ctx, ...c, ou: 'série' }))
     v.questions.forEach((q, i) => {
       passe(q.enonce, 'enonce', 'énoncé', { ...ctx, q: i })
       passe(q.correction, 'correction', 'correction', { ...ctx, q: i })
