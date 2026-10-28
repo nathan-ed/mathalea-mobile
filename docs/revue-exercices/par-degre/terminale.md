@@ -64,11 +64,17 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | ---: | --- |
 | TSA5-30 | I1 Bonne réponse refusée | 3 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | TSG2-30 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
+| TEM1-14 | I2 Réponse fausse acceptée | 60 | réponse fausse acceptée |
+| TEM1-15 | I2 Réponse fausse acceptée | 48 | réponse fausse acceptée |
+| TEM1-22 | I2 Réponse fausse acceptée | 68 | réponse fausse acceptée |
+| TEM1-23 | I2 Réponse fausse acceptée | 34 | réponse fausse acceptée |
 | TSP3-01 | I2 Réponse fausse acceptée | 12 | réponse fausse acceptée |
 | TSG1-04 | I4 Question sans champ | 1 | champ absent de la page |
+| TEC1-51 | X1 Erreur | 1 | console : KaTeX auto-render: Failed to parse `z\neqi` with  ParseError: KaTeX parse error: Undefined control sequence: \neqi at position 3: {z\̲n̲e̲q̲i̲}     at |
+| TEC1-51 | X2 Formule cassée | 1 | « $ » visible : quent, on a 𝑍 ∈ 𝑅 Z∈R si et seulement si 𝑥 = 0 x=0, avec $z\neqi$. 𝑥 = 0 ⟺ 𝑥 = 0 x=0⟺x=0. Ainsi, les solutions sont |
 | TSA5-42 | X2 Formule cassée | 1 | « $ » visible :  ≈ 12 , 33 &lt; 25 u 1 ​ =ln(3×25+1)+8=ln(76)+8≈12,33&lt;25, donc $u_1Montrons par récurrence que, pour tout entier naturel 𝑛 |
 | TSA3-46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1459 ; T5 Espaces 378 ; T4  369 ; R5 Virgule 327 ; N6 Écriture algébrique 267 ; T3  236 ; T6 Points de suspension 179 ; N2 Séparateur des milliers 156 ; T8  70 ; R6  51 ; R9  45 ; N3  40 ; R1 Titre 15 ; N5 Négatif sans parenthèses 9 ; R10 Français 6 ; R8  2 ; X3  2 ; R2 Tutoiement, impératif 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1537 ; T4  559 ; R5 Virgule 420 ; T5 Espaces 416 ; N6 Écriture algébrique 390 ; T6 Points de suspension 247 ; T3  242 ; N2 Séparateur des milliers 159 ; T8  82 ; R6  51 ; R9  45 ; N3  40 ; N5 Négatif sans parenthèses 27 ; R1 Titre 16 ; R10 Français 6 ; R8  2 ; X3  2 ; R2 Tutoiement, impératif 2.
