@@ -20,3 +20,4 @@
 {"id":"6N3autoD-2","regle":"M1","motif":"la correction donne le nombre de cases puis la sortie, les champs demandent la sortie puis le nombre : valeurs justes, ordre différent"}
 {"id":"6M1C","regle":"M1","motif":"deux valeurs approchées en évidence pour un champ : la sonde associe 56,5 puis 56,6 aux champs dans l’ordre"}
 {"id":"6G1autoB","regle":"I1","motif":"liste déroulante dont la valeur contient des espaces (« isocèle et rectangle ») saisie sans espaces par la sonde : à tester à la main"}
+{"id":"6G6D-1","regle":"I1","motif":"liste déroulante dont la valeur contient des espaces (« isocèle rectangle ») saisie sans espaces par la sonde : à tester à la main"}

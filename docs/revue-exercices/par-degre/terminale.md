@@ -1,17 +1,24 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **169 sur 293**. Constats confirmés : **148**.
+Exercices relus : **194 sur 293**. Constats confirmés : **173**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
+| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 31 |
 | Rendu cassé (formule, débordement, erreur) | 6 |
-| Mise en évidence (miseEnEvidence et champs) | 10 |
-| Typographie (nombres, espaces, notations) | 19 |
-| Rédaction (français, titres, consignes) | 82 |
+| Mise en évidence (miseEnEvidence et champs) | 11 |
+| Typographie (nombres, espaces, notations) | 25 |
+| Rédaction (français, titres, consignes) | 99 |
+
+## Interactif faux (la bonne réponse est refusée, ou pas de champ)
+
+| Exercice | Règle | Constat | Correction proposée | Fichier |
+| --- | --- | --- | --- | --- |
+| TSP3-01 | I2 Réponse fausse acceptée | Exercice non interactif (interactifReady=false) rendu interactif par l'app (défaut connu) : le champ a pour attendu tout le HTML de la correction et une réponse fausse (la correction suivie de « x ») est acceptée (12 I2) ; 230 guillemets sans insécables (« l'évènement : « le candidat … » ») ; « évènement » (événement, rectification) ; 23 phrases sans virgule. | Côté app : respecter interactifReady ; côté exercice : guillemets français insécables. | src/exercices/TSpe/TSP3-01.ts |
 
 ## Contenu mathématique faux
 
@@ -72,6 +79,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA3-44 | M8 Évidences et champs | Deux trous (abscisse, ordonnée) mais une seule mise en évidence couvrant tout « I(-1 ; 14) » : l'élève ne voit pas la valeur de chaque trou ; « $1\times(-1)^3$ » avec un facteur 1 inutile. | Deux miseEnEvidence : $I(\,⟦-1⟧\,;\,⟦14⟧\,)$ ; supprimer le facteur 1. | src/exercices/TSpe/TSA3-44.ts |
 | TSA5-20 | M1 Évidence refusée par le champ | Équation a^x=b : l'ensemble solution S={2} mis en évidence avec \left\{ \right\} alors que le champ du trou ne prend que le nombre (42 refus M1) ; « si, et seulement si, » avec virgule. | Mettre en évidence 2 seul ; « si et seulement si ». | src/exercices/TSpe/TSA5-20.ts |
 | TSA5-40 | M3  | Vrai/Faux : « L'affirmation est ⟦vraie⟧ » avec le mot seul en évidence (12 M3) ; « vaut 1 » correct. | « Vrai » en évidence. | src/exercices/TSpe/TSA5-40.ts |
+| TSG1-07 | M1 Évidence refusée par le champ | 12 M1 : valeurs en évidence refusées (multi-champs a, b, c) ; énoncé : « un bureau » mal placé après « qui élira ensuite en son sein, un bureau » (virgule entre le complément et l'objet) ; « 6 adhérents parmi 38 » hors $ dans la correction. | « qui élira ensuite un bureau en son sein » ; $6$, $38$. | src/exercices/TSpe/TSG1-07.ts |
 | TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
 | TSA1-30 | M5 Texte en évidence | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. | « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | TSpe/TSA1-30.ts |
 
@@ -89,12 +97,18 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTEC2-05 | N6 Écriture algébrique | Forme algébrique mise en évidence « $\sqrt{3}-1\mathrm{i}$ » (coefficient 1 écrit) | $\sqrt3-\mathrm{i}$ | src/exercices/can/Ex/canTEC2-05.ts |
 | canTSpeAN15 | T9 Mot en italique | « la fonction $ln(u)$ » : ln en italique | $\ln(u)$ | src/exercices/can/TSpe/canTSpeAN15.ts |
 | canTSpeS03 | T9 Mot en italique | $e^{-n}$ en italique (constante e) ; $n\to\infty$ (aussi canTSpeS02, S04, S05, S06) | \mathrm{e}^{-n} ; n\to+\infty | src/exercices/can/TSpe/canTSpeS03.ts |
+| TSG2-QCM01 | T3  | « respectivement: » sans espace avant les deux-points (16 T3) ; $\mathrm{d}_1$ dans la correction et $d_1$ dans l'énoncé ; 3 pages > 390 px (systèmes paramétriques). | « respectivement : » ; $(d_1)$ partout. | src/exercices/QCMBac/A2023/NouvelleCaledonie2023Q3.ts |
 | TSA2-31 | T4  | « forme indéterminée du type « $\dfrac{\infty}{\infty}$ » » : guillemets sans espaces insécables ; Q1 : « Par produit » sans citer la règle des signes (-5 × +∞). | « ~$\dfrac{\infty}{\infty}$~ » avec insécables ; « car $-5&lt;0$ ». | src/exercices/TSpe/TSA2-31.ts |
 | TSA3-50 | T4  | Correction : « indétermination de type « $0\times\infty$ » » guillemets sans insécables ; le ⟦lim f(x)=+∞⟧ est mis en évidence avec le texte « lim » (équation entière) ; 6 occurrences. | « ~$0\times\infty$~ » ; mettre en évidence $+\infty$ seul. | src/exercices/TSpe/TSA3-50.ts |
 | TSA4-10 | T4  | Consigne : « Par convention, les courbes se prolongent… » correct ; mais 24 corrections avec guillemets sans insécables ; X5 : une figure plus large que 390 px. | Insécables dans les « » ; figure à 100 % de largeur. | src/exercices/TSpe/TSA4-10.ts |
 | TSP1-10 | T4  | Guillemets droits « "mondes" » (20 T4) ; titre « (QCM Bac) » ; $\bullet~~$ dans la liste ; 15 doubles espaces. | Guillemets français insécables. | src/exercices/TSpe/TSP1-10.ts |
 | TSP1-11 | T4  | Même énoncé que TSP1-10 (même texte « mondes » entre guillemets droits) ; correction juste (P_B(G)=1/3 vérifié : 5/25 ÷ 3/5). | Mutualiser l'énoncé ; guillemets français. | src/exercices/TSpe/TSP1-11.ts |
 | TSP2-13 | T4  | Guillemets droits « "pile" » « "face" » (20 T4) ; \bullet~~ dans la liste ; 5 N6. | Guillemets français ; liste. | src/exercices/TSpe/TSP2-13.ts |
+| TSP2-17 | T4  | Même énoncé que TSP1-10/11 (guillemets droits « "mondes" ») ; correction juste (P(X=6)≈0,188 vérifié) ; binom sans mathrm. | Guillemets français. | src/exercices/TSpe/TSP2-17.ts |
+| TSP2-18 | T4  | Idem (guillemets droits) ; correction juste (n=3 : P(X⩽3)≈0,207 vérifié) ; « à la calculatrice » non mentionné. | Guillemets français ; citer la calculatrice. | src/exercices/TSpe/TSP2-18.ts |
+| TSP2-19 | T4  | Même énoncé (guillemets droits « "mondes" ») ; correction juste ; « (\dfrac{13}{25})^{10} » ok. | Guillemets français. | src/exercices/TSpe/TSP2-19.ts |
+| TSP4-10 | T6 Points de suspension | « Var(X) » sans \mathrm (italique) ; intervalles $]-\infty;-8,5 ]$ avec espace avant le crochet ; 113 points de suspension et 40 T8 ; 9 pages > 390 px (ligne P(X∈…)∪… trop longue). | \mathrm{Var} ; $]-\infty\,;\,-8{,}5]$ ; aligned coupé. | src/exercices/TSpe/TSP4-10.ts |
+| TSP4-20 | T8  | 56 T8 ; « \mathrm{P}\left(M_{350} \in ]4,5⍽; 9,5[\right) » : insécable avant ; mais pas après ; 7 pages > 390 px ; 12 phrases sans virgule. | Intervalles ~;~ ; aligned plus court. | src/exercices/TSpe/TSP4-20.ts |
 | TSA1-10 | N1 Nombre hors $ | Justifications en vert : « On ajoute 3. » (nombre hors $) ; « $\dfrac{1}{1}$ » laissé tel quel quand $a=1$. | « On ajoute $3$. » ; écrire $1$. | TSpe/TSA1-10.ts |
 | TSA1-22 | N5 Négatif sans parenthèses | « $\lim_{n\to+\infty}-5n^{2}=-\infty$ », « $\lim -\dfrac{2}{n}=0$ » : terme négatif sans parenthèses après lim (lu comme $-\lim$) ; titre « par somme ou quotient » alors que les questions ne sont que des sommes (graines revue-0-a, revue-1-a). | $\lim\left(-5n^2\right)$ ; vérifier la présence des quotients. | TSpe/TSA1-22.ts |
 | TSA1-23 | N5 Négatif sans parenthèses | Même écriture que TSA1-22 : « $\lim_{n\to+\infty}-2n=-\infty$ », « $\lim -1=-1$ » sans parenthèses. | $\lim\left(-2n\right)$ | TSpe/TSA1-23.ts |
@@ -139,6 +153,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA6-QCM01 | R3  | « définie sur $\mathbb R$ par: » sans espace avant les deux-points (11 T3) ; correction sans mise en évidence de la proposition (M3, M6) ; $F^{\prime}(x)$ au lieu de F'(x). | « par : » ; F'(x) ; proposition en évidence. | src/exercices/QCMBac/A2023/NouvelleCaledonie2023Q2.ts |
 | TSA6-QCM03 | R16  | Titre « équa. diff. » abrégé ; « La solution f de l'équation différentielle … telle que f(0)=3 » espace dans f(0) =3 ; « l'équation différentiel » (différentielle) dans la correction ; 12 M3. | Titre sans abréviation ; différentielle. | src/exercices/QCMBac/A2024/Polynesie2024Q4.ts |
 | TSA6-QCM04 | R16  | Énoncé : « est donnée ci-dessous.: » (point et deux-points collés) ; intervalle $[~0~;~+\infty~[$ avec espaces à l'intérieur des crochets ; correction : « Le dessin est clair » (peu informatif). | « ci-dessous : » ; $[0~;~+\infty[$. | src/exercices/QCMBac/A2024/Polynesie2024Q4b.ts |
+| TSG1-QCM01 | R16  | Correction : « La selection » (sélection) ; « 29 élèves », « 7 élèves » hors des $ ; « la façon de créer des combinaisons » (le nombre de façons) ; QCM sans mise en évidence de la proposition. | sélection ; $29$, $7$ ; reformuler. | src/exercices/QCMBac/A2024/Polynesie2024Q6.ts |
+| TSG1-QCM06 | R16  | Énoncé : les trois effectifs ne sont pas séparés (« …physique-chimie 13 élèves ont choisi la spécialité SES 4 élèves ont choisi… ») : la liste à puces de l'original est aplatie en une phrase illisible ; nombres hors des $ ; M3/M6. | Mettre les trois effectifs sur des lignes séparées (&lt;br> ou liste) avec des points-virgules. | src/exercices/QCMBac/A2024/Polynesie2024Q6b.ts |
+| TSG1-QCM04 | R3  | Titre « Sujet zéro 2024 : listes ordonnées. » point final ; « possibles? » sans espace insécable avant ? ; guillemets droits « "pile" ou "face" » ; « dix lancers » ; M3/M6. | Titre sans point ; \,? ; guillemets français. | src/exercices/QCMBac/A2024/SujetZero2024Q3.ts |
+| TSG1-QCM03 | R2 Tutoiement, impératif | « sans remise » mis en évidence dans l'énoncé avec miseEnEvidence (orange) : c'est un mot-clé de l'énoncé, pas une réponse ; à remplacer par texteEnCouleurEtGras ; guillemets droits « "tirage" » (23 T4) ; « 58 boules », « 4 boules » hors des $ ; correction en 3 $ collés. | texteEnCouleurEtGras pour l'énoncé ; guillemets français ; $58$. | src/exercices/QCMBac/A2024/SujetZero2024Q4.ts |
 | TSA2-QCM02 | R16  | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. | « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | src/exercices/QCMStatiques/Convexite1.ts:35 |
 | TSA3-40 | R1 Titre | « au point d'abscisse 3 », « point P d'abscisse 5 » : nombres hors des $ ; QCM : la bonne proposition n'est pas mise en évidence dans la correction (M3, 16 cas). | $3$ et $5$ entre dollars ; mettre la proposition correcte en évidence. | src/exercices/QCMStatiques/QCMBacConvexite.ts |
 | TSA2-QCM15 | R1 Titre | Propositions du QCM avec nombres hors des $ : « arithmétique de raison 2 » ; intervalles écrits sans espaces $]-\infty;-3]$ (les autres QCM utilisent ~;~). | « raison $2$ » ; $]-\infty~;~-3]$. | src/exercices/QCMStatiques/Shuffle.ts |
@@ -181,9 +199,22 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA8-21 | R3  | Calculs de correction longs dans un aligned avec 5 lignes (3 pages > 390 px) ; « -1\times 2 x » : facteur 1 inutile. | Simplifier ; couper la ligne. | src/exercices/TSpe/TSA8-21.ts |
 | TSA8-22 | R3  | $[-9⍽; -3]$ : insécable avant le point-virgule mais espace ordinaire après ; \left(\dfrac{-3}{-3x-1} \right) espace irrégulière ; 12 phrases sans virgule après « Comme »/« On observe ». | $[-9~;~-3]$ ; virgules. | src/exercices/TSpe/TSA8-22.ts |
 | TSA8-41 | R16  | Correction de l'intégration par parties : « on pose u'(x)=\sin(-x) et v(x)=3x-3 » correct mais la forme « \int_\alpha^\beta u'(x)v(x) » est donnée sans l'hypothèse de classe C^1 ; 84 N6 (nombres sans séparateur de milliers). | Rappeler « u et v de classe C^1 ». | src/exercices/TSpe/TSA8-41.ts |
+| TSG1-01 | R16  | Correction : « tirages possible » (possibles) ; ensemble « E={1;2;....;5} » avec quatre points au lieu de \ldots ; « 5 boules », « 4 boules » nombres hors des $ ; « le nombre de k-uplet » (k-uplets). | possibles ; \{1;2;\ldots;5\} ; $5$, $4$ entre dollars. | src/exercices/TSpe/TSG1-01.ts |
+| TSG1-02 | R16  | Titre « Effectuer un dénombrement (rangement objets). » avec point final et article manquant ; correction : « le nombre de permutations d'un quadruplets » (quadruplet), « le nombre de permutation d'un k-uplet » (permutations), « 4~! = 24 » ; « 4 carnets » hors des $ ; texte dans miseEnEvidence (4 R2). | Titre sans point (« rangement d'objets ») ; accords ; $4$. | src/exercices/TSpe/TSG1-02.ts |
+| TSG1-03 | R16  | Titre « (code). » point final ; correction : ensembles « E={0;1;....;9} » (points) et « F={A, B, C, D, E, F, G} » (virgules et lettre E qui désigne l'ensemble) ; « 3 chiffres », « 4 lettres » hors des $ ; « A, B, … G . » espace avant le point. | \ldots ; F={A;B;…} ; $3$ ; point collé. | src/exercices/TSpe/TSG1-03.ts |
+| TSG1-04 | R16  | La consigne affichée à l'élève est « Sujet inspiré d'un exercice du sujet Bac Asie Juin 2021 » (une source, pas une consigne) ; titre « …probabilités élémentaires. » avec point ; « 10 lettres, 4 voyelles, 6 consonnes, 2 lettres » nombres hors des $ ; 14 N2. | Mettre la source en commentaire ou en pied de page ; vraie consigne ; $10$, $4$, $6$. | src/exercices/TSpe/TSG1-04.ts |
+| TSG1-05 | R1 Titre | Titre « Utiliser le produit cartésien. » avec point ; « 13 filles et 14 garçons » nombres hors des $ ; « On souhaite élire un binôme mixte » : la correction compte des couples ordonnés (f,g) : à justifier. | Titre sans point ; $13$ et $14$. | src/exercices/TSpe/TSG1-05.ts |
+| TSG1-06 | R3  | Titre « Effectuer une somme de combinaisons. » avec point ; somme écrite « \sum_{k=0}^{k=8} » (borne supérieure 8) ; vidéo en iframe dans la correction (3 pages > 390 px). | \sum_{k=0}^{8} ; titre sans point. | src/exercices/TSpe/TSG1-06.ts |
+| TSG1-08 | R16  | « pour tout entiers n et k » (tous les entiers) ; champ en \begin{pmatrix} alors que l'énoncé et la correction écrivent \dbinom : saisie d'un coefficient binomial sous deux formes ; mise en évidence par trou manquante (M8 12). | « pour tous entiers » ; même notation. | src/exercices/TSpe/TSG1-08.ts |
+| TSG1-09 | R16  | Titre « Déterminer un nombre de combinaision. » : faute de frappe (combinaison) et point final. | « Déterminer un nombre de combinaisons ». | src/exercices/TSpe/TSG1-09.ts |
+| TSG1-10 | R3  | Milliers séparés par « \  » (backslash-espace : $20\ 634$, $60\ 000$) au lieu de l'espace fine \, de texNombre ; calculs vérifiés (60 000 − 39 366 = 20 634). | texNombre. | src/exercices/TSpe/TSG1-10.ts |
 | TSP2-11 | R10 Français | Correction : « paramètres $(40;0.06)$ » et « $0.94^{40}$ » avec point décimal (le résultat « ≈0,916 » utilise la virgule) ; « p(X≥1) » avec p minuscule (P) ; 6 % : « 6 % » hors des $ dans l'énoncé (1 N3, 52 N3). | texNombre(p/100) ; P majuscule ; $6\,\%$. | src/exercices/TSpe/TSP2-11.ts:48 |
 | TSP2-12 | R3  | Correction : « \left ( \dfrac{1}{5}\right )^3 » espaces inutiles ; « ;» point-virgule en fin de ligne puis « donc » ; « p(X = 1) » minuscule dans les propositions alors que « P(X = 0) » est écrit en majuscule dans l'énoncé. | P partout ; \left(\right). | src/exercices/TSpe/TSP2-12.ts |
 | TSP2-14 | R9  | 78 R9 : propositions comme « p(X &lt; 13) − p(X ≥ 4) » avec p minuscule ; énoncé : « On veut en même temps X>9 » (formulation à revoir : « de plus ») ; « La réponse est donc p(X⩽15) à qui on ôte p(X⩽9) » (tournure orale) ; « 9 % » hors des $. | P majuscule ; reformuler. | src/exercices/TSpe/TSP2-14.ts |
+| TSP2-15 | C2  | Correction réduite au résultat « 8 » sans calcul ni justification (seuil de la loi binomiale à la calculatrice : aucun tableau de valeurs, aucune phrase) ; 26 phrases sans virgule ; 14 M3 (bonne proposition non mise en évidence). | Rédiger : « à la calculatrice, P(X ⩽ k) … donc n = 8 ». | src/exercices/TSpe/TSP2-15.ts |
+| TSP2-16 | C2  | Correction réduite à « p(X=n)=0,09^n » sans phrase : pas de lien avec n=48 ni avec la proposition cochée ; p minuscule. | Expliquer « n succès d'affilée : 0,09^n ». | src/exercices/TSpe/TSP2-16.ts |
+| TSP2-20 | R1 Titre | Titre « Tirer des boules avec remise dans une urne. » avec point final ; énoncé : « 10 boules rouges et 9 boules bleues », « 4 tirages » nombres hors des $ ; « a) … » items « b) c) d) e) » dans une seule ligne multi-mathfield. | Titre sans point ; $10$, $9$, $4$ entre dollars. | src/exercices/TSpe/TSP2-20.ts |
+| TSP3-10 | R16  | Correction : « On a trivialement : » (espace avant les deux-points, adverbe familier) ; « Var » et « p(X=…) » minuscule dans 15 propositions (R9) ; « s'il obtient 1 » : 1 hors des $ ; « 3 € ; » avec point-virgule collé. | « On a : » ; P majuscule ; $1$. | src/exercices/TSpe/TSP3-10.ts |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
