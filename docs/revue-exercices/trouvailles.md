@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1413 exercices passés sur 4190**.
-Constats regroupés : 6899 (un groupe = même exercice, même règle,
+Avancement : **1440 exercices passés sur 4190**.
+Constats regroupés : 7014 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -37,18 +37,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 17 | 28 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 14 | 265 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 84 | 146 |
-| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 17 | 17 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 106 | 190 |
+| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 18 | 18 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 10 | 10 |
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 159 | 883 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 160 | 884 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 59 | 118 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 117 | 117 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 118 | 119 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 54 | 59 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 55 | 60 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
@@ -62,15 +62,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [T6 Points de suspension](#t6) | 1 | 1 |
 | 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 4 | 4 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 2 | 2 |
-| 3 Mise en évidence | [X5 Débordement à 390 px](#x5) | 1 | 1 |
+| 3 Mise en évidence | [X5 Débordement à 390 px](#x5) | 2 | 2 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 11 | 11 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 379 | 583 |
-| 4 Typographie | [N2 Séparateur des milliers](#n2) | 16 | 22 |
-| 4 Typographie | [N3 Point décimal](#n3) | 16 | 20 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 387 | 592 |
+| 4 Typographie | [N2 Séparateur des milliers](#n2) | 17 | 23 |
+| 4 Typographie | [N3 Point décimal](#n3) | 17 | 21 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 5 | 5 |
 | 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 38 | 46 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
@@ -81,31 +81,31 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 4 | 4 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 19 | 24 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 15 | 19 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 220 | 344 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 240 | 384 |
 | 4 Typographie | [T4 Guillemets](#t4) | 82 | 125 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 5 | 5 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 258 | 334 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 266 | 342 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 156 | 720 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 38 | 42 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 71 | 101 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 72 | 102 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 45 | 62 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 111 | 154 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 98 | 158 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 99 | 159 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 119 | 172 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 120 | 173 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 10 | 14 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 32 | 43 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 292 | 505 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 317 | 495 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 293 | 506 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 319 | 497 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 29 | 29 |
@@ -837,6 +837,50 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-056 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-057 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-057 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-058 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-058 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-059 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-059 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-060 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-060 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-061 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-061 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-062 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-062 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-063 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-063 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-064 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-064 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-065 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-065 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-066 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-066 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-067 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-067 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-068 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-068 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-069 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-069 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-070 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-070 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-071 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-071 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-072 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-072 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-073 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-073 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-074 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-074 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-075 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-075 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-076 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-076 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-077 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-077 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-078 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-078 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-079 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-079 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | série q1 | énoncé vide | ×130 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | série q1 | énoncé vide | ×18 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Grimuku (EN) | série q1 | énoncé vide | ×58 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
@@ -869,6 +913,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1J (6e) | 6e/6N0A-10.ts | Six champs à trous sur une ligne : à 390 px, le dernier champ sort de l'écran une fois rempli (même défaut que 6N0A-10). → Voir 6N0A-10. | ×1 |
 | 6N2autoB-1 (6e) | 6e/6N2autoB-1.ts | Tableau de quatre colonnes à 390 px : la colonne « Écriture décimale » (champs à remplir, ou nombre donné quand sup=4) est hors de l'écran, coupée après « Décomposition canoniq » (captures 000 et 004-a-enonce). → Tableau transposé ou une ligne par nombre sur petit écran ; au minimum un défilement horizontal visible. | ×1 |
 | 6N2E-1 (6e) | 6e/6N2E-1.ts | Correction à 390 px : les lignes du calcul aligné sortent de l'écran (« = 1076 × 1 × … », « = (846 », capture 000-a-correction), et la multiplication posée s'affiche au-dessus du numéro de la question. → Couper les égalités (une transformation par ligne) ou réduire l'alignement sur petit écran. | ×1 |
+| 6N3H-1 (6e) | 6e/6N3H-1.ts | Labyrinthe de 5 × 8 cases à 390 px : la figure est réduite mais pas les fractions, qui se chevauchent d'une ligne à l'autre et masquent les murs (capture 012-a-enonce), illisible sur téléphone. Même défaut que 6N1A-4. → Limiter lignes et colonnes sur petit écran, ou réduire la taille des étiquettes avec la figure. | ×1 |
 | can2F24-04 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:201 | Commentaire « Comme la fonction racine carrée est strictement croissante… » écrit en \text dans un aligned après \qquad : ligne de 866 px, coupée à 390 px (capture), illisible sur téléphone. Même chose pour can2F24-05 (fonction cube, 803 px) → sortir la phrase de la formule (texte après le aligned) | ×1 |
 | can2F24-05 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:183 | Commentaire en \text dans l'aligned (« Comme la fonction cube est strictement croissante… ») : 803 px, coupé à 390 px → phrase hors de la formule | ×1 |
 | can2P1-03 (CAN) | src/exercices/can/1e/can1P12-05.ts | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px → tableau plus étroit (en-tête « Face », « P ») | ×1 |
@@ -966,6 +1011,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2E-5 (6e) |  q7 mathlive | valeur en évidence refusée par le champ : ["21,496","2,364","75,130\\,38","1,891\\,5"] ; attendu : {"champ":"789,415\\,2"} | ×1 ; sup=0 nb=10 (revue-5-a) |
 | 6N2K-2 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"0","champ2":"13","champ3":"13"} ; attendu : {"champ1":"36","champ2":"0","champ3":"13"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N3H-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"5","champ2":"6"} ; attendu : {"champ1":"6","champ2":"5"} | ×222 ; sup=13 sup2=4 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| 6N3M-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"1,2","champ2":"1,8"} ; attendu : {"champ1":"1.8","champ2":"1.2"} | ×16 ; sup=4 sup2=true ; sup=4 sup2=false… (revue-6-a) |
 | BP1AUTO091 (BP1) |  q1 mathlive | valeur en évidence refusée par le champ : ["3\\,375\\text{ dm}^3"] ; attendu : {"champ":"3375\\operatorname{dm^3}"} | ×4 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=false… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q2 mathlive | valeur en évidence refusée par le champ : ["180\\text{ cm}^3"] ; attendu : {"champ":"180\\operatorname{cm^3}"} | ×8 ; sup=1 sup2=false sup3=false ; sup=2 sup2=true sup3=false… (revue-0-a) |
 | BP1AUTO091 (BP1) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\,728\\text{ cm}^3"] ; attendu : {"champ":"1728\\operatorname{cm^3}"} | ×4 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=false… (revue-0-a) |
@@ -2188,6 +2234,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3D-2 (6e) | série q1 | aucune mise en évidence dans la correction | ×550 ; sup=2 sup2=true sup3=1 sup4=2 ; sup=1 sup2=true sup3=1 sup4=1… (revue-0-a) |
 | 6N3E (6e) | série q1 | aucune mise en évidence dans la correction | ×74 ; sup=true sup2=true sup3=4 ; sup=true sup2=true sup3=1… (revue-0-a) |
 | 6N3K-2 (6e) | série q1 | aucune mise en évidence dans la correction | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N3K-2 (6e) | 6e/6N3K-2.ts | Le résultat (« $\dfrac{9}{5}$ ») n'est pas mis en évidence dans la correction ; « 4 segments » hors $. → $${miseEnEvidence('\\dfrac{9}{5}')}$ ; $4$ segments. | ×1 |
+| 6N3M-2 (6e) | série q1 | aucune mise en évidence dans la correction | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | can1D3-05 (CAN) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | can1SD22-04 (CAN) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | can5a-2020 (CAN) | série q18 | aucune mise en évidence dans la correction | ×2 ; sup= (revue-0-a) |
@@ -2393,6 +2441,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3F-2 (6e) | 6e/6N3F-2.ts | Sans la valeur décimale (sup3 décoché), il n'y a pas de champ pour l'écriture décimale mais la correction la met toujours en évidence (« = 1,5 », graine revue-1-a). → N'ajouter « = écriture décimale » en évidence que si sup3. | ×1 |
 | 6N3H (6e) |  q1 fillInTheBlank | 2 mise(s) en évidence pour 3 trou(s) | ×400 ; sup=11 sup2=2 ; sup=1 sup2=1… (revue-0-a) |
 | 6N3H-2 (6e) |  q1 fillInTheBlank | 2 mise(s) en évidence pour 4 trou(s) | ×550 ; sup=0 sup2=false sup3=2 ; sup=0 sup2=true sup3=1… (revue-0-a) |
+| 6N3N (6e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 2 champ(s) | ×3 ; sup=3 ; sup=2 (revue-0-b) |
 | can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q7.ts:61 | Q7 : la fraction non simplifiée ⟦\dfrac{4}{6}⟧ est mise en évidence, puis simplifiée en $\dfrac{2}{3}$ sans évidence → mettre en évidence la forme finale | ×1 |
 | can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q14.ts | Q14 : deux mises en évidence (⟦45⟧ pour Δ, ⟦2⟧ pour le nombre de solutions) pour un seul champ → seul le nombre de solutions en évidence | ×1 |
 | can1D1-05 (CAN) | src/exercices/can/1e/can1D1-05.ts:183 | Deux mises en évidence pour un champ (⟦4(x-2)+6⟧ puis ⟦4x-2⟧) ; en $x=0$ : « $2(x+0)+2$ » (ecritureAlgebrique(-0)) → seule la forme réduite en évidence ; traiter nbre=0 | ×1 |
@@ -2588,6 +2637,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6N3I-5 (6e) | 6e/6N3I-5.ts | Tableau de 5 colonnes à 390 px : les en-têtes débordent de leur colonne (« Inférieure », « Supérieure » coupés et chevauchant la colonne voisine, capture 000-a-enonce) ; titre « … par rapport à un demi et à un » (« à 1 »). → En-têtes plus courts (« &lt; 1/2 », « = 1/2 »…) ou tableau en lignes sur petit écran. | ×1 |
 | TSA1-12 (Terminale) | TSpe/TSA1-12.ts | Correction à 390 px : le calcul aligné avec ses justifications en vert (« ← hypothèse de récurrence ») élargit la page à 451 px ; « \text{car 2n+6=2(n+1)+4} » écrit en texte droit au lieu de formule. → Justifications sous chaque ligne sur petit écran ; « car $2n+6=2(n+1)+4$ ». | ×1 |
 
 ## X7
@@ -2737,6 +2787,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3F-2 (6e) | titre | « 1 » hors $ : fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale | ×1 |
 | 6N3F-2 (6e) | consigne | « 1 » hors $ : d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale. ‖ « 1 » hors $ : d'un nombre entier et d'une fraction inférieure à 1. | ×2 ; sup=2-4-4-5-5-5-8-8-10-10-10-10 sup2=true sup3=true ; sup=2-4-4-5-5-5-8-8-10-10-10-10 sup2=true sup3=false (revue-0-a) |
 | 6N3I-1 (6e) | consigne | « 4 » hors $ : Ce sont deux nombres entiers qui se suivent comme 4 et 5. . ‖ « 5 » hors $ : nt deux nombres entiers qui se suivent comme 4 et 5. . | ×2 ; sup2=11 sup3=true sup4=true (revue-0-a) |
+| 6N3K-2 (6e) | énoncé q1 | « 4 » hors $ : On place bout à bout 4 segments de longueurs respectives | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N3K-2 (6e) | énoncé non interactif q1 | « 4 » hors $ : On place bout à bout 4 segments de longueurs respectives | ×4 |
+| 6N3M-1 (6e) | correction q1 | « 4 » hors $ : Comme l'heure est partagée en 4 parts égales, chaque part représente | ×28 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-0-a) |
 | BP1AUTO056 (BP1) | correction q1 | « 1 » hors $ : a) À chaque fois que l'on avance de 1 unité d'abscisses, on descend de ‖ « 1 » hors $ : a) À chaque fois que l'on avance de 1 unité d'abscisses, on monte de | ×49 ; sup=3 sup2=3 sup3=3 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | BP2AutoE4 (BP2) | titre | « 10 » hors $ : Effectuer des calculs avec les puissances de 10 (QCM) | ×1 |
 | BP2AutoP1 (BP2) | énoncé q1 | « 6 » hors $ : 6]. Si besoin, les solutions doivent être séparées ‖ « 6 » hors $ : 6] est : [champ] ‖ « 5 » hors $ : 5] est : [champ] Résoudre graphiquement l'inéq | ×60 ; sup=1 sup2=10 ; sup=1 sup2=1… (revue-0-a) |
@@ -3019,6 +3072,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-052 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : Source : Renate Schmid / MFO — CC BY-SA 2.0 DE Super-pouvoir : Dompteuse du h | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-054 (Égalité filles-garçons) | consigne | « 4.0 » hors $ : yon Source : Xuthoria — CC BY-SA 4.0 Super-pouvoir : Professeure des m | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-055 (Égalité filles-garçons) | consigne | « 50 » hors $ : Le truc stylé : Anticipe les besoins médicaux sur 50 ans Parcours : Mathématiques | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-057 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : : Jérémy Barande / École polytechnique — CC BY-SA 2.0 Super-pouvoir : Connecteuse de mi | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-061 (Égalité filles-garçons) | consigne | « 3.0 » hors $ : Jean Source : Bitcoin.fr — CC BY 3.0 Super-pouvoir : Dompteuse d'algor | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-062 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : Source : Renate Schmid / MFO — CC BY-SA 2.0 DE Super-pouvoir : Calculatrice d | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-064 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : ikimedia Commons — Katrin Schmid / MFO — CC BY-SA 2.0 DE Super-pouvoir : Sculptrice d'e | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-069 (Égalité filles-garçons) | consigne | « 50 » hors $ : ce Le truc stylé : Protège les assurés sur 50 ans Parcours : Mathématiques | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-072 (Égalité filles-garçons) | consigne | « 50 » hors $ : 'elle fait : Simule la consommation d'énergie sur 50 ans Le truc stylé : Aide à choisir les c | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | consigne | « 10 » hors $ : du ciel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ‖ « 20 » hors $ : iel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ran ‖ « 30 » hors $ : Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même rangée, l | ×24 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction q1 | « 20 » hors $ : 20 10 30 ‖ « 10 » hors $ : 10 ‖ « 10 » hors $ : 10 20 | ×136 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction non interactive q1 | « 20 » hors $ : 20 10 30 | ×9 |
@@ -3242,6 +3301,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1C (6e) | énoncé non interactif q1 | nombre sans séparateur de milliers : $00581030090$ | ×5 |
 | 6N1D-1 (6e) | 6e/6N1D-1.ts | « $8{,}643344$ » : partie décimale de 6 chiffres sans espace (texNombre donnerait 8,643\,344). → texNombre(n, 6) | ×1 |
 | 6N1K (6e) | correction q1 | nombre sans séparateur de milliers : $\phantom{1234567}8\,229 &lt; 8\,229,858 &lt;$ ‖ nombre sans séparateur de milliers : $\phantom{1234567}307 &lt; 307,651 &lt; {\colo$ ‖ nombre sans séparateur de milliers : $\phantom{1234567}{\color{}\boldsymbol{3$ | ×22 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-0-a) |
+| 6N3I-3 (6e) | 6e/6N3I-3.ts | Grand coefficient (sup=99999) : « $\times 1152$ », « $\times 83910$ » sans espace des milliers (les fractions en ont). → texNombre(k) | ×1 |
 | can1a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts:2446 | Q2 : « $-2\times 2024+2$ » et Q7 « $2024-13$ » sans séparateur des milliers (le reste du sujet écrit $2\,024$) → ${texNombre(2024)} | ×1 |
 | can1a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q6 : réponse « $\dfrac{1}{2033}$ » sans séparateur ; Q16 : intervalles de la correction écrits $]-2020\,;\,2025[$ sans séparateur (l'énoncé écrit $2\,020$) → texNombre | ×1 |
 | can2a-2023 (CAN) |  | Q16 : « 1000 » sans séparateur des milliers → texNombre | ×1 |
@@ -3270,6 +3330,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoL3-2 (6e) | énoncé q1 | point décimal : $IJ = 3.9\text{ cm}$ ‖ point décimal : $WX = 2.7\text{ cm}$ ‖ point décimal : $ST = 2.4\text{ cm}$ | ×6 ; sup=1-2-3 sup2=true sup3=false ; sup=2 sup2=true sup3=false… (revue-2-a) |
 | 6AutoT1-6 (6e) | correction q4 | point décimal : $176.65-(2\times 60) =56,65\tex$ | ×3 ; sup=2 sup2=false sup3=false ; sup=3 sup2=false sup3=false (revue-7-a) |
 | 6N1A (6e) | 6e/6N1A.ts | Attente flottante « 0.8360000000000001 » pour la partie décimale (acceptée quand on saisit 0,836, mais à arrondir). → arrondi(nombre - Math.floor(nombre), 3) | ×1 |
+| 6N3M-1 (6e) | correction q2 | point décimal : $7.5$ | ×3 ; sup=3 sup2=true ; sup=3 sup2=false… (revue-4-a) |
 | can2a-2023 (CAN) | correction q29 | point décimal : $2.5$ | ×1 ; sup2=true (revue-1-a) |
 | can2F22-02 (CAN) | correction q1 | point décimal : $-4}}} = {\color{}\boldsymbol{-0.25}}$ ‖ point décimal : $10}}} = {\color{}\boldsymbol{-0.1}}$ | ×3 ; sup5=true ; sup5=false nb=10 (revue-1-a) |
 | can3a-2022 (CAN) | src/exercices/can/3e/can3a-2022.ts:631 | Q15 : accolades « $_{13-5.5}$ » avec point décimal (k1, k2 non passés par texNombre). → ${texNombre(k2)} | ×1 |
@@ -3700,6 +3761,46 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-054 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Isabelle Guyon Source : Xuthoria — CC BY-SA 4.0 Super-pouv ‖ espace ordinaire (sécable) avant « : » : Xuthoria — CC BY-SA 4.0 Super-pouvoir : Professeure des machines Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : : Professeure des machines Ce qu'elle fait : Invente le tri de données massives Le tr | ×15 ; sup=1 ; sup=2… (revue-0-a) |
 | Portraits-055 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Isabelle Hébert | ×1 |
 | Portraits-055 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Isabelle Hébert Source : ENSAE Alumni Super-pouvoir : Calcu ‖ espace ordinaire (sécable) avant « : » : Source : ENSAE Alumni Super-pouvoir : Calculatrice de risques santé Ce qu'elle ‖ espace ordinaire (sécable) avant « : » : lculatrice de risques santé Ce qu'elle fait : Prévoit les dépenses de santé Le truc st | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-056 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Raphaèle Herbin | ×1 |
+| Portraits-056 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Raphaèle Herbin Source : CNRS Super-pouvoir : Simulatrice d ‖ espace ordinaire (sécable) avant « : » : Source : CNRS Super-pouvoir : Simulatrice de fluides dangereux Ce qu'e ‖ espace ordinaire (sécable) avant « : » : atrice de fluides dangereux Ce qu'elle fait : Simule incendies et explosions par maths | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-057 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Christel Heydemann | ×1 |
+| Portraits-057 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Christel Heydemann Source : Jérémy Barande / École polytechnique — CC BY-SA ‖ espace ordinaire (sécable) avant « : » : echnique — CC BY-SA 2.0 Super-pouvoir : Connecteuse de millions Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : r : Connecteuse de millions Ce qu'elle fait : Dirige Orange et ses réseaux Le truc sty | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-058 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Caroline Hillairet | ×1 |
+| Portraits-058 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Caroline Hillairet Source : CREST Super-pouvoir : Assureuse co ‖ espace ordinaire (sécable) avant « : » : Source : CREST Super-pouvoir : Assureuse contre les pirates Ce qu'elle ‖ espace ordinaire (sécable) avant « : » : ssureuse contre les pirates Ce qu'elle fait : Chiffre le coût des cyberattaques Le tru | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-059 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Céline Hudelot | ×1 |
+| Portraits-059 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Céline Hudelot Source : Institut DATAIA Super-pouvoir : Tr ‖ espace ordinaire (sécable) avant « : » : ource : Institut DATAIA Super-pouvoir : Traductrice d'images en idées Ce qu'elle ‖ espace ordinaire (sécable) avant « : » : aductrice d'images en idées Ce qu'elle fait : Analyse des images par IA et textes Le t | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-060 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Élise Janvresse | ×1 |
+| Portraits-060 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Élise Janvresse Source : CNRS INSMI / Université de Picardie Jules-Verne ‖ espace ordinaire (sécable) avant « : » : de Picardie Jules-Verne Super-pouvoir : Conteuse de probabilités Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : : Conteuse de probabilités Ce qu'elle fait : Étudie les systèmes dynamiques instables | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-061 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Aurélie Jean | ×1 |
+| Portraits-061 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Aurélie Jean Source : Bitcoin.fr — CC BY 3.0 Super-pouvo ‖ espace ordinaire (sécable) avant « : » : Bitcoin.fr — CC BY 3.0 Super-pouvoir : Dompteuse d'algorithmes Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : r : Dompteuse d'algorithmes Ce qu'elle fait : Modélise le cœur humain et le cancer Le | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-062 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Monique Jeanblanc | ×1 |
+| Portraits-062 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Monique Jeanblanc Source : Renate Schmid / MFO — CC BY-SA 2.0 DE ‖ espace ordinaire (sécable) avant « : » : / MFO — CC BY-SA 2.0 DE Super-pouvoir : Calculatrice du risque de faillite Ce qu ‖ espace ordinaire (sécable) avant « : » : trice du risque de faillite Ce qu'elle fait : Modélise le défaut de paiement Le truc s | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-063 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Maëlle Jounay | ×1 |
+| Portraits-063 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Maëlle Jounay Source : EDF Super-pouvoir : Décarboneuse d ‖ espace ordinaire (sécable) avant « : » : Source : EDF Super-pouvoir : Décarboneuse d'usines Ce qu'elle fait : ‖ espace ordinaire (sécable) avant « : » : oir : Décarboneuse d'usines Ce qu'elle fait : Modélise le remplacement du gaz par l’électrici | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-064 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Fanny Kassel | ×1 |
+| Portraits-064 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Fanny Kassel Source : Wikimedia Commons — Katrin Schmid / MFO — CC BY ‖ espace ordinaire (sécable) avant « : » : / MFO — CC BY-SA 2.0 DE Super-pouvoir : Sculptrice d'espaces géométriques Ce qu' ‖ espace ordinaire (sécable) avant « : » : rice d'espaces géométriques Ce qu'elle fait : Étudie la géométrie dans des espaces abstraits | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-065 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Christine Keribin | ×1 |
+| Portraits-065 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Christine Keribin Source : Christophe Peus / Université Paris-Saclay ‖ espace ordinaire (sécable) avant « : » : Université Paris-Saclay Super-pouvoir : Rangeuse de données géantes Ce qu'elle f ‖ espace ordinaire (sécable) avant « : » : Rangeuse de données géantes Ce qu'elle fait : Repère des groupes cachés dans les données | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-066 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Hélène Kirchner | ×1 |
+| Portraits-066 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Hélène Kirchner Source : Inria Super-pouvoir : Avocate des ‖ espace ordinaire (sécable) avant « : » : Source : Inria Super-pouvoir : Avocate des logiciels Ce qu'elle fait : ‖ espace ordinaire (sécable) avant « : » : oir : Avocate des logiciels Ce qu'elle fait : Vérifie les règles des programmes Le tru | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-067 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Madeleine Kubasch | ×1 |
+| Portraits-067 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Madeleine Kubasch Source : site personnel Super-pouvoir : Sim ‖ espace ordinaire (sécable) avant « : » : Source : site personnel Super-pouvoir : Simulatrice de contagions Ce qu'elle fai ‖ espace ordinaire (sécable) avant « : » : : Simulatrice de contagions Ce qu'elle fait : Représente la transmission de maladie Le | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-068 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Céline Lazorthes | ×1 |
+| Portraits-068 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Céline Lazorthes Source : Focus (Suisse) Super-pouvoir : Cré ‖ espace ordinaire (sécable) avant « : » : Source : Focus (Suisse) Super-pouvoir : Créatrice de monnaie collective Ce qu'el ‖ espace ordinaire (sécable) avant « : » : trice de monnaie collective Ce qu'elle fait : A codé les plateformes de paiement Le tr | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-069 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Pauline Leclerc-Glorieux | ×1 |
+| Portraits-069 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Pauline Leclerc-Glorieux Source : BNP Paribas Cardif Super-pouvoir : ‖ espace ordinaire (sécable) avant « : » : ce : BNP Paribas Cardif Super-pouvoir : Architecte des assurances Ce qu'elle fai ‖ espace ordinaire (sécable) avant « : » : : Architecte des assurances Ce qu'elle fait : Dirige les modèles d'assurance Le truc s | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-070 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Aline Lefebvre-Lepot | ×1 |
+| Portraits-070 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Aline Lefebvre-Lepot Source : site personnel Super-pouvoir : Sim ‖ espace ordinaire (sécable) avant « : » : Source : site personnel Super-pouvoir : Simulatrice de grains Ce qu'elle fait : ‖ espace ordinaire (sécable) avant « : » : oir : Simulatrice de grains Ce qu'elle fait : Étudie le mouvement de grains dans un liquide | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-071 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Florence Lustman | ×1 |
+| Portraits-071 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Florence Lustman Source : France Assureurs Super-pouvoir : B ‖ espace ordinaire (sécable) avant « : » : urce : France Assureurs Super-pouvoir : Bouclier contre les risques Ce qu'elle f ‖ espace ordinaire (sécable) avant « : » : Bouclier contre les risques Ce qu'elle fait : Prévoit les crises financières Le truc s | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-072 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Nadia Maïzi | ×1 |
+| Portraits-072 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Nadia Maïzi Source : Mines Paris - PSL Super-pouvoir : ‖ espace ordinaire (sécable) avant « : » : rce : Mines Paris - PSL Super-pouvoir : Voyageuse du futur énergétique Ce qu'ell ‖ espace ordinaire (sécable) avant « : » : ageuse du futur énergétique Ce qu'elle fait : Simule la consommation d'énergie sur 50 ans | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-073 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sibylle Marcotte | ×1 |
+| Portraits-073 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Sibylle Marcotte Source : CNRS INSMI Super-pouvoir : Mécanic ‖ espace ordinaire (sécable) avant « : » : Source : CNRS INSMI Super-pouvoir : Mécanicienne des réseaux de neurones Ce ‖ espace ordinaire (sécable) avant « : » : nne des réseaux de neurones Ce qu'elle fait : Explique l'apprentissage des IA Le truc | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-074 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Claire Mathieu | ×1 |
+| Portraits-074 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Claire Mathieu Source : Collège de France Super-pouvoir : ‖ espace ordinaire (sécable) avant « : » : rce : Collège de France Super-pouvoir : Optimiseuse du quotidien Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : : Optimiseuse du quotidien Ce qu'elle fait : Résout des problèmes géants et complexes | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-075 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Véronique Maume-Deschamps | ×1 |
+| Portraits-075 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Véronique Maume-Deschamps Source : photo fournie Super-pouvoir : Reli ‖ espace ordinaire (sécable) avant « : » : Source : photo fournie Super-pouvoir : Relieuse de risques Ce qu'elle fait : Ét ‖ espace ordinaire (sécable) avant « : » : uvoir : Relieuse de risques Ce qu'elle fait : Étudie le cumul des risques Le truc styl | ×15 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Grimuku (EN) | consigne | espace ordinaire (sécable) avant « : » : d’une flèche. Les chiffres déjà écrits sont donnés : ils ne sont pas à trouver. | ×2 ; sup=2 sup2=1 sup3=true ; sup=2 sup2=1 sup3=true nb=10 (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | espace ordinaire (sécable) avant « : » : ment choisi. Ne pas choisir un nombre déjà utilisé : le joueur qui ne peut plus jouer a perdu. Un ch | ×1 ; défaut (revue-0-a) |
 | EN-KenKen (EN) | consigne | espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici la soustraction, la multiplication et la di ‖ espace ordinaire (sécable) avant « : » : d’importance. Les nombres déjà écrits sont donnés : ils ne sont pas à trouver. ‖ espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici l’addition, la soustraction et la division. | ×55 ; sup=2 sup2=1-2-3-4 sup3=1 sup4=true ; sup=1 sup2=1-2-3-4 sup3=1 sup4=true… (revue-0-a) |
@@ -4073,6 +4174,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3D (6e) | correction | page de 766 px pour 390 px | ×27 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N3I-5 (6e) | énoncé | page de 399 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6N3I-5 (6e) | correction | page de 393 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6N3J (6e) | correction | page de 484 px pour 390 px | ×19 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
+| 6N3N (6e) | correction | page de 424 px pour 390 px | ×5 ; sup=3 ; sup=1… (revue-0-b) |
 | BP1AUTO061 (BP1) | correction | page de 544 px pour 390 px | ×10 ; sup=4 sup2=3 ; sup=1 sup2=2… (revue-0-a) |
 | BP1AUTO091 (BP1) | correction | page de 450 px pour 390 px | ×17 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | BP1AUTO094 (BP1) | correction | page de 443 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
@@ -4239,6 +4342,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Portraits-052 (Égalité filles-garçons) | énoncé | page de 499 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | Portraits-054 (Égalité filles-garçons) | énoncé | page de 411 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | Portraits-057 (Égalité filles-garçons) | énoncé | page de 571 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-060 (Égalité filles-garçons) | énoncé | page de 534 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-061 (Égalité filles-garçons) | énoncé | page de 394 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-062 (Égalité filles-garçons) | énoncé | page de 499 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-064 (Égalité filles-garçons) | énoncé | page de 623 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-065 (Égalité filles-garçons) | énoncé | page de 497 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-077 (Égalité filles-garçons) | énoncé | page de 571 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | EN-Gratte-ciel (EN) | énoncé q1 | table.tableauMathlive de 572 px pour 390 px | ×16 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | énoncé | page de 588 px pour 390 px | ×11 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction | page de 393 px pour 390 px | ×9 ; sup=3 ; sup=4… (revue-0-a) |
@@ -5191,6 +5300,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2E-1 (6e) | correction non interactive q2 | nombre à 4 chiffres sans séparateur : $1076 \times 907=975\,932$ ‖ nombre à 4 chiffres sans séparateur : $10,76=\dfrac{1076}{100}=1076 \times 0,01$ ‖ nombre à 4 chiffres sans séparateur : $10,76 \times 907&=\dfrac{1076}{100} \times 907\\$ | ×8 |
 | 6N2K-3 (6e) | énoncé non interactif q2 | nombre à 4 chiffres sans séparateur : $1220$ | ×2 |
 | 6N3A-2 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $dfrac{3\,080}{3\,200}&=\dfrac{3080\div 4}{3200\div 4}\\$ ‖ nombre à 4 chiffres sans séparateur : $}{3\,200}&=\dfrac{3080\div 4}{3200\div 4}\\ &={\colo$ ‖ nombre à 4 chiffres sans séparateur : $d}\dfrac{2\,612}{800}&=\dfrac{2612\div 4}{800\div 4}\\$ | ×131 ; sup=1 sup2=2 sup3=true ; sup=1 sup2=3 sup3=true… (revue-3-a) |
+| 6N3I-3 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $1{\color{}\boldsymbol{\times 1152}}}{9{\color{}\boldsymbol{$ ‖ nombre à 4 chiffres sans séparateur : $9{\color{}\boldsymbol{\times 1152}}}=\dfrac{1\,152}{10\,368$ ‖ nombre sans séparateur de milliers : $2{\color{}\boldsymbol{\times 83910}}}{7{\color{}\boldsymbol$ | ×10 ; sup=99999 (revue-12-a) |
 | can1a-2022 (CAN) | correction q23 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 ; sup=true (revue-1-a) |
 | can1a-2025 (CAN) | correction q19 | nombre à 4 chiffres sans séparateur : $8100>0$ | ×1 ; sup=false (revue-0-a) |
 | can1S1-04 (CAN) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1400$ | ×2 ; défaut nb=10 (revue-1-a) |
@@ -5605,6 +5715,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2K-1 (6e) | énoncé non interactif q2 | deuxième personne : asse 429 oeufs et souhaite les ranger dans des boîtes de 12. a) Combien de boîtes remplies entièreme ‖ deuxième personne : es ranger dans des boîtes de 12. a) Combien de boîtes remplies entièrement faudra-t-il ? b) Combie | ×2 |
 | 6N2K-3 (6e) | énoncé q1 | impératif : Utilise l'égalité suivante pour donner le quotient | ×18 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N2K-3 (6e) | énoncé non interactif q1 | impératif : Utilise l'égalité suivante pour donner le quotient | ×4 |
+| 6N3M-1 (6e) | énoncé q1 | deuxième personne : Un bâton de ‖ deuxième personne : de chacun des morceaux en mètres. [champ] Ce bâton est représenté ci-dessous : | ×18 ; sup=4 sup2=true ; sup=4 sup2=false… (revue-6-a) |
 | can2a-2023 (CAN) | énoncé q21 | impératif : . Détermine la longueur | ×2 ; sup2=false ; sup2=true (revue-0-a) |
 | can2a-2023 (CAN) | énoncé non interactif q21 | impératif : . Détermine la longueur | ×1 |
 | can2N10-02 (CAN) | src/exercices/can/2e/can2N10-02.ts:50 | Correction : « Comptez-les ! » (impératif adressé à l'élève) ; guillemets droits « "comprises" » → On peut les compter ; « comprises » | ×1 |
@@ -5785,6 +5896,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2K-1 (6e) | énoncé q1 | pas de virgule avant « soit » : nnes. Ils hésitent sur la disposition de la salle : soit mettre 12 places par rangée, soit 15 place ‖ pas de virgule avant « soit » : nnes. Ils hésitent sur la disposition de la salle : soit mettre 9 places par rangée, soit 12 places | ×5 ; sup=8 ; sup=9 nb=10 (revue-8-a) |
 | 6N3B (6e) | énoncé q1 | pas de virgule avant « alors » : . c) Compléter alors la phrase suivante : On constate que le q | ×16 ; sup=3 ; sup=1… (revue-0-a) |
 | 6N3B (6e) | énoncé non interactif q1 | pas de virgule avant « alors » : . c) Compléter alors la phrase suivante : On constate que le q | ×2 |
+| 6N3J (6e) | correction q1 | pas de virgule avant « alors » : . On conclut alors au rangement final par ordre croissant. ‖ pas de virgule avant « alors » : . On conclut alors au rangement final par ordre décroissant. | ×53 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | BP1AA07 (BP1) | correction q1 | pas de virgule après « Or » : . Or | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1SP02 (BP1) | énoncé non interactif q1 | pas de virgule avant « soit » : partie des cadres. Quelle est la probabilité que ce soit une femme ? | ×1 |
 | can1a-2025 (CAN) | correction q29 | pas de virgule avant « alors » : . On obtient alors | ×2 ; sup=false ; sup=true (revue-0-a) |
@@ -6084,6 +6196,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2K-1 (6e) | énoncé q1 | double espace : e la salle : soit mettre 12 places par rangée, soit 15 places par rangée. Ils décident de choisir l ‖ double espace : de la salle : soit mettre 9 places par rangée, soit 12 places par rangée. Ils décident de choisir l ‖ double espace : e la salle : soit mettre 15 places par rangée, soit 9 places par rangée. Ils décident de choisir la | ×5 ; sup=8 ; sup=9 nb=10 (revue-8-a) |
 | 6N2K-3 (6e) | consigne | double espace : Répondre aux questions suivantes sans poser la division. | ×1 ; sup=1 (revue-0-a) |
 | 6N3D (6e) | correction q1 | double espace : . [figure] [figure] [figure] [figure] ‖ double espace : . [figure] [figure] [figure] [figure] [fi | ×75 ; sup=1 ; sup=2… (revue-0-a) |
+| 6N3L (6e) | consigne | double espace : Donner la valeur des calculs suivants. La réponse doit être four | ×1 ; sup=false sup2=true (revue-2-a) |
 | BP1AUTO061 (BP1) | correction q1 | double espace : , son ordonnée est l'image de son abscisse. | ×21 ; sup=4 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | BP1CF01 (BP1) | énoncé q1 | double espace : Augmenter une valeur de ‖ double espace : Diminuer une valeur de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP1CF01 (BP1) | énoncé non interactif q1 | double espace : Augmenter une valeur de | ×1 |
@@ -6751,6 +6864,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3H-2 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{63}{77} = \dfrac{....}{....}\text{ et }\dfrac{9$ ‖ points de suspension en maths (\ldots) : $\dfrac{63}{77} = \dfrac{....}{....}\text{ et }\dfrac{9}{11}$ ‖ points de suspension en maths (\ldots) : $t{ et }\dfrac{9}{11} = \dfrac{....}{....}$ | ×20 |
 | 6N3I (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{12}{25} \quad .... \quad \dfrac{16}{25}$ | ×4 |
 | 6N3I-1 (6e) | énoncé non interactif q1 | points de suspension : ... | ×12 |
+| 6N3I-3 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{89}{100}\quad\quad....\quad\quad\dfrac{9}{10}$ | ×5 |
+| 6N3I-4 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{30}{16}\quad....\quad\dfrac{29}{16}$ | ×8 |
 | 6N5-8 (6e) | src/exercices/6e/6N5-8.ts:19 | « ... » : Résoudre des problèmes de type : ... de plus ou ... de moins | ×1 |
 | BP2AutoD3 (BP2) | énoncé q1 | points de suspension : La moyenne de la série ci-dessous est ... | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP2AutoD3 (BP2) | énoncé non interactif q1 | points de suspension : La moyenne de la série ci-dessous est ... | ×1 |
