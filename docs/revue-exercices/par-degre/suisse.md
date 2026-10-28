@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **283 sur 1168**. Constats confirmés : **196**.
+Exercices relus : **304 sur 1168**. Constats confirmés : **207**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 29 |
+| Rendu cassé (formule, débordement, erreur) | 30 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 135 |
+| Rédaction (français, titres, consignes) | 145 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -50,6 +50,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | d7fe8 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | da2fc | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | e3045 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| f08fe | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
 | a9f31 | X4  | « Créer une animation de construction aux instruments (Instrumenpoche) » : outil d'enseignant (éditeur IEP) sans question ni correction (4 X4) : à retirer des exercices proposés aux élèves ; 2 pages > 390 px. | Retirer pour les élèves. | src/exercices/CH/a9f31.ts |
@@ -135,6 +136,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | e70ce | R16  | Titre terminé par une espace | Retirer | relecture |
 | e7bad | R16  | Correction : « 4 angles droits… quatre côtés… 3 angles droits » : chiffres et lettres mêlés | Harmoniser | relecture |
 | e9cf0 | R1 Titre | Énoncé : « 15 € », « 1 billet de 20 € » hors $ ; correction « $20$ € - $15$ € $ = 5$ € » (trait d'union au lieu de −, $ mal placés) ; titre « Ordre de grandeur » sans rapport | $15$ €, $20$ € ; $20-15=5$ ; titre « Rendre la monnaie » | relecture |
+| ea772 | R3  | Correction : « $10~€ -1,30~€$ » (« € » dans les maths, espace asymétrique avant « - ») | $10\text{ €}-1,30\text{ €}$ | relecture |
+| exemple-qcm-json | R16  | Exercice modèle : « 3,14159... » (trois points tapés), e en italique, retours « Correct ! », « vous avez inversé » ; exemple visible dans le référentiel | \ldots ; \mathrm{e} | relecture |
+| f0064 | R16  | Titre terminé par une espace | Retirer | relecture |
+| f0cad | R16  | Titre « Somme de nombre relatifs » | « nombres relatifs » | relecture |
+| ebd89 | R16  | Titre « Calculer la dérivée de $\lambda u$ » alors que la question est une dérivée d'une fonction affine | Corriger le titre | src/exercices/1e/1AN14-1Old.ts |
 | e46e6 | R16  | Correction : intervalle $[-7;1[$ sans espaces autour de « ; » | $[-7\,;\,1[$ | src/exercices/2e/200F3-02.ts |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
 | e1938 | R16  | Énoncé : « cette experience aléatoire » (accent) | « expérience » | src/exercices/2e/2P10-5Old.ts |
@@ -142,9 +148,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | e564b | R5 Virgule | Consigne « Calculer » sans point final | « Calculer. » | src/exercices/4e/4G20-3Old.ts |
 | dc629 | R16  | Correction : « $R = diametre \div 2$ » (sans accent, en italique) ; énoncé « arrondi au $\text{ dm}^3$ près » (espace dans \text) | $R=\text{diamètre}\div 2$ ; « au $\text{dm}^3$ près » | src/exercices/5e/5G2E-6Old.ts |
 | d88d6 | R2 Tutoiement, impératif | Correction : « l'égalité n'est pas vraie » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/5e/5L15-Old.ts |
+| eb45a | R6  | Une unité est attendue (attendu 10\operatorname{cm^2}) mais la correction ne met en évidence que ⟦10⟧, l'unité « cm² » reste hors de la couleur | miseEnEvidence(10\text{ cm}^2) (comme c188c) | src/exercices/bp2/BP2AutoV3Old.ts |
 | e7919 | R5 Virgule | Énoncé : « …a pour équation : $7x-2y+4=0$ Donner les coordonnées… » (point manquant avant « Donner ») | Ajouter un point | src/exercices/can/1e/can1G08-old.ts |
 | daf1d | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs | Corriger le titre (ou la question) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts |
+| f0e17 | R16  | Énoncé : « deux notes ($11$ et $10$) coefficient $1$ » (de coefficient) | « de coefficient $1$ » | src/exercices/can/can2a-2025/can2a-2025-Q21.ts |
 | e9cf0 | R13  | Correction : « J'ai donné $1$ billets de $20$ € » (accord) | « $1$ billet » | src/exercices/can/canCE2a-2025/canCE2-2025-Q13.ts |
+| evon2 | R16  | Énoncé : « Quel est la pente… » ; correction : « coeffcient » (déjà vu dans can2L2-03) | « Quelle est la pente » ; « coefficient » | src/exercices/can/canNY-2026/canTNY-2026-Q13.ts |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
 | a0d16 | R10 Français | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. | $300\,000=$ en un dollar ; titre cohérent. | src/exercices/CH/a0d16.ts |
 | a12ef | R16  | Correction : « et $452$ est vient juste après $428$ » (faute de frappe : « est » en trop) ; « Entoure » (consigne papier dans une app tactile ; « Choisir ») ; énoncé « qui vient juste après 428 » ambigu (432 serait le suivant) ; 26 R2. | « 452 vient juste après 428 » ; « Choisir ». | src/exercices/CH/a12ef.ts |
@@ -235,6 +244,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | c8fe9 | R16  | Programme Scratch « Aller en bas :: motion stack » (même défaut que 6I1B) ; 144 T3 ; 120 N1 ; 26 pages > 390 px. | Vérifier le rendu. | src/exercices/CH/c8fe9.ts |
 | d3b6c | R2 Tutoiement, impératif | Correction : « un parallélogramme quelconque » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/dnbAutomatismes/dnb-2026-06-amerique-du-nord-automatisme-Q3.ts |
 | cea02 | R2 Tutoiement, impératif | Correction : « ⟦n°7⟧ » texte dans miseEnEvidence alors que le champ attend 7 | n° 7 avec seul 7 en évidence | src/exercices/dnbAutomatismes/dnb-2026-06-centres-etrangers-Q2.ts |
+| eed49 | R12  | Énoncé en \cdot, propositions du QCM en \times ; correction ⟦9\cdot 2^{5}⟧ différente de la proposition cochée « 9\times 2^{5} » | Un seul symbole | src/exercices/EAMPremiere/EAM-ANnonSpe-2026-Q3.ts |
+| eb3f5 | R12  | QCM : propositions en \times (« $960 \times 0,2$ ») alors que la correction utilise \cdot : multiplication notée de deux façons dans le même exercice | Un seul symbole | src/exercices/EAMPremiere/EAM-CETechno-2026-Q3.ts |
 | deriv | R16  | Exercice modèle : $\frac$ au lieu de $\dfrac$ ; retours « Correct ! » / « vous n'avez pas… » (vouvoiement, voir tutoiement ailleurs) ; exemple visible dans le référentiel | \dfrac ; formulation neutre ; ou retirer du référentiel | src/exercices/modèlesExos/ExempleQcmDerivation.ts |
 | e6d46 | R16  | Correction : la phrase « On peut par exemple dire que la courbe… deux points d'intersection » est répétée deux fois, collée sans espace (« $[0~;~2\pi]$.On peut ») | Supprimer le doublon | src/exercices/QCMBac/A2024/sujetzero2024Ex5Q1.ts |
 | croiss | R2 Tutoiement, impératif | Correction : « croissante sur ]0 ; +∞[ » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/QCMBrevet/A2019/CroissanceFonctions.ts |
@@ -257,4 +268,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9905 ; T5 Espaces 1324 ; T6 Points de suspension 552 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 265 ; T3  130 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9905 ; T5 Espaces 1324 ; T6 Points de suspension 554 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 277 ; T3  130 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
