@@ -1,17 +1,17 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **86 sur 293**. Constats confirmés : **73**.
+Exercices relus : **105 sur 293**. Constats confirmés : **87**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
 | Contenu mathématique faux | 20 |
-| Rendu cassé (formule, débordement, erreur) | 2 |
-| Mise en évidence (miseEnEvidence et champs) | 6 |
-| Typographie (nombres, espaces, notations) | 14 |
-| Rédaction (français, titres, consignes) | 31 |
+| Rendu cassé (formule, débordement, erreur) | 5 |
+| Mise en évidence (miseEnEvidence et champs) | 8 |
+| Typographie (nombres, espaces, notations) | 16 |
+| Rédaction (français, titres, consignes) | 38 |
 
 ## Contenu mathématique faux
 
@@ -43,6 +43,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
 | TSA1-42 | X5 Débordement à 390 px | Correction, partie A question 5 : justifications en \text{} au bout de chaque ligne du aligned (« car, pour a>0 et b>0, a strictement inférieur à b ⟺ … ») : la ligne dépasse largement les 390 px. | Sortir les justifications de l'aligned (phrases sous le calcul) ou les raccourcir (« car ln est strictement croissante sur ]0 ; +∞[ »). | src/exercices/TSpe/TSA1-42.ts:199 |
+| TSA2-37 | X5 Débordement à 390 px | Correction : justifications en \text{…} au bout des lignes du aligned (« On multiplie et on divise par la quantité conjuguée », « car (a-b)(a+b)=a^2-b^2 ») : la ligne dépasse 390 px ; intervalle $]-\infty;\dfrac{7}{2}]$ sans espaces. | Phrases sous les lignes plutôt que dans l'aligned ; \,;\, dans les intervalles. | src/exercices/TSpe/TSA2-37.ts |
+| TSA2-43 | X5 Débordement à 390 px | Justifications en \text{} au bout des lignes du aligned (« car e^{-4x}>0 ») : dépassement de 390 px ; « Par composition : » sur une ligne seule. | Phrases sous le calcul. | src/exercices/TSpe/TSA2-43.ts |
+| TSA3-46 | X6  | Repères de 176 px : les graduations de l'axe des abscisses et de l'axe des ordonnées se chevauchent près de l'origine (« -1  5  -5 » illisible) ; les propositions du QCM sont des SVG entiers (aucun texte alternatif) avec une feuille &lt;style> à sélecteur #exercice0 qui ne vaut que pour le premier exercice de la page ; bonne réponse non mise en évidence (M3, 24 cas). | Graduer une valeur sur deux ; aria-label sur les SVG ; style par classe et non par identifiant. | src/exercices/TSpe/TSA3-46.ts |
 | TSA1-12 | X5 Débordement à 390 px | Correction à 390 px : le calcul aligné avec ses justifications en vert (« ← hypothèse de récurrence ») élargit la page à 451 px ; « \text{car 2n+6=2(n+1)+4} » écrit en texte droit au lieu de formule. | Justifications sous chaque ligne sur petit écran ; « car $2n+6=2(n+1)+4$ ». | TSpe/TSA1-12.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
@@ -53,6 +56,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeE06 | M1 Évidence refusée par le champ | Seul le radicande est mis en évidence ($\sqrt{⟦236⟧}$) alors que le champ attend $\sqrt{236}$ ; norme notée \vert\vert au lieu de \\| | $${miseEnEvidence(`\\sqrt{${…}}`)}$ ; \\|\vec u\\| | src/exercices/can/TSpe/canTSpeE06.ts:47 |
 | TSA2-10 | M3  | QCM : la correction ne met en évidence que les deux limites (2 et +∞), pas la proposition complète cochée ; la bonne réponse n'est pas rapprochée des choix (pas de « réponse A »). | Mettre en évidence la proposition entière, ou ajouter « La bonne réponse est : ». | src/exercices/TSpe/TSA2-10.ts |
 | TSA2-11 | M3  | Même constat : seules les équations x=-1 et y=4 sont en évidence, pas la proposition correcte du QCM ; double espace dans « $\mathcal{C}_f$  admet ». | Mettre en évidence la proposition entière ; supprimer l'espace en trop. | src/exercices/TSpe/TSA2-11.ts |
+| TSA2-41 | M3  | QCM dont les propositions sont des expressions de limites (lim_{x→+∞} f(x)) : la correction met en évidence la valeur de la limite (−∞) et non la proposition cochée ; « f(x) \lt -2x+4 » (\lt au lieu de &lt;). | Mettre en évidence la proposition (la limite en +∞) ou écrire « La limite déterminable est celle en +∞ ». | src/exercices/TSpe/TSA2-41.ts |
+| TSA3-44 | M8 Évidences et champs | Deux trous (abscisse, ordonnée) mais une seule mise en évidence couvrant tout « I(-1 ; 14) » : l'élève ne voit pas la valeur de chaque trou ; « $1\times(-1)^3$ » avec un facteur 1 inutile. | Deux miseEnEvidence : $I(\,⟦-1⟧\,;\,⟦14⟧\,)$ ; supprimer le facteur 1. | src/exercices/TSpe/TSA3-44.ts |
 | TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
 | TSA1-30 | M5 Texte en évidence | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. | « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | TSpe/TSA1-30.ts |
 
@@ -71,6 +76,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeAN15 | T9 Mot en italique | « la fonction $ln(u)$ » : ln en italique | $\ln(u)$ | src/exercices/can/TSpe/canTSpeAN15.ts |
 | canTSpeS03 | T9 Mot en italique | $e^{-n}$ en italique (constante e) ; $n\to\infty$ (aussi canTSpeS02, S04, S05, S06) | \mathrm{e}^{-n} ; n\to+\infty | src/exercices/can/TSpe/canTSpeS03.ts |
 | TSA2-31 | T4  | « forme indéterminée du type « $\dfrac{\infty}{\infty}$ » » : guillemets sans espaces insécables ; Q1 : « Par produit » sans citer la règle des signes (-5 × +∞). | « ~$\dfrac{\infty}{\infty}$~ » avec insécables ; « car $-5&lt;0$ ». | src/exercices/TSpe/TSA2-31.ts |
+| TSA3-50 | T4  | Correction : « indétermination de type « $0\times\infty$ » » guillemets sans insécables ; le ⟦lim f(x)=+∞⟧ est mis en évidence avec le texte « lim » (équation entière) ; 6 occurrences. | « ~$0\times\infty$~ » ; mettre en évidence $+\infty$ seul. | src/exercices/TSpe/TSA3-50.ts |
+| TSA4-10 | T4  | Consigne : « Par convention, les courbes se prolongent… » correct ; mais 24 corrections avec guillemets sans insécables ; X5 : une figure plus large que 390 px. | Insécables dans les « » ; figure à 100 % de largeur. | src/exercices/TSpe/TSA4-10.ts |
 | TSA1-10 | N1 Nombre hors $ | Justifications en vert : « On ajoute 3. » (nombre hors $) ; « $\dfrac{1}{1}$ » laissé tel quel quand $a=1$. | « On ajoute $3$. » ; écrire $1$. | TSpe/TSA1-10.ts |
 | TSA1-22 | N5 Négatif sans parenthèses | « $\lim_{n\to+\infty}-5n^{2}=-\infty$ », « $\lim -\dfrac{2}{n}=0$ » : terme négatif sans parenthèses après lim (lu comme $-\lim$) ; titre « par somme ou quotient » alors que les questions ne sont que des sommes (graines revue-0-a, revue-1-a). | $\lim\left(-5n^2\right)$ ; vérifier la présence des quotients. | TSpe/TSA1-22.ts |
 | TSA1-23 | N5 Négatif sans parenthèses | Même écriture que TSA1-22 : « $\lim_{n\to+\infty}-2n=-\infty$ », « $\lim -1=-1$ » sans parenthèses. | $\lim\left(-2n\right)$ | TSpe/TSA1-23.ts |
@@ -92,8 +99,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-QCM06 | R14  | Correction vide (this.correction = '') : l'élève n'a aucune explication, ni la bonne réponse en mode non interactif. | Rédiger la correction : signe de f'' lu sur la courbe, f' croissante puis décroissante, maximum en xC ; pourquoi les trois autres sont fausses. | src/exercices/QCMBac/A2022/Etrangers2022_1Q2_alea.ts:74 |
 | TSA2-QCM12 | R16  | Correction : « On en déduit que f'' positive » (verbe manquant), « croissante sur ]0 ; 2] » puis « positive sur [0 ; 2] » (bornes différentes), et la conclusion ne dit pas que f'' ⩾ 0 donne la convexité. | « On en déduit que f'' est positive sur [0 ; 2], donc f est convexe sur [0 ; 2]. » avec les mêmes bornes partout. | src/exercices/QCMBac/A2022/Metropole2022_1Q3.ts |
 | TSA2-QCM14 | R16  | Titre « Métropole 05/22 : exponentielle. » avec point final ; correction « La solution est donc une seule solution » (tautologie), « admet dans R : » avec espace ordinaire avant les deux-points du QCM. | Titre sans point ; « Le nombre de solutions est donc : une seule. » | src/exercices/QCMBac/A2022/Metropole2022_1Q6.ts |
+| TSA4-QCM02 | R1 Titre | Propositions du QCM « 3 », « 1 », « 0 », « 2 » hors des $ ; correction : « ⟦a trois solutions.⟧ » texte (avec le point final) dans la mise en évidence ; décimaux 0,9 non écrits en {,}. | $3$ ; texteEnCouleurEtGras('trois solutions'). | src/exercices/QCMBac/A2022/Polynesie2022_2Q3.ts |
 | TSA2-QCM10 | R1 Titre | « au point d'abscisse 1 » : nombre hors des $ ; phrase de l'énoncé sans ponctuation avant les propositions. | « d'abscisse $1$ … est : ». | src/exercices/QCMBac/A2022/Polynesie2022_2Q5.ts |
+| TSA4-QCM01 | R3  | « $[-2⍽; 4]$ » intervalle avec insécable avant mais pas après ; mélange de ~;~ et de ; selon les propositions ; bonne réponse non mise en évidence (M3). | $[-2~;~4]$ partout ; proposition en évidence. | src/exercices/QCMBac/A2023/AmNordAout2023Q2.ts |
 | TSA2-QCM02 | R16  | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. | « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | src/exercices/QCMStatiques/Convexite1.ts:35 |
+| TSA3-40 | R1 Titre | « au point d'abscisse 3 », « point P d'abscisse 5 » : nombres hors des $ ; QCM : la bonne proposition n'est pas mise en évidence dans la correction (M3, 16 cas). | $3$ et $5$ entre dollars ; mettre la proposition correcte en évidence. | src/exercices/QCMStatiques/QCMBacConvexite.ts |
 | TSA2-QCM15 | R1 Titre | Propositions du QCM avec nombres hors des $ : « arithmétique de raison 2 » ; intervalles écrits sans espaces $]-\infty;-3]$ (les autres QCM utilisent ~;~). | « raison $2$ » ; $]-\infty~;~-3]$. | src/exercices/QCMStatiques/Shuffle.ts |
 | TSA1-32 | R16  | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». | Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | src/exercices/TSpe/TSA1-32.ts:104 |
 | TSA1-40 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. | texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | src/exercices/TSpe/TSA1-40.ts:92 |
@@ -109,6 +119,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-12 | R2 Tutoiement, impératif | Mot « horizontale » mis en évidence (texte dans ⟦…⟧) et trous à liste déroulante sans mise en évidence par trou (M8) ; énoncé : « en $+\infty$ . » avec espace avant le point, virgule collée au menu déroulant. | texteEnCouleurEtGras('horizontale') ; supprimer l'espace avant le point ; reformuler : « Oui : la courbe admet une asymptote … d'équation … en +∞. » | src/exercices/TSpe/TSA2-12.ts |
 | TSA2-33 | R3  | Intervalles écrits sans espaces autour du point-virgule ($]-\infty;-1[\cup]-1;+\infty[$) alors que les autres exercices du site utilisent \,;\, ; mise en évidence des limites en -1^- et -1^+ en deux ⟦…⟧ (M8). | $]-\infty\,;\,-1[\cup]-1\,;\,+\infty[$. | src/exercices/TSpe/TSA2-33.ts |
 | TSA2-34 | R3  | Même écriture des intervalles sans espaces insécables ($D_f=]-\infty;-1[\cup]-1;+\infty[$) ; énoncé en cas de variantes : « en distinguant les cas $x&lt;-1$ et $x>-1$ ». | \,;\, dans les intervalles. | src/exercices/TSpe/TSA2-34.ts |
+| TSA2-35 | R5 Virgule | Correction : « Or $\lim…$ » sans virgule après « Or » dans la majorité des questions (conjonction de transition) ; intervalle de définition écrit sans \,;\, ; « On pose u la fonction » (« la fonction u »). | « Or, … » ; « On pose $u$ la fonction définie… ». | src/exercices/TSpe/TSA2-35.ts |
+| TSA3-26 | R16  | Énoncé : « définie sur ℝ par :f(x)=… » sans espace après les deux-points (insécable collé) et « Calculer f'(x). » suivi d'un espace en trop. | « par : $f(x)=…$ ». | src/exercices/TSpe/TSA3-26.ts |
+| TSA3-42 | R3  | Titre « Etudier » sans accent (É) ; corrections : espace ordinaire avant les deux-points (« ces deux nombres sont de signes contraires : cette proposition est fausse ») ; QCM sans mise en évidence de la bonne proposition (M3/M6, 20 cas). | « Étudier » ; espaces insécables avant « : » ; proposition correcte en évidence. | src/exercices/TSpe/TSA3-42.ts |
+| TSA3-45 | R5 Virgule | Correction : mêmes défauts de ponctuation (« Pour tout réel x, e^x>0. Ainsi, … » correct) mais « On calcule le discriminant du polynôme du second degré » coupé net dans la sortie ; 3 occurrences de phrases sans virgule après « Or »/« Ainsi » ; $f=uv$ pour une dérivation à refaire deux fois (pas de rappel de la forme réduite de f''). | Virgules après les connecteurs ; vérifier la phrase du discriminant. | src/exercices/TSpe/TSA3-45.ts |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer

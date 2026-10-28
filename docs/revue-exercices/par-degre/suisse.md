@@ -21,4 +21,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 7005 ; T4  458 ; T5 Espaces 161 ; R2 Tutoiement, impératif 88 ; T3  72 ; T6 Points de suspension 59 ; X3  26 ; R5 Virgule 21 ; X2 Formule cassée 12 ; N6 Écriture algébrique 10 ; N2 Séparateur des milliers 8 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 7029 ; T4  458 ; T5 Espaces 177 ; R2 Tutoiement, impératif 88 ; T3  72 ; T6 Points de suspension 59 ; X3  26 ; R5 Virgule 21 ; X2 Formule cassée 12 ; N6 Écriture algébrique 10 ; N2 Séparateur des milliers 8 ; R6  1.
