@@ -71,11 +71,16 @@ describe('QR code demandé par l’enseignant, porté par le code de session', (
     const lettres = '23456789abcdefghjkmnpqrstuvwxyz'
     for (const mode of ['aucun', 'apres', 'avant'] as const) {
       const code = nouveauCode(mode)
+      const tous = new Set<string>()
       for (let i = 0; i < 5; i++) {
         const voisins = [...lettres].map((l) => code.slice(0, i) + l + code.slice(i + 1))
         const modes = new Set(voisins.map(modeQr))
-        expect(modes.size).toBe(3)
+        // « aucun » n'est qu'un réglage sur cinq : 31 voisins peuvent tous l'éviter
+        // (environ une fois sur mille), d'où deux modes au moins par lettre
+        expect(modes.size).toBeGreaterThanOrEqual(2)
+        modes.forEach((m) => tous.add(m))
       }
+      expect(tous.size).toBe(3)
     }
   })
 
