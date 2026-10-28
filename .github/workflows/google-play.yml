@@ -35,6 +35,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       # Les secrets ne vont qu'aux étapes de ce fichier (jamais à une action tierce)
       - name: Clés fournies
         id: cles
@@ -45,8 +47,6 @@ jobs:
         run: |
           echo "signature=${ANDROID_UPLOAD_KEYSTORE:+oui}${ANDROID_KEYSTORE:+oui}" >> "$GITHUB_OUTPUT"
           echo "compte=${GOOGLE_PLAY_SERVICE_ACCOUNT:+oui}" >> "$GITHUB_OUTPUT"
-        with:
-          fetch-depth: 0
       # Code de l'app : la dernière version publiée (tag v*)
       - name: Dernière version de l'app
         run: |
