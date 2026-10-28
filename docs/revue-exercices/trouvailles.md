@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **430 exercices passés sur 4190**.
-Constats regroupés : 3832 (un groupe = même exercice, même règle,
+Avancement : **463 exercices passés sur 4190**.
+Constats regroupés : 4070 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -16,32 +16,32 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
-| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 5 | 6 |
-| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 10 | 11 |
+| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 6 | 7 |
+| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 12 | 14 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 10 | 33 |
 | 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 15 | 15 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 1 | 3 |
-| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 15 | 32 |
-| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 4 | 10 |
+| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 16 | 33 |
+| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 5 | 66 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 4 | 13 |
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 6 | 7 |
-| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 3 | 3 |
+| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 5 | 5 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 4 | 4 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 9 | 9 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 41 | 100 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 47 | 251 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 10 | 10 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 57 | 116 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 46 | 46 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 48 | 48 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 24 | 26 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 25 | 28 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 1 | 1 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
-| 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 8 | 8 |
+| 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 10 | 10 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [N1 Nombre hors $](#n1) | 220 | 320 |
-| 4 Typographie | [N2 Séparateur des milliers](#n2) | 12 | 15 |
+| 4 Typographie | [N2 Séparateur des milliers](#n2) | 12 | 16 |
 | 4 Typographie | [N3 Point décimal](#n3) | 14 | 17 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 2 | 2 |
 | 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 19 | 24 |
@@ -54,29 +54,29 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [T6 Points de suspension](#t6) | 3 | 3 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 63 | 87 |
-| 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 23 | 30 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 59 | 423 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 71 | 98 |
+| 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 24 | 31 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 60 | 425 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
 | 5 Rédaction | [N2 Séparateur des milliers](#n2) | 57 | 80 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 25 | 33 |
-| 5 Rédaction | [R1 Titre](#r1) | 47 | 58 |
-| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 93 | 134 |
+| 5 Rédaction | [R1 Titre](#r1) | 48 | 59 |
+| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 94 | 134 |
 | 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 78 | 126 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
 | 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 66 | 90 |
-| 5 Rédaction | [R6 Majuscule sans accent](#r6) | 5 | 6 |
+| 5 Rédaction | [R6 Majuscule sans accent](#r6) | 6 | 7 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 24 | 25 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 236 | 423 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 236 | 422 |
 | 5 Rédaction | [T6 Points de suspension](#t6) | 264 | 425 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 2 | 2 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 20 | 20 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 25 | 34 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 26 | 35 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 6 | 6 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 7 | 7 |
 
 ## I1
 
@@ -85,6 +85,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6AutoE1-1 (6e) |  q1 mathlive | bonne réponse refusée (0/1)  | ×27 ; sup=8 sup2=1 ; sup=2 sup2=1… (revue-0-a) |
+| 6AutoN4-1 (6e) |  q2 liste-deroulante | bonne réponse refusée (0/1)  | ×7 ; sup=2 sup2=3 ; sup=2 sup2=4… (revue-6-a) |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:59 | Réponse attendue calculée en flottant : 5^4×0,2^4 donne 1.0000000000000002 ; la bonne réponse « 1 » saisie par l'élève est refusée (vu au banc : la mise en évidence ⟦1⟧ est refusée). Même risque pour 4^b×0,25^b et 5^b×0,4^b → this.reponse = (4 * a) ** b arrondi : arrondi(5 ** b * a ** b) ou calcul exact | ×1 |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:48 | Confirmé avec revue/essayer.mjs : « 32 » refusé pour $5^{5}\times 0,4^{5}$ (attendu 32.00000000000001), « 1 » refusé pour $5^{4}\times 0,2^{4}$ → arrondi(…) sur this.reponse (lignes 48 et 59) | ×1 |
 | can5a-CoopMaths (CAN) | src/exercices/can/5e/can5a-CoopMaths.ts:441 | Q27 : l'énoncé dit « en ${b} h et 20 min », la réponse attendue est calculée pour 15 min (a×(b+0,25)) et la correction affiche « $60\times 1.5$ » (b+0,5, point décimal) : 60 km/h pendant 1 h 20 → 80 km, l'app attend 75. Pas de point d'interrogation. → 20 min → b + 1/3, ou énoncé « b h et 15 min » avec texNombre(b + 0.25). | ×1 |
@@ -100,11 +101,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | moteur-app (?) | moteur/fichiers/src/moteur/index.ts:135 | App (moteur/fichiers/src/moteur/index.ts:135) : preparerExercice met interactif à vrai pour tout exercice, même ceux que MathALÉA déclare non interactifs (export interactifReady = false), alors que le site n'active l'interactif que si interactifReady est vrai. Effet : un champ apparaît avec une attente vide ou absurde (TSA4-41 : la correction HTML entière ; canTEC2-02, canTEC2-05 : chaîne vide ; canTEC2-03), la question compte dans le score et l'élève ne peut pas réussir. 4 exercices sur les ~1 000 déjà passés au banc → const interactif = params.interactif !== false && exercice.interactifReady !== false (puis pnpm moteur, e2e complets) | ×1 |
 | 6A (6e) |  q1 liste-deroulante | liste absente de la page | ×5 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
 | 6A (6e) |  q2 mathlive | champ absent de la page | ×62 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
+| 6AutoL1 (6e) |  q7 liste-deroulante | liste absente de la page | ×1 ; sup=1 sup2=1 nb=10 (revue-6-a) |
 | 6AutoT1-6 (6e) |  q7 multi-mathfield | champ absent de la page | ×1 ; sup=1 sup2=true sup3=false nb=10 (revue-12-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×17 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | can6a-CoopMaths (CAN) |  q22 mathlive | champ absent de la page | ×19 ; sup=1 ; sup=5… (revue-1-a) |
 | canc3a (CAN) |  q27 mathlive | champ absent de la page | ×13 ; sup=14 ; sup=17… (revue-14-a) |
 | canc3C16 (CAN) |  q9 fillInTheBlank | champ absent de la page | ×1 ; défaut nb=10 (revue-1-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | champ absent de la page | ×110 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true ; sup=true sup2=2 sup3=2 sup4=2 sup5=false… (revue-1-a) |
+| CM2N1D-2 (cm2) | src/exercices/CM2/CM2N1D-2.ts:173 | Puissances de 10 en lettres (sup coché), type « Décomposer » : le champ est inséré à l'intérieur de la formule (`${ajouteChampTexteMathLive(…)}~unité+` dans $…$) : aucun champ n'apparaît, la formule s'affiche avec ses $ (« $3= ~unités$ ») et les mots unité, dizaines… sont en italique hors \text. 110 tirages touchés → fermer la formule avant le champ : `$${champ}$~\\text{${mot}}+` | ×1 |
 | CM2N3A-14 (cm2) |  q10 mathlive | champ absent de la page | ×4 ; sup=1 ; sup=2 (revue-1-a) |
 | CM2N3A-2 (cm2) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | CM2N3A-3 (cm2) |  q3 fillInTheBlank | champ absent de la page | ×33 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
@@ -224,6 +228,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6M4-01 (CAN) |  | génération : page.evaluate: Target page, context or browser has been closed | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
 | canCE2-2026 (CAN) |  | rendu correction : page.evaluate: Error: aucun exercice préparé     at Module.rendre (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:127:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
 | canCE2-2026 (CAN) |  | console : [bugsnag] Session failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1978:33) | ×1 |
+| CM2N1D-2 (cm2) |  | console : KaTeX auto-render: Failed to parse `0}}` with  ParseError: KaTeX parse error: Expected 'EOF', got '}' at position 4: {0}}̲}     at _Parser.expect (http://127.0.0.1:5173/alea/node_modules/.vite/deps/chunk-G6BNTU62.js?v=d560f057:13224:13)     at _Parser.parse (http://127.0.0.1:5173/alea/node_modules/. | ×1 |
 | CM2N1D-3 (cm2) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
 | CM2N2A-1 (cm2) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
 | CM2N2A-2 (cm2) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
@@ -244,6 +249,62 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5a-2025 (CAN) | énoncé q14 | nombre impair de $ : ue de nombres&nbsp;: $75$&nbsp;; $150$&nbsp;; $225$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×1 ; sup=false (revue-0-a) |
 | can5D-01 (CAN) | correction q1 | nombre impair de $ : nsi, $2$ h $45$ min $=$ ${\color{#F15929}\boldsymbol{2,75}}$ h. | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | can5D-01 (CAN) | correction q4 | nombre impair de $ : insi, $5$ h $30$ min $=$ ${\color{#F15929}\boldsymbol{5,5}}$ h. | ×2 ; défaut nb=10 (revue-1-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1= ~unité$ | ×1 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true (revue-1-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $3= ~unités$ | ×7 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true (revue-1-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $92\,464= ~dizaines de mille+ ~mille+ ~centaines+ ~dizaines+ | ×2 ; sup=true sup2=5 sup3=5 sup4=1 sup5=false (revue-5-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $607\,193= ~centaines de mille+ ~centaine+ ~dizaines+ ~mille | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $403\,854= ~mille+ ~centaines de mille+ ~dizaines+ ~centaine | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $841\,503= ~mille+ ~dizaines de mille+ ~unités+ ~centaines+  | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $307\,384= ~dizaines+ ~unités+ ~centaines de mille+ ~centain | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $369\,046= ~mille+ ~dizaines de mille+ ~unités+ ~dizaines+ ~ | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $612\,606= ~centaines de mille+ ~dizaine de mille+ ~centaine | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $209\,981= ~centaines+ ~mille+ ~dizaines+ ~unité+ ~centaines | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $609\,337= ~unités+ ~centaines+ ~mille+ ~dizaines+ ~centaine | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $6\,300\,356= ~millions+ ~centaines de mille+ ~centaines+ ~d | ×2 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $3\,009\,991= ~millions+ ~mille+ ~centaines+ ~dizaines+ ~uni | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $8\,420\,026= ~millions+ ~centaines de mille+ ~dizaines de m | ×2 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $9\,008\,162= ~millions+ ~mille+ ~centaine+ ~dizaines+ ~unit | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1\,117\,003= ~million+ ~centaine de mille+ ~dizaine de mill | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-b) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1\,548\,008= ~million+ ~centaines de mille+ ~dizaines de mi | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-b) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $29\,154\,046= ~dizaines de millions+ ~millions+ ~centaine d | ×1 ; sup=true sup2=8 sup3=1 sup4=4 sup5=false (revue-8-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $89\,452\,007= ~dizaines de millions+ ~millions+ ~centaines  | ×6 ; sup=true sup2=8 sup3=1 sup4=4 sup5=false (revue-8-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $30\,038\,379= ~dizaines de millions+ ~dizaines de mille+ ~m | ×1 ; sup=true sup2=8 sup3=1 sup4=4 sup5=false (revue-8-b) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $172\,893\,498= ~centaines+ ~centaine de millions+ ~mille+ ~ | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $578\,994\,158= ~centaine+ ~centaines de millions+ ~unités+  | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $617\,639\,147= ~unités+ ~centaines de millions+ ~mille+ ~di | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $283\,155\,219= ~millions+ ~centaines de millions+ ~centaine | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $833\,365\,839= ~dizaines de millions+ ~dizaines+ ~centaines | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $295\,447\,578= ~dizaines de mille+ ~unités+ ~centaines+ ~di | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $616\,276\,567= ~centaines+ ~dizaines+ ~dizaine de millions+ | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $769\,991\,596= ~dizaines de mille+ ~centaines+ ~dizaines+ ~ | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) | correction q1 | « $ » visible : 1. {\color{#F15929}\boldsymbol{$0}}$ | ×4 ; sup=false sup2=1 sup3=2 sup4=3 sup5=true ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-10-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : er le nombre correspondant au premier membre de l'égalité. =$  | ×4 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-19-a) |
+| CM2N1D-2 (cm2) | correction q1 | « $ » visible : 1. ={\color{#F15929}\boldsymbol{0}}$ | ×4 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-19-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $60= ~dizaines$ | ×2 ; sup=true sup2=2 sup3=5 sup4=2 sup5=true (revue-24-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $593= ~unités+ ~dizaines+ ~centaines$ | ×1 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $657= ~dizaines+ ~unités+ ~centaines$ | ×1 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $968= ~centaines+ ~unités+ ~dizaines$ | ×3 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $977= ~unités+ ~centaines+ ~dizaines$ | ×2 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $618= ~dizaine+ ~unités+ ~centaines$ | ×1 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-b) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $542= ~dizaines+ ~centaines+ ~unités$ | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $713= ~centaines+ ~dizaine+ ~unités$ | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-b) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $5\,099= ~dizaines+ ~mille+ ~unités$ | ×2 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) | énoncé q2 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $9\,906= ~mille+ ~unités+ ~centaines$ | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $6\,505= ~unités+ ~mille+ ~centaines$ | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1\,055= ~unités+ ~mille+ ~dizaines$ | ×2 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $3\,909= ~centaines+ ~unités+ ~mille$ | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-b) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $9\,505= ~unités+ ~centaines+ ~mille$ | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-b) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $4\,723= ~dizaines+ ~mille+ ~unités+ ~centaines$ | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-a) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $5\,945= ~unités+ ~mille+ ~centaines+ ~dizaines$ | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-b) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $2\,438\,334= ~centaines de mille+ ~unités+ ~dizaines+ ~mill | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $7\,827\,118= ~millions+ ~dizaines de mille+ ~centaines de m | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-b) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $44\,636\,522= ~centaines de mille+ ~dizaines de mille+ ~mil | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $88\,818\,517= ~dizaine+ ~centaines de mille+ ~dizaines de m | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-b) |
+| CM2N1D-2 (cm2) | énoncé q4 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $345\,337\,686= ~centaines de millions+ ~dizaines+ ~millions | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-a) |
+| CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $875\,763\,644= ~dizaines+ ~dizaines de mille+ ~centaines+ ~ | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-b) |
+| CM2N1D-2 (cm2) | src/exercices/CM2/CM2N1D-2.ts:297 | Type « Donner le nombre » avec 1 chiffre (sup2=1) : énoncé « … de l'égalité. =$ » ($ visible) et correction « {\color…\boldsymbol{$0}}$ » (erreur KaTeX « 0}} ») ; mises en évidence avec les mots (⟦6~\text{dizaines}⟧) alors que le champ attend « dizaines » ou un nombre → $=$ avant le champ ; une valeur par champ en évidence | ×1 |
+| CM2N1D-2 (cm2) | énoncé q1 | nombre impair de $ : le nombre correspondant au premier membre de l'égalité.&lt;br>=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×2 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-19-a) |
+| CM2N1D-2 (cm2) | correction q1 | nombre impair de $ : ={\color{#F15929}\boldsymbol{0}}$ | ×1 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false (revue-19-a) |
 
 ## X3
 
@@ -288,6 +349,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can2F24-04 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:201 | Commentaire « Comme la fonction racine carrée est strictement croissante… » écrit en \text dans un aligned après \qquad : ligne de 866 px, coupée à 390 px (capture), illisible sur téléphone. Même chose pour can2F24-05 (fonction cube, 803 px) → sortir la phrase de la formule (texte après le aligned) | ×1 |
 | can2F24-05 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:183 | Commentaire en \text dans l'aligned (« Comme la fonction cube est strictement croissante… ») : 803 px, coupé à 390 px → phrase hors de la formule | ×1 |
 | can2P1-03 (CAN) | src/exercices/can/1e/can1P12-05.ts | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px → tableau plus étroit (en-tête « Face », « P ») | ×1 |
+| CM2N2E-1 (cm2) | src/exercices/CM2/CM2N2E-1.ts | Droite graduée apigeom de 750 à 830 px : à 390 px seule la partie de 0 à environ 1,5 est visible, les points à placer (ex. $\dfrac{8}{2}$) sont hors de l'écran (capture revue/captures/cm2/CM2N2E-1) → unité plus petite ou figure ajustée à la largeur (côté MathALÉA), ou défilement horizontal du conteneur (côté app) | ×1 |
+| CM2N2E-2 (cm2) | src/exercices/CM2/CM2N2E-2.ts | Droite graduée apigeom de 750 à 830 px : à 390 px seule la partie de 0 à environ 1,5 est visible, les points à placer (ex. $\dfrac{8}{2}$) sont hors de l'écran (capture revue/captures/cm2/CM2N2E-2) → unité plus petite ou figure ajustée à la largeur (côté MathALÉA), ou défilement horizontal du conteneur (côté app) | ×1 |
 
 ## X6
 
@@ -354,6 +417,21 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can2P2-02 (CAN) | src/exercices/can/1e/can1P11-01.ts | La correction met en évidence l'égalité entière ⟦P_{Z}(C)=0,23⟧ alors que le champ attend seulement la notation (can2P2-02) ou seulement le nombre (can2P2-03) → mettre en évidence la seule partie à saisir | ×1 |
 | can2P2-03 (CAN) | src/exercices/can/1e/can1P11-02.ts | La correction met en évidence l'égalité entière ⟦P_{Z}(C)=0,23⟧ alors que le champ attend seulement la notation (can2P2-02) ou seulement le nombre (can2P2-03) → mettre en évidence la seule partie à saisir | ×1 |
 | can4a-2023 (CAN) | src/exercices/can/4e/can4a-2023.ts | Q23 : expression réduite mise en évidence en quatre morceaux (⟦16⟧⟦x⟧ ⟦+⟧ ⟦11⟧) ; Q28 : « revient à prendre $1\times 10\,\%$ de $800$ » (explication inutile pour 10 %). → ⟦16x+11⟧ | ×1 |
+| can5a-2020 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["21","15"] ; attendu : {"champ":"21h15min"} | ×2 ; sup= (revue-0-a) |
+| can5a-2020 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["1,5"] ; attendu : {"champ":"\\dfrac{15}{10}"} | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["-1","4"] ; attendu : {"champ":"\\dfrac{-1}{4}"} | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) |  q18 mathlive | valeur en évidence refusée par le champ : ["-13,99","-13,98"] ; attendu : {"champ":"-13,99;-13,98"} | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["23","15"] ; attendu : {"champ":"23h15min"} | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["9","23"] ; attendu : {"champ":"\\dfrac{9}{23}"} | ×3 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) |  q28 mathlive | valeur en évidence refusée par le champ : ["3","4"] ; attendu : {"champ":"\\dfrac34"} | ×1 ; sup= (revue-0-b) |
+| can5a-2022 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["37"] ; attendu : {"champ":"37\\operatorname{cm}"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
+| can5a-2022 (CAN) |  q29 mathlive | valeur en évidence refusée par le champ : ["64\\pi"] ; attendu : {"champ":"64"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
+| can5a-2022 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{1}{-4,9}"] ; attendu : {"champ":"\\dfrac{10}{-49}"} | ×3 ; sup2=false ; sup2=true (revue-0-b) |
+| can5a-2023 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["4","30"] ; attendu : {"champ":"4h30min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
+| can5a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["11","00"] ; attendu : {"champ":"11h"} | ×1 ; sup=false (revue-0-a) |
+| can5a-2026 (CAN) |  q19 mathlive | valeur en évidence refusée par le champ : ["55^\\circ"] ; attendu : {"champ":"55"} | ×4 ; sup=false ; sup=true (revue-0-a) |
+| can5a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["15","30"] ; attendu : {"champ":"15h30min"} | ×3 ; sup=false ; sup=true (revue-0-b) |
+| can5a-NY2024 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21h06min"} | ×4 ; défaut (revue-0-a) |
 | can6a-2018 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["4","40"] ; attendu : {"champ":"4h40min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["4","5"] ; attendu : {"champ":"\\dfrac45"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["1","2"] ; attendu : {"champ":"1;2"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
@@ -415,7 +493,143 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeE06 (CAN) | src/exercices/can/TSpe/canTSpeE06.ts:47 | Seul le radicande est mis en évidence ($\sqrt{⟦236⟧}$) alors que le champ attend $\sqrt{236}$ ; norme notée \vert\vert au lieu de \\| → $${miseEnEvidence(`\\sqrt{${…}}`)}$ ; \\|\vec u\\| | ×1 |
 | CM2D3B-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["85"] ; attendu : {"champ":"1 h 25 min"} | ×4 ; sup=3 sup3=true ; sup=3 sup3=false (revue-4-a) |
 | CM2D3B-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["10","40","50"] ; attendu : {"champ":"120"} | ×8 ; sup=1 sup3=false nb=10 (revue-6-a) |
-| CM2N2F-1 (cm2) |  q2 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\dfrac{18}{4}","champ2":"\\dfrac{13}{2}","champ3":"\\dfrac{9}{2}"} ; attendu : {"champ1":"\\dfrac{18}{8}","champ2":"\\dfrac{52}{8}","champ3":"\\dfrac{36}{8}"} | ×169 ; sup=13 sup2=1-2-4-6 ; sup=4 sup2=1-2-4-6… (revue-0-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(3\\times 1\\,000)+(2\\times 100)+(3\\times 1)"] ; attendu : {"champ":"3"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false (revue-0-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["88\\,600"] ; attendu : {"champ":"2"} | ×10 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=true sup2=5 sup3=5 sup4=1 sup5=false… (revue-0-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(6\\times 100\\,000)+(8\\times 10\\,000)+(2\\times 1\\,000)+(5\\times 100)+(1\\times 10)+(7\\times 1)"] ; attendu : {"champ":"3"} | ×2 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-0-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(7\\times 100\\,000)+(3\\times 10\\,000)+(8\\times 1\\,000)+(5\\times 1)"] ; attendu : {"champ":"100000"} | ×2 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=false sup2=6 sup3=5 sup4=3 sup5=true (revue-0-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(7\\times 1\\,000)+(8\\times 100)"] ; attendu : {"champ":"1000"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false (revue-0-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["1~\\text{unité}"] ; attendu : {"champ":"1"} | ×1 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true (revue-1-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["5~\\text{unités}"] ; attendu : {"champ":"3"} | ×5 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true (revue-1-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{dizaines}"] ; attendu : {"champ":"dizaines"} | ×7 ; sup=true sup2=2 sup3=2 sup4=2 sup5=false ; sup=true sup2=2 sup3=5 sup4=2 sup5=true (revue-2-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["1~\\text{dizaine}"] ; attendu : {"champ":"dizaine"} | ×1 ; sup=true sup2=2 sup3=2 sup4=2 sup5=false (revue-2-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["400"] ; attendu : {"champ":"500"} | ×4 ; sup=true sup2=3 sup3=3 sup4=3 sup5=true ; sup=true sup2=2 sup3=5 sup4=2 sup5=true… (revue-3-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["9~\\text{dizaines de mille}+2~\\text{mille}+4~\\text{centaines}+6~\\text{dizaines}+4~\\text{unités}"] ; attendu : {"champ":"9"} | ×3 ; sup=true sup2=5 sup3=5 sup4=1 sup5=false (revue-5-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["1~\\text{dizaine de mille}+6~\\text{mille}+7~\\text{centaines}+5~\\text{dizaines}+3~\\text{unités}"] ; attendu : {"champ":"2"} | ×1 ; sup=true sup2=5 sup3=5 sup4=1 sup5=false (revue-5-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["65\\,135"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=5 sup3=5 sup4=1 sup5=false (revue-5-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{centaines de mille}+1~\\text{centaine}+9~\\text{dizaines}+7~\\text{mille}+3~\\text{unités}"] ; attendu : {"champ":"6"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["3~\\text{mille}+4~\\text{centaines de mille}+5~\\text{dizaines}+8~\\text{centaines}+4~\\text{unités}"] ; attendu : {"champ":"1"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["1~\\text{mille}+4~\\text{dizaines de mille}+3~\\text{unités}+5~\\text{centaines}+8~\\text{centaines de mille}"] ; attendu : {"champ":"9"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["8~\\text{dizaines}+4~\\text{unités}+3~\\text{centaines de mille}+3~\\text{centaines}+7~\\text{mille}"] ; attendu : {"champ":"7"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["9~\\text{mille}+6~\\text{dizaines de mille}+6~\\text{unités}+4~\\text{dizaines}+3~\\text{centaines de mille}"] ; attendu : {"champ":"9"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["6~\\text{centaines de mille}+1~\\text{dizaine de mille}+6~\\text{centaines}+2~\\text{mille}+6~\\text{unités}"] ; attendu : {"champ":"6"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["9~\\text{centaines}+9~\\text{mille}+8~\\text{dizaines}+1~\\text{unité}+2~\\text{centaines de mille}"] ; attendu : {"champ":"6"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["7~\\text{unités}+3~\\text{centaines}+9~\\text{mille}+3~\\text{dizaines}+6~\\text{centaines de mille}"] ; attendu : {"champ":"4"} | ×1 ; sup=true sup2=6 sup3=1 sup4=2 sup5=true (revue-6-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{millions}+3~\\text{centaines de mille}+3~\\text{centaines}+5~\\text{dizaines}+6~\\text{unités}"] ; attendu : {"champ":"6"} | ×2 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["3~\\text{millions}+9~\\text{mille}+9~\\text{centaines}+9~\\text{dizaines}+1~\\text{unité}"] ; attendu : {"champ":"3"} | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["8~\\text{millions}+4~\\text{centaines de mille}+2~\\text{dizaines de mille}+2~\\text{dizaines}+6~\\text{unités}"] ; attendu : {"champ":"3"} | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["9~\\text{millions}+8~\\text{mille}+1~\\text{centaine}+6~\\text{dizaines}+2~\\text{unités}"] ; attendu : {"champ":"5"} | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["8~\\text{millions}+6~\\text{centaines de mille}+5~\\text{dizaines de mille}+6~\\text{mille}+1~\\text{centaine}"] ; attendu : {"champ":"8"} | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["1~\\text{million}+1~\\text{centaine de mille}+1~\\text{dizaine de mille}+7~\\text{mille}+3~\\text{unités}"] ; attendu : {"champ":"6"} | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["1~\\text{million}+5~\\text{centaines de mille}+4~\\text{dizaines de mille}+8~\\text{mille}+8~\\text{unités}"] ; attendu : {"champ":"5"} | ×1 ; sup=true sup2=7 sup3=1 sup4=3 sup5=false (revue-7-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["2~\\text{dizaines de millions}+9~\\text{millions}+1~\\text{centaine de mille}+5~\\text{dizaines de mille}+4~\\text{mille}+4~\\text{dizaines}+6~\\text{unités}"] ; attendu : {"champ":"2"} | ×1 ; sup=true sup2=8 sup3=1 sup4=4 sup5=false (revue-8-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["8~\\text{dizaines de millions}+9~\\text{millions}+4~\\text{centaines de mille}+5~\\text{dizaines de mille}+2~\\text{mille}+7~\\text{unités}"] ; attendu : {"champ":"9"} | ×6 ; sup=true sup2=8 sup3=1 sup4=4 sup5=false (revue-8-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["3~\\text{dizaines de millions}+3~\\text{dizaines de mille}+8~\\text{mille}+3~\\text{centaines}+7~\\text{dizaines}+9~\\text{unités}"] ; attendu : {"champ":"7"} | ×1 ; sup=true sup2=8 sup3=1 sup4=4 sup5=false (revue-8-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["4~\\text{centaines}+1~\\text{centaine de millions}+3~\\text{mille}+8~\\text{centaines de mille}+9~\\text{dizaines}+9~\\text{dizaines de mille}+8~\\text{unités}+7~\\text{dizaines de millions}+2~\\text{millions}"] ; attendu : {"champ":"4"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["1~\\text{centaine}+5~\\text{centaines de millions}+8~\\text{unités}+7~\\text{dizaines de millions}+8~\\text{millions}+4~\\text{mille}+9~\\text{centaines de mille}+9~\\text{dizaines de mille}+5~\\text{dizaines}"] ; attendu : {"champ":"1"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["7~\\text{unités}+6~\\text{centaines de millions}+9~\\text{mille}+4~\\text{dizaines}+1~\\text{centaine}+6~\\text{centaines de mille}+3~\\text{dizaines de mille}+1~\\text{dizaine de millions}+7~\\text{millions}"] ; attendu : {"champ":"3"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["3~\\text{millions}+2~\\text{centaines de millions}+1~\\text{centaine de mille}+5~\\text{dizaines de mille}+1~\\text{dizaine}+9~\\text{unités}+2~\\text{centaines}+8~\\text{dizaines de millions}+5~\\text{mille}"] ; attendu : {"champ":"8"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["3~\\text{dizaines de millions}+3~\\text{dizaines}+8~\\text{centaines de millions}+8~\\text{centaines}+5~\\text{mille}+3~\\text{centaines de mille}+6~\\text{dizaines de mille}+9~\\text{unités}+3~\\text{millions}"] ; attendu : {"champ":"3"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["4~\\text{dizaines de mille}+8~\\text{unités}+5~\\text{centaines}+9~\\text{dizaines de millions}+4~\\text{centaines de mille}+7~\\text{mille}+5~\\text{millions}+2~\\text{centaines de millions}+7~\\text{dizaines}"] ; attendu : {"champ":"3"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["5~\\text{centaines}+6~\\text{dizaines}+1~\\text{dizaine de millions}+2~\\text{centaines de mille}+7~\\text{unités}+6~\\text{millions}+6~\\text{centaines de millions}+6~\\text{mille}+7~\\text{dizaines de mille}"] ; attendu : {"champ":"8"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["9~\\text{dizaines de mille}+5~\\text{centaines}+9~\\text{dizaines}+7~\\text{centaines de millions}+6~\\text{dizaines de millions}+9~\\text{centaines de mille}+9~\\text{millions}+6~\\text{unités}+1~\\text{mille}"] ; attendu : {"champ":"8"} | ×1 ; sup=true sup2=9 sup3=1 sup4=1 sup5=true (revue-9-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(4\\times 10)+(8\\times 1)"] ; attendu : {"champ":"4"} | ×8 ; sup=false sup2=2 sup3=1 sup4=1 sup5=true (revue-11-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(4\\times 1\\,000)+(1\\times 100)+(4\\times 10)+(5\\times 1)+(5\\times 10\\,000)"] ; attendu : {"champ":"4"} | ×1 ; sup=false sup2=5 sup3=1 sup4=4 sup5=true (revue-14-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(8\\times 1)+(8\\times 10\\,000)+(5\\times 10)"] ; attendu : {"champ":"1"} | ×1 ; sup=false sup2=5 sup3=1 sup4=4 sup5=true (revue-14-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(8\\times 1)+(6\\times 100)+(2\\times 10\\,000)+(1\\times 10)"] ; attendu : {"champ":"4"} | ×2 ; sup=false sup2=5 sup3=1 sup4=4 sup5=true (revue-14-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(8\\times 1)+(9\\times 10)+(9\\times 1\\,000)+(6\\times 100)+(5\\times 10\\,000)"] ; attendu : {"champ":"5"} | ×2 ; sup=false sup2=5 sup3=1 sup4=4 sup5=true (revue-14-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(9\\times 1\\,000)+(5\\times 100)+(4\\times 10\\,000)"] ; attendu : {"champ":"4"} | ×2 ; sup=false sup2=5 sup3=1 sup4=4 sup5=true (revue-14-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(5\\times 100\\,000)+(3\\times 10\\,000)+(8\\times 1)+(6\\times 1\\,000)"] ; attendu : {"champ":"100000"} | ×3 ; sup=false sup2=6 sup3=5 sup4=3 sup5=true (revue-15-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(4\\times 1\\,000\\,000)+(5\\times 100)+(3\\times 100\\,000)+(8\\times 10)+(1\\times 1)+(2\\times 10\\,000)+(9\\times 1\\,000)"] ; attendu : {"champ":"1000000"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(4\\times 10)+(7\\times 100)+(2\\times 1\\,000)+(9\\times 10\\,000)+(6\\times 100\\,000)+(1\\times 1)+(3\\times 1\\,000\\,000)"] ; attendu : {"champ":"100"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(4\\times 100)+(2\\times 10\\,000)+(8\\times 1\\,000)+(5\\times 100\\,000)+(1\\times 1\\,000\\,000)+(7\\times 10)+(6\\times 1)"] ; attendu : {"champ":"100000"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(1\\times 1\\,000)+(2\\times 1\\,000\\,000)+(4\\times 100\\,000)+(6\\times 10\\,000)+(5\\times 100)+(9\\times 10)+(8\\times 1)"] ; attendu : {"champ":"10"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(2\\times 100\\,000)+(1\\times 1)+(8\\times 1\\,000)+(5\\times 1\\,000\\,000)+(4\\times 10)+(6\\times 10\\,000)+(3\\times 100)"] ; attendu : {"champ":"100000"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(2\\times 100)+(9\\times 1)+(4\\times 1\\,000)+(7\\times 10\\,000)+(5\\times 10)+(8\\times 100\\,000)+(3\\times 1\\,000\\,000)"] ; attendu : {"champ":"1"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(2\\times 1\\,000\\,000)+(8\\times 10)+(5\\times 10\\,000)+(9\\times 100)+(3\\times 100\\,000)+(4\\times 1)+(1\\times 1\\,000)"] ; attendu : {"champ":"1000"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(3\\times 100\\,000)+(5\\times 1)+(4\\times 10\\,000)+(9\\times 1\\,000)+(1\\times 100)+(7\\times 10)+(6\\times 1\\,000\\,000)"] ; attendu : {"champ":"1000000"} | ×1 ; sup=false sup2=7 sup3=2 sup4=1 sup5=true (revue-16-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(6\\times 1\\,000\\,000)+(4\\times 1\\,000)+(9\\times 1)+(5\\times 100)+(2\\times 10\\,000)+(1\\times 10)+(3\\times 10\\,000\\,000)+(8\\times 100\\,000)"] ; attendu : {"champ":"1000000"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(4\\times 100)+(2\\times 1\\,000\\,000)+(5\\times 10)+(9\\times 10\\,000\\,000)+(1\\times 10\\,000)+(7\\times 100\\,000)+(8\\times 1\\,000)+(3\\times 1)"] ; attendu : {"champ":"1000"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(6\\times 100)+(2\\times 100\\,000)+(9\\times 1\\,000)+(1\\times 10)+(3\\times 1)+(8\\times 10\\,000\\,000)+(7\\times 10\\,000)+(5\\times 1\\,000\\,000)"] ; attendu : {"champ":"1"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(4\\times 10)+(8\\times 10\\,000\\,000)+(6\\times 10\\,000)+(3\\times 100)+(1\\times 1\\,000\\,000)+(2\\times 100\\,000)+(5\\times 1)+(9\\times 1\\,000)"] ; attendu : {"champ":"100"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(4\\times 1\\,000)+(7\\times 10\\,000)+(3\\times 10)+(5\\times 1)+(9\\times 100\\,000)+(1\\times 100)+(8\\times 1\\,000\\,000)+(6\\times 10\\,000\\,000)"] ; attendu : {"champ":"1000"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(2\\times 10\\,000\\,000)+(1\\times 1\\,000)+(7\\times 100\\,000)+(4\\times 1)+(5\\times 10)+(3\\times 100)+(6\\times 10\\,000)+(8\\times 1\\,000\\,000)"] ; attendu : {"champ":"10000"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(7\\times 10\\,000\\,000)+(9\\times 1\\,000)+(2\\times 10\\,000)+(6\\times 1\\,000\\,000)+(8\\times 1)+(4\\times 100\\,000)+(1\\times 100)+(5\\times 10)"] ; attendu : {"champ":"10"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["(8\\times 1\\,000)+(7\\times 1)+(2\\times 100\\,000)+(3\\times 10\\,000)+(1\\times 10\\,000\\,000)+(9\\times 100)+(5\\times 10)+(4\\times 1\\,000\\,000)"] ; attendu : {"champ":"1"} | ×1 ; sup=false sup2=8 sup3=2 sup4=1 sup5=true (revue-17-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(1\\times 100\\,000\\,000)+(5\\times 10\\,000\\,000)+(7\\times 1\\,000\\,000)+(3\\times 100\\,000)+(2\\times 10\\,000)+(9\\times 1\\,000)+(4\\times 100)+(6\\times 1)"] ; attendu : {"champ":"100000000"} | ×5 ; sup=false sup2=9 sup3=2 sup4=4 sup5=false (revue-18-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(7\\times 100\\,000\\,000)+(1\\times 10\\,000\\,000)+(6\\times 1\\,000\\,000)+(4\\times 1\\,000)+(8\\times 100)+(5\\times 10)+(9\\times 1)"] ; attendu : {"champ":"1000000"} | ×2 ; sup=false sup2=9 sup3=2 sup4=4 sup5=false (revue-18-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(5\\times 100\\,000\\,000)+(3\\times 10\\,000\\,000)+(2\\times 100\\,000)+(9\\times 10\\,000)+(4\\times 1\\,000)+(8\\times 100)+(7\\times 10)+(1\\times 1)"] ; attendu : {"champ":"100000000"} | ×1 ; sup=false sup2=9 sup3=2 sup4=4 sup5=false (revue-18-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["$0"] ; attendu : {"champ":"0"} | ×1 ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-21-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["0"] ; attendu : {"champ":"unités"} | ×2 ; sup=true sup2=1 sup3=5 sup4=4 sup5=true ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-21-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["6~\\text{dizaines}"] ; attendu : {"champ":"6"} | ×2 ; sup=true sup2=2 sup3=5 sup4=2 sup5=true (revue-24-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["80"] ; attendu : {"champ":"dizaines"} | ×2 ; sup=true sup2=2 sup3=5 sup4=2 sup5=true ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-24-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["3~\\text{unités}+9~\\text{dizaines}+5~\\text{centaines}"] ; attendu : {"champ":"3"} | ×1 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["5~\\text{dizaines}+7~\\text{unités}+6~\\text{centaines}"] ; attendu : {"champ":"9"} | ×1 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["9~\\text{centaines}+8~\\text{unités}+6~\\text{dizaines}"] ; attendu : {"champ":"5"} | ×3 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["7~\\text{unités}+9~\\text{centaines}+7~\\text{dizaines}"] ; attendu : {"champ":"5"} | ×2 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["1~\\text{dizaine}+8~\\text{unités}+6~\\text{centaines}"] ; attendu : {"champ":"1"} | ×1 ; sup=true sup2=3 sup3=1 sup4=1 sup5=true (revue-25-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["9~\\text{unités}+2~\\text{centaines}"] ; attendu : {"champ":"unités"} | ×2 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["6~\\text{unités}+5~\\text{dizaines}+3~\\text{centaines}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["1~\\text{centaine}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["7~\\text{centaines}+2~\\text{unités}+8~\\text{dizaines}"] ; attendu : {"champ":"dizaines"} | ×1 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{centaines}+2~\\text{unités}+4~\\text{dizaines}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["7~\\text{centaines}"] ; attendu : {"champ":"dizaines"} | ×1 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["2~\\text{centaines}+6~\\text{dizaines}+9~\\text{unités}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=3 sup3=2 sup4=4 sup5=true (revue-26-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["4~\\text{unités}+9~\\text{dizaines}+2~\\text{centaines}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["327"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["4~\\text{dizaines}+5~\\text{centaines}+2~\\text{unités}"] ; attendu : {"champ":"482"} | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{dizaines}+9~\\text{unités}+5~\\text{centaines}"] ; attendu : {"champ":"dizaines"} | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["7~\\text{centaines}+1~\\text{dizaine}+3~\\text{unités}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=3 sup3=5 sup4=1 sup5=true (revue-27-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["9~\\text{dizaines}+5~\\text{mille}+9~\\text{unités}"] ; attendu : {"champ":"9"} | ×2 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["9~\\text{mille}+6~\\text{unités}+9~\\text{centaines}"] ; attendu : {"champ":"5"} | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["5~\\text{unités}+6~\\text{mille}+5~\\text{centaines}"] ; attendu : {"champ":"9"} | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["5~\\text{unités}+1~\\text{mille}+5~\\text{dizaines}"] ; attendu : {"champ":"9"} | ×2 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["9~\\text{centaines}+9~\\text{unités}+3~\\text{mille}"] ; attendu : {"champ":"2"} | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["5~\\text{unités}+5~\\text{centaines}+9~\\text{mille}"] ; attendu : {"champ":"7"} | ×1 ; sup=true sup2=4 sup3=1 sup4=2 sup5=true (revue-28-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["1~\\text{mille}+5~\\text{unités}"] ; attendu : {"champ":"mille"} | ×2 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["5~\\text{centaines}+9~\\text{mille}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["6~\\text{mille}+1~\\text{centaine}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["2~\\text{mille}+7~\\text{centaines}"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["9~\\text{unités}+1~\\text{mille}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["5~\\text{centaines}+2~\\text{mille}"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["7~\\text{mille}+9~\\text{centaines}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=4 sup3=2 sup4=3 sup5=true (revue-29-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["1~\\text{dizaine}+6~\\text{mille}+8~\\text{unités}+4~\\text{centaines}"] ; attendu : {"champ":"dizaine"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["9\\,147"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["2\\,911"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["2~\\text{dizaines}+4~\\text{mille}+3~\\text{unités}+7~\\text{centaines}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["8~\\text{mille}+1~\\text{centaine}+9~\\text{unités}+7~\\text{dizaines}"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["8\\,175"] ; attendu : {"champ":"centaine"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["5~\\text{unités}+5~\\text{mille}+9~\\text{centaines}+4~\\text{dizaines}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=4 sup3=5 sup4=1 sup5=true (revue-30-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["9~\\text{unités}+7~\\text{mille}+8~\\text{centaines}+6~\\text{dizaines de mille}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["9~\\text{dizaines de mille}+6~\\text{dizaines}+2~\\text{unités}+1~\\text{mille}"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["7~\\text{centaines}+3~\\text{unités}+6~\\text{mille}+5~\\text{dizaines de mille}"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["3~\\text{unités}+2~\\text{dizaines de mille}+7~\\text{centaines}+5~\\text{dizaines}"] ; attendu : {"champ":"dizainesdemille"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["9~\\text{dizaines de mille}+3~\\text{unités}+5~\\text{mille}+1~\\text{dizaine}"] ; attendu : {"champ":"dizainesdemille"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["7~\\text{mille}+2~\\text{dizaines de mille}+9~\\text{centaines}+1~\\text{unité}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["5~\\text{centaines}+2~\\text{dizaines de mille}+9~\\text{unités}+4~\\text{dizaines}"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["1~\\text{dizaine de mille}+5~\\text{unités}+7~\\text{dizaines}+2~\\text{centaines}"] ; attendu : {"champ":"dizaine"} | ×1 ; sup=true sup2=5 sup3=2 sup4=2 sup5=true (revue-31-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{centaines de mille}+8~\\text{dizaines de mille}+1~\\text{mille}+2~\\text{centaines}+9~\\text{dizaines}+3~\\text{unités}"] ; attendu : {"champ":"centainesdemille"} | ×7 ; sup=true sup2=6 sup3=2 sup4=1 sup5=false (revue-34-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["2~\\text{centaines de mille}+1~\\text{dizaine de mille}+4~\\text{mille}+9~\\text{centaines}+8~\\text{dizaines}+7~\\text{unités}"] ; attendu : {"champ":"dizainesdemille"} | ×1 ; sup=true sup2=6 sup3=2 sup4=1 sup5=false (revue-34-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["3~\\text{unités}+9~\\text{millions}+8~\\text{centaines de mille}+2~\\text{centaines}+4~\\text{mille}+7~\\text{dizaines}+5~\\text{dizaines de mille}"] ; attendu : {"champ":"unités"} | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["4~\\text{centaines de mille}+4~\\text{unités}+3~\\text{dizaines}+2~\\text{millions}+3~\\text{dizaines de mille}+3~\\text{centaines}+8~\\text{mille}"] ; attendu : {"champ":"millions"} | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["2\\,625\\,342"] ; attendu : {"champ":"centainesdemille"} | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["7~\\text{millions}+2~\\text{dizaines de mille}+8~\\text{centaines de mille}+7~\\text{mille}+1~\\text{centaine}+1~\\text{dizaine}+8~\\text{unités}"] ; attendu : {"champ":"7"} | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["6\\,426\\,527"] ; attendu : {"champ":"2"} | ×6 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true ; sup=true sup2=8 sup3=5 sup4=1 sup5=true… (revue-39-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["3~\\text{centaines}+5~\\text{unités}+8~\\text{dizaines}+1~\\text{centaine de mille}+7~\\text{dizaines de mille}+9~\\text{millions}+4~\\text{mille}"] ; attendu : {"champ":"7"} | ×1 ; sup=true sup2=7 sup3=5 sup4=1 sup5=true (revue-39-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["6~\\text{centaines de mille}+3~\\text{dizaines de mille}+4~\\text{millions}+4~\\text{dizaines de millions}+2~\\text{unités}+2~\\text{dizaines}+5~\\text{centaines}+6~\\text{mille}"] ; attendu : {"champ":"6"} | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["8~\\text{dizaines de mille}+4~\\text{mille}+1~\\text{dizaine}+7~\\text{centaines}+6~\\text{unités}+5~\\text{centaines de mille}+2~\\text{dizaines de millions}+9~\\text{millions}"] ; attendu : {"champ":"4"} | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["6~\\text{mille}+5~\\text{millions}+1~\\text{dizaine de millions}+2~\\text{dizaines de mille}+4~\\text{centaines de mille}+9~\\text{unités}+7~\\text{dizaines}+8~\\text{centaines}"] ; attendu : {"champ":"mille"} | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-b) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["1~\\text{dizaine}+8~\\text{centaines de mille}+8~\\text{dizaines de millions}+7~\\text{unités}+8~\\text{mille}+5~\\text{centaines}+1~\\text{dizaine de mille}+8~\\text{millions}"] ; attendu : {"champ":"millions"} | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-b) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["32\\,712\\,115"] ; attendu : {"champ":"dizainedemillions"} | ×1 ; sup=true sup2=8 sup3=5 sup4=1 sup5=true (revue-42-b) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["3~\\text{dizaines de mille}+7~\\text{centaines de millions}+9~\\text{centaines}+5~\\text{centaines de mille}+6~\\text{mille}+1~\\text{dizaine}+2~\\text{millions}+4~\\text{dizaines de millions}+8~\\text{unités}"] ; attendu : {"champ":"dizainesdemille"} | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-a) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["598\\,785\\,512"] ; attendu : {"champ":"centainesdemillions"} | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["314\\,635\\,248"] ; attendu : {"champ":"centaines"} | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-a) |
+| CM2N1D-2 (cm2) |  q4 mathlive | valeur en évidence refusée par le champ : ["3~\\text{centaines de millions}+8~\\text{dizaines}+5~\\text{millions}+4~\\text{dizaines de millions}+6~\\text{unités}+6~\\text{centaines}+3~\\text{centaines de mille}+3~\\text{dizaines de mille}+7~\\text{mille}"] ; attendu : {"champ":"centainesdemille"} | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-a) |
+| CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["4~\\text{dizaines}+6~\\text{dizaines de mille}+6~\\text{centaines}+8~\\text{centaines de millions}+3~\\text{mille}+4~\\text{unités}+5~\\text{millions}+7~\\text{centaines de mille}+7~\\text{dizaines de millions}"] ; attendu : {"champ":"4"} | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["7~\\text{unités}+2~\\text{centaines}+9~\\text{millions}+4~\\text{centaines de mille}+6~\\text{dizaines}+3~\\text{mille}+5~\\text{centaines de millions}+1~\\text{dizaine de millions}+8~\\text{dizaines de mille}"] ; attendu : {"champ":"6"} | ×1 ; sup=true sup2=9 sup3=5 sup4=1 sup5=true (revue-45-b) |
+| CM2N1D-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["(9\\times 1\\,000)+(7\\times 100)+(8\\times 10)+(6\\times 1)"] ; attendu : {"champ":"1000"} | ×2 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-46-a) |
+| CM2N1D-2 (cm2) |  q3 mathlive | valeur en évidence refusée par le champ : ["(8\\times 10\\,000)+(4\\times 1\\,000)+(9\\times 1)"] ; attendu : {"champ":"100"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-46-a) |
+| CM2N1D-2 (cm2) |  q8 mathlive | valeur en évidence refusée par le champ : ["(1\\times 10\\,000)+(9\\times 1\\,000)+(1\\times 100)+(6\\times 1)"] ; attendu : {"champ":"9"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-46-a) |
+| CM2N1D-2 (cm2) |  q10 mathlive | valeur en évidence refusée par le champ : ["(5\\times 100\\,000)+(9\\times 10\\,000)+(5\\times 1\\,000)+(9\\times 100)+(7\\times 1)"] ; attendu : {"champ":"488200"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-46-a) |
 | CM2N3A-10 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["4"] ; attendu : {"champ":"8"} | ×13 ; sup=2-3-4-5-6-7-8-9 sup2=2 ; sup=2-3-4-5-6-7-8-9 sup2=3 (revue-1-a) |
 | CM2N3A-9 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["8"] ; attendu : {"champ":"4"} | ×29 ; sup=2-3-4-5-6-7-8-9 sup2=2 ; sup=2-3-4-5-6-7-8-9 sup2=3 (revue-1-a) |
 | CM2N3G-1 (cm2) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"100"} ; attendu : {"champ1":"1000"} | ×8 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false… (revue-8-a) |
@@ -799,6 +1013,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG2-4 (6e) | série q1 | aucune mise en évidence dans la correction | ×16 ; sup=8 ; sup=1… (revue-0-a) |
 | 6N0A-2 (6e) | série q1 | aucune mise en évidence dans la correction | ×246 ; sup=10 sup2=4 sup3=1 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 6N0A-3 (6e) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
+| can5a-2020 (CAN) | série q18 | aucune mise en évidence dans la correction | ×2 ; sup= (revue-0-a) |
+| can5a-2022 (CAN) | série q12 | aucune mise en évidence dans la correction | ×4 ; sup2=false ; sup2=true (revue-0-a) |
 | can6C6-09 (CAN) | src/exercices/can/6e/can6C6-09.ts | Correction « $\dfrac{5}{5}-⟦\dfrac{4}{5}⟧=\dfrac{1}{5}$ (vert) » : la donnée 4/5 est en orange, le résultat en vert dans la formule ; l'orange est réservé au résultat final. → $\dfrac{5}{5}-\dfrac{4}{5}=⟦\dfrac{1}{5}⟧$ | ×1 |
 | CM2D3B-1 (cm2) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=1 sup2=true sup3=false ; sup=1 sup2=false sup3=false (revue-2-a) |
 | CM2G2A-1 (cm2) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-0-a) |
@@ -946,8 +1162,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can2G20-01 (CAN) | src/exercices/can/2e/can2G20-01.ts | Relation de Chasles : les lettres intermédiaires (⟦J⟧…⟦J⟧) sont mises en évidence en orange comme une réponse ; la bonne proposition du QCM ($\overrightarrow{KF}$, $\overrightarrow{0}$) n'est pas mise en évidence dans tous les cas → autre couleur pour les lettres qui se simplifient, orange pour le résultat seul | ×1 |
 | can2G20-02 (CAN) | src/exercices/can/2e/can2G20-02.ts | Relation de Chasles : les lettres intermédiaires (⟦J⟧…⟦J⟧) sont mises en évidence en orange comme une réponse ; la bonne proposition du QCM ($\overrightarrow{KF}$, $\overrightarrow{0}$) n'est pas mise en évidence dans tous les cas → autre couleur pour les lettres qui se simplifient, orange pour le résultat seul | ×1 |
 | can2N5-06 (CAN) | src/exercices/can/2e/can2N5-06.ts | Deux mises en évidence pour un champ (⟦3\times9⟧=⟦3\times3^2⟧) → une seule mise en évidence (la forme attendue) | ×1 |
+| can5a-2026 (CAN) |  q16 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×8 ; sup=false ; sup=true (revue-0-a) |
 | can5a-2026 (CAN) | src/exercices/can/can5a-2026 | Q16 : deux trous (numérateur, dénominateur) mais une seule fraction mise en évidence, simplifiée ($\dfrac{2}{5}$) alors que l'énoncé compte 4 boules sur 10 ; Q15 : heure mise en évidence en quatre morceaux ($⟦11⟧$ ⟦h⟧ $⟦00⟧$ ⟦min⟧) pour un seul champ. → $\dfrac{⟦4⟧}{⟦10⟧}=\dfrac{2}{5}$ ; $⟦11~\text{h}~00~\text{min}⟧$ | ×1 |
 | CM1N2B (cm1) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 3 trou(s) | ×30 ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=true ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=false… (revue-0-a) |
+| CM2N1D-2 (cm2) | src/exercices/CM2/CM2N1D-2.ts:186 | Type « Décomposer » en chiffres : un champ par chiffre, mais la correction met en évidence toute la décomposition d'un bloc (⟦(3\times 1\,000)+(2\times 100)+(3\times 1)⟧) → mettre en évidence chaque chiffre à saisir | ×1 |
 | CM2N2F-2 (cm2) |  q1 fillInTheBlank | 0 mise(s) en évidence pour 3 trou(s) | ×130 ; sup=1 sup2=true sup3=false ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | TSA2-12 (Terminale) |  q1 multi-mathfield | 1 mise(s) en évidence pour 3 champ(s) | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSA3-44 (Terminale) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×2 ; défaut (revue-0-a) |
@@ -982,6 +1200,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q12 (5e, aussi can5a-NY2026) : « Si Quynh a $48$ ans en $2025$, en quelle année est-elle née ? » : deux réponses possibles selon la date d'anniversaire (1977 ou 1976), une seule acceptée. → Préciser « Quynh fête ses 48 ans en 2025 ». | ×1 |
 | canCE2a-2025 (CAN) | src/exercices/can/canCE2a-2025 | Q4 : correction « Une forêt est un rectangle dont les côtés mesurent en moyenne environ 1 km » : affirmation fausse présentée comme un fait. ‖ Q14 : « compris entre 238 et 300 » avec chiffre des dizaines 3 : 238 convient aussi si « entre » est large ; seule 239 est acceptée. Nombres hors $. → Si une forêt avait la forme d'un carré d'environ $1~\text{km}$ de côté, son périmètre serait proche de $4~\text{km}$. | ×2 |
 | canTSpeAN20 (CAN) | src/exercices/can/TSpe/canTSpeAN20.ts:49 | Correction : F(a) soustraite sans parenthèses (« $… - \dfrac{5}{2}\times(-3)^2 -\times(-3)$ » devrait être $-\left(\dfrac52\times(-3)^2-(-3)\right)$) ; « $-\times(-3)$ » quand d=±1 (ecritureAlgebriqueSauf1 suivi de \times) ; « $- -2\times(-4)^2$ » ; résultat mis en évidence brut avec point décimal (« -6.5 ») ; bornes égales possibles ($\int_{-3}^{-3}$, b=randint(a,a+5)) → F(b)-\left(F(a)\right) ; ecritureAlgebrique(d)\times ; texNombre du résultat ; b>a | ×1 |
+| CM2N3A-2 (cm2) | src/exercices/CM2/CM2N3A-2.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | ×1 |
+| CM2N3A-3 (cm2) | src/exercices/CM2/CM2N3A-3.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | ×1 |
 
 ## M3
 
@@ -1000,6 +1220,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6A (6e) | énoncé non interactif q10 | « 90 » hors $ : dizaine, du nombre de guépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 ‖ « 100 » hors $ : ne, du nombre de guépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 et 50 ‖ « 60 » hors $ : uépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 et 50 [champ] entre 20 e | ×8 |
 | 6AutoE1-3 (6e) | consigne | « 1 » hors $ : t en plein écran). Les cubes ayant des arêtes de 1 cm de longueur, calculer le volume en ‖ « 1 » hors $ : angles différents. Les cubes ayant des arêtes de 1 cm de longueur, calculer le volume en ‖ « 3 » hors $ : uant pour reconstruire un grand cube constitué de 3 cubes sur chaque arête. | ×62 ; sup=1 sup2=1 sup3=true sup4=2 ; sup=1 sup2=1 sup3=false sup4=2… (revue-2-a) |
 | 6AutoF1 (6e) | correction q1 | « 6 » hors $ : La figure est divisée en 6 secteurs de même aire. Parmi ces secteurs, 4 son ‖ « 4 » hors $ : e en 6 secteurs de même aire. Parmi ces secteurs, 4 sont colorés. La fraction de la figure qui est ‖ « 4 » hors $ : La figure est divisée en 4 secteurs de même aire. Parmi ces secteurs, 1 est | ×88 ; sup=1-2-3-4-5 sup2=0 ; sup=1-2-3-4-5 sup2=1… (revue-0-a) |
+| 6AutoF1-7 (6e) | titre | « 1 » hors $ : Reconnaître une fraction supérieure à 1 sur des représentations variées | ×1 |
 | 6AutoF3 (6e) | titre | « 1 » hors $ : Connaître, de façon automatique, les liens entre 1/4, 1/2 et 3/4 ‖ « 4 » hors $ : onnaître, de façon automatique, les liens entre 1/4, 1/2 et 3/4 ‖ « 1 » hors $ : aître, de façon automatique, les liens entre 1/4, 1/2 et 3/4 | ×6 |
 | 6AutoF3 (6e) | énoncé q2 | « 1 » hors $ : +\dfrac{1}{4}=1 ‖ « 1 » hors $ : -\dfrac{1}{2}=\dfrac{1}{4} ‖ « 1 » hors $ : +\dfrac{1}{4}=\dfrac{1}{2} | ×26 ; sup=3 ; sup=2… (revue-0-a) |
 | 6AutoG1-6 (6e) | correction q1 | « 0 » hors $ : angle nul est un angle dont la mesure est égale à 0°. ‖ « 90 » hors $ : btus est un angle dont la mesure est supérieure à 90°. ‖ « 90 » hors $ : gle droit est un angle dont la mesure est égale à 90°. | ×22 ; sup=false ; sup=true… (revue-0-a) |
@@ -1198,7 +1419,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM1C2C (cm1) | correction q3 | « 1 » hors $ : Méthode 1 : [ ‖ « 2 » hors $ : e] [figure] Méthode 2 : [ | ×202 ; sup=3 sup2=3 sup3=4 ; sup=2 sup2=1 sup3=1… (revue-0-a) |
 | CM1C2C (cm1) | correction non interactive q3 | « 1 » hors $ : Méthode 1 : [ ‖ « 2 » hors $ : e] [figure] Méthode 2 : [ | ×4 |
 | CM1C2E (cm1) | correction q1 | « 1 » hors $ : Lorsqu'on multiplie par 1, le produit est le nombre initial, ici | ×32 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=2… (revue-1-a) |
-| CM1C2F (cm1) | correction q1 | « 1 » hors $ : Lorsqu'on divise un nombre par 1, le quotient est le nombre initial : | ×8 ; sup=1 sup2=true sup3=1 ; sup=2 sup2=true sup3=1 (revue-1-a) |
 | CM1N1E (cm1) | src/exercices/CM1/CM1N1E.ts | Énoncés « composé de 4 chiffres », « On trouve 4 au rang des unités », « est 3 » : chiffres hors $ ; corrections « c'est bien le chiffre des dizaines . » (espace avant le point). → $4$ chiffres ; $4$ ; …des dizaines. | ×1 |
 | CM1N1E (cm1) | énoncé q1 | « 4 » hors $ : Je suis un mystérieux nombre entier composé de 4 chiffres, tous différents les uns des autres. a) ‖ « 4 » hors $ : tous différents les uns des autres. a) On trouve 4 au rang des unités. b) La moitié de mon chiffre ‖ « 3 » hors $ : Je suis un nombre entier à 3 chiffres, tous différents. a) Le chiffre des un | ×114 ; sup=4 sup2=3 sup3=1-2-7-8 sup4=true sup5=true ; sup=1 sup2=1 sup3=1-2-7-8 sup4=true sup5=true… (revue-0-a) |
 | CM1N1E (cm1) | correction q1 | « 0 » hors $ : ), donc le chiffre est soit 0. Le nombre mystère est donc ‖ « 9 » hors $ : ), donc le chiffre est soit 9, soit 8, soit 7. Les indices ne suffisent pas, à ‖ « 8 » hors $ : ), donc le chiffre est soit 9, soit 8, soit 7. Les indices ne suffisent pas, à eux seu | ×117 ; sup=1 sup2=2 sup3=1 sup4=false sup5=false ; sup=1 sup2=3 sup3=2 sup4=true sup5=false… (revue-2-a) |
@@ -1215,6 +1435,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2I1B-1 (cm2) | énoncé q1 | « 150 » hors $ : . quand @greenFlag est cliqué aller à x: [150] y: [50] s'orienter à [180] avancer de [40] ‖ « 50 » hors $ : nd @greenFlag est cliqué aller à x: [150] y: [50] s'orienter à [180] avancer de [40] pas tou ‖ « 180 » hors $ : cliqué aller à x: [150] y: [50] s'orienter à [180] avancer de [40] pas tourner gauche de [90] | ×1846 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
 | CM2I1B-1 (cm2) | correction q1 | « 6 » hors $ : On obtient la série de couleurs suivante : (6) Jaune ‖ « 8 » hors $ : On obtient la série de couleurs suivante : (8) Gris (8) Gris ‖ « 8 » hors $ : btient la série de couleurs suivante : (8) Gris (8) Gris | ×168 ; sup=2 sup2=true sup3=1 sup4=true ; sup=2 sup2=true sup3=1 sup4=false… (revue-24-a) |
 | CM2I1B-1 (cm2) | énoncé non interactif q1 | « 150 » hors $ : . quand @greenFlag est cliqué aller à x: [150] y: [50] s'orienter à [180] avancer de [40] ‖ « 50 » hors $ : nd @greenFlag est cliqué aller à x: [150] y: [50] s'orienter à [180] avancer de [40] pas tou ‖ « 180 » hors $ : cliqué aller à x: [150] y: [50] s'orienter à [180] avancer de [40] pas tourner gauche de [90] | ×15 |
+| CM2N1D-2 (cm2) | correction q1 | « 0 » hors $ : ={\color{#F15929}\boldsymbol{0}} | ×1 ; sup=true sup2=1 sup3=3 sup4=2 sup5=false (revue-19-a) |
 | CM2N2E-1 (cm2) | titre | « 2 » hors $ : Placer des points d'abscisses fractionnaires (niv 2) | ×1 |
 | CM2N2E-3 (cm2) | titre | « 2 » hors $ : une droite graduée (abscisses fractionnaires niv 2) | ×1 |
 | CM2N2F-1 (cm2) | correction q1 | « 1 » hors $ : = 1. Pour aller de l'origine au point | ×298 ; sup=13 sup2=1-2-4-6 ; sup=2 sup2=1-2-4-6… (revue-0-a) |
@@ -1227,7 +1448,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-13 (cm2) | titre | « 11 » hors $ : Soustraire 11 | ×1 |
 | CM2N3A-14 (cm2) | titre | « 10 » hors $ : Trouver le complément à 10, 100 ou 1 000 | ×4 |
 | CM2N3A-14Old (cm2) | titre | « 100 » hors $ : Trouver le complément à 100 | ×1 |
-| CM2N3A-5 (cm2) | correction q1 | « 1 » hors $ : Lorsqu'on divise un nombre par 1, le quotient est le nombre initial : | ×12 ; sup=1 sup2=true sup3=1 ; sup=2 sup2=true sup3=1… (revue-1-a) |
 | CM2N3B-3 (cm2) | titre | « 10 » hors $ : Multiplier un nombre décimal par 10, 100 ou 1 000 | ×4 |
 | CM2N3B-4 (cm2) | titre | « 10 » hors $ : Diviser un nombre décimal par 10, 100 ou 1 000 | ×4 |
 | CM2N3C-1 (cm2) | titre | « 10 » hors $ : Ajouter deux nombres décimaux inférieurs à 10, s'écrivant avec au plus un chiffre après la vi | ×1 |
@@ -1334,6 +1554,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can4a-2022 (CAN) | correction q2 | nombre sans séparateur de milliers : $= 37000 + 8={\color{}\boldsymbol$ ‖ nombre sans séparateur de milliers : $7000 + 8={\color{}\boldsymbol{37008}}$ ‖ nombre à 4 chiffres sans séparateur : $85+\dfrac{4}{1000}+\dfrac{3}{10}=85+0,004+0$ | ×9 ; sup2=false ; sup2=true (revue-0-a) |
 | can6a-2024 (CAN) | src/exercices/can/can6a-2024 | Q12 : « ⟦5500⟧ » sans séparateur ; Q17 : « Joachim a 15 billes. Il en a 5 fois moins » : nombres hors $ ; Q20 : « En $2$h » sans espace ; mêmes questions que canc3a-2024 (Q4, Q15, Q18, Q23, Q28 déjà notées). → $5\,500$ ; $15$ billes | ×1 |
 | canc3a-2024 (CAN) | src/exercices/can/canc3a-2024 | Q28 : correction « $1$ L $=1000$ mL » (séparateur, unités hors maths) ; Q3 (sujet officiel) : « ⟦2500⟧ » sans séparateur ni point. → $1~\text{L}=1\,000~\text{mL}$ | ×1 |
+| CM2N3A-7 (cm2) | src/exercices/CM2/CM2N3A-7.ts | Valeur maximale 9999 : nombres écrits sans séparateur des milliers dans l'énoncé et la correction (« $8905 + 9404 = 18309$ ») → texNombre | ×1 |
 | CM2N3A-7 (cm2) | correction q1 | nombre sans séparateur de milliers : $+ 9404 = {\color{}\boldsymbol{18309}}$ ‖ nombre à 4 chiffres sans séparateur : $8905 + 9404 = {\color{}\boldsy$ ‖ nombre à 4 chiffres sans séparateur : $8905 + 9404 = {\color{}\boldsymbol{18$ | ×141 ; sup=9999 sup2=1 ; sup=9999 sup2=2… (revue-73-a) |
 | TSA1-QCM03 (Terminale) | énoncé q1 | nombre sans séparateur de milliers : $u_n > 10000$ | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSA1-QCM03 (Terminale) | correction q1 | nombre sans séparateur de milliers : $u>10000$ ‖ nombre sans séparateur de milliers : $u\leqslant 10000$ | ×2 ; défaut (revue-0-a) |
@@ -1694,6 +1915,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoS1-4 (6e) | correction | page de 637 px pour 390 px | ×6 ; sup=3 ; sup=1… (revue-0-a) |
 | 6N0A-10 (6e) | correction | page de 455 px pour 390 px | ×7 ; sup=1 ; sup=2… (revue-0-a) |
 | 6N0A-2 (6e) | énoncé | page de 442 px pour 390 px | ×66 ; sup=1 sup2=7 sup3=1 ; sup=1 sup2=8 sup3=1… (revue-7-a) |
+| can5a-2020 (CAN) | correction | page de 493 px pour 390 px | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) | énoncé q26 | table.tableauMathlive de 527 px pour 390 px | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) | énoncé | page de 543 px pour 390 px | ×2 ; sup= (revue-0-a) |
+| can5a-2021 (CAN) | correction | page de 493 px pour 390 px | ×2 ; sup= (revue-0-a) |
+| can5a-2022 (CAN) | correction | page de 493 px pour 390 px | ×4 ; sup2=false ; sup2=true (revue-0-a) |
+| can5a-2023 (CAN) | correction | page de 464 px pour 390 px | ×4 ; sup2=true ; sup2=false (revue-0-a) |
+| can5a-2026 (CAN) | énoncé | page de 429 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
+| can5a-NY2024 (CAN) | correction | page de 398 px pour 390 px | ×1 ; défaut (revue-0-a) |
+| can5a-NY2025 (CAN) | correction | page de 408 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2018 (CAN) | correction | page de 432 px pour 390 px | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2024 (CAN) | correction | page de 415 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2026 (CAN) | énoncé | page de 400 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -1725,6 +1955,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2D1A-1 (cm2) | correction | page de 488 px pour 390 px | ×64 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=3 sup3=1 sup4=true… (revue-0-a) |
 | CM2N1D-1 (cm2) | énoncé | page de 424 px pour 390 px | ×24 ; sup=false sup2=4-5-6 sup4=4 sup5=false ; sup=true sup2=4-5-6 sup4=1 sup5=true… (revue-0-a) |
 | CM2N1D-1 (cm2) | correction | page de 534 px pour 390 px | ×33 ; sup=false sup2=4-5-6 sup4=4 sup5=false ; sup=true sup2=4-5-6 sup4=1 sup5=true… (revue-0-a) |
+| CM2N1D-2 (cm2) | correction | page de 666 px pour 390 px | ×51 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=true sup2=5 sup3=5 sup4=1 sup5=false… (revue-0-a) |
+| CM2N1D-2 (cm2) | énoncé | page de 476 px pour 390 px | ×24 ; sup=true sup2=5 sup3=5 sup4=1 sup5=false ; sup=false sup2=6 sup3=5 sup4=3 sup5=true… (revue-5-a) |
 | CM2N2A-4 (cm2) | énoncé | page de 482 px pour 390 px | ×8 ; sup=8 sup2=true sup3=1 ; sup=8 sup2=true sup3=2… (revue-28-a) |
 | CM2N2E-1 (cm2) | énoncé | page de 832 px pour 390 px | ×21 ; sup=1-2-5-6 ; sup=1… (revue-0-a) |
 | CM2N2E-1 (cm2) | correction q1 | div.svgContainer de 792 px pour 390 px | ×110 ; sup=1-2-5-6 ; sup=1… (revue-0-a) |
@@ -1796,6 +2028,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeE01 (CAN) | src/exercices/can/TSpe/canTSpeE01.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
 | canTSpeE02 (CAN) | src/exercices/can/TSpe/canTSpeE02.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
 | canTSpeE03 (CAN) | src/exercices/can/TSpe/canTSpeE03.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
+| CM2N1D-1 (cm2) | src/exercices/CM2/CM2N1D-1.ts:104 | « en complétant avec les adjectifs numéraux qui conviennent (unité(s) ou dizaine(s)…) » : unité, dizaine, centaine sont des noms, pas des adjectifs numéraux ; mise en évidence de toute la décomposition avec les mots en \textbf (texte dans miseEnEvidence) ; « ou ... » / « ou $....$ » → « avec les mots qui conviennent (unités, dizaines…) » ; \ldots | ×1 |
 
 ## M3
 
@@ -1867,6 +2100,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0B-2 (6e) |  q1 qcm | QCM : bonne proposition (lediviseur) absente de la mise en évidence (diviseur) | ×11 ; sup=11 ; sup=15 nb=10 (revue-11-a) |
 | 6N0B-2 (6e) |  q1 qcm | QCM : bonne proposition (lequotient) absente de la mise en évidence (quotient) | ×11 ; sup=12 ; sup=15 nb=10 (revue-12-a) |
 | 6N0B-2 (6e) |  q1 qcm | QCM : bonne proposition (lereste) absente de la mise en évidence (reste) | ×10 ; sup=13 (revue-13-a) |
+| can5a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×2 ; sup=false (revue-0-a) |
+| can5a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×2 ; sup=true (revue-1-a) |
 | can6a-2024 (CAN) |  q10 qcm | QCM : bonne proposition (54cm) absente de la mise en évidence (54) | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2025 (CAN) |  q15 qcm | QCM : bonne proposition (figureb) absente de la mise en évidence (b) | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2025 (CAN) |  q16 qcm | QCM : bonne proposition (figurea) absente de la mise en évidence (a) | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -2432,6 +2667,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeS01 (CAN) | src/exercices/can/TSpe/canTSpeS01.ts:9 | titre terminé par un point : Limite d'un polynôme. ‖ titre sans infinitif en tête : Limite d'un polynôme. | ×2 |
 | canTSpeS01 (CAN) | titre | titre terminé par un point : Limite d'un polynôme. | ×1 |
 | canTSpeS08 (CAN) | src/exercices/can/TSpe/canTSpeS08.ts:7 | Titre « Limite de $\sqrt(n)-n^p$ » : \sqrt(n) mal écrit (rend la racine de « ( ») → $\sqrt{n}-n^p$ | ×1 |
+| CM2N3A-6 (cm2) | src/exercices/CM2/CM2N3A-6.ts | Titre « Trouver le dernier chiffre d'une somme entre entiers » alors que l'exercice propose aussi des produits et des différences ; « $1029 - 35$ » sans séparateur → Trouver le dernier chiffre d'un calcul entre entiers ; texNombre | ×1 |
 | 6e/_Construire_par_symetrie.ts (hors référentiel) | src/exercices/6e/_Construire_par_symetrie.ts:50 | titre terminé par un point : Construire par symétrie... | ×1 |
 | can/can2a-2024/can2a-2024-Q1.ts (hors référentiel) | src/exercices/can/can2a-2024/can2a-2024-Q1.ts:11 | titre terminé par un point : Multiplier par 1,5 ou 2,5 ou ... | ×1 |
 | can/can2a-2025C/can2a-2025C-Q15.ts (hors référentiel) | src/exercices/can/can2a-2025C/can2a-2025C-Q15.ts:7 | titre terminé par un point : Calculer avec le vocabulaire : carré, triple, double, etc. | ×1 |
@@ -2598,8 +2834,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2D1A-1 (cm2) | énoncé q1 | élision manquante « de Isabelle, » : p] Plusieurs amis reviennent du marché. Il s'agit de Isabelle, Nassim, Magalie et Lisa. Isabelle rap ‖ élision manquante « de Olivier » : p] Plusieurs amis reviennent du marché. Il s'agit de Olivier et Guillaume. Olivier rapporte ‖ élision manquante « de Olivier » : p] Plusieurs amis reviennent du marché. Il s'agit de Olivier et William. Olivier rapporte | ×5 ; sup=true sup2=2 sup3=4 sup4=true ; sup=true sup2=3 sup3=1 sup4=true… (revue-15-a) |
 | CM2I1B-1 (cm2) | correction q1 | mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Blanc Blanc » : ient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Rose Rose » : On obtient la série de couleurs suivante : Rose Rose Orange Blanc Noir | ×37 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=5 sup4=true… (revue-0-a) |
 | CM2I1B-1 (cm2) | correction non interactive q1 | mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Blanc Blanc » : ient la série de couleurs suivante : Blanc Blanc Blanc Blanc | ×2 |
-| CM2N2F-1 (cm2) | correction q1 | mot répété « de de » : . Pour les autres points on procède de la même façon. | ×298 ; sup=13 sup2=1-2-4-6 ; sup=2 sup2=1-2-4-6… (revue-0-a) |
-| CM2N2F-1 (cm2) | correction non interactive q1 | mot répété « de de » : . Pour les autres points on procède de la même façon. | ×3 |
+| CM2N2U-3 (cm2) | src/exercices/CM2/CM2N2U-3.ts | Point isolé après le champ (« point $A$ : [champ] . ») → retirer le point | ×1 |
+| CM2N3A-3 (cm2) | src/exercices/CM2/CM2N3A-3.ts | Correction redondante « $16-15=1$ donc $16-15=⟦1⟧$ » → $16-15=⟦1⟧$ | ×1 |
 
 ## R2
 
@@ -2860,6 +3096,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can3F2-05 (CAN) | src/exercices/can/3e/can3F2-05.ts | « son ordonnée $3$. les » (minuscule après un point) ; can3G2-03 : « ⟦12/13⟧.$ » (point dans la formule). → Les | ×1 |
 | can6N3-02 (CAN) | src/exercices/can/6e/can6N3-02.ts | Énoncé « Determiner l'abscisse du point $A$. » (accent manquant) ; correction « du point A » hors maths, sans point final. → Déterminer l'abscisse du point $A$. | ×1 |
 | CM2N2E-2 (cm2) | correction q1 | majuscule sans accent : pas. A partir de la graduation | ×14 ; sup=3 sup2=true sup3=true ; sup=3 sup2=false sup3=true… (revue-8-a) |
+| CM2N2U-2 (cm2) | src/exercices/CM2/CM2N2U-2.ts | Libellé du paramètre « Enoncé avec « nombre mixte » » (majuscule sans accent) → Énoncé | ×1 |
 | TSA3-42 (Terminale) | titre | majuscule sans accent : Etudier la convexité d'une fonction (QCM issus suj | ×1 |
 | TSA4-40 (Terminale) | correction q1 | majuscule sans accent : . A la calculatrice, on trouve une valeur approc | ×12 ; sup=6 ; sup=5… (revue-0-a) |
 | TSA4-40 (Terminale) | correction non interactive q1 | majuscule sans accent : . A la calculatrice, on trouve une valeur approc | ×1 |
@@ -3246,8 +3483,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6M1-04 (CAN) | énoncé q4 | double espace : Le périmètre de ce carré est ‖ double espace : Quel est le périmètre de ce triangle ? | ×2 ; défaut nb=10 (revue-1-a) |
 | can6M2-01 (CAN) | correction q1 | double espace : . Ce qui fait une différence de ‖ double espace : . Ce qui fait bien une différence de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | can6M3-01 (CAN) | correction q1 | double espace : , alors pour passer des | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6M4-01 (CAN) | énoncé q2 | double espace : Choisir parmi les propositions suivantes la hauteur d'une colline. [champ] ‖ double espace : Choisir parmi les propositions suivantes la hauteur d'une chaise. [champ] ‖ double espace : Choisir parmi les propositions suivantes la hauteur d'une maison. [champ] | ×5 ; défaut nb=10 (revue-1-a) |
-| can6M4-01 (CAN) | correction q2 | double espace : La hauteur d'une colline est ‖ double espace : La hauteur d'une chaise est ‖ double espace : La hauteur d'une maison est | ×5 ; défaut nb=10 (revue-1-a) |
 | can6M4-03 (CAN) | correction q1 | double espace : , pour passer des | ×5 ; défaut nb=10 (revue-1-a) |
 | can6M4-05 (CAN) | correction q1 | double espace : , pour convertir des | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
 | can6N1-04 (CAN) | titre | espace avant ponctuation : Déterminer le chiffre des ... | ×1 |
@@ -3326,6 +3561,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2I1B-1 (cm2) | énoncé q1 | double espace : amme et trouver la succession de couleur. quand @greenFlag est cliqué aller à x: [150] y: [5 ‖ double espace : ver la succession de couleur. quand @greenFlag est cliqué aller à x: [150] y: [50] s'orien ‖ double espace : ienter à [180] avancer de [40] pas tourner gauche de [90] degrés Note la couleur :: list tourner | ×694 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
 | CM2I1B-1 (cm2) | énoncé non interactif q1 | double espace : amme et trouver la succession de couleur. quand @greenFlag est cliqué aller à x: [150] y: [5 ‖ double espace : ver la succession de couleur. quand @greenFlag est cliqué aller à x: [150] y: [50] s'orien ‖ double espace : ienter à [180] avancer de [40] pas tourner gauche de [90] degrés Note la couleur :: list tourner | ×7 |
 | CM2N1D-1 (cm2) | énoncé q1 | espace avant ponctuation : nviennent (unité(s) ou dizaine(s) ou centaine(s) ou ...). [champ] Remettre les étiquettes au bon | ×32 ; sup=true sup2=4-5-6 sup4=1 sup5=true ; sup=true sup2=4-5-6 sup4=1 sup5=false… (revue-1-a) |
+| CM2N2A-4 (cm2) | src/exercices/CM2/CM2N2A-4.ts:396 | « Sélectionner$\dfrac{1}{6}$ de la plaque », « Hachurer$…$ » : espace manquante avant la fraction → `${…} $${frac.texFraction}$` | ×1 |
 | CM2N4B-1 (cm2) | consigne | double espace : Calculer les expressions suivantes. | ×1 ; sup=1-2-3 sup2=200 sup3=2 (revue-0-a) |
 | TSA1-QCM03 (Terminale) | énoncé q1 | espace avant ponctuation : while .............. : | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSA1-QCM03 (Terminale) | énoncé non interactif q1 | espace avant ponctuation : while .............. : | ×1 |
@@ -3732,7 +3968,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N1D-1 (cm2) | énoncé q1 | points de suspension en maths (\ldots) : $ou }\times 1\,000 \text{ ou }....$ ‖ points de suspension : iennent (unité(s) ou dizaine(s) ou centaine(s) ou ...). [champ] Remettre les étiquettes au bon en | ×74 ; sup=false sup2=4-5-6 sup4=4 sup5=false ; sup=true sup2=4-5-6 sup4=1 sup5=true… (revue-0-a) |
 | CM2N1D-1 (cm2) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $ou }\times 1\,000 \text{ ou }....$ | ×4 |
 | CM2N1D-2 (cm2) | src/exercices/CM2/CM2N1D-2.ts:76 | « ... » : 1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange | ×1 |
-| CM2N1D-2 (cm2) | énoncé q3 | points de suspension en maths (\ldots) : $1, 10, 100,1\,000,...$ ‖ points de suspension : aux qui conviennent unité, dizaine(s), centaine(s).... | ×7 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=true sup2=2 sup3=2 sup4=2 sup5=false… (revue-0-a) |
+| CM2N1D-2 (cm2) | énoncé q3 | points de suspension en maths (\ldots) : $1, 10, 100,1\,000,...$ ‖ points de suspension : aux qui conviennent unité, dizaine(s), centaine(s).... | ×46 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false ; sup=true sup2=2 sup3=2 sup4=2 sup5=false… (revue-0-a) |
 | CM2N1D-2 (cm2) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $3\,203=(....\times 1\,000)+(....\times$ ‖ points de suspension en maths (\ldots) : $3\,203=(....\times 1\,000)+(....\times 100)+(....\times 1)$ ‖ points de suspension en maths (\ldots) : $mes 1\,000)+(....\times 100)+(....\times 1)$ | ×18 |
 | CM2N2D-1 (cm2) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....~~ &lt; ~~\dfrac{980}{100}~~$ ‖ points de suspension en maths (\ldots) : $~~ &lt; ~~\dfrac{980}{100}~~ &lt; ~~....$ ‖ points de suspension en maths (\ldots) : $....~~ &lt; ~~\dfrac{89}{10}~~ &lt;$ | ×8 |
 | CM2N2F-1 (cm2) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\quad A \; .... \quad B \; .... \quad$ ‖ points de suspension en maths (\ldots) : $\quad A \; .... \quad B \; .... \quad C \; ....$ ‖ points de suspension en maths (\ldots) : $quad B \; .... \quad C \; ....$ | ×9 |
@@ -3854,6 +4090,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2D1A-1 (cm2) |  q1 mathalea-couteau-suisse | format mathalea-couteau-suisse : à tester à la main | ×128 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=1 sup3=1 sup4=true… (revue-0-a) |
 | CM2G5C-1 (cm2) |  q1 clique-figure | format clique-figure : à tester à la main | ×14 ; sup2=true ; sup2=false… (revue-0-a) |
 | CM2N1D-1 (cm2) |  q1 dnd | format dnd : à tester à la main | ×138 ; sup=false sup2=4-5-6 sup4=4 sup5=false ; sup=true sup2=4-5-6 sup4=1 sup5=true… (revue-0-a) |
+| CM2N1D-2 (cm2) |  q1 meta-custom | format meta-custom : à tester à la main | ×4 ; sup=false sup2=1 sup3=2 sup4=3 sup5=true ; sup=true sup2=1 sup3=5 sup4=4 sup5=true (revue-10-a) |
 | CM2N2A-4 (cm2) |  q1 svg-selection | format svg-selection : à tester à la main | ×82 ; sup=1 sup2=true sup3=2 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | CM2N2E-1 (cm2) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×110 ; sup=1-2-5-6 ; sup=1… (revue-0-a) |
 | CM2N2E-2 (cm2) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×210 ; sup=1 sup2=false sup3=true ; sup=1 sup2=true sup3=true… (revue-0-a) |
@@ -4336,3 +4573,4 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A (6e) |  | 240 combinaisons : 41 passées (couverture par paires) | ×1 |
 | CM1N1E (cm1) |  | 1680 combinaisons : 71 passées (couverture par paires) | ×1 |
 | CM2G5B-2 (cm2) |  | 504 combinaisons : 45 passées (couverture par paires) | ×1 |
+| CM2N1D-2 (cm2) |  | 720 combinaisons : 46 passées (couverture par paires) | ×1 |
