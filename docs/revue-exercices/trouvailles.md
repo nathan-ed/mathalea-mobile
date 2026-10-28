@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **463 exercices passés sur 4190**.
-Constats regroupés : 4070 (un groupe = même exercice, même règle,
+Avancement : **511 exercices passés sur 4190**.
+Constats regroupés : 4096 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -17,9 +17,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 6 | 7 |
-| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 12 | 14 |
+| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
+| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 13 | 15 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 10 | 33 |
-| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 15 | 15 |
+| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 17 | 17 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 1 | 3 |
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 16 | 33 |
@@ -29,7 +30,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 5 | 5 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 4 | 4 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 9 | 9 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 47 | 251 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 49 | 263 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 10 | 10 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 57 | 116 |
@@ -40,7 +41,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 10 | 10 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 220 | 320 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 220 | 321 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 12 | 16 |
 | 4 Typographie | [N3 Point décimal](#n3) | 14 | 17 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 2 | 2 |
@@ -54,15 +55,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [T6 Points de suspension](#t6) | 3 | 3 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 71 | 98 |
-| 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 24 | 31 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 60 | 425 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 75 | 102 |
+| 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 25 | 32 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 61 | 427 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
 | 5 Rédaction | [N2 Séparateur des milliers](#n2) | 57 | 80 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 25 | 33 |
 | 5 Rédaction | [R1 Titre](#r1) | 48 | 59 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 94 | 134 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 78 | 126 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 79 | 128 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
 | 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 66 | 90 |
@@ -92,6 +93,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5C4-02 (CAN) | src/exercices/can/5e/can5C4-02.ts:63 | Réponse attendue calculée en flottant (a + b/100 + c/1000 = 12.135000000000002) : « 12,135 » tapé par l'élève est refusé (confirmé avec revue/essayer.mjs, graine revue-1-a, q10) → this.reponse = arrondi(resultat, 3) (cas 3 et 4) | ×1 |
 | canc3C12 (CAN) | src/exercices/can/c3/canc3C12.ts:36 | Réponse négative possible (a jusqu'à 20, b×res dès 6 : « J'ajoute $20$, … j'obtiens $7$ » → $-6$) en CM1/CM2, avec le clavier clavierNumbers sans signe moins : l'élève ne peut pas saisir la réponse. → Tirer res avec b×res > a (res = randint(Math.ceil((a + 1) / b), 15)) | ×1 |
 
+## I2
+
+**Réponse fausse acceptée** (gravité 1 : Interactif faux)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| can5a-CoopMaths (CAN) |  q30 mathlive | réponse fausse acceptée | ×4 ; sup=31 ; sup=30 (revue-0-a) |
+
 ## I4
 
 **Question interactive sans champ** (gravité 1 : Interactif faux)
@@ -103,6 +112,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6A (6e) |  q2 mathlive | champ absent de la page | ×62 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
 | 6AutoL1 (6e) |  q7 liste-deroulante | liste absente de la page | ×1 ; sup=1 sup2=1 nb=10 (revue-6-a) |
 | 6AutoT1-6 (6e) |  q7 multi-mathfield | champ absent de la page | ×1 ; sup=1 sup2=true sup3=false nb=10 (revue-12-a) |
+| 6N0A-1 (6e) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×17 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | can6a-CoopMaths (CAN) |  q22 mathlive | champ absent de la page | ×19 ; sup=1 ; sup=5… (revue-1-a) |
 | canc3a (CAN) |  q27 mathlive | champ absent de la page | ×13 ; sup=14 ; sup=17… (revue-14-a) |
@@ -174,6 +184,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts:767 | Q26 : « il y a $4$ intervalles. Une graduation correspond donc à $8$ unités » : le 8 est écrit en dur alors qu'avec 4 intervalles entre 2 000 et 2 024 une graduation vaut 6 (réponse 2 006 juste, explication fausse). → Une graduation correspond donc à $${texNombre(24 / nbIntervalles)}$ unités. | ×1 |
 | canc3a-NY2025 (CAN) | src/exercices/can/canNY-2025/canc3NY-2025-Q8.ts:63 | Q8 : quand l'écart vaut 5 (2 020 à 2 025, 5 intervalles), la correction écrit « $5 \div 5 = 5$ » et « Une graduation correspond donc à $5$ unités » : valeur écrite en dur, juste seulement pour l'écart 25. → $${texNombre(abs1 - abs0)} \\div 5 = ${choix ? 5 : 1}$ (modèle : canc3NY-2026-Q8, variable pas) | ×1 |
 | canCE1a-2025 (CAN) | src/exercices/can/canCE1a-2025/canCE1-2025-Q2.ts:69 | Q2 : la correction dit « Pour passer des mm au m, on multiplie par 1 000 » (et « des cm au m, on multiplie par 100 ») : c'est l'inverse, on divise (ou : pour passer des m aux mm, on multiplie). → Pour passer des $\text{m}$ aux $\text{mm}$, on multiplie par $1\,000$. | ×1 |
+| CM2N3G-1 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:395 | Cas « facteur manquant » (champ avant le produit) : l'énoncé affiche la fraction deux fois, « $\dfrac{99}{100}\times$ [champ] $\times\dfrac{99}{100}=\dfrac{990}{100}$ », alors que la correction est « ⟦10⟧$\times\dfrac{99}{100}=\dfrac{990}{100}$ » (texte += puis texteApres: texte) → construire l'énoncé une seule fois : champ puis $\times\dfrac{99}{100}=…$ | ×1 |
+| CM2N3G-2 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:395 | Cas « facteur manquant » (champ avant le produit) : l'énoncé affiche la fraction deux fois, « $\dfrac{99}{100}\times$ [champ] $\times\dfrac{99}{100}=\dfrac{990}{100}$ », alors que la correction est « ⟦10⟧$\times\dfrac{99}{100}=\dfrac{990}{100}$ » (texte += puis texteApres: texte) → construire l'énoncé une seule fois : champ puis $\times\dfrac{99}{100}=…$ | ×1 |
 
 ## I1
 
@@ -431,7 +443,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["11","00"] ; attendu : {"champ":"11h"} | ×1 ; sup=false (revue-0-a) |
 | can5a-2026 (CAN) |  q19 mathlive | valeur en évidence refusée par le champ : ["55^\\circ"] ; attendu : {"champ":"55"} | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can5a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["15","30"] ; attendu : {"champ":"15h30min"} | ×3 ; sup=false ; sup=true (revue-0-b) |
+| can5a-CoopMaths (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["2\\text{ h }18\\text{ min}"] ; attendu : {"champ":"2h18min"} | ×4 ; sup=31 ; sup=6 (revue-0-a) |
+| can5a-CoopMaths (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["147\\text{ dm}"] ; attendu : {"champ":"147\\operatorname{dm}"} | ×3 ; sup=31 ; sup=25 (revue-0-a) |
+| can5a-CoopMaths (CAN) |  q27 mathlive | valeur en évidence refusée par le champ : ["75"] ; attendu : {"champ":"75\\operatorname{km}"} | ×1 ; sup=31 (revue-0-a) |
+| can5a-CoopMaths (CAN) |  q30 mathlive | valeur en évidence refusée par le champ : ["48"] ; attendu : {"champ":"48€"} | ×1 ; sup=31 (revue-0-a) |
+| can5a-CoopMaths (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["113\\text{ m}"] ; attendu : {"champ":"113\\operatorname{m}"} | ×1 ; sup=31 (revue-0-b) |
+| can5a-CoopMaths (CAN) |  q27 mathlive | valeur en évidence refusée par le champ : ["146.25"] ; attendu : {"champ":"146,25\\operatorname{km}"} | ×3 ; sup=31 ; sup=27 (revue-0-b) |
+| can5a-CoopMaths (CAN) |  q30 mathlive | valeur en évidence refusée par le champ : ["9,60"] ; attendu : {"champ":"9,60€"} | ×3 ; sup=31 ; sup=30 (revue-0-b) |
 | can5a-NY2024 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21h06min"} | ×4 ; défaut (revue-0-a) |
+| can5C4-02 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["12,135"] ; attendu : {"champ":"12.135000000000002"} | ×1 ; défaut nb=10 (revue-1-a) |
 | can6a-2018 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["4","40"] ; attendu : {"champ":"4h40min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["4","5"] ; attendu : {"champ":"\\dfrac45"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["1","2"] ; attendu : {"champ":"1;2"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
@@ -631,10 +651,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N1D-2 (cm2) |  q8 mathlive | valeur en évidence refusée par le champ : ["(1\\times 10\\,000)+(9\\times 1\\,000)+(1\\times 100)+(6\\times 1)"] ; attendu : {"champ":"9"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-46-a) |
 | CM2N1D-2 (cm2) |  q10 mathlive | valeur en évidence refusée par le champ : ["(5\\times 100\\,000)+(9\\times 10\\,000)+(5\\times 1\\,000)+(9\\times 100)+(7\\times 1)"] ; attendu : {"champ":"488200"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false nb=10 (revue-46-a) |
 | CM2N3A-10 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["4"] ; attendu : {"champ":"8"} | ×13 ; sup=2-3-4-5-6-7-8-9 sup2=2 ; sup=2-3-4-5-6-7-8-9 sup2=3 (revue-1-a) |
+| CM2N3A-10 (cm2) | src/exercices/CM2/CM2N3A-10.ts | Divisions à trous « $32\div$ [champ] $=8$ » : la correction met en évidence le quotient ⟦8⟧ (donné dans l'énoncé) au lieu du diviseur à trouver ($4$) → $32\div ${miseEnEvidence(4)} = 8$ | ×1 |
 | CM2N3A-9 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["8"] ; attendu : {"champ":"4"} | ×29 ; sup=2-3-4-5-6-7-8-9 sup2=2 ; sup=2-3-4-5-6-7-8-9 sup2=3 (revue-1-a) |
+| CM2N3A-9 (cm2) | src/exercices/CM2/CM2N3A-9.ts | Divisions à trous « $32\div$ [champ] $=8$ » : la correction met en évidence le quotient ⟦8⟧ (donné dans l'énoncé) au lieu du diviseur à trouver ($4$) → $32\div ${miseEnEvidence(4)} = 8$ | ×1 |
 | CM2N3G-1 (cm2) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"100"} ; attendu : {"champ1":"1000"} | ×8 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false… (revue-8-a) |
 | CM2N3G-1 (cm2) |  q7 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"1\\,000"} ; attendu : {"champ1":"10000"} | ×1 ; sup=3 sup2=true sup3=false (revue-9-b) |
+| CM2N3G-1 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:666 | Cas « dénominateur manquant » (« $100\times\dfrac{338}{[champ]}=\dfrac{33\,800}{1\,000}$ ») : la correction met en évidence le facteur $100$ (donné) et pas le dénominateur $1\,000$ à trouver ; « $\dfrac{34}{⟦1000⟧}$ » sans séparateur → miseEnEvidence(texNombre(choixPuissance10)) au dénominateur | ×1 |
 | CM2N3G-2 (cm2) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"100"} ; attendu : {"champ1":"1000"} | ×2 ; sup=4 sup2=true sup3=true (revue-12-a) |
+| CM2N3G-2 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:666 | Cas « dénominateur manquant » (« $100\times\dfrac{338}{[champ]}=\dfrac{33\,800}{1\,000}$ ») : la correction met en évidence le facteur $100$ (donné) et pas le dénominateur $1\,000$ à trouver ; « $\dfrac{34}{⟦1000⟧}$ » sans séparateur → miseEnEvidence(texNombre(choixPuissance10)) au dénominateur | ×1 |
 | TSA4-41 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["1","2"] ; attendu : {"champ":"\n&lt;ol class='nombres'>\n\t&lt;li>\n&lt;ol class='alpha'>\n\t&lt;li>Pour tout $x\\in [0~;~5]$, on pose &lt;br>\n      $u(x)=3x+8$ et $v(x)= x+5$.&lt;br>\n      Les fonctions $u$ et $v$ sont dérivables sur l'intervalle $[0~;~5]$ et on a : &lt;br>\n      $u'(x)=3$ et $v'(x)=1$.&lt;br>\n      De plus, pour tout $x\\in [0~;~5]$, on a $v(x) \\neq 0$.&lt;br>\n      Ainsi, $f=\\dfrac{u}{v}$ est dérivable sur $[0~;~5]$, et par dérivation d'un quotient on en déduit que : &lt;br>\n      $\\begin{aligned}\n      f'(x) &= \\dfrac{u'(x)v(x)-u(x)v'(x)}{v(x)^2} \\\\\n      &= \\dfrac{3(x+5 ) -1(3x+8)}{(x+5)^2} \\\\\n      &= \\dfrac{15-8}{(x+5)^2} \\\\\n       &= \\dfrac{7}{(x+5)^2} \\\\\n      \\end{aligned}  $ &lt;br>\n      Le dénominateur étant strictement positif sur l'intervalle $[0~;~5]$, on a $f'(x)>0$.&lt;br>\n     La fonction $f$ est donc strictement &lt;span style=\"color:#F15929;font-weight: bold;\">croissante&lt;/span> sur l'intervalle $[0~;~5]$.&lt;br>&lt;/li>\n\t&lt;li>On résout sur $[0~;~5]$ :&lt;br>\n     $\\begin{aligned}\n      f(x) &= x \\\\\n      \\dfrac{3x+8}{x+5}&= x \\\\\n      3x+8&=1x^2 +5x\\\\\n      x^2 +2x -8 &= 0 \\\\\n      \\end{aligned}$ &lt;br>\n      Le discriminant de ce polynôme du second degré est &lt;br>\n      $\\begin{aligned}\n      \\Delta &= b^2-4ac\\\\\n      &= 2^2 - 4 \\times (1) \\times (-8) \\\\\n      &= 4   +32  \\\\\n      &=36> 0\n      \\end{aligned}$ &lt;br>\n      Ainsi, l'équation admet deux solutions réelles distinctes données par &lt;br>\n      $\\begin{aligned}\n      x_1 &= \\dfrac{-b - \\sqrt{\\Delta}}{2 a} & x_2 &= \\dfrac{-b + \\sqrt{\\Delta}}{2 a} \\\\\n      &=\\dfrac{-2 - \\sqrt{36}}{2 \\times 1} &&= \\dfrac{-2+ \\sqrt{36}}{2 \\times 1} \\\\\n      &= \\dfrac{-2 - 6 }{ 2}& &= \\dfrac{-2 +6 }{ 2} \\\\\n       &= 2& &= -4 \\\\\n       \\end{aligned}$ &lt;br>On vérifie que  $2 \\in [0~;~5]$ et que $-4 \\notin [0~;~5]$.&lt;br>L'équation $f(x)=x$ admet donc ${\\color{#F15929}\\boldsymbol{1}}$ solution dans l'intervalle $[0~;~5]$.&lt;br>&lt;/li>\n&lt;/ol>\n&lt;/li>\n\t&lt;li>\n&lt;ol class='alpha'>\n\t&lt;li>Pour tout entier naturel $n$, on a  $u_{n+1} = f\\left(u_n\\right).$&lt;br>\n      En particulier, on a &lt;br>$\\begin{aligned}\n      u_1 &= f\\left(u_0\\right) \\\\\n      &= f\\left(4\\right) \\\\\n      &= \\dfrac{3\\times 4 +8}{1 \\times 4 +5} \\\\\n      &=\\dfrac{20}{9}\\end{aligned}$.&lt;br>&lt;/li>\n\t&lt;li>Pour tout entier naturel $n$, on pose la propriété $\\mathcal{P}_n$ :  $0\\leqslant u_{n+1} \\leqslant u_n \\leqslant 5.$&lt;br>\n    On va démontrer par récurrence que la propriété $\\mathcal{P}_n$ est vraie pour tout entier naturel $n$.&lt;br>\n    &lt;span style=\"color:#216D9A;font-weight: bold;\">Initiatisation :&lt;/span> &lt;br>\n    Pour $n=0$, on a d'après l'énoncé $u_0=4$.&lt;br>\n    On a calculé, à la question 2.a, $u_1=\\dfrac{20}{9}$.&lt;br>\n    On vérifie que : $0 \\leqslant u_1 \\leqslant u_0\\leqslant 5.$&lt;br>\n    Ainsi, la propriété $\\mathcal{P}_0$ est vraie.&lt;br>\n    La propriété est donc initialisée au rang $n=0$.&lt;br>\n    &lt;span style=\"color:#216D9A;font-weight: bold;\">Hérédité :&lt;/span> &lt;br>\n    Soit $k$ un entier naturel tel que la propriété $\\mathcal{P}_k$ est vraie, c'est-à-dire que $0 \\leqslant u_{k+1}\\leqslant u_k \\leqslant 5.$&lt;br>\n    On cherche à montrer qu'alors, la propriété $\\mathcal{P}_{k+1}$ est vraie, c'est-à-dire que $0 \\leqslant u_{k+2}\\leqslant u_{k+1} \\leqslant 5.$&lt;br>\n    D'après  l'hypothèse de récurrence : &lt;br>\n $  0 \\leqslant u_{k+1}\\leqslant u_k \\leqslant 5$&lt;br>\n Par croissance de la fonction $f$ sur $[0~;~5]$, on en déduit que : &lt;br>\n$f(0) \\leqslant f(u_{k+1})\\leqslant f(u_k) \\leqslant f(5) $&lt;br>\n or $f(0)= \\dfrac{3\\times 0+8}{1 \\times 0+5}=\\dfrac{8}{5}$ \n et $f(5)=\\dfrac{3\\times 5+8}{1 \\times 5+5}=\\dfrac{23}{10}$, \n   donc : &lt;br>\n   $\\dfrac{8}{5} \\leqslant f(u_{k+1})\\leqslant f(u_k) \\leqslant \\dfrac{23}{10}$&lt;br>\n   Comme pour tout entier naturel $n$, $f(u_n)=u_{n+1}$, &lt;br>\n   $\\dfrac{8}{5} \\leqslant u_{k+2} \\leqslant u_{k+1}\\leqslant \\dfrac{23}{10}$&lt;br>\n   \n   Ce qui implique que : &lt;br>\n  \n    $0 \\leqslant \\dfrac{8}{5} \\leqslant u_{k+2} \\leqslant \\dfrac{23}{10}\\leqslant 5 $&lt;br>\n    et donc : &lt;br>\n  $0 \\leqslant  u_{k+2}\\leqslant u_{k+1} \\leqslant 5 $.&lt;br>\n       Ainsi, la propriété $\\mathcal{P}_{k+1}$ est vraie.&lt;br>\n       L'hérédité de la propriété est démontrée pour tout entier naturel $n$.&lt;br>\n        &lt;span style=\"color:#216D9A;font-weight: bold;\">Conclusion :&lt;/span> &lt;br>\n        La propriété $\\mathcal{P}_n$ est initialisée au rang $n-0$ et héréditaire pour tout entier naturel $n$.&lt;br>\n        Par le principe de récurrence, on en déduit qu'elle est vraie pour tout entier naturel $n$. &lt;br>\n        Pour tout entier naturel $n$, $0 \\leqslant u_n \\leqslant 5.$&lt;br>&lt;/li>\n&lt;/ol>\n&lt;/li>\n\t&lt;li>\n&lt;ol class='alpha'>\n\t&lt;li>Comme pour tout entier naturel $n$, $0 \\leqslant u_n \\leqslant 5$, on en déduit que le suite $(u_n)$ est bornée. &lt;br>\n      D'autre part, pour tout entier naturel $n$,  $u_{n+1} \\leqslant u_n $, on en déduit que la suite $(u_n)$ est décroissante.&lt;br>\n      La suite $(u_n)$ est donc décroissante et minorée. D'après le théorème de convergence des suites monotones, elle converge donc vers un réel $\\ell$.&lt;br>&lt;/li>\n\t&lt;li>\n      La suite $(u_n)$ converge vers un réel $l\\in $ $[0~;~5]$. &lt;br>\n      Pour tout entier naturel $n$,  $u_{n+1} = f\\left(u_n\\right).$&lt;br>\n      $f$ étant dérivable sur l'intervalle $[0~;~5]$, elle est continue sur $[0~;~5]$.&lt;br>\n      D'après le théorème du point fixe, la limite $\\ell$ vérifie l'égalité $f(\\ell)=\\ell$.&lt;br>\n     La seule solution de cette équation dans $[0~;~5]$ est $l=2$, d'après la question 1.b.&lt;br>\n     La suite $(u_n)$ converge donc vers ${\\color{#F15929}\\boldsymbol{2}}$.&lt;br>&lt;/li>\n&lt;/ol>\n&lt;/li>\n&lt;/ol>\n"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## M2
@@ -1464,6 +1488,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3J-2 (cm2) | titre | « 9 » hors $ : Soustraire 9 | ×1 |
 | CM2N4B-2 (cm2) | consigne | « 5 » hors $ : e un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellem ‖ « 4 » hors $ : égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des par | ×2 ; sup=30 sup2=70 (revue-0-a) |
 | CM2N4B-3 (cm2) | consigne | « 5 » hors $ : e un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellem ‖ « 4 » hors $ : égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des par | ×2 ; sup=1 sup2= (revue-0-a) |
+| CM2N4B-4 (cm2) | src/exercices/CM2/CM2N4B-4.ts | Tirage et nombre cible écrits hors formules (« Voici le tirage : 100 ; 5 ; 8 … Et le nombre à trouver est : 923. ») ; titre avec guillemets droits « "compte est bon" » (aussi CM2N4B-3) → $100$ ; $5$… ; « Le compte est bon » | ×1 |
 | CM2N4B-4 (cm2) | énoncé q1 | « 100 » hors $ : Voici le tirage : 100 ; 5 ; 8 ; 3 ; 7 ; 10. Et le nombre à trouver e ‖ « 5 » hors $ : Voici le tirage : 100 ; 5 ; 8 ; 3 ; 7 ; 10. Et le nombre à trouver est : 9 ‖ « 8 » hors $ : Voici le tirage : 100 ; 5 ; 8 ; 3 ; 7 ; 10. Et le nombre à trouver est : 923. | ×210 ; sup=1 ; sup=2… (revue-0-a) |
 | TSA1-10 (Terminale) | correction q1 | « 3 » hors $ : On ajoute 3. | ×14 ; sup=5 ; sup=1… (revue-0-a) |
 | TSA1-11 (Terminale) | énoncé q1 | « 1 » hors $ : . 1. Étudier le sens de variation de ‖ « 2 » hors $ : . 2. Démontrer par récurrence que, pour tout entier ‖ « 3 » hors $ : 3. Démontrer que la suite | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -1924,6 +1949,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5a-2026 (CAN) | énoncé | page de 429 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can5a-NY2024 (CAN) | correction | page de 398 px pour 390 px | ×1 ; défaut (revue-0-a) |
 | can5a-NY2025 (CAN) | correction | page de 408 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
+| can5a-NY2026 (CAN) | correction | page de 560 px pour 390 px | ×1 ; sup=false (revue-0-b) |
+| can5C2-02 (CAN) | correction | page de 450 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
+| can5C2-06 (CAN) | correction | page de 463 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| can5C2-07 (CAN) | correction | page de 419 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | can6a-2018 (CAN) | correction | page de 432 px pour 390 px | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2024 (CAN) | correction | page de 415 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2026 (CAN) | énoncé | page de 400 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -2029,6 +2058,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeE02 (CAN) | src/exercices/can/TSpe/canTSpeE02.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
 | canTSpeE03 (CAN) | src/exercices/can/TSpe/canTSpeE03.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
 | CM2N1D-1 (cm2) | src/exercices/CM2/CM2N1D-1.ts:104 | « en complétant avec les adjectifs numéraux qui conviennent (unité(s) ou dizaine(s)…) » : unité, dizaine, centaine sont des noms, pas des adjectifs numéraux ; mise en évidence de toute la décomposition avec les mots en \textbf (texte dans miseEnEvidence) ; « ou ... » / « ou $....$ » → « avec les mots qui conviennent (unités, dizaines…) » ; \ldots | ×1 |
+| CM2N3A-14 (cm2) | src/exercices/CM2/CM2N3A-14.ts | Types « 10 - n » et « n + … = 10 » seuls : moins de cas possibles que les $10$ questions par défaut, la série est plus courte que l'autoCorrection (champs absents) → limiter nbQuestions au nombre de cas ou autoriser les doublons | ×1 |
 
 ## M3
 
@@ -2102,6 +2132,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0B-2 (6e) |  q1 qcm | QCM : bonne proposition (lereste) absente de la mise en évidence (reste) | ×10 ; sup=13 (revue-13-a) |
 | can5a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×2 ; sup=false (revue-0-a) |
 | can5a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×2 ; sup=true (revue-1-a) |
+| can5a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
+| can5a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=false (revue-0-b) |
 | can6a-2024 (CAN) |  q10 qcm | QCM : bonne proposition (54cm) absente de la mise en évidence (54) | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2025 (CAN) |  q15 qcm | QCM : bonne proposition (figureb) absente de la mise en évidence (b) | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2025 (CAN) |  q16 qcm | QCM : bonne proposition (figurea) absente de la mise en évidence (a) | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -2940,8 +2972,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE2-2026 (CAN) | énoncé non interactif q1 | impératif : Complète. ‖ impératif : Coche la bonne réponse. 4 kilogrammes, c'est [cham ‖ impératif : Calcule : | ×9 |
 | canCE2a-2025 (CAN) | énoncé q3 | impératif : Complète la case grise. ‖ impératif : Calcule : ‖ impératif : Coche la bonne réponse pour | ×8 ; sup=false ; sup=true (revue-0-a) |
 | canCE2a-2025 (CAN) | énoncé non interactif q3 | impératif : Complète la case grise. ‖ impératif : Calcule : ‖ impératif : Coche la bonne réponse pour | ×4 |
+| CM2G2A-1 (cm2) | src/exercices/CM2/CM2G2B-2.ts:244 | Correction : « Pour la perpendiculaire en $B$, contrôle la position du point $E$ » (tutoiement) → on peut contrôler la position du point $E$ | ×1 |
 | CM2G5B-1 (cm2) | énoncé q1 | deuxième personne : est un cube. Parmi les arêtes proposées, citer toutes celles parallèles à [ ‖ deuxième personne : est un cube. Parmi les arêtes proposées, citer toutes celles perpendiculaire ‖ deuxième personne : est un pavé droit. Parmi les arêtes proposées, citer toutes celles parallèles à [ | ×26 ; sup=1 sup2=1 sup3=5 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | CM2G5B-1 (cm2) | énoncé non interactif q1 | deuxième personne : est un cube. Citer toutes les arêtes parallèles à [ | ×1 |
+| CM2N4B-1 (cm2) | src/lib/customElements/PossibleMultiLinesAnswerElement.ts:73 | Aide du composant de réponse en plusieurs lignes : « Tu peux directement donner le résultat ou cliquer sur le + … » (tutoiement, partagé par tous les exercices qui l'utilisent) → « Donner directement le résultat ou toucher + pour calculer en plusieurs étapes. » | ×1 |
 | CM2N4B-1 (cm2) | énoncé q1 | deuxième personne : [champ] Tu peux directement donner le résultat ou cliquer | ×106 ; sup=1-2-3 sup2=200 sup3=2 ; sup=1-2-3 sup2=1 sup3=1… (revue-0-a) |
 | can/can6a-2024/can6a-2024-Q14.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q14.ts:23 | consigne à l'impératif : Complète : | ×1 |
 | can/can6a-2024/can6a-2024-Q28.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q28.ts:51 | consigne à l'impératif : Complète : | ×1 |
