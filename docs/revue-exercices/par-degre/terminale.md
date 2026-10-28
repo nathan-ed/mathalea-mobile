@@ -62,8 +62,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| TSA5-30 | I1 Bonne réponse refusée | 3 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
+| TSA5-42 | X2 Formule cassée | 1 | « $ » visible :  ≈ 12 , 33 &lt; 25 u 1 ​ =ln(3×25+1)+8=ln(76)+8≈12,33&lt;25, donc $u_1Montrons par récurrence que, pour tout entier naturel 𝑛 |
 | TSA3-46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 408 ; T4  160 ; R5 Virgule 144 ; T3  127 ; N2 Séparateur des milliers 122 ; T5 Espaces 105 ; T6 Points de suspension 88 ; N6 Écriture algébrique 51 ; T8  28 ; N3  16 ; R6  14 ; R1 Titre 3 ; R8  2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 412 ; R5 Virgule 166 ; T4  160 ; N2 Séparateur des milliers 142 ; T3  132 ; T5 Espaces 129 ; T6 Points de suspension 88 ; N6 Écriture algébrique 68 ; T8  28 ; R6  27 ; N3  16 ; R1 Titre 3 ; R8  2 ; X3  2.
