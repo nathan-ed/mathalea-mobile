@@ -14,15 +14,15 @@
     session = false,
   }: {
     nb: number // réponses déjà reçues
-    onlu: (texte: string) => Promise<'nouveau' | 'deja' | 'autre'>
+    onlu: (texte: string) => Promise<'nouveau' | 'deja' | 'autre' | { erreur: string }>
     onfermer: () => void
-    session?: boolean // élève : un seul QR code, celui de la session affichée par l'enseignant
+    session?: boolean // élève : un seul QR code, celui de la session ou de la classe affiché par l'enseignant
   } = $props()
 
   let video: HTMLVideoElement
   let flux: MediaStream | null = null
   let erreur = $state('')
-  let message = $state(untrack(() => (session ? 'Vise le QR code de la session.' : 'Vise un QR code de réponses.')))
+  let message = $state(untrack(() => (session ? 'Vise le QR code de la session ou de la classe.' : 'Vise un QR code de réponses.')))
   let signal = $state(false)
   let fini = false
   const vus = new Set<string>()
@@ -78,9 +78,15 @@
           if (vus.has(texte)) continue
           vus.add(texte)
           const r = await onlu(texte)
+          if (typeof r === 'object') {
+            // Relu un peu plus tard : un drive injoignable peut répondre au second essai
+            message = r.erreur
+            setTimeout(() => vus.delete(texte), 4000)
+            continue
+          }
           if (session) {
             if (r === 'nouveau') return arreter()
-            message = 'Ce n’est pas un QR code de session MathALÉA.'
+            message = 'Ce n’est pas un QR code de session ou de classe MathALÉA.'
             continue
           }
           message = r === 'nouveau' ? 'Réponses ajoutées.' : r === 'deja' ? 'Déjà reçues.' : 'Ce n’est pas un QR code de réponses MathALÉA.'
@@ -96,7 +102,7 @@
   }
 </script>
 
-<div class="fixed inset-0 z-50 flex flex-col bg-black text-white" role="dialog" aria-label={session ? 'Lecture du QR code de la session' : 'Lecture des QR codes'}>
+<div class="fixed inset-0 z-50 flex flex-col bg-black text-white" role="dialog" aria-label={session ? 'Lecture du QR code de la session ou de la classe' : 'Lecture des QR codes'}>
   <div class="relative flex-1 overflow-hidden">
     <!-- svelte-ignore a11y_media_has_caption -->
     <video bind:this={video} class="absolute inset-0 w-full h-full object-cover" playsinline muted></video>

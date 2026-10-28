@@ -16,6 +16,8 @@
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
+  import QrSession from './QrSession.svelte'
+  import { encoderClasse } from '$lib/invitation'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
@@ -161,6 +163,9 @@
   let nouvelleClasse = $state('')
   let feuilleClasse: 'nouvelle' | 'actions' | 'renommer' | 'retirer' | 'parcours' | null = $state(null)
   let nomClasse = $state('')
+  // QR code d'une classe (son nom) ou du dossier entier ('') : les élèves
+  // ajoutent le dossier partagé en le scannant, avec leur classe s'il y en a une
+  let qrClasse: string | null = $state(null)
   // Parcours cochés pour la classe (panneau « Choisir les parcours »)
   let choix: string[] = $state([])
 
@@ -470,9 +475,16 @@
               <h2 class="font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">
                 {classeVue} · {ps.length} parcours
               </h2>
-              <button type="button" aria-label="Actions sur la classe {classeVue}" class="bouton-icone" onclick={() => (feuilleClasse = 'actions')}>
-                <i aria-hidden="true" class="bx bx-dots-horizontal-rounded text-2xl"></i>
-              </button>
+              <div class="flex flex-row items-center">
+                {#if bibliotheque.lien}
+                  <button type="button" aria-label="QR code de la classe {classeVue}" class="bouton-icone" onclick={() => (qrClasse = classeVue)}>
+                    <i aria-hidden="true" class="bx bx-qr text-2xl"></i>
+                  </button>
+                {/if}
+                <button type="button" aria-label="Actions sur la classe {classeVue}" class="bouton-icone" onclick={() => (feuilleClasse = 'actions')}>
+                  <i aria-hidden="true" class="bx bx-dots-horizontal-rounded text-2xl"></i>
+                </button>
+              </div>
             </div>
             {#each ps as pe, i (pe.parcours.id)}
               <div class="flex flex-row items-center gap-2">
@@ -681,6 +693,16 @@
             ouvrirDossier(bibliotheque.lien!)
           }}>Ouvrir le dossier</button
         >
+        <button
+          type="button"
+          class={boutonLien}
+          onclick={() => {
+            feuilleDossier = false
+            qrClasse = ''
+          }}
+        >
+          <i aria-hidden="true" class="bx bx-qr text-xl"></i> QR code pour les élèves
+        </button>
         <button type="button" class={boutonLien} disabled={reprise} onclick={() => reprendreDepuis({ lien: bibliotheque.lien })}>
           <i aria-hidden="true" class="bx bx-sync text-xl"></i> Reprendre les parcours du dossier
         </button>
@@ -718,6 +740,12 @@
     <Feuille onfermer={() => (feuilleClasse = null)}>
       <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{classeVue}</p>
       <ul class={listeGroupee}>
+        {#if bibliotheque.lien}
+          {@render action('bx-qr', 'QR code pour les élèves', () => {
+            feuilleClasse = null
+            qrClasse = classeVue
+          })}
+        {/if}
         {@render action('bx-pencil', 'Renommer la classe', () => {
           nomClasse = classeVue
           feuilleClasse = 'renommer'
@@ -857,5 +885,15 @@
       </button>
       {#if messageObjectifs}<p class="text-sm text-center {discret}" role="status">{messageObjectifs}</p>{/if}
     </Feuille>
+  {/if}
+  {#if qrClasse !== null && bibliotheque.lien}
+    <QrSession
+      classe
+      invitation={encoderClasse({ l: bibliotheque.lien, c: qrClasse })}
+      code={qrClasse || 'Toutes les classes'}
+      titre={qrClasse ? 'Rejoindre la classe' : 'Rejoindre le dossier'}
+      fichier={qrClasse ? `classe-${qrClasse.replace(/[^\p{L}\p{N}-]+/gu, '-')}.png` : 'dossier-mathalea.png'}
+      onfermer={() => (qrClasse = null)}
+    />
   {/if}
 </div>

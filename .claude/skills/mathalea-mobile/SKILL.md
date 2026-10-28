@@ -366,7 +366,18 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   QR code de session à projeter (`invitation.ts`, `QrSession`) : l'élève le
   scanne depuis l'icône en haut de l'accueil et arrive dans la session, même
   sans le parcours (copie portée par le QR) ; app plus ancienne prévenue.
-  Tests : `node e2e/session-qr.mjs`, `node e2e/en-classe.mjs`.
+  QR code de classe (Nathan, 2026-10-28 : « juste le fait de scanner, ça
+  rajoute toutes les informations ») : `MACLA1.` + lien du dossier et nom de
+  la classe (`encoderClasse`, `decoderClasse`), icône `bx-qr` à côté du nom
+  dans l'onglet Classes et « QR code pour les élèves » dans ses actions,
+  seulement avec un lien de dossier ; QR code du dossier entier (`c` vide,
+  l'élève choisit sa classe) dans la fiche « Dossier partagé » ; plein écran
+  par `QrSession classe`.
+  L'élève le lit avec le même scanner que la session (`rejoindreClasse`) :
+  dossier ajouté ou mis à jour, classe choisie ; une classe absente du
+  fichier du drive est signalée et rien n'est ajouté.
+  Tests : `node e2e/session-qr.mjs`, `node e2e/en-classe.mjs`,
+  `node e2e/classe-qr.mjs` (serveur de dossier local sur 8713).
   Politique de confidentialité : nouveau texte en attente dans
   `docs/confidentialite-brouillon.html`. Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant

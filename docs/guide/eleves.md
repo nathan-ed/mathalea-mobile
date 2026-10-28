@@ -12,6 +12,8 @@ Au premier lancement, l'élève choisit son programme, puis colle le lien donné
 
 Si le dossier contient plusieurs classes, l'élève choisit la sienne.
 
+Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche l'icône QR code en haut de l'accueil et le vise. Le dossier est ajouté avec sa classe, sans lien à coller. Avec le QR code du dossier entier, l'élève choisit ensuite sa classe.
+
 ## 2. Ses parcours
 
 Les parcours donnés à sa classe s'affichent, rangés par chapitre. L'épingle garde un parcours en haut de la liste. L'élève touche un parcours pour l'ouvrir.

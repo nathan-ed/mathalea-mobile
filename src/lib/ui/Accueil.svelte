@@ -190,7 +190,7 @@
     <EnTete>
       {#snippet droite()}
         {#if onscanner}
-          <button type="button" aria-label="Scanner le QR code d’une session" onclick={onscanner} class="bouton-icone bouton-icone-etroit">
+          <button type="button" aria-label="Scanner le QR code d’une session ou d’une classe" onclick={onscanner} class="bouton-icone bouton-icone-etroit">
             <i aria-hidden="true" class="bx bx-qr-scan text-2xl"></i>
           </button>
         {/if}

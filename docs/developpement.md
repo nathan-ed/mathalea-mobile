@@ -631,6 +631,27 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.7 : QR code de classe et de dossier (fait)
+
+- Nathan (2026-10-28) : « juste le fait de scanner, ça rajoute toutes les
+  informations pour lancer la session élève ». QR code `MACLA1.` (base64 du
+  JSON `{ l, c }` : lien du dossier partagé, nom de la classe, vide pour tout
+  le dossier), `encoderClasse` et `decoderClasse` dans `invitation.ts`.
+- Enseignant, seulement avec un lien de dossier : icône QR code à côté du
+  nom de la classe (onglet Classes) et « QR code pour les élèves » dans les
+  actions de la classe ; « QR code pour les élèves » dans la fiche « Dossier
+  partagé » pour tout le dossier. Plein écran et image exportée par
+  `QrSession` (`classe`, `fichier`).
+- Élève : même scanner que la session (icône en haut de l'accueil),
+  `rejoindreClasse` dans `+page.svelte`. Dossier ajouté ou relu, classe
+  choisie ; une classe absente du fichier du drive est signalée et rien
+  n'est ajouté ; QR code du dossier : la classe se choisit comme après un
+  lien collé (prise d'office s'il n'y en a qu'une). Une erreur de
+  téléchargement laisse le scanner ouvert et le code est relu 4 s plus tard.
+- Une app plus ancienne répond « Ce n'est pas un QR code de session
+  MathALÉA. »
+- Test : `node e2e/classe-qr.mjs` (dossier servi en local sur 8713).
+
 ## 0.4.6 : moteur au main de MathALÉA, tableaux larges (fait)
 
 - Moteur construit au `main` de MathALÉA du 27 octobre 2026 (8757328d), où le

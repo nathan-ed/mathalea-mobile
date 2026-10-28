@@ -36,7 +36,7 @@ Puis, à chaque changement : la bannière en haut propose **Mettre à jour**. L'
 
 ## 6. Côté élèves
 
-Donnez-leur le lien du dossier (projeté, sur l'ENT, en QR code). Ils le collent une fois sur leur accueil. Ensuite, chaque publication leur arrive toute seule, et ils travaillent même sans connexion.
+Le plus simple : dans l'onglet Classes, touchez l'icône QR code à côté du nom de la classe et projetez ce QR code. Les élèves le scannent avec l'icône en haut de leur accueil : le dossier est ajouté et leur classe choisie, sans rien saisir. Pour tout le dossier, le même QR code est dans « Dossier partagé » (onglet Parcours) : chaque élève choisit ensuite sa classe. Sinon, donnez-leur le lien du dossier (sur l'ENT par exemple) : ils le collent une fois sur leur accueil. Ensuite, chaque publication leur arrive toute seule, et ils travaillent même sans connexion.
 
 Détails : [Côté élève](eleves.md).
 

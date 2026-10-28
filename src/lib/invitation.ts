@@ -53,3 +53,29 @@ export function moteurPlusAncien(eleve: string, enseignant: string) {
   const b = dateMoteur(enseignant)
   return !!a && !!b && a < b
 }
+
+// QR code d'une classe ou du dossier entier, affiché par l'enseignant : l'élève
+// le scanne et l'app ajoute le dossier partagé de l'enseignant, avec sa classe
+// déjà choisie s'il y en a une, sans lien à saisir.
+export const PREFIXE_CLASSE = 'MACLA1.'
+
+export interface InvitationClasse {
+  l: string // lien du dossier partagé
+  c: string // nom de la classe ; vide : tout le dossier, l'élève choisit sa classe
+}
+
+export function encoderClasse(i: InvitationClasse) {
+  return PREFIXE_CLASSE + versBase64(strToU8(JSON.stringify({ l: i.l, c: i.c })))
+}
+
+export function decoderClasse(texte: string): InvitationClasse | null {
+  const t = texte.trim()
+  if (!t.startsWith(PREFIXE_CLASSE)) return null
+  try {
+    const o = JSON.parse(strFromU8(depuisBase64(t.slice(PREFIXE_CLASSE.length))))
+    if (!o || typeof o.l !== 'string' || typeof o.c !== 'string' || !/^https?:\/\//.test(o.l.trim())) return null
+    return { l: o.l.trim(), c: o.c.trim() }
+  } catch {
+    return null
+  }
+}

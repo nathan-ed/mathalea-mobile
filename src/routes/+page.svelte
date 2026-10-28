@@ -87,7 +87,7 @@
   import Feuille from '$lib/ui/Feuille.svelte'
   import { boutonAction, boutonInverse } from '$lib/ui/classes'
   import { cleReleve, noterSession, type Releve as TReleve } from '$lib/releve'
-  import { decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
+  import { decoderClasse, decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
@@ -698,7 +698,9 @@
   // dans la session, sur la copie du parcours portée par le QR code
   let scanSession = $state(false)
   let invitationAncienne: InvitationSession | null = $state(null)
-  async function lireInvitation(texte: string): Promise<'nouveau' | 'autre'> {
+  async function lireInvitation(texte: string): Promise<'nouveau' | 'autre' | { erreur: string }> {
+    const cl = decoderClasse(texte)
+    if (cl) return rejoindreClasse(cl.l, cl.c)
     const inv = decoderInvitation(texte)
     if (!inv) return 'autre'
     scanSession = false
@@ -811,6 +813,20 @@
     })
     await ecrireClasses(stockage!, classes)
     for (const c of classes) for (const p of parcoursDuDossier(c)) await chargerParcours(p)
+  }
+
+  // QR code de l'enseignant : son dossier, avec la classe déjà choisie ; sans
+  // classe (tout le dossier), l'élève garde la sienne ou la choisit ensuite
+  async function rejoindreClasse(lien: string, nom: string): Promise<'nouveau' | { erreur: string }> {
+    const deja = classes.find((c) => c.lien === lien)
+    const c = await synchroniserClasse({ ...(deja ? ($state.snapshot(deja) as Classe) : { lien, nom: '', disponibles: [], parcours: [] }), ...(nom ? { nom } : {}) })
+    if (c.erreur) return { erreur: c.erreur }
+    if (nom && c.nom !== nom) return { erreur: `La classe ${nom} n’est pas encore sur le drive de l’enseignant.` }
+    classes = deja ? classes.map((x) => (x.lien === lien ? c : x)) : [...classes, c]
+    await ecrireClasses(stockage!, classes)
+    for (const p of parcoursDuDossier(c)) await chargerParcours(p)
+    scanSession = false
+    return 'nouveau'
   }
 
   async function choisirClasse(lien: string, nom: string) {

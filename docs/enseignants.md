@@ -12,7 +12,8 @@ compte, et l'application ne demande aucun mot de passe.
    `parcours-mathalea-2026-10-14-15h32.json`.
 3. Vous le déposez dans un dossier de votre drive partagé par lien public
    (lecture seule).
-4. Les élèves ajoutent ce lien une fois. À chaque lancement, leur application
+4. Les élèves ajoutent ce lien une fois, ou scannent le QR code de leur
+   classe (onglet Classes, icône QR code à côté du nom de la classe). À chaque lancement, leur application
    récupère les nouveaux parcours et les nouvelles versions.
 
 Un seul fichier contient toutes vos classes : un seul dossier, un seul lien
