@@ -1,17 +1,17 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **105 sur 293**. Constats confirmés : **87**.
+Exercices relus : **117 sur 293**. Constats confirmés : **99**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 20 |
+| Contenu mathématique faux | 22 |
 | Rendu cassé (formule, débordement, erreur) | 5 |
 | Mise en évidence (miseEnEvidence et champs) | 8 |
 | Typographie (nombres, espaces, notations) | 16 |
-| Rédaction (français, titres, consignes) | 38 |
+| Rédaction (français, titres, consignes) | 48 |
 
 ## Contenu mathématique faux
 
@@ -29,6 +29,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA2-QCM08 | C1 Contenu mathématique faux | Correction circulaire : f'(x) est calculée avec a=10 (« f'(x)=10e^x+(10x+5)e^x ») avant de chercher a, puis « a+b=15 » sort sans lien avec ce calcul. Le point (-0,5 ; 0) de l'énoncé n'est jamais utilisé. Mêmes valeurs à chaque question (dix questions identiques). | f'(x)=a e^x+(ax+b)e^x=e^x(ax+a+b), donc f'(0)=a+b=15 ; aléatoiriser ou limiter à une question ; « affirmer que : » avec espace. | src/exercices/QCMBac/2021/metropole092021_2Q2_alea.ts:133 |
 | TSA2-QCM09 | C1 Contenu mathématique faux | Correction incomplète : elle conclut au point d'inflexion à partir de f''(-2,5)=0 seul, sans le changement de signe de f'' (qui écarte aussi « convexe » et « concave sur R ») ; « On peut affirmer que: » sans espace ; mêmes valeurs à chaque question. | Ajouter : 10x+25 change de signe en -2,5 (négatif avant, positif après), donc f'' change de signe : f concave puis convexe, C seul point d'inflexion. | src/exercices/QCMBac/2021/metropole092021_2Q3.ts |
 | TSA2-QCM06 | C1 Contenu mathématique faux | L'énoncé annonce la courbe « sur l'intervalle [xA;xB] » ([-5;-4]) alors qu'elle est tracée de xA à xF ([-5;10] environ). | $[${xA}\,;\,${xF}]$. | src/exercices/QCMBac/A2022/Etrangers2022_1Q2_alea.ts:46 |
+| TSA5-QCM03 | C1 Contenu mathématique faux | La correction note la fonction $f$ (« f'(x)=\ln x+… », « f''(x)=1/x-2 », « f admet un seul point d'inflexion ») alors que l'énoncé définit $g$ et sa courbe $\mathcal{C}_g$ ; le texte de la mise en évidence contient une phrase entière en $…$ ; « par: » sans espace. | Remplacer f par g dans la correction ; texteEnCouleurEtGras. | src/exercices/QCMBac/A2022/Etrangers2022_1Q3_alea.ts |
+| TSA5-QCM07 | C1 Contenu mathématique faux | Correction : « \ln(x+3)&lt;\ln(x+1)^2 » (ambigu, il faut \ln\left((x+1)^2\right)) ; le point final est après le dollar de fin du aligned (« $.») ; « \iff & 0&lt; x^2 » espacement irrégulier. | \ln\left((x+1)^2\right) ; point dans le $. | src/exercices/QCMBac/A2022/Etrangers2022_1Q7.ts |
 | TSA2-QCM03 | C1 Contenu mathématique faux | Correction fausse : « les tangentes sont au dessous de la courbe » pour une fonction concave, alors que la bonne réponse du QCM les place au-dessus ; « au dessous » sans trait d'union. Énoncé : « Soit f deux fois dérivable et une fonction concave », « la corde représentant le segment [AB] ». | « les tangentes sont au-dessus de la courbe et les cordes en dessous » ; « Soit f une fonction deux fois dérivable et concave » ; « On appelle [AB] la corde reliant A et B ». | src/exercices/QCMStatiques/Convexite2.ts:42 |
 | TSA1-33 | C1 Contenu mathématique faux | « ≈ » posé d'office devant u_2, u_3 et u_4, même quand la valeur est exacte (u_2≈6,75 ; avec u_0=12 : u_2≈9, u_3≈8,5, u_4≈8,25), et « = » devant u_1 même si elle était arrondie. | Choisir « = » ou « \approx » selon que texNombre(termes[k], 3) arrondit ou non. | src/exercices/TSpe/TSA1-33.ts:290 |
 | TSA1-44 | C1 Contenu mathématique faux | Appel Python écrit $\mathtt{seuil(0,001)}$ : avec la virgule, Python passe deux arguments (0 et 1) et la fonction plante ; l'élève qui recopie l'appel n'obtient pas 200. | Écrire l'appel avec un point (seuil(0.001)) en texteCode, comme dans le programme. | src/exercices/TSpe/TSA1-44.ts:119 |
@@ -97,10 +99,17 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeS09 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS09.ts |
 | TSA2-QCM07 | R14  | Exercice « _alea » mais toujours les mêmes valeurs : avec 10 questions, dix fois la même question (A(0;5), B(1;20)). Sans le préambule (paramètre décoché), l'énoncé se réduit à « On peut affirmer que : » sans figure ni données. | Aléatoiriser les valeurs ou limiter à une question ; sans préambule, garder au moins la figure. | src/exercices/QCMBac/2021/metropole092021_2Q1_alea.ts |
 | TSA2-QCM06 | R14  | Correction vide (this.correction = '') : l'élève n'a aucune explication, ni la bonne réponse en mode non interactif. | Rédiger la correction : signe de f'' lu sur la courbe, f' croissante puis décroissante, maximum en xC ; pourquoi les trois autres sont fausses. | src/exercices/QCMBac/A2022/Etrangers2022_1Q2_alea.ts:74 |
+| TSA5-QCM04 | R3  | Espaces après le signe moins ($- \dfrac12$, $] - 1~;~1[$) et « \dfrac12 » sans accolades ; phrase de conclusion entière mise en évidence. | $-\dfrac12$ ; texteEnCouleurEtGras pour la phrase. | src/exercices/QCMBac/A2022/Etrangers2022_1Q4.ts |
+| TSA5-QCM05 | R1 Titre | « les racines $- 3$ et 2 » : le 2 est hors des $ ; signe moins suivi d'une espace ($- 3$) ; phrase entière en évidence. | $2$ entre dollars ; $-3$. | src/exercices/QCMBac/A2022/Etrangers2022_1Q5.ts |
+| TSA5-QCM06 | R3  | « est: » sans espace avant les deux-points dans l'énoncé ; $]0,5~;~+ \infty [$ espaces irrégulières ; 3 figures X5 (tableau) plus larges que 390 px. | « est : » ; $]0{,}5~;~+\infty[$. | src/exercices/QCMBac/A2022/Etrangers2022_1Q6.ts |
+| TSA5-QCM02 | R1 Titre | Correction : « Si a et b sont deux réels strictement positifs » : a et b hors des $ ; équivalences coupées en trois blocs aligned avec \phantom{6+12}. | $a$ et $b$ entre dollars ; un seul bloc aligned. | src/exercices/QCMBac/A2022/Etrangers2022_2Q1_alea.ts |
+| TSA5-QCM08 | R3  | « La bonne réponse est $:⟦f(2x)=…⟧$ . » : deux-points dans le dollar et espace avant le point final. | « La bonne réponse est : $…$. ». | src/exercices/QCMBac/A2022/Madagascar2022_1Q3.ts |
+| TSA5-QCM09 | R16  | Correction : « Or on sait que d'après les croissances comparées, que … » (« que » en double), « le quotient des termes de plus au degré » (plus haut degré), « au voisinage de plus l'infini » (+∞), « au voisinage de 1 » avec 1 hors des $. | « Or, d'après les croissances comparées, … » ; « de plus haut degré » ; « en $+\infty$ » ; $1$. | src/exercices/QCMBac/A2022/Madagascar2022_1Q4.ts |
 | TSA2-QCM12 | R16  | Correction : « On en déduit que f'' positive » (verbe manquant), « croissante sur ]0 ; 2] » puis « positive sur [0 ; 2] » (bornes différentes), et la conclusion ne dit pas que f'' ⩾ 0 donne la convexité. | « On en déduit que f'' est positive sur [0 ; 2], donc f est convexe sur [0 ; 2]. » avec les mêmes bornes partout. | src/exercices/QCMBac/A2022/Metropole2022_1Q3.ts |
 | TSA2-QCM14 | R16  | Titre « Métropole 05/22 : exponentielle. » avec point final ; correction « La solution est donc une seule solution » (tautologie), « admet dans R : » avec espace ordinaire avant les deux-points du QCM. | Titre sans point ; « Le nombre de solutions est donc : une seule. » | src/exercices/QCMBac/A2022/Metropole2022_1Q6.ts |
 | TSA4-QCM02 | R1 Titre | Propositions du QCM « 3 », « 1 », « 0 », « 2 » hors des $ ; correction : « ⟦a trois solutions.⟧ » texte (avec le point final) dans la mise en évidence ; décimaux 0,9 non écrits en {,}. | $3$ ; texteEnCouleurEtGras('trois solutions'). | src/exercices/QCMBac/A2022/Polynesie2022_2Q3.ts |
 | TSA2-QCM10 | R1 Titre | « au point d'abscisse 1 » : nombre hors des $ ; phrase de l'énoncé sans ponctuation avant les propositions. | « d'abscisse $1$ … est : ». | src/exercices/QCMBac/A2022/Polynesie2022_2Q5.ts |
+| TSA5-QCM01 | R3  | Espaces irrégulières dans les formules ($f(x)= 0,05 - …$) ; bonne réponse non mise en évidence (M3). | Uniformiser ; proposition en évidence. | src/exercices/QCMBac/A2023/AmNordAout2023Q1.ts |
 | TSA4-QCM01 | R3  | « $[-2⍽; 4]$ » intervalle avec insécable avant mais pas après ; mélange de ~;~ et de ; selon les propositions ; bonne réponse non mise en évidence (M3). | $[-2~;~4]$ partout ; proposition en évidence. | src/exercices/QCMBac/A2023/AmNordAout2023Q2.ts |
 | TSA2-QCM02 | R16  | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. | « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | src/exercices/QCMStatiques/Convexite1.ts:35 |
 | TSA3-40 | R1 Titre | « au point d'abscisse 3 », « point P d'abscisse 5 » : nombres hors des $ ; QCM : la bonne proposition n'est pas mise en évidence dans la correction (M3, 16 cas). | $3$ et $5$ entre dollars ; mettre la proposition correcte en évidence. | src/exercices/QCMStatiques/QCMBacConvexite.ts |
@@ -123,6 +132,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA3-26 | R16  | Énoncé : « définie sur ℝ par :f(x)=… » sans espace après les deux-points (insécable collé) et « Calculer f'(x). » suivi d'un espace en trop. | « par : $f(x)=…$ ». | src/exercices/TSpe/TSA3-26.ts |
 | TSA3-42 | R3  | Titre « Etudier » sans accent (É) ; corrections : espace ordinaire avant les deux-points (« ces deux nombres sont de signes contraires : cette proposition est fausse ») ; QCM sans mise en évidence de la bonne proposition (M3/M6, 20 cas). | « Étudier » ; espaces insécables avant « : » ; proposition correcte en évidence. | src/exercices/TSpe/TSA3-42.ts |
 | TSA3-45 | R5 Virgule | Correction : mêmes défauts de ponctuation (« Pour tout réel x, e^x>0. Ainsi, … » correct) mais « On calcule le discriminant du polynôme du second degré » coupé net dans la sortie ; 3 occurrences de phrases sans virgule après « Or »/« Ainsi » ; $f=uv$ pour une dérivation à refaire deux fois (pas de rappel de la forme réduite de f''). | Virgules après les connecteurs ; vérifier la phrase du discriminant. | src/exercices/TSpe/TSA3-45.ts |
+| TSA4-11 | R16  | Correction a) : « La fonction x↦2x−2 est dérivable, donc la fonction f est continue » (raccourci dérivable ⇒ continue non énoncé) ; c) « f(2)=-(2)+2 » parenthèses inutiles. | Citer « toute fonction dérivable est continue » ; f(2)=-2+2. | src/exercices/TSpe/TSA4-11.ts |
+| TSA4-40 | R16  | Paramètre « Etude de la convexité » sans accent (Étude) ; « le nombre de solution(s) » ; « On donnera, le cas échéant, » ; \lim_{x→-∞} 4x-1 sans parenthèses (« lim 4x-1 »). | Étude ; « nombre de solutions » ; \lim(4x-1). | src/exercices/TSpe/TSA4-40.ts |
+| TSA4-40 | R13  | Correction : « A la calculatrice » sans accent (À). | « À la calculatrice ». | src/exercices/TSpe/TSA4-40.ts |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
