@@ -42,7 +42,10 @@ body {
 }
 body {
   min-height: 100dvh;
-  overflow-x: hidden;
+  /* clip et non hidden : avec le clip de html, le body ne transmet plus son
+     overflow à la fenêtre ; hidden en ferait un conteneur de défilement à la
+     hauteur de son contenu, qui prend le doigt sans jamais défiler (0.4.6, 0.4.7) */
+  overflow-x: clip;
   /* Interface d'app : pas de sélection de texte ni de menu au toucher long,
      pas de délai de double toucher. Les champs de saisie restent sélectionnables. */
   -webkit-user-select: none;
