@@ -1,17 +1,17 @@
 # Revue des exercices : Autres
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **80 sur 268**. Constats confirmés : **81**.
+Exercices relus : **108 sur 268**. Constats confirmés : **109**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
 | Contenu mathématique faux | 4 |
-| Rendu cassé (formule, débordement, erreur) | 4 |
-| Mise en évidence (miseEnEvidence et champs) | 11 |
-| Typographie (nombres, espaces, notations) | 7 |
-| Rédaction (français, titres, consignes) | 55 |
+| Rendu cassé (formule, débordement, erreur) | 6 |
+| Mise en évidence (miseEnEvidence et champs) | 14 |
+| Typographie (nombres, espaces, notations) | 8 |
+| Rédaction (français, titres, consignes) | 77 |
 
 ## Contenu mathématique faux
 
@@ -30,6 +30,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | BP2AutoK1 | X4  | Solveur interactif (138 IM, 138 X4) : énoncé de série vide, à tester à la main. | Tester à la main. | src/exercices/BP2/BP2AutoK1.ts |
 | PET12 | X2 Formule cassée | Références absolues de tableur « =$B$2*C2 » écrites sans protection dans le texte : les « $ » sont pris pour des délimiteurs de maths, la formule s'affiche en double (« =$B$2*C2 =$B$2*C2 ») et le reste de la phrase est mal découpé (34 X2) ; 57 pages > 390 px (tableur) ; « ⟦fausse⟧ » mot en évidence (texte). | Échapper les $ (\$) ou écrire la formule en \texttt ; tableur défilant. | src/exercices/PE/PET12.ts |
 | PET13 | X2 Formule cassée | Même défaut (26 X2 : « $B$2 »), 94 pages > 390 px ; « B2×C2/100 » ; « retire C2 % de B2 » : « 2 % » sans insécable (2 T1) ; 64 IM (tableur) à tester à la main. | Idem PET12. | src/exercices/PE/PET13.ts |
+| PET14 | X2 Formule cassée | Même défaut que PET12/13 (14 X2 : « $B$2 » pris pour des délimiteurs) ; 64 IM ; 94 pages > 390 px ; « D'autres écritures sont possibles, par exemple $\text{=B2+B3+B4+B5+B6}$ » (\text pour une formule). | Idem PET12. | src/exercices/PE/PET14.ts |
+| PET15 | X2 Formule cassée | Même défaut (182 X2 : les « $ » des références absolues cassent le rendu) ; 138 M1 : mise en évidence de la formule refusée par le champ texte ; 212 phrases sans virgule ; « Cette cellule est ensuite copiée » : « Cette formule ». | Échapper les $ ; formule en texteEnCouleurEtGras. | src/exercices/PE/PET15.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
 
@@ -45,7 +47,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | BP2AutoV3 | M1 Évidence refusée par le champ | Clone de 6M2C : unité d'aire exigée mais absente de la mise en évidence (24 M1). | Unité dans l'évidence. | src/exercices/BP2/BP2AutoV3.ts |
 | BP2AutoV4 | M1 Évidence refusée par le champ | Clone de 6M2C-1 : unité exigée mais absente de l'évidence (58 M1) ; énoncé de série vide (24 X4). | Unité dans l'évidence ; consigne. | src/exercices/BP2/BP2AutoV4.ts |
 | BP2FONC28 | M3  | QCM croissante/décroissante : la bonne réponse n'est pas mise en évidence comme proposition (18 M3) ; « $a=7~$ et $b=-6$ » espace dans le dollar. | Proposition en évidence. | src/exercices/BP2/BP2FONC28.ts |
+| EgaliteFG3-4e-8 | M3  | QCM Vrai/Faux : calcul de réciproque de Pythagore juste (60²+80²=100²) mais « L'affirmation est ⟦vraie⟧ » : mot seul en évidence (8 M3) ; 9 T3, 8 T4. | « Vrai » en évidence ; insécables. | src/exercices/EgaliteFG/EgaliteFG3-4e-8.ts |
+| EgaliteFG3-4e-9 | M3  | Calcul juste (72²+96²=120²) ; « le plus grand côté est [BC] » ; M3 (8) ; 12 guillemets T4. | Idem. | src/exercices/EgaliteFG/EgaliteFG3-4e-9.ts |
 | PEA12 | M1 Évidence refusée par le champ | Décomposition de 810 et 198 : un seul champ avec deux trous : la mise en évidence ne donne pas chaque produit séparément (2 M1) ; correction avec \qquad\qquad entre deux tableaux de division (large sur téléphone). | Une évidence par trou. | src/exercices/PE/PEA12.ts |
+| PET16 | M1 Évidence refusée par le champ | Signe dollar de l'énoncé échappé correctement (« $\$$ ») mais 57 X2 dans la correction ; « les références qui ne sont pas bloquées par le signe dollar $\$$ » ; 11 M1. | Corriger l'échappement de la correction. | src/exercices/PE/PET16.ts |
 
 ## Typographie (nombres, espaces, notations)
 
@@ -55,6 +60,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | BP1GEO01 | T3  | Consigne « Déterminer la valeur exacte de : » (deux-points sans insécable et sans complément) ; « $\cos(\pi/3)$ = [champ] » égal hors du dollar ; correction absente. | « Déterminer la valeur exacte de » + question ; correction (cercle trigo). | src/exercices/BP1/BP1GEO01.ts |
 | BP1GEO06 | T3  | Consigne « De quels solides simples sont composés les solides suivants ? » : « sont composés » (« est composé ») ; 1 T3. | Accord. | src/exercices/BP1/BP1GEO06.ts |
 | BP1SP02 | T4  | 112 T4 : guillemets sans insécables ; « P(F∩\overline{C}) » avec « Nombre de femmes employées » en \text dans une fraction ; effectifs vérifiés plausibles (15+37=52). | Insécables ; formule. | src/exercices/BP1/BP1SP02.ts |
+| EN-EtoileCalculs | T4  | Exercice « étoile de calculs » interactif (130 IM, 130 X4) à tester à la main ; 1 840 guillemets/T4 (consigne) ; consigne « Compléter les pointillés de manière à obtenir le résultat figurant au milieu de l'étoile. Tous les nombres à trouver sont des entiers. » correcte. | Tester à la main. | src/exercices/EN/EN-EtoileCalculs.ts |
 | PEG23 | N6 Écriture algébrique | 226 N6 et 226 M6 : correction sans figure ; « OI = 1u » ($1\,u$) ; « de même origine [OB) » phrase ; construction du produit par Thalès non nommé. | Figure ; $1u$ → $1\,u$. | src/exercices/PE/PEG23.ts |
 | PEG24 | N6 Écriture algébrique | Même défaut (226 N6, 226 M6) ; « [BA] » au lieu de [IA] : la droite à construire est parallèle à (BA) passant par I (à vérifier). | Vérifier la droite parallèle. | src/exercices/PE/PEG24.ts |
 | PEN22 | T3  | Consigne « Poser et effectuer les calculs suivants : » (deux-points final sans insécable) ; 289 N1, 161 N2, 80 N6 (nombres sans séparateur) ; correction absente de la sortie (opérations posées). | Ajouter la correction. | src/exercices/PE/PEN22.ts |
@@ -100,6 +106,28 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | BP2CCF5 | R3  | Clone de 6N5-7/6N5-1 (prix) : « $29,82$⍽€ » ; 72 N1 ; 3 R10. | Voir 6N5-1. | src/exercices/BP2/BP2CCF5.ts |
 | BP2FONC30 | R16  | Consigne « Soit f la fonction carré » (carrée) ; « Calculer l'image de 8 » : 8 hors du dollar ; correction non revue (absente de la sortie). | « la fonction carrée » ; $8$. | src/exercices/BP2/BP2FONC30.ts |
 | BP2RES28 | R3  | Titre avec le LaTeX $\dfrac{x}{a}=\dfrac{b}{c}$ ; « $BU =$ » : lettres BU en italique collées ($B\times U$) pour une longueur : écrire $BU$ avec \text ou « BU » comme segment ; 23 N1 ; correction absente de la sortie. | Titre en texte ; correction. | src/exercices/BP2/BP2RES28.ts |
+| EgaliteFG1-6e-1 | R16  | Consigne : lien externe « nuage03.apps.education.fr … Sur le chemin de l'égalité en mathématiques » dans l'énoncé (inaccessible hors ligne, même défaut que 6I1B-2) ; « Donne ta réponse » (tutoiement) alors que le reste est à l'infinitif ; « $17\text{h}00$ » ; 27 R2. | Retirer le lien ; formule neutre. | src/exercices/EgaliteFG/EgaliteFG1-6e-1.ts |
+| EgaliteFG1-6e-2 | R16  | Série « Égalité filles-garçons » : consigne « D'après &lt;a href=nuage03.apps.education.fr…> » avec lien externe cliquable (inaccessible hors ligne ; règle de confidentialité) ; tutoiement (« Complète le tableau ») ; mises en forme : « député(e)s » (écriture inclusive à crochet), guillemets sans insécables (T4), énoncés/figures > 390 px. | Retirer le lien (ou le remplacer par une référence en texte) ; consigne à l'infinitif. | src/exercices/EgaliteFG/EgaliteFG1-6e-2.ts |
+| EgaliteFG1-6e-3 | R16  | Série « Égalité filles-garçons » : consigne « D'après &lt;a href=nuage03.apps.education.fr…> » avec lien externe cliquable (inaccessible hors ligne ; règle de confidentialité) ; tutoiement (« Complète le tableau ») ; mises en forme : « député(e)s » (écriture inclusive à crochet), guillemets sans insécables (T4), énoncés/figures > 390 px. | Retirer le lien (ou le remplacer par une référence en texte) ; consigne à l'infinitif. | src/exercices/EgaliteFG/EgaliteFG1-6e-3.ts |
+| EgaliteFG1-6e-4 | R16  | Série « Égalité filles-garçons » : consigne « D'après &lt;a href=nuage03.apps.education.fr…> » avec lien externe cliquable (inaccessible hors ligne ; règle de confidentialité) ; tutoiement (« Complète le tableau ») ; mises en forme : « député(e)s » (écriture inclusive à crochet), guillemets sans insécables (T4), énoncés/figures > 390 px. | Retirer le lien (ou le remplacer par une référence en texte) ; consigne à l'infinitif. | src/exercices/EgaliteFG/EgaliteFG1-6e-4.ts |
+| EgaliteFG1-6e-5 | R16  | Série « Égalité filles-garçons » : consigne « D'après &lt;a href=nuage03.apps.education.fr…> » avec lien externe cliquable (inaccessible hors ligne ; règle de confidentialité) ; tutoiement (« Complète le tableau ») ; mises en forme : « député(e)s » (écriture inclusive à crochet), guillemets sans insécables (T4), énoncés/figures > 390 px. | Retirer le lien (ou le remplacer par une référence en texte) ; consigne à l'infinitif. | src/exercices/EgaliteFG/EgaliteFG1-6e-5.ts |
+| EgaliteFG2-5e-6 | R16  | Série Égalité F-G : consignes au tutoiement (« Commence par compter parmi tes enseignants ») ; exercice à réponse personnelle dont la correction dit « Réponse personnelle, qui dépend de la composition réelle de ta classe » (aucune réponse type attendue : à ne pas compter dans le score) ; « Partie 1 - À égalité dans notre formation ? » tiret + titre ; 18 R2. | Impératif/infinitif ; marquer l'exercice « sans score ». | src/exercices/EgaliteFG/EgaliteFG2-5e-6.ts |
+| EgaliteFG2-5e-7 | R5 Virgule | Probabilité « 10/33 ≈ 0,303 » correcte ; 20 phrases sans virgule ; tutoiement possible ; 16 N1. | Virgules. | src/exercices/EgaliteFG/EgaliteFG2-5e-7.ts |
+| EgaliteFG3-4e-10 | R3  | Correction : « $\widehat{TPK}=\widehat{TF_1F}=90°$ » le signe ° en texte dans un dollar (au lieu de ^\circ) ; « (arrondie au centième) » ; tutoiement. | ^\circ. | src/exercices/EgaliteFG/EgaliteFG3-4e-10.ts |
+| EgaliteFG3-4e-11 | R16  | Consigne au tutoiement et en deux niveaux numérotés (« 1. … 2. Construis, à la perpendiculaire, les trois médiatrices (rappel : …) ») : « à la perpendiculaire » ; {red:rouge} en couleur écrite en dur ; apigeom à tester à la main (6 IM). | Reformuler ; tester à la main. | src/exercices/EgaliteFG/EgaliteFG3-4e-11.ts |
+| EgaliteFG4-3e-12 | R16  | « Explore ta mémoire et cite cinq autres grandeurs » (tutoiement) ; liste « …, la concentration... » points de suspension en texte ; 53 R2 (texte dans l'évidence) ; exercice en trois parties, correction ouverte. | Reformuler ; \ldots. | src/exercices/EgaliteFG/EgaliteFG4-3e-12.ts |
+| EgaliteFG4-3e-13 | R16  | « Exprime en fonction de x la longueur AB » (tutoiement) ; correction « $AB=AE+EB=(x+4)+(x-3)=⟦2x+1⟧$ » correcte ; 44 R2. | Impératif/infinitif. | src/exercices/EgaliteFG/EgaliteFG4-3e-13.ts |
+| EN-Gratte-ciel | R16  | Consigne : « Les immeubles d'une même rangée, ligne ou colonne, sont tous de tailles différentes » ; « 10, 20 ou 30 étages » nombres hors des $ ; tableau hybride à tester à la main (19 IM, 42 pages > 390 px). | $10$, $20$ ; tester à la main. | src/exercices/EN/EN-Gratte-ciel.ts |
+| EN-Grimuku | R1 Titre | Consigne : « de 1 à 9 » nombres hors des $ (KillerSudoku les met en $1$ à $6$) ; jeu interactif à tester à la main (58 IM, 58 X4 énoncé de série vide). | $1$ à $9$ ; tester à la main. | src/exercices/EN/EN-Grimuku.ts |
+| EN-Juniper-Green | R16  | Consigne : « Cliquer sur « Vérifier les réponses » arrête la partie en cours et affiche le score » : ce bouton est celui du site (l'app n'a pas de bouton « Vérifier les réponses » : « Valider » ou équivalent) ; guillemets français ok ; « à tour de rôle » : le jeu se joue seul ? (2 IM). | Nom du bouton de l'app ; préciser le joueur. | src/exercices/EN/EN-Juniper-Green.ts |
+| EN-KenKen | R1 Titre | « les nombres de 1 à 4 » hors des $ ; « ici la soustraction, la multiplication et la division » (liste liée à l'instance : si les opérations changent, la consigne devient fausse) ; à tester à la main. | $1$ à $4$ ; consigne dynamique. | src/exercices/EN/EN-KenKen.ts |
+| EN-KillerSudoku | R3  | Consigne : mélange de « $1$ à $6$ » et de « blocs de $2\times3$ cases » (bon) mais « Aucun nombre n'est donné : une cage d'une seule case donne directement son nombre » : lourd ; à tester à la main. | Alléger. | src/exercices/EN/EN-KillerSudoku.ts |
+| EN-Monnaie | R16  | Consigne trop courte : « Cette grille contient une pièce de monnaie dans chaque case. La somme … » sans verbe d'action (que faut-il faire ? retrouver les pièces) ; à tester à la main. | Ajouter « Retrouver la pièce de chaque case ». | src/exercices/EN/EN-Monnaie.ts |
+| EN-Pyramide | R16  | « se trouvant dans les deux cases juste en dessous » ; opération « effectuée avec » ; à tester à la main. | « situés dans les deux cases juste en dessous ». | src/exercices/EN/EN-Pyramide.ts |
+| EN-Shikaku | R16  | Consigne en un bloc de 4 phrases ; « Pour être certain que rien ne se chevauche, les rectangles et carrés doivent tous avoir strictement la même couleur de fond » : indication peu claire (couleur du fond ?) ; « Le nombre indique le nombre de cases » (le nombre indique la taille). | Reformuler ; liste. | src/exercices/EN/EN-Shikaku.ts |
+| EN-SquarO | R16  | Consigne au vouvoiement (« Si vous le souhaitez, vous pouvez placer… ») alors que toutes les autres consignes de l'app sont à l'infinitif/impératif ; « parmi les 4 sommets » : 4 hors des $. | « Il est possible de placer… » ; $4$. | src/exercices/EN/EN-SquarO.ts |
+| EN-TablesEffacees | R3  | Consigne : « Tous les nombres sont des entiers strictement positifs, et un même nombre ne peut pas apparaître deux fois sur une même ligne ou une même colonne » : contrainte surprenante pour une table de multiplication (4×… ) à vérifier ; à tester à la main. | Vérifier la contrainte. | src/exercices/EN/EN-TablesEffacees.ts |
+| EN-Zeros | R16  | Titre « zeros » (zéros) ; consigne : « auquels » (auxquels) et « de 1 à 3 » hors des $ ; 120 pages > 390 px (tableau de 4 colonnes) ; 82 M6. | zéros ; auxquels ; $1$ à $3$. | src/exercices/EN/EN-Zeros.ts |
 | HPC100 | R1 Titre | Consigne « Calculer le quotient Q(x) de la division de P(x) par D(x) » : Q(x), P(x), D(x) hors des $ ; énoncé « $P(x)=… $ par $D(x)=x+4$ » : « par » entre deux dollars ; pas de point final. | $Q(x)$ ; point final. | src/exercices/HP/HPC100.ts |
 | HPC102 | R3  | « \mathcal{N}(0,1) » : virgule de séparation et virgule décimale confondues (N(0 ; 1)) ; « P(-1,45 &lt; X &lt; 2,96) » : « -1,45 » ; « Calculer à 10^{-2} près » sans $ cohérents ; 6 pages > 390 px (7 figures de courbe). | $\mathcal{N}(0~;~1)$. | src/exercices/HP/HPC102.ts |
 | HPC103 | R16  | Mêmes énoncés que TEM1-11 (doublon) : A de taille 4×2 et B de 4×3 : AB et BA sont tous deux impossibles, cas à bien expliquer dans la correction ; 32 doubles espaces. | Mutualiser ; expliquer l'impossibilité. | src/exercices/HP/HPC103.ts |
