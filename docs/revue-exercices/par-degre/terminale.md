@@ -1,17 +1,17 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **77 sur 293**. Constats confirmés : **66**.
+Exercices relus : **86 sur 293**. Constats confirmés : **73**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 19 |
+| Contenu mathématique faux | 20 |
 | Rendu cassé (formule, débordement, erreur) | 2 |
-| Mise en évidence (miseEnEvidence et champs) | 4 |
-| Typographie (nombres, espaces, notations) | 13 |
-| Rédaction (français, titres, consignes) | 28 |
+| Mise en évidence (miseEnEvidence et champs) | 6 |
+| Typographie (nombres, espaces, notations) | 14 |
+| Rédaction (français, titres, consignes) | 31 |
 
 ## Contenu mathématique faux
 
@@ -34,6 +34,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA1-44 | C1 Contenu mathématique faux | Appel Python écrit $\mathtt{seuil(0,001)}$ : avec la virgule, Python passe deux arguments (0 et 1) et la fonction plante ; l'élève qui recopie l'appel n'obtient pas 200. | Écrire l'appel avec un point (seuil(0.001)) en texteCode, comme dans le programme. | src/exercices/TSpe/TSA1-44.ts:119 |
 | TSA1-46 | C1 Contenu mathématique faux | « ≈ » devant des valeurs exactes : $u_2\approx 11\,375$ alors que u_2=11 375 est calculé exactement plus haut. | Choisir « = » ou « \approx » selon que texNombre(terme, 1) arrondit ou non. | src/exercices/TSpe/TSA1-46.ts:150 |
 | TSA1-47 | C1 Contenu mathématique faux | De u_n>8 000, la correction tire « 8 000-u_n ⩽ 0 » puis « décroissante », alors que l'inégalité stricte donne une suite strictement décroissante ; la phrase « la suite (v_n) est géométrique de raison 0,75 » est ensuite répétée telle quelle. | « 8 000-u_n&lt;0 », « u_{n+1}-u_n&lt;0 », « strictement décroissante » ; supprimer la phrase répétée (ligne 158 ou celle qui la précède). | src/exercices/TSpe/TSA1-47.ts:139 |
+| TSA2-32 | C1 Contenu mathématique faux | Correction : « Soit $x\in\mathbb{R}$. On résout $x+4>0$ » alors que la fonction est définie sur $\mathbb R\setminus\{-4\}$ ; limites en $-4^-$ et $-4^+$ mises en évidence séparément (M8 : un trou par limite, ordre de lecture à vérifier). | « Soit $x\in\mathbb R\setminus\{-4\}$ » ou « Soit $x\in\mathbb R$ » avant le tableau seulement. | src/exercices/TSpe/TSA2-32.ts |
 | TSA1-20 | C1 Contenu mathématique faux | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. | Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | TSpe/TSA1-20.ts |
 | TSA1-27 | C1 Contenu mathématique faux | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. | Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | TSpe/TSA1-27.ts |
 
@@ -50,6 +51,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | --- | --- | --- |
 | canTSpea-2026 | M4 QCM : évidence ≠ proposition | Q24 (QCM OUI/NON) : « (proche de $0$ mais non nul) » inutile et trompeur ; mise en évidence « pas colinéaires (NON) » au lieu de la proposition « NON » ; propositions en capitales | « Le déterminant est non nul : les vecteurs ne sont pas colinéaires. » et Non en évidence | src/exercices/can/canTspea-2026/canTspea-2026-Q24.ts:70 |
 | canTSpeE06 | M1 Évidence refusée par le champ | Seul le radicande est mis en évidence ($\sqrt{⟦236⟧}$) alors que le champ attend $\sqrt{236}$ ; norme notée \vert\vert au lieu de \\| | $${miseEnEvidence(`\\sqrt{${…}}`)}$ ; \\|\vec u\\| | src/exercices/can/TSpe/canTSpeE06.ts:47 |
+| TSA2-10 | M3  | QCM : la correction ne met en évidence que les deux limites (2 et +∞), pas la proposition complète cochée ; la bonne réponse n'est pas rapprochée des choix (pas de « réponse A »). | Mettre en évidence la proposition entière, ou ajouter « La bonne réponse est : ». | src/exercices/TSpe/TSA2-10.ts |
+| TSA2-11 | M3  | Même constat : seules les équations x=-1 et y=4 sont en évidence, pas la proposition correcte du QCM ; double espace dans « $\mathcal{C}_f$  admet ». | Mettre en évidence la proposition entière ; supprimer l'espace en trop. | src/exercices/TSpe/TSA2-11.ts |
 | TSA1-26 | M5 Texte en évidence | Texte dans miseEnEvidence : « $\boldsymbol{\textbf{Pas de limite}}$ » (règle : texte avec texteEnCouleurEtGras) ; la limite est mise en évidence deux fois (« $=0$ » puis « La bonne réponse est $0$ »). | texteEnCouleurEtGras('Pas de limite') ; une seule évidence. | TSpe/TSA1-26.ts |
 | TSA1-30 | M5 Texte en évidence | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. | « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | TSpe/TSA1-30.ts |
 
@@ -67,6 +70,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTEC2-05 | N6 Écriture algébrique | Forme algébrique mise en évidence « $\sqrt{3}-1\mathrm{i}$ » (coefficient 1 écrit) | $\sqrt3-\mathrm{i}$ | src/exercices/can/Ex/canTEC2-05.ts |
 | canTSpeAN15 | T9 Mot en italique | « la fonction $ln(u)$ » : ln en italique | $\ln(u)$ | src/exercices/can/TSpe/canTSpeAN15.ts |
 | canTSpeS03 | T9 Mot en italique | $e^{-n}$ en italique (constante e) ; $n\to\infty$ (aussi canTSpeS02, S04, S05, S06) | \mathrm{e}^{-n} ; n\to+\infty | src/exercices/can/TSpe/canTSpeS03.ts |
+| TSA2-31 | T4  | « forme indéterminée du type « $\dfrac{\infty}{\infty}$ » » : guillemets sans espaces insécables ; Q1 : « Par produit » sans citer la règle des signes (-5 × +∞). | « ~$\dfrac{\infty}{\infty}$~ » avec insécables ; « car $-5&lt;0$ ». | src/exercices/TSpe/TSA2-31.ts |
 | TSA1-10 | N1 Nombre hors $ | Justifications en vert : « On ajoute 3. » (nombre hors $) ; « $\dfrac{1}{1}$ » laissé tel quel quand $a=1$. | « On ajoute $3$. » ; écrire $1$. | TSpe/TSA1-10.ts |
 | TSA1-22 | N5 Négatif sans parenthèses | « $\lim_{n\to+\infty}-5n^{2}=-\infty$ », « $\lim -\dfrac{2}{n}=0$ » : terme négatif sans parenthèses après lim (lu comme $-\lim$) ; titre « par somme ou quotient » alors que les questions ne sont que des sommes (graines revue-0-a, revue-1-a). | $\lim\left(-5n^2\right)$ ; vérifier la présence des quotients. | TSpe/TSA1-22.ts |
 | TSA1-23 | N5 Négatif sans parenthèses | Même écriture que TSA1-22 : « $\lim_{n\to+\infty}-2n=-\infty$ », « $\lim -1=-1$ » sans parenthèses. | $\lim\left(-2n\right)$ | TSpe/TSA1-23.ts |
@@ -102,6 +106,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA1-47 | R1 Titre | Années entre $ : « En $2024$ », « l’année $2025$ » (les années restent hors des maths). | Écrire ${anneeInitiale} et ${anneeInitiale + 1} sans $. | src/exercices/TSpe/TSA1-47.ts:108 |
 | TSA1-48 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « L’affirmation est $\textbf{Vraie}$ » ou « Fausse », avec en plus une majuscule au milieu de la phrase. | « L’affirmation est ${texteEnCouleurEtGras('vraie')}. » (ou 'fausse'), hors des $. | src/exercices/TSpe/TSA1-48.ts:1356 |
 | TSA1-48 | R16  | Encadrement d'une ligne en bloc centré \[\begin{aligned}0&&lt;q&lt;1\end{aligned}\] au milieu d'une phrase (« Comme [bloc] cette même propriété… »), sans virgule ; double & inutile. Les affirmations 1 et « Toute suite croissante… » n'ont pas l'étiquette « Affirmation : » des autres. | Écrire « Comme $0&lt;q&lt;1$, cette même propriété… » en ligne ; ajouter « Affirmation : » partout. | src/exercices/TSpe/TSA1-48.ts:198 |
+| TSA2-12 | R2 Tutoiement, impératif | Mot « horizontale » mis en évidence (texte dans ⟦…⟧) et trous à liste déroulante sans mise en évidence par trou (M8) ; énoncé : « en $+\infty$ . » avec espace avant le point, virgule collée au menu déroulant. | texteEnCouleurEtGras('horizontale') ; supprimer l'espace avant le point ; reformuler : « Oui : la courbe admet une asymptote … d'équation … en +∞. » | src/exercices/TSpe/TSA2-12.ts |
+| TSA2-33 | R3  | Intervalles écrits sans espaces autour du point-virgule ($]-\infty;-1[\cup]-1;+\infty[$) alors que les autres exercices du site utilisent \,;\, ; mise en évidence des limites en -1^- et -1^+ en deux ⟦…⟧ (M8). | $]-\infty\,;\,-1[\cup]-1\,;\,+\infty[$. | src/exercices/TSpe/TSA2-33.ts |
+| TSA2-34 | R3  | Même écriture des intervalles sans espaces insécables ($D_f=]-\infty;-1[\cup]-1;+\infty[$) ; énoncé en cas de variantes : « en distinguant les cas $x&lt;-1$ et $x>-1$ ». | \,;\, dans les intervalles. | src/exercices/TSpe/TSA2-34.ts |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
