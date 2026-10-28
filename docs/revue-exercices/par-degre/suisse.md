@@ -1,17 +1,24 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **72 sur 1168**. Constats confirmés : **58**.
+Exercices relus : **179 sur 1168**. Constats confirmés : **151**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 6 |
-| Rendu cassé (formule, débordement, erreur) | 12 |
-| Mise en évidence (miseEnEvidence et champs) | 6 |
-| Typographie (nombres, espaces, notations) | 1 |
-| Rédaction (français, titres, consignes) | 33 |
+| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
+| Contenu mathématique faux | 12 |
+| Rendu cassé (formule, débordement, erreur) | 23 |
+| Mise en évidence (miseEnEvidence et champs) | 16 |
+| Typographie (nombres, espaces, notations) | 3 |
+| Rédaction (français, titres, consignes) | 96 |
+
+## Interactif faux (la bonne réponse est refusée, ou pas de champ)
+
+| Exercice | Règle | Constat | Correction proposée | Fichier |
+| --- | --- | --- | --- | --- |
+| afd39 | I2 Réponse fausse acceptée | Titre « Questions de cours » trop vague ; réponse fausse acceptée (1 I2) ; énoncé « avec a&lt;b et a,b∈I » : $a, b\in I$ virgule sans espace fine ; 8 T5, 6 T6, 1 X2. | Titre précis ; comparaison. | src/exercices/CH/afd39.ts |
 
 ## Contenu mathématique faux
 
@@ -23,11 +30,20 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | aaaaa | C1 Contenu mathématique faux | Exercice modèle laissé dans le référentiel : titre « Mettre le titre souhaité (assez descriptif mais pas trop long) » et question « 5+6 » (texte de remplissage) : à retirer (règle : aucun placeholder). | Retirer de la liste. | src/exercices/CH/aaaaa.ts |
 | AchangerOBLIGATOIREMENT | C1 Contenu mathématique faux | Deuxième exercice modèle (id « AchangerOBLIGATOIREMENT ») : titre « Mettre le titre souhaité (assez descriptif mais pas trop long) », question « 5+6 », 2 X1 : à retirer de la liste (règle : aucun placeholder). | Retirer de la liste. | src/exercices/CH/AchangerOBLIGATOIREMENT.ts |
 | addd5 | C1 Contenu mathématique faux | Titre « Reconnaitre » (Reconnaître) ; correction : « Vous avez choisi : . » (la valeur choisie n'apparaît pas : phrase vide) ; vouvoiement « Vous avez choisi » seule occurrence ; 2 M6. | Afficher la bonne expression ; reconnaître. | src/exercices/CH/addd5.ts |
+| af0yk | C1 Contenu mathématique faux | Titre vide (« CH — ») : exercice sans titre ; énoncé juste (2 025). | Ajouter un titre. | src/exercices/CH/af0yk.ts |
+| aModifier | C1 Contenu mathématique faux | Troisième exercice modèle (id « aModifier ») : titre « Nom de l'exercice », question « Question 1 de type 2 », correction « Correction 1 de type 2 » : texte de remplissage à retirer de la liste. | Retirer de la liste. | src/exercices/CH/aModifier.ts |
+| bc570 | C1 Contenu mathématique faux | « Trouver un nombre inférieur à 100 et supérieur à 10, divisible par 2 et dont le chiffre des unités est 7 » : il n'en existe aucun ; l'énoncé demande de « trouver » un nombre alors que la réponse est « aucun » (champ numérique) ; 90 phrases sans virgule, 288 N1, 25 R10. | Reformuler (« existe-t-il… ? ») ; champ texte. | src/exercices/CH/bc570.ts |
+| bcfc8 | C1 Contenu mathématique faux | Titre vide (« CH — ») ; énoncé « À quel nombre décimal est égal 2 025 centièmes ? » (« Quel nombre décimal est égal à… ») ; correction juste (20,25). | Ajouter un titre. | src/exercices/CH/bcfc8.ts |
+| bd063 | C1 Contenu mathématique faux | Titre « Factoriser ou développer une différence de deux carrés » alors que l'exercice développe (6x−4)² (identité remarquable (a−b)², pas une différence de carrés) ; titre avec espace final ; QCM juste (36x²−48x+16). | Titre « Développer avec une identité remarquable ». | src/exercices/CH/bd063.ts |
+| c9ba3 | C1 Contenu mathématique faux | Titre « Calculer le périmètre d'un rectangle » alors que la question porte sur la tangente d'un angle dans un triangle rectangle (titre copié de c9aa3) ; correction vide (12 X4). | Titre « Calculer une tangente » ; correction. | src/exercices/CH/c9ba3.ts |
 
 ## Rendu cassé (formule, débordement, erreur)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| c5503 | X4  | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) | Afficher l'affirmation dans la question QCM | relecture |
+| c9893 | X4  | Correction vide (QCM notation scientifique) | Ajouter une correction | relecture |
+| c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
 | a9f31 | X4  | « Créer une animation de construction aux instruments (Instrumenpoche) » : outil d'enseignant (éditeur IEP) sans question ni correction (4 X4) : à retirer des exercices proposés aux élèves ; 2 pages > 390 px. | Retirer pour les élèves. | src/exercices/CH/a9f31.ts |
@@ -40,6 +56,14 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | ad5f6 | X4  | « Construire des droites graduées avec zoom » : outil sans consigne ni correction (22 X4). | Idem. | src/exercices/CH/ad5f6.ts |
 | ad5f7 | X4  | « Utiliser des grilles décimales » : outil sans consigne (28 X4). | Idem. | src/exercices/CH/ad5f7.ts |
 | ad5f8 | X4  | « Fabriquer des pavages pour travailler les transformations » : outil sans consigne (28 X4). | Idem. | src/exercices/CH/ad5f8.ts |
+| ae7c2 | X4  | QCM « Ordre de grandeur » dont l'énoncé est vide (14 X4) : seules les trois propositions 0,4 cm / 0,4 km / 0,4 m sont affichées, la phrase « Un terrain de foot est un rectangle… » n'apparaît que dans la correction : l'élève ne sait pas ce qu'on mesure. | Mettre la question dans l'énoncé. | src/exercices/CH/ae7c2.ts |
+| b1e01 | X4  | Tracé apigeom : « la demi-droite d'origine G passant par H » ; énoncé sur 3 lignes sans ponctuation entre (virgule, « et ») ; 2 X4 ; 2 IM : à tester à la main. | Phrase complète ; tester à la main. | src/exercices/CH/b1e01.ts |
+| b5324 | X3  | L'énoncé du QCM affiche littéralement « undefined » avant les propositions (23 X3 : texte de la question non défini) ; 10 M3. | Renseigner la question (« Quel est le résultat de 70·96 ? »). | src/exercices/CH/b5324.ts |
+| b7773 | X4  | QCM probabilité « Sachant que toutes les boules ont la même… » : correction vide (12 X4, 12 M3). | Rédiger la correction (8+6+5=19 …). | src/exercices/CH/b7773.ts |
+| b949c | X4  | QCM « Trouver la figure avec deux angles droits » sans énoncé (14 X4) : seules les cases « Figure 1 à 4 » sont affichées (les figures ne sont pas dans le texte) ; 70 N1. | Ajouter la consigne et les figures. | src/exercices/CH/b949c.ts |
+| babybel | X4  | Exercice « TITRE » : titre de remplissage, figure apigeom sans consigne ni correction (24 X4, 12 IM) : exercice de test laissé dans la liste. | Retirer de la liste. | src/exercices/CH/babybel.ts |
+| bc372 | X1 Erreur | « Simuler des lancers de dés » : le banc a échoué 3 fois (X1) : l'exercice n'a pas pu être passé ; à repasser et à tester à la main (simulation aléatoire). | Repasser le banc. | src/exercices/CH/bc372.ts |
+| c9aa3 | X4  | QCM « Calculer le périmètre d'un rectangle » : correction vide (12 X4) ; propositions « $38\text{ mm}^2$ » vs « $38\text{ mm}$ » ; 12 M3. | Rédiger la correction. | src/exercices/CH/c9aa3.ts |
 
 ## Mise en évidence (miseEnEvidence et champs)
 
@@ -51,17 +75,37 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | a8c21 | M1 Évidence refusée par le champ | Encadrement : correction en trois évidences « $⟦9\,858,9⟧&lt;9\,858,⟦9⟧99&lt;⟦9\,859⟧$ » dont le chiffre « 9 » au milieu du nombre (évidence parasite, 33 M1) ; « au dixième: » sans espace avant les deux-points (42 T3) ; 208 « Choisir… ». | Deux évidences (borne inférieure, borne supérieure). | src/exercices/CH/a8c21.ts |
 | ac571 | M1 Évidence refusée par le champ | « Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm² pour l'autre » : unités exigées par les champs mais absentes des évidences (112 M1) ; « \approx31,416\text{ cm} » trois décimales alors que l'approximation demandée est au dixième ; « 2·5·π cm » unité dans le produit. | Unités dans l'évidence ; arrondir à 31,4. | src/exercices/CH/ac571.ts |
 | ad8c8 | M1 Évidence refusée par le champ | Même défaut que acd4a (abscisse entière, grands nombres) : « A( [champ] ) » comme point du plan ; 29 M1 ; correction faite de figures sans texte. | Idem acd4a. | src/exercices/CH/ad8c8.ts |
+| ae01d | M1 Évidence refusée par le champ | Équation x²−400=0 : correction « S={−20 ; 20} » en évidence refusée (3 M1 : accolades) ; « Solution(s) de l'équation » ; « soit −20 et 20 » en maths ; $\sqrt{400}$ non simplifié en premier. | Évidence sans accolades. | src/exercices/CH/ae01d.ts |
+| aeca7 | M1 Évidence refusée par le champ | Clone de BP1AUTO091 : cube de 15 dm, unité cubique en évidence refusée (42 M1) ; 15 pages > 390 px. | Voir BP1AUTO091. | src/exercices/CH/aeca7.ts |
+| b4e86 | M8 Évidences et champs | Doublon de TSG2-10 (coordonnées dans le repère du cube) : 36 M8, 12 M1 ; « $C(⟦1~⟧;~⟦1~⟧;~⟦1⟧)$ » insécable dans l'évidence. | Fusionner avec TSG2-10. | src/exercices/CH/b4e86.ts |
+| b6250 | M7  | Diagramme circulaire de vols : 36 M7, 12 M6 (corrections en figures) ; « l'angle rouge apparaît 3 fois » (3 hors des $) ; 24 phrases sans virgule. | Texte de correction. | src/exercices/CH/b6250.ts |
+| b6cbe | M1 Évidence refusée par le champ | Clone de acb80 (pyramide, volume) : unité cubique en évidence refusée (90 M1) ; 44 pages > 390 px ; calcul juste (12 dm³). | Voir acb80. | src/exercices/CH/b6cbe.ts |
+| b7662 | M1 Évidence refusée par le champ | Quartiles lus sur graphique : « serait acceptée toute valeur entre … » phrase de tolérance affichée à l'élève dans la correction ; 34 N2 ; 9 M1. | Reformuler. | src/exercices/CH/b7662.ts |
+| b9a52 | M3  | « Justifier que deux triangles sont égaux » : QCM sans la justification demandée (le titre promet une justification, l'exercice est un QCM) ; 58 M3. | Titre « Reconnaître des triangles égaux ». | src/exercices/CH/b9a52.ts |
+| bd726 | M6  | Exercice « relier-etiquettes » sans énoncé (14 X4) ; correction « 3+4=7 ; 7+2=9 ; 9+2=11 » ; à tester à la main (14 IM). | Ajouter la consigne. | src/exercices/CH/bd726.ts |
+| c6fb2 | M1 Évidence refusée par le champ | Clone de 6M2C / BP2AutoV3 (aire du carré, unité d'aire attendue) : unité absente de l'évidence (16 M1). | Voir 6M2C. | src/exercices/CH/c6fb2.ts |
+| c8ee7 | M3  | QCM de droites : propositions = SVG en HTML échappé (« &lt;div class= »), 12 M3, 14 M6, X6 (figure illisible) ; « $(O⍽; \vec{\imath}, \vec{\jmath})$ » insécable ; correction sans la proposition. | Alt-text aux SVG ; évidence. | src/exercices/CH/c8ee7.ts |
 
 ## Typographie (nombres, espaces, notations)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
 | a3f3b | T6 Points de suspension | « $0,3\text{ L}=0,3\cdot1\,000\text{ cm}^3$ » \cdot CH conforme ; 11 T6 (« Choisir… ») ; correction juste. | RAS. | src/exercices/CH/a3f3b.ts |
+| ae872 | T4  | Clone de BP1SP02 (134 T4, 23 phrases sans virgule) ; « Nombre de femmes employées » en \text dans une fraction ; effectifs identiques. | Fusionner avec BP1SP02. | src/exercices/CH/ae872.ts |
+| b2b79 | T4  | 138 T4 : guillemets « face » sans insécables ; « pile , » espace avant virgule ; \text{Nombre de « face »} dans une fraction ; calcul juste (5/12). | Insécables ; fréquence 5/12. | src/exercices/CH/b2b79.ts |
 
 ## Rédaction (français, titres, consignes)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
+| c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
+| c52a3 | R16  | Titre « Reconnaitre » sans accent | « Reconnaître » | relecture |
+| c5503 | R16  | Correction : « commmun » (trois m) | « commun » | relecture |
+| c8515 | R16  | Titre « Trouver la moitié d'un nombre » mais la question est $3\cdot ?=18$ (division) | Titre à revoir | relecture |
+| c9016 | R1 Titre | Correction : « le quart de 80 » : 80 hors $ | $80$ | relecture |
+| ca8a9 | R16  | Titre « un nouveaux prix » ; correction « appliquant la augmente de $20\,\%$ au prix initial » (phrase cassée) | « un nouveau prix » ; « en appliquant l'augmentation de $20\,\%$ » | relecture |
+| cbaad | R16  | Correction : « L'préimage est… » (élision fautive, féminin) | « La préimage » | relecture |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
 | a0d16 | R10 Français | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. | $300\,000=$ en un dollar ; titre cohérent. | src/exercices/CH/a0d16.ts |
 | a12ef | R16  | Correction : « et $452$ est vient juste après $428$ » (faute de frappe : « est » en trop) ; « Entoure » (consigne papier dans une app tactile ; « Choisir ») ; énoncé « qui vient juste après 428 » ambigu (432 serait le suivant) ; 26 R2. | « 452 vient juste après 428 » ; « Choisir ». | src/exercices/CH/a12ef.ts |
@@ -93,8 +137,63 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | aa613 | R3  | « $u_{2\,025}$ » : indice avec espace fine (année) ; correction juste (suite constante 1). | $u_{2025}$. | src/exercices/CH/aa613.ts |
 | ab0ff | R3  | « Complète : » (tutoiement) ; 23 R2 ; 11 T6 ; correction juste (800 cm). | RAS. | src/exercices/CH/ab0ff.ts |
 | acd4a | R3  | Abscisses « A( [champ] ) B( [champ] ) C( [champ] ) » : coordonnées d'un point sur une droite graduée écrites comme des points du plan ; 25 M1 ; correction faite de 9 figures sans texte. | Écrire « A: [champ] » ; texte de correction. | src/exercices/CH/acd4a.ts |
+| admww | R3  | Doublon de a343h (« Somme de deux nombres décimaux » 0,24+0,3) : même énoncé dans deux exercices ; « $0,24 + 0,3$ $=$ » deux dollars. | Fusionner les doublons. | src/exercices/CH/admww.ts |
+| ae51e | R3  | Titre avec espace final ; correction juste (A=23/4) ; QCM sans évidence (12 M3). | RAS. | src/exercices/CH/ae51e.ts |
+| ae85a | R3  | Titre avec espace final « Retrouver l'égalité correcte avec des puissances » ; « Une seule de ces égalités est vraie. Laquelle ? » ; 12 N6 ; 5 M3. | RAS. | src/exercices/CH/ae85a.ts |
+| aeba5 | R3  | Diagramme circulaire : somme 18,6+24,8+16,7=60,1 % correcte ; 10 figures ; « plus de $24$ ans » ; pas de point final. | RAS. | src/exercices/CH/aeba5.ts |
+| afrce | R3  | Titre « Probabilités » trop vague ; énoncé et correction justes (15/22). | Titre précis. | src/exercices/CH/afrce.ts |
+| agjju | R16  | Titre « Calculer une limite avec l'infini » ; limite en 2 026 d'une fonction avec exposants 2 026 : année utilisée comme paramètre (clin d'œil) mais « x^{2\,026} » avec espace fine dans l'exposant ; correction juste (+∞). | x^{2026}. | src/exercices/CH/agjju.ts |
+| aqed6 | R3  | « $2\,026$⍽⍽⍽; ⍽⍽⍽$2\,030$ » suite avec six insécables autour des points-virgules (mise en page à l'espace) ; correction juste (+4). | ~;~. | src/exercices/CH/aqed6.ts |
 | autres-1 | R16  | Correction : « il avance de $2$ fois de $15$ pas » (« il avance 2 fois de 15 pas ») ; programme Scratch en texte brut « répéter [2] fois avancer de [15] pas » ; 208 doubles espaces ; exercice CH sans équivalent FR (périmètre : CH only). | « 2 fois 15 pas ». | src/exercices/CH/autres-1.ts |
 | autres-13 | R3  | Suite de décimaux « 2,50 ; 2,75 ; 3 » : le 3 devrait s'écrire 3,00 ; « Complète » (tutoiement CH) ; « 3+0,25 » ; 21 R2. | 3,00 ; vouvoiement/infinitif selon l'app. | src/exercices/CH/autres-13.ts |
+| ayxrt | R16  | Titre « Compter les sommets d'un prisme » : l'exercice interroge un cube ; correction « car il possède deux bases opposées à 4 sommets chacune » (4 hors des $). | Titre « d'un cube ». | src/exercices/CH/ayxrt.ts |
+| ayxru | R3  | « $\dfrac{1}{5}$ d'heure » : texte « d'heure » hors du dollar mais « \text{ d'heure }» dans la correction ; « min » ; 11 T6 ; calcul juste (12 min). | Uniformiser. | src/exercices/CH/ayxru.ts |
+| az45m | R3  | « $\text{ min }$ » avec espaces dans \text ; « 60 min ÷ 3 » ; doublon avec ayxru (fraction d'heure) ; calcul juste. | Fusionner. | src/exercices/CH/az45m.ts |
+| b0353 | R3  | Doublon de autres-13 (« Compléter une suite » à pas 0,3) : « Complète » (tutoiement), 23 R2, séparateurs « ⍽⍽⍽; ⍽⍽ ». | Fusionner ; ~;~. | src/exercices/CH/b0353.ts |
+| b03f0 | R3  | Doublon de a343i (« Calculer la moitié d'un nombre » ; correction « est » correcte ici) ; titre avec espace final. | Fusionner. | src/exercices/CH/b03f0.ts |
+| b0611 | R3  | Correction juste (2 025 = 25×81) ; notation « \underbrace{5\cdot5}_{25} » ; « ~25 » espace insécable ; 1 T3. | RAS. | src/exercices/CH/b0611.ts |
+| b18a9 | R16  | Correction : « Le pente $m$ de la droite (AB) est donné par » : genre faux (La pente … donnée) ; titre « coefficient directeur », consigne « Coefficient directeur », correction « pente » : deux termes ; 16 figures. | « La pente … est donnée » ; un seul terme. | src/exercices/CH/b18a9.ts |
+| b1f2a | R3  | Correction juste (7/6) ; « On réduit au même dénominateur, puis on additionne les numérateurs : » ; réponse attendue 7/6 (7/6 ≈ 1,17 non demandé). | RAS. | src/exercices/CH/b1f2a.ts |
+| b26na | R3  | Correction juste (0) ; « En additionnant les deux chiffres des unités, on trouve 6+4=10 » ; 8 T6. | RAS. | src/exercices/CH/b26na.ts |
+| b2be1 | R3  | Correction juste (0,5) ; « Quel nombre repère le point A » (repère = repérer) ; 5 figures. | « Quel nombre est repéré par le point A ». | src/exercices/CH/b2be1.ts |
+| b2fb3 | R3  | Calcul juste (100 km) ; « mètres » en toutes lettres dans l'énoncé et « m » dans la correction ; \cdot. | Unités uniformes. | src/exercices/CH/b2fb3.ts |
+| b343g | R3  | Correction juste (5) ; « Le plus petit entier supérieur à 23/5 » (strictement supérieur) ; titre « Majoration de fraction » imprécis. | « le plus petit entier supérieur ou égal ». | src/exercices/CH/b343g.ts |
+| b34re | R3  | Suite d'heures « $20⍽\text{h}⍽26⍽\text{min}$ ⍽⍽⍽; » (six insécables autour des points-virgules) ; évidence « ⟦21⍽\textbf{h}⍽11⍽\textbf{min}⟧ » avec \textbf (texte) ; 12 T6. | Mise en page ; format 21 h 11. | src/exercices/CH/b34re.ts |
+| b44a5 | R3  | Correction « $299 + 5 dizaines = 299 + 50$ » : « dizaines » dans un dollar sans \text (lettres en italique) ; « Quel nombre j'obtiens » (que j'obtiens). | \text{ dizaines} ; « Quel nombre obtient-on ». | src/exercices/CH/b44a5.ts |
+| b44b5 | R3  | Correction juste (30 images/s) ; propositions « $24$ images/seconde » ; 12 M3. | RAS. | src/exercices/CH/b44b5.ts |
+| b5563 | R16  | Titre « Trouver la la fraction un demi (QCM) » (mot répété) ; QCM sans énoncé (14 X4) ; « Barre 1/2/3 » non légendées. | « Trouver la fraction un demi » ; ajouter la consigne. | src/exercices/CH/b5563.ts |
+| b799f | R16  | Doublon de a343h et admww (somme de décimaux) ; énoncé $20+26$ trivial. | Fusionner. | src/exercices/CH/b799f.ts |
+| b7a43 | R16  | Titre « Calculer une somme astucieusment » (astucieusement) ; correction juste. | astucieusement. | src/exercices/CH/b7a43.ts |
+| b7d33 | R3  | Titre « Donner une écriture scientifique » vs consigne « Écriture scientifique de » vs correction « notation scientifique » : trois termes ; \underbrace sous l'évidence ; calcul juste (2,24·10^5). | Un seul terme. | src/exercices/CH/b7d33.ts |
+| b7f1a | R3  | « \widehat{ABC}=60° » : ° en texte dans un dollar ; « BC=6 cm » unité hors des $ ; « 60° 6 cm » étiquettes de figure répétées dans le texte ; correction juste ; 9 M3. | 60^\circ ; $6\text{ cm}$. | src/exercices/CH/b7f1a.ts |
+| b81d0 | R3  | Résolution détaillée juste ; « {\color{#216D9A}\boldsymbol{-7x}} » ; 26 N6 ; « Résoudre » sans consigne. | RAS. | src/exercices/CH/b81d0.ts |
+| b8afd | R16  | Tableau d'effectifs (A) « \begin{array}{\|c\|c\|…\|c}\hline » : dernière colonne sans barre ; calcul de la moyenne juste (1 988/52≈38,2) ; 759 T2 (unités hors \text), 295 T6 ; 47 M1 ; 60 pages > 390 px (tableau à 9 colonnes). | Tableau défilant ; unités en \text. | src/exercices/CH/b8afd.ts |
+| b8e36 | R3  | Correction juste (x¹⁰−4x⁵+4) ; QCM sans évidence ; « x^{9} - 4x^{5} + 4 » distracteur. | RAS. | src/exercices/CH/b8e36.ts |
+| b8fc6 | R16  | Titre « Effetuer une multiplication avec $25$ » (Effectuer) ; correction juste (400). | Effectuer. | src/exercices/CH/b8fc6.ts |
+| b926b | R3  | Doublon de a59w1 (« Déterminer un multiple ») avec 2 025 ; « OUI » / « NON » en majuscules ; 3 M3. | Oui/Non ; fusionner. | src/exercices/CH/b926b.ts |
+| b9935 | R16  | Énoncé « $3+5$ [champ] » sans consigne ni « = » ; correction « 3 + 5 = 8 » ; titre « Somme de deux entiers » ; 12 M6. | Ajouter « = ». | src/exercices/CH/b9935.ts |
+| ba520 | R3  | « Soit $f: x\longmapsto5x+4$ » (« f : x ↦ 5x+4 ») ; correction « f(x)=5x+4 donc ici on a » ; 25 N6, 2 X4 ; 14 pages > 390 px. | $f:x\mapsto5x+4$. | src/exercices/CH/ba520.ts |
+| ba521 | R16  | Doublon exact de ba520 (même titre, même énoncé f:x↦5x+4, même correction). | Retirer un des deux. | src/exercices/CH/ba521.ts |
+| baeec | R16  | « Entoure le nombre qui est entre 654 et 667 » (consigne papier, tutoiement) ; « 692, 545, 656 » ; 26 R2 ; 10 M3. | « Choisir ». | src/exercices/CH/baeec.ts |
+| bb6cd | R16  | Titre « Calculer une somme astucieusment » (astucieusement) : même faute que b7a43 ; correction juste (35,8). | astucieusement. | src/exercices/CH/bb6cd.ts |
+| bbdca | R3  | « $P_{\bar A}(\bar B)$ » : \bar au lieu de \overline ; « Soient A et B deux événements » ($A$ et $B$ hors des $ ? non : dans les $) ; 23 phrases sans virgule ; titre avec espace final. | \overline{A}. | src/exercices/CH/bbdca.ts |
+| bc613 | R3  | « $6+6+6+6+6+6=6\cdot6$ » : addition répétée → produit : 6·6 ; correction juste. | « 6×6 ». | src/exercices/CH/bc613.ts |
+| bc9a6 | R16  | Titre « Soustraire 19, 29, ...., 99 à un entier » : quatre points au lieu de « … » ; correction « 123−99=123−100+1=24 » : chaîne d'égalités fausse (123−100+1=24 mais « 123−99 » égale « 123−100+1 » sans ligne intermédiaire). | \ldots ; séparer. | src/exercices/CH/bc9a6.ts |
+| bdaaf | R3  | Correction « Si n est pair cos(nπ)=1 et si n est impair, cos(nπ)=−1 » : virgule manquante après « pair » et n hors des $ ; juste (99). | Virgule ; $n$. | src/exercices/CH/bdaaf.ts |
+| bee6d | R16  | « je donne 2 billets de 20 € » : 20,25 € ne se paie pas en billets de 20 € suisses (francs) ; énoncé en euros pour un exercice CH ; « Combien me rend-on ? » ; calcul juste (19,75). | CHF ; « Combien me rend-on ? ». | src/exercices/CH/bee6d.ts |
+| bf899 | R3  | Correction juste (9x²−9/25) ; titre « Factoriser ou développer… » avec espace final ; fractions \dfrac dans les propositions. | RAS. | src/exercices/CH/bf899.ts |
+| br9n6 | R16  | Consigne « Complète. » seule (aucune indication de l'objet : abscisses des flèches) ; 26 R2, 14 IM. | « Compléter les abscisses ». | src/exercices/CH/br9n6.ts |
+| brlw7 | R16  | Titre « Question 30 » (titre de remplissage) ; correction : « est égal au pente de la tangente » (à la pente : genre) ; 12 T6. | Titre propre ; « à la pente ». | src/exercices/CH/brlw7.ts |
+| byxrt | R3  | Titre « Distance sur un segment » ; « x= [champ] » ; correction « x=14-6=8 » sans unité ; 12 T6. | Unité. | src/exercices/CH/byxrt.ts |
+| c0436 | R3  | « $ 3,48\cdot0,8$ = » espace dans le dollar et égal hors du dollar ; calcul juste (2,784). | $3,48\cdot0,8=$. | src/exercices/CH/c0436.ts |
+| c0979 | R16  | Titre « Déterminer le plus nombre possible » (mot manquant : « le plus petit ») ; consigne « Écris … les chiffres suivants : $7; 4; 3$ » (liste dans un seul dollar avec espaces insécables, points-virgules collés) ; correction juste (347) ; 26 R2. | « le plus petit nombre possible » ; $7~;~4~;~3$. | src/exercices/CH/c0979.ts |
+| c0f91 | R3  | « définie pour tout $n$ dans $\N$ » (\N : macro) ; correction juste (limite −∞ de (3/2)^n×(−1)) ; 16 M3/M6 ; 4 guillemets T4. | $n\in\mathbb{N}$. | src/exercices/CH/c0f91.ts |
+| c2a4b | R3  | Correction juste (31,50 €) ; « $35 ~\text{€}\cdot0,10$ » espace avant ~ ; « Un article coûte $35~\text{€}$ ». | $35\,\text{€}$. | src/exercices/CH/c2a4b.ts |
+| c5f04 | R3  | Doublon de b799f (somme) ; énoncé $3\,372+600=$ trivial. | Fusionner. | src/exercices/CH/c5f04.ts |
+| c5kkh | R3  | Titre « Compléter un encadrement de $\dfrac{n}{\text{e}}$ par deux entiers consécutifs » avec LaTeX ; encadrement 1 ⩽ 4/e ⩽ 2 (4/e≈1,47) correct ; 20 T6. | Titre en texte. | src/exercices/CH/c5kkh.ts |
+| c6cbe | R16  | Titre « Trouver un inverse ou un opposé » alors que l'exercice ne demande que l'opposé de −2 025 ; correction juste. | Titre « l'opposé ». | src/exercices/CH/c6cbe.ts |
+| c8a2b | R3  | « Donner un diviseur de 213 autre que 1 et lui-même » : plusieurs réponses valables (3, 71) : le champ n'accepte que ? (à tester) ; correction juste. | Accepter 3 et 71. | src/exercices/CH/c8a2b.ts |
+| c8fe9 | R16  | Programme Scratch « Aller en bas :: motion stack » (même défaut que 6I1B) ; 144 T3 ; 120 N1 ; 26 pages > 390 px. | Vérifier le rendu. | src/exercices/CH/c8fe9.ts |
 
 ## Constats graves du banc, à confirmer
 
@@ -107,7 +206,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | a343t | X2 Formule cassée | 14 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m |
 | afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| d7202 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 7605 ; T4  480 ; T2  371 ; T6 Points de suspension 243 ; T5 Espaces 240 ; R2 Tutoiement, impératif 174 ; T3  127 ; R5 Virgule 100 ; N6 Écriture algébrique 71 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; X2 Formule cassée 12 ; R10 Français 12 ; R6  1 ; T1 Espace avant % 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 8773 ; T5 Espaces 1192 ; T6 Points de suspension 532 ; T4  480 ; T2  371 ; R2 Tutoiement, impératif 187 ; T3  127 ; R5 Virgule 100 ; N6 Écriture algébrique 77 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; X2 Formule cassée 12 ; R10 Français 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; T1 Espace avant % 1 ; R1 Titre 1.
