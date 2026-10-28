@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1874 exercices passés sur 4190**.
-Constats regroupés : 9603 (un groupe = même exercice, même règle,
+Avancement : **1886 exercices passés sur 4190**.
+Constats regroupés : 9807 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -19,7 +19,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [C1 Contenu mathématique faux ou ambigu](#c1) | 4 | 4 |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 19 | 22 |
 | 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 21 | 22 |
-| 1 Interactif faux | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
+| 1 Interactif faux | [I3 Champ vide accepté ou en erreur](#i3) | 2 | 2 |
 | 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 18 | 21 |
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 2 | 2 |
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
@@ -46,18 +46,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 188 | 331 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 7 | 7 |
-| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 27 | 27 |
+| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 28 | 28 |
 | 3 Mise en évidence | [C2 ](#c2) | 3 | 3 |
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 209 | 1421 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 210 | 1434 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 7 | 7 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
 | 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 169 | 171 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 25 | 94 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 64 | 76 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 65 | 77 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
@@ -65,24 +65,26 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 12 | 12 |
 | 3 Mise en évidence | [R13 ](#r13) | 3 | 3 |
 | 3 Mise en évidence | [R14 ](#r14) | 7 | 7 |
-| 3 Mise en évidence | [R16 ](#r16) | 69 | 69 |
+| 3 Mise en évidence | [R16 ](#r16) | 72 | 72 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 12 | 12 |
-| 3 Mise en évidence | [R3 Point final](#r3) | 9 | 9 |
+| 3 Mise en évidence | [R3 Point final](#r3) | 11 | 11 |
 | 3 Mise en évidence | [R9 Notation des probabilités](#r9) | 1 | 1 |
+| 3 Mise en évidence | [T4 Guillemets](#t4) | 1 | 1 |
 | 3 Mise en évidence | [T5 Espaces en trop](#t5) | 4 | 4 |
 | 3 Mise en évidence | [T6 Points de suspension](#t6) | 1 | 1 |
 | 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 6 | 6 |
-| 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 5 | 5 |
+| 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 138 | 138 |
 | 3 Mise en évidence | [X5 Débordement à 390 px](#x5) | 10 | 10 |
 | 3 Mise en évidence | [X6 Même graine, exercice différent](#x6) | 1 | 1 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 13 | 13 |
-| 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 8 | 8 |
+| 4 Typographie | [M1 Valeur mise en évidence refusée par le champ](#m1) | 2 | 2 |
+| 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 11 | 11 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M6 Pas de mise en évidence du résultat](#m6) | 8 | 8 |
 | 4 Typographie | [M7 Explication en orange](#m7) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 497 | 790 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 502 | 801 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 17 | 23 |
 | 4 Typographie | [N3 Point décimal](#n3) | 21 | 25 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 7 | 7 |
@@ -92,15 +94,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 8 | 8 |
 | 4 Typographie | [R13 ](#r13) | 2 | 2 |
 | 4 Typographie | [R14 ](#r14) | 2 | 2 |
-| 4 Typographie | [R16 ](#r16) | 57 | 57 |
-| 4 Typographie | [R2 Impératif ou tutoiement](#r2) | 2 | 2 |
-| 4 Typographie | [R3 Point final](#r3) | 110 | 110 |
+| 4 Typographie | [R16 ](#r16) | 58 | 58 |
+| 4 Typographie | [R2 Impératif ou tutoiement](#r2) | 3 | 3 |
+| 4 Typographie | [R3 Point final](#r3) | 120 | 120 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 15 | 15 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 19 | 27 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 18 | 25 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 318 | 530 |
-| 4 Typographie | [T4 Guillemets](#t4) | 125 | 182 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 319 | 531 |
+| 4 Typographie | [T4 Guillemets](#t4) | 125 | 185 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 6 | 6 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 5 | 5 |
 | 4 Typographie | [T8 Commande LaTeX collée](#t8) | 2 | 2 |
@@ -108,30 +110,30 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 4 Typographie | [X4 Question en double ou vide](#x4) | 3 | 3 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 363 | 475 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 365 | 478 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 196 | 1095 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 198 | 1099 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 40 | 47 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 82 | 115 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 83 | 116 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 48 | 66 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 128 | 181 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 125 | 209 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 126 | 210 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 143 | 205 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 144 | 207 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 11 | 15 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 37 | 48 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 347 | 590 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 394 | 580 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 348 | 591 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 395 | 581 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 37 | 37 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 95 | 106 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 98 | 109 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 49 | 49 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 50 | 50 |
 
 ## C1
 
@@ -208,6 +210,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1G-2 (5e) |  q2 fillInTheBlank | champ vide accepté | ×21 ; sup=3 sup2=false ; sup=3 sup2=true… (revue-0-a) |
 | 6N5-3 (6e) |  q1 qcm | champ vide accepté | ×74 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=2 sup3=true… (revue-1-a) |
 
 ## I4
@@ -1289,6 +1292,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6a-2026 (CAN) | src/exercices/can/can6a-2026/can6a-2026-Q18.ts:39 | Q18 : « La moitié de $116$ dixièmes est $58$. » (il manque « dixièmes » : 58 ≠ 5,8) ; « $5{,}8$ unités » (accord, pluriel dès 2). Mêmes Q5, Q11 (pointillés en correction), Q30 (« partager en 10 ») que canc3a-2026. → La moitié de $116$ dixièmes est $58$ dixièmes. | ×1 |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts:582 | Q11 : correction « Puisque Zoé en a 3 de plus, sa sœur en a 3 de moins » : l'autre enfant (Zacharie…) n'est pas forcément une sœur ; double espace « en  a », espace avant « : ». → Puisque ${prenom1} en a $b$ de plus, ${prenom2} en a $b$ de moins, soit : | ×1 |
 | canc3C07 (CAN) | src/exercices/can/c3/canc3C07.ts:107 | Correction inversée (branche « prenom2 a b ans de moins que prenom1 ») : énoncé « Nawel a $2$ ans de moins que Gaspard », correction « Gaspard a $2$ ans de moins que Nawel. Il a donc… » (prénoms échangés ; « Il » pour une fille possible). → ${prenom2} a $b$ ans de moins que ${prenom1}. ${prenom2} a donc… | ×1 |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG7-Tle-18.ts | Énoncé : « Démontrer que les coordonnées de A vérifient l'égalité $u^2+y^2-2y=0$ » : u au lieu de x (le titre de la partie parle de x en fonction de y) ; 28 guillemets sans insécables. → x²+y²-2y=0. | ×1 |
 | TSA1-20 (Terminale) | TSpe/TSA1-20.ts | Justification fausse : « La fonction cosinus est périodique. La suite $(5\cos(n))$ n'admet donc pas de limite. » (la périodicité de la fonction ne suffit pas : $\cos(2\pi n)$ est constante) ; « n'admet donc pas de limite » mis en évidence en texte alors que le champ attend $\not\exists$. → Admettre le résultat (« La suite $(\cos n)$ n'a pas de limite (résultat admis) ») ; évidence sur $\not\exists$. | ×1 |
 | TSA1-27 (Terminale) | TSpe/TSA1-27.ts | Correction : les égalités successives de $u_n$ sont reliées par « $\iff$ » (« $u_n=1+q+\cdots \iff u_n=\dfrac{1-q^{n+1}}{1-q}$ ») alors qu'il s'agit d'une suite d'égalités sur la même quantité ; « $q=\dfrac{-3}{5}$ » au lieu de $-\dfrac{3}{5}$. → Chaîne d'égalités ($u_n = … = …$) ; $-\dfrac{3}{5}$. | ×1 |
 | TSA1-33 (Terminale) | src/exercices/TSpe/TSA1-33.ts:290 | « ≈ » posé d'office devant u_2, u_3 et u_4, même quand la valeur est exacte (u_2≈6,75 ; avec u_0=12 : u_2≈9, u_3≈8,5, u_4≈8,25), et « = » devant u_1 même si elle était arrondie. → Choisir « = » ou « \approx » selon que texNombre(termes[k], 3) arrondit ou non. | ×1 |
@@ -2309,6 +2313,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG5-2de-6 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["12\\,\\%"] ; attendu : {"champ":"12"} | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG5-2de-6 (Égalité filles-garçons) |  q3 mathlive | valeur en évidence refusée par le champ : ["13{,}6\\,\\%"] ; attendu : {"champ":"13.6"} | ×12 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG5-2de-6 (Égalité filles-garçons) |  q10 mathlive | valeur en évidence refusée par le champ : ["+9{,}2\\,\\%"] ; attendu : {"champ":"9.2"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-6.ts | « $2\,500-2\,200=⟦300⟧$ € » : calcul juste ; 20 M1 : unité € exigée/non exigée ; 4 X4 (énoncé de série vide) ; « écart salarial moyen mensuel » ; 28 N1. → Évidence saisissable. | ×1 |
 | EgaliteFG5-2de-7 (Égalité filles-garçons) |  q5 mathlive | valeur en évidence refusée par le champ : ["16{,}6\\,\\%"] ; attendu : {"champ":"16.6"} | ×2 ; défaut (revue-0-a) |
 | EgaliteFG6-1e-12 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["36{,}44\\,\\%"] ; attendu : {"champ":"36.44"} | ×6 ; défaut (revue-0-a) |
 | EgaliteFG6-1e-14 (Égalité filles-garçons) |  q3 mathlive | valeur en évidence refusée par le champ : ["2024+8=2032"] ; attendu : {"champ":"8"} | ×4 ; sup=true ; sup=false (revue-0-a) |
@@ -2466,6 +2471,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | d2a2d (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["(2x-2)\\mathrm{e}^{x^{2}-2x}"] ; attendu : {"champ":"2x-2e^{x^2-2x}"} | ×1 ; sup=3 (revue-3-a) |
 | d2a2d (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["(2x+3)\\mathrm{e}^{x^{2}+3x+2}"] ; attendu : {"champ":"2x+3e^{x^2+3x+2}"} | ×1 ; sup=3 (revue-3-b) |
 | d2a2d (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1\\mathrm{e}^x"] ; attendu : {"champ":"(-x)e^{x}"} | ×1 ; sup=4 (revue-4-b) |
+| d8c24 (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["4\\,096\\text{ mm}^3"] ; attendu : {"champ":"4096\\operatorname{mm^3}"} | ×8 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=2… (revue-0-a) |
+| d8c24 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["160\\text{ mm}^3"] ; attendu : {"champ":"160\\operatorname{mm^3}"} | ×6 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=2… (revue-0-a) |
+| d8c24 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["176\\text{ cm}^3"] ; attendu : {"champ":"176\\operatorname{cm^3}"} | ×2 ; sup=1 sup2=false sup3=2 (revue-0-a) |
+| d8c24 (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["8\\text{ dm}^3"] ; attendu : {"champ":"8\\operatorname{dm^3}"} | ×8 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=2… (revue-0-b) |
+| d8c24 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["336\\text{ m}^3"] ; attendu : {"champ":"336\\operatorname{m^3}"} | ×4 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=2… (revue-0-b) |
+| d8c24 (Non classés) |  q4 mathlive | valeur en évidence refusée par le champ : ["3\\,563\\text{ dm}^3"] ; attendu : {"champ":"3563\\operatorname{dm^3}"} | ×3 ; sup=1 sup2=false sup3=2 ; sup=2 sup2=false sup3=2… (revue-0-b) |
+| d8c24 (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["157,464\\text{ cm}^3"] ; attendu : {"champ":"157,464\\operatorname{cm^3}"} | ×1 ; sup=1 sup2=true sup3=2 (revue-2-a) |
+| d8c24 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["2\\,199\\text{ m}^3"] ; attendu : {"champ":"2199\\operatorname{m^3}"} | ×1 ; sup=1 sup2=true sup3=2 (revue-2-b) |
+| d8c24 (Non classés) |  q4 mathlive | valeur en évidence refusée par le champ : ["4\\,410,944\\text{ m}^3"] ; attendu : {"champ":"4410,944\\operatorname{m^3}"} | ×1 ; sup=1 sup2=true sup3=2 (revue-2-b) |
+| d8c24 (Non classés) |  q4 mathlive | valeur en évidence refusée par le champ : ["8\\,615,125\\text{ mm}^3"] ; attendu : {"champ":"8615,125\\operatorname{mm^3}"} | ×3 ; sup=2 sup2=true sup3=2 (revue-5-a) |
+| d8c24 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["126,42\\text{ dm}^3"] ; attendu : {"champ":"126,42\\operatorname{dm^3}"} | ×1 ; sup=2 sup2=true sup3=2 (revue-5-b) |
+| d8c24 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["2\\,827\\text{ cm}^3"] ; attendu : {"champ":"2827\\operatorname{cm^3}"} | ×4 ; sup=2 sup2=true sup3=2 ; sup=2 sup2=false sup3=2 (revue-5-b) |
 | PEA11 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }5\\text{&nbsp;; }6\\text{&nbsp;; }10\\text{&nbsp;; }15\\text{&nbsp;; }25\\text{&nbsp;; }30\\text{&nbsp;; }50\\text{&nbsp;; }75\\text{&nbsp;; }150"] ; attendu : {"champ":"1;2;3;5;6;10;15;25;30;50;75;150"} | ×2 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }18"] ; attendu : {"champ":"1;2;3;6;9;18"} | ×1 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }4\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }12\\text{&nbsp;; }18\\text{&nbsp;; }27\\text{&nbsp;; }36\\text{&nbsp;; }54\\text{&nbsp;; }108"] ; attendu : {"champ":"1;2;3;4;6;9;12;18;27;36;54;108"} | ×1 ; défaut (revue-0-b) |
@@ -3419,6 +3436,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1G-2 (5e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 6 trou(s) | ×70 ; sup=3 sup2=false ; sup=3 sup2=true… (revue-0-a) |
 | 6AutoS1 (6e) |  q1 multi-mathfield | 2 mise(s) en évidence pour 3 champ(s) | ×48 ; sup=1 sup2=1 sup3=1-2-3 ; sup=1 sup2=1 sup3=0… (revue-0-a) |
 | 6AutoS1-1 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 3 champ(s) | ×250 ; sup=3 sup2=5 sup3=1-2-3 ; sup=1 sup2=1 sup3=1-2-3… (revue-0-a) |
 | 6AutoS1-3 (6e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 4 champ(s) | ×6 ; sup=3 ; sup=1… (revue-0-a) |
@@ -3613,6 +3631,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1E-4 (5e) | src/exercices/5e/5N1E-4.ts | « La somme de 9 et de 4. » : phrase à traduire donnée sans consigne verbale ; correction « ⟦A = ⟧ $⟦9+4 ⟧$ » avec A défini nulle part ; 1 111 N1 (nombres hors des $). → « Traduire par une expression… » ; $9$ et $4$. | ×1 |
 | 6G0-3 (6e) | src/exercices/6e/6G0-3.ts | Correction : « [$JL$] et $[LK]$ » (crochet hors du dollar pour le premier segment) ; énoncé « de même longueur » vs correction « de même mesure » ; segments listés sans point final. → $[JL]$ ; « longueur » partout. | ×1 |
 | 6G6C (6e) | src/exercices/6e/6G6C.ts | Titre « Connaitre notamment la somme des angles » (Connaître, article) ; « égale à 90° » : 90° hors des $ (texte dans la mise en évidence) ; 13 « Choisir… ». → « Connaître la somme des angles d'un triangle » ; $90^\circ$. | ×1 |
 | 6I1B-6 (6e) | src/exercices/6e/6I1B-6.ts | Correction : « Les programmes qui trace un segment de 100 pas est le programme 5 » (Le programme qui trace … est le 5) ; guillemets ouverts jamais fermés (« exécute 4 fois "avancer de 20 pas, donc trace… ») ; 4 004 N1 (nombres), 2 551 doubles espaces, 255 T3, 150 T4 : mise en forme très dégradée dans les blocs Scratch ; 90 IM (clique-figure). → Accord ; guillemets français fermés ; tester à la main. | ×1 |
@@ -3652,6 +3671,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG3-4e-11 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG3-4e-11.ts | Consigne au tutoiement et en deux niveaux numérotés (« 1. … 2. Construis, à la perpendiculaire, les trois médiatrices (rappel : …) ») : « à la perpendiculaire » ; {red:rouge} en couleur écrite en dur ; apigeom à tester à la main (6 IM). → Reformuler ; tester à la main. | ×1 |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-12.ts | « Explore ta mémoire et cite cinq autres grandeurs » (tutoiement) ; liste « …, la concentration... » points de suspension en texte ; 53 R2 (texte dans l'évidence) ; exercice en trois parties, correction ouverte. → Reformuler ; \ldots. | ×1 |
 | EgaliteFG4-3e-13 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-13.ts | « Exprime en fonction de x la longueur AB » (tutoiement) ; correction « $AB=AE+EB=(x+4)+(x-3)=⟦2x+1⟧$ » correcte ; 44 R2. → Impératif/infinitif. | ×1 |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-1.ts | Correction : « (on part de 1922 … — aucun record féminin n'existait en 1912) » : tiret cadratin dans le texte de l'exercice ; calcul juste (-22,87 %) ; 32 M1 (« -22,87 % » avec % refusé) ; 50 guillemets sans insécables. → Parenthèse sans tiret ; nombre seul en évidence. | ×1 |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-8.ts | « Partie A — Modélisation » avec tiret cadratin dans l'énoncé ; « Justifier pourquoi $f_0=30$ » ; 408 N1 ; 24 M3/M6 ; 8 T1 (« 30 % » sans insécable) ; énoncé en plusieurs parties sans numérotation visible. → Tiret demi-cadratin ou deux-points ; \,\%. | ×1 |
 | EN-Shikaku (EN) | src/exercices/EN/EN-Shikaku.ts | Consigne en un bloc de 4 phrases ; « Pour être certain que rien ne se chevauche, les rectangles et carrés doivent tous avoir strictement la même couleur de fond » : indication peu claire (couleur du fond ?) ; « Le nombre indique le nombre de cases » (le nombre indique la taille). → Reformuler ; liste. | ×1 |
 | EN-SquarO (EN) | src/exercices/EN/EN-SquarO.ts | Consigne au vouvoiement (« Si vous le souhaitez, vous pouvez placer… ») alors que toutes les autres consignes de l'app sont à l'infinitif/impératif ; « parmi les 4 sommets » : 4 hors des $. → « Il est possible de placer… » ; $4$. | ×1 |
 | EN-Zeros (EN) | src/exercices/EN/EN-Zeros.ts | Titre « zeros » (zéros) ; consigne : « auquels » (auxquels) et « de 1 à 3 » hors des $ ; 120 pages > 390 px (tableau de 4 colonnes) ; 82 M6. → zéros ; auxquels ; $1$ à $3$. | ×1 |
@@ -3712,6 +3733,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N5-5 (6e) | src/exercices/6e/6N5-5.ts | Correction : « 1064 » sans espace des milliers alors que les propositions écrivent $1\,064$ ; Q4 : « ? » collé au QCM sans saut de ligne ; réponse « 18 l » mise en évidence « 18 » seulement (M3). → texNombre(1064) dans la correction ; saut de ligne avant le QCM ; mettre l'unité dans la mise en évidence ou la retirer des propositions. | ×1 |
 | 6N5-7 (6e) | src/exercices/6e/6N5-7.ts | Prix écrits « $0,30$€ » sans espace avant € ; nombres hors $ (« 5 pains », « 8 tartelettes ») ; correction « $21,5 - 1,50$ » (décimales incohérentes), « $20 \div 8 = 2,50$ » sans unité, phrases sans point final. → $0,30\,\text{€}$ ; $5$ et $8$ entre dollars ; texPrix partout ; unités et points finaux. | ×1 |
 | BP2AutoD2 (BP2) | src/exercices/BP2/BP2AutoD2.ts | « La température moyenne est de $⟦13,8⟧$°C » : °C collé hors du dollar sans espace ; énoncé : « degré Celsius » (degrés) ; liste « $8$⍽; $11$⍽; » ; calcul vérifié (152/11≈13,8). → $13,8~\text{°C}$ ; degrés Celsius. | ×1 |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-5.ts | Correction : « un angle au centre de $60°$ » (° en texte dans un dollar) ; « de rayon $6$ cm » ; 26 guillemets sans insécables ; construction géométrique non interactive (16 M6) ; tutoiement possible. → $60^\circ$. | ×1 |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-16.ts | Tableau de fréquences : « 1 re STMG » (« 1re » écrit « 1 re » avec espace dans chaque ligne) ; pourcentages « 12,00 % » avec insécable ; tableau à 4 colonnes (6 M6) ; 78 N1. → $1^{\text{re}}$ STMG ; tableau défilant. | ×1 |
 | HPC102 (HP) | src/exercices/HP/HPC102.ts | « \mathcal{N}(0,1) » : virgule de séparation et virgule décimale confondues (N(0 ; 1)) ; « P(-1,45 &lt; X &lt; 2,96) » : « -1,45 » ; « Calculer à 10^{-2} près » sans $ cohérents ; 6 pages > 390 px (7 figures de courbe). → $\mathcal{N}(0~;~1)$. | ×1 |
 | TSA1-43 (Terminale) | src/exercices/TSpe/TSA1-43.ts:46 | Seuil écrit sans espace des milliers dans les maths de l'énoncé, des propositions et de la correction : $u_n>10000$, $w\leqslant 2000$. → texNombre(seuil) dans les $…$ (garder 10000 dans le code Python). | ×1 |
 | TSA3-42 (Terminale) | src/exercices/TSpe/TSA3-42.ts | Titre « Etudier » sans accent (É) ; corrections : espace ordinaire avant les deux-points (« ces deux nombres sont de signes contraires : cette proposition est fausse ») ; QCM sans mise en évidence de la bonne proposition (M3/M6, 20 cas). → « Étudier » ; espaces insécables avant « : » ; proposition correcte en évidence. | ×1 |
@@ -3725,6 +3748,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | TSP2-14 (Terminale) | src/exercices/TSpe/TSP2-14.ts | 78 R9 : propositions comme « p(X &lt; 13) − p(X ≥ 4) » avec p minuscule ; énoncé : « On veut en même temps X>9 » (formulation à revoir : « de plus ») ; « La réponse est donc p(X⩽15) à qui on ôte p(X⩽9) » (tournure orale) ; « 9 % » hors des $. → P majuscule ; reformuler. | ×1 |
+
+## T4
+
+**Guillemets** (gravité 3 : Mise en évidence)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-2.ts | « la 1ère Assemblée », « la 7ème législature » : « 1ère », « 7ème » (1re, 7e) ; calculs justes (5,63 % ; 6,79 % ; 5,30 %) ; phrase entière en évidence (texte). → $1^{\text{re}}$, $7^{\text{e}}$ ; texteEnCouleurEtGras. | ×1 |
 
 ## T5
 
@@ -3768,6 +3799,139 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2autoE (6e) | beta/outilGlisseNombre.ts | « Glisse-nombre » est un outil (src/exercices/beta/outilGlisseNombre.ts) rangé comme exercice : ni consigne ni question, correction vide ; dans un parcours de l'app, l'élève voit une question sans rien à faire. → Le retirer des listes d'exercices (ou le marquer comme outil) ; côté app, l'exclure de l'éditeur de parcours. | ×1 |
 | BP2AutoK1 (BP2) | src/exercices/BP2/BP2AutoK1.ts | Solveur interactif (138 IM, 138 X4) : énoncé de série vide, à tester à la main. → Tester à la main. | ×1 |
 | canCE2a-2025 (CAN) | src/exercices/can/canCE2a-2025 | Version non interactive : Q5 « Le triple de $23$ » et Q16 « Le triple de $25$ est : » s'arrêtent sans demande ni pointillés (énoncé incomplet hors interactif). → Le triple de $23$ est $\ldots$ | ×1 |
+| Portraits-001 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-001.ts | Fiche portrait : photo + ligne « Source : Helen Arase Vargas et David DeHoyos / NASA — Domaine pu… » qui déborde de l'écran à 390 px (texte coupé) ; énoncé numéroté « 1. » sans question (12 X4 : énoncé vide) ; tiret cadratin dans la source ; l'exercice n'a ni champ ni correction (contenu pur). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-002 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-002.ts | Même défaut (énoncé vide, 12 X4 ; ligne de source qui déborde) ; 3 R2. → Idem. | ×1 |
+| Portraits-003 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-003.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-004 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-004.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-005 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-005.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-006 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-006.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-007 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-007.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-008 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-008.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-009 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-009.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-010 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-010.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-011 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-011.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-012 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-012.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-013 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-013.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-014 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-014.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-015 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-015.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-016 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-016.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-017 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-017.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-018 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-018.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-019 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-019.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-020 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-020.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-021 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-021.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-022 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-022.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-023 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-023.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-024 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-024.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-025 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-025.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-026 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-026.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-027 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-027.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-028 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-028.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-029 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-029.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-030 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-030.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-031 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-031.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-032 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-032.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-033 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-033.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-034 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-034.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-035 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-035.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-036 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-036.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-037 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-037.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-038 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-038.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-039 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-039.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la mention de source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-040 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-040.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-041 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-041.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-042 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-042.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-043 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-043.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-044 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-044.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-045 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-045.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-046 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-046.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-047 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-047.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-048 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-048.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-049 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-049.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-050 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-050.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-051 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-051.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-052 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-052.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-053 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-053.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-054 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-054.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-055 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-055.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-056 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-056.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-057 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-057.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-058 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-058.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-059 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-059.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-060 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-060.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-061 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-061.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-062 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-062.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-063 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-063.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-064 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-064.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-065 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-065.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-066 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-066.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-067 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-067.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-068 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-068.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-069 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-069.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-070 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-070.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-071 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-071.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-072 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-072.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-073 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-073.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-074 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-074.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-075 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-075.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-076 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-076.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-077 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-077.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-078 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-078.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-079 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-079.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-080 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-080.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-081 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-081.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-082 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-082.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-083 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-083.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-084 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-084.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-085 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-085.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-086 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-086.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-087 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-087.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-088 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-088.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-089 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-089.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-090 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-090.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-091 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-091.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-092 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-092.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-093 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-093.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-094 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-094.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-095 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-095.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-096 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-096.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-097 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-097.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-098 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-098.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-099 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-099.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-100 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-100.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-101 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-101.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-102 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-102.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-103 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-103.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-104 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-104.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-105 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-105.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-106 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-106.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-107 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-107.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-108 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-108.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-109 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-109.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-110 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-110.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-111 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-111.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-112 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-112.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-113 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-113.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-114 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-114.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-115 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-115.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-116 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-116.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-117 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-117.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-118 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-118.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-119 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-119.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-120 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-120.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-121 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-121.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-122 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-122.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-123 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-123.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-124 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-124.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-125 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-125.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-126 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-126.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-127 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-127.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-128 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-128.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-129 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-129.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-130 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-130.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-131 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-131.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-132 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-132.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
+| Portraits-133 (Égalité filles-garçons) | src/exercices/EgaliteFG/Portraits-133.ts | Fiche portrait : même défaut que Portraits-001 (énoncé vide numéroté « 1. », ligne de source qui déborde à 390 px, tiret cadratin dans la source ; aucune question ni correction). → Retour à la ligne de la source ; supprimer le « 1. » vide. | ×1 |
 | TEC1-41 (Terminale) | src/exercices/TSpe/TEC1-41.ts | Exercice « mathalea-solveur » (26 IM) : énoncé de série vide (26 X4) ; 26 phrases sans virgule ; à tester à la main. → Tester à la main ; ajouter l'énoncé. | ×1 |
 
 ## X5
@@ -3823,6 +3987,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-3 (cm2) | src/exercices/CM2/CM2N3A-3.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | ×1 |
 | TSA5-QCM19 (Terminale) | src/exercices/QCMBac/A2022/Metropole2022_1Q2.ts | Correction : le quotient \dfrac{2\ln x}{3x^2+1} est assimilé à \dfrac{\ln x}{x^2} sans justification (ni factorisation ni comparaison) : saut non rédigé. → Écrire f(x)=\dfrac{2}{3+1/x^2}\times\dfrac{\ln x}{x^2}. | ×1 |
 
+## M1
+
+**Valeur mise en évidence refusée par le champ** (gravité 4 : Typographie)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-18.ts | Pourcentage « ⟦3{,}13\,\%⟧ » mis en évidence avec le % alors que le champ affiche déjà % (4 M1) ; calcul juste (2/64≈3,13 %) ; « médailles Fields » : femmes parmi les lauréats. → Nombre seul en évidence. | ×1 |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-4.ts | « ⟦28\,319\,000⟧ » mis en évidence : arrondi au millier correct mais la valeur exacte attendue par le champ diffère (8 M1) ; calcul juste (2 577 000/0,091≈28 318 681). → Vérifier l'attendu. | ×1 |
+
 ## M3
 
 **QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)** (gravité 4 : Typographie)
@@ -3835,6 +4008,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can3a-NY2024 (CAN) | src/exercices/can | Q18 : la réponse attendue est « N », la correction met en évidence « n'est pas un diviseur » (texte) ; question triviale (2 024 > 8), probablement « multiple de la somme de ses chiffres » comme dans can5a-NY2024 Q21. → …$2\,024$ n'est pas un diviseur de $8$ : réponse ⟦N⟧. | ×1 |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG3-4e-8.ts | QCM Vrai/Faux : calcul de réciproque de Pythagore juste (60²+80²=100²) mais « L'affirmation est ⟦vraie⟧ » : mot seul en évidence (8 M3) ; 9 T3, 8 T4. → « Vrai » en évidence ; insécables. | ×1 |
 | EgaliteFG3-4e-9 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG3-4e-9.ts | Calcul juste (72²+96²=120²) ; « le plus grand côté est [BC] » ; M3 (8) ; 12 guillemets T4. → Idem. | ×1 |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-15.ts | Vrai/Faux : « L'affirmation est ⟦fausse⟧ » mot seul en évidence (32 M3) ; calcul juste (P=4x+14) ; 14 doubles espaces. → « Faux » en évidence. | ×1 |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-19.ts | QCM « mystère » : la correction renvoie à « (réponse A) » alors que les propositions sont mélangées et sans lettre ; calcul juste. → Citer la proposition. | ×1 |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-3.ts | Tableau QCM à 20 cases : correction rendue sous forme de tableau texte (« 15=3×5 », « 27=3³ ») sans mise en évidence par case (208 M3) ; réponses justes (7 : 15 non premier…) ; « Nombre de Germain ? » p : un seul champ de calcul + 2 QCM. → Évidence par case ; $3\times5$. | ×1 |
 | TEA1-32 (Terminale) | src/exercices/TSpe/TEA1-32.ts | Vrai/Faux : bonne réponse non mise en évidence (7 M3) ; « $40\equiv1\,[5]$ » ; consigne correcte. → « Faux » en évidence. | ×1 |
 | TSA5-40 (Terminale) | src/exercices/TSpe/TSA5-40.ts | Vrai/Faux : « L'affirmation est ⟦vraie⟧ » avec le mot seul en évidence (12 M3) ; « vaut 1 » correct. → « Vrai » en évidence. | ×1 |
 
@@ -3887,6 +4063,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 5N1E-2 (5e) | énoncé q1 | « 63 » hors $ : Écrire le nombre 63 sous la forme de la moitié d'un nombre. ‖ « 63 » hors $ : Écrire le nombre 63 sous la forme de la somme de deux nombres consé ‖ « 63 » hors $ : Écrire le nombre 63 sous la forme du produit de deux nombres. | ×52 ; sup=7 ; sup=1… (revue-0-a) |
 | 5N1E-2 (5e) | énoncé non interactif q1 | « 63 » hors $ : Écrire le nombre 63 sous la forme de la moitié d'un nombre. ‖ « 63 » hors $ : Écrire le nombre 63 sous la forme de la somme de deux nombres consé ‖ « 63 » hors $ : Écrire le nombre 63 sous la forme du produit de deux nombres. | ×6 |
+| 5N1E-3 (5e) | énoncé q1 | « 5 » hors $ : Manon achète à la boulangerie 5 pains à ‖ « 4 » hors $ : € et 4 tartelettes. Elle paie ‖ « 3 » hors $ : Léa achète à la boulangerie 3 pains à | ×47 ; sup=12 sup2=false ; sup=1 sup2=true… (revue-0-a) |
+| 5N1E-3 (5e) | énoncé non interactif q1 | « 5 » hors $ : Manon achète à la boulangerie 5 pains à ‖ « 4 » hors $ : € et 4 tartelettes. Elle paie | ×2 |
+| 5N1E-4 (5e) | énoncé q1 | « 9 » hors $ : La somme de 9 et de 4. Résultat : [champ] ‖ « 3 » hors $ : La somme du produit de 3 par 5 et du quotient du produit de 12 et 3 par 3 ‖ « 5 » hors $ : La somme du produit de 3 par 5 et du quotient du produit de 12 et 3 par 3. Rés | ×383 ; sup2=false sup3=true sup4=6 ; sup2=true sup3=true sup4=1… (revue-0-a) |
+| 5N1E-4 (5e) | énoncé non interactif q1 | « 9 » hors $ : La somme de 9 et de 4. ‖ « 3 » hors $ : La somme du produit de 3 par 5 et du quotient du produit de 12 et 3 par 3 ‖ « 5 » hors $ : La somme du produit de 3 par 5 et du quotient du produit de 12 et 3 par 3. | ×14 |
+| 5N1F (5e) | énoncé q1 | « 10 » hors $ : Le produit de 10 par la somme de 4 et 3. Calcul : [champ] ‖ « 10 » hors $ : La somme de 10 et de 5. Calcul : [champ] ‖ « 2 » hors $ : La somme du produit de 2 par 5 et du produit de 3 par 6. Calcul : [cham | ×275 ; sup2=false sup4=1-2-3 ; sup2=true sup4=1-2-3… (revue-0-a) |
+| 5N1F (5e) | correction q1 | « 10 » hors $ : Le produit de 10 par la somme de 4 et 3 s'écrit : ‖ « 10 » hors $ : La somme de 10 et de 5 s'écrit : ‖ « 2 » hors $ : La somme du produit de 2 par 5 et du produit de 3 par 6 s'écrit : | ×275 ; sup2=false sup4=1-2-3 ; sup2=true sup4=1-2-3… (revue-0-a) |
+| 5N1F (5e) | énoncé non interactif q1 | « 10 » hors $ : Le produit de 10 par la somme de 4 et 3. ‖ « 10 » hors $ : La somme de 10 et de 5. ‖ « 2 » hors $ : La somme du produit de 2 par 5 et du produit de 3 par 6. | ×14 |
+| 5N1F-1 (5e) | correction q1 | « 10 » hors $ : est un produit : le produit de 10 par la somme de 4 et 3. ‖ « 3 » hors $ : n produit : le produit de 10 par la somme de 4 et 3. ‖ « 6 » hors $ : est une somme : la somme de 6 et de 9. | ×277 ; sup2=false sup4=1-2-3 ; sup2=true sup4=1-2-3… (revue-0-a) |
+| 5N1F-1 (5e) | correction non interactive q1 | « 10 » hors $ : s'écrit : le produit de 10 par la somme de 4 et 3. ‖ « 6 » hors $ : s'écrit : la somme de 6 et de 9. ‖ « 5 » hors $ : s'écrit : la somme du produit de 5 par 3 et du produit de 2 par 8. | ×14 |
+| 5N1F-2 (5e) | énoncé q1 | « 4 » hors $ : rmer la phrase avec les étiquettes proposées. 4 7 2 somme différence produit quotien ‖ « 7 » hors $ : la phrase avec les étiquettes proposées. 4 7 2 somme différence produit quotient ‖ « 2 » hors $ : phrase avec les étiquettes proposées. 4 7 2 somme différence produit quotient du | ×141 ; sup4=1-2-3 ; sup4=1… (revue-0-a) |
+| 5N1F-2 (5e) | correction q1 | « 4 » hors $ : s'écrit : le produit de 4 par la somme de 7 et 2. ‖ « 4 » hors $ : s'écrit : la somme de 4 et 5. ‖ « 3 » hors $ : s'écrit : la somme du produit de 3 par 5 et du produit de 4 par 3. | ×151 ; sup4=1-2-3 ; sup4=1… (revue-0-a) |
 | 6A (6e) | énoncé non interactif q10 | « 90 » hors $ : dizaine, du nombre de guépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 ‖ « 100 » hors $ : ne, du nombre de guépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 et 50 ‖ « 60 » hors $ : uépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 et 50 [champ] entre 20 e | ×8 |
 | 6AutoE1-3 (6e) | consigne | « 1 » hors $ : t en plein écran). Les cubes ayant des arêtes de 1 cm de longueur, calculer le volume en ‖ « 1 » hors $ : angles différents. Les cubes ayant des arêtes de 1 cm de longueur, calculer le volume en ‖ « 3 » hors $ : uant pour reconstruire un grand cube constitué de 3 cubes sur chaque arête. | ×62 ; sup=1 sup2=1 sup3=true sup4=2 ; sup=1 sup2=1 sup3=false sup4=2… (revue-2-a) |
 | 6AutoF1 (6e) | correction q1 | « 6 » hors $ : La figure est divisée en 6 secteurs de même aire. Parmi ces secteurs, 4 son ‖ « 4 » hors $ : e en 6 secteurs de même aire. Parmi ces secteurs, 4 sont colorés. La fraction de la figure qui est ‖ « 4 » hors $ : La figure est divisée en 4 secteurs de même aire. Parmi ces secteurs, 1 est | ×88 ; sup=1-2-3-4-5 sup2=0 ; sup=1-2-3-4-5 sup2=1… (revue-0-a) |
@@ -4924,6 +5111,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | BP1FDEV04 (BP1) | src/exercices/BP1/BP1FDEV04.ts | Consigne « on admet que la fonction est définie et dérivable sur un intervalle $I$ » : « une expression de la fonction dérivée sur I » ; correction absente de la sortie ; $\dfrac{1}{x}$ : domaine ℝ* à préciser. → Ajouter la correction ; préciser le domaine. | ×1 |
 | BP2AutoH26 (BP2) | src/exercices/BP2/BP2AutoH26.ts | Résultat « 14/10 » non simplifié (7/5) alors que la consigne est « Calculer » : la forme attendue n'est pas précisée ; correction en une ligne sans mise en évidence de la forme irréductible. → Demander « sous forme irréductible » ou accepter 7/5. | ×1 |
 | BP2CCF10 (BP2) | src/exercices/BP2/BP2CCF10.ts | Correction « $1\,170\div900=1,3=130~\%=100~\%+30~\%$ » : chaîne d'égalités fausse (1,3 = 130 % puis = 100 % + 30 %) : l'égalité n'est pas transitive (130 % ≠ 100 %+30 % comme valeur) ; « exprimer l'augmentation du prix en pourcentage » ; I4 (champ absent). → Séparer les étapes en lignes. | ×1 |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG7-Tle-17.ts | Arbre pondéré décrit en texte (« premier niveau F (probabilité 0,4) / \overline F … ») au lieu du schéma ; 32 phrases sans virgule ; 8 M3 ; 14 guillemets sans insécables. → Dessiner l'arbre. | ×1 |
 | EN-Gratte-ciel (EN) | src/exercices/EN/EN-Gratte-ciel.ts | Consigne : « Les immeubles d'une même rangée, ligne ou colonne, sont tous de tailles différentes » ; « 10, 20 ou 30 étages » nombres hors des $ ; tableau hybride à tester à la main (19 IM, 42 pages > 390 px). → $10$, $20$ ; tester à la main. | ×1 |
 | EN-Monnaie (EN) | src/exercices/EN/EN-Monnaie.ts | Consigne trop courte : « Cette grille contient une pièce de monnaie dans chaque case. La somme … » sans verbe d'action (que faut-il faire ? retrouver les pièces) ; à tester à la main. → Ajouter « Retrouver la pièce de chaque case ». | ×1 |
 | EN-Pyramide (EN) | src/exercices/EN/EN-Pyramide.ts | « se trouvant dans les deux cases juste en dessous » ; opération « effectuée avec » ; à tester à la main. → « situés dans les deux cases juste en dessous ». | ×1 |
@@ -4963,6 +5151,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6M4C-2 (6e) | src/exercices/6e/6M4C-2.ts | Même mise en évidence « 11 h 30 min » avec \textbf ; « $11,5~\text{h}=$⍽$⟦…⟧$ » trois dollars collés. → Un seul dollar ; unités \text. | ×1 |
 | BP1SP08 (BP1) | src/exercices/BP1/BP1SP08.ts | « ⟦N⟧&⟦=250⟧ » : N et « =250 » en deux évidences séparées ; $N=2,48$ distracteur ; correction juste. → Une évidence : $N=250$. | ×1 |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-9.ts | QCM : « ⟦15{,}2\,\%⟧ » mis en évidence sans la proposition « Numérique et sciences informatiques » ; 8 R2 ; données 2023 à citer (source) ; 14 T4. → Proposition en évidence. | ×1 |
 
 ## R3
 
@@ -4972,6 +5161,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 5N1D-9 (5e) | src/exercices/5e/5N1D-9.ts | « Choisir un nombre. Multiplier par $3$. Soustraire $10$. … » : étapes en une phrase (liste conseillée) ; correction juste (10) ; « {#216D9A:On choisit $4$…} » phrase en couleur. → Liste à puces. | ×1 |
 | 5N1E (5e) | src/exercices/5e/5N1E.ts | « $14\times8=112$ » calculs sur trois lignes sans connecteurs ; réponse attendue « (14×8)−9 » : les parenthèses sont redondantes (14×8−9 serait juste) : l'exercice impose-t-il la forme ? ; « $103$ » ; correction : « ⟦(14×8)−9⟧ = 103 ». → Accepter 14×8−9. | ×1 |
+| 5N1E-3 (5e) | src/exercices/5e/5N1E-3.ts | « 5 pains à $1,75$€ » : € collé sans espace ($1,75$€) ; « 5 pains », « 4 tartelettes » hors des $ ; calcul vérifié (1,29 €) ; 30 phrases sans virgule ; clone de 6N5-7. → $1,75\,\text{€}$ ; $5$, $4$. | ×1 |
 | 6G2A-1 (6e) | src/exercices/6e/6G2A-1.ts | Correction : « Si le rayon d'un cercle mesure 21 cm alors son diamètre » sans virgule alors que l'énoncé en a une ; 34 doubles espaces et points de suspension avant le champ. → Virgule ; espaces. | ×1 |
 | 6G4B (6e) | src/exercices/6e/6G4B.ts | Correction : seule la valeur est mise en évidence (« $⟦140⟧^\circ$ ») sans nommer la proposition cochée (42 M3) ; énoncé « sans instrument » correct. → Proposition entière en évidence. | ×1 |
 | 6G6A (6e) | src/exercices/6e/6G6A.ts | « tel que $FG=4$⍽; $GH=6$ et $HF=8$ » : point-virgule avec insécable avant mais sans unité de longueur ; la correction dit « H est sur le cercle de centre G » puis « de centre F » (deux conditions pour H, aucune phrase de conclusion). → Unité (cm) ; conclure l'intersection des deux cercles. | ×1 |
@@ -5008,6 +5198,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | BP2CCF5 (BP2) | src/exercices/BP2/BP2CCF5.ts | Clone de 6N5-7/6N5-1 (prix) : « $29,82$⍽€ » ; 72 N1 ; 3 R10. → Voir 6N5-1. | ×1 |
 | BP2RES28 (BP2) | src/exercices/BP2/BP2RES28.ts | Titre avec le LaTeX $\dfrac{x}{a}=\dfrac{b}{c}$ ; « $BU =$ » : lettres BU en italique collées ($B\times U$) pour une longueur : écrire $BU$ avec \text ou « BU » comme segment ; 23 N1 ; correction absente de la sortie. → Titre en texte ; correction. | ×1 |
 | EgaliteFG3-4e-10 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG3-4e-10.ts | Correction : « $\widehat{TPK}=\widehat{TF_1F}=90°$ » le signe ° en texte dans un dollar (au lieu de ^\circ) ; « (arrondie au centième) » ; tutoiement. → ^\circ. | ×1 |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-16.ts | « $g_T=9{,}8$ » sans unité (m/s²) ; calcul juste (705,6 N) ; « Neil Armstrong pèse 72 kg » (pèse = a une masse de) : confusion masse/poids dans un exercice qui l'enseigne. → Préciser l'unité de g ; « a une masse de 72 kg ». | ×1 |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG5-2de-7.ts | Calcul juste (2 145 €) ; « EQTP » sigle non défini dans la question ; 16 guillemets sans insécables. → Définir EQTP. | ×1 |
+| EgaliteFG6-1e-11 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-11.ts | « F_1 = 2 000×1,02 = 2 040 € : le salaire moyen des femmes en 2021 » (interprétation donnée mais champ pour le nombre seul) ; 2 M6. → Séparer valeur et interprétation. | ×1 |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-12.ts | Effectifs vérifiés (90+150+69=309) ; 81 N1 ; « Réaliser le tableau des effectifs … » sans tableau interactif (non interactive) ; paradoxe de Simpson non nommé. → Nommer le paradoxe. | ×1 |
+| EgaliteFG6-1e-13 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-13.ts | Suites arithmétiques justes (F_n=12-0,3n ; H_n=5+0,5n) ; 8 N1 ; QCM « Ni l'une ni l'autre » ; texte entier en évidence (mot « arithmétiques »). → RAS. | ×1 |
+| EgaliteFG6-1e-14 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-14.ts | Titre « …deviendra-t-elle majoritairement féminine ? » ; correction « P_{n+1}=P_n+2 et P_0=35 » correcte mais 4 M1 : relation de récurrence saisie refusée. → Accepter les formes équivalentes. | ×1 |
+| EgaliteFG6-1e-15 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-15.ts | Calcul juste (360/760≈0,474) ; 9 phrases sans virgule ; 12 N1. → RAS. | ×1 |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG7-Tle-19.ts | Calcul juste (u_1=146) ; interprétation « une diminution malgré les mesures d'inclusivité » dans la correction : le champ numérique ne demande que le nombre ; 8 M1. → Séparer valeur et interprétation. | ×1 |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG7-Tle-20.ts | Rang « 1982-1962+1=21 » juste ; 26 guillemets T4 ; 6 T6 ; 16 pages > 390 px (tableau chronologique). → Tableau défilant. | ×1 |
 | EN-KillerSudoku (EN) | src/exercices/EN/EN-KillerSudoku.ts | Consigne : mélange de « $1$ à $6$ » et de « blocs de $2\times3$ cases » (bon) mais « Aucun nombre n'est donné : une cage d'une seule case donne directement son nombre » : lourd ; à tester à la main. → Alléger. | ×1 |
 | EN-TablesEffacees (EN) | src/exercices/EN/EN-TablesEffacees.ts | Consigne : « Tous les nombres sont des entiers strictement positifs, et un même nombre ne peut pas apparaître deux fois sur une même ligne ou une même colonne » : contrainte surprenante pour une table de multiplication (4×… ) à vérifier ; à tester à la main. → Vérifier la contrainte. | ×1 |
 | HPC105 (HP) | src/exercices/HP/HPC105.ts | « f⍽: \begin{array}{rcl}…\end{array}. » : \[ … \] avec point final après le crochet ; « (x,y,z) » virgules sans espaces ; 3 pages > 390 px. → $(x~;~y~;~z)$. | ×1 |
@@ -5185,6 +5384,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1F-1 (5e) | consigne | espace ordinaire (sécable) avant « ? » : De quel type est chaque calcul ? | ×1 ; sup2=false sup4=1-2-3 (revue-0-a) |
 | 6AutoF1 (6e) | consigne | espace ordinaire (sécable) avant « ? » : Quelle fraction de la figure est colorée ? | ×1 ; sup=1-2-3-4-5 sup2=0 (revue-0-a) |
 | 6AutoP2 (6e) | titre | espace ordinaire (sécable) avant « : » : Résoudre des problèmes de type : ... fois plus ou ... fois moins | ×1 |
 | 6I1B (6e) | énoncé q1 | « :: » sans espace insécable : Aller en bas :: motion stack Colorier Aller à droite :: motion ‖ « :: » sans espace insécable : er en bas :: motion stack Colorier Aller à droite :: motion stack Colorier Aller en bas :: motion st ‖ « :: » sans espace insécable : er à droite :: motion stack Colorier Aller en bas :: motion stack Colorier Au dé | ×48 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=true… (revue-0-a) |
@@ -5784,11 +5984,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG4-3e-13 (Égalité filles-garçons) | énoncé non interactif q5 | guillemet sans insécable : . Paul affirme : « ‖ guillemet sans insécable : ». Développe et réduis l'expression de Zoé : | ×2 |
 | EgaliteFG4-3e-15 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles ‖ guillemet sans insécable : dire (A) pendant [2] secondes Inès affirme : « | ×12 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true (revue-0-a) |
 | EgaliteFG4-3e-16 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesKatherine Johnson (1918- ‖ guillemet sans insécable : e la NASA. Son histoire est racontée dans le film « Les figures de l'ombre ». Le poids d'un corps su | ×4 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-17.ts | 28 guillemets sans insécables ; « Combien de variables comporte ce programme ? Donner leurs noms. » champ unique pour deux réponses ; 13 T3. → Deux champs ; insécables. | ×1 |
 | EgaliteFG4-3e-17 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesAda Lovelace, Anglaise ( | ×4 ; sup=false sup2=true ; sup=true sup2=true (revue-0-a) |
 | EgaliteFG4-3e-17 (Égalité filles-garçons) | énoncé q6 | guillemet sans insécable : L'affirmation suivante est-elle correcte ? « Pour tout nombre ‖ guillemet sans insécable : ». [champ] Pour aller plus loin. Pour en savoir ‖ guillemet sans insécable : ». [champ] | ×4 ; sup=false sup2=true ; sup=true sup2=false (revue-0-a) |
 | EgaliteFG4-3e-17 (Égalité filles-garçons) | énoncé non interactif q6 | guillemet sans insécable : L'affirmation suivante est-elle correcte ? « Pour tout nombre ‖ guillemet sans insécable : ». [champ] Pour aller plus loin. Pour en savoir | ×2 |
 | EgaliteFG4-3e-18 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesMaryam Mirzakhani (1977- | ×2 ; défaut (revue-0-a) |
 | EgaliteFG4-3e-19 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesSophie Germain (1776-183 | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG4-3e-20.ts | 22 guillemets sans insécables ; « à partir de $x=25$ s » unité hors du dollar ; 3 T6. → Insécables. | ×1 |
 | EgaliteFG4-3e-20 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesShakuntala Devi (1929-20 ‖ guillemet sans insécable : à Taïwan Shakuntala Devi (1929-2013), surnommée « l'ordinateur humain », est une prodige indienne | ×4 ; sup=true (revue-0-a) |
 | EgaliteFG4-3e-20 (Égalité filles-garçons) | énoncé q6 | guillemet sans insécable : e. Pourtant, elle fut souvent présentée comme une « exception féminine ». Est-il plus difficile pour ‖ guillemet sans insécable : souvent présentée comme une « exception féminine ». Est-il plus difficile pour une femme d'être rec ‖ guillemet sans insécable : us difficile pour une femme d'être reconnue comme « experte » ? Y a-t-il aujourd'hui encore des doma | ×6 ; sup=true (revue-0-a) |
 | EgaliteFG4-3e-20 (Égalité filles-garçons) | énoncé non interactif q6 | guillemet sans insécable : e. Pourtant, elle fut souvent présentée comme une « exception féminine ». Est-il plus difficile pour ‖ guillemet sans insécable : souvent présentée comme une « exception féminine ». Est-il plus difficile pour une femme d'être rec ‖ guillemet sans insécable : us difficile pour une femme d'être reconnue comme « experte » ? Y a-t-il aujourd'hui encore des doma | ×6 |
@@ -5808,6 +6010,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG5-2de-7 (Égalité filles-garçons) | énoncé q3 | guillemet sans insécable : année les femmes travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) [ch ‖ guillemet sans insécable : s travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) [champ] jours | ×2 ; défaut (revue-0-a) |
 | EgaliteFG5-2de-7 (Égalité filles-garçons) | correction q3 | guillemet sans insécable : ours : les femmes travaillent donc symboliquement « gratuitement » les ‖ guillemet sans insécable : es travaillent donc symboliquement « gratuitement » les ‖ guillemet sans insécable : novembre (date proche de la « journée de l'égalité salariale » réellement obse | ×4 ; défaut (revue-0-a) |
 | EgaliteFG5-2de-7 (Égalité filles-garçons) | énoncé non interactif q3 | guillemet sans insécable : année les femmes travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) ‖ guillemet sans insécable : s travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) | ×2 |
+| EgaliteFG6-1e-10 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG6-1e-10.ts | Calculs justes (F_n=500×1,08^n ; H_n=1 500×1,03^n) ; 2 T4 ; QCM « Ni l'une ni l'autre ». → RAS. | ×1 |
 | EgaliteFG6-1e-10 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans un secteur profes | ×2 ; sup=true (revue-0-a) |
 | EgaliteFG6-1e-11 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles En 2020, le salaire mo | ×2 ; défaut (revue-0-a) |
 | EgaliteFG6-1e-12 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Une caisse d'assurance | ×2 ; défaut (revue-0-a) |
@@ -5980,6 +6183,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1G-2 (5e) | énoncé | page de 407 px pour 390 px | ×9 ; sup=3 sup2=false ; sup=3 sup2=true… (revue-0-a) |
+| 5N1G-2 (5e) | correction | page de 404 px pour 390 px | ×10 ; sup=3 sup2=false ; sup=3 sup2=true… (revue-0-a) |
 | 6AutoA2 (6e) | correction | page de 506 px pour 390 px | ×193 ; sup=3 sup2=false sup3=2 sup4=false sup5=1-2-3 ; sup=1 sup2=true sup3=1 sup4=true sup5=1-2-3… (revue-0-a) |
 | 6AutoA2 (6e) | énoncé | page de 462 px pour 390 px | ×192 ; sup=1 sup2=true sup3=1 sup4=true sup5=1-2-3 ; sup=1 sup2=true sup3=1 sup4=true sup5=1… (revue-1-a) |
 | 6AutoE1-3 (6e) | correction q1 | img de 400 px pour 390 px | ×180 ; sup=1 sup2=1 sup3=true sup4=1 ; sup=1 sup2=1 sup3=true sup4=2… (revue-1-a) |
@@ -6357,6 +6562,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | d4c81 (Non classés) | énoncé q1 | table.tableauMathlive de 528 px pour 390 px | ×106 ; sup=8 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | d5ee3 (Non classés) | correction | page de 434 px pour 390 px | ×217 ; sup=11 sup2=3 sup3=true sup4=true sup5=0 ; sup=2 sup2=2 sup3=true sup4=true sup5=4… (revue-0-a) |
 | d6f1f (Non classés) | correction | page de 478 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| d8c24 (Non classés) | correction | page de 411 px pour 390 px | ×17 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | PEA11 (PE) | correction | page de 685 px pour 390 px | ×1 ; défaut (revue-0-b) |
 | PEN21-1 (PE) | correction | page de 398 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | PET12 (PE) | énoncé q2 | table.jss_worksheet de 455 px pour 390 px | ×44 ; sup=9 ; sup=1… (revue-0-a) |
@@ -7390,6 +7596,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | d3b6c (Non classés) |  q1 qcm | QCM : bonne proposition (c'estunrectangle.) absente de la mise en évidence (unrectangle) | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
 | d3b6c (Non classés) |  q1 qcm | QCM : bonne proposition (c'estunlosange.) absente de la mise en évidence (unlosange) | ×1 ; défaut nb=10 (revue-1-a) |
 | d5ee3 (Non classés) |  q2 qcm | QCM : bonne proposition (\dfrac-1016) absente de la mise en évidence (-\dfrac1016) | ×9 ; sup=2 sup2=3 sup3=false sup4=true sup5=5 ; sup=3 sup2=2 sup3=false sup4=true sup5=6 (revue-6-a) |
+| d8c24 (Non classés) |  q2 qcm | QCM : bonne proposition (669,6m^3) absente de la mise en évidence (670m^3) | ×1 ; sup=1 sup2=true sup3=1 (revue-1-a) |
+| d8c24 (Non classés) |  q2 qcm | QCM : bonne proposition (275,4mm^3) absente de la mise en évidence (275mm^3) | ×1 ; sup=1 sup2=true sup3=1 (revue-1-b) |
+| d9c51 (Non classés) |  q1 qcm | QCM : bonne proposition (y=\dfrac10x-4) absente de la mise en évidence (\dfrac10x-4) | ×7 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
+| d9c51 (Non classés) |  q1 qcm | QCM : bonne proposition (x=\dfrac9y-2) absente de la mise en évidence (\dfrac9y-2) | ×5 ; sup3=true nb=10 (revue-2-a) |
 | TEA1-32 (Terminale) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (l'affirmationestfausse.) | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-33 (Terminale) |  q1 qcm | QCM : bonne proposition (s=\1+8n,\n\in\mathbbz\\cup\3+8n,\n\in\mathbbz\\cup\5+8n,\n\in\mathbbz\\cup\7+8n,) absente de la mise en évidence (13571357) | ×2 ; sup=4 ; sup=4 nb=10 (revue-0-a) |
 | TEA1-33 (Terminale) |  q1 qcm | QCM : bonne proposition (s=\3+7n,\n\in\mathbbz\\cup\5+7n,\n\in\mathbbz\) absente de la mise en évidence (3535) | ×8 ; sup=4 ; sup=2… (revue-0-b) |
@@ -7658,6 +7868,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1E-3 (5e) | correction q1 | nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1350 \div 30 \times 8 \div 15$ ‖ nombre à 4 chiffres sans séparateur : $1350 \div 30 = 45$ | ×16 ; sup=5 sup2=true ; sup=5 sup2=false… (revue-9-a) |
 | 6AutoA2 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $km}\\ &=72,5 \times1000 ~\text{m} \times1000 ~\te$ ‖ nombre à 4 chiffres sans séparateur : $,5 \times1000 ~\text{m} \times1000 ~\text{m}\\ &=7$ ‖ nombre à 4 chiffres sans séparateur : $91 \times1000 ~\text{m} \times1000 ~\text{m}\\ &=2$ | ×24 ; sup=1 sup2=true sup3=1 sup4=false sup5=1-2-3 ; sup=1 sup2=true sup3=2 sup4=false sup5=1-2-3… (revue-5-a) |
 | 6AutoF1-2 (6e) | correction q3 | nombre à 4 chiffres sans séparateur : $500\div2500$ | ×1 ; sup=500 sup2=500 sup3=1 (revue-169-a) |
 | 6AutoN1-2 (6e) | correction q3 | nombre à 4 chiffres sans séparateur : $frac{10}{{\color{}\boldsymbol{1000}}}$ | ×1 ; sup=2 sup2=2 (revue-5-a) |
@@ -8123,6 +8334,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 4C20-4 (4e) | src/exercices/4e/4C20-4.ts:58 | consigne à l'impératif : Compare les fractions suivantes. | ×1 |
+| 5N1G (5e) | énoncé q1 | deuxième personne : [champ] Tu peux directement donner le résultat ou cliquer | ×10 ; sup=3 sup2=false sup3=true sup4=true sup5=2 ; sup=2 sup2=true sup3=true sup4=true sup5=1… (revue-0-a) |
 | 6AutoE1-1 (6e) | énoncé q1 | deuxième personne : ssède le même nombre de faces, de sommets et d'arêtes que le cube, mais je ne suis pas toujours un c ‖ deuxième personne : Je suis un pavé droit dont toutes les arêtes sont de même longueur. Je suis un/une [champ] ‖ deuxième personne : Je suis un pavé droit dont toutes les arêtes sont de même longueur. Je suis [champ] . | ×32 ; sup=8 sup2=1 ; sup=1 sup2=1… (revue-0-a) |
 | 6AutoE1-1 (6e) | énoncé non interactif q1 | deuxième personne : ssède le même nombre de faces, de sommets et d'arêtes que le cube, mais je ne suis pas toujours un c ‖ deuxième personne : Je suis un pavé droit dont toutes les arêtes sont de même longueur. | ×2 |
 | 6AutoE1-3 (6e) | consigne | deuxième personne : pilement en plein écran). Les cubes ayant des arêtes de 1 cm de longueur, calculer le volume en ‖ deuxième personne : ec deux angles différents. Les cubes ayant des arêtes de 1 cm de longueur, calculer le volume en | ×22 ; sup=1 sup2=1 sup3=true sup4=2 ; sup=1 sup2=1 sup3=false sup4=2… (revue-2-a) |
@@ -8359,6 +8571,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 5N1E-1 (5e) | énoncé q1 | pas de virgule avant « soit » : e nombre indiqué par la cible. Pour que la solution soit gagnante, il faut que l'enchaînement de cal | ×4 ; sup=true sup2=true (revue-1-a) |
+| 5N1E-3 (5e) | énoncé q2 | pas de virgule avant « alors » : uveaux arbres. Combien d'arbres y a-t-il alors dans le parc ? [champ] | ×11 ; sup=12 sup2=false ; sup=3 sup2=true… (revue-0-a) |
+| 5N1E-3 (5e) | énoncé non interactif q2 | pas de virgule avant « alors » : uveaux arbres. Combien d'arbres y a-t-il alors dans le parc ? | ×1 |
 | 6G7B-4 (6e) | énoncé q1 | pas de virgule avant « soit » : ie. Ajouter un minimum de points afin que la figure soit symétrique par rapport à l'axe. | ×50 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-0-a) |
 | 6G7B-4 (6e) | correction q1 | pas de virgule avant « soit » : points (en rouge sur la figure) afin que la figure soit symétrique par rapport à l'axe. | ×50 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-0-a) |
 | 6G7B-4 (6e) | énoncé non interactif q1 | pas de virgule avant « soit » : ie. Ajouter un minimum de points afin que la figure soit symétrique par rapport à l'axe. | ×1 |
@@ -8669,6 +8883,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1E-3 (5e) | correction q1 | espace avant ponctuation : œufs de mes poules à la fin de la semaine . | ×4 ; sup=10 sup2=true (revue-19-a) |
 | 6A (6e) | correction non interactive q8 | double espace : fois moins de filles que de garçons, le no ‖ double espace : ns de filles que de garçons, le nombre de filles est : | ×2 |
 | 6AutoA2-1 (6e) | énoncé q1 | double espace : = [champ] | ×4 ; sup=1 sup2=2 ; sup=3 sup2=2… (revue-2-a) |
 | 6AutoF1 (6e) | correction q1 | double espace : 6 secteurs de même aire. Parmi ces secteurs, 4 sont colorés. La fraction de la figure qui est color ‖ double espace : 4 secteurs de même aire. Parmi ces secteurs, 1 est coloré. La fraction de la figure qui est coloré ‖ double espace : gments de même longueur. Parmi ces segments, 6 sont colorés. La fraction de la figure qui est color | ×44 ; sup=1-2-3-4-5 sup2=0 ; sup=1-2-3-4-5 sup2=1… (revue-0-a) |
@@ -9360,6 +9575,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:1102 | « ... » : Si un quadrilatère non croisé a ses angles consécutifs supplémentaires, alors on est sûr que... | ×1 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:1133 | « ... » : Si un parallélogramme a ses diagonales perpendiculaires et de même longueur, alors on est sûr que... | ×1 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:1163 | « ... » : Si un quadrilatère non croisé a ses diagonales perpendiculaires et de même longueur, alors on est sûr que... | ×1 |
+| 5N1F-2 (5e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $..............................$ | ×50 |
 | 5N1I-6 (5e) | src/exercices/5e/5N1I-6.ts:144 | « ... » : 1 : "Divisible par..."\n2 : "Multiple de..."\n3 : Mélange | ×1 |
 | 5N5A (5e) | src/exercices/5e/5N5A.ts:334 | « ... » : Cela fait zéro, il me semble... donc ça ne fonctionne que pour 1. | ×1 |
 | 5N5A (5e) | src/exercices/5e/5N5A.ts:464 | « ... » : C'est un de trop... | ×1 |
@@ -9922,6 +10138,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 5N1E-1 (5e) |  q1 meta-custom | format meta-custom : à tester à la main | ×16 ; sup=true sup2=true ; sup=true sup2=false (revue-1-a) |
+| 5N1F-2 (5e) |  q1 dnd | format dnd : à tester à la main | ×80 ; sup4=1-2-3 ; sup4=1… (revue-0-a) |
+| 5N1G (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×82 ; sup=3 sup2=false sup3=true sup4=true sup5=2 ; sup=2 sup2=true sup3=true sup4=true sup5=1… (revue-0-a) |
+| 5N1G-3 (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×34 ; sup=2 ; sup=1… (revue-0-a) |
 | 6A (6e) |  q6 interactive-clock | format interactive-clock : à tester à la main | ×1 ; sup2=true sup3=false (revue-2-a) |
 | 6A (6e) |  q7 tableau-hybride | format tableau-hybride : à tester à la main | ×1 ; sup2=true sup3=false (revue-2-b) |
 | 6A (6e) |  q8 apigeom-figure | format apigeom-figure : à tester à la main | ×1 ; sup2=true sup3=false (revue-2-b) |
@@ -10498,6 +10717,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5N1G (5e) |  | 64 combinaisons : 9 passées (couverture par paires) | ×1 |
 | 6AutoF1-2 (6e) |  | 507 combinaisons : 170 passées (couverture par paires) | ×1 |
 | 6AutoN4-5 (6e) |  | 270 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 6G4B-1 (6e) |  | 288 combinaisons : 49 passées (couverture par paires) | ×1 |
