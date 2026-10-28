@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **239 sur 1168**. Constats confirmés : **181**.
+Exercices relus : **245 sur 1168**. Constats confirmés : **183**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 28 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 121 |
+| Rédaction (français, titres, consignes) | 123 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -128,8 +128,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | d9c51 | R16  | Titre terminé par une espace | Retirer l'espace finale | relecture |
 | d9p5e | R16  | Énoncé : « Combien de fois $\dfrac{5}{6}$ dans $\dfrac{5}{2}$ ? » (verbe manquant) | « Combien de fois $\dfrac{5}{6}$ y a-t-il dans … ? » | relecture |
 | dabbf | R16  | Titre terminé par un point | Retirer le point | relecture |
+| debc6 | R16  | Exponentielle « e » en romain absente : $ke^{-ax}$, $ke^0$ (pas $\mathrm{e}$), contrairement à d2a2d | Utiliser \mathrm{e} | relecture |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
 | dc3d2 | R1 Titre | Énoncé et correction : nombres hors $ (« 10 + 9 + 4 + 6 + 8 = 37 », « 0,243 ») | Nombres entre $ | src/exercices/2e/2S20-1Old.ts |
+| dc629 | R16  | Correction : « $R = diametre \div 2$ » (sans accent, en italique) ; énoncé « arrondi au $\text{ dm}^3$ près » (espace dans \text) | $R=\text{diamètre}\div 2$ ; « au $\text{dm}^3$ près » | src/exercices/5e/5G2E-6Old.ts |
 | d88d6 | R2 Tutoiement, impératif | Correction : « l'égalité n'est pas vraie » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/5e/5L15-Old.ts |
 | daf1d | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs | Corriger le titre (ou la question) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
@@ -237,7 +239,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | d7202 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| efab7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| f6jd7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9110 ; T5 Espaces 1282 ; T6 Points de suspension 541 ; T4  480 ; T2  371 ; R2 Tutoiement, impératif 252 ; T3  129 ; R5 Virgule 100 ; N6 Écriture algébrique 78 ; N2 Séparateur des milliers 55 ; X3  38 ; M7  33 ; T1 Espace avant % 29 ; X2 Formule cassée 12 ; R10 Français 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 9449 ; T5 Espaces 1317 ; T6 Points de suspension 552 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 265 ; T3  130 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
