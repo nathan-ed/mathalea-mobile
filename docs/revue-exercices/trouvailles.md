@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **409 exercices passés sur 4190**.
-Constats regroupés : 3820 (un groupe = même exercice, même règle,
+Avancement : **430 exercices passés sur 4190**.
+Constats regroupés : 3832 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -17,12 +17,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 5 | 6 |
-| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 16 | 17 |
-| 1 Interactif faux | [X1 Erreur ou exception](#x1) | 7 | 25 |
+| 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 10 | 11 |
+| 1 Interactif faux | [X1 Erreur ou exception](#x1) | 10 | 33 |
 | 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 15 | 15 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 1 | 3 |
-| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 12 | 23 |
+| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 15 | 32 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 4 | 10 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 4 | 13 |
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 6 | 7 |
@@ -54,7 +54,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [T6 Points de suspension](#t6) | 3 | 3 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 62 | 87 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 63 | 87 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 23 | 30 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 59 | 423 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
@@ -73,7 +73,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [T6 Points de suspension](#t6) | 264 | 425 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 2 | 2 |
-| 5 Rédaction | [X4 Question en double ou vide](#x4) | 19 | 19 |
+| 5 Rédaction | [X4 Question en double ou vide](#x4) | 20 | 20 |
 | 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 25 | 34 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
 | 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 6 | 6 |
@@ -84,12 +84,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoE1-1 (6e) |  q1 mathlive | bonne réponse refusée (0/1)  | ×27 ; sup=8 sup2=1 ; sup=2 sup2=1… (revue-0-a) |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:59 | Réponse attendue calculée en flottant : 5^4×0,2^4 donne 1.0000000000000002 ; la bonne réponse « 1 » saisie par l'élève est refusée (vu au banc : la mise en évidence ⟦1⟧ est refusée). Même risque pour 4^b×0,25^b et 5^b×0,4^b → this.reponse = (4 * a) ** b arrondi : arrondi(5 ** b * a ** b) ou calcul exact | ×1 |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:48 | Confirmé avec revue/essayer.mjs : « 32 » refusé pour $5^{5}\times 0,4^{5}$ (attendu 32.00000000000001), « 1 » refusé pour $5^{4}\times 0,2^{4}$ → arrondi(…) sur this.reponse (lignes 48 et 59) | ×1 |
 | can5a-CoopMaths (CAN) | src/exercices/can/5e/can5a-CoopMaths.ts:441 | Q27 : l'énoncé dit « en ${b} h et 20 min », la réponse attendue est calculée pour 15 min (a×(b+0,25)) et la correction affiche « $60\times 1.5$ » (b+0,5, point décimal) : 60 km/h pendant 1 h 20 → 80 km, l'app attend 75. Pas de point d'interrogation. → 20 min → b + 1/3, ou énoncé « b h et 15 min » avec texNombre(b + 0.25). | ×1 |
 | can5C4-02 (CAN) | src/exercices/can/5e/can5C4-02.ts:63 | Réponse attendue calculée en flottant (a + b/100 + c/1000 = 12.135000000000002) : « 12,135 » tapé par l'élève est refusé (confirmé avec revue/essayer.mjs, graine revue-1-a, q10) → this.reponse = arrondi(resultat, 3) (cas 3 et 4) | ×1 |
 | canc3C12 (CAN) | src/exercices/can/c3/canc3C12.ts:36 | Réponse négative possible (a jusqu'à 20, b×res dès 6 : « J'ajoute $20$, … j'obtiens $7$ » → $-6$) en CM1/CM2, avec le clavier clavierNumbers sans signe moins : l'élève ne peut pas saisir la réponse. → Tirer res avec b×res > a (res = randint(Math.ceil((a + 1) / b), 15)) | ×1 |
-| TSA4-41 (Terminale) |  q1 mathlive | bonne réponse refusée (0/1) Résultat incorrect car cet ensemble doit commencer par une accolade ou bien être l'ensemble vide. | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## I4
 
@@ -97,23 +97,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| 6A (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×5 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
+| moteur-app (?) | moteur/fichiers/src/moteur/index.ts:135 | App (moteur/fichiers/src/moteur/index.ts:135) : preparerExercice met interactif à vrai pour tout exercice, même ceux que MathALÉA déclare non interactifs (export interactifReady = false), alors que le site n'active l'interactif que si interactifReady est vrai. Effet : un champ apparaît avec une attente vide ou absurde (TSA4-41 : la correction HTML entière ; canTEC2-02, canTEC2-05 : chaîne vide ; canTEC2-03), la question compte dans le score et l'élève ne peut pas réussir. 4 exercices sur les ~1 000 déjà passés au banc → const interactif = params.interactif !== false && exercice.interactifReady !== false (puis pnpm moteur, e2e complets) | ×1 |
+| 6A (6e) |  q1 liste-deroulante | liste absente de la page | ×5 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
 | 6A (6e) |  q2 mathlive | champ absent de la page | ×62 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
-| 6AutoA2-1 (6e) |  q2 liste-deroulante | liste absente ou sans valeur | ×28 ; sup=5 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
-| 6AutoE1-1 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×80 ; sup=1 sup2=2 ; sup=2 sup2=2… (revue-2-a) |
-| 6AutoG1-2 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×376 ; sup=1 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
-| 6AutoL1 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×55 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-0-a) |
-| 6AutoN4-1 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×90 ; sup=1 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
 | 6AutoT1-6 (6e) |  q7 multi-mathfield | champ absent de la page | ×1 ; sup=1 sup2=true sup3=false nb=10 (revue-12-a) |
-| 6N0B-3 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×26 ; sup2=false ; sup2=true… (revue-0-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×17 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | can6a-CoopMaths (CAN) |  q22 mathlive | champ absent de la page | ×19 ; sup=1 ; sup=5… (revue-1-a) |
+| canc3a (CAN) |  q27 mathlive | champ absent de la page | ×13 ; sup=14 ; sup=17… (revue-14-a) |
 | canc3C16 (CAN) |  q9 fillInTheBlank | champ absent de la page | ×1 ; défaut nb=10 (revue-1-a) |
-| CM2I1B-1 (cm2) |  q1 liste-deroulante | liste absente ou sans valeur | ×712 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
 | CM2N3A-14 (cm2) |  q10 mathlive | champ absent de la page | ×4 ; sup=1 ; sup=2 (revue-1-a) |
 | CM2N3A-2 (cm2) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | CM2N3A-3 (cm2) |  q3 fillInTheBlank | champ absent de la page | ×33 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
-| TSA3-43 (Terminale) |  q1 liste-deroulante | liste absente ou sans valeur | ×6 ; défaut (revue-0-a) |
 
 ## X1
 
@@ -121,6 +115,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoF1-7 (6e) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=5 sup2=0 (revue-17-b) |
+| 6AutoF1-7 (6e) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=5 sup2=0 (revue-17-b) |
+| 6AutoF1-7 (6e) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=5 sup2=0 (revue-17-b) |
 | 6N1A (6e) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=3 sup2=5 sup3=7 sup4=true (revue-15-b) |
 | 6N1A (6e) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=3 sup2=5 sup3=7 sup4=true (revue-15-b) |
 | 6N1A (6e) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=3 sup2=5 sup3=7 sup4=true (revue-15-b) |
@@ -142,6 +139,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6M1-03 (CAN) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
 | can6M1-03 (CAN) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
 | can6M1-03 (CAN) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
+| can6M2-03 (CAN) |  | interactif (vide) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2 sup2=false sup3=2 sup4=1 (revue-39-a) |
+| can6M2-03 (CAN) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2 sup2=false sup3=2 sup4=1 (revue-39-a) |
+| can6M2-03 (CAN) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2 sup2=false sup3=2 sup4=1 (revue-39-a) |
+| can6M2-03 (CAN) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2 sup2=false sup3=2 sup4=1 (revue-39-a) |
+| can6M4-01 (CAN) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
 | canCE2-2026 (CAN) |  | interactif (vide) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
 | canCE2-2026 (CAN) |  | interactif (incorrecte) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
 | canCE2-2026 (CAN) |  | interactif (evidence) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
@@ -196,6 +198,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoA2 (6e) |  | console : [bugsnag] Session failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=978356fa:1978:33) | ×1 |
 | 6AutoA2-2 (6e) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
 | 6AutoE1 (6e) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
+| 6AutoF1-7 (6e) |  | génération : page.evaluate: Target page, context or browser has been closed | ×13 ; sup=6 sup2=1 ; sup=6 sup2=2… (revue-18-a) |
+| 6AutoF1-7 (6e) |  | console : choice a éliminé toutes les possibilités, il ne reste rien à choisir !  | ×1 |
+| 6AutoF1-7 (6e) |  | console : Point : les coordonnées ne sont pas valides | ×1 |
+| 6AutoF1-7 (6e) |  | console : [bugsnag] Event failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1928:32) | ×1 |
 | 6N1A (6e) |  | génération : page.evaluate: Target page, context or browser has been closed | ×51 ; sup=1 sup2=1 sup3=6 sup4=true ; sup=1 sup2=1 sup3=7 sup4=false… (revue-16-a) |
 | 6N1A-2 (6e) |  | rendu enonce : locator.screenshot: Element is not attached to the DOM Call log: [2m  - taking element screenshot[22m [2m  - waiting for fonts to load...[22m [2m  - fonts loaded[22m [2m  - attempting scroll into view action[22m [2m    - waiting for element to be stable[22m  | ×1 ; sup=1 sup2=3 (revue-0-a) |
 | 6N1A-2 (6e) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=3 (revue-0-a) |
@@ -211,6 +217,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6M1-03 (CAN) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
 | can6M1-03 (CAN) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
 | can6M1-03 (CAN) |  | génération : page.evaluate: Target page, context or browser has been closed | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
+| can6M2-03 (CAN) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2 sup2=false sup3=2 sup4=1 (revue-39-a) |
+| can6M2-03 (CAN) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2 sup2=false sup3=2 sup4=1 (revue-39-a) |
+| can6M2-03 (CAN) |  | génération : page.evaluate: Target page, context or browser has been closed | ×66 ; sup=2 sup2=false sup3=2 sup4=1 ; sup=2 sup2=false sup3=2 sup4=2… (revue-39-b) |
+| can6M4-01 (CAN) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; défaut (revue-0-a) |
+| can6M4-01 (CAN) |  | génération : page.evaluate: Target page, context or browser has been closed | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
 | canCE2-2026 (CAN) |  | rendu correction : page.evaluate: Error: aucun exercice préparé     at Module.rendre (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:127:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
 | canCE2-2026 (CAN) |  | console : [bugsnag] Session failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1978:33) | ×1 |
 | CM2N1D-3 (cm2) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
@@ -1696,6 +1707,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6G2-02 (CAN) | correction | page de 416 px pour 390 px | ×40 ; sup=1 sup2=1 sup3=true sup4=1 ; sup=1 sup2=1 sup3=true sup4=2… (revue-1-a) |
 | can6I-01 (CAN) | énoncé q1 | table de 623 px pour 390 px | ×202 ; sup=1 sup2=true sup4=true ; sup=1 sup2=true sup4=false… (revue-0-a) |
 | can6I-01 (CAN) | énoncé | page de 639 px pour 390 px | ×33 ; sup=1 sup2=true sup4=true ; sup=1 sup2=true sup4=false… (revue-0-a) |
+| can6N1-01 (CAN) | correction | page de 432 px pour 390 px | ×2 ; sup=false ; sup=true nb=10 (revue-1-b) |
+| can6N1-04 (CAN) | correction | page de 460 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | canc3a-2023 (CAN) | correction | page de 393 px pour 390 px | ×1 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q10 : correction « soixante-et-un-mille-cinquante = 61 000 + 50 = 61 050 » coupée à droite à 390 px (formule d'un seul tenant, mot dans \text). → Mot hors formule, formule à la ligne. | ×1 |
 | canc3a-2024 (CAN) | correction | page de 415 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -1710,8 +1723,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2D1A-1 (cm2) | énoncé | page de 488 px pour 390 px | ×64 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=3 sup3=1 sup4=true… (revue-0-a) |
 | CM2D1A-1 (cm2) | correction q1 | table.tableauMathlive de 472 px pour 390 px | ×33 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=4 sup3=1 sup4=true… (revue-0-a) |
 | CM2D1A-1 (cm2) | correction | page de 488 px pour 390 px | ×64 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=3 sup3=1 sup4=true… (revue-0-a) |
-| CM2I1B-1 (cm2) | énoncé q1 | table de 518 px pour 390 px | ×202 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
-| CM2I1B-1 (cm2) | énoncé | page de 534 px pour 390 px | ×193 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
 | CM2N1D-1 (cm2) | énoncé | page de 424 px pour 390 px | ×24 ; sup=false sup2=4-5-6 sup4=4 sup5=false ; sup=true sup2=4-5-6 sup4=1 sup5=true… (revue-0-a) |
 | CM2N1D-1 (cm2) | correction | page de 534 px pour 390 px | ×33 ; sup=false sup2=4-5-6 sup4=4 sup5=false ; sup=true sup2=4-5-6 sup4=1 sup5=true… (revue-0-a) |
 | CM2N2A-4 (cm2) | énoncé | page de 482 px pour 390 px | ×8 ; sup=8 sup2=true sup3=1 ; sup=8 sup2=true sup3=2… (revue-28-a) |
@@ -3797,6 +3808,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-1 (6e) | série q3 | question 3 identique à la question 1 | ×2 ; sup=2 ; sup=3 (revue-2-b) |
 | can6a-Aléa (CAN) | série q2 | question 2 identique à la question 1 | ×15 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | can6C52-02 (CAN) | série q9 | question 9 identique à la question 2 | ×1 ; défaut nb=10 (revue-1-a) |
+| canc3a (CAN) | série q17 | question 17 identique à la question 11 | ×1 ; sup=15 (revue-15-a) |
 | CM1N3K (cm1) | série q2 | question 2 identique à la question 1 | ×2 ; sup=2 sup2=1 sup3=1 ; sup=2 sup2=1 sup3=2 (revue-30-b) |
 | CM2N3A-12 (cm2) | série q10 | question 10 identique à la question 9 | ×1 ; défaut (revue-0-b) |
 | CM2N3A-14Old (cm2) | série q8 | question 8 identique à la question 3 | ×1 ; sup=1 (revue-0-a) |

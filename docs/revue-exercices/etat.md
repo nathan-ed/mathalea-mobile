@@ -23,6 +23,16 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 - Étape 3 (rapport) : `node revue/rapport.mjs` réécrit `trouvailles.md`
   (à faire à chaque reprise, puis commit et push).
 
+## Défauts de l'app trouvés pendant la revue (à signaler à Nathan)
+
+- Le moteur de l'app (`moteur/fichiers/src/moteur/index.ts`, `preparerExercice`)
+  rend interactif tout exercice, même ceux que MathALÉA déclare non interactifs
+  (`interactifReady = false`) : champ avec une attente vide ou absurde, question
+  comptée dans le score (TSA4-41, canTEC2-02, canTEC2-03, canTEC2-05 au
+  28 octobre). Le site ne le fait pas. Correction proposée : tenir compte de
+  `exercice.interactifReady`. Pas modifié sans accord (release, e2e complets).
+- `optionsDe` ne lit pas les aides « 1 & 2 : … » (voir plus bas).
+
 ## Prochaine étape (à chaque réveil)
 
 1. Banc en marche ? Trois instances aux filtres disjoints
