@@ -1,17 +1,17 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **64 sur 293**. Constats confirmés : **53**.
+Exercices relus : **72 sur 293**. Constats confirmés : **62**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Contenu mathématique faux | 15 |
+| Contenu mathématique faux | 19 |
 | Rendu cassé (formule, débordement, erreur) | 2 |
 | Mise en évidence (miseEnEvidence et champs) | 4 |
 | Typographie (nombres, espaces, notations) | 13 |
-| Rédaction (français, titres, consignes) | 19 |
+| Rédaction (français, titres, consignes) | 24 |
 
 ## Contenu mathématique faux
 
@@ -26,6 +26,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeE01 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE01.ts:51 |
 | canTSpeE02 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE02.ts:51 |
 | canTSpeE03 | C1 Contenu mathématique faux | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ | $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | src/exercices/can/TSpe/canTSpeE03.ts:51 |
+| TSA2-QCM08 | C1 Contenu mathématique faux | Correction circulaire : f'(x) est calculée avec a=10 (« f'(x)=10e^x+(10x+5)e^x ») avant de chercher a, puis « a+b=15 » sort sans lien avec ce calcul. Le point (-0,5 ; 0) de l'énoncé n'est jamais utilisé. Mêmes valeurs à chaque question (dix questions identiques). | f'(x)=a e^x+(ax+b)e^x=e^x(ax+a+b), donc f'(0)=a+b=15 ; aléatoiriser ou limiter à une question ; « affirmer que : » avec espace. | src/exercices/QCMBac/2021/metropole092021_2Q2_alea.ts:133 |
+| TSA2-QCM09 | C1 Contenu mathématique faux | Correction incomplète : elle conclut au point d'inflexion à partir de f''(-2,5)=0 seul, sans le changement de signe de f'' (qui écarte aussi « convexe » et « concave sur R ») ; « On peut affirmer que: » sans espace ; mêmes valeurs à chaque question. | Ajouter : 10x+25 change de signe en -2,5 (négatif avant, positif après), donc f'' change de signe : f concave puis convexe, C seul point d'inflexion. | src/exercices/QCMBac/2021/metropole092021_2Q3.ts |
+| TSA2-QCM06 | C1 Contenu mathématique faux | L'énoncé annonce la courbe « sur l'intervalle [xA;xB] » ([-5;-4]) alors qu'elle est tracée de xA à xF ([-5;10] environ). | $[${xA}\,;\,${xF}]$. | src/exercices/QCMBac/A2022/Etrangers2022_1Q2_alea.ts:46 |
+| TSA2-QCM03 | C1 Contenu mathématique faux | Correction fausse : « les tangentes sont au dessous de la courbe » pour une fonction concave, alors que la bonne réponse du QCM les place au-dessus ; « au dessous » sans trait d'union. Énoncé : « Soit f deux fois dérivable et une fonction concave », « la corde représentant le segment [AB] ». | « les tangentes sont au-dessus de la courbe et les cordes en dessous » ; « Soit f une fonction deux fois dérivable et concave » ; « On appelle [AB] la corde reliant A et B ». | src/exercices/QCMStatiques/Convexite2.ts:42 |
 | TSA1-33 | C1 Contenu mathématique faux | « ≈ » posé d'office devant u_2, u_3 et u_4, même quand la valeur est exacte (u_2≈6,75 ; avec u_0=12 : u_2≈9, u_3≈8,5, u_4≈8,25), et « = » devant u_1 même si elle était arrondie. | Choisir « = » ou « \approx » selon que texNombre(termes[k], 3) arrondit ou non. | src/exercices/TSpe/TSA1-33.ts:290 |
 | TSA1-44 | C1 Contenu mathématique faux | Appel Python écrit $\mathtt{seuil(0,001)}$ : avec la virgule, Python passe deux arguments (0 et 1) et la fonction plante ; l'élève qui recopie l'appel n'obtient pas 200. | Écrire l'appel avec un point (seuil(0.001)) en texteCode, comme dans le programme. | src/exercices/TSpe/TSA1-44.ts:119 |
 | TSA1-46 | C1 Contenu mathématique faux | « ≈ » devant des valeurs exactes : $u_2\approx 11\,375$ alors que u_2=11 375 est calculé exactement plus haut. | Choisir « = » ou « \approx » selon que texNombre(terme, 1) arrondit ou non. | src/exercices/TSpe/TSA1-46.ts:150 |
@@ -80,6 +84,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canTSpeS08 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS08.ts |
 | canTSpeS08 | R1 Titre | Titre « Limite de $\sqrt(n)-n^p$ » : \sqrt(n) mal écrit (rend la racine de « ( ») | $\sqrt{n}-n^p$ | src/exercices/can/TSpe/canTSpeS08.ts:7 |
 | canTSpeS09 | R10 Français | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ | indéterminée ; n\to+\infty | src/exercices/can/TSpe/canTSpeS09.ts |
+| TSA2-QCM07 | R14  | Exercice « _alea » mais toujours les mêmes valeurs : avec 10 questions, dix fois la même question (A(0;5), B(1;20)). Sans le préambule (paramètre décoché), l'énoncé se réduit à « On peut affirmer que : » sans figure ni données. | Aléatoiriser les valeurs ou limiter à une question ; sans préambule, garder au moins la figure. | src/exercices/QCMBac/2021/metropole092021_2Q1_alea.ts |
+| TSA2-QCM06 | R14  | Correction vide (this.correction = '') : l'élève n'a aucune explication, ni la bonne réponse en mode non interactif. | Rédiger la correction : signe de f'' lu sur la courbe, f' croissante puis décroissante, maximum en xC ; pourquoi les trois autres sont fausses. | src/exercices/QCMBac/A2022/Etrangers2022_1Q2_alea.ts:74 |
+| TSA2-QCM02 | R16  | Énoncé sans question ni ponctuation finale (« On a alors pour tout x_1 et x_2 vérifiant : a⩽x_1⩽x_2⩽b ») ; correction sans point final ; intervalle $[a;b]$ sans espaces. | « … ⩽ b, on a : » ; point final ; $[a\,;\,b]$. | src/exercices/QCMStatiques/Convexite1.ts:35 |
 | TSA1-32 | R16  | Correction, question 2 de la partie 2 : « Pour tout entier naturel n : » suivi d'une autre phrase qui répète « pour tout entier naturel n : ». | Supprimer la ligne « Pour tout entier naturel $n$ : » de la question 2. | src/exercices/TSpe/TSA1-32.ts:104 |
 | TSA1-40 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. | texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | src/exercices/TSpe/TSA1-40.ts:92 |
 | TSA1-42 | R16  | « Quelle que soit la quantité de prises » (des prises se comptent) ; « la 14e prise » sans exposant. | « Quel que soit le nombre de prises » ; $14^{\text{e}}$. | src/exercices/TSpe/TSA1-42.ts:190 |
@@ -89,6 +96,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TSA1-45 | R1 Titre | Énoncé : « 15 % des clients » et « 900 nouveaux clients » hors des $ (le reste de l'énoncé les met). | Taux et apport entre $ : $15\,\%$ et $900$ (texNombre). | src/exercices/TSpe/TSA1-45.ts:69 |
 | TSA1-46 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « strictement décroissante », « géométrique de raison 0,75 ». | texteEnCouleurEtGras pour le texte, miseEnEvidence pour la raison seule. | src/exercices/TSpe/TSA1-46.ts:129 |
 | TSA1-47 | R1 Titre | Années entre $ : « En $2024$ », « l’année $2025$ » (les années restent hors des maths). | Écrire ${anneeInitiale} et ${anneeInitiale + 1} sans $. | src/exercices/TSpe/TSA1-47.ts:108 |
+| TSA1-48 | R2 Tutoiement, impératif | Texte dans miseEnEvidence : « L’affirmation est $\textbf{Vraie}$ » ou « Fausse », avec en plus une majuscule au milieu de la phrase. | « L’affirmation est ${texteEnCouleurEtGras('vraie')}. » (ou 'fausse'), hors des $. | src/exercices/TSpe/TSA1-48.ts:1356 |
+| TSA1-48 | R16  | Encadrement d'une ligne en bloc centré \[\begin{aligned}0&&lt;q&lt;1\end{aligned}\] au milieu d'une phrase (« Comme [bloc] cette même propriété… »), sans virgule ; double & inutile. Les affirmations 1 et « Toute suite croissante… » n'ont pas l'étiquette « Affirmation : » des autres. | Écrire « Comme $0&lt;q&lt;1$, cette même propriété… » en ligne ; ajouter « Affirmation : » partout. | src/exercices/TSpe/TSA1-48.ts:198 |
 | TSA1-11 | R14  | Plusieurs questions : la même fonction revient (Q3 et Q7, Q6 et Q8, Q1 et Q4, graine revue-1-a) ; « $f'(x)=\dfrac{2}{4}x$ » non simplifié ; question 2 sans point final. | Test de doublon sur les coefficients ; simplifier $\dfrac{2}{4}$ ; point final. | TSpe/TSA1-11.ts |
 
 ## Constats graves du banc, à confirmer
