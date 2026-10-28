@@ -20,6 +20,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | BP2CCF10 | I4 Question sans champ | 1 | champ absent de la page |
+| EN-CompteBon | X1 Erreur | 1 | arrêt : délai de 10 min dépassé |
 | PET12 | X2 Formule cassée | 34 | « $ » visible :  article, un élève va saisir dans la cellule D2 la formule =$B$2*C2 =$B$2*C2, puis étirer la cellule vers le bas jusqu’e |
 | PET13 | X2 Formule cassée | 26 | « $ » visible : asseur 7 10 70 5 Dans la cellule D2, on a saisi la formule =$B$2*C2 =$B$2*C2, puis on a étiré la cellule vers le bas jus |
 | PET14 | X2 Formule cassée | 14 | « $ » visible : 1. Il faut saisir dans la cellule C2 la formule =B2/B$5*100 =B2/B$5*100 puis étirer la cellule vers le bas. D’aut |
@@ -28,4 +29,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1285 ; T4  1052 ; T5 Espaces 168 ; T6 Points de suspension 123 ; R5 Virgule 115 ; N2 Séparateur des milliers 91 ; N6 Écriture algébrique 87 ; R6  13 ; T3  9 ; R10 Français 6 ; R2 Tutoiement, impératif 5 ; T1 Espace avant % 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1765 ; T4  1052 ; T5 Espaces 168 ; T6 Points de suspension 132 ; R5 Virgule 115 ; N2 Séparateur des milliers 91 ; N6 Écriture algébrique 87 ; T3  67 ; R6  13 ; R10 Français 6 ; R2 Tutoiement, impératif 5 ; T1 Espace avant % 2.
