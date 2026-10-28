@@ -216,7 +216,7 @@ export function controler(html, o) {
       for (const m of s.matchAll(/\d\s*(?:\\,|~|\\ )?\s*(cm|mm|dm|km|hm|dam|kg|mg|hg|dag|mL|cL|dL|hL|min)(\^[23])?(?![a-zA-Z{])/g)) {
         ajoute('T2', 4, `unité hors \\text : $${extrait(s, m.index, 30)}$`)
       }
-      for (const m of s.matchAll(/\d\\text\{\s?(cm|mm|dm|km|m|g|kg|mg|L|mL|cL|dL|h|min|s|€)/g)) ajoute('T2', 4, `unité sans espace : $${extrait(s, m.index, 30)}$`)
+      for (const m of s.matchAll(/\d\\text\{(cm|mm|dm|km|m|g|kg|mg|L|mL|cL|dL|h|min|s|€)(?![a-zA-Z])/g)) ajoute('T2', 4, `unité sans espace : $${extrait(s, m.index, 30)}$`)
       // T8 commande collée à une lettre
       for (const m of s.matchAll(/\\(times|div|cdot|approx)(?=[a-zA-Z])/g)) ajoute('T8', 2, `commande collée : $${extrait(s, m.index, 30)}$`)
       // M5 texte dans miseEnEvidence
