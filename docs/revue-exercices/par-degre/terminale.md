@@ -63,9 +63,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | TSA5-30 | I1 Bonne réponse refusée | 3 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
+| TSG2-30 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
+| TSP3-01 | I2 Réponse fausse acceptée | 12 | réponse fausse acceptée |
+| TSG1-04 | I4 Question sans champ | 1 | champ absent de la page |
 | TSA5-42 | X2 Formule cassée | 1 | « $ » visible :  ≈ 12 , 33 &lt; 25 u 1 ​ =ln(3×25+1)+8=ln(76)+8≈12,33&lt;25, donc $u_1Montrons par récurrence que, pour tout entier naturel 𝑛 |
 | TSA3-46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 542 ; R5 Virgule 203 ; T4  195 ; N6 Écriture algébrique 171 ; T3  167 ; T5 Espaces 148 ; N2 Séparateur des milliers 142 ; T6 Points de suspension 88 ; N3  40 ; R9  39 ; T8  28 ; R6  27 ; R1 Titre 4 ; R8  2 ; X3  2 ; R10 Français 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1459 ; T5 Espaces 378 ; T4  369 ; R5 Virgule 327 ; N6 Écriture algébrique 267 ; T3  236 ; T6 Points de suspension 179 ; N2 Séparateur des milliers 156 ; T8  70 ; R6  51 ; R9  45 ; N3  40 ; R1 Titre 15 ; N5 Négatif sans parenthèses 9 ; R10 Français 6 ; R8  2 ; X3  2 ; R2 Tutoiement, impératif 2.

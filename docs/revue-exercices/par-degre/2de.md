@@ -160,6 +160,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can2a-NY2025 | R10 Français | Q4 : « pout obtenir » ; trois mises en évidence de $1,8$ pour un champ | pour obtenir | src/exercices/can/canNY-2025/can2NY-2025-Q4.ts:65 |
 | can2a-NY2026 | R10 Français | Q4 : « pout obtenir » (copié de 2025) | pour obtenir | src/exercices/can/canNY-2026/can2NY-2026-Q4.ts |
 
+## Constats graves du banc, à confirmer
+
+| Exercice | Règle | Tirages | Exemple |
+| --- | --- | ---: | --- |
+| can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
+
 ## Typographie et rédaction détectées automatiquement
 
 Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 679 ; T4  192 ; T6 Points de suspension 132 ; R5 Virgule 39 ; N6 Écriture algébrique 15 ; N1 Nombre hors $ 13 ; T3  12 ; M7  11 ; N2 Séparateur des milliers 9 ; R10 Français 6 ; N3  4 ; R2 Tutoiement, impératif 3.
