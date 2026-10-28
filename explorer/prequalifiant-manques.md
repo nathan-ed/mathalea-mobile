@@ -2,6 +2,8 @@
 
 Ce bilan accompagne `prequalifiant.json` (version 10). Les ceintures comportent au moins deux exercices interactifs ; certaines révisent aussi un prérequis ou un savoir-faire connexe. La fiche de cours et le score ne suffisent pas à prouver la maîtrise d'un savoir-faire qui n'est pas interrogé directement.
 
+Chaque exercice porte un objectif précis. L'application affiche un pourcentage de réussite par objectif, distinct du résultat de la ceinture. Le passage à la ceinture suivante dépend de son seuil de 80 %. Le format actuel ne permet pas de fixer un seuil de validation indépendant pour chaque objectif.
+
 La compétence NO01 (écrire les nombres en toutes lettres) a été retirée à la demande de Nathan : elle demande des réponses trop longues pour ce parcours mobile.
 
 ## Exercices à créer ou à étendre
