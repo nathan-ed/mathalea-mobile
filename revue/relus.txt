@@ -472,3 +472,15 @@ can2L10-02
 can2L10-03
 can2L10-04
 can2L10-05
+can2L11-01
+can2L11-02
+can2L11-03
+can2L11-04
+can2L11-05
+can2L11-06
+can2L12-01
+can2L12-02
+can2L12-03
+can2L2-01
+can2L2-02
+can2L2-03
