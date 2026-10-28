@@ -1,0 +1,6 @@
+- Rejoindre sa classe en scannant un QR code : l'enseignant le projette, l'élève le vise depuis son accueil, sans lien à saisir.
+- Sessions de classe : QR code projeté par l'enseignant, réponses relevées par QR code.
+- Espace enseignant en quatre onglets, avec « Vue élève ».
+- Teste ton niveau, fiches de cours, révisions espacées, paliers ouverts à une date.
+- Tous les exercices du site, explorés par degré et chapitre.
+- Changer d'appareil : « Récupérer mes données ».

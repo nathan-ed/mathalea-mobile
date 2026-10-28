@@ -61,6 +61,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
+      - name: Notes de version
+        shell: bash
+        run: |
+          f="docs/notes-de-version/$VERSION.md"
+          test -s "$f" || { echo "Note de version manquante : $f"; exit 1; }
+          { echo 'NOTES<<FIN_NOTES'; cat "$f"; echo; echo 'FIN_NOTES'; } >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v8
         with:
           name: moteur
@@ -87,6 +93,7 @@ jobs:
         with:
           tagName: ${{ env.VERSION }}
           releaseName: MathALÉA ${{ env.VERSION }}
+          releaseBody: ${{ env.NOTES }}
           releaseDraft: true
           args: ${{ matrix.args }}
 
@@ -99,6 +106,12 @@ jobs:
       ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
     steps:
       - uses: actions/checkout@v7
+      - name: Notes de version
+        shell: bash
+        run: |
+          f="docs/notes-de-version/$VERSION.md"
+          test -s "$f" || { echo "Note de version manquante : $f"; exit 1; }
+          { echo 'NOTES<<FIN_NOTES'; cat "$f"; echo; echo 'FIN_NOTES'; } >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v8
         with:
           name: moteur
@@ -143,6 +156,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.VERSION }}
+          body: ${{ env.NOTES }}
           draft: true
           files: src-tauri/gen/android/app/build/outputs/apk/*/release/*.apk
       # Google Play : Android App Bundle signé avec la clé d'importation

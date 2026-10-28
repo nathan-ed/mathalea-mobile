@@ -22,6 +22,10 @@ on:
         type: choice
         options: [internal, alpha, beta, production]
         default: production
+      essai:
+        description: Essai à blanc (envoie le bundle mais ne publie rien)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -120,21 +124,22 @@ jobs:
         with:
           name: google-play
           path: aab/*.aab
+      # Sans note de version, la Play Console bloque la review : 500 caractères
+      # au plus, lue sur la branche principale (le tag peut être plus ancien).
+      # Envoi par scripts/envoyer-google-play.mjs (API Google Play, sans action tierce)
       - name: Envoi à la Play Console
         if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
-          packageName: fr.coopmaths.mathalea
-          releaseFiles: aab/*.aab
-          track: ${{ inputs.piste || 'production' }}
-          status: completed
+        run: |
+          git show "origin/main:docs/notes-de-version/$TAG.play.txt" > "$RUNNER_TEMP/note-play.txt" \
+            || { echo "Note Play manquante : docs/notes-de-version/$TAG.play.txt"; exit 1; }
+          git show origin/main:scripts/envoyer-google-play.mjs > "$RUNNER_TEMP/envoyer-google-play.mjs"
+          node "$RUNNER_TEMP/envoyer-google-play.mjs" aab/*.aab "${{ inputs.piste || 'production' }}" "$RUNNER_TEMP/note-play.txt" ${{ inputs.essai && '--essai' || '' }}
       # Retenu comme envoyé seulement après un envoi réussi
       - name: Moteur envoyé
-        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
+        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != '' && !inputs.essai
         run: echo "$MOTEUR" > .moteur-envoye
       - uses: actions/cache/save@v6
-        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
+        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != '' && !inputs.essai
         with:
           path: .moteur-envoye
           key: google-play-${{ env.TAG }}-${{ env.MOTEUR }}

@@ -50,5 +50,11 @@ complète (détails dans le skill, « Vérification »).
 - Toutes les suites e2e, pas seulement celle du changement.
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux
   captures, en clair et en sombre, à 390 px de large.
+- Toute release porte sa note de version : écrire `docs/notes-de-version/<vX.Y.Z>.md`
+  (en français) avant de poser le tag ; `release.yml` la joint à la release
+  GitHub et échoue si elle manque. Même exigence pour Google Play : sans elle la
+  review est bloquée. Écrire aussi `docs/notes-de-version/<vX.Y.Z>.play.txt`
+  (500 caractères au plus, sans balise), envoyée par `google-play.yml` (voir
+  `docs/fiche-boutiques.md`).
 - Ne rien commiter ni pousser sans demande explicite (sur ce projet, Nathan a
   demandé de pousser souvent).
