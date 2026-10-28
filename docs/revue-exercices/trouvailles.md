@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1803 exercices passés sur 4190**.
-Constats regroupés : 8911 (un groupe = même exercice, même règle,
+Avancement : **1814 exercices passés sur 4190**.
+Constats regroupés : 9029 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -18,7 +18,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | ---: | ---: |
 | 1 Interactif faux | [C1 Contenu mathématique faux ou ambigu](#c1) | 4 | 4 |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 16 | 18 |
-| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 20 | 21 |
+| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 21 | 22 |
 | 1 Interactif faux | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
 | 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 18 | 21 |
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 2 | 2 |
@@ -27,9 +27,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 8 | 25 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 2 | 2 |
-| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 33 | 33 |
+| 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 7 | 7 |
-| 2 Rendu cassé | [I2 Réponse fausse acceptée](#i2) | 4 | 4 |
+| 2 Rendu cassé | [I2 Réponse fausse acceptée](#i2) | 5 | 5 |
 | 2 Rendu cassé | [M1 Valeur mise en évidence refusée par le champ](#m1) | 7 | 7 |
 | 2 Rendu cassé | [M8 Nombre de mises en évidence et de champs différents](#m8) | 3 | 3 |
 | 2 Rendu cassé | [N3 Point décimal](#n3) | 1 | 1 |
@@ -44,26 +44,26 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 187 | 330 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 7 | 7 |
-| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 23 | 23 |
+| 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 24 | 24 |
 | 3 Mise en évidence | [C2 ](#c2) | 3 | 3 |
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 201 | 1201 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 202 | 1255 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 6 | 6 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 165 | 167 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 166 | 168 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 25 | 94 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 62 | 70 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
-| 3 Mise en évidence | [R1 Titre](#r1) | 18 | 18 |
+| 3 Mise en évidence | [R1 Titre](#r1) | 19 | 19 |
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 7 | 7 |
 | 3 Mise en évidence | [R13 ](#r13) | 2 | 2 |
 | 3 Mise en évidence | [R14 ](#r14) | 7 | 7 |
-| 3 Mise en évidence | [R16 ](#r16) | 36 | 36 |
+| 3 Mise en évidence | [R16 ](#r16) | 42 | 42 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 8 | 8 |
 | 3 Mise en évidence | [R3 Point final](#r3) | 6 | 6 |
 | 3 Mise en évidence | [R9 Notation des probabilités](#r9) | 1 | 1 |
@@ -77,10 +77,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 12 | 12 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 3 | 3 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
-| 4 Typographie | [M6 Pas de mise en évidence du résultat](#m6) | 5 | 5 |
+| 4 Typographie | [M6 Pas de mise en évidence du résultat](#m6) | 7 | 7 |
 | 4 Typographie | [M7 Explication en orange](#m7) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 473 | 730 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 478 | 743 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 17 | 23 |
 | 4 Typographie | [N3 Point décimal](#n3) | 19 | 23 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 7 | 7 |
@@ -90,11 +90,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 7 | 7 |
 | 4 Typographie | [R13 ](#r13) | 1 | 1 |
 | 4 Typographie | [R14 ](#r14) | 2 | 2 |
-| 4 Typographie | [R16 ](#r16) | 31 | 31 |
+| 4 Typographie | [R16 ](#r16) | 34 | 34 |
 | 4 Typographie | [R2 Impératif ou tutoiement](#r2) | 1 | 1 |
-| 4 Typographie | [R3 Point final](#r3) | 36 | 36 |
+| 4 Typographie | [R3 Point final](#r3) | 51 | 51 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
-| 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 7 | 7 |
+| 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 9 | 9 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 19 | 27 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 18 | 25 |
 | 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 311 | 517 |
@@ -106,7 +106,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 4 Typographie | [X4 Question en double ou vide](#x4) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 348 | 442 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 349 | 444 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 193 | 1090 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 39 | 44 |
@@ -114,22 +114,22 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 48 | 66 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 120 | 167 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 120 | 201 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 121 | 203 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 137 | 194 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 138 | 198 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 11 | 15 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 35 | 46 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 332 | 565 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 380 | 566 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 333 | 566 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 385 | 571 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 33 | 33 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 84 | 95 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 85 | 96 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 41 | 41 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 42 | 42 |
 
 ## C1
 
@@ -175,6 +175,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6G5A (6e) |  q1 mathlive | réponse fausse acceptée | ×58 ; sup=3 sup2=4 sup4=false ; sup=1 sup2=1 sup4=true… (revue-0-a) |
 | 6G5A-1 (6e) |  q1 tableauMathlive | réponse fausse acceptée | ×82 ; sup=3 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
+| 6G7B-9 (6e) |  q1 mathlive | réponse fausse acceptée | ×18 ; sup=5 sup2=true ; sup=4 sup2=true… (revue-0-b) |
 | 6M4A (6e) |  q1 mathlive | réponse fausse acceptée | ×2 ; sup=5 (revue-5-a) |
 | 6M4C (6e) |  q2 mathlive | réponse fausse acceptée | ×14 ; sup=5 ; sup=1… (revue-0-a) |
 | can1a-NY2025 (CAN) |  q16 mathlive | réponse fausse acceptée | ×2 ; sup=false ; sup=true (revue-0-a) |
@@ -350,6 +351,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA6-07 (Terminale) | src/exercices/TSpe/TSA6-07.ts | Correction : « f croissante équivaut à f'>0 » est faux (f'⩾0) ; « donc$F''=f'>0$ » sans espace après « donc » ; affirmation de l'énoncé « alors f est croissante équivaut à F convexe » : syntaxe lourde (« si et seulement si »). → f' ⩾ 0 et F'' ⩾ 0 ; « donc $F''$ » ; reformuler « f est croissante sur I si et seulement si F est convexe sur I ». | ×1 |
 | TSA6-QCM05 (Terminale) | src/exercices/QCMBac/A2024/Polynesie2024Q5.ts | Correction : « 2^2\ln(2^2+2) = 4\ln(4+4) » (le +2 devrait être +4) ; code LaTeX brut affiché « \\ \textbf{Réponse B.} \smallskip » dans le texte (jamais interprété) ; « soit 8,3 » hors des $. → Corriger +4 ; retirer le LaTeX brut ; « Réponse B » via texteEnCouleurEtGras. | ×1 |
 | TSA7-31 (Terminale) | src/exercices/TSpe/TSA7-31.ts | Corrections qui renvoient à des lettres (« Réponse a », « la fonction F de la réponse a. … de la réponse d. ») alors que les propositions du QCM n'ont pas de lettres et sont mélangées : l'élève ne peut pas retrouver « a » ou « d » (16 M3 : la proposition correcte n'est pas mise en évidence) ; F\prime au lieu de F'. → Remplacer par « la première proposition » ou citer la formule ; mettre la proposition en évidence. | ×1 |
+| TSG2-QCM02 (Terminale) | src/exercices/QCMBac/A2023/NouvelleCaledonie2023Q4.ts | Correction : « Un vecteur normal au plan (P) est n(2 ; -1 ; 2) » alors que le plan est 2x − y + z − 1 = 0 (n(2 ; -1 ; 1)) : coordonnée fausse, le produit scalaire qui suit utilise bien 1 ; « ( $\Delta$ ) » espaces dans les parenthèses ; « respectivement: » sans espace (11 T3) ; « (P) » hors des $. → n(2 ; -1 ; 1) ; $(\Delta)$ ; $(P)$. | ×1 |
+| TSG2-QCM07 (Terminale) | src/exercices/QCMBac/A2024/Metropole2024Q7.ts | Correction : « \vec{v}\cdot\vec{n}=0 donc \vec{v}\perp\vec{v} » : il faut \vec{v}\perp\vec{n} ; vecteur « \vec n » avec espace ; $\mathcal{P}$ jamais défini dans l'énoncé affiché ici. → \vec{v}\perp\vec{n}. | ×1 |
 
 ## I1
 
@@ -373,6 +376,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6G5A (6e) | src/exercices/6e/6G5A.ts | Réponse fausse acceptée par la sonde : « 20^\circ+1 » jugé correct pour la bissectrice de 40° (58 cas ; même défaut que 6M4C, confirmé là-bas : le « +1 » sans unité est ignoré) ; mise en évidence « 20^\circ » refusée (champ attend 20\operatorname{^\circ}, 58 M1). → Refuser un reste sans unité ; mise en évidence saisissable. | ×1 |
 | 6G5A-1 (6e) | src/exercices/6e/6G5A-1.ts | Même défaut que 6G5A et 6M4C : des réponses fausses avec « +1 » sont acceptées dans les cases du tableau (82 cas I2) ; 108 pages > 390 px (le tableau de 6 colonnes dépasse l'écran). → Comparaison à corriger ; tableau en défilement horizontal ou en deux blocs. | ×1 |
+| 6G7B-9 (6e) | src/exercices/6e/6G7B-9.ts | Même défaut que 6M4C/6G5A : des réponses fausses avec « +1 » sont acceptées (18 I2) ; mise en évidence de la valeur sans unité refusée alors que l'unité est exigée (69 M1) ; « BG=6,2 cm  . » espace avant le point. → Comparaison des grandeurs ; unité dans l'évidence ; point collé. | ×1 |
 | 6M4A (6e) | src/exercices/6e/6M4A.ts | Même défaut : « 14h24min1s+1 » accepté comme bonne réponse (2 cas) ; mise en évidence « 1 h 33 min 57 s » refusée par le champ (80 cas M1, attendu 1h33min57s). → Comparaison de durées plus stricte ; évidence saisissable. | ×1 |
 | 6M4C (6e) | src/exercices/6e/6M4C.ts | Réponse fausse acceptée : « 300s+1 » est jugé correct (alors que « 301s » est refusé) pour « Convertir $05\text{ min}$ en secondes » (essayer.mjs, sup=5, graine revue-0-a, question 2) : le « +1 » sans unité est ignoré par la comparaison ; même chose sur 6M4A (« 14h24min1s+1 »). Énoncé « $05\text{ min}$ » avec zéro initial ; mise en évidence « 5 j 15 h » refusée (le champ attend 5jours15h). → Corriger la comparaison de durées (refuser un reste sans unité) ; écrire $5\text{ min}$ ; mettre « jours » dans la saisie attendue. | ×1 |
 
@@ -1236,6 +1240,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-QCM09 (Terminale) | src/exercices/QCMBac/2021/metropole092021_2Q3.ts | Correction incomplète : elle conclut au point d'inflexion à partir de f''(-2,5)=0 seul, sans le changement de signe de f'' (qui écarte aussi « convexe » et « concave sur R ») ; « On peut affirmer que: » sans espace ; mêmes valeurs à chaque question. → Ajouter : 10x+25 change de signe en -2,5 (négatif avant, positif après), donc f'' change de signe : f concave puis convexe, C seul point d'inflexion. | ×1 |
 | TSA5-QCM07 (Terminale) | src/exercices/QCMBac/A2022/Etrangers2022_1Q7.ts | Correction : « \ln(x+3)&lt;\ln(x+1)^2 » (ambigu, il faut \ln\left((x+1)^2\right)) ; le point final est après le dollar de fin du aligned (« $.») ; « \iff & 0&lt; x^2 » espacement irrégulier. → \ln\left((x+1)^2\right) ; point dans le $. | ×1 |
 | TSA5-QCM11 (Terminale) | src/exercices/QCMBac/A2022/Madagascar2022_1Q1.ts | Correction : un produit nul traduit par une accolade (système « et ») : \begin{cases}x=0\\ \ln x=-1/2\end{cases} signifie x=0 ET ln x=-1/2, alors qu'il faut « ou » ; équations recopiées sur six lignes séparées (chaque ligne un aligned). → « x=0 ou x=e^{-1/2} » ; un seul aligned. | ×1 |
+| TSG2-23 (Terminale) | src/exercices/TSpe/TSG2-23.ts | Énoncé : « Dans un repère orthonormé du plan » avec des points à trois coordonnées (il faut « de l'espace ») ; titre avec point final ; « 1. … 2. … » méthode en liste numérotée dans un paragraphe ; 46 phrases sans virgule, 69 doubles espaces. → « de l'espace » ; titre sans point. | ×1 |
 | TSP2-10 (Terminale) | src/exercices/TSpe/TSP2-10.ts | Énoncé : « atteigne le centre de la cible » ; correction : « X compte le nombre de fléchettes qui atteignent la cible » (centre/cible : variable non définie comme l'énoncé) ; « Il dispose de 27 fléchettes et en lance 19 » détail inutile ; $\mathcal B(19;0,28)$ sans espace. → « qui atteignent le centre de la cible » ; $\mathcal B(19\,;\,0{,}28)$. | ×1 |
 
 ## C2
@@ -1327,7 +1332,59 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G6D (6e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"67.5","champ2":"67.5","champ3":"45"} ; attendu : {"champ1":"45","champ2":"67.5","champ3":"67.5"} | ×7 ; sup=10 sup2=true sup3=true sup4=1 ; sup=10 sup2=false sup3=false sup4=2… (revue-21-a) |
 | 6G6D (6e) |  q4 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"67.5","champ2":"67.5","champ3":"45"} ; attendu : {"champ1":"67.5","champ2":"45","champ3":"67.5"} | ×10 ; sup=10 sup2=true sup3=true sup4=1 ; sup=10 sup2=false sup3=false sup4=2… (revue-21-a) |
 | 6G6D (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"72","champ2":"72","champ3":"36"} ; attendu : {"champ1":"72","champ2":"36","champ3":"72"} | ×21 ; sup=11 sup2=true sup3=true sup4=1 ; sup=11 sup2=false sup3=false sup4=2… (revue-23-a) |
+| 6G6D (6e) | src/exercices/6e/6G6D.ts | Même défaut que 6G4A-4 : mise en évidence « 62° » avec le signe ° refusée par le champ qui affiche déjà ° (107 M1) ; correction « $\widehat{USM}=180-(…)$ » : 180 sans ° puis avec ° ; « D'où : » répété trois fois. → Mettre en évidence le nombre seul ; $180^\circ$ partout ; varier les connecteurs. | ×1 |
 | 6G7B (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["3","47","97"] ; attendu : {"champ":"18"} | ×9 ; sup=1 nb=10 (revue-4-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["LR=6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×1 ; sup=5 sup2=true (revue-0-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["Y","M","J"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=true (revue-0-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["MS=4,6"] ; attendu : {"champ":"4,6\\operatorname{cm}"} | ×1 ; sup=5 sup2=true (revue-0-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["92"] ; attendu : {"champ":"92°"} | ×18 ; sup=5 sup2=true ; sup=4 sup2=true… (revue-0-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["NB=6,1"] ; attendu : {"champ":"6,1\\operatorname{cm}"} | ×1 ; sup=5 sup2=true (revue-0-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["T","U","P"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=true (revue-0-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["ZN=5,9"] ; attendu : {"champ":"5,9\\operatorname{cm}"} | ×1 ; sup=1 sup2=true (revue-1-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["DF=6,1"] ; attendu : {"champ":"6,1\\operatorname{cm}"} | ×1 ; sup=1 sup2=true (revue-1-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["KS=5,3"] ; attendu : {"champ":"5,3\\operatorname{cm}"} | ×1 ; sup=1 sup2=true (revue-1-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["CH=5,3"] ; attendu : {"champ":"5,3\\operatorname{cm}"} | ×1 ; sup=1 sup2=true (revue-1-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["BF=7,8"] ; attendu : {"champ":"7,8\\operatorname{cm}"} | ×1 ; sup=1 sup2=true (revue-1-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["CI=6,1"] ; attendu : {"champ":"6,1\\operatorname{cm}"} | ×1 ; sup=1 sup2=true (revue-1-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["PE=6,9"] ; attendu : {"champ":"6,9\\operatorname{cm}"} | ×1 ; sup=1 sup2=false (revue-2-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CP=4,9"] ; attendu : {"champ":"4,9\\operatorname{cm}"} | ×1 ; sup=1 sup2=false (revue-2-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["EM=6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×1 ; sup=1 sup2=false (revue-2-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["YN=5,4"] ; attendu : {"champ":"5,4\\operatorname{cm}"} | ×1 ; sup=1 sup2=false (revue-2-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CN=5,7"] ; attendu : {"champ":"5,7\\operatorname{cm}"} | ×1 ; sup=1 sup2=false (revue-2-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["VI=5,7"] ; attendu : {"champ":"5,7\\operatorname{cm}"} | ×1 ; sup=1 sup2=false (revue-2-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["TN=5,3"] ; attendu : {"champ":"5,3\\operatorname{cm}"} | ×1 ; sup=2 sup2=true (revue-3-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CY=6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×1 ; sup=2 sup2=true (revue-3-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["OT=5,7"] ; attendu : {"champ":"5,7\\operatorname{cm}"} | ×2 ; sup=2 sup2=true ; sup=2 sup2=false (revue-3-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["HU=5,9"] ; attendu : {"champ":"5,9\\operatorname{cm}"} | ×1 ; sup=2 sup2=true (revue-3-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["JL=6,8"] ; attendu : {"champ":"6,8\\operatorname{cm}"} | ×1 ; sup=2 sup2=true (revue-3-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["GV=6,1"] ; attendu : {"champ":"6,1\\operatorname{cm}"} | ×1 ; sup=2 sup2=true (revue-3-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["HC=6,6"] ; attendu : {"champ":"6,6\\operatorname{cm}"} | ×1 ; sup=2 sup2=false (revue-4-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["PA=5,7"] ; attendu : {"champ":"5,7\\operatorname{cm}"} | ×1 ; sup=2 sup2=false (revue-4-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["SB=6,5"] ; attendu : {"champ":"6,5\\operatorname{cm}"} | ×1 ; sup=2 sup2=false (revue-4-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["ZC=4,7"] ; attendu : {"champ":"4,7\\operatorname{cm}"} | ×1 ; sup=2 sup2=false (revue-4-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["UZ=6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×1 ; sup=2 sup2=false (revue-4-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["M","C","R"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=true (revue-5-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["J","U","P"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=true (revue-5-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["K","S","A"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=true (revue-5-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["B","Z","L"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=true (revue-5-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["H","N","K"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=true (revue-5-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["J","R","P"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=false (revue-6-a) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["K","A","Z"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=false (revue-6-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["Y","A","K"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=false (revue-6-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["C","V","A"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=false (revue-6-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["U","N","I"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=false (revue-6-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["Y","B","G"] ; attendu : {"champ":"oui"} | ×1 ; sup=3 sup2=false (revue-6-b) |
+| 6G7B-9 (6e) |  q2 mathlive | valeur en évidence refusée par le champ : ["MJ=5,4"] ; attendu : {"champ":"5,4\\operatorname{cm}"} | ×1 ; sup=5 sup2=false (revue-9-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["E","N","D"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=false (revue-9-a) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["M","A","B"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=false (revue-9-b) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["RU=4,2"] ; attendu : {"champ":"4,2\\operatorname{cm}"} | ×1 ; sup=5 sup2=false (revue-9-b) |
+| 6G7B-9 (6e) |  q1 mathlive | valeur en évidence refusée par le champ : ["C","K","U"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
+| 6G7B-9 (6e) |  q3 mathlive | valeur en évidence refusée par le champ : ["TS=6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
+| 6G7B-9 (6e) |  q4 mathlive | valeur en évidence refusée par le champ : ["GK=5"] ; attendu : {"champ":"5\\operatorname{cm}"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
+| 6G7B-9 (6e) |  q5 mathlive | valeur en évidence refusée par le champ : ["Z","M","F"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
+| 6G7B-9 (6e) |  q6 mathlive | valeur en évidence refusée par le champ : ["IM=6,3"] ; attendu : {"champ":"6,3\\operatorname{cm}"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
+| 6G7B-9 (6e) |  q7 mathlive | valeur en évidence refusée par le champ : ["PB=7,7"] ; attendu : {"champ":"7,7\\operatorname{cm}"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
+| 6G7B-9 (6e) |  q10 mathlive | valeur en évidence refusée par le champ : ["UO=6,8"] ; attendu : {"champ":"6,8\\operatorname{cm}"} | ×1 ; sup=5 sup2=true nb=10 (revue-10-a) |
 | 6M1autoE-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ0":"14","champ1":"8","champ2":"17,1"} ; attendu : {"champ0":"14\\operatorname{cm}","champ1":"8\\operatorname{cm}","champ2":"17,1\\operatorname{cm}"} | ×1 ; sup=4 sup2=1 sup3=true (revue-0-a) |
 | 6M1autoE-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ0":"12,4","champ1":"14","champ2":"8"} ; attendu : {"champ0":"12,4\\operatorname{cm}","champ1":"14\\operatorname{cm}","champ2":"8\\operatorname{cm}"} | ×3 ; sup=4 sup2=1 sup3=true ; sup=4 sup2=1 sup3=false (revue-0-b) |
 | 6M1autoE-1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ0":"24"} ; attendu : {"champ0":"24\\operatorname{cm}"} | ×8 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-1-a) |
@@ -2426,6 +2483,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSG1-07 (Terminale) | src/exercices/TSpe/TSG1-07.ts | 12 M1 : valeurs en évidence refusées (multi-champs a, b, c) ; énoncé : « un bureau » mal placé après « qui élira ensuite en son sein, un bureau » (virgule entre le complément et l'objet) ; « 6 adhérents parmi 38 » hors $ dans la correction. → « qui élira ensuite un bureau en son sein » ; $6$, $38$. | ×1 |
 | TSG2-13 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["45"] ; attendu : {"champ":"\\sqrt{45}"} | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSG2-13 (Terminale) |  q4 mathlive | valeur en évidence refusée par le champ : ["9"] ; attendu : {"champ":"\\sqrt9"} | ×1 ; défaut nb=10 (revue-1-a) |
+| TSG2-13 (Terminale) | src/exercices/TSpe/TSG2-13.ts | Norme : la correction met en évidence « 45 » sous la racine ($\sqrt{⟦45⟧}$) alors que le champ attend la norme \sqrt{45} (ou 3\sqrt{5}) : valeur refusée (12 M1) ; la racine n'est pas simplifiée (3√5) ; \vert\vert au lieu de \\|\cdot\\|. → Mettre \sqrt{45}=3\sqrt5 en évidence ; \left\\|\vec u\right\\|. | ×1 |
 | TSG2-15 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{alignés}"] ; attendu : {"champ":"oui"} | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSG2-15 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{pas alignés}"] ; attendu : {"champ":"non"} | ×5 ; défaut ; défaut nb=10 (revue-0-b) |
 | TSG2-26 (Terminale) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{22t^2+18t+10}"] ; attendu : {"champ":"\\frac{28x+4}{2\\sqrt{14x^2+4x+20}}"} | ×1 ; défaut nb=10 (revue-1-a) |
@@ -2436,6 +2494,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSG2-26 (Terminale) |  q7 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{27t^2-18t+17}"] ; attendu : {"champ":"-\\dfrac{9}{22}"} | ×1 ; défaut nb=10 (revue-1-a) |
 | TSG2-26 (Terminale) |  q8 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{22t^2-8t+12}"] ; attendu : {"champ":"\\sqrt{\\dfrac{139}{22}}"} | ×1 ; défaut nb=10 (revue-1-a) |
 | TSG2-26 (Terminale) |  q9 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{9t^2-8t+9}"] ; attendu : {"champ":"\\sqrt{6t^2+8t+8}"} | ×1 ; défaut nb=10 (revue-1-a) |
+| TSG2-26 (Terminale) | src/exercices/TSpe/TSG2-26.ts | 9 M1 : la valeur en évidence (distance) refusée par le champ ; « le point A de coordonnées $(3~;~-1~;~3)$ » : A hors des $ ; système paramétrique avec (d) répété ($(d)$⍽: $\begin{cases}…$). → Tester la forme attendue (racine simplifiée) ; $A$. | ×1 |
 | TSG2-27 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["AH  \\approx 3,41"] ; attendu : {"champ":"3.41"} | ×12 ; sup=false ; sup=false nb=10 (revue-0-a) |
 | TSG2-27 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["d(A,\\mathcal{P})  \\approx 0,97"] ; attendu : {"champ":"0.97"} | ×2 ; sup=true (revue-1-a) |
 | TTE-11 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\mathbb{R}\\backslash{\\{-5\\}}"] ; attendu : {"champ":"\\mathbb{R}\\backslash{\\{-5\\}}"} | ×3 ; sup=3 sup2=true ; sup=4 sup2=true… (revue-4-b) |
@@ -2970,6 +3029,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | bd726 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | c0f91 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×16 ; défaut ; défaut nb=10 (revue-0-a) |
 | c8ee7 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup3=true ; sup3=false… (revue-0-a) |
+| cce0c (Non classés) | série q1 | aucune mise en évidence dans la correction | ×90 ; sup=0 sup2=0 sup3=0 ; sup=0 sup2=0 sup3=1… (revue-0-a) |
 | PEG20 (PE) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | PEG21 (PE) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | PEG22 (PE) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=2 ; sup=1 (revue-0-a) |
@@ -3250,6 +3310,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G0-1 (6e) | src/exercices/6e/6G0-1.ts | « Placer 3 points $U$, $V$ et $W$ » : 3 hors des $ ; correction sans mise en évidence par trou (M8 16 cas) : phrase complète. → $3$ entre dollars ; mettre en évidence les mots à trouver. | ×1 |
 | 6G2B (6e) | src/exercices/6e/6G2B.ts | Énoncé : « du point M », « du point B », « du point L » : noms de points hors des $ ; correction vide de texte (seule la figure apigeom, X4 34 cas) ; 25 pages > 390 px ; exercice apigeom à tester à la main. → $M$ entre dollars ; phrase de correction (« le cercle de centre M et de rayon 3,7 »). | ×1 |
 | 6G3C (6e) | src/exercices/6e/6G3C.ts | Énoncé et correction : « [$JT$] » crochets hors du dollar (« segment [$JT$] ») ; « FJ = 3 alors que FT = 3,5 » sans unité. → $[JT]$ ; unités de longueur. | ×1 |
+| 6G7B-8 (6e) | src/exercices/6e/6G7B-8.ts | Consigne : « La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules » : 0 et 28 hors des $ ; correction en 14 phrases dont la figure n'est pas décrite par l'axe en couleur ; 111 doubles espaces. → $0$ et $28$ ; regrouper. | ×1 |
 | 6N0A-9 (6e) | 6e/6N0A-9.ts:157 | Paramètre « Encadrer entre deux multiples de 10 » et « … de 10, forcément consécutifs » : même énoncé et même attente (multiples consécutifs) ; la seule différence est l'exclusion des nombres déjà multiples. Même chose pour 100. → Renommer : « … (le nombre peut être un multiple de 10) » / « … (le nombre n'est pas un multiple de 10) ». | ×1 |
 | 6N1G-1 (6e) | 6e/6N1G-1.ts | Option « Le pas secondaire vaut 0.5 ou 0.1 » : on obtient aussi un pas de 0,01 (A(0,14), B(0,32), sup=1, graine revue-2-a). → Libellé fidèle aux pas tirés, ou limiter les pas à 0,5 et 0,1. | ×1 |
 | 6N1J (6e) | 6e/6N0A-10.ts:261 | « Tous les nombres ont la même partie entière » coché avec « Mélange » des types : les nombres ont des parties entières différentes (93,41 ; 97 ; 98, graine revue-9-a), les entiers tirés ignorent l'option. → Avec cette option, exclure les entiers ou leur donner la même partie entière. | ×1 |
@@ -3345,6 +3406,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSG1-01 (Terminale) | src/exercices/TSpe/TSG1-01.ts | Correction : « tirages possible » (possibles) ; ensemble « E={1;2;....;5} » avec quatre points au lieu de \ldots ; « 5 boules », « 4 boules » nombres hors des $ ; « le nombre de k-uplet » (k-uplets). → possibles ; \{1;2;\ldots;5\} ; $5$, $4$ entre dollars. | ×1 |
 | TSG1-03 (Terminale) | src/exercices/TSpe/TSG1-03.ts | Titre « (code). » point final ; correction : ensembles « E={0;1;....;9} » (points) et « F={A, B, C, D, E, F, G} » (virgules et lettre E qui désigne l'ensemble) ; « 3 chiffres », « 4 lettres » hors des $ ; « A, B, … G . » espace avant le point. → \ldots ; F={A;B;…} ; $3$ ; point collé. | ×1 |
 | TSG1-QCM01 (Terminale) | src/exercices/QCMBac/A2024/Polynesie2024Q6.ts | Correction : « La selection » (sélection) ; « 29 élèves », « 7 élèves » hors des $ ; « la façon de créer des combinaisons » (le nombre de façons) ; QCM sans mise en évidence de la proposition. → sélection ; $29$, $7$ ; reformuler. | ×1 |
+| TSG2-11 (Terminale) | src/exercices/TSpe/TSG2-11.ts | Énoncé : repère « \big(0,\vec\imath,\vec\jmath,\vec k\big) » avec le chiffre 0 au lieu de la lettre O (origine) ; « milieu du segment [US]: » sans espace avant les deux-points ; M8 : trois trous, une seule mise en évidence I(0,5 ; -1,5 ; 5) ; $\dfrac{-4+5}{2}⍽;$ insécable seulement sur la première coordonnée. → (O ; …) ; « : » ; une évidence par trou. | ×1 |
+| TSG2-12 (Terminale) | src/exercices/TSpe/TSG2-12.ts | Même repère « (0, i, j, k) » avec le chiffre 0 (origine O) ; « $U(-4~;~-3;~6)$ » espaces irrégulières entre les coordonnées ; « du vecteur US: » sans espace avant ; M8 (matrice 3 trous, une évidence). → (O ; …) ; $U(-4~;~-3~;~6)$ ; « : ». | ×1 |
+| TSG2-15 (Terminale) | src/exercices/TSpe/TSG2-15.ts | Titre « …alignés. » avec point ; énoncé : « Justifier votre réponse. » alors que le champ n'attend que « O » ou « N » (« Réponse (O (Oui) ou N (Non)) ») : parenthèses imbriquées, justification impossible ; la mise en évidence attendue est refusée (12 M1). → « Répondre par O (oui) ou N (non). » sans « Justifier ». | ×1 |
+| TSG2-24 (Terminale) | src/exercices/TSpe/TSG2-24.ts | Correction : « on a necessairement » (nécessairement) ; « $\overrightarrow{n}(…)$est un vecteur » sans espace après le dollar ; titre « orthogonal à deux autre vecteurs » (autres). → nécessairement ; espace ; « deux autres vecteurs ». | ×1 |
+| TSG2-30 (Terminale) | src/exercices/TSpe/TSG2-30.ts | Repère « (0, i, j, k) » avec le chiffre 0 au lieu de O ; champ de représentation paramétrique à tester à la main (composant spécial). → (O ; …). | ×1 |
+| TSG2-QCM06 (Terminale) | src/exercices/QCMBac/A2024/Metropole2024Q6.ts | Correction : « les coordonnés des vecteurs » (coordonnées) ; « AB et AC on obtient » sans ponctuation ; correction OK (AB·AC=0 vérifié) ; $\overrightarrow{AB}$ sans \mathrm. → « coordonnées … AC, on obtient ». | ×1 |
 
 ## R2
 
@@ -3501,6 +3568,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G2C (6e) | src/exercices/6e/6G2C.ts | Correction = 7 figures sans phrase (18 M6) ; « une cabane rectangulaire, elle aussi » pour l'enclos rectangulaire : phrase ambiguë ; « (P) » pour un point (piquet). → Rédiger la construction ; « situé sur un mur de la cabane ». | ×1 |
 | 6G4C (6e) | src/exercices/6e/6G4C.ts | Corrections réduites à deux figures sans texte (26 M6) ; « sens inverse des aiguilles d'une montre » ok. → Ajouter une phrase décrivant la construction. | ×1 |
 | 6G6F-1 (6e) | src/exercices/6e/6G6F-1.ts | 106 M6 : corrections figures sans phrase ; « Le triangle UTV isocèle en T tel que UT=4 cm et UV=7 cm » : T hors des $ (« isocèle en T »). → $T$ entre dollars ; décrire la construction. | ×1 |
+| 6G7B-1 (6e) | src/exercices/6e/6G7B-1.ts | 52 M6 : corrections réduites à une figure ; consigne en liste a) à e) bien rédigée ; « Coder … » : phrase incomplète (coder quoi ?). → Ajouter un texte de construction ; « Coder la figure ». | ×1 |
+| 6G7B-2 (6e) | src/exercices/6e/6G7B-2.ts | Idem (52 M6) ; « Construire le triangle $U'V'W'$ symétrique de $UVW$ » : virgule manquante avant « symétrique ». → Virgule ; texte de correction. | ×1 |
 | 6M1D-1 (6e) | src/exercices/6e/6M1D-1.ts | Corrections purement textuelles (« La figure est un carré auquel il faut enlever un triangle rectangle ») sans mise en évidence ni décomposition dessinée distincte : l'élève ne voit pas ce qui est attendu (figures simples nommées). → Mettre en évidence les noms des figures simples (texteEnCouleurEtGras) ; « un carré » vs « un rectangle » à vérifier sur la figure. | ×1 |
 | 6M2B-1 (6e) | src/exercices/6e/6M2B-1.ts | Exercice MetaInteractif2d (90 IM) à tester à la main : le champ de saisie est dans la figure ; correction « L'aire du carré est de 3 cm × 3 cm = 9 cm² » avec \text{} dans les calculs. → Tester à la main ; unités courtes. | ×1 |
 
@@ -3572,6 +3641,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G6A-5 (6e) | titre | « 2 » hors $ : racer un triangle dont on connaît une longueur et 2 angles | ×1 |
 | 6G6A-6 (6e) | titre | « 2 » hors $ : racer un triangle dont on connaît une longueur et 2 angles (angles aigus et/ou obtus) | ×1 |
 | 6G6C (6e) | correction q1 | « 90 » hors $ : angles aigus d'un triangle rectangle est égale à 90°. ‖ « 180 » hors $ : La somme des angles d'un triangle est égale à 180°. | ×2 ; sup=5-6 (revue-0-a) |
+| 6G7B-3 (6e) | correction q1 | « 1 » hors $ : est dans la case C3 de la grille 1. ‖ « 2 » hors $ : est dans la case A1 de la grille 2. ‖ « 1 » hors $ : est dans la case D2 de la grille 1. | ×15 ; sup=3 ; sup=1… (revue-0-a) |
+| 6G7B-3 (6e) | correction non interactive q1 | « 1 » hors $ : est dans la case C3 de la grille 1. ‖ « 2 » hors $ : est dans la case A1 de la grille 2. | ×3 |
+| 6G7B-5 (6e) | énoncé q1 | « 38 » hors $ : Quelle est l'image de la figure 38 par la symétrie axiale d'axe | ×9 ; sup=false ; sup=true (revue-0-a) |
+| 6G7B-5 (6e) | correction q1 | « 38 » hors $ : L'image de la figure 38 par la symétrie axiale d'axe ‖ « 36 » hors $ : est la figure 36. | ×18 ; sup=false ; sup=true (revue-0-a) |
+| 6G7B-5 (6e) | énoncé non interactif q1 | « 38 » hors $ : Quelle est l'image de la figure 38 par la symétrie axiale d'axe | ×3 |
+| 6G7B-6 (6e) | énoncé q1 | « 68 » hors $ : st le numéro de la figure symétrique de la figure 68 dans la symétrie d'axe | ×3 ; sup2=1 (revue-0-a) |
+| 6G7B-6 (6e) | correction q1 | « 68 » hors $ : a) La figure symétrique de la figure 68 dans la symétrie d'axe ‖ « 46 » hors $ : porte le numéro 46. b) La figure symétrique de la figure 94 dans ‖ « 94 » hors $ : numéro 46. b) La figure symétrique de la figure 94 dans la symétrie d'axe | ×6 ; sup2=1 (revue-0-a) |
+| 6G7B-6 (6e) | énoncé non interactif q1 | « 68 » hors $ : st le numéro de la figure symétrique de la figure 68 dans la symétrie d'axe | ×3 |
+| 6G7B-6 (6e) | correction non interactive q1 | « 68 » hors $ : a) La figure symétrique de la figure 68 dans la symétrie d'axe ‖ « 46 » hors $ : porte le numéro 46. b) La figure symétrique de la figure 94 dans ‖ « 94 » hors $ : numéro 46. b) La figure symétrique de la figure 94 dans la symétrie d'axe | ×6 |
+| 6G7B-8 (6e) | énoncé q1 | « 0 » hors $ : suite de symétries axiales. La liste commence par 0, finit par 28 et les numéros sont à séparer par ‖ « 28 » hors $ : tries axiales. La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-vi | ×24 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 6G7B-8 (6e) | correction q1 | « 0 » hors $ : La figure 0 a pour image la figure 6 par la symétrie d'axe ‖ « 6 » hors $ : . La figure 6 a pour image la figure 12 par la symétrie d'axe ‖ « 0 » hors $ : La réponse était donc : 0;6;12;13;19;18;24;25;26;27;28. | ×366 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 6G7B-8 (6e) | correction non interactive q1 | « 0 » hors $ : La figure 0 a pour image la figure 6 par la symétrie d'axe ‖ « 6 » hors $ : . La figure 6 a pour image la figure 12 par la symétrie d'axe | ×20 |
 | 6M1autoE-2 (6e) | consigne | « 3,14 » hors $ : 3,14 le cas échéant.). | ×1 ; sup=1 sup2=true (revue-1-a) |
 | 6M1B (6e) | correction q2 | « 1 » hors $ : est la longueur d'un cercle de diamètre 1. | ×1 ; sup=3 (revue-0-a) |
 | 6M1C-1 (6e) | correction q1 | « 9 » hors $ : érimètre est composé d'un demi-cercle de diamètre 9 cm et d'un diamètre qui ferme la figure. ‖ « 4 » hors $ : rimètre est composé d'un quart de cercle de rayon 4 cm et de 2 rayons qui ferment la figure. ‖ « 2 » hors $ : composé d'un quart de cercle de rayon 4 cm et de 2 rayons qui ferment la figure. | ×26 ; sup2=4 ; sup2=1… (revue-0-a) |
@@ -4062,6 +4143,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | c8fe9 (Non classés) | correction q1 | « 1 » hors $ : Passage n° 1 dans la boucle : | ×18 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
 | c9016 (Non classés) | titre | « 25 » hors $ : Appliquer 25 % sur un nombre | ×1 |
 | c9016 (Non classés) | correction q1 | « 80 » hors $ : revient à prendre le quart de 80. Ainsi, | ×1 ; défaut (revue-0-a) |
+| cce0c (Non classés) | correction q1 | « 1 » hors $ : Correction 1 de type 2 | ×24 ; sup=0 sup2=0 sup3=0 ; sup=0 sup2=0 sup3=1… (revue-0-a) |
 | PEA13 (PE) | énoncé q7 | « 14 » hors $ : Pour le défilé du 14 juillet, Manon dirige une fanfare composée de | ×1 ; sup=11 nb=10 (revue-11-a) |
 | PEG20 (PE) | correction q1 | « 5 » hors $ : 5 points régulièrement espacés nommés ‖ « 5 » hors $ : (car le dénominateur de la fraction est 5). On trace la parallèle à ‖ « 3 » hors $ : (car le numérateur de la fraction est 3). On place | ×3 ; défaut (revue-0-a) |
 | PEG21 (PE) | correction q1 | « 3 » hors $ : On place 3 points ‖ « 2 » hors $ : (pour cela on choisit 2 points | ×2 ; défaut (revue-0-a) |
@@ -4495,6 +4577,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA7-21 (Terminale) | src/exercices/TSpe/TSA7-21.ts | « est sous la forme » (de la forme) répété dans chaque correction ; y^\prime écrit au lieu de y' ; 10 phrases sans virgule. → « de la forme » ; y'. | ×1 |
 | TSA8-41 (Terminale) | src/exercices/TSpe/TSA8-41.ts | Correction de l'intégration par parties : « on pose u'(x)=\sin(-x) et v(x)=3x-3 » correct mais la forme « \int_\alpha^\beta u'(x)v(x) » est donnée sans l'hypothèse de classe C^1 ; 84 N6 (nombres sans séparateur de milliers). → Rappeler « u et v de classe C^1 ». | ×1 |
 | TSG1-08 (Terminale) | src/exercices/TSpe/TSG1-08.ts | « pour tout entiers n et k » (tous les entiers) ; champ en \begin{pmatrix} alors que l'énoncé et la correction écrivent \dbinom : saisie d'un coefficient binomial sous deux formes ; mise en évidence par trou manquante (M8 12). → « pour tous entiers » ; même notation. | ×1 |
+| TSG2-33 (Terminale) | src/exercices/TSpe/TSG2-33.ts | Consigne affichée « Une réponse non argumentée ne sera pas prise en compte » (phrase de sujet de Bac) ; « (d~') » avec ~ avant l'apostrophe ; « ⟦Affirmation⍽:⟧ » le mot « Affirmation : » en évidence (texte) ; 10 pages > 390 px (deux systèmes côte à côte avec \quad). → d' ; texteEnCouleurEtGras ; systèmes l'un sous l'autre. | ×1 |
+| TSG2-34 (Terminale) | src/exercices/TSpe/TSG2-34.ts | Titre « …orthogonales. » avec point ; « $ A(7~;~-5~;~-6)$ » espace au début du dollar ; « (\Delta)⍽:$ \begin{cases} » ; correction « d'après le cours » (« d'après la représentation »). → Titre sans point ; espaces. | ×1 |
+| TSG2-QCM09 (Terminale) | src/exercices/QCMBac/A2024/Metropole2024Q9.ts | Correction : « …vecteur normal n(3;2;1).⏎et le plan Q » : point puis « et » en minuscule (phrase coupée) ; 5 pages > 390 px ; M3/M6. → Remplacer le point par une virgule. | ×1 |
 | TSP3-10 (Terminale) | src/exercices/TSpe/TSP3-10.ts | Correction : « On a trivialement : » (espace avant les deux-points, adverbe familier) ; « Var » et « p(X=…) » minuscule dans 15 propositions (R9) ; « s'il obtient 1 » : 1 hors des $ ; « 3 € ; » avec point-virgule collé. → « On a : » ; P majuscule ; $1$. | ×1 |
 
 ## R2
@@ -4517,6 +4602,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G6A-8 (6e) | src/exercices/6e/6G6A-8.ts | Correction : phrases de justification en {#216D9A:…} (couleur) dans le texte ; 44 « Choisir… » dans les listes ; inégalités ⟦=⟧ ⟦&lt;⟧ ⟦>⟧ en dollars isolés. → texteEnCouleur ; un seul dollar. | ×1 |
 | 6G6D-1 (6e) | src/exercices/6e/6G6D-1.ts | « $\;\widehat{CRU}$ + $\;\widehat{RUC}$ » : chaque terme dans son dollar (calcul découpé en 6 dollars) ; 54 pages > 390 px (tableau de 4 colonnes) ; I1 « isocèle rectangle » à tester à la main. → Un seul dollar ; tableau compact. | ×1 |
 | 6G7A (6e) | src/exercices/6e/6G7A.ts | « $B',C'$ et $D'$ respectifs des points $B,C$ et $D$ » : listes de points sans espace après la virgule et « respectifs » mal placé ; 83 doubles espaces ; 62 IM (apigeom) à tester à la main ; correction : 2 figures sans texte (M6). → « les symétriques $B'$, $C'$ et $D'$ des points $B$, $C$ et $D$ » ; tester à la main. | ×1 |
+| 6G7B-3 (6e) | src/exercices/6e/6G7B-3.ts | Consigne « Construire le symétrique des points $P$, $L$ et $A$ » : « les symétriques » ; 45 N1 ; correction avec case cible non décrite. → « les symétriques » ; expliquer la case cible. | ×1 |
+| 6G7B-5 (6e) | src/exercices/6e/6G7B-5.ts | Propositions du QCM « 36 », « 23 », « 37 » hors des $ ; énoncé entièrement en {#216D9A:…} (couleur) y compris les maths ; « la figure ⟦36⟧ » : mise en évidence du seul numéro. → $36$ entre dollars. | ×1 |
+| 6G7B-6 (6e) | src/exercices/6e/6G7B-6.ts | « ${\color{#4d8613}\boldsymbol{(d_1)}}$ ⍽? » : espace insécable avant « ? » après le dollar ; trois droites colorées nommées (d_1), (d_2), (d_3) : couleur seule ; « figure 68 » nombres hors des $. → Retirer l'espace ; $68$. | ×1 |
 | 6M2autoC-1 (6e) | src/exercices/6e/6M2autoC-1.ts | « cm² » écrit en texte simple après le champ alors que le reste utilise $\text{ cm}^2$ ; mise en évidence de $5\times4$ puis « soit » en \text dans le dollar. → Unités en $\text{ cm}^2$ ; texteEnCouleurEtGras pour « soit ». | ×1 |
 | 6M4A-1 (6e) | src/exercices/6e/6M4A-1.ts | « \xrightarrow{-06~\text{min}} » zéro initial (−6 min) ; espaces insécables dans le dollar (⍽) mêlées à ~ selon les lignes ; 7 pages > 390 px (flèches). → -6 min ; une seule convention d'espace. | ×1 |
 | 6N3Q-2 (6e) | src/exercices/6e/6N3Q-2.ts:79 | Pourcentage écrit avec deux espaces insécables ($50 ${sp()}${sp()}\%$, une seule pour les masses) ; « le montant en euro » ; melons de 133 g. → $${pourcent[i]}\,\%$ ; « en euros » ; masses de melon réalistes (en kg ou plus de 800 g). | ×1 |
@@ -4546,6 +4634,18 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA8-22 (Terminale) | src/exercices/TSpe/TSA8-22.ts | $[-9⍽; -3]$ : insécable avant le point-virgule mais espace ordinaire après ; \left(\dfrac{-3}{-3x-1} \right) espace irrégulière ; 12 phrases sans virgule après « Comme »/« On observe ». → $[-9~;~-3]$ ; virgules. | ×1 |
 | TSG1-06 (Terminale) | src/exercices/TSpe/TSG1-06.ts | Titre « Effectuer une somme de combinaisons. » avec point ; somme écrite « \sum_{k=0}^{k=8} » (borne supérieure 8) ; vidéo en iframe dans la correction (3 pages > 390 px). → \sum_{k=0}^{8} ; titre sans point. | ×1 |
 | TSG1-10 (Terminale) | src/exercices/TSpe/TSG1-10.ts | Milliers séparés par « \  » (backslash-espace : $20\ 634$, $60\ 000$) au lieu de l'espace fine \, de texNombre ; calculs vérifiés (60 000 − 39 366 = 20 634). → texNombre. | ×1 |
+| TSG2-10 (Terminale) | src/exercices/TSpe/TSG2-10.ts | Repère « (E,\overrightarrow{EA}, …) » avec virgule simple (« ; » est la convention française) ; mise en évidence « 1~ » avec insécable à l'intérieur de ⟦…⟧ ; coordonnées vérifiées. → Point-virgule ; retirer ~ de l'évidence. | ×1 |
+| TSG2-16 (Terminale) | src/exercices/TSpe/TSG2-16.ts | « $A\,,B\,,C\,\text{et} \, D$ » : liste de points avec espaces fines, « et » en \text dans le dollar ; coordonnées « A(5\,;4\,;-4) » avec \, au lieu de ~;~ ; 14 doubles espaces. → « $A$, $B$, $C$ et $D$ » ; ~;~. | ×1 |
+| TSG2-17 (Terminale) | src/exercices/TSpe/TSG2-17.ts | Repère « (O,\overrightarrow{OI},…) » virgules ; cinq insécables « ⍽⍽⍽⍽⍽ » pour espacer les vecteurs dans la correction ; mise en évidence de chaque coordonnée (une évidence par trou : correcte). → \quad ; point-virgule. | ×1 |
+| TSG2-20 (Terminale) | src/exercices/TSpe/TSG2-20.ts | « $\vec{u}\begin{pmatrix}-5⍽ \\ ⍽-2…$ » insécables à l'intérieur de la matrice ; valeur du produit scalaire vérifiée (35−18−24 = −7) ; « (O⍽; …) » insécable seule avant ;. → Retirer les insécables internes. | ×1 |
+| TSG2-25 (Terminale) | src/exercices/TSpe/TSG2-25.ts | « les points $A$, $B$ et $M$de coordonnées » : espace manquante après le dollar ; « $M(-11⍽; 1⍽; 19)$ . » espace avant le point ; correction : « Les vecteurs … » sans verbe de liaison (« Les vecteurs AB et AH sont colinéaires et … ») ; 14 M8 (trois trous, une évidence) ; 26 N6. → Espaces ; une évidence par trou. | ×1 |
+| TSG2-31 (Terminale) | src/exercices/TSpe/TSG2-31.ts | « $M(-7;37;18)$ » coordonnées sans espaces ($(x~;~y~;~z)$ ailleurs) ; système parametrique avec « 8-5 t » espace avant t ; 6 doubles espaces. → ~;~ ; $8-5t$. | ×1 |
+| TSG2-40 (Terminale) | src/exercices/TSpe/TSG2-40.ts | « $A(8;-2;8)$ » sans espaces et « n(7 \\-6 \\-5 )» espaces irrégulières ; « admettant pour vecteur normal le vecteur » (répétition) ; « $P$ » plan non nommé « (P) » ; 3 pages > 390 px. → ~;~ ; « de vecteur normal ». | ×1 |
+| TSG2-QCM03 (Terminale) | src/exercices/QCMBac/A2023/NouvelleCaledonie2023Q5.ts | « \dfrac{1}{2} \neq \frac{-2}{1} » : dfrac et frac mélangés sur la même ligne ; $\mathrm{P}_1$ dans la correction et $P_1$ dans l'énoncé ; 6 T3. → \dfrac partout ; $(P_1)$. | ×1 |
+| TSG2-QCM04 (Terminale) | src/exercices/QCMBac/A2023/NouvelleCaledonie2023Q6.ts | « vérifie: » sans espace avant les deux-points (6 T3) ; \mathrm{EF} sans espace ; \text{FEG} dans l'énoncé et \mathrm dans la correction ; valeur vérifiée (α≈70,5°) ; 3 pages > 390 px (lignes de produit scalaire). → « vérifie : » ; \widehat{FEG} uniforme. | ×1 |
+| TSG2-QCM05 (Terminale) | src/exercices/QCMBac/A2024/Metropole2024Q5.ts | « A$(-1~;~-2~;~3)$ » : nom du point hors des $ ; liste à puces avec majuscule initiale puis point-virgule/point (« C$(1~;~0~;~2)$; ») ; correction « $\text T\in\mathcal{P}$ » ; M3/M6. → $A(-1~;~-2~;~3)$ ; ponctuation de liste. | ×1 |
+| TSG2-QCM08 (Terminale) | src/exercices/QCMBac/A2024/Metropole2024Q8.ts | « La norme de BA est donc :$\|\|…\|\|$ » : \vert\vert à la place de \\| ; 5 pages > 390 px (calcul de norme sur une ligne) ; « donc : » sans espace avant le dollar. → \left\\|\cdots\right\\| ; aligned. | ×1 |
+| TSG2-QCM10 (Terminale) | src/exercices/QCMBac/A2024/SujetZero2024Q5.ts | « ABFEDCGH », « AB = AD » : points hors des $ (« le prisme droit ABFEDCGH », « le milieu du segment [EF] », « I », « J ») ; \mathrm{AB} en italique/droit mélangé ; 11 T3. → $ABFEDCGH$ ; « : » avec espace. | ×1 |
 | TSP2-12 (Terminale) | src/exercices/TSpe/TSP2-12.ts | Correction : « \left ( \dfrac{1}{5}\right )^3 » espaces inutiles ; « ;» point-virgule en fin de ligne puis « donc » ; « p(X = 1) » minuscule dans les propositions alors que « P(X = 0) » est écrit en majuscule dans l'énoncé. → P partout ; \left(\right). | ×1 |
 
 ## R4
@@ -4571,6 +4671,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2B (6e) | 6e/6N2B.ts | Consigne « Compléter les pointillés. » alors qu'en interactif ce sont des champs à remplir (pas de pointillés). → « Compléter. » ou consigne selon this.interactif. | ×1 |
 | TSA2-35 (Terminale) | src/exercices/TSpe/TSA2-35.ts | Correction : « Or $\lim…$ » sans virgule après « Or » dans la majorité des questions (conjonction de transition) ; intervalle de définition écrit sans \,;\, ; « On pose u la fonction » (« la fonction u »). → « Or, … » ; « On pose $u$ la fonction définie… ». | ×1 |
 | TSA3-45 (Terminale) | src/exercices/TSpe/TSA3-45.ts | Correction : mêmes défauts de ponctuation (« Pour tout réel x, e^x>0. Ainsi, … » correct) mais « On calcule le discriminant du polynôme du second degré » coupé net dans la sortie ; 3 occurrences de phrases sans virgule après « Or »/« Ainsi » ; $f=uv$ pour une dérivation à refaire deux fois (pas de rappel de la forme réduite de f''). → Virgules après les connecteurs ; vérifier la phrase du discriminant. | ×1 |
+| TSG2-14 (Terminale) | src/exercices/TSpe/TSG2-14.ts | 24 phrases sans virgule ; « d'où $\overrightarrow{AB}(7-4…)$ et $\overrightarrow{AB}(3;-2;-2)$ » : les deux écritures de AB séparées par « et » (au lieu de « soit ») ; valeurs vérifiées (AB(3;-2;-2)). → « soit $\overrightarrow{AB}(3~;~-2~;~-2)$ ». | ×1 |
+| TSG2-27 (Terminale) | src/exercices/TSpe/TSG2-27.ts | 23 phrases sans virgule et 23 R6 ; « $3x -3 y -2 z +8 = 0$ » espaces irrégulières autour des variables ; 14 M1. → $3x-3y-2z+8=0$ ; virgules. | ×1 |
 
 ## T1
 
@@ -5448,6 +5550,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G6D-1 (6e) | correction q1 | table.tableauMathlive de 401 px pour 390 px | ×18 ; sup=1 ; sup=2… (revue-0-a) |
 | 6G6D-1 (6e) | correction | page de 417 px pour 390 px | ×9 ; sup=1 ; sup=2… (revue-0-a) |
 | 6G7B-6 (6e) | correction | page de 411 px pour 390 px | ×1 ; sup2=1 (revue-0-a) |
+| 6G7B-8 (6e) | énoncé | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 6G7B-8 (6e) | correction | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
 | 6M1autoC (6e) | correction | page de 503 px pour 390 px | ×20 ; sup=4 sup2=true sup3=true sup4=true ; sup=4 sup2=true sup3=true sup4=false… (revue-24-a) |
 | 6M1autoC-1 (6e) | énoncé | page de 531 px pour 390 px | ×40 ; sup=1 sup2=true sup3=true sup4=1 ; sup=1 sup2=true sup3=true sup4=2… (revue-1-a) |
 | 6M1autoC-1 (6e) | correction | page de 443 px pour 390 px | ×14 ; sup=1 sup2=true sup3=true sup4=1 ; sup=1 sup2=false sup3=true sup4=1… (revue-1-a) |
@@ -7690,6 +7794,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | c25bd (Non classés) | énoncé q1 | deuxième personne : . Combien de boîtes faut-il ? [champ] | ×12 ; sup=false ; sup=true… (revue-0-a) |
 | c25bd (Non classés) | énoncé non interactif q1 | deuxième personne : . Combien de boîtes faut-il ? | ×1 |
 | c5503 (Non classés) | énoncé q1 | impératif : Entoure la bonne réponse. [champ] | ×1 ; défaut (revue-0-a) |
+| ccf1d (Non classés) | énoncé q1 | impératif : Calcule : | ×12 ; sup=false ; sup=true… (revue-0-a) |
+| ccf1d (Non classés) | énoncé non interactif q1 | impératif : Calcule : | ×1 |
 | d4573 (Non classés) | src/exercices/can/can6a-2025/can6a-2025-Q9.ts:34 | consigne à l'impératif : Complète.  | ×1 |
 | e5ec7 (Non classés) | src/exercices/can/canCE1a-2025/canCE1-2025-Q11.ts:26 | consigne à l'impératif : Complète cette suite logique. | ×1 |
 | f9261 (Non classés) | src/exercices/modèlesExos/21_parametrable.ts:23 | consigne à l'impératif : Calcule | ×1 |
@@ -7725,6 +7831,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6G7B-4 (6e) | énoncé q1 | pas de virgule avant « soit » : ie. Ajouter un minimum de points afin que la figure soit symétrique par rapport à l'axe. | ×50 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-0-a) |
+| 6G7B-4 (6e) | correction q1 | pas de virgule avant « soit » : points (en rouge sur la figure) afin que la figure soit symétrique par rapport à l'axe. | ×50 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-0-a) |
+| 6G7B-4 (6e) | énoncé non interactif q1 | pas de virgule avant « soit » : ie. Ajouter un minimum de points afin que la figure soit symétrique par rapport à l'axe. | ×1 |
+| 6G7B-4 (6e) | correction non interactive q1 | pas de virgule avant « soit » : points (en rouge sur la figure) afin que la figure soit symétrique par rapport à l'axe. | ×1 |
 | 6M2B (6e) | énoncé q1 | pas de virgule avant « alors » : ). On peut alors donner l'aire du carré ainsi : [champ] [c ‖ pas de virgule avant « alors » : ). On peut alors donner l'aire du rectangle ainsi : [champ] | ×4 ; sup=3 ; sup=6… (revue-3-a) |
 | 6M2B-2 (6e) | correction q1 | pas de virgule après « Or » : . Or ‖ pas de virgule avant « alors » : . La base du triangle cherché mesure alors | ×7 ; sup=1 ; sup=3… (revue-1-a) |
 | 6N0A-11 (6e) | correction q2 | pas de virgule avant « alors » : chiffres alors que | ×13 ; sup=3 ; sup=1… (revue-0-a) |
@@ -8044,6 +8154,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G4B-2 (6e) | énoncé non interactif q1 | espace avant ponctuation : Un angle plat mesure ............ ‖ espace avant ponctuation : Un angle nul mesure ............ ‖ espace avant ponctuation : Un angle droit mesure ............ | ×8 |
 | 6G7A (6e) | énoncé q1 | double espace : respectifs des points | ×30 ; sup=1 sup2=1 sup3=3 ; sup=1 sup2=2 sup3=2… (revue-0-a) |
 | 6G7A (6e) | énoncé non interactif q1 | double espace : respectifs des points | ×1 |
+| 6G7B-8 (6e) | énoncé non interactif q1 | espace avant ponctuation : La figure .... a pour image la figure .... par la symétrie | ×10 |
 | 6M1autoE-1 (6e) | énoncé non interactif q1 | double espace : a) Calculer le périmètre du rectangle ci-dessus. b) Calculer le périmèt ‖ double espace : mètre du carré ci-dessus. c) Calculer le périmètre du triangle rectangle ci-dessus. | ×2 |
 | 6M1C (6e) | énoncé non interactif q1 | double espace : ure] Valeur exacte du périmètre : ... ‖ double espace : Valeur approchée du périmètre : ... | ×8 |
 | 6M1C-1 (6e) | énoncé non interactif q1 | double espace : du périmètre : ... | ×3 |
@@ -8741,6 +8852,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G6A-8 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×4 |
 | 6G6C (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×2 |
 | 6G6D-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....^\circ$ | ×1 |
+| 6G7B-8 (6e) | énoncé non interactif q1 | points de suspension : La figure .... a pour image la figure .... par la symétrie d ‖ points de suspension : La figure .... a pour image la figure .... par la symétrie d'axe ( .... ). ‖ points de suspension : pour image la figure .... par la symétrie d'axe ( .... ). | ×30 |
 | 6M1autoC (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $18~\text{mm} = ................ ~\text{m}$ ‖ points de suspension en maths (\ldots) : $600~\text{hm} = ................ ~\text{m}$ ‖ points de suspension en maths (\ldots) : $700~\text{cm} = ................ ~\text{m}$ | ×50 |
 | 6M1autoC-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $700 ~\text{m} = ..............................$ ‖ points de suspension en maths (\ldots) : $700 ~\text{m} = ................................$ ‖ points de suspension en maths (\ldots) : $700 ~\text{m} = ................................ ~\$ | ×80 |
 | 6M1C (6e) | énoncé non interactif q1 | points de suspension : ] Valeur exacte du périmètre : ... ‖ points de suspension : Valeur approchée du périmètre : ... | ×8 |
@@ -9133,6 +9245,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | c5kkh (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $.... ~\leqslant \dfrac{4}{\tex$ ‖ points de suspension en maths (\ldots) : $dfrac{4}{\text{e}} \leqslant ~....$ | ×2 |
 | c8515 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $3 \cdot .... = 18$ | ×1 |
 | cc404 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $3\,242 ~= .... \text{ centaines } .... \$ ‖ points de suspension en maths (\ldots) : $42 ~= .... \text{ centaines } .... \text{ unités}$ | ×2 |
+| cca3f (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| ccf0d (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $243 + .... = 250$ | ×1 |
+| cd32b (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| cd8eb (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....&nbsp;\text{h}&nbsp;....&n$ ‖ points de suspension en maths (\ldots) : $....&nbsp;\text{h}&nbsp;....&nbsp;\text{min}$ | ×2 |
 | exemple-qcm-json (Non classés) | src/exercices/modèlesExos/ExempleQcmJson.ts:54 | « ... » : Correct ! $\\pi \\approx 3,14159...$ | ×1 |
 | PEG20 (PE) | correction q1 | points de suspension : ... On trace le segment | ×1 ; défaut (revue-0-a) |
 | PEN14 (PE) | correction q1 | points de suspension en maths (\ldots) : $frac{18}{13}\approx 1,384\,615....$ ‖ points de suspension en maths (\ldots) : $\dfrac{9}{7}\approx 1,285\,714....$ | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -9249,6 +9365,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G3B (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×64 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=2… (revue-0-a) |
 | 6G6A (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×2 ; défaut (revue-0-a) |
 | 6G7A (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×62 ; sup=1 sup2=1 sup3=3 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
+| 6G7B-4 (6e) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×90 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-0-a) |
 | 6M2B-1 (6e) |  q1 MetaInteractif2d | format MetaInteractif2d : à tester à la main | ×90 ; sup=5 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 6N0A-2 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×246 ; sup=10 sup2=4 sup3=1 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 6N0A-3 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
@@ -9805,6 +9922,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G7A (6e) |  | 100 combinaisons : 26 passées (couverture par paires) | ×1 |
 | 6G7B-1 (6e) |  | 120 combinaisons : 21 passées (couverture par paires) | ×1 |
 | 6G7B-2 (6e) |  | 120 combinaisons : 21 passées (couverture par paires) | ×1 |
+| 6G7B-7 (6e) |  | 96 combinaisons : 26 passées (couverture par paires) | ×1 |
 | 6M1D (6e) |  | 72 combinaisons : 19 passées (couverture par paires) | ×1 |
 | 6M2autoC-1 (6e) |  | 128 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 6M2C-4 (6e) |  | 60 combinaisons : 16 passées (couverture par paires) | ×1 |

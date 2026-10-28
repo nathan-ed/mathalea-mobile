@@ -21,3 +21,4 @@
 {"id":"6M1C","regle":"M1","motif":"deux valeurs approchées en évidence pour un champ : la sonde associe 56,5 puis 56,6 aux champs dans l’ordre"}
 {"id":"6G1autoB","regle":"I1","motif":"liste déroulante dont la valeur contient des espaces (« isocèle et rectangle ») saisie sans espaces par la sonde : à tester à la main"}
 {"id":"6G6D-1","regle":"I1","motif":"liste déroulante dont la valeur contient des espaces (« isocèle rectangle ») saisie sans espaces par la sonde : à tester à la main"}
+{"id":"TSG2-30","regle":"I1","motif":"champ de représentation paramétrique (composant spécial) : la sonde y écrit un JSON, non testable automatiquement ; à tester à la main"}
