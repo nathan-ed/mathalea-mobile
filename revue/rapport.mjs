@@ -18,7 +18,7 @@ const lire = (f) =>
         .map((l) => JSON.parse(l))
     : []
 const journal = lire(join(ici, 'journal.jsonl'))
-const relecture = lire(join(ici, 'relecture.jsonl'))
+const relecture = [...lire(join(ici, 'relecture.jsonl')), ...lire(join(ici, 'source.jsonl'))]
 const referentiel = existsSync(join(ici, 'referentiel.json')) ? JSON.parse(readFileSync(join(ici, 'referentiel.json'), 'utf8')) : []
 const fait = existsSync(join(ici, 'fait.txt')) ? new Set(readFileSync(join(ici, 'fait.txt'), 'utf8').split('\n').filter(Boolean)) : new Set()
 // Constats écartés à la relecture (faux positifs) : { id, regle, motif }
@@ -76,7 +76,7 @@ const motif = (s) => String(s ?? '').replace(/\d+/g, '#').replace(/\s+/g, ' ').s
 const groupes = new Map()
 for (const c of [...journal, ...relecture]) {
   if (ecartes.some((e) => e.id === c.id && e.regle === c.regle && (!e.motif || motif(c.extrait).includes(e.motif)))) continue
-  const detail = /^[IMX]/.test(c.regle) ? motif(c.extrait) : ''
+  const detail = c.source ? c.ou : /^[IMX]/.test(c.regle) ? motif(c.extrait) : ''
   const cle = `${c.id}|${c.regle}|${c.ou ?? ''}|${detail}`
   const g = groupes.get(cle) ?? { ...c, n: 0, variantes: new Set(), exemples: [] }
   g.n++

@@ -9,10 +9,19 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 - Étape 0 (sources, règles) : faite. MathALÉA `main` à `0509fdbbd`
   (28 octobre 2026), moteur de l'app (`moteur/fichiers/src/moteur/index.ts`)
   posé par-dessus.
-- Étape 1 (banc) : `revue/banc.mjs`, `revue/sonde.ts`, `revue/controles.mjs`,
-  validation sur un échantillon en cours.
-- Étape 2 (relecture captures et code) : pas commencée.
-- Étape 3 (rapport) : pas commencée.
+- Étape 1 (banc) : lancé sur tout le référentiel le 28 octobre 2026 vers
+  8 h 30 UTC (`revue/banc.log`, environ 5 s par exercice, 4 190 exercices :
+  3 022 du référentiel FR, 1 168 propres au référentiel CH). Contrôles du
+  code source : `node revue/source.mjs` (`revue/source.jsonl`).
+- Étape 2 (relecture) : dans l'ordre du banc. Pour chaque exercice :
+  `node revue/lire.mjs <id>` (texte de chaque variante, attendus, mises en
+  évidence ⟦…⟧), le code source si besoin, les captures quand la figure ou
+  la mise en page compte. Constat : `node revue/noter.mjs <id> <règle>
+  <gravité> "<constat>" "<correction>" "<fichier:ligne>"`. Faux positif du
+  banc : une ligne `{ "id", "regle", "motif" }` dans `revue/ecartes.jsonl`.
+  Exercice relu : son id ajouté à `revue/relus.txt`.
+- Étape 3 (rapport) : `node revue/rapport.mjs` réécrit `trouvailles.md`
+  (à faire à chaque reprise, puis commit et push).
 
 ## Remettre l'environnement en place (conteneur neuf)
 
