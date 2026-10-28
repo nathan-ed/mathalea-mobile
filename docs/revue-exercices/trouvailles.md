@@ -5,7 +5,7 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
 Avancement : **1926 exercices passés sur 4190**.
-Constats regroupés : 10175 (un groupe = même exercice, même règle,
+Constats regroupés : 10185 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -25,7 +25,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 5 | 7 |
 | 1 Interactif faux | [R1 Titre](#r1) | 2 | 2 |
-| 1 Interactif faux | [R16 ](#r16) | 8 | 8 |
+| 1 Interactif faux | [R16 ](#r16) | 11 | 11 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 8 | 25 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
 | 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 2 | 2 |
@@ -37,16 +37,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [N3 Point décimal](#n3) | 1 | 1 |
 | 2 Rendu cassé | [N4 Flottant ou notation scientifique](#n4) | 1 | 1 |
 | 2 Rendu cassé | [R1 Titre](#r1) | 1 | 1 |
-| 2 Rendu cassé | [R10 Français (accords, fautes, coquilles)](#r10) | 6 | 6 |
+| 2 Rendu cassé | [R10 Français (accords, fautes, coquilles)](#r10) | 7 | 7 |
 | 2 Rendu cassé | [R11 ](#r11) | 1 | 1 |
 | 2 Rendu cassé | [R14 ](#r14) | 4 | 4 |
-| 2 Rendu cassé | [R16 ](#r16) | 26 | 26 |
-| 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 10 | 10 |
+| 2 Rendu cassé | [R16 ](#r16) | 28 | 28 |
+| 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 11 | 11 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 27 | 41 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 15 | 273 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 12 | 44 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 194 | 347 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 197 | 350 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 8 | 8 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
@@ -301,6 +301,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | cd736 (Non classés) | relecture | Énoncé : « retranchant $3$ dixièmes à $2\,025$ » (retrancher … de) ; correction « $2\,025 -0,3$ » espace asymétrique → « à partir de » / $2\,025-0,3$ | ×1 |
 | cee5d (Non classés) | relecture | Guillemets droits \x27Pile\x27 / \x27Face\x27 → Guillemets français « Pile » | ×1 |
 | d077f (Non classés) | relecture | Intervalles $[-1;4]$, $]-\infty;0]$ sans espaces autour de « ; » (déjà vu : ~;~) → Utiliser $[-1\,;\,4]$ | ×1 |
+| d136e (Non classés) | relecture | Titre terminé par une espace → Retirer | ×1 |
+| d8ef1 (Non classés) | relecture | Correction : « soit $4+2$ » sans unité → $4+2=6\text{ kg}$ | ×1 |
+| d9c51 (Non classés) | relecture | Titre terminé par une espace → Retirer l'espace finale | ×1 |
 
 ## X1
 
@@ -496,6 +499,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2J-3 (6e) | 6e/6N2J-3.ts:287 | Coquille « 734 est n'est pas un multiple de 45 » dans la correction. → « n'est pas un multiple de » | ×1 |
 | BP2AutoP1 (BP2) | src/exercices/BP2/BP2AutoP1.ts | « sur [$-4;$6] » : dollars mal placés (le crochet et le 6 sortent des maths : « [$-4;$6] ») dans l'énoncé et la correction ; « r(x){\color{black}\boldsymbol{~=~}}h(x) » égal mis en gras noir ; 180 N1, 100 doubles espaces. → $[-4~;~6]$ ; $r(x)=h(x)$. | ×1 |
 | c3202 (Non classés) | relecture | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ → Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | ×1 |
+| d88d6 (Non classés) | relecture | Correction : « $25≠24$ » caractère Unicode dans les maths → $25\neq 24$ | ×1 |
 | TEG1-11 (Terminale) | src/exercices/TSpe/TEG1-11.ts | Correction : « Les arcs du graphe G sont $A\to $C$$, $B\to $C$$ … » : dollars imbriqués et mal fermés (nombre impair de $ : 14 X2), le rendu affiche des $ parasites ; « ⟦\textbf{non}⟧ » texte dans la mise en évidence (9 R2) ; 28 M1. → $A\to C$ ; texteEnCouleurEtGras('non'). | ×1 |
 
 ## R11
@@ -544,6 +548,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | ccf1d (Non classés) | relecture | Titre « Mulitiplier des mutiples de dix » → « Multiplier des multiples de dix » | ×1 |
 | ce3da (Non classés) | relecture | Titre terminé par « ** » et apostrophe typographique « d’un » → Retirer « ** » | ×1 |
 | ch2pn (Non classés) | relecture | Titre « littéralee » → « littérale » | ×1 |
+| d7202 (Non classés) | relecture | Titre « Développer une identité remarquable » alors que la question porte sur un tableau de signes ; correction « abscisses.On lit » (espace manquante) → Corriger le titre ; ajouter l'espace | ×1 |
+| d9p5e (Non classés) | relecture | Énoncé : « Combien de fois $\dfrac{5}{6}$ dans $\dfrac{5}{2}$ ? » (verbe manquant) → « Combien de fois $\dfrac{5}{6}$ y a-t-il dans … ? » | ×1 |
 | PEN21-1 (PE) | src/exercices/PE/PEN21-1.ts | Énoncé : « Les nombre (BB)_{12} et (95AA)_{12} » (nombres) ; calculs vérifiés (143 ; 16 402) ; « 11×12+11 » : B=11 non rappelé ; 57 N1. → « Les nombres » ; rappeler A=10, B=11. | ×1 |
 | TSG1-02 (Terminale) | src/exercices/TSpe/TSG1-02.ts | Titre « Effectuer un dénombrement (rangement objets). » avec point final et article manquant ; correction : « le nombre de permutations d'un quadruplets » (quadruplet), « le nombre de permutation d'un k-uplet » (permutations), « 4~! = 24 » ; « 4 carnets » hors des $ ; texte dans miseEnEvidence (4 R2). → Titre sans point (« rangement d'objets ») ; accords ; $4$. | ×1 |
 | TSG1-04 (Terminale) | src/exercices/TSpe/TSG1-04.ts | La consigne affichée à l'élève est « Sujet inspiré d'un exercice du sujet Bac Asie Juin 2021 » (une source, pas une consigne) ; titre « …probabilités élémentaires. » avec point ; « 10 lettres, 4 voyelles, 6 consonnes, 2 lettres » nombres hors des $ ; 14 N2. → Mettre la source en commentaire ou en pied de page ; vraie consigne ; $10$, $4$, $6$. | ×1 |
@@ -560,6 +566,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | cea02 (Non classés) | src/exercices/dnbAutomatismes/dnb-2026-06-centres-etrangers-Q2.ts | Correction : « ⟦n°7⟧ » texte dans miseEnEvidence alors que le champ attend 7 → n° 7 avec seul 7 en évidence | ×1 |
 | croiss (Non classés) | src/exercices/QCMBrevet/A2019/CroissanceFonctions.ts | Correction : « croissante sur ]0 ; +∞[ » (texte) en miseEnEvidence → texteEnCouleurEtGras | ×1 |
 | d3b6c (Non classés) | src/exercices/dnbAutomatismes/dnb-2026-06-amerique-du-nord-automatisme-Q3.ts | Correction : « un parallélogramme quelconque » (texte) en miseEnEvidence → texteEnCouleurEtGras | ×1 |
+| d88d6 (Non classés) | src/exercices/5e/5L15-Old.ts | Correction : « l'égalité n'est pas vraie » (texte) en miseEnEvidence → texteEnCouleurEtGras | ×1 |
 | TSA1-40 (Terminale) | src/exercices/TSpe/TSA1-40.ts:92 | Texte dans miseEnEvidence : « décroissante » et « convergente » (\text{…}), alors que la conclusion de la question 1 passe par texteEnCouleur. → texteEnCouleurEtGras('décroissante') et texteEnCouleurEtGras('convergente'), hors des $. | ×1 |
 | TSA1-44 (Terminale) | src/exercices/TSpe/TSA1-44.ts:172 | Texte dans miseEnEvidence : « f est strictement croissante sur … » et « (u_n) converge vers 1 » (\text{…}). → Phrase en texteEnCouleurEtGras, intervalle et 1 seuls en miseEnEvidence. | ×1 |
 | TSA1-45 (Terminale) | src/exercices/TSpe/TSA1-45.ts:142 | Texte dans miseEnEvidence : « (v_n) est géométrique de raison 0,85 et de premier terme v_0=… ». → Phrase en texteEnCouleurEtGras, raison et premier terme seuls en miseEnEvidence. | ×1 |
@@ -1312,6 +1319,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | cce0c (Non classés) | relecture | Exercice bêta : énoncé « patronEnT » (identifiant interne) et correction « Correction 1 de type 2 » sans contenu → Texte réel ou exercice à retirer du référentiel | ×1 |
 | cd736 (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
 | cf880 (Non classés) | série q1 | énoncé vide | ×14 ; sup=false ; sup=true… (revue-0-a) |
+| d631d (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
+| d7fe8 (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
+| da2fc (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
 | TEC1-41 (Terminale) | série q1 | énoncé vide | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
 | TSA2-QCM06 (Terminale) | série q1 | correction vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 

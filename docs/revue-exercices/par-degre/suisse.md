@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **210 sur 1168**. Constats confirmés : **167**.
+Exercices relus : **233 sur 1168**. Constats confirmés : **177**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 25 |
+| Rendu cassé (formule, débordement, erreur) | 28 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 110 |
+| Rédaction (français, titres, consignes) | 117 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -46,6 +46,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
 | cce0c | X4  | Exercice bêta : énoncé « patronEnT » (identifiant interne) et correction « Correction 1 de type 2 » sans contenu | Texte réel ou exercice à retirer du référentiel | relecture |
 | cd736 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| d631d | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| d7fe8 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| da2fc | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
 | a9f31 | X4  | « Créer une animation de construction aux instruments (Instrumenpoche) » : outil d'enseignant (éditeur IEP) sans question ni correction (4 X4) : à retirer des exercices proposés aux élèves ; 2 pages > 390 px. | Retirer pour les élèves. | src/exercices/CH/a9f31.ts |
@@ -118,7 +121,14 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | cee5d | R16  | Guillemets droits \x27Pile\x27 / \x27Face\x27 | Guillemets français « Pile » | relecture |
 | ch2pn | R16  | Titre « littéralee » | « littérale » | relecture |
 | d077f | R16  | Intervalles $[-1;4]$, $]-\infty;0]$ sans espaces autour de « ; » (déjà vu : ~;~) | Utiliser $[-1\,;\,4]$ | relecture |
+| d136e | R16  | Titre terminé par une espace | Retirer | relecture |
+| d7202 | R16  | Titre « Développer une identité remarquable » alors que la question porte sur un tableau de signes ; correction « abscisses.On lit » (espace manquante) | Corriger le titre ; ajouter l'espace | relecture |
+| d88d6 | R10 Français | Correction : « $25≠24$ » caractère Unicode dans les maths | $25\neq 24$ | relecture |
+| d8ef1 | R16  | Correction : « soit $4+2$ » sans unité | $4+2=6\text{ kg}$ | relecture |
+| d9c51 | R16  | Titre terminé par une espace | Retirer l'espace finale | relecture |
+| d9p5e | R16  | Énoncé : « Combien de fois $\dfrac{5}{6}$ dans $\dfrac{5}{2}$ ? » (verbe manquant) | « Combien de fois $\dfrac{5}{6}$ y a-t-il dans … ? » | relecture |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
+| d88d6 | R2 Tutoiement, impératif | Correction : « l'égalité n'est pas vraie » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/5e/5L15-Old.ts |
 | a09e5 | R16  | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. | Citer la règle (termes de plus haut degré). | src/exercices/CH/a09e5.ts |
 | a0d16 | R10 Français | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. | $300\,000=$ en un dollar ; titre cohérent. | src/exercices/CH/a0d16.ts |
 | a12ef | R16  | Correction : « et $452$ est vient juste après $428$ » (faute de frappe : « est » en trop) ; « Entoure » (consigne papier dans une app tactile ; « Choisir ») ; énoncé « qui vient juste après 428 » ambigu (432 serait le suivant) ; 26 R2. | « 452 vient juste après 428 » ; « Choisir ». | src/exercices/CH/a12ef.ts |
