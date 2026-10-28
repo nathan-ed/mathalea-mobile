@@ -197,7 +197,17 @@ function fausse(v: string): string {
 function bonne(r: AC): string {
   const raw = texte(r?.value)
   const opts = r?.options ?? {}
-  return opts.unite ? grandeurStringToLatex(raw) : toCompareInput(raw, opts)
+  const v = opts.unite ? grandeurStringToLatex(raw) : toCompareInput(raw, opts)
+  return clavier(v)
+}
+
+/** Forme que produit le clavier MathLive : \sqrt3 → \sqrt{3}, \frac12 → \frac{1}{2}.
+ * Une attente écrite sans accolades et comparée en texte refuse la saisie réelle. */
+function clavier(v: string): string {
+  return v
+    .replace(/\\(d?frac)(\d)(\d)/g, '\\$1{$2}{$3}')
+    .replace(/\\(d?frac)(\{[^{}]*\})(\d)/g, '\\$1$2{$3}')
+    .replace(/\\sqrt(\d|[a-z](?![a-z]))/g, '\\sqrt{$1}')
 }
 
 /** Nettoie une valeur mise en évidence pour la saisir dans un champ */

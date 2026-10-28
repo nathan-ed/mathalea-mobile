@@ -25,17 +25,31 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 
 ## Prochaine étape (à chaque réveil)
 
-1. Banc en marche ? (`tail -1 revue/banc.log`). Sinon le relancer (il reprend).
+1. Banc en marche ? CAN : fini le 28 octobre. Hors CAN, deux instances
+   aux filtres disjoints (`tail -1 revue/banc.log revue/banc-b.log`) :
+   `--filtre '^(?!can)[0-9]' --travailleurs 3` (journal `banc.log`) et
+   `--filtre '^(?!can)[^0-9]' --travailleurs 2` (`banc-b.log`), lancées par
+   `setsid nohup … < /dev/null &`. Arrêtée : la relancer (elle reprend) ;
+   avant, retirer du journal les lignes des exercices absents de `fait.txt`.
+   Depuis le 28 octobre vers 13 h, la bonne réponse est saisie sous la forme
+   du clavier (`\sqrt{3}`, `\frac{1}{2}`) : une attente écrite `\sqrt3`
+   comparée en texte ressort en I1.
 2. Relire les exercices suivants dans l'ordre de `revue/referentiel.json`,
    en sautant ceux de `revue/relus.txt` et ceux pas encore passés au banc.
-   Prochain : `can6a-2018` (le sujet aléatoire `canc3a`, très long,
-   s'appuie sur `src/exercices/can/c3/_Canc3a.ts` : le relire par le code).
+   `node revue/suivants.mjs 20` donne les suivants. Le sujet aléatoire
+   `canc3a` (très long) se relit par le code (`src/exercices/can/c3/_Canc3a.ts`).
+   Confirmer un refus à la main : `node revue/essayer.mjs <id> <graine>
+   '<paramètres>' <nb> <question> <saisie>…` (graine et paramètres dans la
+   sortie du banc).
 3. Trier les constats graves du banc (I1, I2, I4, M1, X1, X3, X6) : faux
    positif → `revue/ecartes.jsonl`, vrai → laissé ou précisé avec noter.mjs.
 4. Après le banc : passe complémentaire pour les options de paramètres que
    `optionsDe` ne lit pas (aides « 1 & 2 : … » ; lire les besoinFormulaire
    bruts dans la sonde).
-5. `node revue/texte.mjs && node revue/rapport.mjs`, commit, push.
+5. `node revue/flottants.mjs` : réponses attendues écrites en flottant
+   (`12.135000000000002`) ; confirmer chacune avec `essayer.mjs` (certaines
+   comparaisons tolèrent l'écart, d'autres refusent la bonne réponse).
+6. `node revue/texte.mjs && node revue/rapport.mjs`, commit, push.
 
 ## Remettre l'environnement en place (conteneur neuf)
 
