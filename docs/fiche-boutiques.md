@@ -23,7 +23,7 @@ Pour les élèves
 - Correction immédiate, clavier mathématique, figures.
 - Suivi par objectif : ce qui est réussi, ce qui reste à revoir.
 - Révisions espacées : les exercices déjà faits reviennent au bon moment, mélangés, en séances courtes de 3, 6 ou 10 questions.
-- Sessions de classe : un QR code projeté par l’enseignant, et toute la classe a les mêmes questions.
+- Sessions de classe : l’enseignant projette un QR code, l’élève le scanne avec la caméra, et toute la classe a les mêmes questions.
 - Fonctionne hors ligne une fois les parcours reçus.
 
 Pour les enseignants
@@ -31,7 +31,7 @@ Pour les enseignants
 - Bibliothèque rangée par niveau et chapitre, parcours donnés aux classes.
 - Objectifs du programme posés automatiquement, liste d’objectifs importable (CSV).
 - Publication en un fichier dans un dossier partagé : aucun compte, aucune inscription.
-- Réponses de la classe relevées par QR code, revérifiées par l’application : réussite, erreurs fréquentes, détail par élève.
+- Réponses de la classe relevées par QR code (l’élève le montre, l’enseignant le scanne avec la caméra), revérifiées par l’application : réussite, erreurs fréquentes, détail par élève.
 
 Respect de la vie privée
 Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil.
@@ -61,13 +61,26 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
 - **Sécurité des données** : aucune donnée collectée, aucune donnée partagée.
   Données chiffrées en transit : oui (HTTPS). Suppression : sans objet (rien
   n'est collecté ; tout disparaît à la désinstallation).
-  Caméra (QR codes) : image lue sur l'appareil, rien n'est envoyé, aucune
+  Caméra (QR codes de session scannés par l'élève, QR codes de réponses scannés par l'enseignant) : image lue sur l'appareil, rien n'est envoyé, aucune
   déclaration. L'analyse des réponses par une IA est mise de côté (branche
   locale `analyse-ia`, avec ce qu'il faudrait alors déclarer à Google) :
   « aucune donnée collectée » reste exact.
 - **Application gouvernementale, financière, de santé, d'actualités** : non.
 
 ## Notes de version
+
+Version 0.4.6 (depuis la 0.2.4, 500 caractères au plus) :
+
+```
+<fr-FR>
+- Sessions de classe : l'enseignant projette un QR code, les élèves le scannent avec la caméra, puis il relève les réponses de la classe par QR code.
+- Espace enseignant en quatre onglets, avec « Vue élève ».
+- Teste ton niveau : 15 questions et un bilan.
+- Fiches de cours avant l'entraînement, révisions espacées, paliers ouverts à une date.
+- Tous les exercices du site, explorés par degré et chapitre.
+- Changer d'appareil : « Récupérer mes données ».
+</fr-FR>
+```
 
 Version 0.4.4 :
 
