@@ -13,6 +13,23 @@ export function morceaux(s) {
   let enMaths = false
   let affichee = false
   for (let i = 0; i < s.length; i++) {
+    if (s[i] === '\\' && !enMaths && (s[i + 1] === '[' || s[i + 1] === ']')) {
+      // \[ … \] : formule affichée, comme $$ … $$
+      parts.push(cur)
+      cur = ''
+      enMaths = s[i + 1] === '['
+      affichee = enMaths
+      i++
+      continue
+    }
+    if (s[i] === '\\' && enMaths && affichee && s[i + 1] === ']') {
+      parts.push(cur)
+      cur = ''
+      enMaths = false
+      affichee = false
+      i++
+      continue
+    }
     if (s[i] === '\\') {
       // \$ : dollar échappé ; \\ : retour à la ligne LaTeX (le $ qui suit ferme)
       cur += s[i] + (s[i + 1] ?? '')
@@ -190,7 +207,7 @@ export function controler(html, o) {
       for (const m of p.matchAll(/<span style="color:\s*#f15929;?\s*">/gi)) ajoute('M7', 3, `texte orange (texteEnCouleur sans couleur) : ${extrait(visible(p.slice(m.index)), 0, 80)}`)
     } else {
       // ---- maths ----
-      const s = p.replace(/\\color\{[^}]*\}/g, '\\color{}')
+      const s = p.replace(/\\color\{[^}]*\}/g, '\\color{}').replace(/\\\\\[[\d.]+(em|ex|pt|cm|mm)\]/g, '\\\\')
       for (const m of s.matchAll(/(?<![\d\\{a-zA-Z])\d+\.\d+(?!\d)/g)) ajoute('N3', 4, `point décimal : $${extrait(s, m.index, 30)}$`)
       for (const m of s.matchAll(/\d(?:\{,\}|,)\d{9,}|\d\.\d{9,}|\d[eE][+-]\d/g)) ajoute('N4', 2, `flottant ou notation scientifique : $${extrait(s, m.index, 30)}$`)
       for (const m of s.matchAll(/(?<![\d,}.])\d{5,}(?![\d,]|\{,\})/g)) ajoute('N2', 4, `nombre sans séparateur de milliers : $${extrait(s, m.index, 30)}$`)
