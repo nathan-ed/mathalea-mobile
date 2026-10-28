@@ -1,7 +1,8 @@
 # Revue des exercices : état et reprise
 
-Fichier lu à chaque réveil (tâches planifiées « Reprise de la revue des
-exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
+Fichier lu à chaque réveil (tâche planifiée « Reprise de la revue des
+exercices », minute 3 de chaque heure, avec une estimation de fin pour
+Nathan ; celles de 23 et 43 sont désactivées pour économiser les jetons). Plan : voir
 `regles.md` (règles) et `trouvailles.md` (constats triés).
 
 ## Avancement
@@ -22,6 +23,14 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
   Exercice relu : son id ajouté à `revue/relus.txt`.
 - Étape 3 (rapport) : `node revue/rapport.mjs` réécrit `trouvailles.md`
   (à faire à chaque reprise, puis commit et push).
+
+## Accélération (28 octobre, 18 h 30, choix de Nathan)
+
+- Banc : au-delà de 50 combinaisons de paramètres (au lieu de 200), chaque
+  valeur seule plus toutes les paires (`MAX_VARIANTES` dans `banc.mjs`).
+  Instances : `^(?!can)[0-9]` à 3 travailleurs, `^(?!can)[^0-9]` à 1.
+- Jetons : sorties lues par morceaux (`head -c`), captures seulement quand
+  la figure ou la mise en page compte, code source lu par `grep` ciblé.
 
 ## Défauts de l'app trouvés pendant la revue (à signaler à Nathan)
 

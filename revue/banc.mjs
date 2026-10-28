@@ -26,7 +26,7 @@ const LIMITE = Number(opt('--limite', Infinity))
 const TRAVAILLEURS = Number(opt('--travailleurs', 3))
 const CAPTURES = !args.includes('--sans-captures')
 const REFAIRE = args.includes('--refaire')
-const MAX_VARIANTES = 200
+const MAX_VARIANTES = 50
 const GRAINES = ['a', 'b']
 
 const JOURNAL = join(ici, 'journal.jsonl')
