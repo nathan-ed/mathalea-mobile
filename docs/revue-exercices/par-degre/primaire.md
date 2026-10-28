@@ -1,7 +1,7 @@
 # Revue des exercices : Primaire
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **141 sur 145**. Constats confirmés : **98**.
+Exercices relus : **142 sur 145**. Constats confirmés : **98**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 

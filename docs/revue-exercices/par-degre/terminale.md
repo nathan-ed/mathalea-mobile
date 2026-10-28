@@ -68,4 +68,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 412 ; R5 Virgule 166 ; T4  160 ; N2 Séparateur des milliers 142 ; T3  132 ; T5 Espaces 129 ; T6 Points de suspension 88 ; N6 Écriture algébrique 68 ; T8  28 ; R6  27 ; N3  16 ; R1 Titre 3 ; R8  2 ; X3  2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 542 ; R5 Virgule 203 ; T4  195 ; N6 Écriture algébrique 171 ; T3  167 ; T5 Espaces 148 ; N2 Séparateur des milliers 142 ; T6 Points de suspension 88 ; N3  40 ; R9  39 ; T8  28 ; R6  27 ; R1 Titre 4 ; R8  2 ; X3  2 ; R10 Français 1.

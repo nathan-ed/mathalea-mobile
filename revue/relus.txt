@@ -817,3 +817,16 @@ CM2N4D-1
 6AutoL3-1
 6AutoL3-2
 6AutoG3
+CM2I1B-1
+6AutoN1
+6AutoN1-2
+6AutoN3-5
+6AutoN4
+6AutoN4-1
+can3C1-02
+can3C1-03
+can3C1-04
+6AutoN2
+6AutoN4-2
+6AutoN4-3
+6AutoN4-4
