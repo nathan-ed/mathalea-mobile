@@ -51,6 +51,10 @@ cd /home/user/mathalea-main && npx vite --port 5173 --host 127.0.0.1
 cd /home/user/mathalea-mobile && node revue/banc.mjs --travailleurs 3
 ```
 
+Arrêter le banc sans tuer son propre shell (ne jamais `pkill -f banc`) :
+`ps -eo pid,args | awk '$2=="node" && $3=="revue/banc.mjs" {print $1}' | xargs -r kill`.
+Relancé de zéro le 28 octobre vers 9 h 25 UTC après corrections du banc.
+
 Le banc reprend seul (`revue/fait.txt`). Journal : `revue/journal.jsonl`.
 Captures et sorties texte (`revue/captures`, `revue/sorties`) hors Git :
 perdues avec le conteneur, elles se refont avec `--refaire` sur un filtre.

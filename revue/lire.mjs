@@ -64,6 +64,8 @@ const compact = (html) => {
       }
     })
     .replace(/<([a-z]+-[a-z-]+)[^>]*>(<\/\1>)?/gi, '[$1]')
+    .replace(/<input type="checkbox"[^>]*?( checked)?>/gi, (_, c) => (c ? '☑' : '☐'))
+    .replace(/&emsp;/g, ' ')
     .replace(/<span id="resultatCheck[^"]*"><\/span>/gi, '')
     .replace(/<div class ?="ml-2 py-2 italic[^"]*"[^>]*><\/div>/gi, '')
     .replace(/<br\s*\/?>/gi, '⏎')

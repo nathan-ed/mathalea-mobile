@@ -18,7 +18,10 @@ const lire = (f) =>
         .map((l) => JSON.parse(l))
     : []
 const journal = lire(join(ici, 'journal.jsonl'))
-const relecture = [...lire(join(ici, 'relecture.jsonl')), ...lire(join(ici, 'source.jsonl'))]
+const relecture = [...lire(join(ici, 'relecture.jsonl')), ...lire(join(ici, 'source.jsonl')), ...lire(join(ici, 'texte.jsonl'))]
+// Règles de texte : prises dans texte.jsonl (rejoué avec les derniers contrôles), pas dans le journal
+const deTexte = (c) => /^(N[1-7]|T\d|R\d+|M5|M7|X3)$/.test(c.regle) || (c.regle === 'X2' && /^nombre impair/.test(c.extrait ?? ''))
+const journalBanc = journal.filter((c) => !deTexte(c))
 const referentiel = existsSync(join(ici, 'referentiel.json')) ? JSON.parse(readFileSync(join(ici, 'referentiel.json'), 'utf8')) : []
 const fait = existsSync(join(ici, 'fait.txt')) ? new Set(readFileSync(join(ici, 'fait.txt'), 'utf8').split('\n').filter(Boolean)) : new Set()
 // Constats écartés à la relecture (faux positifs) : { id, regle, motif }
@@ -39,6 +42,9 @@ const NOMS = {
   M6: 'Pas de mise en évidence du résultat',
   M7: 'Explication en orange',
   M8: 'Nombre de mises en évidence et de champs différents',
+  C1: 'Contenu mathématique faux ou ambigu',
+  N7: 'Zéros significatifs (prix…)',
+  T9: 'Mot non écrit en \\text dans une formule',
   N1: 'Nombre hors $',
   N2: 'Séparateur des milliers',
   N3: 'Point décimal',
@@ -74,7 +80,7 @@ const GRAVITES = { 1: 'Interactif faux', 2: 'Rendu cassé', 3: 'Mise en évidenc
 // Regroupement : même exercice, même règle, même extrait aux nombres près
 const motif = (s) => String(s ?? '').replace(/\d+/g, '#').replace(/\s+/g, ' ').slice(0, 140)
 const groupes = new Map()
-for (const c of [...journal, ...relecture]) {
+for (const c of [...journalBanc, ...relecture]) {
   if (ecartes.some((e) => e.id === c.id && e.regle === c.regle && (!e.motif || motif(c.extrait).includes(e.motif)))) continue
   const detail = c.source ? c.ou : /^[IMX]/.test(c.regle) ? motif(c.extrait) : ''
   const cle = `${c.id}|${c.regle}|${c.ou ?? ''}|${detail}`

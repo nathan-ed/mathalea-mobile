@@ -186,8 +186,9 @@ const nombre = (s: string) => {
 function fausse(v: string): string {
   const n = nombre(v)
   if (n != null) {
-    const f = String(Math.round((n + 1) * 1e6) / 1e6).replace('.', '{,}')
-    return f
+    // Loin de la bonne réponse : n+1 peut être juste aussi (« un nombre entre… »)
+    const loin = n === 0 ? 7 : Math.abs(n) < 1 ? n + 13 : n * 10 + 7
+    return String(Math.round(loin * 1e6) / 1e6).replace('.', '{,}')
   }
   return v === '' ? '7' : `${v}+1`
 }

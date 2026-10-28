@@ -13,8 +13,9 @@ export function morceaux(s) {
   let enMaths = false
   let affichee = false
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === '\\' && s[i + 1] === '$') {
-      cur += '\\$'
+    if (s[i] === '\\') {
+      // \$ : dollar échappé ; \\ : retour à la ligne LaTeX (le $ qui suit ferme)
+      cur += s[i] + (s[i + 1] ?? '')
       i++
       continue
     }
@@ -162,6 +163,19 @@ export function controler(html, o) {
       for (const m of t.matchAll(/en-dessous|au dessus|au dessous|ci dessous|ci dessus|par dessus|là dessus|en dessus/gi)) {
         ajoute('R8', 5, `« ${m[0]} » : ${extrait(t, m.index)}`)
       }
+      // R10 fautes fréquentes repérables automatiquement
+      for (const m of t.matchAll(/\b(\p{L}{2,}) \1\b/giu)) {
+        if (/^(nous|vous|tout|bien|si|très|plus|fort|sur)$/i.test(m[1])) continue
+        ajoute('R10', 5, `mot répété « ${m[0]} » : ${extrait(t, m.index)}`)
+      }
+      for (const m of t.matchAll(/\b\p{L}*[aeé]-(il|elle|on|ils|elles)\b/giu)) {
+        if (/-t-/.test(t.slice(m.index - 3, m.index + m[0].length))) continue
+        ajoute('R10', 5, `t euphonique manquant « ${m[0]} » : ${extrait(t, m.index)}`)
+      }
+      for (const m of t.matchAll(/\b(oeu\p{L}*|coeur\p{L}*|soeur\p{L}*|noeud\p{L}*|voeu\p{L}*|boeuf\p{L}*|oe(?=il))/giu)) {
+        ajoute('R10', 5, `ligature œ manquante « ${m[0]} » : ${extrait(t, m.index)}`)
+      }
+      for (const m of t.matchAll(/\p{L}- \p{L}|\p{L} -\p{L}/gu)) ajoute('R10', 5, `trait d'union et espace : ${extrait(t, m.index)}`)
       // R2 consignes à l'impératif (deuxième personne)
       if (o.type === 'consigne' || o.type === 'titre' || o.type === 'enonce') {
         for (const m of t.matchAll(/(^|[.!?]\s+|\n)(Calcule|Donne|Écris|Ecris|Complète|Trouve|Détermine|Résous|Place|Trace|Construis|Indique|Coche|Choisis|Range|Développe|Factorise|Simplifie|Réduis|Recopie|Justifie|Exprime|Convertis|Compare|Lis|Associe|Relie|Mesure|Colorie|Entoure|Souligne|Déduis|Montre|Vérifie|Additionne|Soustrais|Multiplie|Divise|Arrondis|Encadre|Décompose|Résume|Observe|Utilise)\b/g)) {

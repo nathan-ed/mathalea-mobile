@@ -181,7 +181,7 @@ async function passer(page, e) {
       }
       if (g === 'a' && k === 0) {
         const bis = await page.evaluate((p) => window.sonde.preparer(p, 0), params).catch(() => null)
-        const norme = (x) => JSON.stringify(x.questions.map((q) => q.enonce.replace(/\b(id|data-[\w-]+)="[^"]*"/g, '')))
+        const norme = (x) => JSON.stringify(x.questions.map((q) => q.enonce.replace(/<svg[\s\S]*?<\/svg>/g, '').replace(/\b(id|data-[\w-]+)="[^"]*"/g, '')))
         if (bis && norme(bis) !== norme(prep))
           c({ ...ctx, regle: 'X6', gravite: 2, extrait: 'même graine, énoncés différents (aléa hors nouvelleVersion ?)' })
         await page.evaluate((p) => window.sonde.preparer(p, 0), params)
