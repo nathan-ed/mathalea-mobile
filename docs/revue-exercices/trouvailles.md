@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **899 exercices passés sur 4190**.
-Constats regroupés : 3987 (un groupe = même exercice, même règle,
+Avancement : **945 exercices passés sur 4190**.
+Constats regroupés : 3796 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -16,67 +16,66 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
-| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 10 | 11 |
-| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 5 | 5 |
+| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 5 | 6 |
 | 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 16 | 17 |
-| 1 Interactif faux | [X1 Erreur ou exception](#x1) | 10 | 28 |
+| 1 Interactif faux | [X1 Erreur ou exception](#x1) | 14 | 43 |
 | 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 15 | 15 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 1 | 3 |
-| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 20 | 34 |
-| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 5 | 43 |
-| 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 4 | 13 |
+| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 24 | 42 |
+| 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 5 | 38 |
+| 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 5 | 17 |
 | 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 6 | 7 |
-| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 2 | 2 |
-| 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 7 | 7 |
+| 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 3 | 3 |
+| 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 4 | 4 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 9 | 9 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 94 | 318 |
-| 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 57 | 209 |
-| 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 7 | 7 |
-| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 56 | 115 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 44 | 44 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 35 | 112 |
+| 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
+| 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 9 | 9 |
+| 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 57 | 116 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 46 | 46 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 25 | 29 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 21 | 23 |
 | 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 1 | 1 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
 | 4 Typographie | [C1 Contenu mathématique faux ou ambigu](#c1) | 5 | 5 |
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 185 | 266 |
-| 4 Typographie | [N2 Séparateur des milliers](#n2) | 10 | 13 |
-| 4 Typographie | [N3 Point décimal](#n3) | 13 | 16 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 213 | 307 |
+| 4 Typographie | [N2 Séparateur des milliers](#n2) | 12 | 15 |
+| 4 Typographie | [N3 Point décimal](#n3) | 14 | 17 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 2 | 2 |
-| 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 14 | 17 |
+| 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 18 | 23 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 5 | 5 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
-| 4 Typographie | [T1 Espace avant %](#t1) | 14 | 19 |
+| 4 Typographie | [T1 Espace avant %](#t1) | 16 | 21 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 14 | 15 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 53 | 71 |
-| 4 Typographie | [T4 Guillemets](#t4) | 22 | 34 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 77 | 110 |
+| 4 Typographie | [T4 Guillemets](#t4) | 24 | 37 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 107 | 136 |
-| 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 11 | 17 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 79 | 477 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 59 | 81 |
+| 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 16 | 23 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 57 | 402 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 53 | 74 |
-| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 23 | 31 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 56 | 78 |
+| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 24 | 32 |
 | 5 Rédaction | [R1 Titre](#r1) | 44 | 54 |
-| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 77 | 113 |
+| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 82 | 120 |
 | 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 78 | 126 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 60 | 80 |
-| 5 Rédaction | [R6 Majuscule sans accent](#r6) | 3 | 3 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 65 | 89 |
+| 5 Rédaction | [R6 Majuscule sans accent](#r6) | 5 | 6 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 24 | 25 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 227 | 408 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 253 | 412 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 233 | 419 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 259 | 418 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 2 | 2 |
-| 5 Rédaction | [X4 Question en double ou vide](#x4) | 18 | 18 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 27 | 36 |
+| 5 Rédaction | [X4 Question en double ou vide](#x4) | 16 | 16 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 23 | 32 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 7 | 7 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 6 | 6 |
 
 ## I1
 
@@ -84,29 +83,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| can2L11-04 (CAN) | src/exercices/can/2e/can2L11-04.ts:49 | Réponses attendues écrites « a+b\sqrt3 » sans accolades et comparées en texte (texteSansCasse) : « 52-14\sqrt{3} » saisi au clavier est refusé (confirmé avec revue/essayer.mjs) → \\sqrt{${inconnue}} dans this.reponse, ou comparaison de valeur | ×1 |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:59 | Réponse attendue calculée en flottant : 5^4×0,2^4 donne 1.0000000000000002 ; la bonne réponse « 1 » saisie par l'élève est refusée (vu au banc : la mise en évidence ⟦1⟧ est refusée). Même risque pour 4^b×0,25^b et 5^b×0,4^b → this.reponse = (4 * a) ** b arrondi : arrondi(5 ** b * a ** b) ou calcul exact | ×1 |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:48 | Confirmé avec revue/essayer.mjs : « 32 » refusé pour $5^{5}\times 0,4^{5}$ (attendu 32.00000000000001), « 1 » refusé pour $5^{4}\times 0,2^{4}$ → arrondi(…) sur this.reponse (lignes 48 et 59) | ×1 |
-| can2N5-03 (CAN) | src/exercices/can/2e/can2N5-03.ts:77 | Réponse attendue écrite « 4\sqrt2 » (sans accolades) et comparée en texte (texteSansCasse) : la saisie au clavier « 4\sqrt{2} » est refusée (confirmé avec revue/essayer.mjs). Touche tous les tirages → this.reponse = `${…}\\sqrt{${reduction[1]}}` et une comparaison de valeur (pas texteSansCasse) | ×1 |
-| can2N5-07 (CAN) | src/exercices/can/2e/can2N5-07.ts:37 | Pour $2\sqrt{2}$ (c=8) la réponse attendue est « \sqrt8 » comparée en texte : « \sqrt{8} » saisi au clavier est refusé (confirmé avec revue/essayer.mjs) → this.reponse = `\\sqrt{${c}}` dans tous les cas | ×1 |
 | can5a-CoopMaths (CAN) | src/exercices/can/5e/can5a-CoopMaths.ts:441 | Q27 : l'énoncé dit « en ${b} h et 20 min », la réponse attendue est calculée pour 15 min (a×(b+0,25)) et la correction affiche « $60\times 1.5$ » (b+0,5, point décimal) : 60 km/h pendant 1 h 20 → 80 km, l'app attend 75. Pas de point d'interrogation. → 20 min → b + 1/3, ou énoncé « b h et 15 min » avec texNombre(b + 0.25). | ×1 |
 | can5C4-02 (CAN) | src/exercices/can/5e/can5C4-02.ts:63 | Réponse attendue calculée en flottant (a + b/100 + c/1000 = 12.135000000000002) : « 12,135 » tapé par l'élève est refusé (confirmé avec revue/essayer.mjs, graine revue-1-a, q10) → this.reponse = arrondi(resultat, 3) (cas 3 et 4) | ×1 |
 | canc3C12 (CAN) | src/exercices/can/c3/canc3C12.ts:36 | Réponse négative possible (a jusqu'à 20, b×res dès 6 : « J'ajoute $20$, … j'obtiens $7$ » → $-6$) en CM1/CM2, avec le clavier clavierNumbers sans signe moins : l'élève ne peut pas saisir la réponse. → Tirer res avec b×res > a (res = randint(Math.ceil((a + 1) / b), 15)) | ×1 |
-| canTEC2-02 (CAN) |  q1 mathlive | bonne réponse refusée (0/1) Vous devez saisir une réponse. | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTEC2-05 (CAN) |  q1 mathlive | bonne réponse refusée (0/1) Vous devez saisir une réponse. | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTSpeE03 (CAN) |  q1 fillInTheBlank | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez seulement $t$. | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
-
-## I2
-
-**Réponse fausse acceptée** (gravité 1 : Interactif faux)
-
-| Exercice | Où | Constat | Tirages |
-| --- | --- | --- | --- |
-| can1a-NY2025 (CAN) |  q16 mathlive | réponse fausse acceptée | ×2 ; sup=false ; sup=true (revue-0-a) |
-| can1a-NY2026 (CAN) |  q16 mathlive | réponse fausse acceptée | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can5a-CoopMaths (CAN) |  q30 mathlive | réponse fausse acceptée | ×4 ; sup=31 ; sup=30 (revue-0-a) |
-| canTSpea-NY2025 (CAN) |  q16 mathlive | réponse fausse acceptée | ×2 ; sup=false ; sup=true (revue-0-a) |
-| canTSpea-NY2026 (CAN) |  q16 mathlive | réponse fausse acceptée | ×3 ; sup=false ; sup=true (revue-0-a) |
+| TSA4-41 (Terminale) |  q1 mathlive | bonne réponse refusée (0/1) Résultat incorrect car cet ensemble doit commencer par une accolade ou bien être l'ensemble vide. | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## I4
 
@@ -121,16 +103,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG1-2 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×376 ; sup=1 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
 | 6AutoL1 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×55 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-0-a) |
 | 6AutoN4-1 (6e) |  q1 liste-deroulante | liste absente ou sans valeur | ×90 ; sup=1 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
-| can1D3-05 (CAN) |  q1 liste-deroulante | liste absente ou sans valeur | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6AutoT1-6 (6e) |  q7 multi-mathfield | champ absent de la page | ×1 ; sup=1 sup2=true sup3=false nb=10 (revue-12-a) |
+| 6N0A-1 (6e) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×17 ; sup=All ; sup=All nb=10 (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q22 mathlive | champ absent de la page | ×19 ; sup=1 ; sup=5… (revue-1-a) |
-| canc3a (CAN) |  q27 mathlive | champ absent de la page | ×13 ; sup=14 ; sup=17… (revue-14-a) |
 | canc3C16 (CAN) |  q9 fillInTheBlank | champ absent de la page | ×1 ; défaut nb=10 (revue-1-a) |
 | CM2I1B-1 (cm2) |  q1 liste-deroulante | liste absente ou sans valeur | ×712 ; sup=1 sup2=true sup3=4 sup4=true ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
 | CM2N1D-2 (cm2) |  q2 mathlive | champ absent de la page | ×5 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true ; sup=true sup2=2 sup3=2 sup4=2 sup5=false… (revue-1-a) |
 | CM2N3A-14 (cm2) |  q10 mathlive | champ absent de la page | ×4 ; sup=1 ; sup=2 (revue-1-a) |
 | CM2N3A-2 (cm2) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | CM2N3A-3 (cm2) |  q3 fillInTheBlank | champ absent de la page | ×33 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
+| TSA3-43 (Terminale) |  q1 liste-deroulante | liste absente ou sans valeur | ×6 ; défaut (revue-0-a) |
 
 ## X1
 
@@ -144,15 +126,22 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoA1 (6e) |  | interactif (correcte) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=1 sup2=3 (revue-3-b) |
 | 6AutoA2-1 (6e) |  | interactif (evidence) : page.evaluate: Execution context was destroyed, most likely because of a navigation. | ×1 ; sup=5 sup2=4 (revue-0-b) |
 | 6AutoA2-1 (6e) |  | interactif (correcte) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=5 sup2=4 (revue-0-b) |
-| can3a-NY2025 (CAN) |  | interactif (evidence) : page.evaluate: Execution context was destroyed, most likely because of a navigation. | ×1 ; sup=true (revue-1-b) |
-| can3a-NY2025 (CAN) |  | interactif (correcte) : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 ; sup=true (revue-1-b) |
-| can3a-NY2026 (CAN) |  | interactif (vide) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
-| can3a-NY2026 (CAN) |  | interactif (incorrecte) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
-| can3a-NY2026 (CAN) |  | interactif (evidence) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
-| can3a-NY2026 (CAN) |  | interactif (correcte) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
-| can3C1-01 (CAN) |  | interactif (correcte) : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 ; défaut (revue-0-a) |
+| 6N0A-1 (6e) |  | interactif (vide) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=12 sup2=2 (revue-35-b) |
+| 6N0A-1 (6e) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=12 sup2=2 (revue-35-b) |
+| 6N0A-1 (6e) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=12 sup2=2 (revue-35-b) |
+| 6N0A-1 (6e) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=12 sup2=2 (revue-35-b) |
+| 6N0A-4 (6e) |  | interactif (vide) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2-3-4-5-6-7-8-9 sup2=1 sup3=1 (revue-1-b) |
+| 6N0A-4 (6e) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2-3-4-5-6-7-8-9 sup2=1 sup3=1 (revue-1-b) |
+| 6N0A-4 (6e) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2-3-4-5-6-7-8-9 sup2=1 sup3=1 (revue-1-b) |
+| 6N0A-4 (6e) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=2-3-4-5-6-7-8-9 sup2=1 sup3=1 (revue-1-b) |
+| can6a-Aléa (CAN) | série q1 | énoncé resté à « chargement... » (questions chargées après la génération) | ×32 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | can6a-Aléa (CAN) | src/exercices/can/6e/can6a-alea.ts:143 | Dans l'app (moteur), toutes les questions restent à « chargement... » : l'exercice charge ses questions de façon asynchrone (loadAllQuests) après nouvelleVersion, et preparerExercice ne l'attend pas. Exercice inutilisable dans l'app ; même mécanisme dans src/exercices/_automatismesCan.ts. → Côté moteur : attendre la promesse de chargement (exposer une promesse dans nouvelleVersionWrapper et l'attendre dans preparerExercice), ou exclure ces exercices du référentiel de l'app. | ×1 |
-| can6a-Aléa (CAN) | série q1 | énoncé resté à « chargement... » (questions chargées après la génération) | ×14 ; sup=All ; sup=All nb=10 (revue-0-a) |
+| canCE1a-2026 (CAN) |  | interactif (correcte) : page.evaluate: Execution context was destroyed, most likely because of a navigation. | ×1 ; sup=true (revue-1-a) |
+| canCE2-2026 (CAN) |  | interactif (vide) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
+| canCE2-2026 (CAN) |  | interactif (incorrecte) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
+| canCE2-2026 (CAN) |  | interactif (evidence) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
+| canCE2-2026 (CAN) |  | interactif (correcte) : page.evaluate: Error: aucun exercice préparé     at Module.interactif (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:349:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
+| canCE2a-2025 (CAN) |  | interactif (correcte) : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 ; sup=true (revue-1-a) |
 | CM1C2E (cm1) |  | interactif (evidence) : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 ; sup=2 sup2=3 sup3=3 (revue-51-a) |
 | CM1C2E (cm1) |  | interactif (correcte) : page.evaluate: TypeError: Cannot read properties of undefined (reading 'interactif')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=2 sup2=3 sup3=3 (revue-51-a) |
 | CM2N1D-2 (cm2) |  | interactif (incorrecte) : page.evaluate: Execution context was destroyed, most likely because of a navigation. | ×1 ; sup=false sup2=1 sup3=2 sup4=3 sup5=true (revue-10-a) |
@@ -166,6 +155,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N4D-1 (cm2) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=4 sup3=true sup4=2 sup5=1 (revue-23-a) |
 | CM2N4D-1 (cm2) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=4 sup3=true sup4=2 sup5=1 (revue-23-a) |
 | CM2N4D-1 (cm2) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=4 sup3=true sup4=2 sup5=1 (revue-23-a) |
+| TSA5-10 (Terminale) |  | interactif (vide) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup3=true (revue-1-b) |
+| TSA5-10 (Terminale) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup3=true (revue-1-b) |
+| TSA5-10 (Terminale) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup3=true (revue-1-b) |
+| TSA5-10 (Terminale) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup3=true (revue-1-b) |
+| TSA5-11 (Terminale) |  | interactif (vide) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
+| TSA5-11 (Terminale) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
+| TSA5-11 (Terminale) |  | interactif (evidence) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
+| TSA5-11 (Terminale) |  | interactif (correcte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
 
 ## C1
 
@@ -220,15 +217,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoE1 (6e) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
 | 6AutoF1-2 (6e) |  | decrireExercice : page.evaluate: Execution context was destroyed, most likely because of a navigation. | ×1 |
 | 6AutoF1-7 (6e) |  | arrêt : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 |
-| can3a-NY2026 (CAN) |  | rendu enonce : locator.screenshot: Element is not attached to the DOM Call log: [2m  - taking element screenshot[22m [2m  - waiting for fonts to load...[22m [2m  - fonts loaded[22m [2m  - attempting scroll into view action[22m [2m    - waiting for element to be stable[22m  | ×1 ; sup=true (revue-1-a) |
-| can3a-NY2026 (CAN) |  | rendu correction : page.evaluate: TypeError: Cannot read properties of undefined (reading 'rendre')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
-| can3a-NY2026 (CAN) |  | non interactif : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
-| can3a-NY2026 (CAN) |  | génération : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-b) |
-| can3C1-01 (CAN) |  | non interactif : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; défaut (revue-0-a) |
-| can3C1-01 (CAN) |  | génération : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can3C1-02 (CAN) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
-| can3C1-03 (CAN) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
-| can3C1-04 (CAN) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
+| 6N0A-1 (6e) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=12 sup2=2 (revue-35-b) |
+| 6N0A-1 (6e) |  | génération : page.evaluate: Target page, context or browser has been closed | ×8 ; sup=12 sup2=3 ; sup=99999 sup2=1… (revue-36-a) |
+| 6N0A-4 (6e) |  | génération : page.evaluate: Target page, context or browser has been closed | ×16 ; sup=2-3-4-5-6-7-8-9 sup2=1 sup3=2 ; sup=2-3-4-5-6-7-8-9 sup2=1 sup3=3… (revue-2-a) |
+| canc3a (CAN) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
+| canc3a-2023 (CAN) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
+| canCE1a-2026 (CAN) |  | non interactif : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 ; sup=true (revue-1-a) |
+| canCE1a-2026 (CAN) |  | génération : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-b) |
+| canCE2-2026 (CAN) |  | rendu correction : page.evaluate: Error: aucun exercice préparé     at Module.rendre (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:127:18)     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:22)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=false (revue-0-a) |
+| canCE2-2026 (CAN) |  | console : [bugsnag] Session failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1978:33) | ×1 |
+| canCE2a-2025 (CAN) |  | non interactif : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-a) |
+| canCE2a-2025 (CAN) |  | génération : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=true (revue-1-b) |
 | CM1C2E (cm1) |  | non interactif : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 ; sup=2 sup2=3 sup3=3 (revue-51-a) |
 | CM1C2E (cm1) |  | génération : page.evaluate: TypeError: Cannot read properties of undefined (reading 'preparer')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:21)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×218 ; sup=2 sup2=3 sup3=3 ; sup=2 sup2=3 sup3=4… (revue-51-b) |
 | CM1C2F (cm1) |  | génération : page.evaluate: Execution context was destroyed, most likely because of a navigation | ×1 ; sup=2 sup2=false sup3=8 (revue-34-b) |
@@ -247,6 +246,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N4D-1 (cm2) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=4 sup3=true sup4=2 sup5=1 (revue-23-a) |
 | CM2N4D-1 (cm2) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=4 sup3=true sup4=2 sup5=1 (revue-23-a) |
 | CM2N4D-1 (cm2) |  | génération : page.evaluate: Target page, context or browser has been closed | ×36 ; sup=1 sup2=4 sup3=true sup4=2 sup5=1 ; sup=1 sup2=4 sup3=true sup4=3 sup5=2… (revue-23-b) |
+| TSA5-10 (Terminale) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup3=true (revue-1-b) |
+| TSA5-10 (Terminale) |  | génération : page.evaluate: Target page, context or browser has been closed | ×9 ; sup=1 sup3=false ; sup=2 sup3=true… (revue-2-a) |
+| TSA5-11 (Terminale) |  | rendu enonce : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
+| TSA5-11 (Terminale) |  | rendu correction : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
+| TSA5-11 (Terminale) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; sup2=true (revue-1-a) |
+| TSA5-11 (Terminale) |  | génération : page.evaluate: Target page, context or browser has been closed | ×2 ; sup2=true ; sup2=false nb=10 (revue-1-b) |
 
 ## X2
 
@@ -257,15 +262,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoF3 (6e) | énoncé q2 | nombre impair de $ : &lt;label>$$&lt;/label> [champ] &lt;span>&nbsp;$+\dfrac{1}{4}=1$&lt;/span> &lt;div class ="ml-2 py-2 italic text-coopmaths-warn-d | ×2 ; sup=3 ; sup=3 nb=10 (revue-0-a) |
 | 6AutoF3 (6e) | énoncé q3 | nombre impair de $ : l>$$&lt;/label> [champ] &lt;span>&nbsp;$-\dfrac{1}{2}=\dfrac{1}{4}$&lt;/span> &lt;div class ="ml-2 py-2 italic text-coopmaths-warn-d | ×4 ; sup=2 ; sup=3 nb=10 (revue-2-a) |
 | 6AutoF3 (6e) | énoncé q1 | nombre impair de $ : l>$$&lt;/label> [champ] &lt;span>&nbsp;$+\dfrac{1}{4}=\dfrac{1}{2}$&lt;/span> &lt;div class ="ml-2 py-2 italic text-coopmaths-warn-d | ×1 ; sup=3 nb=10 (revue-3-a) |
-| can1D3-03 (CAN) | énoncé q1 | « $ » visible : éfinie par 𝑓 ( 𝑥 ) = 3 − 3 𝑥 + 5 f(x)= −3x+5 3 ​ . f'(x)=$ | ×1 ; défaut (revue-0-a) |
-| can1D3-03 (CAN) | énoncé q1 | « $ » visible : éfinie par 𝑓 ( 𝑥 ) = 5 − 3 𝑥 − 5 f(x)= −3x−5 5 ​ . f'(x)=$ | ×1 ; défaut (revue-0-b) |
-| can1D3-03 (CAN) | énoncé q3 | « $ » visible : n définie par 𝑓 ( 𝑥 ) = 5 4 𝑥 − 4 f(x)= 4x−4 5 ​ . f'(x)=$ | ×2 ; défaut nb=10 (revue-1-a) |
-| can1D3-03 (CAN) | énoncé q4 | « $ » visible : tion définie par 𝑓 ( 𝑥 ) = 2 𝑥 + 1 f(x)= x+1 2 ​ . f'(x)=$ | ×1 ; défaut nb=10 (revue-1-a) |
 | can1D3-03 (CAN) | énoncé q1 | nombre impair de $ : a fonction définie par $f(x)=\dfrac{3}{-3x+5}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×1 ; défaut (revue-0-a) |
 | can1D3-03 (CAN) | énoncé q3 | nombre impair de $ : la fonction définie par $f(x)=\dfrac{5}{4x-4}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×2 ; défaut nb=10 (revue-1-a) |
 | can1D3-03 (CAN) | énoncé q4 | nombre impair de $ : la fonction définie par $f(x)=\dfrac{2}{x+1}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- | ×1 ; défaut nb=10 (revue-1-a) |
 | can5a-2025 (CAN) | énoncé q14 | nombre impair de $ : ue de nombres&nbsp;: $75$&nbsp;; $150$&nbsp;; $225$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m | ×1 ; sup=false (revue-0-a) |
-| can5D-01 (CAN) | correction q1 | « $ » visible : 1. 45 45 min = 45 60 = 60 45 ​ h = 3 4 = 4 3 ​ h = =0,75$ h. Ainsi, 2 2 h 45 45 min = = 2 , 75 2,75 h. | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
 | can5D-01 (CAN) | correction q1 | nombre impair de $ : nsi, $2$ h $45$ min $=$ ${\color{#F15929}\boldsymbol{2,75}}$ h. | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | can5D-01 (CAN) | correction q4 | nombre impair de $ : insi, $5$ h $30$ min $=$ ${\color{#F15929}\boldsymbol{5,5}}$ h. | ×2 ; défaut nb=10 (revue-1-a) |
 | CM2N1D-2 (cm2) | énoncé q1 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1= ~unité$ | ×1 ; sup=true sup2=1 sup3=1 sup4=1 sup5=true (revue-1-a) |
@@ -312,6 +312,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG2 (6e) | énoncé q1 | tes) &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:200px;' > &lt;div c | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6AutoG2 (6e) | énoncé non interactif q1 | ta-largeur1='70'> &lt;div id='cols-responsive1-undefined'style='min-width:400px;' > Le quad | ×1 |
 | 6AutoG2 (6e) | énoncé non interactif q1 | tes) &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:200px;' > &lt;div c | ×1 |
+| 6AutoS1-4 (6e) | énoncé q1 | ta-largeur1='40'> &lt;div id='cols-responsive1-undefined'style='min-width:100px;' > &lt;b>Tour | ×1 ; sup=2 (revue-2-a) |
+| 6AutoS1-4 (6e) | énoncé q1 | $12$ &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:250px;' > [champ] &lt;/ta | ×1 ; sup=2 (revue-2-a) |
+| 6AutoS1-4 (6e) | correction q1 | ta-largeur1='40'> &lt;div id='cols-responsive1-undefined'style='min-width:100px;' > On repo | ×1 ; sup=2 (revue-2-a) |
+| 6AutoS1-4 (6e) | correction q1 | }}$. &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:250px;' > &lt;table | ×1 ; sup=2 (revue-2-a) |
 | can1D1-05 (CAN) | énoncé q1 | ta-largeur1='50'> &lt;div id='cols-responsive1-undefined'style='min-width:100px;' > &lt;div cl | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | can1D1-05 (CAN) | énoncé q1 | div> &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:100px;' > &lt;div c | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | can1D1-05 (CAN) | énoncé non interactif q1 | ta-largeur1='50'> &lt;div id='cols-responsive1-undefined'style='min-width:100px;' > &lt;div cl | ×1 |
@@ -340,6 +344,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | can2F24-04 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:201 | Commentaire « Comme la fonction racine carrée est strictement croissante… » écrit en \text dans un aligned après \qquad : ligne de 866 px, coupée à 390 px (capture), illisible sur téléphone. Même chose pour can2F24-05 (fonction cube, 803 px) → sortir la phrase de la formule (texte après le aligned) | ×1 |
 | can2F24-05 (CAN) | src/exercices/can/2e/can2F3-02_old.ts:183 | Commentaire en \text dans l'aligned (« Comme la fonction cube est strictement croissante… ») : 803 px, coupé à 390 px → phrase hors de la formule | ×1 |
+| can2P1-03 (CAN) | src/exercices/can/1e/can1P12-05.ts | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px → tableau plus étroit (en-tête « Face », « P ») | ×1 |
 
 ## X6
 
@@ -348,12 +353,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6AutoF3-3 (6e) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; sup=1 (revue-0-a) |
-| can1SD22-04 (CAN) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; défaut (revue-0-a) |
-| can2a-2025 (CAN) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; sup=false (revue-0-a) |
-| can2F21-02 (CAN) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; défaut (revue-0-a) |
-| can6S-01 (CAN) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; défaut (revue-0-a) |
 | canCE2a-2025 (CAN) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; sup=false (revue-0-a) |
 | CM2N2A-4 (cm2) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; sup=1 sup2=true sup3=2 (revue-0-a) |
+| TSA3-46 (Terminale) |  | même graine, énoncés différents (aléa hors nouvelleVersion ?) | ×1 ; sup=7 (revue-0-a) |
 
 ## C1
 
@@ -394,222 +396,43 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoN2 (6e) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\dfrac{206}{1\\,000}"} ; attendu : {"champ1":"206"} | ×16 ; sup=1-2 sup2=true sup3=true ; sup=1-2 sup2=true sup3=false… (revue-0-a) |
 | 6AutoN2 (6e) |  q5 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\dfrac{6\\,009}{100}"} ; attendu : {"champ1":"6009"} | ×12 ; sup=1-2 sup2=true sup3=false ; sup=1 sup2=true sup3=true… (revue-1-a) |
 | 6AutoN2 (6e) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\dfrac{7\\,004}{1\\,000}"} ; attendu : {"champ1":"7004"} | ×2 ; sup=3 sup2=true sup3=true (revue-12-a) |
-| can1a-2022 (CAN) |  q18 mathlive | valeur en évidence refusée par le champ : ["11\\,\\%"] ; attendu : {"champ":"11"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2022 (CAN) |  q19 mathlive | valeur en évidence refusée par le champ : ["5","15"] ; attendu : {"champ":"5 h 15 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2025 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{1}{5}"] ; attendu : {"champ":"0.2"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2025 (CAN) |  q19 mathlive | valeur en évidence refusée par le champ : ["\\{-90\\,;\\,90\\}"] ; attendu : {"champ":"-90;90"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2025 (CAN) |  q27 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"2\\,015","champ2":"2\\,015\\,;\\,2\\,015"} ; attendu : {"champ1":"2015","champ2":"2015"} | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2025 (CAN) |  q27 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"525","champ2":"525\\,;\\,525"} ; attendu : {"champ1":"525","champ2":"525"} | ×1 ; sup=false (revue-0-b) |
-| can1a-NY2024 (CAN) |  q21 mathlive | valeur en évidence refusée par le champ : ["]-\\infty \\,&nbsp;;\\, -2\\,024]"] ; attendu : {"champ":"]-\\infty;-2024["} | ×1 ; défaut (revue-0-a) |
-| can1a-NY2024 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["20","24"] ; attendu : {"champ":"20 h 24 min"} | ×1 ; défaut (revue-0-b) |
-| can1a-NY2024 (CAN) |  q24 mathlive | valeur en évidence refusée par le champ : ["[-2\\,024 \\,&nbsp;;\\, +\\infty["] ; attendu : {"champ":"]-2024;+\\infty["} | ×1 ; défaut (revue-0-b) |
-| can1a-NY2025 (CAN) |  q24 mathlive | valeur en évidence refusée par le champ : ["\\mathbb{R}\\smallsetminus\\{-2\\,025\\}"] ; attendu : {"champ":"\\mathbb{R}\\\\{-2025\\}"} | ×1 ; sup=true (revue-1-a) |
-| can1D1-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4(x-2)+6","4x-2"] ; attendu : {"champ":"y=4x+-2"} | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1D1-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2(x+2)-1","-2x-5"] ; attendu : {"champ":"y=-2x+-5"} | ×1 ; défaut (revue-0-b) |
-| can1D1-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["2(x+0)+2","2x+2"] ; attendu : {"champ":"y=2x+2"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can1D1-05 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["2(x-1)+2","2x"] ; attendu : {"champ":"y=2x+0"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D1-05 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["6(x-1)+8","6x+2"] ; attendu : {"champ":"y=6x+2"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can1D1-05 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["4(x+2)-2","4x+6"] ; attendu : {"champ":"y=4x+6"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D1-05 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["4(x+0)-3","4x-3"] ; attendu : {"champ":"y=4x+-3"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can1D1-05 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2(x+0)+1","-2x+1"] ; attendu : {"champ":"y=-2x+1"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["f'(x)=-6x^2+8x-7"] ; attendu : {"champ":"-6x^2+8x+-7"} | ×1 ; défaut (revue-0-a) |
-| can1D2-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["f'(x)=27x^2-16x-10"] ; attendu : {"champ":"27x^2+-16x+-10"} | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1D2-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["f'(x)=-30x^2"] ; attendu : {"champ":"-30x^2"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["f'(x)=-21x^2-4x"] ; attendu : {"champ":"-21x^2+-4x"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["f'(x)=30x^212x"] ; attendu : {"champ":"30x^2+12x"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["f'(x)=6x^2-1"] ; attendu : {"champ":"6x^2+-1"} | ×3 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["f'(x)=15x^2+20x+5"] ; attendu : {"champ":"15x^2+20x+5"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["f'(x)=-6x^2-8x+9"] ; attendu : {"champ":"-6x^2+-8x+9"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1D2-04 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["f'(x)=12x^2+8x"] ; attendu : {"champ":"12x^2+8x"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1G2-06 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{\\pi}{6)}"] ; attendu : {"champ":"-\\dfrac{\\pi}{6}"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1P11-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{8}{10}"] ; attendu : {"champ":"0.8"} | ×14 ; sup=true ; sup=false… (revue-0-a) |
-| can1S1-01 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["-6,92"] ; attendu : {"champ":"-7.08"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1S1-01 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["6"] ; attendu : {"champ":"0"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1SD21-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2","7"] ; attendu : {"champ":"-2;7"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD21-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["5","9"] ; attendu : {"champ":"5;9"} | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1SD21-04 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["9","-5"] ; attendu : {"champ":"-5;9"} | ×3 ; défaut nb=10 (revue-1-a) |
-| can1SD21-04 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5","-3"] ; attendu : {"champ":"-5;-3"} | ×3 ; défaut nb=10 (revue-1-a) |
-| can1SD21-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["5","4"] ; attendu : {"champ":"4;5"} | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD21-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-5","-3"] ; attendu : {"champ":"-5;-3"} | ×6 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1SD21-05 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["-1","3"] ; attendu : {"champ":"-1;3"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can1SD21-05 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["2","-3"] ; attendu : {"champ":"-3;2"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can1SD21-06 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1;3"] ; attendu : {"champ":"\\{-1;3\\}"} | ×2 ; défaut (revue-0-a) |
-| can1SD21-06 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["1;3"] ; attendu : {"champ":"\\{1;3\\}"} | ×3 ; défaut nb=10 (revue-1-a) |
-| can1SD21-06 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["3;-2"] ; attendu : {"champ":"\\{-2;3\\}"} | ×4 ; défaut nb=10 (revue-1-a) |
-| can1SD21-06 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2;-3"] ; attendu : {"champ":"\\{-3;-2\\}"} | ×3 ; défaut nb=10 (revue-1-a) |
-| can2a-2021 (CAN) |  q12 mathlive | valeur en évidence refusée par le champ : ["6","7"] ; attendu : {"champ":"6;7"} | ×2 ; sup= (revue-0-a) |
-| can2a-2021 (CAN) |  q18 mathlive | valeur en évidence refusée par le champ : ["(4;3,5)"] ; attendu : {"champ":"4;3,5"} | ×2 ; sup= (revue-0-a) |
-| can2a-2023 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["3","6"] ; attendu : {"champ":"3^{6}"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can2a-2024 (CAN) |  q21 mathlive | valeur en évidence refusée par le champ : ["5","4"] ; attendu : {"champ":"\\dfrac{5}{4}"} | ×2 ; sup=false (revue-0-a) |
-| can2a-2024 (CAN) |  q21 mathlive | valeur en évidence refusée par le champ : ["10","4","5","2"] ; attendu : {"champ":"\\dfrac{10}{4}"} | ×2 ; sup=true (revue-1-a) |
-| can2a-2025 (CAN) |  q11 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"8","champ2":"-10\\,;\\,8"} ; attendu : {"champ1":"-10","champ2":"8"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can2a-2026 (CAN) |  q14 mathlive | valeur en évidence refusée par le champ : ["\\{-2\\,;\\,1\\}"] ; attendu : {"champ":"-2;1"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can2a-2026 (CAN) |  q29 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\overrightarrow{PA}"} ; attendu : {"champ1":"PA"} | ×1 ; sup=false (revue-0-a) |
-| can2a-2026 (CAN) |  q29 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\overrightarrow{QW}"} ; attendu : {"champ1":"QW"} | ×1 ; sup=false (revue-0-b) |
-| can2a-2026 (CAN) |  q29 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"\\overrightarrow{KG}"} ; attendu : {"champ1":"KG"} | ×2 ; sup=true (revue-1-a) |
+| 6AutoS1 (6e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"90"} ; attendu : {"champ1":"entre 80 et 90"} | ×12 ; sup=1 sup2=1 sup3=3 ; sup=1 sup2=2 sup3=3… (revue-4-a) |
 | can2a-2026 (CAN) | src/exercices/can/can2a-2026/can2a-2026-Q14.ts | Q14 : mise en évidence ⟦\{-2\,;\,1\}⟧ avec les accolades, alors que le champ attend « -2;1 » (pas d'accolades dans l'énoncé) → S=\{⟦-2\,;\,1⟧\} | ×1 |
 | can2a-2026 (CAN) | src/exercices/can/can2a-2026/can2a-2026-Q29.ts | Q29 : mise en évidence ⟦\overrightarrow{PA}⟧ alors que le champ à trous est déjà sous la flèche et attend « PA » → \overrightarrow{⟦PA⟧} | ×1 |
-| can2a-NY2024 (CAN) |  q11 mathlive | valeur en évidence refusée par le champ : ["33","48"] ; attendu : {"champ":"33 h 48 min"} | ×5 ; défaut (revue-0-a) |
-| can2F12-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["13","-9","13","-9"] ; attendu : {"champ":"13;-9"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G20-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{3}{4}\\overrightarrow{WY}"] ; attendu : {"champ":"\\dfrac{3}{4}"} | ×1 ; défaut (revue-0-b) |
-| can2G20-03 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{6}{5}\\overrightarrow{ZM}"] ; attendu : {"champ":"\\dfrac{6}{5}"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-03 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{4}{7}\\overrightarrow{VK}"] ; attendu : {"champ":"\\dfrac{4}{7}"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-03 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{8}{3}\\overrightarrow{IM}"] ; attendu : {"champ":"\\dfrac{8}{3}"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-03 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{3}{4}\\overrightarrow{DH}"] ; attendu : {"champ":"\\dfrac{3}{4}"} | ×1 ; défaut nb=10 (revue-1-a) |
 | can2G20-03 (CAN) | src/exercices/can/2e/can2G20-03.ts | Cas « même sens » : la mise en évidence englobe le vecteur (⟦\dfrac{6}{5}\overrightarrow{ZM}⟧) alors que le champ attend $k$ seul ; la valeur $\dfrac{6}{5}$ juste avant n'est pas mise en évidence → $\overrightarrow{ZN}=${miseEnEvidence(k)}\\overrightarrow{ZM}$ | ×1 |
-| can2G21-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["2","-4"] ; attendu : {"champ":"(2;-4)"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G21-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-4","-5"] ; attendu : {"champ":"(-4;-5)"} | ×3 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2G21-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-5","2"] ; attendu : {"champ":"(-5;2)"} | ×3 ; défaut nb=10 (revue-1-a) |
-| can2G21-03 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["2","0"] ; attendu : {"champ":"(2;0)"} | ×2 ; défaut nb=10 (revue-1-a) |
 | can2G21-03 (CAN) | src/exercices/can/2e/can2G21-03.ts | Le champ attend un couple « (2;-4) » mais la correction met en évidence les deux coordonnées dans une colonne \begin{pmatrix} ; l'énoncé ne dit pas sous quelle forme écrire les coordonnées → préciser la forme attendue et mettre en évidence $(2\,;\,-4)$ | ×1 |
-| can2G21-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-15","-3"] ; attendu : {"champ":"(-15;-3)"} | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G21-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["36","6"] ; attendu : {"champ":"(36;6)"} | ×5 ; défaut nb=10 (revue-1-a) |
 | can2G21-04 (CAN) | src/exercices/can/2e/can2G21-04.ts | Le champ attend un couple « (2;-4) » mais la correction met en évidence les deux coordonnées dans une colonne \begin{pmatrix} ; l'énoncé ne dit pas sous quelle forme écrire les coordonnées → préciser la forme attendue et mettre en évidence $(2\,;\,-4)$ | ×1 |
-| can2G30-07 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["(4;-22)"] ; attendu : {"champ":"4;-22"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G30-07 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["(-8;57)"] ; attendu : {"champ":"-8;57"} | ×4 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2G30-07 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["(-6;-35)"] ; attendu : {"champ":"-6;-35"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can2G30-07 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["(8;2)"] ; attendu : {"champ":"8;2"} | ×2 ; défaut nb=10 (revue-1-a) |
 | can2G30-07 (CAN) | src/exercices/can/2e/can2G30-07.ts | Le champ est entre parenthèses dans l'énoncé (« $($ [champ] $)$ ») et attend « x;y », mais la correction met en évidence le couple avec ses parenthèses (⟦(-5;10)⟧) ou les deux coordonnées séparément → $(${miseEnEvidence(`${x}\\,;\\,${y}`)})$ | ×1 |
-| can2G30-08 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2","0"] ; attendu : {"champ":"-2;0"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G30-08 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4","0"] ; attendu : {"champ":"4;0"} | ×8 ; défaut ; défaut nb=10 (revue-0-b) |
 | can2G30-08 (CAN) | src/exercices/can/2e/can2G30-08.ts | Le champ est entre parenthèses dans l'énoncé (« $($ [champ] $)$ ») et attend « x;y », mais la correction met en évidence le couple avec ses parenthèses (⟦(-5;10)⟧) ou les deux coordonnées séparément → $(${miseEnEvidence(`${x}\\,;\\,${y}`)})$ | ×1 |
-| can2G31-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["(0; -2)"] ; attendu : {"champ":"0;-2"} | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G31-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["(0;4)"] ; attendu : {"champ":"0;4"} | ×6 ; défaut ; défaut nb=10 (revue-0-b) |
 | can2G31-02 (CAN) | src/exercices/can/2e/can2G31-02.ts | Le champ est entre parenthèses dans l'énoncé (« $($ [champ] $)$ ») et attend « x;y », mais la correction met en évidence le couple avec ses parenthèses (⟦(-5;10)⟧) ou les deux coordonnées séparément → $(${miseEnEvidence(`${x}\\,;\\,${y}`)})$ | ×1 |
-| can2I2-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["+ 40&nbsp; \\%","+ 40&nbsp; \\%"] ; attendu : {"champ":"40"} | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2I2-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["- 5&nbsp; \\%","- 5&nbsp; \\%"] ; attendu : {"champ":"-5"} | ×7 ; défaut nb=10 (revue-1-a) |
-| can2L11-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["52-14\\sqrt{3}"] ; attendu : {"champ":"52-14\\sqrt3"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2L11-04 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["88+18\\sqrt{7}"] ; attendu : {"champ":"88+18\\sqrt7"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can2N10-04 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["]-\\infty\\,;\\,+\\infty[=\\mathbb{R}"] ; attendu : {"champ":"]-\\infty;+\\infty["} | ×1 ; défaut nb=10 (revue-1-a) |
 | can2N10-04 (CAN) | src/exercices/can/2e/can2N10-04.ts | Réunion égale à ℝ : mise en évidence « ]-\infty\,;\,+\infty[=\mathbb{R} » refusée telle quelle par le champ → mettre en évidence $]-\infty\,;\,+\infty[$ seul, puis « $=\mathbb{R}$ » hors évidence | ×1 |
-| can2N11-01 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["25\\,\\%"] ; attendu : {"champ":"25"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can2N4-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["1"] ; attendu : {"champ":"1.0000000000000002"} | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2N5-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4\\sqrt{2}"] ; attendu : {"champ":"4\\sqrt2"} | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2N5-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3\\sqrt{2}"] ; attendu : {"champ":"-3\\sqrt2"} | ×4 ; défaut nb=10 (revue-1-a) |
-| can2N5-07 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{8}"] ; attendu : {"champ":"\\sqrt8"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P(A\\cap \\overline{C})"] ; attendu : {"champ":"P(\\overline{C}\\cap A)"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-01 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["P_F(R)"] ; attendu : {"champ":"P_{F}({R})"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can2P2-01 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["P_M(T)"] ; attendu : {"champ":"P_{M}({T})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-01 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["P_{T}(\\overline{M})"] ; attendu : {"champ":"P_{T}({\\overline{M}})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{A}}(\\overline{G})=0,54"] ; attendu : {"champ":"p_{\\overline{A}}({\\overline{G}})"} | ×1 ; défaut (revue-0-a) |
-| can2P2-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P_{Z}(C)=0,23"] ; attendu : {"champ":"p_Z({C})"} | ×1 ; défaut (revue-0-b) |
-| can2P2-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P(Q)=0,3"] ; attendu : {"champ":"p(Q)"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{H}}(E)=0,54"] ; attendu : {"champ":"p_{\\overline{H}}({E})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{M}}(L)=0,59"] ; attendu : {"champ":"p_{\\overline{M}}({L})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["P_{S}(R)=0,85"] ; attendu : {"champ":"p_S({R})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["P_{J}(\\overline{E})=0,35"] ; attendu : {"champ":"p_J({\\overline{E}})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{S}}(O)=0,47"] ; attendu : {"champ":"p_{\\overline{S}}({O})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["P_{B}(\\overline{M})=0,21"] ; attendu : {"champ":"p_B({\\overline{M}})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["P(X)=0,1"] ; attendu : {"champ":"p(X)"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["P(\\overline{N})=0,2"] ; attendu : {"champ":"p(\\overline{N})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-02 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{V}}(\\overline{M})=0,25"] ; attendu : {"champ":"p_{\\overline{V}}({\\overline{M}})"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{A}}(\\overline{G})=0,54"] ; attendu : {"champ":"0,54"} | ×1 ; défaut (revue-0-a) |
-| can2P2-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P_{Z}(C)=0,23"] ; attendu : {"champ":"0,23"} | ×1 ; défaut (revue-0-b) |
-| can2P2-03 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["P(Q)=0,3"] ; attendu : {"champ":"0,3"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{H}}(E)=0,54"] ; attendu : {"champ":"0,54"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{M}}(L)=0,59"] ; attendu : {"champ":"0,59"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["P_{S}(R)=0,85"] ; attendu : {"champ":"0,85"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["P_{J}(\\overline{E})=0,35"] ; attendu : {"champ":"0,35"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{S}}(O)=0,47"] ; attendu : {"champ":"0,47"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["P_{B}(\\overline{M})=0,21"] ; attendu : {"champ":"0,21"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["P(X)=0,1"] ; attendu : {"champ":"0,1"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["P(\\overline{N})=0,2"] ; attendu : {"champ":"0,2"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P2-03 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["P_{\\overline{V}}(\\overline{M})=0,25"] ; attendu : {"champ":"0,25"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can3a-2021 (CAN) |  q11 mathlive | valeur en évidence refusée par le champ : ["1","5","7","35"] ; attendu : {"champ":"1;5;7;35"} | ×2 ; sup= (revue-0-a) |
-| can3a-2021 (CAN) |  q14 mathlive | valeur en évidence refusée par le champ : ["2","15"] ; attendu : {"champ":"2 h 15 min"} | ×2 ; sup= (revue-0-a) |
-| can3a-2022 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["3","15"] ; attendu : {"champ":"3 h 15 min"} | ×2 ; sup= (revue-0-a) |
-| can3a-2022 (CAN) |  q27 mathlive | valeur en évidence refusée par le champ : ["11"] ; attendu : {"champ":"13 h 11 min"} | ×2 ; sup= (revue-0-a) |
-| can3a-2023 (CAN) |  q24 mathlive | valeur en évidence refusée par le champ : ["-4","1"] ; attendu : {"champ":"-4;1"} | ×2 ; défaut (revue-0-a) |
-| can3a-2023 (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["7","8"] ; attendu : {"champ":"7;8"} | ×2 ; défaut (revue-0-a) |
-| can3a-2023 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["5","11","5","11"] ; attendu : {"champ":"\\dfrac{5}{11}"} | ×2 ; défaut (revue-0-a) |
-| can3a-2023 (CAN) |  q27 mathlive | valeur en évidence refusée par le champ : ["17","4"] ; attendu : {"champ":"\\dfrac{17}{4}"} | ×2 ; défaut (revue-0-a) |
-| can3a-2026 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["70^\\circ"] ; attendu : {"champ":"70"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can3a-2026 (CAN) |  q28 mathlive | valeur en évidence refusée par le champ : ["13","30"] ; attendu : {"champ":"13 h 30 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can3a-NY2024 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21 h 06 min"} | ×1 ; défaut (revue-0-b) |
-| can3C2-01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["30"] ; attendu : {"champ":"7^{30}"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can3C2-07 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["10^{4} \\text{ ou } 100^{2}"] ; attendu : {"champ":"10^4"} | ×4 ; défaut ; défaut nb=10 (revue-0-b) |
-| can3C2-07 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,2^{3} \\text{ ou } 5^{-3}"] ; attendu : {"champ":"0.2^3"} | ×2 ; défaut nb=10 (revue-1-a) |
-| can3F1-03 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["5"] ; attendu : {"champ":"\\emptyset"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can4a-2023 (CAN) |  q14 mathlive | valeur en évidence refusée par le champ : ["3","5"] ; attendu : {"champ":"3;5"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can4a-2023 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["11","14"] ; attendu : {"champ":"\\dfrac{11}{14}"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can4a-2023 (CAN) |  q23 mathlive | valeur en évidence refusée par le champ : ["16","x","11"] ; attendu : {"champ":"16x+11"} | ×2 ; sup2=false ; sup2=true (revue-0-a) |
-| can4a-2023 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["1","30"] ; attendu : {"champ":"1 h 30 min"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can4a-2023 (CAN) |  q23 mathlive | valeur en évidence refusée par le champ : ["11","a","9"] ; attendu : {"champ":"11a+9"} | ×1 ; sup2=false (revue-0-b) |
-| can4a-2023 (CAN) |  q23 mathlive | valeur en évidence refusée par le champ : ["16","y","7"] ; attendu : {"champ":"16y+7"} | ×1 ; sup2=true (revue-1-a) |
+| can2P2-02 (CAN) | src/exercices/can/1e/can1P11-01.ts | La correction met en évidence l'égalité entière ⟦P_{Z}(C)=0,23⟧ alors que le champ attend seulement la notation (can2P2-02) ou seulement le nombre (can2P2-03) → mettre en évidence la seule partie à saisir | ×1 |
+| can2P2-03 (CAN) | src/exercices/can/1e/can1P11-02.ts | La correction met en évidence l'égalité entière ⟦P_{Z}(C)=0,23⟧ alors que le champ attend seulement la notation (can2P2-02) ou seulement le nombre (can2P2-03) → mettre en évidence la seule partie à saisir | ×1 |
 | can4a-2023 (CAN) | src/exercices/can/4e/can4a-2023.ts | Q23 : expression réduite mise en évidence en quatre morceaux (⟦16⟧⟦x⟧ ⟦+⟧ ⟦11⟧) ; Q28 : « revient à prendre $1\times 10\,\%$ de $800$ » (explication inutile pour 10 %). → ⟦16x+11⟧ | ×1 |
-| can4a-2024 (CAN) |  q28 mathlive | valeur en évidence refusée par le champ : ["5","24"] ; attendu : {"champ":"5 h 24 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can4a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["30^\\circ"] ; attendu : {"champ":"30"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can4a-NY2024 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["21","3"] ; attendu : {"champ":"21 h 03 min"} | ×3 ; défaut (revue-0-a) |
-| can4C21-06 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 > -\\dfrac{19}{9}."] ; attendu : {"champ":"-2"} | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
-| can4C21-06 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{8}{9} > -1."] ; attendu : {"champ":"-\\dfrac{8}{9}"} | ×4 ; défaut nb=10 (revue-1-a) |
-| can5a-2020 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["21","15"] ; attendu : {"champ":"21 h 15 min"} | ×2 ; sup= (revue-0-a) |
-| can5a-2020 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["1,5"] ; attendu : {"champ":"\\dfrac{15}{10}"} | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["-1","4"] ; attendu : {"champ":"\\dfrac{-1}{4}"} | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) |  q18 mathlive | valeur en évidence refusée par le champ : ["-13,99","-13,98"] ; attendu : {"champ":"-13,99;-13,98"} | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["23","15"] ; attendu : {"champ":"23 h 15 min"} | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["9","23"] ; attendu : {"champ":"\\dfrac{9}{23}"} | ×4 ; sup= (revue-0-a) |
-| can5a-2022 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["37"] ; attendu : {"champ":"37\\operatorname{cm}"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can5a-2022 (CAN) |  q29 mathlive | valeur en évidence refusée par le champ : ["64\\pi"] ; attendu : {"champ":"64"} | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can5a-2022 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{1}{-4,9}"] ; attendu : {"champ":"\\dfrac{10}{-49}"} | ×3 ; sup2=false ; sup2=true (revue-0-b) |
-| can5a-2023 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["4","30"] ; attendu : {"champ":"4 h 30 min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
-| can5a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["11","00"] ; attendu : {"champ":"11 h"} | ×1 ; sup=false (revue-0-a) |
-| can5a-2026 (CAN) |  q19 mathlive | valeur en évidence refusée par le champ : ["55^\\circ"] ; attendu : {"champ":"55"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can5a-2026 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["15","30"] ; attendu : {"champ":"15 h 30 min"} | ×3 ; sup=false ; sup=true (revue-0-b) |
-| can5a-CoopMaths (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["2\\text{ h }18\\text{ min}"] ; attendu : {"champ":"2h18min"} | ×4 ; sup=31 ; sup=6 (revue-0-a) |
-| can5a-CoopMaths (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["147\\text{ dm}"] ; attendu : {"champ":"147\\operatorname{dm}"} | ×3 ; sup=31 ; sup=25 (revue-0-a) |
-| can5a-CoopMaths (CAN) |  q27 mathlive | valeur en évidence refusée par le champ : ["75"] ; attendu : {"champ":"75\\operatorname{km}"} | ×1 ; sup=31 (revue-0-a) |
-| can5a-CoopMaths (CAN) |  q30 mathlive | valeur en évidence refusée par le champ : ["48"] ; attendu : {"champ":"48€"} | ×1 ; sup=31 (revue-0-a) |
-| can5a-CoopMaths (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["113\\text{ m}"] ; attendu : {"champ":"113\\operatorname{m}"} | ×1 ; sup=31 (revue-0-b) |
-| can5a-CoopMaths (CAN) |  q27 mathlive | valeur en évidence refusée par le champ : ["146.25"] ; attendu : {"champ":"146,25\\operatorname{km}"} | ×3 ; sup=31 ; sup=27 (revue-0-b) |
-| can5a-CoopMaths (CAN) |  q30 mathlive | valeur en évidence refusée par le champ : ["9,60"] ; attendu : {"champ":"9,60€"} | ×3 ; sup=31 ; sup=30 (revue-0-b) |
-| can5a-NY2024 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21 h 06 min"} | ×4 ; défaut (revue-0-a) |
-| can5C4-02 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["12,135"] ; attendu : {"champ":"12.135000000000002"} | ×1 ; défaut nb=10 (revue-1-a) |
-| can5D-01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4","45"] ; attendu : {"champ":"4 h 45 min"} | ×7 ; défaut ; défaut nb=10 (revue-0-b) |
-| can5D-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["4","45"] ; attendu : {"champ":"4 h 45 min"} | ×6 ; défaut ; défaut nb=10 (revue-0-b) |
-| can6a-2018 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["4","40"] ; attendu : {"champ":"4 h 40 min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
-| can6a-2018 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["4","5"] ; attendu : {"champ":"\\dfrac{4}{5}"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
+| can6a-2018 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["4","40"] ; attendu : {"champ":"4h40min"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
+| can6a-2018 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["4","5"] ; attendu : {"champ":"\\dfrac45"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["1","2"] ; attendu : {"champ":"1;2"} | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2018 (CAN) |  q17 mathlive | valeur en évidence refusée par le champ : ["0,9"] ; attendu : {"champ":"\\dfrac{9}{10}"} | ×3 ; sup2=true ; sup2=false (revue-0-b) |
-| can6a-2021 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["11","10"] ; attendu : {"champ":"11 h 10 min"} | ×2 ; défaut (revue-0-a) |
-| can6a-2021 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["1","3"] ; attendu : {"champ":"\\dfrac{1}{3}"} | ×4 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) |  q12 mathlive | valeur en évidence refusée par le champ : ["1","40"] ; attendu : {"champ":"1 h 40 min"} | ×4 ; défaut (revue-0-a) |
-| can6a-2022 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["0,2"] ; attendu : {"champ":"\\dfrac{1}{5}"} | ×2 ; défaut (revue-0-a) |
+| can6a-2021 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["11","10"] ; attendu : {"champ":"11h10min"} | ×2 ; défaut (revue-0-a) |
+| can6a-2021 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["1","3"] ; attendu : {"champ":"\\dfrac13"} | ×4 ; défaut (revue-0-a) |
+| can6a-2022 (CAN) |  q12 mathlive | valeur en évidence refusée par le champ : ["1","40"] ; attendu : {"champ":"1h40min"} | ×4 ; défaut (revue-0-a) |
+| can6a-2022 (CAN) |  q20 mathlive | valeur en évidence refusée par le champ : ["0,2"] ; attendu : {"champ":"\\dfrac15"} | ×2 ; défaut (revue-0-a) |
 | can6a-2022 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["2\\text{ mm}"] ; attendu : {"champ":"2\\operatorname{mm}"} | ×1 ; défaut (revue-0-a) |
 | can6a-2022 (CAN) |  q26 mathlive | valeur en évidence refusée par le champ : ["43\\text{ dm}"] ; attendu : {"champ":"43\\operatorname{dm}"} | ×1 ; défaut (revue-0-b) |
 | can6a-2023 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["6","7","2","21","3","14","1","42"] ; attendu : {"champ":"6;7"} | ×2 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false (revue-0-a) |
-| can6a-2023 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["1","10"] ; attendu : {"champ":"1 h 10 min"} | ×4 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
+| can6a-2023 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["1","10"] ; attendu : {"champ":"1h10min"} | ×4 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
 | can6a-2023 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["251"] ; attendu : {"champ":"251\\operatorname{cm}"} | ×4 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
-| can6a-2023 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["4","18"] ; attendu : {"champ":"\\dfrac{4}{18}"} | ×8 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
+| can6a-2023 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["4","18"] ; attendu : {"champ":"\\dfrac{4}{18}"} | ×3 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
+| can6a-2023 (CAN) |  q19 mathlive | valeur en évidence refusée par le champ : ["2","4"] ; attendu : {"champ":"\\dfrac24"} | ×5 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=false ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-0-a) |
 | can6a-2023 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["3","6","2","9","1","18"] ; attendu : {"champ":"3;6"} | ×2 ; sup=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30 sup2=true (revue-1-a) |
-| can6a-2025 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10 h 15 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["11"] ; attendu : {"champ":"\\dfrac{11}{23}"} | ×59 ; sup=31 ; sup=2 (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q13 mathlive | valeur en évidence refusée par le champ : ["3","11"] ; attendu : {"champ":"3 h 11 min"} | ×62 ; sup=31 ; sup=13 (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q22 mathlive | valeur en évidence refusée par le champ : ["1,23\\text{ m}"] ; attendu : {"champ":"1.23"} | ×62 ; sup=31 ; sup=22 (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["181"] ; attendu : {"champ":"181\\operatorname{dm}"} | ×22 ; sup=31 ; sup=25 (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q30 mathlive | valeur en évidence refusée par le champ : ["9 €"] ; attendu : {"champ":"9"} | ×22 ; sup=31 ; sup=30 (revue-0-a) |
-| can6a-CoopMaths (CAN) |  q25 mathlive | valeur en évidence refusée par le champ : ["100"] ; attendu : {"champ":"100\\operatorname{cm}"} | ×16 ; sup=31 ; sup=25 (revue-0-b) |
-| can6a-CoopMaths (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["82"] ; attendu : {"champ":"82\\operatorname{m}"} | ×24 ; sup=25 (revue-25-a) |
-| can6a-CoopMaths (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["10,80 €"] ; attendu : {"champ":"10.799999999999999"} | ×40 ; sup=30 (revue-30-a) |
-| can6a-NY2024 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21 h 06 min"} | ×2 ; défaut (revue-0-b) |
-| can6C52-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{19}{9} > 2."] ; attendu : {"champ":"\\dfrac{19}{9}"} | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6C52-05 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["1 > \\dfrac{8}{9}."] ; attendu : {"champ":"1"} | ×4 ; défaut nb=10 (revue-1-a) |
-| can6D1-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["3\\text{~min~}54\\text{~s}"] ; attendu : {"champ":"03 min 54 s"} | ×3 ; sup=2 ; sup=3 (revue-1-a) |
-| can6D1-06 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["3\\text{~min~}53\\text{~s}"] ; attendu : {"champ":"03 min 53 s"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can6G1-03 (CAN) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"8"} ; attendu : {"champ1":"23"} | ×10 ; sup=1 sup2=1 sup3=true ; sup=2 sup2=1 sup3=true… (revue-1-a) |
-| can6G1-03 (CAN) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"46","champ2":"0"} ; attendu : {"champ1":"34","champ2":"19"} | ×10 ; sup=1 sup2=2 sup3=true ; sup=2 sup2=2 sup3=true… (revue-2-a) |
-| can6G1-03 (CAN) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"31","champ2":"16","champ3":"34"} ; attendu : {"champ1":"40","champ2":"4","champ3":"14"} | ×10 ; sup=1 sup2=3 sup3=true ; sup=2 sup2=3 sup3=true… (revue-4-a) |
-| canc3a-2023 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["6","7","2","21","3","14","1","42"] ; attendu : {"champ":"6;7"} | ×1 ; défaut (revue-0-a) |
-| canc3a-2023 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["1","25"] ; attendu : {"champ":"1 h 25 min"} | ×2 ; défaut (revue-0-a) |
-| canc3a-2023 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["30"] ; attendu : {"champ":"30\\operatorname{cm}"} | ×2 ; défaut (revue-0-a) |
-| canc3a-2023 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["59","2"] ; attendu : {"champ":"59;2"} | ×2 ; défaut (revue-0-a) |
-| canc3a-2023 (CAN) |  q16 mathlive | valeur en évidence refusée par le champ : ["2","10"] ; attendu : {"champ":"\\dfrac{2}{10}"} | ×4 ; défaut (revue-0-a) |
-| canc3a-2023 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["5","7","1","35"] ; attendu : {"champ":"5;7"} | ×1 ; défaut (revue-0-b) |
+| can6a-2025 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10h15min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
+| can6a-NY2024 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21h06min"} | ×2 ; défaut (revue-0-b) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q16, Q19 : fraction réponse mise en évidence en deux morceaux (numérateur et dénominateur séparés $\dfrac{⟦2⟧}{⟦10⟧}$) : la valeur saisie attendue n'apparaît pas comme une seule mise en évidence. → miseEnEvidence('\\dfrac{2}{10}') | ×1 |
-| canc3a-2025 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10 h 15 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canc3a-2025b (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10 h 15 min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canc3a-NY2024 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["21","12"] ; attendu : {"champ":"21 h 12 min"} | ×1 ; défaut (revue-0-b) |
-| canc3D01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["2","25"] ; attendu : {"champ":"2h 25"} | ×13 ; sup=false ; sup=true… (revue-0-a) |
-| canc3D01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["11",""] ; attendu : {"champ":"11h 0"} | ×1 ; sup=false nb=10 (revue-2-a) |
+| canc3a-2025 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10h15min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-2025b (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["10","15"] ; attendu : {"champ":"10h15min"} | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canc3a-NY2024 (CAN) |  q15 mathlive | valeur en évidence refusée par le champ : ["21","12"] ; attendu : {"champ":"21h12min"} | ×1 ; défaut (revue-0-b) |
+| canc3D01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["2","25"] ; attendu : {"champ":"2h25"} | ×13 ; sup=false ; sup=true… (revue-0-a) |
+| canc3D01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["11",""] ; attendu : {"champ":"11h0"} | ×1 ; sup=false nb=10 (revue-2-a) |
 | canc3M01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{ dg }"] ; attendu : {"champ":"dg"} | ×1 ; défaut (revue-0-a) |
 | canc3M01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{ dag }"] ; attendu : {"champ":"dag"} | ×1 ; défaut (revue-0-b) |
 | canc3M01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{ hm }"] ; attendu : {"champ":"hm"} | ×2 ; défaut nb=10 (revue-1-a) |
@@ -620,34 +443,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3M01 (CAN) |  q7 mathlive | valeur en évidence refusée par le champ : ["\\text{ km }"] ; attendu : {"champ":"km"} | ×2 ; défaut nb=10 (revue-1-a) |
 | canc3M01 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["\\text{ mg }"] ; attendu : {"champ":"mg"} | ×1 ; défaut nb=10 (revue-1-a) |
 | canc3M01 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["\\text{ cL }"] ; attendu : {"champ":"cL"} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-01 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{18}"] ; attendu : {"champ":"4.242640687119285"} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-02 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\text{la médiatrice du segment [AB]}"] ; attendu : {"champ":""} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTEC2-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{2}-\\sqrt{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut (revue-0-a) |
-| canTEC2-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1-\\sqrt{3}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut (revue-0-b) |
-| canTEC2-05 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\sqrt{3}-1\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["-\\sqrt{2}+\\sqrt{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{5}{2}-\\dfrac{5\\sqrt{3}}{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["2\\sqrt{2}-2\\sqrt{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{5}{2}+\\dfrac{5\\sqrt{3}}{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{3\\sqrt{3}}{2}-\\dfrac{3}{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×2 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2+2\\sqrt{3}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["-2-2\\sqrt{3}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTEC2-05 (CAN) |  q10 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{3}{2}-\\dfrac{3\\sqrt{3}}{2}\\mathrm{i}"] ; attendu : {"champ":""} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpea-2026 (CAN) |  q13 mathlive | valeur en évidence refusée par le champ : ["0","8"] ; attendu : {"champ":"0;8"} | ×1 ; sup=false (revue-0-a) |
-| canTSpea-2026 (CAN) |  q13 mathlive | valeur en évidence refusée par le champ : ["-12","2"] ; attendu : {"champ":"-12;2"} | ×3 ; sup=false ; sup=true (revue-0-b) |
-| canTSpea-NY2025 (CAN) |  q24 mathlive | valeur en évidence refusée par le champ : ["\\mathbb{R}\\smallsetminus\\{-2\\,025\\}"] ; attendu : {"champ":"\\mathbb{R}\\\\{-2025\\}"} | ×1 ; sup=true (revue-1-a) |
-| canTSpeAN12 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\left[ 2&nbsp;; +\\infty \\right["] ; attendu : {"champ":"\\left[ 2 ; +\\infty \\right["} | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTSpeAN12 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\left] -\\infty&nbsp;; 2 \\right["] ; attendu : {"champ":"\\left] -\\infty ; 2 \\right["} | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| canTSpeAN12 (CAN) |  q2 mathlive | valeur en évidence refusée par le champ : ["\\left] -\\dfrac{3}{2}&nbsp;; +\\infty \\right["] ; attendu : {"champ":"\\left] -\\dfrac{3}{2} ; +\\infty \\right["} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeAN12 (CAN) |  q3 mathlive | valeur en évidence refusée par le champ : ["\\left] 2&nbsp;; +\\infty \\right["] ; attendu : {"champ":"\\left] 2 ; +\\infty \\right["} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeAN12 (CAN) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\left] -\\infty&nbsp;; \\dfrac{2}{3} \\right]"] ; attendu : {"champ":"\\left] -\\infty ; \\dfrac{2}{3} \\right]"} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeAN12 (CAN) |  q5 mathlive | valeur en évidence refusée par le champ : ["\\left] -\\infty&nbsp;; 2 \\right]"] ; attendu : {"champ":"\\left] -\\infty ; 2 \\right]"} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeAN12 (CAN) |  q6 mathlive | valeur en évidence refusée par le champ : ["\\left] -\\infty&nbsp;; \\dfrac{4}{3} \\right["] ; attendu : {"champ":"\\left] -\\infty ; \\dfrac{4}{3} \\right["} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeAN12 (CAN) |  q8 mathlive | valeur en évidence refusée par le champ : ["\\left] -\\infty&nbsp;; -\\dfrac{1}{3} \\right["] ; attendu : {"champ":"\\left] -\\infty ; -\\dfrac{1}{3} \\right["} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeAN12 (CAN) |  q9 mathlive | valeur en évidence refusée par le champ : ["\\left[ \\dfrac{4}{3}&nbsp;; +\\infty \\right["] ; attendu : {"champ":"\\left[ \\dfrac{4}{3} ; +\\infty \\right["} | ×1 ; défaut nb=10 (revue-1-a) |
-| canTSpeE06 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["45"] ; attendu : {"champ":"\\sqrt{45}"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTSpeS01 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-\\infty."] ; attendu : {"champ":"+\\infty"} | ×4 ; défaut nb=10 (revue-1-a) |
-| canTSpeS06 (CAN) |  q1 mathlive | valeur en évidence refusée par le champ : ["-\\infty"] ; attendu : {"champ":"+\\infty"} | ×1 ; défaut nb=10 (revue-1-a) |
 | CM2D3B-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["85"] ; attendu : {"champ":"1 h 25 min"} | ×4 ; sup=3 sup3=true ; sup=3 sup3=false (revue-4-a) |
 | CM2D3B-2 (cm2) |  q2 mathlive | valeur en évidence refusée par le champ : ["10","40","50"] ; attendu : {"champ":"120"} | ×8 ; sup=1 sup3=false nb=10 (revue-6-a) |
 | CM2N1D-2 (cm2) |  q1 mathlive | valeur en évidence refusée par le champ : ["(3\\times 1\\,000)+(2\\times 100)+(3\\times 1)"] ; attendu : {"champ":"3"} | ×1 ; sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false (revue-0-a) |
@@ -695,6 +490,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3G-1 (cm2) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"100"} ; attendu : {"champ1":"1000"} | ×8 ; sup=3 sup2=true sup3=true ; sup=3 sup2=true sup3=false… (revue-8-a) |
 | CM2N3G-1 (cm2) |  q7 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"1\\,000"} ; attendu : {"champ1":"10000"} | ×1 ; sup=3 sup2=true sup3=false (revue-9-b) |
 | CM2N3G-2 (cm2) |  q3 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"100"} ; attendu : {"champ1":"1000"} | ×2 ; sup=4 sup2=true sup3=true (revue-12-a) |
+| TSA4-41 (Terminale) |  q1 mathlive | valeur en évidence refusée par le champ : ["1","2"] ; attendu : {"champ":"\n&lt;ol class='nombres'>\n\t&lt;li>\n&lt;ol class='alpha'>\n\t&lt;li>Pour tout $x\\in [0~;~5]$, on pose &lt;br>\n      $u(x)=3x+8$ et $v(x)= x+5$.&lt;br>\n      Les fonctions $u$ et $v$ sont dérivables sur l'intervalle $[0~;~5]$ et on a : &lt;br>\n      $u'(x)=3$ et $v'(x)=1$.&lt;br>\n      De plus, pour tout $x\\in [0~;~5]$, on a $v(x) \\neq 0$.&lt;br>\n      Ainsi, $f=\\dfrac{u}{v}$ est dérivable sur $[0~;~5]$, et par dérivation d'un quotient on en déduit que : &lt;br>\n      $\\begin{aligned}\n      f'(x) &= \\dfrac{u'(x)v(x)-u(x)v'(x)}{v(x)^2} \\\\\n      &= \\dfrac{3(x+5 ) -1(3x+8)}{(x+5)^2} \\\\\n      &= \\dfrac{15-8}{(x+5)^2} \\\\\n       &= \\dfrac{7}{(x+5)^2} \\\\\n      \\end{aligned}  $ &lt;br>\n      Le dénominateur étant strictement positif sur l'intervalle $[0~;~5]$, on a $f'(x)>0$.&lt;br>\n     La fonction $f$ est donc strictement &lt;span style=\"color:#F15929;font-weight: bold;\">croissante&lt;/span> sur l'intervalle $[0~;~5]$.&lt;br>&lt;/li>\n\t&lt;li>On résout sur $[0~;~5]$ :&lt;br>\n     $\\begin{aligned}\n      f(x) &= x \\\\\n      \\dfrac{3x+8}{x+5}&= x \\\\\n      3x+8&=1x^2 +5x\\\\\n      x^2 +2x -8 &= 0 \\\\\n      \\end{aligned}$ &lt;br>\n      Le discriminant de ce polynôme du second degré est &lt;br>\n      $\\begin{aligned}\n      \\Delta &= b^2-4ac\\\\\n      &= 2^2 - 4 \\times (1) \\times (-8) \\\\\n      &= 4   +32  \\\\\n      &=36> 0\n      \\end{aligned}$ &lt;br>\n      Ainsi, l'équation admet deux solutions réelles distinctes données par &lt;br>\n      $\\begin{aligned}\n      x_1 &= \\dfrac{-b - \\sqrt{\\Delta}}{2 a} & x_2 &= \\dfrac{-b + \\sqrt{\\Delta}}{2 a} \\\\\n      &=\\dfrac{-2 - \\sqrt{36}}{2 \\times 1} &&= \\dfrac{-2+ \\sqrt{36}}{2 \\times 1} \\\\\n      &= \\dfrac{-2 - 6 }{ 2}& &= \\dfrac{-2 +6 }{ 2} \\\\\n       &= 2& &= -4 \\\\\n       \\end{aligned}$ &lt;br>On vérifie que  $2 \\in [0~;~5]$ et que $-4 \\notin [0~;~5]$.&lt;br>L'équation $f(x)=x$ admet donc ${\\color{#F15929}\\boldsymbol{1}}$ solution dans l'intervalle $[0~;~5]$.&lt;br>&lt;/li>\n&lt;/ol>\n&lt;/li>\n\t&lt;li>\n&lt;ol class='alpha'>\n\t&lt;li>Pour tout entier naturel $n$, on a  $u_{n+1} = f\\left(u_n\\right).$&lt;br>\n      En particulier, on a &lt;br>$\\begin{aligned}\n      u_1 &= f\\left(u_0\\right) \\\\\n      &= f\\left(4\\right) \\\\\n      &= \\dfrac{3\\times 4 +8}{1 \\times 4 +5} \\\\\n      &=\\dfrac{20}{9}\\end{aligned}$.&lt;br>&lt;/li>\n\t&lt;li>Pour tout entier naturel $n$, on pose la propriété $\\mathcal{P}_n$ :  $0\\leqslant u_{n+1} \\leqslant u_n \\leqslant 5.$&lt;br>\n    On va démontrer par récurrence que la propriété $\\mathcal{P}_n$ est vraie pour tout entier naturel $n$.&lt;br>\n    &lt;span style=\"color:#216D9A;font-weight: bold;\">Initiatisation :&lt;/span> &lt;br>\n    Pour $n=0$, on a d'après l'énoncé $u_0=4$.&lt;br>\n    On a calculé, à la question 2.a, $u_1=\\dfrac{20}{9}$.&lt;br>\n    On vérifie que : $0 \\leqslant u_1 \\leqslant u_0\\leqslant 5.$&lt;br>\n    Ainsi, la propriété $\\mathcal{P}_0$ est vraie.&lt;br>\n    La propriété est donc initialisée au rang $n=0$.&lt;br>\n    &lt;span style=\"color:#216D9A;font-weight: bold;\">Hérédité :&lt;/span> &lt;br>\n    Soit $k$ un entier naturel tel que la propriété $\\mathcal{P}_k$ est vraie, c'est-à-dire que $0 \\leqslant u_{k+1}\\leqslant u_k \\leqslant 5.$&lt;br>\n    On cherche à montrer qu'alors, la propriété $\\mathcal{P}_{k+1}$ est vraie, c'est-à-dire que $0 \\leqslant u_{k+2}\\leqslant u_{k+1} \\leqslant 5.$&lt;br>\n    D'après  l'hypothèse de récurrence : &lt;br>\n $  0 \\leqslant u_{k+1}\\leqslant u_k \\leqslant 5$&lt;br>\n Par croissance de la fonction $f$ sur $[0~;~5]$, on en déduit que : &lt;br>\n$f(0) \\leqslant f(u_{k+1})\\leqslant f(u_k) \\leqslant f(5) $&lt;br>\n or $f(0)= \\dfrac{3\\times 0+8}{1 \\times 0+5}=\\dfrac{8}{5}$ \n et $f(5)=\\dfrac{3\\times 5+8}{1 \\times 5+5}=\\dfrac{23}{10}$, \n   donc : &lt;br>\n   $\\dfrac{8}{5} \\leqslant f(u_{k+1})\\leqslant f(u_k) \\leqslant \\dfrac{23}{10}$&lt;br>\n   Comme pour tout entier naturel $n$, $f(u_n)=u_{n+1}$, &lt;br>\n   $\\dfrac{8}{5} \\leqslant u_{k+2} \\leqslant u_{k+1}\\leqslant \\dfrac{23}{10}$&lt;br>\n   \n   Ce qui implique que : &lt;br>\n  \n    $0 \\leqslant \\dfrac{8}{5} \\leqslant u_{k+2} \\leqslant \\dfrac{23}{10}\\leqslant 5 $&lt;br>\n    et donc : &lt;br>\n  $0 \\leqslant  u_{k+2}\\leqslant u_{k+1} \\leqslant 5 $.&lt;br>\n       Ainsi, la propriété $\\mathcal{P}_{k+1}$ est vraie.&lt;br>\n       L'hérédité de la propriété est démontrée pour tout entier naturel $n$.&lt;br>\n        &lt;span style=\"color:#216D9A;font-weight: bold;\">Conclusion :&lt;/span> &lt;br>\n        La propriété $\\mathcal{P}_n$ est initialisée au rang $n-0$ et héréditaire pour tout entier naturel $n$.&lt;br>\n        Par le principe de récurrence, on en déduit qu'elle est vraie pour tout entier naturel $n$. &lt;br>\n        Pour tout entier naturel $n$, $0 \\leqslant u_n \\leqslant 5.$&lt;br>&lt;/li>\n&lt;/ol>\n&lt;/li>\n\t&lt;li>\n&lt;ol class='alpha'>\n\t&lt;li>Comme pour tout entier naturel $n$, $0 \\leqslant u_n \\leqslant 5$, on en déduit que le suite $(u_n)$ est bornée. &lt;br>\n      D'autre part, pour tout entier naturel $n$,  $u_{n+1} \\leqslant u_n $, on en déduit que la suite $(u_n)$ est décroissante.&lt;br>\n      La suite $(u_n)$ est donc décroissante et minorée. D'après le théorème de convergence des suites monotones, elle converge donc vers un réel $\\ell$.&lt;br>&lt;/li>\n\t&lt;li>\n      La suite $(u_n)$ converge vers un réel $l\\in $ $[0~;~5]$. &lt;br>\n      Pour tout entier naturel $n$,  $u_{n+1} = f\\left(u_n\\right).$&lt;br>\n      $f$ étant dérivable sur l'intervalle $[0~;~5]$, elle est continue sur $[0~;~5]$.&lt;br>\n      D'après le théorème du point fixe, la limite $\\ell$ vérifie l'égalité $f(\\ell)=\\ell$.&lt;br>\n     La seule solution de cette équation dans $[0~;~5]$ est $l=2$, d'après la question 1.b.&lt;br>\n     La suite $(u_n)$ converge donc vers ${\\color{#F15929}\\boldsymbol{2}}$.&lt;br>&lt;/li>\n&lt;/ol>\n&lt;/li>\n&lt;/ol>\n"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## M2
 
@@ -878,6 +674,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N5-3 (6e) | src/exercices/6e/6N5-3.ts:1648 | unité dans miseEnEvidence : nb1 + '\\text{ m}' | ×1 |
 | 6N5-4 (6e) | src/exercices/6e/6N5-4.ts:1324 | unité dans miseEnEvidence : '\\text{ km}', bleuMathalea | ×3 |
 | 9ES1A-15 (9e) | src/exercices/5e/5G33-3.ts:102 | unité dans miseEnEvidence : `${texNombre(distancePointDroite(A, d), 1)}\\text{ cm}` | ×1 |
+| can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q18.ts:39 | Q18 : le champ porte « % » après lui, la correction met en évidence ⟦11\,\%⟧ → $${miseEnEvidence(texNombre(reponse, 0))}\\,\\%$ | ×1 |
+| can2I2-02 (CAN) | src/exercices/can/2e/can2I2-02.ts | Le champ porte déjà « % » après lui et attend « -5 », mais la correction met en évidence ⟦- 5\,\%⟧ (signe séparé par une espace, sp() dans la formule, %) → $${miseEnEvidence(texNombre(taux))}\\,\\%$ | ×1 |
 | can2N11-01 (CAN) | src/exercices/can/2e/can2N11-01.ts:114 | Écriture en pourcentage : « \,\% » dans miseEnEvidence alors que le champ porte déjà % en texteApres et attend le nombre seul → ${miseEnEvidence(texNombre(pourcentage))}\,\% | ×1 |
 | can5a-CoopMaths (CAN) | src/exercices/can/5e/can5a-CoopMaths.ts:218 | unité dans miseEnEvidence : `${a}\\text{ h }${b}\\text{ min}` | ×2 |
 | can6a-CoopMaths (CAN) | src/exercices/can/6e/can6a-CoopMaths.ts | Q30 : correction « $14,40 € - 5,40 € = ⟦9 €⟧$ » : symbole € dans la formule et dans miseEnEvidence alors que le champ attend le nombre seul ; Q22 : « ⟦1,23 m⟧ » (unité en évidence, unité déjà après le champ). → $14{,}40-5{,}40=⟦9⟧$ € | ×1 |
@@ -918,6 +716,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| can1a-2024 (CAN) | src/exercices/can/can1a-2024/can1a-2024-Q16.ts:50 | Q2, Q16, Q29 (Vrai/Faux) : la correction met en évidence « FAUSSE » ou « Vraie » (casse et accord différents) au lieu de la proposition « Faux »/« Vrai » → L'affirmation est fausse : il fallait cocher « Faux » (Faux en évidence) | ×1 |
+| can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q26.ts:60 | Q26 (QCM) : la proposition à cocher est « de raison $4$ » ; la correction met « de raison » en orange gras et $4$ à part → mettre en évidence la proposition entière ou la raison seule | ×1 |
 | can2a-NY2025 (CAN) | src/exercices/can/canNY-2025/can6NY-2025-Q15.ts:33 | Q6 et Q25 (QCM OUI/NON) : propositions en capitales, correction qui met en évidence « n'est pas un multiple » ou « non » au lieu de la proposition cochée → propositions « Oui »/« Non » et texteEnCouleurEtGras('Non') | ×1 |
 | can2a-NY2026 (CAN) | src/exercices/can/canNY-2026 | Q6 (QCM OUI/NON) : propositions en capitales, correction qui met en évidence « n'est pas un multiple » au lieu de « Non » → « Oui »/« Non », texteEnCouleurEtGras('Non') | ×1 |
 | can2F23-01 (CAN) | src/exercices/can/2e/can2F23-01.ts | QCM : la correction met en évidence l'inégalité écrite dans l'autre sens que la proposition à cocher (ex. proposition $\dfrac{1}{-6,9}&lt;\dfrac{1}{-7,2}$, évidence $\dfrac{1}{-7,2}>\dfrac{1}{-6,9}$) → mettre en évidence l'inégalité telle qu'écrite dans la bonne proposition | ×1 |
@@ -1014,6 +814,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:956 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:1031 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
 | 6N4A-3 (6e) | src/exercices/6e/6N4A-3.ts:1040 | texte dans miseEnEvidence : \text{${uniteVolume} | ×1 |
+| can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q19.ts:44 | Q19 : unités « h » et « min » mises en orange gras avec les valeurs (champ HMS unique, quatre mises en évidence) → valeurs seules en évidence, unités en noir | ×1 |
 | can2a-NY2025 (CAN) | src/exercices/can/canNY-2025/can6NY-2025-Q17.ts:40 | Q7 : unités dans miseEnEvidence (⟦21 \textbf{h} 13 \textbf{min}⟧) → $${miseEnEvidence('21')}$ h $${miseEnEvidence('13')}$ min | ×1 |
 | can2a-NY2026 (CAN) | src/exercices/can/canNY-2026 | Q7 : unités dans miseEnEvidence (⟦21 \textbf{h} 20 \textbf{min}⟧) → valeurs seules en évidence | ×1 |
 | can2F3-04 (CAN) | src/exercices/can/2e/can2F3-04.ts:219 | texte dans miseEnEvidence : \text{${solutions1.length > 1 ? 'solutions' : 'solution'} | ×1 |
@@ -1064,10 +865,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG2-1 (6e) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=4 ; sup=1… (revue-0-a) |
 | 6AutoG2-3 (6e) | série q1 | aucune mise en évidence dans la correction | ×12 ; sup=6 ; sup=1… (revue-0-a) |
 | 6AutoG2-4 (6e) | série q1 | aucune mise en évidence dans la correction | ×16 ; sup=8 ; sup=1… (revue-0-a) |
-| can1D3-05 (CAN) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD22-04 (CAN) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can5a-2020 (CAN) | série q18 | aucune mise en évidence dans la correction | ×2 ; sup= (revue-0-a) |
-| can5a-2022 (CAN) | série q12 | aucune mise en évidence dans la correction | ×4 ; sup2=false ; sup2=true (revue-0-a) |
+| 6N0A-3 (6e) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | can6C6-09 (CAN) | src/exercices/can/6e/can6C6-09.ts | Correction « $\dfrac{5}{5}-⟦\dfrac{4}{5}⟧=\dfrac{1}{5}$ (vert) » : la donnée 4/5 est en orange, le résultat en vert dans la formule ; l'orange est réservé au résultat final. → $\dfrac{5}{5}-\dfrac{4}{5}=⟦\dfrac{1}{5}⟧$ | ×1 |
 | CM1C2E (cm1) | série q1 | aucune mise en évidence dans la correction | ×64 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=2… (revue-1-a) |
 | CM2D3B-1 (cm2) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=1 sup2=true sup3=false ; sup=1 sup2=false sup3=false (revue-2-a) |
@@ -1098,6 +896,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-QCM08 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup3=true ; sup3=false… (revue-0-a) |
 | TSA2-QCM09 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup3=true ; sup3=false… (revue-0-a) |
 | TSA2-QCM15 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×16 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA3-40 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×16 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA3-42 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×20 ; sup3=5 ; sup3=1… (revue-0-a) |
+| TSA4-40 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×6 ; sup=3 ; sup=4… (revue-3-a) |
+| TSA4-QCM01 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM01 (Terminale) | série q1 | aucune mise en évidence dans la correction | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## M7
 
@@ -1190,35 +993,29 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 6AutoS1 (6e) |  q1 multi-mathfield | 2 mise(s) en évidence pour 3 champ(s) | ×48 ; sup=1 sup2=1 sup3=1-2-3 ; sup=1 sup2=1 sup3=0… (revue-0-a) |
+| 6AutoS1-1 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 3 champ(s) | ×250 ; sup=3 sup2=5 sup3=1-2-3 ; sup=1 sup2=1 sup3=1-2-3… (revue-0-a) |
 | 6AutoS1-3 (6e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 4 champ(s) | ×6 ; sup=3 ; sup=1… (revue-0-a) |
-| can1G1-05 (CAN) |  q1 multi-mathfield | 1 mise(s) en évidence pour 2 champ(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1S1-04 (CAN) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD12-01 (CAN) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
+| 6AutoT1-6 (6e) |  q1 multi-mathfield | 2 mise(s) en évidence pour 3 champ(s) | ×12 ; sup=1 sup2=false sup3=false ; sup=2 sup2=false sup3=false… (revue-3-a) |
+| can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q7.ts:61 | Q7 : la fraction non simplifiée ⟦\dfrac{4}{6}⟧ est mise en évidence, puis simplifiée en $\dfrac{2}{3}$ sans évidence → mettre en évidence la forme finale | ×1 |
+| can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q14.ts | Q14 : deux mises en évidence (⟦45⟧ pour Δ, ⟦2⟧ pour le nombre de solutions) pour un seul champ → seul le nombre de solutions en évidence | ×1 |
 | can2a-2024 (CAN) |  | Q18 : écriture scientifique mise en évidence en trois morceaux ⟦2,23⟧⟦×⟧⟦10^{-4}⟧ pour un seul champ ; Q21 : ⟦5⟧/⟦4⟧ séparés → mettre en évidence $2,23\times 10^{-4}$ d'un seul tenant | ×1 |
 | can2a-2025 (CAN) | src/exercices/can/can2a-2025/can2a-2025-Q30.ts:100 | Q30 (aléatoire) : correction « $AB=5$ » puis « La valeur exacte de $AB$ est ⟦\sqrt{25}⟧ » quand l'hypoténuse est entière → mettre en évidence la valeur simplifiée quand isCarre | ×1 |
 | can2a-2025 (CAN) | src/exercices/can/can2a-2025/can2a-2025-Q11.ts:47 | Q11 : trois mises en évidence (x_M, y_M, puis M(-10 ; 8)) pour deux champs à trous → mettre en évidence seulement x_M et y_M, ou seulement le couple | ×1 |
-| can2a-2025C (CAN) |  q4 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×8 ; sup=false ; sup=true (revue-0-a) |
 | can2a-2025C (CAN) | src/exercices/can/can2a-2025C/can2a-2025C-Q12.ts:40 | Q4 et Q12 : deux champs à trous (numérateur/dénominateur ; base/exposant) et une seule mise en évidence (⟦-\dfrac{1}{4}⟧, ⟦12⟧ sans la base) → mettre en évidence chaque valeur à saisir : \dfrac{⟦-1⟧}{⟦4⟧}, ⟦7⟧^{⟦12⟧} | ×1 |
 | can2a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts:2840 | Q13 : le champ attend oui/non (O/N) mais la correction met en évidence « n'est pas un diviseur » ou « est un multiple », jamais la réponse à saisir → ${texteEnCouleurEtGras('Non')}, $2\,024$ n'est pas un diviseur de $8$ (idem « Oui » dans l'autre cas) | ×1 |
 | can2a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts:2426 | Q11 et Q12 : un champ HMS (« 33 h 48 min ») et deux mises en évidence ⟦33⟧ h ⟦48⟧ min → pour mémoire : forme admise si la règle M2 interdit l'unité dans miseEnEvidence | ×1 |
 | can2F25-02 (CAN) | src/exercices/can/2e/can2F25-02.ts | Correction : le nombre ajouté aux deux membres (⟦1⟧, ⟦(-2)⟧) est mis en évidence comme une réponse, en plus de la solution ; can2F25-02 passe de $-x^2+1-1=4-1$ à $x^2=-3$ sans l'étape $-x^2=3$ → couleur d'explication (bleu) pour l'opération, orange réservé à la réponse ; ajouter l'étape | ×1 |
 | can2F25-04 (CAN) | src/exercices/can/2e/can2F25-04.ts | Correction : le nombre ajouté aux deux membres (⟦1⟧, ⟦(-2)⟧) est mis en évidence comme une réponse, en plus de la solution ; can2F25-02 passe de $-x^2+1-1=4-1$ à $x^2=-3$ sans l'étape $-x^2=3$ → couleur d'explication (bleu) pour l'opération, orange réservé à la réponse ; ajouter l'étape | ×1 |
-| can2G1-05 (CAN) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | can2G1-07 (CAN) | src/exercices/can/2e/can2G1-07.ts | Coordonnées mises en évidence caractère par caractère : ⟦(⟧ ⟦5⟧\,⟦;⟧\,⟦9⟧ ⟦)⟧ (six mises en évidence pour un champ) → $${miseEnEvidence(`(${-x}\\,;\\,${-y})`)}$ | ×1 |
 | can2G20-01 (CAN) | src/exercices/can/2e/can2G20-01.ts | Relation de Chasles : les lettres intermédiaires (⟦J⟧…⟦J⟧) sont mises en évidence en orange comme une réponse ; la bonne proposition du QCM ($\overrightarrow{KF}$, $\overrightarrow{0}$) n'est pas mise en évidence dans tous les cas → autre couleur pour les lettres qui se simplifient, orange pour le résultat seul | ×1 |
 | can2G20-02 (CAN) | src/exercices/can/2e/can2G20-02.ts | Relation de Chasles : les lettres intermédiaires (⟦J⟧…⟦J⟧) sont mises en évidence en orange comme une réponse ; la bonne proposition du QCM ($\overrightarrow{KF}$, $\overrightarrow{0}$) n'est pas mise en évidence dans tous les cas → autre couleur pour les lettres qui se simplifient, orange pour le résultat seul | ×1 |
 | can2N5-06 (CAN) | src/exercices/can/2e/can2N5-06.ts | Deux mises en évidence pour un champ (⟦3\times9⟧=⟦3\times3^2⟧) → une seule mise en évidence (la forme attendue) | ×1 |
-| can4a-2026 (CAN) |  q23 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×2 ; sup=false (revue-0-a) |
-| can4C21-05 (CAN) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can5a-2026 (CAN) |  q16 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×8 ; sup=false ; sup=true (revue-0-a) |
 | can5a-2026 (CAN) | src/exercices/can/can5a-2026 | Q16 : deux trous (numérateur, dénominateur) mais une seule fraction mise en évidence, simplifiée ($\dfrac{2}{5}$) alors que l'énoncé compte 4 boules sur 10 ; Q15 : heure mise en évidence en quatre morceaux ($⟦11⟧$ ⟦h⟧ $⟦00⟧$ ⟦min⟧) pour un seul champ. → $\dfrac{⟦4⟧}{⟦10⟧}=\dfrac{2}{5}$ ; $⟦11~\text{h}~00~\text{min}⟧$ | ×1 |
-| canTSpea-NY2025 (CAN) |  q12 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canTSpea-NY2026 (CAN) |  q12 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canTSpeE01 (CAN) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 3 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTSpeE02 (CAN) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 3 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | CM1N2B (cm1) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 3 trou(s) | ×30 ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=true ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=false… (revue-0-a) |
 | CM2N2F-2 (cm2) |  q1 fillInTheBlank | 0 mise(s) en évidence pour 3 trou(s) | ×130 ; sup=1 sup2=true sup3=false ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | TSA2-12 (Terminale) |  q1 multi-mathfield | 1 mise(s) en évidence pour 3 champ(s) | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA3-44 (Terminale) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×2 ; défaut (revue-0-a) |
 
 ## X4
 
@@ -1286,8 +1083,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoN4-5 (6e) | titre | « 10 » hors $ : Multiplier ou diviser un nombre décimal par 10, 100 ou 1 000 ‖ « 1 » hors $ : plier ou diviser un nombre décimal par 10, 100 ou 1 000 ‖ « 000 » hors $ : ier ou diviser un nombre décimal par 10, 100 ou 1 000 | ×4 |
 | 6AutoP2 (6e) | énoncé q1 | « 3 » hors $ : 3 fois moins que ‖ « 10 » hors $ : 10 fois plus que ‖ « 5 » hors $ : €. Combien font 5 fois moins ? [champ] € | ×46 ; sup=1 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | 6AutoP2 (6e) | énoncé non interactif q1 | « 3 » hors $ : 3 fois moins que ‖ « 10 » hors $ : 10 fois plus que ‖ « 5 » hors $ : €. Combien font 5 fois moins ? | ×4 |
+| 6AutoS1 (6e) | énoncé non interactif q1 | « 90 » hors $ : dizaine, du nombre de guépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 ‖ « 100 » hors $ : ne, du nombre de guépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 et 50 ‖ « 60 » hors $ : uépards ? [champ] entre 90 et 100 [champ] entre 60 et 70 [champ] entre 40 et 50 [champ] entre 20 e | ×8 |
+| 6AutoS1-4 (6e) | correction q1 | « 33 » hors $ : 33 | ×1 ; sup=1 (revue-1-a) |
+| 6N0A-4 (6e) | titre | « 10 » hors $ : lication pour effectuer produits avec multiple de 10 | ×1 |
+| can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q26.ts:47 | Q26 : correction du script hors formules : « tant que u&lt;11 », « u=5 et n=0 », « 5 $ +$ 5 = 10 » (signe + seul en maths, nombres hors $) ; « \hline\\ » ajoute une ligne vide au tableau → $u=5$ et $n=0$, puis $n=1$ et $u=5+5=10$… | ×1 |
 | can1a-2022 (CAN) | correction q26 | « 11 » hors $ : signifie : tant que u&lt;11. On calcule les valeurs successives des varia ‖ « 11 » hors $ : variables u et n. On s'arrête dès que u dépasse 11 : On a au départ, u=5 et n=0, puis, n = 1 et ‖ « 5 » hors $ : 'arrête dès que u dépasse 11 : On a au départ, u=5 et n=0, puis, n = 1 et u = 5 | ×24 ; sup=false ; sup=true (revue-0-a) |
 | can1a-2025 (CAN) | correction q4 | « 80 » hors $ : revient à prendre le quart de 80. Ainsi, | ×1 ; sup=true (revue-1-a) |
+| can1a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts:1741 | Q17 : correction hors formules (« égal à 6 minutes. 24 minutes correspondent … soit 0,4 h ») → $6$ minutes, $24$ minutes, $0,4$ h | ×1 |
 | can1a-NY2024 (CAN) | correction q17 | « 6 » hors $ : Un dixième d'heure est égal à 6 minutes. 24 minutes correspondent ‖ « 24 » hors $ : xième d'heure est égal à 6 minutes. 24 minutes correspondent donc à 4 dixièmes d'heure ‖ « 4 » hors $ : es. 24 minutes correspondent donc à 4 dixièmes d'heure, soit 0,4 h. | ×4 ; défaut (revue-0-a) |
 | can1a-NY2025 (CAN) | correction q17 | « 0 » hors $ : (0 h) au ‖ « 0 » hors $ : seule solution réelle : 0. | ×3 ; sup=false ; sup=true (revue-0-a) |
 | can1a-NY2026 (CAN) | correction q17 | « 0 » hors $ : (0 h) au | ×2 ; sup=false ; sup=true (revue-0-a) |
@@ -1528,6 +1330,42 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-QCM14 (Terminale) | titre | « 05 » hors $ : Métropole 05/22 : exponentielle. | ×2 |
 | TSA2-QCM15 (Terminale) | correction q3 | « 2 » hors $ : Pour chaque lancer, il y a 2 issues possibles. Pour 10 lancers ordonnés, il y ‖ « 10 » hors $ : ur chaque lancer, il y a 2 issues possibles. Pour 10 lancers ordonnés, il y a donc | ×2 ; défaut nb=10 (revue-1-a) |
 | TSA2-QCM15 (Terminale) | énoncé q8 | « 3 » hors $ : est minorée par 3 et converge vers un réel | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) | énoncé q1 | « 3 » hors $ : est atteint au point d'abscisse 3 ; - le point P d'abscisse 5 est l'unique point d ‖ « 5 » hors $ : t au point d'abscisse 3 ; - le point P d'abscisse 5 est l'unique point d'inflexion de la courbe | ×2 ; défaut (revue-0-a) |
+| TSA3-40 (Terminale) | correction q1 | « 1 » hors $ : vée seconde est affine, croissante et s'annule en 1. | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) | énoncé non interactif q1 | « 3 » hors $ : est atteint au point d'abscisse 3 ; - le point P d'abscisse 5 est l'unique point d ‖ « 5 » hors $ : t au point d'abscisse 3 ; - le point P d'abscisse 5 est l'unique point d'inflexion de la courbe | ×2 |
+| TSA3-46 (Terminale) | correction q1 | « 1 » hors $ : 1. Exploitation de la courbe donnée On lit le ‖ « 2 » hors $ : e] [figure] [figure] 2. Examen des courbes proposées Courbe ‖ « 1 » hors $ : 1. Exploitation de la courbe donnée La foncti | ×34 ; sup=7 ; sup=1… (revue-0-a) |
+| TSA3-46 (Terminale) | correction non interactive q1 | « 1 » hors $ : 1. Exploitation de la courbe donnée On lit le ‖ « 2 » hors $ : e] [figure] [figure] 2. Examen des courbes proposées Courbe | ×2 |
+| TSA3-50 (Terminale) | énoncé q1 | « 1 » hors $ : sa fonction dérivée seconde. 1. Déterminer les limites de la fonction ‖ « 2 » hors $ : . 2. Pour tout réel ‖ « 3 » hors $ : . 3. Montrer que, pour tout réel | ×7 ; défaut (revue-0-a) |
+| TSA3-50 (Terminale) | correction q1 | « 1 » hors $ : 1. Limite en ‖ « 2 » hors $ : . 2. En utilisant la dérivée d'un produit de fonctio ‖ « 3 » hors $ : 3. On dérive à nouveau : | ×7 ; défaut (revue-0-a) |
+| TSA3-50 (Terminale) | correction non interactive q1 | « 1 » hors $ : 1. Limite en ‖ « 2 » hors $ : . 2. En utilisant la dérivée d'un produit de fonctio ‖ « 3 » hors $ : 3. On dérive à nouveau : | ×7 |
+| TSA4-41 (Terminale) | correction q1 | « 2 » hors $ : . On a calculé, à la question 2.a, ‖ « 1 » hors $ : , d'après la question 1.b. La suite | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA4-QCM01 (Terminale) | titre | « 08 » hors $ : Amérique 08/23 : TVI | ×2 |
+| TSA4-QCM02 (Terminale) | titre | « 05 » hors $ : Polynésie 05/22 : équation | ×2 |
+| TSA5-QCM01 (Terminale) | titre | « 08 » hors $ : Amérique 08/23 : limite | ×2 |
+| TSA5-QCM02 (Terminale) | titre | « 05 » hors $ : Centres étrangers 05/22 : équation | ×2 |
+| TSA5-QCM03 (Terminale) | titre | « 05 » hors $ : Centres étrangers 05/22 : concavité | ×2 |
+| TSA5-QCM04 (Terminale) | titre | « 05 » hors $ : Centres étrangers 05/22 : primitive | ×2 |
+| TSA5-QCM05 (Terminale) | titre | « 05 » hors $ : Centres étrangers 05/22 : domaine | ×2 |
+| TSA5-QCM05 (Terminale) | correction q1 | « 2 » hors $ : et 2. La fonction est donc définie sur l'intervalle | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM05 (Terminale) | correction non interactive q1 | « 2 » hors $ : et 2. La fonction est donc définie sur l'intervalle | ×1 |
+| TSA5-QCM06 (Terminale) | titre | « 05 » hors $ : Centres étrangers 05/22 : tangente | ×2 |
+| TSA5-QCM07 (Terminale) | titre | « 05 » hors $ : Centres étrangers 05/22 : inéquation | ×2 |
+| TSA5-QCM08 (Terminale) | titre | « 05 » hors $ : Madagascar 05/22 : propriétés | ×2 |
+| TSA5-QCM09 (Terminale) | titre | « 05 » hors $ : Madagascar 05/22 : asymptote | ×2 |
+| TSA5-QCM09 (Terminale) | correction q1 | « 1 » hors $ : au voisinage de 1 : On a : | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM09 (Terminale) | correction non interactive q1 | « 1 » hors $ : au voisinage de 1 : On a : | ×1 |
+| TSA5-QCM11 (Terminale) | titre | « 05 » hors $ : Madagascar 05/22 : équation | ×2 |
+| TSA5-QCM11 (Terminale) | correction q1 | « 0 » hors $ : Comme 0 ne peut être solution et que ‖ « 1 » hors $ : équation a une solution. Elle s'annule exactement 1 fois. | ×2 ; défaut (revue-0-a) |
+| TSA5-QCM11 (Terminale) | correction non interactive q1 | « 0 » hors $ : Comme 0 ne peut être solution et que ‖ « 1 » hors $ : équation a une solution. Elle s'annule exactement 1 fois. La bonne réponse est la réponse A. | ×2 |
+| TSA5-QCM12 (Terminale) | titre | « 05 » hors $ : Madagascar 05/22 : tangente | ×2 |
+| TSA5-QCM13 (Terminale) | titre | « 05 » hors $ : Madagascar 05/22 : point d'inflexion | ×2 |
+| TSA5-QCM15 (Terminale) | titre | « 05 » hors $ : Amérique 05/22 : équation | ×2 |
+| TSA5-QCM16 (Terminale) | titre | « 05 » hors $ : Amérique 05/22 : fonction | ×2 |
+| TSA5-QCM17 (Terminale) | titre | « 05 » hors $ : Polynésie 05/22 : dérivée | ×2 |
+| TSA5-QCM18 (Terminale) | titre | « 05 » hors $ : Polynésie 05/22 : équation | ×2 |
+| TSA5-QCM19 (Terminale) | titre | « 05 » hors $ : Métropole 05/22 : limites | ×2 |
+| TSA5-QCM20 (Terminale) | titre | « 05 » hors $ : Amérique 05/22 : somme | ×2 |
+| TSA5-QCM21 (Terminale) | titre | « 05 » hors $ : Polynésie 05/22 : limite | ×2 |
 
 ## N2
 
@@ -1535,6 +1373,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| can1a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts:2446 | Q2 : « $-2\times 2024+2$ » et Q7 « $2024-13$ » sans séparateur des milliers (le reste du sujet écrit $2\,024$) → ${texNombre(2024)} | ×1 |
+| can1a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q6 : réponse « $\dfrac{1}{2033}$ » sans séparateur ; Q16 : intervalles de la correction écrits $]-2020\,;\,2025[$ sans séparateur (l'énoncé écrit $2\,020$) → texNombre | ×1 |
 | can2a-2023 (CAN) |  | Q16 : « 1000 » sans séparateur des milliers → texNombre | ×1 |
 | can2a-NY2025 (CAN) | src/exercices/can/canNY-2025/can2NY-2025-Q18.ts:47 | Q18 : « $\dfrac{1}{-2025}$ » sans séparateur et dénominateur négatif, mis en évidence et attendu tel quel → $-\dfrac{1}{2\,025}$ | ×1 |
 | can2a-NY2026 (CAN) | src/exercices/can/canNY-2026 | Q18 : « $\dfrac{1}{-2026}$ », « $\dfrac{1}{2026}$ » sans séparateur (mis en évidence) ; Q25 « antécédent de $2026$ », « $f(x)=2026$ » → texNombre ; $-\dfrac{1}{2\,026}$ | ×1 |
@@ -1557,6 +1397,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6AutoL3-2 (6e) | correction q3 | point décimal : $hcal{P}_{JKLM}=(8,8\text{ cm}+4.3\text{ cm})\times2={\color{$ ‖ point décimal : $hcal{P}_{HIJK}=(7,2\text{ cm}+3.9\text{ cm})\times2={\color{$ ‖ point décimal : $cal{P}_{IJKL}=(10,2\text{ cm}+6.4\text{ cm})\times2={\color{$ | ×12 ; sup=1-2-3 sup2=true sup3=true ; sup=1-2-3 sup2=true sup3=false… (revue-1-a) |
 | 6AutoL3-2 (6e) | énoncé q1 | point décimal : $IJ = 3.9\text{ cm}$ ‖ point décimal : $WX = 2.7\text{ cm}$ ‖ point décimal : $ST = 2.4\text{ cm}$ | ×6 ; sup=1-2-3 sup2=true sup3=false ; sup=2 sup2=true sup3=false… (revue-2-a) |
+| 6AutoT1-6 (6e) | correction q4 | point décimal : $176.65-(2\times 60) =56,65\tex$ | ×3 ; sup=2 sup2=false sup3=false ; sup=3 sup2=false sup3=false (revue-7-a) |
 | can2a-2023 (CAN) | correction q29 | point décimal : $2.5$ | ×1 ; sup2=true (revue-1-a) |
 | can2F22-02 (CAN) | correction q1 | point décimal : $-4}}} = {\color{}\boldsymbol{-0.25}}$ ‖ point décimal : $10}}} = {\color{}\boldsymbol{-0.1}}$ | ×3 ; sup5=true ; sup5=false nb=10 (revue-1-a) |
 | can3a-2022 (CAN) | src/exercices/can/3e/can3a-2022.ts:631 | Q15 : accolades « $_{13-5.5}$ » avec point décimal (k1, k2 non passés par texNombre). → ${texNombre(k2)} | ×1 |
@@ -1587,6 +1428,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| can1a-2025 (CAN) | src/exercices/can/can1a-2025/can1a-2025-Q17.ts | Q17 (sujet officiel, $\dfrac{1}{x^2}$) : « $\dfrac{-2x^{}}{x^{4}}$ » (exposant vide quand n-1=1) → $\dfrac{-2x}{x^4}$ (exposant omis si 1) | ×1 |
+| can1a-NY2024 (CAN) | src/exercices/can/6e/CANSpeciale2024.ts | Q5 : « $\dfrac{2\,024+-6}{2}$ » (signes accolés) → ecritureParentheseSiNegatif | ×1 |
 | can1a-NY2024 (CAN) | correction q5 | signes accolés : $\left(\dfrac{2\,024+-6}{2};\dfrac{-10+2\,024}{2}\$ | ×1 ; défaut (revue-0-a) |
 | can1S21-01 (CAN) | correction q10 | coefficient 1 écrit : $v_{n} =\dfrac{-2n+2}{2}=-1n+1$ | ×1 ; défaut nb=10 (revue-1-a) |
 | can1SD3-03 (CAN) | correction q9 | coefficient 1 écrit : $5 \times (-1x)$ | ×1 ; défaut nb=10 (revue-1-a) |
@@ -1604,6 +1447,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeS04 (CAN) | énoncé q1 | coefficient 1 écrit : $u_n = \dfrac{-5-1n}{n}$ | ×1 ; défaut nb=10 (revue-1-a) |
 | canTSpeS04 (CAN) | correction q1 | coefficient 1 écrit : $\dfrac{-5-1n}{n}=\dfrac{-5}{n}-1$ ‖ coefficient 1 écrit : $limits_{n\to\infty} \dfrac{-5-1n}{n}={\color{}\boldsymbol{-1$ | ×2 ; défaut nb=10 (revue-1-a) |
 | TSA1-13 (Terminale) | correction q6 | coefficient 1 écrit : $u_{n+1}=\dfrac{\dfrac{n+2+1n}{n+2}}{\dfrac{3(n+2)-n}{n+2$ | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA4-40 (Terminale) | correction q1 | coefficient 1 écrit : $m_{x \to -\infty}\mathrm{e}^{-1x}= +\infty$ | ×7 ; sup=1 ; sup=6 nb=10 (revue-1-a) |
+| TSA4-41 (Terminale) | correction q1 | coefficient 1 écrit : $3x+8}{x+5}&= x \\ 3x+8&=1x^2 +5x\\ x^2 +2x -8 &=$ ‖ coefficient 1 écrit : $-4}{-x-5}&= x \\ -2x-4&=-1x^2 -5x\\ -x^2 -3x +4$ ‖ coefficient 1 écrit : $3x+2&=1x^2 +4x\\ x^2 +1x -2 &= 0 \\ \end{align$ | ×13 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM09 (Terminale) | correction q1 | coefficient 1 écrit : $(\ln(x))'=\dfrac 1x$ | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM09 (Terminale) | correction non interactive q1 | coefficient 1 écrit : $(\ln(x))'=\dfrac 1x$ | ×1 |
 
 ## N7
 
@@ -1644,7 +1491,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3P (6e) | src/exercices/6e/6N3P.ts:20 | % sans espace insécable : Résoudre des problèmes de calcul de pourcentage par complément à 100% | ×1 |
 | 6N3Q-1 (6e) | src/exercices/6e/6N3Q-1.ts:22 | % sans espace insécable : Prendre 1 %, 10 % ou 50 % d'un nombre | ×1 |
 | 6N3Q-3 (6e) | src/exercices/6e/6N3Q-3.ts:155 | % sans espace insécable : 1 : Valeurs entières et 10%, 20%...\n2 : Valeurs entières et 10%, 20%... mais aussi 25% et 50%\n3 : Valeurs entières et 4%, 23%...\n4 : Une décimale comme 34,5% | ×1 |
+| can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q10.ts:35 | Q10 : « $90$ $\%$ de $90$ » : % dans une formule séparée (espace normale sécable avant %) ; doubles espaces « $\%$  de » → $90\,\%$ de $90$ | ×1 |
 | can2a-2026 (CAN) | src/exercices/can/can2a-2026/can2a-2026-Q19.ts:43 | Q19 : « $40~\%$ » (espace insécable ~ au lieu de l'espace fine \,) ; double espace « associé  à » → $40\,\%$ | ×1 |
+| can2I2-01 (CAN) | src/exercices/can/2e/can2I2-01.ts | « $140~\%$ » (~ au lieu de \,) ; champ suivi d'un point isolé (texteApres « . ») → $140\,\%$ | ×1 |
 | can3C4-05 (CAN) | titre | « a % » sans espace insécable : Déterminer a % de c quand a vaut 100, 50, 25, 10, 1 | ×1 |
 | can5P2-01 (CAN) | titre | « t % » sans espace insécable : Prendre t % d’une quantité | ×1 |
 | can6P2-03 (CAN) | src/exercices/can/6e/can6P2-03.ts:8 | % sans espace insécable : Résoudre un problème de calcul de pourcentage par complément à 100% | ×1 |
@@ -1683,6 +1532,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6AutoF1 (6e) | consigne | espace ordinaire (sécable) avant « ? » : Quelle fraction de la figure est colorée ? | ×1 ; sup=1-2-3-4-5 sup2=0 (revue-0-a) |
 | 6AutoP2 (6e) | titre | espace ordinaire (sécable) avant « : » : Résoudre des problèmes de type : ... fois plus ou ... fois moins | ×1 |
+| 6N0A-5 (6e) | correction q5 | espace ordinaire (sécable) avant « : » : , on doit faire la soustraction : | ×1 ; sup=3 nb=10 (revue-3-a) |
 | can1a-2022 (CAN) | correction q26 | espace ordinaire (sécable) avant « : » : signifie : tant que u&lt;11. On calcule les valeurs successi ‖ espace ordinaire (sécable) avant « : » : signifie : tant que u&lt;5. On calcule les valeurs successiv | ×2 ; sup=false ; sup=true (revue-0-a) |
 | can1G2-01 (CAN) | consigne | espace ordinaire (sécable) avant « : » : Déterminer la valeur exacte de : | ×1 ; sup=2 sup2=0 (revue-0-a) |
 | can1G2-02 (CAN) | consigne | espace ordinaire (sécable) avant « : » : Déterminer la valeur exacte de : | ×1 ; sup=3 sup2=0 (revue-0-a) |
@@ -1752,6 +1602,44 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-QCM12 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Métropole 05/22 : convexité | ×1 |
 | TSA2-QCM14 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Métropole 05/22 : exponentielle. | ×1 |
 | TSA2-QCM15 (Terminale) | titre | espace ordinaire (sécable) avant « : » : QCM Bac : analyse, probabilités et suites | ×1 |
+| TSA3-40 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Répondre à des QCM Bac : Convexité | ×1 |
+| TSA3-42 (Terminale) | correction q1 | espace ordinaire (sécable) avant « : » : , donc ces deux nombres sont de même signe : cette proposition est vraie. pour tout ‖ espace ordinaire (sécable) avant « : » : , donc ces deux nombres sont de même signe : cette proposition est fausse. La bonne rép ‖ espace ordinaire (sécable) avant « : » : , donc ces deux nombres sont de signes contraires : cette proposition est fausse. pour tout | ×12 ; sup3=5 ; sup3=1… (revue-0-a) |
+| TSA3-42 (Terminale) | correction non interactive q1 | espace ordinaire (sécable) avant « : » : , donc ces deux nombres sont de même signe : cette proposition est vraie. pour tout ‖ espace ordinaire (sécable) avant « : » : , donc ces deux nombres sont de même signe : cette proposition est fausse. La bonne rép | ×2 |
+| TSA4-QCM01 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Amérique 08/23 : TVI | ×1 |
+| TSA4-QCM02 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Polynésie 05/22 : équation | ×1 |
+| TSA5-QCM01 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Amérique 08/23 : limite | ×1 |
+| TSA5-QCM02 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Centres étrangers 05/22 : équation | ×1 |
+| TSA5-QCM03 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Centres étrangers 05/22 : concavité | ×1 |
+| TSA5-QCM03 (Terminale) | énoncé q1 | « r: » sans espace insécable : strictement positif par: | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM03 (Terminale) | énoncé non interactif q1 | « r: » sans espace insécable : strictement positif par: | ×1 |
+| TSA5-QCM04 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Centres étrangers 05/22 : primitive | ×1 |
+| TSA5-QCM05 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Centres étrangers 05/22 : domaine | ×1 |
+| TSA5-QCM06 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Centres étrangers 05/22 : tangente | ×1 |
+| TSA5-QCM06 (Terminale) | énoncé q1 | « t: » sans espace insécable : est: [champ] | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM06 (Terminale) | énoncé non interactif q1 | « t: » sans espace insécable : est: [champ] | ×1 |
+| TSA5-QCM07 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Centres étrangers 05/22 : inéquation | ×1 |
+| TSA5-QCM07 (Terminale) | énoncé q1 | espace ordinaire (sécable) avant « : » : est : [champ] | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM07 (Terminale) | énoncé non interactif q1 | espace ordinaire (sécable) avant « : » : est : [champ] | ×1 |
+| TSA5-QCM08 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Madagascar 05/22 : propriétés | ×1 |
+| TSA5-QCM09 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Madagascar 05/22 : asymptote | ×1 |
+| TSA5-QCM11 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Madagascar 05/22 : équation | ×1 |
+| TSA5-QCM11 (Terminale) | énoncé q1 | « r: » sans espace insécable : par: | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM11 (Terminale) | énoncé non interactif q1 | « r: » sans espace insécable : par: | ×1 |
+| TSA5-QCM12 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Madagascar 05/22 : tangente | ×1 |
+| TSA5-QCM12 (Terminale) | énoncé q1 | « r: » sans espace insécable : par: | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM12 (Terminale) | énoncé non interactif q1 | « r: » sans espace insécable : par: | ×1 |
+| TSA5-QCM13 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Madagascar 05/22 : point d'inflexion | ×1 |
+| TSA5-QCM15 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Amérique 05/22 : équation | ×1 |
+| TSA5-QCM15 (Terminale) | correction q1 | espace ordinaire (sécable) avant « : » : . Cela implique : - | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM15 (Terminale) | correction non interactive q1 | espace ordinaire (sécable) avant « : » : . Cela implique : - | ×1 |
+| TSA5-QCM16 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Amérique 05/22 : fonction | ×1 |
+| TSA5-QCM17 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Polynésie 05/22 : dérivée | ×1 |
+| TSA5-QCM18 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Polynésie 05/22 : équation | ×1 |
+| TSA5-QCM18 (Terminale) | correction q1 | espace ordinaire (sécable) avant « : » : par un nombre négatif, ce qui inverse l'inégalité : | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM18 (Terminale) | correction non interactive q1 | espace ordinaire (sécable) avant « : » : par un nombre négatif, ce qui inverse l'inégalité : | ×1 |
+| TSA5-QCM19 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Métropole 05/22 : limites | ×1 |
+| TSA5-QCM20 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Amérique 05/22 : somme | ×1 |
+| TSA5-QCM21 (Terminale) | titre | espace ordinaire (sécable) avant « : » : Polynésie 05/22 : limite | ×1 |
 
 ## T4
 
@@ -1793,6 +1681,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA1-47 (Terminale) | énoncé q1 | guillemet sans insécable : e association soutenant cette stratégie affirme : « L’espèce ne devrait pas s’éteindre, mais nous n’ ‖ guillemet sans insécable : n de plus de la moitié de la population initiale. » Déterminer si cette affirmation est co | ×2 ; défaut (revue-0-a) |
 | TSA1-47 (Terminale) | correction q1 | guillemet sans insécable : la propriété : « ‖ guillemet sans insécable : ». Initialisation : On a | ×2 ; défaut (revue-0-a) |
 | TSA2-31 (Terminale) | correction q2 | guillemet sans insécable : On obtient une forme indéterminée du type « ‖ guillemet sans insécable : ». On factorise le numérateur et le dénominateur p | ×16 ; sup=3 ; sup=2… (revue-0-a) |
+| TSA3-50 (Terminale) | correction q1 | guillemet sans insécable : présente donc une indétermination de type « ‖ guillemet sans insécable : ». Pour lever cette indétermination, on utilise le | ×2 ; défaut (revue-0-a) |
+| TSA3-50 (Terminale) | correction non interactive q1 | guillemet sans insécable : présente donc une indétermination de type « ‖ guillemet sans insécable : ». Pour lever cette indétermination, on utilise le | ×2 |
+| TSA4-10 (Terminale) | correction q3 | guillemet sans insécable : . Remarque : la courbe présente un « point anguleux » d’abscisse ‖ guillemet sans insécable : Remarque : la courbe présente un « point anguleux » d’abscisse | ×12 ; sup=5 ; sup=2… (revue-0-a) |
 
 ## T9
 
@@ -1826,6 +1717,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG3 (6e) | énoncé | page de 538 px pour 390 px | ×73 ; sup=6 sup2=3 sup4=true ; sup=1 sup2=1 sup4=true… (revue-0-a) |
 | 6AutoL2 (6e) | correction | page de 449 px pour 390 px | ×11 ; sup=4 sup3=true sup4=true ; sup=4 sup3=true sup4=false… (revue-12-a) |
 | 6AutoN4-2 (6e) | correction | page de 428 px pour 390 px | ×3 ; sup=2 sup2=2 ; sup=2 sup2=3 (revue-4-a) |
+| 6AutoS1 (6e) | énoncé | page de 508 px pour 390 px | ×32 ; sup=1 sup2=1 sup3=1-2-3 ; sup=1 sup2=1 sup3=0… (revue-0-a) |
+| 6AutoS1-1 (6e) | énoncé | page de 472 px pour 390 px | ×32 ; sup=3 sup2=5 sup3=1-2-3 ; sup=2 sup2=5 sup3=1… (revue-0-a) |
 | 6AutoS1-3 (6e) | énoncé q1 | table.tableauMathlive de 599 px pour 390 px | ×5 ; sup=3 ; sup=1… (revue-0-a) |
 | 6AutoS1-3 (6e) | énoncé | page de 615 px pour 390 px | ×5 ; sup=3 ; sup=1… (revue-0-a) |
 | 6AutoS1-3 (6e) | correction q1 | table.tableauMathlive de 599 px pour 390 px | ×5 ; sup=3 ; sup=1… (revue-0-a) |
@@ -1834,60 +1727,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoS1-4 (6e) | énoncé | page de 686 px pour 390 px | ×6 ; sup=3 ; sup=1… (revue-0-a) |
 | 6AutoS1-4 (6e) | correction q1 | table.tableauMathlive de 621 px pour 390 px | ×4 ; sup=3 ; sup=1… (revue-0-a) |
 | 6AutoS1-4 (6e) | correction | page de 637 px pour 390 px | ×6 ; sup=3 ; sup=1… (revue-0-a) |
-| can1a-2022 (CAN) | correction | page de 431 px pour 390 px | ×2 ; sup=false (revue-0-a) |
-| can1a-2025 (CAN) | énoncé | page de 404 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2026 (CAN) | correction | page de 511 px pour 390 px | ×3 ; sup=false ; sup=true (revue-0-b) |
-| can1a-NY2024 (CAN) | correction | page de 463 px pour 390 px | ×2 ; défaut (revue-0-a) |
-| can1a-NY2025 (CAN) | correction | page de 442 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-NY2026 (CAN) | correction | page de 513 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1D1-01 (CAN) | correction | page de 568 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1P11-04 (CAN) | correction | page de 536 px pour 390 px | ×5 ; sup=true ; sup=false… (revue-0-a) |
-| can1P2-01 (CAN) | correction | page de 394 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can1S21-01 (CAN) | correction | page de 398 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can2a-2021 (CAN) | correction | page de 410 px pour 390 px | ×1 ; sup= (revue-0-a) |
-| can2a-NY2024 (CAN) | correction | page de 486 px pour 390 px | ×1 ; défaut (revue-0-b) |
-| can2a-NY2025 (CAN) | correction | page de 442 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can2a-NY2026 (CAN) | correction | page de 442 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can2F22-05 (CAN) | correction | page de 405 px pour 390 px | ×2 ; sup5=true ; sup5=false nb=10 (revue-1-a) |
-| can2F24-04 (CAN) | correction | page de 866 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F24-05 (CAN) | correction | page de 803 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F3-01 (CAN) | correction | page de 412 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G1-05 (CAN) | correction | page de 416 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G1-06 (CAN) | correction | page de 529 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G21-07 (CAN) | correction | page de 400 px pour 390 px | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2G21-08 (CAN) | correction | page de 412 px pour 390 px | ×2 ; défaut (revue-0-a) |
-| can2N11-02 (CAN) | correction | page de 411 px pour 390 px | ×8 ; sup=1 sup2=5 ; sup=2 sup2=3… (revue-5-a) |
-| can2N3-02 (CAN) | correction | page de 409 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can2P1-03 (CAN) | énoncé q1 | table.tableauMathlive de 434 px pour 390 px | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2P1-03 (CAN) | énoncé | page de 450 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2P2-06 (CAN) | correction | page de 417 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can3a-2021 (CAN) | correction | page de 488 px pour 390 px | ×2 ; sup= (revue-0-a) |
-| can3a-2023 (CAN) | correction | page de 464 px pour 390 px | ×2 ; défaut (revue-0-a) |
-| can3a-2024 (CAN) | correction | page de 404 px pour 390 px | ×1 ; sup=false (revue-0-a) |
-| can3a-NY2025 (CAN) | correction | page de 414 px pour 390 px | ×1 ; sup=false (revue-0-a) |
-| can4a-2021 (CAN) | correction | page de 493 px pour 390 px | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can4a-2022 (CAN) | correction | page de 403 px pour 390 px | ×3 ; sup2=false ; sup2=true (revue-0-a) |
-| can4a-2023 (CAN) | correction | page de 484 px pour 390 px | ×2 ; sup2=false ; sup2=true (revue-0-b) |
-| can4a-NY2024 (CAN) | correction | page de 398 px pour 390 px | ×1 ; défaut (revue-0-b) |
-| can4a-NY2025 (CAN) | correction | page de 504 px pour 390 px | ×1 ; sup=false (revue-0-b) |
-| can4a-NY2026 (CAN) | correction | page de 560 px pour 390 px | ×1 ; sup=false (revue-0-b) |
-| can4C22-02 (CAN) | correction | page de 466 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can4C22-03 (CAN) | correction | page de 441 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can4C3-01 (CAN) | correction | page de 429 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can4L2-04 (CAN) | correction | page de 404 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can5a-2020 (CAN) | correction | page de 493 px pour 390 px | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) | énoncé q26 | table.tableauMathlive de 527 px pour 390 px | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) | énoncé | page de 543 px pour 390 px | ×2 ; sup= (revue-0-a) |
-| can5a-2021 (CAN) | correction | page de 493 px pour 390 px | ×2 ; sup= (revue-0-a) |
-| can5a-2022 (CAN) | correction | page de 493 px pour 390 px | ×4 ; sup2=false ; sup2=true (revue-0-a) |
-| can5a-2023 (CAN) | correction | page de 464 px pour 390 px | ×4 ; sup2=true ; sup2=false (revue-0-a) |
-| can5a-2026 (CAN) | énoncé | page de 429 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can5a-NY2024 (CAN) | correction | page de 398 px pour 390 px | ×1 ; défaut (revue-0-a) |
-| can5a-NY2025 (CAN) | correction | page de 408 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can5a-NY2026 (CAN) | correction | page de 560 px pour 390 px | ×1 ; sup=false (revue-0-b) |
-| can5C2-02 (CAN) | correction | page de 450 px pour 390 px | ×1 ; défaut nb=10 (revue-1-a) |
-| can5C2-06 (CAN) | correction | page de 463 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can5C2-07 (CAN) | correction | page de 419 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | can6a-2018 (CAN) | correction | page de 432 px pour 390 px | ×4 ; sup2=true ; sup2=false (revue-0-a) |
 | can6a-2024 (CAN) | correction | page de 415 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2026 (CAN) | énoncé | page de 400 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -1895,15 +1734,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6a-NY2024 (CAN) | correction | page de 422 px pour 390 px | ×1 ; défaut (revue-0-b) |
 | can6a-NY2025 (CAN) | correction | page de 504 px pour 390 px | ×1 ; sup=false (revue-0-b) |
 | can6a-NY2026 (CAN) | correction | page de 560 px pour 390 px | ×1 ; sup=false (revue-0-b) |
-| can6G2-01 (CAN) | correction q1 | img de 400 px pour 390 px | ×60 ; sup=1 sup2=1 sup3=true sup4=1 ; sup=1 sup2=1 sup3=true sup4=2… (revue-1-a) |
-| can6G2-01 (CAN) | correction | page de 416 px pour 390 px | ×60 ; sup=1 sup2=1 sup3=true sup4=1 ; sup=1 sup2=1 sup3=true sup4=2… (revue-1-a) |
-| can6G2-02 (CAN) | correction q1 | img de 400 px pour 390 px | ×60 ; sup=1 sup2=1 sup3=true sup4=1 ; sup=1 sup2=1 sup3=true sup4=2… (revue-1-a) |
-| can6G2-02 (CAN) | correction | page de 416 px pour 390 px | ×60 ; sup=1 sup2=1 sup3=true sup4=1 ; sup=1 sup2=1 sup3=true sup4=2… (revue-1-a) |
-| can6I-01 (CAN) | énoncé q1 | table de 623 px pour 390 px | ×202 ; sup=1 sup2=true sup4=true ; sup=1 sup2=true sup4=false… (revue-0-a) |
-| can6I-01 (CAN) | énoncé | page de 639 px pour 390 px | ×33 ; sup=1 sup2=true sup4=true ; sup=1 sup2=true sup4=false… (revue-0-a) |
-| can6N1-01 (CAN) | correction | page de 432 px pour 390 px | ×2 ; sup=false ; sup=true nb=10 (revue-1-b) |
-| can6N1-04 (CAN) | correction | page de 460 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| canc3a-2023 (CAN) | correction | page de 393 px pour 390 px | ×1 ; défaut (revue-0-a) |
 | canc3a-2023 (CAN) | src/exercices/can/c3/_Canc3a.ts | Q10 : correction « soixante-et-un-mille-cinquante = 61 000 + 50 = 61 050 » coupée à droite à 390 px (formule d'un seul tenant, mot dans \text). → Mot hors formule, formule à la ligne. | ×1 |
 | canc3a-2024 (CAN) | correction | page de 415 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2026 (CAN) | énoncé | page de 400 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -1913,11 +1743,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2025 (CAN) | correction | page de 504 px pour 390 px | ×1 ; sup=false (revue-0-b) |
 | canc3a-NY2026 (CAN) | correction | page de 560 px pour 390 px | ×1 ; sup=false (revue-0-b) |
 | canc3C02 (CAN) | correction | page de 430 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| canTSpea-2025 (CAN) | énoncé | page de 404 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canTSpea-2026 (CAN) | correction | page de 455 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canTSpea-NY2025 (CAN) | correction | page de 543 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canTSpea-NY2026 (CAN) | correction | page de 513 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canTSpeAN20 (CAN) | correction | page de 469 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | CM2D1A-1 (cm2) | énoncé q1 | table.tableauMathlive de 472 px pour 390 px | ×33 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=4 sup3=1 sup4=true… (revue-0-a) |
 | CM2D1A-1 (cm2) | énoncé | page de 488 px pour 390 px | ×64 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=3 sup3=1 sup4=true… (revue-0-a) |
 | CM2D1A-1 (cm2) | correction q1 | table.tableauMathlive de 472 px pour 390 px | ×33 ; sup=false sup2=4 sup3=3 sup4=false ; sup=true sup2=4 sup3=1 sup4=true… (revue-0-a) |
@@ -1952,6 +1777,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-37 (Terminale) | correction | page de 801 px pour 390 px | ×5 ; sup2=1 ; sup2=3… (revue-0-a) |
 | TSA2-43 (Terminale) | correction | page de 497 px pour 390 px | ×6 ; sup=3 ; sup=1… (revue-0-b) |
 | TSA2-QCM10 (Terminale) | correction | page de 474 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA4-10 (Terminale) | correction | page de 398 px pour 390 px | ×1 ; sup=2 (revue-2-b) |
+| TSA4-11 (Terminale) | correction | page de 423 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA4-40 (Terminale) | correction | page de 411 px pour 390 px | ×7 ; sup=6 ; sup=3… (revue-0-a) |
+| TSA5-11 (Terminale) | correction | page de 806 px pour 390 px | ×2 ; sup2=false (revue-0-a) |
+| TSA5-QCM06 (Terminale) | correction | page de 436 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM12 (Terminale) | correction | page de 429 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM13 (Terminale) | correction | page de 548 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM15 (Terminale) | correction | page de 457 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM16 (Terminale) | correction | page de 490 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM17 (Terminale) | correction | page de 423 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM18 (Terminale) | correction | page de 493 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## C1
 
@@ -1959,6 +1795,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| can1a-2024 (CAN) | src/exercices/can/can1a-2024/can1a-2024-Q19.ts:44 | Q19 : dérivée « $f'(x)=\dfrac{1}{2}\times 2x+b$ » : utilise la constante b au lieu du coefficient a (ex. $\frac12x^2+7x-2$ → « $\frac12\times 2x-2$ ») ; canEnonce sans le x (« $\dfrac{1}{2}x^2-3+4$ ») → \\dfrac{1}{2}\\times 2x${ecritureAlgebrique(a)} ; ${ecritureAlgebriqueSauf1(a)}x dans canEnonce | ×1 |
+| can1a-2024 (CAN) | src/exercices/can/can1a-2024/can1a-2024-Q25.ts:54 | Q25 (aléatoire) : « Le double de $2^{30}$ est $2\times 2^{29}$ » alors que la question porte sur $2^{29}$ → Le double de $2^{${a}}$ | ×1 |
+| can1a-2025 (CAN) | src/exercices/can/can1a-2025/can1a-2025-Q11.ts:38 | Q11 : « $9,4 = 9\text{ h }+…$ » : l'unité h manque après 9,4 (égalité fausse telle qu'écrite) → $9,4\text{ h}=9\text{ h}+0,4\times 60\text{ min}=…$ | ×1 |
+| can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q28.ts:54 | Q28 : « les événements $C$ et $\overline{C}$ forment une partition de $D$ » : ils forment une partition de l'univers (et $C\cap D$, $\overline{C}\cap D$ une partition de $D$) → forment une partition de l'univers | ×1 |
+| can1a-NY2025 (CAN) | src/exercices/can/canNY-2025/can2NY-2025-Q28.ts:52 | Mêmes questions que can2a-NY2025 avec les mêmes erreurs : Q28 (exposant 2 024 dans la correction au lieu de 2 023), Q21 ($(\sqrt{2\,024})^2$ pour $\sqrt{2\,025}$), Q4 « pout », Q25 QCM « OUI/NON », Q18 $\dfrac{1}{-2025}$ → voir can2a-NY2025 | ×1 |
+| can1a-NY2026 (CAN) | src/exercices/can/canNY-2026 | Mêmes questions que can2a-NY2026 avec les mêmes défauts : Q4 « pout », Q3 « $....$ . », Q18 $\dfrac{1}{-2026}$, Q25 « $2026$ » sans séparateur, Q6 $\dfrac{1}{2034}$, Q16 intervalles sans séparateur dans la correction → voir can2a-NY2026 | ×1 |
 | can2a-2023 (CAN) | src/exercices/can/2e/can2a-2023.ts:698 | Q14 : correction « Ainsi, $a \times 0,5=…$ » pour un calcul 0,25×a → $a \times 0,25=…$ | ×1 |
 | can2a-2024 (CAN) | src/exercices/can/can2a-2024/can2a-2024-Q28.ts:163 | Q28 (sujet officiel) : correction « La droite d'équation $y=-1$ a un deux points d'intersection » alors que la question porte sur $y=2$ → La droite d'équation $y=2$ a deux points d'intersection | ×1 |
 | can2a-2025 (CAN) | src/exercices/can/can2a-2025/can2a-2025-Q3.ts:47 | Q3 (sujet officiel) : « Le terme constant vient de $-2\times 3=6$ » → $-2\times 3=-6$ | ×1 |
@@ -2027,117 +1869,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG2-1 (6e) |  q3 qcm | QCM : bonne proposition (carré) absente de la mise en évidence () | ×11 ; sup=4 ; sup=3… (revue-0-a) |
 | 6AutoG3-2 (6e) |  q1 qcm | QCM : bonne proposition (non) absente de la mise en évidence (nesontpassymétriques) | ×37 ; sup=1 sup4=true ; sup=1 sup4=false… (revue-0-a) |
 | 6AutoG3-2 (6e) |  q1 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (sontsymétriques) | ×21 ; sup=1 sup4=true ; sup=1 sup4=false… (revue-0-b) |
-| can1a-2024 (CAN) |  q2 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (fausse) | ×6 ; sup=false (revue-0-a) |
-| can1a-2025 (CAN) |  q20 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (n'ontpaslamêmedirection) | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can1a-2026 (CAN) |  q26 qcm | QCM : bonne proposition (deraison4) absente de la mise en évidence (4deraison) | ×1 ; sup=false (revue-0-a) |
-| can1a-2026 (CAN) |  q26 qcm | QCM : bonne proposition (deraison1,2) absente de la mise en évidence (1,2deraison) | ×3 ; sup=false ; sup=true (revue-0-b) |
-| can1S21-01 (CAN) |  q1 qcm | QCM : bonne proposition (arithmétiquederaison3) absente de la mise en évidence (3suitearithmétiquederaison) | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1S21-01 (CAN) |  q1 qcm | QCM : bonne proposition (géométriquederaison\dfrac19) absente de la mise en évidence (\dfrac19suitegéométriquederaison) | ×4 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1S21-01 (CAN) |  q1 qcm | QCM : bonne proposition (géométriquederaison-4) absente de la mise en évidence (-4suitegéométriquederaison) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1S21-01 (CAN) |  q3 qcm | QCM : bonne proposition (arithmétiquederaison-10) absente de la mise en évidence (-10suitearithmétiquederaison) | ×3 ; défaut nb=10 (revue-1-a) |
-| can1S21-01 (CAN) |  q8 qcm | QCM : bonne proposition (géométriquederaison9) absente de la mise en évidence (9suitegéométriquederaison) | ×1 ; défaut nb=10 (revue-1-a) |
-| can1S21-02 (CAN) |  q1 qcm | QCM : bonne proposition (arithmétiquederaison-9) absente de la mise en évidence (-9suitearithmétique) | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1S21-02 (CAN) |  q1 qcm | QCM : bonne proposition (géométriquederaison1,96) absente de la mise en évidence (1,96suitegéométrique) | ×3 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1S21-02 (CAN) |  q3 qcm | QCM : bonne proposition (géométriquederaison\dfrac95) absente de la mise en évidence (\dfrac95suitegéométrique) | ×3 ; défaut nb=10 (revue-1-a) |
-| can1S21-02 (CAN) |  q4 qcm | QCM : bonne proposition (arithmétiquederaison5) absente de la mise en évidence (5suitearithmétique) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1S21-03 (CAN) |  q1 qcm | QCM : bonne proposition (géométriquederaison9) absente de la mise en évidence (9suitegéométrique) | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1S21-03 (CAN) |  q1 qcm | QCM : bonne proposition (géométriquederaison\dfrac110) absente de la mise en évidence (\dfrac110suitegéométrique) | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1S21-03 (CAN) |  q1 qcm | QCM : bonne proposition (géométriquederaison-9) absente de la mise en évidence (-9suitegéométrique) | ×3 ; défaut nb=10 (revue-1-a) |
-| can1S21-03 (CAN) |  q2 qcm | QCM : bonne proposition (arithmétiquederaison9) absente de la mise en évidence (9suitearithmétique) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1S21-03 (CAN) |  q3 qcm | QCM : bonne proposition (géométriquederaison-\dfrac14) absente de la mise en évidence (-\dfrac14suitegéométrique) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1S21-03 (CAN) |  q9 qcm | QCM : bonne proposition (arithmétiquederaison-9) absente de la mise en évidence (-9suitearithmétique) | ×1 ; défaut nb=10 (revue-1-a) |
-| can1SD21-03 (CAN) |  q1 qcm | QCM : bonne proposition (s=\left\-4\right\) absente de la mise en évidence (\left\-4\right\) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD21-03 (CAN) |  q1 qcm | QCM : bonne proposition (s=\emptyset) absente de la mise en évidence (\emptyset) | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1SD21-03 (CAN) |  q1 qcm | QCM : bonne proposition (s=\left\0;\dfrac12\right\) absente de la mise en évidence (\left\0;\dfrac12\right\) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1SD21-03 (CAN) |  q2 qcm | QCM : bonne proposition (s=\-\sqrt3;\sqrt3\) absente de la mise en évidence (\-\sqrt3;\sqrt3\) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1SD21-03 (CAN) |  q4 qcm | QCM : bonne proposition (s=\-4;4\) absente de la mise en évidence (\-4;4\) | ×1 ; défaut nb=10 (revue-1-a) |
-| can1SD21-03 (CAN) |  q7 qcm | QCM : bonne proposition (s=\left\-\dfrac35;0\right\) absente de la mise en évidence (\left\-\dfrac35;0\right\) | ×2 ; défaut nb=10 (revue-1-a) |
-| can1SD22-04 (CAN) |  q1 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞−3\normalsize-3−36\normalsize66+∞\normalsize) absente de la mise en évidence () | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD22-04 (CAN) |  q1 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞4\normalsize446\normalsize66+∞\normalsize+\i) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1SD22-04 (CAN) |  q1 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞−9\normalsize-9−9−6\normalsize-6−6+∞\normals) absente de la mise en évidence () | ×6 ; défaut nb=10 (revue-1-a) |
-| can1SD3-01 (CAN) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (n'estpas) | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD3-01 (CAN) |  q1 qcm | QCM : bonne proposition (vrai) absente de la mise en évidence (est) | ×6 ; défaut ; défaut nb=10 (revue-0-b) |
-| can1SD3-01 (CAN) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (est) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2a-2024 (CAN) |  q14 qcm | QCM : bonne proposition (7,5€) absente de la mise en évidence (7,50) | ×1 ; sup=false (revue-0-a) |
-| can2a-2024 (CAN) |  q14 qcm | QCM : bonne proposition (99€) absente de la mise en évidence (99) | ×3 ; sup=false ; sup=true (revue-0-b) |
-| can2a-NY2025 (CAN) |  q6 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can2a-NY2025 (CAN) |  q6 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=true (revue-1-b) |
-| can2a-NY2026 (CAN) |  q6 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can2a-NY2026 (CAN) |  q6 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=false (revue-0-b) |
-| can2F21-02 (CAN) |  q1 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞1\normalsize11+∞\normalsize+\infty+∞f(x)\nor) absente de la mise en évidence (négatifpourx>1etpositifpourx&lt;1) | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F21-02 (CAN) |  q1 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞−6\normalsize-6−6+∞\normalsize+\infty+∞f(x)\) absente de la mise en évidence (positifpourx>-6etnégatifpourx&lt;-6) | ×1 ; défaut (revue-0-b) |
-| can2F21-02 (CAN) |  q1 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞32\normalsize\dfrac3223​+∞\normalsize+\infty) absente de la mise en évidence (positifpourx>\dfrac32etnégatifpourx&lt;\dfrac32) | ×2 ; défaut nb=10 (revue-1-a) |
-| can2F21-02 (CAN) |  q2 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞13\normalsize\dfrac1331​+∞\normalsize+\infty) absente de la mise en évidence (négatifpourx>\dfrac13etpositifpourx&lt;\dfrac13) | ×3 ; défaut nb=10 (revue-1-a) |
-| can2F21-02 (CAN) |  q4 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞−2\normalsize-2−2+∞\normalsize+\infty+∞f(x)\) absente de la mise en évidence (négatifpourx>-2etpositifpourx&lt;-2) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F21-02 (CAN) |  q5 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞−53\normalsize-\dfrac53−35​+∞\normalsize+\in) absente de la mise en évidence (négatifpourx>-\dfrac53etpositifpourx&lt;-\dfrac53) | ×2 ; défaut nb=10 (revue-1-a) |
-| can2F21-02 (CAN) |  q9 qcm | QCM : bonne proposition (x\normalsizexx−∞\normalsize-\infty−∞−32\normalsize-\dfrac32−23​+∞\normalsize+\in) absente de la mise en évidence (positifpourx>-\dfrac32etnégatifpourx&lt;-\dfrac32) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F21-03 (CAN) |  q1 qcm | QCM : bonne proposition (vestcroissantesur\mathbbr) absente de la mise en évidence (strictementcroissante) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F21-03 (CAN) |  q1 qcm | QCM : bonne proposition (vestdécroissantesur\mathbbr) absente de la mise en évidence (strictementdécroissante) | ×3 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2F21-03 (CAN) |  q1 qcm | QCM : bonne proposition (gestconstantesur\mathbbr) absente de la mise en évidence (constante) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F21-03 (CAN) |  q3 qcm | QCM : bonne proposition (hestcroissantesur\mathbbr) absente de la mise en évidence (strictementcroissante) | ×2 ; défaut nb=10 (revue-1-a) |
-| can2F21-03 (CAN) |  q6 qcm | QCM : bonne proposition (westdécroissantesur\mathbbr) absente de la mise en évidence (strictementdécroissante) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F21-03 (CAN) |  q8 qcm | QCM : bonne proposition (festdécroissantesur\mathbbr) absente de la mise en évidence (strictementdécroissante) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F21-03 (CAN) |  q9 qcm | QCM : bonne proposition (gestdécroissantesur\mathbbr) absente de la mise en évidence (strictementdécroissante) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F23-01 (CAN) |  q1 qcm | QCM : bonne proposition ((-3,996)^2>3,99^2) absente de la mise en évidence (3,99^2&lt;(-3,996)^2) | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F23-01 (CAN) |  q1 qcm | QCM : bonne proposition ((-3,962)^2&lt;(-3,968)^2) absente de la mise en évidence ((-3,968)^2>(-3,962)^2) | ×4 ; défaut nb=10 (revue-1-a) |
-| can2F23-01 (CAN) |  q3 qcm | QCM : bonne proposition (3,752^2>3,746^2) absente de la mise en évidence (3,746^2&lt;3,752^2) | ×2 ; défaut nb=10 (revue-1-a) |
-| can2F23-02 (CAN) |  q1 qcm | QCM : bonne proposition (\dfrac1-6,9&lt;\dfrac1-7,2) absente de la mise en évidence (\dfrac1-7,2>\dfrac1-6,9) | ×3 ; défaut nb=10 (revue-1-a) |
-| can2F23-02 (CAN) |  q4 qcm | QCM : bonne proposition (\dfrac12,9&lt;\dfrac12,6) absente de la mise en évidence (\dfrac12,6>\dfrac12,9) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F23-03 (CAN) |  q3 qcm | QCM : bonne proposition (\|6\|>\|-1\|) absente de la mise en évidence (\|-1\|&lt;\|6\|) | ×2 ; défaut nb=10 (revue-1-a) |
-| can2F23-03 (CAN) |  q4 qcm | QCM : bonne proposition (\|-10\|>\|-6\|) absente de la mise en évidence (\|-6\|&lt;\|-10\|) | ×3 ; défaut nb=10 (revue-1-a) |
-| can2F23-04 (CAN) |  q1 qcm | QCM : bonne proposition (\sqrt7,1>\sqrt6,9) absente de la mise en évidence (\sqrt6,9&lt;\sqrt7,1) | ×4 ; défaut nb=10 (revue-1-a) |
-| can2F23-05 (CAN) |  q1 qcm | QCM : bonne proposition (1^3>(-1,3)^3) absente de la mise en évidence ((-1,3)^3&lt;1^3) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F23-05 (CAN) |  q1 qcm | QCM : bonne proposition (6,3^3>5,9^3) absente de la mise en évidence (5,9^3&lt;6,3^3) | ×4 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2F23-05 (CAN) |  q5 qcm | QCM : bonne proposition (7,4^3>(-8,2)^3) absente de la mise en évidence ((-8,2)^3&lt;7,4^3) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F25-01 (CAN) |  q1 qcm | QCM : bonne proposition (s=\emptyset) absente de la mise en évidence (\emptyset) | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F25-01 (CAN) |  q1 qcm | QCM : bonne proposition (s=\-7;7\) absente de la mise en évidence (\-7;7\) | ×4 ; défaut nb=10 (revue-1-a) |
-| can2F25-01 (CAN) |  q5 qcm | QCM : bonne proposition (s=\-\sqrt7;\sqrt7\) absente de la mise en évidence (\-\sqrt7;\sqrt7\) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F25-03 (CAN) |  q1 qcm | QCM : bonne proposition (s=\left\\dfrac18\right\) absente de la mise en évidence (\left\\dfrac18\right\) | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F25-03 (CAN) |  q1 qcm | QCM : bonne proposition (s=\left\-\dfrac19\right\) absente de la mise en évidence (\left\-\dfrac19\right\) | ×5 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2F25-03 (CAN) |  q6 qcm | QCM : bonne proposition (s=\left\-1\right\) absente de la mise en évidence (\left\-1\right\) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F25-03 (CAN) |  q10 qcm | QCM : bonne proposition (s=\left\1\right\) absente de la mise en évidence (\left\1\right\) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2F25-05 (CAN) |  q1 qcm | QCM : bonne proposition (s=\-7;5\) absente de la mise en évidence (\-7;5\) | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F25-05 (CAN) |  q1 qcm | QCM : bonne proposition (s=\2;4\) absente de la mise en évidence (\2;4\) | ×1 ; défaut (revue-0-b) |
-| can2F25-05 (CAN) |  q3 qcm | QCM : bonne proposition (s=\emptyset) absente de la mise en évidence (\emptyset) | ×3 ; défaut nb=10 (revue-1-a) |
-| can2F25-05 (CAN) |  q4 qcm | QCM : bonne proposition (s=\-8;-2\) absente de la mise en évidence (\-8;-2\) | ×2 ; défaut nb=10 (revue-1-a) |
-| can2F25-07 (CAN) |  q1 qcm | QCM : bonne proposition (s=\81\) absente de la mise en évidence (\81\) | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F25-07 (CAN) |  q1 qcm | QCM : bonne proposition (s=\emptyset) absente de la mise en évidence (\emptyset) | ×4 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2F25-08 (CAN) |  q1 qcm | QCM : bonne proposition (s=\5\) absente de la mise en évidence (\5\) | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2F25-08 (CAN) |  q1 qcm | QCM : bonne proposition (s=\-5\) absente de la mise en évidence (\-5\) | ×5 ; défaut ; défaut nb=10 (revue-0-b) |
-| can2F25-08 (CAN) |  q9 qcm | QCM : bonne proposition (s=\5\) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-01 (CAN) |  q1 qcm | QCM : bonne proposition (\overrightarrowvu) absente de la mise en évidence (xx) | ×1 ; défaut (revue-0-b) |
-| can2G20-01 (CAN) |  q3 qcm | QCM : bonne proposition (\overrightarrowki) absente de la mise en évidence (nn) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-01 (CAN) |  q5 qcm | QCM : bonne proposition (\overrightarrowig) absente de la mise en évidence (ll) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-01 (CAN) |  q6 qcm | QCM : bonne proposition (\overrightarrow0) absente de la mise en évidence (jj) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-01 (CAN) |  q7 qcm | QCM : bonne proposition (\overrightarrow0) absente de la mise en évidence (ll) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-01 (CAN) |  q8 qcm | QCM : bonne proposition (\overrightarrow0) absente de la mise en évidence (kk) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-01 (CAN) |  q10 qcm | QCM : bonne proposition (\overrightarrowut) absente de la mise en évidence (ww) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q1 qcm | QCM : bonne proposition (\overrightarrow0) absente de la mise en évidence (hhnn) | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
-| can2G20-02 (CAN) |  q1 qcm | QCM : bonne proposition (\overrightarrow0) absente de la mise en évidence (ssvv) | ×1 ; défaut (revue-0-b) |
-| can2G20-02 (CAN) |  q1 qcm | QCM : bonne proposition (\overrightarrowkf) absente de la mise en évidence (jj) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q2 qcm | QCM : bonne proposition (\overrightarrow0) absente de la mise en évidence (ggmm) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q3 qcm | QCM : bonne proposition (\overrightarroweh) absente de la mise en évidence (ffgge) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q4 qcm | QCM : bonne proposition (\overrightarrowil) absente de la mise en évidence (jjkki) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q5 qcm | QCM : bonne proposition (\overrightarrowmk) absente de la mise en évidence (iijjm) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q6 qcm | QCM : bonne proposition (\overrightarrowfi) absente de la mise en évidence (gghhf) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q7 qcm | QCM : bonne proposition (\overrightarrownl) absente de la mise en évidence (jjkkn) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q9 qcm | QCM : bonne proposition (\overrightarrowru) absente de la mise en évidence (sstt) | ×1 ; défaut nb=10 (revue-1-a) |
-| can2G20-02 (CAN) |  q10 qcm | QCM : bonne proposition (\overrightarrowsv) absente de la mise en évidence (ttuus) | ×1 ; défaut nb=10 (revue-1-a) |
-| can3a-NY2025 (CAN) |  q6 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can3a-NY2026 (CAN) |  q6 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×1 ; sup=false (revue-0-a) |
-| can3a-NY2026 (CAN) |  q6 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=false (revue-0-b) |
-| can3L1-04 (CAN) |  q1 qcm | QCM : bonne proposition (vrai) absente de la mise en évidence (estsolution) | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
-| can3L1-04 (CAN) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (n'estpassolution) | ×8 ; défaut ; défaut nb=10 (revue-0-b) |
-| can4a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×2 ; sup=false (revue-0-a) |
-| can4a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×2 ; sup=true (revue-1-a) |
-| can4a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can4a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=false (revue-0-b) |
-| can4G1-05 (CAN) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (n'estpasrectangle) | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
-| can4G1-05 (CAN) |  q1 qcm | QCM : bonne proposition (vrai) absente de la mise en évidence (estrectangle) | ×7 ; défaut ; défaut nb=10 (revue-0-b) |
-| can5a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×2 ; sup=false (revue-0-a) |
-| can5a-NY2025 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×2 ; sup=true (revue-1-a) |
-| can5a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasunmultiple) | ×3 ; sup=false ; sup=true (revue-0-a) |
-| can5a-NY2026 (CAN) |  q15 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estunmultiple) | ×1 ; sup=false (revue-0-b) |
 | can6a-2024 (CAN) |  q10 qcm | QCM : bonne proposition (54cm) absente de la mise en évidence (54) | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2025 (CAN) |  q15 qcm | QCM : bonne proposition (figureb) absente de la mise en évidence (b) | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2025 (CAN) |  q16 qcm | QCM : bonne proposition (figurea) absente de la mise en évidence (a) | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -2159,18 +1890,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE1a-2025 (CAN) |  q8 qcm | QCM : bonne proposition (45s) absente de la mise en évidence (45) | ×1 ; sup=false (revue-0-a) |
 | canCE1a-2025 (CAN) |  q2 qcm | QCM : bonne proposition (1m=100cm) absente de la mise en évidence (100cm) | ×3 ; sup=false ; sup=true (revue-0-b) |
 | canCE1a-2025 (CAN) |  q8 qcm | QCM : bonne proposition (90min) absente de la mise en évidence (90) | ×3 ; sup=false ; sup=true (revue-0-b) |
-| canCE1a-2026 (CAN) |  q10 qcm | QCM : bonne proposition (6faces) absente de la mise en évidence (6) | ×4 ; sup=false ; sup=true (revue-0-a) |
-| canCE2-2026 (CAN) |  q4 qcm | QCM : bonne proposition (4000g) absente de la mise en évidence (4000) | ×1 ; sup=false (revue-0-a) |
-| canCE2-2026 (CAN) |  q11 qcm | QCM : bonne proposition (6faceset12arêtes.) absente de la mise en évidence (612) | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canCE1a-2026 (CAN) |  q10 qcm | QCM : bonne proposition (6faces) absente de la mise en évidence (6) | ×3 ; sup=false ; sup=true (revue-0-a) |
 | canCE2-2026 (CAN) |  q4 qcm | QCM : bonne proposition (7kg) absente de la mise en évidence (7) | ×3 ; sup=false ; sup=true (revue-0-b) |
+| canCE2-2026 (CAN) |  q11 qcm | QCM : bonne proposition (6faceset12arêtes.) absente de la mise en évidence (612) | ×3 ; sup=false ; sup=true (revue-0-b) |
 | canCE2a-2025 (CAN) |  q11 qcm | QCM : bonne proposition () absente de la mise en évidence (deuxième) | ×1 ; sup=false (revue-0-a) |
-| canCE2a-2025 (CAN) |  q15 qcm | QCM : bonne proposition (ilya9fois6etilreste2.) absente de la mise en évidence (ilya9fois6etilreste2) | ×4 ; sup=false ; sup=true (revue-0-a) |
+| canCE2a-2025 (CAN) |  q15 qcm | QCM : bonne proposition (ilya9fois6etilreste2.) absente de la mise en évidence (ilya9fois6etilreste2) | ×3 ; sup=false ; sup=true (revue-0-a) |
 | canCE2a-2025 (CAN) |  q11 qcm | QCM : bonne proposition () absente de la mise en évidence (troisième) | ×2 ; sup=false ; sup=true (revue-0-b) |
-| canCE2a-2025 (CAN) |  q11 qcm | QCM : bonne proposition () absente de la mise en évidence (première) | ×1 ; sup=true (revue-1-b) |
-| canTEC1-04 (CAN) |  q1 qcm | QCM : bonne proposition (\mathrmi) absente de la mise en évidence (i.) | ×1 ; défaut (revue-0-b) |
-| canTEC1-04 (CAN) |  q5 qcm | QCM : bonne proposition (-\mathrmi) absente de la mise en évidence (-i) | ×2 ; défaut nb=10 (revue-1-a) |
-| canTSpea-2025 (CAN) |  q20 qcm | QCM : bonne proposition (vrai) absente de la mise en évidence (admetuneuniquesolution) | ×3 ; sup=false ; sup=true (revue-0-a) |
-| canTSpea-2025 (CAN) |  q20 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (n'admetpasuneuniquesolution) | ×1 ; sup=false (revue-0-b) |
 | CM1N1E (cm1) |  q1 qcm | QCM : bonne proposition (312) absente de la mise en évidence () | ×42 ; sup=3 sup2=6 sup3=7 sup4=true sup5=true ; sup=4 sup2=1 sup3=3 sup4=true sup5=true… (revue-20-a) |
 | CM1N1E (cm1) |  q1 qcm | QCM : bonne proposition (70,248) absente de la mise en évidence () | ×6 ; sup=5 sup2=7 sup3=2 sup4=true sup5=true ; sup=6 sup2=7 sup3=3 sup4=true sup5=true… (revue-35-a) |
 | CM2G5B-1 (cm2) |  q1 qcm | QCM : bonne proposition ([kg] / [lh]) absente de la mise en évidence (kglhie) | ×1 ; sup=1 sup2=1 sup3=5 (revue-0-a) |
@@ -2460,6 +2185,48 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-QCM15 (Terminale) |  q8 qcm | QCM : bonne proposition (\ell\geqslant3) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
 | TSA2-QCM15 (Terminale) |  q9 qcm | QCM : bonne proposition (f(x)=\dfrac12\mathrme^x^2-3) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
 | TSA2-QCM15 (Terminale) |  q10 qcm | QCM : bonne proposition (f(x)=-\dfrac43\mathrme^-3x+\dfrac73) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q1 qcm | QCM : bonne proposition (pourtoutx\in]5;+\infty[,f(x)etf''(x)sontdemêmesigne) absente de la mise en évidence () | ×1 ; défaut (revue-0-a) |
+| TSA3-40 (Terminale) |  q2 qcm | QCM : bonne proposition (f''(1)=-5) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA3-40 (Terminale) |  q3 qcm | QCM : bonne proposition (lafonctionfestconcavesurl'intervalle[0;\pi]) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA3-40 (Terminale) |  q1 qcm | QCM : bonne proposition (f''\left(-\dfrac32\right)=0) absente de la mise en évidence () | ×1 ; défaut (revue-0-b) |
+| TSA3-40 (Terminale) |  q2 qcm | QCM : bonne proposition (gestconvexesurl'intervalle[1;2].) absente de la mise en évidence () | ×1 ; défaut (revue-0-b) |
+| TSA3-40 (Terminale) |  q3 qcm | QCM : bonne proposition (\mathcalc_hpossèdeunpointd'inflexionenx=3.) absente de la mise en évidence () | ×1 ; défaut (revue-0-b) |
+| TSA3-40 (Terminale) |  q1 qcm | QCM : bonne proposition (1\scriptsize112\scriptsize223\scriptsize334\scriptsize44−1\scriptsize-1−1−2\scri) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q2 qcm | QCM : bonne proposition (lafonctionfestconvexesur[0;2];) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q4 qcm | QCM : bonne proposition (lepointcestl'uniquepointd'inflexionde\mathcalc_f) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q5 qcm | QCM : bonne proposition (festconvexesur]-\infty;-1]etsur[2;+\infty[.) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q6 qcm | QCM : bonne proposition (\mathcalc_gadmetexactementunpointd'inflexionsur]0;+\infty[.) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q7 qcm | QCM : bonne proposition (concavesur]-\infty;-3]etconvexesur[-3;+\infty[) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q9 qcm | QCM : bonne proposition (estconvexesur]0;+\infty[) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-40 (Terminale) |  q10 qcm | QCM : bonne proposition (concavesur[-2;0]) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (pourtoutx\in]1;3[,f(x)etf'(x)sontdemêmesigne.) absente de la mise en évidence () | ×3 ; sup3=5 ; sup3=1… (revue-0-a) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (festconvexesur[0;2].) absente de la mise en évidence () | ×2 ; sup3=5 ; sup3=5 nb=10 (revue-0-b) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (pourtoutx\in]8;+\infty[,f(x)etf''(x)sontdemêmesigne.) absente de la mise en évidence () | ×2 ; sup3=1 ; sup3=5 nb=10 (revue-1-a) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (f'estcroissantesur[-1;2].) absente de la mise en évidence () | ×1 ; sup3=2 (revue-2-a) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (festconvexesur[-4;-1].) absente de la mise en évidence () | ×1 ; sup3=2 (revue-2-b) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (un.) absente de la mise en évidence () | ×1 ; sup3=3 (revue-3-a) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (deux.) absente de la mise en évidence () | ×2 ; sup3=3 ; sup3=5 nb=10 (revue-3-b) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (festconcavesur[-2;-1].) absente de la mise en évidence () | ×3 ; sup3=4 ; sup3=5 nb=10 (revue-4-a) |
+| TSA3-42 (Terminale) |  q1 qcm | QCM : bonne proposition (festconcavesur[-2;0].) absente de la mise en évidence () | ×2 ; sup3=5 nb=10 (revue-5-a) |
+| TSA3-42 (Terminale) |  q3 qcm | QCM : bonne proposition (f'estcroissantesur[1;3].) absente de la mise en évidence () | ×1 ; sup3=5 nb=10 (revue-5-a) |
+| TSA3-42 (Terminale) |  q5 qcm | QCM : bonne proposition (pourtoutx\in]4;7[,f'(x)etf''(x)sontdemêmesigne.) absente de la mise en évidence () | ×1 ; sup3=5 nb=10 (revue-5-a) |
+| TSA3-42 (Terminale) |  q8 qcm | QCM : bonne proposition (trois.) absente de la mise en évidence () | ×1 ; sup3=5 nb=10 (revue-5-a) |
+| TSA3-46 (Terminale) |  q1 qcm | QCM : bonne proposition (1\scriptsize112\scriptsize223\scriptsize334\scriptsize44−1\scriptsize-1−1−2\scri) absente de la mise en évidence (\mathcalc_1) | ×7 ; sup=7 ; sup=1… (revue-0-a) |
+| TSA3-46 (Terminale) |  q1 qcm | QCM : bonne proposition (1\scriptsize112\scriptsize223\scriptsize334\scriptsize445\scriptsize55−1\scripts) absente de la mise en évidence (\mathcalc_4) | ×8 ; sup=7 ; sup=3… (revue-0-b) |
+| TSA3-46 (Terminale) |  q1 qcm | QCM : bonne proposition (1\scriptsize112\scriptsize223\scriptsize33−1\scriptsize-1−1−2\scriptsize-2−2−3\s) absente de la mise en évidence (\mathcalc_1) | ×6 ; sup=1 ; sup=2… (revue-1-b) |
+| TSA3-46 (Terminale) |  q1 qcm | QCM : bonne proposition (1\scriptsize112\scriptsize22−1\scriptsize-1−1−2\scriptsize-2−2−3\scriptsize-3−3−) absente de la mise en évidence (\mathcalc_2) | ×3 ; sup=4 ; sup=7 nb=10 (revue-4-b) |
+| TSA4-QCM01 (Terminale) |  q1 qcm | QCM : bonne proposition (ilexisteaumoinsunnombreréeladansl'intervalle[1;3]telqueh(a)=1.) absente de la mise en évidence () | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA4-QCM02 (Terminale) |  q1 qcm | QCM : bonne proposition (3) absente de la mise en évidence (atroissolutions.) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM01 (Terminale) |  q1 qcm | QCM : bonne proposition (0,05) absente de la mise en évidence () | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM02 (Terminale) |  q1 qcm | QCM : bonne proposition (admetexactementdeuxsolutions.) absente de la mise en évidence (exactementdeuxsolutions) | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM02 (Terminale) |  q2 qcm | QCM : bonne proposition (n'admetaucunesolution.) absente de la mise en évidence (aucunesolution) | ×5 ; défaut nb=10 (revue-1-a) |
+| TSA5-QCM03 (Terminale) |  q1 qcm | QCM : bonne proposition (lacourbe\mathcalc_gadmetexactementunpointd'inflexionsur]0;+\infty[.) absente de la mise en évidence (fadmetunseulpointd'inflexiond'abscisse\dfrac12.) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM04 (Terminale) |  q1 qcm | QCM : bonne proposition (g(x)=-\dfrac12\ln\left(1-x^2\right)) absente de la mise en évidence (lafonctiongestdoncuneprimitivedelafonctionfsur]-1;1[.) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM07 (Terminale) |  q1 qcm | QCM : bonne proposition (s=]1;+\infty[) absente de la mise en évidence (s=\left]1;+\infty\right[) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM09 (Terminale) |  q1 qcm | QCM : bonne proposition (aucuneasymptoteverticaleetuneasymptotehorizontale.) absente de la mise en évidence (lacourbe\mathcalc_gadmetdoncuneasymptotehorizontaleetaucuneasymptoteverticale.) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM13 (Terminale) |  q1 qcm | QCM : bonne proposition (1) absente de la mise en évidence (ilyadoncunseulpointd'inflexion.) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM15 (Terminale) |  q1 qcm | QCM : bonne proposition (l'équation(e)admetuneuniquesolutionréelle.) absente de la mise en évidence (5+\sqrt46) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM16 (Terminale) |  q1 qcm | QCM : bonne proposition (ladroited'équationy=-\dfrac12\mathrmeesttangenteàlacourbe\mathcalc_faupointd'abs) absente de la mise en évidence (y=-\dfrac12\mathrme.) | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 
 ## N1
 
@@ -2511,6 +2278,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoA2 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : $km}\\ &=72,5 \times1000 ~\text{m} \times1000 ~\te$ ‖ nombre à 4 chiffres sans séparateur : $,5 \times1000 ~\text{m} \times1000 ~\text{m}\\ &=7$ ‖ nombre à 4 chiffres sans séparateur : $91 \times1000 ~\text{m} \times1000 ~\text{m}\\ &=2$ | ×24 ; sup=1 sup2=true sup3=1 sup4=false sup5=1-2-3 ; sup=1 sup2=true sup3=2 sup4=false sup5=1-2-3… (revue-5-a) |
 | 6AutoN1-2 (6e) | correction q3 | nombre à 4 chiffres sans séparateur : $frac{10}{{\color{}\boldsymbol{1000}}}$ | ×1 ; sup=2 sup2=2 (revue-5-a) |
 | 6AutoN2 (6e) | correction q8 | nombre à 4 chiffres sans séparateur : $\dfrac{402}{1000} = {\color{}\boldsymbol{0$ ‖ nombre à 4 chiffres sans séparateur : $\dfrac{6004}{100} = {\color{}\boldsym$ ‖ nombre à 4 chiffres sans séparateur : $\dfrac{1001}{10} = {\color{}\boldsymb$ | ×29 ; sup=1-2 sup2=true sup3=true ; sup=1-2 sup2=true sup3=false… (revue-0-a) |
+| 6AutoS1 (6e) | correction q1 | nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1000}}$ | ×1 ; sup=2 sup2=2 sup3=1-2-3 (revue-15-a) |
+| 6N0A-5 (6e) | énoncé q5 | nombre à 4 chiffres sans séparateur : $1014 - 199$ | ×1 ; sup=3 nb=10 (revue-3-a) |
+| 6N0A-5 (6e) | correction q5 | nombre à 4 chiffres sans séparateur : $1014 - 199$ | ×1 ; sup=3 nb=10 (revue-3-a) |
 | can1a-2022 (CAN) | correction q23 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 ; sup=true (revue-1-a) |
 | can1a-2025 (CAN) | correction q19 | nombre à 4 chiffres sans séparateur : $8100>0$ | ×1 ; sup=false (revue-0-a) |
 | can1S1-04 (CAN) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1400$ | ×2 ; défaut nb=10 (revue-1-a) |
@@ -2582,6 +2352,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA1-43 (Terminale) | énoncé non interactif q1 | nombre à 4 chiffres sans séparateur : $u_n>1000$ | ×1 |
 | TSA1-43 (Terminale) | correction non interactive q1 | nombre à 4 chiffres sans séparateur : $u>1000$ ‖ nombre à 4 chiffres sans séparateur : $u\leqslant 1000$ ‖ nombre à 4 chiffres sans séparateur : $u=1000$ | ×8 |
 | TSA1-44 (Terminale) | correction q4 | nombre à 4 chiffres sans séparateur : $u_{3332}&lt;0,999\,9$ ‖ nombre à 4 chiffres sans séparateur : $u_{3333}\geqslant0,999\,9$ ‖ nombre à 4 chiffres sans séparateur : $3333$ | ×12 ; défaut nb=10 (revue-1-a) |
+| TSA2-42 (Terminale) | correction q2 | nombre à 4 chiffres sans séparateur : $}^{X}\\ &=\dfrac{4}{1024}X^{5}\mathrm{e}^{X}.$ | ×1 ; sup=3 (revue-0-a) |
 
 ## N6
 
@@ -2620,6 +2391,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA1-42 (Terminale) | correction q1 | exposant 1 : $20-16\times 0,8^{1-1}=20-16=4=u_1$ ‖ exposant 1 : $\right) +\left(20-16\times 0,8^{1}\right) +\dots +\left(20-1$ | ×2 ; défaut (revue-0-a) |
 | TSA2-QCM10 (Terminale) | correction q1 | exposant 1 : $f'(1) = (1 + 1)\mathrm{e}^1 = 2\mathrm{e}$ ‖ exposant 1 : $f(1) = 1 \times \mathrm{e}^1 = \mathrm{e}$ | ×2 ; défaut (revue-0-a) |
 | TSA2-QCM10 (Terminale) | correction non interactive q1 | exposant 1 : $f'(1) = (1 + 1)\mathrm{e}^1 = 2\mathrm{e}$ ‖ exposant 1 : $f(1) = 1 \times \mathrm{e}^1 = \mathrm{e}$ | ×2 |
+| TSA5-QCM02 (Terminale) | correction q8 | exposant 1 : $\right) &= \ln\left(\mathrm{e}^{1}\right)\end{aligned}$ ‖ exposant 1 : $\right) &= \ln\left(\mathrm{e}^{1}\right)\\ \iff 6x^2+12 &=$ ‖ exposant 1 : $)\\ \iff 6x^2+12 &= \mathrm{e}^{1}\end{aligned}$ | ×5 ; défaut nb=10 (revue-1-a) |
 
 ## R1
 
@@ -2691,6 +2463,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | transversal (?) | grep « passer des $\\text{…}$ au $ » dans src/exercices | « pour passer des $\text{m}$ au $\text{cm}$ » (aux) dans 26 corrections : can6M4-03 (8 fois), can6M4-05 (4), can6M3-01, can6a-2021 (790, 806), can6a-2025-Q29, canc3a-2025-Q29, canc3a-CM1-2025-Q29, can3a-2026-Q4 (3), can5a-2024-Q9 (3), can3a-2022 (300, 317), can5a-2022 (346, 360), can4a-2022 (318, 330). → pour passer des $\text{m}$ aux $\text{cm}$ | ×1 |
 | 6AutoS1-3 (6e) | énoncé q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. [champ] | ×2 ; sup=3 (revue-0-a) |
 | 6AutoS1-3 (6e) | énoncé non interactif q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. [champ] | ×2 |
+| 6AutoS1-4 (6e) | énoncé q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. un cours de SVT a lieu le Jeudi. un cours | ×2 ; sup=3 (revue-0-a) |
+| 6AutoS1-4 (6e) | énoncé non interactif q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. un cours de SVT a lieu le Jeudi. un cours | ×2 |
+| can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q20.ts:90 | Q20 à Q22 : « À partir du graphique ci-dessous qui représente une fonction $f$ et une tangente à cette représentation. » : phrase sans verbe principal → Le graphique ci-dessous représente une fonction $f$ et une tangente à sa courbe. | ×1 |
+| can1a-2024 (CAN) | src/exercices/can/can1a-2024/can1a-2024-Q29.ts:36 | Q29 : « coefficient multiplicateur gobal », « puis à l'augmenter $10\,\%$ » (de manquant), doubles espaces → global ; l'augmenter de | ×1 |
+| can1a-2024 (CAN) | src/exercices/can/can1a-2024/can1a-2024-Q20.ts:51 | Q20 : « l'espérance mathématiques » ; Q14 : « L' ordonnée » (espace après l'apostrophe) → mathématique ; L'ordonnée | ×1 |
+| can1a-2025 (CAN) | src/exercices/can/can1a-2025/can1a-2025-Q26.ts:42 | Q26 : « le taux d'évolution globale » → taux d'évolution global | ×1 |
+| can1a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q15 (officiel) : « cette équation a ⟦1⟧ seule solution réelle : 0. » (minuscule après le point, 0 hors $) → Cette équation a une seule solution réelle : $0$. | ×1 |
 | can2a-2022 (CAN) | src/exercices/can/2e/can2a-2022.ts:644 | Q15 : « Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant » (coquille, « fois plus de fois ») ; lignes 644 et 661. → Si on va $k$ fois plus souvent à la piscine, le prix payé est $k$ fois plus important. | ×1 |
 | can2a-2023 (CAN) | src/exercices/can/2e/can2a-2023.ts:904 | Q19 : « jeu viéo » → jeu vidéo | ×1 |
 | can2a-2023 (CAN) | src/exercices/can/2e/can2a-2023.ts:931 | Q20 : « le cube agrandit », « le carré agrandit » → agrandi | ×1 |
@@ -3041,6 +2820,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA2-QCM02 (Terminale) | correction q1 | pas de virgule avant « alors » : ne fonction croissante sur l'intervalle. Il vient alors que | ×1 ; défaut (revue-0-a) |
 | TSA2-QCM02 (Terminale) | énoncé non interactif q1 | pas de virgule avant « alors » : . On a alors pour tout | ×1 |
 | TSA2-QCM02 (Terminale) | correction non interactive q1 | pas de virgule avant « alors » : ne fonction croissante sur l'intervalle. Il vient alors que | ×1 |
+| TSA3-40 (Terminale) | correction q3 | pas de virgule après « Or » : . Or | ×1 ; défaut (revue-0-a) |
+| TSA3-40 (Terminale) | correction non interactive q3 | pas de virgule après « Or » : . Or | ×1 |
+| TSA3-41 (Terminale) | correction q1 | pas de virgule avant « soit » : . Le fait que cette courbe soit concave ne signifie pas que | ×2 ; sup3=3 ; sup3=4 nb=10 (revue-3-a) |
+| TSA3-45 (Terminale) | correction q1 | pas de virgule avant « alors » : . On a alors | ×1 ; défaut (revue-0-a) |
+| TSA3-45 (Terminale) | correction non interactive q1 | pas de virgule avant « alors » : . On a alors | ×1 |
+| TSA5-QCM01 (Terminale) | correction q1 | pas de virgule après « Or » : Or | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM01 (Terminale) | correction non interactive q1 | pas de virgule après « Or » : Or | ×1 |
+| TSA5-QCM09 (Terminale) | correction q1 | pas de virgule après « Or » : . Or on sait que d'après les croissances comparées | ×1 ; défaut (revue-0-a) |
+| TSA5-QCM09 (Terminale) | correction non interactive q1 | pas de virgule après « Or » : . Or on sait que d'après les croissances comparées | ×1 |
 
 ## R6
 
@@ -3051,6 +2839,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can3F2-05 (CAN) | src/exercices/can/3e/can3F2-05.ts | « son ordonnée $3$. les » (minuscule après un point) ; can3G2-03 : « ⟦12/13⟧.$ » (point dans la formule). → Les | ×1 |
 | can6N3-02 (CAN) | src/exercices/can/6e/can6N3-02.ts | Énoncé « Determiner l'abscisse du point $A$. » (accent manquant) ; correction « du point A » hors maths, sans point final. → Déterminer l'abscisse du point $A$. | ×1 |
 | CM2N2E-2 (cm2) | correction q1 | majuscule sans accent : pas. A partir de la graduation | ×14 ; sup=3 sup2=true sup3=true ; sup=3 sup2=false sup3=true… (revue-8-a) |
+| TSA3-42 (Terminale) | titre | majuscule sans accent : Etudier la convexité d'une fonction (QCM issus suj | ×1 |
+| TSA4-40 (Terminale) | correction q1 | majuscule sans accent : . A la calculatrice, on trouve une valeur approc | ×12 ; sup=6 ; sup=5… (revue-0-a) |
+| TSA4-40 (Terminale) | correction non interactive q1 | majuscule sans accent : . A la calculatrice, on trouve une valeur approc | ×1 |
 
 ## R8
 
@@ -3112,12 +2903,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoN4-1 (6e) | titre | espace avant ponctuation : Diviser par 10, 100, 1 000 revient à .... | ×1 |
 | 6AutoN4-4 (6e) | titre | espace avant ponctuation : r que le chiffre des unités devienne le chiffre des ... | ×1 |
 | 6AutoP2 (6e) | titre | espace avant ponctuation : Résoudre des problèmes de type : ... fois plus ou ... fois moins | ×1 |
+| 6AutoS1-1 (6e) | énoncé non interactif q1 | espace avant ponctuation : ] Léopards c) L'espèce la plus nombreuse représente ... [champ] Plus de la moitié des animaux [cha ‖ espace avant ponctuation : p] Servals c) L'espèce la plus nombreuse représente ... [champ] Plus de la moitié des animaux [cha | ×2 |
 | 6AutoS1-3 (6e) | énoncé non interactif q1 | double espace : edi c) Combien de créneaux de Mathématiques voit-on dans le tableau ? ... d) À quelle heure Adam a | ×1 |
+| 6N0A-3 (6e) | introduction | double espace : es de chaque ligne et chaque colonne soient exactes (plusieurs solutions possibles). | ×1 ; sup4=false (revue-0-a) |
 | can1a-2022 (CAN) | correction q26 | double espace : t que u&lt;11. On calcule les valeurs successives des variables u et n. On s'arrête dès que u dépasse ‖ double espace : nt que u&lt;5. On calcule les valeurs successives des variables u et n. On s'arrête dès que u dépasse | ×2 ; sup=false ; sup=true (revue-0-a) |
 | can1a-2022 (CAN) | énoncé q14 | double espace : Quelle est l'abscisse du point | ×1 ; sup=true (revue-1-a) |
 | can1a-2024 (CAN) | énoncé q15 | double espace : définie par ‖ double espace : Le double de ‖ double espace : prix initial, il suffit de lui appliquer une baisse de | ×6 ; sup=false ; sup=true (revue-0-a) |
 | can1a-2024 (CAN) | correction q18 | double espace : fois plus de distance qu'en ‖ double espace : . L'affirmation est donc FAUSSE. ‖ double espace : . L'abscisse du sommet est donnée par | ×6 ; sup=false ; sup=true (revue-0-a) |
 | can1a-2024 (CAN) | énoncé non interactif q15 | double espace : définie par ‖ double espace : Le double de ‖ double espace : prix initial, il suffit de lui appliquer une baisse de | ×3 |
+| can1a-2025 (CAN) | src/exercices/can/can1a-2025/can1a-2025-Q18.ts:38 | Q18 : « du second degré :$[f(x)=a(x-\alpha)^2+\beta]$ » : espace manquante avant la formule, crochets inutiles ; double espace « de  $x\longmapsto$ » → du second degré : $f(x)=a(x-\alpha)^2+\beta$ | ×1 |
+| can1a-2025 (CAN) | src/exercices/can/can1a-2025/can1a-2025-Q22.ts | Q22 : « a deux solutions . » (espace avant le point) → deux solutions. | ×1 |
 | can1a-2025 (CAN) | correction q7 | double espace : est négatif (puissance impaire d'un nombnre négatif ‖ espace avant ponctuation : a deux solutions . Ainsi, ‖ double espace : Le coefficient multiplicateur associé à une baisse de | ×5 ; sup=false ; sup=true (revue-0-a) |
 | can1a-2025 (CAN) | énoncé q15 | double espace : minutes, sa vitesse moyenne est de [champ] ‖ double espace : est l'ensemble des solutions de l'inéquation | ×6 ; sup=false ; sup=true (revue-0-a) |
 | can1a-2025 (CAN) | énoncé non interactif q25 | double espace : est l'ensemble des solutions de l'inéquation | ×2 |
@@ -3509,6 +3304,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N4B-1 (cm2) | consigne | double espace : Calculer les expressions suivantes. | ×1 ; sup=1-2-3 sup2=200 sup3=2 (revue-0-a) |
 | TSA1-QCM03 (Terminale) | énoncé q1 | espace avant ponctuation : while .............. : | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSA1-QCM03 (Terminale) | énoncé non interactif q1 | espace avant ponctuation : while .............. : | ×1 |
+| TSA4-40 (Terminale) | énoncé q1 | double espace : , définie pour tout réel ‖ double espace : ence éventuelle de points d'inflexion. Déterminer le nombre de solution(s) sur ‖ double espace : Déterminer le nombre de solution(s) sur | ×28 ; sup=6 ; sup=1… (revue-0-a) |
+| TSA4-40 (Terminale) | correction q1 | double espace : est strictement décroissante. Comme ‖ double espace : est strictement croissante. Comme | ×4 ; sup=6 ; sup=5… (revue-0-a) |
+| TSA4-40 (Terminale) | correction non interactive q1 | double espace : est strictement décroissante. Comme | ×1 |
+| TSA4-41 (Terminale) | correction q1 | double espace : D'après l'hypothèse de récurrence : | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-10 (Terminale) | correction q2 | double espace : car, pour tous réels a et b strictement positifs, | ×1 ; sup=3 sup3=true (revue-0-a) |
+| TSA5-QCM05 (Terminale) | énoncé q1 | double espace : La fonction | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| TSA5-QCM05 (Terminale) | énoncé non interactif q1 | double espace : La fonction | ×1 |
 
 ## T6
 
@@ -3648,9 +3450,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoP2 (6e) | src/exercices/6e/6P3autoB.ts:16 | « ... » : Résoudre des problèmes de type : ... fois plus ou ... fois moins | ×1 |
 | 6AutoP2 (6e) | titre | points de suspension : Résoudre des problèmes de type : ... fois plus ou ... fois moins | ×2 |
 | 6AutoP2 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $........$ | ×6 |
+| 6AutoS1-1 (6e) | énoncé non interactif q1 | points de suspension : Léopards c) L'espèce la plus nombreuse représente ... [champ] Plus de la moitié des animaux [champ ‖ points de suspension : Servals c) L'espèce la plus nombreuse représente ... [champ] Plus de la moitié des animaux [champ | ×2 |
 | 6AutoS1-3 (6e) | énoncé non interactif q1 | points de suspension : neaux de Mathématiques voit-on dans le tableau ? ... d) À quelle heure Adam a-t-il Musique le merc | ×1 |
+| 6AutoS1-4 (6e) | énoncé non interactif q1 | points de suspension : dredi 8h - 9h Histoire-Géo Mathématiques Anglais ... Technologie 9h - 10h Mathématiques ... SVT Te ‖ points de suspension : s Anglais ... Technologie 9h - 10h Mathématiques ... SVT Technologie Français 10h15 - 11h15 Anglai ‖ points de suspension : logie Français 10h15 - 11h15 Anglais SVT Musique ... EPS 11h15 - 12h15 SVT ... Français EPS Histoi | ×4 |
+| 6AutoT1-6 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $.... ....$ | ×20 |
 | 6G0-1 (6e) | src/exercices/6e/6G0-1.ts:142 | « ... » : Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer... &lt;br>&lt;br> | ×1 |
 | 6G2A-1 (6e) | src/exercices/6e/6G2A-1.ts:213 | « ... » : ...  | ×1 |
+| 6N0A-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $16 + 19 = ....$ | ×10 |
+| 6N0A-6 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $8\,461 &nbsp;:~..............................$ ‖ points de suspension en maths (\ldots) : $461 &nbsp;:~..............................$ ‖ points de suspension en maths (\ldots) : $&nbsp;:~..............................$ | ×50 |
 | 6N1A (6e) | src/exercices/6e/6N1A.ts:18 | « ... » : Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale) | ×1 |
 | 6N1A-5 (6e) | src/exercices/6e/6N1A-5.ts:15 | « ... » : Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers... | ×1 |
 | 6N2autoB-1 (6e) | src/exercices/6e/6N2autoB-1.ts:246 | « ... » : 6 : n/10 = ... + .../10 + .../100 | ×1 |
@@ -3927,6 +3734,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA1-43 (Terminale) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\,\,\,\,\,\,\,\,\texttt{while ...:}\\ \,\,\,\,\,\,\,\,\,\,\,$ | ×1 |
 | TSA1-QCM03 (Terminale) | énoncé q1 | points de suspension : while .............. : | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
 | TSA1-QCM03 (Terminale) | énoncé non interactif q1 | points de suspension : while .............. : | ×4 |
+| TSA5-11 (Terminale) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $= ... \log(x)$ | ×2 |
 | TTE-8 (Terminale) | src/exercices/TT/TTE-8.ts:121 | « ... » : $= ... ${logString}(x)$ | ×1 |
 
 ## T9
@@ -3959,8 +3767,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoP1-1 (6e) | série q6 | question 6 identique à la question 3 | ×1 ; défaut (revue-0-b) |
 | 6AutoP1-2 (6e) | série q3 | question 3 identique à la question 2 | ×1 ; défaut (revue-0-a) |
 | can6a-Aléa (CAN) | série q2 | question 2 identique à la question 1 | ×15 ; sup=All ; sup=All nb=10 (revue-0-a) |
-| can6C52-02 (CAN) | série q9 | question 9 identique à la question 2 | ×1 ; défaut nb=10 (revue-1-a) |
-| canc3a (CAN) | série q17 | question 17 identique à la question 11 | ×1 ; sup=15 (revue-15-a) |
 | CM1N3K (cm1) | série q2 | question 2 identique à la question 1 | ×2 ; sup=2 sup2=1 sup3=1 ; sup=2 sup2=1 sup3=2 (revue-30-b) |
 | CM2N3A-12 (cm2) | série q10 | question 10 identique à la question 9 | ×1 ; défaut (revue-0-b) |
 | CM2N3A-14Old (cm2) | série q8 | question 8 identique à la question 3 | ×1 ; sup=1 (revue-0-a) |
@@ -3987,16 +3793,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoG2-3 (6e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×12 ; sup=6 ; sup=1… (revue-0-a) |
 | 6AutoG2-4 (6e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×16 ; sup=8 ; sup=1… (revue-0-a) |
 | 6AutoS1-4 (6e) |  q1 tableau-hybride | format tableau-hybride : à tester à la main | ×6 ; sup=3 ; sup=1… (revue-0-a) |
-| can1SD23-02 (CAN) |  q1 tableau-signes-variations | format tableau-signes-variations : à tester à la main | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD23-03 (CAN) |  q1 tableau-signes-variations | format tableau-signes-variations : à tester à la main | ×9 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD23-04 (CAN) |  q1 tableau-signes-variations | format tableau-signes-variations : à tester à la main | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can1SD23-05 (CAN) |  q1 tableau-signes-variations | format tableau-signes-variations : à tester à la main | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| can3a-2025 (CAN) |  q17 fillInTheBlank | aucune valeur attendue | ×4 ; sup=false ; sup=true (revue-0-a) |
+| 6N0A-3 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
+| 6N0A-6 (6e) |  q1 dnd | format dnd : à tester à la main | ×268 ; sup=4 sup2=0 sup3=1 sup4=true ; sup=2 sup2=0 sup3=1 sup4=true… (revue-0-a) |
 | can6a-2025 (CAN) |  q12 fillInTheBlank | aucune valeur attendue | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2026 (CAN) |  q1 fillInTheBlank | aucune valeur attendue | ×4 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2026 (CAN) |  q4 meta-interactif-2d | format meta-interactif-2d : à tester à la main | ×12 ; sup=false ; sup=true (revue-0-a) |
 | can6a-2026 (CAN) |  q26 apigeom-figure | format apigeom-figure : à tester à la main | ×4 ; sup=false ; sup=true (revue-0-a) |
-| can6C7-07 (CAN) |  q1 my-calculator | format my-calculator : à tester à la main | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | canc3a-2026 (CAN) |  q1 fillInTheBlank | aucune valeur attendue | ×4 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2026 (CAN) |  q4 meta-interactif-2d | format meta-interactif-2d : à tester à la main | ×8 ; sup=false ; sup=true (revue-0-a) |
 | canc3a-2026 (CAN) |  q26 apigeom-figure | format apigeom-figure : à tester à la main | ×4 ; sup=false ; sup=true (revue-0-a) |
@@ -4485,8 +4287,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6AutoN4-5 (6e) |  | 270 combinaisons : 17 passées (couverture par paires) | ×1 |
-| can2N10-05 (CAN) |  | 243 combinaisons : 81 passées (couverture par paires) | ×1 |
-| can2N10-06 (CAN) |  | 243 combinaisons : 82 passées (couverture par paires) | ×1 |
+| 6N0A-6 (6e) |  | 252 combinaisons : 43 passées (couverture par paires) | ×1 |
 | CM1N1E (cm1) |  | 1680 combinaisons : 71 passées (couverture par paires) | ×1 |
 | CM2G5B-2 (cm2) |  | 504 combinaisons : 45 passées (couverture par paires) | ×1 |
 | CM2N1D-2 (cm2) |  | 720 combinaisons : 46 passées (couverture par paires) | ×1 |
