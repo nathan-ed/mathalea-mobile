@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **1320 exercices passés sur 4190**.
-Constats regroupés : 6349 (un groupe = même exercice, même règle,
+Avancement : **1359 exercices passés sur 4190**.
+Constats regroupés : 6645 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -25,9 +25,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 2 | 4 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 6 | 19 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
-| 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 1 | 1 |
+| 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 2 | 2 |
 | 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 21 | 21 |
-| 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 6 | 6 |
+| 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 7 | 7 |
 | 2 Rendu cassé | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 2 Rendu cassé | [M8 Nombre de mises en évidence et de champs différents](#m8) | 2 | 2 |
 | 2 Rendu cassé | [N3 Point décimal](#n3) | 1 | 1 |
@@ -37,17 +37,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 17 | 28 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 14 | 265 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 6 | 18 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 26 | 31 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 37 | 53 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 17 | 17 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 6 | 6 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 10 | 10 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 145 | 866 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 158 | 882 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 59 | 118 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 101 | 101 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 116 | 116 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 20 | 78 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 51 | 56 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 52 | 57 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
@@ -65,7 +65,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 1 | 1 |
 | 4 Typographie | [M5 Texte dans miseEnEvidence](#m5) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 339 | 522 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 360 | 561 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 16 | 22 |
 | 4 Typographie | [N3 Point décimal](#n3) | 16 | 20 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 5 | 5 |
@@ -73,39 +73,39 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
 | 4 Typographie | [R1 Titre](#r1) | 9 | 9 |
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 5 | 5 |
-| 4 Typographie | [R16 ](#r16) | 1 | 1 |
+| 4 Typographie | [R16 ](#r16) | 2 | 2 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 4 | 4 |
-| 4 Typographie | [T1 Espace avant %](#t1) | 17 | 22 |
+| 4 Typographie | [T1 Espace avant %](#t1) | 19 | 24 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 15 | 19 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 139 | 200 |
-| 4 Typographie | [T4 Guillemets](#t4) | 50 | 71 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 172 | 249 |
+| 4 Typographie | [T4 Guillemets](#t4) | 82 | 125 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 5 | 5 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 4 | 4 |
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 216 | 289 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 232 | 307 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 142 | 688 |
-| 5 Rédaction | [N1 Nombre hors $](#n1) | 34 | 34 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 156 | 720 |
+| 5 Rédaction | [N1 Nombre hors $](#n1) | 38 | 42 |
 | 5 Rédaction | [N2 Séparateur des milliers](#n2) | 71 | 101 |
-| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 44 | 61 |
+| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 45 | 62 |
 | 5 Rédaction | [R1 Titre](#r1) | 49 | 74 |
-| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 110 | 153 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 91 | 147 |
+| 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 111 | 154 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 98 | 158 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 112 | 158 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 119 | 172 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 10 | 14 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 32 | 43 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 290 | 503 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 311 | 485 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 292 | 505 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 314 | 492 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
-| 5 Rédaction | [X4 Question en double ou vide](#x4) | 28 | 28 |
+| 5 Rédaction | [X4 Question en double ou vide](#x4) | 29 | 29 |
 | 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 58 | 68 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
 | 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 18 | 18 |
@@ -248,7 +248,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
-| 6N1G (6e) | 6e/6N1G.ts | Correction à 390 px : toutes les étiquettes (graduations et noms des points) sont empilées au début de l'axe, illisibles (capture 000-a-correction). → Corriger le placement des étiquettes de la figure de correction quand elle est réduite. | ×1 |
+| moteur-app (?) | moteur/fichiers/src/moteur/index.ts:183 | ajusterFigures (moteur de l'app) replace les étiquettes d'une figure réduite avec Number(etiquette.dataset.top ?? 0) : les étiquettes sans data-top/data-left (figures apigeom statiques, apigeomZoom.ts) partent toutes en (0, 0) et s'empilent en haut à gauche. Sur téléphone, 6N3D (énoncé : noms des points et graduations illisibles, exercice inutilisable) et la correction de 6N1G. Le site garde leur position (Number(undefined) donne NaN, ignoré). → Dans ajusterFigures, si data-top/data-left manquent, les initialiser depuis style.top/style.left (parseFloat) avant de multiplier par coef. Pas modifié sans accord de Nathan. | ×1 |
 
 ## X5
 
@@ -257,6 +257,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N1G (6e) | 6e/6N1G.ts | À 390 px, la figure interactive (apigeom) ne montre qu'une partie de l'axe : Q1 demande A(4,8), B(6,7), C(7,3) sur un axe visible de 2 à 5 (capture 000-a-enonce) ; deux points sur trois ne peuvent pas être placés. → Adapter la largeur de l'axe à l'écran (échelle recalculée) ou permettre le défilement ; vérifier sur téléphone. | ×1 |
+| 6N3B (6e) | 6e/6N3B.ts | À 390 px, la droite graduée interactive (apigeom) ne montre que 0 à 3 : le point B à placer en $7\times\dfrac{6}{7}=6$ (et E en 4) est hors de la partie visible, la question b) est impossible (capture 000-a-enonce). Même défaut que 6N1G. → Adapter l'échelle de la figure à la largeur de l'écran. | ×1 |
 
 ## C1
 
@@ -297,6 +298,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1F-2 (6e) | 6e/6N1F-2.ts:148 | « vingt virgule zéro deux » refusé : seule la forme « zéro-deux » est acceptée, alors que « zéro » est un nom et ne se lie pas par un trait d'union au numéral suivant (la correction écrit aussi « virgule zéro-huit »). Confirmé avec revue/saisir.mjs, graine revue-1-a. → nombreEnLettres : « zéro deux » sans trait d'union, et accepter les deux formes. | ×1 |
 | 6N2H (6e) | 6e/6N2H.ts | « Donner une valeur approchée de leur quotient au millième près » : seul l'arrondi est accepté ; $65\div7\approx9,285$ (valeur approchée par défaut au millième) et $16,6\div9\approx1,845$ (par excès) sont refusés (revue/saisir.mjs, graine revue-1-a). → Consigne « donner l'arrondi au millième », ou accepter les valeurs par défaut et par excès comme 6N1F-4. | ×1 |
 | 6N2J-3 (6e) | 6e/6N2J-3.ts | Phrases négatives (« … n'est pas un diviseur de … », « n'est pas divisible par », « n'est pas un multiple de ») : seules deux combinaisons sont acceptées (16 ou 45 avec 734), alors que d'autres choix des listes sont vrais aussi (« 45 n'est pas un diviseur de 16 », « 720 n'est pas un diviseur de 16 », « 734 n'est pas divisible par 720 »…) et comptés faux. → Vérifier la phrase choisie par calcul (callback sur le reste), ou limiter les listes aux nombres pertinents. | ×1 |
+| 6N3A-1 (6e) | 6e/6N3A-1.ts:156 | « Calculer une valeur approchée au centième près » : seul l'arrondi est accepté ; $\dfrac{23}{7}\approx3,28$ (valeur approchée par défaut) est refusé (revue/saisir.mjs, graine revue-20-a). Même défaut que 6N2H. → Consigne « l'arrondi au centième », ou accepter défaut et excès. | ×1 |
 | can3a-2022 (CAN) | src/exercices/can/3e/can3a-2022.ts:1066 | Q26 : quand b − a = 1 (ex. 6 et 7), $\sqrt{b^2-a^2}$ et $\sqrt{a+b}$ sont égales : la même proposition « $IJ=\sqrt{13}$ » apparaît deux fois (lignes 1008 à 1010 et 1064 à 1066). → Tirer un autre distracteur quand b − a = 1. | ×1 |
 
 ## M1
@@ -715,6 +717,28 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6a-Aléa (CAN) | série q1 | correction vide | ×18 ; sup=All ; sup=All nb=10 (revue-0-a) |
 | CM1N1E (cm1) | src/exercices/CM1/CM1N1E.ts | 24 combinaisons de paramètres sur 71 ne génèrent aucune question (exemples : sup=3 sup2=6 sup3=7 ; sup=4 sup2=1 sup3=3 ; sup=5 sup2=1 sup3=4) : l'exercice reste vide (aucune boucle de tirage ne trouve de nombre). → Limiter les combinaisons proposées ou prévoir un repli quand cpt atteint la limite. | ×1 |
 | CM1N1E (cm1) | série | aucune question générée pour cette combinaison de paramètres | ×24 ; sup=3 sup2=6 sup3=7 sup4=true sup5=true ; sup=4 sup2=1 sup3=3 sup4=true sup5=true… (revue-20-a) |
+| Portraits-001 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-001 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-002 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-002 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-003 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-003 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-004 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-004 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-005 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-005 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-006 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-006 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-007 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-007 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-008 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-008 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-009 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-009 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-010 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-010 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-011 (Égalité filles-garçons) | série q1 | énoncé vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-011 (Égalité filles-garçons) | série q1 | correction vide | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | série q1 | énoncé vide | ×130 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | série q1 | énoncé vide | ×18 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Grimuku (EN) | série q1 | énoncé vide | ×58 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
@@ -1377,6 +1401,22 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG4-3e-12 (Égalité filles-garçons) |  q7 mathlive | valeur en évidence refusée par le champ : ["500\\,000\\text{ cm}^3"] ; attendu : {"champ":"500000"} | ×2 ; défaut (revue-0-a) |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) |  q8 mathlive | valeur en évidence refusée par le champ : ["0{,}5\\text{ m}^3"] ; attendu : {"champ":"0.5"} | ×2 ; défaut (revue-0-a) |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) |  q10 mathlive | valeur en évidence refusée par le champ : ["1{,}048576\\times 10^{12}\\text{ km}^3"] ; attendu : {"champ":"1048576000000"} | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) |  q1 mathlive | valeur en évidence refusée par le champ : ["3{,}13\\,\\%"] ; attendu : {"champ":"3.13"} | ×4 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) |  q1 mathlive | valeur en évidence refusée par le champ : ["-22{,}87\\,\\%"] ; attendu : {"champ":"-22.87"} | ×32 ; sup=true sup2=true sup3=true ; sup=true sup2=true sup3=false… (revue-0-a) |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["8{,}9\\,\\%"] ; attendu : {"champ":"8.9"} | ×8 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["60°"] ; attendu : {"champ":"60"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["12\\,\\%"] ; attendu : {"champ":"12"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) |  q3 mathlive | valeur en évidence refusée par le champ : ["13{,}6\\,\\%"] ; attendu : {"champ":"13.6"} | ×12 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) |  q10 mathlive | valeur en évidence refusée par le champ : ["+9{,}2\\,\\%"] ; attendu : {"champ":"9.2"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) |  q5 mathlive | valeur en évidence refusée par le champ : ["16{,}6\\,\\%"] ; attendu : {"champ":"16.6"} | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["36{,}44\\,\\%"] ; attendu : {"champ":"36.44"} | ×6 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-14 (Égalité filles-garçons) |  q3 mathlive | valeur en évidence refusée par le champ : ["2024+8=2032"] ; attendu : {"champ":"8"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) |  q2 mathlive | valeur en évidence refusée par le champ : ["17{,}11\\,\\%"] ; attendu : {"champ":"17.11"} | ×8 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) |  q5 mathlive | valeur en évidence refusée par le champ : ["2025+5=2030"] ; attendu : {"champ":"5"} | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) |  q11 mathlive | valeur en évidence refusée par le champ : ["n=17"] ; attendu : {"champ":"17"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\text{géométrique de raison }0{,}84"] ; attendu : {"champ":"0.84"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q5 mathlive | valeur en évidence refusée par le champ : ["u_n=25\\times 0{,}84^n+125"] ; attendu : {"champ":"25"} | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) |  q7 mathlive | valeur en évidence refusée par le champ : ["67{,}3\\,\\%"] ; attendu : {"champ":"67.3"} | ×16 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
 | PEA11 (PE) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }5\\text{&nbsp;; }6\\text{&nbsp;; }10\\text{&nbsp;; }15\\text{&nbsp;; }25\\text{&nbsp;; }30\\text{&nbsp;; }50\\text{&nbsp;; }75\\text{&nbsp;; }150"] ; attendu : {"champ":"1;2;3;5;6;10;15;25;30;50;75;150"} | ×2 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }18"] ; attendu : {"champ":"1;2;3;6;9;18"} | ×1 ; défaut (revue-0-a) |
 | PEA12 (PE) |  q4 mathlive | valeur en évidence refusée par le champ : ["1\\text{&nbsp;; }2\\text{&nbsp;; }3\\text{&nbsp;; }4\\text{&nbsp;; }6\\text{&nbsp;; }9\\text{&nbsp;; }12\\text{&nbsp;; }18\\text{&nbsp;; }27\\text{&nbsp;; }36\\text{&nbsp;; }54\\text{&nbsp;; }108"] ; attendu : {"champ":"1;2;3;4;6;9;12;18;27;36;54;108"} | ×1 ; défaut (revue-0-b) |
@@ -2063,6 +2103,21 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | série q3 | aucune mise en évidence dans la correction | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG3-4e-11 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | série q7 | aucune mise en évidence dans la correction | ×8 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | série q3 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | série q3 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | série q8 | aucune mise en évidence dans la correction | ×16 ; sup=true sup2=true sup3=true ; sup=true sup2=true sup3=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×16 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×16 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) | série q12 | aucune mise en évidence dans la correction | ×8 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG6-1e-11 (Égalité filles-garçons) | série q4 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×6 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | série q3 | aucune mise en évidence dans la correction | ×24 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | série q5 | aucune mise en évidence dans la correction | ×6 ; défaut (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | série q1 | aucune mise en évidence dans la correction | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) | série q2 | aucune mise en évidence dans la correction | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | série q7 | aucune mise en évidence dans la correction | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EN-Grimuku (EN) | série q1 | aucune mise en évidence dans la correction | ×7 ; sup=1 sup2=2 sup3=false ; sup=1 sup2=3 sup3=true… (revue-4-a) |
 | EN-Juniper-Green (EN) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | EN-KenKen (EN) | série q1 | aucune mise en évidence dans la correction | ×81 ; sup=1 sup2=1-2-3-4 sup3=3 sup4=true ; sup=1 sup2=1-2-3-4 sup3=3 sup4=false… (revue-5-a) |
@@ -2227,6 +2282,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2D (6e) | 6e/6N2D.ts | « Produit initial donné » : le produit 351 est donné dans l'énoncé (pas de champ) mais reste mis en évidence dans la correction ; la correction garde « a) » sans « b) ». → Pas d'évidence sur le produit donné ; retirer « a) » quand il n'y a qu'une étape. | ×1 |
 | 6N2K-1 (6e) |  q2 multi-mathfield | 0 mise(s) en évidence pour 2 champ(s) | ×41 ; sup=9 ; sup=1… (revue-0-a) |
 | 6N2K-3 (6e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 2 champ(s) | ×26 ; sup=1 ; sup=2… (revue-0-a) |
+| 6N3H (6e) |  q1 fillInTheBlank | 2 mise(s) en évidence pour 3 trou(s) | ×400 ; sup=11 sup2=2 ; sup=1 sup2=1… (revue-0-a) |
 | can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q7.ts:61 | Q7 : la fraction non simplifiée ⟦\dfrac{4}{6}⟧ est mise en évidence, puis simplifiée en $\dfrac{2}{3}$ sans évidence → mettre en évidence la forme finale | ×1 |
 | can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q14.ts | Q14 : deux mises en évidence (⟦45⟧ pour Δ, ⟦2⟧ pour le nombre de solutions) pour un seul champ → seul le nombre de solutions en évidence | ×1 |
 | can1D1-05 (CAN) | src/exercices/can/1e/can1D1-05.ts:183 | Deux mises en évidence pour un champ (⟦4(x-2)+6⟧ puis ⟦4x-2⟧) ; en $x=0$ : « $2(x+0)+2$ » (ecritureAlgebrique(-0)) → seule la forme réduite en évidence ; traiter nbre=0 | ×1 |
@@ -2772,10 +2828,49 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG1-6e-4 (Égalité filles-garçons) | consigne | « 3 » hors $ : me Fille/femme Garçon/homme Pondichéry 3 1 2 4 Amérique du Nord 1 2 ‖ « 1 » hors $ : Fille/femme Garçon/homme Pondichéry 3 1 2 4 Amérique du Nord 1 2 C ‖ « 2 » hors $ : lle/femme Garçon/homme Pondichéry 3 1 2 4 Amérique du Nord 1 2 Cen | ×37 ; défaut (revue-0-a) |
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | énoncé q1 | « 1 » hors $ : Partie 1 - À égalité dans notre formation ? Commence par ‖ « 2 » hors $ : n le niveau d'enseignement en France Partie 2 - D'après le graphique ci-dessus « Proportion de | ×2 ; défaut (revue-0-a) |
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | consigne | « 2 » hors $ : Clubs Filles Garçons Total Ludothèque 2 3 5 Danse 9 1 10 Robotique 3 10 ‖ « 3 » hors $ : Clubs Filles Garçons Total Ludothèque 2 3 5 Danse 9 1 10 Robotique 3 10 13 ‖ « 9 » hors $ : çons Total Ludothèque 2 3 5 Danse 9 1 10 Robotique 3 10 13 Éloquence | ×16 ; sup=true (revue-0-a) |
+| EgaliteFG3-4e-10 (Égalité filles-garçons) | consigne | « 3 » hors $ : ire du vol spatial de la mission Mercury-Redstone 3. Avant cet exploit, elle avait tenté de mesurer | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | consigne | « 355 » hors $ : - Académie de VersaillesHypatie d'Alexandrie (v. 355-415) — Source : gravure de John Toland, 1720, ‖ « 1 » hors $ : rer un cercle qui passe par trois points. Partie 1 | ×2 ; défaut (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | énoncé q1 | « 1 » hors $ : 1. Le triangle ‖ « 2 » hors $ : ). 2. Construis, à la perpendiculaire, les trois médi ‖ « 3 » hors $ : . [champ] [champ] 3. Que peux-tu dire des trois médiatrices ? | ×4 ; défaut (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | énoncé non interactif q1 | « 1 » hors $ : 1. Trace un triangle ‖ « 2 » hors $ : quelconque. 2. Trace les médiatrices des segments ‖ « 3 » hors $ : nt en son milieu et qui lui est perpendiculaire). 3. Que peux-tu dire sur les médiatrices ? | ×4 |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | consigne | « 1 » hors $ : Le groupe 1 est composé de Léa et Daniel. ‖ « 2 » hors $ : Le groupe 2 est composé d'Enzo et Anita. En tant que futurs ‖ « 1 » hors $ : Pour le mur du groupe 1 (Léa et Daniel), la distance | ×8 ; sup=true sup2=true (revue-0-a) |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | énoncé q1 | « 1 » hors $ : Le mur du groupe 1 (Léa et Daniel) est bien perpendiculaire au sol. ‖ « 2 » hors $ : Le mur du groupe 2 (Enzo et Anita) est bien perpendiculaire au sol. | ×5 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | correction q1 | « 1 » hors $ : , donc le mur du groupe 1 est bien perpendiculaire au sol. ‖ « 2 » hors $ : , donc le mur du groupe 2 n'est pas perpendiculaire au sol. | ×2 ; sup=true sup2=true (revue-0-a) |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | énoncé non interactif q1 | « 1 » hors $ : Le mur du groupe 1 (Léa et Daniel) est bien perpendiculaire au sol. ‖ « 2 » hors $ : Le mur du groupe 2 (Enzo et Anita) est bien perpendiculaire au sol. | ×2 |
+| EgaliteFG4-3e-12 (Égalité filles-garçons) | énoncé q1 | « 1 » hors $ : Partie 1 : Phase d'exploration La vitesse, la durée, la d ‖ « 2 » hors $ : Partie 2 : Changements d'unités et notation scientifique ‖ « 3 » hors $ : Partie 3 : Volume et circonférence de la Terre, trajectoi | ×6 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-12 (Égalité filles-garçons) | énoncé non interactif q2 | « 2 » hors $ : Partie 2 : Changements d'unités et notation scientifique ‖ « 3 » hors $ : Partie 3 : Volume et circonférence de la Terre, trajectoi ‖ « 1 » hors $ : considérons le satellite géostationnaire Telstar 1 (un satellite géostationnaire est un satellite q | ×5 |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | consigne | « 2 » hors $ : à (réponse :: sensing) mettre [l v] à ((x) + [2]) mettre [L v] à ((x) + [5]) mettre [P v] à ‖ « 5 » hors $ : e [l v] à ((x) + [2]) mettre [L v] à ((x) + [5]) mettre [P v] à ([2] * ((l) + (L))) mettr ‖ « 2 » hors $ : ) mettre [L v] à ((x) + [5]) mettre [P v] à ([2] * ((l) + (L))) mettre [A v] à ((l) * (L) | ×10 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | énoncé q6 | « 2 » hors $ : Partie 2 - Au lycée général et technologique, en cours de | ×4 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=false… (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | énoncé non interactif q6 | « 2 » hors $ : Partie 2 - Au lycée général et technologique, en cours de | ×1 |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) | énoncé q1 | « 11 » hors $ : Juste avant le décollage d'Apollo 11 (mission dont Katherine Johnson a calculé la tr ‖ « 3 » hors $ : de correspondance poids-masse : Masse (kg) 3 10 25 40 55 72 Poids (N) 5,1 17 42,5 68 ‖ « 10 » hors $ : correspondance poids-masse : Masse (kg) 3 10 25 40 55 72 Poids (N) 5,1 17 42,5 68 93 | ×13 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) | énoncé non interactif q1 | « 11 » hors $ : Juste avant le décollage d'Apollo 11 (mission dont Katherine Johnson a calculé la tr ‖ « 3 » hors $ : de correspondance poids-masse : Masse (kg) 3 10 25 40 55 72 Poids (N) 5,1 17 42,5 68 ‖ « 10 » hors $ : correspondance poids-masse : Masse (kg) 3 10 25 40 55 72 Poids (N) 5,1 17 42,5 68 93 | ×13 |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | consigne | « 7 » hors $ : tendre mettre [A v] à ((réponse :: sensing) - [7]) mettre [B v] à (([3] * (réponse :: sensing) ‖ « 3 » hors $ : ((réponse :: sensing) - [7]) mettre [B v] à (([3] * (réponse :: sensing)) + [1]) mettre [C v ‖ « 1 » hors $ : ttre [B v] à (([3] * (réponse :: sensing)) + [1]) mettre [C v] à ((A) * (B)) dire (C) | ×6 ; sup=false sup2=true ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | consigne | « 3.0 » hors $ : : Florian Caullery — Wikimedia Commons — CC BY-SA 3.0 Maryam Mirzakhani (1977-2017), mathématicien ‖ « 65 » hors $ : de médailles Fields de 1936 à 2024 Femmes 65 2 Hommes 915 62 Source : ‖ « 2 » hors $ : médailles Fields de 1936 à 2024 Femmes 65 2 Hommes 915 62 Source : Wi | ×5 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | titre | « 100 » hors $ : Records du 100 mètres | ×1 |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | consigne | « 100 » hors $ : Versailles On considère les records du monde du 100 mètres en athlétisme. En 1912, le premier reco | ×1 ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | énoncé q1 | « 100 » hors $ : le pourcentage d'évolution du record du monde du 100 m chez les femmes, entre 1922 (date du premier ‖ « 99 » hors $ : te du podcast Les Couilles sur la Table « Épisode 99 : Sports Olympiques - Médaille d'or du sexisme | ×5 ; sup=true sup2=true sup3=true ; sup=true sup2=false sup3=true… (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | énoncé non interactif q1 | « 100 » hors $ : le pourcentage d'évolution du record du monde du 100 m chez les femmes, entre 1922 (date du premier ‖ « 99 » hors $ : te du podcast Les Couilles sur la Table « Épisode 99 : Sports Olympiques - Médaille d'or du sexisme | ×2 |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | consigne | « 33 » hors $ : Française 1re Assemblée Constituante Octobre 1945 33 586 Gouvernement provisoire de la Répub ‖ « 586 » hors $ : nçaise 1re Assemblée Constituante Octobre 1945 33 586 Gouvernement provisoire de la Républiq ‖ « 30 » hors $ : que Française 2e Assemblée Constituante Juin 1946 30 586 IVe République 1re législature Nove | ×67 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | consigne | « 1 » hors $ : ous les élèves » - Académie de Versailles Partie 1 On appelle nombre premier de Germain un nombre p | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | énoncé q1 | « 2 » hors $ : Nombre premier ? Nombre de Germain ? 2 [champ] [champ] [champ] 3 [champ] [c ‖ « 3 » hors $ : e de Germain ? 2 [champ] [champ] [champ] 3 [champ] [champ] [champ] 5 [champ] [c ‖ « 5 » hors $ : mp] [champ] 3 [champ] [champ] [champ] 5 [champ] [champ] [champ] 7 [champ] [c | ×30 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | correction q1 | « 2 » hors $ : Nombre premier ? Nombre de Germain ? 2 5 Oui Oui 3 7 Oui Oui 5 11 Oui Oui 7 15=3×5 N ‖ « 5 » hors $ : Nombre premier ? Nombre de Germain ? 2 5 Oui Oui 3 7 Oui Oui 5 11 Oui Oui 7 15=3×5 Non ‖ « 3 » hors $ : ombre premier ? Nombre de Germain ? 2 5 Oui Oui 3 7 Oui Oui 5 11 Oui Oui 7 15=3×5 Non Non 11 23 | ×27 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | énoncé non interactif q1 | « 2 » hors $ : Nombre premier ? Nombre de Germain ? 2 3 5 7 11 13 17 19 ‖ « 3 » hors $ : Nombre premier ? Nombre de Germain ? 2 3 5 7 11 13 17 19 23 ‖ « 5 » hors $ : Nombre premier ? Nombre de Germain ? 2 3 5 7 11 13 17 19 23 29 | ×20 |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | énoncé q1 | « 1 » hors $ : Partie 1 : Propriétés de l'hexagone régulier Construction ‖ « 2 » hors $ : Partie 2 : Trajectoires et réflexions Un point ‖ « 3 » hors $ : Partie 3 : Ouverture sur la recherche mathématique Maryam | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) | correction q12 | « 3 » hors $ : On crée un tableur à 3 colonnes A (années ‖ « 2 » hors $ : es femmes), C (salaire des hommes), avec en ligne 2 l'état atteint à la fin de la deuxième année du ‖ « 1,05 » hors $ : En B3 : =B2*1,05 (ou =B2*1.05) ; en C3 : =C2*1,03. On recopie | ×7 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | consigne | « 18 » hors $ : nnes. Voici les effectifs par catégorie : 18-30 ans 31-50 ans Plus de 50 ans Total H ‖ « 31 » hors $ : i les effectifs par catégorie : 18-30 ans 31-50 ans Plus de 50 ans Total Hommes 150 ‖ « 50 » hors $ : r catégorie : 18-30 ans 31-50 ans Plus de 50 ans Total Hommes 150 600 230 980 | ×25 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | correction q1 | « 18 » hors $ : (18-30 ans), ‖ « 50 » hors $ : (plus de 50 ans), soit un total de ‖ « 18 » hors $ : . 18-30 ans 31-50 ans Plus de 50 ans Total Hommes 9 | ×28 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-15 (Égalité filles-garçons) | consigne | « 180 » hors $ : Filière Filles Garçons Total Générale 180 200 380 Technologique 120 100 220 ‖ « 380 » hors $ : ère Filles Garçons Total Générale 180 200 380 Technologique 120 100 220 Prof ‖ « 120 » hors $ : Générale 180 200 380 Technologique 120 100 220 Professionnelle 60 100 160 | ×12 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | consigne | « 54 » hors $ : e : Filles Garçons Total 1re STMG 54 90 144 1re ST2S 59 18 77 1re ST ‖ « 90 » hors $ : Filles Garçons Total 1re STMG 54 90 144 1re ST2S 59 18 77 1re STI2D ‖ « 144 » hors $ : Filles Garçons Total 1re STMG 54 90 144 1re ST2S 59 18 77 1re STI2D 27 | ×23 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | correction q1 | « 12,00 » hors $ : Filles Garçons Total 1re STMG 12,00 % 20,00 % 32,00 % 1re ST2S 13,11 % 4,00 % 1 ‖ « 20,00 » hors $ : Filles Garçons Total 1re STMG 12,00 % 20,00 % 32,00 % 1re ST2S 13,11 % 4,00 % 17,11 % ‖ « 32,00 » hors $ : Filles Garçons Total 1re STMG 12,00 % 20,00 % 32,00 % 1re ST2S 13,11 % 4,00 % 17,11 % 1re STI2 | ×23 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | énoncé q10 | « 102 » hors $ : ns libéraux et mixtes en % Omnipraticiens 102 169 47,6 66,1 Spécialistes 124 690 45, ‖ « 169 » hors $ : ibéraux et mixtes en % Omnipraticiens 102 169 47,6 66,1 Spécialistes 124 690 45,7 49 ‖ « 47,6 » hors $ : aux et mixtes en % Omnipraticiens 102 169 47,6 66,1 Spécialistes 124 690 45,7 49,6 | ×108 ; sup=true sup2=true ; sup=true sup2=false (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | correction q10 | « 30 » hors $ : Effectif 2025 30 % 101 30 % 50 2026 34 % 114 33 % 54 2027 38 % ‖ « 101 » hors $ : Effectif 2025 30 % 101 30 % 50 2026 34 % 114 33 % 54 2027 38 % 127 ‖ « 30 » hors $ : Effectif 2025 30 % 101 30 % 50 2026 34 % 114 33 % 54 2027 38 % 127 36,3 | ×24 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | consigne | « 39,6 » hors $ : élèves Proportion de filles Mathématiques 39,6 % 40,6 % 43,7 % 41,6 % Sciences écono ‖ « 40,6 » hors $ : Proportion de filles Mathématiques 39,6 % 40,6 % 43,7 % 41,6 % Sciences économiques ‖ « 43,7 » hors $ : ion de filles Mathématiques 39,6 % 40,6 % 43,7 % 41,6 % Sciences économiques et soci | ×32 ; défaut (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | énoncé q7 | « 2 » hors $ : UB Institute) Les oubliées du numérique \| Épisode 2 \| Les femmes dans la Tech (ETNA) | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | énoncé non interactif q7 | « 2 » hors $ : UB Institute) Les oubliées du numérique \| Épisode 2 \| Les femmes dans la Tech (ETNA) | ×1 |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | consigne | « 10 » hors $ : (%) 10 24 37 40 46 48 51 On note | ×7 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé q9 | « 1 » hors $ : . [champ] Pour travailler l'oral. Sujet 1 - Que pensez-vous de cette phrase ? « Pour faire ‖ « 2 » hors $ : de la femme ? » (Docteur Montanier, 1868). Sujet 2 - Comment expliquez-vous la féminisation récente ‖ « 3 » hors $ : la féminisation récente de la profession ? Sujet 3 - Rechercher la répartition genrée des spécialit | ×6 ; sup=true sup2=true ; sup=true sup2=false (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif q9 | « 1 » hors $ : . Pour travailler l'oral. Sujet 1 - Que pensez-vous de cette phrase ? « Pour faire ‖ « 2 » hors $ : de la femme ? » (Docteur Montanier, 1868). Sujet 2 - Comment expliquez-vous la féminisation récente ‖ « 3 » hors $ : la féminisation récente de la profession ? Sujet 3 - Rechercher la répartition genrée des spécialit | ×3 |
+| Portraits-005 (Égalité filles-garçons) | consigne | « 4.0 » hors $ : matiques, informatique… avec elles ! » — CC BY-ND 4.0 (reproduction autorisée sans modification) | ×3 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-008 (Égalité filles-garçons) | consigne | « 2.0 » hors $ : e Berger Source : Berger — CC BY 2.0 Super-pouvoir : Pilote de l'écono | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | consigne | « 10 » hors $ : du ciel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ‖ « 20 » hors $ : iel. Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même ran ‖ « 30 » hors $ : Chaque case contient un immeuble de 10, 20 ou 30 étages. Les immeubles d’une même rangée, l | ×24 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction q1 | « 20 » hors $ : 20 10 30 ‖ « 10 » hors $ : 10 ‖ « 10 » hors $ : 10 20 | ×136 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction non interactive q1 | « 20 » hors $ : 20 10 30 | ×9 |
@@ -3154,6 +3249,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 6N2D (6e) | 6e/6N2D.ts | Étape répétée à l'identique : « 83 × 9 000 = 83 × 9 × 1 000 = 83 × 9 × 1 000 = 747 × 1 000 » (second facteur ×10^p). → Supprimer l'étape en double dans ce cas. | ×1 |
+| 6N3B-1 (6e) | 6e/6N3B-1.ts:181 | Nombre décimal : une des propositions du QCM s'affiche « $3$ » (fraction de dénominateur 1, sans rapport avec 3,2) ; quand la fraction décimale est déjà simplifiée, le point final est ajouté à l'énoncé (texte += '.') et non à la correction. → Distracteur cohérent ($\dfrac{3}{2}$…) ; texteCorr += '.'. | ×1 |
 
 ## R4
 
@@ -3200,6 +3296,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can5P2-01 (CAN) | titre | « t % » sans espace insécable : Prendre t % d’une quantité | ×1 |
 | can6P2-03 (CAN) | src/exercices/can/6e/can6P2-03.ts:8 | % sans espace insécable : Résoudre un problème de calcul de pourcentage par complément à 100% | ×1 |
 | can6P2-03 (CAN) | titre | « 0% » sans espace insécable : blème de calcul de pourcentage par complément à 100% | ×1 |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | énoncé q10 | « n % » sans espace insécable : u 1er janvier Nombre de médecins Part des femmes en % Médecins libéraux et mixtes en % Omnip ‖ « n % » sans espace insécable : Part des femmes en % Médecins libéraux et mixtes en % Omnipraticiens 102 169 47,6 66,1 | ×4 ; sup=true sup2=true ; sup=true sup2=false (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | consigne | « (% » sans espace insécable : (%) 10 24 37 40 46 48 51 On note | ×1 ; sup=true sup2=true (revue-0-a) |
 | apps/_ExternalApp.ts (hors référentiel) | src/exercices/apps/_ExternalApp.ts:41 | % sans espace insécable : 100% | ×1 |
 | apps/_ExternalApp.ts (hors référentiel) | src/exercices/apps/_ExternalApp.ts:47 | % sans espace insécable : 100% | ×1 |
 | c9016 (Non classés) | src/exercices/can/can2a-2025/can2a-2025-Q4.ts:7 | % sans espace insécable : Appliquer 25 % sur un nombre | ×1 |
@@ -3305,8 +3403,57 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG1-6e-4 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : ujets du DNB a permis d'établir le tableau suivant : Activité purement mathématique Métier A | ×1 ; défaut (revue-0-a) |
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Clubs de la pause méridienne : filles et garçons | ×1 |
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e 5e à un sondage sur leur participation à un club : Clubs Filles Garçons Total Ludot | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG3-4e-10 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e VersaillesKatherine Johnson (1918-2020) — Source : NASA, domaine public En 1961, Katherine Johns | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : rsaillesHypatie d'Alexandrie (v. 355-415) — Source : gravure de John Toland, 1720, domaine public | ×1 ; défaut (revue-0-a) |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « ? » : Un mur bien droit ? | ×1 |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : eux groupes sont missionnés pour construire un mur : ‖ espace ordinaire (sécable) avant « : » : endiculaire au sol. La professeure a un seul outil : un mètre ruban. Pour chaque mur, elle choisit t ‖ espace ordinaire (sécable) avant « : » : ruban. Pour chaque mur, elle choisit trois points : | ×8 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG3-4e-9 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : . Camélia affirme : « Pour calculer les mesures des angles ‖ espace ordinaire (sécable) avant « : » : n doit utiliser la formule du sinus ». Sam affirme : « Tu as tort, on doit utiliser la formule du co | ×4 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | consigne | « :: » sans espace insécable : e un nombre] et attendre mettre [x v] à (réponse :: sensing) mettre [l v] à ((x) + [2]) mettre ‖ espace ordinaire (sécable) avant « : » : ne un nombre] et attendre mettre [x v] à (réponse :: sensing) mettre [l v] à ((x) + [2]) mettre ‖ espace ordinaire (sécable) avant « : » : s dire (A) pendant [2] secondes Inès affirme : « | ×8 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Katherine Johnson : poids, masse et gravité | ×1 |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e VersaillesKatherine Johnson (1918-2020) — Source : NASA, domaine public Katherine Johnson (1918- ‖ espace ordinaire (sécable) avant « : » : la pesanteur. On peut montrer que la relation est : ‖ espace ordinaire (sécable) avant « ; » : est le poids (en newtons) d'un corps sur un astre ; c'est-à-dire la force que l'astre exerce sur le | ×3 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Ada Lovelace : un programme de calcul | ×1 |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | consigne | « :: » sans espace insécable : un nombre] et attendre mettre [A v] à ((réponse :: sensing) - [7]) mettre [B v] à (([3] * (ré ‖ « :: » sans espace insécable : sing) - [7]) mettre [B v] à (([3] * (réponse :: sensing)) + [1]) mettre [C v] à ((A) * (B) ‖ espace ordinaire (sécable) avant « ? » : ier programme informatique fût écrit par une femme ? La mathématicienne et comtesse Ada Lovelace est | ×12 ; sup=false sup2=true ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Maryam Mirzakhani : médailles Fields, prix Nobel et arithmétique | ×1 |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e VersaillesMaryam Mirzakhani (1977-2017) — Source : Florian Caullery — Wikimedia Commons — CC BY-SA ‖ espace ordinaire (sécable) avant « : » : s 65 2 Hommes 915 62 Source : Wikipedia On considère : ‖ espace ordinaire (sécable) avant « : » : 62 Source : Wikipedia On considère : | ×6 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Sophie Germain : un QCM mystère | ×1 |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : e de VersaillesSophie Germain (1776-1831) — Source : gravure, Œuvres philosophiques, 1896, domaine p ‖ espace ordinaire (sécable) avant « : » : is réponses sont proposées et une seule est exacte : c'est la lettre A, B ou C de cette réponse qu'i | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Shakuntala Devi : le café qui coule | ×1 |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : de VersaillesShakuntala Devi (1929-2013) — Source : Central News Agency, 1968, domaine public à Taï | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : dock, USA). En 2024, les records sont les suivants : Record masculin de Usain Bolt (Jamaïque) : ‖ espace ordinaire (sécable) avant « : » : ants : Record masculin de Usain Bolt (Jamaïque) : ‖ espace ordinaire (sécable) avant « : » : Record féminin de Florence Griffith-Joyner (USA) : | ×6 ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | correction q9 | espace ordinaire (sécable) avant « : » : ) : | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Maryam Mirzakhani : trajectoires dans un hexagone régulier | ×1 |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) | correction q14 | espace ordinaire (sécable) avant « ; » : € ; pour | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) | correction q4 | espace ordinaire (sécable) avant « : » : € : cette augmentation ne suffit pas. En effet, une | ×1 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-11 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Évolution des salaires : rattraper l'écart ? ‖ espace ordinaire (sécable) avant « ? » : Évolution des salaires : rattraper l'écart ? | ×2 |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Tabagisme au travail : un paradoxe statistique | ×1 |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : personnes. Voici les effectifs par catégorie : 18-30 ans 31-50 ans Plus de 50 ans Tota ‖ espace ordinaire (sécable) avant « : » : centages de fumeurs du personnel sont les suivants : 18-30 ans 31-50 ans Plus de 50 a | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-14 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « ? » : ère STMG deviendra-t-elle majoritairement féminine ? | ×1 |
+| EgaliteFG6-1e-15 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : on des élèves en première selon le tableau suivant : Filière Filles Garçons Total Gén | ×1 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : s des classes de première technologique d'un lycée : Filles Garçons Total 1re STMG 5 | ×1 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Choix de spécialités en médecine : un plan d'inclusivité | ×1 |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : pédiatrie. Un plan d'inclusivité est mis en place : chaque année, le pourcentage de femmes en chiru | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | correction q9 | espace ordinaire (sécable) avant « : » : : la parité n'est pas encore tout à fait atteinte | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : tous les élèves » - Académie de Versailles (source : DEPP, Système d'information Scolarité) Depuis ‖ espace ordinaire (sécable) avant « : » : e spécialité en terminale générale en 2022 et 2023 : Enseignements de spécialité 2022 2023 ‖ espace ordinaire (sécable) avant « : » : es 4,7 % 14,6 % 4,6 % 15,2 % Source : DEPP, Système d'information Scolarité En class | ×9 ; défaut (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : terminales d'un lycée, on relève : ‖ espace ordinaire (sécable) avant « ; » : des élèves interrogés sont des filles ; parmi les garçons, ‖ espace ordinaire (sécable) avant « ; » : sont admis en CPGE scientifique ; parmi les filles, | ×3 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : ersaillesMaria Gaetana Agnesi (1718-1799) — Source : Wikimedia Commons, domaine public Maria Gaeta ‖ espace ordinaire (sécable) avant « : » : coordonnées de l'ensemble des points de la figure : ‖ espace ordinaire (sécable) avant « : » : : donnée initiale. | ×8 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « ; » : du nombre d'étudiantes ; des mesures d'inclusivité permettent l'inscript | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : armi les médecins en France, pour certaines années : Année 1962 1982 2000 2010 2018 2021 2023 | ×1 ; sup=true sup2=true (revue-0-a) |
+| Portraits-001 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sophie Adenot | ×1 |
+| Portraits-001 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Sophie Adenot Source : Helen Arase Vargas et David DeHoyos / NASA — Do ‖ espace ordinaire (sécable) avant « : » : / NASA — Domaine public Super-pouvoir : Ingénieure de l'extrême Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : r : Ingénieure de l'extrême Ce qu'elle fait : Teste la mécanique des fusées Le truc st | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-002 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Amandine Aftalion | ×1 |
+| Portraits-002 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Amandine Aftalion Source : CNRS Super-pouvoir : Entraîneuse m ‖ espace ordinaire (sécable) avant « : » : Source : CNRS Super-pouvoir : Entraîneuse mathématique Ce qu'elle fait ‖ espace ordinaire (sécable) avant « : » : : Entraîneuse mathématique Ce qu'elle fait : Calcule les meilleures stratégies pour les athl | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-003 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Clémence Allietta | ×1 |
+| Portraits-003 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Clémence Allietta Source : ENAC Super-pouvoir : Décrypteuse d ‖ espace ordinaire (sécable) avant « : » : Source : ENAC Super-pouvoir : Décrypteuse de fumées vues de l’espace C ‖ espace ordinaire (sécable) avant « : » : de fumées vues de l’espace Ce qu'elle fait : Analyse les panaches de mégafeux Le truc | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-004 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Nalini Anantharaman | ×1 |
+| Portraits-004 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Nalini Anantharaman Source : Davi Campana / ICM 2018 — Domaine public ‖ espace ordinaire (sécable) avant « : » : M 2018 — Domaine public Super-pouvoir : Cartographe des ondes Ce qu'elle fait : ‖ espace ordinaire (sécable) avant « : » : oir : Cartographe des ondes Ce qu'elle fait : Étudie la physique quantique et la propagation | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-005 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Nathalie Ayi | ×1 |
+| Portraits-005 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Nathalie Ayi Source : Nathalie Ayi — photographie Marie-Pierre Dieter ‖ espace ordinaire (sécable) avant « ! » : position « Mathématiques, informatique… avec elles ! » — CC BY-ND 4.0 (reproduction autorisée sans m ‖ espace ordinaire (sécable) avant « : » : isée sans modification) Super-pouvoir : Architecte des modèles de particules Ce | ×18 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-006 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Hanna Bendjador | ×1 |
+| Portraits-006 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Hanna Bendjador Source : Le Monde des Grandes Écoles Super- ‖ espace ordinaire (sécable) avant « : » : onde des Grandes Écoles Super-pouvoir : Exploratrice des interfaces physique-biologie ‖ espace ordinaire (sécable) avant « : » : nterfaces physique-biologie Ce qu'elle fait : Elle crée des modèles mathématiques pour compre | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-007 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Sylvie Benzoni-Gavage | ×1 |
+| Portraits-007 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Sylvie Benzoni-Gavage Source : Dunod Super-pouvoir : Dompteuse d' ‖ espace ordinaire (sécable) avant « : » : Source : Dunod Super-pouvoir : Dompteuse d'ondes de choc Ce qu'elle fai ‖ espace ordinaire (sécable) avant « : » : : Dompteuse d'ondes de choc Ce qu'elle fait : Elle écrit des équations pour comprendre commen | ×15 ; sup=1 ; sup=2… (revue-0-a) |
+| Portraits-008 (Égalité filles-garçons) | titre | espace ordinaire (sécable) avant « : » : Portrait : Karine Berger | ×1 |
+| Portraits-008 (Égalité filles-garçons) | consigne | espace ordinaire (sécable) avant « : » : Karine Berger Source : Berger — CC BY 2.0 Super-pouvoir : ‖ espace ordinaire (sécable) avant « : » : ce : Berger — CC BY 2.0 Super-pouvoir : Pilote de l'économie en chiffres Ce qu'e ‖ espace ordinaire (sécable) avant « : » : e de l'économie en chiffres Ce qu'elle fait : Analyse les prévisions économiques Le tr | ×15 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Grimuku (EN) | consigne | espace ordinaire (sécable) avant « : » : d’une flèche. Les chiffres déjà écrits sont donnés : ils ne sont pas à trouver. | ×2 ; sup=2 sup2=1 sup3=true ; sup=2 sup2=1 sup3=true nb=10 (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | espace ordinaire (sécable) avant « : » : ment choisi. Ne pas choisir un nombre déjà utilisé : le joueur qui ne peut plus jouer a perdu. Un ch | ×1 ; défaut (revue-0-a) |
 | EN-KenKen (EN) | consigne | espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici la soustraction, la multiplication et la di ‖ espace ordinaire (sécable) avant « : » : d’importance. Les nombres déjà écrits sont donnés : ils ne sont pas à trouver. ‖ espace ordinaire (sécable) avant « : » : t les nombres de la cage avec l’opération indiquée : ici l’addition, la soustraction et la division. | ×55 ; sup=2 sup2=1-2-3-4 sup3=1 sup4=true ; sup=1 sup2=1-2-3-4 sup3=1 sup4=true… (revue-0-a) |
@@ -3485,7 +3632,61 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles L'égalité entre les fe | ×2 ; défaut (revue-0-a) |
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | énoncé q2 | guillemet sans insécable : e Partie 2 - D'après le graphique ci-dessus « Proportion de femmes parmi les enseignants selon ‖ guillemet sans insécable : eignants selon le niveau d'enseignement en France », donne une estimation du pourcentage de femmes p | ×2 ; défaut (revue-0-a) |
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Un collège propose tro | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG3-4e-10 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesKatherine Johnson (1918- | ×2 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesHypatie d'Alexandrie (v. | ×2 ; défaut (revue-0-a) |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Au lycée professionnel ‖ guillemet sans insécable : , Mme Ecker, doit vérifier si chaque mur est bien « droit », c'est-à-dire perpendiculaire au sol. La | ×8 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG3-4e-9 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Pour s'entraîner au co ‖ guillemet sans insécable : . Camélia affirme : « Pour calculer les mesures des angles | ×12 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG4-3e-12 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesLes figures de l'ombre, | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | énoncé q5 | guillemet sans insécable : . Paul affirme : « ‖ guillemet sans insécable : ». Développe et réduis l'expression de Zoé : | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | énoncé non interactif q5 | guillemet sans insécable : . Paul affirme : « ‖ guillemet sans insécable : ». Développe et réduis l'expression de Zoé : | ×2 |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles ‖ guillemet sans insécable : dire (A) pendant [2] secondes Inès affirme : « | ×12 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesKatherine Johnson (1918- ‖ guillemet sans insécable : e la NASA. Son histoire est racontée dans le film « Les figures de l'ombre ». Le poids d'un corps su | ×4 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesAda Lovelace, Anglaise ( | ×4 ; sup=false sup2=true ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | énoncé q6 | guillemet sans insécable : L'affirmation suivante est-elle correcte ? « Pour tout nombre ‖ guillemet sans insécable : ». [champ] Pour aller plus loin. Pour en savoir ‖ guillemet sans insécable : ». [champ] | ×4 ; sup=false sup2=true ; sup=true sup2=false (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | énoncé non interactif q6 | guillemet sans insécable : L'affirmation suivante est-elle correcte ? « Pour tout nombre ‖ guillemet sans insécable : ». [champ] Pour aller plus loin. Pour en savoir | ×2 |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesMaryam Mirzakhani (1977- | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesSophie Germain (1776-183 | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesShakuntala Devi (1929-20 ‖ guillemet sans insécable : à Taïwan Shakuntala Devi (1929-2013), surnommée « l'ordinateur humain », est une prodige indienne | ×4 ; sup=true (revue-0-a) |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | énoncé q6 | guillemet sans insécable : e. Pourtant, elle fut souvent présentée comme une « exception féminine ». Est-il plus difficile pour ‖ guillemet sans insécable : souvent présentée comme une « exception féminine ». Est-il plus difficile pour une femme d'être rec ‖ guillemet sans insécable : us difficile pour une femme d'être reconnue comme « experte » ? Y a-t-il aujourd'hui encore des doma | ×6 ; sup=true (revue-0-a) |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | énoncé non interactif q6 | guillemet sans insécable : e. Pourtant, elle fut souvent présentée comme une « exception féminine ». Est-il plus difficile pour ‖ guillemet sans insécable : souvent présentée comme une « exception féminine ». Est-il plus difficile pour une femme d'être rec ‖ guillemet sans insécable : us difficile pour une femme d'être reconnue comme « experte » ? Y a-t-il aujourd'hui encore des doma | ×6 |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles On considère les recor | ×2 ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | énoncé q8 | guillemet sans insécable : sport féminin. Lien Mise en garde. Un débat type « expliquer les différences de performance entre l ‖ guillemet sans insécable : ces de performance entre les hommes et les femmes » est un débat qui demande une maîtrise du sujet d ‖ guillemet sans insécable : ons l'écoute du podcast Les Couilles sur la Table « Épisode 99 : Sports Olympiques - Médaille d'or d | ×16 ; sup=true sup2=true sup3=true ; sup=true sup2=false sup3=true… (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | énoncé non interactif q8 | guillemet sans insécable : sport féminin. Lien Mise en garde. Un débat type « expliquer les différences de performance entre l ‖ guillemet sans insécable : ces de performance entre les hommes et les femmes » est un débat qui demande une maîtrise du sujet d ‖ guillemet sans insécable : ons l'écoute du podcast Les Couilles sur la Table « Épisode 99 : Sports Olympiques - Médaille d'or d | ×4 |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Le tableau suivant don | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Partie 1 On appelle no | ×2 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | énoncé q1 | guillemet sans insécable : (cocher la case « Oui » ou « Non ») : | ×4 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) | énoncé non interactif q1 | guillemet sans insécable : (cocher la case « Oui » ou « Non ») : | ×4 |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles On appelle population | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Ce problème s'inspire | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | énoncé q5 | guillemet sans insécable : l atteint un côté, il est réfléchi selon la règle « angle d'incidence = angle de réflexion », comme ‖ guillemet sans insécable : la règle « angle d'incidence = angle de réflexion », comme une bille rebondissant sur une paroi. Tra | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-5 (Égalité filles-garçons) | correction q6 | guillemet sans insécable : départ — contrairement à une direction de départ « générique » (angle non particulier), pour laquel ‖ guillemet sans insécable : ntrairement à une direction de départ « générique » (angle non particulier), pour laquelle la trajec ‖ guillemet sans insécable : Ces trajectoires (dites « billards ») permettent de modéliser des phénomèn | ×4 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans une entreprise de | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Selon les dernières do | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) | énoncé q3 | guillemet sans insécable : année les femmes travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) [ch ‖ guillemet sans insécable : s travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) [champ] jours | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) | correction q3 | guillemet sans insécable : ours : les femmes travaillent donc symboliquement « gratuitement » les ‖ guillemet sans insécable : es travaillent donc symboliquement « gratuitement » les ‖ guillemet sans insécable : novembre (date proche de la « journée de l'égalité salariale » réellement obse | ×4 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) | énoncé non interactif q3 | guillemet sans insécable : année les femmes travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) ‖ guillemet sans insécable : s travaillent-elles symboliquement « gratuitement » ? (arrondi à l'unité de jour) | ×2 |
+| EgaliteFG6-1e-10 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans un secteur profes | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-11 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles En 2020, le salaire mo | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Une caisse d'assurance | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-13 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles En 2024, une femme con | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-14 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans un lycée, une fil | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-15 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans un lycée, on obse | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Voici les effectifs de | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans une université de | ×2 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles (source : DEPP, Système | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | correction q1 | guillemet sans insécable : C'est la spécialité « Numérique et sciences informatiques », avec seul ‖ guillemet sans insécable : spécialité « Numérique et sciences informatiques », avec seulement ‖ guillemet sans insécable : C'est la spécialité « Humanités, littérature et philosophie », avec | ×4 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | énoncé q6 | guillemet sans insécable : Recueillir la « triplette » d'enseignements de spécialité de cha ‖ guillemet sans insécable : Recueillir la « triplette » d'enseignements de spécialité de chaque élève de | ×2 ; défaut (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Dans une enquête menée ‖ guillemet sans insécable : l'événement « l'élève est une fille » et | ×6 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | correction q6 | guillemet sans insécable : (succès = « admis en CPGE »), répétée | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de VersaillesMaria Gaetana Agnesi (17 ‖ guillemet sans insécable : maticienne italienne, a étudié une courbe appelée « sorcière d'Agnesi ». Soit | ×4 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) | énoncé q10 | guillemet sans insécable : Wang Zhenyi, Maryam Mirzakhani, etc. Cf. le site « L'histoire par les femmes ») ‖ guillemet sans insécable : ani, etc. Cf. le site « L'histoire par les femmes ») ‖ guillemet sans insécable : èves de préparer une présentation autour du thème « Où sont les femmes en maths ? » qui abordera la | ×8 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) | énoncé non interactif q10 | guillemet sans insécable : Wang Zhenyi, Maryam Mirzakhani, etc. Cf. le site « L'histoire par les femmes ») ‖ guillemet sans insécable : ani, etc. Cf. le site « L'histoire par les femmes ») ‖ guillemet sans insécable : èves de préparer une présentation autour du thème « Où sont les femmes en maths ? » qui abordera la | ×8 |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles En 2015, une école d'i | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | consigne | guillemet sans insécable : D'après « Sur le chemin de l'égalité en mathématiques pour ‖ guillemet sans insécable : e l'égalité en mathématiques pour tous les élèves » - Académie de Versailles Voici l'évolution du t | ×2 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé q9 | guillemet sans insécable : oral. Sujet 1 - Que pensez-vous de cette phrase ? « Pour faire une femme médecin, il faut lui faire ‖ guillemet sans insécable : je me le demande, que resterait-il de la femme ? » (Docteur Montanier, 1868). Sujet 2 - Comment exp ‖ guillemet sans insécable : à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'interne provisoire » à l'Hôpi | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif q9 | guillemet sans insécable : oral. Sujet 1 - Que pensez-vous de cette phrase ? « Pour faire une femme médecin, il faut lui faire ‖ guillemet sans insécable : je me le demande, que resterait-il de la femme ? » (Docteur Montanier, 1868). Sujet 2 - Comment exp ‖ guillemet sans insécable : à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'interne provisoire » à l'Hôpi | ×4 |
+| Portraits-005 (Égalité filles-garçons) | consigne | guillemet sans insécable : — photographie Marie-Pierre Dieterlé — exposition « Mathématiques, informatique… avec elles ! » — CC ‖ guillemet sans insécable : ition « Mathématiques, informatique… avec elles ! » — CC BY-ND 4.0 (reproduction autorisée sans modi | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-EtoileCalculs (EN) | correction q1 | guillemet sans insécable : .Flèche « ‖ guillemet sans insécable : » : ‖ guillemet sans insécable : . Flèche « | ×1000 ; sup=5 sup2=8 ; sup=1 sup2=1… (revue-0-a) |
 | EN-Juniper-Green (EN) | consigne | guillemet sans insécable : indication et n’arrête pas la partie. Cliquer sur « Vérifier les réponses » arrête la partie en cour ‖ guillemet sans insécable : as la partie. Cliquer sur « Vérifier les réponses » arrête la partie en cours et affiche le score. | ×2 ; défaut (revue-0-a) |
 | TEA1-15 (Terminale) | correction q1 | guillemet sans insécable : la propriété : « ‖ guillemet sans insécable : ». Initialisation. Pour ‖ guillemet sans insécable : s’énonce : « | ×4 ; défaut (revue-0-a) |
@@ -3747,6 +3948,24 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG1-6e-5 (Égalité filles-garçons) | correction q1 | table.tableauMathlive de 820 px pour 390 px | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG1-6e-5 (Égalité filles-garçons) | correction | page de 836 px pour 390 px | ×4 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) | correction | page de 470 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | correction | page de 799 px pour 390 px | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | correction | page de 414 px pour 390 px | ×16 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true… (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | correction | page de 524 px pour 390 px | ×8 ; sup=false sup2=true ; sup=true sup2=true… (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | correction | page de 595 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | correction | page de 552 px pour 390 px | ×16 ; sup=true sup2=true sup3=true ; sup=true sup2=true sup3=false… (revue-0-a) |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | énoncé | table de 487 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | énoncé | table de 442 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | énoncé | page de 458 px pour 390 px | ×2 ; défaut (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | correction | page de 618 px pour 390 px | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) | correction | page de 892 px pour 390 px | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé | table de 481 px pour 390 px | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé | page de 497 px pour 390 px | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| Portraits-001 (Égalité filles-garçons) | énoncé | page de 620 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-004 (Égalité filles-garçons) | énoncé | page de 514 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-005 (Égalité filles-garçons) | énoncé | page de 1185 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-006 (Égalité filles-garçons) | énoncé | page de 436 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-010 (Égalité filles-garçons) | énoncé | page de 411 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
+| Portraits-011 (Égalité filles-garçons) | énoncé | page de 393 px pour 390 px | ×2 ; sup=2 (revue-1-a) |
 | EN-Gratte-ciel (EN) | énoncé q1 | table.tableauMathlive de 572 px pour 390 px | ×16 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | énoncé | page de 588 px pour 390 px | ×11 ; sup=3 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | correction | page de 393 px pour 390 px | ×9 ; sup=3 ; sup=4… (revue-0-a) |
@@ -4387,6 +4606,38 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG1-6e-4 (Égalité filles-garçons) |  q1 qcm | QCM : bonne proposition (aucunpersonnagefémininn'exerceunmétierdansl'ensembledessujetsétudiés.) absente de la mise en évidence (aucunpersonnagefémininn'intervientdansuneactivitéliéeàunmétier) | ×2 ; défaut (revue-0-a) |
 | EgaliteFG3-4e-8 (Égalité filles-garçons) |  q2 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (fausselemurdugroupe2n'estpasperpendiculaireausol) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
 | EgaliteFG3-4e-9 (Égalité filles-garçons) |  q2 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (faussecaméliaetsamontdoncchacunraison) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (4x+14fausse) | ×16 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true… (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) |  q4 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (fausselaréussiten'estdoncpaslapropriétéd'unseulbinômeoud'uneseulepersonne) | ×16 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true… (revue-0-a) |
+| EgaliteFG4-3e-16 (Égalité filles-garçons) |  q2 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (letableauestbienuntableaudeproportionnalité) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) |  q3 qcm | QCM : bonne proposition (a&lt;b:lesfemmessontencoremoinsreprésentéesenmathématiques(médaillefields)queparmil) absente de la mise en évidence () | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) |  q3 qcm | QCM : bonne proposition (onnepeutriendire) absente de la mise en évidence () | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) |  q4 qcm | QCM : bonne proposition (rstn'estpasuntrianglerectangle) absente de la mise en évidence (letrianglerstn'estpasrectangle) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) |  q5 qcm | QCM : bonne proposition (latoureiffel(paris)) absente de la mise en évidence (latoureiffel) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) |  q8 qcm | QCM : bonne proposition (non) absente de la mise en évidence () | ×16 ; sup=true sup2=true sup3=true ; sup=true sup2=true sup3=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q2 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (6) | ×16 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q3 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (n'estdoncpasunnombredegermain) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q5 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (plusraresquelesnombrespremiersengénéral) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q6 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (toujoursimpair) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q9 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estdoncpremier) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q11 qcm | QCM : bonne proposition (non) absente de la mise en évidence () | ×72 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q14 qcm | QCM : bonne proposition (oui) absente de la mise en évidence () | ×64 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q32 qcm | QCM : bonne proposition (faux) absente de la mise en évidence () | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q33 qcm | QCM : bonne proposition (vrai) absente de la mise en évidence () | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-3 (Égalité filles-garçons) |  q35 qcm | QCM : bonne proposition (ilestimpair) absente de la mise en évidence () | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) |  q4 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (plusélevé) | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG5-2de-7 (Égalité filles-garçons) |  q4 qcm | QCM : bonne proposition (non) absente de la mise en évidence (nesuffitpas) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-12 (Égalité filles-garçons) |  q6 qcm | QCM : bonne proposition (non,aucontraire) absente de la mise en évidence (paradoxedesimpson) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) |  q4 qcm | QCM : bonne proposition (arithmétiquederaison4) absente de la mise en évidence (f_n=30+4n) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) |  q8 qcm | QCM : bonne proposition (géométriquederaison1,1) absente de la mise en évidence (h_n=30\times1,1^n) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) |  q9 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasencoretoutàfaitatteinte) | ×8 ; sup=true sup2=true ; sup=true sup2=false… (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) |  q1 qcm | QCM : bonne proposition (numériqueetsciencesinformatiques) absente de la mise en évidence (15,2\%) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) |  q2 qcm | QCM : bonne proposition (humanités,littératureetphilosophie) absente de la mise en évidence (81,7\%) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) |  q4 qcm | QCM : bonne proposition (elleaaugmenté) absente de la mise en évidence (adonclégèrementaugmenté) | ×2 ; défaut (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) |  q5 qcm | QCM : bonne proposition (lesgarçonsontenvirondeuxfoisplusdechancesd'êtreadmisencpgequelesfilles) absente de la mise en évidence (deuxfoisplusdechances) | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) |  q6 qcm | QCM : bonne proposition (laloibinomialedeparamètresn=7etp=0,24) absente de la mise en évidence (\mathcalb(7;0,24)) | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-18 (Égalité filles-garçons) |  q7 qcm | QCM : bonne proposition (oui,ladroitey=0) absente de la mise en évidence (y=0) | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q3 qcm | QCM : bonne proposition (oui,carelleestdécroissanteetminorée(parexemplepar0)) absente de la mise en évidence (convergente) | ×4 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-19 (Égalité filles-garçons) |  q7 qcm | QCM : bonne proposition (partiellement:ellesstabilisentlenombred'étudiantesà125aulieudelelaissertendrever) absente de la mise en évidence () | ×4 ; sup=true ; sup=false (revue-0-a) |
 | TEA1-32 (Terminale) |  q1 qcm | QCM : bonne proposition (faux) absente de la mise en évidence (l'affirmationestfausse.) | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEA1-33 (Terminale) |  q1 qcm | QCM : bonne proposition (s=\1+8n,\n\in\mathbbz\\cup\3+8n,\n\in\mathbbz\\cup\5+8n,\n\in\mathbbz\\cup\7+8n,) absente de la mise en évidence (13571357) | ×2 ; sup=4 ; sup=4 nb=10 (revue-0-a) |
 | TEA1-33 (Terminale) |  q1 qcm | QCM : bonne proposition (s=\3+7n,\n\in\mathbbz\\cup\5+7n,\n\in\mathbbz\) absente de la mise en évidence (3535) | ×8 ; sup=4 ; sup=2… (revue-0-b) |
@@ -4635,6 +4886,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6a-2026 (CAN) | titre | ordinal « 6e » hors $ : CAN 6e sujet 2026 | ×1 |
 | can6a-CoopMaths (CAN) | titre | ordinal « 6e » hors $ : Course aux nombres fin de 6e | ×1 |
 | can6a-NY2024 (CAN) | titre | ordinal « 6ème » hors $ : CAN Spéciale année 2024 - 6ème | ×1 |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | énoncé q2 | ordinal « 12e » hors $ : près, de la 12e à la 13e législature de la Ve République est ‖ ordinal « 13e » hors $ : près, de la 12e à la 13e législature de la Ve République est : [champ] ‖ ordinal « 4e » hors $ : de la proportion de femmes parmi les députés de la 4e à la 5e législature de la Ve République est : | ×4 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | correction q5 | ordinal « 4e » hors $ : (4e législature) à ‖ ordinal « 5e » hors $ : (5e législature) : elle diminue, donc le taux d'év | ×2 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-2 (Égalité filles-garçons) | énoncé non interactif q2 | ordinal « 12e » hors $ : près, de la 12e à la 13e législature de la Ve République est ‖ ordinal « 13e » hors $ : près, de la 12e à la 13e législature de la Ve République est : [champ] ‖ ordinal « 4e » hors $ : de la proportion de femmes parmi les députés de la 4e à la 5e législature de la Ve République est : | ×4 |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) | énoncé q4 | ordinal « 1er » hors $ : bsolue, est-elle trompeuse ? [champ] À noter. Au 1er trimestre 2025, les taux de chômage des homme | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) | énoncé non interactif q4 | ordinal « 1er » hors $ : bsolue, est-elle trompeuse ? [champ] À noter. Au 1er trimestre 2025, les taux de chômage des homme | ×1 |
+| EgaliteFG6-1e-13 (Égalité filles-garçons) | correction q4 | ordinal « 8e » hors $ : ans, soit vers la fin de l'année 2032. Entre la 8e année (où les femmes font encore un peu plus q ‖ ordinal « 9e » hors $ : mmes font encore un peu plus que les hommes) et la 9e (où elles en font déjà un peu moins), l'égalit | ×2 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | énoncé q2 | ordinal « 1re » hors $ : Quel est le pourcentage d'élèves en 1re ST2S (arrondi au centième) ? [champ] % ‖ ordinal « 1re » hors $ : Quel est le pourcentage de filles en 1re STI2D (arrondi au centième) ? [champ] % ‖ ordinal « 1re » hors $ : Parmi les élèves de 1re STL, quel est le pourcentage de filles (arron | ×3 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-16 (Égalité filles-garçons) | énoncé non interactif q2 | ordinal « 1re » hors $ : Quel est le pourcentage d'élèves en 1re ST2S (arrondi au centième) ? ‖ ordinal « 1re » hors $ : Quel est le pourcentage de filles en 1re STI2D (arrondi au centième) ? ‖ ordinal « 1re » hors $ : Parmi les élèves de 1re STL, quel est le pourcentage de filles (arron | ×3 |
 
 ## N2
 
@@ -4779,6 +5038,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpea-NY2026 (CAN) | correction q7 | exposant 1 : $lor{}\boldsymbol{2,026\times10^1}}$ | ×1 ; sup=false (revue-0-a) |
 | canTSpeAN13 (CAN) | correction q9 | exposant 1 : $\times 0-4 \ln\left(\mathrm{e}^{1}\right)+5\times (-2)\\$ | ×1 ; défaut nb=10 (revue-1-a) |
 | canTSpeS09 (CAN) | correction q2 | exposant 1 : ${\dfrac{4}{n^3}-1}{\dfrac{1}{n^1}}$ ‖ exposant 1 : $imits_{n\to\infty} \dfrac{1}{n^1}=0$ ‖ exposant 1 : ${\dfrac{7}{n^6}+1}{\dfrac{1}{n^1}}$ | ×4 ; défaut nb=10 (revue-1-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | correction q7 | exposant 1 : $=1)=\dbinom{7}{1}\times 0{,}24^1\times 0{,}76^6\approx {\col$ | ×1 ; sup=true (revue-0-a) |
 | PEN16 (PE) | correction q1 | exposant 1 : $10^{1}=10$ | ×50 ; sup=1 sup2=1 sup3=1 sup4=false sup5=true ; sup=1 sup2=1 sup3=1 sup4=true sup5=true… (revue-0-a) |
 | PEN22 (PE) | correction q1 | exposant 1 : $3^1$ | ×30 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | PEN22 (PE) | correction non interactive q1 | exposant 1 : $3^1$ | ×4 |
@@ -5048,6 +5308,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2I1B-1 (cm2) | correction non interactive q1 | mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc Blanc ‖ mot répété « Blanc Blanc » : ient la série de couleurs suivante : Blanc Blanc Blanc Blanc | ×2 |
 | CM2N2U-3 (cm2) | src/exercices/CM2/CM2N2U-3.ts | Point isolé après le champ (« point $A$ : [champ] . ») → retirer le point | ×1 |
 | CM2N3A-3 (cm2) | src/exercices/CM2/CM2N3A-3.ts | Correction redondante « $16-15=1$ donc $16-15=⟦1⟧$ » → $16-15=⟦1⟧$ | ×1 |
+| EgaliteFG5-2de-1 (Égalité filles-garçons) | consigne | élision manquante « de Usain » : es records sont les suivants : Record masculin de Usain Bolt (Jamaïque) : | ×1 ; sup=true sup2=true sup3=true (revue-0-a) |
 | TEG1-11 (Terminale) | correction q1 | mot répété « ne ne » : . Aucune chaîne ne relie les sommets | ×1 ; sup=2 sup2=1 (revue-4-a) |
 | TSA7-31 (Terminale) | correction q2 | t euphonique manquant « entre-elles » : . Dérivons chacune d’entre-elles. | ×1 ; défaut nb=10 (revue-1-a) |
 | TSG1-02 (Terminale) | correction q8 | élision manquante « de Edmond » : Le problème de Edmond revient à déterminer le nombre de permut | ×2 ; défaut nb=10 (revue-1-a) |
@@ -5178,6 +5439,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG1-6e-5 (Égalité filles-garçons) | énoncé q1 | impératif : Complète le tableau et le diagramme en colonnes ci ‖ deuxième personne : Constates-tu une évolution dans la représentation des femmes ‖ deuxième personne : mblée nationale entre 1986 et 2022 ? Si oui, peux-tu la décrire et l'expliquer ? Pour débattre. À t | ×6 ; sup=true ; sup=false (revue-0-a) |
 | EgaliteFG1-6e-5 (Égalité filles-garçons) | énoncé non interactif q1 | impératif : Complète le tableau et le diagramme en colonnes ci | ×1 |
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | énoncé q1 | impératif : hommes, puis calcule le nombre total d'enseignants. Calcule la part de femmes et la part d'hommes so ‖ impératif : e ces fractions en pourcentage (arrondi à l'unité). Complète un tableau avec ces trois informations ‖ deuxième personne : dans notre formation ? Commence par compter parmi tes enseignants le nombre de femmes et le nombre d | ×9 ; défaut (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | énoncé q1 | deuxième personne : ci-dessous est déjà tracé (tu peux déplacer les points ‖ impératif : ). 2. Construis, à la perpendiculaire, les trois média ‖ deuxième personne : . [champ] [champ] 3. Que peux-tu dire des trois médiatrices ? | ×3 ; défaut (revue-0-a) |
+| EgaliteFG3-4e-11 (Égalité filles-garçons) | énoncé non interactif q1 | impératif : 1. Trace un triangle ‖ impératif : quelconque. 2. Trace les médiatrices des segments ‖ deuxième personne : lieu et qui lui est perpendiculaire). 3. Que peux-tu dire sur les médiatrices ? | ×3 |
+| EgaliteFG3-4e-9 (Égalité filles-garçons) | consigne | deuxième personne : t utiliser la formule du sinus ». Sam affirme : « Tu as tort, on doit utiliser la formule du cosinus | ×2 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG4-3e-12 (Égalité filles-garçons) | énoncé q1 | deuxième personne : de nombres, suivis d'une unité de mesure. Explore ta mémoire et cite cinq autres grandeurs. Cite, po ‖ impératif : h. Exprime cette durée en jours, sous la forme d'un ‖ impératif : km (la Lune décrit une ellipse autour de la Terre). Exprime cette distance en mètres, d'abord en écr | ×18 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-12 (Égalité filles-garçons) | énoncé non interactif q2 | impératif : h. Exprime cette durée en jours, sous la forme d'un ‖ impératif : km (la Lune décrit une ellipse autour de la Terre). Exprime cette distance en mètres, d'abord en écr ‖ impératif : kg. Exprime la masse de la Terre en tonnes, en écrit | ×17 |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | énoncé q1 | impératif : Exprime en fonction de ‖ impératif : ». Développe et réduis l'expression de Zoé : ‖ impératif : Développe et réduis l'expression de Paul : | ×9 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG4-3e-13 (Égalité filles-garçons) | énoncé non interactif q1 | impératif : Exprime en fonction de ‖ impératif : ». Développe et réduis l'expression de Zoé : ‖ impératif : Développe et réduis l'expression de Paul : | ×6 |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | consigne | deuxième personne : rce : Central News Agency, 1968, domaine public à Taïwan Shakuntala Devi (1929-2013), surnommée « | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | consigne | deuxième personne : s la réforme du lycée en 2019, de nombreuses enquêtes semblent montrer que le choix des enseignement ‖ deuxième personne : l'enseignement supérieur ou de métiers. Les enquêtes révèlent qu'au niveau national les filles sont | ×2 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-9 (Égalité filles-garçons) | énoncé q5 | deuxième personne : points entre HLP et NSI) préfigure-t-il, selon toi, des choix futurs différents pour les filles e ‖ deuxième personne : ents de spécialité de chaque élève de première de ton établissement, puis regrouper et traiter ces d ‖ deuxième personne : Ces données confirment-elles, dans ton lycée, que le genre exerce une influence sur l | ×3 ; défaut (revue-0-a) |
+| Portraits-002 (Égalité filles-garçons) | consigne | deuxième personne : : Calcule les meilleures stratégies pour les athlètes Le truc stylé : Optimise l'effort des c | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | can/can6a-2024/can6a-2024-Q14.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q14.ts:23 | consigne à l'impératif : Complète : | ×1 |
 | can/can6a-2024/can6a-2024-Q28.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q28.ts:51 | consigne à l'impératif : Complète : | ×1 |
 | can/can6a-2024/can6a-2024-Q5.ts (hors référentiel) | src/exercices/can/can6a-2024/can6a-2024-Q5.ts:32 | consigne à l'impératif : Complète.  | ×1 |
@@ -5312,6 +5584,20 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | énoncé q1 | pas de virgule avant « soit » : uler la probabilité qu'un élève interrogé au hasard soit un garçon inscrit au club robotique (arrond ‖ pas de virgule avant « soit » : uler la probabilité qu'un élève interrogé au hasard soit une fille inscrite à la danse (arrondie au | ×2 ; sup=true (revue-0-a) |
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | correction q3 | pas de virgule avant « soit » : : la probabilité qu'un élève au hasard soit un garçon inscrit à la robotique est légère ‖ pas de virgule avant « soit » : légèrement supérieure à celle qu'un élève au hasard soit une fille inscrite à la danse, mais les deu | ×2 ; sup=true (revue-0-a) |
 | EgaliteFG2-5e-7 (Égalité filles-garçons) | énoncé non interactif q1 | pas de virgule avant « soit » : uler la probabilité qu'un élève interrogé au hasard soit un garçon inscrit au club robotique (arrond ‖ pas de virgule avant « soit » : uler la probabilité qu'un élève interrogé au hasard soit une fille inscrite à la danse (arrondie au | ×2 |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | énoncé q6 | pas de virgule avant « alors » : rs ? Combien de chocolats et de caramels y avait-il alors dans chaque lot ? [champ] | ×1 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | correction q6 | pas de virgule avant « alors » : . Chaque lot contient alors | ×1 ; défaut (revue-0-a) |
+| EgaliteFG4-3e-18 (Égalité filles-garçons) | énoncé non interactif q6 | pas de virgule avant « alors » : rs ? Combien de chocolats et de caramels y avait-il alors dans chaque lot ? | ×1 |
+| EgaliteFG4-3e-19 (Égalité filles-garçons) | correction q4 | pas de virgule après « Or » : . Or | ×1 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-4 (Égalité filles-garçons) | correction q4 | pas de virgule avant « soit » : ) soit inférieur à celui des hommes ( | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG6-1e-15 (Égalité filles-garçons) | énoncé q1 | pas de virgule avant « soit » : choisi au hasard. Quelle est la probabilité que ce soit une fille (arrondie au millième) ? [champ] ‖ pas de virgule avant « soit » : choisi au hasard. Quelle est la probabilité que ce soit un garçon en filière technologique (arrondi ‖ pas de virgule avant « soit » : filière générale. Quelle est la probabilité que ce soit une fille (arrondie au millième) ? [champ] | ×3 ; défaut (revue-0-a) |
+| EgaliteFG6-1e-15 (Égalité filles-garçons) | énoncé non interactif q1 | pas de virgule avant « soit » : choisi au hasard. Quelle est la probabilité que ce soit une fille (arrondie au millième) ? ‖ pas de virgule avant « soit » : choisi au hasard. Quelle est la probabilité que ce soit un garçon en filière technologique (arrondi ‖ pas de virgule avant « soit » : filière générale. Quelle est la probabilité que ce soit une fille (arrondie au millième) ? | ×3 |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | énoncé q5 | pas de virgule avant « soit » : tel que l'année soit | ×1 ; sup=true sup2=true (revue-0-a) |
+| EgaliteFG6-1e-8 (Égalité filles-garçons) | énoncé non interactif q5 | pas de virgule avant « soit » : tel que l'année soit | ×1 |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | énoncé q2 | pas de virgule avant « soit » : que l'élève soit une fille et admise en CPGE. [champ] ‖ pas de virgule avant « soit » : que cet élève soit un garçon ? [champ] ‖ pas de virgule avant « soit » : robabilité qu'un seul des sept élèves tirés au sort soit admis en CPGE (arrondie au centième). [cham | ×6 ; sup=true ; sup=false (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | correction q10 | pas de virgule avant « soit » : La probabilité qu'aucun candidat ne soit admis est | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG7-Tle-17 (Égalité filles-garçons) | énoncé non interactif q2 | pas de virgule avant « soit » : que l'élève soit une fille et admise en CPGE. ‖ pas de virgule avant « soit » : que cet élève soit un garçon ? ‖ pas de virgule avant « soit » : robabilité qu'un seul des sept élèves tirés au sort soit admis en CPGE (arrondie au centième). | ×4 |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé q9 | pas de virgule avant « alors » : non autorisée à concourir à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'int | ×2 ; sup=true sup2=true ; sup=false sup2=true (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif q9 | pas de virgule avant « alors » : non autorisée à concourir à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'int | ×1 |
 | PEA13 (PE) | correction q1 | pas de virgule avant « soit » : cm (dans le sens de la largeur). Pour que ce soit le plus petit carré possible, on cherche le | ×3 ; sup=10 ; sup=11 nb=10 (revue-10-a) |
 | PEN14 (PE) | correction q1 | pas de virgule avant « soit » : décimale soit ‖ pas de virgule avant « soit » : donc identique à la dernière décimale de la période soit | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | PEN14 (PE) | correction non interactive q1 | pas de virgule avant « soit » : décimale soit | ×1 |
@@ -5940,6 +6226,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N1D-1 (cm2) | énoncé q1 | espace avant ponctuation : nviennent (unité(s) ou dizaine(s) ou centaine(s) ou ...). [champ] Remettre les étiquettes au bon | ×32 ; sup=true sup2=4-5-6 sup4=1 sup5=true ; sup=true sup2=4-5-6 sup4=1 sup5=false… (revue-1-a) |
 | CM2N2A-4 (cm2) | src/exercices/CM2/CM2N2A-4.ts:396 | « Sélectionner$\dfrac{1}{6}$ de la plaque », « Hachurer$…$ » : espace manquante avant la fraction → `${…} $${frac.texFraction}$` | ×1 |
 | CM2N4B-1 (cm2) | consigne | double espace : Calculer les expressions suivantes. | ×1 ; sup=1-2-3 sup2=200 sup3=2 (revue-0-a) |
+| EgaliteFG4-3e-15 (Égalité filles-garçons) | consigne | double espace : du rectangle. quand @greenFlag est cliqué demander [Donne un nomb ‖ double espace : du rectangle. quand @greenFlag est cliqué demander [Donne un nombre] et atten ‖ double espace : e [x v] à (réponse :: sensing) mettre [l v] à ((x) + [2]) mettre [L v] à ((x) + [5]) mettre [ | ×14 ; sup=false sup2=true sup3=true ; sup=true sup2=true sup3=true (revue-0-a) |
+| EgaliteFG4-3e-17 (Égalité filles-garçons) | consigne | double espace : ge. Voici un programme réalisé avec Scratch. quand @greenFlag est cliqué demander [Choisir un no ‖ double espace : programme réalisé avec Scratch. quand @greenFlag est cliqué demander [Choisir un nombre] et att ‖ double espace : ] et attendre mettre [A v] à ((réponse :: sensing) - [7]) mettre [B v] à (([3] * (réponse :: s | ×12 ; sup=false sup2=true ; sup=true sup2=true (revue-0-a) |
 | EN-Gratte-ciel (EN) | consigne | double espace : e du ciel. Chaque case contient un immeuble de ou 10 étages. Les immeubles d’une même ran | ×1 ; sup=1 (revue-1-a) |
 | HPC103 (HP) | correction q1 | espace avant ponctuation : colonnes . La matrice ‖ espace avant ponctuation : colonnes . Le produit ‖ espace avant ponctuation : colonne . Le produit | ×24 ; défaut ; défaut nb=10 (revue-0-a) |
 | HPC105 (HP) | correction q3 | double espace : . On en déduit que la matrice de | ×2 ; sup=1 (revue-1-a) |
@@ -6186,6 +6474,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N3D-2 (6e) | correction q1 | points de suspension : ... Le point A est placé sur la troisième graduati ‖ points de suspension : ... Le point A est placé sur la quatrième graduati ‖ points de suspension : ... Le point A est placé sur la sixième graduation | ×135 ; sup=1 sup2=false sup3=1 sup4=1 ; sup=1 sup2=false sup3=1 sup4=2… (revue-10-a) |
 | 6N3F-1 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $1 = \dfrac{....}{6}$ | ×4 |
 | 6N3F-2 (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $rac{3}{2} = \phantom{00}\text{........}\phantom{00} + \dfrac$ ‖ points de suspension en maths (\ldots) : ${3}{2} = \phantom{00}\text{........}\phantom{00} + \dfrac{\p$ ‖ points de suspension en maths (\ldots) : $0} + \dfrac{\phantom{00}\text{........}\phantom{00}}{\phanto$ | ×80 |
+| 6N3H (6e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $\dfrac{1}{3} =\dfrac{............}{............} =$ ‖ points de suspension en maths (\ldots) : $\dfrac{1}{3} =\dfrac{............}{............} = \df$ ‖ points de suspension en maths (\ldots) : $\dfrac{1}{3} =\dfrac{............}{............} = \dfrac$ | ×45 |
 | 6N5-8 (6e) | src/exercices/6e/6N5-8.ts:19 | « ... » : Résoudre des problèmes de type : ... de plus ou ... de moins | ×1 |
 | BP2AutoD3 (BP2) | énoncé q1 | points de suspension : La moyenne de la série ci-dessous est ... | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | BP2AutoD3 (BP2) | énoncé non interactif q1 | points de suspension : La moyenne de la série ci-dessous est ... | ×1 |
@@ -6449,7 +6738,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFG6.ts:109 | « ... » : L'écart le plus important se situe entre l'école élémentaire (très féminisée) et le collège, où la proportion de femmes chute nettement. Une explication possibl | ×1 |
 | EgaliteFG2-5e-6 (Égalité filles-garçons) | correction q5 | points de suspension : ent devient disciplinaire (mathématiques, sciences...), des matières encore perçues comme davantage | ×1 ; défaut (revue-0-a) |
 | EgaliteFG4-3e-12 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFG12.ts:66 | « ... » : Réponse possible parmi de nombreuses grandeurs : la température, l'énergie, la force, l'aire, l'intensité électrique, la concentration...&lt;br>La durée : minutes, | ×1 |
+| EgaliteFG4-3e-12 (Égalité filles-garçons) | correction q1 | points de suspension : , l'aire, l'intensité électrique, la concentration... La durée : minutes, heures (ou jours, secondes ‖ points de suspension : ... La durée : minutes, heures (ou jours, secondes...). La distance : mètres, kilomètres (ou autres) | ×2 ; défaut (revue-0-a) |
 | EgaliteFG4-3e-20 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFG20.ts:59 | « ... » : .&lt;br>Shakuntala Devi était capable de résoudre mentalement des calculs bien plus vite que des ordinateurs de son époque. Pourtant, elle fut souvent présentée co | ×1 |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | énoncé q6 | points de suspension : ncore des domaines (mathématiques, calcul, logique...) où les filles doivent « prouver plus » ? | ×1 ; sup=true (revue-0-a) |
+| EgaliteFG4-3e-20 (Égalité filles-garçons) | énoncé non interactif q6 | points de suspension : ncore des domaines (mathématiques, calcul, logique...) où les filles doivent « prouver plus » ? | ×1 |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé q9 | points de suspension : hoses les plus horribles et les plus effrayantes [...] Lorsque la femme en serait arrivée là, je me | ×2 ; sup=true sup2=true ; sup=true sup2=false (revue-0-a) |
+| EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif q9 | points de suspension : hoses les plus horribles et les plus effrayantes [...] Lorsque la femme en serait arrivée là, je me | ×1 |
+| Portraits-005 (Égalité filles-garçons) | consigne | points de suspension : ieterlé — exposition « Mathématiques, informatique… avec elles ! » — CC BY-ND 4.0 (reproduction auto | ×3 ; sup=1 ; sup=2… (revue-0-a) |
 | EN-Gratte-ciel (EN) | énoncé non interactif q1 | points de suspension : ... ... ... | ×9 |
 | EN-Monnaie (EN) | énoncé non interactif q1 | points de suspension : ... ... ... | ×9 |
 | _automatismesCan.ts (hors référentiel) | src/exercices/_automatismesCan.ts:303 | « ... » : chargement... | ×1 |
@@ -6540,6 +6835,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-7 (cm2) | série q6 | question 6 identique à la question 1 | ×272 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | CM2N3J-1 (cm2) | série q10 | question 10 identique à la question 9 | ×1 ; défaut (revue-0-b) |
 | CM2N3J-2 (cm2) | série q8 | question 8 identique à la question 5 | ×3 ; défaut (revue-0-a) |
+| EgaliteFG5-2de-6 (Égalité filles-garçons) | série q9 | question 9 identique à la question 6 | ×4 ; sup=true ; sup=false (revue-0-a) |
 | TEA1-22 (Terminale) | série q2 | question 2 identique à la question 1 | ×7 ; défaut nb=10 (revue-1-a) |
 | TSA1-11 (Terminale) | série q7 | question 7 identique à la question 3 | ×4 ; défaut nb=10 (revue-1-a) |
 | TSA1-13 (Terminale) | série q10 | question 10 identique à la question 8 | ×1 ; défaut nb=10 (revue-1-a) |

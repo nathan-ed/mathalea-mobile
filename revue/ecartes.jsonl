@@ -14,3 +14,4 @@
 {"id":"6N1L","regle":"M1","raison":"plusieurs champs par question (indices i*n+k) : la sonde compare les évidences de toute la question à la première attente"}
 {"id":"6N2E-3","regle":"M1","raison":"six champs par question en sous-questions : la sonde associe les évidences dans le mauvais ordre"}
 {"id":"6N2E-3","regle":"M8","raison":"idem"}
+{"id":"6N1G","regle":"X3","motif":"empilées","raison":"défaut du moteur de l app (ajusterFigures), consigné sous moteur-app"}

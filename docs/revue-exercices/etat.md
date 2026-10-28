@@ -35,6 +35,15 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
   can6a-Aléa, automatismes) : restent à « chargement... » dans le moteur de
   l'app (preparerExercice n'attend pas leur chargement).
 - `optionsDe` ne lit pas les aides « 1 & 2 : … » (voir plus bas).
+- `ajusterFigures` (moteur de l'app) réduit les figures plus larges que
+  l'écran. Pour replacer les étiquettes, il lit `data-top` et `data-left`, et
+  prend 0 quand ils manquent (`Number(etiquette.dataset.top ?? 0)`). Or les
+  figures apigeom statiques (`apigeomZoom.ts`) n'ont pas ces attributs : sur
+  téléphone, leurs étiquettes s'empilent toutes en haut à gauche. Constaté
+  sur 6N3D (énoncé illisible) et sur la correction de 6N1G. Correction
+  proposée : quand ces attributs manquent, les remplir à partir de
+  `style.top` et `style.left` avant de les multiplier par `coef`. Pas modifié
+  sans accord.
 
 ## Prochaine étape (à chaque réveil)
 
