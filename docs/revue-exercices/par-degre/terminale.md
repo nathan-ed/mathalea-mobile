@@ -64,17 +64,26 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | ---: | --- |
 | TSA5-30 | I1 Bonne réponse refusée | 3 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | TSG2-30 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
+| TTE-11 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
+| TEG1-21 | I2 Réponse fausse acceptée | 46 | réponse fausse acceptée |
 | TEM1-14 | I2 Réponse fausse acceptée | 60 | réponse fausse acceptée |
 | TEM1-15 | I2 Réponse fausse acceptée | 48 | réponse fausse acceptée |
 | TEM1-22 | I2 Réponse fausse acceptée | 68 | réponse fausse acceptée |
 | TEM1-23 | I2 Réponse fausse acceptée | 34 | réponse fausse acceptée |
+| TEM1-24 | I2 Réponse fausse acceptée | 136 | réponse fausse acceptée |
+| TEM1-25 | I2 Réponse fausse acceptée | 84 | réponse fausse acceptée |
+| TEM1-31 | I2 Réponse fausse acceptée | 56 | réponse fausse acceptée |
+| TEM1-32 | I2 Réponse fausse acceptée | 64 | réponse fausse acceptée |
 | TSP3-01 | I2 Réponse fausse acceptée | 12 | réponse fausse acceptée |
 | TSG1-04 | I4 Question sans champ | 1 | champ absent de la page |
 | TEC1-51 | X1 Erreur | 1 | console : KaTeX auto-render: Failed to parse `z\neqi` with  ParseError: KaTeX parse error: Undefined control sequence: \neqi at position 3: {z\̲n̲e̲q̲i̲}     at |
+| TTE-7 | X1 Erreur | 1 | non interactif : page.evaluate: Target page, context or browser has been closed |
+| TTE-9 | X1 Erreur | 4 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | TEC1-51 | X2 Formule cassée | 1 | « $ » visible : quent, on a 𝑍 ∈ 𝑅 Z∈R si et seulement si 𝑥 = 0 x=0, avec $z\neqi$. 𝑥 = 0 ⟺ 𝑥 = 0 x=0⟺x=0. Ainsi, les solutions sont |
+| TEG1-11 | X2 Formule cassée | 14 | nombre impair de $ : c la réponse est ${\color{#F15929}\boldsymbol{\textbf{oui}}}$.&lt;/li> &lt;/ol> |
 | TSA5-42 | X2 Formule cassée | 1 | « $ » visible :  ≈ 12 , 33 &lt; 25 u 1 ​ =ln(3×25+1)+8=ln(76)+8≈12,33&lt;25, donc $u_1Montrons par récurrence que, pour tout entier naturel 𝑛 |
 | TSA3-46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1537 ; T4  559 ; R5 Virgule 420 ; T5 Espaces 416 ; N6 Écriture algébrique 390 ; T6 Points de suspension 247 ; T3  242 ; N2 Séparateur des milliers 159 ; T8  82 ; R6  51 ; R9  45 ; N3  40 ; N5 Négatif sans parenthèses 27 ; R1 Titre 16 ; R10 Français 6 ; R8  2 ; X3  2 ; R2 Tutoiement, impératif 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 1579 ; T4  837 ; T5 Espaces 433 ; N6 Écriture algébrique 433 ; R5 Virgule 420 ; T6 Points de suspension 253 ; T3  246 ; N2 Séparateur des milliers 179 ; T8  82 ; R6  51 ; R9  45 ; N3  40 ; N5 Négatif sans parenthèses 27 ; R1 Titre 16 ; X2 Formule cassée 10 ; R10 Français 7 ; X3  5 ; R8  2 ; R2 Tutoiement, impératif 2.

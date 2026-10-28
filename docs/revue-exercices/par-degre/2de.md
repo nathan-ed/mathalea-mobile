@@ -165,6 +165,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
+| can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
+| can2G1-01 | X1 Erreur | 9 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
+| can2F21-02 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 

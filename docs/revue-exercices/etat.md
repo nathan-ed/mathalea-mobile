@@ -54,6 +54,13 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
    réel le 28 octobre. Le banc saisit les bonnes réponses et les mises en
    évidence sous cette forme. Les CAN ont été repassées avec (`--refaire`,
    journal des CAN vidé avant) : une attente `\sqrt3` n'est pas un défaut.
+   Champs texte (`mathalea-textfield`) : saisis tels quels, espaces compris
+   (corrigé le 28 octobre : `toCompareInput` et MathLive retiraient les
+   espaces, d'où de faux I1 sur « pavé droit », « … virgule neuf »). Les
+   bancs ont été relancés avec cette sonde ; 6AutoE1-1 et 6N1F-2 repassés.
+   Pour confirmer un constat sur un champ texte, `revue/saisir.mjs` (page
+   `revue-debug.html`, saisie brute dans le champ, sans la sonde) :
+   `node revue/saisir.mjs <uuid> <graine> '<params>' <nb> <question> <saisie>…`.
 2. Relire les exercices suivants dans l'ordre de `revue/referentiel.json`,
    en sautant ceux de `revue/relus.txt` et ceux pas encore passés au banc.
    `node revue/suivants.mjs 20` donne les suivants. Toutes les CAN sont

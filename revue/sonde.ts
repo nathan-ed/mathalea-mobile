@@ -269,15 +269,18 @@ function remplir(i: number, saisie: Saisie, corr: string): Remplissage {
         if (r?.value == null) return non('aucune valeur attendue')
         const el = mf(`champTexteEx${n}Q${i}`)
         if (!el) return non('champ absent de la page')
+        // Champ texte (mathalea-textfield) : l'élève tape le texte tel quel,
+        // espaces compris ; ni toCompareInput ni MathLive (qui retirent les espaces)
+        const texteLibre = el.tagName !== 'MATH-FIELD'
         let v = ''
-        if (saisie === 'correcte') v = bonne(r)
-        else if (saisie === 'incorrecte') v = fausse(bonne(r))
+        if (saisie === 'correcte') v = texteLibre ? texte(r.value) : bonne(r)
+        else if (saisie === 'incorrecte') v = texteLibre ? `${texte(r.value)}x` : fausse(bonne(r))
         else if (saisie === 'evidence') {
-          if (ev.length === 0) return non('aucune mise en évidence')
-          v = clavier(ev[ev.length - 1])
+          const evt = texteLibre ? [...ev, ...evidencesTexte(corr)] : ev
+          if (evt.length === 0) return non('aucune mise en évidence')
+          v = texteLibre ? evt[evt.length - 1] : clavier(evt[evt.length - 1])
         }
-        if (el.tagName === 'MATH-FIELD') el.value = v
-        else el.value = v
+        el.value = v
         el.dispatchEvent(new Event('input', { bubbles: true }))
         res.valeurs.champ = v
         return res
@@ -427,7 +430,7 @@ export async function essai(i: number, v: string) {
   await rendre('enonce')
   const el = mf(`champTexteEx${ex.numero}Q${i}`)
   if (!el) return null
-  el.value = clavier(v)
+  el.value = el.tagName === 'MATH-FIELD' ? clavier(v) : v
   el.dispatchEvent(new Event('input', { bubbles: true }))
   await new Promise((r) => setTimeout(r, 60))
   try {

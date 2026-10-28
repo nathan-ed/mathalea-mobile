@@ -784,7 +784,6 @@ CM2D3B-2
 6AutoA2
 6AutoA2-1
 CM1C2E
-6AutoE1-1
 6AutoE1-3
 6AutoF1
 6AutoF1-3
