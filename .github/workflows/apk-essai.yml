@@ -19,17 +19,17 @@ jobs:
         with:
           node-version: 22
       # Version de pnpm : champ packageManager de package.json
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
       - name: NDK et plateforme Android
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.2.12479018" "platforms;android-37.0" "build-tools;36.0.0" > /dev/null
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
           targets: aarch64-linux-android,x86_64-linux-android
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           workspaces: src-tauri -> target
           key: essai
@@ -60,3 +60,7 @@ jobs:
         with:
           name: apk-essai
           path: apk/*.apk
+      # Les étapes finales des actions tierces ne doivent plus trouver de clé
+      - name: Effacer les clés
+        if: always()
+        run: rm -f "$RUNNER_TEMP"/*.jks src-tauri/gen/android/keystore.properties

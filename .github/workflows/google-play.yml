@@ -33,12 +33,18 @@ permissions:
 jobs:
   google-play:
     runs-on: ubuntu-latest
-    env:
-      ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
-      ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
-      GOOGLE_PLAY_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
     steps:
       - uses: actions/checkout@v7
+      # Les secrets ne vont qu'aux étapes de ce fichier (jamais à une action tierce)
+      - name: Clés fournies
+        id: cles
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
+          GOOGLE_PLAY_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
+        run: |
+          echo "signature=${ANDROID_UPLOAD_KEYSTORE:+oui}${ANDROID_KEYSTORE:+oui}" >> "$GITHUB_OUTPUT"
+          echo "compte=${GOOGLE_PLAY_SERVICE_ACCOUNT:+oui}" >> "$GITHUB_OUTPUT"
         with:
           fetch-depth: 0
       # Code de l'app : la dernière version publiée (tag v*)
@@ -73,7 +79,7 @@ jobs:
         if: steps.suite.outputs.ok
         run: node "$RUNNER_TEMP/moteur-publie.mjs"
       # Version de pnpm : champ packageManager de package.json
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         if: steps.suite.outputs.ok
       - uses: actions/setup-java@v6
         if: steps.suite.outputs.ok
@@ -83,11 +89,11 @@ jobs:
       - name: NDK et plateforme Android
         if: steps.suite.outputs.ok
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.2.12479018" "platforms;android-37.0" "build-tools;36.0.0" > /dev/null
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         if: steps.suite.outputs.ok
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         if: steps.suite.outputs.ok
         with:
           workspaces: src-tauri -> target
@@ -95,7 +101,7 @@ jobs:
         if: steps.suite.outputs.ok
       # Clé d'importation de Google Play ; à défaut, celle des APK
       - name: Clé de signature
-        if: steps.suite.outputs.ok && (env.ANDROID_UPLOAD_KEYSTORE != '' || env.ANDROID_KEYSTORE != '')
+        if: steps.suite.outputs.ok && steps.cles.outputs.signature
         env:
           CLE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE || secrets.ANDROID_KEYSTORE }}
           CLE_MOT_DE_PASSE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE && secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD || secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -128,7 +134,9 @@ jobs:
       # au plus, lue sur la branche principale (le tag peut être plus ancien).
       # Envoi par scripts/envoyer-google-play.mjs (API Google Play, sans action tierce)
       - name: Envoi à la Play Console
-        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != ''
+        if: steps.suite.outputs.ok && steps.cles.outputs.compte
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
         run: |
           git show "origin/main:docs/notes-de-version/$TAG.play.txt" > "$RUNNER_TEMP/note-play.txt" \
             || { echo "Note Play manquante : docs/notes-de-version/$TAG.play.txt"; exit 1; }
@@ -136,10 +144,14 @@ jobs:
           node "$RUNNER_TEMP/envoyer-google-play.mjs" aab/*.aab "${{ inputs.piste || 'production' }}" "$RUNNER_TEMP/note-play.txt" ${{ inputs.essai && '--essai' || '' }}
       # Retenu comme envoyé seulement après un envoi réussi
       - name: Moteur envoyé
-        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != '' && !inputs.essai
+        if: steps.suite.outputs.ok && steps.cles.outputs.compte && !inputs.essai
         run: echo "$MOTEUR" > .moteur-envoye
       - uses: actions/cache/save@v6
-        if: steps.suite.outputs.ok && env.GOOGLE_PLAY_SERVICE_ACCOUNT != '' && !inputs.essai
+        if: steps.suite.outputs.ok && steps.cles.outputs.compte && !inputs.essai
         with:
           path: .moteur-envoye
           key: google-play-${{ env.TAG }}-${{ env.MOTEUR }}
+      # Les étapes finales des actions tierces ne doivent plus trouver de clé
+      - name: Effacer les clés
+        if: always()
+        run: rm -f "$RUNNER_TEMP"/*.jks src-tauri/gen/android/keystore.properties

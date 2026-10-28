@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 22
       # Version de pnpm : champ packageManager de package.json
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - uses: actions/cache@v6
         with:
           path: |
@@ -75,19 +75,19 @@ jobs:
         with:
           node-version: 22
       # Version de pnpm : champ packageManager de package.json
-      - uses: pnpm/action-setup@v6
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
       - name: Dépendances Linux
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
       # Dépendances Rust compilées gardées d'une release à l'autre
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
-      - uses: tauri-apps/tauri-action@v1
+      - uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -101,11 +101,17 @@ jobs:
     needs: moteur
     if: ${{ !inputs.cibles || inputs.cibles == 'tout' || inputs.cibles == 'android' }}
     runs-on: ubuntu-latest
-    env:
-      ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
-      ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
     steps:
       - uses: actions/checkout@v7
+      # Les secrets ne vont qu'aux étapes de ce fichier (jamais à une action tierce)
+      - name: Clés fournies
+        id: cles
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_UPLOAD_KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
+        run: |
+          echo "apk=${ANDROID_KEYSTORE:+oui}" >> "$GITHUB_OUTPUT"
+          echo "importation=${ANDROID_UPLOAD_KEYSTORE:+oui}" >> "$GITHUB_OUTPUT"
       - name: Notes de version
         shell: bash
         run: |
@@ -120,7 +126,7 @@ jobs:
         with:
           node-version: 22
       # Version de pnpm : champ packageManager de package.json
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
@@ -128,16 +134,16 @@ jobs:
       # SDK Android déjà présent sur les machines GitHub
       - name: NDK et plateforme Android
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.2.12479018" "platforms;android-37.0" "build-tools;36.0.0" > /dev/null
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
       # Dépendances Rust compilées gardées d'une release à l'autre
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
       - name: Clé de signature (si fournie)
-        if: env.ANDROID_KEYSTORE != ''
+        if: steps.cles.outputs.apk
         env:
           CLE_BASE64: ${{ secrets.ANDROID_KEYSTORE }}
           CLE_MOT_DE_PASSE: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -150,10 +156,10 @@ jobs:
         run: pnpm tauri android build --apk --split-per-abi --target aarch64 --target armv7
       # Signature v1 en plus (AGP ne la pose pas avec minSdk 24 ; MIUI la veut)
       - name: Signatures v1, v2 et v3
-        if: env.ANDROID_KEYSTORE != ''
+        if: steps.cles.outputs.apk
         run: scripts/signer-apk.sh src-tauri/gen/android/app/build/outputs/apk/*/release/*.apk
       - name: Joindre l'APK à la release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3
         with:
           tag_name: ${{ env.VERSION }}
           body: ${{ env.NOTES }}
@@ -164,7 +170,7 @@ jobs:
       # ensuite l'app distribuée (Signature d'application Play). Le .aab ne sert
       # qu'à la Play Console : il est un artefact du job, pas un fichier de la release.
       - name: Clé d'importation Google Play (si fournie)
-        if: env.ANDROID_UPLOAD_KEYSTORE != ''
+        if: steps.cles.outputs.importation
         env:
           CLE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
           CLE_MOT_DE_PASSE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
@@ -187,3 +193,7 @@ jobs:
         with:
           name: google-play
           path: aab/*.aab
+      # Les étapes finales des actions tierces ne doivent plus trouver de clé
+      - name: Effacer les clés
+        if: always()
+        run: rm -f "$RUNNER_TEMP"/*.jks src-tauri/gen/android/keystore.properties
