@@ -28,7 +28,7 @@ exercices », minutes 3, 23 et 43 de chaque heure). Plan : voir
 1. Banc en marche ? (`tail -1 revue/banc.log`). Sinon le relancer (il reprend).
 2. Relire les exercices suivants dans l'ordre de `revue/referentiel.json`,
    en sautant ceux de `revue/relus.txt` et ceux pas encore passés au banc.
-   Prochain : `canc3a-2025b` (le sujet aléatoire `canc3a`, très long,
+   Prochain : `canc3C01` (puis can6a-2018…) (le sujet aléatoire `canc3a`, très long,
    s'appuie sur `src/exercices/can/c3/_Canc3a.ts` : le relire par le code).
 3. Trier les constats graves du banc (I1, I2, I4, M1, X1, X3, X6) : faux
    positif → `revue/ecartes.jsonl`, vrai → laissé ou précisé avec noter.mjs.
@@ -64,7 +64,7 @@ cd /home/user/mathalea-mobile && node revue/banc.mjs --travailleurs 3
 
 Arrêter le banc sans tuer son propre shell (ne jamais `pkill -f banc`) :
 `ps -eo pid,args | awk '$2=="node" && $3=="revue/banc.mjs" {print $1}' | xargs -r kill`.
-Relancé de zéro le 28 octobre vers 9 h 25 UTC après corrections du banc.
+Relancé de zéro le 28 octobre vers 8 h 37 UTC après corrections du banc.
 
 Le banc reprend seul (`revue/fait.txt`). Journal : `revue/journal.jsonl`.
 Captures et sorties texte (`revue/captures`, `revue/sorties`) hors Git :
