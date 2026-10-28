@@ -1,7 +1,7 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **292 sur 293**. Constats confirmés : **271**.
+Exercices relus : **293 sur 293**. Constats confirmés : **272**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 11 |
 | Mise en évidence (miseEnEvidence et champs) | 23 |
 | Typographie (nombres, espaces, notations) | 28 |
-| Rédaction (français, titres, consignes) | 166 |
+| Rédaction (français, titres, consignes) | 167 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -309,6 +309,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | TTE-10 | R3  | « \log(0,000\,01) » : séparation en milliers décimale correcte mais « 0,000 01 » (virgule \log) ; 6 N6 ; exercice sans correction visible dans la sortie. | Ajouter la correction (\log(10^{-5})=-5). | src/exercices/TSpe/TTE-10.ts |
 | TTE-12 | R3  | « f_{1}(x)={0,2}^x » : accolades autour de 0,2 et de 5 (« {5}^x ») ; fonctions séparées par \qquad sans virgule dans un seul dollar enchaîné (« $…$$\qquad$$…$ ») ; 52 doubles espaces. | $f_1(x)=0{,}2^x$ ; une seule formule. | src/exercices/TSpe/TTE-12.ts |
 | TTE-13 | R3  | « (1\,;\,2) » ; correction juste (a=2) ; 9 N6 ; « $a^{1}=2$ » exposant 1 inutile (R10). | $a=2$ directement. | src/exercices/TSpe/TTE-13.ts |
+| TTE-14 | R3  | Titre « $x\mapsto k\times a^x$ » avec LaTeX ; « La fonction $f$ est [liste] sur $\mathbb{R}$ » : liste déroulante sans placeholder ; correction à vérifier à la main (sens de variation selon a>1 / 0&lt;a&lt;1 et signe de k). | Titre en texte ; tester à la main. | src/exercices/TSpe/TTE-14.ts |
 | TTE-2 | R16  | Énoncé : « baisse de 60 % » : correct ; « Taux moyen d'évolution par minute de la population de bactéries arrondi à 0,1 % près : » phrase trop longue ; calcul vérifié (0,4^{1/120}-1) ; « $C=1-\dfrac{60}{100}=0,4$ ». | Raccourcir : « Arrondir à 0,1 % près ». | src/exercices/TSpe/TTE-2.ts |
 | TTE-3 | R16  | Reprend TSA5-21 (mêmes énoncés) : ligne « x ln(2) ⩾ ln(32) » en double et « car ln(2)>0 » collé ; 6 T3 ; doublon du chapitre TSA5 (à fusionner). | Voir TSA5-21 ; mutualiser. | src/exercices/TSpe/TTE-3.ts |
 | TTE-6 | R1 Titre | Reprend TSA5-10 avec \log : « pour tous réels a et b strictement positifs » a, b, n hors des $ ; 17 doubles espaces ; \log(\dots) sans \left\right nécessaires. | Idem TSA5-10. | src/exercices/TSpe/TTE-6.ts |
