@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **936 sur 1168**. Constats confirmés : **386**.
+Exercices relus : **957 sur 1168**. Constats confirmés : **393**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 295 |
+| Rédaction (français, titres, consignes) | 302 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -153,6 +153,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 11QCM-5 | R16  | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
 | 11QCM-80 | R16  | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
 | 18559 | R16  | Titre : « … le chiffre des unités devienne le chiffre des ... ? » titre inachevé avec « ... » et espace avant ? | Titre complet | relecture |
+| 1a8c6 | R16  | Titre « Développer une identité remarquable » mais l'exercice calcule une moyenne pondérée ; « devoir coefficienté » (coefficient) | Titre : Calculer une moyenne pondérée | relecture |
+| 1b8d1 | R1 Titre | Correction : « Pour tout entier n strictement positif » n hors $ ; e^{-n} (e italique) dans 1b8d0 au lieu de \mathrm{e} | $n$ ; \mathrm{e} | relecture |
+| 1b8d4 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
+| 1b8d5 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
+| 1b8d6 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
+| 1bb30 | R16  | Titre « à partir de deux points » mais l'énoncé donne un point et un vecteur normal (doublon CH de 1G21-1) | Titre cohérent | relecture |
 | 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
 | 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
@@ -225,6 +231,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
 | 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
 | 8ac2d | R3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
+| 8e7a5 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 90671 | R2 Tutoiement, impératif | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
 | 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
@@ -481,4 +488,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38490 ; T6 Points de suspension 6670 ; T5 Espaces 2504 ; T4  1904 ; M7  781 ; R2 Tutoiement, impératif 705 ; T3  663 ; R5 Virgule 567 ; T2  371 ; N2 Séparateur des milliers 247 ; N6 Écriture algébrique 246 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38491 ; T6 Points de suspension 6671 ; T5 Espaces 2516 ; T4  1974 ; M7  792 ; R2 Tutoiement, impératif 705 ; T3  663 ; R5 Virgule 578 ; T2  371 ; N6 Écriture algébrique 266 ; N2 Séparateur des milliers 255 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
