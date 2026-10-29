@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **350 sur 1168**. Constats confirmés : **225**.
+Exercices relus : **370 sur 1168**. Constats confirmés : **236**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 34 |
+| Rendu cassé (formule, débordement, erreur) | 39 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 159 |
+| Rédaction (français, titres, consignes) | 165 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -53,6 +53,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | f08fe | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | f9915 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | fgfq3 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| fhmbj | X4  | Titre « Question 22 » non descriptif (idem pour les autres « Question n ») | Titre sur le contenu | relecture |
+| gk9zv | X4  | Titre « Question 24 » non descriptif ; réponses « OUI » / « NON » en majuscules ; ⟦colinéaires (OUI)⟧ texte en miseEnEvidence | Titre sur le contenu ; « oui » / « non » | relecture |
+| hug50 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| jj1hp | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| jltht | X4  | Titre « Calculer des sommes avec annee » : nom de variable interne (annee) | Titre avec l'année | src/exercices/can/ |
 | ff4cc | X4  | Titre : « Calculer des sommes et des différences avec annee2 et annee1 » : noms de variables internes (annee1, annee2) affichés dans le titre | Titre avec 2025 et 2026 ou formulation générique | src/exercices/can/canNY-2026/ |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
@@ -149,6 +154,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | f6jd7 | R16  | Titre « Visualisation 3d » (3D) | « Visualisation 3D » | relecture |
 | f9a02 | R3  | Unités « \text{ cm}^2 » avec espace dans \text pour l'aire mais pas pour le périmètre (« \text{cm} ») | Harmoniser \text{ cm}^2 | relecture |
 | faacc | R16  | Titre « Calculer  une probabilité » : deux espaces | Une seule espace | relecture |
+| fj2ix | R3  | Correction : « $2026$ » sans espace fine alors que l'énoncé écrit $2\,026$ ; réponse ⟦\dfrac{-1}{3}⟧ (signe au numérateur) | $2\,026$ ; $-\dfrac{1}{3}$ | relecture |
+| gc360 | R16  | Titre « Completer un encadrement » (accent) | « Compléter » | relecture |
+| gnx1c | R12  | Titre en \times mais énoncé en \cdot ($f(1)\cdot f'(1)$) | Un seul symbole | relecture |
+| hbp7h | R16  | Titre « Multiplier un nombre décimalpar 0,2 » : espace manquante | « décimal par » | relecture |
+| j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | ebd89 | R16  | Titre « Calculer la dérivée de $\lambda u$ » alors que la question est une dérivée d'une fonction affine | Corriger le titre | src/exercices/1e/1AN14-1Old.ts |
 | e46e6 | R16  | Correction : intervalle $[-7;1[$ sans espaces autour de « ; » | $[-7\,;\,1[$ | src/exercices/2e/200F3-02.ts |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
@@ -161,6 +171,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | fb238 | R3  | Consigne « Quelle fraction de la figure est colorée ? » : espace ordinaire (sécable) avant « ? » | Espace insécable | src/exercices/6e/6N3autoA-old.ts |
 | fa2ec | R1 Titre | Énoncé : suite « 5 13 21 29 » hors $ ; titre avec deux espaces (« patterns numériques  (divisibilité) ») ; "Est-ce que" lourd | Nombres entre $ ; une seule espace | src/exercices/6e/6N43-1.ts |
 | eb45a | R6  | Une unité est attendue (attendu 10\operatorname{cm^2}) mais la correction ne met en évidence que ⟦10⟧, l'unité « cm² » reste hors de la couleur | miseEnEvidence(10\text{ cm}^2) (comme c188c) | src/exercices/bp2/BP2AutoV3Old.ts |
+| ity6q | R16  | Correction : « La moitié de $44$ dixièmes est $22$ » (22 dixièmes) puis « est $2,2$ unités » : unité manquante dans la première phrase | « est $22$ dixièmes, soit $2,2$ unités » | src/exercices/can/ |
 | e7919 | R5 Virgule | Énoncé : « …a pour équation : $7x-2y+4=0$ Donner les coordonnées… » (point manquant avant « Donner ») | Ajouter un point | src/exercices/can/1e/can1G08-old.ts |
 | daf1d | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs | Corriger le titre (ou la question) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts |
 | f0e17 | R16  | Énoncé : « deux notes ($11$ et $10$) coefficient $1$ » (de coefficient) | « de coefficient $1$ » | src/exercices/can/can2a-2025/can2a-2025-Q21.ts |
