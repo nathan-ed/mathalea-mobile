@@ -67,6 +67,9 @@ Le serveur répond quand `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.
   (reprise), `revue/sorties/<id>.json` (textes et attendus de chaque
   variante), `revue/captures/`. Journal, sorties et captures sont **hors Git** :
   l'archive à garder est `revue/classement/constats.jsonl.gz` (voir 5).
+  Copie compressée du journal, des contrôles de texte et des sorties :
+  `revue/archives/` (README pour les restaurer) ; à refaire après un nouveau
+  passage du banc.
 - Lancement par morceaux disjoints, deux travailleurs chacun :
 
 ```bash
