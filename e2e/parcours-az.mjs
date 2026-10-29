@@ -372,7 +372,10 @@ async function jouerSeance(e, p, nomCeinture) {
     await page.locator('main .contenu-mathalea').first().waitFor({ timeout: 30000 })
     await pause(page, 600)
     // Étape et rangs affichés, lus dans les identifiants des éléments de réponse
-    const ids = await page.locator('main .contenu-mathalea').first().evaluate((z) => [...z.querySelectorAll('[id]')].map((x) => x.id).concat([...z.querySelectorAll('*')].flatMap((x) => (x.shadowRoot ? [...x.shadowRoot.querySelectorAll('[id]')].map((y) => y.id) : []))))
+    // Toutes les questions de la page (plusieurs par page selon la présentation), sans les corrections
+    const ids = await page.locator('main').evaluate((m) =>
+      [...m.querySelectorAll('.question-eleve')].flatMap((z) => [...z.querySelectorAll('[id]')].map((x) => x.id).concat([...z.querySelectorAll('*')].flatMap((x) => (x.shadowRoot ? [...x.shadowRoot.querySelectorAll('[id]')].map((y) => y.id) : [])))),
+    )
     const rangs = new Map()
     for (const id of ids) {
       const m = /Ex(\d+)[QF](\d+)/.exec(id)
@@ -410,43 +413,65 @@ async function jouerSeance(e, p, nomCeinture) {
         etiquette += `${s0.contenu.etapes[n].id} apigeom-figure `
       }
       await pause(page, 500)
-      const verifier = page.getByRole('button', { name: 'Vérifier', exact: true })
-      if (!(await verifier.count())) {
-        // Déjà vérifiée (Entrée dans le champ) : le résultat est lu plus bas
-        await capture(page, `az-${p.id}-sans-verifier-${tour}`)
-        const s = await lireSeance(page, p.id)
-        if (!s.essais.at(-1)?.juste) problemes.push(`${etiquette}: vérifiée sans le bouton, comptée incorrecte (${JSON.stringify(s.essais.at(-1)?.reponses ?? {}).slice(0, 200)})`)
-      } else if (await verifier.isDisabled()) {
-        problemes.push(`${etiquette}: Vérifier reste inactif après la réponse`)
-        await capture(page, `az-${p.id}-inactif-${tour}`)
-        await toucher(e, page.getByRole('button', { name: /^(Passer|Terminer)$/ }))
-      } else {
-        await toucher(e, verifier)
+      // Lien « Vérifier » sous chaque question (plusieurs questions par page, correction à la question)
+      for (const lien of await page.locator('main').getByRole('button', { name: 'Vérifier', exact: true }).all()) {
+        if (await lien.isEnabled()) await toucher(e, lien)
+        else problemes.push(`${etiquette}: Vérifier reste inactif après la réponse`)
+        await pause(page, 500)
+      }
+      // Bouton du bas : vérifier la question ou soumettre la page
+      const bas = page.locator('footer').getByRole('button', { name: /^(Vérifier|Soumettre l’exercice|Soumettre)$/ })
+      if (await bas.count()) {
+        if (await bas.first().isDisabled()) {
+          problemes.push(`${etiquette}: Vérifier reste inactif après la réponse`)
+          await capture(page, `az-${p.id}-inactif-${tour}`)
+          await toucher(e, page.getByRole('button', { name: /^(Passer|Terminer)$/ }))
+        } else await toucher(e, bas.first())
         await pause(page, 900)
-        const s = await lireSeance(page, p.id)
-        const essai = s.essais.at(-1)
-        const apigeom = false
-        if (!essai) problemes.push(`${etiquette}: aucune vérification enregistrée`)
-        else if (!essai.juste && !apigeom) {
-          const att = [...rangs.values()].filter(([, , f]) => !f).map(([n, k]) => JSON.stringify(cache[n]?.[k]?.valeur ?? cache[n]?.[k]?.statuts)).join(' ; ')
-          problemes.push(`${etiquette}: bonne réponse comptée incorrecte. Attendu ${att.slice(0, 300)} ; enregistré ${JSON.stringify(essai.reponses).slice(0, 300)}`)
-          await capture(page, `az-${p.id}-faux-${tour}`)
+        const garde = page.getByRole('button', { name: /quand même$/ })
+        if (await garde.count()) {
+          problemes.push(`${etiquette}: garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
+          await toucher(e, garde)
+          await pause(page, 900)
         }
       }
     }
     await pause(page, 300)
-    const suivant = page.getByRole('button', { name: /^(Question suivante|Voir le bilan)$/ })
+    // Suite : question ou exercice suivant, soumission de la tentative (correction à la fin), bilan
+    const suivant = page.locator('footer').getByRole('button', { name: /^(Question suivante|Exercice suivant|Soumettre la tentative|Voir le bilan)$/ })
     if (!(await suivant.count())) {
-      // Question passée (Vérifier inactif) : on est déjà sur la suivante, ou au garde-fou
+      // Question passée : on est déjà sur la suivante, ou au garde-fou, ou au bilan
       const garde = page.getByRole('button', { name: /quand même$/ })
       if (await garde.count()) await toucher(e, garde)
       await pause(page, 800)
       if (!(await page.locator('main .contenu-mathalea').count())) break
       continue
     }
-    const bilan = (await suivant.innerText()).trim() === 'Voir le bilan'
-    await toucher(e, suivant)
-    if (bilan) break
+    const libelle = (await suivant.first().innerText()).trim()
+    await toucher(e, suivant.first())
+    await pause(page, 900)
+    if (libelle === 'Soumettre la tentative') {
+      const garde = page.getByRole('button', { name: /quand même$/ })
+      if (await garde.count()) {
+        problemes.push(`garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
+        await toucher(e, garde)
+      }
+      // Relecture corrigée, puis le bilan
+      await pause(page, 3000)
+      const bilan = page.locator('footer').getByRole('button', { name: 'Voir le bilan' })
+      if (await bilan.count()) await toucher(e, bilan)
+      break
+    }
+    if (libelle === 'Voir le bilan') break
+  }
+  // Chaque vérification enregistrée : une bonne réponse doit être comptée correcte
+  const fin = await lireSeance(page, p.id).catch(() => null)
+  for (const essai of fin?.essais ?? []) {
+    if (essai.juste) continue
+    const etape = s0.contenu.etapes[essai.etape]
+    cache[essai.etape] ??= await attendues(e, { ...etape }, s0.graines[essai.etape], essai.etape)
+    const att = cache[essai.etape][essai.question]
+    problemes.push(`${etape.id} Q${essai.question} ${att?.format ?? ''} : bonne réponse comptée incorrecte. Attendu ${JSON.stringify(att?.valeur ?? att?.statuts).slice(0, 300)} ; enregistré ${JSON.stringify(essai.reponses).slice(0, 300)}`)
   }
   await pause(page, 1200)
   return problemes
@@ -514,14 +539,16 @@ for (const f of fichiers) {
   for (const classe of fichier.classes) {
     for (const p of classe.parcours) {
       if (process.env.PARCOURS && !process.env.PARCOURS.split(',').includes(p.id)) continue
-      console.log(`\n=== ${p.titre} (${p.id}, ${p.paliers.length} ceintures, ${appareil})`)
+      // Parcours sans paliers : un seul passage de tous ses exercices
+      const paliers = p.paliers?.length > 1 ? p.paliers : [{ titre: p.titre, nb: p.etapes.length }]
+      console.log(`\n=== ${p.titre} (${p.id}, ${paliers.length} ceinture${paliers.length > 1 ? 's' : ''}, ${appareil})`)
       const e = await eleve(p.id, classe.nom, [p])
       const page = e.page
       await toucher(e, page.getByRole('button', { name: new RegExp(`^\\s*${p.titre.replace(/[()]/g, '.')}`) }).first())
       await pause(page, 800)
       await toucher(e, page.getByRole('button', { name: /^Commencer/ }).first())
-      for (let k = 0; k < p.paliers.length; k++) {
-        const nom = `ceinture ${k + 1} « ${p.paliers[k].titre} »`
+      for (let k = 0; k < paliers.length; k++) {
+        const nom = `ceinture ${k + 1} « ${paliers[k].titre} »`
         await pause(page, 800)
         // Fiche de cours d'abord (première fois)
         const fiche = page.getByRole('button', { name: 'Commencer l’entraînement' })
@@ -534,7 +561,7 @@ for (const f of fichiers) {
         const pourcent = /(\d+)\s*%/.exec(texteBilan)?.[1]
         ok(problemes.length === 0, `${p.id} ${nom} : toutes les bonnes réponses acceptées (${pourcent ?? '?'} %)`, '\n    ' + problemes.join('\n    '))
         if (k === 0) await capture(page, `az-${p.id}-bilan`)
-        if (k + 1 < p.paliers.length) {
+        if (k + 1 < paliers.length) {
           const continuer = page.getByRole('button', { name: /^Continuer : / })
           if (!ok(await continuer.count(), `${p.id} ${nom} : la ceinture suivante s'ouvre`, texteBilan.slice(0, 300))) break
           await toucher(e, continuer)

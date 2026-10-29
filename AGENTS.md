@@ -48,10 +48,12 @@ toute modification.
 Chaque release touche beaucoup de monde : rien ne passe sans vérification
 complète (détails dans le skill, « Vérification »).
 
-- Avant une release : `bash scripts/verifier-release.sh` sur l'ordinateur de
-  qui publie (check, test, cargo test, toutes les suites e2e dont tous les
-  formats de réponse et les parcours de l'Explorer de A à Z) ; « TOUT VERT »
-  avant de poser le tag.
+- Release : seulement par `bash scripts/publier.sh vX.Y.Z`, sur l'ordinateur
+  de Nathan (seul à publier). Il lance `scripts/verifier-release.sh` (check,
+  test, cargo test, toutes les suites e2e, tous les formats de réponse et
+  **tous les parcours** de `explorer/` et de la démonstration joués de A à Z
+  par un élève qui répond juste) et ne pose le tag que si tout est vert.
+  Jamais de tag `v*` posé à la main.
 - `pnpm check` et `pnpm test` ; `cargo test` dans `src-tauri`.
 - Parcourir le changement comme un élève (vraies réponses, vrais boutons,
   jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais

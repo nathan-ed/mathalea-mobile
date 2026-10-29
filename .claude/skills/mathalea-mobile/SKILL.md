@@ -649,8 +649,8 @@ Environnement (machine de Nathan)
 - Déroulé d'une release (0.1.3, fait de bout en bout) : tests complets
   (check, test, cargo test, job CI rejoué dans Docker, `complet.mjs`,
   `regressions.mjs`), version montée et `docs/developpement.md` à jour,
-  commit, `git tag v<x>`, push du tag **seul** :
-  `git push origin main v<x>` puis `git push github main v<x>` (le tag sur
+  commit, puis `bash scripts/publier.sh v<x>` (vérification complète, tag,
+  push sur `origin` et `github`) (le tag sur
   GitHub lance `release.yml` avec `cibles=tout`, environ 20 min ; suivre avec
   `gh run watch`). Puis `scripts/release.sh v<x>` ; il ne commite rien :
   `git add releases` (README et `releases/v<x>/`), commit, push sur les deux
@@ -840,7 +840,11 @@ Environnement (machine de Nathan)
   `MATHALEA_MOTEUR_MAJ=1`). Jamais modifier le code de MathALÉA : corrections
   dans `moteur/fichiers/`, style dans `src/app.css`.
 - Tests de release sur l'ordinateur de Nathan (« je serai le seul à faire des
-  releases ») : `bash scripts/verifier-release.sh`, puis le tag.
+  releases ») : `bash scripts/publier.sh v<x>` lance `verifier-release.sh`
+  (tous les parcours de A à Z, sans exception : « je ne veux plus jamais que
+  ce type de problèmes apparaisse ») et ne pose le tag que si tout est vert.
+  Les parcours sont pris d'office dans `explorer/*.json` et la démonstration
+  (`e2e/az-groupe.mjs`) : un nouveau fichier est testé sans rien changer.
 - Espaces dans les nombres : jamais exigés (pas de touche espace dans
   MathLive au clavier du téléphone), `sansEspacesExiges` dans le moteur.
 - Construire le moteur sans accès à git.sesamath.net (`instrumenpoche`,

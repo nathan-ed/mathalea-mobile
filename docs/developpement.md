@@ -691,14 +691,18 @@ Reste à faire :
   aurait remplacé le nôtre. Conséquence : de nouveaux exercices du site
   arrivent avec une release de l'app (monter `moteur/COMMIT`). `google-play.yml`
   construit aussi notre moteur (`scripts/moteur.sh`).
-- Vérification avant release : `bash scripts/verifier-release.sh`, sur
-  l'ordinateur de qui publie ; la CI GitHub ne garde que les suites rapides.
+- Release : `bash scripts/publier.sh v<x>` sur l'ordinateur de Nathan :
+  `scripts/verifier-release.sh` (toutes les suites, tous les formats, tous les
+  parcours de `explorer/` et de la démonstration joués de A à Z, environ
+  2 h 30), puis tag et push seulement si tout est vert. La CI GitHub ne garde
+  que les suites rapides.
 - Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
 - Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
   attendues régénérées avec la graine de la séance), aussi en CI ;
   `node e2e/parcours-az.mjs` : parcours de l'Explorer joués de A à Z par un
   élève qui répond juste (tous formats, vrais seuils, suivi) ;
-  `FORMATS=1 node e2e/parcours-az.mjs <fichier>` : un exercice par format.
+  `FORMATS=1 node e2e/parcours-az.mjs <fichier>` : un exercice par format ;
+  `node e2e/az-1.mjs` (2, 3) : tous les parcours proposés, en trois groupes.
   Inventaire des formats : `docs/types-de-reponse.md`.
 
 ## 0.4.9 : corriger un parcours déjà travaillé (fait)

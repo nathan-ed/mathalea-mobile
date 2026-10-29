@@ -4,8 +4,9 @@
 # un élève (dont tous les formats de réponse et les parcours de l'Explorer de
 # A à Z). Rien ne doit être modifié dans src/ pendant qu'il tourne : Vite
 # rechargerait la page et ferait échouer une suite au hasard.
-#   bash scripts/verifier-release.sh            (tout, environ 2 h 30)
-#   RAPIDE=1 bash scripts/verifier-release.sh   (sans les parcours de A à Z)
+#   bash scripts/verifier-release.sh   (tout, environ 2 h 30 ; tous les parcours
+#   de explorer/ et la démonstration sont joués de A à Z, sans exception)
+# Lancé par scripts/publier.sh, qui ne pose le tag que si tout est vert.
 # Il faut static/moteur (pnpm moteur), Chromium à /usr/bin/chromium, python3
 # et ffmpeg (fausse caméra des suites QR). Captures et journaux dans $SORTIE.
 set -uo pipefail
@@ -60,8 +61,7 @@ trap 'kill -- -"${serveur:-0}" 2>/dev/null; kill "$partage" 2>/dev/null' EXIT
 # catalogue en cache), imposée même si .env.development.local en donne une autre
 demarrer "https://coopmaths.fr/alea/parcours/"
 # Longues suites en parallèle : formats de réponse et parcours de l'Explorer
-paralleles=(formats)
-if [ -z "${RAPIDE:-}" ]; then paralleles+=(az-prequalifiant-1 az-prequalifiant-2 az-evacom); fi
+paralleles=(formats az-1 az-2 az-3)
 pids=()
 for s in "${paralleles[@]}"; do
   (node "e2e/$s.mjs" > "$SORTIE/$s.log" 2>&1; echo $? > "$SORTIE/$s.code") &
