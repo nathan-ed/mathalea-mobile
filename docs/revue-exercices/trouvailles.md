@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **2929 exercices passés sur 4190**.
-Constats regroupés : 14392 (un groupe = même exercice, même règle,
+Avancement : **2953 exercices passés sur 4190**.
+Constats regroupés : 14438 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -52,7 +52,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [R12 ](#r12) | 3 | 3 |
 | 2 Rendu cassé | [R14 ](#r14) | 4 | 4 |
 | 2 Rendu cassé | [R15 ](#r15) | 1 | 1 |
-| 2 Rendu cassé | [R16 ](#r16) | 48 | 48 |
+| 2 Rendu cassé | [R16 ](#r16) | 50 | 50 |
 | 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 15 | 15 |
 | 2 Rendu cassé | [R3 Point final](#r3) | 12 | 12 |
 | 2 Rendu cassé | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
@@ -62,7 +62,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 36 | 56 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 19 | 300 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 27 | 105 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 239 | 398 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 240 | 399 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 14 | 14 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
@@ -70,7 +70,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 3 | 3 |
 | 3 Mise en évidence | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 356 | 2517 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 358 | 2536 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 9 | 9 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
@@ -87,7 +87,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [R12 ](#r12) | 1 | 1 |
 | 3 Mise en évidence | [R13 ](#r13) | 5 | 5 |
 | 3 Mise en évidence | [R14 ](#r14) | 8 | 8 |
-| 3 Mise en évidence | [R16 ](#r16) | 119 | 119 |
+| 3 Mise en évidence | [R16 ](#r16) | 120 | 120 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 13 | 13 |
 | 3 Mise en évidence | [R3 Point final](#r3) | 16 | 16 |
 | 3 Mise en évidence | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 2 |
@@ -110,11 +110,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M6 Pas de mise en évidence du résultat](#m6) | 10 | 10 |
 | 4 Typographie | [M7 Explication en orange](#m7) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 752 | 1275 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 753 | 1277 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 33 | 46 |
 | 4 Typographie | [N3 Point décimal](#n3) | 34 | 43 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 11 | 11 |
-| 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 64 | 82 |
+| 4 Typographie | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 65 | 83 |
 | 4 Typographie | [N7 Zéros significatifs (prix…)](#n7) | 6 | 6 |
 | 4 Typographie | [R1 Titre](#r1) | 22 | 22 |
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 9 | 9 |
@@ -128,7 +128,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [T1 Espace avant %](#t1) | 21 | 30 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 27 | 37 |
 | 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 387 | 631 |
-| 4 Typographie | [T4 Guillemets](#t4) | 155 | 246 |
+| 4 Typographie | [T4 Guillemets](#t4) | 158 | 250 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 6 | 6 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 6 | 6 |
 | 4 Typographie | [T8 Commande LaTeX collée](#t8) | 2 | 2 |
@@ -136,11 +136,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 4 Typographie | [X4 Question en double ou vide](#x4) | 4 | 4 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 565 | 782 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 569 | 786 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 318 | 1717 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 319 | 1718 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 41 | 48 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 120 | 175 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 122 | 178 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 85 | 120 |
 | 5 Rédaction | [R1 Titre](#r1) | 50 | 79 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 147 | 208 |
@@ -153,12 +153,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 45 | 60 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 498 | 813 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 564 | 781 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 503 | 819 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 565 | 782 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 56 | 56 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 194 | 209 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 195 | 210 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
 | 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 149 | 149 |
 
@@ -867,6 +867,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 2A-S2-7 (2e) | src/exercices/2e/ | Titre « Comparer la moyenne et l'écart-type d'une série rangée en classes » alors que l'exercice compare deux séries simples E et F sur leur moyenne → Titre cohérent avec la question | ×1 |
+| 2A-S4-6 (2e) | src/exercices/2e/ | Titre « Lire une fréquence… » mais la question demande la valeur du troisième quartile → Titre cohérent | ×1 |
 | 3AutoN14 (3e) | src/exercices/3e/3AutoN14.ts | Correction : « on soustrait $-2$ des deux membres » : double négation maladroite (il faut ajouter $2$) → « on ajoute $2$ aux deux membres » | ×1 |
 | 3AutoS02-8 (3e) | src/exercices/3e/3AutoS02-8.ts | Énoncé : série « $13, 9, 12, 6$ » séparée par des virgules (ambiguës avec la virgule décimale) ; « 4 notes » hors $ → Points-virgules : $13$ ; $9$ ; $12$ ; $6$ | ×1 |
 | 3F21 (3e) | src/exercices/3e/3F21.ts | Correction : « le coefficient a. » (a hors $) ; coordonnées « $(1;3)$ » sans espaces autour de « ; » (aussi 3F21-1 « $(0;2)$ ») → $a$ ; $(1\,;\,3)$ | ×1 |
@@ -1493,6 +1495,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3AutoL04 (3e) | src/exercices/3e/3AutoL04.ts | Correction vide (QCM « solution de l'équation ») → Ajouter la vérification par substitution | ×1 |
 | 3G20-3 (3e) | série q1 | énoncé vide | ×74 ; sup=1 sup2=false sup3=1 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | 3L13 (3e) | série q1 | énoncé vide | ×226 ; sup=true sup2=8 sup3=false sup4=false sup5=1 ; sup=true sup2=1 sup3=true sup4=true sup5=1… (revue-0-a) |
+| 3L13-1 (3e) | série q1 | énoncé vide | ×202 ; sup=0 sup2=false sup3=false sup4=1 ; sup=0 sup2=true sup3=true sup4=1… (revue-0-a) |
 | 4C20-3 (4e) | série q1 | énoncé vide | ×74 ; sup=1 sup2=false sup3=1 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | 4C30-1 (4e) | série q1 | énoncé vide | ×50 ; sup=4 ; sup=1… (revue-0-a) |
 | 4C30-1b (4e) | série q1 | énoncé vide | ×50 ; sup=4 ; sup=1… (revue-0-a) |
@@ -2427,6 +2430,25 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L11-6 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["(x-3)","(x-3)","(x-3)","(x-3)","(x-3)"] ; attendu : {"champ":"(3x+2)(x-3)"} | ×1 ; sup=3 sup2=2 (revue-7-b) |
 | 3L11-6 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["(2x-3)","(2x-3)","(2x-3)","(2x-3)","(2x-3)"] ; attendu : {"champ":"(-3x-2)(2x-3)"} | ×1 ; sup=3 sup2=3 (revue-8-a) |
 | 3L11-6 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["(x-4)","(x-4)","(x-4)","(x-4)","(x-4)"] ; attendu : {"champ":"(-x-2)(x-4)"} | ×1 ; sup=3 sup2=3 (revue-8-b) |
+| 3L13-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["37","37"] ; attendu : {"champ":"37\\operatorname{mm}"} | ×28 ; sup=0 sup2=true ; sup=9 sup2=true… (revue-1-b) |
+| 3L13-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["4"] ; attendu : {"champ":"4\\operatorname{cm}"} | ×4 ; sup=4 sup2=true (revue-8-a) |
+| 3L13-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×4 ; sup=4 sup2=false (revue-9-a) |
+| 3L13-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["17","18","19"] ; attendu : {"champ":"17;18;19"} | ×4 ; sup=12 sup2=true ; sup=12 sup2=false… (revue-24-a) |
+| 3L13-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["16","17","18","19","20"] ; attendu : {"champ":"16;17;18;19;20"} | ×5 ; sup=12 sup2=true ; sup=12 sup2=false (revue-24-a) |
+| 3L13-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["20","44"] ; attendu : {"champ":"20;44"} | ×9 ; sup=13 sup2=true ; sup=13 sup2=false… (revue-26-a) |
+| 3L13-5 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"-20","champ2":"-20","champ3":"40","champ4":"40","champ5":"4x+8","champ6":"4x+8"} ; attendu : {"champ1":"-20","champ2":"40","champ3":"-20","champ4":"40","champ5":"4x+8","champ6":"4(x+2)"} | ×10 ; sup=1-2 ; sup=1… (revue-0-a) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"15","champ2":"15","champ3":"-50","champ4":"-50","champ5":"-5x-25","champ6":"-5x-25"} ; attendu : {"champ1":"15","champ2":"-50","champ3":"15","champ4":"-50","champ5":"-5x-25","champ6":"-5(x+5)"} | ×4 ; sup=1-2 ; sup=1-2 nb=10 (revue-0-b) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"-6","champ2":"-6","champ3":"-30","champ4":"-30","champ5":"-3x-15","champ6":"-3x-15"} ; attendu : {"champ1":"-6","champ2":"-30","champ3":"-6","champ4":"-30","champ5":"-3x-15","champ6":"-3(x+5)"} | ×4 ; sup=1 ; sup=7… (revue-1-a) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"4","champ2":"4","champ3":"36","champ4":"36","champ5":"4x+12","champ6":"4x+12"} ; attendu : {"champ1":"4","champ2":"36","champ3":"4","champ4":"36","champ5":"4x+12","champ6":"4(x+3)"} | ×2 ; sup=1 ; sup=1-2 nb=10 (revue-1-b) |
+| 3L13-5 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"47","champ2":"47","champ3":"-16","champ4":"-16","champ5":"-7x+12","champ6":"-7x+12"} ; attendu : {"champ1":"47","champ2":"-16","champ3":"47","champ4":"-16","champ5":"-7x+12","champ6":"-4(x-3)-3x"} | ×5 ; sup=2 ; sup=1-2 nb=10 (revue-2-a) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"-29","champ2":"-29","champ3":"-9","champ4":"-9","champ5":"2x-15","champ6":"2x-15"} ; attendu : {"champ1":"-29","champ2":"-9","champ3":"-29","champ4":"-9","champ5":"2x-15","champ6":"-3(x+5)+5x"} | ×1 ; sup=2 (revue-2-a) |
+| 3L13-5 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"4","champ2":"4","champ3":"100","champ4":"100","champ5":"x^2+6x+9","champ6":"x^2+6x+9"} ; attendu : {"champ1":"4","champ2":"100","champ3":"4","champ4":"100","champ5":"(x+3)^2","champ6":"x^2+6x+9"} | ×2 ; sup=3 (revue-3-a) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"36","champ2":"36","champ3":"4","champ4":"4","champ5":"x^2-4x+4","champ6":"x^2-4x+4"} ; attendu : {"champ1":"36","champ2":"4","champ3":"36","champ4":"4","champ5":"(x-2)^2","champ6":"x^2-4x+4"} | ×2 ; sup=3 (revue-3-a) |
+| 3L13-5 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"39","champ2":"39","champ3":"24","champ4":"24","champ5":"x^2-25","champ6":"x^2-25"} ; attendu : {"champ1":"39","champ2":"24","champ3":"39","champ4":"24","champ5":"(x+5)(x-5)","champ6":"x^2-25"} | ×4 ; sup=4 ; sup=7 (revue-4-a) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"0","champ2":"0","champ3":"-16","champ4":"-16","champ5":"x^2-25","champ6":"x^2-25"} ; attendu : {"champ1":"0","champ2":"-16","champ3":"0","champ4":"-16","champ5":"(x-5)(x+5)","champ6":"x^2-25"} | ×2 ; sup=4 ; sup=7 (revue-4-a) |
+| 3L13-5 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"40","champ2":"40","champ3":"0","champ4":"0","champ5":"-8x+16","champ6":"-8x+16"} ; attendu : {"champ1":"40","champ2":"0","champ3":"40","champ4":"0","champ5":"(x-4)^2-x^2","champ6":"-8x+16"} | ×2 ; sup=5 (revue-5-a) |
+| 3L13-5 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"-25","champ2":"-25","champ3":"39","champ4":"39","champ5":"x^2+10x","champ6":"x^2+10x"} ; attendu : {"champ1":"-25","champ2":"39","champ3":"-25","champ4":"39","champ5":"(x+5)^2-25","champ6":"x(x+10)"} | ×3 ; sup=6 (revue-6-a) |
+| 3L13-5 (3e) |  q2 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"0","champ2":"0","champ3":"27","champ4":"27","champ5":"x^2+6x","champ6":"x^2+6x"} ; attendu : {"champ1":"0","champ2":"27","champ3":"0","champ4":"27","champ5":"(x+3)^2-9","champ6":"x(x+6)"} | ×1 ; sup=6 (revue-6-a) |
 | 4A10-1 (4e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"6","champ2":"5"} ; attendu : {"champ1":"5","champ2":"6"} | ×419 ; sup=2 sup2=6 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 4C10-11 (4e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1,969","-1,9","-1,96","-2"] ; attendu : {"champ":"-1,96"} | ×1 ; sup=2 sup2=5 (revue-9-a) |
 | 4C10-11 (4e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,84","-0,84","0,84"] ; attendu : {"champ":"-0,84"} | ×1 ; sup=4 sup2=3 (revue-17-b) |
@@ -5583,6 +5605,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 2A-C4-4 (2e) | src/exercices/2e/ | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) → « est donné » | ×1 |
 | 2A-C4-5 (2e) | src/exercices/2e/ | Énoncé : $C=(1+t)^2$ sans hypothèse sur le signe de $1+t$, mais la correction affirme « les deux membres sont positifs » et prend $\sqrt{C}=1+t$ (la réponse unique $\sqrt{C}-1$ est fausse pour $t&lt;-1$) → Ajouter « avec $t\geqslant -1$ » (ou $1+t\geqslant0$) dans l'énoncé | ×1 |
+| 2A-G5-2 (2e) | src/exercices/2e/ | Énoncé : « représenté à l'echelle » (échelle) → « échelle » | ×1 |
 | 2A-N7-3 (2e) | src/exercices/2e/ | Correction : « Dans une $1$ heure, il y a… » (article fautif) → « En $1$ heure » | ×1 |
 | 3AutoM04-1 (3e) | src/exercices/3e/3AutoM04-1.ts | Consigne : « Compléter L'égalité » (majuscule à « L'égalité ») → « Compléter l'égalité » | ×1 |
 | 3AutoP03-1 (3e) | src/exercices/3e/3AutoP03-1.ts | Titre « un nouveaux prix » → « un nouveau prix » | ×1 |
@@ -6147,6 +6170,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-S1-1 (2e) | énoncé non interactif q1 | « 1 » hors $ : pour un logo, on distingue trois groupes : logo 1 : ‖ « 2 » hors $ : votes ; logo 2 : ‖ « 3 » hors $ : votes ; logo 3 : les autres. Quel diagramme circulaire représ | ×3 |
 | 2A-S2-7 (2e) | correction q1 | « 12 » hors $ : La moyenne de la série F est 12, celle de la série E est 9. On peut conc ‖ « 9 » hors $ : nne de la série F est 12, celle de la série E est 9. On peut conclure que la seule réponse ac ‖ « 10 » hors $ : des deux séries qui sont toutes les deux égales à 10. Les moyennes sont égales, on calcule le | ×8 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-S2-7 (2e) | correction non interactive q1 | « 12 » hors $ : La moyenne de la série F est 12, celle de la série E est 9. On peut conc ‖ « 9 » hors $ : nne de la série F est 12, celle de la série E est 9. On peut conclure que la seule réponse ac | ×2 |
+| 2A-S3-4 (2e) | correction q1 | « 1 » hors $ : des valeurs de la série 1 sont supérieures ou égales à la médiane de la sé ‖ « 2 » hors $ : nt supérieures ou égales à la médiane de la série 2. » Le premier quartile de la série 1 vaut ‖ « 1 » hors $ : de la série 2. » Le premier quartile de la série 1 vaut | ×176 ; défaut ; défaut nb=10 (revue-0-a) |
+| 2A-S3-4 (2e) | correction non interactive q1 | « 1 » hors $ : des valeurs de la série 1 sont supérieures ou égales à la médiane de la sé ‖ « 2 » hors $ : nt supérieures ou égales à la médiane de la série 2. » Le premier quartile de la série 1 vaut ‖ « 1 » hors $ : de la série 2. » Le premier quartile de la série 1 vaut | ×16 |
 | 3A10-0 (3e) | énoncé q1 | « 40 » hors $ : 40 [champ] | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3A10-0 (3e) | correction q1 | « 40 » hors $ : Comme 40 est pair, il admet donc au moins trois diviseur ‖ « 1 » hors $ : , il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, 40 n'est donc pas premier. ‖ « 2 » hors $ : l admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, 40 n'est donc pas premier. | ×82 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3A10-0 (3e) | énoncé non interactif q1 | « 40 » hors $ : 40 | ×5 |
@@ -7532,6 +7557,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3F14-1 (3e) | correction q1 | signes accolés : $v(x)={\color{}\boldsymbol{27+-0,233x}}$ | ×2 ; sup=6 ; sup=0 nb=10 (revue-6-a) |
 | 3F23-2 (3e) | correction q4 | coefficient 1 écrit : $igned}g(x)=-\dfrac{8}{5}&\iff 1x +\dfrac{1}{2}=-\dfrac{8}{5}$ ‖ coefficient 1 écrit : $-\dfrac{8}{5}\\ &\iff 1x=-\dfrac{8}{5} -\dfrac{1}{2}$ ‖ coefficient 1 écrit : $\begin{aligned}g(x)=-5&\iff 1x +\dfrac{1}{2}=-5\\$ | ×12 ; défaut nb=10 (revue-1-a) |
 | 3L13 (3e) | correction q1 | coefficient 1 écrit : ${&nbsp;&nbsp;-&nbsp;&nbsp;b}}=1b+5{\color{}\boldsymbol{&nbsp$ ‖ coefficient 1 écrit : ${&nbsp;&nbsp;-&nbsp;&nbsp;a}}=1a+13{\color{}\boldsymbol{&nbs$ ‖ coefficient 1 écrit : ${&nbsp;&nbsp;-&nbsp;&nbsp;y}}=1y+13{\color{}\boldsymbol{&nbs$ | ×3 ; sup=false sup2=5 sup3=false sup4=false sup5=2 (revue-13-a) |
+| 3L13-1 (3e) | correction q3 | coefficient 1 écrit : $2x-4{\color{}\boldsymbol{-x}}=1x+7{\color{}\boldsymbol{-x}}$ ‖ coefficient 1 écrit : $x+12{\color{}\boldsymbol{-x}}=1x+3{\color{}\boldsymbol{-x}}$ ‖ coefficient 1 écrit : $-x-1{\color{}\boldsymbol{-x}}=1x+7{\color{}\boldsymbol{-x}}$ | ×13 ; sup=0 sup2=true sup3=true sup4=2 ; sup=0 sup2=false sup3=false sup4=2… (revue-2-a) |
 | 4C23-1 (4e) | correction q3 | signes accolés : $C = \dfrac{-1}{-2} + -3$ | ×1 ; sup=1 sup2=true sup3=true sup4=true (revue-1-a) |
 | 4C23-2 (4e) | correction q4 | signes accolés : $-\dfrac{-10}{90}\\ &=\dfrac{63--10}{90}\\ &={\color{}\boldsy$ ‖ signes accolés : $}{40}-\dfrac{-1}{40}=\dfrac{24--1}{40}={\color{}\boldsymbol{$ ‖ signes accolés : $}-\dfrac{-3}{24}\\ &=\dfrac{16--3}{24}\\ &={\color{}\boldsym$ | ×5 ; sup=3 sup2=true sup3=true ; sup=3 sup2=false sup3=true… (revue-8-a) |
 | 4L14-0 (4e) | énoncé q1 | coefficient 1 écrit : $-7x-7=x^2+1x~$ ‖ coefficient 1 écrit : $7x-7=x^2-1x~$ | ×2 ; sup=2 sup2=6 (revue-17-a) |
@@ -8744,6 +8770,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-S1-8 (2e) | énoncé q1 | guillemet sans insécable : Combien de personnes correspondent à la catégorie « Bus » ? [champ] ‖ guillemet sans insécable : n de personnes correspondent à la catégorie « Bus » ? [champ] ‖ guillemet sans insécable : Combien de personnes correspondent à la catégorie « Vélo » ? [champ] | ×22 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-S1-8 (2e) | correction q1 | guillemet sans insécable : . Le secteur « Bus » mesure ‖ guillemet sans insécable : . Le secteur « Vélo » mesure ‖ guillemet sans insécable : . La proportion correspondant au secteur « Documentaire » est donc : | ×16 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-S1-8 (2e) | énoncé non interactif q1 | guillemet sans insécable : Combien de personnes correspondent à la catégorie « Bus » ? ‖ guillemet sans insécable : n de personnes correspondent à la catégorie « Bus » ? | ×2 |
+| 2A-S3-4 (2e) | correction q1 | guillemet sans insécable : « Environ ‖ guillemet sans insécable : supérieures ou égales à la médiane de la série 2. » Le premier quartile de la série 1 vaut ‖ guillemet sans insécable : . Cette affirmation est donc fausse. « Au moins une valeur de la série 2 est strictemen | ×88 ; défaut ; défaut nb=10 (revue-0-a) |
+| 2A-S3-4 (2e) | correction non interactive q1 | guillemet sans insécable : réponse A : « Environ ‖ guillemet sans insécable : supérieures ou égales à la médiane de la série 2. » Le premier quartile de la série 1 vaut ‖ guillemet sans insécable : ette affirmation est donc fausse. réponse B : « Au moins une valeur de la série 2 est strictemen | ×8 |
+| 2A-S4-4 (2e) | correction q1 | guillemet sans insécable : premières valeurs sont des « ‖ guillemet sans insécable : », puis les ‖ guillemet sans insécable : suivantes sont des « | ×76 ; sup3=false ; sup3=true… (revue-0-a) |
+| 2A-S4-7 (2e) | correction q1 | guillemet sans insécable : . « Au plus ‖ guillemet sans insécable : exercices » signifie ‖ guillemet sans insécable : . « Au moins | ×24 ; sup3=false ; sup3=true… (revue-0-a) |
 | 3A12-4 (3e) | énoncé q1 | guillemet sans insécable : 2 jours. Aujourd'hui, il s'est fait un « restau - ciné ». D'ici la prochaine fois qu'il f ‖ guillemet sans insécable : Aujourd'hui, il s'est fait un « restau - ciné ». D'ici la prochaine fois qu'il fera un autre res ‖ guillemet sans insécable : jours. Aujourd'hui, elle s'est fait un « restau - ciné ». Au bout de combien de jours se | ×10 ; sup=1 sup2=4 ; sup=2 sup2=4… (revue-4-a) |
 | 3A12-4 (3e) | correction q1 | guillemet sans insécable : ple de 22 jours. il se fera à nouveau un « restau - ciné » à chaque multiple commun de 6 et ‖ guillemet sans insécable : il se fera à nouveau un « restau - ciné » à chaque multiple commun de 6 et de 22. ‖ guillemet sans insécable : Pour trouver le nombre de jours avant le prochain « restau - ciné », on cherche le plus petit multip | ×20 ; sup=1 sup2=4 ; sup=2 sup2=4… (revue-4-a) |
 | 3AutoDNB2026-2 (3e) | énoncé q4 | guillemet sans insécable : e, pile. Quelle est la fréquence d'apparition de « face » ? [champ] ‖ guillemet sans insécable : . Quelle est la fréquence d'apparition de « face » ? [champ] ‖ guillemet sans insécable : e, face. Quelle est la fréquence d'apparition de « pile » ? [champ] | ×6 ; sup=false ; sup=true… (revue-0-a) |
@@ -9079,6 +9109,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-S2-4 (2e) | énoncé q1 | table.tableauMathlive de 461 px pour 390 px | ×4 ; sup3=false ; sup3=true… (revue-0-a) |
 | 2A-S2-4 (2e) | énoncé | page de 477 px pour 390 px | ×5 ; sup3=false ; sup3=true… (revue-0-a) |
 | 2A-S2-7 (2e) | correction | page de 523 px pour 390 px | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
+| 2A-S4-6 (2e) | énoncé | page de 393 px pour 390 px | ×5 ; sup3=false ; sup3=true… (revue-0-a) |
+| 2A-S4-7 (2e) | énoncé | page de 423 px pour 390 px | ×5 ; sup3=false ; sup3=true… (revue-0-a) |
 | 3A10-3 (3e) | correction | page de 398 px pour 390 px | ×6 ; sup2=4 sup3=2 ; sup2=2 sup3=1… (revue-0-b) |
 | 3A10-4 (3e) | énoncé q1 | table.tableauMathlive de 589 px pour 390 px | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3A10-4 (3e) | énoncé | page de 605 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -9154,6 +9186,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L12-1 (3e) | correction | page de 429 px pour 390 px | ×4 ; sup=3 sup2=false ; sup=4 sup2=false (revue-5-a) |
 | 3L12-3 (3e) | correction | page de 531 px pour 390 px | ×28 ; sup=1 sup2=1 sup3=1 sup4=1 sup5=1 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2… (revue-0-a) |
 | 3L12-3 (3e) | énoncé | page de 550 px pour 390 px | ×17 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2 ; sup=1 sup2=3 sup3=1 sup4=3 sup5=3… (revue-1-a) |
+| 3L13-3 (3e) | correction | page de 399 px pour 390 px | ×4 ; sup=8 sup2=true ; sup=8 sup2=false… (revue-16-b) |
+| 3L13-5 (3e) | correction | page de 419 px pour 390 px | ×2 ; sup=5 (revue-5-a) |
 | 4A11-1 (4e) | correction | page de 398 px pour 390 px | ×6 ; sup2=4 sup3=2 ; sup2=2 sup3=1… (revue-0-b) |
 | 4C10 (4e) | correction | page de 593 px pour 390 px | ×12 ; sup=1 sup2=3 ; sup=1 sup2=4… (revue-2-a) |
 | 4C10-5 (4e) | énoncé | page de 393 px pour 390 px | ×2 ; défaut (revue-0-a) |
@@ -9966,6 +10000,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-P3-3 (2e) |  q1 qcm | QCM : bonne proposition (laprobabilitéd'obtenirunebouleportantunnumérosupérieurouégalà15estplusgrandeench) absente de la mise en évidence (laprobabilitéd'obtenirunebouleportantunnumérosupérieurouégalà15estplusgrandeench) | ×3 ; défaut ; défaut nb=10 (revue-0-b) |
 | 2A-P3-3 (2e) |  q1 qcm | QCM : bonne proposition (laprobabilitéd'obtenirunebouleportantunmultiplede3estplusgrandeenchoisissantl'ur) absente de la mise en évidence (laprobabilitéd'obtenirunebouleportantunmultiplede3estplusgrandeenchoisissantl'ur) | ×2 ; défaut nb=10 (revue-1-a) |
 | 2A-P3-3 (2e) |  q3 qcm | QCM : bonne proposition (laprobabilitéd'obtenirunebouleportantunnuméroimpairestplusgrandeenchoisissantl'u) absente de la mise en évidence (laprobabilitéd'obtenirunebouleportantunnuméroimpairestplusgrandeenchoisissantl'u) | ×3 ; défaut nb=10 (revue-1-a) |
+| 2A-R1-5 (2e) |  q1 qcm | QCM : bonne proposition (20\%de120) absente de la mise en évidence (20\%120de) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-S1-1 (2e) |  q1 qcm | QCM : bonne proposition () absente de la mise en évidence () | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-S1-4 (2e) |  q1 qcm | QCM : bonne proposition (30élèveschoisissent«mathscomplémentaires».) absente de la mise en évidence (30élèveschoisissent«mathscomplémentaires») | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-S1-4 (2e) |  q1 qcm | QCM : bonne proposition (8élèveschoisissent«spémaths».) absente de la mise en évidence (8élèveschoisissent«spémaths») | ×4 ; défaut ; défaut nb=10 (revue-0-b) |
@@ -11655,6 +11690,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 2A-G3-11 (2e) | correction q2 | nombre à 4 chiffres sans séparateur : $times 7^2\times 24}{3}=\dfrac{1176\pi}{3}={\color{}\boldsymb$ ‖ nombre à 4 chiffres sans séparateur : $imes 10^2\times 24}{3}=\dfrac{2400\pi}{3}={\color{}\boldsymb$ | ×3 ; sup3=false nb=10 (revue-2-a) |
+| 2A-R1-8 (2e) | énoncé q5 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 ; défaut nb=10 (revue-1-a) |
+| 2A-R1-8 (2e) | correction q5 | nombre à 4 chiffres sans séparateur : $\dfrac{150}{1000}=\dfrac{15}{100}=15\,\%$ | ×1 ; défaut nb=10 (revue-1-a) |
 | 3A10DNB0 (3e) | correction q1 | nombre à 4 chiffres sans séparateur : $+ 810 = {\color{}\boldsymbol{1440}}$ ‖ nombre à 4 chiffres sans séparateur : $1440$ | ×2 ; sup=true (revue-1-a) |
 | 3A12-2 (3e) | correction q4 | nombre à 4 chiffres sans séparateur : $1100$ ‖ nombre à 4 chiffres sans séparateur : $1100\div20={\color{}\boldsymbo$ | ×2 ; sup=false nb=10 (revue-2-a) |
 | 3A1QCM-1 (3e) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1050$ | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -11682,6 +11719,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G32-0 (3e) | correction non interactive q1 | nombre à 4 chiffres sans séparateur : $h=\dfrac{1231&nbsp;\text{m}\times \sin($ ‖ nombre à 4 chiffres sans séparateur : $}\times \sin(29^\circ)=\dfrac{1231&nbsp;\text{m}\times \sin($ | ×2 |
 | 3G32-4 (3e) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1082\text{ m}$ ‖ nombre à 4 chiffres sans séparateur : $BH=1082\text{ m}$ ‖ nombre à 4 chiffres sans séparateur : $NP=1231\text{ m}$ | ×4 ; sup2=5 nb=10 (revue-7-a) |
 | 3G32-4 (3e) | correction q1 | nombre à 4 chiffres sans séparateur : $h=\dfrac{1082&nbsp;\text{m}\times \sin($ ‖ nombre à 4 chiffres sans séparateur : $}\times \sin(31^\circ)=\dfrac{1082&nbsp;\text{m}\times \sin($ | ×4 ; sup2=5 nb=10 (revue-7-a) |
+| 3L13-4 (3e) | correction q1 | nombre à 4 chiffres sans séparateur : $\mathcal{A} = 1287$ ‖ nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1287}}\text{ cm}^2$ | ×4 ; sup=1 ; sup=1-2 nb=10 (revue-1-a) |
 | 4A11-0 (4e) | correction q1 | nombre à 4 chiffres sans séparateur : $17\,600 = 2 \times 8800$ ‖ nombre à 4 chiffres sans séparateur : $17\,600 = 2 \times 2 \times 4400$ ‖ nombre à 4 chiffres sans séparateur : $2 \times 2 \times 2 \times 2200$ | ×37 ; sup=3 sup2=true sup4=false sup5=2 ; sup=1 sup2=true sup4=true sup5=1… (revue-0-a) |
 | 4A12-1 (4e) | correction q10 | nombre à 4 chiffres sans séparateur : $l{11}} = {\color{}\boldsymbol{1496}}.$ | ×1 ; sup=false nb=10 (revue-2-a) |
 | 4C2QCM-03 (4e) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1100$ | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -13081,6 +13119,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-N5-2 (2e) | correction q1 | double espace : . On en déduit que | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2A-N7-3 (2e) | correction q4 | double espace : heure, Zoé parcourt ‖ double espace : heure, Quynh parcourt | ×2 ; défaut nb=10 (revue-1-a) |
 | 2A-N7-7 (2e) | correction q1 | double espace : , pour passer des | ×5 ; défaut nb=10 (revue-1-a) |
+| 2A-R1-1 (2e) | correction q1 | double espace : €. Le pourcentage de baisse est donné par le quotient : ‖ double espace : €. Le pourcentage d’augmentation est donné par le quotient : | ×5 ; défaut nb=10 (revue-1-a) |
+| 2A-R1-5 (2e) | titre | double espace : Comparer avec des pourcentages | ×1 |
+| 2A-R2-4 (2e) | correction q1 | double espace : Les appartements représentent ‖ double espace : Les maisons représentent ‖ double espace : ). Le prix de l'article était donc : | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
+| 2A-R2-4 (2e) | énoncé q1 | double espace : Une réduction de ‖ double espace : €. Quel était le prix de cet article avant la réduction ? [champ] € | ×4 ; défaut nb=10 (revue-1-a) |
+| 2A-R2-6 (2e) | correction q1 | double espace : , d'où | ×12 ; sup=false ; sup=true… (revue-0-a) |
+| 2A-S3-4 (2e) | correction non interactive q1 | double espace : réponse A : « Environ ‖ double espace : . Cette affirmation est donc fausse. réponse B : « Au moins une valeur de la série 2 est stricte ‖ double espace : . Cette affirmation est donc fausse. réponse C : « Environ | ×4 |
 | 3A10 (3e) | correction q4 | double espace : n'est ni un multiple, ni un diviseur de | ×324 ; sup=6 sup2=5 sup3=3 sup4=10 ; sup=4 sup2=1 sup3=4 sup4=2… (revue-0-a) |
 | 3A10-3 (3e) | correction q3 | double espace : on en produit de nombres premiers n'est possible et donc | ×12 ; sup2=4 sup3=2 ; sup2=3 sup3=1… (revue-0-a) |
 | 3A10-6 (3e) | énoncé q1 | espace avant ponctuation : 7... , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 7... ‖ espace avant ponctuation : 2...8 , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 2...8 ‖ espace avant ponctuation : 47... , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 5 47 | ×44 ; sup=2 sup2=3 sup3=3 sup4=true sup5=false ; sup=3 sup2=4 sup3=3 sup4=false sup5=true… (revue-3-a) |
@@ -13913,6 +13957,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-N7-2 (2e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | 2A-N7-6 (2e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | 2A-N7-7 (2e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....\text{ kg}$ | ×1 |
+| 2A-R2-4 (2e) | correction q1 | points de suspension : , .... d'une quantité, on commence par calcul ‖ points de suspension : , .... | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3A10 (3e) | énoncé q4 | points de suspension en maths (\ldots) : $634 ..............................$ ‖ points de suspension en maths (\ldots) : $634 .............................. 86$ ‖ points de suspension en maths (\ldots) : $1\,400 ..............................$ | ×4860 ; sup=6 sup2=5 sup3=3 sup4=10 ; sup=4 sup2=1 sup3=4 sup4=2… (revue-0-a) |
 | 3A10-6 (3e) | énoncé q1 | points de suspension : Dans le nombre suivant à 2 chiffres 7... , il manque un chiffre (à l'emplacement de .. ‖ points de suspension : 7... , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 7... ‖ points de suspension : nt de ...). Quel chiffre peut-on mettre dans 7... pour qu'il soit divisible par | ×132 ; sup=2 sup2=3 sup3=3 sup4=true sup5=false ; sup=3 sup2=4 sup3=3 sup4=false sup5=true… (revue-3-a) |
 | 3A10-6 (3e) | correction q1 | points de suspension : Quel chiffre peut-on mettre dans 7... pour qu'il soit divisible par ‖ points de suspension : Quel chiffre peut-on mettre dans 2...8 pour qu'il soit divisible par ‖ points de suspension : Quel chiffre peut-on mettre dans 5 47... pour qu'il soit divisible par | ×44 ; sup=2 sup2=3 sup3=3 sup4=true sup5=false ; sup=3 sup2=4 sup3=3 sup4=false sup5=true… (revue-3-a) |
@@ -14760,6 +14805,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L11-8 (3e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | 3L11-9 (3e) |  q1 meta-custom | format meta-custom : à tester à la main | ×142 ; sup=10 sup2=4 sup3=1 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 3L13 (3e) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×226 ; sup=true sup2=8 sup3=false sup4=false sup5=1 ; sup=true sup2=1 sup3=true sup4=true sup5=1… (revue-0-a) |
+| 3L13-1 (3e) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×202 ; sup=0 sup2=false sup3=false sup4=1 ; sup=0 sup2=true sup3=true sup4=1… (revue-0-a) |
 | 4A11-0 (4e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×202 ; sup=3 sup2=true sup4=false sup5=2 ; sup=1 sup2=true sup4=true sup5=1… (revue-0-a) |
 | 4A11-1 (4e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×58 ; sup2=4 sup3=2 ; sup2=1 sup3=1… (revue-0-a) |
 | 4A11-2 (4e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×16 ; sup=true sup2=1 ; sup=true sup2=2… (revue-0-a) |

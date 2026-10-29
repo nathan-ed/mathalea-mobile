@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **302 sur 615**. Constats confirmés : **135**.
+Exercices relus : **336 sur 615**. Constats confirmés : **138**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 50 |
+| Rédaction (français, titres, consignes) | 53 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -137,6 +137,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-F2-1 | R3  | Champ à trous « (\placeholder{};\placeholder{}) » : point-virgule sans espaces (2A-F2-3 écrit \,;\,) | Harmoniser sur \,;\, | src/exercices/2e/ |
 | 2A-G2-1 | R6  | Correction : miseEnEvidence englobe « A(5 ; −2) » avec le nom du point alors que les champs attendent seulement 5 et −2 | Mettre en évidence les deux valeurs | src/exercices/2e/ |
 | 2A-G2-3 | R16  | Énoncé : « $H(2;-1)$ » coordonnées sans espaces autour de « ; » | $H(2\,;\,-1)$ | src/exercices/2e/ |
+| 2A-G5-2 | R16  | Énoncé : « représenté à l'echelle » (échelle) | « échelle » | src/exercices/2e/ |
 | 2A-N1-3 | R12  | Énoncé et correction : « $0{,}125$ » (virgule en {,}) mêlée à « $0,127$ » (virgule simple) ; point final dans la formule « \dfrac{3}{25}.$ » | Une seule écriture de la virgule ; sortir le point | src/exercices/2e/ |
 | 2A-N2-3 | R16  | Énoncé : « sous la forme d'un quotient aux numérateur et dénominateur simplifiés » (tournure fautive) | « dont le numérateur et le dénominateur sont simplifiés » | src/exercices/2e/ |
 | 2A-N3-1 | R16  | Correction : la chaîne commence par « $N=\dfrac{10^5}{5^3}$ » alors que le nom N n'est pas défini dans l'énoncé | Aligner énoncé et correction | src/exercices/2e/ |
@@ -147,6 +148,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-N7-5 | R3  | Correction : « $3$ $\text{ dm}$ » nombre et unité en deux formules avec espace dans \text ; « mm}^2$ . » espace avant le point final | $3\text{ dm}$ ; point collé | src/exercices/2e/ |
 | 2A-P2-1 | R4  | Orthographe incohérente : titre « évènement contraire » mais énoncé « événement » (même exercice) ; et 3A/4S utilisent d'autres formes | Choisir une graphie (rectifiée « événement » acceptée par MathALÉA ?) et l'appliquer partout | src/exercices/2e/ |
 | 2A-P2-2 | R3  | Énoncé : « $15 \,\%$ » espace ordinaire puis \, avant % (double espace) | $15\,\%$ | src/exercices/2e/ |
+| 2A-S2-7 | R16  | Titre « Comparer la moyenne et l'écart-type d'une série rangée en classes » alors que l'exercice compare deux séries simples E et F sur leur moyenne | Titre cohérent avec la question | src/exercices/2e/ |
+| 2A-S4-6 | R16  | Titre « Lire une fréquence… » mais la question demande la valeur du troisième quartile | Titre cohérent | src/exercices/2e/ |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
 | can2a-2022 | R10 Français | Q15 : « Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant » (coquille, « fois plus de fois ») ; lignes 644 et 661. | Si on va $k$ fois plus souvent à la piscine, le prix payé est $k$ fois plus important. | src/exercices/can/2e/can2a-2022.ts:644 |
 | can2a-2023 | R10 Français | Q19 : « jeu viéo » | jeu vidéo | src/exercices/can/2e/can2a-2023.ts:904 |
@@ -200,4 +203,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 917 ; T4  742 ; T6 Points de suspension 181 ; R5 Virgule 143 ; N1 Nombre hors $ 130 ; N6 Écriture algébrique 123 ; T3  76 ; N2 Séparateur des milliers 32 ; R10 Français 13 ; M7  11 ; N3  9 ; R2 Tutoiement, impératif 8 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 950 ; T4  938 ; N1 Nombre hors $ 322 ; T6 Points de suspension 193 ; R5 Virgule 143 ; N6 Écriture algébrique 123 ; T3  76 ; N2 Séparateur des milliers 34 ; R10 Français 13 ; M7  11 ; N3  9 ; R2 Tutoiement, impératif 8 ; T2  5 ; R1 Titre 2.
