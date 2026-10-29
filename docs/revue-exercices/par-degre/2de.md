@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **504 sur 615**. Constats confirmés : **161**.
+Exercices relus : **518 sur 615**. Constats confirmés : **162**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 76 |
+| Rédaction (français, titres, consignes) | 77 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -133,6 +133,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-R1-5 | R16  | Titre « Comparer  avec des pourcentages » : deux espaces | Une seule espace | relecture |
 | 2F21-1 | R16  | Titre « Reconnaitre » | « Reconnaître » | relecture |
 | 2F21-2 | R16  | Titre « Reconnaitre » | « Reconnaître » | relecture |
+| 2G11-3 | R16  | Énoncé : « Les valeurs d'angle seront arrondis au degré près » (accord) | seront arrondies | relecture |
 | 2N51-1 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
@@ -235,4 +236,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5074 ; N1 Nombre hors $ 2654 ; T5 Espaces 1808 ; T4  1296 ; N2 Séparateur des milliers 847 ; R5 Virgule 394 ; N6 Écriture algébrique 392 ; T3  105 ; R2 Tutoiement, impératif 104 ; M7  71 ; N3  34 ; X3  22 ; R10 Français 21 ; N5 Négatif sans parenthèses 18 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5098 ; N1 Nombre hors $ 2811 ; T5 Espaces 1949 ; T4  1322 ; N2 Séparateur des milliers 847 ; R5 Virgule 401 ; N6 Écriture algébrique 392 ; T3  123 ; R2 Tutoiement, impératif 104 ; M7  71 ; N3  34 ; X3  22 ; R10 Français 21 ; N5 Négatif sans parenthèses 18 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.

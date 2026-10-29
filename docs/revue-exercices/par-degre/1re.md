@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **184 sur 325**. Constats confirmés : **49**.
+Exercices relus : **210 sur 325**. Constats confirmés : **51**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 18 |
+| Rédaction (français, titres, consignes) | 20 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -74,6 +74,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1A-F08-2 | R16  | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
+| 1A-F08-3 | R16  | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
@@ -111,4 +113,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 553 ; T4  279 ; N1 Nombre hors $ 187 ; T6 Points de suspension 171 ; R5 Virgule 165 ; T3  55 ; N2 Séparateur des milliers 46 ; N6 Écriture algébrique 25 ; R10 Français 13 ; N3  4 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 598 ; T4  371 ; N1 Nombre hors $ 254 ; T6 Points de suspension 233 ; R5 Virgule 193 ; T3  62 ; N2 Séparateur des milliers 46 ; N6 Écriture algébrique 34 ; R10 Français 25 ; M7  12 ; N3  4 ; X2 Formule cassée 4.
