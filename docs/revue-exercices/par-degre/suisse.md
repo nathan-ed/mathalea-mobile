@@ -1,23 +1,24 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **957 sur 1168**. Constats confirmés : **393**.
+Exercices relus : **978 sur 1168**. Constats confirmés : **396**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
+| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 2 |
 | Contenu mathématique faux | 12 |
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 302 |
+| Rédaction (français, titres, consignes) | 304 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 16c6f | I1 Bonne réponse refusée | Interactif : la réponse attendue est une chaîne vide (this.reponse = ''), la valeur de la correction (3√2/2 + 3√2/2 i) est refusée ; consigne « forme trigonométrique algébrique » contradictoire, « sous  forme » deux espaces (le titre est « à partir de son expression trigonométrique ») | Renseigner this.reponse (forme algébrique) ; « sous forme algébrique » | src/exercices/can/Ex/canTEC2-06.ts:26,35 |
 | afd39 | I2 Réponse fausse acceptée | Titre « Questions de cours » trop vague ; réponse fausse acceptée (1 I2) ; énoncé « avec a&lt;b et a,b∈I » : $a, b\in I$ virgule sans espace fine ; 8 T5, 6 T6, 1 X2. | Titre précis ; comparaison. | src/exercices/CH/afd39.ts |
 
 ## Contenu mathématique faux
@@ -159,6 +160,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1b8d5 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
 | 1b8d6 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
 | 1bb30 | R16  | Titre « à partir de deux points » mais l'énoncé donne un point et un vecteur normal (doublon CH de 1G21-1) | Titre cohérent | relecture |
+| 1eb36 | R16  | Exercice modèle exposé : titre « Nom de l'exercice », consigne « consigne » | Compléter le titre et la consigne ou retirer l'exercice du référentiel | relecture |
+| 1ho0q | R16  | Correction : « Le total des coefficents » (coefficients) | coefficients | relecture |
 | 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
 | 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
@@ -448,6 +451,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 10FA4F-10 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : elle contient un facteur trivial ou un terme nul. |
 | 11FA4A-5 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Incorrect car cette expression n'est pas égale à celle attendue. |
 | 11NO3A-2 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) La réponse fournie est bien égale à celle attendue mais la réponse fournie n'est pas en notation scientifique. |
+| 16c6f | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1) Vous devez saisir une réponse. |
 | 1mCL4-1 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (1/2) Les nombres doivent tous être séparés par un point-virgule. |
 | 227f0 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 28997 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) L'ensemble est vide. |
@@ -480,6 +484,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | a343t | X2 Formule cassée | 14 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m |
 | afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | PR-32 | X2 Formule cassée | 11 | « $ » visible : 000 100000 8 , 164 ÷ 8 ≈ 8 ÷ 8 , soit 1 8,164÷8≈8÷8, soit 1 $\text{{\color{#F15929}\boldsymbol{X}}$  |
+| 12a46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 1474f | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 23241 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | d7202 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
@@ -488,4 +494,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38491 ; T6 Points de suspension 6671 ; T5 Espaces 2516 ; T4  1974 ; M7  792 ; R2 Tutoiement, impératif 705 ; T3  663 ; R5 Virgule 578 ; T2  371 ; N6 Écriture algébrique 266 ; N2 Séparateur des milliers 255 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38493 ; T6 Points de suspension 6676 ; T5 Espaces 2528 ; T4  1974 ; M7  792 ; R2 Tutoiement, impératif 747 ; T3  663 ; R5 Virgule 591 ; T2  371 ; N6 Écriture algébrique 280 ; N2 Séparateur des milliers 265 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
