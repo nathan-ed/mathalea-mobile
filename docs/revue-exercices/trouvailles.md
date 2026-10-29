@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **2658 exercices passés sur 4190**.
-Constats regroupés : 13193 (un groupe = même exercice, même règle,
+Avancement : **2661 exercices passés sur 4190**.
+Constats regroupés : 13210 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -24,11 +24,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 5 | 5 |
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 7 | 9 |
-| 1 Interactif faux | [R1 Titre](#r1) | 18 | 18 |
-| 1 Interactif faux | [R10 Français (accords, fautes, coquilles)](#r10) | 3 | 3 |
+| 1 Interactif faux | [R1 Titre](#r1) | 21 | 21 |
+| 1 Interactif faux | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
 | 1 Interactif faux | [R14 ](#r14) | 1 | 1 |
-| 1 Interactif faux | [R16 ](#r16) | 57 | 57 |
-| 1 Interactif faux | [R2 Impératif ou tutoiement](#r2) | 4 | 4 |
+| 1 Interactif faux | [R16 ](#r16) | 59 | 59 |
+| 1 Interactif faux | [R2 Impératif ou tutoiement](#r2) | 5 | 5 |
 | 1 Interactif faux | [R3 Point final](#r3) | 20 | 20 |
 | 1 Interactif faux | [R5 Virgule (soit, alors, or)](#r5) | 2 | 2 |
 | 1 Interactif faux | [R7 ](#r7) | 1 | 1 |
@@ -48,11 +48,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [R11 ](#r11) | 1 | 1 |
 | 2 Rendu cassé | [R12 ](#r12) | 2 | 2 |
 | 2 Rendu cassé | [R14 ](#r14) | 4 | 4 |
-| 2 Rendu cassé | [R16 ](#r16) | 40 | 40 |
+| 2 Rendu cassé | [R16 ](#r16) | 41 | 41 |
 | 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 14 | 14 |
 | 2 Rendu cassé | [R3 Point final](#r3) | 8 | 8 |
 | 2 Rendu cassé | [R5 Virgule (soit, alors, or)](#r5) | 1 | 1 |
-| 2 Rendu cassé | [R6 Majuscule sans accent](#r6) | 1 | 1 |
+| 2 Rendu cassé | [R6 Majuscule sans accent](#r6) | 2 | 2 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 30 | 47 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 19 | 300 |
@@ -65,7 +65,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 3 | 3 |
 | 3 Mise en évidence | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 312 | 2156 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 313 | 2158 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 9 | 9 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
@@ -80,7 +80,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 13 | 13 |
 | 3 Mise en évidence | [R13 ](#r13) | 5 | 5 |
 | 3 Mise en évidence | [R14 ](#r14) | 8 | 8 |
-| 3 Mise en évidence | [R16 ](#r16) | 95 | 95 |
+| 3 Mise en évidence | [R16 ](#r16) | 98 | 98 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 13 | 13 |
 | 3 Mise en évidence | [R3 Point final](#r3) | 16 | 16 |
 | 3 Mise en évidence | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 2 |
@@ -112,7 +112,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R10 Français (accords, fautes, coquilles)](#r10) | 9 | 9 |
 | 4 Typographie | [R13 ](#r13) | 2 | 2 |
 | 4 Typographie | [R14 ](#r14) | 2 | 2 |
-| 4 Typographie | [R16 ](#r16) | 78 | 78 |
+| 4 Typographie | [R16 ](#r16) | 79 | 79 |
 | 4 Typographie | [R2 Impératif ou tutoiement](#r2) | 3 | 3 |
 | 4 Typographie | [R3 Point final](#r3) | 176 | 176 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
@@ -133,7 +133,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 277 | 1563 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 41 | 48 |
 | 5 Rédaction | [N2 Séparateur des milliers](#n2) | 115 | 166 |
-| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 74 | 105 |
+| 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 75 | 106 |
 | 5 Rédaction | [R1 Titre](#r1) | 50 | 77 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 142 | 202 |
 | 5 Rédaction | [R16 ](#r16) | 1 | 1 |
@@ -152,7 +152,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 55 | 55 |
 | 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 184 | 199 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 130 | 130 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 131 | 131 |
 
 ## C1
 
@@ -322,8 +322,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 3AutoM01 (3e) | src/exercices/3e/3AutoM01.ts | Correction : « 60 minutes » hors $ ; « ⟦4 h 30 min⟧ » unités en texte dans miseEnEvidence → $60$ ; texteEnCouleurEtGras | ×1 |
 | 3AutoN04 (3e) | src/exercices/3e/3AutoN04.ts | Correction : « soit 7 » : 7 hors $ → $7$ | ×1 |
 | 3AutoN07-4 (3e) | src/exercices/3e/3AutoN07-4.ts | Énoncé : « entre 2 planètes » : 2 hors $ → « deux planètes » | ×1 |
+| 3AutoN15 (3e) | src/exercices/3e/3AutoN15.ts | Correction : « 4 divisions », « 20 divisions » hors $ → Nombres entre $ | ×1 |
+| 3AutoP04 (3e) | src/exercices/3e/3AutoP04.ts | Correction : « de 15 h 30 à 18 h 30 » hors $ ; « 3\textbf{ h } » unité dans miseEnEvidence → Nombres entre $ | ×1 |
 | 4C10-1 (4e) | src/exercices/4e/4C10-1.ts | Correction : « Il y a 1 facteur négatif » : 1 hors $ → $1$ | ×1 |
 | 4G10 (4e) | src/exercices/4e/4G10.ts | Énoncé : « translation qui transforme B en N » : points hors $ (aussi 4G10-1 correction « 90$^\circ$ » nombre hors $) → $B$, $N$ ; $90^\circ$ | ×1 |
 | 4G22 (4e) | src/exercices/4e/4G22.ts | Correction : « 4 angles droits » : 4 hors $ → $4$ | ×1 |
@@ -348,6 +351,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 3AutoG03-3 (3e) | src/exercices/3e/3AutoG03-3.ts | Énoncé : bloc &lt;style> .cols-responsive… inséré dans le texte de la question → Feuille de style hors de l'énoncé | ×1 |
+| 3AutoP04-3 (3e) | src/exercices/3e/3AutoP04-3.ts | Correction : « $Aire_{ADEF}$ » : texte en italique dans les maths → $\text{Aire}_{ADEF}$ | ×1 |
 | 4C21-2 (4e) | src/exercices/4e/4C21-2.ts | Yohaku : fractions en \frac au lieu de \dfrac dans le tableau → \dfrac | ×1 |
 | 5G4A-3 (5e) | src/exercices/5e/5G4A-3.ts | Énoncé : parallélisme noté « // » ($(d_3)//(d_2)$) au lieu de \parallel (aussi 5G4A-4) → $(d_3)\parallel(d_2)$ | ×1 |
 
@@ -366,6 +370,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 3AutoG13 (3e) | src/exercices/3e/3AutoG13.ts | Titre « Connaitre » ; apostrophe typographique « l’angle » mêlée aux droites ailleurs → Connaître ; une seule apostrophe | ×1 |
+| 3AutoN15-2 (3e) | src/exercices/3e/3AutoN15-2.ts | Énoncé : « $A(-0,4), B(1,2), C(2,2)$ » virgules séparatrices et décimales confondues (voir 5N2E-1) → Point-virgule | ×1 |
+| 3AutoP04-4 (3e) | relecture | Titre identique à 3AutoP04-3 (« Trouver une grandeur en fonction d'une autre ») → Différencier les titres | ×1 |
 | 4C20-4 (4e) | src/exercices/4e/4C20-4.ts | Consigne tutoyée (« Compare les fractions suivantes ») alors que 4C20 écrit « Comparer » → Infinitif | ×1 |
 | 4C23-1 (4e) | src/exercices/4e/4C23-1.ts | Titre : deux espaces (« priorités  opératoires ») → Une seule espace | ×1 |
 | 4C25-1 (4e) | src/exercices/4e/4C25-1.ts | Consigne vouvoyée (« Justifier vos réponses ») alors que d'autres exercices tutoient (« Compare ») → Harmoniser | ×1 |
@@ -429,6 +435,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 3AutoP02-3 (3e) | src/exercices/3e/3AutoP02-3.ts | Correction : unités \textbf{h } et \textbf{min} dans miseEnEvidence ; propositions « 52 min 30 s » hors $ → miseEnEvidence(1)\text{ h }… | ×1 |
 | 4C30-4 (4e) | src/exercices/4e/4C30-4.ts | Correction : « déci » (texte) en miseEnEvidence → texteEnCouleurEtGras | ×1 |
 | 4C37 (4e) | src/exercices/4e/4C37.ts | Correction : « positif » (texte) en miseEnEvidence → texteEnCouleurEtGras | ×1 |
 | 4G12-1 (4e) | src/exercices/4e/4G12-1.ts | Correction : « la symétrie dont le centre est le milieu de » (texte) en miseEnEvidence, suivi de $⟦[A'B']⟧$ en deux morceaux → texteEnCouleurEtGras | ×1 |
@@ -742,6 +749,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 3AutoN14 (3e) | src/exercices/3e/3AutoN14.ts | Correction : « on soustrait $-2$ des deux membres » : double négation maladroite (il faut ajouter $2$) → « on ajoute $2$ aux deux membres » | ×1 |
 | 4C23 (4e) | src/exercices/4e/4C23.ts | Correction : la première ligne « $A = 4 \times \dfrac{1}{5}$ » est répétée à l'identique avant le résultat (étape manquante ou doublon) → Supprimer le doublon ou ajouter le calcul intermédiaire | ×1 |
 | 5G2E-6 (5e) | src/exercices/5e/5G2E-6.ts | Correction : « $R = diametre \div 2$ » (sans accent, italique) ; « au $\text{ dm}^3$ près » (espace dans \text) → $R=\text{diamètre}\div 2$ | ×1 |
 | 5G4autoA (5e) | src/exercices/5e/5G4autoA.ts | Énoncé : « Qu'est-ce que caractérise le point en couleur… » (syntaxe fautive) ; titre « Connaitre » → « Que caractérise le point en couleur… ? » ; « Connaître » | ×1 |
@@ -833,6 +841,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 3AutoP01-2 (3e) | src/exercices/3e/3AutoP01-2.ts | Le champ attend « 100 » (unité km déjà affichée après le champ) mais la correction met en évidence « 100\textbf{ km} » avec l'unité → Mettre en évidence 100 seul | ×1 |
 | eb45a (Non classés) | src/exercices/bp2/BP2AutoV3Old.ts | Une unité est attendue (attendu 10\operatorname{cm^2}) mais la correction ne met en évidence que ⟦10⟧, l'unité « cm² » reste hors de la couleur → miseEnEvidence(10\text{ cm}^2) (comme c188c) | ×1 |
 
 ## T8
@@ -1886,6 +1895,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3F13-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1","1","3","-1","1","3"] ; attendu : {"champ":"-1;1;3"} | ×3 ; sup=0 ; sup=0 nb=10 (revue-0-b) |
 | 3F13-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-3","-1","-3","-1"] ; attendu : {"champ":"-3;-1"} | ×2 ; sup=0 nb=10 (revue-1-a) |
 | 3F13-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-4","-1","4","-4","-1","4"] ; attendu : {"champ":"-4;-1;4"} | ×1 ; sup=0 nb=10 (revue-1-a) |
+| 3F20 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{220}{21}."] ; attendu : {"champ":"\\dfrac{220}{21}"} | ×28 ; sup=2 sup2=2 ; sup=2 sup2=3… (revue-10-a) |
+| 3F20 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{64}{15}."] ; attendu : {"champ":"\\dfrac{-64}{15}"} | ×26 ; sup=2 sup2=2 ; sup=2 sup2=3… (revue-10-a) |
 | 4A10-1 (4e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"6","champ2":"5"} ; attendu : {"champ1":"5","champ2":"6"} | ×419 ; sup=2 sup2=6 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 4C10-11 (4e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1,969","-1,9","-1,96","-2"] ; attendu : {"champ":"-1,96"} | ×1 ; sup=2 sup2=5 (revue-9-a) |
 | 4C10-11 (4e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,84","-0,84","0,84"] ; attendu : {"champ":"-0,84"} | ×1 ; sup=4 sup2=3 (revue-17-b) |
@@ -4996,6 +5007,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 3AutoM04-1 (3e) | src/exercices/3e/3AutoM04-1.ts | Consigne : « Compléter L'égalité » (majuscule à « L'égalité ») → « Compléter l'égalité » | ×1 |
+| 3AutoP03-1 (3e) | src/exercices/3e/3AutoP03-1.ts | Titre « un nouveaux prix » → « un nouveau prix » | ×1 |
+| 3AutoP04-5 (3e) | src/exercices/3e/3AutoP04-5.ts | Énoncé : « masse en kilogrammes de pommes achetés » (accord : achetées) → « achetées » | ×1 |
 | 4C10-2 (4e) | src/exercices/4e/4C10-2.ts | Correction : « Les numérateur et le dénominateur ont un signe différent » (« Le numérateur et le dénominateur ») → « Le numérateur et le dénominateur ont… » | ×1 |
 | 4F11 (4e) | src/exercices/4e/4F11.ts | Énoncé : « des rayons comprises entre » (accord : compris) → « des rayons compris » | ×1 |
 | 5D2autoA (5e) | src/exercices/5e/5D2autoA.ts | Énoncé : « un dé équilibré à 8 face » (pluriel manquant) ; nombres hors $ (« 4 cm », « 5 cm », « 3 ») → « 8 faces » ; nombres entre $ | ×1 |
@@ -6945,6 +6959,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 3AutoP01-3 (3e) | src/exercices/3e/3AutoP01-3.ts | Correction : « pour calculer l vitesse moyenne » (faute de frappe : la) ; énoncé « Quelle est sa vitesse moyenne en km/h. » (point au lieu de ?) → « la vitesse » ; « ? » | ×1 |
 | 4C2QCM-05 (4e) | src/exercices/4e/4C2QCM-05.ts | Énoncé : « La hauteur et la largeur… suivent le ratio $20:9$ » : dans cet ordre, hauteur:largeur=20:9 donnerait 32,4 cm, mais la bonne réponse marquée est 160 cm (la correction traite 20 comme la largeur) → Écrire « La largeur et la hauteur… » (ordre cohérent avec la correction) | ×1 |
 | 4P10 (4e) | src/exercices/4e/4P10.ts | Énoncé Q2 a) : phrase cassée « Sa vitesse de téléchargement ? Définition : … L'unité de cette grandeur quotient est le ko/s (ou Mo/s) est de $5$ $\text{Mo/s}$ » (la vitesse n'est jamais énoncée correctement, « ? » parasite, deux verbes « est ») → Réécrire : « Sa vitesse de téléchargement est de $5\text{ Mo/s}$. » | ×1 |
 | 4S20-2 (4e) | src/exercices/4e/4S20-2.ts | Titre « événéments » (accent en trop : événements) ; énoncé « $ 16$ faces numérotées de $ 2$ à $ 17$ » : espace après $ ; « événement ... » points de suspension tapés → « événements » ; $16$ ; … | ×1 |
@@ -10797,6 +10812,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3C1QCM-07 (3e) | correction q1 | exposant 1 : $10^{1}$ | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3C1QCM-07 (3e) | correction non interactive q1 | exposant 1 : $10^{1}$ | ×1 |
 | 3F20-3 (3e) | correction q2 | coefficient 0 : $f_{2}(x)=0x-1$ | ×2 ; sup=1 sup2=1 nb=10 (revue-6-a) |
+| 3F20-4 (3e) | correction q4 | coefficient 0 : $f(x) = 0x +7$ ‖ coefficient 0 : $f(x) = 0x -8=0x+(-8)$ ‖ coefficient 0 : $h(a) = 0a +9$ | ×17 ; sup=1-2-3-4-5-6-7 sup2=true sup3=true ; sup=4 sup2=true sup3=true… (revue-0-a) |
 | 4C30 (4e) | correction q4 | exposant 1 : $^{8-7}={\color{}\boldsymbol{10^{1}}}$ | ×2 ; sup2=4 ; sup2=2 (revue-0-a) |
 | 4C30-1 (4e) | correction q2 | exposant 1 : ${\color{}\boldsymbol{10^{1}}} \leqslant 27,128 \leqsl$ ‖ exposant 1 : $10^{1} = 10$ ‖ exposant 1 : ${\color{}\boldsymbol{10^{1}}} \leqslant 26 \leqslant$ | ×6 ; sup=2 ; sup=4 nb=10 (revue-2-a) |
 | 4C30-1b (4e) | correction q1 | exposant 1 : ${\color{}\boldsymbol{7\times10^{1}}} \leqslant 74 \leqslant$ ‖ exposant 1 : ${\color{}\boldsymbol{8\times10^{1}}}$ ‖ exposant 1 : $7\times10^{1} = 70$ | ×32 ; sup=1 ; sup=2… (revue-1-a) |
@@ -14184,6 +14200,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3C10-3 (3e) |  | 162 combinaisons : 11 passées (couverture par paires) | ×1 |
 | 3F10-2 (3e) |  | 90 combinaisons : 31 passées (couverture par paires) | ×1 |
 | 3F10-5 (3e) |  | 54 combinaisons : 19 passées (couverture par paires) | ×1 |
+| 3F20-4 (3e) |  | 56 combinaisons : 28 passées (couverture par paires) | ×1 |
 | 4A10-1 (4e) |  | 1152 combinaisons : 69 passées (couverture par paires) | ×1 |
 | 4C10-7 (4e) |  | 195 combinaisons : 65 passées (couverture par paires) | ×1 |
 | 4C10-9 (4e) |  | 468 combinaisons : 118 passées (couverture par paires) | ×1 |
