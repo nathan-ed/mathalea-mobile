@@ -621,7 +621,7 @@ Environnement (machine de Nathan)
   session. Projet **public** depuis le 15 octobre 2026 (avant : privé). `main` protégée : force-push interdit (on l'a autorisé un temps
   avec `glab api PATCH protected_branches/main allow_force_push=true` pour
   réécrire l'historique initial, puis remis à `false`).
-- Miroir **privé** GitHub `github` = `git@github.com:nathan-ed/mathalea-mobile.git` :
+- Miroir GitHub (public, vérifié le 2026-10-29) `github` = `git@github.com:nathan-ed/mathalea-mobile.git` :
   construit les binaires (`.github/workflows/release.yml`). Lancer :
   `gh workflow run release.yml --repo nathan-ed/mathalea-mobile -f version=v0.1.1 -f cibles=tout|bureau|android`
   (ou un tag `v*`). Jobs : `moteur` (`scripts/moteur.sh`, cache du clone),
@@ -725,8 +725,8 @@ Environnement (machine de Nathan)
   débogage du WebView (`adb forward tcp:9222
   localabstract:webview_devtools_remote_<pid>`, CDP en WebSocket ;
   Playwright `connectOverCDP` ne marche pas sur un WebView).
-- iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; minutes macOS
-  comptées dix fois sur un dépôt privé : ne pas le lancer pour rien).
+- iOS sans Mac : `ios.yml` (macOS de GitHub, à la main ; dépôt public,
+  minutes gratuites : on peut le lancer à chaque release).
   Plugin Swift `src-tauri/ios/` lié par `build.rs` (cfg macOS + cible ios),
   `partageNatif` vrai sur iPhone et iPad (qui se dit Macintosh tactile).
   `barre_etat` reçoit `telephone` : iOS rend alors l'apparence au téléphone
