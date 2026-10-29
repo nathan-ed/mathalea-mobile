@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **535 sur 1168**. Constats confirmés : **282**.
+Exercices relus : **559 sur 1168**. Constats confirmés : **287**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 58 |
+| Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 192 |
+| Rédaction (français, titres, consignes) | 196 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -46,6 +46,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 39232 | X4  | Titre « Compléter un tableau de variations (démo) » : mention interne « (démo) » visible | Retirer « (démo) » | relecture |
 | 3a275 | X4  | Titre « Factoriser ou développer une différence de deux carrés » alors que l'exercice compare des fractions de numérateur 1 ; terminé par une espace | Titre cohérent | relecture |
 | 3acd6 | X4  | Titre avec mention interne « (année de transition) » | Retirer | relecture |
+| 3c098 | X4  | Titre « Développer une identité remarquable » alors que la question demande la solution de $9x+1=5x+9$ (même défaut que d7202, f43d1, daf1d : titres recopiés dans la série EAM) | Titre cohérent | relecture |
 | c5503 | X4  | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) | Afficher l'affirmation dans la question QCM | relecture |
 | c9893 | X4  | Correction vide (QCM notation scientifique) | Ajouter une correction | relecture |
 | c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
@@ -135,6 +136,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | --- | --- | --- |
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
+| 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
 | c52a3 | R16  | Titre « Reconnaitre » sans accent | « Reconnaître » | relecture |
@@ -198,6 +200,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3mA2-14 | R3  | Énoncé : $D_h=]0;+\infty[$ sans espaces autour de « ; » (même défaut général) | $]0\,;\,+\infty[$ | src/exercices/ |
 | 3mComb-2 | R1 Titre | Correction : « de 0 à 9, soit 10 possibilités » : nombres hors $ | Nombres entre $ | src/exercices/ |
 | 3mComb-4 | R16  | Énoncé : « former un équipe » (une équipe) et « ce équipe » (cette équipe) | « une équipe », « cette équipe » | src/exercices/ |
+| 9FA2B-15 | R16  | Énoncé et correction : « cacahuètes fraiches » (fraîches) | « fraîches » | src/exercices/ |
+| 9FA2B-16 | R16  | Énoncé : « une cagette de abricots » (d'abricots) ; la correction recopie les libellés en vrac ($17$ € $7$ € $10$ € une cagette de…) | « d'abricots » ; supprimer le doublon | src/exercices/ |
+| 9FA2B-17 | R16  | Énoncé : « Chloé revient du marché. Il a acheté… » (pronom masculin pour un prénom féminin ; prénom tiré au hasard, accord à faire dépendre du genre) | « Elle a acheté » | src/exercices/ |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
@@ -332,10 +337,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | ---: | --- |
 | 3G98-5 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
+| 9ES1C-1 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Il manque 1 réponse. |
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
+| 4mExpLog-2 | I2 Réponse fausse acceptée | 18 | réponse fausse acceptée |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
 | 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
+| 3f39d | I4 Question sans champ | 6 | champ absent de la page |
+| 9ES1C-1 | X1 Erreur | 1 | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":21811,"pointilles":0,"bordures":[-7.8,-7.8,7.8,7.8],"ce |
+| 9NO1G-9 | X1 Erreur | 3 | console : texNombre : Trop de chiffres le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un De |
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | AchangerOBLIGATOIREMENT | X1 Erreur | 1 | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection |
 | bc372 | X1 Erreur | 3 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
@@ -349,4 +359,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11159 ; T5 Espaces 1641 ; T6 Points de suspension 904 ; T4  805 ; R2 Tutoiement, impératif 488 ; T2  371 ; R5 Virgule 348 ; T3  205 ; N2 Séparateur des milliers 171 ; N6 Écriture algébrique 124 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; N3  18 ; R10 Français 16 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; N4  2 ; R1 Titre 2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11277 ; T5 Espaces 1668 ; T6 Points de suspension 974 ; T4  845 ; R2 Tutoiement, impératif 547 ; T2  371 ; R5 Virgule 360 ; T3  210 ; N2 Séparateur des milliers 210 ; N6 Écriture algébrique 124 ; M7  97 ; X3  51 ; T1 Espace avant % 29 ; R10 Français 26 ; N3  18 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.

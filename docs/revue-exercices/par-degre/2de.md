@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **434 sur 615**. Constats confirmés : **153**.
+Exercices relus : **473 sur 615**. Constats confirmés : **156**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 68 |
+| Rédaction (français, titres, consignes) | 71 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -162,6 +162,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2L10-3 | R14  | Même exercice que 5N5A (« Écrire une expression littérale », QCM « triple de z ») et 3AutoN10 : triple publication | Fusionner ou différencier | src/exercices/2e/2L10-3.ts |
 | 2L10-5 | R5 Virgule | Consigne « Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes » sans point final | Ajouter le point | src/exercices/2e/2L10-5.ts |
 | 2L10-7 | R1 Titre | Énoncé : « en °C », « $m_1=3$ kg » : unités hors $ et titre terminé par une espace | $3\text{ kg}$ ; $\text{°C}$ | src/exercices/2e/2L10-7.ts |
+| 2L14-2 | R16  | Correction : « d'un cerclce » (cercle) ; titre « à  partir » deux espaces | « cercle » ; une seule espace | src/exercices/2e/2L14-2.ts |
+| 2L21-6 | R10 Français | Correction : \[ \begin{aligned}… \] en mode display inséré dans une phrase (autres exercices utilisent $…$) | Utiliser $\begin{aligned}…$ | src/exercices/2e/2L21-6.ts |
+| 2L22-3 | R10 Français | Énoncé : « ($7x-2)( 7x+6)+(7x-2)(-5x-4)=0$ » : la parenthèse ouvrante est hors de la formule ($ placé après le « ( ») ; espaces parasites « ( 7x+6) » ; correction \underline{7x-2)} avec la parenthèse fermante soulignée | Démarrer $ avant la première parenthèse | src/exercices/2e/2L22-3.ts |
 | 2N20-5 | R3  | Correction : « $2 \times 180180$ », « 90090 », « 45045 »… sans espace fine des milliers (l'énoncé écrit $360\,360$) | texNombre | src/exercices/2e/2N20-5.ts |
 | 2N20-7 | R1 Titre | Énoncé : « 55 dents », « 15 » hors $ (même défaut que 4A12, 3A12-4) | Nombres entre $ | src/exercices/2e/2N20-7.ts |
 | 2N30-4 | R16  | Consigne : « Compléter avec deux nombres entiers consécutifs ? Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5. . » : « ? » parasite, majuscule après deux-points, point doublé ; nombres hors $ | Réécrire la consigne et son rappel | src/exercices/2e/2N30-4.ts |
@@ -209,14 +212,16 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-G3-6 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1)  |
 | 2A-G3-7 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1)  |
 | 2A-S2-9 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1) Résultat incorrect car une valeur décimale (ou entière) est attendue. |
+| 2L31-2 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $\\{\dfrac38\}$. |
 | 2N51-6 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Incorrect car la réponse attendue est une fraction. |
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
 | 2A | I4 Question sans champ | 58 | champ absent de la page |
 | can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
 | can2G1-01 | X1 Erreur | 9 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
+| 2L30-5 | X2 Formule cassée | 2 | « $ » visible : 3. a) Résolution de l'inéquation : $\begin{aligned} -6x+9&\dfrac{-12}{-7} \end{aligned}$ Comme  |
 | 2A-S1-1 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | can2F21-02 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5069 ; N1 Nombre hors $ 2354 ; T5 Espaces 1582 ; T4  1296 ; N2 Séparateur des milliers 806 ; R5 Virgule 297 ; N6 Écriture algébrique 289 ; R2 Tutoiement, impératif 102 ; T3  85 ; N3  26 ; R10 Français 16 ; R6  13 ; M7  11 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2 ; N5 Négatif sans parenthèses 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5069 ; N1 Nombre hors $ 2649 ; T5 Espaces 1676 ; T4  1296 ; N2 Séparateur des milliers 844 ; N6 Écriture algébrique 362 ; R5 Virgule 337 ; T3  103 ; R2 Tutoiement, impératif 102 ; M7  71 ; N3  26 ; R10 Français 17 ; R6  13 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2 ; N5 Négatif sans parenthèses 1.
