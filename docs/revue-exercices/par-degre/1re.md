@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **238 sur 325**. Constats confirmés : **57**.
+Exercices relus : **258 sur 325**. Constats confirmés : **62**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 26 |
+| Rédaction (français, titres, consignes) | 31 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -82,6 +82,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1AL11-4QCM | R16  | Correction : « de rasion r » (raison) | raison | relecture |
 | 1AL11-5QCM | R16  | Énoncé : « La raison de cette suite est est égale à » (doublon) et « u_{16 } » (espace dans l'indice) | est égale ; u_{16} | relecture |
 | 1AL11-8 | R12  | « ... » au lieu de \ldots (aussi 1AL11-8b) | \ldots | relecture |
+| 1AL12-20 | R13  | Titre et énoncé : « Etudier » sans accent (majuscule accentuée) | Étudier | relecture |
+| 1AL12-21 | R13  | Titre et énoncé : « Etudier » sans accent (majuscule accentuée) | Étudier | relecture |
+| 1AL20-11 | R16  | Titre : « discriminant  d'une » deux espaces | Un seul espace | relecture |
+| 1AL21-10 | R3  | Énoncé : A(-6 ; 5) avec espace insécable avant le point-virgule seulement (pas \,;\,) ; incohérent avec les autres exercices | A\left(-6\,;\,5\right) | relecture |
+| 1AL23-23 | R16  | uuid « fe4dg » contient un caractère non hexadécimal (les autres sont en hexadécimal) | Vérifier l'uuid | relecture |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
@@ -111,6 +116,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can1a-NY2026 | I2 Réponse fausse acceptée | 3 | réponse fausse acceptée |
 | 1A | I4 Question sans champ | 77 | champ absent de la page |
 | 1A-P01-3 | I4 Question sans champ | 1 | champ absent de la page |
+| 1AN10-1 | I4 Question sans champ | 1 | champ absent de la page |
 | 1AL23-23 | X1 Erreur | 2 | console : KaTeX auto-render: Failed to parse `\Delta = (-m-1)^2-4\error{\blacksquare} \error{(}` with  ParseError: KaTeX parse error: Undefined control sequence |
 | 1AL23-23 | X2 Formule cassée | 2 | « $ » visible : −m−1) 2 −4×(m+)×(−2m−3). Ou encore, sous forme développée : $\Delta = (-m-1)^2-4\error{\blacksquare} \error{(}$ Cherchon |
 | can1D3-03 | X2 Formule cassée | 10 | nombre impair de $ : a fonction définie par $f(x)=\dfrac{3}{-3x+5}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
@@ -121,4 +127,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 636 ; T4  375 ; T6 Points de suspension 368 ; R5 Virgule 308 ; N1 Nombre hors $ 305 ; T3  125 ; N2 Séparateur des milliers 90 ; R6  46 ; R10 Français 44 ; N6 Écriture algébrique 44 ; N3  23 ; M7  12 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 660 ; T4  375 ; T6 Points de suspension 368 ; R5 Virgule 317 ; N1 Nombre hors $ 305 ; T3  139 ; N2 Séparateur des milliers 90 ; N6 Écriture algébrique 46 ; R6  46 ; R10 Français 44 ; N3  23 ; M7  12 ; X2 Formule cassée 4.
