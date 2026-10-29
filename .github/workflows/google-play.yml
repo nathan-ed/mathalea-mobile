@@ -106,7 +106,7 @@ jobs:
         if: steps.suite.outputs.ok
         run: |
           cp "$RUNNER_TEMP/e2e-ci.sh" scripts/e2e-ci.sh
-          bash scripts/e2e-ci.sh defilement un-toucher regressions changer-appareil test-niveau-reel
+          bash scripts/e2e-ci.sh defilement un-toucher regressions changer-appareil test-niveau-reel reponses-elements formats
       # Clé d'importation de Google Play ; à défaut, celle des APK
       - name: Clé de signature
         if: steps.suite.outputs.ok && steps.cles.outputs.signature

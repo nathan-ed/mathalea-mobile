@@ -817,6 +817,28 @@ Environnement (machine de Nathan)
   i : à partir de la 2e question, champ absent de la page, erreur avalée par
   MathALÉA, ni smiley ni point. Le moteur lit désormais les rangs dans
   l'énoncé (`indicesDeLaQuestion`). Environ 80 exercices ont ce schéma.
+- Éléments de réponse qui ne sont ni champ ni case (`liste-deroulante`,
+  `multi-mathfield`, `drag-and-drop`, première séance en classe, octobre
+  2026) : `lireSaisies` doit les lire (`ELEMENTS_REPONSE`, leur `value`),
+  sinon « Vérifier » reste grisé. Un nouvel élément de MathALÉA (liste dans
+  `listOfCustomElements`) s'y ajoute, avec un exercice dans
+  `e2e/reponses-elements.mjs`. Le glisser-déposer n'émet aucun `input`.
+- Tout nouveau format de réponse (liste `InteractivityType` de MathALÉA,
+  `src/lib/types.ts`) : le jouer par `FORMATS=1 node e2e/parcours-az.mjs`
+  et l'ajouter à `docs/types-de-reponse.md`. Le site fait après l'affichage
+  des choses que le moteur doit refaire (prepareExerciceCliqueFigure,
+  zoom des figures apigeom) : relire QuestionParPage.svelte et
+  ExerciceMathaleaVueEleve.svelte à chaque mise à jour de COMMIT.
+- Plusieurs rangs par question : un rang n'appartient qu'à une question
+  (`indicesDeLaQuestion`) ; vérifier l'effet sur tout le référentiel avant
+  de toucher à la règle (107 exercices cassés par la première version).
+- Ne pas modifier `src/` pendant une suite e2e : le rechargement de Vite
+  recharge la page et fait échouer la suite au hasard.
+- Espaces dans les nombres : jamais exigés (pas de touche espace dans
+  MathLive au clavier du téléphone), `sansEspacesExiges` dans le moteur.
+- Construire le moteur sans accès à git.sesamath.net (`instrumenpoche`,
+  dépendance git) : paquet factice en `file:` dans le `package.json` du
+  clone, seulement pour les essais locaux (animations d'instruments).
 - Tracés à main levée (`MainLevee`) : besoin de `div#appMathalea` dans la
   page, créé par `initialiser()` du moteur ; sans lui, figures sans segments.
 - Champ à trous (« 81 = … × … ») : MathLive n'envoie ni `input` ni

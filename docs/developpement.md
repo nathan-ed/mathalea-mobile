@@ -636,6 +636,62 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## Retours de la première séance en classe (octobre 2026, pas encore publié)
+
+- Réponses bloquées : `lireSaisies` (`BlocQuestion`) ne voyait que les
+  `math-field` et `input`. Liste déroulante (`liste-deroulante`), champs
+  multiples (`multi-mathfield` : encadrer, arrondir une racine) et
+  glisser-déposer (`drag-and-drop`) n'étaient jamais « saisis » : « Vérifier »
+  restait grisé et aucun brouillon n'était gardé. Leur `value` est lue et
+  réécrite comme MathALÉA (id → value) ; le dépôt d'une étiquette relance la
+  lecture (`drop`, `dragend`, `touchend`).
+- Glisser-déposer : la ligne des cases (`.rectangles`, `flex` sans retour à
+  la ligne sur le site) sortait de l'écran ; elle passe à la ligne
+  (`app.css`).
+- Espaces : un champ MathLive n'accepte pas d'espace tapé au clavier du
+  téléphone. Le moteur retire `nombreAvecEspace` des réponses attendues et
+  la consigne « Penser à mettre les espaces nécessaires »
+  (`sansEspacesExiges`).
+- Plusieurs réponses dans une question (PR #1, ticket 1 de la forge) :
+  aussi dans le Préqualifiant (9ES1B-7 dans trois ceintures, 9ES3C-13,
+  9GM1B-5, 9FA2B-18), 159 exercices au référentiel. Règle corrigée : chaque
+  rang n'appartient qu'à une question (la sienne si son énoncé le contient,
+  sinon la première), smiley et message de retour exclus. Sans cela, la PR #1
+  faisait vérifier à 107 exercices une réponse absente de la page (845fa :
+  MathALÉA reprend l'id meta-interactif-2dEx0Q0field0 dans la question 2 ;
+  sujets CAN de Teste ton niveau).
+- Figures à cliquer (clique-figure, 8 exercices dont 9ES2B-1 d'EVACOM) : le
+  site les active après l'affichage (prepareExerciceCliqueFigure), le moteur
+  ne le faisait pas ; un toucher ne faisait rien. `activerCliqueFigures` dans
+  `afficher()` (registre des exercices préparés, sans changer l'API).
+- Figures apigeom plus larges que l'écran (droite graduée de 650 px, 9QCM-22) :
+  une partie hors d'atteinte. `ajusterApigeom` les réduit par leur propre
+  zoom (événement zoomChanged de figureApigeom, les clics suivent).
+- Grilles KenKen, Killer Sudoku : cases sans id ; une frappe dans un élément
+  de réponse suffit désormais pour activer Vérifier. Tout toucher sur un
+  élément de réponse de MathALÉA (id …Ex<n>Q<k>, Ex<n>F<k> pour apigeom)
+  compte aussi (figures, horloge, diagrammes…).
+- Champ dans une figure (MetaInteractif2d) : un trou vide passait pour une
+  réponse (« \\text{ cm}^2 » lu par l'expression de secours) ; Vérifier
+  s'activait sans rien saisir.
+- Message de retour de MathALÉA (« Le point $A$ a pour abscisse… ») : ses
+  formules sont rendues après la vérification.
+- Séance : ceinture en cours en haut (couleur, nom et titre), segments verts
+  (correcte), orange (en partie), rouges (incorrecte) dans les deux thèmes ;
+  le « warn » sombre de MathALÉA est rose, la pastille de score reste verte.
+  Orange de MathALÉA aussi en sombre (variables `--color-coopmathsdark-action*`
+  redéfinies dans `app.css`). Bouton plein inactif en sombre : gris (l'orange
+  à 40 % sur le fond sombre tirait sur le rouge brun).
+- Ordinateur : fenêtre ouverte en grand (`maximized`), énoncé et champs à
+  1,45 rem sur une fenêtre large (`.question-eleve`).
+- Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
+- Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
+  attendues régénérées avec la graine de la séance), aussi en CI ;
+  `node e2e/parcours-az.mjs` : parcours de l'Explorer joués de A à Z par un
+  élève qui répond juste (tous formats, vrais seuils, suivi) ;
+  `FORMATS=1 node e2e/parcours-az.mjs <fichier>` : un exercice par format.
+  Inventaire des formats : `docs/types-de-reponse.md`.
+
 ## 0.4.9 : corriger un parcours déjà travaillé (fait)
 
 - Constat : ajouter ou déplacer un exercice faisait disparaître des ceintures
