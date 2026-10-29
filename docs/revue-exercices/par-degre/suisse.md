@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **503 sur 1168**. Constats confirmés : **271**.
+Exercices relus : **524 sur 1168**. Constats confirmés : **276**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 53 |
+| Rendu cassé (formule, débordement, erreur) | 54 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 186 |
+| Rédaction (français, titres, consignes) | 190 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -41,6 +41,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 31049 | X4  | Titre « Calculer avec un pourcentage » terminé par une espace alors que l'exercice porte sur un arbre de probabilités | Titre cohérent | relecture |
 | c5503 | X4  | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) | Afficher l'affirmation dans la question QCM | relecture |
 | c9893 | X4  | Correction vide (QCM notation scientifique) | Ajouter une correction | relecture |
 | c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
@@ -185,8 +186,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | ttsnc | R16  | Titre « Calculer 10, 20 ou 30  $\%$ d'un nombre » : deux espaces avant $\%$ | Une seule espace | relecture |
 | vv2yb | R16  | Énoncé : « pout obtenir l'abscisse » (pour) | « pour » | relecture |
 | zqf0m | R16  | Titre « Déteterminer une heure de départ… » (Déterminer) | « Déterminer » | relecture |
+| 3G95-1 | R16  | Correction : « orthogonaux , je déduis que… » espace avant la virgule ; première personne « je déduis » alors que les autres corrections utilisent « on » | « orthogonaux, on en déduit » | src/exercices/ |
+| 3G98-7 | R16  | Correction : « $4x-y+1=0\iff y=4x-1$ » et « $3x-y+3=0\iff y=3x-3$ » : erreurs de signe (il faut y=4x+1 et y=3x+3) ; le résultat final 4,4° reste juste | Corriger les deux équivalences | src/exercices/ |
+| 3G99-3b | R3  | Énoncé : « $A(4⍽; -1⍽; 4)$ » espaces insécables à l'intérieur des formules | Utiliser $A(4\,;\,-1\,;\,4)$ | src/exercices/ |
 | 3mA2-14 | R3  | Énoncé : $D_h=]0;+\infty[$ sans espaces autour de « ; » (même défaut général) | $]0\,;\,+\infty[$ | src/exercices/ |
 | 3mComb-2 | R1 Titre | Correction : « de 0 à 9, soit 10 possibilités » : nombres hors $ | Nombres entre $ | src/exercices/ |
+| 3mComb-4 | R16  | Énoncé : « former un équipe » (une équipe) et « ce équipe » (cette équipe) | « une équipe », « cette équipe » | src/exercices/ |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
@@ -324,6 +329,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
+| 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | AchangerOBLIGATOIREMENT | X1 Erreur | 1 | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection |
 | bc372 | X1 Erreur | 3 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
@@ -337,4 +343,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11150 ; T5 Espaces 1640 ; T6 Points de suspension 903 ; T4  805 ; R2 Tutoiement, impératif 462 ; T2  371 ; R5 Virgule 348 ; T3  205 ; N2 Séparateur des milliers 171 ; N6 Écriture algébrique 124 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; N3  18 ; R10 Français 16 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; N4  2 ; R1 Titre 2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11157 ; T5 Espaces 1641 ; T6 Points de suspension 904 ; T4  805 ; R2 Tutoiement, impératif 488 ; T2  371 ; R5 Virgule 348 ; T3  205 ; N2 Séparateur des milliers 171 ; N6 Écriture algébrique 124 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; N3  18 ; R10 Français 16 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; N4  2 ; R1 Titre 2 ; R6  1.
