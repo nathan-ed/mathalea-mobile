@@ -2,11 +2,15 @@
 
 Pas une erreur : format que le banc ne sait pas remplir (glisser-déposer, figure, clic).
 
-304 constats, 289 exercices. Données complètes : `revue/classement/a-tester-main.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+309 constats, 292 exercices. Données complètes : `revue/classement/a-tester-main.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
 | [IM Interactif à tester à la main](#im) | 304 | 289 |
+| [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
+| [M3 QCM : bonne proposition pas mise en évidence telle quelle](#m3) | 1 | 1 |
+| [M6 Pas de mise en évidence du résultat](#m6) | 1 | 1 |
+| [X1 Erreur ou exception](#x1) | 2 | 2 |
 
 ## IM
 
@@ -318,3 +322,36 @@ Pas une erreur : format que le banc ne sait pas remplir (glisser-déposer, figur
 | A-a2f8ba7e2e | PET14 (PE) |  | format my-spreadsheet : à tester à la main (×64) | détection automatique | sup=9, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=17455&id=PET14&s=9&alea=revue-0-a&i=1&cd=1)) |
 | A-32cb754d36 | TEC1-41 (Terminale) |  | format mathalea-solveur : à tester à la main (×26) | détection automatique | sup=false sup2=1, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=8e72e&id=TEC1-41&s=false&s2=1&alea=revue-0-a&i=1&cd=1)) |
 | A-260652c044 | TEM1-12 (Terminale) |  | format mathalea-branching-qcm : à tester à la main (×106) | détection automatique | sup=2 sup2=4, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=b74bf&id=TEM1-12&s=2&s2=4&alea=revue-0-a&i=1&cd=1)) |
+
+## M1
+
+**Valeur mise en évidence refusée par le champ**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-a02f748888 | TTE-9 (Terminale) | src/exercices/TSpe/TTE-9.ts | **Banc interrompu : exercice à repasser au banc puis à relire** ‖ Équation x^9=4 : 8 M1 et 4 X1 (erreurs d'exécution du banc, à repasser) ; mise en évidence de S={\sqrt[9]{4}} probablement refusée. → Repasser l'exercice ; accepter 4^{1/9}. | confirmé à la relecture |  |
+
+## M3
+
+**QCM : bonne proposition pas mise en évidence telle quelle**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-b111f3b6b9 | TEM1-12 (Terminale) | src/exercices/TSpe/TEM1-12.ts | Exercice « branching-qcm » (106 IM, 106 M3) à tester à la main ; la correction utilise \textcolor{blue}{…} (couleur écrite en dur) dans un array pour montrer le produit ; 31 pages > 390 px. → Tester à la main ; miseEnEvidence. | confirmé à la relecture |  |
+
+## M6
+
+**Pas de mise en évidence du résultat**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-0017654abf | bd726 (Non classés, CH) | src/exercices/CH/bd726.ts | Exercice « relier-etiquettes » sans énoncé (14 X4) ; correction « 3+4=7 ; 7+2=9 ; 9+2=11 » ; à tester à la main (14 IM). → Ajouter la consigne. | confirmé à la relecture |  |
+
+## X1
+
+**Erreur ou exception**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-8554baafaf | acb80 (Non classés, CH) | src/exercices/CH/acb80.ts | **Banc interrompu : exercice à repasser au banc puis à relire** ‖ Pyramide à base triangulaire : 64 X1 (exécution interrompue du banc, à repasser), 160 M1 ; correction juste (V≈41 cm³) ; « arrondi au $\text{ cm}^3$ près » unité sans nombre ; 73 pages > 390 px. → Repasser le banc ; « à l'unité de cm³ près ». | confirmé à la relecture |  |
+| L-df75fb480d | bc372 (Non classés, CH) | src/exercices/CH/bc372.ts | **Banc interrompu : exercice à repasser au banc puis à relire** ‖ « Simuler des lancers de dés » : le banc a échoué 3 fois (X1) : l'exercice n'a pas pu être passé ; à repasser et à tester à la main (simulation aléatoire). → Repasser le banc. | confirmé à la relecture |  |

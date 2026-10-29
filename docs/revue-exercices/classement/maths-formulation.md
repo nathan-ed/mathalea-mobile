@@ -2,19 +2,24 @@
 
 Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre sans rapport avec l'exercice, explication à reprendre.
 
-196 constats, 180 exercices. Données complètes : `revue/classement/maths-formulation.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+267 constats, 251 exercices. Données complètes : `revue/classement/maths-formulation.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
-| [C1 Contenu mathématique faux ou ambigu](#c1) | 138 | 126 |
+| [C1 Contenu mathématique faux ou ambigu](#c1) | 123 | 111 |
 | [C2 Paramètre sans effet ou correction incomplète](#c2) | 3 | 3 |
-| [R1 Titre](#r1) | 24 | 24 |
-| [R3 Point final](#r3) | 1 | 1 |
-| [R7 Arrondi](#r7) | 1 | 1 |
+| [M3 QCM : bonne proposition pas mise en évidence telle quelle](#m3) | 1 | 1 |
+| [M5 Texte dans miseEnEvidence](#m5) | 1 | 1 |
+| [M6 Pas de mise en évidence du résultat](#m6) | 7 | 7 |
+| [M7 Explication en orange](#m7) | 1 | 1 |
+| [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 2 | 2 |
+| [R1 Titre](#r1) | 44 | 44 |
+| [R3 Point final](#r3) | 9 | 9 |
 | [R9 Notation des probabilités](#r9) | 9 | 5 |
-| [R10 Français (accords, fautes, coquilles)](#r10) | 1 | 1 |
-| [R11 Calcul rédigé faux (signes, parenthèses)](#r11) | 2 | 2 |
-| [R16 Relecture : français, titre ou contenu](#r16) | 17 | 17 |
+| [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
+| [R11 Calcul rédigé faux (signes, parenthèses)](#r11) | 1 | 1 |
+| [R16 Relecture : français, titre ou contenu](#r16) | 36 | 36 |
+| [X4 Question en double ou vide](#x4) | 26 | 26 |
 
 ## C1
 
@@ -22,12 +27,7 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
-| L-2da495fb7f | 1AL11-1QCM (1e) | relecture | Énoncé : « u_n=-1n^2+4 » (coefficient 1 écrit) → rienSi1 / ecritureAlgebrique | confirmé à la relecture |  |
 | L-01fc6ac5ca | 1AN43 (1e) | relecture | Correction : « cos(x)=-√(1-sin²(x)) = √(1--0,5^2) = √0,75 » signe moins devant la racine alors que cos(x)≥0, et « 1--0,5^2 » (double moins, parenthèses manquantes autour de -0,5) → cos(x)=\sqrt{1-\sin^2(x)}=\sqrt{1-(-0,5)^2} | confirmé à la relecture |  |
-| L-7b4076d39d | 5N1autoA-1 (5e) | relecture | Variante sup=1 : labyrinthe « nombre multiple de 1 » : tous les nombres conviennent, l'exercice n'a plus de sens (valeur de paramètre à exclure ou à remplacer par 2) → Retirer la valeur 1 (multiple de 1) ou la remplacer | confirmé à la relecture |  |
-| L-bb6b4f3b4d | 5N1B-1 (5e) | relecture | Correction : « $39 \times 2 = $$⟦78⟧$ » deux $ collés ($$ vide) autour du résultat → Un seul bloc $39\times2=78$ | confirmé à la relecture |  |
-| L-af51a80f6a | 5N1I-4 (5e) | relecture | Variante sup=1 : labyrinthe « nombre multiple de 1 » : tous les nombres conviennent, l'exercice n'a plus de sens (valeur de paramètre à exclure ou à remplacer par 2) → Retirer la valeur 1 (multiple de 1) ou la remplacer | confirmé à la relecture |  |
-| L-e9be2b8e4a | 5N1J (5e) | relecture | Variante sup=1 : labyrinthe « nombre multiple de 1 » : tous les nombres conviennent, l'exercice n'a plus de sens (valeur de paramètre à exclure ou à remplacer par 2) → Retirer la valeur 1 (multiple de 1) ou la remplacer | confirmé à la relecture |  |
 | L-fe2c14173f | 6AutoG1-6 (6e) | src/exercices/6e/6G4A-2.ts:119 | « Un angle obtus est un angle dont la mesure est supérieure à 90°. » : définition incomplète (et inférieure à 180°) ; 0°, 90° hors $ → comprise entre $90°$ et $180°$ | confirmé à la relecture |  |
 | L-951bcc9ef5 | 6AutoN4-4 (6e) | src/exercices/6e/6N2C-2.ts:116 | Exemple de la correction faux : « $34,9\div 100 = 0$ », « $98,6\div 1\,000=0$ » (texNombre(…, 0) arrondit le quotient à l'unité) ; exemple « 34,9 » hors $ → texNombre(exemple * 10 ** (choixAlea - 3), 4) ; $34,9$ | confirmé à la relecture |  |
 | L-20459b8dee | 6G6C-1 (6e) | src/exercices/6e/6G6C-1.ts | Correction : somme des angles = 180° donc « on peut construire le triangle » alors que la bonne réponse du QCM est « constructible mais n'est pas plat » : la justification de « pas plat » (aucun angle nul ni plat) manque ; « \; » dans le dollar avant \widehat ; ⟦…⟧$⟦BIP⟧$ deux évidences. → Ajouter « aucun angle n'est nul ni égal à 180°, donc le triangle n'est pas plat ». | confirmé à la relecture |  |
@@ -39,7 +39,6 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | L-d22ef0fe65 | 6N2G-1 (6e) | 6e/6N5-2.ts | Version « masses » : la correction parle d'objets au lieu de kilogrammes, « Ursule et son oncle achèteraient 15 cacahuètes fraiches », « Céline ne payerait que 8 cacahuètes fraiches », « Schona et son frère achèteraient 18 prunes » ; énoncé « quelle somme d'argent paierait-ils à eux deux ? » (accord : « paieraient-ils »). → « … achèteraient $15$ kilogrammes de cacahuètes », « paieraient-ils ». | confirmé à la relecture |  |
 | L-e243386eb0 | 6N2J-3 (6e) | 6e/6N2J-3.ts | Justification fausse pour la seconde réponse : « 45 n'est pas un diviseur de 734 car le reste de la division euclidienne de 734 par 16 n'est pas 0 » (le reste par 45 n'est pas étudié). → Justifier chaque réponse par sa propre division (734 = 45 × 16 + 14). | confirmé à la relecture |  |
 | L-91a5b7679c | 6N2K-1 (6e) | 6e/6N2K-1.ts:166 | Séjour au ski : la correction annonce « Effectuons l'addition de 37 et 29 » (prix d'un forfait et d'une nuit) puis pose $609 + 777$ : les nombres annoncés ne sont pas ceux additionnés ; « 609 € d'hôtels » (« d'hôtel »). → `Effectuons l'addition de $${texNombre(prixHotelTotal)}$ et $${texNombre(prixForfaitTotal)}$.` | confirmé à la relecture |  |
-| L-d87cefcf1b | 6N3autoD-5 (6e) | src/exercices/profs/P020.ts:39 | Phrases à encoder : un caractère absent de la grille (la table n'a qu'une quarantaine de produits distincts) est codé « $NaN$ » dans le message (produitPourCaractere renvoie NaN) : message indécodable. Paramètre sans valeur par défaut affichée, « plusieur grilles ». → Construire la grille à partir des caractères du message (tous présents), ou écarter les messages qui en contiennent d'autres ; « plusieurs grilles » ; this.sup3 = 1. | confirmé à la relecture |  |
 | L-a0e5d014dd | 6N3O (6e) | src/exercices/6e/6N3O.ts:254 | Thème 9 : « consomme 8 % de son réservoir par 100 km, alors pour 100 km, elle utilise … L de carburant » attend 8 L : un pourcentage du réservoir n'est pas un nombre de litres. → Réécrire le thème en restant dans les pourcentages (« … % du réservoir ») ou donner la capacité du réservoir. | confirmé à la relecture |  |
 | L-b727fca1ce | 6N3O (6e) | src/exercices/6e/6N3O.ts:308 | Thème 14 : « parcourt 35 % de son trajet en montée, alors pour 100 km parcourus, … km sont parcourus » : la réponse ne dit plus « en montée » ; l'unité '$\text{ km}$' précédée d'une espace donne une espace double. → texteApres : « km sont parcourus en montée. », unité « km » comme les autres thèmes. | confirmé à la relecture |  |
 | L-9e721a83d1 | 6N3O-1 (6e) | src/exercices/6e/6N3O-1.ts:377 | Thème 15 : « Une bouteille contient 10 cl de jus, dont 3 cg de sucre. Quel est le pourcentage de sucre ? » attend 30 % : un pourcentage ne se calcule pas entre des cl et des cg (3 cg dans 10 cl font environ 0,3 % en masse) ; correction « 100 cl jus ». → Donner le jus en g (ou le sucre en cl d'un sirop), ou changer de contexte ; « 100 cl de jus ». | confirmé à la relecture |  |
@@ -65,7 +64,6 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | L-48c02a1991 | can2a-2025 (CAN) | src/exercices/can/can2a-2025/can2a-2025-Q7.ts:66 | Q7 : « $3^{2}$ est positif (puissance paire d'un nombre négatif) » pour une base positive ; « nombnre » → distinguer base positive (puissance d'un nombre positif) et puissance paire d'un négatif ; « nombre » | confirmé à la relecture |  |
 | L-6d3a26d631 | can2a-2025 (CAN) | src/exercices/can/can2a-2025/can2a-2025-Q3.ts:47 | Q3 (sujet officiel) : « Le terme constant vient de $-2\times 3=6$ » → $-2\times 3=-6$ | confirmé à la relecture |  |
 | L-ac31ea1135 | can2a-2025 (CAN) | src/exercices/can/can2a-2025/can2a-2025-Q17.ts:47 | Q17 : formule « $m=\dfrac{y_L-y_K}{x_-x_A}$ » → $m=\dfrac{y_L-y_K}{x_L-x_K}$ | confirmé à la relecture |  |
-| L-34bfbc019d | can2a-2025C (CAN) | src/exercices/can/can2a-2025C/can2a-2025C-Q24.ts:58 | Q24 : « Membre de gauche : $(-2)^2-\times (-2)$ » (ecritureAlgebriqueSauf1(-1) donne « - » suivi de \times) → $(-2)^2-(-2)$ : traiter b=±1 sans \times | confirmé à la relecture |  |
 | L-005f1ad11c | can2a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q18 (sujet officiel) : réponse « $-\sqrt{2\,025}$ » mise en évidence, non simplifiée alors que $\sqrt{2\,025}=45$ (thème de l'année) → $-\sqrt{2\,025}=-45$, mettre en évidence $-45$ | confirmé à la relecture |  |
 | L-9ae76bf019 | can2a-NY2025 (CAN) | src/exercices/can/canNY-2025/can3NY-2025-Q21.ts:81 | Q21 (variante hypoténuse) : « $IK^2=(\sqrt{2\,024})^2+6^2$ » puis $2\,025+36$, alors que la figure porte $\sqrt{2025}$ → (\sqrt{2\,025})^2 | confirmé à la relecture |  |
 | L-a68ea7d8f9 | can2a-NY2025 (CAN) | src/exercices/can/canNY-2025/can2NY-2025-Q28.ts:47 | Q28 : question « $(-1)^{2\,025}\pm(-1)^{2\,023}$ », correction écrite avec l'exposant $2\,024$ (« $(-1)^{2\,025}-(-1)^{2\,024}=-1-(-1)$ » est faux) → exposant 2 023 dans la correction | confirmé à la relecture |  |
@@ -113,22 +111,14 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | L-b1fab07c89 | canTSpeE03 (CAN) | src/exercices/can/TSpe/canTSpeE03.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | confirmé à la relecture |  |
 | L-2862c36f42 | CM2N1D-1 (cm2) | src/exercices/CM2/CM2N1D-1.ts:104 | « en complétant avec les adjectifs numéraux qui conviennent (unité(s) ou dizaine(s)…) » : unité, dizaine, centaine sont des noms, pas des adjectifs numéraux ; mise en évidence de toute la décomposition avec les mots en \textbf (texte dans miseEnEvidence) ; « ou ... » / « ou $....$ » → « avec les mots qui conviennent (unités, dizaines…) » ; \ldots | confirmé à la relecture |  |
 | L-f5f45605b1 | CM2N1D-1 (cm2) | src/exercices/CM2/CM2N1D-1.ts:93-111 | Variante sup=true sup2=2 sup4=3 sup5=true : correction « 700=⟦7 dizaines⟧ », « 500=⟦5 dizaines⟧ » (7 centaines) ; variante sup=true sup2=1 sup4=2 : nombre à décomposer « 0 » et correction « ⟦$0⟧$ » ($ mal placé) → Vérifier le calcul de l'exposant avec des zéros consécutifs et le minimum de chiffres (sup2) | confirmé à la relecture |  |
-| L-919640a542 | CM2N3A-14 (cm2) | src/exercices/CM2/CM2N3A-14.ts | Types « 10 - n » et « n + … = 10 » seuls : moins de cas possibles que les $10$ questions par défaut, la série est plus courte que l'autoCorrection (champs absents) → limiter nbQuestions au nombre de cas ou autoriser les doublons | confirmé à la relecture |  |
-| L-d0eba4edbf | CM2N3A-2 (cm2) | src/exercices/CM2/CM2N3A-2.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | confirmé à la relecture |  |
-| L-12907bef87 | CM2N3A-3 (cm2) | src/exercices/CM2/CM2N3A-3.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | confirmé à la relecture |  |
-| L-bc1c51bef6 | CM2N3G-1 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:395 | Cas « facteur manquant » (champ avant le produit) : l'énoncé affiche la fraction deux fois, « $\dfrac{99}{100}\times$ [champ] $\times\dfrac{99}{100}=\dfrac{990}{100}$ », alors que la correction est « ⟦10⟧$\times\dfrac{99}{100}=\dfrac{990}{100}$ » (texte += puis texteApres: texte) → construire l'énoncé une seule fois : champ puis $\times\dfrac{99}{100}=…$ | confirmé à la relecture |  |
-| L-8d9f561042 | CM2N3G-2 (cm2) | src/exercices/6e/_MultiplierDecimauxPar101001000.ts:395 | Cas « facteur manquant » (champ avant le produit) : l'énoncé affiche la fraction deux fois, « $\dfrac{99}{100}\times$ [champ] $\times\dfrac{99}{100}=\dfrac{990}{100}$ », alors que la correction est « ⟦10⟧$\times\dfrac{99}{100}=\dfrac{990}{100}$ » (texte += puis texteApres: texte) → construire l'énoncé une seule fois : champ puis $\times\dfrac{99}{100}=…$ | confirmé à la relecture |  |
 | L-7f0526c594 | EgaliteFG7-Tle-18 (Égalité filles-garçons) | src/exercices/EgaliteFG/EgaliteFG7-Tle-18.ts | Énoncé : « Démontrer que les coordonnées de A vérifient l'égalité $u^2+y^2-2y=0$ » : u au lieu de x (le titre de la partie parle de x en fonction de y) ; 28 guillemets sans insécables. → x²+y²-2y=0. | confirmé à la relecture |  |
 | L-54bcd729cf | 29202 (Non classés, CH) | relecture | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) → Utiliser la même valeur a dans les trois libellés | confirmé à la relecture |  |
 | L-3bfa78b351 | 448b5 (Non classés, CH) | relecture | Correction : « Pour obtenir 2 025, on a ajouté 1 600 à 425 » raisonnement inversé (même défaut que 6fmcu) → On retranche 425 à 2 025 : 1 600 | confirmé à la relecture |  |
-| L-22277a0051 | 50ee5 (Non classés, CH) | relecture | Correction : « x_M=(2+-4)/2 » signe +- au lieu de 2+(-4) → \dfrac{2+(-4)}{2} | confirmé à la relecture |  |
 | L-472f1212c8 | 6fmcu (Non classés, CH) | relecture | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) → Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | confirmé à la relecture |  |
-| L-a3dbd3f5ee | 7b6ee (Non classés, CH) | relecture | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins → 2\,025+20 | confirmé à la relecture |  |
 | L-b4df448c96 | 82a41 (Non classés, CH) | relecture | Correction : « 3² est positif (puissance paire d'un nombre négatif) » alors que 3 est positif ; titre « Calculer un prix après des évolutions successives » sans rapport → 3² est positif (puissance d'un nombre positif) ; titre cohérent | confirmé à la relecture |  |
 | L-fb0f51de0b | 9efa5 (Non classés, CH) | relecture | Correction : A(-5;0) et B(0;2) → « \dfrac{2-0}{0-5}=\dfrac{2}{+5} » : x_A=-5 est écrit sans parenthèses (0-(-5)), le calcul affiché est faux ; « Son pente » → \dfrac{2-0}{0-(-5)}=\dfrac{2}{5} ; Sa pente | confirmé à la relecture |  |
 | L-b2f4e21446 | a01f3 (Non classés, CH) | src/exercices/CH/a01f3.ts | Titre « Trouver le plus grand nombre (QCM) » alors que la question est « Quel est le plus petit nombre ? » ; QCM à 2 propositions seulement ; bonne réponse non mise en évidence (10 M3). → Titre « le plus petit ». | confirmé à la relecture |  |
 | L-255b9752d5 | a343n (Non classés, CH) | src/exercices/CH/a343n.ts | Titre « Multiplication par 100 de nombres décimaux » alors que l'exercice multiplie par 1 000 ; correction juste (3 400). → Titre « par 1 000 ». | confirmé à la relecture |  |
-| L-c3a2dba4b3 | addd5 (Non classés, CH) | src/exercices/CH/addd5.ts | Titre « Reconnaitre » (Reconnaître) ; correction : « Vous avez choisi : . » (la valeur choisie n'apparaît pas : phrase vide) ; vouvoiement « Vous avez choisi » seule occurrence ; 2 M6. → Afficher la bonne expression ; reconnaître. | confirmé à la relecture |  |
 | L-fd54a22a33 | af0yk (Non classés, CH) | src/exercices/CH/af0yk.ts | Titre vide (« CH — ») : exercice sans titre ; énoncé juste (2 025). → Ajouter un titre. | confirmé à la relecture |  |
 | L-01a7c1e72f | bc570 (Non classés, CH) | src/exercices/CH/bc570.ts | « Trouver un nombre inférieur à 100 et supérieur à 10, divisible par 2 et dont le chiffre des unités est 7 » : il n'en existe aucun ; l'énoncé demande de « trouver » un nombre alors que la réponse est « aucun » (champ numérique) ; 90 phrases sans virgule, 288 N1, 25 R10. → Reformuler (« existe-t-il… ? ») ; champ texte. | confirmé à la relecture |  |
 | L-f8a1e22e7c | bcfc8 (Non classés, CH) | src/exercices/CH/bcfc8.ts | Titre vide (« CH — ») ; énoncé « À quel nombre décimal est égal 2 025 centièmes ? » (« Quel nombre décimal est égal à… ») ; correction juste (20,25). → Ajouter un titre. | confirmé à la relecture |  |
@@ -171,35 +161,102 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | L-173a030b15 | TSP2-15 (Terminale) | src/exercices/TSpe/TSP2-15.ts | Correction réduite au résultat « 8 » sans calcul ni justification (seuil de la loi binomiale à la calculatrice : aucun tableau de valeurs, aucune phrase) ; 26 phrases sans virgule ; 14 M3 (bonne proposition non mise en évidence). → Rédiger : « à la calculatrice, P(X ⩽ k) … donc n = 8 ». | confirmé à la relecture |  |
 | L-8db44f0480 | TSP2-16 (Terminale) | src/exercices/TSpe/TSP2-16.ts | Correction réduite à « p(X=n)=0,09^n » sans phrase : pas de lien avec n=48 ni avec la proposition cochée ; p minuscule. → Expliquer « n succès d'affilée : 0,09^n ». | confirmé à la relecture |  |
 
+## M3
+
+**QCM : bonne proposition pas mise en évidence telle quelle**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-6b02761140 | b9a52 (Non classés, CH) | src/exercices/CH/b9a52.ts | « Justifier que deux triangles sont égaux » : QCM sans la justification demandée (le titre promet une justification, l'exercice est un QCM) ; 58 M3. → Titre « Reconnaître des triangles égaux ». | confirmé à la relecture |  |
+
+## M5
+
+**Texte dans miseEnEvidence**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-2126cdb1d6 | TSA1-30 (Terminale) | TSpe/TSA1-30.ts | Correction : $q$ utilisé sans être défini ($u_n$ est donnée explicitement) ; « $(-2)^n$ n'admet pas de limites en $+\infty$ » (singulier) et phrases sans point final ; « $\textbf{Pas de limite}$ » dans miseEnEvidence (texte) ; « Comme $0>-3$ » pour dire que $-3$ est négatif. → « Ici $q=-2$… », « n'admet pas de limite. », texteEnCouleurEtGras('Pas de limite'), « Comme $-3&lt;0$ ». | confirmé à la relecture |  |
+
+## M6
+
+**Pas de mise en évidence du résultat**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-77af2a6814 | 6G1autoD (6e) | src/exercices/6e/6G1autoD.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ Corrections réduites à une figure (226 M6) : ni nom des figures, ni codage décrit ; énoncé « [$KM$] » crochets hors du dollar. → Décrire le codage ; $[KM]$. | confirmé à la relecture |  |
+| L-9614c98ec3 | 6G2C (6e) | src/exercices/6e/6G2C.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ Correction = 7 figures sans phrase (18 M6) ; « une cabane rectangulaire, elle aussi » pour l'enclos rectangulaire : phrase ambiguë ; « (P) » pour un point (piquet). → Rédiger la construction ; « situé sur un mur de la cabane ». | confirmé à la relecture |  |
+| L-2e2056492b | 6G4C (6e) | src/exercices/6e/6G4C.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ Corrections réduites à deux figures sans texte (26 M6) ; « sens inverse des aiguilles d'une montre » ok. → Ajouter une phrase décrivant la construction. | confirmé à la relecture |  |
+| L-58a08d2671 | 6G6F-1 (6e) | src/exercices/6e/6G6F-1.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ 106 M6 : corrections figures sans phrase ; « Le triangle UTV isocèle en T tel que UT=4 cm et UV=7 cm » : T hors des $ (« isocèle en T »). → $T$ entre dollars ; décrire la construction. | confirmé à la relecture |  |
+| L-fbc4a8469d | 6G7B-1 (6e) | src/exercices/6e/6G7B-1.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ 52 M6 : corrections réduites à une figure ; consigne en liste a) à e) bien rédigée ; « Coder … » : phrase incomplète (coder quoi ?). → Ajouter un texte de construction ; « Coder la figure ». | confirmé à la relecture |  |
+| L-049f03d7e1 | 6G7B-2 (6e) | src/exercices/6e/6G7B-2.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ Idem (52 M6) ; « Construire le triangle $U'V'W'$ symétrique de $UVW$ » : virgule manquante avant « symétrique ». → Virgule ; texte de correction. | confirmé à la relecture |  |
+| L-e7246dac6b | 6G8A (6e) | src/exercices/6e/6G8A.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ 182 M6 : correction sans texte (dessins seulement) ; « un solide composé par un empilement » (composé d'un empilement) ; « Dessiner la vue de gauche » sans orientation de lecture. → composé d'un ; décrire la vue. | confirmé à la relecture |  |
+
+## M7
+
+**Explication en orange**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-353381e580 | 6G6A-1 (6e) | src/exercices/6e/6G6A-1.ts | **Correction réduite à une figure : texte de correction à écrire** ‖ Corrections = figure + bouton InstrumenPoche sans texte de construction (98 M6, 96 M7) ; « Voici la construction qu'il fallait réaliser » (conditionnel passé) ; à tester à la main. → Décrire les étapes ; « qu'il fallait réaliser » → « à réaliser ». | confirmé à la relecture |  |
+
+## N6
+
+**Écriture algébrique (1x, +-, -0…)**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-2f99133e69 | PEG23 (PE) | src/exercices/PE/PEG23.ts | 226 N6 et 226 M6 : correction sans figure ; « OI = 1u » ($1\,u$) ; « de même origine [OB) » phrase ; construction du produit par Thalès non nommé. → Figure ; $1u$ → $1\,u$. | confirmé à la relecture |  |
+| L-78e3d83b11 | PEG24 (PE) | src/exercices/PE/PEG24.ts | Même défaut (226 N6, 226 M6) ; « [BA] » au lieu de [IA] : la droite à construire est parallèle à (BA) passant par I (à vérifier). → Vérifier la droite parallèle. | confirmé à la relecture |  |
+
 ## R1
 
 **Titre**
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
-| L-72d9f66dd7 | 1G10-7 (1e) | relecture | Titre « Al-Kashi » mais correction « Al Kashi » → Harmoniser en Al-Kashi | confirmé à la relecture |  |
 | L-1b36e76931 | 1mF3-16 (1re Collège, CH) | relecture | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) → Titre : Déterminer l'axe de symétrie d'une parabole | confirmé à la relecture |  |
 | L-c5b1b62172 | 6N0B-3 (6e) | 6e/6N0B-3.ts | Titre « Traduire une expression par une phrase » mais l'exercice demande seulement le type du calcul (liste somme, différence, produit, quotient). → Titre « Reconnaître le type d'un calcul », ou demander la phrase. | confirmé à la relecture |  |
 | L-762974636a | 6N1A-3 (6e) | 6e/6N1A-3.ts:26 | Titre « Recomposer un décimal ou un entier » alors que toutes les questions demandent de « Décomposer le nombre ». → Titre « Décomposer un décimal ou un entier », ou énoncé de recomposition. | confirmé à la relecture |  |
+| L-1fc7033cc3 | 6N2autoD-1 (6e) | 6e/6N2autoD-1.ts | Même titre que 6N2autoC (« Multiplier un nombre décimal par 10, 100 ou 1 000 ») pour un autre exercice, rangé dans 6N2autoD (division). → Titre distinctif (« Multiplier par 10, 100, 1 000 : produit ou facteur à trouver »). | confirmé à la relecture |  |
+| L-e829a1eeb3 | 6N2B-2 (6e) | 6e/6N2B-2.ts | Option « Fraction décimale à retrouver » : la réponse attendue est un décimal ($0,001$), aucune fraction n'est proposée. → « Facteur 0,1 ; 0,01 ou 0,001 à retrouver » | confirmé à la relecture |  |
+| L-008978577c | 6N5-16 (6e) | src/exercices/6e/6N5-16.ts | Énoncés : « 6 kg », « 3 € », « 4 gâteaux » hors des $ ; la correction décrit la méthode sans donner les résultats intermédiaires ni le prix total (rien en évidence) ; exercice interactif à tester à la main. → Chiffrer la correction (6×3 = 18 € …) avec les nombres entre $ et la réponse en miseEnEvidence. | confirmé à la relecture |  |
 | L-5def8bbfa8 | CM2N3A-6 (cm2) | src/exercices/CM2/CM2N3A-6.ts | Titre « Trouver le dernier chiffre d'une somme entre entiers » alors que l'exercice propose aussi des produits et des différences ; « $1029 - 35$ » sans séparateur → Trouver le dernier chiffre d'un calcul entre entiers ; texNombre | confirmé à la relecture |  |
 | L-bd15dad91c | 0ff6a (Non classés, CH) | relecture | Titre « Tracer une droite à partir de son équation » mais l'exercice (QCM) demande de lire l'équation d'une droite représentée → Titre cohérent avec la variante QCM | confirmé à la relecture |  |
 | L-8630e0e239 | 1a8c6 (Non classés, CH) | relecture | Titre « Développer une identité remarquable » mais l'exercice calcule une moyenne pondérée ; « devoir coefficienté » (coefficient) → Titre : Calculer une moyenne pondérée | confirmé à la relecture |  |
 | L-674fe6a964 | 1bb30 (Non classés, CH) | relecture | Titre « à partir de deux points » mais l'énoncé donne un point et un vecteur normal (doublon CH de 1G21-1) → Titre cohérent | confirmé à la relecture |  |
 | L-f710092856 | 23b3e (Non classés, CH) | relecture | Titre « Déterminer un encadrement avec la fonction carré » mais l'exercice demande l'écriture décimale de 7,2·10^{-4} → Titre cohérent | confirmé à la relecture |  |
 | L-70f94e3371 | 26434 (Non classés, CH) | relecture | Titre « Effectuer un calcul avec des fractions » mais l'exercice porte sur un pourcentage d'élèves → Titre : Calculer un pourcentage | confirmé à la relecture |  |
+| L-c3135c54b4 | 2cdd4 (Non classés, CH) | relecture | **Titre vide ou sans intitulé : titre à écrire** ‖ Titre « (QCM) » sans intitulé ; correction : « 170 \textbf{ cm} » texte gras dans miseEnEvidence ; consigne « Entoure » (tutoiement) → Renseigner le titre | confirmé à la relecture |  |
 | L-b7aa3caa0f | 2guhi (Non classés, CH) | relecture | Titre « Trouver un inverse ou un opposé » mais l'exercice demande la valeur décimale de 2 026 + 1/2 → Titre : Convertir une somme avec une fraction en écriture décimale | confirmé à la relecture |  |
 | L-97fdbc77d0 | 317bd (Non classés, CH) | relecture | Titre « Calculer la longueur d'un segment par comparaison » mais l'exercice porte sur un prix (proportionnalité) → Titre : Calculer un prix par comparaison | confirmé à la relecture |  |
+| L-d9f21f1c53 | 3wv4j (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
+| L-97bd2a658b | 3wx9f (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre « Question 24 » (titre de CAN/test, pas un intitulé d'exercice) → Renseigner le titre | confirmé à la relecture |  |
+| L-43233c3b6d | 446ba (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel (aussi 603f6) → Renseigner le titre | confirmé à la relecture |  |
+| L-62aa8b5728 | 471c3 (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre tronqué : « Exprimer en fonction de » (de quoi ?) → Titre complet | confirmé à la relecture |  |
 | L-abcfaf3e45 | 4ih30 (Non classés, CH) | relecture | Titre « Calculer le périmètre d'un rectangle » mais l'exercice est un rendu de monnaie → Titre : Calculer un rendu de monnaie | confirmé à la relecture |  |
+| L-4310c9f64c | 4r5kj (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre « Question 12 » (titre de CAN/test, pas un intitulé) → Renseigner le titre | confirmé à la relecture |  |
 | L-85c9c1feeb | 5494d (Non classés, CH) | relecture | Titre « Calculer une dérivée » mais l'exercice porte sur l'orthogonalité de deux vecteurs → Titre cohérent | confirmé à la relecture |  |
 | L-39d3a88ccc | 565f3 (Non classés, CH) | relecture | Titre « Convertir des heures en heures/minutes » mais l'exercice convertit des minutes en heures et minutes → Titre cohérent | confirmé à la relecture |  |
 | L-2f36b4e200 | 5aece (Non classés, CH) | relecture | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine → Titre : Enlever une dizaine | confirmé à la relecture |  |
+| L-2d137df684 | 603f6 (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
+| L-f294b7f755 | 61geo (Non classés, CH) | relecture | **Titre vide ou sans intitulé : titre à écrire** ‖ Titre vide dans le référentiel (même énoncé que 6c365, année 2025) → Renseigner le titre | confirmé à la relecture |  |
 | L-443371b620 | 63ec7 (Non classés, CH) | relecture | Titre « Trouver la moitié d'un nombre » mais l'exercice porte sur les pattes de vaches (multiplication) → Titre cohérent | confirmé à la relecture |  |
 | L-b8531d1caf | 67a5b (Non classés, CH) | relecture | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation → Résoudre une inéquation graphiquement | confirmé à la relecture |  |
+| L-58f92f0012 | 67e15 (Non classés, CH) | relecture | **Exercice réel sous un titre de travail : titre à écrire** ‖ Titre « Titre à modifier » (placeholder exposé) → Renseigner le titre (Calculer une image par une fonction affine) | confirmé à la relecture |  |
+| L-5572a4e921 | 6c365 (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
 | L-aba3a49736 | 6d56a (Non classés, CH) | relecture | Titre « Calculer une dérivée » mais l'exercice demande de simplifier (e^x+3)(e^x-3) → Titre : Simplifier une expression avec des exponentielles | confirmé à la relecture |  |
 | L-b9f418390f | 6dff5 (Non classés, CH) | relecture | Titre « Développer une identité remarquable » mais l'exercice porte sur un pourcentage (élèves externes) → Titre : Calculer un pourcentage d'une quantité | confirmé à la relecture |  |
+| L-04a9e89b20 | 77432 (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel (aucun intitulé affiché) → Renseigner le titre (ex. Calculer la moyenne d'une série) | confirmé à la relecture |  |
+| L-c09a8eaa7a | 79fdf (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre tronqué : « équation produit mul » → produit nul | confirmé à la relecture |  |
+| L-fc2eb2700e | 7k09a (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
+| L-aee25cade1 | 82a2f (Non classés, CH) | relecture | Correction : renvoie à « la décomposition » jamais donnée ; titre « multiple » mais la phrase conclut sur « diviseur » → Formuler avec multiple : $2\,025=25\cdot81$ | confirmé à la relecture |  |
 | L-ecb748da34 | 845fa (Non classés, CH) | relecture | Titre « Tracer une figure avec une aire donnée » mais l'exercice demande de lire un nombre sur une droite graduée → Titre cohérent | confirmé à la relecture |  |
 | L-0fd87ba37c | 89710 (Non classés, CH) | relecture | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe → Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | confirmé à la relecture |  |
+| L-b3b012b02b | 8e7a5 (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
+| L-8084440486 | 91304 (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
 | L-c3f81de469 | 936a4 (Non classés, CH) | relecture | Titre « Trouver un inverse ou un opposé » alors que la question porte sur la valeur décimale de 2 025 + 1/2 (même défaut que 2guhi) ; correction « 2025 » sans espace puis « 2 025,5 » → Titre cohérent | confirmé à la relecture |  |
+| L-2945b6e875 | 986cd (Non classés, CH) | relecture | **Titre à écrire** ‖ Titre vide dans le référentiel → Renseigner le titre | confirmé à la relecture |  |
+| L-61f7e0f673 | 9t36i (Non classés, CH) | relecture | **Titre vide ou sans intitulé : titre à écrire** ‖ Titre vide dans le référentiel (doublon CH de 91304) → Renseigner le titre | confirmé à la relecture |  |
 | L-3ee9933aa4 | e9cf0 (Non classés, CH) | relecture | Énoncé : « 15 € », « 1 billet de 20 € » hors $ ; correction « $20$ € - $15$ € $ = 5$ € » (trait d'union au lieu de −, $ mal placés) ; titre « Ordre de grandeur » sans rapport → $15$ €, $20$ € ; $20-15=5$ ; titre « Rendre la monnaie » | confirmé à la relecture |  |
 
 ## R3
@@ -208,15 +265,15 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
+| L-ea2def1fcf | 5N1I-6 (5e) | src/exercices/5e/5N1I-6.ts | « Quel est le plus petit entier supérieur à $81$ divisible par $8$ » : « entier supérieur à 81 » et « divisible par 8 » sans virgule ni « et » ; correction juste (88) ; $ 8\times11=88 $ espaces. → « … supérieur à 81 et divisible par 8 ». | confirmé à la relecture |  |
+| L-37796056f6 | afrce (Non classés, CH) | src/exercices/CH/afrce.ts | Titre « Probabilités » trop vague ; énoncé et correction justes (15/22). → Titre précis. | confirmé à la relecture |  |
+| L-6cd82db0e9 | b343g (Non classés, CH) | src/exercices/CH/b343g.ts | Correction juste (5) ; « Le plus petit entier supérieur à 23/5 » (strictement supérieur) ; titre « Majoration de fraction » imprécis. → « le plus petit entier supérieur ou égal ». | confirmé à la relecture |  |
+| L-5f14bf9ba4 | TEA1-16 (Terminale) | src/exercices/TSpe/TEA1-16.ts | « $57n+16=19\times3n+16$ » : « 19\times3n » ambigu (19×3n) alors que le quotient est 3n ; titre « Démontrer la non-divisibilité d'une expression affine » ; correction juste. → « 19\times(3n)+16 ». | confirmé à la relecture |  |
+| L-45156da43e | TEA1-23 (Terminale) | src/exercices/TSpe/TEA1-23.ts | « (q,r) » couple sans espace ; « selon les valeurs de n » : le cas n=0 et n=1 (r ⩾ 6n+2) n'est pas traité dans la correction visible ; 4 pages > 390 px. → Distinguer n=0, n=1, n⩾2. | confirmé à la relecture |  |
+| L-9e5d822443 | TEC1-13 (Terminale) | src/exercices/TSpe/TEC1-13.ts | Correction : « 3\times(-2)+15i+6i-15i^2 » : étape i² → -1 omise (15i² devient directement +15) ; résultat 9+21i correct. → Ajouter « -15i^2=15 ». | confirmé à la relecture |  |
+| L-750ecc3baf | TSA5-QCM21 (Terminale) | src/exercices/QCMBac/A2022/Polynesie2022_2Q2.ts | Limite en 0 : « \lim_{x\to 0} » au lieu de \lim_{x\to 0^+} (domaine ]0 ; +∞[) ; crochets « x^2[1-\ln(x)] » à la place de parenthèses ; « en 0 » hors des $. → x\to0^{+} ; parenthèses ; $0$ entre dollars. | confirmé à la relecture |  |
 | L-cd82fc9348 | TSA6-QCM8 (Terminale) | src/exercices/QCMBac/A2022/Metropole2022_1Q8.ts | « f(x)=3e^{-x^2}+2, » virgule dans le dollar avant le saut de ligne ; titre « variations » alors que la question porte sur les primitives ; M3. → Virgule hors du dollar ; titre cohérent. | confirmé à la relecture |  |
-
-## R7
-
-**Arrondi**
-
-| Clé | Exercice | Où | Constat | Statut | Reproduire |
-| --- | --- | --- | --- | --- | --- |
-| L-173a698847 | 5G2E-3 (5e) | src/exercices/5e/5G2E-3.ts | Valeur approchée au dixième attendue 12,5 (par défaut) alors que 12,566 s'arrondit à 12,6 ; la correction parle de « deux valeurs approchées » → Préciser « arrondie » ou accepter 12,5 et 12,6 | confirmé à la relecture |  |
+| L-902d464931 | TSG1-06 (Terminale) | src/exercices/TSpe/TSG1-06.ts | Titre « Effectuer une somme de combinaisons. » avec point ; somme écrite « \sum_{k=0}^{k=8} » (borne supérieure 8) ; vidéo en iframe dans la correction (3 pages > 390 px). → \sum_{k=0}^{8} ; titre sans point. | confirmé à la relecture |  |
 
 ## R9
 
@@ -240,6 +297,9 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
+| L-c59d77bab1 | 6N1D-1 (6e) | 6e/6N1D-1.ts | Consigne « Les nombres suivants sont-ils des nombres décimaux ? » avec des réponses « Vrai / Faux » (la question appelle oui ou non) ; « ont démontré que le nombre π n'avait pas » (concordance : « n'a pas »). → Propositions « Oui / Non », ou consigne « Pour chaque nombre, dire si l'affirmation « ce nombre est décimal » est vraie ou fausse. » | confirmé à la relecture |  |
+| L-df17915815 | 365f4 (Non classés, CH) | relecture | Correction : la solution est donnée comme $\sqrt{2\,025}$ sans la calculer (45) alors que la saisie 45 est acceptée → Conclure avec $45$ | confirmé à la relecture |  |
+| L-4ef6121057 | 784a7 (Non classés, CH) | relecture | Correction : « Un parallélogramme est un quadrilatère qui a ses côtés opposés deux à deux. » mot « parallèles » manquant (définition incomplète) → ses côtés opposés parallèles deux à deux | confirmé à la relecture |  |
 | L-ab2a4b685c | a0d16 (Non classés, CH) | src/exercices/CH/a0d16.ts | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. → $300\,000=$ en un dollar ; titre cohérent. | confirmé à la relecture |  |
 
 ## R11
@@ -248,7 +308,6 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
-| L-7a3d253b55 | 3F23-2 (3e) | src/exercices/3e/3F23-2.ts | Correction : « $g(-3)=2\times -3 +\dfrac{3}{2}$ » : nombre négatif sans parenthèses après \times (idem $2\times -2$) → $2\times(-3)$ | confirmé à la relecture |  |
 | L-8641dac885 | TEC1-14 (Terminale) | src/exercices/TSpe/TEC1-14.ts | Correction de (−3−2i)(−3+2i) : « =-3^2-((-2)i)^2 » : -3^2 vaut -9 (il faut (-3)^2) puis « =9-4i^2 » : la ligne contredit la précédente ; mise en évidence du seul résultat. → « =(-3)^2-(2i)^2 ». | confirmé à la relecture |  |
 
 ## R16
@@ -257,20 +316,72 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
+| L-c05a7b27a9 | 2A-C4-5 (2e) | src/exercices/2e/ | Énoncé : $C=(1+t)^2$ sans hypothèse sur le signe de $1+t$, mais la correction affirme « les deux membres sont positifs » et prend $\sqrt{C}=1+t$ (la réponse unique $\sqrt{C}-1$ est fausse pour $t&lt;-1$) → Ajouter « avec $t\geqslant -1$ » (ou $1+t\geqslant0$) dans l'énoncé | confirmé à la relecture |  |
+| L-fcb07c2c03 | 2A-N3-1 (2e) | src/exercices/2e/ | Correction : la chaîne commence par « $N=\dfrac{10^5}{5^3}$ » alors que le nom N n'est pas défini dans l'énoncé → Aligner énoncé et correction | confirmé à la relecture |  |
 | L-e4ed951873 | 2A-S2-7 (2e) | src/exercices/2e/ | Titre « Comparer la moyenne et l'écart-type d'une série rangée en classes » alors que l'exercice compare deux séries simples E et F sur leur moyenne → Titre cohérent avec la question | confirmé à la relecture |  |
 | L-d8c4676fad | 2A-S4-6 (2e) | src/exercices/2e/ | Titre « Lire une fréquence… » mais la question demande la valeur du troisième quartile → Titre cohérent | confirmé à la relecture |  |
+| L-2e0d00ce38 | 3AutoL03-4 (3e) | src/exercices/3e/3AutoL03-4.ts | Correction : « $9x+9=9\times x+9\times 1=⟦9(x+1)⟧$ » alors que l'expression est $9x-9$ (bonne réponse $9(x-1)$) : signe faux dans la correction → Écrire $9x-9=9\times x-9\times 1=9(x-1)$ | confirmé à la relecture |  |
+| L-50bb1f75c9 | 3L1QCM-02 (3e) | src/exercices/3e/3L1QCM-02.ts | Correction : « x+9=0 ou 4x−6=0 » présenté dans une accolade de système \left\{\begin{array}… avec « ou » au milieu : l'accolade signifie « et » ; notation trompeuse pour un produit nul → Écrire « $x+9=0$ ou $4x-6=0$ » sur une ligne | confirmé à la relecture |  |
+| L-2d82d91d68 | 3L1QCM-08 (3e) | src/exercices/3e/3L1QCM-08.ts | Même accolade « \left\{ … ou … \right. » pour un produit nul que 3L1QCM-02 (l'accolade signifie « et ») → Remplacer par « $5x+7=0$ ou $-x+5=0$ » | confirmé à la relecture |  |
+| L-35646ee001 | 3G98-7 (3e Collège, CH) | src/exercices/ | Correction : « $4x-y+1=0\iff y=4x-1$ » et « $3x-y+3=0\iff y=3x-3$ » : erreurs de signe (il faut y=4x+1 et y=3x+3) ; le résultat final 4,4° reste juste → Corriger les deux équivalences | confirmé à la relecture |  |
+| L-436a9cb712 | 4C2QCM-05 (4e) | src/exercices/4e/4C2QCM-05.ts | Énoncé : « La hauteur et la largeur… suivent le ratio $20:9$ » : dans cet ordre, hauteur:largeur=20:9 donnerait 32,4 cm, mais la bonne réponse marquée est 160 cm (la correction traite 20 comme la largeur) → Écrire « La largeur et la hauteur… » (ordre cohérent avec la correction) | confirmé à la relecture |  |
 | L-2a8353dea5 | 5N5B-3 (5e) | relecture | Titre « en détaillant les calculs » alors que la saisie est un seul champ résultat → Aligner le titre | confirmé à la relecture |  |
+| L-3013d13e5e | 6G7B (6e) | src/exercices/6e/6G7B.ts | Trois droites différentes sont toutes nommées « (d_1) » (marron, vert, bleu) : la couleur seule les distingue (daltonisme) ; « le point 71 » : « le point numéro $71$ » ; 9 M1. → Nommer $(d_1)$, $(d_2)$, $(d_3)$. | confirmé à la relecture |  |
 | L-42eafa6d29 | 6M1autoE-4 (6e) | src/exercices/6e/6M1autoE-4.ts | Titre « Connaître la formule de l'aire d'un carré ou d'un rectangle » alors que le paramètre propose aussi les périmètres (types 1 et 2) ; correction avec texte dans miseEnEvidence (R2) pour la formule ; 4 figures plus larges que 390 px. → Titre « … du périmètre ou de l'aire … » ; figures à 100 %. | confirmé à la relecture |  |
 | L-3b4041776f | 6M2A (6e) | src/exercices/6e/6M2A.ts | Titre « conversions d'aire (du cm² au m²) » alors que les conversions proposées sont m²→dm², dm²→m², dm²→cm², cm²→dm² (jamais cm²→m²) ; correction : texte et unités dans des \textbf{} colorés mélangés (« \times 1 \textbf{dm}^2 ») et mise en évidence de la seule valeur 7 sans l'unité. → Titre « du m² au cm² » ; supprimer le texte en gras dans les calculs. | confirmé à la relecture |  |
 | L-d7353bb547 | 6N3B-1 (6e) | 6e/6N3B-1.ts:181 | Nombre décimal : une des propositions du QCM s'affiche « $3$ » (fraction de dénominateur 1, sans rapport avec 3,2) ; quand la fraction décimale est déjà simplifiée, le point final est ajouté à l'énoncé (texte += '.') et non à la correction. → Distracteur cohérent ($\dfrac{3}{2}$…) ; texteCorr += '.'. | confirmé à la relecture |  |
 | L-fe1b806b4b | BP1AUTO050 (BP1) | src/exercices/BP1/BP1AUTO050.ts | Titre « Résoudre une inéquation $ax+b>0$ » alors que l'énoncé propose $3x+6\leqslant0$ (⩽) ; « L'ensemble de solutions est : » (des solutions) ; 5 T3. → Titre « ax+b ⩽ 0 » ; « des solutions ». | confirmé à la relecture |  |
+| L-18242fd563 | BP2AutoH26 (BP2) | src/exercices/BP2/BP2AutoH26.ts | Résultat « 14/10 » non simplifié (7/5) alors que la consigne est « Calculer » : la forme attendue n'est pas précisée ; correction en une ligne sans mise en évidence de la forme irréductible. → Demander « sous forme irréductible » ou accepter 7/5. | confirmé à la relecture |  |
+| L-b9b3786c33 | BP2CCF10 (BP2) | src/exercices/BP2/BP2CCF10.ts | Correction « $1\,170\div900=1,3=130~\%=100~\%+30~\%$ » : chaîne d'égalités fausse (1,3 = 130 % puis = 100 % + 30 %) : l'égalité n'est pas transitive (130 % ≠ 100 %+30 % comme valeur) ; « exprimer l'augmentation du prix en pourcentage » ; I4 (champ absent). → Séparer les étapes en lignes. | confirmé à la relecture |  |
+| L-96ff12b312 | HPC103 (HP) | src/exercices/HP/HPC103.ts | Mêmes énoncés que TEM1-11 (doublon) : A de taille 4×2 et B de 4×3 : AB et BA sont tous deux impossibles, cas à bien expliquer dans la correction ; 32 doubles espaces. → Mutualiser ; expliquer l'impossibilité. | confirmé à la relecture |  |
+| L-d7b03cc666 | a09e5 (Non classés, CH) | src/exercices/CH/a09e5.ts | Limite en +∞ : « lim (-2-5x)/(4x-7) = lim -5x/4x » sans justification (équivalent des termes de plus haut degré non nommé) ; titre « Calculer une limite » ; résultat -5/4 juste. → Citer la règle (termes de plus haut degré). | confirmé à la relecture |  |
+| L-0165f0d82e | brlw7 (Non classés, CH) | src/exercices/CH/brlw7.ts | **Titre à écrire** ‖ Titre « Question 30 » (titre de remplissage) ; correction : « est égal au pente de la tangente » (à la pente : genre) ; 12 T6. → Titre propre ; « à la pente ». | confirmé à la relecture |  |
 | L-a4c17653dd | c6cbe (Non classés, CH) | src/exercices/CH/c6cbe.ts | Titre « Trouver un inverse ou un opposé » alors que l'exercice ne demande que l'opposé de −2 025 ; correction juste. → Titre « l'opposé ». | confirmé à la relecture |  |
 | L-3a08862d85 | c8515 (Non classés, CH) | relecture | Titre « Trouver la moitié d'un nombre » mais la question est $3\cdot ?=18$ (division) → Titre à revoir | confirmé à la relecture |  |
+| L-990c8f6143 | cd32b (Non classés, CH) | relecture | Correction : « $2,7 = 2 \text{ h } + …$ » sans unité à gauche → $2,7\text{ h}=…$ | confirmé à la relecture |  |
 | L-25c3a9b2b0 | d7202 (Non classés, CH) | relecture | Titre « Développer une identité remarquable » alors que la question porte sur un tableau de signes ; correction « abscisses.On lit » (espace manquante) → Corriger le titre ; ajouter l'espace | confirmé à la relecture |  |
 | L-e1e37034ae | daf1d (Non classés, CH) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs → Corriger le titre (ou la question) | confirmé à la relecture |  |
 | L-96ade41bf5 | ebd89 (Non classés, CH) | src/exercices/1e/1AN14-1Old.ts | Titre « Calculer la dérivée de $\lambda u$ » alors que la question est une dérivée d'une fonction affine → Corriger le titre | confirmé à la relecture |  |
 | L-493e0f2ba6 | f13e3 (Non classés, CH) | relecture | Titre « Résoudre une équation trigonométrique » alors que l'on calcule une longueur → « Calculer une longueur avec le sinus » | confirmé à la relecture |  |
 | L-cb0aa709cf | f3a3e (Non classés, CH) | src/exercices/can/can6a-2025/can6a-2025-Q3.ts | Titre « Nombre de dizaines » alors que la question porte sur les centaines → « Nombre de centaines » | confirmé à la relecture |  |
 | L-7143f7074d | js3qp (Non classés, CH) | src/exercices/ | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » → Titre cohérent | confirmé à la relecture |  |
+| L-f54e067b6c | PEA11 (PE) | src/exercices/PE/PEA11.ts | Titre « Décomposer un nombre en produit de facteurs premiers et déterminer ses diviseurs » : seule la décomposition est demandée (150) ; correction juste ; 2 M1. → Titre fidèle ou ajouter la question des diviseurs. | confirmé à la relecture |  |
 | L-c6f03d054f | PEN23 (PE) | src/exercices/PE/PEN23.ts | Consigne « Poser et effectuer les calculs suivants : » alors que l'exercice demande « Écrire la table de Pythagore en base 5 » (consigne sans rapport) ; 885 N1 ; 13 M6. → Consigne adaptée. | confirmé à la relecture |  |
+| L-93541d4484 | TEA1-21 (Terminale) | src/exercices/TSpe/TEA1-21.ts | Énoncé : « Sachant que $836=28\times28+52$ » (reste 52 > 28 : volontairement non valide mais non signalé dans la question) ; 44 « Choisir… » dans les champs ; un seul exercice pour 836 et -836 (réponses q, r négatif) : « q= … r= » sur la même ligne. → Préciser « (ce n'est pas la division euclidienne) ». | confirmé à la relecture |  |
+| L-2aa5827122 | TSA4-11 (Terminale) | src/exercices/TSpe/TSA4-11.ts | Correction a) : « La fonction x↦2x−2 est dérivable, donc la fonction f est continue » (raccourci dérivable ⇒ continue non énoncé) ; c) « f(2)=-(2)+2 » parenthèses inutiles. → Citer « toute fonction dérivable est continue » ; f(2)=-2+2. | confirmé à la relecture |  |
+| L-112eb87023 | TSA5-11 (Terminale) | src/exercices/TSpe/TSA5-11.ts | Énoncé écrit avec \log(x) alors que le titre parle de \ln(x) ; 14 corrections avec points de suspension ; 5 figures plus larges que 390 px. → Uniformiser \ln. | confirmé à la relecture |  |
+| L-c918e67c54 | TSA8-41 (Terminale) | src/exercices/TSpe/TSA8-41.ts | Correction de l'intégration par parties : « on pose u'(x)=\sin(-x) et v(x)=3x-3 » correct mais la forme « \int_\alpha^\beta u'(x)v(x) » est donnée sans l'hypothèse de classe C^1 ; 84 N6 (nombres sans séparateur de milliers). → Rappeler « u et v de classe C^1 ». | confirmé à la relecture |  |
 | L-8b462228cb | TSG2-15 (Terminale) | src/exercices/TSpe/TSG2-15.ts | Titre « …alignés. » avec point ; énoncé : « Justifier votre réponse. » alors que le champ n'attend que « O » ou « N » (« Réponse (O (Oui) ou N (Non)) ») : parenthèses imbriquées, justification impossible ; la mise en évidence attendue est refusée (12 M1). → « Répondre par O (oui) ou N (non). » sans « Justifier ». | confirmé à la relecture |  |
+
+## X4
+
+**Question en double ou vide**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-bc4e451914 | 31049 (Non classés, CH) | relecture | **Titre sans rapport avec l'exercice : titre à écrire** ‖ Titre « Calculer avec un pourcentage » terminé par une espace alors que l'exercice porte sur un arbre de probabilités → Titre cohérent | confirmé à la relecture |  |
+| L-616cac99ff | 35553 (Non classés, CH) | relecture | **Titre sans rapport avec l'exercice : titre à écrire** ‖ Titre « Effectuer un calcul avec des fractions » alors que l'exercice porte sur la probabilité d'un dé truqué ; terminé par une espace → Titre cohérent | confirmé à la relecture |  |
+| L-d7589d6bef | 3a275 (Non classés, CH) | relecture | **Titre sans rapport avec l'exercice : titre à écrire** ‖ Titre « Factoriser ou développer une différence de deux carrés » alors que l'exercice compare des fractions de numérateur 1 ; terminé par une espace → Titre cohérent | confirmé à la relecture |  |
+| L-52e20caabd | 3c098 (Non classés, CH) | relecture | **Titre sans rapport avec l'exercice : titre à écrire** ‖ Titre « Développer une identité remarquable » alors que la question demande la solution de $9x+1=5x+9$ (même défaut que d7202, f43d1, daf1d : titres recopiés dans la série EAM) → Titre cohérent | confirmé à la relecture |  |
+| L-e9e7c943fa | cd736 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-1abb0a03cd | d631d (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-e1d1fecf3b | d7fe8 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-c76bc051ab | da2fc (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-004b55e204 | e3045 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-7d92242732 | f08fe (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-5058413f17 | f9915 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-0d739498bb | fgfq3 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-d54ca395d6 | fhmbj (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre « Question 22 » non descriptif (idem pour les autres « Question n ») → Titre sur le contenu | confirmé à la relecture |  |
+| L-7b866770cb | gk9zv (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre « Question 24 » non descriptif ; réponses « OUI » / « NON » en majuscules ; ⟦colinéaires (OUI)⟧ texte en miseEnEvidence → Titre sur le contenu ; « oui » / « non » | confirmé à la relecture |  |
+| L-d42b097ae7 | hug50 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-d22baab949 | jj1hp (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-61218cdad1 | m650d (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-32f2b678ed | mmqav (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-73465f033c | ncr2v (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide ; énoncé « $251\,224 $ » espace avant $ de fermeture → Ajouter un titre ; $251\,224$ | confirmé à la relecture |  |
+| L-3498a106f0 | qdfhv (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-c31333e155 | qe7q9 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-4e342ef21b | rda48 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titres « Question 26 » (rda48) et « Question 25 » (sbr6q) non descriptifs → Titres sur le contenu | confirmé à la relecture |  |
+| L-d2a7e519f0 | ree46 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-0f10ab1c9c | t25p6 (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-a2a948e7ff | ukg9g (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |
+| L-1a17ee8aba | x1fxq (Non classés, CH) | relecture | **Titre vide ou « Question n » : titre à écrire** ‖ Titre vide dans le référentiel → Ajouter un titre | confirmé à la relecture |  |

@@ -2,11 +2,24 @@
 
 Information sur la couverture du banc, aucune action.
 
-247 constats, 247 exercices. Données complètes : `revue/classement/pour-memoire.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+252 constats, 252 exercices. Données complètes : `revue/classement/pour-memoire.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
+| [R3 Point final](#r3) | 5 | 5 |
 | [X7 Combinaisons de paramètres non toutes passées](#x7) | 247 | 247 |
+
+## R3
+
+**Point final**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-9b6314e9ba | BP1AA03 (BP1) | src/exercices/BP1/BP1AA03.ts | **Relu : pas de défaut à corriger** ‖ « suite arithmétique de raison $r=8$ et de premier terme $u_1=-5$ » puis « $u_n=-13+8n$ » correct (u_15=107) ; $n\in\mathbb{N}^*$ sans espace ; correction recopie l'énoncé. → Supprimer la répétition de l'énoncé. | confirmé à la relecture |  |
+| L-bd3c96dbb9 | BP1AA04 (BP1) | src/exercices/BP1/BP1AA04.ts | **Relu : pas de défaut à corriger** ‖ « on obtient donc la raison de la suite en effectuant la différence de deux termes consécutifs » ok ; pas de problème notable ; correction juste (-8). → RAS. | confirmé à la relecture |  |
+| L-8994c646ea | a343s (Non classés, CH) | src/exercices/CH/a343s.ts | **Relu : pas de défaut à corriger** ‖ Calcul juste (5 700) ; $\cdot$ CH conforme. → RAS. | confirmé à la relecture |  |
+| L-65295cdacf | bc613 (Non classés, CH) | src/exercices/CH/bc613.ts | **Relu : pas de défaut à corriger** ‖ « $6+6+6+6+6+6=6\cdot6$ » : addition répétée → produit : 6·6 ; correction juste. → « 6×6 ». | confirmé à la relecture |  |
+| L-e8fa42ae8f | c8a2b (Non classés, CH) | src/exercices/CH/c8a2b.ts | **Vérifié le 29 octobre : 3 et 71 sont tous deux acceptés (revue/essayer.mjs, graine revue-0-a) : pas de défaut** ‖ « Donner un diviseur de 213 autre que 1 et lui-même » : plusieurs réponses valables (3, 71) : le champ n'accepte que ? (à tester) ; correction juste. → Accepter 3 et 71. | confirmé à la relecture |  |
 
 ## X7
 
