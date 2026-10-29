@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **679 sur 1168**. Constats confirmés : **320**.
+Exercices relus : **707 sur 1168**. Constats confirmés : **330**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 229 |
+| Rédaction (français, titres, consignes) | 239 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -139,6 +139,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
 | 2mLogExp-7 | R12  | Correction : \text{e}^{rn} (e droit en \text) au lieu de \mathrm{e} | \mathrm{e} | relecture |
+| 2mLogExp-8 | R16  | Titre : « croissance  et » deux espaces | Un espace | relecture |
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
@@ -148,11 +149,20 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 4af87 | R16  | Correction : « soustraire -2 des deux membres » (tournure maladroite) | ajouter $2$ aux deux membres | relecture |
 | 4c0a8 | R16  | Titre : « ECalculer un rendu de monnaie » (Calculer) ; énoncé « billet de $5$ euros » après « $1,50$ € » (euros/€ mélangés) | Calculer ; € partout | relecture |
 | 4c7ca | R14  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
+| 4e684 | R16  | Titre : « valeurs remarquables  du » deux espaces | Un espace | relecture |
+| 4ed52 | R10 Français | Énoncé : « undefined » devant le QCM ; correction : proposition mise en évidence « Il y a 7 fois 5 et il reste 2 » avec nombres hors $ et texte dans miseEnEvidence | Initialiser la question ; $7$ fois $5$ | relecture |
+| 4f2a3 | R3  | Énoncé : « $A\left(5\,800\right).$ » point final dans les maths | Point hors $ | relecture |
+| 4ih30 | R16  | Titre « Calculer le périmètre d'un rectangle » mais l'exercice est un rendu de monnaie | Titre : Calculer un rendu de monnaie | relecture |
 | 4mProbStat-11 | R16  | Énoncé : « club du 3ème age » (3e âge) ; titre « l'union et l'intersection  de » deux espaces | 3e âge | relecture |
 | 4mProbStat-8 | R16  | Titre : « coefficcient » (coefficient) | coefficient | relecture |
 | 4mProbStat-9 | R12  | Tableau : cellule inconnue « $....$ » au lieu de \ldots ou ? | \ldots | relecture |
+| 4pvxi | R3  | Énoncé et correction : durées écrites de deux façons ($20\text{h}26\text{min}$ puis $1$ h $46$ min) | Uniformiser les durées | relecture |
+| 4r5kj | R16  | Titre « Question 12 » (titre de CAN/test, pas un intitulé) | Renseigner le titre | relecture |
+| 4vfug | R16  | Correction : « L'préimage est la solution » (La préimage) | La préimage | relecture |
 | 54140 | R1 Titre | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
 | 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
+| 5ab89 | R16  | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
+| 5aece | R16  | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine | Titre : Enlever une dizaine | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
@@ -368,6 +378,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| 10FA4C-9 | I1 Bonne réponse refusée | 10 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : un calcul numérique reste à effectuer. |
 | 3G98-5 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 9ES1C-1 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Il manque 1 réponse. |
@@ -395,4 +406,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12496 ; T5 Espaces 1956 ; T4  1227 ; T6 Points de suspension 1094 ; R2 Tutoiement, impératif 598 ; R5 Virgule 453 ; T2  371 ; T3  268 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 163 ; N3  132 ; M7  97 ; R9  94 ; R10 Français 59 ; X3  58 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 15 ; X2 Formule cassée 12 ; R1 Titre 3 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12540 ; T5 Espaces 1969 ; T4  1227 ; T6 Points de suspension 1100 ; R2 Tutoiement, impératif 622 ; R5 Virgule 453 ; T2  371 ; T3  269 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 163 ; N3  132 ; M7  97 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 15 ; X2 Formule cassée 12 ; R1 Titre 3 ; N4  2 ; R6  1.
