@@ -8,7 +8,7 @@ Résumés intermédiaires (`node revue/degres.mjs`), mis à jour au fil de la re
 | [Primaire](primaire.md) | 142 / 145 | 98 | 16 | 14 |
 | [6e](6e.md) | 483 / 487 | 340 | 37 | 33 |
 | [5e](5e.md) | 298 / 299 | 120 | 13 | 17 |
-| [4e](4e.md) | 160 / 226 | 41 | 3 | 5 |
+| [4e](4e.md) | 184 / 226 | 49 | 3 | 5 |
 | [3e](3e.md) | 76 / 364 | 14 | 4 | 4 |
 | [2de](2de.md) | 155 / 615 | 116 | 20 | 4 |
 | [1re](1re.md) | 85 / 325 | 42 | 8 | 6 |
