@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **2307 exercices passés sur 4190**.
-Constats regroupés : 11552 (un groupe = même exercice, même règle,
+Avancement : **2340 exercices passés sur 4190**.
+Constats regroupés : 11711 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -17,15 +17,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Gravité | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
 | 1 Interactif faux | [C1 Contenu mathématique faux ou ambigu](#c1) | 4 | 4 |
-| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 22 | 25 |
-| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 22 | 23 |
+| 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 23 | 26 |
+| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 23 | 24 |
 | 1 Interactif faux | [I3 Champ vide accepté ou en erreur](#i3) | 2 | 2 |
 | 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 21 | 24 |
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 2 | 2 |
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 6 | 8 |
 | 1 Interactif faux | [R1 Titre](#r1) | 6 | 6 |
-| 1 Interactif faux | [R16 ](#r16) | 36 | 36 |
+| 1 Interactif faux | [R10 Français (accords, fautes, coquilles)](#r10) | 1 | 1 |
+| 1 Interactif faux | [R16 ](#r16) | 40 | 40 |
 | 1 Interactif faux | [R3 Point final](#r3) | 6 | 6 |
 | 1 Interactif faux | [R5 Virgule (soit, alors, or)](#r5) | 1 | 1 |
 | 1 Interactif faux | [R7 ](#r7) | 1 | 1 |
@@ -44,16 +45,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [R11 ](#r11) | 1 | 1 |
 | 2 Rendu cassé | [R12 ](#r12) | 2 | 2 |
 | 2 Rendu cassé | [R14 ](#r14) | 4 | 4 |
-| 2 Rendu cassé | [R16 ](#r16) | 38 | 38 |
+| 2 Rendu cassé | [R16 ](#r16) | 39 | 39 |
 | 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 13 | 13 |
 | 2 Rendu cassé | [R3 Point final](#r3) | 1 | 1 |
 | 2 Rendu cassé | [R5 Virgule (soit, alors, or)](#r5) | 1 | 1 |
 | 2 Rendu cassé | [R6 Majuscule sans accent](#r6) | 1 | 1 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
-| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 27 | 41 |
+| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 28 | 43 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 17 | 294 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 13 | 47 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 209 | 366 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 210 | 368 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 10 | 10 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
@@ -61,14 +62,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 1 | 1 |
 | 3 Mise en évidence | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 266 | 1943 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 269 | 1947 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 9 | 9 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 213 | 215 |
-| 3 Mise en évidence | [M7 Explication en orange](#m7) | 25 | 95 |
-| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 75 | 89 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 229 | 231 |
+| 3 Mise en évidence | [M7 Explication en orange](#m7) | 28 | 103 |
+| 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 77 | 91 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
@@ -98,7 +99,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M6 Pas de mise en évidence du résultat](#m6) | 10 | 10 |
 | 4 Typographie | [M7 Explication en orange](#m7) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 576 | 944 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 586 | 955 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 21 | 28 |
 | 4 Typographie | [N3 Point décimal](#n3) | 27 | 35 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 9 | 9 |
@@ -113,10 +114,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R3 Point final](#r3) | 176 | 176 |
 | 4 Typographie | [R4 Dernière phrase en saisie libre](#r4) | 3 | 3 |
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 16 | 16 |
-| 4 Typographie | [T1 Espace avant %](#t1) | 20 | 29 |
+| 4 Typographie | [T1 Espace avant %](#t1) | 21 | 30 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 21 | 30 |
 | 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 339 | 556 |
-| 4 Typographie | [T4 Guillemets](#t4) | 132 | 199 |
+| 4 Typographie | [T4 Guillemets](#t4) | 133 | 200 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 6 | 6 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 6 | 6 |
 | 4 Typographie | [T8 Commande LaTeX collée](#t8) | 2 | 2 |
@@ -124,11 +125,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 4 Typographie | [X4 Question en double ou vide](#x4) | 3 | 3 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 434 | 575 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 437 | 578 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 234 | 1257 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 240 | 1332 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 40 | 47 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 92 | 126 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 93 | 128 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 53 | 72 |
 | 5 Rédaction | [R1 Titre](#r1) | 50 | 76 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 133 | 188 |
@@ -140,14 +141,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 38 | 49 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 394 | 651 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 504 | 705 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 400 | 659 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 508 | 712 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 51 | 51 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 132 | 143 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 139 | 150 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 94 | 94 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 96 | 96 |
 
 ## C1
 
@@ -166,6 +167,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5G5autoA (5e) |  q1 multi-mathfield | bonne réponse refusée (0/1) Il manque 1 réponse. | ×8 ; sup=true sup2=true ; sup=false sup2=true… (revue-1-a) |
 | 5N1E-1 (5e) |  q3 mathlive | bonne réponse refusée (0/1) Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu. | ×9 ; sup=false sup2=false ; sup=false sup2=true… (revue-0-b) |
 | 5N5F (5e) |  q1 mathlive | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. | ×1 ; sup=11 sup2=true (revue-20-b) |
 | 6AutoL3-2 (6e) | src/exercices/6e/_Exercice_perimetres_et_aires.ts:779 | Périmètres avec des longueurs décimales : réponse attendue en flottant (« 26,200000000000003 cm », « 24,000000000000004 cm ») avec precisionUnite 0 : « 26,2 cm » et « 24 cm » saisis au clavier sont refusés (confirmé avec revue/essayer.mjs ; « 16 cm » entier passe). La largeur décimale est aussi écrite avec un point dans l'énoncé et la correction (« $LM = 4.3\text{ cm}$ », « $(8,8\text{ cm}+4.3\text{ cm})\times2$ ») → perimetreArrondi = arrondi(…, 2) ; texNombre(l) dans l'énoncé et la correction | ×1 |
@@ -199,6 +201,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 5G3B-2 (5e) |  q1 mathlive | réponse fausse acceptée | ×47 ; sup=5 sup2=true sup3=3 ; sup=4 sup2=true sup3=1… (revue-0-b) |
+| 5G4autoA-1 (5e) |  q1 mathlive | réponse fausse acceptée | ×33 ; sup=4 ; sup=2… (revue-0-a) |
 | 6G5A (6e) |  q1 mathlive | réponse fausse acceptée | ×58 ; sup=3 sup2=4 sup4=false ; sup=1 sup2=1 sup4=true… (revue-0-a) |
 | 6G5A-1 (6e) |  q1 tableauMathlive | réponse fausse acceptée | ×82 ; sup=3 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
 | 6G7B-9 (6e) |  q1 mathlive | réponse fausse acceptée | ×18 ; sup=5 sup2=true ; sup=4 sup2=true… (revue-0-b) |
@@ -307,6 +310,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | cea02 (Non classés) | relecture | Nombres hors $ : « motif n° 6 », « 2 colonnes », « 1 ligne » (correction) → Nombres entre $ | ×1 |
 | fa2eb (Non classés) | src/exercices/5e/5A11Old.ts | Propositions QCM « 2 », « 3 », « 5 », « 9 » hors $ → Nombres entre $ | ×1 |
 
+## R10
+
+**Français (accords, fautes, coquilles)** (gravité 1 : Interactif faux)
+
+| Exercice | Où | Constat | Tirages |
+| --- | --- | --- | --- |
+| 5G4A-3 (5e) | src/exercices/5e/5G4A-3.ts | Énoncé : parallélisme noté « // » ($(d_3)//(d_2)$) au lieu de \parallel (aussi 5G4A-4) → $(d_3)\parallel(d_2)$ | ×1 |
+
 ## R16
 
 **R16** (gravité 1 : Interactif faux)
@@ -319,6 +330,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G2E (5e) | relecture | Titre « Connaitre » (sans accent circonflexe) → « Connaître » | ×1 |
 | 5G3A-13 (5e) | relecture | Titre « Reconnaitre » → « Reconnaître » | ×1 |
 | 5G3A-2 (5e) | src/exercices/5e/5G3A-2.ts | Énoncé : « $E',I'$ et $D'$ … $E,I$ et $D$ » : virgule sans espace dans une énumération → $E'$, $I'$ et $D'$ | ×1 |
+| 5G4A-4 (5e) | relecture | Titre terminé par « - v2 » (nom technique visible) → Retirer « - v2 » | ×1 |
+| 5G5B-1 (5e) | relecture | Titre « 2 angles » (chiffre dans le titre) → « deux angles » | ×1 |
+| 5G5B-4 (5e) | relecture | Titre « Connaitre notamment l'inégalité triangulaire » → « Connaître » | ×1 |
+| 5G5D (5e) | relecture | Titre « Connaitre le cours… » → « Connaître » | ×1 |
 | 5N1J-5 (5e) | relecture | Énoncé répété (« Quel chiffre peut-on mettre dans … » recopié en tête de correction) → Ne pas répéter la question | ×1 |
 | 5N1L-4 (5e) | src/exercices/5e/5N1L-4.ts | Texte du bouton +, tutoiement (« Tu peux directement donner… ») dans un exercice qui vouvoie/impératif → Harmoniser (« On peut… ») | ×1 |
 | 5N2K (5e) | src/exercices/5e/5N2K.ts | Titre sans « puis calculer » alors que la consigne le demande (et que la sortie attend deux champs) → Aligner titre et consigne | ×1 |
@@ -624,6 +639,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | 5G2E-6 (5e) | src/exercices/5e/5G2E-6.ts | Correction : « $R = diametre \div 2$ » (sans accent, italique) ; « au $\text{ dm}^3$ près » (espace dans \text) → $R=\text{diamètre}\div 2$ | ×1 |
+| 5G4autoA (5e) | src/exercices/5e/5G4autoA.ts | Énoncé : « Qu'est-ce que caractérise le point en couleur… » (syntaxe fautive) ; titre « Connaitre » → « Que caractérise le point en couleur… ? » ; « Connaître » | ×1 |
 | 5N1I-3 (5e) | src/exercices/5e/5N1I-3.ts | Correction : « Les 5 premiers multiples nons nuls de 30 » (faute : non nuls) ; « 5 premiers multiples non nuls de 30 : » sans article ; 16 M1. → « non nuls ». | ×1 |
 | 5N1J-4 (5e) | src/exercices/5e/5N1J-4.ts | Correction : « divisible par par $3$ » (mot répété) ; 90 phrases sans virgule, 36 R10 ; même format que bc570. → « par » une seule fois. | ×1 |
 | 5N1L (5e) | relecture | Correction : « il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même » (virgule fautive avant « il ») → Reformuler (« …, il admet donc… » sujet répété) | ×1 |
@@ -727,6 +743,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5G5autoA (5e) |  | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":80895,"pointilles":0,"bordures":[-7.8,-7.8,7.8,7.8],"centre":{"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":80893,"pointilles":0,"bordures":[0,0,0,0],"typeOb | ×1 |
+| 5G5autoA (5e) |  | console : [bugsnag] Event failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1928:32) | ×1 |
 | 5N1B-1 (5e) |  | arrêt : délai de 10 min dépassé | ×1 |
 | 6AutoA2 (6e) |  | console : [bugsnag] Session failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=978356fa:1978:33) | ×1 |
 | 6AutoA2-2 (6e) |  | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at UtilityScript.evaluate (&lt;anonymous>:305:16)     at UtilityScript.&lt;anonymous> (&lt;anonymous>:1:44) | ×1 |
@@ -1132,6 +1150,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 5G1B-3 (5e) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
 | 5G4A-4 (5e) |  | aucune question générée pour cette combinaison de paramètres | ×6 ; sup=3 sup3=true sup4=3 sup5=false ; sup=4 sup3=false sup4=3 sup5=true… (revue-5-a) |
+| 5G4A-4 (5e) | série | aucune question générée pour cette combinaison de paramètres | ×3 ; sup=3 sup3=true sup4=3 sup5=false ; sup=4 sup3=false sup4=3 sup5=true… (revue-5-a) |
+| 5G5B-1 (5e) | série q1 | correction vide | ×18 ; sup=true sup2=false sup3=1 ; sup=true sup2=false sup3=2… (revue-4-a) |
 | 5N1autoA (5e) | série q1 | énoncé vide | ×340 ; sup=4 sup2=5 sup3=7 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5N1autoA (5e) | série q1 | correction vide | ×340 ; sup=4 sup2=5 sup3=7 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5N1J-1 (5e) | série q1 | énoncé vide | ×10 ; sup=5 ; sup=1… (revue-0-a) |
@@ -1855,6 +1875,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G3B-2 (5e) |  q5 mathlive | valeur en évidence refusée par le champ : ["HB=7,1"] ; attendu : {"champ":"7,1\\operatorname{cm}"} | ×1 ; sup=5 sup2=true sup3=3 nb=10 (revue-30-a) |
 | 5G3B-2 (5e) |  q7 mathlive | valeur en évidence refusée par le champ : ["R","I","P"] ; attendu : {"champ":"oui"} | ×1 ; sup=5 sup2=true sup3=3 nb=10 (revue-30-a) |
 | 5G3B-2 (5e) |  q9 mathlive | valeur en évidence refusée par le champ : ["RT=4,8"] ; attendu : {"champ":"4,8\\operatorname{cm}"} | ×1 ; sup=5 sup2=true sup3=3 nb=10 (revue-30-a) |
+| 5G4autoA-1 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["12^\\circ"] ; attendu : {"champ":"12\\operatorname{^\\circ}"} | ×33 ; sup=4 ; sup=2… (revue-0-a) |
+| 5G5D-1 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["7,5\\text{ cm}^2"] ; attendu : {"champ":"7,5\\operatorname{cm^2}"} | ×8 ; sup=3 ; sup=1… (revue-0-a) |
+| 5G5D-1 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["24\\text{ cm}^2"] ; attendu : {"champ":"24\\operatorname{cm^2}"} | ×20 ; sup=3 ; sup=1… (revue-0-a) |
+| 5G6G (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["12\\text{ cm}^2"] ; attendu : {"champ":"12\\operatorname{cm^2}"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 5N1autoA-1 (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"2"} ; attendu : {"champ1":"2","champ2":"9"} | ×133 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 5N1I-3 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["30&nbsp;; 60&nbsp;; 90&nbsp;; 120&nbsp;; 150"] ; attendu : {"champ":"30;60;90;120;150"} | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | 5N1I-3 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["600&nbsp;; 1\\,200&nbsp;; 1\\,800&nbsp;; 2\\,400&nbsp;; 3\\,000"] ; attendu : {"champ":"600;1200;1800;2400;3000"} | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
@@ -3967,6 +3991,22 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G4A (5e) | série q2 | aucune mise en évidence dans la correction | ×14 ; sup=8 sup2=false ; sup=6 sup2=true… (revue-0-a) |
 | 5G4A-3 (5e) | série q1 | aucune mise en évidence dans la correction | ×90 ; sup=4 sup2=false sup3=true ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | 5G4A-4 (5e) | série q1 | aucune mise en évidence dans la correction | ×91 ; sup=3 sup3=true sup4=4 sup5=false ; sup=1 sup3=true sup4=1 sup5=true… (revue-0-a) |
+| 5G5B (5e) | série q1 | aucune mise en évidence dans la correction | ×44 ; sup=false sup3=7-9 ; sup=false sup3=1… (revue-11-a) |
+| 5G5B-1 (5e) | série q1 | aucune mise en évidence dans la correction | ×18 ; sup=true sup2=true sup3=1 ; sup=true sup2=true sup3=2… (revue-1-a) |
+| 5G5B-2 (5e) | série q1 | aucune mise en évidence dans la correction | ×98 ; sup=3 sup2=true ; sup=1 sup2=true… (revue-0-a) |
+| 5G5B-5 (5e) | série q1 | aucune mise en évidence dans la correction | ×20 ; sup= ; sup=0… (revue-0-a) |
+| 5G5E-2 (5e) | série q1 | aucune mise en évidence dans la correction | ×32 ; sup=0 sup2=0 sup3=false sup4=3 ; sup=0 sup2=0 sup3=true sup4=1… (revue-0-a) |
+| 5G5E-3 (5e) | série q1 | aucune mise en évidence dans la correction | ×28 ; sup=0 sup2=0 ; sup=0 sup2=1… (revue-0-a) |
+| 5G5G-1 (5e) | série q1 | aucune mise en évidence dans la correction | ×46 ; sup=0 sup2=false sup3=3 ; sup=0 sup2=true sup3=1… (revue-0-a) |
+| 5G5G-2 (5e) | série q1 | aucune mise en évidence dans la correction | ×28 ; sup=0 sup2=0 ; sup=0 sup2=1… (revue-0-a) |
+| 5G5G-3 (5e) | série q1 | aucune mise en évidence dans la correction | ×16 ; sup=0 ; sup=1… (revue-0-a) |
+| 5G6B (5e) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=1 sup2=1 sup3=false ; sup=1 sup2=2 sup3=false… (revue-2-a) |
+| 5G6B-1 (5e) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6B-2 (5e) | série q1 | aucune mise en évidence dans la correction | ×20 ; sup=0 ; sup=1… (revue-0-a) |
+| 5G6D (5e) | série q1 | aucune mise en évidence dans la correction | ×64 ; sup=2-3-4-5 sup2=2 sup3=true sup4=false ; sup=2-3-4-5 sup2=1 sup3=true sup4=true… (revue-0-a) |
+| 5G6F (5e) | série q1 | aucune mise en évidence dans la correction | ×24 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F-1 (5e) | série q1 | aucune mise en évidence dans la correction | ×18 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F-3 (5e) | série q1 | aucune mise en évidence dans la correction | ×79 ; sup=1-2-3-4-5-6 ; sup=0… (revue-0-a) |
 | 5N1autoA-3 (5e) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=false ; sup=true… (revue-0-a) |
 | 5N1J-3 (5e) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=false ; sup=true… (revue-0-a) |
 | 5N2A-1 (5e) | série q1 | aucune mise en évidence dans la correction | ×106 ; sup=4 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
@@ -4195,6 +4235,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4L15-0 (4e) | src/exercices/4e/4L15-0.ts:198 | texteEnCouleur sans couleur (orange par défaut) : `$\\boldsymbol{${inc}}$` | ×3 |
 | 4L15-0 (4e) | src/exercices/4e/4L15-0.ts:220 | texteEnCouleur sans couleur (orange par défaut) : `$\\boldsymbol{${inc}}$` | ×3 |
 | 4L15-0 (4e) | src/exercices/4e/4L15-0.ts:241 | texteEnCouleur sans couleur (orange par défaut) : `$\\boldsymbol{${inc}}$` | ×3 |
+| 5G5B-2 (5e) | correction q1 | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment | ×32 ; sup=4 sup2=true ; sup=4 sup2=false… (revue-6-a) |
+| 5G6B-1 (5e) | correction q1 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6B-1 (5e) | correction non interactive q1 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que | ×1 |
+| 5G6F-3 (5e) | correction q1 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que | ×30 ; sup=1-2-3-4-5-6 ; sup=0… (revue-0-a) |
+| 5G6F-3 (5e) | correction q3 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que tous les côtés du carré mesure envi | ×7 ; sup=1-2-3-4-5-6 ; sup=0… (revue-0-a) |
+| 5G6F-3 (5e) | correction q1 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que tous les côtés du losange mesure en | ×7 ; sup=0 ; sup=6… (revue-1-a) |
+| 5G6F-3 (5e) | correction non interactive q1 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que | ×3 |
+| 5G6F-3 (5e) | correction non interactive q3 | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que tous les côtés du carré mesure envi | ×1 |
 | 6G6A-1 (6e) | correction q1 | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment | ×32 ; sup=4 sup2=true ; sup=4 sup2=false… (revue-6-a) |
 | 6G6A-3 (6e) | correction q1 | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment | ×106 ; sup=4 sup2=false ; sup=4 sup2=true… (revue-0-a) |
 | 6G6A-3 (6e) | correction non interactive q1 | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment | ×6 |
@@ -4277,8 +4325,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5D1B-1 (5e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 4 champ(s) | ×16 ; sup=1 ; sup=2… (revue-0-a) |
 | 5G1B-4 (5e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×170 ; sup=1 sup2=false sup3=false sup4=false ; sup=1 sup2=true sup3=true sup4=true… (revue-0-a) |
 | 5G1B-5 (5e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×106 ; sup=1 sup2=false sup3=false sup4=false ; sup=1 sup2=true sup3=true sup4=true… (revue-0-a) |
+| 5G5autoA (5e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 1 champ(s) | ×50 ; sup=true sup2=false ; sup=true sup2=true… (revue-0-a) |
 | 5N1G-2 (5e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 6 trou(s) | ×70 ; sup=3 sup2=false ; sup=3 sup2=true… (revue-0-a) |
 | 5N1G-2 (5e) | src/exercices/5e/5N1G-2.ts | Parenthèses à placer dans « 9 − 4 × 2 + 8 = 18 » : 6 trous, une seule mise en évidence (70 M8) ; champ vide accepté (21 I3 : la bonne réponse peut ne comporter aucune parenthèse ?) ; 208 « Choisir… » ; consigne « afin que celles-ci soient justes ». → Une évidence par trou ; vérifier le cas sans parenthèse. | ×1 |
 | 5N2E (5e) |  q1 fillInTheBlank | 0 mise(s) en évidence pour 3 trou(s) | ×46 ; sup=2-3-4 ; sup=1… (revue-0-a) |
@@ -4990,6 +5040,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5D1B-1 (5e) | correction q1 | « 10 » hors $ : a) D'après le graphique, il y a 10 crocodiles. b) L'effectif total des animaux e ‖ « 10 » hors $ : ocodiles. b) L'effectif total des animaux est : 10 + 9 + 4 + 6 + 8 = 37. D'après le graphique, il ‖ « 9 » hors $ : les. b) L'effectif total des animaux est : 10 + 9 + 4 + 6 + 8 = 37. D'après le graphique, il y a | ×266 ; sup=1 ; sup=2… (revue-0-a) |
+| 5D1B-1 (5e) | énoncé non interactif q1 | « 0,1 » hors $ : s la forme d'un pourcentage arrondi, si besoin, à 0,1% près. c) Calculer l'effectif des qua ‖ « 0,1 » hors $ : s la forme d'un pourcentage arrondi, si besoin, à 0,1% près. | ×2 |
 | 5G2autoC (5e) | énoncé q1 | « 4 » hors $ : Les faces à 4 côtés de ce solide sont des rectangles. | ×5 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-2-a) |
 | 5G2E (5e) | correction q1 | « 1 » hors $ : est la longueur d'un cercle de diamètre 1. | ×1 ; sup=1 (revue-1-a) |
 | 5G2E-2 (5e) | correction q1 | « 9 » hors $ : érimètre est composé d'un demi-cercle de diamètre 9 cm et d'un diamètre qui ferme la figure. ‖ « 9 » hors $ : La figure est la moitié d'un disque de diamètre 9 cm donc de 4.5 cm de rayon. ‖ « 4.5 » hors $ : st la moitié d'un disque de diamètre 9 cm donc de 4.5 cm de rayon. | ×87 ; sup=3 sup2=4 ; sup=1 sup2=1… (revue-0-a) |
@@ -5013,6 +5065,15 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G3A-7 (5e) | correction q1 | « 90 » hors $ : et d'angle 90 | ×3 ; sup=4 (revue-3-a) |
 | 5G4A-1 (5e) | énoncé q1 | « 360 » hors $ : te : « La somme des angles d'un quadrilatère vaut 360°.» | ×12 ; sup=1 ; sup=3… (revue-0-a) |
 | 5G4A-1 (5e) | énoncé non interactif q1 | « 360 » hors $ : te : « La somme des angles d'un quadrilatère vaut 360°.» | ×1 |
+| 5G4autoA (5e) | correction q1 | « 180 » hors $ : ntaires car la somme de leurs mesures est égale à 180° (angle plat). ‖ « 90 » hors $ : ntaires car la somme de leurs mesures est égale à 90° (angle droit). | ×2 ; sup=3 sup2=true sup3=true ; sup=5 sup2=true sup3=true (revue-9-a) |
+| 5G5autoA (5e) | correction q1 | « 3 » hors $ : Les 3 côtés du triangle ‖ « 3 » hors $ : Les 3 angles du triangle | ×5 ; sup=true sup2=false ; sup=true sup2=true… (revue-0-a) |
+| 5G5B-1 (5e) | titre | « 2 » hors $ : racer un triangle dont on connaît une longueur et 2 angles | ×1 |
+| 5G5B-3 (5e) | titre | « 3 » hors $ : si un triangle est constructible à partir de ses 3 longueurs | ×1 |
+| 5G5B-4 (5e) | correction q1 | « 180 » hors $ : La somme des angles d'un triangle est égale à 180°. ‖ « 90 » hors $ : angles aigus d'un triangle rectangle est égale à 90°. | ×2 ; sup=5 ; sup=6 (revue-5-a) |
+| 5G5E (5e) | titre | « 1 » hors $ : Déterminer la nature d'une droite remarquable - 1 | ×1 |
+| 5G5E-1 (5e) | correction q1 | « 180 » hors $ : La somme des angles d'un triangle est égale à 180°. ‖ « 90 » hors $ : angles aigus d'un triangle rectangle est égale à 90°. | ×2 ; sup=5 ; sup=6 (revue-4-a) |
+| 5G5G (5e) | titre | « 2 » hors $ : Déterminer la nature d'une droite remarquable - 2 | ×1 |
+| 5G6B (5e) | correction q1 | « 1 » hors $ : se trouve dans la case A2 de la cible 1. Le point ‖ « 2 » hors $ : se trouve dans la case B2 de la cible 2. ‖ « 1 » hors $ : se trouve dans la case C2 de la cible 1. Le point | ×32 ; sup=3 sup2=1 sup3=true ; sup=3 sup2=2 sup3=true… (revue-13-a) |
 | 5N1autoA (5e) | titre | « 2 » hors $ : ultiples basé sur des critères de divisibilité de 2, 5 ou 10 ‖ « 5 » hors $ : iples basé sur des critères de divisibilité de 2, 5 ou 10 ‖ « 10 » hors $ : basé sur des critères de divisibilité de 2, 5 ou 10 | ×3 |
 | 5N1autoA (5e) | consigne | « 10 » hors $ : Trouver le chemin qui passe par des multiples de 10. Dans ce labyrinthe, on peut se déplacer horizo ‖ « 2 » hors $ : Trouver le chemin qui passe par des multiples de 2. Dans ce labyrinthe, on peut se déplacer horizon | ×3 ; sup=4 sup2=5 sup3=7 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5N1autoA-1 (5e) | titre | « 2 » hors $ : ltiples basé sur les critères de divisibilité par 2, par 5 ou par 10 ‖ « 5 » hors $ : basé sur les critères de divisibilité par 2, par 5 ou par 10 ‖ « 10 » hors $ : les critères de divisibilité par 2, par 5 ou par 10 | ×3 |
@@ -6490,6 +6551,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2I11-3 (2e) | src/exercices/1eTec/1Tec-A1-2.ts:2 | % sans espace insécable : Appliquer un pourcentage avec 10%, 20%, ... | ×1 |
 | 2S20-13 (2e) | src/exercices/2e/2S20-13.ts:49 | % sans espace insécable : L'acier inoxydable 18/8 contient principalement du fer, avec environ 18 % de chrome et 8 % de nickel. | ×1 |
 | 2S20-13 (2e) | src/exercices/2e/2S20-13.ts:90 | % sans espace insécable : L'alliage Ti-6Al-4V contient, en composition simplifiée, 6 % d'aluminium et 4 % de vanadium, le reste étant du titane. | ×1 |
+| 5D1B-1 (5e) | énoncé non interactif q1 | « 1% » sans espace insécable : la forme d'un pourcentage arrondi, si besoin, à 0,1% près. c) Calculer l'effectif des quadr ‖ « 1% » sans espace insécable : la forme d'un pourcentage arrondi, si besoin, à 0,1% près. | ×2 |
 | 5I1D (5e) | src/exercices/5e/5I1D.ts:1051 | % sans espace insécable : 100% | ×1 |
 | 5I1D (5e) | src/exercices/5e/5I1D.ts:1076 | % sans espace insécable : 100% | ×1 |
 | 5I1D (5e) | src/exercices/5e/5I1D.ts:1087 | % sans espace insécable : 100% | ×1 |
@@ -7124,6 +7186,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 5G4A-1 (5e) | énoncé q1 | guillemet sans insécable : . f) Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°. ‖ guillemet sans insécable : « La somme des angles d'un quadrilatère vaut 360°.» | ×24 ; sup=1 ; sup=3… (revue-0-a) |
 | 5G4A-1 (5e) | énoncé non interactif q1 | guillemet sans insécable : . f) Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°. ‖ guillemet sans insécable : « La somme des angles d'un quadrilatère vaut 360°.» | ×2 |
+| 5G6D-1 (5e) | correction q1 | guillemet sans insécable : . Or, « si un quadrilatère a ses côtés opposés de même l ‖ guillemet sans insécable : de même longueur, alors c'est un parallélogramme ». Donc ‖ guillemet sans insécable : . Or, « si un quadrilatère a ses diagonales qui se coupe | ×22 ; sup=true ; sup=false… (revue-0-a) |
 | 5N1E-1 (5e) | src/exercices/5e/5N1E-1.ts | 136 guillemets sans insécables (« Le compte est bon ») ; 17 R10 ; « L'expression correspondante au calcul de William » ; réponses attendues très contraintes (« ce n'est pas ce calcul qui est attendu », 9 I1 à confirmer à la main). → Accepter les écritures équivalentes ; guillemets français. | ×1 |
 | 5N1E-1 (5e) | énoncé q1 | guillemet sans insécable : lliam a trouvé une solution d'une variante du jeu « Le compte est bon » pour le tirage suivant ‖ guillemet sans insécable : olution d'une variante du jeu « Le compte est bon » pour le tirage suivant ‖ guillemet sans insécable : ivier a trouvé une solution d'une variante du jeu « Le compte est bon » pour le tirage suivant | ×52 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
 | 5N1E-1 (5e) | énoncé non interactif q1 | guillemet sans insécable : lliam a trouvé une solution d'une variante du jeu « Le compte est bon » pour le tirage suivant ‖ guillemet sans insécable : olution d'une variante du jeu « Le compte est bon » pour le tirage suivant ‖ guillemet sans insécable : ivier a trouvé une solution d'une variante du jeu « Le compte est bon » pour le tirage suivant | ×8 |
@@ -7398,6 +7461,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5D1B (5e) | énoncé | page de 585 px pour 390 px | ×5 ; sup=1 ; sup=3… (revue-0-a) |
 | 5G1B-3 (5e) | énoncé | page de 418 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | 5G1B-3 (5e) | correction | page de 460 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | 5G2B-2 (5e) | énoncé | page de 405 px pour 390 px | ×15 ; sup=0 sup2=0 sup3=0 sup4=false ; sup=0 sup2=1 sup3=0 sup4=false… (revue-1-a) |
@@ -7415,6 +7479,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G3A-11 (5e) | correction | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
 | 5G3A-2 (5e) | énoncé | page de 640 px pour 390 px | ×41 ; sup=1 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | 5G4A-1 (5e) | correction | page de 402 px pour 390 px | ×6 ; sup=1 ; sup=2… (revue-0-a) |
+| 5G5D (5e) | correction | page de 401 px pour 390 px | ×4 ; sup=1 ; sup=7 (revue-1-a) |
+| 5G5D-1 (5e) | correction | page de 402 px pour 390 px | ×5 ; sup=3 ; sup=2… (revue-0-a) |
 | 5N1autoA (5e) | énoncé | page de 423 px pour 390 px | ×156 ; sup=1 sup2=8 sup3=8 ; sup=1 sup2=9 sup3=9… (revue-8-a) |
 | 5N1autoA (5e) | correction | page de 423 px pour 390 px | ×156 ; sup=1 sup2=8 sup3=8 ; sup=1 sup2=9 sup3=9… (revue-8-a) |
 | 5N1G-1 (5e) | correction | page de 398 px pour 390 px | ×1 ; sup=2 sup2=false sup3=false sup4=true sup5=1 (revue-29-a) |
@@ -8027,6 +8093,81 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G4A (5e) |  q1 qcm | QCM : bonne proposition (non) absente de la mise en évidence (nesontpasparallèles) | ×31 ; sup=8 sup2=false ; sup=2 sup2=true… (revue-0-a) |
 | 5G4A (5e) |  q2 qcm | QCM : bonne proposition (1) absente de la mise en évidence () | ×14 ; sup=8 sup2=false ; sup=6 sup2=true… (revue-0-a) |
 | 5G4A (5e) |  q3 qcm | QCM : bonne proposition (nil'unnil'autre) absente de la mise en évidence (nialternes-internesnicorrespondants) | ×3 ; sup=8 sup2=false ; sup=1 sup2=true… (revue-0-a) |
+| 5G4autoA-1 (5e) |  q3 qcm | QCM : bonne proposition (nil'un,nil'autre) absente de la mise en évidence (nesontnicomplémentairesnisupplémentaires) | ×5 ; sup=4 ; sup=1… (revue-0-b) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglebipestconstructiblemaisn'estpasplat.) absente de la mise en évidence (bipletriangleestconstructible) | ×2 ; sup=1 sup2=false ; sup=2 sup2=true (revue-0-a) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letrianglerapn'estpasconstructible.) absente de la mise en évidence (rapletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false (revue-0-a) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letriangletafestconstructiblemaisn'estpasplat.) absente de la mise en évidence (tafletriangleestconstructible) | ×1 ; sup=1 sup2=false (revue-0-a) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglecrun'estpasconstructible.) absente de la mise en évidence (cruletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false (revue-0-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letriangleailestconstructiblemaisn'estpasplat.) absente de la mise en évidence (ailletriangleestconstructible) | ×1 ; sup=1 sup2=false (revue-0-b) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letrianglepotestconstructiblemaisn'estpasplat.) absente de la mise en évidence (potletriangleestconstructible) | ×1 ; sup=1 sup2=false (revue-0-b) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglebolestconstructiblemaisn'estpasplat.) absente de la mise en évidence (bolletriangleestconstructible) | ×2 ; sup=1 sup2=true ; sup=2 sup2=true (revue-1-a) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letriangleseln'estpasconstructible.) absente de la mise en évidence (selletrianglen'estpasconstructible) | ×2 ; sup=1 sup2=true ; sup=3 sup2=false (revue-1-a) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letrianglezagestplat.) absente de la mise en évidence (zagonpeutdoncconstruireletriangle,c'estuntriangleplat.) | ×1 ; sup=1 sup2=true (revue-1-a) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglepotestplat.) absente de la mise en évidence (potonpeutdoncconstruireletriangle,c'estuntriangleplat.) | ×1 ; sup=1 sup2=true (revue-1-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letriangleducn'estpasconstructible.) absente de la mise en évidence (ducletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=true (revue-1-b) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letrianglebecestconstructiblemaisn'estpasplat.) absente de la mise en évidence (becletriangleestconstructible) | ×1 ; sup=1 sup2=true (revue-1-b) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglecruestconstructiblemaisn'estpasplat.) absente de la mise en évidence (cruletriangleestconstructible) | ×1 ; sup=2 sup2=true (revue-2-a) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letriangleduoestconstructiblemaisn'estpasplat.) absente de la mise en évidence (duoletriangleestconstructible) | ×1 ; sup=2 sup2=true (revue-2-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letriangledurestconstructiblemaisn'estpasplat.) absente de la mise en évidence (durletriangleestconstructible) | ×1 ; sup=2 sup2=true (revue-2-b) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letriangletacestconstructiblemaisn'estpasplat.) absente de la mise en évidence (tacletriangleestconstructible) | ×1 ; sup=2 sup2=true (revue-2-b) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letriangleepiestconstructiblemaisn'estpasplat.) absente de la mise en évidence (epiletriangleestconstructible) | ×2 ; sup=2 sup2=false ; sup=3 sup2=false (revue-3-a) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letrianglepasestconstructiblemaisn'estpasplat.) absente de la mise en évidence (pasletriangleestconstructible) | ×1 ; sup=2 sup2=false (revue-3-a) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letrianglebofestconstructiblemaisn'estpasplat.) absente de la mise en évidence (bofletriangleestconstructible) | ×2 ; sup=2 sup2=false ; sup=3 sup2=true (revue-3-a) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglezagestconstructiblemaisn'estpasplat.) absente de la mise en évidence (zagletriangleestconstructible) | ×1 ; sup=2 sup2=false (revue-3-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letrianglerifestconstructiblemaisn'estpasplat.) absente de la mise en évidence (rifletriangleestconstructible) | ×2 ; sup=2 sup2=false ; sup=1 sup2=false nb=10 (revue-3-b) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letrianglecriestconstructiblemaisn'estpasplat.) absente de la mise en évidence (criletriangleestconstructible) | ×1 ; sup=2 sup2=false (revue-3-b) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letriangleegoestconstructiblemaisn'estpasplat.) absente de la mise en évidence (egoletriangleestconstructible) | ×1 ; sup=3 sup2=true (revue-4-a) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letriangletopn'estpasconstructible.) absente de la mise en évidence (topletrianglen'estpasconstructible) | ×2 ; sup=3 sup2=true ; sup=3 sup2=false (revue-4-a) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letrianglemacestconstructiblemaisn'estpasplat.) absente de la mise en évidence (macletriangleestconstructible) | ×1 ; sup=3 sup2=true (revue-4-a) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letriangleecuestplat.) absente de la mise en évidence (ecuonpeutdoncconstruireletriangle,c'estuntriangleplat.) | ×1 ; sup=3 sup2=true (revue-4-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letrianglerapestconstructiblemaisn'estpasplat.) absente de la mise en évidence (rapletriangleestconstructible) | ×1 ; sup=3 sup2=true (revue-4-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letrianglezenestconstructiblemaisn'estpasplat.) absente de la mise en évidence (zenletriangleestconstructible) | ×1 ; sup=3 sup2=false (revue-5-a) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letriangleyenestconstructiblemaisn'estpasplat.) absente de la mise en évidence (yenletriangleestconstructible) | ×1 ; sup=3 sup2=false (revue-5-b) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letriangleailn'estpasconstructible.) absente de la mise en évidence (ailletrianglen'estpasconstructible) | ×1 ; sup=3 sup2=false (revue-5-b) |
+| 5G5B-3 (5e) |  q1 qcm | QCM : bonne proposition (letrianglebutestconstructiblemaisn'estpasplat.) absente de la mise en évidence (butletriangleestconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q2 qcm | QCM : bonne proposition (letrianglecrin'estpasconstructible.) absente de la mise en évidence (criletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q3 qcm | QCM : bonne proposition (letriangleameestconstructiblemaisn'estpasplat.) absente de la mise en évidence (ameletriangleestconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q4 qcm | QCM : bonne proposition (letrianglerain'estpasconstructible.) absente de la mise en évidence (railetrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q5 qcm | QCM : bonne proposition (letrianglezign'estpasconstructible.) absente de la mise en évidence (zigletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q6 qcm | QCM : bonne proposition (letriangletopestconstructiblemaisn'estpasplat.) absente de la mise en évidence (topletriangleestconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q7 qcm | QCM : bonne proposition (letrianglegpsn'estpasconstructible.) absente de la mise en évidence (gpsletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q8 qcm | QCM : bonne proposition (letriangleselestconstructiblemaisn'estpasplat.) absente de la mise en évidence (selletriangleestconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G5B-3 (5e) |  q9 qcm | QCM : bonne proposition (letrianglebyen'estpasconstructible.) absente de la mise en évidence (byeletrianglen'estpasconstructible) | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5G6C (5e) |  q2 qcm | QCM : bonne proposition (sesanglesopposésdemêmemesure) absente de la mise en évidence (sesanglesopposéségaux) | ×1 ; sup=2 sup2=true (revue-3-a) |
+| 5G6D-1 (5e) |  q1 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (rstuestunparallélogramme) | ×3 ; sup=true ; sup=false (revue-0-a) |
+| 5G6D-1 (5e) |  q2 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (hijkn'estdoncpasforcémentunparallélogramme) | ×2 ; sup=true ; sup=true nb=10 (revue-0-a) |
+| 5G6D-1 (5e) |  q3 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (vwxyestunparallélogramme) | ×2 ; sup=true ; sup=false (revue-0-a) |
+| 5G6D-1 (5e) |  q4 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (stuvestunparallélogramme) | ×1 ; sup=true (revue-0-a) |
+| 5G6D-1 (5e) |  q2 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (klmnn'estdoncpasforcémentunparallélogramme) | ×2 ; sup=true ; sup=false (revue-0-b) |
+| 5G6D-1 (5e) |  q3 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (efghestunparallélogramme) | ×3 ; sup=true ; sup=false… (revue-0-b) |
+| 5G6D-1 (5e) |  q4 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (cdefestunparallélogramme) | ×1 ; sup=true (revue-0-b) |
+| 5G6D-1 (5e) |  q1 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (hijkestunparallélogramme) | ×2 ; sup=false (revue-1-a) |
+| 5G6D-1 (5e) |  q1 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (ijkln'estdoncpasforcémentunparallélogramme) | ×1 ; sup=false (revue-1-b) |
+| 5G6D-1 (5e) |  q2 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (tuvwn'estdoncpasforcémentunparallélogramme) | ×2 ; sup=false ; sup=true nb=10 (revue-1-b) |
+| 5G6D-1 (5e) |  q1 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (rstun'estdoncpasforcémentunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6D-1 (5e) |  q3 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (ijklestunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6D-1 (5e) |  q4 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (mnopn'estdoncpasforcémentunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6D-1 (5e) |  q5 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (tuvwestunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6D-1 (5e) |  q6 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (jklmestunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6D-1 (5e) |  q7 qcm | QCM : bonne proposition (ilnes'agitpasd'unparallélogramme) absente de la mise en évidence (efghn'estdoncpasforcémentunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6D-1 (5e) |  q8 qcm | QCM : bonne proposition (ils'agitd'unparallélogramme) absente de la mise en évidence (qrstestunparallélogramme) | ×1 ; sup=true nb=10 (revue-2-a) |
+| 5G6F (5e) |  q1 qcm | QCM : bonne proposition (losange) absente de la mise en évidence () | ×6 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F (5e) |  q2 qcm | QCM : bonne proposition (rectangle / losange / carré) absente de la mise en évidence () | ×3 ; défaut (revue-0-a) |
+| 5G6F (5e) |  q3 qcm | QCM : bonne proposition (rectangle) absente de la mise en évidence () | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F (5e) |  q1 qcm | QCM : bonne proposition (rectangle / carré / losange) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
+| 5G6F (5e) |  q2 qcm | QCM : bonne proposition (carré / rectangle / losange) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
+| 5G6F (5e) |  q5 qcm | QCM : bonne proposition (carré / losange / rectangle) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
+| 5G6F (5e) |  q3 qcm | QCM : bonne proposition (losange / carré / rectangle) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| 5G6F (5e) |  q8 qcm | QCM : bonne proposition (losange / rectangle / carré) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| 5G6F-1 (5e) |  q1 qcm | QCM : bonne proposition (sesanglesopposéssontdemêmemesure. / sesanglesconsécutifssontsupplémentaires.) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F-1 (5e) |  q2 qcm | QCM : bonne proposition (c'estunparallélogramme. / c'estunrectangle. / c'estunlosange. / c'estuncarré.) absente de la mise en évidence () | ×2 ; défaut (revue-0-a) |
+| 5G6F-1 (5e) |  q3 qcm | QCM : bonne proposition (sesdiagonalessecoupentenleurmilieu. / sesdiagonalessontdemêmelongueur.) absente de la mise en évidence () | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F-1 (5e) |  q4 qcm | QCM : bonne proposition (aucunedecesréponses.) absente de la mise en évidence () | ×5 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F-1 (5e) |  q1 qcm | QCM : bonne proposition (sescôtésopposéssontdemêmelongueur. / sescôtésconsécutifssontdemêmelongueur. / se) absente de la mise en évidence () | ×1 ; défaut (revue-0-b) |
+| 5G6F-1 (5e) |  q3 qcm | QCM : bonne proposition (c'estunparallélogramme. / c'estunrectangle. / c'estunlosange.) absente de la mise en évidence () | ×1 ; défaut (revue-0-b) |
+| 5G6F-1 (5e) |  q3 qcm | QCM : bonne proposition (c'estunparallélogramme.) absente de la mise en évidence () | ×3 ; défaut nb=10 (revue-1-a) |
+| 5G6F-1 (5e) |  q6 qcm | QCM : bonne proposition (c'estunparallélogramme. / c'estunlosange.) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
+| 5G6F-1 (5e) |  q7 qcm | QCM : bonne proposition (sesdiagonalessecoupentenleurmilieu. / sesdiagonalessontperpendiculaires. / sesdi) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
 | 5N1autoA-2 (5e) |  q1 qcm | QCM : bonne proposition (non) absente de la mise en évidence (n'estpasdivisible) | ×13 ; défaut ; défaut nb=10 (revue-0-a) |
 | 5N1autoA-2 (5e) |  q2 qcm | QCM : bonne proposition (oui) absente de la mise en évidence (estdivisible) | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
 | 5N1autoA-3 (5e) |  q1 qcm | QCM : bonne proposition (2) absente de la mise en évidence () | ×13 ; sup=false ; sup=true… (revue-0-a) |
@@ -9338,6 +9479,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5D1B (5e) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 ; sup=1 (revue-0-a) |
+| 5D1B (5e) | énoncé non interactif q1 | nombre à 4 chiffres sans séparateur : $1000$ | ×1 |
 | 5N1E-3 (5e) | correction q1 | nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{1350 \div 30 \times 8 \div 15$ ‖ nombre à 4 chiffres sans séparateur : $1350 \div 30 = 45$ | ×16 ; sup=5 sup2=true ; sup=5 sup2=false… (revue-9-a) |
 | 5N1H-2 (5e) | correction q1 | nombre à 4 chiffres sans séparateur : $90\times 3\\ &= 2700+270\\ &={\c$ ‖ nombre à 4 chiffres sans séparateur : $&={\color{}\boldsymbol{2970}} \end{alig$ ‖ nombre à 4 chiffres sans séparateur : $s 40\\ &={\color{}\boldsymbol{3200}}\end{aligned}$ | ×39 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | 5N1L-1 (5e) | correction q1 | nombre à 4 chiffres sans séparateur : $\sqrt{3639} \approx 60,32$ ‖ nombre à 4 chiffres sans séparateur : $3639 \div 2 = 1\,819,5$ ‖ nombre à 4 chiffres sans séparateur : $3639 \div 3 = 1\,213$ | ×60 ; sup=10000 sup2=true ; sup=10000 sup2=false (revue-25-a) |
@@ -10464,6 +10607,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 5D1B-1 (5e) | correction q1 | double espace : if total des animaux est : 10 + 9 + 4 + 6 + 8 = 37. D'après le graphique, il y a 9 lycaons. La fr ‖ double espace : y a 9 lycaons. La fréquence (ou la proportion) de lycaons est : ‖ double espace : d) L'effectif total des oiseaux est : 6 + 8 = 14. L'effectif total des animaux est : 37. La fré | ×39 ; sup=1 ; sup=2… (revue-0-a) |
 | 5G2B (5e) | énoncé q1 | double espace : On souhaite construire le patron du cylindre ci-dessous. Complète le schéma du | ×78 ; sup=3 sup2=4 sup3=3 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5G2B (5e) | énoncé non interactif q1 | double espace : On souhaite construire le patron du cylindre ci-dessous. Complète le schéma du | ×1 |
 | 5G2B-2 (5e) | consigne | double espace : Les patrons ci-dessous sont des patrons de pavé droit. Compléter les longueurs | ×1 ; sup=0 sup2=0 sup3=0 sup4=false (revue-1-a) |
@@ -10476,6 +10620,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G3A-2 (5e) | énoncé non interactif q1 | double espace : respectifs des points | ×1 |
 | 5G4A-1 (5e) | énoncé q1 | double espace : Dans la figure ci-dessous, les droites | ×12 ; sup=1 ; sup=3… (revue-0-a) |
 | 5G4A-1 (5e) | énoncé non interactif q1 | double espace : Dans la figure ci-dessous, les droites | ×1 |
+| 5G4A-3 (5e) | correction q1 | double espace : oites données parallèles dans l'énoncé sont de même couleur/style. | ×35 ; sup=4 sup2=false sup3=true ; sup=1 sup2=false sup3=true… (revue-0-a) |
+| 5G4A-3 (5e) | correction non interactive q1 | double espace : oites données parallèles dans l'énoncé sont de même couleur/style. | ×3 |
+| 5G4A-4 (5e) | correction q1 | double espace : oites données parallèles dans l'énoncé sont de même couleur/style. | ×41 ; sup=3 sup3=true sup4=4 sup5=false ; sup=1 sup3=true sup4=1 sup5=true… (revue-0-a) |
+| 5G4A-4 (5e) | correction non interactive q1 | double espace : oites données parallèles dans l'énoncé sont de même couleur/style. | ×3 |
+| 5G4autoA (5e) | correction q1 | double espace : C'est le sommet de l'angle, un point. ‖ double espace : Ce sont des angles opposés par le sommet. ‖ double espace : Ce sont des angles supplémentaires car la somme de leurs mesures e | ×6 ; sup=9 sup2=false sup3=false ; sup=3 sup2=true sup3=true… (revue-0-a) |
+| 5G4autoB (5e) | énoncé non interactif q1 | espace avant ponctuation : Un angle droit mesure ............ ‖ espace avant ponctuation : Un angle plat mesure ............ | ×2 |
+| 5G6B-2 (5e) | énoncé q1 | double espace : Compléter le programme de construction du parallélogramme | ×15 ; sup=0 ; sup=1… (revue-0-a) |
 | 5N1autoA-5 (5e) | énoncé q1 | espace avant ponctuation : 7... , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 7... ‖ espace avant ponctuation : 1...7 , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 1...7 ‖ espace avant ponctuation : ...99 , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 3 .. | ×51 ; sup=2-3 sup2=2 sup3=3 sup4=true sup5=false ; sup=2 sup2=3 sup3=3 sup4=false sup5=true… (revue-3-a) |
 | 5N1E-3 (5e) | correction q1 | espace avant ponctuation : œufs de mes poules à la fin de la semaine . | ×4 ; sup=10 sup2=true (revue-19-a) |
 | 5N1J-5 (5e) | énoncé q1 | espace avant ponctuation : 7... , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 7... ‖ espace avant ponctuation : 3...0 , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 3...0 ‖ espace avant ponctuation : ...99 , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 3 .. | ×50 ; sup=2-3 sup2=2 sup3=3 sup4=true sup5=false ; sup=2 sup2=3 sup3=3 sup4=false sup5=true… (revue-3-a) |
@@ -11192,6 +11343,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G2E-5 (5e) | énoncé non interactif q1 | points de suspension : gure] [figure] Périmètre : ... (Une unité est attendue.) Aire : ... (Une ‖ points de suspension : tre : ... (Une unité est attendue.) Aire : ... (Une unité est attendue.) ‖ points de suspension : Périmètre (valeur approchée au cm près) : ... (Une unité est attendue.) Aire (valeur approc | ×4 |
 | 5G3A-11 (5e) | énoncé non interactif q1 | points de suspension : La figure .... a pour image la figure .... par la symétrie d ‖ points de suspension : La figure .... a pour image la figure .... par la symétrie d'axe ( .... ). ‖ points de suspension : pour image la figure .... par la symétrie d'axe ( .... ). | ×30 |
 | 5G3A-4 (5e) | src/exercices/5e/5G3A-4.ts:129 | « ... » : 1 : Construire l'image de ... par la symétrie de centre ...\n2 : Construire le symétrique de ... par rapport au point ... | ×1 |
+| 5G4autoB (5e) | énoncé non interactif q1 | points de suspension : Un angle droit mesure ............ ‖ points de suspension : Un angle plat mesure ............ | ×8 |
+| 5G5B-4 (5e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| 5G5E-1 (5e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| 5G6C (5e) | énoncé q1 | points de suspension : tère est un parallélogramme, alors ses diagonales … [champ] ‖ points de suspension : Si un quadrilatère a ses … longueur, alors c'est un parallélogramme. [champ ‖ points de suspension : drilatère est un parallélogramme, alors ses côtés … [champ] | ×25 ; sup=3 sup2=false ; sup=1 sup2=true… (revue-0-a) |
+| 5G6C (5e) | énoncé non interactif q1 | points de suspension : tère est un parallélogramme, alors ses diagonales … ‖ points de suspension : Si un quadrilatère a ses côtés … longueur, alors c'est un parallélogramme. ‖ points de suspension : e est un parallélogramme, alors ses côtés opposés … et … | ×4 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:104 | « ... » : Si un quadrilatère est un parallélogramme, alors... | ×1 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:143 | « ... » : Si un quadrilatère est un parallélogramme, alors... | ×1 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:167 | « ... » : Si un quadrilatère est un parallélogramme, alors... | ×1 |
@@ -11228,6 +11384,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:1102 | « ... » : Si un quadrilatère non croisé a ses angles consécutifs supplémentaires, alors on est sûr que... | ×1 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:1133 | « ... » : Si un parallélogramme a ses diagonales perpendiculaires et de même longueur, alors on est sûr que... | ×1 |
 | 5G6F-1 (5e) | src/exercices/5e/5G6F-1.ts:1163 | « ... » : Si un quadrilatère non croisé a ses diagonales perpendiculaires et de même longueur, alors on est sûr que... | ×1 |
+| 5G6F-1 (5e) | énoncé q1 | points de suspension : Si un quadrilatère est un parallélogramme, alors... [champ] ‖ points de suspension : culaires et de même longueur, alors on est sûr que... [champ] ‖ points de suspension : Si un quadrilatère est un rectangle, alors... [champ] | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
+| 5G6F-1 (5e) | énoncé non interactif q1 | points de suspension : Si un quadrilatère est un parallélogramme, alors... [champ] ‖ points de suspension : culaires et de même longueur, alors on est sûr que... [champ] ‖ points de suspension : Si un quadrilatère est un rectangle, alors... [champ] | ×4 |
 | 5N1autoA-3 (5e) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $rray}{\|l\|c\|c\|c\|} \hline \text{... est divisible} & \text{par$ | ×1 |
 | 5N1autoA-3 (5e) | correction non interactive q1 | points de suspension en maths (\ldots) : $rray}{\|l\|c\|c\|c\|} \hline \text{... est divisible} & \text{par$ | ×1 |
 | 5N1autoA-5 (5e) | énoncé q1 | points de suspension : Dans le nombre suivant à 2 chiffres 7... , il manque un chiffre (à l'emplacement de .. ‖ points de suspension : 7... , il manque un chiffre (à l'emplacement de ...). Quel chiffre peut-on mettre dans 7... ‖ points de suspension : nt de ...). Quel chiffre peut-on mettre dans 7... pour qu'il soit divisible par | ×153 ; sup=2-3 sup2=2 sup3=3 sup4=true sup5=false ; sup=2 sup2=3 sup3=3 sup4=false sup5=true… (revue-3-a) |
@@ -11924,6 +12082,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G3A-4 (5e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×322 ; sup=1 sup2=6 sup3=1 sup4=4 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 5G3A-8 (5e) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×18 ; sup2=1 ; sup2=2… (revue-0-a) |
 | 5G3B (5e) |  q1 MetaInteractif2d | format MetaInteractif2d : à tester à la main | ×50 ; sup=2 sup2=false ; sup=1 sup2=true… (revue-0-a) |
+| 5G5B-5 (5e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×20 ; sup= ; sup=0… (revue-0-a) |
+| 5G5E-2 (5e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×32 ; sup=0 sup2=0 sup3=false sup4=3 ; sup=0 sup2=0 sup3=true sup4=1… (revue-0-a) |
+| 5G5E-3 (5e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×28 ; sup=0 sup2=0 ; sup=0 sup2=1… (revue-0-a) |
+| 5G5G-1 (5e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×46 ; sup=0 sup2=false sup3=3 ; sup=0 sup2=true sup3=1… (revue-0-a) |
+| 5G5G-2 (5e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×28 ; sup=0 sup2=0 ; sup=0 sup2=1… (revue-0-a) |
+| 5G5G-3 (5e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×16 ; sup=0 ; sup=1… (revue-0-a) |
+| 5G6B-2 (5e) |  q1 alea-iep-editeur | format alea-iep-editeur : à tester à la main | ×20 ; sup=0 ; sup=1… (revue-0-a) |
 | 5N1autoA (5e) |  q1 mathalea-labyrinthe | format mathalea-labyrinthe : à tester à la main | ×340 ; sup=4 sup2=5 sup3=7 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5N1E-1 (5e) |  q1 meta-custom | format meta-custom : à tester à la main | ×16 ; sup=true sup2=true ; sup=true sup2=false (revue-1-a) |
 | 5N1F-2 (5e) |  q1 dnd | format dnd : à tester à la main | ×80 ; sup4=1-2-3 ; sup4=1… (revue-0-a) |
@@ -12542,6 +12707,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G3autoB (5e) |  | 120 combinaisons : 21 passées (couverture par paires) | ×1 |
 | 5G3autoB-1 (5e) |  | 120 combinaisons : 21 passées (couverture par paires) | ×1 |
 | 5G4A-4 (5e) |  | 80 combinaisons : 21 passées (couverture par paires) | ×1 |
+| 5G5E-2 (5e) |  | 54 combinaisons : 11 passées (couverture par paires) | ×1 |
+| 5G6D (5e) |  | 84 combinaisons : 23 passées (couverture par paires) | ×1 |
 | 5N1autoA (5e) |  | 676 combinaisons : 170 passées (couverture par paires) | ×1 |
 | 5N1autoA-1 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
 | 5N1autoA-5 (5e) |  | 1120 combinaisons : 71 passées (couverture par paires) | ×1 |
