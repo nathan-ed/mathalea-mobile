@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **155 sur 615**. Constats confirmés : **116**.
+Exercices relus : **211 sur 615**. Constats confirmés : **125**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 31 |
+| Rédaction (français, titres, consignes) | 40 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -128,6 +128,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 2A | R10 Français | Énoncé : « chargement... » (meta-custom jamais rempli dans le banc, voir 3Auto) | Voir bug meta-custom | relecture |
+| 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
+| 2A-N1-3 | R12  | Énoncé et correction : « $0{,}125$ » (virgule en {,}) mêlée à « $0,127$ » (virgule simple) ; point final dans la formule « \dfrac{3}{25}.$ » | Une seule écriture de la virgule ; sortir le point | src/exercices/2e/ |
+| 2A-N2-3 | R16  | Énoncé : « sous la forme d'un quotient aux numérateur et dénominateur simplifiés » (tournure fautive) | « dont le numérateur et le dénominateur sont simplifiés » | src/exercices/2e/ |
+| 2A-N3-1 | R16  | Correction : la chaîne commence par « $N=\dfrac{10^5}{5^3}$ » alors que le nom N n'est pas défini dans l'énoncé | Aligner énoncé et correction | src/exercices/2e/ |
+| 2A-N3-7 | R16  | Titre : « Trouver  l'égalité correcte » deux espaces | Une seule espace | src/exercices/2e/ |
+| 2A-N4-2 | R3  | Correction : « On a ⍽: » espace ordinaire puis espace insécable avant « : » (double espace) | Un seul espace insécable | src/exercices/2e/ |
+| 2A-N5-2 | R3  | Correction : « $\underbrace{0,0.... 0}_{39 \text{ zéros}}1$ » quatre points tapés au lieu de \ldots | \ldots | src/exercices/2e/ |
+| 2A-N7-3 | R16  | Correction : « Dans une $1$ heure, il y a… » (article fautif) | « En $1$ heure » | src/exercices/2e/ |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
 | can2a-2022 | R10 Français | Q15 : « Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant » (coquille, « fois plus de fois ») ; lignes 644 et 661. | Si on va $k$ fois plus souvent à la piscine, le prix payé est $k$ fois plus important. | src/exercices/can/2e/can2a-2022.ts:644 |
 | can2a-2023 | R10 Français | Q19 : « jeu viéo » | jeu vidéo | src/exercices/can/2e/can2a-2023.ts:904 |
@@ -165,10 +174,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
+| 2A | I4 Question sans champ | 58 | champ absent de la page |
 | can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
 | can2G1-01 | X1 Erreur | 9 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
 | can2F21-02 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 679 ; T4  192 ; T6 Points de suspension 132 ; R5 Virgule 39 ; N6 Écriture algébrique 15 ; N1 Nombre hors $ 13 ; T3  12 ; M7  11 ; N2 Séparateur des milliers 9 ; R10 Français 6 ; N3  4 ; R2 Tutoiement, impératif 3.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 751 ; T4  210 ; T6 Points de suspension 174 ; N6 Écriture algébrique 120 ; N1 Nombre hors $ 87 ; R5 Virgule 59 ; N2 Séparateur des milliers 21 ; T3  12 ; M7  11 ; R10 Français 9 ; R2 Tutoiement, impératif 8 ; N3  7 ; R1 Titre 2.

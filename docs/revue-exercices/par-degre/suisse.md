@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **456 sur 1168**. Constats confirmés : **262**.
+Exercices relus : **493 sur 1168**. Constats confirmés : **269**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 51 |
+| Rendu cassé (formule, débordement, erreur) | 53 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 179 |
+| Rédaction (français, titres, consignes) | 184 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -65,6 +65,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | rda48 | X4  | Titres « Question 26 » (rda48) et « Question 25 » (sbr6q) non descriptifs | Titres sur le contenu | relecture |
 | ree46 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | t25p6 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| ukg9g | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| x1fxq | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | jnapmep0 | X4  | Exercice modèle dans le référentiel : « Trouver un titre pertinent », énoncé « 2+3 » | Retirer du référentiel | src/exercices/ |
 | jnapmep1 | X4  | Exercice modèle dans le référentiel : titre « Nom de l'exercice », consigne « Consigne », « Question 1 de type 2 » | Retirer du référentiel | src/exercices/ |
 | sebseb | X4  | Titre « Schemas en boite » (accents) ; énoncé « 28 bonbons » hors $ ; correction vide | « Schémas en boîte » ; $28$ ; ajouter une correction | src/exercices/ |
@@ -174,11 +176,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | nlcug | R16  | Titre « Dtéreminer un reste à payer » (Déterminer) | « Déterminer » | relecture |
 | ob9in | R16  | Titre « Convertir m$^3$ et Litres » : majuscule à « Litres » et $ dans le titre | « Convertir des m³ et des litres » | relecture |
 | olnpp | R16  | Titre « Trouver une longuer » (longueur) | « longueur » | relecture |
+| PR-9 | R16  | Titre « Numeration simple » (Numération) ; réponse ⟦8272⟧ sans espace fine (attendu 8\,272) | « Numération » ; 8\,272 | relecture |
 | ps266 | R12  | QCM en \times (« $4\times10^{8}$ ») et correction en \cdot (« $4\cdot10^{8}$ ») | Un seul symbole | relecture |
 | ps267 | R16  | Correction : « la pente est négatif » (négative) | « négative » | relecture |
 | psq05 | R16  | Correction : « $30$ km correspond à le quart de $120$ km » (au quart) | « correspond au quart de » | relecture |
 | se7mc | R16  | Titre « Completer une égalité du type $a\times ?-b=c$ » (accent) et exercice en \cdot | « Compléter » ; \cdot | relecture |
 | t6gg0 | R3  | Correction : « $3^{2026}$ » sans espace fine (énoncé $3^{2\,026}$) | Harmoniser | relecture |
+| ttsnc | R16  | Titre « Calculer 10, 20 ou 30  $\%$ d'un nombre » : deux espaces avant $\%$ | Une seule espace | relecture |
+| vv2yb | R16  | Énoncé : « pout obtenir l'abscisse » (pour) | « pour » | relecture |
+| zqf0m | R16  | Titre « Déteterminer une heure de départ… » (Déterminer) | « Déterminer » | relecture |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
@@ -198,6 +204,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | fa2ec | R1 Titre | Énoncé : suite « 5 13 21 29 » hors $ ; titre avec deux espaces (« patterns numériques  (divisibilité) ») ; "Est-ce que" lourd | Nombres entre $ ; une seule espace | src/exercices/6e/6N43-1.ts |
 | eb45a | R6  | Une unité est attendue (attendu 10\operatorname{cm^2}) mais la correction ne met en évidence que ⟦10⟧, l'unité « cm² » reste hors de la couleur | miseEnEvidence(10\text{ cm}^2) (comme c188c) | src/exercices/bp2/BP2AutoV3Old.ts |
 | ity6q | R16  | Correction : « La moitié de $44$ dixièmes est $22$ » (22 dixièmes) puis « est $2,2$ unités » : unité manquante dans la première phrase | « est $22$ dixièmes, soit $2,2$ unités » | src/exercices/can/ |
+| xbhcx | R15  | Énoncé : le tableau de proportionnalité s'affiche sous forme de texte brut « 3 ? 10 20 » (pas de tableau) ; titre terminé par une espace | Utiliser tableau-mathlive | src/exercices/can/ |
 | e7919 | R5 Virgule | Énoncé : « …a pour équation : $7x-2y+4=0$ Donner les coordonnées… » (point manquant avant « Donner ») | Ajouter un point | src/exercices/can/1e/can1G08-old.ts |
 | daf1d | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » alors que la question est un produit scalaire de deux vecteurs | Corriger le titre (ou la question) | src/exercices/can/can1a-2025/can1a-2025-Q28.ts |
 | f0e17 | R16  | Énoncé : « deux notes ($11$ et $10$) coefficient $1$ » (de coefficient) | « de coefficient $1$ » | src/exercices/can/can2a-2025/can2a-2025-Q21.ts |
