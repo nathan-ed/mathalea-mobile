@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **1121 sur 1168**. Constats confirmés : **444**.
+Exercices relus : **1141 sur 1168**. Constats confirmés : **450**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 351 |
+| Rédaction (français, titres, consignes) | 357 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -242,6 +242,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 667d9 | R12  | Correction : « \int_{0}^{5}f(x).dx » point au lieu de \,\mathrm{d}x | \int_0^5 f(x)\,\mathrm{d}x | relecture |
 | 67a5b | R16  | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation | Résoudre une inéquation graphiquement | relecture |
 | 67e15 | R16  | Titre « Titre à modifier » (placeholder exposé) | Renseigner le titre (Calculer une image par une fonction affine) | relecture |
+| 691a7 | R1 Titre | Énoncé : « dé à 6 faces 10 000 fois » nombres hors $ | $6$ faces $10\,000$ fois | relecture |
 | 6a336 | R12  | Énoncé : « (d_3)//(d_2) » barres obliques au lieu de \parallel | (d_3)\parallel(d_2) | relecture |
 | 6c365 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 6ca15 | R3  | Énoncé : « 2 024 · 3 » année écrite avec espace fine des milliers (les années s'écrivent 2024) ; titre « CAN Spéciale année 2024 » | Écrire 2024 sans espace | relecture |
@@ -258,6 +259,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 76efb | R16  | Titre : « Numeration » sans accent | Numération | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 77d18 | R16  | Exercice inutilisable exposé : « Cet exercice n'a pas pu être conservé pour des raisons techniques. Vous trouverez dans la section 3F1 ne nombreux exercices… » (coquille « ne nombreux »), aucune question | Retirer l'exercice du référentiel ou corriger « de nombreux » | relecture |
+| 784a7 | R16  | Correction : « Un parallélogramme est un quadrilatère qui a ses côtés opposés deux à deux. » mot « parallèles » manquant (définition incomplète) | ses côtés opposés parallèles deux à deux | relecture |
 | 79fdf | R16  | Titre tronqué : « équation produit mul » | produit nul | relecture |
 | 7b6ee | R10 Français | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins | 2\,025+20 | relecture |
 | 7k09a | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
@@ -266,8 +268,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 82a41 | R10 Français | Correction : « 3² est positif (puissance paire d'un nombre négatif) » alors que 3 est positif ; titre « Calculer un prix après des évolutions successives » sans rapport | 3² est positif (puissance d'un nombre positif) ; titre cohérent | relecture |
 | 82d4a | R16  | Titre contenant « (ancien exercice) » (comme 25143, 1380f) | Retirer la mention | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
+| 845fa | R16  | Titre « Tracer une figure avec une aire donnée » mais l'exercice demande de lire un nombre sur une droite graduée | Titre cohérent | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
+| 884fe | R10 Français | Énoncé : « undefined » devant le QCM (aucune consigne) ; même défaut que 83789 et 4ed52 | Initialiser la question du qcm | relecture |
 | 88a60 | R1 Titre | Titre « Numeration » sans accent ; énoncé « entre 128 et 200 », « dizaines est 2 » nombres hors $ (aussi 85dfc : « point 22 ») | Numération ; $128$ | relecture |
 | 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
 | 8ac2d | R3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
@@ -279,7 +283,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 90fd5 | R3  | Énoncé et correction : « triangle BEC », « la droite (CE) » sans $ ; « un sommet , » espace avant la virgule | $BEC$ ; $(CE)$ ; sommet, | relecture |
 | 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
+| 936a4 | R16  | Titre « Trouver un inverse ou un opposé » alors que la question porte sur la valeur décimale de 2 025 + 1/2 (même défaut que 2guhi) ; correction « 2025 » sans espace puis « 2 025,5 » | Titre cohérent | relecture |
 | 97290 | R16  | Titre : « Différence de fracion » (fraction) | fractions | relecture |
+| 986cd | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 9b8f9 | R16  | Titre : « Dtéreminer un reste à payer » (Déterminer) | Déterminer | relecture |
 | 9e8ae | R3  | Titre terminé par un point ; « ... » au lieu de \ldots (aussi 9af48 : espaces parasites « $ 7,99+5,8$ ») | Retirer le point ; \ldots | relecture |
 | 9eaa5 | R16  | Énoncé et correction : « Le pente de la droite … est donné » (La pente … donnée), même défaut que 11QCM-5 et 11QCM-80 | La pente … donnée | relecture |
@@ -547,4 +553,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39578 ; T6 Points de suspension 6803 ; T5 Espaces 2904 ; T4  1976 ; R2 Tutoiement, impératif 914 ; T3  812 ; M7  792 ; R5 Virgule 640 ; T2  371 ; N6 Écriture algébrique 292 ; N2 Séparateur des milliers 276 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 6 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39752 ; T6 Points de suspension 6863 ; T5 Espaces 2939 ; T4  2004 ; R2 Tutoiement, impératif 927 ; T3  812 ; M7  792 ; R5 Virgule 646 ; T2  371 ; N6 Écriture algébrique 292 ; N2 Séparateur des milliers 276 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  83 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 6 ; N4  2 ; R6  1.
