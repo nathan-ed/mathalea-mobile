@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **640 sur 1168**. Constats confirmés : **310**.
+Exercices relus : **645 sur 1168**. Constats confirmés : **313**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 219 |
+| Rédaction (français, titres, consignes) | 222 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -134,6 +134,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
+| 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
+| 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
@@ -384,4 +387,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12181 ; T5 Espaces 1902 ; T6 Points de suspension 1094 ; T4  1023 ; R2 Tutoiement, impératif 586 ; R5 Virgule 452 ; T2  371 ; T3  227 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 158 ; N3  132 ; M7  97 ; R9  94 ; X3  58 ; R10 Français 56 ; T1 Espace avant % 40 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12266 ; T5 Espaces 1902 ; T6 Points de suspension 1094 ; T4  1023 ; R2 Tutoiement, impératif 586 ; R5 Virgule 452 ; T2  371 ; T3  262 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 161 ; N3  132 ; M7  97 ; R9  94 ; X3  58 ; R10 Français 56 ; T1 Espace avant % 40 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.

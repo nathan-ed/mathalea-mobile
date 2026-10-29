@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **607 sur 615**. Constats confirmés : **186**.
+Exercices relus : **615 sur 615**. Constats confirmés : **188**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 101 |
+| Rédaction (français, titres, consignes) | 103 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -149,6 +149,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2P10-1 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules hors $ (même texte que 76230 CH : doublon FR/CH) | « Pile » ; $1$ boule bleue… | relecture |
 | 2P10-2 | R1 Titre | Énoncé et correction : « 26 desserts », « 3 sont au chocolat », « 6 » … nombres hors $ | Nombres entre $ | relecture |
 | 2P10-4 | R3  | Énoncé et correction : 'Pile' en apostrophes droites ; nombres de boules hors $ | « Pile » | relecture |
+| 2P10-9 | R3  | Correction : liste « 2;~3;~5… » point-virgule collé au nombre précédent (espace avant manquante) | $2\,;\,3\,;\,5…$ | relecture |
+| 2P20-3 | R16  | Titre : « Calculer  une » deux espaces | Un espace | relecture |
 | 2S20-1 | R1 Titre | Correction : « 10 + 9 + 4 + 6 + 8 = 37 », « il y a 10 crocodiles » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 2S20-11 | R2 Tutoiement, impératif | Correction : mise en évidence « 6\,\textbf{livres} » (texte et unité dans miseEnEvidence) alors que le champ attend 6 ; « 40 adhérents » hors $ | miseEnEvidence(6) puis texte à part | relecture |
 | 2S20-15 | R2 Tutoiement, impératif | Correction : « 5\,^\circ\textbf{C} » unité en texte gras dans miseEnEvidence (champ = 5) ; aussi 2S20-13 : « 18 % », « 8 % » hors $ | Unité hors miseEnEvidence ; nombres entre $ | relecture |
@@ -265,4 +267,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5277 ; N1 Nombre hors $ 4008 ; T5 Espaces 2290 ; T4  1659 ; N2 Séparateur des milliers 924 ; R5 Virgule 607 ; N6 Écriture algébrique 412 ; T3  158 ; R2 Tutoiement, impératif 104 ; M7  71 ; T2  56 ; N5 Négatif sans parenthèses 36 ; R10 Français 34 ; N3  34 ; T1 Espace avant % 30 ; X3  22 ; R6  14 ; R1 Titre 4 ; R9  2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5277 ; N1 Nombre hors $ 4008 ; T5 Espaces 2343 ; T4  1854 ; N2 Séparateur des milliers 924 ; R5 Virgule 624 ; N6 Écriture algébrique 412 ; T3  188 ; R2 Tutoiement, impératif 104 ; M7  71 ; T2  56 ; N5 Négatif sans parenthèses 36 ; R10 Français 34 ; N3  34 ; T1 Espace avant % 30 ; X3  22 ; R6  14 ; R1 Titre 4 ; R9  2.

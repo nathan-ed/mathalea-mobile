@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **288 sur 325**. Constats confirmés : **68**.
+Exercices relus : **303 sur 325**. Constats confirmés : **71**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 37 |
+| Rédaction (français, titres, consignes) | 40 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -93,6 +93,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1AN20-5 | R16  | Correction : « ne s'annule pas $\mathbb{R}\smallsetminus\{-5\}$ » (manque « sur ») | ne s'annule pas sur | relecture |
 | 1AN20-7 | R3  | Intervalle « [-3\,;1] » : espace fine avant le point-virgule seulement | [-3\,;\,1] | relecture |
 | 1AN31-3 | R12  | Correction et réponse attendue : « e^{kx} », « e^{5x} » en italique alors que l'énoncé utilise \mathrm{e} | \mathrm{e} | relecture |
+| 1AN43 | R10 Français | Correction : « cos(x)=-√(1-sin²(x)) = √(1--0,5^2) = √0,75 » signe moins devant la racine alors que cos(x)≥0, et « 1--0,5^2 » (double moins, parenthèses manquantes autour de -0,5) | cos(x)=\sqrt{1-\sin^2(x)}=\sqrt{1-(-0,5)^2} | relecture |
+| 1G10-5 | R16  | Titre : « Calculer un  produit scalaire » deux espaces (aussi 1G10-6) | Un espace | relecture |
+| 1G10-7 | R16  | Titre « Al-Kashi » mais correction « Al Kashi » | Harmoniser en Al-Kashi | relecture |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
@@ -123,8 +126,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1A | I4 Question sans champ | 77 | champ absent de la page |
 | 1A-P01-3 | I4 Question sans champ | 1 | champ absent de la page |
 | 1AN10-1 | I4 Question sans champ | 1 | champ absent de la page |
+| 1P10-3 | I4 Question sans champ | 1 | champ absent de la page |
 | 1AL23-23 | X1 Erreur | 2 | console : KaTeX auto-render: Failed to parse `\Delta = (-m-1)^2-4\error{\blacksquare} \error{(}` with  ParseError: KaTeX parse error: Undefined control sequence |
 | 1AL23-23 | X2 Formule cassée | 2 | « $ » visible : −m−1) 2 −4×(m+)×(−2m−3). Ou encore, sous forme développée : $\Delta = (-m-1)^2-4\error{\blacksquare} \error{(}$ Cherchon |
+| 1P10-3 | X2 Formule cassée | 2 | nombre impair de $ : Ainsi, $P(T)={\color{#F15929}\boldsymbol{\dfrac{87}{100}}}$.$. |
 | can1D3-03 | X2 Formule cassée | 10 | nombre impair de $ : a fonction définie par $f(x)=\dfrac{3}{-3x+5}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | 1A-F03-7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 1A-F05-4 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
@@ -133,4 +138,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 843 ; R5 Virgule 451 ; T4  375 ; T6 Points de suspension 371 ; N1 Nombre hors $ 328 ; T3  140 ; N2 Séparateur des milliers 100 ; N6 Écriture algébrique 89 ; R6  46 ; R10 Français 44 ; N3  23 ; N5 Négatif sans parenthèses 20 ; M7  12 ; X2 Formule cassée 4 ; R2 Tutoiement, impératif 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 897 ; R5 Virgule 454 ; T4  375 ; T6 Points de suspension 373 ; N1 Nombre hors $ 340 ; T3  152 ; N2 Séparateur des milliers 117 ; N6 Écriture algébrique 98 ; R10 Français 51 ; R6  46 ; N3  23 ; N5 Négatif sans parenthèses 20 ; M7  12 ; X2 Formule cassée 4 ; R2 Tutoiement, impératif 1.
