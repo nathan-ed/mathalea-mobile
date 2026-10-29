@@ -47,14 +47,23 @@ async function eleve(nom, classe, parcours) {
   await page.goto(base)
   // Page séparée pour régénérer les exercices (réponses attendues)
   const calcul = await ctx.newPage()
-  await calcul.goto(base)
-  await calcul.evaluate(async () => {
-    const man = await (await fetch('/moteur/manifest.json')).json()
-    const m = await import('/moteur/' + man.entree)
-    await m.initialiser()
-    m.definirLangue('fr-CH')
-    window.__moteur = m
-  })
+  // Serveur de dev qui recharge la page au premier chargement : on réessaie
+  for (let essai = 0; ; essai++) {
+    try {
+      await calcul.goto(base)
+      await calcul.evaluate(async () => {
+        const man = await (await fetch('/moteur/manifest.json')).json()
+        const m = await import('/moteur/' + man.entree)
+        await m.initialiser()
+        m.definirLangue('fr-CH')
+        window.__moteur = m
+      })
+      break
+    } catch (err) {
+      if (essai >= 2) throw err
+      await calcul.waitForTimeout(3000)
+    }
+  }
   return { ctx, page, calcul, touche: appareil !== 'bureau' }
 }
 

@@ -38,8 +38,20 @@ demarrer() {
   # Groupe de processus à part : pnpm, sh et vite arrêtés ensemble
   VITE_URL_EXPLORER="$1" setsid pnpm dev > "$SORTIE/pnpm-dev.log" 2>&1 &
   serveur=$!
-  for _ in $(seq 120); do curl -sf http://localhost:1420/ > /dev/null && return; sleep 1; done
-  echo "pnpm dev ne démarre pas"; exit 1
+  for _ in $(seq 120); do curl -sf http://localhost:1420/ > /dev/null && break; sleep 1; done
+  curl -sf http://localhost:1420/ > /dev/null || { echo "pnpm dev ne démarre pas"; exit 1; }
+  # Premier chargement : Vite optimise ses dépendances puis recharge la page ;
+  # on le fait ici, pas pendant une suite
+  node -e "
+    const { chromium } = require('playwright')
+    ;(async () => {
+      const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+      const page = await nav.newPage()
+      await page.goto('http://localhost:1420/')
+      await page.waitForTimeout(15000)
+      await nav.close()
+    })()
+  " > /dev/null 2>&1
 }
 arreter() { kill -- -"$serveur" 2>/dev/null; sleep 2; }
 trap 'kill -- -"${serveur:-0}" 2>/dev/null; kill "$partage" 2>/dev/null' EXIT
