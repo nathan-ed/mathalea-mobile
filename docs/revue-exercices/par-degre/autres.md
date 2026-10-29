@@ -1,7 +1,7 @@
 # Revue des exercices : Autres
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **267 sur 268**. Constats confirmés : **268**.
+Exercices relus : **268 sur 268**. Constats confirmés : **268**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -311,7 +311,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | BP2CCF10 | I4 Question sans champ | 1 | champ absent de la page |
-| EN-CompteBon | X1 Erreur | 1 | arrêt : délai de 10 min dépassé |
+| EN-CompteBon | X1 Erreur | 343 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
 | PET12 | X2 Formule cassée | 34 | « $ » visible :  article, un élève va saisir dans la cellule D2 la formule =$B$2*C2 =$B$2*C2, puis étirer la cellule vers le bas jusqu’e |
 | PET13 | X2 Formule cassée | 26 | « $ » visible : asseur 7 10 70 5 Dans la cellule D2, on a saisi la formule =$B$2*C2 =$B$2*C2, puis on a étiré la cellule vers le bas jus |
 | PET14 | X2 Formule cassée | 14 | « $ » visible : 1. Il faut saisir dans la cellule C2 la formule =B2/B$5*100 =B2/B$5*100 puis étirer la cellule vers le bas. D’aut |
@@ -320,4 +320,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 3239 ; T3  2370 ; T4  1656 ; T5 Espaces 194 ; R5 Virgule 154 ; T6 Points de suspension 143 ; R2 Tutoiement, impératif 110 ; N2 Séparateur des milliers 91 ; N6 Écriture algébrique 88 ; T2  23 ; R6  13 ; R10 Français 7 ; T1 Espace avant % 7.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 3243 ; T3  2370 ; T4  1656 ; T5 Espaces 194 ; R5 Virgule 154 ; T6 Points de suspension 143 ; R2 Tutoiement, impératif 110 ; N2 Séparateur des milliers 91 ; N6 Écriture algébrique 88 ; T2  23 ; R6  13 ; R10 Français 7 ; T1 Espace avant % 7 ; X4  1.

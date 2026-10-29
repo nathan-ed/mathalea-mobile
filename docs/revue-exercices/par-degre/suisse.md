@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **1141 sur 1168**. Constats confirmés : **450**.
+Exercices relus : **1168 sur 1168**. Constats confirmés : **456**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 357 |
+| Rédaction (français, titres, consignes) | 363 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -181,6 +181,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
 | 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
+| 2mFctRat-1 | R16  | Titre : « homographiquee » (homographique) ; uuid « 2rgct » non hexadécimal | homographique | relecture |
 | 2mLogExp-11 | R3  | Correction : $\textbf{Domaine :}$ texte gras dans un environnement mathématique (aussi uuid 2mLogExp-12 « rvjcl » non hexadécimal) | texteGras hors maths | relecture |
 | 2mLogExp-7 | R12  | Correction : \text{e}^{rn} (e droit en \text) au lieu de \mathrm{e} | \mathrm{e} | relecture |
 | 2mLogExp-8 | R16  | Titre : « croissance  et » deux espaces | Un espace | relecture |
@@ -222,8 +223,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 4r5kj | R16  | Titre « Question 12 » (titre de CAN/test, pas un intitulé) | Renseigner le titre | relecture |
 | 4vfug | R16  | Correction : « L'préimage est la solution » (La préimage) | La préimage | relecture |
 | 50ee5 | R10 Français | Correction : « x_M=(2+-4)/2 » signe +- au lieu de 2+(-4) | \dfrac{2+(-4)}{2} | relecture |
+| 5120f | R2 Tutoiement, impératif | Consigne : « Sujet inspiré d'un exercice du sujet Bac Asie Juin 2021 » entouré de miseEnEvidence dans l'énoncé (mise en couleur injustifiée) ; titre terminé par un point ; « 10 lettres », « 4 voyelles » hors $ | texteEnCouleur ou texte simple ; $10$ | relecture |
 | 51fac | R16  | Énoncé : « La moitié de 100 » sans verbe ni consigne (que faut-il faire ?) | Calculer la moitié de $100$. | relecture |
 | 54140 | R1 Titre | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
+| 5494d | R16  | Titre « Calculer une dérivée » mais l'exercice porte sur l'orthogonalité de deux vecteurs | Titre cohérent | relecture |
 | 565f3 | R16  | Titre « Convertir des heures en heures/minutes » mais l'exercice convertit des minutes en heures et minutes | Titre cohérent | relecture |
 | 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
 | 5ab89 | R16  | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
@@ -252,8 +255,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 6e82d | R16  | Correction : « comme axe de symétries » (symétrie) | axe de symétrie | relecture |
 | 6fdab | R3  | Énoncé : « Tracer $[FG$], $[GH$) et $(HF$). » crochets et parenthèses fermants hors des $ | $[FG]$, $[GH)$ et $(HF)$ | relecture |
 | 6fmcu | R10 Français | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) | Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | relecture |
+| 7057b | R16  | Énoncé : « évènements » alors que d'autres exercices écrivent « événements » (orthographe non uniformisée) | Uniformiser | relecture |
 | 71b1f | R16  | Titre : « Mltiplier astucieusement » (Multiplier) | Multiplier | relecture |
 | 72e9d | R3  | Énoncé : « en grammes? » sans espace insécable avant ? ; « une étoile en gramme » (grammes) | en grammes⍽? ; en grammes | relecture |
+| 7522d | R16  | Énoncé : « figure d'aire 5 unités d'aire (ua) » répétition | figure d'aire $5$ ua | relecture |
 | 75f89 | R16  | Titre : « Générer dees pyramides » (des) | Générer des pyramides | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 76efb | R16  | Titre : « Numeration » sans accent | Numération | relecture |
@@ -270,6 +275,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
 | 845fa | R16  | Titre « Tracer une figure avec une aire donnée » mais l'exercice demande de lire un nombre sur une droite graduée | Titre cohérent | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
+| 8802x | R1 Titre | Énoncé : « 15 pirates », « 149 pièces d'or » nombres hors $ | $15$ pirates | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
 | 884fe | R10 Français | Énoncé : « undefined » devant le QCM (aucune consigne) ; même défaut que 83789 et 4ed52 | Initialiser la question du qcm | relecture |
 | 88a60 | R1 Titre | Titre « Numeration » sans accent ; énoncé « entre 128 et 200 », « dizaines est 2 » nombres hors $ (aussi 85dfc : « point 22 ») | Numération ; $128$ | relecture |
@@ -530,7 +536,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2mTrigoFct-7 | I4 Question sans champ | 4 | champ absent de la page |
 | 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
 | 3f39d | I4 Question sans champ | 6 | champ absent de la page |
-| 2mFctRat-1 | X1 Erreur | 1 | arrêt : délai de 10 min dépassé |
+| 2mFctRat-1 | X1 Erreur | 2 | arrêt : page.evaluate: Target page, context or browser has been closed |
 | 8cd45 | X1 Erreur | 99 | interactif (vide) : page.evaluate: Target page, context or browser has been closed |
 | 9b8f9 | X1 Erreur | 5 | interactif (vide) : page.evaluate: Target page, context or browser has been closed |
 | 9ES1C-1 | X1 Erreur | 1 | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":21811,"pointilles":0,"bordures":[-7.8,-7.8,7.8,7.8],"ce |
@@ -553,4 +559,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39752 ; T6 Points de suspension 6863 ; T5 Espaces 2939 ; T4  2004 ; R2 Tutoiement, impératif 927 ; T3  812 ; M7  792 ; R5 Virgule 646 ; T2  371 ; N6 Écriture algébrique 292 ; N2 Séparateur des milliers 276 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  83 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 6 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 40251 ; T6 Points de suspension 6914 ; T5 Espaces 2971 ; T4  2018 ; R2 Tutoiement, impératif 946 ; T3  816 ; M7  792 ; R5 Virgule 651 ; T2  371 ; N6 Écriture algébrique 299 ; N2 Séparateur des milliers 276 ; R10 Français 257 ; N3  132 ; R9  94 ; X3  83 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 6 ; N4  2 ; R6  1.

@@ -1,7 +1,7 @@
 # Revue des exercices : Primaire
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **142 sur 145**. Constats confirmés : **98**.
+Exercices relus : **145 sur 145**. Constats confirmés : **99**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 7 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 44 |
+| Rédaction (français, titres, consignes) | 45 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -97,6 +97,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| CM2N2A-1 | R16  | Consigne : « Colorier en bleu un segment de longueur … » phrase terminée par « ... » puis la fraction dans l'énoncé (consigne coupée) | Mettre la fraction dans la consigne | relecture |
 | canc3a-2023 | R10 Français | Q24 : correction « $140 = 1$ centaines et $4$ dizaines » : accord (1 centaine), égalité coupée entre maths et texte. | $140 = 1$ centaine et $4$ dizaines | src/exercices/can/c3/_Canc3a.ts |
 | canc3a-2023 | R10 Français | Q22 : « Ainsi, en en 1 h et 15 min » (mot répété). | Ainsi, en $1~\text{h}$ et $15~\text{min}$ | src/exercices/can/c3/_Canc3a.ts:1182 |
 | canc3a-2023 | R10 Français | Q8 : « oeufs » (œufs), double espace « boites de  $4$ ». | œufs ; boîtes de $4$ | src/exercices/can/c3/_Canc3a.ts:393 |
@@ -154,13 +155,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | CM2N3A-3 | I4 Question sans champ | 33 | champ absent de la page |
 | canCE2-2026 | X1 Erreur | 5 | rendu correction : page.evaluate: Error: aucun exercice préparé     at Module.rendre (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:127:18)     at e |
 | CM2N1D-2 | X1 Erreur | 1 | console : KaTeX auto-render: Failed to parse `0}}` with  ParseError: KaTeX parse error: Expected 'EOF', got '}' at position 4: {0}}̲}     at _Parser.expect (htt |
-| CM2N1D-3 | X1 Erreur | 1 | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at Utili |
-| CM2N2A-1 | X1 Erreur | 1 | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at Utili |
-| CM2N2A-2 | X1 Erreur | 1 | arrêt : page.evaluate: TypeError: Cannot read properties of undefined (reading 'langue')     at eval (eval at evaluate (:303:30), &lt;anonymous>:1:24)     at Utili |
 | CM2N1D-2 | X2 Formule cassée | 92 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1= ~unité$ |
 | canCE2a-2025 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | CM2N2A-4 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 3813 ; T5 Espaces 1192 ; T6 Points de suspension 667 ; T3  620 ; R2 Tutoiement, impératif 420 ; N2 Séparateur des milliers 256 ; M7  118 ; R10 Français 79 ; T4  53 ; R5 Virgule 38 ; X4  24 ; R6  14 ; N3  9 ; X2 Formule cassée 3 ; X3  1 ; T2  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 3831 ; T5 Espaces 1193 ; T6 Points de suspension 693 ; T3  620 ; R2 Tutoiement, impératif 420 ; N2 Séparateur des milliers 256 ; M7  118 ; R10 Français 79 ; T4  53 ; R5 Virgule 38 ; X4  24 ; R6  14 ; N3  9 ; X2 Formule cassée 3 ; X3  1 ; T2  1.
