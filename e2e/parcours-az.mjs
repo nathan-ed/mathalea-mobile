@@ -154,6 +154,12 @@ async function remplirChamp(e, champ, latex) {
     await champ.evaluate((el) => el.setValue(''))
   }
   const t = tapable(latex)
+  // Champ à trous dont la réponse n'est pas un nombre (vecteur, matrice) : l'élève remplit le premier trou
+  if (t == null && (await champ.evaluate((el) => el.getPrompts?.().length ?? 0))) {
+    await toucher(e, champ)
+    await pause(e.page, 300)
+    return e.page.keyboard.type('1')
+  }
   if (t != null) {
     for (let i = 0; i < 10; i++) {
       await toucher(e, champ)
@@ -173,15 +179,24 @@ async function remplirChamp(e, champ, latex) {
 }
 
 /** Glisse une étiquette vers une case : au doigt (événements tactiles) ou à la souris */
-async function glisser(e, de, vers) {
-  if (!e.touche) return de.dragTo(vers)
+async function glisser(e, de, vers, auBout = false) {
+  // auBout : lâchée après la dernière étiquette déjà posée (réponse ordonnée), pas au centre
+  const bout = auBout
+    ? await vers.evaluate((r) => {
+        const c = r.getBoundingClientRect()
+        const d = [...r.children].at(-1)?.getBoundingClientRect()
+        if (d && d.right + 12 < c.right) return { x: d.right + 8 - c.left, y: d.top + d.height / 2 - c.top }
+        return { x: c.width - 6, y: c.height - 6 }
+      })
+    : null
+  if (!e.touche) return de.dragTo(vers, bout ? { targetPosition: bout } : {})
   const cdp = (e.cdp ??= await e.ctx.newCDPSession(e.page))
   const centre = async (loc) => {
     const b = await loc.boundingBox()
     return { x: b.x + b.width / 2, y: b.y + b.height / 2 }
   }
   const a = await centre(de)
-  const b = await centre(vers)
+  const b = bout ? await vers.boundingBox().then((r) => ({ x: r.x + bout.x, y: r.y + bout.y })) : await centre(vers)
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [a] })
   for (let k = 1; k <= 8; k++) {
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: a.x + ((b.x - a.x) * k) / 8, y: a.y + ((b.y - a.y) * k) / 8 }] })
@@ -237,7 +252,7 @@ async function repondre(e, n, k, a) {
     case 'drag-and-drop': {
       for (const [cle, rep] of Object.entries(v)) {
         if (!cle.startsWith('rectangle')) continue
-        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`), main.locator(`#rectangle${q}R${cle.slice(9)}`))
+        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
       }
       return
     }
@@ -279,6 +294,17 @@ async function repondre(e, n, k, a) {
       const [, num] = /\\[dt]?frac\{(\d+)\}\{(\d+)\}/.exec(texte) ?? /(\d+)\s*\/\s*(\d+)/.exec(texte) ?? []
       const boutons = main.locator(`#svg-selection${q}`).locator('button')
       const total = await boutons.count()
+      if (num === undefined) {
+        // Valeurs des images (pièces de monnaie…) : une sélection dont la somme est la réponse
+        const valeurs = await main.locator(`#svg-selection${q}`).evaluate((x) => JSON.parse(decodeURIComponent(x.getAttribute('svgs'))).flat().map((o) => o.value))
+        const cible = Number(texteDe(v.reponse).replace(',', '.'))
+        for (let m = 1; m < 1 << valeurs.length; m++) {
+          const choisis = valeurs.map((_, j) => j).filter((j) => m & (1 << j))
+          if (Math.abs(choisis.reduce((t, j) => t + valeurs[j], 0) - cible) > 1e-9) continue
+          for (const j of choisis) await toucher(e, boutons.nth(j))
+          return
+        }
+      }
       const den = Number((/\\[dt]?frac\{\d+\}\{(\d+)\}/.exec(texte) ?? /\d+\s*\/\s*(\d+)/.exec(texte))?.[1] ?? total)
       for (let j = 0; j < Math.round((Number(num) * total) / den); j++) await toucher(e, boutons.nth(j))
       return
@@ -337,7 +363,8 @@ async function repondre(e, n, k, a) {
     }
     default: {
       // mathlive, mathalea-mathfield, possible-multi-lines-answer : un champ
-      const champ = main.locator(`#champTexte${q}`)
+      // Champ visible seulement : la calculatrice (my-calculator) range sa réponse dans un champ caché
+      const champ = main.locator(`#champTexte${q}:visible`)
       if (await champ.count()) return remplirChamp(e, champ, reponseDe(v.reponse ?? Object.values(v).find((x) => x && typeof x === 'object' && 'value' in x)))
       // Autre élément de MathALÉA (horloge, grille, tableau de signes…) : un toucher au centre
       const el = main.locator(`[id*="${q}"]:not([id^="resultatCheck"]):not([id^="feedback"])`).first()
@@ -348,6 +375,26 @@ async function repondre(e, n, k, a) {
       // Une case de grille a pris le focus : l'élève y tape un chiffre
       await pause(page, 300)
       if (await page.evaluate(() => /^(INPUT|MATH-FIELD)$/.test(document.activeElement?.tagName ?? ''))) await page.keyboard.type('1')
+      const verifier = page.getByRole('button', { name: 'Vérifier', exact: true }).last()
+      const actif = async () => (await verifier.count()) && (await verifier.isEnabled())
+      // Sinon un champ dans l'élément (tableau de valeurs d'un traceur) : l'élève y tape un nombre
+      const dedans = el.locator('math-field:visible, input:visible').first()
+      if (!(await actif()) && (await dedans.count())) {
+        await toucher(e, dedans)
+        await pause(page, 300)
+        await page.keyboard.type('1')
+        await pause(page, 300)
+      }
+      // Ou une case qui ouvre un pavé de chiffres propre à l'élément (pyramide de nombres)
+      for (const f of [0.1, 0.3, 0.5]) {
+        if (await actif()) break
+        const y = b.y + b.height * f
+        await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, y) : page.mouse.click(b.x + b.width / 2, y))
+        await pause(page, 400)
+        const chiffre = page.locator('main button:visible', { hasText: /^\s*1\s*$/ }).last()
+        if (await chiffre.count()) await toucher(e, chiffre)
+        await pause(page, 300)
+      }
       // Puis la réponse attendue, écrite dans l'élément comme MathALÉA réécrit une réponse enregistrée
       const heure = /^(\d+) h (\d+) min$/.exec(texteDe(v.reponse))
       const attendu = heure ? JSON.stringify({ hour: Number(heure[1]), minute: Number(heure[2]), second: 0 }) : typeof v.reponse?.value === 'string' ? v.reponse.value : JSON.stringify(Object.fromEntries(Object.entries(v).filter(([, x]) => x && typeof x === 'object' && 'value' in x).map(([k, x]) => [k, texteDe(x)])))
@@ -516,8 +563,9 @@ if (process.env.FORMATS) {
                 .slice(0, 3),
             )
             const avantProblemes = deborde.length ? [`dépasse de l'écran : ${deborde.join(', ')}`] : []
-            problemes = [...avantProblemes, ...(await avecDelai(jouerSeance(e, seul, etape.titre), 180000, etape.titre))]
+            problemes = [...avantProblemes, ...(await avecDelai(jouerSeance(e, seul, etape.titre), 600000, etape.titre))]
           } catch (err) {
+            if (process.env.DEBUG) console.log(err.stack)
             problemes = [`erreur : ${err.message.split('\n')[0]}`]
             await capture(e.page, `format-${etape.uuid}-erreur`)
           }
