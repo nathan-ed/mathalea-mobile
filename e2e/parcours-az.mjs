@@ -379,6 +379,8 @@ async function jouerSeance(e, p, nomCeinture) {
         cache[n] ??= await attendues(e, { ...s0.contenu.etapes[n] }, s0.graines[n], n)
         const a = cache[n][k]
         if (!a) continue
+        // Figure apigeom : traitée une fois, par l'id de la figure (plus bas)
+        if (a.format === 'apigeom-figure') continue
         bilanFormats[a.format] = (bilanFormats[a.format] ?? 0) + 1
         etiquette += `${s0.contenu.etapes[n].id} Q${k} ${a.format} `
         try {
@@ -388,8 +390,8 @@ async function jouerSeance(e, p, nomCeinture) {
         }
       }
       // Figure apigeom seule (rang porté par l'exercice) : format apigeom-figure
-      if (![...rangs.values()].some(([, , f]) => !f) && [...rangs.values()].some(([, , f]) => f)) {
-        const [n] = [...rangs.values()][0]
+      if ([...rangs.values()].some(([, , f]) => f)) {
+        const [n] = [...rangs.values()].find(([, , f]) => f)
         try {
           await repondre(e, n, 0, { format: 'apigeom-figure' })
         } catch (err) {

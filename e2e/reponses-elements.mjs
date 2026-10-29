@@ -252,7 +252,21 @@ for (const appareil of (process.env.APPAREILS ?? 'telephone,bureau').split(','))
   await e.ctx.close()
 }
 
-// 6. Thème sombre : vert pour une réponse correcte, orange de MathALÉA pour les boutons
+// 6. Quitter une séance (« Reprendre plus tard ») ramène à l'accueil ; la séance reprend
+{
+  const e = await eleve('quitter', parcours('quitter', '5d1e2'), 'telephone')
+  await e.page.getByRole('button', { name: 'Quitter' }).tap()
+  await e.page.getByRole('button', { name: 'Reprendre plus tard' }).tap()
+  await e.page.waitForTimeout(800)
+  ok(await e.page.getByRole('button', { name: 'Réglages' }).isVisible(), 'quitter : « Reprendre plus tard » ramène à l’accueil')
+  await e.page.getByRole('button', { name: /^\s*Réponses quitter/ }).first().tap()
+  await e.page.waitForTimeout(800)
+  const boutons = await e.page.getByRole('button').allInnerTexts()
+  ok(boutons.some((b) => b.trim() === 'Vérifier'), 'quitter : la tuile de l’accueil reprend la séance', JSON.stringify(boutons))
+  await e.ctx.close()
+}
+
+// 7. Thème sombre : vert pour une réponse correcte, orange de MathALÉA pour les boutons
 {
   const e = await eleve('sombre', parcours('sombre', '5d1e2'), 'telephone', 'dark')
   const couleur = await e.page.getByRole('button', { name: 'Passer' }).evaluate((b) => getComputedStyle(b).color)
