@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **615 sur 1168**. Constats confirmés : **299**.
+Exercices relus : **627 sur 1168**. Constats confirmés : **304**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 208 |
+| Rédaction (français, titres, consignes) | 213 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -143,6 +143,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 54140 | R1 Titre | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
 | 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
+| 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
+| 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
+| 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
+| 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
 | 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
@@ -240,6 +244,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | f0e17 | R16  | Énoncé : « deux notes ($11$ et $10$) coefficient $1$ » (de coefficient) | « de coefficient $1$ » | src/exercices/can/can2a-2025/can2a-2025-Q21.ts |
 | f3208 | R16  | Correction : « Le terme constant vient de $-2\cdot 3=6$ » (erreur de signe : $-2\cdot 3=-6$) | $-2\cdot 3=-6$ | src/exercices/can/can2a-2025/can2a-2025-Q3.ts |
 | f3a3e | R16  | Titre « Nombre de dizaines » alors que la question porte sur les centaines | « Nombre de centaines » | src/exercices/can/can6a-2025/can6a-2025-Q3.ts |
+| 83789 | R10 Français | Énoncé : « undefined » devant le QCM (this.question += qcm.texte sans question initialisée) | this.question = qcm.texte | src/exercices/can/canc3a-CM1-2025/canc3a-CM1-2025-Q25.ts:52 |
 | f6jd7 | R10 Français | Énoncé : le mot « undefined » s'affiche devant le QCM (`this.question += monQcm.texte` alors que this.question n'est pas initialisé) | this.question = monQcm.texte (ou initialiser à "") | src/exercices/can/canCE2a-2025/canCE2-2025-Q11.ts:369 |
 | e9cf0 | R13  | Correction : « J'ai donné $1$ billets de $20$ € » (accord) | « $1$ billet » | src/exercices/can/canCE2a-2025/canCE2-2025-Q13.ts |
 | evon2 | R16  | Énoncé : « Quel est la pente… » ; correction : « coeffcient » (déjà vu dans can2L2-03) | « Quelle est la pente » ; « coefficient » | src/exercices/can/canNY-2026/canTNY-2026-Q13.ts |
@@ -373,4 +378,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12179 ; T5 Espaces 1902 ; T6 Points de suspension 1094 ; T4  1023 ; R2 Tutoiement, impératif 586 ; R5 Virgule 452 ; T2  371 ; T3  227 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 158 ; N3  132 ; M7  97 ; R9  94 ; X3  58 ; R10 Français 56 ; T1 Espace avant % 40 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12181 ; T5 Espaces 1902 ; T6 Points de suspension 1094 ; T4  1023 ; R2 Tutoiement, impératif 586 ; R5 Virgule 452 ; T2  371 ; T3  227 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 158 ; N3  132 ; M7  97 ; R9  94 ; X3  58 ; R10 Français 56 ; T1 Espace avant % 40 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
