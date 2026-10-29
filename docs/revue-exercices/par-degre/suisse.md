@@ -270,6 +270,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | AchangerOBLIGATOIREMENT | X1 Erreur | 1 | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection |
@@ -283,4 +284,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10168 ; T5 Espaces 1352 ; T6 Points de suspension 632 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 290 ; T3  131 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10475 ; T5 Espaces 1407 ; T6 Points de suspension 690 ; T4  575 ; T2  371 ; R2 Tutoiement, impératif 368 ; R5 Virgule 164 ; T3  139 ; N6 Écriture algébrique 99 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
