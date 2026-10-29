@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **2723 exercices passés sur 4190**.
-Constats regroupés : 13826 (un groupe = même exercice, même règle,
+Avancement : **2724 exercices passés sur 4190**.
+Constats regroupés : 13837 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -30,13 +30,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [R14 ](#r14) | 1 | 1 |
 | 1 Interactif faux | [R16 ](#r16) | 73 | 73 |
 | 1 Interactif faux | [R2 Impératif ou tutoiement](#r2) | 6 | 6 |
-| 1 Interactif faux | [R3 Point final](#r3) | 24 | 24 |
+| 1 Interactif faux | [R3 Point final](#r3) | 25 | 25 |
 | 1 Interactif faux | [R5 Virgule (soit, alors, or)](#r5) | 3 | 3 |
 | 1 Interactif faux | [R7 ](#r7) | 1 | 1 |
 | 1 Interactif faux | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 1 | 1 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 8 | 25 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
-| 1 Interactif faux | [X4 Question en double ou vide](#x4) | 1 | 1 |
+| 1 Interactif faux | [X4 Question en double ou vide](#x4) | 2 | 2 |
 | 1 Interactif faux | [X5 Débordement à 390 px](#x5) | 2 | 2 |
 | 2 Rendu cassé | [C1 Contenu mathématique faux ou ambigu](#c1) | 43 | 43 |
 | 2 Rendu cassé | [I1 Bonne réponse refusée](#i1) | 8 | 8 |
@@ -50,16 +50,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [R11 ](#r11) | 1 | 1 |
 | 2 Rendu cassé | [R12 ](#r12) | 2 | 2 |
 | 2 Rendu cassé | [R14 ](#r14) | 4 | 4 |
-| 2 Rendu cassé | [R16 ](#r16) | 47 | 47 |
+| 2 Rendu cassé | [R16 ](#r16) | 48 | 48 |
 | 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 15 | 15 |
 | 2 Rendu cassé | [R3 Point final](#r3) | 11 | 11 |
 | 2 Rendu cassé | [R5 Virgule (soit, alors, or)](#r5) | 1 | 1 |
 | 2 Rendu cassé | [R6 Majuscule sans accent](#r6) | 2 | 2 |
 | 2 Rendu cassé | [T8 Commande LaTeX collée](#t8) | 4 | 8 |
-| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 31 | 50 |
+| 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 32 | 51 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 19 | 300 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 27 | 105 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 233 | 392 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 235 | 394 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 13 | 13 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
@@ -72,7 +72,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 9 | 9 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 277 | 279 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 278 | 280 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 29 | 112 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 90 | 104 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
@@ -95,7 +95,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [X1 Erreur ou exception](#x1) | 2 | 2 |
 | 3 Mise en évidence | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 3 Mise en évidence | [X3 undefined, NaN…](#x3) | 7 | 7 |
-| 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 154 | 154 |
+| 3 Mise en évidence | [X4 Question en double ou vide](#x4) | 155 | 155 |
 | 3 Mise en évidence | [X5 Débordement à 390 px](#x5) | 11 | 11 |
 | 3 Mise en évidence | [X6 Même graine, exercice différent](#x6) | 1 | 1 |
 | 3 Mise en évidence | [X7 Combinaisons de paramètres non toutes passées](#x7) | 1 | 1 |
@@ -131,8 +131,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 1 | 1 |
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
-| 4 Typographie | [X4 Question en double ou vide](#x4) | 3 | 3 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 532 | 731 |
+| 4 Typographie | [X4 Question en double ou vide](#x4) | 4 | 4 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 533 | 732 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 288 | 1615 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 41 | 48 |
@@ -156,7 +156,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 56 | 56 |
 | 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 186 | 201 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 136 | 136 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 137 | 137 |
 
 ## C1
 
@@ -517,6 +517,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | f9a02 (Non classés) | relecture | Unités « \text{ cm}^2 » avec espace dans \text pour l'aire mais pas pour le périmètre (« \text{cm} ») → Harmoniser \text{ cm}^2 | ×1 |
 | fb238 (Non classés) | src/exercices/6e/6N3autoA-old.ts | Consigne « Quelle fraction de la figure est colorée ? » : espace ordinaire (sécable) avant « ? » → Espace insécable | ×1 |
 | fj2ix (Non classés) | relecture | Correction : « $2026$ » sans espace fine alors que l'énoncé écrit $2\,026$ ; réponse ⟦\dfrac{-1}{3}⟧ (signe au numérateur) → $2\,026$ ; $-\dfrac{1}{3}$ | ×1 |
+| t6gg0 (Non classés) | relecture | Correction : « $3^{2026}$ » sans espace fine (énoncé $3^{2\,026}$) → Harmoniser | ×1 |
 
 ## R5
 
@@ -591,6 +592,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
 | gk9zv (Non classés) | relecture | Titre « Question 24 » non descriptif ; réponses « OUI » / « NON » en majuscules ; ⟦colinéaires (OUI)⟧ texte en miseEnEvidence → Titre sur le contenu ; « oui » / « non » | ×1 |
+| rda48 (Non classés) | relecture | Titres « Question 26 » (rda48) et « Question 25 » (sbr6q) non descriptifs → Titres sur le contenu | ×1 |
 
 ## X5
 
@@ -852,6 +854,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | gc360 (Non classés) | relecture | Titre « Completer un encadrement » (accent) → « Compléter » | ×1 |
 | j3wun (Non classés) | src/exercices/ | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace → « polynôme » | ×1 |
 | js3qp (Non classés) | src/exercices/ | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » → Titre cohérent | ×1 |
+| se7mc (Non classés) | relecture | Titre « Completer une égalité du type $a\times ?-b=c$ » (accent) et exercice en \cdot → « Compléter » ; \cdot | ×1 |
 | PEN21-1 (PE) | src/exercices/PE/PEN21-1.ts | Énoncé : « Les nombre (BB)_{12} et (95AA)_{12} » (nombres) ; calculs vérifiés (143 ; 16 402) ; « 11×12+11 » : B=11 non rappelé ; 57 N1. → « Les nombres » ; rappeler A=10, B=11. | ×1 |
 | TSG1-02 (Terminale) | src/exercices/TSpe/TSG1-02.ts | Titre « Effectuer un dénombrement (rangement objets). » avec point final et article manquant ; correction : « le nombre de permutations d'un quadruplets » (quadruplet), « le nombre de permutation d'un k-uplet » (permutations), « 4~! = 24 » ; « 4 carnets » hors des $ ; texte dans miseEnEvidence (4 R2). → Titre sans point (« rangement d'objets ») ; accords ; $4$. | ×1 |
 | TSG1-04 (Terminale) | src/exercices/TSpe/TSG1-04.ts | La consigne affichée à l'élève est « Sujet inspiré d'un exercice du sujet Bac Asie Juin 2021 » (une source, pas une consigne) ; titre « …probabilités élémentaires. » avec point ; « 10 lettres, 4 voyelles, 6 consonnes, 2 lettres » nombres hors des $ ; 14 N2. → Mettre la source en commentaire ou en pied de page ; vraie consigne ; $10$, $4$, $6$. | ×1 |
@@ -939,6 +942,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G44 (3e) |  | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":3281584,"pointilles":0,"bordures":[0.27,4.11,0.56,4.11],"x1":0.27,"x2":0.56,"y1":4.11,"y2":4.11,"a":0,"b":0.29000000000000004,"c":-1.1919000000000002,"pente":0,"angleAvecHorizontale":0,"nom":"","normal":{" | ×1 |
 | 3G44 (3e) |  | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":3282717,"pointilles":0,"bordures":[0.27,-4.11,0.56,-4.11],"x1":0.27,"x2":0.56,"y1":-4.11,"y2":-4.11,"a":0,"b":0.29000000000000004,"c":1.1919000000000002,"pente":0,"angleAvecHorizontale":0,"nom":"","normal" | ×1 |
 | 3G44 (3e) |  | console : [bugsnag] Event failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1928:32) | ×1 |
+| 3I12-2 (3e) |  | génération : page.evaluate: TypeError: Cannot read properties of undefined (reading '0')     at ComprendreScriptMultiples.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/3e/3I12-2.ts:242:40)     at ComprendreScriptMultiples.exportedNouvelleVersionWrapper (http://127.0.0.1:5173/alea/src/exercices/exerci | ×10 ; sup=6 sup2=1 sup3=1 sup4=1 ; sup=6 sup2=2 sup3=2 sup4=2… (revue-26-a) |
 | 5G5autoA (5e) |  | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":80895,"pointilles":0,"bordures":[-7.8,-7.8,7.8,7.8],"centre":{"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":80893,"pointilles":0,"bordures":[0,0,0,0],"typeOb | ×1 |
 | 5G5autoA (5e) |  | console : [bugsnag] Event failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1928:32) | ×1 |
 | 5I1C (5e) |  | console : Cannot read properties of undefined (reading 'style') | ×1 |
@@ -1800,7 +1804,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | ncr2v (Non classés) | relecture | Titre vide ; énoncé « $251\,224 $ » espace avant $ de fermeture → Ajouter un titre ; $251\,224$ | ×1 |
 | qdfhv (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
 | qe7q9 (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
+| ree46 (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
 | sebseb (Non classés) | série q1 | correction vide | ×312 ; sup=13 ; sup=1… (revue-0-a) |
+| t25p6 (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
 | testEEE (Non classés) | série q1 | correction vide | ×20 ; défaut (revue-0-a) |
 | TEC1-41 (Terminale) | série q1 | énoncé vide | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
 | TSA2-QCM06 (Terminale) | série q1 | correction vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -4748,6 +4754,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G41-1 (3e) | série q1 | aucune mise en évidence dans la correction | ×16 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3G4QCM-2 (3e) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3I12-1 (3e) | série q1 | aucune mise en évidence dans la correction | ×62 ; sup=5 sup2=5 sup3=4 sup4=3 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| 3I12-2 (3e) | série q1 | aucune mise en évidence dans la correction | ×24 ; sup=2 sup2=1 sup3=2 sup4=3 ; sup=2 sup2=2 sup3=1 sup4=1… (revue-6-a) |
 | 4C10-10 (4e) | série q1 | aucune mise en évidence dans la correction | ×492 ; sup=10 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 4C10-3 (4e) | série q1 | aucune mise en évidence dans la correction | ×492 ; sup=10 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 4C10-5 (4e) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
@@ -5765,6 +5772,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | jltht (Non classés) | src/exercices/can/ | Titre « Calculer des sommes avec annee » : nom de variable interne (annee) → Titre avec l'année | ×1 |
 | jnapmep0 (Non classés) | src/exercices/ | Exercice modèle dans le référentiel : « Trouver un titre pertinent », énoncé « 2+3 » → Retirer du référentiel | ×1 |
 | jnapmep1 (Non classés) | src/exercices/ | Exercice modèle dans le référentiel : titre « Nom de l'exercice », consigne « Consigne », « Question 1 de type 2 » → Retirer du référentiel | ×1 |
+| sebseb (Non classés) | src/exercices/ | Titre « Schemas en boite » (accents) ; énoncé « 28 bonbons » hors $ ; correction vide → « Schémas en boîte » ; $28$ ; ajouter une correction | ×1 |
 | TEC1-41 (Terminale) | src/exercices/TSpe/TEC1-41.ts | Exercice « mathalea-solveur » (26 IM) : énoncé de série vide (26 X4) ; 26 phrases sans virgule ; à tester à la main. → Tester à la main ; ajouter l'énoncé. | ×1 |
 
 ## X5
@@ -8729,6 +8737,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 6G6A-6 (6e) | src/exercices/6e/6G6A-6.ts | Énoncé de série vide (18 X4) ; mise en évidence « 3,6 cm », « 6,1 cm » avec ≈ dans le dollar ; valeurs vérifiées (KM≈3,6 ; LM≈6,1 ; angle 53°) ; unité mm à préciser. → Préciser la précision demandée. | ×1 |
 | BP1AUTO087 (BP1) | src/exercices/BP1/BP1AUTO087.ts | 6 X4 (énoncé de série vide) ; « $x^2-9$ $=$ » deux dollars ; correction absente de la sortie. → Énoncé ; correction (a²-b²)=(a-b)(a+b). | ×1 |
+| testEEE (Non classés) | src/exercices/ | Exercice de test dans le référentiel : titre « Eric fait ses tests interactifs. », consigne (fraction égale, racine carrée du dénominateur) sans rapport avec la question « $-2(x-4)$ » → Retirer du référentiel | ×1 |
 | TEA1-22 (Terminale) | src/exercices/TSpe/TEA1-22.ts | Énoncé de série vide dans 7 cas (X4) ; correction par disjonction de cas r=0…6 (« Si r=0, alors q=… ») sans tableau ; solution « n=8q » non mise en évidence. → Tableau récapitulatif. | ×1 |
 
 ## X5
@@ -8794,6 +8803,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3I10-1 (3e) | énoncé | page de 542 px pour 390 px | ×7 ; sup=2 ; sup=1… (revue-0-a) |
 | 3I12-1 (3e) | énoncé | page de 750 px pour 390 px | ×53 ; sup=5 sup2=5 sup3=4 sup4=3 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 3I12-1 (3e) | correction | page de 750 px pour 390 px | ×53 ; sup=5 sup2=5 sup3=4 sup4=3 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| 3I12-2 (3e) | énoncé | page de 750 px pour 390 px | ×113 ; sup=9 sup2=5 sup3=4 sup4=3 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 4A11-1 (4e) | correction | page de 398 px pour 390 px | ×6 ; sup2=4 sup3=2 ; sup2=2 sup3=1… (revue-0-b) |
 | 4C10 (4e) | correction | page de 593 px pour 390 px | ×12 ; sup=1 sup2=3 ; sup=1 sup2=4… (revue-2-a) |
 | 4C10-5 (4e) | énoncé | page de 393 px pour 390 px | ×2 ; défaut (revue-0-a) |
@@ -14849,6 +14859,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G12 (3e) |  | 64 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 3G13 (3e) |  | 216 combinaisons : 38 passées (couverture par paires) | ×1 |
 | 3I12-1 (3e) |  | 300 combinaisons : 26 passées (couverture par paires) | ×1 |
+| 3I12-2 (3e) |  | 720 combinaisons : 61 passées (couverture par paires) | ×1 |
 | 4A10-1 (4e) |  | 1152 combinaisons : 69 passées (couverture par paires) | ×1 |
 | 4C10-7 (4e) |  | 195 combinaisons : 65 passées (couverture par paires) | ×1 |
 | 4C10-9 (4e) |  | 468 combinaisons : 118 passées (couverture par paires) | ×1 |

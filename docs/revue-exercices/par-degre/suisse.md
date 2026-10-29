@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **433 sur 1168**. Constats confirmés : **255**.
+Exercices relus : **456 sur 1168**. Constats confirmés : **262**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 46 |
+| Rendu cassé (formule, débordement, erreur) | 51 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 177 |
+| Rédaction (français, titres, consignes) | 179 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -62,8 +62,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | ncr2v | X4  | Titre vide ; énoncé « $251\,224 $ » espace avant $ de fermeture | Ajouter un titre ; $251\,224$ | relecture |
 | qdfhv | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | qe7q9 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| rda48 | X4  | Titres « Question 26 » (rda48) et « Question 25 » (sbr6q) non descriptifs | Titres sur le contenu | relecture |
+| ree46 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| t25p6 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | jnapmep0 | X4  | Exercice modèle dans le référentiel : « Trouver un titre pertinent », énoncé « 2+3 » | Retirer du référentiel | src/exercices/ |
 | jnapmep1 | X4  | Exercice modèle dans le référentiel : titre « Nom de l'exercice », consigne « Consigne », « Question 1 de type 2 » | Retirer du référentiel | src/exercices/ |
+| sebseb | X4  | Titre « Schemas en boite » (accents) ; énoncé « 28 bonbons » hors $ ; correction vide | « Schémas en boîte » ; $28$ ; ajouter une correction | src/exercices/ |
+| testEEE | X4  | Exercice de test dans le référentiel : titre « Eric fait ses tests interactifs. », consigne (fraction égale, racine carrée du dénominateur) sans rapport avec la question « $-2(x-4)$ » | Retirer du référentiel | src/exercices/ |
 | jltht | X4  | Titre « Calculer des sommes avec annee » : nom de variable interne (annee) | Titre avec l'année | src/exercices/can/ |
 | ff4cc | X4  | Titre : « Calculer des sommes et des différences avec annee2 et annee1 » : noms de variables internes (annee1, annee2) affichés dans le titre | Titre avec 2025 et 2026 ou formulation générique | src/exercices/can/canNY-2026/ |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
@@ -172,6 +177,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | ps266 | R12  | QCM en \times (« $4\times10^{8}$ ») et correction en \cdot (« $4\cdot10^{8}$ ») | Un seul symbole | relecture |
 | ps267 | R16  | Correction : « la pente est négatif » (négative) | « négative » | relecture |
 | psq05 | R16  | Correction : « $30$ km correspond à le quart de $120$ km » (au quart) | « correspond au quart de » | relecture |
+| se7mc | R16  | Titre « Completer une égalité du type $a\times ?-b=c$ » (accent) et exercice en \cdot | « Compléter » ; \cdot | relecture |
+| t6gg0 | R3  | Correction : « $3^{2026}$ » sans espace fine (énoncé $3^{2\,026}$) | Harmoniser | relecture |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
