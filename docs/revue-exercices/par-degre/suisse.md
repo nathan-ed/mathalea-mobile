@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **1008 sur 1168**. Constats confirmés : **404**.
+Exercices relus : **1036 sur 1168**. Constats confirmés : **417**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 311 |
+| Rédaction (français, titres, consignes) | 324 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -196,6 +196,14 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3cde4 | R16  | Énoncé : « à 2 025 pout obtenir » (pour) | pour | relecture |
 | 3wv4j | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 3wx9f | R16  | Titre « Question 24 » (titre de CAN/test, pas un intitulé d'exercice) | Renseigner le titre | relecture |
+| 41d8d | R16  | Titre : « Effetuer » (Effectuer) | Effectuer | relecture |
+| 43cd9 | R16  | Titre : « dixèmes/centièmes » (dixièmes), même faute que 0021e | dixièmes | relecture |
+| 45d05 | R16  | Titre : « Calculer Le volume » majuscule à Le | Calculer le volume | relecture |
+| 45dad | R16  | Énoncé : « Combien de fois 1/4 d'unité dans 1 unité ? » verbe manquant | Combien de fois $\dfrac14$ d'unité y a-t-il dans $1$ unité ? | relecture |
+| 46bae | R1 Titre | Énoncé : « ici 35 », « 28 » nombres hors $ | $35$ | relecture |
+| 47d36 | R16  | Correction : « le prix d'un papayes » (d'une papaye) ; « 3 papayes » hors $ | le prix d'une papaye | relecture |
+| 47f36 | R16  | Titre : « Aumentation » (Augmentation) ; énoncé « 280 € » hors $ | Augmentation | relecture |
+| 47u56 | R3  | Énoncé : « du triangle $ABC$? » sans espace insécable avant ? ; correction de 47d56 réduite à « Une translation » sans justification | ⍽? | relecture |
 | 4af87 | R16  | Correction : « soustraire -2 des deux membres » (tournure maladroite) | ajouter $2$ aux deux membres | relecture |
 | 4c0a8 | R16  | Titre : « ECalculer un rendu de monnaie » (Calculer) ; énoncé « billet de $5$ euros » après « $1,50$ € » (euros/€ mélangés) | Calculer ; € partout | relecture |
 | 4c7ca | R14  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
@@ -247,7 +255,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 97290 | R16  | Titre : « Différence de fracion » (fraction) | fractions | relecture |
 | 9b8f9 | R16  | Titre : « Dtéreminer un reste à payer » (Déterminer) | Déterminer | relecture |
 | 9e8ae | R3  | Titre terminé par un point ; « ... » au lieu de \ldots (aussi 9af48 : espaces parasites « $ 7,99+5,8$ ») | Retirer le point ; \ldots | relecture |
+| 9eaa5 | R16  | Énoncé et correction : « Le pente de la droite … est donné » (La pente … donnée), même défaut que 11QCM-5 et 11QCM-80 | La pente … donnée | relecture |
+| 9efa5 | R10 Français | Correction : A(-5;0) et B(0;2) → « \dfrac{2-0}{0-5}=\dfrac{2}{+5} » : x_A=-5 est écrit sans parenthèses (0-(-5)), le calcul affiché est faux ; « Son pente » | \dfrac{2-0}{0-(-5)}=\dfrac{2}{5} ; Sa pente | relecture |
 | 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
+| 9f6e6 | R16  | Exercice modèle exposé : « Titre de l'exercice », « Consigne », « Question 1 de type 2 » | Retirer du référentiel | relecture |
+| 9f722 | R16  | Titre : « astucieusment » (astucieusement), même faute que 5ab89 | astucieusement | relecture |
+| 9t36i | R16  | Titre vide dans le référentiel (doublon CH de 91304) | Renseigner le titre | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
 | c52a3 | R16  | Titre « Reconnaitre » sans accent | « Reconnaître » | relecture |
@@ -506,4 +519,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38537 ; T6 Points de suspension 6744 ; T5 Espaces 2539 ; T4  1974 ; R2 Tutoiement, impératif 802 ; M7  792 ; T3  663 ; R5 Virgule 591 ; T2  371 ; N6 Écriture algébrique 284 ; N2 Séparateur des milliers 274 ; R10 Français 197 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 5 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39064 ; T6 Points de suspension 6750 ; T5 Espaces 2737 ; T4  1974 ; R2 Tutoiement, impératif 824 ; T3  811 ; M7  792 ; R5 Virgule 615 ; T2  371 ; N6 Écriture algébrique 285 ; N2 Séparateur des milliers 274 ; R10 Français 197 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 5 ; N4  2 ; R6  1.
