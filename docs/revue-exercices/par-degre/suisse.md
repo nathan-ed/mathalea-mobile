@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **328 sur 1168**. Constats confirmés : **221**.
+Exercices relus : **330 sur 1168**. Constats confirmés : **222**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 32 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 157 |
+| Rédaction (français, titres, consignes) | 158 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -156,6 +156,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | fa2eb | R1 Titre | Propositions QCM « 2 », « 3 », « 5 », « 9 » hors $ | Nombres entre $ | src/exercices/5e/5A11Old.ts |
 | dc629 | R16  | Correction : « $R = diametre \div 2$ » (sans accent, en italique) ; énoncé « arrondi au $\text{ dm}^3$ près » (espace dans \text) | $R=\text{diamètre}\div 2$ ; « au $\text{dm}^3$ près » | src/exercices/5e/5G2E-6Old.ts |
 | d88d6 | R2 Tutoiement, impératif | Correction : « l'égalité n'est pas vraie » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/5e/5L15-Old.ts |
+| fb238 | R3  | Consigne « Quelle fraction de la figure est colorée ? » : espace ordinaire (sécable) avant « ? » | Espace insécable | src/exercices/6e/6N3autoA-old.ts |
 | fa2ec | R1 Titre | Énoncé : suite « 5 13 21 29 » hors $ ; titre avec deux espaces (« patterns numériques  (divisibilité) ») ; "Est-ce que" lourd | Nombres entre $ ; une seule espace | src/exercices/6e/6N43-1.ts |
 | eb45a | R6  | Une unité est attendue (attendu 10\operatorname{cm^2}) mais la correction ne met en évidence que ⟦10⟧, l'unité « cm² » reste hors de la couleur | miseEnEvidence(10\text{ cm}^2) (comme c188c) | src/exercices/bp2/BP2AutoV3Old.ts |
 | e7919 | R5 Virgule | Énoncé : « …a pour équation : $7x-2y+4=0$ Donner les coordonnées… » (point manquant avant « Donner ») | Ajouter un point | src/exercices/can/1e/can1G08-old.ts |
@@ -282,4 +283,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10116 ; T5 Espaces 1326 ; T6 Points de suspension 632 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 290 ; T3  130 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10168 ; T5 Espaces 1352 ; T6 Points de suspension 632 ; T4  539 ; T2  371 ; R2 Tutoiement, impératif 290 ; T3  131 ; R5 Virgule 124 ; N6 Écriture algébrique 86 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.

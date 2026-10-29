@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **2058 exercices passés sur 4190**.
-Constats regroupés : 10796 (un groupe = même exercice, même règle,
+Avancement : **2065 exercices passés sur 4190**.
+Constats regroupés : 10805 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -26,7 +26,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 5 | 7 |
 | 1 Interactif faux | [R1 Titre](#r1) | 4 | 4 |
 | 1 Interactif faux | [R16 ](#r16) | 25 | 25 |
-| 1 Interactif faux | [R3 Point final](#r3) | 4 | 4 |
+| 1 Interactif faux | [R3 Point final](#r3) | 5 | 5 |
 | 1 Interactif faux | [R5 Virgule (soit, alors, or)](#r5) | 1 | 1 |
 | 1 Interactif faux | [X1 Erreur ou exception](#x1) | 8 | 25 |
 | 1 Interactif faux | [X3 undefined, NaN…](#x3) | 1 | 1 |
@@ -52,7 +52,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 27 | 41 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 15 | 273 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 13 | 47 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 203 | 358 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 204 | 360 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 10 | 10 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
@@ -96,7 +96,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [M6 Pas de mise en évidence du résultat](#m6) | 10 | 10 |
 | 4 Typographie | [M7 Explication en orange](#m7) | 2 | 2 |
 | 4 Typographie | [M8 Nombre de mises en évidence et de champs différents](#m8) | 1 | 1 |
-| 4 Typographie | [N1 Nombre hors $](#n1) | 535 | 869 |
+| 4 Typographie | [N1 Nombre hors $](#n1) | 536 | 870 |
 | 4 Typographie | [N2 Séparateur des milliers](#n2) | 20 | 27 |
 | 4 Typographie | [N3 Point décimal](#n3) | 23 | 28 |
 | 4 Typographie | [N5 Négatif sans parenthèses](#n5) | 8 | 8 |
@@ -113,7 +113,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [R5 Virgule (soit, alors, or)](#r5) | 16 | 16 |
 | 4 Typographie | [T1 Espace avant %](#t1) | 20 | 29 |
 | 4 Typographie | [T2 Unité (espace, \text)](#t2) | 18 | 25 |
-| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 328 | 544 |
+| 4 Typographie | [T3 Espace avant : ; ! ?](#t3) | 329 | 545 |
 | 4 Typographie | [T4 Guillemets](#t4) | 127 | 190 |
 | 4 Typographie | [T5 Espaces en trop](#t5) | 6 | 6 |
 | 4 Typographie | [T6 Points de suspension](#t6) | 6 | 6 |
@@ -138,14 +138,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 38 | 49 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 367 | 614 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 368 | 615 |
 | 5 Rédaction | [T6 Points de suspension](#t6) | 438 | 635 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 42 | 42 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 116 | 127 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 117 | 128 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
-| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 74 | 74 |
+| 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 76 | 76 |
 
 ## C1
 
@@ -339,6 +339,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N2G-3 (5e) | src/exercices/5e/5N2G-3.ts | Consigne « Compléter : » avec espace simple avant « : » et trous en pointillés « ............ » dans un QCM → Espace insécable ; $\ldots$ | ×1 |
 | ea772 (Non classés) | relecture | Correction : « $10~€ -1,30~€$ » (« € » dans les maths, espace asymétrique avant « - ») → $10\text{ €}-1,30\text{ €}$ | ×1 |
 | f9a02 (Non classés) | relecture | Unités « \text{ cm}^2 » avec espace dans \text pour l'aire mais pas pour le périmètre (« \text{cm} ») → Harmoniser \text{ cm}^2 | ×1 |
+| fb238 (Non classés) | src/exercices/6e/6N3autoA-old.ts | Consigne « Quelle fraction de la figure est colorée ? » : espace ordinaire (sécable) avant « ? » → Espace insécable | ×1 |
 
 ## R5
 
@@ -1079,6 +1080,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N1L-5 (5e) | série q1 | correction vide | ×42 ; sup=2 sup2=2 ; sup=1 sup2=1… (revue-0-a) |
 | 5N2C (5e) | série q1 | énoncé vide | ×14 ; sup=true ; sup=false… (revue-0-a) |
 | 5N2C (5e) | série q1 | correction vide | ×14 ; sup=true ; sup=false… (revue-0-a) |
+| 5N3autoE-2 (5e) | série q1 | énoncé vide | ×2 ; défaut (revue-0-a) |
+| 5N3autoE-2 (5e) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
 | 6A (6e) | série q1 | correction vide | ×80 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
 | 6AutoG2 (6e) | série q1 | correction vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6AutoG2 (6e) | src/exercices/dnbAutomatismes/dnb-2026-06-polynesie-Q9.ts:173 | Correction vide pour toutes les questions (this.correction = ``) ; l'élève qui se trompe n'a aucune explication → rédiger la correction (nature du quadrilatère d'après le codage) | ×1 |
@@ -5285,6 +5288,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | fa2eb (Non classés) | correction non interactive q1 | « 2 » hors $ : Rappel des critères de divisibilité : Par 2 : un nombre est divisible par 2 si son chiffre d ‖ « 2 » hors $ : isibilité : Par 2 : un nombre est divisible par 2 si son chiffre des unités est 0, 2, 4, 6 ou 8, d ‖ « 0 » hors $ : est divisible par 2 si son chiffre des unités est 0, 2, 4, 6 ou 8, donc | ×41 |
 | fa2ec (Non classés) | énoncé q1 | « 5 » hors $ : i une suite de nombres : 5 13 ‖ « 13 » hors $ : 5 13 21 ‖ « 29 » hors $ : 21 29 | ×80 ; sup=false ; sup=true… (revue-0-a) |
 | fa2ec (Non classés) | énoncé non interactif q1 | « 5 » hors $ : i une suite de nombres : 5 13 ‖ « 13 » hors $ : 5 13 21 ‖ « 29 » hors $ : 21 29 | ×20 |
+| fb238 (Non classés) | correction q1 | « 6 » hors $ : La figure est divisée en 6 secteurs de même aire. Parmi ces secteurs, 4 son ‖ « 4 » hors $ : e en 6 secteurs de même aire. Parmi ces secteurs, 4 sont colorés. La fraction de la figure qui est ‖ « 2 » hors $ : La figure est divisée en 2 secteurs de même aire. Parmi ces secteurs, 1 est | ×52 ; sup=0 sup2=0 ; sup=1 sup2=1… (revue-0-a) |
 | fb8ad (Non classés) | titre | « 1 » hors $ : Trouver le complément à 1 avec des dixièmes | ×1 |
 | PEA13 (PE) | énoncé q7 | « 14 » hors $ : Pour le défilé du 14 juillet, Manon dirige une fanfare composée de | ×1 ; sup=11 nb=10 (revue-11-a) |
 | PEG20 (PE) | correction q1 | « 5 » hors $ : 5 points régulièrement espacés nommés ‖ « 5 » hors $ : (car le dénominateur de la fraction est 5). On trace la parallèle à ‖ « 3 » hors $ : (car le numérateur de la fraction est 3). On place | ×3 ; défaut (revue-0-a) |
@@ -6506,6 +6510,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | e6bf9 (Non classés) | titre | espace ordinaire (sécable) avant « ? » : Combien de fois ? | ×1 |
 | e6d46 (Non classés) | titre | espace ordinaire (sécable) avant « : » : Sujet zéro 2024 : équation trigo | ×1 |
 | f6jd7 (Non classés) | consigne | espace ordinaire (sécable) avant « ? » : Quelle pièce est différente des trois autres ? | ×1 ; sup=false (revue-0-a) |
+| fb238 (Non classés) | consigne | espace ordinaire (sécable) avant « ? » : Quelle fraction de la figure est colorée ? | ×1 ; sup=0 sup2=0 (revue-0-a) |
 | PEN22 (PE) | src/exercices/PE/PEN22.ts | Consigne « Poser et effectuer les calculs suivants : » (deux-points final sans insécable) ; 289 N1, 161 N2, 80 N6 (nombres sans séparateur) ; correction absente de la sortie (opérations posées). → Ajouter la correction. | ×1 |
 | PEN22 (PE) | consigne | espace ordinaire (sécable) avant « : » : Poser et effectuer les calculs suivants : | ×1 ; sup=3 sup2=3 (revue-0-a) |
 | PEN23 (PE) | consigne | espace ordinaire (sécable) avant « : » : Poser et effectuer les calculs suivants : | ×1 ; sup= (revue-0-a) |
@@ -10407,6 +10412,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | f8b5e (Non classés) | correction q3 | double espace : s. On constate que le nombre de formes augmente de | ×7 ; sup=2 sup2=7 sup3=0 ; sup=1 sup2=4 sup3=0… (revue-0-a) |
 | fa2ec (Non classés) | titre | double espace : Identifier des patterns numériques (divisibilité) | ×1 |
 | faacc (Non classés) | titre | double espace : Calculer une probabilité avec un tableau | ×1 |
+| fb238 (Non classés) | correction q1 | double espace : 6 secteurs de même aire. Parmi ces secteurs, 4 sont colorés. La fraction de la figure qui est color ‖ double espace : 2 secteurs de même aire. Parmi ces secteurs, 1 est coloré. La fraction de la figure qui est coloré ‖ double espace : secteurs de même aire. Parmi ces secteurs, 10 sont colorés. La fraction de la figure qui est color | ×26 ; sup=0 sup2=0 ; sup=1 sup2=1… (revue-0-a) |
 | PEN11 (PE) | correction q1 | double espace : Ce nombre peut s'écrire sous la forme d'une fraction irréductible qui a un facteur différen | ×4 ; sup=3-7-11-13 ; sup=3-7-11-13 nb=10 (revue-0-a) |
 | TEA1-34 (Terminale) | correction q1 | double espace : On observe que si | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | TEC1-51 (Terminale) | correction q2 | double espace : . Ainsi, on obtient : | ×3 ; défaut nb=10 (revue-1-a) |
@@ -11196,6 +11202,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N2G-5 (5e) |  q1 meta-custom | format meta-custom : à tester à la main | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | 5N2G-6 (5e) |  q1 meta-custom | format meta-custom : à tester à la main | ×246 ; sup=10 sup2=4 sup3=1 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5N2H (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×226 ; sup=20 sup2=1 sup3=false sup4=2 ; sup=1 sup2=2 sup3=true sup4=1… (revue-0-a) |
+| 5N3autoE-2 (5e) |  q1 mathalea-labyrinthe | format mathalea-labyrinthe : à tester à la main | ×2 ; défaut (revue-0-a) |
 | 6A (6e) |  q6 interactive-clock | format interactive-clock : à tester à la main | ×1 ; sup2=true sup3=false (revue-2-a) |
 | 6A (6e) |  q7 tableau-hybride | format tableau-hybride : à tester à la main | ×1 ; sup2=true sup3=false (revue-2-b) |
 | 6A (6e) |  q8 apigeom-figure | format apigeom-figure : à tester à la main | ×1 ; sup2=true sup3=false (revue-2-b) |
@@ -11798,6 +11805,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N2I-3 (5e) |  | 78 combinaisons : 40 passées (couverture par paires) | ×1 |
 | 5N2K (5e) |  | 78 combinaisons : 40 passées (couverture par paires) | ×1 |
 | 5N2L (5e) |  | 130 combinaisons : 66 passées (couverture par paires) | ×1 |
+| 5N3autoE-1 (5e) |  | 52 combinaisons : 26 passées (couverture par paires) | ×1 |
 | 5N3B-2 (5e) |  | 52 combinaisons : 26 passées (couverture par paires) | ×1 |
 | 6AutoF1-2 (6e) |  | 507 combinaisons : 170 passées (couverture par paires) | ×1 |
 | 6AutoN4-5 (6e) |  | 270 combinaisons : 17 passées (couverture par paires) | ×1 |
@@ -11850,5 +11858,6 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | f6413 (Non classés) |  | 144 combinaisons : 17 passées (couverture par paires) | ×1 |
 | f8a4d (Non classés) |  | 4992 combinaisons : 109 passées (couverture par paires) | ×1 |
 | f9a02 (Non classés) |  | 72 combinaisons : 15 passées (couverture par paires) | ×1 |
+| fcf1b (Non classés) |  | 90 combinaisons : 16 passées (couverture par paires) | ×1 |
 | PEG23 (PE) |  | 1000 combinaisons : 113 passées (couverture par paires) | ×1 |
 | PEG24 (PE) |  | 1000 combinaisons : 113 passées (couverture par paires) | ×1 |
