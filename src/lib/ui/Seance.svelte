@@ -1,7 +1,7 @@
 <script lang="ts">
   import { garderSaisie } from './barreDuBas'
   import { onDestroy, onMount, tick } from 'svelte'
-  import type { Parcours } from '$lib/catalogue'
+  import { couleurCeinture, nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import { empreinteEnonces } from '$lib/releve'
@@ -78,6 +78,15 @@
     derniere ? 'Voir le bilan' : presentation === 'une_question_par_page' ? 'Question suivante' : 'Exercice suivant',
   )
 
+  // Palier ou ceinture en cours, affiché en haut de la séance
+  const palier = $derived.by(() => {
+    const ps = paliersDe(parcours)
+    const k = ps.length > 1 ? ps.findIndex((x) => x.etapes.join() === seance.etapes.join()) : -1
+    if (k === -1) return null
+    const titre = ps[k].titre.trim()
+    return { nom: titre ? `${nomPalier(parcours, k)} · ${titre}` : nomPalier(parcours, k), couleur: parcours.style === 'ceintures' ? couleurCeinture(parcours, k) : null }
+  })
+
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 
   // Bilan direct : la relecture corrige toutes les questions sans être montrée,
@@ -96,19 +105,22 @@
     return () => clearTimeout(minuterie)
   })
 
-  /** Segment de la barre de progression : question en cours, répondue, correcte ou non (si corrigée) */
+  /** Segment de la barre de progression : vert si correcte, rouge si incorrecte (une fois corrigée), sinon en cours, répondue ou à faire */
   function etatSegment(ref: Ref, actuelle: boolean) {
-    if (actuelle) return 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'
     const cle = cleQuestion(ref.etape, ref.question)
     const e = premiers.get(cle)
-    if (e && !(finale && !seance.soumise))
-      return valeur(e) === 1 ? 'bg-coopmaths-warn dark:bg-coopmathsdark-warn' : 'bg-coopmaths-action dark:bg-coopmathsdark-action'
+    if (e && !(finale && !seance.soumise)) {
+      // Mêmes couleurs dans les deux thèmes (le « warn » sombre de MathALÉA est rose) ; orange : en partie correcte
+      const v = valeur(e)
+      return v === 1 ? 'bg-coopmaths-warn' : v > 0 ? 'bg-coopmaths-action' : 'bg-red-600'
+    }
+    if (actuelle) return 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'
     if (e || Object.keys(seance.brouillons[cle] ?? {}).length) return 'bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light'
     return 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
   }
   function nomSegment(ref: Ref, i: number) {
     const e = premiers.get(cleQuestion(ref.etape, ref.question))
-    const etat = e && !(finale && !seance.soumise) ? (valeur(e) === 1 ? ', correcte' : ', incorrecte') : ''
+    const etat = e && !(finale && !seance.soumise) ? (valeur(e) === 1 ? ', correcte' : valeur(e) > 0 ? ', en partie correcte' : ', incorrecte') : ''
     return `Question ${i + 1}${etat}`
   }
 
@@ -311,7 +323,7 @@
       const h = clavier?.getBoundingClientRect().height ?? 0
       // Seulement si un champ (ou le clavier) a le focus : après une validation,
       // la barre reste en bas pendant que le clavier se referme
-      const saisieEnCours = document.activeElement?.closest('math-field, mathalea-mathfield, #mathalea-virtual-keyboard') != null
+      const saisieEnCours = document.activeElement?.closest('math-field, mathalea-mathfield, multi-mathfield, #mathalea-virtual-keyboard') != null
       const affiche = !!clavier && h > 0 && getComputedStyle(clavier).display !== 'none'
       // Sans focus, le clavier peut rester affiché (WebKit, clavier qui se
       // referme) : la barre passe au-dessus de sa partie visible, jamais dessous
@@ -364,19 +376,33 @@
     {/snippet}
   </EnTete>
 
+  {#snippet ceinture()}
+    {#if palier}
+      <p class="flex flex-row items-center gap-2 text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+        {#if palier.couleur}
+          <span aria-hidden="true" class="shrink-0 w-8 h-4 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" style="background-color: {palier.couleur}"></span>
+        {/if}
+        {palier.nom}
+      </p>
+    {/if}
+  {/snippet}
+
   {#if pret && unique && pages.length > 1}
     <!-- Une question par page : barre de progression à segments (un toucher pour aller à une question) -->
     <div class="px-4 pt-2 pb-2">
-      <div class="flex flex-row" role="tablist" aria-label="Questions">
+      {@render ceinture()}
+      <div class="flex flex-row items-center" role="tablist" aria-label="Questions">
         {#each pages as p, i (i)}
           <button type="button" role="tab" aria-selected={i === page} aria-label={nomSegment(p[0], i)} class="flex-1 px-0.5 py-3" onclick={() => allerPage(i)}>
-            <span class="block h-1.5 rounded-full {etatSegment(p[0], i === page)}"></span>
+            <!-- Question affichée : segment plus épais -->
+            <span class="block {i === page ? 'h-2.5' : 'h-1.5'} rounded-full {etatSegment(p[0], i === page)}"></span>
           </button>
         {/each}
       </div>
       <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Question {page + 1} sur {pages.length}</p>
     </div>
   {:else if pret && pages.length > 1}
+    {#if palier}<div class="px-4 pt-2">{@render ceinture()}</div>{/if}
     <!-- Onglets de la vue élève de MathALÉA (Eleve.svelte) -->
     <div
       class="flex flex-row overflow-x-auto w-full mt-2 mb-4 border-b-2 border-coopmaths-struct dark:border-coopmathsdark-struct
@@ -406,6 +432,7 @@
   {/if}
 
   <main class="flex-1 px-4" class:pt-4={pages.length <= 1} style="padding-bottom: calc({hauteurClavier}px + 6rem)">
+    {#if pret && pages.length <= 1 && palier}<div class="pb-2">{@render ceinture()}</div>{/if}
     {#if seance.code}
       <p class="pb-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
         Session <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{seance.code}</span>

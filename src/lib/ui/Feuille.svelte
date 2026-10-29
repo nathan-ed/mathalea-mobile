@@ -29,7 +29,7 @@
     // Focus rendu à l'élément d'origine, sauf à un champ de saisie : son
     // clavier se rouvrirait par-dessus ce qui suit (correction de la page)
     return () => {
-      if (!origine?.closest('math-field, mathalea-mathfield, input, textarea')) origine?.focus?.({ preventScroll: true })
+      if (!origine?.closest('math-field, mathalea-mathfield, multi-mathfield, input, textarea')) origine?.focus?.({ preventScroll: true })
     }
   })
 

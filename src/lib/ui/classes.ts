@@ -26,9 +26,9 @@ export const boutonLien = `presse inline-flex items-center justify-center gap-2 
 
 export const desactive = 'disabled:opacity-40'
 
-/** Pastille de compteur (MobileEndingItem.svelte) */
+/** Pastille de compteur (MobileEndingItem.svelte), verte dans les deux thèmes (le « warn » sombre est rose) */
 export const pastille = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
-  bg-coopmaths-warn dark:bg-coopmathsdark-warn
+  bg-coopmaths-warn
   text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs font-bold`
 
 /** Liste groupée (MobileBrowser.svelte) */
