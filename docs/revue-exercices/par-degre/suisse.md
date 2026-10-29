@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **837 sur 1168**. Constats confirmés : **363**.
+Exercices relus : **865 sur 1168**. Constats confirmés : **369**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 272 |
+| Rédaction (français, titres, consignes) | 278 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -147,6 +147,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 11QCM-80 | R16  | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
 | 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
 | 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
+| 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
+| 23241 | R16  | Titre : « probabilté » (probabilité) | probabilité | relecture |
+| 25143 | R16  | Titre contenant « (ancien exercice) » visible dans le référentiel | Retirer la mention ou retirer l'exercice du référentiel | relecture |
+| 26434 | R16  | Titre « Effectuer un calcul avec des fractions » mais l'exercice porte sur un pourcentage d'élèves | Titre : Calculer un pourcentage | relecture |
+| 29202 | R10 Français | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) | Utiliser la même valeur a dans les trois libellés | relecture |
+| 29957 | R16  | Exercice de test « Test MultiMathfield » exposé dans le référentiel | Retirer du référentiel | relecture |
 | 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
 | 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
@@ -416,6 +422,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 11FA4A-5 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Incorrect car cette expression n'est pas égale à celle attendue. |
 | 11NO3A-2 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) La réponse fournie est bien égale à celle attendue mais la réponse fournie n'est pas en notation scientifique. |
 | 1mCL4-1 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (1/2) Les nombres doivent tous être séparés par un point-virgule. |
+| 28997 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) L'ensemble est vide. |
 | 2mTrigoFct-6 | I1 Bonne réponse refusée | 66 | bonne réponse refusée (0/1) Les nombres doivent tous être séparés par un point-virgule. |
 | 3G98-5 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
@@ -424,6 +431,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
 | 10FA1B-1 | I2 Réponse fausse acceptée | 4 | réponse fausse acceptée |
+| 28997 | I2 Réponse fausse acceptée | 5 | réponse fausse acceptée |
 | 4mExpLog-2 | I2 Réponse fausse acceptée | 18 | réponse fausse acceptée |
 | 4mInt-1 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | 4mInt-2 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
@@ -451,4 +459,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38103 ; T6 Points de suspension 6440 ; T5 Espaces 2218 ; T4  1798 ; M7  781 ; T3  659 ; R2 Tutoiement, impératif 636 ; R5 Virgule 512 ; T2  371 ; N6 Écriture algébrique 234 ; N2 Séparateur des milliers 231 ; N3  132 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 12 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38358 ; T6 Points de suspension 6548 ; T5 Espaces 2425 ; T4  1848 ; M7  781 ; R2 Tutoiement, impératif 661 ; T3  660 ; R5 Virgule 547 ; T2  371 ; N6 Écriture algébrique 241 ; N2 Séparateur des milliers 231 ; N3  132 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
