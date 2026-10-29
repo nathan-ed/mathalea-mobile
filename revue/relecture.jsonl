@@ -1487,3 +1487,7 @@
 {"id":"5G5B-4","uuid":"3cbb1","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R16","gravite":1,"extrait":"Titre « Connaitre notamment l'inégalité triangulaire »","correction":"« Connaître »","ou":"relecture","relu":true}
 {"id":"5G5D","uuid":"a803f","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R16","gravite":1,"extrait":"Titre « Connaitre le cours… »","correction":"« Connaître »","ou":"relecture","relu":true}
 {"id":"5G5B-1","uuid":"6a1a2","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R16","gravite":1,"extrait":"Titre « 2 angles » (chiffre dans le titre)","correction":"« deux angles »","ou":"relecture","relu":true}
+{"id":"5G5E","uuid":"796f3","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R16","gravite":1,"extrait":"Titre terminé par « - 1 » (numérotation technique visible)","correction":"Retirer","ou":"relecture","relu":true}
+{"id":"5G5E-1","uuid":"1d202","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R16","gravite":1,"extrait":"Titre « Connaitre »","correction":"« Connaître »","ou":"relecture","relu":true}
+{"id":"5G5E-2","uuid":"c7c78","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R1","gravite":1,"extrait":"Énoncé : « Dans le triangle ECU, tracer la hauteur issue de U » : noms de points hors $","correction":"$ECU$, $U$","ou":"src/exercices/5e/5G5E-2.ts","relu":true}
+{"id":"5G5G","uuid":"da670","niveau":"5e","theme":"Triangles","pays":"FR","regle":"R16","gravite":1,"extrait":"Titre terminé par « - 2 » (numérotation technique visible)","correction":"Retirer","ou":"relecture","relu":true}
