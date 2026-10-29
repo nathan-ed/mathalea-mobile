@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **339 sur 1168**. Constats confirmés : **222**.
+Exercices relus : **340 sur 1168**. Constats confirmés : **222**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -278,6 +278,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | bc372 | X1 Erreur | 3 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
 | a343t | X2 Formule cassée | 14 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m |
 | afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
+| PR-32 | X2 Formule cassée | 11 | « $ » visible : 000 100000 8 , 164 ÷ 8 ≈ 8 ÷ 8 , soit 1 8,164÷8≈8÷8, soit 1 $\text{{\color{#F15929}\boldsymbol{X}}$  |
 | c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | d7202 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | efab7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
@@ -285,4 +286,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10857 ; T5 Espaces 1574 ; T6 Points de suspension 763 ; T4  601 ; R2 Tutoiement, impératif 420 ; T2  371 ; T3  200 ; R5 Virgule 164 ; N6 Écriture algébrique 105 ; N2 Séparateur des milliers 61 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10948 ; T5 Espaces 1635 ; T6 Points de suspension 866 ; T4  601 ; R2 Tutoiement, impératif 431 ; T2  371 ; T3  201 ; R5 Virgule 164 ; N6 Écriture algébrique 105 ; N2 Séparateur des milliers 75 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 2 ; R6  1.
