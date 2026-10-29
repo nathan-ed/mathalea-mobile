@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **815 sur 1168**. Constats confirmés : **359**.
+Exercices relus : **837 sur 1168**. Constats confirmés : **363**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 268 |
+| Rédaction (français, titres, consignes) | 272 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -144,6 +144,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 11QCM-14 | R3  | Correction : intervalle « ]0\,;+\infty[ » espace fine d'un seul côté du point-virgule | ]0\,;\,+\infty[ | relecture |
 | 11QCM-18 | R3  | Énoncé : « est égale $…$? » point d'interrogation sans espace insécable | $…$⍽? | relecture |
 | 11QCM-5 | R16  | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
+| 11QCM-80 | R16  | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
+| 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
+| 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
 | 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
@@ -192,6 +195,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 6cc79 | R2 Tutoiement, impératif | Correction : ⟦315\textbf{ m}^3⟧ unité en \textbf dans miseEnEvidence (champ attend 315 + unité) | Vérifier que la mise en évidence correspond au champ (unité incluse) | relecture |
 | 6d56a | R16  | Titre « Calculer une dérivée » mais l'exercice demande de simplifier (e^x+3)(e^x-3) | Titre : Simplifier une expression avec des exponentielles | relecture |
 | 6dff5 | R16  | Titre « Développer une identité remarquable » mais l'exercice porte sur un pourcentage (élèves externes) | Titre : Calculer un pourcentage d'une quantité | relecture |
+| 6e82d | R16  | Correction : « comme axe de symétries » (symétrie) | axe de symétrie | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
@@ -435,9 +439,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | AchangerOBLIGATOIREMENT | X1 Erreur | 1 | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection |
 | bc372 | X1 Erreur | 3 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
+| 1mG3-6 | X2 Formule cassée | 18 | nombre impair de $ : {EB}^2} = \sqrt{49 + 84} = \sqrt{133}\text{ cm}$, d'où $AE = {\color{#F15929}\boldsymbol{\sqrt{133}\textbf{ cm}}}. |
 | a343t | X2 Formule cassée | 14 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m |
 | afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | PR-32 | X2 Formule cassée | 11 | « $ » visible : 000 100000 8 , 164 ÷ 8 ≈ 8 ÷ 8 , soit 1 8,164÷8≈8÷8, soit 1 $\text{{\color{#F15929}\boldsymbol{X}}$  |
+| 23241 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | d7202 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | efab7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
@@ -445,4 +451,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 37440 ; T6 Points de suspension 6405 ; T5 Espaces 2215 ; T4  1798 ; M7  781 ; T3  659 ; R2 Tutoiement, impératif 636 ; R5 Virgule 511 ; T2  371 ; N2 Séparateur des milliers 231 ; N6 Écriture algébrique 228 ; N3  132 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 17 ; X2 Formule cassée 12 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38103 ; T6 Points de suspension 6440 ; T5 Espaces 2218 ; T4  1798 ; M7  781 ; T3  659 ; R2 Tutoiement, impératif 636 ; R5 Virgule 512 ; T2  371 ; N6 Écriture algébrique 234 ; N2 Séparateur des milliers 231 ; N3  132 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 12 ; R1 Titre 4 ; N4  2 ; R6  1.
