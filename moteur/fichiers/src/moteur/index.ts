@@ -12,12 +12,18 @@ import '../app.css'
 import Keyboard from '../components/keyboard/Keyboard.svelte'
 
 import { composeQuestionContext } from '../lib/components/questionContext'
-import { verifQuestionCliqueFigure } from '../lib/customElements/CliqueFigureElement'
+import {
+  addCliqueFigureElementToQuestion,
+  verifQuestionCliqueFigure,
+} from '../lib/customElements/CliqueFigureElement'
 import {
   listOfCustomElements,
   mathaleaCustomElementsRegistry,
 } from '../lib/customElements/MathaleaCustomElement'
-import { uniformiseResults } from '../lib/interactif/gestionInteractif'
+import {
+  exerciceContientCliqueFigure,
+  uniformiseResults,
+} from '../lib/interactif/gestionInteractif'
 import {
   mathaleaFormatExercice,
   mathaleaGenerateSeed,
@@ -93,6 +99,8 @@ export interface ResultatVerification {
 }
 
 let initialise = false
+// Exercices préparés, par numéro : afficher() active leurs figures à cliquer
+const exercicesPrepares = new Map<number, IExercice>()
 
 /** À appeler une fois avant le premier exercice */
 export async function initialiser() {
@@ -147,16 +155,18 @@ export async function preparerExercice(
     seedrandom(String(exercice.seed), { global: true })
     exercice.nouvelleVersionWrapper(numero)
   }
+  sansEspacesExiges(exercice)
+  exercicesPrepares.set(numero, exercice)
   const contexte = mathaleaFormatExercice(composeQuestionContext(exercice))
-  const questions = (exercice.listeQuestions ?? []).map((enonce, i) => {
-    const html = mathaleaFormatExercice(enonce)
-    return {
-      contexte,
-      enonce: html,
-      correction: mathaleaFormatExercice(exercice.listeCorrections?.[i] ?? ''),
-      interactive: indicesDeLaQuestion(exercice, i, html).length > 0,
-    }
-  })
+  const enonces = (exercice.listeQuestions ?? []).map((enonce) =>
+    mathaleaFormatExercice(enonce),
+  )
+  const questions = enonces.map((html, i) => ({
+    contexte,
+    enonce: html,
+    correction: mathaleaFormatExercice(exercice.listeCorrections?.[i] ?? ''),
+    interactive: indicesDeLaQuestion(exercice, i, enonces).length > 0,
+  }))
   return {
     uuid: params.uuid,
     titre: exercice.titre ?? '',
@@ -168,14 +178,55 @@ export async function preparerExercice(
 }
 
 /**
+ * Les espaces entre les classes de chiffres (« 12 345 ») ne sont jamais
+ * exigés : un champ MathLive n'accepte pas d'espace tapé au clavier du
+ * téléphone. L'option nombreAvecEspace est retirée des réponses attendues,
+ * qui sont alors comparées comme des nombres (avec ou sans espaces).
+ */
+function sansEspacesExiges(exercice: IExercice) {
+  const vus = new Set<object>()
+  let retire = false
+  const parcourir = (x: unknown, profondeur: number) => {
+    if (x == null || typeof x !== 'object' || vus.has(x) || profondeur > 6)
+      return
+    vus.add(x)
+    const o = x as Record<string, unknown>
+    if ('nombreAvecEspace' in o) {
+      delete o.nombreAvecEspace
+      retire = true
+    }
+    for (const v of Object.values(o)) parcourir(v, profondeur + 1)
+  }
+  for (const ac of exercice.autoCorrection ?? []) {
+    if (ac?.valeur != null) parcourir(ac.valeur, 0)
+    if (ac?.reponse != null) parcourir(ac.reponse, 0)
+  }
+  if (!retire) return
+  // La consigne ne demande plus les espaces
+  const sansConsigne = (t: string) =>
+    t
+      .replace(/\s*Penser(?:, si besoin,)? à mettre les espaces nécessaires\./g, '')
+      .replace(/ sans oublier les espaces\./g, '.')
+  if (typeof exercice.consigne === 'string')
+    exercice.consigne = sansConsigne(exercice.consigne)
+  if (typeof exercice.introduction === 'string')
+    exercice.introduction = sansConsigne(exercice.introduction)
+  exercice.listeQuestions = (exercice.listeQuestions ?? []).map(sansConsigne)
+}
+
+/**
  * Rend un élément déjà inséré dans le document : formules KaTeX, champs
  * MathLive, figures. À appeler après chaque insertion de HTML du moteur.
  */
 export async function afficher(element: HTMLElement) {
   mathaleaRenderDiv(element, -1)
   await loadMathLive(element)
+  activerCliqueFigures(element)
   ajusterFigures(element)
   document.dispatchEvent(new CustomEvent('exercicesAffiches'))
+  // Les figures apigeom se montent après coup (mathalea-dom-ready)
+  requestAnimationFrame(() => ajusterFigures(element))
+  setTimeout(() => ajusterFigures(element), 400)
 }
 
 /**
@@ -186,6 +237,7 @@ export async function afficher(element: HTMLElement) {
 export function ajusterFigures(element: HTMLElement) {
   const largeur = element.clientWidth
   if (!largeur) return
+  ajusterApigeom(element, largeur)
   for (const figure of element.querySelectorAll<SVGElement>('.mathalea2d')) {
     const d = figure.dataset
     if (!d.widthInitiale) d.widthInitiale = figure.getAttribute('width') ?? ''
@@ -211,30 +263,73 @@ export function ajusterFigures(element: HTMLElement) {
   }
 }
 
+/**
+ * « Cliquer sur la bonne figure » (clique-figure) : le site rend les figures
+ * cliquables après les avoir affichées (prepareExerciceCliqueFigure, dans
+ * QuestionParPage.svelte et ExerciceMathaleaVueEleve.svelte). Sans cela, un
+ * toucher sur une figure ne fait rien. Ici, pour chaque question affichée
+ * dans l'élément ; l'élément d'une question affichée auparavant (autre page)
+ * est remplacé.
+ */
+function activerCliqueFigures(element: HTMLElement) {
+  for (const [n, exercice] of exercicesPrepares) {
+    if (!exercice.interactif || !exerciceContientCliqueFigure(exercice)) continue
+    ;(exercice.listeQuestions ?? []).forEach((_, i) => {
+      if (!element.querySelector(`[id^="cliquefigure"][id$="Ex${n}Q${i}"]`))
+        return
+      const id = `clique-figureEx${n}Q${i}`
+      if (element.querySelector(`#${id}`)) return
+      for (const ancien of document.querySelectorAll(`#${id}`)) ancien.remove()
+      addCliqueFigureElementToQuestion(exercice, i)
+    })
+  }
+}
+
+/**
+ * Figures apigeom plus larges que l'élément (droite graduée de 650 px sur un
+ * téléphone) : réduites par leur propre zoom (événement zoomChanged de
+ * figureApigeom, comme le zoom du site), qui garde la fenêtre mathématique et
+ * recalcule la position des clics. Sans cela, une partie de la figure sort de
+ * l'écran et ne peut plus être touchée.
+ */
+function ajusterApigeom(element: HTMLElement, largeur: number) {
+  for (const conteneur of element.querySelectorAll<HTMLElement>(
+    'div[id^="apigeomEx"]',
+  )) {
+    const svg = conteneur.querySelector('svg')
+    const zoom = Number(conteneur.dataset.zoomMoteur ?? 1)
+    const naturelle = (svg?.getBoundingClientRect().width ?? 0) / zoom
+    if (!naturelle) continue
+    const voulu = Math.min(1, (largeur * 0.95) / naturelle)
+    if (Math.abs(voulu - zoom) < 0.01) continue
+    conteneur.dataset.zoomMoteur = String(voulu)
+    document.dispatchEvent(
+      new CustomEvent('zoomChanged', {
+        detail: { container: conteneur, zoom: voulu },
+      }),
+    )
+  }
+}
+
 /** Réinjecte des réponses enregistrées dans les champs affichés */
 export async function ecrireReponses(reponses: Record<string, string>) {
   await Promise.all(mathaleaWriteStudentPreviousAnswers(reponses))
 }
 
 /**
- * Rangs de autoCorrection vérifiés par la question i (rang dans listeQuestions).
- * Ils diffèrent quand une question porte plusieurs réponses à part : Thales2D
- * (3G20) range les deux longueurs de la question e aux rangs 2e et 2e+1. Les
- * éléments de réponse portent leur rang dans leur id (champTexteEx<n>Q<k>,
- * resultatCheckEx<n>Q<k>, MetaInteractif2dEx<n>Q<k>field<j>…) ou dans
- * question-index. Sans élément repéré, le rang de la question.
+ * Rangs de autoCorrection repérés dans un énoncé : id …Ex<n>Q<k>… d'un
+ * élément de réponse (champTexteEx<n>Q<k>, MetaInteractif2dEx<n>Q<k>field<j>…),
+ * question-index des éléments de MathALÉA, index d'apigeom-figure.
  */
-function indicesDeLaQuestion(
-  exercice: IExercice,
-  i: number,
-  html: string,
-): number[] {
+function rangsDansEnonce(exercice: IExercice, html: string): Set<number> {
   const n = exercice.numeroExercice
   const trouves = new Set<number>()
   for (const m of html.matchAll(
-    new RegExp(`\\bid=["'][\\w-]*?Ex${n}Q(\\d+)(?!\\d)`, 'g'),
+    new RegExp(`\\bid=["']([\\w-]*?)Ex${n}Q(\\d+)(?!\\d)`, 'g'),
   ))
-    trouves.add(Number(m[1]))
+    // Le smiley et le message de retour ne sont pas des réponses : une question
+    // peut porter celui de son propre rang sans en avoir la réponse (6AutoA2-2)
+    if (!/^(resultatCheck|feedback)/.test(m[1])) trouves.add(Number(m[2]))
   // Éléments de MathALÉA : question-index, ou index pour apigeom-figure (sans guillemets)
   for (const balise of html.match(/<[a-z][\w-]*\s[^>]*>/gi) ?? []) {
     if (!new RegExp(`\\snumero-exercice=["']?${n}(?![\\d])`).test(balise))
@@ -242,8 +337,31 @@ function indicesDeLaQuestion(
     const rang = /\s(?:question-)?index=["']?(\d+)/.exec(balise)
     if (rang) trouves.add(Number(rang[1]))
   }
-  const avecReponse = [...trouves]
-    .filter((k) => exercice.autoCorrection?.[k] != null)
+  return trouves
+}
+
+/**
+ * Rangs de autoCorrection vérifiés par la question i (rang dans listeQuestions).
+ * Ils diffèrent quand une question porte plusieurs réponses à part : Thales2D
+ * (3G20) range les deux longueurs de la question e aux rangs 2e et 2e+1.
+ * Chaque rang appartient à une seule question : la sienne si elle le contient,
+ * sinon la première qui le contient. Un énoncé qui reprend par erreur l'id
+ * d'une autre question (845fa : meta-interactif-2dEx0Q0field0 dans la
+ * question 2) ne lui fait pas vérifier la réponse de celle-ci, absente de la
+ * page. Sans rang repéré, le rang de la question.
+ */
+function indicesDeLaQuestion(
+  exercice: IExercice,
+  i: number,
+  enonces: string[],
+): number[] {
+  const rangs = enonces.map((html) => rangsDansEnonce(exercice, html))
+  const proprietaire = (k: number) =>
+    rangs[k]?.has(k) ? k : rangs.findIndex((r) => r.has(k))
+  const avecReponse = [...(rangs[i] ?? [])]
+    .filter(
+      (k) => exercice.autoCorrection?.[k] != null && proprietaire(k) === i,
+    )
     .sort((a, b) => a - b)
   if (avecReponse.length) return avecReponse
   return exercice.autoCorrection?.[i] != null ? [i] : []
@@ -303,8 +421,8 @@ export function verifier(
 ): ResultatVerification {
   const exercice = prepare.interne
   exercice.answers ??= {}
-  const html = prepare.questions[i]?.enonce ?? exercice.listeQuestions?.[i] ?? ''
-  const indices = indicesDeLaQuestion(exercice, i, html)
+  const enonces = prepare.questions.map((q) => q.enonce)
+  const indices = indicesDeLaQuestion(exercice, i, enonces)
   const resultats = (indices.length ? indices : [i]).map((k) =>
     verifierRang(exercice, k),
   )
