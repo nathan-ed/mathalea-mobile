@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **340 sur 1168**. Constats confirmés : **222**.
+Exercices relus : **350 sur 1168**. Constats confirmés : **225**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 32 |
+| Rendu cassé (formule, débordement, erreur) | 34 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 158 |
+| Rédaction (français, titres, consignes) | 159 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -52,6 +52,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | e3045 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | f08fe | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | f9915 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| fgfq3 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| ff4cc | X4  | Titre : « Calculer des sommes et des différences avec annee2 et annee1 » : noms de variables internes (annee1, annee2) affichés dans le titre | Titre avec 2025 et 2026 ou formulation générique | src/exercices/can/canNY-2026/ |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
 | a9f31 | X4  | « Créer une animation de construction aux instruments (Instrumenpoche) » : outil d'enseignant (éditeur IEP) sans question ni correction (4 X4) : à retirer des exercices proposés aux élèves ; 2 pages > 390 px. | Retirer pour les élèves. | src/exercices/CH/a9f31.ts |
@@ -264,6 +266,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | deriv | R16  | Exercice modèle : $\frac$ au lieu de $\dfrac$ ; retours « Correct ! » / « vous n'avez pas… » (vouvoiement, voir tutoiement ailleurs) ; exemple visible dans le référentiel | \dfrac ; formulation neutre ; ou retirer du référentiel | src/exercices/modèlesExos/ExempleQcmDerivation.ts |
 | e6d46 | R16  | Correction : la phrase « On peut par exemple dire que la courbe… deux points d'intersection » est répétée deux fois, collée sans espace (« $[0~;~2\pi]$.On peut ») | Supprimer le doublon | src/exercices/QCMBac/A2024/sujetzero2024Ex5Q1.ts |
 | croiss | R2 Tutoiement, impératif | Correction : « croissante sur ]0 ; +∞[ » (texte) en miseEnEvidence | texteEnCouleurEtGras | src/exercices/QCMBrevet/A2019/CroissanceFonctions.ts |
+| ff9d1 | R10 Français | Correction : « $\lim\limits_{n\to+\infty} 5n^{}+4=+\infty$ » : exposant vide « n^{} » | $5n+4$ | src/exercices/TSpe/ |
 | dabbf | R1 Titre | Énoncé et correction : nombres hors $ (« 10 boules rouges », « 9 boules bleues », « 4 tirages ») | Nombres entre $ | src/exercices/TSpe/TSP2-02Old.ts |
 
 ## Constats graves du banc, à confirmer
