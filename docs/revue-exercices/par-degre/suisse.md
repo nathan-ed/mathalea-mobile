@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **380 sur 1168**. Constats confirmés : **241**.
+Exercices relus : **398 sur 1168**. Constats confirmés : **249**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 41 |
+| Rendu cassé (formule, débordement, erreur) | 44 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 168 |
+| Rédaction (français, titres, consignes) | 173 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -57,6 +57,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | gk9zv | X4  | Titre « Question 24 » non descriptif ; réponses « OUI » / « NON » en majuscules ; ⟦colinéaires (OUI)⟧ texte en miseEnEvidence | Titre sur le contenu ; « oui » / « non » | relecture |
 | hug50 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | jj1hp | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| m650d | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| mmqav | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| ncr2v | X4  | Titre vide ; énoncé « $251\,224 $ » espace avant $ de fermeture | Ajouter un titre ; $251\,224$ | relecture |
 | jnapmep0 | X4  | Exercice modèle dans le référentiel : « Trouver un titre pertinent », énoncé « 2+3 » | Retirer du référentiel | src/exercices/ |
 | jnapmep1 | X4  | Exercice modèle dans le référentiel : titre « Nom de l'exercice », consigne « Consigne », « Question 1 de type 2 » | Retirer du référentiel | src/exercices/ |
 | jltht | X4  | Titre « Calculer des sommes avec annee » : nom de variable interne (annee) | Titre avec l'année | src/exercices/can/ |
@@ -160,10 +163,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | gc360 | R16  | Titre « Completer un encadrement » (accent) | « Compléter » | relecture |
 | gnx1c | R12  | Titre en \times mais énoncé en \cdot ($f(1)\cdot f'(1)$) | Un seul symbole | relecture |
 | hbp7h | R16  | Titre « Multiplier un nombre décimalpar 0,2 » : espace manquante | « décimal par » | relecture |
+| lvquc | R16  | Titre « Réesoudre » (Résoudre) | « Résoudre » | relecture |
+| nlcug | R16  | Titre « Dtéreminer un reste à payer » (Déterminer) | « Déterminer » | relecture |
+| ob9in | R16  | Titre « Convertir m$^3$ et Litres » : majuscule à « Litres » et $ dans le titre | « Convertir des m³ et des litres » | relecture |
+| olnpp | R16  | Titre « Trouver une longuer » (longueur) | « longueur » | relecture |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
 | labyvec | R5 Virgule | Consigne « Trouver le chemin qui ne passe que par des coordonnées de vecteurs colinéaires » sans point final | Ajouter le point | src/exercices/ |
+| ltsv8 | R16  | Correction : « Longueur $\cdot$ largeur $\cdot$ hauteur » majuscule initiale incohérente et mots hors formule | « longueur × largeur × hauteur » | src/exercices/ |
 | ebd89 | R16  | Titre « Calculer la dérivée de $\lambda u$ » alors que la question est une dérivée d'une fonction affine | Corriger le titre | src/exercices/1e/1AN14-1Old.ts |
 | e46e6 | R16  | Correction : intervalle $[-7;1[$ sans espaces autour de « ; » | $[-7\,;\,1[$ | src/exercices/2e/200F3-02.ts |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |

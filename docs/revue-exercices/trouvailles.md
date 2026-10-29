@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **2706 exercices passés sur 4190**.
-Constats regroupés : 13579 (un groupe = même exercice, même règle,
+Avancement : **2712 exercices passés sur 4190**.
+Constats regroupés : 13676 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -18,17 +18,17 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | ---: | ---: |
 | 1 Interactif faux | [C1 Contenu mathématique faux ou ambigu](#c1) | 4 | 4 |
 | 1 Interactif faux | [I1 Bonne réponse refusée](#i1) | 26 | 29 |
-| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 26 | 27 |
+| 1 Interactif faux | [I2 Réponse fausse acceptée](#i2) | 30 | 31 |
 | 1 Interactif faux | [I3 Champ vide accepté ou en erreur](#i3) | 3 | 3 |
 | 1 Interactif faux | [I4 Question interactive sans champ](#i4) | 28 | 32 |
 | 1 Interactif faux | [I5 Barème qui change selon le tirage](#i5) | 5 | 5 |
 | 1 Interactif faux | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | 1 Interactif faux | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 7 | 9 |
-| 1 Interactif faux | [R1 Titre](#r1) | 28 | 28 |
+| 1 Interactif faux | [R1 Titre](#r1) | 29 | 29 |
 | 1 Interactif faux | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
 | 1 Interactif faux | [R12 ](#r12) | 1 | 1 |
 | 1 Interactif faux | [R14 ](#r14) | 1 | 1 |
-| 1 Interactif faux | [R16 ](#r16) | 71 | 71 |
+| 1 Interactif faux | [R16 ](#r16) | 73 | 73 |
 | 1 Interactif faux | [R2 Impératif ou tutoiement](#r2) | 6 | 6 |
 | 1 Interactif faux | [R3 Point final](#r3) | 24 | 24 |
 | 1 Interactif faux | [R5 Virgule (soit, alors, or)](#r5) | 3 | 3 |
@@ -59,7 +59,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X1 Erreur ou exception](#x1) | 30 | 47 |
 | 2 Rendu cassé | [X2 Formule cassée (KaTeX, $)](#x2) | 19 | 300 |
 | 2 Rendu cassé | [X3 undefined, NaN…](#x3) | 27 | 105 |
-| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 228 | 387 |
+| 2 Rendu cassé | [X4 Question en double ou vide](#x4) | 231 | 390 |
 | 2 Rendu cassé | [X5 Débordement à 390 px](#x5) | 19 | 19 |
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 11 | 11 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
@@ -67,12 +67,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 3 | 3 |
 | 3 Mise en évidence | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 327 | 2302 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 331 | 2366 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 9 | 9 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 273 | 275 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 274 | 276 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 29 | 112 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 88 | 102 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
@@ -83,7 +83,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [R11 ](#r11) | 1 | 1 |
 | 3 Mise en évidence | [R13 ](#r13) | 5 | 5 |
 | 3 Mise en évidence | [R14 ](#r14) | 8 | 8 |
-| 3 Mise en évidence | [R16 ](#r16) | 106 | 106 |
+| 3 Mise en évidence | [R16 ](#r16) | 109 | 109 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 13 | 13 |
 | 3 Mise en évidence | [R3 Point final](#r3) | 16 | 16 |
 | 3 Mise en évidence | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 2 |
@@ -131,19 +131,19 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 4 Typographie | [X4 Question en double ou vide](#x4) | 3 | 3 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 525 | 722 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 529 | 726 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
 | 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 285 | 1596 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 41 | 48 |
-| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 117 | 168 |
+| 5 Rédaction | [N2 Séparateur des milliers](#n2) | 118 | 172 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 75 | 106 |
 | 5 Rédaction | [R1 Titre](#r1) | 50 | 77 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 142 | 202 |
 | 5 Rédaction | [R16 ](#r16) | 1 | 1 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 176 | 290 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 180 | 295 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
-| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 194 | 295 |
+| 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 198 | 301 |
 | 5 Rédaction | [R6 Majuscule sans accent](#r6) | 11 | 15 |
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 2 | 4 |
@@ -213,6 +213,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G22-1 (3e) |  q8 mathlive | réponse fausse acceptée | ×19 ; sup=9 ; sup=8… (revue-0-a) |
 | 3G32-0 (3e) |  q1 mathlive | réponse fausse acceptée | ×6 ; sup=true sup2=4 ; sup=true sup2=7 nb=10 (revue-4-a) |
 | 3G32-1 (3e) |  q1 mathlive | réponse fausse acceptée | ×4 ; sup2=4 (revue-3-a) |
+| 3G32-2 (3e) |  q1 mathlive | réponse fausse acceptée | ×4 ; sup2=4 (revue-3-a) |
+| 3G32-3 (3e) |  q1 mathlive | réponse fausse acceptée | ×14 ; sup2=4 ; sup2=4 nb=10 (revue-0-a) |
+| 3G32-4 (3e) |  q1 mathlive | réponse fausse acceptée | ×4 ; sup2=4 (revue-4-a) |
+| 3G32-5 (3e) |  q1 mathlive | réponse fausse acceptée | ×2 ; sup2=4 (revue-4-a) |
 | 5G3B-2 (5e) |  q1 mathlive | réponse fausse acceptée | ×47 ; sup=5 sup2=true sup3=3 ; sup=4 sup2=true sup3=1… (revue-0-b) |
 | 5G4autoA-1 (5e) |  q1 mathlive | réponse fausse acceptée | ×33 ; sup=4 ; sup=2… (revue-0-a) |
 | 6G5A (6e) |  q1 mathlive | réponse fausse acceptée | ×58 ; sup=3 sup2=4 sup4=false ; sup=1 sup2=1 sup4=true… (revue-0-a) |
@@ -341,6 +345,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G10-2 (3e) | src/exercices/3e/3G10-2.ts | Énoncé et correction : « angle 90° » : nombre et degré hors $ → $90^\circ$ | ×1 |
 | 3G12-1 (3e) | src/exercices/3e/3G12-1.ts | Énoncé : « figure 80 », « centre G » hors $ (4G11-1 pareil) → Nombres et points entre $ | ×1 |
 | 3G1QCM-6 (3e) | src/exercices/3e/3G1QCM-6.ts | Énoncé : « tournée 2 fois de 30° », « droite (d) » hors $ ; correction « motif 3 » (aussi 3G1QCM-5) → Nombres et points entre $ | ×1 |
+| 3G3QCM-1 (3e) | src/exercices/3e/3G3QCM-1.ts | Énoncé : « triangle ABC rectangle en A » : points hors $ → $ABC$, $A$ | ×1 |
 | 4C10-1 (4e) | src/exercices/4e/4C10-1.ts | Correction : « Il y a 1 facteur négatif » : 1 hors $ → $1$ | ×1 |
 | 4G10 (4e) | src/exercices/4e/4G10.ts | Énoncé : « translation qui transforme B en N » : points hors $ (aussi 4G10-1 correction « 90$^\circ$ » nombre hors $) → $B$, $N$ ; $90^\circ$ | ×1 |
 | 4G22 (4e) | src/exercices/4e/4G22.ts | Correction : « 4 angles droits » : 4 hors $ → $4$ | ×1 |
@@ -462,6 +467,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | faacc (Non classés) | relecture | Titre « Calculer  une probabilité » : deux espaces → Une seule espace | ×1 |
 | ity6q (Non classés) | src/exercices/can/ | Correction : « La moitié de $44$ dixièmes est $22$ » (22 dixièmes) puis « est $2,2$ unités » : unité manquante dans la première phrase → « est $22$ dixièmes, soit $2,2$ unités » | ×1 |
 | k7omv (Non classés) | src/exercices/ | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » → $]0\,;\,+\infty[$ | ×1 |
+| ltsv8 (Non classés) | src/exercices/ | Correction : « Longueur $\cdot$ largeur $\cdot$ hauteur » majuscule initiale incohérente et mots hors formule → « longueur × largeur × hauteur » | ×1 |
+| ob9in (Non classés) | relecture | Titre « Convertir m$^3$ et Litres » : majuscule à « Litres » et $ dans le titre → « Convertir des m³ et des litres » | ×1 |
 
 ## R2
 
@@ -1780,6 +1787,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | jj1hp (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
 | labyvec (Non classés) | série q1 | énoncé vide | ×2 ; défaut (revue-0-a) |
 | labyvec (Non classés) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
+| m650d (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
+| mmqav (Non classés) | relecture | Titre vide dans le référentiel → Ajouter un titre | ×1 |
+| ncr2v (Non classés) | relecture | Titre vide ; énoncé « $251\,224 $ » espace avant $ de fermeture → Ajouter un titre ; $251\,224$ | ×1 |
 | sebseb (Non classés) | série q1 | correction vide | ×312 ; sup=13 ; sup=1… (revue-0-a) |
 | testEEE (Non classés) | série q1 | correction vide | ×20 ; défaut (revue-0-a) |
 | TEC1-41 (Terminale) | série q1 | énoncé vide | ×26 ; sup=false sup2=1 ; sup=true sup2=1… (revue-0-a) |
@@ -2110,6 +2120,70 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G32-1 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3&nbsp;\\text{cm}"] ; attendu : {"champ":"3\\operatorname{cm}"} | ×3 ; sup2=6 (revue-5-a) |
 | 3G32-1 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2,7&nbsp;\\text{cm}"] ; attendu : {"champ":"2,7\\operatorname{cm}"} | ×1 ; sup2=6 (revue-5-b) |
 | 3G32-1 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CV\\times \\tan(\\theta)","CV\\times \\tan(\\gamma)","7&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\beta"} | ×1 ; sup2=7 (revue-6-a) |
+| 3G32-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,37","16,63","74,67&nbsp;\\text{m}","76&nbsp;\\text{m}"] ; attendu : {"champ":"0.373563"} | ×9 ; sup2=3 ; sup2=3 nb=10 (revue-0-a) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["LB\\times \\tan(\\delta)","LB\\times \\tan(\\theta)","3&nbsp;\\text{m}"] ; attendu : {"champ":"UZ\\times\\tan(\\delta)"} | ×1 ; sup2=1 (revue-1-a) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["LV\\times \\tan(\\delta)","LV\\times \\tan(\\lambda)","16&nbsp;\\text{m}"] ; attendu : {"champ":"SQ\\times\\tan(\\omega)"} | ×1 ; sup2=1 (revue-1-b) |
+| 3G32-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["32\\,940&nbsp;\\text{km}"] ; attendu : {"champ":"32940\\operatorname{km}"} | ×5 ; sup2=2 ; sup2=7 (revue-2-a) |
+| 3G32-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["LS\\times \\tan(\\gamma)","\\dfrac{LI\\times \\tan(\\gamma)}{\\tan(\\theta)-\\tan(\\gamma)}","\\dfrac{LI\\times \\tan(\\gamma)\\times \\tan(\\theta)}{\\tan(\\theta)-\\tan(\\gamma)}","33&nbsp;\\text{m}","44&nbsp;\\text{m}"] ; attendu : {"champ":"IS\\times(\\tan(\\theta)"} | ×1 ; sup2=4 (revue-3-a) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["RJ\\times \\tan(\\omega)","\\dfrac{RK\\times \\tan(\\omega)}{\\tan(\\lambda)-\\tan(\\omega)}","\\dfrac{RK\\times \\tan(\\omega)\\times \\tan(\\lambda)}{\\tan(\\lambda)-\\tan(\\omega)}","28&nbsp;\\text{m}","42&nbsp;\\text{m}"] ; attendu : {"champ":"LS\\times\\tan(\\gamma)"} | ×1 ; sup2=4 (revue-3-a) |
+| 3G32-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["KH\\times \\tan(\\epsilon)","\\dfrac{KS\\times \\tan(\\epsilon)}{\\tan(\\lambda)-\\tan(\\epsilon)}","\\dfrac{KS\\times \\tan(\\epsilon)\\times \\tan(\\lambda)}{\\tan(\\lambda)-\\tan(\\epsilon)}","42&nbsp;\\text{m}","42&nbsp;\\text{m}"] ; attendu : {"champ":"SH\\times(\\tan(\\lambda)"} | ×1 ; sup2=4 (revue-3-b) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CA\\times \\tan(\\omega)","\\dfrac{CG\\times \\tan(\\omega)}{\\tan(\\gamma)-\\tan(\\omega)}","\\dfrac{CG\\times \\tan(\\omega)\\times \\tan(\\gamma)}{\\tan(\\gamma)-\\tan(\\omega)}","19&nbsp;\\text{m}","34&nbsp;\\text{m}"] ; attendu : {"champ":"KH\\times\\tan(\\epsilon)"} | ×1 ; sup2=4 (revue-3-b) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["90-\\delta","90-\\omega","\\delta-\\omega","\\dfrac{LP}{\\sin(\\delta-\\omega)}","UL\\times \\sin(\\omega)","\\dfrac{UL\\times \\sin(\\omega)}{\\sin(\\delta-\\omega)}\\times \\sin(\\delta)","4\\,890&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\omega"} | ×1 ; sup2=5 (revue-4-a) |
+| 3G32-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3&nbsp;\\text{cm}"] ; attendu : {"champ":"3\\operatorname{cm}"} | ×3 ; sup2=6 (revue-5-a) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2,7&nbsp;\\text{cm}"] ; attendu : {"champ":"2,7\\operatorname{cm}"} | ×1 ; sup2=6 (revue-5-b) |
+| 3G32-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CV\\times \\tan(\\theta)","CV\\times \\tan(\\gamma)","7&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\beta"} | ×1 ; sup2=7 (revue-6-a) |
+| 3G32-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["1,75","26,25","26,65&nbsp;\\text{m}","28&nbsp;\\text{m}"] ; attendu : {"champ":"67,11\\operatorname{m}"} | ×2 ; sup2=3 nb=10 (revue-7-a) |
+| 3G32-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["0,47","10,53","36,6&nbsp;\\text{m}","38&nbsp;\\text{m}"] ; attendu : {"champ":"69\\operatorname{m}"} | ×2 ; sup2=3 nb=10 (revue-7-a) |
+| 3G32-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2","40","44,45&nbsp;\\text{m}","46&nbsp;\\text{m}"] ; attendu : {"champ":"1.75016"} | ×1 ; sup2=3 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["ZM\\times \\tan(\\lambda)","\\dfrac{ZU\\times \\tan(\\lambda)}{\\tan(\\theta)-\\tan(\\lambda)}","\\dfrac{ZU\\times \\tan(\\lambda)\\times \\tan(\\theta)}{\\tan(\\theta)-\\tan(\\lambda)}","34&nbsp;\\text{m}","31&nbsp;\\text{m}"] ; attendu : {"champ":"UM\\times(\\tan(\\theta)"} | ×1 ; sup2=4 (revue-0-a) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["FB\\times \\tan(\\theta)","\\dfrac{FN\\times \\tan(\\theta)}{\\tan(\\lambda)-\\tan(\\theta)}","\\dfrac{FN\\times \\tan(\\theta)\\times \\tan(\\lambda)}{\\tan(\\lambda)-\\tan(\\theta)}","31&nbsp;\\text{m}","43&nbsp;\\text{m}"] ; attendu : {"champ":"ZM\\times\\tan(\\lambda)"} | ×1 ; sup2=4 (revue-0-a) |
+| 3G32-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["FB\\times \\tan(\\lambda)","\\dfrac{FR\\times \\tan(\\lambda)}{\\tan(\\theta)-\\tan(\\lambda)}","\\dfrac{FR\\times \\tan(\\lambda)\\times \\tan(\\theta)}{\\tan(\\theta)-\\tan(\\lambda)}","19&nbsp;\\text{m}","34&nbsp;\\text{m}"] ; attendu : {"champ":"RB\\times(\\tan(\\theta)"} | ×1 ; sup2=4 (revue-0-b) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["GU\\times \\tan(\\epsilon)","\\dfrac{GS\\times \\tan(\\epsilon)}{\\tan(\\delta)-\\tan(\\epsilon)}","\\dfrac{GS\\times \\tan(\\epsilon)\\times \\tan(\\delta)}{\\tan(\\delta)-\\tan(\\epsilon)}","25&nbsp;\\text{m}","40&nbsp;\\text{m}"] ; attendu : {"champ":"FB\\times\\tan(\\lambda)"} | ×1 ; sup2=4 (revue-0-b) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["LB\\times \\tan(\\delta)","LB\\times \\tan(\\theta)","3&nbsp;\\text{m}"] ; attendu : {"champ":"UZ\\times\\tan(\\delta)"} | ×1 ; sup2=1 (revue-1-a) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["LV\\times \\tan(\\delta)","LV\\times \\tan(\\lambda)","16&nbsp;\\text{m}"] ; attendu : {"champ":"SQ\\times\\tan(\\omega)"} | ×1 ; sup2=1 (revue-1-b) |
+| 3G32-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["32\\,940&nbsp;\\text{km}"] ; attendu : {"champ":"32940\\operatorname{km}"} | ×5 ; sup2=2 ; sup2=7 (revue-2-a) |
+| 3G32-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,9","39,1","93,49&nbsp;\\text{m}","95&nbsp;\\text{m}"] ; attendu : {"champ":"0.901711"} | ×4 ; sup2=3 (revue-3-a) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["90-\\delta","90-\\omega","\\delta-\\omega","\\dfrac{LP}{\\sin(\\delta-\\omega)}","UL\\times \\sin(\\omega)","\\dfrac{UL\\times \\sin(\\omega)}{\\sin(\\delta-\\omega)}\\times \\sin(\\delta)","4\\,890&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\omega"} | ×1 ; sup2=5 (revue-4-a) |
+| 3G32-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3&nbsp;\\text{cm}"] ; attendu : {"champ":"3\\operatorname{cm}"} | ×3 ; sup2=6 (revue-5-a) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2,7&nbsp;\\text{cm}"] ; attendu : {"champ":"2,7\\operatorname{cm}"} | ×1 ; sup2=6 (revue-5-b) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CV\\times \\tan(\\theta)","CV\\times \\tan(\\gamma)","7&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\beta"} | ×1 ; sup2=7 (revue-6-a) |
+| 3G32-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["BH\\times \\tan(\\epsilon)","\\dfrac{BN\\times \\tan(\\epsilon)}{\\tan(\\theta)-\\tan(\\epsilon)}","\\dfrac{BN\\times \\tan(\\epsilon)\\times \\tan(\\theta)}{\\tan(\\theta)-\\tan(\\epsilon)}","29&nbsp;\\text{m}","45&nbsp;\\text{m}"] ; attendu : {"champ":"NH\\times(\\tan(\\theta)"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["FH\\times \\tan(\\alpha)","\\dfrac{FB\\times \\tan(\\alpha)}{\\tan(\\omega)-\\tan(\\alpha)}","\\dfrac{FB\\times \\tan(\\alpha)\\times \\tan(\\omega)}{\\tan(\\omega)-\\tan(\\alpha)}","39&nbsp;\\text{m}","37&nbsp;\\text{m}"] ; attendu : {"champ":"BH\\times\\tan(\\epsilon)"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["PJ\\times \\tan(\\theta)","\\dfrac{PL\\times \\tan(\\theta)}{\\tan(\\lambda)-\\tan(\\theta)}","\\dfrac{PL\\times \\tan(\\theta)\\times \\tan(\\lambda)}{\\tan(\\lambda)-\\tan(\\theta)}","26&nbsp;\\text{m}","43&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{NB\\times\\tan(\\epsilon)}{\\tan(\\theta)-\\tan(\\epsilon)}"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["PL\\times \\tan(\\lambda)","\\dfrac{PQ\\times \\tan(\\lambda)}{\\tan(\\beta)-\\tan(\\lambda)}","\\dfrac{PQ\\times \\tan(\\lambda)\\times \\tan(\\beta)}{\\tan(\\beta)-\\tan(\\lambda)}","22&nbsp;\\text{m}","35&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{NB\\times\\tan(\\epsilon)\\times\\tan(\\theta)}{\\tan(\\theta)-\\tan(\\epsilon)}"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["MA\\times \\tan(\\omega)","\\dfrac{MU\\times \\tan(\\omega)}{\\tan(\\delta)-\\tan(\\omega)}","\\dfrac{MU\\times \\tan(\\omega)\\times \\tan(\\delta)}{\\tan(\\delta)-\\tan(\\omega)}","18&nbsp;\\text{m}","27&nbsp;\\text{m}"] ; attendu : {"champ":"29\\operatorname{m}"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["JZ\\times \\tan(\\lambda)","\\dfrac{JK\\times \\tan(\\lambda)}{\\tan(\\beta)-\\tan(\\lambda)}","\\dfrac{JK\\times \\tan(\\lambda)\\times \\tan(\\beta)}{\\tan(\\beta)-\\tan(\\lambda)}","32&nbsp;\\text{m}","31&nbsp;\\text{m}"] ; attendu : {"champ":"45\\operatorname{m}"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["NJ\\times \\tan(\\delta)","\\dfrac{NU\\times \\tan(\\delta)}{\\tan(\\epsilon)-\\tan(\\delta)}","\\dfrac{NU\\times \\tan(\\delta)\\times \\tan(\\epsilon)}{\\tan(\\epsilon)-\\tan(\\delta)}","29&nbsp;\\text{m}","26&nbsp;\\text{m}"] ; attendu : {"champ":"BH\\times(\\tan(\\omega)"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["MV\\times \\tan(\\theta)","\\dfrac{MS\\times \\tan(\\theta)}{\\tan(\\beta)-\\tan(\\theta)}","\\dfrac{MS\\times \\tan(\\theta)\\times \\tan(\\beta)}{\\tan(\\beta)-\\tan(\\theta)}","44&nbsp;\\text{m}","51&nbsp;\\text{m}"] ; attendu : {"champ":"FH\\times\\tan(\\alpha)"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["CL\\times \\tan(\\omega)","\\dfrac{CT\\times \\tan(\\omega)}{\\tan(\\theta)-\\tan(\\omega)}","\\dfrac{CT\\times \\tan(\\omega)\\times \\tan(\\theta)}{\\tan(\\theta)-\\tan(\\omega)}","44&nbsp;\\text{m}","37&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{BF\\times\\tan(\\alpha)}{\\tan(\\omega)-\\tan(\\alpha)}"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-3 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["VK\\times \\tan(\\lambda)","\\dfrac{VH\\times \\tan(\\lambda)}{\\tan(\\omega)-\\tan(\\lambda)}","\\dfrac{VH\\times \\tan(\\lambda)\\times \\tan(\\omega)}{\\tan(\\omega)-\\tan(\\lambda)}","49&nbsp;\\text{m}","47&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{BF\\times\\tan(\\alpha)\\times\\tan(\\omega)}{\\tan(\\omega)-\\tan(\\alpha)}"} | ×1 ; sup2=4 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["90-\\epsilon","90-\\theta","\\epsilon-\\theta","\\dfrac{QB}{\\sin(\\epsilon-\\theta)}","ZQ\\times \\sin(\\theta)","\\dfrac{ZQ\\times \\sin(\\theta)}{\\sin(\\epsilon-\\theta)}\\times \\sin(\\epsilon)","1\\,998&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\lambda"} | ×1 ; sup2=5 (revue-0-a) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["90-\\theta","90-\\omega","\\theta-\\omega","\\dfrac{SU}{\\sin(\\theta-\\omega)}","TS\\times \\sin(\\omega)","\\dfrac{TS\\times \\sin(\\omega)}{\\sin(\\theta-\\omega)}\\times \\sin(\\theta)","2\\,997&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\lambda"} | ×1 ; sup2=5 (revue-0-b) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["LB\\times \\tan(\\delta)","LB\\times \\tan(\\theta)","3&nbsp;\\text{m}"] ; attendu : {"champ":"UZ\\times\\tan(\\delta)"} | ×1 ; sup2=1 (revue-1-a) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["LV\\times \\tan(\\delta)","LV\\times \\tan(\\lambda)","16&nbsp;\\text{m}"] ; attendu : {"champ":"SQ\\times\\tan(\\omega)"} | ×1 ; sup2=1 (revue-1-b) |
+| 3G32-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["32\\,940&nbsp;\\text{km}"] ; attendu : {"champ":"32940\\operatorname{km}"} | ×5 ; sup2=2 ; sup2=7 (revue-2-a) |
+| 3G32-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,9","39,1","93,49&nbsp;\\text{m}","95&nbsp;\\text{m}"] ; attendu : {"champ":"0.901711"} | ×4 ; sup2=3 (revue-3-a) |
+| 3G32-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["HB\\times \\tan(\\omega)","\\dfrac{HS\\times \\tan(\\omega)}{\\tan(\\lambda)-\\tan(\\omega)}","\\dfrac{HS\\times \\tan(\\omega)\\times \\tan(\\lambda)}{\\tan(\\lambda)-\\tan(\\omega)}","15&nbsp;\\text{m}","23&nbsp;\\text{m}"] ; attendu : {"champ":"SB\\times(\\tan(\\lambda)"} | ×1 ; sup2=4 (revue-4-a) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["FP\\times \\tan(\\gamma)","\\dfrac{FU\\times \\tan(\\gamma)}{\\tan(\\theta)-\\tan(\\gamma)}","\\dfrac{FU\\times \\tan(\\gamma)\\times \\tan(\\theta)}{\\tan(\\theta)-\\tan(\\gamma)}","54&nbsp;\\text{m}","47&nbsp;\\text{m}"] ; attendu : {"champ":"HB\\times\\tan(\\omega)"} | ×1 ; sup2=4 (revue-4-a) |
+| 3G32-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["QU\\times \\tan(\\beta)","\\dfrac{QT\\times \\tan(\\beta)}{\\tan(\\epsilon)-\\tan(\\beta)}","\\dfrac{QT\\times \\tan(\\beta)\\times \\tan(\\epsilon)}{\\tan(\\epsilon)-\\tan(\\beta)}","30&nbsp;\\text{m}","42&nbsp;\\text{m}"] ; attendu : {"champ":"TU\\times(\\tan(\\epsilon)"} | ×1 ; sup2=4 (revue-4-b) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["QC\\times \\tan(\\omega)","\\dfrac{QG\\times \\tan(\\omega)}{\\tan(\\gamma)-\\tan(\\omega)}","\\dfrac{QG\\times \\tan(\\omega)\\times \\tan(\\gamma)}{\\tan(\\gamma)-\\tan(\\omega)}","37&nbsp;\\text{m}","49&nbsp;\\text{m}"] ; attendu : {"champ":"QU\\times\\tan(\\beta)"} | ×1 ; sup2=4 (revue-4-b) |
+| 3G32-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3&nbsp;\\text{cm}"] ; attendu : {"champ":"3\\operatorname{cm}"} | ×3 ; sup2=6 (revue-5-a) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2,7&nbsp;\\text{cm}"] ; attendu : {"champ":"2,7\\operatorname{cm}"} | ×1 ; sup2=6 (revue-5-b) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["CV\\times \\tan(\\theta)","CV\\times \\tan(\\gamma)","7&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\beta"} | ×1 ; sup2=7 (revue-6-a) |
+| 3G32-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["90-\\gamma","90-\\lambda","\\gamma-\\lambda","\\dfrac{PB}{\\sin(\\gamma-\\lambda)}","NP\\times \\sin(\\lambda)","\\dfrac{NP\\times \\sin(\\lambda)}{\\sin(\\gamma-\\lambda)}\\times \\sin(\\gamma)","4\\,999&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\epsilon"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["90-\\theta","90-\\beta","\\theta-\\beta","\\dfrac{KV}{\\sin(\\theta-\\beta)}","SK\\times \\sin(\\beta)","\\dfrac{SK\\times \\sin(\\beta)}{\\sin(\\theta-\\beta)}\\times \\sin(\\theta)","3\\,302&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{CH}{\\sin(\\theta-\\epsilon)}"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["90-\\alpha","90-\\gamma","\\alpha-\\gamma","\\dfrac{TP}{\\sin(\\alpha-\\gamma)}","UT\\times \\sin(\\gamma)","\\dfrac{UT\\times \\sin(\\gamma)}{\\sin(\\alpha-\\gamma)}\\times \\sin(\\alpha)","1\\,998&nbsp;\\text{m}"] ; attendu : {"champ":"BH\\times\\sin(\\epsilon)"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["90-\\gamma","90-\\omega","\\gamma-\\omega","\\dfrac{UL}{\\sin(\\gamma-\\omega)}","BU\\times \\sin(\\omega)","\\dfrac{BU\\times \\sin(\\omega)}{\\sin(\\gamma-\\omega)}\\times \\sin(\\gamma)","3\\,400&nbsp;\\text{m}"] ; attendu : {"champ":"RH\\times\\sin(\\theta)"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["90-\\beta","90-\\theta","\\beta-\\theta","\\dfrac{QS}{\\sin(\\beta-\\theta)}","BQ\\times \\sin(\\theta)","\\dfrac{BQ\\times \\sin(\\theta)}{\\sin(\\beta-\\theta)}\\times \\sin(\\beta)","2\\,502&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{HG\\times\\sin(\\theta)}{\\theta-\\epsilon}"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["90-\\beta","90-\\delta","\\beta-\\delta","\\dfrac{GM}{\\sin(\\beta-\\delta)}","IG\\times \\sin(\\delta)","\\dfrac{IG\\times \\sin(\\delta)}{\\sin(\\beta-\\delta)}\\times \\sin(\\beta)","2\\,797&nbsp;\\text{m}"] ; attendu : {"champ":"\\frac{BH\\times\\sin(\\epsilon)\\times\\sin(\\theta)}{\\theta-\\epsilon}"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["90-\\omega","90-\\beta","\\omega-\\beta","\\dfrac{NA}{\\sin(\\omega-\\beta)}","JN\\times \\sin(\\beta)","\\dfrac{JN\\times \\sin(\\beta)}{\\sin(\\omega-\\beta)}\\times \\sin(\\omega)","3\\,203&nbsp;\\text{m}"] ; attendu : {"champ":"4999\\operatorname{m}"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["90-\\lambda","90-\\gamma","\\lambda-\\gamma","\\dfrac{AM}{\\sin(\\lambda-\\gamma)}","IA\\times \\sin(\\gamma)","\\dfrac{IA\\times \\sin(\\gamma)}{\\sin(\\lambda-\\gamma)}\\times \\sin(\\lambda)","4\\,398&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\gamma"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["90-\\omega","90-\\lambda","\\omega-\\lambda","\\dfrac{RC}{\\sin(\\omega-\\lambda)}","IR\\times \\sin(\\lambda)","\\dfrac{IR\\times \\sin(\\lambda)}{\\sin(\\omega-\\lambda)}\\times \\sin(\\omega)","3\\,698&nbsp;\\text{m}"] ; attendu : {"champ":"90-\\lambda"} | ×1 ; sup2=5 nb=10 (revue-7-a) |
+| 3G32-5 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["2,6&nbsp;\\text{cm}"] ; attendu : {"champ":"2,6\\operatorname{cm}"} | ×12 ; sup2=6 ; sup2=6 nb=10 (revue-0-a) |
+| 3G32-5 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["26\\,382&nbsp;\\text{km}"] ; attendu : {"champ":"26382\\operatorname{km}"} | ×3 ; sup2=2 ; sup2=7 (revue-2-a) |
+| 3G32-5 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,33","24,67","135,97&nbsp;\\text{m}","138&nbsp;\\text{m}"] ; attendu : {"champ":"0.334867"} | ×2 ; sup2=3 (revue-3-a) |
+| 3G32-5 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["IH\\times \\tan(\\delta)","\\dfrac{IB\\times \\tan(\\delta)}{\\tan(\\omega)-\\tan(\\delta)}","\\dfrac{IB\\times \\tan(\\delta)\\times \\tan(\\omega)}{\\tan(\\omega)-\\tan(\\delta)}","25&nbsp;\\text{m}","30&nbsp;\\text{m}"] ; attendu : {"champ":"BH\\times(\\tan(\\omega)"} | ×1 ; sup2=4 (revue-4-a) |
+| 3G32-5 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["QU\\times \\tan(\\gamma)","\\dfrac{QT\\times \\tan(\\gamma)}{\\tan(\\beta)-\\tan(\\gamma)}","\\dfrac{QT\\times \\tan(\\gamma)\\times \\tan(\\beta)}{\\tan(\\beta)-\\tan(\\gamma)}","30&nbsp;\\text{m}","42&nbsp;\\text{m}"] ; attendu : {"champ":"TU\\times(\\tan(\\beta)"} | ×1 ; sup2=4 (revue-4-b) |
 | 4A10-1 (4e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"6","champ2":"5"} ; attendu : {"champ1":"5","champ2":"6"} | ×419 ; sup=2 sup2=6 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 4C10-11 (4e) |  q1 mathlive | valeur en évidence refusée par le champ : ["1,969","-1,9","-1,96","-2"] ; attendu : {"champ":"-1,96"} | ×1 ; sup=2 sup2=5 (revue-9-a) |
 | 4C10-11 (4e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0,84","-0,84","0,84"] ; attendu : {"champ":"-0,84"} | ×1 ; sup=4 sup2=3 (revue-17-b) |
@@ -4622,6 +4696,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G1QCM-6 (3e) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup3=false ; sup3=true… (revue-0-a) |
 | 3G23 (3e) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | 3G2QCM-2 (3e) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
+| 3G41-1 (3e) | série q1 | aucune mise en évidence dans la correction | ×16 ; défaut ; défaut nb=10 (revue-0-a) |
 | 4C10-10 (4e) | série q1 | aucune mise en évidence dans la correction | ×492 ; sup=10 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 4C10-3 (4e) | série q1 | aucune mise en évidence dans la correction | ×492 ; sup=10 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 4C10-5 (4e) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
@@ -5319,6 +5394,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | e6d46 (Non classés) | src/exercices/QCMBac/A2024/sujetzero2024Ex5Q1.ts | Correction : la phrase « On peut par exemple dire que la courbe… deux points d'intersection » est répétée deux fois, collée sans espace (« $[0~;~2\pi]$.On peut ») → Supprimer le doublon | ×1 |
 | evon2 (Non classés) | src/exercices/can/canNY-2026/canTNY-2026-Q13.ts | Énoncé : « Quel est la pente… » ; correction : « coeffcient » (déjà vu dans can2L2-03) → « Quelle est la pente » ; « coefficient » | ×1 |
 | hbp7h (Non classés) | relecture | Titre « Multiplier un nombre décimalpar 0,2 » : espace manquante → « décimal par » | ×1 |
+| lvquc (Non classés) | relecture | Titre « Réesoudre » (Résoudre) → « Résoudre » | ×1 |
+| nlcug (Non classés) | relecture | Titre « Dtéreminer un reste à payer » (Déterminer) → « Déterminer » | ×1 |
+| olnpp (Non classés) | relecture | Titre « Trouver une longuer » (longueur) → « longueur » | ×1 |
 | PEN15 (PE) | src/exercices/PE/PEN15.ts | Énoncé « Le nombre A est-il … ? » : A n'est pas défini dans le texte affiché (« A » défini plus loin / dans la figure) ; « Justifier chacune des réponses » sans point final ; correction « 5 n'est pas divisible par 13 » : 5 hors des $ ; 11 N1. → Définir A ; $5$. | ×1 |
 | PEN23 (PE) | src/exercices/PE/PEN23.ts | Consigne « Poser et effectuer les calculs suivants : » alors que l'exercice demande « Écrire la table de Pythagore en base 5 » (consigne sans rapport) ; 885 N1 ; 13 M6. → Consigne adaptée. | ×1 |
 | TEA1-21 (Terminale) | src/exercices/TSpe/TEA1-21.ts | Énoncé : « Sachant que $836=28\times28+52$ » (reste 52 > 28 : volontairement non valide mais non signalé dans la question) ; 44 « Choisir… » dans les champs ; un seul exercice pour 836 et -836 (réponses q, r négatif) : « q= … r= » sur la même ligne. → Préciser « (ce n'est pas la division euclidienne) ». | ×1 |
@@ -8606,6 +8684,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G30DNB0 (3e) | énoncé | page de 403 px pour 390 px | ×4 ; sup=false ; sup=true (revue-0-a) |
 | 3G32-0 (3e) | correction | page de 545 px pour 390 px | ×15 ; sup=true sup2=7 ; sup=true sup2=3… (revue-0-a) |
 | 3G32-1 (3e) | correction | page de 418 px pour 390 px | ×7 ; sup2=3 ; sup2=4… (revue-2-a) |
+| 3G32-2 (3e) | correction | page de 435 px pour 390 px | ×8 ; sup2=3 ; sup2=4… (revue-0-a) |
+| 3G32-3 (3e) | correction | page de 525 px pour 390 px | ×8 ; sup2=4 ; sup2=3… (revue-0-a) |
+| 3G32-4 (3e) | correction | page de 529 px pour 390 px | ×8 ; sup2=5 ; sup2=3… (revue-0-a) |
+| 3G32-5 (3e) | correction | page de 428 px pour 390 px | ×7 ; sup2=3 ; sup2=4… (revue-3-a) |
 | 4A11-1 (4e) | correction | page de 398 px pour 390 px | ×6 ; sup2=4 sup3=2 ; sup2=2 sup3=1… (revue-0-b) |
 | 4C10 (4e) | correction | page de 593 px pour 390 px | ×12 ; sup=1 sup2=3 ; sup=1 sup2=4… (revue-2-a) |
 | 4C10-5 (4e) | énoncé | page de 393 px pour 390 px | ×2 ; défaut (revue-0-a) |
@@ -11006,6 +11088,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3F12-2 (3e) | correction q5 | nombre à 4 chiffres sans séparateur : $es (-12)-5=-7\times144-132-5=-1008-132-5=$ ‖ nombre à 4 chiffres sans séparateur : ${\color{}\boldsymbol{-1145}}$ | ×2 ; sup=2 sup2=1 (revue-3-a) |
 | 3G13 (3e) | énoncé q2 | nombre à 4 chiffres sans séparateur : ${HM=1260\text{ cm}}$ | ×1 ; sup=2 sup2=1 sup3=3 sup4=true (revue-37-a) |
 | 3G22 (3e) | correction q1 | nombre à 4 chiffres sans séparateur : $= \left(1-\dfrac{512}{6859}\right)\times \dfrac{64,2$ ‖ nombre à 4 chiffres sans séparateur : $= \dfrac{6347}{6859}\times \dfrac{64,22$ ‖ nombre à 4 chiffres sans séparateur : $= \dfrac{6347}{6859}\times \dfrac{64,22}{3}\p$ | ×3 ; sup=1 sup2=2 (revue-1-a) |
+| 3G32-0 (3e) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1231\text{ m}$ ‖ nombre à 4 chiffres sans séparateur : $SN=1231\text{ m}$ | ×2 ; sup=true sup2=7 (revue-0-a) |
+| 3G32-0 (3e) | correction q1 | nombre à 4 chiffres sans séparateur : $h=\dfrac{1231&nbsp;\text{m}\times \sin($ ‖ nombre à 4 chiffres sans séparateur : $}\times \sin(29^\circ)=\dfrac{1231&nbsp;\text{m}\times \sin($ | ×2 ; sup=true sup2=7 (revue-0-a) |
+| 3G32-0 (3e) | énoncé non interactif q1 | nombre à 4 chiffres sans séparateur : $1231\text{ m}$ ‖ nombre à 4 chiffres sans séparateur : $SN=1231\text{ m}$ | ×2 |
+| 3G32-0 (3e) | correction non interactive q1 | nombre à 4 chiffres sans séparateur : $h=\dfrac{1231&nbsp;\text{m}\times \sin($ ‖ nombre à 4 chiffres sans séparateur : $}\times \sin(29^\circ)=\dfrac{1231&nbsp;\text{m}\times \sin($ | ×2 |
 | 4A11-0 (4e) | correction q1 | nombre à 4 chiffres sans séparateur : $17\,600 = 2 \times 8800$ ‖ nombre à 4 chiffres sans séparateur : $17\,600 = 2 \times 2 \times 4400$ ‖ nombre à 4 chiffres sans séparateur : $2 \times 2 \times 2 \times 2200$ | ×37 ; sup=3 sup2=true sup4=false sup5=2 ; sup=1 sup2=true sup4=true sup5=1… (revue-0-a) |
 | 4A12-1 (4e) | correction q10 | nombre à 4 chiffres sans séparateur : $l{11}} = {\color{}\boldsymbol{1496}}.$ | ×1 ; sup=false nb=10 (revue-2-a) |
 | 4C2QCM-03 (4e) | énoncé q1 | nombre à 4 chiffres sans séparateur : $1100$ | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -11585,7 +11671,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3AutoDNB2026-4 (3e) | énoncé non interactif q5 | deuxième personne : La distance entre 2 planètes est environ égale à | ×1 |
 | 3AutoN07-4 (3e) | énoncé q1 | deuxième personne : La distance entre 2 planètes est environ égale à | ×11 ; sup=false ; sup=false nb=10 (revue-0-a) |
 | 3AutoN07-4 (3e) | énoncé non interactif q1 | deuxième personne : La distance entre 2 planètes est environ égale à | ×1 |
+| 3G32-0 (3e) | énoncé q2 | deuxième personne : jusqu'à un endroit où il place un bâton noté ‖ deuxième personne : . Du bâton, il effectue un quart de tour et s'éloigne d'u | ×16 ; sup=true sup2=7 ; sup=true sup2=1… (revue-0-a) |
+| 3G32-0 (3e) | énoncé non interactif q2 | deuxième personne : jusqu'à un endroit où il place un bâton noté ‖ deuxième personne : . Du bâton, il effectue un quart de tour et s'éloigne d'u | ×2 |
 | 3G32-1 (3e) | énoncé q1 | deuxième personne : jusqu'à un endroit où il place un bâton noté ‖ deuxième personne : . Du bâton, il effectue un quart de tour et s'éloigne d'u | ×6 ; sup2=1 ; sup2=7 (revue-1-a) |
+| 3G32-2 (3e) | énoncé q1 | deuxième personne : jusqu'à un endroit où il place un bâton noté ‖ deuxième personne : . Du bâton, il effectue un quart de tour et s'éloigne d'u | ×6 ; sup2=1 ; sup2=7 (revue-1-a) |
+| 3G32-3 (3e) | énoncé q1 | deuxième personne : jusqu'à un endroit où il place un bâton noté ‖ deuxième personne : . Du bâton, il effectue un quart de tour et s'éloigne d'u | ×6 ; sup2=1 ; sup2=7 (revue-1-a) |
+| 3G32-5 (3e) | énoncé q1 | deuxième personne : jusqu'à un endroit où il place un bâton noté ‖ deuxième personne : . Du bâton, il effectue un quart de tour et s'éloigne d'u | ×2 ; sup2=1 (revue-1-a) |
 | 4A11-0 (4e) | énoncé q1 | deuxième personne : [champ] Tu peux directement donner le résultat ou cliquer | ×25 ; sup=3 sup2=true sup4=false sup5=2 ; sup=1 sup2=true sup4=true sup5=1… (revue-0-a) |
 | 4A11-1 (4e) | énoncé q1 | deuxième personne : [champ] Tu peux directement donner le résultat ou cliquer | ×9 ; sup2=4 sup3=2 ; sup2=1 sup3=1… (revue-0-a) |
 | 4A11-2 (4e) | énoncé q1 | deuxième personne : [champ] Tu peux directement donner le résultat ou cliquer | ×4 ; sup=true sup2=1 ; sup=true sup2=2… (revue-0-a) |
@@ -11926,7 +12017,13 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G22-1 (3e) | énoncé non interactif q5 | pas de virgule avant « alors » : agrandit cette figure et la longueur obtenue mesure alors | ×1 |
 | 3G2QCM-1 (3e) | énoncé q1 | pas de virgule avant « alors » : Si on quadruple le rayon d'une sphère alors par combien est multiplié le volume de la ‖ pas de virgule avant « alors » : Si on quadruple le diamètre d'une sphère alors par combien est multiplié le volume de la ‖ pas de virgule avant « alors » : Si on double la diagonale d'une face d'un cube alors par combien est multiplié le volume du cub | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | 3G2QCM-1 (3e) | énoncé non interactif q1 | pas de virgule avant « alors » : Si on quadruple le rayon d'une sphère alors par combien est multiplié le volume de la | ×1 |
+| 3G32-0 (3e) | énoncé q1 | pas de virgule avant « alors » : c) Calculer alors la longueur | ×3 ; sup=true sup2=3 ; sup=true sup2=7 nb=10 (revue-3-a) |
+| 3G32-0 (3e) | correction q1 | pas de virgule après « Or » : . Or | ×2 ; sup=false sup2=4 (revue-10-a) |
 | 3G32-1 (3e) | énoncé q1 | pas de virgule avant « alors » : c) Calculer alors la longueur | ×2 ; sup2=3 (revue-2-a) |
+| 3G32-2 (3e) | énoncé q1 | pas de virgule avant « alors » : c) Calculer alors la longueur | ×12 ; sup2=3 ; sup2=3 nb=10 (revue-0-a) |
+| 3G32-2 (3e) | énoncé non interactif q1 | pas de virgule avant « alors » : , arrondie au centième près. c) Calculer alors la longueur | ×2 |
+| 3G32-3 (3e) | énoncé q1 | pas de virgule avant « alors » : c) Calculer alors la longueur | ×2 ; sup2=3 (revue-3-a) |
+| 3G32-5 (3e) | énoncé q1 | pas de virgule avant « alors » : c) Calculer alors la longueur | ×1 ; sup2=3 (revue-3-a) |
 | 4C25-0 (4e) | correction q1 | pas de virgule avant « alors » : en course à pied. Nous pouvons alors ranger ces fractions dans l'ordre croissan ‖ pas de virgule avant « alors » : par la culture des fraisiers. Nous pouvons alors ranger ces fractions dans l'ordre croissan ‖ pas de virgule avant « alors » : en pourpre. Nous pouvons alors ranger ces fractions dans l'ordre croissan | ×45 ; sup=6 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 4C25-0 (4e) | correction non interactive q2 | pas de virgule avant « alors » : par la culture des fraisiers. Nous pouvons alors ranger ces fractions dans l'ordre croissan ‖ pas de virgule avant « alors » : en pourpre. Nous pouvons alors ranger ces fractions dans l'ordre croissan | ×2 |
 | 4C25-1 (4e) | énoncé q1 | pas de virgule avant « alors » : des candidats ont échoué à l'épreuve écrite alors que les autres candidats ont pu participer | ×6 ; sup=8 ; sup=2… (revue-0-a) |
