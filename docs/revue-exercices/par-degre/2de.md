@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **518 sur 615**. Constats confirmés : **162**.
+Exercices relus : **532 sur 615**. Constats confirmés : **165**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 77 |
+| Rédaction (français, titres, consignes) | 80 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -134,6 +134,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2F21-1 | R16  | Titre « Reconnaitre » | « Reconnaître » | relecture |
 | 2F21-2 | R16  | Titre « Reconnaitre » | « Reconnaître » | relecture |
 | 2G11-3 | R16  | Énoncé : « Les valeurs d'angle seront arrondis au degré près » (accord) | seront arrondies | relecture |
+| 2G12-6 | R6  | Correction : mise en évidence de ⟦D(-3;0)⟧ (lettre et parenthèses incluses) alors que les champs attendent -3 et 0 ; parenthèses sans \,;\,  | Ne mettre en évidence que les nombres | relecture |
 | 2N51-1 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
@@ -165,6 +166,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2F21-9 | R16  | Correction : « $g(0)=\dfrac{3}{5}\times +\dfrac{3}{2}$ » et « $g(4)=\dfrac{3}{5}\times +4 +\dfrac{3}{2}$ » : le facteur x est écrit avec ecritureAlgebrique (« +4 », valeur 0 vide) au lieu de la valeur seule, d'où « \times + » ; il faut $\dfrac{3}{5}\times 0+\dfrac{3}{2}$ et $\dfrac{3}{5}\times 4+\dfrac{3}{2}$ | Utiliser x0.texFSD / ecritureParentheseSiNegatif(x0) pour le facteur | src/exercices/2e/2F21-9.ts:526 |
 | 2F22-1 | R12  | Correction : « $g(800) = \dfrac{1}{800} = 0.00125$ » : point décimal au lieu de la virgule (et 0,001 25 avec espace fine) | $0,001\,25$ | src/exercices/2e/2F22-1.ts |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
+| 2G12-3 | R16  | Correction : « En utilisant les milieux : : » deux deux-points (texteGras('… :') suivi de ' :') | Retirer un des deux | src/exercices/2e/2G12-3.ts:191,349 |
+| 2G21-2 | R14  | Correction vide : « Pas de correction pour l'instant » pour toutes les questions | Écrire la correction (placeholder visible par l'élève) | src/exercices/2e/2G21-2.ts:304 |
 | 2L10-3 | R14  | Même exercice que 5N5A (« Écrire une expression littérale », QCM « triple de z ») et 3AutoN10 : triple publication | Fusionner ou différencier | src/exercices/2e/2L10-3.ts |
 | 2L10-5 | R5 Virgule | Consigne « Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes » sans point final | Ajouter le point | src/exercices/2e/2L10-5.ts |
 | 2L10-7 | R1 Titre | Énoncé : « en °C », « $m_1=3$ kg » : unités hors $ et titre terminé par une espace | $3\text{ kg}$ ; $\text{°C}$ | src/exercices/2e/2L10-7.ts |
@@ -236,4 +239,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5098 ; N1 Nombre hors $ 2811 ; T5 Espaces 1949 ; T4  1322 ; N2 Séparateur des milliers 847 ; R5 Virgule 401 ; N6 Écriture algébrique 392 ; T3  123 ; R2 Tutoiement, impératif 104 ; M7  71 ; N3  34 ; X3  22 ; R10 Français 21 ; N5 Négatif sans parenthèses 18 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5104 ; N1 Nombre hors $ 2849 ; T5 Espaces 2060 ; T4  1354 ; N2 Séparateur des milliers 847 ; R5 Virgule 417 ; N6 Écriture algébrique 392 ; T3  123 ; R2 Tutoiement, impératif 104 ; M7  71 ; N3  34 ; X3  22 ; R10 Français 21 ; N5 Négatif sans parenthèses 18 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.
