@@ -134,6 +134,8 @@ const relecture = lire('relecture.jsonl')
 const ecartes = lire('ecartes.jsonl')
 const rejeu = new Map(lire('rejeu.jsonl').map((x) => [x.cle, x]))
 const reclassement = new Map(lire('reclassement.jsonl').map((x) => [x.cle, x]))
+// Reclassement par exercice : { id, categorie, regles (regex, facultatif), precision }
+const parExercice = lire('reclassement-exercices.jsonl')
 
 const deTexte = (c) => /^(N[1-7]|T\d|R\d+|M5|M7|X3)$/.test(c.regle) || (c.regle === 'X2' && /^nombre impair/.test(c.extrait ?? ''))
 const motif = (s) => String(s ?? '').replace(/\d+/g, '#').replace(/\s+/g, ' ').slice(0, 140)
@@ -211,6 +213,21 @@ for (const c of constats) {
     if (rc.precision) c.precision = rc.precision
     if (rc.statut) c.statut = rc.statut
   }
+}
+
+// Exercices entiers mis de côté (relecture) ou règles par exercice
+const ecartesExo = new Set(constats.filter((c) => c.origine === 'relecture' && c.categorie === 'a-ecarter').map((c) => c.id))
+for (const c of constats) {
+  if (c.categorie === 'faux-positifs') continue
+  if (ecartesExo.has(c.id) && c.categorie !== 'a-ecarter') {
+    c.categorie = 'a-ecarter'
+    c.precision ??= 'Exercice mis de côté (test, modèle ou outil) : constat gardé pour mémoire'
+  }
+  for (const r of parExercice)
+    if ((r.id === c.id || (r.motifId && new RegExp(r.motifId).test(c.id))) && (!r.regles || new RegExp(r.regles).test(c.regle)) && c.origine !== 'relecture') {
+      c.categorie = r.categorie
+      if (r.precision) c.precision ??= r.precision
+    }
 }
 
 // ---------- liens de reproduction (site MathALÉA) ----------

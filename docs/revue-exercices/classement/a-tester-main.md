@@ -2,11 +2,11 @@
 
 Pas une erreur : format que le banc ne sait pas remplir (glisser-déposer, figure, clic).
 
-309 constats, 292 exercices. Données complètes : `revue/classement/a-tester-main.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+307 constats, 290 exercices. Données complètes : `revue/classement/a-tester-main.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
-| [IM Interactif à tester à la main](#im) | 304 | 289 |
+| [IM Interactif à tester à la main](#im) | 302 | 287 |
 | [M1 Valeur mise en évidence refusée par le champ](#m1) | 1 | 1 |
 | [M3 QCM : bonne proposition pas mise en évidence telle quelle](#m3) | 1 | 1 |
 | [M6 Pas de mise en évidence du résultat](#m6) | 1 | 1 |
@@ -298,10 +298,8 @@ Pas une erreur : format que le banc ne sait pas remplir (glisser-déposer, figur
 | A-9fdf8a0198 | 9daa5 (Non classés, CH) |  | format tableau-signes-variations : à tester à la main (×2) | détection automatique | sup3=false, graine revue-1-a, q1 ([site](https://coopmaths.fr/alea/?uuid=9daa5&id=9daa5&s3=false&alea=revue-1-a&i=1&cd=1)) |
 | A-10bbf061ba | a01f3 (Non classés, CH) |  | aucune proposition (×9) | détection automatique | sup=false nb=10, graine revue-2-a, q2 ([site](https://coopmaths.fr/alea/?uuid=a01f3&id=a01f3&n=10&s=false&alea=revue-2-a&i=1&cd=1)) |
 | A-01b3da07da | a12ef (Non classés, CH) |  | aucune proposition (×9) | détection automatique | sup=false nb=10, graine revue-2-a, q2 ([site](https://coopmaths.fr/alea/?uuid=a12ef&id=a12ef&n=10&s=false&alea=revue-2-a&i=1&cd=1)) |
-| A-984d40d06b | a9f71 (Non classés, CH) |  | format diagram-builder : à tester à la main (×2) | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=a9f71&id=a9f71&alea=revue-0-a&i=1&cd=1)) |
 | A-936b4f345b | b1e01 (Non classés, CH) |  | format apigeom-figure : à tester à la main (×2) | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=b1e01&id=b1e01&alea=revue-0-a&i=1&cd=1)) |
 | A-58b222641f | b5324 (Non classés, CH) |  | aucune proposition (×9) | détection automatique | défaut nb=10, graine revue-1-a, q2 ([site](https://coopmaths.fr/alea/?uuid=b5324&id=b5324&n=10&alea=revue-1-a&i=1&cd=1)) |
-| A-f75d70d7c0 | babybel (Non classés, CH) |  | format apigeom-figure : à tester à la main (×12) | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=babybel&id=babybel&alea=revue-0-a&i=1&cd=1)) |
 | A-6bb03a7f57 | baeec (Non classés, CH) |  | aucune proposition (×9) | détection automatique | sup=false nb=10, graine revue-2-a, q2 ([site](https://coopmaths.fr/alea/?uuid=baeec&id=baeec&n=10&s=false&alea=revue-2-a&i=1&cd=1)) |
 | A-7257f1eeda | bd726 (Non classés, CH) |  | format relier-etiquettes : à tester à la main (×14) | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=bd726&id=bd726&alea=revue-0-a&i=1&cd=1)) |
 | A-e4ae825a98 | br9n6 (Non classés, CH) |  | format MetaInteractif2d : à tester à la main (×14) | détection automatique | sup=false, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=br9n6&id=br9n6&s=false&alea=revue-0-a&i=1&cd=1)) |

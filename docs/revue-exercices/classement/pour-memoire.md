@@ -2,12 +2,12 @@
 
 Information sur la couverture du banc, aucune action.
 
-252 constats, 252 exercices. Données complètes : `revue/classement/pour-memoire.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+251 constats, 251 exercices. Données complètes : `revue/classement/pour-memoire.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
 | [R3 Point final](#r3) | 5 | 5 |
-| [X7 Combinaisons de paramètres non toutes passées](#x7) | 247 | 247 |
+| [X7 Combinaisons de paramètres non toutes passées](#x7) | 246 | 246 |
 
 ## R3
 
@@ -258,7 +258,6 @@ Information sur la couverture du banc, aucune action.
 | A-4c5f8797fd | 8cd45 (Non classés, CH) |  | 338 combinaisons : 170 passées (couverture par paires) | détection automatique |  |
 | A-0e448ef6d9 | a3870 (Non classés, CH) |  | 384 combinaisons : 65 passées (couverture par paires) (×2) | détection automatique |  |
 | A-4908c64940 | ac571 (Non classés, CH) |  | 96 combinaisons : 13 passées (couverture par paires) | détection automatique |  |
-| A-ce47574a91 | ad5f8 (Non classés, CH) |  | 112 combinaisons : 56 passées (couverture par paires) | détection automatique |  |
 | A-0dd6bbda66 | b6cbe (Non classés, CH) |  | 108 combinaisons : 28 passées (couverture par paires) | détection automatique |  |
 | A-34615db3d9 | b8afd (Non classés, CH) |  | 56 combinaisons : 28 passées (couverture par paires) | détection automatique |  |
 | A-08c4af5f3a | ba520 (Non classés, CH) |  | 90 combinaisons : 31 passées (couverture par paires) | détection automatique |  |

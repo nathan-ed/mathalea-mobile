@@ -2,14 +2,14 @@
 
 Correction à la chaîne.
 
-1762 constats, 1192 exercices. Données complètes : `revue/classement/francais.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+1617 constats, 1050 exercices. Données complètes : `revue/classement/francais.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
-| [R1 Titre](#r1) | 578 | 540 |
+| [R1 Titre](#r1) | 435 | 398 |
 | [R3 Point final](#r3) | 1 | 1 |
 | [R4 Dernière phrase en saisie libre](#r4) | 5 | 5 |
-| [R5 Virgule (soit, alors, or)](#r5) | 570 | 352 |
+| [R5 Virgule (soit, alors, or)](#r5) | 568 | 350 |
 | [R8 Orthographe uniformisée](#r8) | 4 | 2 |
 | [R10 Français (accords, fautes, coquilles)](#r10) | 368 | 237 |
 | [R13 Accord, majuscule, unité](#r13) | 6 | 6 |
@@ -254,139 +254,6 @@ Correction à la chaîne.
 | A-2524cfd94d | EgaliteFG7-Tle-18 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFGLycee18.ts:15 | titre sans infinitif en tête : La sorcière d'Agnesi | détection automatique |  |
 | A-13c77a201b | EgaliteFG7-Tle-19 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFGLycee19.ts:15 | titre sans infinitif en tête : Étudiantes en école d'ingénieurs | détection automatique |  |
 | A-45f91531b2 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | src/exercices/egaliteFG/egaliteFGLycee20.ts:15 | titre sans infinitif en tête : La féminisation du corps médical | détection automatique |  |
-| A-854f1c65d4 | Portraits-001 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait001.ts:3 | titre sans infinitif en tête : Portrait : Sophie Adenot | détection automatique |  |
-| A-0c87c632c5 | Portraits-002 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait002.ts:3 | titre sans infinitif en tête : Portrait : Amandine Aftalion | détection automatique |  |
-| A-7deeb976a9 | Portraits-003 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait003.ts:3 | titre sans infinitif en tête : Portrait : Clémence Allietta | détection automatique |  |
-| A-5294deba5f | Portraits-004 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait004.ts:3 | titre sans infinitif en tête : Portrait : Nalini Anantharaman | détection automatique |  |
-| A-1fa8a97d77 | Portraits-005 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait005.ts:3 | titre sans infinitif en tête : Portrait : Nathalie Ayi | détection automatique |  |
-| A-a0332cc203 | Portraits-006 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait006.ts:3 | titre sans infinitif en tête : Portrait : Hanna Bendjador | détection automatique |  |
-| A-a53c03f78f | Portraits-007 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait007.ts:3 | titre sans infinitif en tête : Portrait : Sylvie Benzoni-Gavage | détection automatique |  |
-| A-afcf69016d | Portraits-008 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait008.ts:3 | titre sans infinitif en tête : Portrait : Karine Berger | détection automatique |  |
-| A-abc8e592fe | Portraits-009 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait009.ts:3 | titre sans infinitif en tête : Portrait : Florence Bertails-Descoubes | détection automatique |  |
-| A-6cc139ca48 | Portraits-010 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait010.ts:3 | titre sans infinitif en tête : Portrait : Manon Blanc | détection automatique |  |
-| A-3041d6ee83 | Portraits-011 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait011.ts:3 | titre sans infinitif en tête : Portrait : Laure Blanc-Féraud | détection automatique |  |
-| A-6b9a412ada | Portraits-012 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait012.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Bloch | détection automatique |  |
-| A-43a647ec01 | Portraits-013 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait013.ts:3 | titre sans infinitif en tête : Portrait : Justine Bonnot | détection automatique |  |
-| A-2f1e711f71 | Portraits-014 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait014.ts:3 | titre sans infinitif en tête : Portrait : Mireille Bossy | détection automatique |  |
-| A-6c1c616ec5 | Portraits-015 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait015.ts:3 | titre sans infinitif en tête : Portrait : Muriel Boulakia | détection automatique |  |
-| A-aac6317183 | Portraits-016 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait016.ts:3 | titre sans infinitif en tête : Portrait : Mireille Bousquet-Mélou | détection automatique |  |
-| A-a8300e615a | Portraits-017 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait017.ts:3 | titre sans infinitif en tête : Portrait : Anne Bouverot | détection automatique |  |
-| A-27eaf47707 | Portraits-018 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait018.ts:3 | titre sans infinitif en tête : Portrait : Patricia Bouyer-Decitre | détection automatique |  |
-| A-bbb38f0695 | Portraits-019 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait019.ts:3 | titre sans infinitif en tête : Portrait : Sylvie Buglioni | détection automatique |  |
-| A-e311ad39c9 | Portraits-020 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait020.ts:3 | titre sans infinitif en tête : Portrait : Claire Calmejane | détection automatique |  |
-| A-337f3663f7 | Portraits-021 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait021.ts:3 | titre sans infinitif en tête : Portrait : Marie-Paule Cani | détection automatique |  |
-| A-2787a35f7f | Portraits-022 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait022.ts:3 | titre sans infinitif en tête : Portrait : Anne Canteaut | détection automatique |  |
-| A-41039ec208 | Portraits-023 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait023.ts:3 | titre sans infinitif en tête : Portrait : Karine Chemla | détection automatique |  |
-| A-8a0f627e9e | Portraits-024 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait024.ts:3 | titre sans infinitif en tête : Portrait : Émilie Chouzenoux | détection automatique |  |
-| A-559eefa280 | Portraits-025 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait025.ts:3 | titre sans infinitif en tête : Portrait : Corinne Cipière | détection automatique |  |
-| A-eedd2021a2 | Portraits-026 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait026.ts:3 | titre sans infinitif en tête : Portrait : Marie-Anne Clair | détection automatique |  |
-| A-a2c5328d94 | Portraits-027 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait027.ts:3 | titre sans infinitif en tête : Portrait : Sarah Cohen-Boulakia | détection automatique |  |
-| A-ba03e54e6e | Portraits-028 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait028.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Collet | détection automatique |  |
-| A-bdffe15475 | Portraits-029 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait029.ts:3 | titre sans infinitif en tête : Portrait : Évelyne Contejean | détection automatique |  |
-| A-f1fc554412 | Portraits-030 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait030.ts:3 | titre sans infinitif en tête : Portrait : Véronique Cortier | détection automatique |  |
-| A-6ddfb0e407 | Portraits-031 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait031.ts:3 | titre sans infinitif en tête : Portrait : Sophie Dabo-Niang | détection automatique |  |
-| A-0ad7b62731 | Portraits-032 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait032.ts:3 | titre sans infinitif en tête : Portrait : Julie Delon | détection automatique |  |
-| A-cd7accba58 | Portraits-033 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait033.ts:3 | titre sans infinitif en tête : Portrait : Agnès Desolneux | détection automatique |  |
-| A-c772d46475 | Portraits-034 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait034.ts:3 | titre sans infinitif en tête : Portrait : Catherine Devic | détection automatique |  |
-| A-3a26d544f8 | Portraits-035 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait035.ts:3 | titre sans infinitif en tête : Portrait : Laurence Devillers | détection automatique |  |
-| A-19ed3ce12f | Portraits-036 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait036.ts:3 | titre sans infinitif en tête : Portrait : Léa Douchet | détection automatique |  |
-| A-1c62c5d4df | Portraits-037 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait037.ts:3 | titre sans infinitif en tête : Portrait : Nathalie Drach-Temam | détection automatique |  |
-| A-cdd0f531bb | Portraits-038 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait038.ts:3 | titre sans infinitif en tête : Portrait : Virginie Ehrlacher | détection automatique |  |
-| A-0d20eb2deb | Portraits-039 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait039.ts:3 | titre sans infinitif en tête : Portrait : Marie Ekeland | détection automatique |  |
-| A-3c4ccbf655 | Portraits-040 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait040.ts:3 | titre sans infinitif en tête : Portrait : Nicole El Karoui | détection automatique |  |
-| A-a619fabf25 | Portraits-041 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait041.ts:3 | titre sans infinitif en tête : Portrait : Samira El Yacoubi | détection automatique |  |
-| A-acbc0cf752 | Portraits-042 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait042.ts:3 | titre sans infinitif en tête : Portrait : Anne Etien | détection automatique |  |
-| A-cd3a8a11df | Portraits-043 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait043.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Fantoni | détection automatique |  |
-| A-8e208a123b | Portraits-044 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait044.ts:4 | titre sans infinitif en tête : Portrait : Virginie Fauvel | détection automatique |  |
-| A-65d9b538c2 | Portraits-045 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait045.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Gallagher | détection automatique |  |
-| A-7887658ad5 | Portraits-046 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait046.ts:3 | titre sans infinitif en tête : Portrait : Solenne Gaucher | détection automatique |  |
-| A-7196d222c9 | Portraits-047 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait047.ts:3 | titre sans infinitif en tête : Portrait : Hélyette Geman | détection automatique |  |
-| A-af47c901b0 | Portraits-048 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait048.ts:3 | titre sans infinitif en tête : Portrait : Élodie Germani | détection automatique |  |
-| A-e7bf83e2e1 | Portraits-049 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait049.ts:3 | titre sans infinitif en tête : Portrait : Eva Girousse | détection automatique |  |
-| A-a97426beca | Portraits-050 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait050.ts:3 | titre sans infinitif en tête : Portrait : Aliénor Grandclément | détection automatique |  |
-| A-8768e91a05 | Portraits-051 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait051.ts:3 | titre sans infinitif en tête : Portrait : Christine Guillemot | détection automatique |  |
-| A-6af52abfee | Portraits-052 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait052.ts:3 | titre sans infinitif en tête : Portrait : Alice Guionnet | détection automatique |  |
-| A-4e897257f9 | Portraits-053 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait053.ts:3 | titre sans infinitif en tête : Portrait : Céline Guivarch | détection automatique |  |
-| A-ee8b6e270e | Portraits-054 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait054.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Guyon | détection automatique |  |
-| A-584e9c3ff7 | Portraits-055 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait055.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Hébert | détection automatique |  |
-| A-ade7eddcc9 | Portraits-056 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait056.ts:3 | titre sans infinitif en tête : Portrait : Raphaèle Herbin | détection automatique |  |
-| A-e0b8078534 | Portraits-057 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait057.ts:3 | titre sans infinitif en tête : Portrait : Christel Heydemann | détection automatique |  |
-| A-b655e10d5c | Portraits-058 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait058.ts:3 | titre sans infinitif en tête : Portrait : Caroline Hillairet | détection automatique |  |
-| A-6586a53347 | Portraits-059 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait059.ts:3 | titre sans infinitif en tête : Portrait : Céline Hudelot | détection automatique |  |
-| A-7320e8cbf6 | Portraits-060 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait060.ts:3 | titre sans infinitif en tête : Portrait : Élise Janvresse | détection automatique |  |
-| A-bd06bdd6b4 | Portraits-061 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait061.ts:3 | titre sans infinitif en tête : Portrait : Aurélie Jean | détection automatique |  |
-| A-c8b7f129ef | Portraits-062 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait062.ts:3 | titre sans infinitif en tête : Portrait : Monique Jeanblanc | détection automatique |  |
-| A-9ee0fb44c3 | Portraits-063 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait063.ts:3 | titre sans infinitif en tête : Portrait : Maëlle Jounay | détection automatique |  |
-| A-3c05824b9b | Portraits-064 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait064.ts:3 | titre sans infinitif en tête : Portrait : Fanny Kassel | détection automatique |  |
-| A-50227dd811 | Portraits-065 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait065.ts:3 | titre sans infinitif en tête : Portrait : Christine Keribin | détection automatique |  |
-| A-4e58980ae4 | Portraits-066 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait066.ts:3 | titre sans infinitif en tête : Portrait : Hélène Kirchner | détection automatique |  |
-| A-ceabaa2a28 | Portraits-067 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait067.ts:3 | titre sans infinitif en tête : Portrait : Madeleine Kubasch | détection automatique |  |
-| A-586e4e8f1e | Portraits-068 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait068.ts:3 | titre sans infinitif en tête : Portrait : Céline Lazorthes | détection automatique |  |
-| A-13816b60ef | Portraits-069 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait069.ts:3 | titre sans infinitif en tête : Portrait : Pauline Leclerc-Glorieux | détection automatique |  |
-| A-1f412a9962 | Portraits-070 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait070.ts:3 | titre sans infinitif en tête : Portrait : Aline Lefebvre-Lepot | détection automatique |  |
-| A-9b92d1b4a1 | Portraits-071 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait071.ts:3 | titre sans infinitif en tête : Portrait : Florence Lustman | détection automatique |  |
-| A-43bb297b75 | Portraits-072 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait072.ts:3 | titre sans infinitif en tête : Portrait : Nadia Maïzi | détection automatique |  |
-| A-5fee31058b | Portraits-073 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait073.ts:3 | titre sans infinitif en tête : Portrait : Sibylle Marcotte | détection automatique |  |
-| A-bab465b534 | Portraits-074 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait074.ts:3 | titre sans infinitif en tête : Portrait : Claire Mathieu | détection automatique |  |
-| A-f60a429678 | Portraits-075 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait075.ts:3 | titre sans infinitif en tête : Portrait : Véronique Maume-Deschamps | détection automatique |  |
-| A-c133e12df9 | Portraits-076 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait076.ts:3 | titre sans infinitif en tête : Portrait : Clémentine Maurice | détection automatique |  |
-| A-56fe864803 | Portraits-077 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait077.ts:3 | titre sans infinitif en tête : Portrait : Sylvie Méléard | détection automatique |  |
-| A-7588f5bb4f | Portraits-078 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait078.ts:3 | titre sans infinitif en tête : Portrait : Julie Meunier | détection automatique |  |
-| A-06804236cd | Portraits-079 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait079.ts:3 | titre sans infinitif en tête : Portrait : Nathalie Mitton | détection automatique |  |
-| A-6f100290a1 | Portraits-080 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait080.ts:3 | titre sans infinitif en tête : Portrait : Sophie Morel | détection automatique |  |
-| A-bb2e9996e5 | Portraits-081 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait081.ts:3 | titre sans infinitif en tête : Portrait : Christine Morin | détection automatique |  |
-| A-932b6dfce2 | Portraits-082 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait082.ts:3 | titre sans infinitif en tête : Portrait : Hélène Morlon | détection automatique |  |
-| A-a867155f78 | Portraits-083 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait083.ts:3 | titre sans infinitif en tête : Portrait : Sophie Mourlon | détection automatique |  |
-| A-d3dcc2f8a8 | Portraits-084 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait084.ts:3 | titre sans infinitif en tête : Portrait : Laurence Nigay | détection automatique |  |
-| A-d5cefffbb5 | Portraits-085 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait085.ts:3 | titre sans infinitif en tête : Portrait : Anne-Cécile Orgerie | détection automatique |  |
-| A-cd17631be2 | Portraits-086 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait086.ts:3 | titre sans infinitif en tête : Portrait : Claire Pagetti | détection automatique |  |
-| A-e0d1312f73 | Portraits-087 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait087.ts:3 | titre sans infinitif en tête : Portrait : Katia Parodi | détection automatique |  |
-| A-b16e9393cb | Portraits-088 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait088.ts:3 | titre sans infinitif en tête : Portrait : Catherine Pelachaud | détection automatique |  |
-| A-b7fdec7d27 | Portraits-089 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait089.ts:3 | titre sans infinitif en tête : Portrait : Bernadette Perrin-Riou | détection automatique |  |
-| A-14e1a1fd6b | Portraits-090 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait090.ts:3 | titre sans infinitif en tête : Portrait : Florence Picard | détection automatique |  |
-| A-4b2b35cad1 | Portraits-091 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait091.ts:3 | titre sans infinitif en tête : Portrait : Anne Pichon | détection automatique |  |
-| A-a8231b4529 | Portraits-092 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait092.ts:3 | titre sans infinitif en tête : Portrait : Sophie Proust | détection automatique |  |
-| A-e56ce02604 | Portraits-093 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait093.ts:3 | titre sans infinitif en tête : Portrait : Marie-Christine Rousset | détection automatique |  |
-| A-97648c35e4 | Portraits-094 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait094.ts:3 | titre sans infinitif en tête : Portrait : Isabelle Ryl | détection automatique |  |
-| A-a3fa3c498a | Portraits-095 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait095.ts:3 | titre sans infinitif en tête : Portrait : Myriam Saadé | détection automatique |  |
-| A-3c06b8674f | Portraits-096 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait096.ts:3 | titre sans infinitif en tête : Portrait : Laure Saint-Raymond | détection automatique |  |
-| A-07365e5b21 | Portraits-097 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait097.ts:3 | titre sans infinitif en tête : Portrait : Fatiha Saïs | détection automatique |  |
-| A-34c36f52b2 | Portraits-098 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait098.ts:3 | titre sans infinitif en tête : Portrait : Sylvia Serfaty | détection automatique |  |
-| A-654d922831 | Portraits-099 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait099.ts:3 | titre sans infinitif en tête : Portrait : Anne Siegel | détection automatique |  |
-| A-3cdab5e750 | Portraits-100 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait100.ts:3 | titre sans infinitif en tête : Portrait : Marie-Luce Taupin | détection automatique |  |
-| A-873b64fac4 | Portraits-101 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait101.ts:3 | titre sans infinitif en tête : Portrait : Véronique Torner | détection automatique |  |
-| A-a7258217d7 | Portraits-102 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait102.ts:3 | titre sans infinitif en tête : Portrait : Florence Tupin | détection automatique |  |
-| A-cecf6edf06 | Portraits-103 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait103.ts:3 | titre sans infinitif en tête : Portrait : Amandine Véber | détection automatique |  |
-| A-1047330c01 | Portraits-104 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait104.ts:3 | titre sans infinitif en tête : Portrait : Michèle Vergne | détection automatique |  |
-| A-384489c066 | Portraits-105 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait105.ts:3 | titre sans infinitif en tête : Portrait : Sophie Viger | détection automatique |  |
-| A-ee5d69f825 | Portraits-106 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait106.ts:3 | titre sans infinitif en tête : Portrait : Claire Voisin | détection automatique |  |
-| A-5879d0e6d6 | Portraits-107 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait107.ts:3 | titre sans infinitif en tête : Portrait : Muriel Boulakia | détection automatique |  |
-| A-8b4bca55e8 | Portraits-108 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait108.ts:3 | titre sans infinitif en tête : Portrait : Lucia Clarotto | détection automatique |  |
-| A-7069fbf227 | Portraits-109 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait109.ts:3 | titre sans infinitif en tête : Portrait : Camille Coron | détection automatique |  |
-| A-5755c53707 | Portraits-110 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait110.ts:3 | titre sans infinitif en tête : Portrait : Aline Lefebvre-Lepot (livret Versailles) | détection automatique |  |
-| A-3f660559b3 | Portraits-111 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait111.ts:3 | titre sans infinitif en tête : Portrait : Yilin Wang | détection automatique |  |
-| A-29596c24b9 | Portraits-112 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait112.ts:3 | titre sans infinitif en tête : Portrait : Maëva Arlandis | détection automatique |  |
-| A-e378ed1dbc | Portraits-113 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait113.ts:3 | titre sans infinitif en tête : Portrait : Marie Zeidler | détection automatique |  |
-| A-1f6b875d59 | Portraits-114 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait114.ts:3 | titre sans infinitif en tête : Portrait : Rabetrano Miora Andriambololo-Nivo | détection automatique |  |
-| A-1c0be8d048 | Portraits-115 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait115.ts:3 | titre sans infinitif en tête : Portrait : Laura Schittecatte | détection automatique |  |
-| A-d37c266bfc | Portraits-116 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait116.ts:3 | titre sans infinitif en tête : Portrait : Catherine Langlet | détection automatique |  |
-| A-bf71ce8003 | Portraits-117 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait117.ts:3 | titre sans infinitif en tête : Portrait : Hypatie d'Alexandrie | détection automatique |  |
-| A-35e467a768 | Portraits-118 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait118.ts:3 | titre sans infinitif en tête : Portrait : Sophie Germain (livret Versailles) | détection automatique |  |
-| A-ef506ad819 | Portraits-119 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait119.ts:3 | titre sans infinitif en tête : Portrait : Ada Lovelace | détection automatique |  |
-| A-0de3bb0f79 | Portraits-120 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait120.ts:3 | titre sans infinitif en tête : Portrait : Florence Nightingale | détection automatique |  |
-| A-c7c2e6b81a | Portraits-121 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait121.ts:3 | titre sans infinitif en tête : Portrait : Emmy Noether | détection automatique |  |
-| A-bfa8bad7ab | Portraits-122 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait122.ts:3 | titre sans infinitif en tête : Portrait : Julia Robinson | détection automatique |  |
-| A-6474aeb5b7 | Portraits-123 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait123.ts:3 | titre sans infinitif en tête : Portrait : Mary Cartwright | détection automatique |  |
-| A-85180462f2 | Portraits-124 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait124.ts:3 | titre sans infinitif en tête : Portrait : Dorothy Vaughan | détection automatique |  |
-| A-1f49b579ba | Portraits-125 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait125.ts:3 | titre sans infinitif en tête : Portrait : Gladys West | détection automatique |  |
-| A-f010196f84 | Portraits-126 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait126.ts:3 | titre sans infinitif en tête : Portrait : Sally Ride | détection automatique |  |
-| A-3171fa2324 | Portraits-127 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait127.ts:3 | titre sans infinitif en tête : Portrait : Shakuntala Devi | détection automatique |  |
-| A-045a7f051d | Portraits-128 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait128.ts:3 | titre sans infinitif en tête : Portrait : Maryam Mirzakhani | détection automatique |  |
-| A-a04cc5615f | Portraits-129 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait129.ts:3 | titre sans infinitif en tête : Portrait : Katherine Johnson | détection automatique |  |
-| A-a1d422798d | Portraits-130 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait130.ts:3 | titre sans infinitif en tête : Portrait : Valérie Thomas | détection automatique |  |
-| A-28527192b6 | Portraits-131 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait131.ts:3 | titre sans infinitif en tête : Portrait : Claire Voisin (livret Versailles) | détection automatique |  |
-| A-d3a8cb9f04 | Portraits-132 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait132.ts:3 | titre sans infinitif en tête : Portrait : Fei-Fei Li | détection automatique |  |
-| A-ac44a31ff8 | Portraits-133 (Égalité filles-garçons) | src/exercices/egaliteFG/portrait133.ts:3 | titre sans infinitif en tête : Portrait : Timnit Gebru | détection automatique |  |
 | A-2cda3c099e | EN-CompteBon (EN) | src/exercices/enigmes-jeux/EN-le-compte-est-bon.ts:13 | titre sans infinitif en tête : Le compte est bon | détection automatique |  |
 | A-a4854fb333 | 3e/3F12.ts (hors référentiel) | src/exercices/3e/3F12.ts:5 | titre sans infinitif en tête : Calculer, de manières différentes, des images par une fonction | détection automatique |  |
 | A-2af73af752 | 5e/_Constructibilite_des_triangles.ts (hors référentiel) | src/exercices/5e/_Constructibilite_des_triangles.ts:18 | titre sans infinitif en tête : Constructibilité des triangles via les longueurs ou les angles | détection automatique |  |
@@ -419,9 +286,7 @@ Correction à la chaîne.
 | A-53b99c7452 | HPC103 (HP) | src/exercices/HP/HPC103.ts:12 | titre sans infinitif en tête : Produit de matrices | détection automatique |  |
 | L-a83f607b4c | 0021e (Non classés, CH) | relecture | Titre : « dixèmes » (dixièmes) → dixièmes | confirmé à la relecture |  |
 | L-7e820b7fd3 | 18559 (Non classés, CH) | relecture | Titre : « … le chiffre des unités devienne le chiffre des ... ? » titre inachevé avec « ... » et espace avant ? → Titre complet | confirmé à la relecture |  |
-| A-f46a7a532c | 1eb36 (Non classés) | src/exercices/modèlesExos/30_constructions_géométriques.ts:16 | titre sans infinitif en tête : Nom de l'exercice | détection automatique |  |
 | L-2117cfff38 | 23241 (Non classés, CH) | relecture | Titre : « probabilté » (probabilité) → probabilité | confirmé à la relecture |  |
-| A-6f5af89f82 | 29957 (Non classés) | src/exercices/can/c3/canc3C26.ts:8 | titre sans infinitif en tête : Test MultiMathfield | détection automatique |  |
 | A-7f2cbb23f1 | 2cdd4 (Non classés) | src/exercices/can/canCE1a-2026/canCE1-2026-Q8.ts:7 | titre sans infinitif en tête : (QCM) | détection automatique |  |
 | A-519a0e2803 | 36cc7 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q3.ts:11 | titre sans infinitif en tête : Droite des nombres | détection automatique |  |
 | A-119f5cea61 | 38d97 (Non classés) | src/exercices/can/can4a-2025/can4a-2025-Q13.ts:8 | titre sans infinitif en tête : Conversion de longueurs | détection automatique |  |
@@ -467,7 +332,6 @@ Correction à la chaîne.
 | A-1b0bb4b18c | 9f72f (Non classés) | src/exercices/TEx/TEC1-02.ts:4 | titre sans infinitif en tête : Produits de nombres complexes | détection automatique |  |
 | A-38c9d27542 | 9f83f (Non classés) | src/exercices/TEx/TEC1-05.ts:5 | titre sans infinitif en tête : Produits complexes | détection automatique |  |
 | A-e93c5a90b0 | a2993 (Non classés) | src/exercices/can/canCE1a-2026/canCE1-2026-Q18.ts:16 | titre sans infinitif en tête : Trouve l'heure sur une horloge (QCM) | détection automatique |  |
-| A-2df5c5a2a9 | a309b (Non classés) | src/exercices/modèlesExos/30_questions_differentes_chronologiquesy.ts:3 | titre sans infinitif en tête : Nom de l'exercice | détection automatique |  |
 | A-5665a3707e | a343a (Non classés) | src/exercices/can/can5a-2025/can5a-2025-Q20.ts:6 | titre sans infinitif en tête : Division euclidienne | détection automatique |  |
 | A-3be605bd73 | a343b (Non classés) | src/exercices/can/can5a-2025/can5a-2025-Q22.ts:7 | titre sans infinitif en tête : Proportionnalité | détection automatique |  |
 | A-78721f89ee | a343g (Non classés) | src/exercices/can/can5a-2025/can5a-2025-Q1.ts:6 | titre sans infinitif en tête : Tables de multiplication | détection automatique |  |
@@ -491,7 +355,6 @@ Correction à la chaîne.
 | A-6cb9db9cd2 | a343z (Non classés) | src/exercices/can/can5a-2025/can5a-2025-Q19.ts:8 | titre sans infinitif en tête : Numération | détection automatique |  |
 | A-70eb06e9a9 | a3y3b (Non classés) | src/exercices/can/can5a-2025/can5a-2025-Q26.ts:6 | titre sans infinitif en tête : Égalité de fractions | détection automatique |  |
 | A-9e0c9d0fa1 | afrce (Non classés) | src/exercices/can/can4a-2025/can4a-2025-Q14.ts:8 | titre sans infinitif en tête : Probabilités | détection automatique |  |
-| A-2afc298cbf | aModifier (Non classés) | src/exercices/modèlesExos/20_plusieurs_types.ts:4 | titre sans infinitif en tête : Nom de l'exercice | détection automatique |  |
 | A-fccce61470 | autres-1 (Non classés) | src/exercices/can/can4a-2025/can4a-2025-Q17.ts:7 | titre sans infinitif en tête : Boucle scratch | détection automatique |  |
 | A-f589f0c821 | b343g (Non classés) | src/exercices/can/can5a-2025/can5a-2025-Q23.ts:5 | titre sans infinitif en tête : Majoration de fraction | détection automatique |  |
 | A-f2783e3839 | b9935 (Non classés) | src/exercices/modèlesExos/00_simple_Course_au_Nombres.ts:4 | titre sans infinitif en tête : Somme de deux entiers | détection automatique |  |
@@ -504,19 +367,13 @@ Correction à la chaîne.
 | A-ffd4d2dec3 | dce62 (Non classés) | src/exercices/can/can6a-2025/can6a-2025-Q7.ts:3 | titre sans infinitif en tête : Multiple simple | détection automatique |  |
 | A-a911598c41 | e24f0 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q17.ts:6 | titre sans infinitif en tête : Multiples de 10 | détection automatique |  |
 | A-f44e94c545 | e6bf9 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q8.ts:6 | titre sans infinitif en tête : Combien de fois ? | détection automatique |  |
-| A-eacc1b0c41 | exemple-qcm-json (Non classés) | src/exercices/modèlesExos/ExempleQcmJson.ts:65 | titre sans infinitif en tête : Exemple QCM JSON | détection automatique |  |
 | A-a140ba721f | f0cad (Non classés) | src/exercices/can/can4a-2025/can4a-2025-Q21.ts:5 | titre sans infinitif en tête : Somme de nombre relatifs | détection automatique |  |
 | A-b715d7d31b | f343g (Non classés) | src/exercices/can/can6a-2025/can6a-2025-Q1.ts:5 | titre sans infinitif en tête : Sommes de nombres entiers | détection automatique |  |
 | A-00759d1839 | f34d0 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q6.ts:8 | titre sans infinitif en tête : Multiple simple | détection automatique |  |
 | A-727158fb2c | f3a3g (Non classés) | src/exercices/can/can6a-2025/can6a-2025-Q2.ts:5 | titre sans infinitif en tête : Tables à trou | détection automatique |  |
 | A-d34e3f382b | f6jd7 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q11.ts:20 | titre sans infinitif en tête : Visualisation 3d | détection automatique |  |
 | A-730928eed6 | f776b (Non classés) | src/exercices/can/can4a-2025/can4a-2025-Q19.ts:6 | titre sans infinitif en tête : Programme de calcul | détection automatique |  |
-| A-ce1594c181 | f9261 (Non classés) | src/exercices/modèlesExos/21_parametrable.ts:3 | titre sans infinitif en tête : Nom de l'exercice | détection automatique |  |
-| A-b07f0b1c3b | jnapmep1 (Non classés) | src/exercices/modèlesExos/JNAPMEP_parametrage.ts:14 | titre sans infinitif en tête : Nom de l'exercice | détection automatique |  |
 | A-1dfdb698f0 | r70zj (Non classés) | src/exercices/can/can4a-2026/can4a-2026-Q18.ts:14 | titre sans infinitif en tête : Expression du périmètre d'un rectangle en fonction de sa largeur | détection automatique |  |
-| A-e2131cfb0d | sebseb (Non classés) | src/exercices/modèlesExos/ExempleSchemaEnBoite.ts:10 | titre sans infinitif en tête : Schemas en boite | détection automatique |  |
-| A-6fb87258e8 | testEEE (Non classés, CH) | titre | titre terminé par un point : Eric fait ses tests interactifs. | détection automatique |  |
-| A-baa69d42d2 | testEEE (Non classés) | src/exercices/profs/test.ts:8 | titre terminé par un point : Eric fait ses tests interactifs. ‖ titre sans infinitif en tête : Eric fait ses tests interactifs. (×2) | détection automatique |  |
 | A-325c760eda | PR-31 (Primaire) | src/exercices/6e/6N12-1.ts:7 | titre sans infinitif en tête : Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ? | détection automatique |  |
 | A-f75bb7bc39 | PR-7 (Primaire) | src/exercices/can/can5a-2025/can5a-2025-Q24.ts:19 | titre sans infinitif en tête : Partage d'un segment | détection automatique |  |
 | A-da5694697f | PR-9 (Primaire) | src/exercices/can/canCE2a-2025/canCE2-2025-Q7.ts:7 | titre sans infinitif en tête : Numeration simple | détection automatique |  |
@@ -1044,8 +901,6 @@ Correction à la chaîne.
 | A-e6d1c79f9c | EgaliteFG7-Tle-17 (Égalité filles-garçons) | énoncé | pas de virgule avant « soit » : que l'élève soit une fille et admise en CPGE. [champ] ‖ pas de virgule avant « soit » : que cet élève soit un garçon ? [champ] ‖ pas de virgule avant « soit » : robabilité qu'un seul des sept élèves tirés au sort soit admis en CPGE (arrondie au centième). [cham (×6) | détection automatique | sup=true, graine revue-0-a, q2 ([site](https://coopmaths.fr/alea/?uuid=cd974&id=EgaliteFG7-Tle-17&s=true&alea=revue-0-a&i=1&cd=1)) |
 | A-453f1fc322 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé | pas de virgule avant « alors » : non autorisée à concourir à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'int (×2) | détection automatique | sup=true sup2=true, graine revue-0-a, q9 ([site](https://coopmaths.fr/alea/?uuid=7a886&id=EgaliteFG7-Tle-20&s=true&s2=true&alea=revue-0-a&i=1&cd=1)) |
 | A-9fc6857f20 | EgaliteFG7-Tle-20 (Égalité filles-garçons) | énoncé non interactif | pas de virgule avant « alors » : non autorisée à concourir à l'externat des hôpitaux alors qu'elle avait été « faisant fonction d'int | détection automatique |  |
-| A-a9286b22db | Portraits-123 (Égalité filles-garçons) | consigne | pas de virgule avant « soit » : od a inspiré la théorie du chaos bien avant qu'elle soit célèbre ! Parcours : Mathématicienne (×3) | détection automatique | sup=1, graine revue-0-a ([site](https://coopmaths.fr/alea/?uuid=81b2d&id=Portraits-123&s=1&alea=revue-0-a&i=1&cd=1)) |
-| A-80ad7ecb9b | Portraits-132 (Égalité filles-garçons) | consigne | pas de virgule avant « soit » : e l'IA actuelle et milite pour que cette discipline soit centrée sur l'humain et l'inclusion. (×3) | détection automatique | sup=1, graine revue-0-a ([site](https://coopmaths.fr/alea/?uuid=dda8e&id=Portraits-132&s=1&alea=revue-0-a&i=1&cd=1)) |
 | A-81bcb7adb2 | 0a113 (Non classés, CH) | énoncé non interactif | pas de virgule avant « alors » : uveaux arbres. Combien d'arbres y a-t-il alors dans le parc ? | détection automatique |  |
 | A-bfd52eb55d | 0a113 (Non classés, CH) | énoncé | pas de virgule avant « alors » : uveaux arbres. Combien d'arbres y a-t-il alors dans le parc ? Enchaînement de calculs ( (×11) | détection automatique | sup=12 sup2=false, graine revue-0-a, q2 ([site](https://coopmaths.fr/alea/?uuid=0a113&id=0a113&s=12&s2=false&alea=revue-0-a&i=1&cd=1)) |
 | A-bffa43b75a | 0fbd1 (Non classés, CH) | correction | pas de virgule avant « alors » : . On a alors une solution double : ‖ pas de virgule avant « alors » : Si un produit est nul alors l'un au moins de ses facteurs est nul. (×5) | détection automatique | sup=1, graine revue-0-a, q2 ([site](https://coopmaths.fr/alea/?uuid=0fbd1&id=0fbd1&s=1&alea=revue-0-a&i=1&cd=1)) |

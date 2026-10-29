@@ -8,17 +8,17 @@ catégorie. Fichier produit par `node revue/classer.mjs`, contrôlé par
 
 | Catégorie | Qui, comment | Constats | Exercices | Occurrences |
 | --- | --- | ---: | ---: | ---: |
-| [Interactif faux](tickets-interactif.md) | Développeur (ticket). Chaque constat donne la graine, les paramètres et la saisie qui reproduisent le défaut. | 210 | 165 | 2966 |
-| [Rendu cassé, exception, question vide ou en double](tickets-rendu.md) | Développeur (ticket). | 1193 | 466 | 13772 |
+| [Interactif faux](tickets-interactif.md) | Développeur (ticket). Chaque constat donne la graine, les paramètres et la saisie qui reproduisent le défaut. | 203 | 158 | 2848 |
+| [Rendu cassé, exception, question vide ou en double](tickets-rendu.md) | Développeur (ticket). | 904 | 318 | 11370 |
 | [Contenu mathématique et formulation](maths-formulation.md) | Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre sans rapport avec l'exercice, explication à reprendre. | 267 | 251 | 400 |
-| [Décisions à prendre](decisions.md) | Développeur MathALÉA : harmonisations (tutoiement, notation, orthographe), paramètres sans effet ou absurdes, doublons, figures trop larges. | 1840 | 1137 | 20908 |
-| [Mise en évidence à aligner sur le champ](mise-en-evidence.md) | Correction à la chaîne : ce qui est mis en évidence doit être exactement ce que le champ attend, sans texte ni unité. | 7453 | 1369 | 58111 |
-| [Français : fautes, coquilles, accords, tournures](francais.md) | Correction à la chaîne. | 1762 | 1192 | 9215 |
-| [Typographie et écriture des nombres](typographie.md) | Correction à la chaîne (espaces, $, séparateurs, points de suspension, point final). | 6990 | 2532 | 204397 |
-| [Défauts de l'app MathALÉA mobile](app-mobile.md) | Nathan (moteur de l’app, pas les exercices). | 10 | 9 | 10 |
-| [Exercices de test, modèles ou inutilisables](a-ecarter.md) | Mis de côté : à retirer du référentiel ou à terminer, rien à corriger dans le détail. | 26 | 26 | 26 |
-| [Interactif à tester à la main](a-tester-main.md) | Pas une erreur : format que le banc ne sait pas remplir (glisser-déposer, figure, clic). | 309 | 292 | 22282 |
-| [Pour mémoire](pour-memoire.md) | Information sur la couverture du banc, aucune action. | 252 | 252 | 261 |
+| [Décisions à prendre](decisions.md) | Développeur MathALÉA : harmonisations (tutoiement, notation, orthographe), paramètres sans effet ou absurdes, doublons, figures trop larges. | 2567 | 1131 | 25329 |
+| [Mise en évidence à aligner sur le champ](mise-en-evidence.md) | Correction à la chaîne : ce qui est mis en évidence doit être exactement ce que le champ attend, sans texte ni unité. | 7426 | 1357 | 57722 |
+| [Français : fautes, coquilles, accords, tournures](francais.md) | Correction à la chaîne. | 1617 | 1050 | 9065 |
+| [Typographie et écriture des nombres](typographie.md) | Correction à la chaîne (espaces, $, séparateurs, points de suspension, point final). | 6625 | 2388 | 194894 |
+| [Défauts de l'app MathALÉA mobile](app-mobile.md) | Nathan (moteur de l’app, pas les exercices). | 16 | 13 | 108 |
+| [Exercices de test, modèles ou inutilisables](a-ecarter.md) | Mis de côté : à retirer du référentiel ou à terminer, rien à corriger dans le détail. | 129 | 26 | 8084 |
+| [Interactif à tester à la main](a-tester-main.md) | Pas une erreur : format que le banc ne sait pas remplir (glisser-déposer, figure, clic). | 307 | 290 | 22268 |
+| [Pour mémoire](pour-memoire.md) | Information sur la couverture du banc, aucune action. | 251 | 251 | 260 |
 | [Faux positifs écartés](faux-positifs.md) | Constats automatiques reconnus faux à la relecture, gardés pour la traçabilité. | 36 | 10 | 440 |
 | **Total** | | **20348** | | **332788** |
 
