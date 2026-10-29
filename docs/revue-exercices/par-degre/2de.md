@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **336 sur 615**. Constats confirmés : **138**.
+Exercices relus : **355 sur 615**. Constats confirmés : **141**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 53 |
+| Rédaction (français, titres, consignes) | 56 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -130,6 +130,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | --- | --- | --- |
 | 2A | R10 Français | Énoncé : « chargement... » (meta-custom jamais rempli dans le banc, voir 3Auto) | Voir bug meta-custom | relecture |
 | 2A-P3-3 | R16  | Titre « Comparer des probabilités » terminé par une espace | Retirer | relecture |
+| 2A-R1-5 | R16  | Titre « Comparer  avec des pourcentages » : deux espaces | Une seule espace | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
 | 2A-C4-5 | R16  | Énoncé : $C=(1+t)^2$ sans hypothèse sur le signe de $1+t$, mais la correction affirme « les deux membres sont positifs » et prend $\sqrt{C}=1+t$ (la réponse unique $\sqrt{C}-1$ est fausse pour $t&lt;-1$) | Ajouter « avec $t\geqslant -1$ » (ou $1+t\geqslant0$) dans l'énoncé | src/exercices/2e/ |
@@ -148,6 +149,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-N7-5 | R3  | Correction : « $3$ $\text{ dm}$ » nombre et unité en deux formules avec espace dans \text ; « mm}^2$ . » espace avant le point final | $3\text{ dm}$ ; point collé | src/exercices/2e/ |
 | 2A-P2-1 | R4  | Orthographe incohérente : titre « évènement contraire » mais énoncé « événement » (même exercice) ; et 3A/4S utilisent d'autres formes | Choisir une graphie (rectifiée « événement » acceptée par MathALÉA ?) et l'appliquer partout | src/exercices/2e/ |
 | 2A-P2-2 | R3  | Énoncé : « $15 \,\%$ » espace ordinaire puis \, avant % (double espace) | $15\,\%$ | src/exercices/2e/ |
+| 2A-R2-4 | R16  | Énoncé : « Quel est le nombre d' appartements » (espace après l'apostrophe) | « d'appartements » | src/exercices/2e/ |
+| 2A-R2-7 | R16  | Unité après le champ : « ton » (ni « t » ni « tonnes ») ; « $30 \,\%$ » espace avant \, | « tonnes » ou « t » | src/exercices/2e/ |
 | 2A-S2-7 | R16  | Titre « Comparer la moyenne et l'écart-type d'une série rangée en classes » alors que l'exercice compare deux séries simples E et F sur leur moyenne | Titre cohérent avec la question | src/exercices/2e/ |
 | 2A-S4-6 | R16  | Titre « Lire une fréquence… » mais la question demande la valeur du troisième quartile | Titre cohérent | src/exercices/2e/ |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
@@ -203,4 +206,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 950 ; T4  938 ; N1 Nombre hors $ 322 ; T6 Points de suspension 193 ; R5 Virgule 143 ; N6 Écriture algébrique 123 ; T3  76 ; N2 Séparateur des milliers 34 ; R10 Français 13 ; M7  11 ; N3  9 ; R2 Tutoiement, impératif 8 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T4  1018 ; T5 Espaces 966 ; N1 Nombre hors $ 342 ; T6 Points de suspension 247 ; R5 Virgule 143 ; N6 Écriture algébrique 123 ; T3  76 ; N2 Séparateur des milliers 34 ; R10 Français 13 ; R6  13 ; M7  11 ; N3  9 ; R2 Tutoiement, impératif 8 ; T2  5 ; R1 Titre 2.
