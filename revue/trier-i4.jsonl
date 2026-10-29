@@ -1,0 +1,54 @@
+{"cle":"A-3c46903c88","id":"1A","q":1,"questions":12,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"1. chargement..."}
+{"cle":"A-b1200b5542","id":"1A","q":2,"questions":12,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"2. chargement..."}
+{"cle":"A-c2eed3e89e","id":"1A","q":4,"questions":12,"orpheline":false,"interactive":true,"format":"tableau-mathlive","champs":5,"texte":"4. Soit 𝐴 A et 𝐵 B deux événements d'un même univers. On note 𝐴 ‾ A l'événement contraire de 𝐴 A et 𝐵 ‾ B l'événement contraire de 𝐵 B. Le tableau croisé "}
+{"cle":"A-4f3aa2d6af","id":"1A-P01-3","q":8,"questions":7,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-2204557cce","id":"1AN10-1","q":6,"questions":5,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-a6f428293a","id":"1P10-3","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-46ce8e9a57","id":"2A","q":3,"questions":10,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"3. chargement..."}
+{"cle":"A-daea5dc33b","id":"2A","q":1,"questions":10,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"1. chargement..."}
+{"cle":"A-3d88489286","id":"2F30-3","q":7,"questions":6,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-c853118316","id":"2I11-2","q":9,"questions":8,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-99b21d5c12","id":"2N30-1","q":2,"questions":1,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-2e50ed0919","id":"2mTrigoFct-6","q":5,"questions":4,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-3b4287b550","id":"2mTrigoFct-7","q":5,"questions":4,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-086685d18d","id":"3Auto","q":7,"questions":10,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"7. chargement..."}
+{"cle":"A-608ef9a405","id":"3Auto","q":1,"questions":10,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"1. chargement..."}
+{"cle":"A-4f31daf857","id":"3F13-1","q":1,"questions":1,"orpheline":false,"interactive":true,"format":"mathalea-mathfield","champs":2,"texte":"1. Ci-dessous, on a tracé la courbe représentative de la fonction 𝑓 f. S'il y a plusieurs réponses, séparer les réponses avec un point-virgule. c) Déterminer l"}
+{"cle":"A-aff44d251b","id":"4C10-3","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-50629aa4e5","id":"4C10-7","q":3,"questions":2,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-4867867220","id":"4F12","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-ec3ba29c03","id":"4G20-9","q":3,"questions":2,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-be27f71432","id":"4P16-2","q":9,"questions":8,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-eff466f419","id":"5N1autoC-1","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-7fa6470618","id":"5N2G","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-30205ca8fd","id":"5N2I-1","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-158354fb35","id":"5N5F","q":2,"questions":1,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-26486656ca","id":"6A","q":1,"questions":10,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"1. chargement..."}
+{"cle":"A-f1fc4d2eaa","id":"6A","q":1,"questions":10,"orpheline":false,"interactive":true,"format":"meta-custom","champs":0,"texte":"1. chargement..."}
+{"cle":"A-cd9d0ffe83","id":"6AutoL1","q":7,"questions":6,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-e017fc8c78","id":"6AutoT1-6","q":7,"questions":6,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-7071f0eff3","id":"6M3A","q":20,"questions":10,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-4e694025c8","id":"6N0A-1","q":2,"questions":1,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-8eb098c950","id":"6N0A-4","q":5,"questions":4,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-5fa6eff595","id":"6N3autoD-6","q":9,"questions":8,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-6100eee83c","id":"6N3F-1","q":2,"questions":1,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-38bbd681bd","id":"6N3O","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-35ca4e9b87","id":"BP2CCF10","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-d671ff1f0d","id":"can6a-Aléa","q":1,"questions":4,"orpheline":false,"interactive":false,"format":"aucun","champs":0,"texte":"1. chargement..."}
+{"cle":"A-33dc73d2b8","id":"can6a-CoopMaths","q":22,"questions":21,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-bed3b790dc","id":"canc3a","q":27,"questions":26,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-1720c04fb6","id":"canc3C16","q":9,"questions":8,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-18440cbae5","id":"CM1N2B","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-a9c9891c92","id":"CM2N1D-2","q":2,"questions":4,"orpheline":false,"interactive":true,"format":"mathalea-mathfield","champs":1,"texte":"2. Décomposer le nombre 3 3 en complétant avec les nombres (à un seul chiffre) qui conviennent. $3= ~unités$"}
+{"cle":"A-52e519f3f4","id":"CM2N3A-1","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-95e824f0d4","id":"CM2N3A-14","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-b8e7cc2cff","id":"CM2N3A-2","q":2,"questions":1,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-e94ee33c69","id":"CM2N3A-3","q":3,"questions":2,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-1199f9b3ac","id":"CM2N3A-9","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-dd4508c696","id":"0e6bd","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-ef3206e6df","id":"1871d","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-5788987a60","id":"3ca3e","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-d661a1bbf0","id":"3f39d","q":49,"questions":8,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-3aef75ce36","id":"612b9","q":4,"questions":3,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-6d38d6442e","id":"665a0","q":10,"questions":9,"orpheline":true,"interactive":null,"format":null}
+{"cle":"A-76a36e271b","id":"TSG1-04","q":8,"questions":7,"orpheline":true,"interactive":null,"format":null}

@@ -2,6 +2,9 @@
 // paramètres, dans une page neuve, pour ne garder comme tickets que ce qui se reproduit.
 // Écrit revue/rejeu.jsonl (une ligne par clé, reprise possible), lu par classer.mjs.
 //   node revue/rejouer.mjs [--m1] [--categorie tickets-interactif] [--limite n]
+// --decales : refait les M1 des exercices de revue/champs-decales.json (champs numérotés à
+// la suite sur tout l'exercice) en comparant le champ k aux mises en évidence de la question
+// qui le contient réellement (le banc prenait la correction de la question k).
 import { appendFileSync, existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -12,16 +15,24 @@ const ici = dirname(fileURLToPath(import.meta.url))
 const BASE = process.env.BASE ?? 'http://127.0.0.1:5173/alea/'
 const args = process.argv.slice(2)
 const opt = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d)
-const REGLES = args.includes('--m1') ? ['M1'] : ['I1', 'I2', 'I3', 'I4', 'I5']
+const DECALES = args.includes('--decales')
+const REGLES = args.includes('--m1') || DECALES ? ['M1'] : ['I1', 'I2', 'I3', 'I4', 'I5']
+const idsDecales = DECALES ? new Set(JSON.parse(readFileSync(join(ici, 'champs-decales.json'), 'utf8')).map((x) => x.id)) : null
 const LIMITE = Number(opt('--limite', Infinity))
+// --part k/n : ne rejoue qu'un constat sur n (k de 0 à n-1), pour lancer plusieurs instances
+const PARTS = opt('--part', '0/1').split('/').map(Number)
 const FICHIER = join(ici, 'rejeu.jsonl')
-const faits = new Set(existsSync(FICHIER) ? readFileSync(FICHIER, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l).cle) : [])
+const lignesRejeu = existsSync(FICHIER) ? readFileSync(FICHIER, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []
+// avec --decales, on reprend les constats déjà rejoués et reproduits, sauf ceux déjà refaits
+const faits = new Set(DECALES ? lignesRejeu.filter((l) => l.decales).map((l) => l.cle) : lignesRejeu.map((l) => l.cle))
 const constats = gunzipSync(readFileSync(join(ici, 'classement', 'constats.jsonl.gz')))
   .toString()
   .split('\n')
   .filter(Boolean)
   .map((l) => JSON.parse(l))
   .filter((c) => c.origine === 'banc' && REGLES.includes(c.regle) && c.categorie !== 'faux-positifs' && !faits.has(c.cle))
+  .filter((c) => !DECALES || idsDecales.has(c.id))
+  .filter((c, i) => i % PARTS[1] === PARTS[0])
   .slice(0, LIMITE)
 console.log(`${constats.length} constats à rejouer`)
 
@@ -68,6 +79,24 @@ async function essayer(c, o) {
   const x = r.resultats.find((y) => y.q === q)
   if (!x) return { reproduit: false, detail: `question ${q + 1} absente`, params: p }
   const base = { params: p, saisie: x.valeurs ?? null, format: x.format, retour: x.retour ?? '' }
+  if (DECALES) {
+    // question qui contient réellement le champ k, et rang du champ dans cette question
+    const lieu = await page.evaluate(async (k) => {
+      await window.sonde.rendre('enonce')
+      const el = document.getElementById(`champTexteEx0Q${k}`)
+      const bloc = el?.closest('[data-q]')
+      if (!bloc) return null
+      const ids = [...bloc.querySelectorAll('[id^="champTexteEx0Q"]')].map((e) => e.id)
+      return { q: Number(bloc.dataset.q), rang: ids.indexOf(el.id), nb: ids.length }
+    }, q)
+    if (!lieu) return { ...base, reproduit: false, detail: 'champ introuvable dans la page' }
+    const evs = await page.evaluate((qq) => window.sonde.evidencesDe(qq), lieu.q)
+    const candidats = [evs.length === lieu.nb ? evs[lieu.rang] : null, ...evs].filter(Boolean)
+    for (const v of [...new Set(candidats)])
+      if (await page.evaluate(([qq, vv]) => window.sonde.essai(qq, vv), [q, v]))
+        return { ...base, reproduit: false, detail: `champ ${q} (question ${lieu.q + 1}, champ ${lieu.rang + 1}/${lieu.nb}) : mise en évidence ${v} acceptée` }
+    return { ...base, reproduit: true, detail: `champ ${q} (question ${lieu.q + 1}, champ ${lieu.rang + 1}/${lieu.nb}) : mises en évidence ${JSON.stringify(evs)} refusées` }
+  }
   if (c.regle === 'I4') return { ...base, reproduit: x.possible === false && /absent/.test(x.raison ?? ''), detail: x.raison ?? 'champ présent' }
   if (x.possible === false) return { ...base, reproduit: false, detail: `saisie impossible : ${x.raison}` }
   if (x.exception) return { ...base, reproduit: true, detail: `exception : ${x.exception}` }
@@ -108,7 +137,7 @@ for (const c of constats) {
       await nouvellePage()
     }
   }
-  const ligne = { cle: c.cle, id: c.id, regle: c.regle, reproduit: !!res?.reproduit, detail: res?.detail ?? essais.at(-1)?.erreur ?? 'aucune occurrence', occurrence: res?.occurrence ?? occs[0] ?? null, params: res?.params ?? null, saisie: res?.saisie ?? null, retour: res?.retour ?? '', essais }
+  const ligne = { ...(DECALES ? { decales: true } : {}), cle: c.cle, id: c.id, regle: c.regle, reproduit: !!res?.reproduit, detail: res?.detail ?? essais.at(-1)?.erreur ?? 'aucune occurrence', occurrence: res?.occurrence ?? occs[0] ?? null, params: res?.params ?? null, saisie: res?.saisie ?? null, retour: res?.retour ?? '', essais }
   appendFileSync(FICHIER, JSON.stringify(ligne) + '\n')
   if (i % 10 === 0 || i === constats.length) console.log(`[${i}/${constats.length}] ${c.id} ${c.regle} ${ligne.reproduit ? 'reproduit' : 'non reproduit'} : ${ligne.detail.slice(0, 80)}`)
 }

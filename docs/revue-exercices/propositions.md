@@ -80,8 +80,19 @@ modifiés d'une MR :
   `can6a-Aléa`, automatismes) restent à « chargement… ».
 - `ajusterFigures` lit `data-top` et `data-left` absents des figures apigeom
   statiques : les étiquettes se placent en haut à gauche.
-- Comparaison « +1 » et références de tableur contenant des `$`.
+- Question à plusieurs champs numérotés à la suite sur tout l'exercice
+  (`champTexteEx0Q0`, `Q1`, `Q2`… dans la même question) : `verifier`
+  ne lit que `autoCorrection[question]`. Les autres champs ne comptent
+  pas et la question suivante est notée sur un champ de la précédente
+  (TEM1-14 : la question 3 est comparée à la matrice de la question 2).
+  176 exercices, liste dans `revue/champs-decales.json`. Même logique dans
+  `QuestionParPage.svelte` du site.
+- Comparaison « +1 » : une réponse juste suivie de « +1 » est acceptée
+  après une unité (`°`, `€`, `s`), un intervalle ou une matrice.
 - Identifiants indéfinis dans certaines sorties du moteur.
+
+Les « $ » visibles dans les exercices de tableur (PET12 à PET16, `=B2/$B$8`)
+sont des références absolues voulues : ce n'est pas un défaut.
 
 ## 4. Exercices dont l'interactif refuse la bonne réponse (confirmés)
 

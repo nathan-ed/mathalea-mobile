@@ -1,0 +1,121 @@
+1193 constats à rejouer
+[10/1193] TTE-5 M1 reproduit : refusé (0/1) : Le résultat est incorrect.
+[20/1193] can2G20-03 M1 reproduit : mise en évidence ["\\dfrac{8}{3}\\overrightarrow{IM}"] refusée (0/1)
+[30/1193] can2P2-02 M1 reproduit : mise en évidence ["P_{B}(\\overline{M})=0,21"] refusée (0/1)
+[40/1193] BP2AutoI17 M1 reproduit : mise en évidence ["(x+2)","(x+2)","(x+2)"] refusée (0/1)
+[50/1193] can1a-2025 M1 reproduit : refusé (0/1) : 2e réponse : résultat incorrect car une valeur décimale (ou entiè
+[60/1193] can1SD21-04 M1 reproduit : mise en évidence ["-5","-3"] refusée (0/1)
+[70/1193] 6N1F-2 M1 reproduit : mise en évidence [] refusée (0/1)
+[80/1193] canTEC2-05 M1 reproduit : mise en évidence ["\\sqrt{2}-\\sqrt{2}\\mathrm{i}"] refusée (0/1)
+[90/1193] BP1AUTO096 M1 reproduit : mise en évidence ["4\\,096\\text{ mm}^3"] refusée (0/1)
+[100/1193] BP1AUTO097 M1 reproduit : mise en évidence ["1\\,259,712\\text{ cm}^3"] refusée (0/1)
+[110/1193] PET15 M1 reproduit : mise en évidence ["\\text{=E4+F6}"] refusée (0/1)
+[120/1193] PET15 M1 reproduit : mise en évidence ["\\text{=\\$C5*\\$F7}"] refusée (0/1)
+[130/1193] PET15 M1 reproduit : mise en évidence ["\\text{=\\$A\\$7*D4}"] refusée (0/1)
+[140/1193] PET15 M1 reproduit : mise en évidence ["\\text{=E4-C4}"] refusée (0/1)
+[150/1193] EgaliteFG7-Tle-19 M1 reproduit : mise en évidence ["\\text{géométrique de raison }0{,}84"] refusée (0/1)
+[160/1193] acb80 M1 reproduit : mise en évidence ["17\\text{ dm}^3"] refusée (0/1)
+[170/1193] ac571 M1 reproduit : mise en évidence ["10,7","\\text{ cm}","10,8","\\text{ cm}","10,8","\\text{ cm}"
+[180/1193] aeca7 M1 reproduit : mise en évidence ["141\\text{ m}^3"] refusée (0/1)
+[190/1193] 6M1D M1 reproduit : refusé (0/1) : La réponse pourrait être correcte si l'unité avait été précisée.
+[200/1193] 6M2C-1 M1 reproduit : refusé (0/2) : La réponse pourrait être correcte si l'unité avait été précisée.
+[210/1193] 6M2C-4 M1 reproduit : mise en évidence ["16"] refusée (0/1)
+[220/1193] 6M2autoC-1 M1 reproduit : mise en évidence ["3,5\\times2\\div2","3,5","6\\times4\\div2","12"] refusée (0/1
+[230/1193] 6G2C-1 M1 reproduit : refusé (0/1) : Le résultat est incorrect.
+[240/1193] c188c M1 reproduit : mise en évidence ["38\\text{ m}^3"] refusée (0/1)
+[250/1193] c6836 M1 reproduit : mise en évidence ["0,292\\,248","292\\,248","2\\,922,48"] refusée (0/1)
+[260/1193] 6G7B-9 M1 reproduit : mise en évidence ["CP=4,9"] refusée (0/1)
+[270/1193] 6G7B-9 M1 reproduit : mise en évidence ["RU=4,2"] refusée (0/1)
+[280/1193] 6P1autoA-4 M1 reproduit : refusé (1/4) : Il manque 3 réponses.
+[290/1193] 6P3C-1 M1 reproduit : refusé (1/4) : Résultat incorrect.
+[300/1193] 6I1B-8 M1 reproduit : refusé (0/1)
+[310/1193] 6I1B-8 M1 reproduit : refusé (0/1)
+[320/1193] 6I1B-8 M1 reproduit : refusé (0/1)
+[330/1193] 5N1I-5 M1 reproduit : mise en évidence ["36","42","48","54","60","66","36","42","48","54","60","66"] r
+[340/1193] dc629 M1 reproduit : mise en évidence ["2\\,248,091\\text{ m}^3"] refusée (0/1)
+[350/1193] 5N2G-1 M1 reproduit : refusé (0/1) : Le résultat est incorrect.On ne peut pas écrire les signes + et -
+[360/1193] ebd89 M1 reproduit : mise en évidence ["f'(x)=\\dfrac{2}{3}"] refusée (0/1)
+[370/1193] ebd89 M1 reproduit : mise en évidence ["f'(x)=\\dfrac{1}{6x^2}"] refusée (0/1)
+[380/1193] f1f9d M1 reproduit : mise en évidence ["\\left]\\dfrac{8}{5};+\\infty\\right[","\\dfrac{10^{-3}+8}{5}
+[390/1193] 5N3C M1 reproduit : refusé (1/3) : 1ère réponse : Le résultat est incorrect.3e réponse : Le résultat
+[400/1193] 5N2L M1 reproduit : mise en évidence ["-1,2","-1,9","-0,9","-1,2","-1,9","-0,9","-4"] refusée (0/1)
+[410/1193] 5N5F M1 reproduit : mise en évidence ["1x"] refusée (0/1)
+[420/1193] 5G2D-2 M1 reproduit : mise en évidence ["2\\,300&nbsp;\\text{cm}^3"] refusée (0/1)
+[430/1193] 5G2E-1 M1 reproduit : refusé (1/4) : Résultat incorrect car une valeur décimale (ou entière) est atten
+[440/1193] 5G2E-3 M1 reproduit : mise en évidence ["15\\text{ cm}","15,1\\text{ cm}","15,1\\text{ cm}","18\\text{
+[450/1193] 5G2E-6 M1 reproduit : mise en évidence ["121,5\\text{ dm}^3"] refusée (0/1)
+[460/1193] 5G3B-2 M1 reproduit : mise en évidence ["TE=7"] refusée (0/1)
+[470/1193] 5G3B-2 M1 reproduit : mise en évidence ["BU=6,3"] refusée (0/1)
+[480/1193] 5G3B-2 M1 reproduit : mise en évidence ["S","J","B"] refusée (0/1)
+[490/1193] 5G3B-2 M1 reproduit : mise en évidence ["MA=4,9"] refusée (0/1)
+[500/1193] 4C10-11 M1 reproduit : mise en évidence ["1,26","-1,26","-1,3","-1","1,257","-1","1,26","-1,3","-2","-1
+[510/1193] 4C23-1 M1 reproduit : mise en évidence ["{\\color{black}\\boldsymbol{-\\dfrac{1}{8}}}"] refusée (0/1)
+[520/1193] 4G20-1 M1 reproduit : mise en évidence ["OP^2=NO^2+NP^2"] refusée (0/1)
+[530/1193] 4G22-2 M1 reproduit : mise en évidence ["\\sqrt{35,44}"] refusée (0/1)
+[540/1193] 4P12-2 M1 reproduit : refusé (0/1) : 1ère réponse : résultat incorrect car une valeur décimale (ou ent
+[550/1193] 3AutoL01 M1 reproduit : mise en évidence ["0x"] refusée (0/1)
+[560/1193] 3F12-4 M1 reproduit : refusé (1/3)
+[570/1193] 3F23 M1 reproduit : refusé (1/2) : Résultat incorrect.
+[580/1193] 3G20-2 M1 reproduit : mise en évidence ["\\dfrac{\\color{red}HI}{\\color{blue}HF}=\\dfrac{\\color{red}
+[590/1193] 3G30-1 M1 reproduit : refusé (0/1) : 1ère réponse : résultat incorrect car majuscules ou minuscules no
+[600/1193] 3G30 M1 reproduit : mise en évidence ["10"] refusée (0/1)
+[610/1193] 3G32-0 M1 reproduit : mise en évidence ["GS\\times \\tan(\\epsilon)","GS\\times \\tan(\\alpha)","18&nb
+[620/1193] 3G32-3 M1 reproduit : mise en évidence ["LV\\times \\tan(\\delta)","LV\\times \\tan(\\lambda)","16&nbs
+[630/1193] 3G32-4 M1 reproduit : mise en évidence ["QU\\times \\tan(\\beta)","\\dfrac{QT\\times \\tan(\\beta)}{\\
+[640/1193] 3G44 M1 reproduit : mise en évidence ["9","\\text{ dm}"] refusée (0/1)
+[650/1193] 2A-N7-6 M1 reproduit : mise en évidence ["\\text{m}"] refusée (0/1)
+[660/1193] 3L11-6 M1 reproduit : mise en évidence ["(x-3)","(x-3)","(x-3)","(x-3)","(x-3)"] refusée (0/1)
+[670/1193] 3L11-17 M1 reproduit : mise en évidence ["32x","56","32x+56"] refusée (0/1)
+[680/1193] 2A-G3-6 M1 reproduit : mise en évidence ["36\\text{ cm}^2"] refusée (0/1)
+[690/1193] 3L13-5 M1 reproduit : refusé (4/6)
+[700/1193] 3L15-1 M1 reproduit : mise en évidence ["6","-6"] refusée (0/1)
+[710/1193] 3L16 M1 reproduit : refusé (0/1) : 1ère réponse : résultat incorrect.2e réponse : résultat incorrect
+[720/1193] 3L15-3 M1 reproduit : mise en évidence ["-3","-\\dfrac{1}{9}"] refusée (0/1)
+[730/1193] 2N33-1 M1 reproduit : refusé (0/3) : 1ère réponse : Le résultat est incorrect.2e réponse : Le résultat
+[740/1193] 2L13-1 M1 reproduit : mise en évidence ["-3x-1"] refusée (0/1)
+[750/1193] 2L20-1 M1 reproduit : mise en évidence ["17","18","19"] refusée (0/1)
+[760/1193] 2L22-4 M1 reproduit : refusé (0/2) : Il ne peut pas y avoir deux points-virgules consécutifs.Résultat 
+[770/1193] 2L31-1 M1 reproduit : mise en évidence ["\\left[ -8&nbsp;; -7 \\right]"] refusée (0/1)
+[780/1193] 2L31-1 M1 reproduit : mise en évidence ["\\bigg] -\\infty&nbsp;; -\\dfrac{2}{5} \\bigg] \\cup \\bigg[ 
+[790/1193] 2L31-2 M1 reproduit : mise en évidence ["\\left] -8&nbsp;; 7 \\right["] refusée (0/1)
+[800/1193] 2L31-2 M1 reproduit : mise en évidence ["\\bigg] -\\infty&nbsp;; -\\dfrac{3}{2} \\bigg[ \\cup \\bigg[ 
+[810/1193] 46234 M1 reproduit : mise en évidence ["8y","16y^2"] refusée (0/1)
+[820/1193] 2F23-2 M1 reproduit : mise en évidence ["\\left]-\\dfrac{1}{5}&nbsp;; 0\\right["] refusée (0/1)
+[830/1193] 98293 M1 reproduit : refusé (1/3) : 1ère réponse : Le résultat est incorrect.2e réponse : Le résultat
+[840/1193] 4c6e2 M1 reproduit : mise en évidence ["2,5","2"] refusée (0/1)
+[850/1193] 2G12-6 M1 reproduit : refusé (0/1) : 1ère réponse : Le résultat est incorrect.2e réponse : Le résultat
+[860/1193] 1AL23-21 M1 reproduit : mise en évidence ["\\left\\{-5&nbsp;; -2\\right\\}"] refusée (0/1)
+[870/1193] 2G31-4 M1 reproduit : mise en évidence ["y=\\dfrac{1}{3}x-8"] refusée (0/1)
+[880/1193] 2P10-1 M1 reproduit : refusé (1/3) : Cette fraction n'est pas égale à celle attendue.
+[890/1193] 1Tec-D13 M1 reproduit : mise en évidence ["y=7x+13"] refusée (0/1)
+[900/1193] 2mLogExp-11 M1 reproduit : mise en évidence ["1","3"] refusée (0/1)
+[910/1193] 11FA4A-5 M1 reproduit : mise en évidence ["\\dfrac{25}{81} z^10 + \\dfrac{80}{27} z^6 + \\dfrac{64}{9} z
+[920/1193] 2mTrigoFct-6 M1 reproduit : mise en évidence ["\\{\\dfrac{\\pi}{3};\\pi\\}"] refusée (0/1)
+[930/1193] 0a113 M1 reproduit : mise en évidence ["(13,70 - 5 \\cdot 0,40) \\div 9","1,30"] refusée (0/1)
+[940/1193] 0a113 M1 reproduit : mise en évidence ["(70 \\div 10 + 5) \\cdot 9","108"] refusée (0/1)
+[950/1193] 014a4 M1 reproduit : mise en évidence ["\\bigg[ -\\dfrac{13}{11}&nbsp;; -\\dfrac{4}{7} \\bigg] \\cup 
+[960/1193] 065cf M1 reproduit : mise en évidence ["x=70"] refusée (0/1)
+[970/1193] 7f0dc M1 reproduit : mise en évidence ["2-\\sqrt{6}","2+\\sqrt{6}"] refusée (0/1)
+[980/1193] 0716b M1 reproduit : mise en évidence ["+10","+10","\\div 10","\\div 10","-12","-12","\\div (-4)","\\
+[990/1193] 8e829 M1 reproduit : mise en évidence ["-1"] refusée (0/1)
+[1000/1193] 1802d M1 reproduit : mise en évidence ["+8x","+8x","+63","+63","\\div(-55)","\\div(-55)"] refusée (0/
+[1010/1193] 65bd7 M1 reproduit : mise en évidence ["BF=7,6"] refusée (0/1)
+[1020/1193] 65bd7 M1 reproduit : mise en évidence ["RI=8,1"] refusée (0/1)
+[1030/1193] 65bd7 M1 reproduit : mise en évidence ["L","Y","I"] refusée (0/1)
+[1040/1193] 65bd7 M1 reproduit : mise en évidence ["J","R","F"] refusée (0/1)
+[1050/1193] 88e2x M1 reproduit : mise en évidence ["27","0","22","22"] refusée (0/1)
+[1060/1193] 98a08 M1 reproduit : mise en évidence ["3\\,869,893\\text{ mm}^3"] refusée (0/1)
+[1070/1193] 5999f M1 reproduit : mise en évidence ["45"] refusée (0/1)
+[1080/1193] 3L12-2 M1 reproduit : mise en évidence ["2 y","2 y\\mathopen{}\\left(7 y-2 t\\right)\\mathclose{}^2"] 
+[1090/1193] 3L12-2 M1 reproduit : mise en évidence ["2 r","2 r\\mathopen{}\\left(3 x+4 y\\right)\\mathclose{}^2"] 
+[1100/1193] 3L12-2 M1 reproduit : mise en évidence ["-2 s","-2 s\\mathopen{}\\left(s y+8 \\right)\\mathclose{}\\ma
+[1110/1193] 3L12-2 M1 reproduit : mise en évidence ["3 r","3 r\\mathopen{}\\left(s x+2 \\right)\\mathclose{}\\math
+[1120/1193] 3L12-2 M1 reproduit : mise en évidence ["-y","-y\\mathopen{}\\left(7 y+ 3 \\right)\\mathclose{}\\matho
+[1130/1193] 3L12-2 M1 reproduit : mise en évidence ["-3 y","-3 y\\mathopen{}\\left(5 y^3+7 \\right)\\mathclose{}\\
+[1140/1193] 3L12-2 M1 reproduit : mise en évidence ["2 r","2 r\\mathopen{}\\left(10 r+3 \\right)\\mathclose{}\\mat
+[1150/1193] 3L12-2 M1 reproduit : mise en évidence ["-5 s","-5 s\\mathopen{}\\left(9 s+7 \\right)\\mathclose{}\\ma
+[1160/1193] 3L12-4 M1 reproduit : mise en évidence ["-3 x","-3 x\\mathopen{}\\left(x^3+ 6 \\right)\\mathclose{}\\m
+[1170/1193] 3L12-4 M1 reproduit : mise en évidence ["2 x","2 x\\mathopen{}\\left(x-3 \\right)\\mathclose{}\\mathop
+[1180/1193] 3L12-4 M1 reproduit : mise en évidence ["3 x^3","3 x^3\\mathopen{}\\left(x-9 \\right)\\mathclose{}\\ma
+[1190/1193] 3L12-4 M1 reproduit : mise en évidence ["5 x","5 x\\mathopen{}\\left(x+10 \\right)\\mathclose{}\\matho
+[1193/1193] 3L12-4 M1 reproduit : mise en évidence ["-x","-x\\mathopen{}\\left(x^3-4 \\right)\\mathclose{}\\mathop

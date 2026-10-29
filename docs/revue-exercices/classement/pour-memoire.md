@@ -7,7 +7,8 @@ Information sur la couverture du banc, aucune action.
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
 | [R3 Point final](#r3) | 5 | 5 |
-| [X7 Combinaisons de paramètres non toutes passées](#x7) | 246 | 246 |
+| [R16 Relecture : français, titre ou contenu](#r16) | 1 | 1 |
+| [X7 Combinaisons de paramètres non toutes passées](#x7) | 245 | 245 |
 
 ## R3
 
@@ -20,6 +21,14 @@ Information sur la couverture du banc, aucune action.
 | L-8994c646ea | a343s (Non classés, CH) | src/exercices/CH/a343s.ts | **Relu : pas de défaut à corriger** ‖ Calcul juste (5 700) ; $\cdot$ CH conforme. → RAS. | confirmé à la relecture |  |
 | L-65295cdacf | bc613 (Non classés, CH) | src/exercices/CH/bc613.ts | **Relu : pas de défaut à corriger** ‖ « $6+6+6+6+6+6=6\cdot6$ » : addition répétée → produit : 6·6 ; correction juste. → « 6×6 ». | confirmé à la relecture |  |
 | L-e8fa42ae8f | c8a2b (Non classés, CH) | src/exercices/CH/c8a2b.ts | **Vérifié le 29 octobre : 3 et 71 sont tous deux acceptés (revue/essayer.mjs, graine revue-0-a) : pas de défaut** ‖ « Donner un diviseur de 213 autre que 1 et lui-même » : plusieurs réponses valables (3, 71) : le champ n'accepte que ? (à tester) ; correction juste. → Accepter 3 et 71. | confirmé à la relecture |  |
+
+## R16
+
+**Relecture : français, titre ou contenu**
+
+| Clé | Exercice | Où | Constat | Statut | Reproduire |
+| --- | --- | --- | --- | --- | --- |
+| L-2c1b405681 | BP2FONC30 (BP2) | src/exercices/BP2/BP2FONC30.ts | **Vérifié le 29 octobre : correction présente et juste (f(8)=64), 8 bien entre $ ; « fonction carré » est le terme des programmes : pas de défaut** ‖ Consigne « Soit f la fonction carré » (carrée) ; « Calculer l'image de 8 » : 8 hors du dollar ; correction non revue (absente de la sortie). → « la fonction carrée » ; $8$. | confirmé à la relecture |  |
 
 ## X7
 
@@ -139,7 +148,6 @@ Information sur la couverture du banc, aucune action.
 | A-1f9b47f7ef | 5N1autoA-1 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) (×2) | détection automatique |  |
 | A-5c72fa531e | 5N1autoA-5 (5e) |  | 1120 combinaisons : 71 passées (couverture par paires) | détection automatique |  |
 | A-16438b5c9e | 5N1autoC-1 (5e) |  | 128 combinaisons : 33 passées (couverture par paires) | détection automatique |  |
-| A-af87a18704 | 5N1B-1 (5e) |  | 832 combinaisons : 209 passées (couverture par paires) | détection automatique |  |
 | A-1b873abbfc | 5N1G (5e) |  | 64 combinaisons : 9 passées (couverture par paires) | détection automatique |  |
 | A-6fbc98cd85 | 5N1H (5e) |  | 315 combinaisons : 36 passées (couverture par paires) | détection automatique |  |
 | A-9f1c6caa02 | 5N1I-4 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) (×2) | détection automatique |  |
@@ -191,13 +199,13 @@ Information sur la couverture du banc, aucune action.
 | A-a896e5a0d6 | 6N1A-4 (6e) |  | 588 combinaisons : 50 passées (couverture par paires) | détection automatique |  |
 | A-d56ceeca06 | 6N1A-7 (6e) |  | 2376 combinaisons : 100 passées (couverture par paires) | détection automatique |  |
 | A-e9e0d47ec3 | 6N1H-4 (6e) |  | 77 combinaisons : 77 passées (couverture par paires) | détection automatique |  |
+| A-f1a68088b9 | 6N2A-4 (6e) |  | 128 combinaisons : 17 passées (couverture par paires) | détection automatique |  |
 | A-add17895fe | 6N2autoC (6e) |  | 240 combinaisons : 31 passées (couverture par paires) | détection automatique |  |
 | A-2856d44b89 | 6N2E (6e) |  | 256 combinaisons : 17 passées (couverture par paires) | détection automatique |  |
 | A-9fbb44e410 | 6N3autoD-2 (6e) |  | 1536 combinaisons : 73 passées (couverture par paires) | détection automatique |  |
 | A-5edd0470c5 | 6N3autoD-3 (6e) |  | 468 combinaisons : 118 passées (couverture par paires) | détection automatique |  |
 | A-b0d9d327dc | 6N3F-1 (6e) |  | 128 combinaisons : 65 passées (couverture par paires) | détection automatique |  |
 | A-8b7189493b | 6N3H-1 (6e) |  | 4992 combinaisons : 109 passées (couverture par paires) | détection automatique |  |
-| A-61c01d4167 | 6N3M (6e) |  | 480 combinaisons : 121 passées (couverture par paires) | détection automatique |  |
 | A-bb8133ad5a | 6N3O (6e) |  | 375 combinaisons : 78 passées (couverture par paires) | détection automatique |  |
 | A-b8481b9160 | 6N4B (6e) |  | 182 combinaisons : 92 passées (couverture par paires) | détection automatique |  |
 | A-66b9f70aae | 6N4B-2 (6e) |  | 108 combinaisons : 19 passées (couverture par paires) | détection automatique |  |
@@ -218,7 +226,6 @@ Information sur la couverture du banc, aucune action.
 | A-218d0bf6a2 | CM2N1D-3 (cm2) |  | 80 combinaisons : 40 passées (couverture par paires) | détection automatique |  |
 | A-7d5b49aa47 | CM2N3A-1 (cm2) |  | 128 combinaisons : 32 passées (couverture par paires) | détection automatique |  |
 | A-dd7b09f6ce | CM2N4D-1 (cm2) |  | 640 combinaisons : 41 passées (couverture par paires) | détection automatique |  |
-| A-67295c010a | EN-CompteBon (EN) |  | 3380 combinaisons : 170 passées (couverture par paires) | détection automatique |  |
 | A-06ebec0f03 | EN-SquarO (EN) |  | 686 combinaisons : 55 passées (couverture par paires) | détection automatique |  |
 | A-0e688affb0 | 05079 (Non classés, CH) |  | 1152 combinaisons : 69 passées (couverture par paires) | détection automatique |  |
 | A-13e1129580 | 0688e (Non classés, CH) |  | 252 combinaisons : 43 passées (couverture par paires) | détection automatique |  |
@@ -258,6 +265,7 @@ Information sur la couverture du banc, aucune action.
 | A-4c5f8797fd | 8cd45 (Non classés, CH) |  | 338 combinaisons : 170 passées (couverture par paires) | détection automatique |  |
 | A-0e448ef6d9 | a3870 (Non classés, CH) |  | 384 combinaisons : 65 passées (couverture par paires) (×2) | détection automatique |  |
 | A-4908c64940 | ac571 (Non classés, CH) |  | 96 combinaisons : 13 passées (couverture par paires) | détection automatique |  |
+| A-c105b37f72 | acb80 (Non classés, CH) |  | 80 combinaisons : 21 passées (couverture par paires) | détection automatique |  |
 | A-0dd6bbda66 | b6cbe (Non classés, CH) |  | 108 combinaisons : 28 passées (couverture par paires) | détection automatique |  |
 | A-34615db3d9 | b8afd (Non classés, CH) |  | 56 combinaisons : 28 passées (couverture par paires) | détection automatique |  |
 | A-08c4af5f3a | ba520 (Non classés, CH) |  | 90 combinaisons : 31 passées (couverture par paires) | détection automatique |  |

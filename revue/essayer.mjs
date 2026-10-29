@@ -22,6 +22,11 @@ await page.evaluate((p) => window.sonde.langue(p), e.pays)
 const params = { uuid: e.uuid, nbQuestions: Number(nb), alea, ...JSON.parse(sup || '{}') }
 const prep = await page.evaluate((p) => window.sonde.preparer(p, 0), params)
 const i = Number(q) - 1
-console.log(`${id} ${alea} q${q} : ${prep.questions[i].enonce.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 160)}`)
-for (const s of saisies) console.log(`  « ${s} » → ${await page.evaluate(([n, v]) => window.sonde.essai(n, v), [i, s])}`)
+console.log(`${id} ${alea} q${q} : ${(prep.questions[i]?.enonce ?? `champ ${i} (question à plusieurs champs)`).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 160)}`)
+// RETOUR=1 : affiche aussi le message de MathALÉA écrit sous le champ (feedback)
+for (const s of saisies) {
+  const juste = await page.evaluate(([n, v]) => window.sonde.essai(n, v), [i, s])
+  const retour = process.env.RETOUR ? await page.evaluate((n) => [...document.querySelectorAll(`[id^="feedbackEx0Q${n}"], [id^="resultatCheckEx0Q${n}"]`)].map((e) => e.textContent.trim()).filter(Boolean).join(' | '), i) : ''
+  console.log(`  « ${s} » → ${juste}${retour ? ` (${retour})` : ''}`)
+}
 await nav.close()

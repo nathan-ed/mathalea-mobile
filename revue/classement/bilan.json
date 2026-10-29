@@ -1,62 +1,62 @@
 {
- "total": 20348,
+ "total": 20263,
  "lignes": {
-  "journal": 681130,
-  "remplacees": 558894,
-  "textesGardes": 10394,
+  "journal": 687704,
+  "remplacees": 567074,
+  "textesGardes": 10304,
   "i1SansSaisie": 287,
-  "texte": 207602,
+  "texte": 224108,
   "source": 1121,
-  "relecture": 2116
+  "relecture": 2117
  },
  "resume": [
   [
    "tickets-interactif",
-   203,
-   158,
-   2848
+   107,
+   79,
+   1326
   ],
   [
    "tickets-rendu",
-   904,
-   318,
-   11370
+   677,
+   307,
+   9731
   ],
   [
    "maths-formulation",
-   267,
-   251,
-   400
+   266,
+   250,
+   399
   ],
   [
    "decisions",
-   2567,
-   1131,
-   25329
+   2578,
+   1141,
+   25617
   ],
   [
    "mise-en-evidence",
-   7426,
-   1357,
-   57722
+   7410,
+   1351,
+   57567
   ],
   [
    "francais",
-   1617,
+   1616,
    1050,
-   9065
+   9359
   ],
   [
    "typographie",
-   6625,
-   2388,
-   194894
+   6538,
+   2386,
+   195149
   ],
   [
    "app-mobile",
-   16,
-   13,
-   108
+   28,
+   19,
+   557
   ],
   [
    "a-ecarter",
@@ -66,9 +66,9 @@
   ],
   [
    "a-tester-main",
-   307,
-   290,
-   22268
+   321,
+   302,
+   22443
   ],
   [
    "pour-memoire",
@@ -78,9 +78,9 @@
   ],
   [
    "faux-positifs",
-   36,
-   10,
-   440
+   342,
+   102,
+   17197
   ]
  ]
 }

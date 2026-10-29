@@ -132,7 +132,9 @@ const texte = lire('texte.jsonl')
 const source = lire('source.jsonl')
 const relecture = lire('relecture.jsonl')
 const ecartes = lire('ecartes.jsonl')
-const rejeu = new Map(lire('rejeu.jsonl').map((x) => [x.cle, x]))
+// une ligne refaite avec --decales (champ rattaché à sa vraie question) l'emporte sur le rejeu ordinaire
+const rejeu = new Map()
+for (const x of lire('rejeu.jsonl')) if (x.decales || !rejeu.get(x.cle)?.decales) rejeu.set(x.cle, x)
 const reclassement = new Map(lire('reclassement.jsonl').map((x) => [x.cle, x]))
 // Reclassement par exercice : { id, categorie, regles (regex, facultatif), precision }
 const parExercice = lire('reclassement-exercices.jsonl')
@@ -200,6 +202,15 @@ for (const c of constats) {
   vues.set(c.cle, k + 1)
   if (k) c.cle = `${c.cle}-${k + 1}`
 }
+// Texte d'un script Scratch (scratchblocks) : « :: sensing », « [7 v] », espaces doubles et
+// nombres hors $ font partie de la syntaxe, ce ne sont pas des fautes de typographie.
+const SCRATCH = /:: ?(sensing|operators|pen|looks|motion|control|variables|events|list|custom|sound|grey)\b|\[[^\]]* v\]|\((réponse|answer) ::|quand (le drapeau|ce sprite|la touche|je reçois)|(demander|dire|mettre|ajouter|penser à|aller à) \[|répéter \(|attendre \(|\(\[ *\] (modulo|\+|-|\*|\/) \[ *\]\)/
+for (const c of constats)
+  if (c.origine !== 'relecture' && /^(N1|T3|T5|T6)$/.test(c.regle) && c.exemples.length && c.exemples.every((e) => SCRATCH.test(e))) {
+    c.categorie = 'faux-positifs'
+    c.precision = "Texte d'un script Scratch : la syntaxe des blocs (« :: », « [ v] », espaces, nombres sans $) n'est pas de la typographie"
+  }
+
 // Rejeu de l'interactif et reclassement à la main
 for (const c of constats) {
   const rj = rejeu.get(c.cle)

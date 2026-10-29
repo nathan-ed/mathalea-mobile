@@ -61,7 +61,7 @@ Mis de côté : à retirer du référentiel ou à terminer, rien à corriger dan
 
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
-| A-ce74633e8f | 29957 (Non classés, CH) |  | **Exercice mis de côté (test, modèle ou outil) : constat gardé pour mémoire** ‖ valeur en évidence refusée par le champ : {"champ2":"22\\text{ cm}","champ3":"100\\text{ cm}","champ4":"244\\text{ cm}"} ; attendu : {"champ2":"22\\operatorname{cm}","champ3":"100\\operatorname{cm}","champ4":"244\\operatorname{cm}"} (×3) | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=29957&id=29957&alea=revue-0-a&i=1&cd=1)) |
+| A-ce74633e8f | 29957 (Non classés, CH) |  | **Exercice mis de côté (test, modèle ou outil) : constat gardé pour mémoire** ‖ valeur en évidence refusée par le champ : {"champ2":"22\\text{ cm}","champ3":"100\\text{ cm}","champ4":"244\\text{ cm}"} ; attendu : {"champ2":"22\\operatorname{cm}","champ3":"100\\operatorname{cm}","champ4":"244\\operatorname{cm}"} (×3) | rejoué : reproduit : refusé (0/3) | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=29957&id=29957&alea=revue-0-a&i=1&cd=1)) |
 
 ## M2
 

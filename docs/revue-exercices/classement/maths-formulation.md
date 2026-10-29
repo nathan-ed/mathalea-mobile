@@ -2,19 +2,19 @@
 
 Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre sans rapport avec l'exercice, explication à reprendre.
 
-267 constats, 251 exercices. Données complètes : `revue/classement/maths-formulation.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+266 constats, 250 exercices. Données complètes : `revue/classement/maths-formulation.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
-| [C1 Contenu mathématique faux ou ambigu](#c1) | 123 | 111 |
+| [C1 Contenu mathématique faux ou ambigu](#c1) | 122 | 110 |
 | [C2 Paramètre sans effet ou correction incomplète](#c2) | 3 | 3 |
 | [M3 QCM : bonne proposition pas mise en évidence telle quelle](#m3) | 1 | 1 |
 | [M5 Texte dans miseEnEvidence](#m5) | 1 | 1 |
 | [M6 Pas de mise en évidence du résultat](#m6) | 7 | 7 |
 | [M7 Explication en orange](#m7) | 1 | 1 |
-| [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 2 | 2 |
+| [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 1 | 1 |
 | [R1 Titre](#r1) | 44 | 44 |
-| [R3 Point final](#r3) | 9 | 9 |
+| [R3 Point final](#r3) | 10 | 10 |
 | [R9 Notation des probabilités](#r9) | 9 | 5 |
 | [R10 Français (accords, fautes, coquilles)](#r10) | 4 | 4 |
 | [R11 Calcul rédigé faux (signes, parenthèses)](#r11) | 1 | 1 |
@@ -31,7 +31,6 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | L-fe2c14173f | 6AutoG1-6 (6e) | src/exercices/6e/6G4A-2.ts:119 | « Un angle obtus est un angle dont la mesure est supérieure à 90°. » : définition incomplète (et inférieure à 180°) ; 0°, 90° hors $ → comprise entre $90°$ et $180°$ | confirmé à la relecture |  |
 | L-951bcc9ef5 | 6AutoN4-4 (6e) | src/exercices/6e/6N2C-2.ts:116 | Exemple de la correction faux : « $34,9\div 100 = 0$ », « $98,6\div 1\,000=0$ » (texNombre(…, 0) arrondit le quotient à l'unité) ; exemple « 34,9 » hors $ → texNombre(exemple * 10 ** (choixAlea - 3), 4) ; $34,9$ | confirmé à la relecture |  |
 | L-20459b8dee | 6G6C-1 (6e) | src/exercices/6e/6G6C-1.ts | Correction : somme des angles = 180° donc « on peut construire le triangle » alors que la bonne réponse du QCM est « constructible mais n'est pas plat » : la justification de « pas plat » (aucun angle nul ni plat) manque ; « \; » dans le dollar avant \widehat ; ⟦…⟧$⟦BIP⟧$ deux évidences. → Ajouter « aucun angle n'est nul ni égal à 180°, donc le triangle n'est pas plat ». | confirmé à la relecture |  |
-| L-74502b1858 | 6G7B-7 (6e) | src/exercices/6e/6G7B-7.ts | Correction suspecte (capture à l'appui) : « L'image de la figure 33 … est la figure 33 » et « de la figure 81 … est la figure 81 » : l'image est donnée égale à la figure de départ pour a) et b), alors que les triangles rouge et bleu sont coupés par l'axe (d) sans être symétriques de eux-mêmes ; seule c) (17 → 68) est plausible ; à confirmer avec le code de calcul des images ; texte en couleur « {red:la figure} » (lignes de correction mêlées de couleurs). → Vérifier le numéro de l'image (a, b) ; texteEnCouleurEtGras. | confirmé à la relecture |  |
 | L-27cbc88047 | 6I1B-4 (6e) | src/exercices/6e/6I1B-4.ts | Formules de tableur affichées avec le signe moins typographique « − » (U+2212) : « =B1−31 », « 38 −31 = 7 » : une formule de tableur saisie avec ce caractère n'est pas valide (utiliser le trait « - » dans les formules) ; « ici 19 et on obtient » sans virgule ; nombres de l'énoncé et de la correction hors/dans des $ de façon mêlée (420 N1) ; meta-custom à tester à la main (100 IM). → Mettre « - » dans les formules ; virgule ; tester à la main. | confirmé à la relecture |  |
 | L-18c9564f75 | 6N1A-7 (6e) | 6e/6N1A-7.ts | « Je suis un nombre à 3 chiffres » (dizaines, unités, dixièmes) avec un chiffre des dixièmes nul : la bonne réponse proposée est $12$ (2 chiffres), à côté de $10,2$ et $20,1$ (sup=1, sup2=5-9, graine revue-1-a, Q2). → Exclure 0 pour le rang le plus bas d'un décimal (ou le plus haut), ou ne pas annoncer le nombre de chiffres dans ce cas. | confirmé à la relecture |  |
 | L-fc0d633eec | 6N1J (6e) | 6e/6N0A-10.ts:309 | Ordre décroissant : la correction détaillée commence par « Pour ranger les nombres dans l'ordre croissant, on procède en deux temps » (texte figé, sup=2, graine revue-12-a). → `dans l'ordre ${ordre}` | confirmé à la relecture |  |
@@ -206,7 +205,6 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | Clé | Exercice | Où | Constat | Statut | Reproduire |
 | --- | --- | --- | --- | --- | --- |
 | L-2f99133e69 | PEG23 (PE) | src/exercices/PE/PEG23.ts | 226 N6 et 226 M6 : correction sans figure ; « OI = 1u » ($1\,u$) ; « de même origine [OB) » phrase ; construction du produit par Thalès non nommé. → Figure ; $1u$ → $1\,u$. | confirmé à la relecture |  |
-| L-78e3d83b11 | PEG24 (PE) | src/exercices/PE/PEG24.ts | Même défaut (226 N6, 226 M6) ; « [BA] » au lieu de [IA] : la droite à construire est parallèle à (BA) passant par I (à vérifier). → Vérifier la droite parallèle. | confirmé à la relecture |  |
 
 ## R1
 
@@ -268,6 +266,7 @@ Avis d'un enseignant-développeur : erreur ou ambiguïté mathématique, titre s
 | L-ea2def1fcf | 5N1I-6 (5e) | src/exercices/5e/5N1I-6.ts | « Quel est le plus petit entier supérieur à $81$ divisible par $8$ » : « entier supérieur à 81 » et « divisible par 8 » sans virgule ni « et » ; correction juste (88) ; $ 8\times11=88 $ espaces. → « … supérieur à 81 et divisible par 8 ». | confirmé à la relecture |  |
 | L-37796056f6 | afrce (Non classés, CH) | src/exercices/CH/afrce.ts | Titre « Probabilités » trop vague ; énoncé et correction justes (15/22). → Titre précis. | confirmé à la relecture |  |
 | L-6cd82db0e9 | b343g (Non classés, CH) | src/exercices/CH/b343g.ts | Correction juste (5) ; « Le plus petit entier supérieur à 23/5 » (strictement supérieur) ; titre « Majoration de fraction » imprécis. → « le plus petit entier supérieur ou égal ». | confirmé à la relecture |  |
+| L-36568c4511 | PEN16 (PE) | src/exercices/PE/PEN16.ts | **Revérifié sur les captures (PEN16 = ch/1mCN4.ts, NombrePeriodique.toFractionNouvelProcedure) : la correction existe (le constat « sans correction » était faux) et les résultats sont justes. Défauts : fraction intermédiaire incohérente avec la ligne du dessus (9 × 1,3̄ = 12 puis « 1,3̄ = 36/27 = 4/3 » au lieu de 12/9 ; « 1,1̄ = 90/81 » au lieu de 10/9) ; « avec le même membre de gauche » sans deux-points ; « 10^1 = 10 » inutile quand la période a un chiffre. Graine revue-0-a, paramètres par défaut.** ‖ « $1,\overline{9}$ » : trait de période (\overline) ok mais 105 N6 ; énoncé sans correction visible dans la sortie ; consigne « La calculatrice est autorisée. » après la consigne (même ligne). → Ajouter la correction (1,\overline{9}=2). | confirmé à la relecture |  |
 | L-5f14bf9ba4 | TEA1-16 (Terminale) | src/exercices/TSpe/TEA1-16.ts | « $57n+16=19\times3n+16$ » : « 19\times3n » ambigu (19×3n) alors que le quotient est 3n ; titre « Démontrer la non-divisibilité d'une expression affine » ; correction juste. → « 19\times(3n)+16 ». | confirmé à la relecture |  |
 | L-45156da43e | TEA1-23 (Terminale) | src/exercices/TSpe/TEA1-23.ts | « (q,r) » couple sans espace ; « selon les valeurs de n » : le cas n=0 et n=1 (r ⩾ 6n+2) n'est pas traité dans la correction visible ; 4 pages > 390 px. → Distinguer n=0, n=1, n⩾2. | confirmé à la relecture |  |
 | L-9e5d822443 | TEC1-13 (Terminale) | src/exercices/TSpe/TEC1-13.ts | Correction : « 3\times(-2)+15i+6i-15i^2 » : étape i² → -1 omise (15i² devient directement +15) ; résultat 9+21i correct. → Ajouter « -15i^2=15 ». | confirmé à la relecture |  |

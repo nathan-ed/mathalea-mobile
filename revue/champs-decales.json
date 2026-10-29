@@ -1,0 +1,2823 @@
+[
+ {
+  "id": "05079",
+  "uuid": "05079",
+  "chemin": "Non classés › divers",
+  "cas": 217,
+  "exemple": {
+   "variante": "sup=1 sup2=6 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "0a113",
+  "uuid": "0a113",
+  "chemin": "Non classés › divers",
+  "cas": 48,
+  "exemple": {
+   "variante": "sup=1 sup2=true",
+   "graine": "revue-1-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "10FA1B-1",
+  "uuid": "b428f",
+  "chemin": "10e › 10FA1 › 10FA1B",
+  "cas": 4,
+  "exemple": {
+   "variante": "sup=4",
+   "graine": "revue-0-a",
+   "question": 2,
+   "champs": [
+    0
+   ]
+  }
+ },
+ {
+  "id": "12773",
+  "uuid": "12773",
+  "chemin": "Non classés › divers",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "12afc",
+  "uuid": "12afc",
+  "chemin": "Non classés › divers",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup2=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "1473f",
+  "uuid": "1473f",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=false nb=10",
+   "graine": "revue-2-a",
+   "question": 2,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "1G11-2",
+  "uuid": "795d6",
+  "chemin": "1e › 1eS › 1G1",
+  "cas": 1,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 4,
+   "champs": [
+    0
+   ]
+  }
+ },
+ {
+  "id": "1G21-6",
+  "uuid": "ec621",
+  "chemin": "1e › 1eS › 1G2",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  }
+ },
+ {
+  "id": "1mCL4-2",
+  "uuid": "5f5fa",
+  "chemin": "1re Collège › 1mCL4",
+  "cas": 46,
+  "exemple": {
+   "variante": "sup=3 sup2=false sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "227f0",
+  "uuid": "227f0",
+  "chemin": "Non classés › divers",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "23c48",
+  "uuid": "23c48",
+  "chemin": "Non classés › divers",
+  "cas": 16,
+  "exemple": {
+   "variante": "sup=3 sup2=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "28997",
+  "uuid": "28997",
+  "chemin": "Non classés › divers",
+  "cas": 10,
+  "exemple": {
+   "variante": "sup=3 sup2=1",
+   "graine": "revue-20-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "29202",
+  "uuid": "29202",
+  "chemin": "Non classés › divers",
+  "cas": 19,
+  "exemple": {
+   "variante": "sup=9",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "2F32-2",
+  "uuid": "28998",
+  "chemin": "2e › 2F › 2F3 › 2F32",
+  "cas": 10,
+  "exemple": {
+   "variante": "sup=3 sup2=1",
+   "graine": "revue-20-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "2G12-6",
+  "uuid": "0fb89",
+  "chemin": "2e › 2G › 2G1 › 2G12",
+  "cas": 21,
+  "exemple": {
+   "variante": "sup=5 sup2=false sup3=3 sup4=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "2G24-1",
+  "uuid": "eee37",
+  "chemin": "2e › 2G › 2G2 › 2G24",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "2N33-1",
+  "uuid": "d0fdc",
+  "chemin": "2e › 2N › 2N3 › 2N33",
+  "cas": 70,
+  "exemple": {
+   "variante": "sup=6 sup2=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "2P10-4",
+  "uuid": "cee5e",
+  "chemin": "2e › 2P › 2P1 › 2P10",
+  "cas": 4,
+  "exemple": {
+   "variante": "sup=true sup2=false sup3=false nb=10",
+   "graine": "revue-8-a",
+   "question": 3,
+   "champs": [
+    4
+   ]
+  }
+ },
+ {
+  "id": "2c20c",
+  "uuid": "2c20c",
+  "chemin": "Non classés › divers",
+  "cas": 42,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=3 sup4=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "2da81",
+  "uuid": "2da81",
+  "chemin": "Non classés › divers",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "2se81",
+  "uuid": "2se81",
+  "chemin": "Non classés › divers",
+  "cas": 170,
+  "exemple": {
+   "variante": "sup=2 sup2=false sup3=71",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "35e0b",
+  "uuid": "35e0b",
+  "chemin": "Non classés › divers",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "37267",
+  "uuid": "37267",
+  "chemin": "Non classés › divers",
+  "cas": 18,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "3F13-1",
+  "uuid": "4b122",
+  "chemin": "3e › 3F1 › 3F13",
+  "cas": 3,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "3G10-1",
+  "uuid": "d4088",
+  "chemin": "3e › 3G1 › 3G10",
+  "cas": 18,
+  "exemple": {
+   "variante": "sup=4-5-6",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3G10-2",
+  "uuid": "d5f34",
+  "chemin": "3e › 3G1 › 3G10",
+  "cas": 15,
+  "exemple": {
+   "variante": "sup=5-8-9",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3G12-1",
+  "uuid": "034f1",
+  "chemin": "3e › 3G1 › 3G12",
+  "cas": 1,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3G12",
+  "uuid": "442e0",
+  "chemin": "3e › 3G1 › 3G12",
+  "cas": 18,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=7 sup4=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3G22",
+  "uuid": "960f9",
+  "chemin": "3e › 3G2 › 3G22",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=1 sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "3G30-1",
+  "uuid": "0d1f7",
+  "chemin": "3e › 3G3 › 3G30",
+  "cas": 19,
+  "exemple": {
+   "variante": "sup=1 sup2=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3G32-0",
+  "uuid": "2045e",
+  "chemin": "3e › 3G3 › 3G32",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=true sup2=7",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  }
+ },
+ {
+  "id": "3G32-1",
+  "uuid": "e0287",
+  "chemin": "3e › 3G3 › 3G32",
+  "cas": 10,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-1-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "3G32-2",
+  "uuid": "5986b",
+  "chemin": "3e › 3G3 › 3G32",
+  "cas": 20,
+  "exemple": {
+   "variante": "sup2=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "3G32-3",
+  "uuid": "e42e0",
+  "chemin": "3e › 3G3 › 3G32",
+  "cas": 20,
+  "exemple": {
+   "variante": "sup2=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "3G32-4",
+  "uuid": "3cb52",
+  "chemin": "3e › 3G3 › 3G32",
+  "cas": 20,
+  "exemple": {
+   "variante": "sup2=5",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  }
+ },
+ {
+  "id": "3G32-5",
+  "uuid": "8ba77",
+  "chemin": "3e › 3G3 › 3G32",
+  "cas": 5,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-1-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "3L11-10",
+  "uuid": "c8403",
+  "chemin": "3e › 3L1",
+  "cas": 25,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3L11-17",
+  "uuid": "de188",
+  "chemin": "3e › 3L1",
+  "cas": 78,
+  "exemple": {
+   "variante": "sup=1-2 sup2=1 sup3=1 sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "3L13-7",
+  "uuid": "11569",
+  "chemin": "3e › 3L1",
+  "cas": 37,
+  "exemple": {
+   "variante": "sup=3 sup2=2-3-4-5-6 sup3=0 sup4=2026 sup5=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "3L16",
+  "uuid": "7a6d5",
+  "chemin": "3e › 3L1",
+  "cas": 29,
+  "exemple": {
+   "variante": "sup=3 sup2=4 sup3=101-102 sup4=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "3S20-2",
+  "uuid": "76231",
+  "chemin": "3e › 3S2 › 3S20",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "3f39d",
+  "uuid": "3f39d",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "46234",
+  "uuid": "46234",
+  "chemin": "Non classés › divers",
+  "cas": 16,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "4C10-11",
+  "uuid": "013fe",
+  "chemin": "4e › 4C1 › 4C10",
+  "cas": 18,
+  "exemple": {
+   "variante": "sup=1 sup2=5",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "4C25-0",
+  "uuid": "9db08",
+  "chemin": "4e › 4C2 › 4C25",
+  "cas": 46,
+  "exemple": {
+   "variante": "sup=6 sup2=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "4C25-1",
+  "uuid": "7ba8b",
+  "chemin": "4e › 4C2 › 4C25",
+  "cas": 42,
+  "exemple": {
+   "variante": "sup=8",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "4G10-1",
+  "uuid": "7b40c",
+  "chemin": "4e › 4G1 › 4G10",
+  "cas": 18,
+  "exemple": {
+   "variante": "sup=3-4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "4G10",
+  "uuid": "cf7ce",
+  "chemin": "4e › 4G1 › 4G10",
+  "cas": 15,
+  "exemple": {
+   "variante": "sup=4-7-8",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "4G11-1",
+  "uuid": "48253",
+  "chemin": "4e › 4G1 › 4G11",
+  "cas": 1,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "4G11-1",
+  "uuid": "48253",
+  "chemin": "4e › 4G1 › 4G11",
+  "cas": 7,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "4G40-3",
+  "uuid": "86cd4",
+  "chemin": "4e › 4G4 › 4G40",
+  "cas": 2,
+  "exemple": {
+   "variante": "sup=2",
+   "graine": "revue-1-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "4L13-3",
+  "uuid": "d9d6b",
+  "chemin": "4e › 4L1 › 4L13",
+  "cas": 17,
+  "exemple": {
+   "variante": "sup=3 sup2=1-2-3-4-6 sup3=0 sup5=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "4P12-2",
+  "uuid": "2621f",
+  "chemin": "4e › 4P1 › 4P12",
+  "cas": 47,
+  "exemple": {
+   "variante": "sup=3 sup2=1-2 sup3=100-101 sup4=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "4c6e2",
+  "uuid": "4c6e2",
+  "chemin": "Non classés › divers",
+  "cas": 25,
+  "exemple": {
+   "variante": "sup=7 sup2=15",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "4e68a",
+  "uuid": "4e68a",
+  "chemin": "Non classés › divers",
+  "cas": 16,
+  "exemple": {
+   "variante": "sup=1 sup2=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "50663",
+  "uuid": "50663",
+  "chemin": "Non classés › divers",
+  "cas": 217,
+  "exemple": {
+   "variante": "sup=2 sup2=6 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5618d",
+  "uuid": "5618d",
+  "chemin": "Non classés › divers",
+  "cas": 270,
+  "exemple": {
+   "variante": "sup=6 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "56772",
+  "uuid": "56772",
+  "chemin": "Non classés › divers",
+  "cas": 82,
+  "exemple": {
+   "variante": "sup=4 sup2=1 sup3=false sup4=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "594eb",
+  "uuid": "594eb",
+  "chemin": "Non classés › divers",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5999e",
+  "uuid": "5999e",
+  "chemin": "Non classés › divers",
+  "cas": 26,
+  "exemple": {
+   "variante": "sup=0 sup2=true sup3=1 sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5999f",
+  "uuid": "5999f",
+  "chemin": "Non classés › divers",
+  "cas": 24,
+  "exemple": {
+   "variante": "sup=7 sup2=true sup3=1 sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5D1A",
+  "uuid": "60eb8",
+  "chemin": "5e › 5D1 › 5D1A",
+  "cas": 16,
+  "exemple": {
+   "variante": "sup=false sup2=4 sup3=3 sup4=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "5G1B-6",
+  "uuid": "2d2bb",
+  "chemin": "5e › 5G1 › 5G1B",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5G2E-3",
+  "uuid": "d8741",
+  "chemin": "5e › 5G2 › 5G2E",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=4-5 sup2=false sup3=false sup4=false sup5=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5G2E-4",
+  "uuid": "57f65",
+  "chemin": "5e › 5G2 › 5G2E",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=5 sup2=true sup3=false sup4=true sup5=3",
+   "graine": "revue-2-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5G3A-6",
+  "uuid": "d4089",
+  "chemin": "5e › 5G3 › 5G3A",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5G3A-7",
+  "uuid": "08f60",
+  "chemin": "5e › 5G3 › 5G3A",
+  "cas": 17,
+  "exemple": {
+   "variante": "sup=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5G3A-9",
+  "uuid": "8106a",
+  "chemin": "5e › 5G3 › 5G3A",
+  "cas": 33,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=8",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5G3A",
+  "uuid": "9f711",
+  "chemin": "5e › 5G3 › 5G3A",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5G3autoA",
+  "uuid": "da157",
+  "chemin": "5e › 5G3 › 5G3autoA",
+  "cas": 15,
+  "exemple": {
+   "variante": "sup=1-2-3-4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5N1I-5",
+  "uuid": "2173b",
+  "chemin": "5e › 5N1 › 5N1I",
+  "cas": 62,
+  "exemple": {
+   "variante": "sup=1 sup2=3 sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "5N3C",
+  "uuid": "a3914",
+  "chemin": "5e › 5N3 › 5N3C",
+  "cas": 38,
+  "exemple": {
+   "variante": "sup=1-2 sup2=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "5N5A-3",
+  "uuid": "0024b",
+  "chemin": "5e › 5N5 › 5N5A",
+  "cas": 37,
+  "exemple": {
+   "variante": "sup=0 sup2=0",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "5N5autoA",
+  "uuid": "e99f1",
+  "chemin": "5e › 5N5 › 5N5autoA",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=1 sup2=6 sup3=0 sup5=true",
+   "graine": "revue-11-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "5N5autoB",
+  "uuid": "fb98e",
+  "chemin": "5e › 5N5 › 5N5autoB",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=2 sup2=2-3-4 sup3=0 sup5=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "5N5autoC",
+  "uuid": "7eba3",
+  "chemin": "5e › 5N5 › 5N5autoC",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=2 sup2=6 sup3=0 sup5=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "6G4A",
+  "uuid": "e10d1",
+  "chemin": "6e › 6G4 › 6G4A",
+  "cas": 8,
+  "exemple": {
+   "variante": "sup=2 sup2=2 sup3=true",
+   "graine": "revue-6-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "6G7B-10",
+  "uuid": "cd69a",
+  "chemin": "6e › 6G7 › 6G7B",
+  "cas": 71,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "6G7B-6",
+  "uuid": "f5569",
+  "chemin": "6e › 6G7 › 6G7B",
+  "cas": 1,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "6G7B-6",
+  "uuid": "f5569",
+  "chemin": "6e › 6G7 › 6G7B",
+  "cas": 7,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "6G7B-7",
+  "uuid": "328b1",
+  "chemin": "6e › 6G7 › 6G7B",
+  "cas": 17,
+  "exemple": {
+   "variante": "sup=2 sup2=false sup3=7 sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "6G7B",
+  "uuid": "e9d29",
+  "chemin": "6e › 6G7 › 6G7B",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "6M2C-4",
+  "uuid": "065d1",
+  "chemin": "6e › 6M2 › 6M2C",
+  "cas": 34,
+  "exemple": {
+   "variante": "sup=1-2-3 sup2=false sup3=false sup5=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "6M2autoC-1",
+  "uuid": "83be9",
+  "chemin": "6e › 6M2 › 6M2autoC",
+  "cas": 61,
+  "exemple": {
+   "variante": "sup=4 sup2=false sup3=1 sup4=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "6M2autoC",
+  "uuid": "83be3",
+  "chemin": "6e › 6M2 › 6M2autoC",
+  "cas": 90,
+  "exemple": {
+   "variante": "sup=4 sup2=1 sup3=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "6N0A-12",
+  "uuid": "de189",
+  "chemin": "6e › 6N0 › 6N0A",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "6N0A-12",
+  "uuid": "de189",
+  "chemin": "6e › 6N0 › 6N0A",
+  "cas": 38,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "6N1L",
+  "uuid": "013ef",
+  "chemin": "6e › 6N1 › 6N1L",
+  "cas": 18,
+  "exemple": {
+   "variante": "sup=1 sup2=5",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    3,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "6N2E-5",
+  "uuid": "69a83",
+  "chemin": "6e › 6N2 › 6N2E",
+  "cas": 11,
+  "exemple": {
+   "variante": "sup=0",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "6N2G-1",
+  "uuid": "1ab39",
+  "chemin": "6e › 6N2 › 6N2G",
+  "cas": 34,
+  "exemple": {
+   "variante": "sup=1-2-5-6 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "6N2G",
+  "uuid": "04314",
+  "chemin": "6e › 6N2 › 6N2G",
+  "cas": 34,
+  "exemple": {
+   "variante": "sup=1-2-5-6 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "6N2I-1",
+  "uuid": "25d7a",
+  "chemin": "6e › 6N2 › 6N2I",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=7-8 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "6N2I-2",
+  "uuid": "f5c44",
+  "chemin": "6e › 6N2 › 6N2I",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=7-8 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "6N3B",
+  "uuid": "42fbx",
+  "chemin": "6e › 6N3 › 6N3B",
+  "cas": 16,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    100,
+    101
+   ]
+  }
+ },
+ {
+  "id": "6N3M",
+  "uuid": "8e07a",
+  "chemin": "6e › 6N3 › 6N3M",
+  "cas": 24,
+  "exemple": {
+   "variante": "sup=10 sup2=1-2-3 sup3=12",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "6N4A-2",
+  "uuid": "4e89c",
+  "chemin": "6e › 6N4 › 6N4A",
+  "cas": 30,
+  "exemple": {
+   "variante": "sup=4 sup2=5",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "6N4A-5",
+  "uuid": "b7c21",
+  "chemin": "6e › 6N4 › 6N4A",
+  "cas": 90,
+  "exemple": {
+   "variante": "sup=5 sup2=false sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    100
+   ]
+  }
+ },
+ {
+  "id": "6N4B-1",
+  "uuid": "328c3",
+  "chemin": "6e › 6N4 › 6N4B",
+  "cas": 39,
+  "exemple": {
+   "variante": "sup=1 sup4=2-1",
+   "graine": "revue-0-a",
+   "question": 2,
+   "champs": [
+    2
+   ]
+  }
+ },
+ {
+  "id": "6N4B-2",
+  "uuid": "17d47",
+  "chemin": "6e › 6N4 › 6N4B",
+  "cas": 11,
+  "exemple": {
+   "variante": "sup=3 sup2=1 sup3=6 sup4=0 sup5=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "6N4B",
+  "uuid": "9d4d0",
+  "chemin": "6e › 6N4 › 6N4B",
+  "cas": 182,
+  "exemple": {
+   "variante": "sup2=7 sup3=0 sup4=0 sup5=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "6N5-1",
+  "uuid": "28d56",
+  "chemin": "6e › 6N5",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=9 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  }
+ },
+ {
+  "id": "6N5-2",
+  "uuid": "4e2b2",
+  "chemin": "6e › 6N5",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=9 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  }
+ },
+ {
+  "id": "6P3C",
+  "uuid": "f7a14",
+  "chemin": "6e › 6P3 › 6P3C",
+  "cas": 94,
+  "exemple": {
+   "variante": "sup=false sup2=7",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "72489",
+  "uuid": "72489",
+  "chemin": "Non classés › divers",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=4-5 sup2=false sup3=false sup4=false sup5=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "72e9d",
+  "uuid": "72e9d",
+  "chemin": "Non classés › divers",
+  "cas": 58,
+  "exemple": {
+   "variante": "sup=1 sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "76230",
+  "uuid": "76230",
+  "chemin": "Non classés › divers",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "7761e",
+  "uuid": "7761e",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "7aba6",
+  "uuid": "7aba6",
+  "chemin": "Non classés › divers",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "7f0dc",
+  "uuid": "7f0dc",
+  "chemin": "Non classés › divers",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=3 sup2=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "80645",
+  "uuid": "80645",
+  "chemin": "Non classés › divers",
+  "cas": 50,
+  "exemple": {
+   "variante": "sup=true sup2=1 sup3=1 sup4=1 sup5=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "8418e",
+  "uuid": "8418e",
+  "chemin": "Non classés › divers",
+  "cas": 31,
+  "exemple": {
+   "variante": "sup=7",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "845fa",
+  "uuid": "845fa",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=false nb=10",
+   "graine": "revue-2-a",
+   "question": 2,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "85dfc",
+  "uuid": "85dfc",
+  "chemin": "Non classés › divers",
+  "cas": 20,
+  "exemple": {
+   "variante": "sup=1 sup2=2 sup3=true",
+   "graine": "revue-2-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "88021",
+  "uuid": "88021",
+  "chemin": "Non classés › divers",
+  "cas": 49,
+  "exemple": {
+   "variante": "sup=11",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "8802x",
+  "uuid": "8802x",
+  "chemin": "Non classés › divers",
+  "cas": 46,
+  "exemple": {
+   "variante": "sup=9",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "88e2x",
+  "uuid": "88e2x",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "95adb",
+  "uuid": "95adb",
+  "chemin": "Non classés › divers",
+  "cas": 10,
+  "exemple": {
+   "variante": "sup2=1",
+   "graine": "revue-1-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "9FA2B-15",
+  "uuid": "ec3cc",
+  "chemin": "9e › 9FA2 › 9FA2B",
+  "cas": 17,
+  "exemple": {
+   "variante": "sup=1-2-3-4-5-6 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "9FA2B-17",
+  "uuid": "9d5ef",
+  "chemin": "9e › 9FA2 › 9FA2B",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=1 sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "9FA2B-18",
+  "uuid": "4f77c",
+  "chemin": "9e › 9FA2 › 9FA2B",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=2 sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "9NO3C-16",
+  "uuid": "ab18c",
+  "chemin": "9e › 9NO3 › 9NO3C",
+  "cas": 6,
+  "exemple": {
+   "variante": "sup=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "BP2AutoP1",
+  "uuid": "816b8",
+  "chemin": "BP2 › BP2Auto › BP2AutoP",
+  "cas": 10,
+  "exemple": {
+   "variante": "sup=3 sup2=1",
+   "graine": "revue-20-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "BP2CCF5",
+  "uuid": "b0311",
+  "chemin": "BP2 › BP2CCF",
+  "cas": 34,
+  "exemple": {
+   "variante": "sup=1-2-3-4-5-6 sup2=false sup3=false sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "CM2D1A-1",
+  "uuid": "99d95",
+  "chemin": "cm2 › CM2D1 › CM2D1A",
+  "cas": 64,
+  "exemple": {
+   "variante": "sup=false sup2=4 sup3=3 sup4=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "CM2D3B-1",
+  "uuid": "559fc",
+  "chemin": "cm2 › CM2D3 › CM2D3B",
+  "cas": 4,
+  "exemple": {
+   "variante": "sup=1 sup2=true sup3=true",
+   "graine": "revue-1-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "CM2D3B-2",
+  "uuid": "64d46",
+  "chemin": "cm2 › CM2D3 › CM2D3B",
+  "cas": 14,
+  "exemple": {
+   "variante": "sup=1 sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "CM2G5B-2",
+  "uuid": "6809f",
+  "chemin": "cm2 › CM2G5 › CM2G5B",
+  "cas": 10,
+  "exemple": {
+   "variante": "sup=2 sup2=1 sup3=2 sup4=3",
+   "graine": "revue-8-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "CM2N1D-2",
+  "uuid": "c96de",
+  "chemin": "cm2 › CM2N1 › CM2N1D",
+  "cas": 109,
+  "exemple": {
+   "variante": "sup=false sup2=4-5-6 sup3=5 sup4=4 sup5=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "EgaliteFG5-2de-3",
+  "uuid": "3b5b0",
+  "chemin": "Égalité filles-garçons › EgaliteFG5-2de",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=true sup2=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    21,
+    24,
+    27
+   ]
+  }
+ },
+ {
+  "id": "EgaliteFG5-2de-6",
+  "uuid": "d5005",
+  "chemin": "Égalité filles-garçons › EgaliteFG5-2de",
+  "cas": 2,
+  "exemple": {
+   "variante": "sup=true",
+   "graine": "revue-0-a",
+   "question": 14,
+   "champs": [
+    12
+   ]
+  }
+ },
+ {
+  "id": "TEG1-21",
+  "uuid": "ecca7",
+  "chemin": "Terminale › Terminale Expert › TEG1 › TEG1-2",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=3 sup2=3 sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "TEM1-14",
+  "uuid": "be473",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-1",
+  "cas": 17,
+  "exemple": {
+   "variante": "sup=2 sup2=1",
+   "graine": "revue-4-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "TEM1-15",
+  "uuid": "32fa9",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-1",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "TEM1-22",
+  "uuid": "ff4b8",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-2",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=true sup2=false sup3=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "TEM1-23",
+  "uuid": "1b8e7",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-2",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=true sup2=false sup3=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "TEM1-24",
+  "uuid": "196c4",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-2",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=true sup2=false sup3=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "TEM1-25",
+  "uuid": "a7896",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-2",
+  "cas": 19,
+  "exemple": {
+   "variante": "sup=3 sup2=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "TEM1-31",
+  "uuid": "6ddf1",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-3",
+  "cas": 19,
+  "exemple": {
+   "variante": "sup=3 sup2=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "TEM1-32",
+  "uuid": "ba1c6",
+  "chemin": "Terminale › Terminale Expert › TEM1 › TEM1-3",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "TSG2-26",
+  "uuid": "24d3b",
+  "chemin": "Terminale › Terminale Spé › TSG2 › TSG2-2",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "a2ac2",
+  "uuid": "a2ac2",
+  "chemin": "Non classés › divers",
+  "cas": 1,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "a3870",
+  "uuid": "a3870",
+  "chemin": "Non classés › divers",
+  "cas": 335,
+  "exemple": {
+   "variante": "sup=2-5-10 sup2=4 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "a3870",
+  "uuid": "a3870",
+  "chemin": "Non classés › divers",
+  "cas": 395,
+  "exemple": {
+   "variante": "sup=2-5-10 sup2=4 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "a8c21",
+  "uuid": "a8c21",
+  "chemin": "Non classés › divers",
+  "cas": 26,
+  "exemple": {
+   "variante": "sup=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "ac571",
+  "uuid": "ac571",
+  "chemin": "Non classés › divers",
+  "cas": 28,
+  "exemple": {
+   "variante": "sup=4-5 sup2=false sup3=false sup4=false sup5=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "acd4a",
+  "uuid": "acd4a",
+  "chemin": "Non classés › divers",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "ad8c8",
+  "uuid": "ad8c8",
+  "chemin": "Non classés › divers",
+  "cas": 25,
+  "exemple": {
+   "variante": "sup=5",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "ae872",
+  "uuid": "ae872",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "b4e86",
+  "uuid": "b4e86",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "b6250",
+  "uuid": "b6250",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "b7662",
+  "uuid": "b7662",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "b8afd",
+  "uuid": "b8afd",
+  "chemin": "Non classés › divers",
+  "cas": 38,
+  "exemple": {
+   "variante": "sup=7 sup2=4 sup3=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "br9n6",
+  "uuid": "br9n6",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=false nb=10",
+   "graine": "revue-2-a",
+   "question": 2,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "c1888",
+  "uuid": "c1888",
+  "chemin": "Non classés › divers",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "c6836",
+  "uuid": "c6836",
+  "chemin": "Non classés › divers",
+  "cas": 34,
+  "exemple": {
+   "variante": "sup=3 sup2=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "c8fe9",
+  "uuid": "c8fe9",
+  "chemin": "Non classés › divers",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=false",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "cee5d",
+  "uuid": "cee5d",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=true sup2=false sup3=false nb=10",
+   "graine": "revue-8-a",
+   "question": 2,
+   "champs": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "d1513",
+  "uuid": "d1513",
+  "chemin": "Non classés › divers",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=4 sup2=3 sup3=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "d41c5",
+  "uuid": "d41c5",
+  "chemin": "Non classés › divers",
+  "cas": 52,
+  "exemple": {
+   "variante": "sup=2 sup2=7 sup3=0 sup4=0",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "d41c5",
+  "uuid": "d41c5",
+  "chemin": "Non classés › divers",
+  "cas": 52,
+  "exemple": {
+   "variante": "sup=2 sup2=7 sup3=0 sup4=0",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "d88d6",
+  "uuid": "d88d6",
+  "chemin": "Non classés › divers",
+  "cas": 34,
+  "exemple": {
+   "variante": "sup=1 sup2=false sup3=2",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "dabbf",
+  "uuid": "dabbf",
+  "chemin": "Non classés › divers",
+  "cas": 12,
+  "exemple": {
+   "variante": "sup=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "dc3d2",
+  "uuid": "dc3d2",
+  "chemin": "Non classés › divers",
+  "cas": 13,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "dodgm",
+  "uuid": "dodgm",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=false nb=10",
+   "graine": "revue-2-a",
+   "question": 2,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ },
+ {
+  "id": "e1938",
+  "uuid": "e1938",
+  "chemin": "Non classés › divers",
+  "cas": 20,
+  "exemple": {
+   "variante": "sup=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "e7919",
+  "uuid": "e7919",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "e906e",
+  "uuid": "e906e",
+  "chemin": "Non classés › divers",
+  "cas": 33,
+  "exemple": {
+   "variante": "sup=11",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ {
+  "id": "f1f9d",
+  "uuid": "f1f9d",
+  "chemin": "Non classés › divers",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=1 sup2=true",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "f8a4d",
+  "uuid": "f8a4d",
+  "chemin": "Non classés › divers",
+  "cas": 119,
+  "exemple": {
+   "variante": "sup=13 sup2=4 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "f8b5e",
+  "uuid": "f8b5e",
+  "chemin": "Non classés › divers",
+  "cas": 19,
+  "exemple": {
+   "variante": "sup=2 sup2=7 sup3=0",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "f8b5e",
+  "uuid": "f8b5e",
+  "chemin": "Non classés › divers",
+  "cas": 40,
+  "exemple": {
+   "variante": "sup=2 sup2=7 sup3=0",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "f9a02",
+  "uuid": "f9a02",
+  "chemin": "Non classés › divers",
+  "cas": 35,
+  "exemple": {
+   "variante": "sup=3 sup2=true sup3=4 sup4=3",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "faacc",
+  "uuid": "faacc",
+  "chemin": "Non classés › divers",
+  "cas": 11,
+  "exemple": {
+   "variante": "défaut",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fd4d8",
+  "uuid": "fd4d8",
+  "chemin": "Non classés › divers",
+  "cas": 229,
+  "exemple": {
+   "variante": "sup=4 sup2=4 sup3=1 sup4=1",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "ff386",
+  "uuid": "ff386",
+  "chemin": "Non classés › divers",
+  "cas": 22,
+  "exemple": {
+   "variante": "sup=3 sup2=4",
+   "graine": "revue-0-a",
+   "question": 1,
+   "champs": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "nuwgb",
+  "uuid": "nuwgb",
+  "chemin": "Non classés › divers",
+  "cas": 9,
+  "exemple": {
+   "variante": "sup=false nb=10",
+   "graine": "revue-2-a",
+   "question": 2,
+   "champs": [
+    1,
+    0
+   ]
+  }
+ }
+]
