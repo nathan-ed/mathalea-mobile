@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **381 sur 615**. Constats confirmés : **145**.
+Exercices relus : **392 sur 615**. Constats confirmés : **148**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 60 |
+| Rédaction (français, titres, consignes) | 63 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -158,6 +158,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2N12-4 | R16  | Énoncé : « Si $A \cup B = …$, $A \cap B = …$ et $B \setminus A = ….$ » : proposition subordonnée sans principale (phrase incomplète) | « On sait que… » ou « Sachant que… » | src/exercices/2e/ |
 | 2N13-1 | R12  | Valeur absolue notée de trois façons selon l'exercice : \vert (2N13-1, 2N13-3), \| \| (2N13-2), \lvert \rvert (2N13-4) | Harmoniser (\lvert … \rvert) | src/exercices/2e/ |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
+| 2N20-5 | R3  | Correction : « $2 \times 180180$ », « 90090 », « 45045 »… sans espace fine des milliers (l'énoncé écrit $360\,360$) | texNombre | src/exercices/2e/2N20-5.ts |
+| 2N20-7 | R1 Titre | Énoncé : « 55 dents », « 15 » hors $ (même défaut que 4A12, 3A12-4) | Nombres entre $ | src/exercices/2e/2N20-7.ts |
+| 2N30-4 | R16  | Consigne : « Compléter avec deux nombres entiers consécutifs ? Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5. . » : « ? » parasite, majuscule après deux-points, point doublé ; nombres hors $ | Réécrire la consigne et son rappel | src/exercices/2e/2N30-4.ts |
 | can2a-2022 | R10 Français | Q15 : « Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant » (coquille, « fois plus de fois ») ; lignes 644 et 661. | Si on va $k$ fois plus souvent à la piscine, le prix payé est $k$ fois plus important. | src/exercices/can/2e/can2a-2022.ts:644 |
 | can2a-2023 | R10 Français | Q19 : « jeu viéo » | jeu vidéo | src/exercices/can/2e/can2a-2023.ts:904 |
 | can2a-2023 | R10 Français | Q20 : « le cube agrandit », « le carré agrandit » | agrandi | src/exercices/can/2e/can2a-2023.ts:931 |
@@ -210,4 +213,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T4  1018 ; T5 Espaces 966 ; N1 Nombre hors $ 719 ; T6 Points de suspension 305 ; N2 Séparateur des milliers 158 ; R5 Virgule 155 ; N6 Écriture algébrique 123 ; T3  77 ; R2 Tutoiement, impératif 21 ; R10 Français 13 ; R6  13 ; M7  11 ; N3  9 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5003 ; N1 Nombre hors $ 2165 ; T4  1282 ; T5 Espaces 1278 ; N2 Séparateur des milliers 775 ; R5 Virgule 155 ; N6 Écriture algébrique 123 ; T3  80 ; R2 Tutoiement, impératif 33 ; R10 Français 13 ; R6  13 ; M7  11 ; N3  9 ; T2  5 ; R1 Titre 2.

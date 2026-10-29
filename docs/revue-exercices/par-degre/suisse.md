@@ -317,6 +317,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
@@ -333,4 +334,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10948 ; T5 Espaces 1635 ; T6 Points de suspension 866 ; T4  601 ; R2 Tutoiement, impératif 431 ; T2  371 ; T3  201 ; R5 Virgule 164 ; N6 Écriture algébrique 105 ; N2 Séparateur des milliers 75 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10985 ; T5 Espaces 1637 ; T6 Points de suspension 884 ; T4  761 ; R2 Tutoiement, impératif 440 ; T2  371 ; T3  201 ; R5 Virgule 175 ; N2 Séparateur des milliers 137 ; N6 Écriture algébrique 105 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 2 ; R6  1.
