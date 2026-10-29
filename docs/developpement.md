@@ -684,6 +684,15 @@ Reste à faire :
   à 40 % sur le fond sombre tirait sur le rouge brun).
 - Ordinateur : fenêtre ouverte en grand (`maximized`), énoncé et champs à
   1,45 rem sur une fenêtre large (`.question-eleve`).
+- Moteur : toutes les apps utilisent désormais le moteur construit depuis
+  `moteur/` et livré avec elles (`MISES_A_JOUR` faux sauf construction avec
+  `MATHALEA_MOTEUR_MAJ=1`) : le moteur publié par mathalea.fr est construit
+  depuis `src/moteur/index.ts` de MathALÉA, sans les corrections de l'app, et
+  aurait remplacé le nôtre. Conséquence : de nouveaux exercices du site
+  arrivent avec une release de l'app (monter `moteur/COMMIT`). `google-play.yml`
+  construit aussi notre moteur (`scripts/moteur.sh`).
+- Vérification avant release : `bash scripts/verifier-release.sh`, sur
+  l'ordinateur de qui publie ; la CI GitHub ne garde que les suites rapides.
 - Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
 - Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
   attendues régénérées avec la graine de la séance), aussi en CI ;

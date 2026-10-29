@@ -834,6 +834,13 @@ Environnement (machine de Nathan)
   de toucher à la règle (107 exercices cassés par la première version).
 - Ne pas modifier `src/` pendant une suite e2e : le rechargement de Vite
   recharge la page et fait échouer la suite au hasard.
+- Moteur : toutes les apps utilisent le nôtre, livré avec l'app (Nathan,
+  2026-10-29 : « les apps doivent toutes utiliser notre moteur »). Plus de
+  mise à jour téléchargée depuis mathalea.fr (`MISES_A_JOUR`, sauf
+  `MATHALEA_MOTEUR_MAJ=1`). Jamais modifier le code de MathALÉA : corrections
+  dans `moteur/fichiers/`, style dans `src/app.css`.
+- Tests de release sur l'ordinateur de Nathan (« je serai le seul à faire des
+  releases ») : `bash scripts/verifier-release.sh`, puis le tag.
 - Espaces dans les nombres : jamais exigés (pas de touche espace dans
   MathLive au clavier du téléphone), `sansEspacesExiges` dans le moteur.
 - Construire le moteur sans accès à git.sesamath.net (`instrumenpoche`,

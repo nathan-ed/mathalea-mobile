@@ -36,13 +36,21 @@ toute modification.
   la version courante pour rejouer, relire ou reprendre.
 - Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source
   dans `moteur/`), jamais importé dans le code de l'app. Contrat :
-  `src/lib/moteur.ts` (`API_ATTENDUE`).
+  `src/lib/moteur.ts` (`API_ATTENDUE`). Toutes les apps utilisent notre moteur,
+  livré avec l'app : aucune mise à jour téléchargée depuis mathalea.fr
+  (`MISES_A_JOUR`, `moteur.rs`). Le code de MathALÉA n'est jamais modifié ;
+  les corrections vont dans `moteur/fichiers/src/moteur/index.ts`, le style
+  dans `src/app.css`.
 
 ## Vérifier avant de rendre
 
 Chaque release touche beaucoup de monde : rien ne passe sans vérification
 complète (détails dans le skill, « Vérification »).
 
+- Avant une release : `bash scripts/verifier-release.sh` sur l'ordinateur de
+  qui publie (check, test, cargo test, toutes les suites e2e dont tous les
+  formats de réponse et les parcours de l'Explorer de A à Z) ; « TOUT VERT »
+  avant de poser le tag.
 - `pnpm check` et `pnpm test` ; `cargo test` dans `src-tauri`.
 - Parcourir le changement comme un élève (vraies réponses, vrais boutons,
   jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais

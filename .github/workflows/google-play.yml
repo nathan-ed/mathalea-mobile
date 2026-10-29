@@ -1,9 +1,9 @@
-# Version Google Play chaque semaine, si mathalea.fr a publié un nouveau moteur.
-# Les boutiques interdisent de télécharger du code qui change l'app : leur
-# version embarque le moteur (MATHALEA_MOTEUR_FIGE=1) et le reçoit par une mise
-# à jour de l'app. Celle-ci reprend le moteur publié (signature, taille et
-# SHA-256 vérifiés : scripts/moteur-publie.mjs), le code de l'app au dernier
-# tag v*, et un numéro de version interne daté (toujours croissant).
+# Version Google Play du dernier tag v*, si elle n'a pas encore été envoyée.
+# Les boutiques interdisent de télécharger du code qui change l'app : la version
+# embarque le moteur (MATHALEA_MOTEUR_FIGE=1). C'est notre moteur, construit
+# depuis moteur/ du tag (scripts/moteur.sh), jamais celui publié par
+# mathalea.fr, qui n'a pas les corrections de l'app (Nathan, octobre 2026).
+# Numéro de version interne daté (toujours croissant).
 # Envoi à la Play Console si le secret GOOGLE_PLAY_SERVICE_ACCOUNT existe ;
 # sinon, le .aab reste un artefact du job.
 name: google-play
@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       forcer:
-        description: Construire même si le moteur n'a pas changé
+        description: Construire même si cette version a déjà été envoyée
         type: boolean
         default: false
       piste:
@@ -50,16 +50,17 @@ jobs:
       # Code de l'app : la dernière version publiée (tag v*)
       - name: Dernière version de l'app
         run: |
-          # Script du moteur publié pris sur la branche principale, avant de changer de version
-          cp scripts/moteur-publie.mjs scripts/cle-android.sh scripts/e2e-ci.sh "$RUNNER_TEMP/"
+          # Scripts pris sur la branche principale, avant de changer de version
+          cp scripts/cle-android.sh scripts/e2e-ci.sh "$RUNNER_TEMP/"
           tag=$(git describe --tags --abbrev=0 --match 'v*')
           git checkout "$tag"
           echo "TAG=$tag" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Moteur publié
-        run: echo "MOTEUR=$(node "$RUNNER_TEMP/moteur-publie.mjs" --version)" >> "$GITHUB_ENV"
+      # Notre moteur : commit de MathALÉA et empreinte de moteur/ (comme scripts/moteur.sh)
+      - name: Moteur de l'app
+        run: echo "MOTEUR=$(cut -c1-9 moteur/COMMIT).$(cd moteur && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)" >> "$GITHUB_ENV"
       # Moteur déjà envoyé à Google Play : rien à faire
       - name: Déjà envoyé ?
         id: deja
@@ -70,17 +71,17 @@ jobs:
           lookup-only: true
       - name: Rien de nouveau
         if: steps.deja.outputs.cache-hit == 'true' && !inputs.forcer
-        run: echo "Moteur $MOTEUR et app $TAG déjà envoyés à Google Play."
+        run: echo "App $TAG (moteur $MOTEUR) déjà envoyée à Google Play."
       - name: Suite
         id: suite
         if: steps.deja.outputs.cache-hit != 'true' || inputs.forcer
         run: echo "ok=true" >> "$GITHUB_OUTPUT"
-      - name: Moteur dans l'app
-        if: steps.suite.outputs.ok
-        run: node "$RUNNER_TEMP/moteur-publie.mjs"
       # Version de pnpm : champ packageManager de package.json
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         if: steps.suite.outputs.ok
+      - name: Moteur dans l'app
+        if: steps.suite.outputs.ok
+        run: bash scripts/moteur.sh
       - uses: actions/setup-java@v6
         if: steps.suite.outputs.ok
         with:
@@ -106,7 +107,7 @@ jobs:
         if: steps.suite.outputs.ok
         run: |
           cp "$RUNNER_TEMP/e2e-ci.sh" scripts/e2e-ci.sh
-          bash scripts/e2e-ci.sh defilement un-toucher regressions changer-appareil test-niveau-reel reponses-elements formats
+          bash scripts/e2e-ci.sh defilement un-toucher regressions changer-appareil test-niveau-reel reponses-elements
       # Clé d'importation de Google Play ; à défaut, celle des APK
       - name: Clé de signature
         if: steps.suite.outputs.ok && steps.cles.outputs.signature

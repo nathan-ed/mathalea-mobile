@@ -61,11 +61,6 @@ jobs:
           - classe-qr en-classe fiche-parcours session-qr
           - ouverture-paliers paliers papier recherche correction-parcours
           - reponses-session revisions test-niveau test-niveau-reel
-          # Tous les formats de réponse de MathALÉA, puis les parcours de l'Explorer de A à Z
-          - formats
-          - az-prequalifiant-1
-          - az-prequalifiant-2
-          - az-evacom
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
