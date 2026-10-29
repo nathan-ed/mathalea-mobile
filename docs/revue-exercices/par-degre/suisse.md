@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **909 sur 1168**. Constats confirmés : **383**.
+Exercices relus : **936 sur 1168**. Constats confirmés : **386**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 292 |
+| Rédaction (français, titres, consignes) | 295 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -156,6 +156,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
 | 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
+| 225c1 | R12  | QCM : propositions « 4\times 5 » (\times) alors que la correction de la même version CH écrit « 4\cdot 5 » (même défaut que 10NO3D-11) | \cdot dans les propositions pour la Suisse | relecture |
 | 23241 | R16  | Titre : « probabilté » (probabilité) | probabilité | relecture |
 | 23b3e | R16  | Titre « Déterminer un encadrement avec la fonction carré » mais l'exercice demande l'écriture décimale de 7,2·10^{-4} | Titre cohérent | relecture |
 | 25143 | R16  | Titre contenant « (ancien exercice) » visible dans le référentiel | Retirer la mention ou retirer l'exercice du référentiel | relecture |
@@ -218,10 +219,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 7b6ee | R10 Français | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins | 2\,025+20 | relecture |
+| 7k09a | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
 | 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
+| 8ac2d | R3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
 | 90671 | R2 Tutoiement, impératif | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
 | 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
@@ -432,17 +435,20 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | 014a4 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $-\frac12$.Il y a une erreur avec la valeur : $+\infty$.Il y a une erreur avec la valeur : $-\fra |
+| 0716b | I1 Bonne réponse refusée | 5 | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $-\frac34$.Il y a une erreur avec la valeur : $+\infty$.Il y a une erreur avec la valeur : $-\fra |
 | 0f2d1 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Résultat incorrect car le numérateur doit être un nombre entier. |
 | 10FA4C-9 | I1 Bonne réponse refusée | 10 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : un calcul numérique reste à effectuer. |
 | 10FA4F-10 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : elle contient un facteur trivial ou un terme nul. |
 | 11FA4A-5 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Incorrect car cette expression n'est pas égale à celle attendue. |
 | 11NO3A-2 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) La réponse fournie est bien égale à celle attendue mais la réponse fournie n'est pas en notation scientifique. |
 | 1mCL4-1 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (1/2) Les nombres doivent tous être séparés par un point-virgule. |
+| 227f0 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 28997 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) L'ensemble est vide. |
 | 2mTrigoFct-6 | I1 Bonne réponse refusée | 66 | bonne réponse refusée (0/1) Les nombres doivent tous être séparés par un point-virgule. |
 | 3G98-5 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 6ca15 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1)  |
+| 7f0dc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Les nombres doivent tous être séparés par un point-virgule. |
 | 9ES1C-1 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Il manque 1 réponse. |
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
@@ -475,4 +481,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38452 ; T6 Points de suspension 6600 ; T5 Espaces 2463 ; T4  1848 ; M7  781 ; R2 Tutoiement, impératif 678 ; T3  662 ; R5 Virgule 564 ; T2  371 ; N2 Séparateur des milliers 247 ; N6 Écriture algébrique 241 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38490 ; T6 Points de suspension 6670 ; T5 Espaces 2504 ; T4  1904 ; M7  781 ; R2 Tutoiement, impératif 705 ; T3  663 ; R5 Virgule 567 ; T2  371 ; N2 Séparateur des milliers 247 ; N6 Écriture algébrique 246 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
