@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **330 sur 1168**. Constats confirmés : **222**.
+Exercices relus : **339 sur 1168**. Constats confirmés : **222**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -271,6 +271,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
+| testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | AchangerOBLIGATOIREMENT | X1 Erreur | 1 | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection |
@@ -284,4 +285,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10475 ; T5 Espaces 1407 ; T6 Points de suspension 690 ; T4  575 ; T2  371 ; R2 Tutoiement, impératif 368 ; R5 Virgule 164 ; T3  139 ; N6 Écriture algébrique 99 ; N2 Séparateur des milliers 57 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R6  1 ; R1 Titre 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 10857 ; T5 Espaces 1574 ; T6 Points de suspension 763 ; T4  601 ; R2 Tutoiement, impératif 420 ; T2  371 ; T3  200 ; R5 Virgule 164 ; N6 Écriture algébrique 105 ; N2 Séparateur des milliers 61 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; R10 Français 16 ; X2 Formule cassée 12 ; N3  12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 2 ; R6  1.
