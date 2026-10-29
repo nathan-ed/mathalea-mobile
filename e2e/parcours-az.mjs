@@ -260,7 +260,9 @@ async function repondre(e, n, k, a) {
     case 'meta-interactif-2d': {
       for (const [nom, rep] of Object.entries(v)) {
         if (!/^field\d+$/.test(nom)) continue
-        const champ = main.locator(`#MetaInteractif2d${q}${nom}`)
+        // 845fa reprend dans la question 2 les id de la question 1 (défaut de MathALÉA) : le champ affiché
+        let champ = main.locator(`#MetaInteractif2d${q}${nom}`)
+        if (!(await champ.count())) champ = main.locator(`math-field[id^="MetaInteractif2dEx${n}Q"][id$="${nom}"]`).last()
         await champ.evaluate((el, val) => el.setPromptValue('champ1', val, { mode: 'math' }), texteDe(rep))
         await champ.evaluate((el) => el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true })))
       }
