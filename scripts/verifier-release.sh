@@ -56,7 +56,9 @@ demarrer() {
 arreter() { kill -- -"$serveur" 2>/dev/null; sleep 2; }
 trap 'kill -- -"${serveur:-0}" 2>/dev/null; kill "$partage" 2>/dev/null' EXIT
 
-demarrer "http://127.0.0.1:8702/s/Xk42demo/explorer/"
+# Adresse de l'Explorer de l'app (bloquée par les suites : elles gardent leur
+# catalogue en cache), imposée même si .env.development.local en donne une autre
+demarrer "https://coopmaths.fr/alea/parcours/"
 # Longues suites en parallèle : formats de réponse et parcours de l'Explorer
 paralleles=(formats)
 if [ -z "${RAPIDE:-}" ]; then paralleles+=(az-prequalifiant-1 az-prequalifiant-2 az-evacom); fi
@@ -74,6 +76,9 @@ for s in reponses-elements defilement un-toucher regressions changer-appareil cl
   reponses-session revisions test-niveau test-niveau-reel retour; do
   etape "$s" node "e2e/$s.mjs"
 done
+arreter
+# Bout en bout à trois appareils : catalogue Explorer du dossier de test
+demarrer "http://127.0.0.1:8702/s/Xk42demo/explorer/"
 etape complet env DOSSIER="$dossier" node e2e/complet.mjs
 arreter
 kill "$partage" 2>/dev/null
