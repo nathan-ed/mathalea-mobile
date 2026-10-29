@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **398 sur 1168**. Constats confirmés : **249**.
+Exercices relus : **417 sur 1168**. Constats confirmés : **253**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 44 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 173 |
+| Rédaction (français, titres, consignes) | 177 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -167,11 +167,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | nlcug | R16  | Titre « Dtéreminer un reste à payer » (Déterminer) | « Déterminer » | relecture |
 | ob9in | R16  | Titre « Convertir m$^3$ et Litres » : majuscule à « Litres » et $ dans le titre | « Convertir des m³ et des litres » | relecture |
 | olnpp | R16  | Titre « Trouver une longuer » (longueur) | « longueur » | relecture |
+| ps266 | R12  | QCM en \times (« $4\times10^{8}$ ») et correction en \cdot (« $4\cdot10^{8}$ ») | Un seul symbole | relecture |
+| ps267 | R16  | Correction : « la pente est négatif » (négative) | « négative » | relecture |
+| psq05 | R16  | Correction : « $30$ km correspond à le quart de $120$ km » (au quart) | « correspond au quart de » | relecture |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
 | labyvec | R5 Virgule | Consigne « Trouver le chemin qui ne passe que par des coordonnées de vecteurs colinéaires » sans point final | Ajouter le point | src/exercices/ |
 | ltsv8 | R16  | Correction : « Longueur $\cdot$ largeur $\cdot$ hauteur » majuscule initiale incohérente et mots hors formule | « longueur × largeur × hauteur » | src/exercices/ |
+| ps263 | R12  | Correction : « $16\div 0.5$ » : point décimal au lieu de la virgule | $16\div 0,5$ | src/exercices/ |
 | ebd89 | R16  | Titre « Calculer la dérivée de $\lambda u$ » alors que la question est une dérivée d'une fonction affine | Corriger le titre | src/exercices/1e/1AN14-1Old.ts |
 | e46e6 | R16  | Correction : intervalle $[-7;1[$ sans espaces autour de « ; » | $[-7\,;\,1[$ | src/exercices/2e/200F3-02.ts |
 | cee5d | R1 Titre | Énoncé et correction : nombres hors $ (« 1 boule bleue », « 2 boules vertes ») | Nombres entre $ | src/exercices/2e/2P10-4Old.ts |
