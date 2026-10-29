@@ -1,23 +1,24 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **978 sur 1168**. Constats confirmés : **396**.
+Exercices relus : **1008 sur 1168**. Constats confirmés : **404**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
-| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 2 |
+| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 3 |
 | Contenu mathématique faux | 12 |
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 304 |
+| Rédaction (français, titres, consignes) | 311 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 9e17a | I1 Bonne réponse refusée | Interactif : seule la saisie « \mathbb{R}\backslash\{-2025\} » est acceptée ; « \setminus » et « \smallsetminus » (ceux de la correction) sont refusés | Accepter \setminus et \smallsetminus (réponse attendue \mathbb{R}\setminus\{…\}) | relecture |
 | 16c6f | I1 Bonne réponse refusée | Interactif : la réponse attendue est une chaîne vide (this.reponse = ''), la valeur de la correction (3√2/2 + 3√2/2 i) est refusée ; consigne « forme trigonométrique algébrique » contradictoire, « sous  forme » deux espaces (le titre est « à partir de son expression trigonométrique ») | Renseigner this.reponse (forme algébrique) ; « sous forme algébrique » | src/exercices/can/Ex/canTEC2-06.ts:26,35 |
 | afd39 | I2 Réponse fausse acceptée | Titre « Questions de cours » trop vague ; réponse fausse acceptée (1 I2) ; énoncé « avec a&lt;b et a,b∈I » : $a, b\in I$ virgule sans espace fine ; 8 T5, 6 T6, 1 X2. | Titre précis ; comparaison. | src/exercices/CH/afd39.ts |
 
@@ -153,7 +154,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 11QCM-18 | R3  | Énoncé : « est égale $…$? » point d'interrogation sans espace insécable | $…$⍽? | relecture |
 | 11QCM-5 | R16  | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
 | 11QCM-80 | R16  | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
+| 1380f | R16  | Titre contenant « (ancien exercice) » (comme 25143) | Retirer la mention ou l'exercice | relecture |
+| 1474f | R3  | Énoncé et correction : « $3$€ », « $2$€ » sans espace avant € ; tutoiement (« Tu dois ») | $3$ € | relecture |
 | 18559 | R16  | Titre : « … le chiffre des unités devienne le chiffre des ... ? » titre inachevé avec « ... » et espace avant ? | Titre complet | relecture |
+| 19b3f | R1 Titre | Consigne : le texte « Quatre cent soixante-dix » est écrit dans $\textit{…}$ (texte en mode maths) | Texte hors $ avec texteEnCouleur/italique | relecture |
 | 1a8c6 | R16  | Titre « Développer une identité remarquable » mais l'exercice calcule une moyenne pondérée ; « devoir coefficienté » (coefficient) | Titre : Calculer une moyenne pondérée | relecture |
 | 1b8d1 | R1 Titre | Correction : « Pour tout entier n strictement positif » n hors $ ; e^{-n} (e italique) dans 1b8d0 au lieu de \mathrm{e} | $n$ ; \mathrm{e} | relecture |
 | 1b8d4 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
@@ -235,10 +239,14 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
 | 8ac2d | R3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
 | 8e7a5 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 8f060 | R16  | Titre terminé par un astérisque « * » | Retirer l'astérisque | relecture |
+| 8u8my | R12  | Titre : « e^(x+a) = 1 » écrit avec des parenthèses au lieu de LaTeX ; énoncé \text{e} au lieu de \mathrm{e} | $\mathrm{e}^{x+a}=1$ | relecture |
 | 90671 | R2 Tutoiement, impératif | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
 | 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
 | 97290 | R16  | Titre : « Différence de fracion » (fraction) | fractions | relecture |
+| 9b8f9 | R16  | Titre : « Dtéreminer un reste à payer » (Déterminer) | Déterminer | relecture |
+| 9e8ae | R3  | Titre terminé par un point ; « ... » au lieu de \ldots (aussi 9af48 : espaces parasites « $ 7,99+5,8$ ») | Retirer le point ; \ldots | relecture |
 | 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
@@ -460,6 +468,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 6ca15 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1)  |
 | 7f0dc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Les nombres doivent tous être séparés par un point-virgule. |
+| 9e17a | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | 9ES1C-1 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Il manque 1 réponse. |
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
@@ -475,6 +484,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
 | 3f39d | I4 Question sans champ | 6 | champ absent de la page |
 | 2mFctRat-1 | X1 Erreur | 1 | arrêt : délai de 10 min dépassé |
+| 8cd45 | X1 Erreur | 99 | interactif (vide) : page.evaluate: Target page, context or browser has been closed |
+| 9b8f9 | X1 Erreur | 5 | interactif (vide) : page.evaluate: Target page, context or browser has been closed |
 | 9ES1C-1 | X1 Erreur | 1 | console : {"positionLabel":"above","color":["black","{black}"],"style":"","epaisseur":1,"opacite":1,"id":21811,"pointilles":0,"bordures":[-7.8,-7.8,7.8,7.8],"ce |
 | 9NO1G-9 | X1 Erreur | 3 | console : texNombre : Trop de chiffres le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un De |
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
@@ -487,6 +498,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 12a46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 1474f | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 23241 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 9daa5 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | c8ee7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | d7202 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | efab7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
@@ -494,4 +506,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38493 ; T6 Points de suspension 6676 ; T5 Espaces 2528 ; T4  1974 ; M7  792 ; R2 Tutoiement, impératif 747 ; T3  663 ; R5 Virgule 591 ; T2  371 ; N6 Écriture algébrique 280 ; N2 Séparateur des milliers 265 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38537 ; T6 Points de suspension 6744 ; T5 Espaces 2539 ; T4  1974 ; R2 Tutoiement, impératif 802 ; M7  792 ; T3  663 ; R5 Virgule 591 ; T2  371 ; N6 Écriture algébrique 284 ; N2 Séparateur des milliers 274 ; R10 Français 197 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 5 ; N4  2 ; R6  1.

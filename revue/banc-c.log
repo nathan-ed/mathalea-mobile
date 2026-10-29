@@ -204,3 +204,66 @@
 [203/377] 8fa5c : 3 constats (17 s/ex.)
 [204/377] 8fae0 : 10 constats (17 s/ex.)
 [205/377] 8u8my : 12 constats (17 s/ex.)
+[206/377] 9af48 : 0 constats (17 s/ex.)
+[207/377] 8cd45 : 101 constats (17 s/ex.)
+[208/377] 9b8f9 : 5 constats (17 s/ex.)
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+browser.newPage: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /opt/pw-browsers/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-D5jobh --remote-debugging-pipe --no-startup-window
+<launched> pid=23563
+[pid=23563][err] [23563:23577:1029/090458.932984:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=23563][err] [23563:23577:1029/090458.933937:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23577:1029/090458.937833:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=23563][err] [23563:23577:1029/090458.938189:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=23563][err] [23563:23577:1029/090458.938200:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23577:1029/090458.997042:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23563:1029/090459.008119:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23577:1029/090459.008663:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23563:1029/090459.008759:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23577:1029/090459.008949:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23563:1029/090459.017002:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23563:1029/090459.018064:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23563:1029/090459.018125:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23577:1029/090459.019178:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23577:1029/090459.019224:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=23563][err] [23563:23577:1029/090459.019239:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=23563][err] [23563:23577:1029/090459.019245:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23563:1029/090459.021232:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23563:1029/090459.021284:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: 
+[pid=23563][err] [23563:23563:1029/090459.021293:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23577:1029/090459.022018:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23563:1029/090459.030555:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563][err] [23563:23577:1029/090459.035272:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=23563][err] [23563:23563:1029/090459.043171:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=23563] <gracefully close start>
+    at nouvellePage (/home/user/mathalea-mobile/revue/banc.mjs:298:26)
+    at travailleur (/home/user/mathalea-mobile/revue/banc.mjs:332:20)
+    at async file:///home/user/mathalea-mobile/revue/banc.mjs:349:1 {
+  log: []
+}
+
+Node.js v22.22.0
+4190 exercices, 69 à passer
+[1/69] 40bfb : 26 constats (11 s/ex.)
+[2/69] 41aff : 5 constats (8 s/ex.)
+[3/69] 41d8d : 0 constats (7 s/ex.)
+[4/69] 42fc1 : 4 constats (7 s/ex.)
+[5/69] 43cd9 : 11 constats (6 s/ex.)
+[6/69] 45d05 : 0 constats (7 s/ex.)
+[7/69] 45dad : 1 constats (7 s/ex.)
+[8/69] 45e51 : 5 constats (6 s/ex.)
+[9/69] 46bae : 853 constats (11 s/ex.)
+[10/69] 47d36 : 116 constats (10 s/ex.)
+[11/69] 47d56 : 70 constats (9 s/ex.)
+[12/69] 47dd3 : 2 constats (9 s/ex.)
+[13/69] 47f36 : 47 constats (9 s/ex.)
+[14/69] 47u56 : 24 constats (8 s/ex.)
+[15/69] 47v56 : 24 constats (8 s/ex.)
+[16/69] 48d36 : 24 constats (8 s/ex.)
+[17/69] 50cd1 : 23 constats (8 s/ex.)
+[18/69] 50ee5 : 11 constats (8 s/ex.)
