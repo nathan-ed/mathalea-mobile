@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **417 sur 1168**. Constats confirmés : **253**.
+Exercices relus : **433 sur 1168**. Constats confirmés : **255**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,7 +9,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 44 |
+| Rendu cassé (formule, débordement, erreur) | 46 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
 | Rédaction (français, titres, consignes) | 177 |
@@ -60,6 +60,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | m650d | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | mmqav | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | ncr2v | X4  | Titre vide ; énoncé « $251\,224 $ » espace avant $ de fermeture | Ajouter un titre ; $251\,224$ | relecture |
+| qdfhv | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
+| qe7q9 | X4  | Titre vide dans le référentiel | Ajouter un titre | relecture |
 | jnapmep0 | X4  | Exercice modèle dans le référentiel : « Trouver un titre pertinent », énoncé « 2+3 » | Retirer du référentiel | src/exercices/ |
 | jnapmep1 | X4  | Exercice modèle dans le référentiel : titre « Nom de l'exercice », consigne « Consigne », « Question 1 de type 2 » | Retirer du référentiel | src/exercices/ |
 | jltht | X4  | Titre « Calculer des sommes avec annee » : nom de variable interne (annee) | Titre avec l'année | src/exercices/can/ |
