@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **473 sur 615**. Constats confirmés : **156**.
+Exercices relus : **477 sur 615**. Constats confirmés : **156**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -224,4 +224,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5069 ; N1 Nombre hors $ 2649 ; T5 Espaces 1676 ; T4  1296 ; N2 Séparateur des milliers 844 ; N6 Écriture algébrique 362 ; R5 Virgule 337 ; T3  103 ; R2 Tutoiement, impératif 102 ; M7  71 ; N3  26 ; R10 Français 17 ; R6  13 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2 ; N5 Négatif sans parenthèses 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5069 ; N1 Nombre hors $ 2649 ; T5 Espaces 1678 ; T4  1296 ; N2 Séparateur des milliers 844 ; N6 Écriture algébrique 362 ; R5 Virgule 339 ; T3  104 ; R2 Tutoiement, impératif 102 ; M7  71 ; N3  26 ; R10 Français 17 ; R6  13 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2 ; N5 Négatif sans parenthèses 1.

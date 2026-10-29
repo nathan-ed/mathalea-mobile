@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **559 sur 1168**. Constats confirmés : **287**.
+Exercices relus : **583 sur 1168**. Constats confirmés : **293**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 196 |
+| Rédaction (français, titres, consignes) | 202 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -137,6 +137,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
+| 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
 | c52a3 | R16  | Titre « Reconnaitre » sans accent | « Reconnaître » | relecture |
@@ -200,9 +201,14 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3mA2-14 | R3  | Énoncé : $D_h=]0;+\infty[$ sans espaces autour de « ; » (même défaut général) | $]0\,;\,+\infty[$ | src/exercices/ |
 | 3mComb-2 | R1 Titre | Correction : « de 0 à 9, soit 10 possibilités » : nombres hors $ | Nombres entre $ | src/exercices/ |
 | 3mComb-4 | R16  | Énoncé : « former un équipe » (une équipe) et « ce équipe » (cette équipe) | « une équipe », « cette équipe » | src/exercices/ |
+| 9ES1E-18 | R16  | Correction : « tous les côtés du losange mesure environ » (mesurent) | « mesurent » | src/exercices/ |
+| 9ES1E-20 | R16  | Énoncé : « Tracer un rectangle $ABCD$ tel que $AB=5$ et $BC=3$ » : unité manquante (cm) | $AB=5\text{ cm}$ | src/exercices/ |
+| 9ES1E-8 | R3  | Correction : « [$JL$] » crochets hors de la formule alors que « $[LK]$ » les inclut | $[JL]$ | src/exercices/ |
 | 9FA2B-15 | R16  | Énoncé et correction : « cacahuètes fraiches » (fraîches) | « fraîches » | src/exercices/ |
 | 9FA2B-16 | R16  | Énoncé : « une cagette de abricots » (d'abricots) ; la correction recopie les libellés en vrac ($17$ € $7$ € $10$ € une cagette de…) | « d'abricots » ; supprimer le doublon | src/exercices/ |
 | 9FA2B-17 | R16  | Énoncé : « Chloé revient du marché. Il a acheté… » (pronom masculin pour un prénom féminin ; prénom tiré au hasard, accord à faire dépendre du genre) | « Elle a acheté » | src/exercices/ |
+| 9QCM-2 | R16  | Correction : « Les cinq sixièmes d'un quart est égal à » (sont égaux à / correspondent à) | « correspondent à » | src/exercices/ |
+| 9QCM-8 | R3  | QCM : « $42 $ € », « $39,80 $ € » espace avant le $ de fermeture ; correction « $⟦38~ €⟧$ » : € dans la formule | $42$ € | src/exercices/ |
 | j3wun | R16  | Correction : « Un polynome du second degré » (polynôme) ; titre terminé par une espace | « polynôme » | src/exercices/ |
 | js3qp | R16  | Titre « Donner la nature d'un triangle » alors que la question porte sur « tous les carrés sont des rectangles » | Titre cohérent | src/exercices/ |
 | k7omv | R16  | Énoncé : « $]0;+\infty[$ » sans espaces autour de « ; » | $]0\,;\,+\infty[$ | src/exercices/ |
@@ -341,6 +347,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | k2mzc | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | testEEE | I1 Bonne réponse refusée | 20 | bonne réponse refusée (0/1) Cette expression est bien égale à celle attendue mais n'est pas assez réduite. |
 | 4mExpLog-2 | I2 Réponse fausse acceptée | 18 | réponse fausse acceptée |
+| 4mInt-1 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
+| 4mInt-2 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
 | 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
 | 3f39d | I4 Question sans champ | 6 | champ absent de la page |
@@ -359,4 +367,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11277 ; T5 Espaces 1668 ; T6 Points de suspension 974 ; T4  845 ; R2 Tutoiement, impératif 547 ; T2  371 ; R5 Virgule 360 ; T3  210 ; N2 Séparateur des milliers 210 ; N6 Écriture algébrique 124 ; M7  97 ; X3  51 ; T1 Espace avant % 29 ; R10 Français 26 ; N3  18 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11434 ; T5 Espaces 1841 ; T6 Points de suspension 988 ; T4  845 ; R2 Tutoiement, impératif 560 ; R5 Virgule 373 ; T2  371 ; N2 Séparateur des milliers 219 ; T3  215 ; N6 Écriture algébrique 157 ; M7  97 ; X3  51 ; T1 Espace avant % 29 ; R10 Français 26 ; N3  20 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
