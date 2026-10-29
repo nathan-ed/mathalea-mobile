@@ -130,9 +130,11 @@ async function remplirChamp(e, champ, latex) {
     await toucher(e, champ)
     await pause(e.page, 300)
     await e.page.keyboard.type(unite[1].replace('.', ','))
-    const touche = unite[2] + (unite[4] === '2' ? '²' : unite[4] === '3' ? '³' : '')
-    const bouton = e.page.locator('#mathalea-virtual-keyboard button:visible').filter({ hasText: new RegExp(`^\\s*${touche}\\s*$`) }).first()
-    if (await bouton.count()) {
+    // Texte d'une touche du clavier de MathALÉA : « cm⁡3cm3 » pour cm³ (rendu MathLive doublé)
+    const touche = unite[2] + (unite[4] ?? '')
+    const rang = await e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll((bs, t) => bs.findIndex((b) => b.innerText.replace(/[\s\u2061]/g, '') === t + t), touche)
+    const bouton = e.page.locator('#mathalea-virtual-keyboard button:visible').nth(Math.max(rang, 0))
+    if (rang >= 0) {
       await toucher(e, bouton)
       await pause(e.page, 200)
       return
@@ -260,10 +262,10 @@ async function repondre(e, n, k, a) {
     case 'svg-selection': {
       // « Sélectionner a/b de la plaque » : a cases parmi b (la réponse attendue est un rapport)
       const texte = await main.locator('.contenu-mathalea').evaluate((z) => z.querySelector('annotation')?.textContent ?? '')
-      const [, num] = /\\dfrac\{(\d+)\}\{(\d+)\}/.exec(texte) ?? []
+      const [, num] = /\\[dt]?frac\{(\d+)\}\{(\d+)\}/.exec(texte) ?? /(\d+)\s*\/\s*(\d+)/.exec(texte) ?? []
       const boutons = main.locator(`#svg-selection${q}`).locator('button')
       const total = await boutons.count()
-      const den = Number(/\\dfrac\{\d+\}\{(\d+)\}/.exec(texte)?.[1] ?? total)
+      const den = Number((/\\[dt]?frac\{\d+\}\{(\d+)\}/.exec(texte) ?? /\d+\s*\/\s*(\d+)/.exec(texte))?.[1] ?? total)
       for (let j = 0; j < Math.round((Number(num) * total) / den); j++) await toucher(e, boutons.nth(j))
       return
     }
@@ -327,7 +329,8 @@ async function repondre(e, n, k, a) {
       const el = main.locator(`[id*="${q}"]:not([id^="resultatCheck"]):not([id^="feedback"])`).first()
       const b = (await el.count()) ? await el.boundingBox() : null
       if (!b) throw new Error(`format sans saisie connue : ${a.format}`)
-      await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + Math.min(b.height / 2, 40)) : page.mouse.click(b.x + b.width / 2, b.y + Math.min(b.height / 2, 40)))
+      const x = Math.min(b.x + b.width / 2, b.x + (await page.evaluate(() => innerWidth)) / 3)
+      await (e.touche ? page.touchscreen.tap(x, b.y + Math.min(b.height / 2, 40)) : page.mouse.click(x, b.y + Math.min(b.height / 2, 40)))
       // Une case de grille a pris le focus : l'élève y tape un chiffre
       await pause(page, 300)
       if (await page.evaluate(() => /^(INPUT|MATH-FIELD)$/.test(document.activeElement?.tagName ?? ''))) await page.keyboard.type('1')
