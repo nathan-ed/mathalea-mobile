@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **865 sur 1168**. Constats confirmés : **369**.
+Exercices relus : **893 sur 1168**. Constats confirmés : **378**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 278 |
+| Rédaction (français, titres, consignes) | 287 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -134,6 +134,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 0021e | R16  | Titre : « dixèmes » (dixièmes) | dixièmes | relecture |
+| 01607 | R1 Titre | Énoncé : « carré ABCD de côté 4 » nombre hors $ (aussi 02d8w : « 9 boules rouges… ») | $4$ | relecture |
+| 0a113 | R3  | Énoncé : « $1,75$€ » et « $13,91$€ » sans espace avant € ; « 5 pains », « 4 tartelettes » hors $ | $1,75$ € ; $5$ pains | relecture |
+| 0ff6a | R16  | Titre « Tracer une droite à partir de son équation » mais l'exercice (QCM) demande de lire l'équation d'une droite représentée | Titre cohérent avec la variante QCM | relecture |
 | 10NO3D-11 | R12  | Proposition du QCM « N=125\times 15^{2} » avec \times alors que l'énoncé et la correction (version CH) utilisent \cdot | \cdot dans les propositions | relecture |
 | 10QCM-1 | R2 Tutoiement, impératif | Correction : ⟦45⟧ ⟦minutes⟧ unité (mot) en miseEnEvidence séparée | miseEnEvidence(45) puis minutes hors mise en évidence | relecture |
 | 10QCM-18 | R12  | Correction : « 0,0.... 0 » points de suspension écrits avec des points | \ldots | relecture |
@@ -145,6 +149,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 11QCM-18 | R3  | Énoncé : « est égale $…$? » point d'interrogation sans espace insécable | $…$⍽? | relecture |
 | 11QCM-5 | R16  | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
 | 11QCM-80 | R16  | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
+| 18559 | R16  | Titre : « … le chiffre des unités devienne le chiffre des ... ? » titre inachevé avec « ... » et espace avant ? | Titre complet | relecture |
 | 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
 | 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
@@ -153,6 +158,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 26434 | R16  | Titre « Effectuer un calcul avec des fractions » mais l'exercice porte sur un pourcentage d'élèves | Titre : Calculer un pourcentage | relecture |
 | 29202 | R10 Français | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) | Utiliser la même valeur a dans les trois libellés | relecture |
 | 29957 | R16  | Exercice de test « Test MultiMathfield » exposé dans le référentiel | Retirer du référentiel | relecture |
+| 2cdd4 | R16  | Titre « (QCM) » sans intitulé ; correction : « 170 \textbf{ cm} » texte gras dans miseEnEvidence ; consigne « Entoure » (tutoiement) | Renseigner le titre | relecture |
+| 2guhi | R16  | Titre « Trouver un inverse ou un opposé » mais l'exercice demande la valeur décimale de 2 026 + 1/2 | Titre : Convertir une somme avec une fraction en écriture décimale | relecture |
 | 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
 | 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
@@ -202,6 +209,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 6d56a | R16  | Titre « Calculer une dérivée » mais l'exercice demande de simplifier (e^x+3)(e^x-3) | Titre : Simplifier une expression avec des exponentielles | relecture |
 | 6dff5 | R16  | Titre « Développer une identité remarquable » mais l'exercice porte sur un pourcentage (élèves externes) | Titre : Calculer un pourcentage d'une quantité | relecture |
 | 6e82d | R16  | Correction : « comme axe de symétries » (symétrie) | axe de symétrie | relecture |
+| 6fdab | R3  | Énoncé : « Tracer $[FG$], $[GH$) et $(HF$). » crochets et parenthèses fermants hors des $ | $[FG]$, $[GH)$ et $(HF)$ | relecture |
+| 6fmcu | R10 Français | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) | Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
@@ -417,6 +426,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| 014a4 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $-\frac12$.Il y a une erreur avec la valeur : $+\infty$.Il y a une erreur avec la valeur : $-\fra |
+| 0f2d1 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Résultat incorrect car le numérateur doit être un nombre entier. |
 | 10FA4C-9 | I1 Bonne réponse refusée | 10 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : un calcul numérique reste à effectuer. |
 | 10FA4F-10 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : elle contient un facteur trivial ou un terme nul. |
 | 11FA4A-5 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Incorrect car cette expression n'est pas égale à celle attendue. |
@@ -459,4 +470,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38358 ; T6 Points de suspension 6548 ; T5 Espaces 2425 ; T4  1848 ; M7  781 ; R2 Tutoiement, impératif 661 ; T3  660 ; R5 Virgule 547 ; T2  371 ; N6 Écriture algébrique 241 ; N2 Séparateur des milliers 231 ; N3  132 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38441 ; T6 Points de suspension 6580 ; T5 Espaces 2451 ; T4  1848 ; M7  781 ; R2 Tutoiement, impératif 678 ; T3  661 ; R5 Virgule 564 ; T2  371 ; N2 Séparateur des milliers 247 ; N6 Écriture algébrique 241 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
