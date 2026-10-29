@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **303 sur 325**. Constats confirmés : **71**.
+Exercices relus : **313 sur 325**. Constats confirmés : **75**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 40 |
+| Rédaction (français, titres, consignes) | 44 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -96,6 +96,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1AN43 | R10 Français | Correction : « cos(x)=-√(1-sin²(x)) = √(1--0,5^2) = √0,75 » signe moins devant la racine alors que cos(x)≥0, et « 1--0,5^2 » (double moins, parenthèses manquantes autour de -0,5) | cos(x)=\sqrt{1-\sin^2(x)}=\sqrt{1-(-0,5)^2} | relecture |
 | 1G10-5 | R16  | Titre : « Calculer un  produit scalaire » deux espaces (aussi 1G10-6) | Un espace | relecture |
 | 1G10-7 | R16  | Titre « Al-Kashi » mais correction « Al Kashi » | Harmoniser en Al-Kashi | relecture |
+| 1G21 | R3  | Coordonnées « A(-3 ; -2) » avec espace insécable avant ; et espace normale après : incohérent avec \,;\, (aussi 1G21-5 : « C(5 ;\, -1 \, ) » espaces parasites) | (x\,;\,y) | relecture |
+| 1G21-6 | R6  | Correction : ⟦\begin{pmatrix}6\\2\end{pmatrix}⟧ toute la matrice mise en évidence alors que les champs attendent 6 et 2 séparément | Mettre en évidence chaque coordonnée | relecture |
+| 1P10-3 | R16  | Titre : « Calculer  une » deux espaces | Un espace | relecture |
+| 1P20-1 | R3  | Énoncé : « 4500 tickets », « 2000 € » sans espace fine des milliers, alors que la correction écrit $4\,500$ et $2\,000$ | texNombre dans l'énoncé | relecture |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
@@ -138,4 +142,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 897 ; R5 Virgule 454 ; T4  375 ; T6 Points de suspension 373 ; N1 Nombre hors $ 340 ; T3  152 ; N2 Séparateur des milliers 117 ; N6 Écriture algébrique 98 ; R10 Français 51 ; R6  46 ; N3  23 ; N5 Négatif sans parenthèses 20 ; M7  12 ; X2 Formule cassée 4 ; R2 Tutoiement, impératif 1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 1253 ; T4  593 ; N1 Nombre hors $ 514 ; R5 Virgule 503 ; T6 Points de suspension 377 ; T3  182 ; N2 Séparateur des milliers 128 ; N6 Écriture algébrique 104 ; R10 Français 51 ; R6  46 ; N3  23 ; N5 Négatif sans parenthèses 22 ; M7  12 ; X2 Formule cassée 4 ; R2 Tutoiement, impératif 1.

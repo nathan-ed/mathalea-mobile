@@ -11,7 +11,7 @@ Résumés intermédiaires (`node revue/degres.mjs`), mis à jour au fil de la re
 | [4e](4e.md) | 226 / 226 | 69 | 3 | 5 |
 | [3e](3e.md) | 364 / 364 | 110 | 8 | 23 |
 | [2de](2de.md) | 615 / 615 | 188 | 20 | 28 |
-| [1re](1re.md) | 303 / 325 | 71 | 9 | 16 |
+| [1re](1re.md) | 313 / 325 | 75 | 9 | 16 |
 | [Terminale](terminale.md) | 293 / 293 | 272 | 43 | 25 |
-| [Suisse](suisse.md) | 645 / 1168 | 313 | 13 | 23 |
+| [Suisse](suisse.md) | 663 / 1168 | 314 | 13 | 23 |
 | [Autres](autres.md) | 267 / 268 | 268 | 5 | 7 |
