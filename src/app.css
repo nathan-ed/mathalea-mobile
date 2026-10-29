@@ -138,6 +138,10 @@ math-field,
 .question-eleve {
   font-size: 1.15rem;
   line-height: 1.6;
+  /* Un élément de réponse plus large que l'écran (grille de Juniper Green,
+     guide-âne, tableau) défile dans la question au lieu d'être coupé : sinon
+     une partie de la réponse est hors d'atteinte (html est en overflow-x: clip) */
+  overflow-x: auto;
 }
 /* Fenêtre d'ordinateur : texte et champs plus grands, lisibles à distance */
 @media (min-width: 768px) and (pointer: fine) {

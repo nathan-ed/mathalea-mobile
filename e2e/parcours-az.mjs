@@ -396,7 +396,7 @@ async function jouerSeance(e, p, nomCeinture) {
         etiquette += `${s0.contenu.etapes[n].id} apigeom-figure `
       }
       await pause(page, 500)
-      const verifier = page.getByRole('button', { name: 'Vérifier' })
+      const verifier = page.getByRole('button', { name: 'Vérifier', exact: true })
       if (!(await verifier.count())) {
         // Déjà vérifiée (Entrée dans le champ) : le résultat est lu plus bas
         await capture(page, `az-${p.id}-sans-verifier-${tour}`)
@@ -461,7 +461,14 @@ if (process.env.FORMATS) {
             await pause(e.page, 1500)
             await capture(e.page, `format-${etape.titre.split(' ')[0]}`)
             // Largeur : rien ne doit dépasser l'écran (sinon une partie de la réponse est hors d'atteinte)
-            const deborde = await e.page.evaluate(() => [...document.querySelectorAll('main .contenu-mathalea *')].filter((x) => x.getBoundingClientRect().right > innerWidth + 2 && !x.closest('table, .katex-display, [style*="overflow"]')).map((x) => x.tagName.toLowerCase() + (x.id ? '#' + x.id : '')).slice(0, 3))
+            // Ce qui dépasse doit rester atteignable : dans un cadre qui défile (la question, un tableau)
+            const deborde = await e.page.evaluate(() =>
+              [...document.querySelectorAll('main .contenu-mathalea *')]
+                .filter((x) => x.getBoundingClientRect().right > innerWidth + 2)
+                .filter((x) => { for (let p = x.parentElement; p; p = p.parentElement) if (/auto|scroll/.test(getComputedStyle(p).overflowX)) return false; return true })
+                .map((x) => x.tagName.toLowerCase() + (x.id ? '#' + x.id : ''))
+                .slice(0, 3),
+            )
             const avantProblemes = deborde.length ? [`dépasse de l'écran : ${deborde.join(', ')}`] : []
             problemes = [...avantProblemes, ...(await avecDelai(jouerSeance(e, seul, etape.titre), 180000, etape.titre))]
           } catch (err) {
