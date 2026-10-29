@@ -139,9 +139,12 @@ async function remplirChamp(e, champ, latex) {
     await toucher(e, champ)
     await pause(e.page, 300)
     await e.page.keyboard.type(unite[1].replace('.', ','))
-    // Texte d'une touche du clavier de MathALÉA : « cm », ou « cm⁡3cm3 » pour cm³ (rendu MathLive doublé)
+    // Texte d'une touche du clavier de MathALÉA : « cm », « cm² », ou « cm⁡3cm3 » pour cm³ (rendu MathLive doublé)
     const touche = unite[2] + (unite[4] ?? '')
-    const rang = await e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll((bs, t) => bs.findIndex((b) => [t, t + t].includes(b.innerText.replace(/[\s\u2061]/g, ''))), touche)
+    const rang = await e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll(
+      (bs, t) => bs.findIndex((b) => [t, t + t].includes(b.innerText.replace(/[\s\u2061]/g, '').replace('²', '2').replace('³', '3'))),
+      touche
+    )
     const bouton = e.page.locator('#mathalea-virtual-keyboard button:visible').nth(Math.max(rang, 0))
     if (rang >= 0) {
       await toucher(e, bouton)
