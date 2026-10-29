@@ -1,17 +1,24 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **149 sur 325**. Constats confirmés : **45**.
+Exercices relus : **184 sur 325**. Constats confirmés : **49**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
+| Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 8 |
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 15 |
+| Rédaction (français, titres, consignes) | 18 |
+
+## Interactif faux (la bonne réponse est refusée, ou pas de champ)
+
+| Exercice | Règle | Constat | Correction proposée | Fichier |
+| --- | --- | --- | --- | --- |
+| 1A-E05-1 | I1 Bonne réponse refusée | Question « Quel est le taux à appliquer… ? » : seule la fraction exacte 11/39 est acceptée ; « 28,2 \% » et « 0,282 » sont refusés (testé) alors que la consigne n'impose ni fraction ni pourcentage | Préciser « sous forme de fraction irréductible » ou accepter une valeur approchée en pourcentage | src/exercices/1e/ |
 
 ## Contenu mathématique faux
 
@@ -70,6 +77,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
+| 1A-F02-13 | R16  | Correction : guillemets droits "les bras" tournés vers le bas (aussi 1A-F02-14) | Guillemets français | src/exercices/1e/ |
+| 1A-F02-7 | R14  | Correction : la dernière ligne « $x>-3$ » est répétée deux fois dans le bloc aligné | Supprimer le doublon | src/exercices/1e/ |
+| 1A-F04-3 | R2 Tutoiement, impératif | Correction : la phrase correcte est mise en évidence en cinq morceaux (⟦L'inéquation ⟧$⟦f(x)\leqslant 0⟧$⟦ a pour ensemble… ⟧) : texte dans miseEnEvidence | texteEnCouleurEtGras pour la phrase | src/exercices/1e/ |
 | can1E1-01 | R10 Français | Libellé du paramètre « Produit et puisances » | puissances | src/exercices/1e/1AN30-2.ts:58 |
 | can1SD11-01 | R10 Français | « L'abscisse du sommet de la parabole est positif / négatif. Celui-ci est donné par » (accords) ; guillemets droits « "les bras" » | est positive / négative. Elle est donnée par | src/exercices/can/1e/can1SD11-01.ts:111 |
 | can1SD21-03 | R10 Français | « Un poduit de deux facteurs » | produit | src/exercices/can/1e/can1SD21-03.ts:305 |
@@ -92,10 +102,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can1a-NY2025 | I2 Réponse fausse acceptée | 2 | réponse fausse acceptée |
 | can1a-NY2026 | I2 Réponse fausse acceptée | 3 | réponse fausse acceptée |
 | 1A | I4 Question sans champ | 77 | champ absent de la page |
+| 1A-P01-3 | I4 Question sans champ | 1 | champ absent de la page |
 | can1D3-03 | X2 Formule cassée | 10 | nombre impair de $ : a fonction définie par $f(x)=\dfrac{3}{-3x+5}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | 1A-F03-7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 1A-F05-4 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 1A-F07-2 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | can1SD22-04 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 500 ; T6 Points de suspension 169 ; N1 Nombre hors $ 161 ; R5 Virgule 134 ; T4  125 ; T3  55 ; N2 Séparateur des milliers 46 ; N6 Écriture algébrique 23 ; R10 Français 13 ; N3  4 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 553 ; T4  279 ; N1 Nombre hors $ 187 ; T6 Points de suspension 171 ; R5 Virgule 165 ; T3  55 ; N2 Séparateur des milliers 46 ; N6 Écriture algébrique 25 ; R10 Français 13 ; N3  4 ; X2 Formule cassée 4.

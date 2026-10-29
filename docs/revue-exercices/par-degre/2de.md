@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **497 sur 615**. Constats confirmés : **160**.
+Exercices relus : **504 sur 615**. Constats confirmés : **161**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 75 |
+| Rédaction (français, titres, consignes) | 76 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -156,6 +156,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-R2-7 | R16  | Unité après le champ : « ton » (ni « t » ni « tonnes ») ; « $30 \,\%$ » espace avant \, | « tonnes » ou « t » | src/exercices/2e/ |
 | 2A-S2-7 | R16  | Titre « Comparer la moyenne et l'écart-type d'une série rangée en classes » alors que l'exercice compare deux séries simples E et F sur leur moyenne | Titre cohérent avec la question | src/exercices/2e/ |
 | 2A-S4-6 | R16  | Titre « Lire une fréquence… » mais la question demande la valeur du troisième quartile | Titre cohérent | src/exercices/2e/ |
+| 2F21-11 | R6  | Correction : « $⟦-2.⟧$ » le point final est dans la mise en évidence (idem 3F20) | Sortir le point | src/exercices/2e/ |
 | 2N12-1 | R16  | Titre : « intervalle de  $\mathbb{R}$ » deux espaces | Une seule espace | src/exercices/2e/ |
 | 2N12-2 | R3  | Énoncé : intervalles « $]-\infty;22]\cap]34;44]$ » sans espaces autour de « ; » (aussi 2N12-3 « $[-11; 78]$ » espace ordinaire) | $]-\infty\,;\,22]$ | src/exercices/2e/ |
 | 2N12-4 | R16  | Énoncé : « Si $A \cup B = …$, $A \cap B = …$ et $B \setminus A = ….$ » : proposition subordonnée sans principale (phrase incomplète) | « On sait que… » ou « Sachant que… » | src/exercices/2e/ |
@@ -220,6 +221,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2N51-6 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Incorrect car la réponse attendue est une fraction. |
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
 | 2A | I4 Question sans champ | 58 | champ absent de la page |
+| 2F30-3 | I4 Question sans champ | 1 | champ absent de la page |
 | 2F21-2 | X1 Erreur | 14 | interactif (correcte) : page.evaluate: Target page, context or browser has been closed |
 | 2F21-4 | X1 Erreur | 12 | interactif (correcte) : page.evaluate: Target page, context or browser has been closed |
 | can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
@@ -228,8 +230,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-S1-1 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 2F22-3 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 2F22-5 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 2F33-2 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | can2F21-02 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5074 ; N1 Nombre hors $ 2650 ; T5 Espaces 1724 ; T4  1296 ; N2 Séparateur des milliers 845 ; R5 Virgule 392 ; N6 Écriture algébrique 388 ; T3  105 ; R2 Tutoiement, impératif 102 ; M7  71 ; N3  34 ; X3  22 ; N5 Négatif sans parenthèses 18 ; R10 Français 17 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5074 ; N1 Nombre hors $ 2654 ; T5 Espaces 1808 ; T4  1296 ; N2 Séparateur des milliers 847 ; R5 Virgule 394 ; N6 Écriture algébrique 392 ; T3  105 ; R2 Tutoiement, impératif 104 ; M7  71 ; N3  34 ; X3  22 ; R10 Français 21 ; N5 Négatif sans parenthèses 18 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.
