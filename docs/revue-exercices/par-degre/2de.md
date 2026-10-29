@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **487 sur 615**. Constats confirmés : **159**.
+Exercices relus : **493 sur 615**. Constats confirmés : **160**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 74 |
+| Rédaction (français, titres, consignes) | 75 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -161,6 +161,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2N12-4 | R16  | Énoncé : « Si $A \cup B = …$, $A \cap B = …$ et $B \setminus A = ….$ » : proposition subordonnée sans principale (phrase incomplète) | « On sait que… » ou « Sachant que… » | src/exercices/2e/ |
 | 2N13-1 | R12  | Valeur absolue notée de trois façons selon l'exercice : \vert (2N13-1, 2N13-3), \| \| (2N13-2), \lvert \rvert (2N13-4) | Harmoniser (\lvert … \rvert) | src/exercices/2e/ |
 | 2F21-9 | R16  | Correction : « $g(0)=\dfrac{3}{5}\times +\dfrac{3}{2}$ » et « $g(4)=\dfrac{3}{5}\times +4 +\dfrac{3}{2}$ » : le facteur x est écrit avec ecritureAlgebrique (« +4 », valeur 0 vide) au lieu de la valeur seule, d'où « \times + » ; il faut $\dfrac{3}{5}\times 0+\dfrac{3}{2}$ et $\dfrac{3}{5}\times 4+\dfrac{3}{2}$ | Utiliser x0.texFSD / ecritureParentheseSiNegatif(x0) pour le facteur | src/exercices/2e/2F21-9.ts:526 |
+| 2F22-1 | R12  | Correction : « $g(800) = \dfrac{1}{800} = 0.00125$ » : point décimal au lieu de la virgule (et 0,001 25 avec espace fine) | $0,001\,25$ | src/exercices/2e/2F22-1.ts |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
 | 2L10-3 | R14  | Même exercice que 5N5A (« Écrire une expression littérale », QCM « triple de z ») et 3AutoN10 : triple publication | Fusionner ou différencier | src/exercices/2e/2L10-3.ts |
 | 2L10-5 | R5 Virgule | Consigne « Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes » sans point final | Ajouter le point | src/exercices/2e/2L10-5.ts |
@@ -225,8 +226,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can2G1-01 | X1 Erreur | 9 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
 | 2L30-5 | X2 Formule cassée | 2 | « $ » visible : 3. a) Résolution de l'inéquation : $\begin{aligned} -6x+9&\dfrac{-12}{-7} \end{aligned}$ Comme  |
 | 2A-S1-1 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 2F22-3 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
+| 2F22-5 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | can2F21-02 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5074 ; N1 Nombre hors $ 2650 ; T5 Espaces 1718 ; T4  1296 ; N2 Séparateur des milliers 844 ; N6 Écriture algébrique 381 ; R5 Virgule 366 ; T3  105 ; R2 Tutoiement, impératif 102 ; M7  71 ; N3  26 ; X3  22 ; N5 Négatif sans parenthèses 18 ; R10 Français 17 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5074 ; N1 Nombre hors $ 2650 ; T5 Espaces 1718 ; T4  1296 ; N2 Séparateur des milliers 845 ; N6 Écriture algébrique 388 ; R5 Virgule 366 ; T3  105 ; R2 Tutoiement, impératif 102 ; M7  71 ; N3  34 ; X3  22 ; N5 Négatif sans parenthèses 18 ; R10 Français 17 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2.

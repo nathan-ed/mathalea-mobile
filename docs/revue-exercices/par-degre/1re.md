@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **89 sur 325**. Constats confirmés : **42**.
+Exercices relus : **125 sur 325**. Constats confirmés : **43**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -11,7 +11,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 12 |
+| Rédaction (français, titres, consignes) | 13 |
 
 ## Contenu mathématique faux
 
@@ -67,6 +67,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | can1E1-01 | R10 Français | Libellé du paramètre « Produit et puisances » | puissances | src/exercices/1e/1AN30-2.ts:58 |
 | can1SD11-01 | R10 Français | « L'abscisse du sommet de la parabole est positif / négatif. Celui-ci est donné par » (accords) ; guillemets droits « "les bras" » | est positive / négative. Elle est donnée par | src/exercices/can/1e/can1SD11-01.ts:111 |
 | can1SD21-03 | R10 Français | « Un poduit de deux facteurs » | produit | src/exercices/can/1e/can1SD21-03.ts:305 |
@@ -94,4 +95,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 306 ; T6 Points de suspension 165 ; N1 Nombre hors $ 161 ; R5 Virgule 117 ; T4  78 ; T3  39 ; N6 Écriture algébrique 23 ; N2 Séparateur des milliers 11 ; R10 Français 4 ; N3  4 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 384 ; T6 Points de suspension 168 ; N1 Nombre hors $ 161 ; R5 Virgule 131 ; T4  94 ; T3  54 ; N6 Écriture algébrique 23 ; N2 Séparateur des milliers 13 ; R10 Français 4 ; N3  4 ; X2 Formule cassée 4.
