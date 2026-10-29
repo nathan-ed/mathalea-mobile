@@ -1,0 +1,85 @@
+{
+ "total": 19695,
+ "lignes": {
+  "journal": 681130,
+  "remplacees": 569288,
+  "i1SansSaisie": 287,
+  "texte": 207602,
+  "source": 1121,
+  "relecture": 2116
+ },
+ "resume": [
+  [
+   "tickets-interactif",
+   210,
+   165,
+   2966
+  ],
+  [
+   "tickets-rendu",
+   1328,
+   492,
+   13783
+  ],
+  [
+   "maths-formulation",
+   196,
+   180,
+   329
+  ],
+  [
+   "decisions",
+   1690,
+   1081,
+   20641
+  ],
+  [
+   "mise-en-evidence",
+   7417,
+   1350,
+   58013
+  ],
+  [
+   "francais",
+   1971,
+   1416,
+   9173
+  ],
+  [
+   "typographie",
+   6269,
+   2476,
+   194489
+  ],
+  [
+   "app-mobile",
+   9,
+   9,
+   9
+  ],
+  [
+   "a-ecarter",
+   18,
+   18,
+   18
+  ],
+  [
+   "a-tester-main",
+   304,
+   289,
+   22277
+  ],
+  [
+   "pour-memoire",
+   247,
+   247,
+   256
+  ],
+  [
+   "faux-positifs",
+   36,
+   10,
+   440
+  ]
+ ]
+}
