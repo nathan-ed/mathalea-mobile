@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **85 sur 325**. Constats confirmés : **42**.
+Exercices relus : **89 sur 325**. Constats confirmés : **42**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -88,9 +88,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can1a-NY2025 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Il faut donner un intervalle ou une réunion d'intervalles. |
 | can1a-NY2025 | I2 Réponse fausse acceptée | 2 | réponse fausse acceptée |
 | can1a-NY2026 | I2 Réponse fausse acceptée | 3 | réponse fausse acceptée |
+| 1A | I4 Question sans champ | 77 | champ absent de la page |
 | can1D3-03 | X2 Formule cassée | 10 | nombre impair de $ : a fonction définie par $f(x)=\dfrac{3}{-3x+5}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | can1SD22-04 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 291 ; T6 Points de suspension 152 ; N1 Nombre hors $ 141 ; R5 Virgule 89 ; T3  39 ; T4  26 ; N2 Séparateur des milliers 11 ; N6 Écriture algébrique 8 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 306 ; T6 Points de suspension 165 ; N1 Nombre hors $ 161 ; R5 Virgule 117 ; T4  78 ; T3  39 ; N6 Écriture algébrique 23 ; N2 Séparateur des milliers 11 ; R10 Français 4 ; N3  4 ; X2 Formule cassée 4.

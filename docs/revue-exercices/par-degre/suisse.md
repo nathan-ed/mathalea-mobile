@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **583 sur 1168**. Constats confirmés : **293**.
+Exercices relus : **597 sur 1168**. Constats confirmés : **293**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -367,4 +367,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11434 ; T5 Espaces 1841 ; T6 Points de suspension 988 ; T4  845 ; R2 Tutoiement, impératif 560 ; R5 Virgule 373 ; T2  371 ; N2 Séparateur des milliers 219 ; T3  215 ; N6 Écriture algébrique 157 ; M7  97 ; X3  51 ; T1 Espace avant % 29 ; R10 Français 26 ; N3  20 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11509 ; T5 Espaces 1849 ; T6 Points de suspension 988 ; T4  845 ; R2 Tutoiement, impératif 560 ; R5 Virgule 392 ; T2  371 ; T3  222 ; N2 Séparateur des milliers 219 ; N6 Écriture algébrique 157 ; M7  97 ; R9  94 ; X3  51 ; T1 Espace avant % 40 ; R10 Français 26 ; N3  20 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; R1 Titre 3 ; N4  2 ; R6  1.
