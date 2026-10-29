@@ -492,6 +492,8 @@ if (process.env.FORMATS) {
     for (const classe of JSON.parse(readFileSync(f, 'utf8')).classes)
       for (const p of classe.parcours)
         for (const etape of p.etapes) {
+          // FORMAT=dnd,qcm : seulement ces formats (premier mot du titre)
+          if (process.env.FORMAT && !process.env.FORMAT.split(',').includes(etape.titre.split(' ')[0])) continue
           const seul = { ...p, id: `format-${etape.uuid}`, titre: `Format ${etape.uuid}`, paliers: undefined, style: undefined, etapes: [etape] }
           const e = await eleve(seul.id, classe.nom, [seul])
           let problemes
