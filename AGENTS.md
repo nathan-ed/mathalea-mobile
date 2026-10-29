@@ -15,6 +15,7 @@ toute modification.
 - Donner un exemple résolu à chaque ceinture. Le retour d'une petite question explique le raisonnement en français naturel ; il ne se limite pas à répéter la bonne réponse. Relire ensemble règle, exemple, question et retour dans l'aperçu élève.
 - Pour les parcours mobiles de Préqualifiant, éviter les exercices qui demandent d'écrire des nombres en toutes lettres ou d'autres longues réponses en français quand l'écriture n'est pas l'objectif mathématique utile.
 - Prévoir plusieurs exercices par ceinture pour varier l'évaluation. Un exercice connexe ou un prérequis peut servir de révision espacée, à condition que le savoir-faire principal reste réellement interrogé. Noter séparément ce qui manque au catalogue interactif et proposer une famille d'exercices à créer.
+- À chaque travail sur un parcours : `node e2e/apercu-parcours.mjs <fichier> <id>` (fiches et questions dans l'ordre de passage, ceinture indiquée, une planche par ceinture dans `apercus/<id>/`), relire les planches puis les envoyer à Nathan ; et `PARCOURS=<id> node e2e/parcours-az.mjs <fichier>` (un élève qui répond juste obtient chaque ceinture).
 - Étiqueter chaque exercice avec le savoir-faire qu'il interroge réellement. Une question de révision ne doit pas gonfler la maîtrise affichée de l'objectif nouveau. Vérifier l'ordre des ceintures avec les questions générées, pas seulement leurs titres.
 
 - Français partout (interface, commentaires, documentation). Pas de tiret cadratin.
