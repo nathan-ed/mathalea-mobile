@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **597 sur 1168**. Constats confirmés : **293**.
+Exercices relus : **615 sur 1168**. Constats confirmés : **299**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 202 |
+| Rédaction (français, titres, consignes) | 208 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -137,6 +137,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
+| 4mProbStat-11 | R16  | Énoncé : « club du 3ème age » (3e âge) ; titre « l'union et l'intersection  de » deux espaces | 3e âge | relecture |
+| 4mProbStat-8 | R16  | Titre : « coefficcient » (coefficient) | coefficient | relecture |
+| 4mProbStat-9 | R12  | Tableau : cellule inconnue « $....$ » au lieu de \ldots ou ? | \ldots | relecture |
+| 54140 | R1 Titre | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
+| 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
+| 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |

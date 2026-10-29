@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **554 sur 615**. Constats confirmés : **169**.
+Exercices relus : **570 sur 615**. Constats confirmés : **173**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 84 |
+| Rédaction (français, titres, consignes) | 88 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -137,7 +137,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2G12-6 | R6  | Correction : mise en évidence de ⟦D(-3;0)⟧ (lettre et parenthèses incluses) alors que les champs attendent -3 et 0 ; parenthèses sans \,;\,  | Ne mettre en évidence que les nombres | relecture |
 | 2G25-2 | R13  | Correction : « 4 unité(s) … -4 unité(s) » au lieu d'accorder | Accorder selon la valeur | relecture |
 | 2G31-1 | R3  | Énoncé : A(-2;5) et B(4;0) sans espaces fines autour du point-virgule ; consigne avec apostrophes droites ('aucun') | A(-2\,;\,5) | relecture |
+| 2G32-6 | R3  | Équation « $ x -3 y +35=0$ » espaces irréguliers ; (-5) + (-3) × 10 au lieu de -5 -3×10 ; texte dans la mise en évidence (« appartient ») | Écriture normalisée ; texteEnCouleurEtGras | relecture |
 | 2G33-1 | R3  | Énoncé : A(-2;-2) sans \,;\, ; correction commence sans point final (« (AC)⏎On observe ») | Coordonnées avec \,;\, ; point final | relecture |
+| 2G34-2 | R16  | Titre terminé par un point ; « couple de points » au lieu de « couple de réels »/« couple » | Retirer le point final | relecture |
+| 2G34-3 | R3  | Consigne : « point d' intersection » espace après l'apostrophe | d'intersection | relecture |
 | 2N51-1 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
@@ -172,6 +175,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2G12-3 | R16  | Correction : « En utilisant les milieux : : » deux deux-points (texteGras('… :') suivi de ' :') | Retirer un des deux | src/exercices/2e/2G12-3.ts:191,349 |
 | 2G21-2 | R14  | Correction vide : « Pas de correction pour l'instant » pour toutes les questions | Écrire la correction (placeholder visible par l'élève) | src/exercices/2e/2G21-2.ts:304 |
 | 2G31-4 | R16  | Correction (parallèle) : « celle de la droite donnée, . Elle vaut » virgule et espace avant le point | Construire la subordonnée seulement pour perpendiculaire (« donnée. » sinon) | src/exercices/2e/2G31-4.ts:134 |
+| 2G34-8 | R16  | Consigne : « Résourdre les problèmes suivants » (Résoudre) | Résoudre | src/exercices/2e/2G34-8.ts |
 | 2L10-3 | R14  | Même exercice que 5N5A (« Écrire une expression littérale », QCM « triple de z ») et 3AutoN10 : triple publication | Fusionner ou différencier | src/exercices/2e/2L10-3.ts |
 | 2L10-5 | R5 Virgule | Consigne « Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes » sans point final | Ajouter le point | src/exercices/2e/2L10-5.ts |
 | 2L10-7 | R1 Titre | Énoncé : « en °C », « $m_1=3$ kg » : unités hors $ et titre terminé par une espace | $3\text{ kg}$ ; $\text{°C}$ | src/exercices/2e/2L10-7.ts |
@@ -230,6 +234,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
 | 2A | I4 Question sans champ | 58 | champ absent de la page |
 | 2F30-3 | I4 Question sans champ | 1 | champ absent de la page |
+| 2I11-2 | I4 Question sans champ | 1 | champ absent de la page |
 | 2F21-2 | X1 Erreur | 14 | interactif (correcte) : page.evaluate: Target page, context or browser has been closed |
 | 2F21-4 | X1 Erreur | 12 | interactif (correcte) : page.evaluate: Target page, context or browser has been closed |
 | can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
@@ -243,4 +248,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5104 ; N1 Nombre hors $ 2889 ; T5 Espaces 2100 ; T4  1376 ; N2 Séparateur des milliers 847 ; R5 Virgule 466 ; N6 Écriture algébrique 407 ; T3  125 ; R2 Tutoiement, impératif 104 ; M7  71 ; N5 Négatif sans parenthèses 36 ; N3  34 ; X3  22 ; R10 Français 21 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 3.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5208 ; N1 Nombre hors $ 2898 ; T5 Espaces 2102 ; T4  1376 ; N2 Séparateur des milliers 849 ; R5 Virgule 573 ; N6 Écriture algébrique 407 ; T3  158 ; R2 Tutoiement, impératif 104 ; M7  71 ; N5 Négatif sans parenthèses 36 ; N3  34 ; X3  22 ; R10 Français 21 ; R6  14 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 3.
