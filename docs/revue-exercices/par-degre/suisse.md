@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **627 sur 1168**. Constats confirmés : **304**.
+Exercices relus : **640 sur 1168**. Constats confirmés : **310**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 213 |
+| Rédaction (français, titres, consignes) | 219 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -137,6 +137,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
+| 3cde4 | R16  | Énoncé : « à 2 025 pout obtenir » (pour) | pour | relecture |
 | 4mProbStat-11 | R16  | Énoncé : « club du 3ème age » (3e âge) ; titre « l'union et l'intersection  de » deux espaces | 3e âge | relecture |
 | 4mProbStat-8 | R16  | Titre : « coefficcient » (coefficient) | coefficient | relecture |
 | 4mProbStat-9 | R12  | Tableau : cellule inconnue « $....$ » au lieu de \ldots ou ? | \ldots | relecture |
@@ -147,6 +148,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
+| 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
+| 90671 | R2 Tutoiement, impératif | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
+| 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
+| 97290 | R16  | Titre : « Différence de fracion » (fraction) | fractions | relecture |
 | 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |

@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **587 sur 615**. Constats confirmés : **177**.
+Exercices relus : **607 sur 615**. Constats confirmés : **186**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 92 |
+| Rédaction (français, titres, consignes) | 101 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -146,6 +146,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2I11-5 | R3  | Énoncé : $1101$ sans espace fine des milliers alors que $2\,684$ en a une | texNombre(1101) = 1\,101 | relecture |
 | 2I11-7 | R16  | Énoncé : « ont plus de de 41 ans » (doublon) | plus de | relecture |
 | 2N51-1 | R16  | Titre « Connaitre » | « Connaître » | relecture |
+| 2P10-1 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules hors $ (même texte que 76230 CH : doublon FR/CH) | « Pile » ; $1$ boule bleue… | relecture |
+| 2P10-2 | R1 Titre | Énoncé et correction : « 26 desserts », « 3 sont au chocolat », « 6 » … nombres hors $ | Nombres entre $ | relecture |
+| 2P10-4 | R3  | Énoncé et correction : 'Pile' en apostrophes droites ; nombres de boules hors $ | « Pile » | relecture |
+| 2S20-1 | R1 Titre | Correction : « 10 + 9 + 4 + 6 + 8 = 37 », « il y a 10 crocodiles » nombres hors $ | Mettre les nombres entre $ | relecture |
+| 2S20-11 | R2 Tutoiement, impératif | Correction : mise en évidence « 6\,\textbf{livres} » (texte et unité dans miseEnEvidence) alors que le champ attend 6 ; « 40 adhérents » hors $ | miseEnEvidence(6) puis texte à part | relecture |
+| 2S20-15 | R2 Tutoiement, impératif | Correction : « 5\,^\circ\textbf{C} » unité en texte gras dans miseEnEvidence (champ = 5) ; aussi 2S20-13 : « 18 % », « 8 % » hors $ | Unité hors miseEnEvidence ; nombres entre $ | relecture |
+| 2S20-3 | R3  | Énoncé : « $9$; $10$ ; » premier point-virgule sans espace insécable | $9$ ; $10$ | relecture |
+| 2S20-4 | R6  | Correction : valeurs mises en évidence (1 508 ; 2 354 ; 846) différentes de celles attendues par les champs (1480 ; 2360 ; 880, dans l'intervalle accepté) ; bornes 1440, 1520, 2320… sans espace fine alors que 1 508 en a une | Mettre en évidence la valeur attendue ; texNombre pour les bornes | relecture |
+| 2S20-9 | R1 Titre | Énoncé : « 40 tomates » hors $ | $40$ tomates | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
 | 2A-C4-5 | R16  | Énoncé : $C=(1+t)^2$ sans hypothèse sur le signe de $1+t$, mais la correction affirme « les deux membres sont positifs » et prend $\sqrt{C}=1+t$ (la réponse unique $\sqrt{C}-1$ est fausse pour $t&lt;-1$) | Ajouter « avec $t\geqslant -1$ » (ou $1+t\geqslant0$) dans l'énoncé | src/exercices/2e/ |
@@ -235,6 +244,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-S2-9 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1) Résultat incorrect car une valeur décimale (ou entière) est attendue. |
 | 2L31-2 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $\\{\dfrac38\}$. |
 | 2N51-6 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Incorrect car la réponse attendue est une fraction. |
+| 2P20-1 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (2/3) Résultat incorrect car majuscules ou minuscules non respectées. |
+| 2S20-15 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (2/3) Il manque 1 réponse. |
 | 2S20-7 | I1 Bonne réponse refusée | 11 | bonne réponse refusée (2/4) Il manque 2 réponses. |
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
 | 2A | I4 Question sans champ | 58 | champ absent de la page |
@@ -254,4 +265,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5246 ; N1 Nombre hors $ 3221 ; T5 Espaces 2206 ; T4  1426 ; N2 Séparateur des milliers 921 ; R5 Virgule 578 ; N6 Écriture algébrique 407 ; T3  158 ; R2 Tutoiement, impératif 104 ; M7  71 ; T2  56 ; N5 Négatif sans parenthèses 36 ; N3  34 ; R10 Français 30 ; X3  22 ; R6  14 ; T1 Espace avant % 14 ; R1 Titre 4 ; R9  2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5277 ; N1 Nombre hors $ 4008 ; T5 Espaces 2290 ; T4  1659 ; N2 Séparateur des milliers 924 ; R5 Virgule 607 ; N6 Écriture algébrique 412 ; T3  158 ; R2 Tutoiement, impératif 104 ; M7  71 ; T2  56 ; N5 Négatif sans parenthèses 36 ; R10 Français 34 ; N3  34 ; T1 Espace avant % 30 ; X3  22 ; R6  14 ; R1 Titre 4 ; R9  2.

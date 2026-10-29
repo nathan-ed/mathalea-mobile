@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **279 sur 325**. Constats confirmés : **66**.
+Exercices relus : **288 sur 325**. Constats confirmés : **68**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 35 |
+| Rédaction (français, titres, consignes) | 37 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -91,6 +91,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1AN14-1 | R16  | Titre contenant du LaTeX brut « $\lambda u$ » (aussi 1AN14-4 « $u + v$ ») | Titre lisible ou rendu LaTeX | relecture |
 | 1AN14-10 | R3  | Titre : « du type$\dfrac{a}{u}$ » espace manquant avant le $ | du type $…$ | relecture |
 | 1AN20-5 | R16  | Correction : « ne s'annule pas $\mathbb{R}\smallsetminus\{-5\}$ » (manque « sur ») | ne s'annule pas sur | relecture |
+| 1AN20-7 | R3  | Intervalle « [-3\,;1] » : espace fine avant le point-virgule seulement | [-3\,;\,1] | relecture |
+| 1AN31-3 | R12  | Correction et réponse attendue : « e^{kx} », « e^{5x} » en italique alors que l'énoncé utilise \mathrm{e} | \mathrm{e} | relecture |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
@@ -131,4 +133,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 843 ; R5 Virgule 439 ; T4  375 ; T6 Points de suspension 368 ; N1 Nombre hors $ 328 ; T3  139 ; N2 Séparateur des milliers 100 ; N6 Écriture algébrique 60 ; R6  46 ; R10 Français 44 ; N3  23 ; M7  12 ; N5 Négatif sans parenthèses 5 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 843 ; R5 Virgule 451 ; T4  375 ; T6 Points de suspension 371 ; N1 Nombre hors $ 328 ; T3  140 ; N2 Séparateur des milliers 100 ; N6 Écriture algébrique 89 ; R6  46 ; R10 Français 44 ; N3  23 ; N5 Négatif sans parenthèses 20 ; M7  12 ; X2 Formule cassée 4 ; R2 Tutoiement, impératif 1.
