@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **409 sur 615**. Constats confirmés : **148**.
+Exercices relus : **434 sur 615**. Constats confirmés : **153**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 34 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 63 |
+| Rédaction (français, titres, consignes) | 68 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -131,6 +131,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A | R10 Français | Énoncé : « chargement... » (meta-custom jamais rempli dans le banc, voir 3Auto) | Voir bug meta-custom | relecture |
 | 2A-P3-3 | R16  | Titre « Comparer des probabilités » terminé par une espace | Retirer | relecture |
 | 2A-R1-5 | R16  | Titre « Comparer  avec des pourcentages » : deux espaces | Une seule espace | relecture |
+| 2N51-1 | R16  | Titre « Connaitre » | « Connaître » | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
 | 2A-C4-5 | R16  | Énoncé : $C=(1+t)^2$ sans hypothèse sur le signe de $1+t$, mais la correction affirme « les deux membres sont positifs » et prend $\sqrt{C}=1+t$ (la réponse unique $\sqrt{C}-1$ est fausse pour $t&lt;-1$) | Ajouter « avec $t\geqslant -1$ » (ou $1+t\geqslant0$) dans l'énoncé | src/exercices/2e/ |
@@ -158,9 +159,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2N12-4 | R16  | Énoncé : « Si $A \cup B = …$, $A \cap B = …$ et $B \setminus A = ….$ » : proposition subordonnée sans principale (phrase incomplète) | « On sait que… » ou « Sachant que… » | src/exercices/2e/ |
 | 2N13-1 | R12  | Valeur absolue notée de trois façons selon l'exercice : \vert (2N13-1, 2N13-3), \| \| (2N13-2), \lvert \rvert (2N13-4) | Harmoniser (\lvert … \rvert) | src/exercices/2e/ |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
+| 2L10-3 | R14  | Même exercice que 5N5A (« Écrire une expression littérale », QCM « triple de z ») et 3AutoN10 : triple publication | Fusionner ou différencier | src/exercices/2e/2L10-3.ts |
+| 2L10-5 | R5 Virgule | Consigne « Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes » sans point final | Ajouter le point | src/exercices/2e/2L10-5.ts |
+| 2L10-7 | R1 Titre | Énoncé : « en °C », « $m_1=3$ kg » : unités hors $ et titre terminé par une espace | $3\text{ kg}$ ; $\text{°C}$ | src/exercices/2e/2L10-7.ts |
 | 2N20-5 | R3  | Correction : « $2 \times 180180$ », « 90090 », « 45045 »… sans espace fine des milliers (l'énoncé écrit $360\,360$) | texNombre | src/exercices/2e/2N20-5.ts |
 | 2N20-7 | R1 Titre | Énoncé : « 55 dents », « 15 » hors $ (même défaut que 4A12, 3A12-4) | Nombres entre $ | src/exercices/2e/2N20-7.ts |
 | 2N30-4 | R16  | Consigne : « Compléter avec deux nombres entiers consécutifs ? Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5. . » : « ? » parasite, majuscule après deux-points, point doublé ; nombres hors $ | Réécrire la consigne et son rappel | src/exercices/2e/2N30-4.ts |
+| 2N51-6 | R16  | Correction : « irrationnalité » (irrationalité) ; guillemets droits "quantité conjuguée" | « irrationalité » ; guillemets français | src/exercices/2e/2N51-6.ts |
 | can2a-2022 | R10 Français | Q15 : « Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant » (coquille, « fois plus de fois ») ; lignes 644 et 661. | Si on va $k$ fois plus souvent à la piscine, le prix payé est $k$ fois plus important. | src/exercices/can/2e/can2a-2022.ts:644 |
 | can2a-2023 | R10 Français | Q19 : « jeu viéo » | jeu vidéo | src/exercices/can/2e/can2a-2023.ts:904 |
 | can2a-2023 | R10 Français | Q20 : « le cube agrandit », « le carré agrandit » | agrandi | src/exercices/can/2e/can2a-2023.ts:931 |
@@ -204,6 +209,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-G3-6 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1)  |
 | 2A-G3-7 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1)  |
 | 2A-S2-9 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1) Résultat incorrect car une valeur décimale (ou entière) est attendue. |
+| 2N51-6 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Incorrect car la réponse attendue est une fraction. |
 | can2a-NY2024 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1)  |
 | 2A | I4 Question sans champ | 58 | champ absent de la page |
 | can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |
@@ -213,4 +219,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5063 ; N1 Nombre hors $ 2175 ; T5 Espaces 1436 ; T4  1282 ; N2 Séparateur des milliers 791 ; N6 Écriture algébrique 289 ; R5 Virgule 248 ; T3  83 ; R2 Tutoiement, impératif 71 ; N3  26 ; R10 Français 16 ; R6  13 ; M7  11 ; T2  5 ; R1 Titre 2.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T6 Points de suspension 5069 ; N1 Nombre hors $ 2354 ; T5 Espaces 1582 ; T4  1296 ; N2 Séparateur des milliers 806 ; R5 Virgule 297 ; N6 Écriture algébrique 289 ; R2 Tutoiement, impératif 102 ; T3  85 ; N3  26 ; R10 Français 16 ; R6  13 ; M7  11 ; T1 Espace avant % 10 ; T2  5 ; R1 Titre 2 ; N5 Négatif sans parenthèses 1.

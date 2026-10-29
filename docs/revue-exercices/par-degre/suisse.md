@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **524 sur 1168**. Constats confirmés : **276**.
+Exercices relus : **535 sur 1168**. Constats confirmés : **282**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
 | Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 54 |
+| Rendu cassé (formule, débordement, erreur) | 58 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 190 |
+| Rédaction (français, titres, consignes) | 192 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -42,6 +42,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
 | 31049 | X4  | Titre « Calculer avec un pourcentage » terminé par une espace alors que l'exercice porte sur un arbre de probabilités | Titre cohérent | relecture |
+| 35553 | X4  | Titre « Effectuer un calcul avec des fractions » alors que l'exercice porte sur la probabilité d'un dé truqué ; terminé par une espace | Titre cohérent | relecture |
+| 39232 | X4  | Titre « Compléter un tableau de variations (démo) » : mention interne « (démo) » visible | Retirer « (démo) » | relecture |
+| 3a275 | X4  | Titre « Factoriser ou développer une différence de deux carrés » alors que l'exercice compare des fractions de numérateur 1 ; terminé par une espace | Titre cohérent | relecture |
+| 3acd6 | X4  | Titre avec mention interne « (année de transition) » | Retirer | relecture |
 | c5503 | X4  | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) | Afficher l'affirmation dans la question QCM | relecture |
 | c9893 | X4  | Correction vide (QCM notation scientifique) | Ajouter une correction | relecture |
 | c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
@@ -129,6 +133,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
+| 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
 | c52a3 | R16  | Titre « Reconnaitre » sans accent | « Reconnaître » | relecture |
@@ -343,4 +349,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11157 ; T5 Espaces 1641 ; T6 Points de suspension 904 ; T4  805 ; R2 Tutoiement, impératif 488 ; T2  371 ; R5 Virgule 348 ; T3  205 ; N2 Séparateur des milliers 171 ; N6 Écriture algébrique 124 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; N3  18 ; R10 Français 16 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; N4  2 ; R1 Titre 2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 11159 ; T5 Espaces 1641 ; T6 Points de suspension 904 ; T4  805 ; R2 Tutoiement, impératif 488 ; T2  371 ; R5 Virgule 348 ; T3  205 ; N2 Séparateur des milliers 171 ; N6 Écriture algébrique 124 ; X3  51 ; M7  33 ; T1 Espace avant % 29 ; N3  18 ; R10 Français 16 ; R9  12 ; X2 Formule cassée 12 ; N5 Négatif sans parenthèses 4 ; N4  2 ; R1 Titre 2 ; R6  1.
