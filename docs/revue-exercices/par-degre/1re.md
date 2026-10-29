@@ -8,11 +8,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Nature | Constats |
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 1 |
-| Contenu mathématique faux | 8 |
-| Rendu cassé (formule, débordement, erreur) | 1 |
-| Mise en évidence (miseEnEvidence et champs) | 9 |
-| Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 47 |
+| Contenu mathématique faux | 10 |
+| Rendu cassé (formule, débordement, erreur) | 2 |
+| Mise en évidence (miseEnEvidence et champs) | 13 |
+| Typographie (nombres, espaces, notations) | 19 |
+| Rédaction (français, titres, consignes) | 33 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -24,6 +24,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1AL11-1QCM | C1 Contenu mathématique faux | Énoncé : « u_n=-1n^2+4 » (coefficient 1 écrit) | rienSi1 / ecritureAlgebrique | relecture |
+| 1AN43 | C1 Contenu mathématique faux | Correction : « cos(x)=-√(1-sin²(x)) = √(1--0,5^2) = √0,75 » signe moins devant la racine alors que cos(x)≥0, et « 1--0,5^2 » (double moins, parenthèses manquantes autour de -0,5) | cos(x)=\sqrt{1-\sin^2(x)}=\sqrt{1-(-0,5)^2} | relecture |
 | can1P11-04 | C1 Contenu mathématique faux | Correction en fractions sur $100\,000$ (« $P(\bar A)\times P_{\bar A}(C)=\dfrac{20\,000}{100\,000}x$ », « $\dfrac{\dfrac{16\,000}{100\,000}}{\dfrac{20\,000}{100\,000}}$ ») au lieu de fractions simplifiées ; résultat mis en évidence non irréductible (⟦\dfrac{8}{10}⟧) | fractions simplifiées (\dfrac{1}{5}x…), résultat $\dfrac{4}{5}$ | src/exercices/can/1e/can1P11-04.ts |
 | can1SD3-01 | C1 Contenu mathématique faux | Cas avec $\sqrt{x}$ (réponse Faux) : la correction affirme « La fonction $g$ est une fonction polynôme du second. L'expression contient une racine carrée de $x$ » : « est » au lieu de « n'est pas », degré manquant | ${texteEnCouleurEtGras("n'est pas")} une fonction polynôme du second degré | src/exercices/can/1e/can1SD3-01.ts:375 |
 | can1a-2024 | C1 Contenu mathématique faux | Q19 : dérivée « $f'(x)=\dfrac{1}{2}\times 2x+b$ » : utilise la constante b au lieu du coefficient a (ex. $\frac12x^2+7x-2$ → « $\frac12\times 2x-2$ ») ; canEnonce sans le x (« $\dfrac{1}{2}x^2-3+4$ ») | \\dfrac{1}{2}\\times 2x${ecritureAlgebrique(a)} ; ${ecritureAlgebriqueSauf1(a)}x dans canEnonce | src/exercices/can/can1a-2024/can1a-2024-Q19.ts:44 |
@@ -37,12 +39,17 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1A-F02-7 | X4  | Correction : la dernière ligne « $x>-3$ » est répétée deux fois dans le bloc aligné | Supprimer le doublon | src/exercices/1e/ |
 | can1D3-03 | X2 Formule cassée | Un des cas écrit « f'(x)=$ » sans $ ouvrant : « f'(x)= » s'affiche en texte et le $ final ouvre une formule avec la suite | "$f'(x)=$" | src/exercices/can/1e/can1D3-03.ts:50 |
 
 ## Mise en évidence (miseEnEvidence et champs)
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1A-P05-8 | M5 Texte en évidence | Correction : « Étape 1 : la case croisée manquante. » entièrement en miseEnEvidence (texte) | texteEnCouleurEtGras | relecture |
+| 1G21-6 | M8 Évidences et champs | Correction : ⟦\begin{pmatrix}6\\2\end{pmatrix}⟧ toute la matrice mise en évidence alors que les champs attendent 6 et 2 séparément | Mettre en évidence chaque coordonnée | relecture |
+| 1Tec-F22 | M5 Texte en évidence | Correction : « donc ⟦-5⟧ ⟦est une racine de ⟧ ⟦f⟧ » texte et lettres mis en évidence (aussi 1Tec-F23) | texteEnCouleurEtGras | relecture |
+| 1A-F04-3 | M5 Texte en évidence | Correction : la phrase correcte est mise en évidence en cinq morceaux (⟦L'inéquation ⟧$⟦f(x)\leqslant 0⟧$⟦ a pour ensemble… ⟧) : texte dans miseEnEvidence | texteEnCouleurEtGras pour la phrase | src/exercices/1e/ |
 | can1D1-05 | M8 Évidences et champs | Deux mises en évidence pour un champ (⟦4(x-2)+6⟧ puis ⟦4x-2⟧) ; en $x=0$ : « $2(x+0)+2$ » (ecritureAlgebrique(-0)) | seule la forme réduite en évidence ; traiter nbre=0 | src/exercices/can/1e/can1D1-05.ts:183 |
 | can1SD12-03 | M8 Évidences et champs | Question sur l'ordonnée du sommet : l'abscisse intermédiaire ⟦2⟧ est aussi mise en évidence (deux évidences pour un champ) | abscisse sans évidence quand on demande l'ordonnée | src/exercices/can/1e/can1SD12-03.ts |
 | can1SD21-02 | M8 Évidences et champs | Les opérations faites sur les deux membres (⟦+5⟧, ⟦-8⟧) sont mises en orange comme des réponses | autre couleur pour les opérations | src/exercices/can/1e/can1SD21-02.ts |
@@ -57,6 +64,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1AL11-1 | T5 Espaces | QCM : « de raison  $9$ » deux espaces | Un seul espace | relecture |
+| 1AL11-8 | T6 Points de suspension | « ... » au lieu de \ldots (aussi 1AL11-8b) | \ldots | relecture |
+| 1AL21-10 | T3  | Énoncé : A(-6 ; 5) avec espace insécable avant le point-virgule seulement (pas \,;\,) ; incohérent avec les autres exercices | A\left(-6\,;\,5\right) | relecture |
+| 1AN14-10 | T3  | Titre : « du type$\dfrac{a}{u}$ » espace manquant avant le $ | du type $…$ | relecture |
+| 1AN20-7 | T3  | Intervalle « [-3\,;1] » : espace fine avant le point-virgule seulement | [-3\,;\,1] | relecture |
+| 1G21 | T5 Espaces | Coordonnées « A(-3 ; -2) » avec espace insécable avant ; et espace normale après : incohérent avec \,;\, (aussi 1G21-5 : « C(5 ;\, -1 \, ) » espaces parasites) | (x\,;\,y) | relecture |
+| 1P20-1 | T2  | Énoncé : « 4500 tickets », « 2000 € » sans espace fine des milliers, alors que la correction écrit $4\,500$ et $2\,000$ | texNombre dans l'énoncé | relecture |
 | can1S22-01 | T6 Points de suspension | Énoncé interactif « $u_{2}=.....$ [champ] » : points de suspension devant le champ (doublon du champ) | $u_{2}=$ suivi du champ ; \ldots seulement hors interactif | src/exercices/can/1e/can1S22-01.ts |
 | can1S22-02 | T6 Points de suspension | Énoncé interactif « $u_{2}=.....$ [champ] » : points de suspension devant le champ (doublon du champ) | $u_{2}=$ suivi du champ ; \ldots seulement hors interactif | src/exercices/can/1e/can1S22-02.ts |
 | can1SD3-04 | N6 Écriture algébrique | « $-18x+19x=1x$ », « $-x\times(-1)+(-1)\times 5x=1x-5x$ » ; « Le coefficient du terme en $x$ … est $-18x$ » (le coefficient est $-18$) | rienSi1 ; le terme en $x$ est $-18x$ | src/exercices/can/1e/can1SD3-04.ts |
@@ -74,41 +88,27 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
-| 1A-F08-2 | R16  | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
-| 1A-F08-3 | R16  | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
-| 1A-P05-8 | R2 Tutoiement, impératif | Correction : « Étape 1 : la case croisée manquante. » entièrement en miseEnEvidence (texte) | texteEnCouleurEtGras | relecture |
-| 1AL11-1 | R3  | QCM : « de raison  $9$ » deux espaces | Un seul espace | relecture |
-| 1AL11-1QCM | R10 Français | Énoncé : « u_n=-1n^2+4 » (coefficient 1 écrit) | rienSi1 / ecritureAlgebrique | relecture |
-| 1AL11-4QCM | R16  | Correction : « de rasion r » (raison) | raison | relecture |
-| 1AL11-5QCM | R16  | Énoncé : « La raison de cette suite est est égale à » (doublon) et « u_{16 } » (espace dans l'indice) | est égale ; u_{16} | relecture |
-| 1AL11-8 | R12  | « ... » au lieu de \ldots (aussi 1AL11-8b) | \ldots | relecture |
-| 1AL12-20 | R13  | Titre et énoncé : « Etudier » sans accent (majuscule accentuée) | Étudier | relecture |
-| 1AL12-21 | R13  | Titre et énoncé : « Etudier » sans accent (majuscule accentuée) | Étudier | relecture |
-| 1AL20-11 | R16  | Titre : « discriminant  d'une » deux espaces | Un seul espace | relecture |
-| 1AL21-10 | R3  | Énoncé : A(-6 ; 5) avec espace insécable avant le point-virgule seulement (pas \,;\,) ; incohérent avec les autres exercices | A\left(-6\,;\,5\right) | relecture |
-| 1AL23-23 | R16  | uuid « fe4dg » contient un caractère non hexadécimal (les autres sont en hexadécimal) | Vérifier l'uuid | relecture |
-| 1AL23-52 | R16  | Énoncé : « En déduire, les coordonnées » virgule en trop | En déduire les coordonnées | relecture |
-| 1AN14-1 | R16  | Titre contenant du LaTeX brut « $\lambda u$ » (aussi 1AN14-4 « $u + v$ ») | Titre lisible ou rendu LaTeX | relecture |
-| 1AN14-10 | R3  | Titre : « du type$\dfrac{a}{u}$ » espace manquant avant le $ | du type $…$ | relecture |
-| 1AN20-5 | R16  | Correction : « ne s'annule pas $\mathbb{R}\smallsetminus\{-5\}$ » (manque « sur ») | ne s'annule pas sur | relecture |
-| 1AN20-7 | R3  | Intervalle « [-3\,;1] » : espace fine avant le point-virgule seulement | [-3\,;\,1] | relecture |
+| 1A-F08-2 | R10 Français | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
+| 1A-F08-3 | R10 Français | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
+| 1AL11-4QCM | R10 Français | Correction : « de rasion r » (raison) | raison | relecture |
+| 1AL11-5QCM | R10 Français | Énoncé : « La raison de cette suite est est égale à » (doublon) et « u_{16 } » (espace dans l'indice) | est égale ; u_{16} | relecture |
+| 1AL12-20 | R10 Français | Titre et énoncé : « Etudier » sans accent (majuscule accentuée) | Étudier | relecture |
+| 1AL12-21 | R10 Français | Titre et énoncé : « Etudier » sans accent (majuscule accentuée) | Étudier | relecture |
+| 1AL20-11 | R1 Titre | Titre : « discriminant  d'une » deux espaces | Un seul espace | relecture |
+| 1AL23-23 | R1 Titre | uuid « fe4dg » contient un caractère non hexadécimal (les autres sont en hexadécimal) | Vérifier l'uuid | relecture |
+| 1AL23-52 | R5 Virgule | Énoncé : « En déduire, les coordonnées » virgule en trop | En déduire les coordonnées | relecture |
+| 1AN14-1 | R1 Titre | Titre contenant du LaTeX brut « $\lambda u$ » (aussi 1AN14-4 « $u + v$ ») | Titre lisible ou rendu LaTeX | relecture |
+| 1AN20-5 | R10 Français | Correction : « ne s'annule pas $\mathbb{R}\smallsetminus\{-5\}$ » (manque « sur ») | ne s'annule pas sur | relecture |
 | 1AN31-3 | R12  | Correction et réponse attendue : « e^{kx} », « e^{5x} » en italique alors que l'énoncé utilise \mathrm{e} | \mathrm{e} | relecture |
-| 1AN43 | R10 Français | Correction : « cos(x)=-√(1-sin²(x)) = √(1--0,5^2) = √0,75 » signe moins devant la racine alors que cos(x)≥0, et « 1--0,5^2 » (double moins, parenthèses manquantes autour de -0,5) | cos(x)=\sqrt{1-\sin^2(x)}=\sqrt{1-(-0,5)^2} | relecture |
-| 1G10-5 | R16  | Titre : « Calculer un  produit scalaire » deux espaces (aussi 1G10-6) | Un espace | relecture |
-| 1G10-7 | R16  | Titre « Al-Kashi » mais correction « Al Kashi » | Harmoniser en Al-Kashi | relecture |
-| 1G21 | R3  | Coordonnées « A(-3 ; -2) » avec espace insécable avant ; et espace normale après : incohérent avec \,;\, (aussi 1G21-5 : « C(5 ;\, -1 \, ) » espaces parasites) | (x\,;\,y) | relecture |
-| 1G21-6 | R6  | Correction : ⟦\begin{pmatrix}6\\2\end{pmatrix}⟧ toute la matrice mise en évidence alors que les champs attendent 6 et 2 séparément | Mettre en évidence chaque coordonnée | relecture |
-| 1P10-3 | R16  | Titre : « Calculer  une » deux espaces | Un espace | relecture |
-| 1P20-1 | R3  | Énoncé : « 4500 tickets », « 2000 € » sans espace fine des milliers, alors que la correction écrit $4\,500$ et $2\,000$ | texNombre dans l'énoncé | relecture |
-| 1Tec-D13 | R16  | Titre : « tangente  avec image et nombre dérivée » (deux espaces ; « nombre dérivé ») | nombre dérivé | relecture |
-| 1Tec-F22 | R2 Tutoiement, impératif | Correction : « donc ⟦-5⟧ ⟦est une racine de ⟧ ⟦f⟧ » texte et lettres mis en évidence (aussi 1Tec-F23) | texteEnCouleurEtGras | relecture |
-| 1Tec-F24 | R16  | Titre contenant du LaTeX brut « $ax^2$ ou $ax^2+c$ » | Titre lisible | relecture |
+| 1G10-5 | R1 Titre | Titre : « Calculer un  produit scalaire » deux espaces (aussi 1G10-6) | Un espace | relecture |
+| 1G10-7 | R1 Titre | Titre « Al-Kashi » mais correction « Al Kashi » | Harmoniser en Al-Kashi | relecture |
+| 1P10-3 | R1 Titre | Titre : « Calculer  une » deux espaces | Un espace | relecture |
+| 1Tec-D13 | R1 Titre | Titre : « tangente  avec image et nombre dérivée » (deux espaces ; « nombre dérivé ») | nombre dérivé | relecture |
+| 1Tec-F24 | R1 Titre | Titre contenant du LaTeX brut « $ax^2$ ou $ax^2+c$ » | Titre lisible | relecture |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
 | 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
 | 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
-| 1A-F02-13 | R16  | Correction : guillemets droits "les bras" tournés vers le bas (aussi 1A-F02-14) | Guillemets français | src/exercices/1e/ |
-| 1A-F02-7 | R14  | Correction : la dernière ligne « $x>-3$ » est répétée deux fois dans le bloc aligné | Supprimer le doublon | src/exercices/1e/ |
-| 1A-F04-3 | R2 Tutoiement, impératif | Correction : la phrase correcte est mise en évidence en cinq morceaux (⟦L'inéquation ⟧$⟦f(x)\leqslant 0⟧$⟦ a pour ensemble… ⟧) : texte dans miseEnEvidence | texteEnCouleurEtGras pour la phrase | src/exercices/1e/ |
+| 1A-F02-13 | R10 Français | Correction : guillemets droits "les bras" tournés vers le bas (aussi 1A-F02-14) | Guillemets français | src/exercices/1e/ |
 | can1E1-01 | R10 Français | Libellé du paramètre « Produit et puisances » | puissances | src/exercices/1e/1AN30-2.ts:58 |
 | can1SD11-01 | R10 Français | « L'abscisse du sommet de la parabole est positif / négatif. Celui-ci est donné par » (accords) ; guillemets droits « "les bras" » | est positive / négative. Elle est donnée par | src/exercices/can/1e/can1SD11-01.ts:111 |
 | can1SD21-03 | R10 Français | « Un poduit de deux facteurs » | produit | src/exercices/can/1e/can1SD21-03.ts:305 |

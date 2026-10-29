@@ -9,10 +9,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 2 |
 | Contenu mathématique faux | 18 |
-| Rendu cassé (formule, débordement, erreur) | 6 |
-| Mise en évidence (miseEnEvidence et champs) | 34 |
-| Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 103 |
+| Rendu cassé (formule, débordement, erreur) | 7 |
+| Mise en évidence (miseEnEvidence et champs) | 39 |
+| Typographie (nombres, espaces, notations) | 39 |
+| Rédaction (français, titres, consignes) | 83 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -48,6 +48,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 2G21-2 | X4  | Correction vide : « Pas de correction pour l'instant » pour toutes les questions | Écrire la correction (placeholder visible par l'élève) | src/exercices/2e/2G21-2.ts:304 |
 | can2P1-03 | X5 Débordement à 390 px | Tableau des probabilités (tableau-mathlive) de 434 px : dépasse à 390 px | tableau plus étroit (en-tête « Face », « P ») | src/exercices/can/1e/can1P12-05.ts |
 | can2F24-05 | X5 Débordement à 390 px | Commentaire en \text dans l'aligned (« Comme la fonction cube est strictement croissante… ») : 803 px, coupé à 390 px | phrase hors de la formule | src/exercices/can/2e/can2F3-02_old.ts:183 |
 | can2F24-04 | X5 Débordement à 390 px | Commentaire « Comme la fonction racine carrée est strictement croissante… » écrit en \text dans un aligned après \qquad : ligne de 866 px, coupée à 390 px (capture), illisible sur téléphone. Même chose pour can2F24-05 (fonction cube, 803 px) | sortir la phrase de la formule (texte après le aligned) | src/exercices/can/2e/can2F3-02_old.ts:201 |
@@ -60,6 +61,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
 | can2a-2024 | M8 Évidences et champs | Q18 : écriture scientifique mise en évidence en trois morceaux ⟦2,23⟧⟦×⟧⟦10^{-4}⟧ pour un seul champ ; Q21 : ⟦5⟧/⟦4⟧ séparés | mettre en évidence $2,23\times 10^{-4}$ d'un seul tenant |  |
+| 2G12-6 | M8 Évidences et champs | Correction : mise en évidence de ⟦D(-3;0)⟧ (lettre et parenthèses incluses) alors que les champs attendent -3 et 0 ; parenthèses sans \,;\,  | Ne mettre en évidence que les nombres | relecture |
+| 2S20-11 | M2 Unité en évidence | Correction : mise en évidence « 6\,\textbf{livres} » (texte et unité dans miseEnEvidence) alors que le champ attend 6 ; « 40 adhérents » hors $ | miseEnEvidence(6) puis texte à part | relecture |
+| 2S20-15 | M2 Unité en évidence | Correction : « 5\,^\circ\textbf{C} » unité en texte gras dans miseEnEvidence (champ = 5) ; aussi 2S20-13 : « 18 % », « 8 % » hors $ | Unité hors miseEnEvidence ; nombres entre $ | relecture |
+| 2S20-4 | M8 Évidences et champs | Correction : valeurs mises en évidence (1 508 ; 2 354 ; 846) différentes de celles attendues par les champs (1480 ; 2360 ; 880, dans l'intervalle accepté) ; bornes 1440, 1520, 2320… sans espace fine alors que 1 508 en a une | Mettre en évidence la valeur attendue ; texNombre pour les bornes | relecture |
+| 2F21-11 | M8 Évidences et champs | Correction : « $⟦-2.⟧$ » le point final est dans la mise en évidence (idem 3F20) | Sortir le point | src/exercices/2e/ |
 | can2P2-02 | M1 Évidence refusée par le champ | La correction met en évidence l'égalité entière ⟦P_{Z}(C)=0,23⟧ alors que le champ attend seulement la notation (can2P2-02) ou seulement le nombre (can2P2-03) | mettre en évidence la seule partie à saisir | src/exercices/can/1e/can1P11-01.ts |
 | can2P2-03 | M1 Évidence refusée par le champ | La correction met en évidence l'égalité entière ⟦P_{Z}(C)=0,23⟧ alors que le champ attend seulement la notation (can2P2-02) ou seulement le nombre (can2P2-03) | mettre en évidence la seule partie à saisir | src/exercices/can/1e/can1P11-02.ts |
 | can2F23-01 | M4 QCM : évidence ≠ proposition | QCM : la correction met en évidence l'inégalité écrite dans l'autre sens que la proposition à cocher (ex. proposition $\dfrac{1}{-6,9}&lt;\dfrac{1}{-7,2}$, évidence $\dfrac{1}{-7,2}>\dfrac{1}{-6,9}$) | mettre en évidence l'inégalité telle qu'écrite dans la bonne proposition | src/exercices/can/2e/can2F23-01.ts |
@@ -99,6 +105,20 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
 | can2a-2023 | N2 Séparateur des milliers | Q16 : « 1000 » sans séparateur des milliers | texNombre |  |
+| 2G31-1 | T4  | Énoncé : A(-2;5) et B(4;0) sans espaces fines autour du point-virgule ; consigne avec apostrophes droites ('aucun') | A(-2\,;\,5) | relecture |
+| 2G32-6 | T5 Espaces | Équation « $ x -3 y +35=0$ » espaces irréguliers ; (-5) + (-3) × 10 au lieu de -5 -3×10 ; texte dans la mise en évidence (« appartient ») | Écriture normalisée ; texteEnCouleurEtGras | relecture |
+| 2G33-1 | T3  | Énoncé : A(-2;-2) sans \,;\, ; correction commence sans point final (« (AC)⏎On observe ») | Coordonnées avec \,;\, ; point final | relecture |
+| 2G34-12 | T5 Espaces | Énoncé/correction : « y=8 x + 10 » espaces irréguliers ; « différente; elles » pas d'espace insécable avant ; | Normaliser | relecture |
+| 2G34-3 | T5 Espaces | Consigne : « point d' intersection » espace après l'apostrophe | d'intersection | relecture |
+| 2I11-3 | T1 Espace avant % | Titre : « 10%, 20%, ... » sans espace avant % et « ... » au lieu de … | 10 %, 20 %, … | relecture |
+| 2I11-5 | T3  | Énoncé : $1101$ sans espace fine des milliers alors que $2\,684$ en a une | texNombre(1101) = 1\,101 | relecture |
+| 2P10-1 | T4  | Énoncé : «Pile» sans espaces insécables ; nombres de boules hors $ (même texte que 76230 CH : doublon FR/CH) | « Pile » ; $1$ boule bleue… | relecture |
+| 2P10-2 | N1 Nombre hors $ | Énoncé et correction : « 26 desserts », « 3 sont au chocolat », « 6 » … nombres hors $ | Nombres entre $ | relecture |
+| 2P10-4 | T4  | Énoncé et correction : 'Pile' en apostrophes droites ; nombres de boules hors $ | « Pile » | relecture |
+| 2P10-9 | T3  | Correction : liste « 2;~3;~5… » point-virgule collé au nombre précédent (espace avant manquante) | $2\,;\,3\,;\,5…$ | relecture |
+| 2S20-1 | N1 Nombre hors $ | Correction : « 10 + 9 + 4 + 6 + 8 = 37 », « il y a 10 crocodiles » nombres hors $ | Mettre les nombres entre $ | relecture |
+| 2S20-3 | T3  | Énoncé : « $9$; $10$ ; » premier point-virgule sans espace insécable | $9$ ; $10$ | relecture |
+| 2S20-9 | N1 Nombre hors $ | Énoncé : « 40 tomates » hors $ | $40$ tomates | relecture |
 | can2a-2021 | N6 Écriture algébrique | Q27 : « $DB=⟦1\sqrt{2}⟧$ » quand a = 1 (coefficient 1 écrit, et mis en évidence) ; Q16 : « en produits de facteurs premiers » (produit) ; Q29 : « Donner une valeur approchée … ? ». | ${rienSi1(a)}\\sqrt{2} | src/exercices/can/2e/can2a-2021.ts:1077 |
 | can2F11-01 | N6 Écriture algébrique | Aide « Mentalement » : « $1\times (-3)-2$ » (coefficient 1 écrit) alors que la fonction est $\dfrac{x-2}{x+2}$ | rienSi1 / reduireAxPlusB | src/exercices/can/2e/can2F11-01.ts |
 | can2F20-06 | N6 Écriture algébrique | Formule « $\dfrac{f(-1)-f(-4)}{-1-{-4}}$ » : soustraction d'un négatif sans parenthèses (rendu « −1−−4 ») ; « est donnée par la formule » (le coefficient… est donné) | ecritureParentheseSiNegatif(xA) ; est donné | src/exercices/can/2e/can2F20-06.ts:54 |
@@ -133,30 +153,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-R1-5 | R16  | Titre « Comparer  avec des pourcentages » : deux espaces | Une seule espace | relecture |
 | 2F21-1 | R16  | Titre « Reconnaitre » | « Reconnaître » | relecture |
 | 2F21-2 | R16  | Titre « Reconnaitre » | « Reconnaître » | relecture |
-| 2G11-3 | R16  | Énoncé : « Les valeurs d'angle seront arrondis au degré près » (accord) | seront arrondies | relecture |
-| 2G12-6 | R6  | Correction : mise en évidence de ⟦D(-3;0)⟧ (lettre et parenthèses incluses) alors que les champs attendent -3 et 0 ; parenthèses sans \,;\,  | Ne mettre en évidence que les nombres | relecture |
-| 2G25-2 | R13  | Correction : « 4 unité(s) … -4 unité(s) » au lieu d'accorder | Accorder selon la valeur | relecture |
-| 2G31-1 | R3  | Énoncé : A(-2;5) et B(4;0) sans espaces fines autour du point-virgule ; consigne avec apostrophes droites ('aucun') | A(-2\,;\,5) | relecture |
-| 2G32-6 | R3  | Équation « $ x -3 y +35=0$ » espaces irréguliers ; (-5) + (-3) × 10 au lieu de -5 -3×10 ; texte dans la mise en évidence (« appartient ») | Écriture normalisée ; texteEnCouleurEtGras | relecture |
-| 2G33-1 | R3  | Énoncé : A(-2;-2) sans \,;\, ; correction commence sans point final (« (AC)⏎On observe ») | Coordonnées avec \,;\, ; point final | relecture |
-| 2G34-12 | R3  | Énoncé/correction : « y=8 x + 10 » espaces irréguliers ; « différente; elles » pas d'espace insécable avant ; | Normaliser | relecture |
-| 2G34-2 | R16  | Titre terminé par un point ; « couple de points » au lieu de « couple de réels »/« couple » | Retirer le point final | relecture |
-| 2G34-3 | R3  | Consigne : « point d' intersection » espace après l'apostrophe | d'intersection | relecture |
-| 2I11-3 | R3  | Titre : « 10%, 20%, ... » sans espace avant % et « ... » au lieu de … | 10 %, 20 %, … | relecture |
-| 2I11-5 | R3  | Énoncé : $1101$ sans espace fine des milliers alors que $2\,684$ en a une | texNombre(1101) = 1\,101 | relecture |
-| 2I11-7 | R16  | Énoncé : « ont plus de de 41 ans » (doublon) | plus de | relecture |
+| 2G11-3 | R10 Français | Énoncé : « Les valeurs d'angle seront arrondis au degré près » (accord) | seront arrondies | relecture |
+| 2G25-2 | R10 Français | Correction : « 4 unité(s) … -4 unité(s) » au lieu d'accorder | Accorder selon la valeur | relecture |
+| 2G34-2 | R1 Titre | Titre terminé par un point ; « couple de points » au lieu de « couple de réels »/« couple » | Retirer le point final | relecture |
+| 2I11-7 | R10 Français | Énoncé : « ont plus de de 41 ans » (doublon) | plus de | relecture |
 | 2N51-1 | R16  | Titre « Connaitre » | « Connaître » | relecture |
-| 2P10-1 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules hors $ (même texte que 76230 CH : doublon FR/CH) | « Pile » ; $1$ boule bleue… | relecture |
-| 2P10-2 | R1 Titre | Énoncé et correction : « 26 desserts », « 3 sont au chocolat », « 6 » … nombres hors $ | Nombres entre $ | relecture |
-| 2P10-4 | R3  | Énoncé et correction : 'Pile' en apostrophes droites ; nombres de boules hors $ | « Pile » | relecture |
-| 2P10-9 | R3  | Correction : liste « 2;~3;~5… » point-virgule collé au nombre précédent (espace avant manquante) | $2\,;\,3\,;\,5…$ | relecture |
-| 2P20-3 | R16  | Titre : « Calculer  une » deux espaces | Un espace | relecture |
-| 2S20-1 | R1 Titre | Correction : « 10 + 9 + 4 + 6 + 8 = 37 », « il y a 10 crocodiles » nombres hors $ | Mettre les nombres entre $ | relecture |
-| 2S20-11 | R2 Tutoiement, impératif | Correction : mise en évidence « 6\,\textbf{livres} » (texte et unité dans miseEnEvidence) alors que le champ attend 6 ; « 40 adhérents » hors $ | miseEnEvidence(6) puis texte à part | relecture |
-| 2S20-15 | R2 Tutoiement, impératif | Correction : « 5\,^\circ\textbf{C} » unité en texte gras dans miseEnEvidence (champ = 5) ; aussi 2S20-13 : « 18 % », « 8 % » hors $ | Unité hors miseEnEvidence ; nombres entre $ | relecture |
-| 2S20-3 | R3  | Énoncé : « $9$; $10$ ; » premier point-virgule sans espace insécable | $9$ ; $10$ | relecture |
-| 2S20-4 | R6  | Correction : valeurs mises en évidence (1 508 ; 2 354 ; 846) différentes de celles attendues par les champs (1480 ; 2360 ; 880, dans l'intervalle accepté) ; bornes 1440, 1520, 2320… sans espace fine alors que 1 508 en a une | Mettre en évidence la valeur attendue ; texNombre pour les bornes | relecture |
-| 2S20-9 | R1 Titre | Énoncé : « 40 tomates » hors $ | $40$ tomates | relecture |
+| 2P20-3 | R1 Titre | Titre : « Calculer  une » deux espaces | Un espace | relecture |
 | 2A-A01-7 | R16  | Énoncé : « À quel nombre décimal, le nombre $\dfrac{3}{4}$ est-il égal ? » (virgule parasite) | Supprimer la virgule | src/exercices/2e/ |
 | 2A-C4-4 | R16  | Énoncé : « Le périmètre $P$ d'un rectangle est donnée » (donné) | « est donné » | src/exercices/2e/ |
 | 2A-C4-5 | R16  | Énoncé : $C=(1+t)^2$ sans hypothèse sur le signe de $1+t$, mais la correction affirme « les deux membres sont positifs » et prend $\sqrt{C}=1+t$ (la réponse unique $\sqrt{C}-1$ est fausse pour $t&lt;-1$) | Ajouter « avec $t\geqslant -1$ » (ou $1+t\geqslant0$) dans l'énoncé | src/exercices/2e/ |
@@ -179,7 +181,6 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-R2-7 | R16  | Unité après le champ : « ton » (ni « t » ni « tonnes ») ; « $30 \,\%$ » espace avant \, | « tonnes » ou « t » | src/exercices/2e/ |
 | 2A-S2-7 | R16  | Titre « Comparer la moyenne et l'écart-type d'une série rangée en classes » alors que l'exercice compare deux séries simples E et F sur leur moyenne | Titre cohérent avec la question | src/exercices/2e/ |
 | 2A-S4-6 | R16  | Titre « Lire une fréquence… » mais la question demande la valeur du troisième quartile | Titre cohérent | src/exercices/2e/ |
-| 2F21-11 | R6  | Correction : « $⟦-2.⟧$ » le point final est dans la mise en évidence (idem 3F20) | Sortir le point | src/exercices/2e/ |
 | 2N12-1 | R16  | Titre : « intervalle de  $\mathbb{R}$ » deux espaces | Une seule espace | src/exercices/2e/ |
 | 2N12-2 | R3  | Énoncé : intervalles « $]-\infty;22]\cap]34;44]$ » sans espaces autour de « ; » (aussi 2N12-3 « $[-11; 78]$ » espace ordinaire) | $]-\infty\,;\,22]$ | src/exercices/2e/ |
 | 2N12-4 | R16  | Énoncé : « Si $A \cup B = …$, $A \cap B = …$ et $B \setminus A = ….$ » : proposition subordonnée sans principale (phrase incomplète) | « On sait que… » ou « Sachant que… » | src/exercices/2e/ |
@@ -187,10 +188,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2F21-9 | R16  | Correction : « $g(0)=\dfrac{3}{5}\times +\dfrac{3}{2}$ » et « $g(4)=\dfrac{3}{5}\times +4 +\dfrac{3}{2}$ » : le facteur x est écrit avec ecritureAlgebrique (« +4 », valeur 0 vide) au lieu de la valeur seule, d'où « \times + » ; il faut $\dfrac{3}{5}\times 0+\dfrac{3}{2}$ et $\dfrac{3}{5}\times 4+\dfrac{3}{2}$ | Utiliser x0.texFSD / ecritureParentheseSiNegatif(x0) pour le facteur | src/exercices/2e/2F21-9.ts:526 |
 | 2F22-1 | R12  | Correction : « $g(800) = \dfrac{1}{800} = 0.00125$ » : point décimal au lieu de la virgule (et 0,001 25 avec espace fine) | $0,001\,25$ | src/exercices/2e/2F22-1.ts |
 | can2F3-06 | R10 Français | « elles sont négatives lorque la courbe » (code de 2F32-3) | lorsque | src/exercices/2e/2F32-3.ts:228 |
-| 2G12-3 | R16  | Correction : « En utilisant les milieux : : » deux deux-points (texteGras('… :') suivi de ' :') | Retirer un des deux | src/exercices/2e/2G12-3.ts:191,349 |
-| 2G21-2 | R14  | Correction vide : « Pas de correction pour l'instant » pour toutes les questions | Écrire la correction (placeholder visible par l'élève) | src/exercices/2e/2G21-2.ts:304 |
-| 2G31-4 | R16  | Correction (parallèle) : « celle de la droite donnée, . Elle vaut » virgule et espace avant le point | Construire la subordonnée seulement pour perpendiculaire (« donnée. » sinon) | src/exercices/2e/2G31-4.ts:134 |
-| 2G34-8 | R16  | Consigne : « Résourdre les problèmes suivants » (Résoudre) | Résoudre | src/exercices/2e/2G34-8.ts |
+| 2G12-3 | R10 Français | Correction : « En utilisant les milieux : : » deux deux-points (texteGras('… :') suivi de ' :') | Retirer un des deux | src/exercices/2e/2G12-3.ts:191,349 |
+| 2G31-4 | R5 Virgule | Correction (parallèle) : « celle de la droite donnée, . Elle vaut » virgule et espace avant le point | Construire la subordonnée seulement pour perpendiculaire (« donnée. » sinon) | src/exercices/2e/2G31-4.ts:134 |
+| 2G34-8 | R10 Français | Consigne : « Résourdre les problèmes suivants » (Résoudre) | Résoudre | src/exercices/2e/2G34-8.ts |
 | 2L10-3 | R14  | Même exercice que 5N5A (« Écrire une expression littérale », QCM « triple de z ») et 3AutoN10 : triple publication | Fusionner ou différencier | src/exercices/2e/2L10-3.ts |
 | 2L10-5 | R5 Virgule | Consigne « Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes » sans point final | Ajouter le point | src/exercices/2e/2L10-5.ts |
 | 2L10-7 | R1 Titre | Énoncé : « en °C », « $m_1=3$ kg » : unités hors $ et titre terminé par une espace | $3\text{ kg}$ ; $\text{°C}$ | src/exercices/2e/2L10-7.ts |

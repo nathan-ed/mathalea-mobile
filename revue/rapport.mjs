@@ -68,6 +68,10 @@ const NOMS = {
   R8: 'Orthographe uniformisée (en dessous, au-dessus…)',
   R9: 'Notation des probabilités',
   R10: 'Français (accords, fautes, coquilles)',
+  R12: 'Notation incohérente (× et ·, e droit, //, …)',
+  R13: 'Accord, majuscule accentuée, unité (relecture)',
+  R14: 'Contenu manquant ou en double (relecture)',
+  R16: 'Relecture : français, titre ou contenu',
   X1: 'Erreur ou exception',
   X2: 'Formule cassée (KaTeX, $)',
   X3: 'undefined, NaN…',
@@ -91,8 +95,24 @@ for (const c of [...journalBanc, ...relecture]) {
   if (g.exemples.length < 3 && !g.exemples.some((x) => motif(x) === motif(c.extrait))) g.exemples.push(c.extrait)
   groupes.set(cle, g)
 }
+// Familles de règles : la gravité de la relecture n'a pas d'échelle commune, le tri se fait par règle
+const FAMILLES = [
+  ['I', 'Interactif'],
+  ['C', 'Contenu mathématique'],
+  ['M', 'Mise en évidence'],
+  ['X', 'Rendu et robustesse'],
+  ['N', 'Nombres'],
+  ['T', 'Typographie'],
+  ['R', 'Rédaction'],
+]
+const famille = (r) => Math.max(0, FAMILLES.findIndex(([l]) => l === r[0]))
+const numero = (r) => Number(r.slice(1)) || 0
 const liste = [...groupes.values()].sort(
-  (a, b) => a.gravite - b.gravite || a.regle.localeCompare(b.regle) || a.niveau.localeCompare(b.niveau) || a.id.localeCompare(b.id),
+  (a, b) =>
+    famille(a.regle) - famille(b.regle) ||
+    numero(a.regle) - numero(b.regle) ||
+    a.niveau.localeCompare(b.niveau) ||
+    a.id.localeCompare(b.id),
 )
 
 const args = process.argv.slice(2)
@@ -125,31 +145,31 @@ Avancement : **${fait.size} exercices passés sur ${referentiel.length}**.
 Constats regroupés : ${liste.length} (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
-Tri : gravité, puis règle, puis niveau et exercice. Les constats
-automatiques de typographie et de rédaction (gravité 4 et 5) sont des
-candidats : une partie est écartée à la relecture (\`revue/ecartes.jsonl\`).
+Tri : famille de règles (interactif, contenu, mise en évidence, rendu,
+nombres, typographie, rédaction), puis règle, niveau et exercice. Les
+constats automatiques de typographie et de rédaction sont des candidats :
+une partie est écartée à la relecture (\`revue/ecartes.jsonl\`).
 
 ## Sommaire
 
-| Gravité | Règle | Exercices | Constats |
+| Famille | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
 `
 const resume = {}
 for (const g of liste) {
-  const k = `${g.gravite}|${g.regle}`
+  const k = g.regle
   resume[k] ??= { exos: new Set(), n: 0 }
   resume[k].exos.add(g.id)
   resume[k].n++
 }
-for (const [k, v] of Object.entries(resume).sort()) {
-  const [grav, r] = k.split('|')
-  md += `| ${grav} ${GRAVITES[grav]} | [${r} ${NOMS[r] ?? ''}](#${r.toLowerCase()}) | ${v.exos.size} | ${v.n} |\n`
+for (const [r, v] of Object.entries(resume).sort(([a], [b]) => famille(a) - famille(b) || numero(a) - numero(b))) {
+  md += `| ${FAMILLES[famille(r)][1]} | [${r} ${NOMS[r] ?? ''}](#${r.toLowerCase()}) | ${v.exos.size} | ${v.n} |\n`
 }
 let regleCourante = ''
 for (const g of liste) {
   if (g.regle !== regleCourante) {
     regleCourante = g.regle
-    md += `\n## ${g.regle}\n\n**${NOMS[g.regle] ?? g.regle}** (gravité ${g.gravite} : ${GRAVITES[g.gravite]})\n\n| Exercice | Où | Constat | Tirages |\n| --- | --- | --- | --- |\n`
+    md += `\n## ${g.regle}\n\n**${NOMS[g.regle] ?? g.regle}**\n\n| Exercice | Où | Constat | Tirages |\n| --- | --- | --- | --- |\n`
   }
   const vs = [...g.variantes]
   md += `| ${g.id} (${echapper(g.niveau)}) | ${echapper(g.ou ?? '')}${g.q != null && g.q >= 0 ? ` q${g.q + 1}` : ''}${g.format ? ` ${g.format}` : ''} | ${echapper(g.exemples.join(' ‖ '))}${g.correction ? ` → ${echapper(g.correction)}` : ''} | ×${g.n}${vs.length ? ` ; ${echapper(vs.slice(0, 2).join(' ; '))}${vs.length > 2 ? '…' : ''}` : ''}${g.graine ? ` (${g.graine})` : ''} |\n`

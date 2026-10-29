@@ -26,11 +26,14 @@ const LIMITE = Number(opt('--limite', Infinity))
 const TRAVAILLEURS = Number(opt('--travailleurs', 3))
 const CAPTURES = !args.includes('--sans-captures')
 const REFAIRE = args.includes('--refaire')
+// --extra : valeurs supplémentaires pour les paramètres texte que optionsDe ne détaille pas
+// (« Nombres séparés par des tirets »), sortie dans sorties/<id>_extra.json, fait-extra.txt
+const EXTRA = args.includes('--extra')
 const MAX_VARIANTES = 50
 const GRAINES = ['a', 'b']
 
 const JOURNAL = join(ici, 'journal.jsonl')
-const FAIT = join(ici, 'fait.txt')
+const FAIT = join(ici, EXTRA ? 'fait-extra.txt' : 'fait.txt')
 const DOSSIER_CAPTURES = join(ici, 'captures')
 const DOSSIER_SORTIES = join(ici, 'sorties')
 mkdirSync(DOSSIER_CAPTURES, { recursive: true })
@@ -65,7 +68,11 @@ function valeursDe(p) {
       return l
     }
     case 'texte': {
-      if (!p.options?.length) return [p.defaut]
+      if (!p.options?.length) {
+        if (EXTRA && /tirets|séparés|entre \d+ et \d+|choix/i.test(`${p.aide ?? ''} ${p.titre ?? ''}`))
+          return [...new Set([p.defaut, '1', '2', '3', '4', '5', '6', '1-2'])]
+        return [p.defaut]
+      }
       const l = p.options.map((o) => o.valeur)
       if (p.defaut && !l.includes(p.defaut)) l.unshift(p.defaut)
       return l
@@ -339,7 +346,7 @@ async function travailleur(n) {
       if (/favicon|Failed to load resource/.test(msg)) continue
       noter(e, { regle: 'X1', gravite: 2, extrait: `console : ${msg}` })
     }
-    writeFileSync(join(DOSSIER_SORTIES, `${e.id.replace(/[^\w-]+/g, '_')}.json`), JSON.stringify(resultat.sortie))
+    writeFileSync(join(DOSSIER_SORTIES, `${e.id.replace(/[^\w-]+/g, '_')}${EXTRA ? '_extra' : ''}.json`), JSON.stringify(resultat.sortie))
     appendFileSync(FAIT, e.uuid + '\n')
     termines++
     const s = (Date.now() - debut) / 1000

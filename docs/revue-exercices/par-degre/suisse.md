@@ -8,11 +8,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Nature | Constats |
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 3 |
-| Contenu mathématique faux | 12 |
-| Rendu cassé (formule, débordement, erreur) | 59 |
-| Mise en évidence (miseEnEvidence et champs) | 16 |
-| Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 363 |
+| Contenu mathématique faux | 19 |
+| Rendu cassé (formule, débordement, erreur) | 64 |
+| Mise en évidence (miseEnEvidence et champs) | 21 |
+| Typographie (nombres, espaces, notations) | 38 |
+| Rédaction (français, titres, consignes) | 311 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -26,6 +26,13 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 29202 | C1 Contenu mathématique faux | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) | Utiliser la même valeur a dans les trois libellés | relecture |
+| 448b5 | C1 Contenu mathématique faux | Correction : « Pour obtenir 2 025, on a ajouté 1 600 à 425 » raisonnement inversé (même défaut que 6fmcu) | On retranche 425 à 2 025 : 1 600 | relecture |
+| 50ee5 | C1 Contenu mathématique faux | Correction : « x_M=(2+-4)/2 » signe +- au lieu de 2+(-4) | \dfrac{2+(-4)}{2} | relecture |
+| 6fmcu | C1 Contenu mathématique faux | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) | Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | relecture |
+| 7b6ee | C1 Contenu mathématique faux | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins | 2\,025+20 | relecture |
+| 82a41 | C1 Contenu mathématique faux | Correction : « 3² est positif (puissance paire d'un nombre négatif) » alors que 3 est positif ; titre « Calculer un prix après des évolutions successives » sans rapport | 3² est positif (puissance d'un nombre positif) ; titre cohérent | relecture |
+| 9efa5 | C1 Contenu mathématique faux | Correction : A(-5;0) et B(0;2) → « \dfrac{2-0}{0-5}=\dfrac{2}{+5} » : x_A=-5 est écrit sans parenthèses (0-(-5)), le calcul affiché est faux ; « Son pente » | \dfrac{2-0}{0-(-5)}=\dfrac{2}{5} ; Sa pente | relecture |
 | a01f3 | C1 Contenu mathématique faux | Titre « Trouver le plus grand nombre (QCM) » alors que la question est « Quel est le plus petit nombre ? » ; QCM à 2 propositions seulement ; bonne réponse non mise en évidence (10 M3). | Titre « le plus petit ». | src/exercices/CH/a01f3.ts |
 | a309b | C1 Contenu mathématique faux | Exercice modèle laissé dans le référentiel : titre « Nom de l'exercice », consigne « Consigne », question « Question 1 » (texte de remplissage) : à retirer de la liste ou de l'app (règle : aucun placeholder). | Retirer de la liste. | src/exercices/CH/a309b.ts |
 | a343n | C1 Contenu mathématique faux | Titre « Multiplication par 100 de nombres décimaux » alors que l'exercice multiplie par 1 000 ; correction juste (3 400). | Titre « par 1 000 ». | src/exercices/CH/a343n.ts |
@@ -49,6 +56,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3a275 | X4  | Titre « Factoriser ou développer une différence de deux carrés » alors que l'exercice compare des fractions de numérateur 1 ; terminé par une espace | Titre cohérent | relecture |
 | 3acd6 | X4  | Titre avec mention interne « (année de transition) » | Retirer | relecture |
 | 3c098 | X4  | Titre « Développer une identité remarquable » alors que la question demande la solution de $9x+1=5x+9$ (même défaut que d7202, f43d1, daf1d : titres recopiés dans la série EAM) | Titre cohérent | relecture |
+| 4c7ca | X4  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
+| 4ed52 | X3  | Énoncé : « undefined » devant le QCM ; correction : proposition mise en évidence « Il y a 7 fois 5 et il reste 2 » avec nombres hors $ et texte dans miseEnEvidence | Initialiser la question ; $7$ fois $5$ | relecture |
+| 5b767 | X4  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
+| 884fe | X3  | Énoncé : « undefined » devant le QCM (aucune consigne) ; même défaut que 83789 et 4ed52 | Initialiser la question du qcm | relecture |
 | c5503 | X4  | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) | Afficher l'affirmation dans la question QCM | relecture |
 | c9893 | X4  | Correction vide (QCM notation scientifique) | Ajouter une correction | relecture |
 | c9c44 | X4  | QCM « Ordre de grandeur » sans énoncé affiché | Ajouter la consigne | relecture |
@@ -80,6 +91,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | sebseb | X4  | Titre « Schemas en boite » (accents) ; énoncé « 28 bonbons » hors $ ; correction vide | « Schémas en boîte » ; $28$ ; ajouter une correction | src/exercices/ |
 | testEEE | X4  | Exercice de test dans le référentiel : titre « Eric fait ses tests interactifs. », consigne (fraction égale, racine carrée du dénominateur) sans rapport avec la question « $-2(x-4)$ » | Retirer du référentiel | src/exercices/ |
 | jltht | X4  | Titre « Calculer des sommes avec annee » : nom de variable interne (annee) | Titre avec l'année | src/exercices/can/ |
+| 83789 | X3  | Énoncé : « undefined » devant le QCM (this.question += qcm.texte sans question initialisée) | this.question = qcm.texte | src/exercices/can/canc3a-CM1-2025/canc3a-CM1-2025-Q25.ts:52 |
 | ff4cc | X4  | Titre : « Calculer des sommes et des différences avec annee2 et annee1 » : noms de variables internes (annee1, annee2) affichés dans le titre | Titre avec 2025 et 2026 ou formulation générique | src/exercices/can/canNY-2026/ |
 | a1e38 | X4  | Exercice « Consulter la liste des patterns disponibles pour différents exercices » : outil de développeur/enseignant exposé dans l'app, énoncé de 15 606 nombres hors des $ (N1), 972 guillemets T4, 96 X4 (énoncé vide), « Pour le motif 43, il y a 87 soleils » (nombres hors $) : sans intérêt pour un élève. | Retirer des exercices proposés aux élèves. | src/exercices/CH/a1e38.ts |
 | a343t | X2 Formule cassée | Énoncé : « $25$; $50$; $75$; $$ [champ] » : $$ vide (délimiteur de mode display sans formule) → 14 X2 ; correction « Ainsi, ? = 75+25 » avec « ? » non défini ; « Complète » ; 26 R2. | Remplacer $$ par $\dots$. | src/exercices/CH/a343t.ts |
@@ -107,6 +119,11 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 10QCM-1 | M2 Unité en évidence | Correction : ⟦45⟧ ⟦minutes⟧ unité (mot) en miseEnEvidence séparée | miseEnEvidence(45) puis minutes hors mise en évidence | relecture |
+| 5120f | M5 Texte en évidence | Consigne : « Sujet inspiré d'un exercice du sujet Bac Asie Juin 2021 » entouré de miseEnEvidence dans l'énoncé (mise en couleur injustifiée) ; titre terminé par un point ; « 10 lettres », « 4 voyelles » hors $ | texteEnCouleur ou texte simple ; $10$ | relecture |
+| 6cc79 | M2 Unité en évidence | Correction : ⟦315\textbf{ m}^3⟧ unité en \textbf dans miseEnEvidence (champ attend 315 + unité) | Vérifier que la mise en évidence correspond au champ (unité incluse) | relecture |
+| 90671 | M2 Unité en évidence | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
+| 92572 | M5 Texte en évidence | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
 | a2ac2 | M6  | Résolution graphique f(x)=k : correction « Il y en a 1 (tracé rouge en pointillés) » : couleur pour désigner un tracé ; 2 M6 ; 12 figures > 390 px. | Désigner par le nom du tracé. | src/exercices/CH/a2ac2.ts |
 | a3870 | M1 Évidence refusée par le champ | Labyrinthe de multiples : 289 M1 (deux champs sortie / nombre de cases, ordre inverse de la correction : même défaut que 6N3autoD-2) ; 995 N1. | Même ordre champs/correction. | src/exercices/CH/a3870.ts |
 | a55d2 | M3  | QCM à réponses multiples : correction sans l'ensemble des bonnes propositions en évidence (30 M3, 30 M6) ; 293 N1 ; réponses justes (2, 5, 10 ; 3 non : somme 28). | Évidence des propositions. | src/exercices/CH/a55d2.ts |
@@ -128,6 +145,41 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 01607 | N1 Nombre hors $ | Énoncé : « carré ABCD de côté 4 » nombre hors $ (aussi 02d8w : « 9 boules rouges… ») | $4$ | relecture |
+| 065cf | N1 Nombre hors $ | Énoncé : « 40° » hors $ | $40^\circ$ | relecture |
+| 0a113 | T2  | Énoncé : « $1,75$€ » et « $13,91$€ » sans espace avant € ; « 5 pains », « 4 tartelettes » hors $ | $1,75$ € ; $5$ pains | relecture |
+| 10QCM-18 | T6 Points de suspension | Correction : « 0,0.... 0 » points de suspension écrits avec des points | \ldots | relecture |
+| 10QCM-43 | T5 Espaces | QCM : « 4 \,\% » espace avant la fine insécable (espace superflue) ; correction « 10\, \% » | 10\,\% | relecture |
+| 11QCM-14 | T3  | Correction : intervalle « ]0\,;+\infty[ » espace fine d'un seul côté du point-virgule | ]0\,;\,+\infty[ | relecture |
+| 11QCM-18 | T3  | Énoncé : « est égale $…$? » point d'interrogation sans espace insécable | $…$⍽? | relecture |
+| 1474f | T2  | Énoncé et correction : « $3$€ », « $2$€ » sans espace avant € ; tutoiement (« Tu dois ») | $3$ € | relecture |
+| 19b3f | N1 Nombre hors $ | Consigne : le texte « Quatre cent soixante-dix » est écrit dans $\textit{…}$ (texte en mode maths) | Texte hors $ avec texteEnCouleur/italique | relecture |
+| 1b8d1 | N1 Nombre hors $ | Correction : « Pour tout entier n strictement positif » n hors $ ; e^{-n} (e italique) dans 1b8d0 au lieu de \mathrm{e} | $n$ ; \mathrm{e} | relecture |
+| 1mQCM-22 | N1 Nombre hors $ | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
+| 2mLogExp-11 | T2  | Correction : $\textbf{Domaine :}$ texte gras dans un environnement mathématique (aussi uuid 2mLogExp-12 « rvjcl » non hexadécimal) | texteGras hors maths | relecture |
+| 46bae | N1 Nombre hors $ | Énoncé : « ici 35 », « 28 » nombres hors $ | $35$ | relecture |
+| 47u56 | T3  | Énoncé : « du triangle $ABC$? » sans espace insécable avant ? ; correction de 47d56 réduite à « Une translation » sans justification | ⍽? | relecture |
+| 4f2a3 | T3  | Énoncé : « $A\left(5\,800\right).$ » point final dans les maths | Point hors $ | relecture |
+| 4mProbStat-9 | T6 Points de suspension | Tableau : cellule inconnue « $....$ » au lieu de \ldots ou ? | \ldots | relecture |
+| 4pvxi | T2  | Énoncé et correction : durées écrites de deux façons ($20\text{h}26\text{min}$ puis $1$ h $46$ min) | Uniformiser les durées | relecture |
+| 54140 | N1 Nombre hors $ | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
+| 5b60d | N1 Nombre hors $ | Énoncé : « par 89 », « 81 479=88$\cdot$925 $+$ 79 » nombres hors $ et équation coupée en morceaux de $ (opérateurs seuls dans $) | $81\,479=88\cdot925+79$ | relecture |
+| 5c854 | T3  | Correction : « J'ai donné: » sans espace insécable avant les deux-points | donné⍽: | relecture |
+| 5e90f | N1 Nombre hors $ | Énoncé et correction : « 8 boules », « 7 boules », « 7 tirages », « 7-uplets » nombres hors $ ; ensemble « {1;2;....;8} » points de suspension mal écrits | $8$ boules… ; \ldots | relecture |
+| 65bd7 | T5 Espaces | Énoncé : « $BG=4,7\ \text{cm}$ . » espace avant le point final | Retirer l'espace | relecture |
+| 691a7 | N1 Nombre hors $ | Énoncé : « dé à 6 faces 10 000 fois » nombres hors $ | $6$ faces $10\,000$ fois | relecture |
+| 6ca15 | T3  | Énoncé : « 2 024 · 3 » année écrite avec espace fine des milliers (les années s'écrivent 2024) ; titre « CAN Spéciale année 2024 » | Écrire 2024 sans espace | relecture |
+| 6fdab | T3  | Énoncé : « Tracer $[FG$], $[GH$) et $(HF$). » crochets et parenthèses fermants hors des $ | $[FG]$, $[GH)$ et $(HF)$ | relecture |
+| 72e9d | T3  | Énoncé : « en grammes? » sans espace insécable avant ? ; « une étoile en gramme » (grammes) | en grammes⍽? ; en grammes | relecture |
+| 76230 | T4  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
+| 83800 | T3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
+| 88021 | N1 Nombre hors $ | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
+| 8802x | N1 Nombre hors $ | Énoncé : « 15 pirates », « 149 pièces d'or » nombres hors $ | $15$ pirates | relecture |
+| 88488 | N1 Nombre hors $ | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
+| 88a60 | N1 Nombre hors $ | Titre « Numeration » sans accent ; énoncé « entre 128 et 200 », « dizaines est 2 » nombres hors $ (aussi 85dfc : « point 22 ») | Numération ; $128$ | relecture |
+| 8ac2d | T3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
+| 90fd5 | T3  | Énoncé et correction : « triangle BEC », « la droite (CE) » sans $ ; « un sommet , » espace avant la virgule | $BEC$ ; $(CE)$ ; sommet, | relecture |
+| 9e8ae | T5 Espaces | Titre terminé par un point ; « ... » au lieu de \ldots (aussi 9af48 : espaces parasites « $ 7,99+5,8$ ») | Retirer le point ; \ldots | relecture |
 | a3f3b | T6 Points de suspension | « $0,3\text{ L}=0,3\cdot1\,000\text{ cm}^3$ » \cdot CH conforme ; 11 T6 (« Choisir… ») ; correction juste. | RAS. | src/exercices/CH/a3f3b.ts |
 | ae872 | T4  | Clone de BP1SP02 (134 T4, 23 phrases sans virgule) ; « Nombre de femmes employées » en \text dans une fraction ; effectifs identiques. | Fusionner avec BP1SP02. | src/exercices/CH/ae872.ts |
 | b2b79 | T4  | 138 T4 : guillemets « face » sans insécables ; « pile , » espace avant virgule ; \text{Nombre de « face »} dans une fraction ; calcul juste (5/12). | Insécables ; fréquence 5/12. | src/exercices/CH/b2b79.ts |
@@ -136,170 +188,119 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
-| 0021e | R16  | Titre : « dixèmes » (dixièmes) | dixièmes | relecture |
-| 01607 | R1 Titre | Énoncé : « carré ABCD de côté 4 » nombre hors $ (aussi 02d8w : « 9 boules rouges… ») | $4$ | relecture |
-| 046ba | R16  | Correction : « on multiplie le volume visible par par 5 » (doublon) | par | relecture |
-| 05b52 | R16  | Consigne : « …la représentation graphique.` » accent grave parasite en fin de phrase | Supprimer le caractère parasite | relecture |
-| 065cf | R1 Titre | Énoncé : « 40° » hors $ | $40^\circ$ | relecture |
-| 0a113 | R3  | Énoncé : « $1,75$€ » et « $13,91$€ » sans espace avant € ; « 5 pains », « 4 tartelettes » hors $ | $1,75$ € ; $5$ pains | relecture |
-| 0ff6a | R16  | Titre « Tracer une droite à partir de son équation » mais l'exercice (QCM) demande de lire l'équation d'une droite représentée | Titre cohérent avec la variante QCM | relecture |
+| 0021e | R1 Titre | Titre : « dixèmes » (dixièmes) | dixièmes | relecture |
+| 046ba | R10 Français | Correction : « on multiplie le volume visible par par 5 » (doublon) | par | relecture |
+| 05b52 | R10 Français | Consigne : « …la représentation graphique.` » accent grave parasite en fin de phrase | Supprimer le caractère parasite | relecture |
+| 0ff6a | R1 Titre | Titre « Tracer une droite à partir de son équation » mais l'exercice (QCM) demande de lire l'équation d'une droite représentée | Titre cohérent avec la variante QCM | relecture |
 | 10NO3D-11 | R12  | Proposition du QCM « N=125\times 15^{2} » avec \times alors que l'énoncé et la correction (version CH) utilisent \cdot | \cdot dans les propositions | relecture |
-| 10QCM-1 | R2 Tutoiement, impératif | Correction : ⟦45⟧ ⟦minutes⟧ unité (mot) en miseEnEvidence séparée | miseEnEvidence(45) puis minutes hors mise en évidence | relecture |
-| 10QCM-18 | R12  | Correction : « 0,0.... 0 » points de suspension écrits avec des points | \ldots | relecture |
-| 10QCM-43 | R3  | QCM : « 4 \,\% » espace avant la fine insécable (espace superflue) ; correction « 10\, \% » | 10\,\% | relecture |
-| 10QCM-47 | R16  | Énoncé : « connait » (connaît) | connaît | relecture |
-| 11FA2A-6 | R16  | Correction : « Dans une 1 heure, il y a » (Dans 1 heure) | Dans $1$ heure | relecture |
-| 11FA4E-2 | R16  | Énoncé : « Le périmètre P d'un rectangle est donnée » (donné) | est donné | relecture |
-| 11QCM-14 | R3  | Correction : intervalle « ]0\,;+\infty[ » espace fine d'un seul côté du point-virgule | ]0\,;\,+\infty[ | relecture |
-| 11QCM-18 | R3  | Énoncé : « est égale $…$? » point d'interrogation sans espace insécable | $…$⍽? | relecture |
-| 11QCM-5 | R16  | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
-| 11QCM-80 | R16  | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
-| 1380f | R16  | Titre contenant « (ancien exercice) » (comme 25143) | Retirer la mention ou l'exercice | relecture |
-| 1474f | R3  | Énoncé et correction : « $3$€ », « $2$€ » sans espace avant € ; tutoiement (« Tu dois ») | $3$ € | relecture |
-| 18559 | R16  | Titre : « … le chiffre des unités devienne le chiffre des ... ? » titre inachevé avec « ... » et espace avant ? | Titre complet | relecture |
-| 19b3f | R1 Titre | Consigne : le texte « Quatre cent soixante-dix » est écrit dans $\textit{…}$ (texte en mode maths) | Texte hors $ avec texteEnCouleur/italique | relecture |
-| 1a8c6 | R16  | Titre « Développer une identité remarquable » mais l'exercice calcule une moyenne pondérée ; « devoir coefficienté » (coefficient) | Titre : Calculer une moyenne pondérée | relecture |
-| 1b8d1 | R1 Titre | Correction : « Pour tout entier n strictement positif » n hors $ ; e^{-n} (e italique) dans 1b8d0 au lieu de \mathrm{e} | $n$ ; \mathrm{e} | relecture |
-| 1b8d4 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
-| 1b8d5 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
-| 1b8d6 | R16  | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
-| 1bb30 | R16  | Titre « à partir de deux points » mais l'énoncé donne un point et un vecteur normal (doublon CH de 1G21-1) | Titre cohérent | relecture |
-| 1eb36 | R16  | Exercice modèle exposé : titre « Nom de l'exercice », consigne « consigne » | Compléter le titre et la consigne ou retirer l'exercice du référentiel | relecture |
-| 1ho0q | R16  | Correction : « Le total des coefficents » (coefficients) | coefficients | relecture |
-| 1mCL4-2 | R16  | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
-| 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
-| 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
+| 10QCM-47 | R10 Français | Énoncé : « connait » (connaît) | connaît | relecture |
+| 11FA2A-6 | R10 Français | Correction : « Dans une 1 heure, il y a » (Dans 1 heure) | Dans $1$ heure | relecture |
+| 11FA4E-2 | R10 Français | Énoncé : « Le périmètre P d'un rectangle est donnée » (donné) | est donné | relecture |
+| 11QCM-5 | R1 Titre | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
+| 11QCM-80 | R1 Titre | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) | La pente … égale | relecture |
+| 1380f | R1 Titre | Titre contenant « (ancien exercice) » (comme 25143) | Retirer la mention ou l'exercice | relecture |
+| 18559 | R1 Titre | Titre : « … le chiffre des unités devienne le chiffre des ... ? » titre inachevé avec « ... » et espace avant ? | Titre complet | relecture |
+| 1a8c6 | R1 Titre | Titre « Développer une identité remarquable » mais l'exercice calcule une moyenne pondérée ; « devoir coefficienté » (coefficient) | Titre : Calculer une moyenne pondérée | relecture |
+| 1b8d4 | R10 Français | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
+| 1b8d5 | R10 Français | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
+| 1b8d6 | R10 Français | Correction : « forme indeterminée » (indéterminée) | forme indéterminée | relecture |
+| 1bb30 | R1 Titre | Titre « à partir de deux points » mais l'énoncé donne un point et un vecteur normal (doublon CH de 1G21-1) | Titre cohérent | relecture |
+| 1eb36 | R1 Titre | Exercice modèle exposé : titre « Nom de l'exercice », consigne « consigne » | Compléter le titre et la consigne ou retirer l'exercice du référentiel | relecture |
+| 1ho0q | R10 Français | Correction : « Le total des coefficents » (coefficients) | coefficients | relecture |
+| 1mCL4-2 | R10 Français | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») | Résoudre, dans $\mathbb{R}$, | relecture |
+| 1mF3-16 | R1 Titre | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 225c1 | R12  | QCM : propositions « 4\times 5 » (\times) alors que la correction de la même version CH écrit « 4\cdot 5 » (même défaut que 10NO3D-11) | \cdot dans les propositions pour la Suisse | relecture |
-| 23241 | R16  | Titre : « probabilté » (probabilité) | probabilité | relecture |
-| 23b3e | R16  | Titre « Déterminer un encadrement avec la fonction carré » mais l'exercice demande l'écriture décimale de 7,2·10^{-4} | Titre cohérent | relecture |
-| 25143 | R16  | Titre contenant « (ancien exercice) » visible dans le référentiel | Retirer la mention ou retirer l'exercice du référentiel | relecture |
-| 26434 | R16  | Titre « Effectuer un calcul avec des fractions » mais l'exercice porte sur un pourcentage d'élèves | Titre : Calculer un pourcentage | relecture |
-| 29202 | R10 Français | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) | Utiliser la même valeur a dans les trois libellés | relecture |
-| 29957 | R16  | Exercice de test « Test MultiMathfield » exposé dans le référentiel | Retirer du référentiel | relecture |
-| 2cdd4 | R16  | Titre « (QCM) » sans intitulé ; correction : « 170 \textbf{ cm} » texte gras dans miseEnEvidence ; consigne « Entoure » (tutoiement) | Renseigner le titre | relecture |
-| 2guhi | R16  | Titre « Trouver un inverse ou un opposé » mais l'exercice demande la valeur décimale de 2 026 + 1/2 | Titre : Convertir une somme avec une fraction en écriture décimale | relecture |
-| 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
-| 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
-| 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
-| 2mFctRat-1 | R16  | Titre : « homographiquee » (homographique) ; uuid « 2rgct » non hexadécimal | homographique | relecture |
-| 2mLogExp-11 | R3  | Correction : $\textbf{Domaine :}$ texte gras dans un environnement mathématique (aussi uuid 2mLogExp-12 « rvjcl » non hexadécimal) | texteGras hors maths | relecture |
+| 23241 | R1 Titre | Titre : « probabilté » (probabilité) | probabilité | relecture |
+| 23b3e | R1 Titre | Titre « Déterminer un encadrement avec la fonction carré » mais l'exercice demande l'écriture décimale de 7,2·10^{-4} | Titre cohérent | relecture |
+| 25143 | R1 Titre | Titre contenant « (ancien exercice) » visible dans le référentiel | Retirer la mention ou retirer l'exercice du référentiel | relecture |
+| 26434 | R1 Titre | Titre « Effectuer un calcul avec des fractions » mais l'exercice porte sur un pourcentage d'élèves | Titre : Calculer un pourcentage | relecture |
+| 29957 | R10 Français | Exercice de test « Test MultiMathfield » exposé dans le référentiel | Retirer du référentiel | relecture |
+| 2cdd4 | R1 Titre | Titre « (QCM) » sans intitulé ; correction : « 170 \textbf{ cm} » texte gras dans miseEnEvidence ; consigne « Entoure » (tutoiement) | Renseigner le titre | relecture |
+| 2guhi | R1 Titre | Titre « Trouver un inverse ou un opposé » mais l'exercice demande la valeur décimale de 2 026 + 1/2 | Titre : Convertir une somme avec une fraction en écriture décimale | relecture |
+| 2mEqCar-1 | R10 Français | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
+| 2mEqCar-3 | R1 Titre | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
+| 2mFctPoly1-1 | R10 Français | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
+| 2mFctRat-1 | R1 Titre | Titre : « homographiquee » (homographique) ; uuid « 2rgct » non hexadécimal | homographique | relecture |
 | 2mLogExp-7 | R12  | Correction : \text{e}^{rn} (e droit en \text) au lieu de \mathrm{e} | \mathrm{e} | relecture |
-| 2mLogExp-8 | R16  | Titre : « croissance  et » deux espaces | Un espace | relecture |
-| 2mLogExp-9 | R16  | uuid « 2l9cb » non hexadécimal (aussi 2mLogExp-10 « 2l10e ») | Vrai uuid | relecture |
-| 317bd | R16  | Titre « Calculer la longueur d'un segment par comparaison » mais l'exercice porte sur un prix (proportionnalité) | Titre : Calculer un prix par comparaison | relecture |
-| 34aa9 | R16  | Énoncé : « Dans 30 combien de fois 5 ? » (virgule et verbe manquants) | Dans $30$, combien de fois $5$ y a-t-il ? | relecture |
-| 35e0b | R16  | Énoncé : « Les valeurs d'angle seront arrondis » (arrondies) ; même énoncé que 2G11-3 | seront arrondies | relecture |
-| 365f4 | R16  | Correction : la solution est donnée comme $\sqrt{2\,025}$ sans la calculer (45) alors que la saisie 45 est acceptée | Conclure avec $45$ | relecture |
-| 37e37 | R16  | Correction : « n'est pas un paraléllogramme particulier » (parallélogramme) et phrase entière dans miseEnEvidence | parallélogramme ; texteEnCouleurEtGras | relecture |
+| 2mLogExp-8 | R1 Titre | Titre : « croissance  et » deux espaces | Un espace | relecture |
+| 2mLogExp-9 | R1 Titre | uuid « 2l9cb » non hexadécimal (aussi 2mLogExp-10 « 2l10e ») | Vrai uuid | relecture |
+| 317bd | R1 Titre | Titre « Calculer la longueur d'un segment par comparaison » mais l'exercice porte sur un prix (proportionnalité) | Titre : Calculer un prix par comparaison | relecture |
+| 34aa9 | R5 Virgule | Énoncé : « Dans 30 combien de fois 5 ? » (virgule et verbe manquants) | Dans $30$, combien de fois $5$ y a-t-il ? | relecture |
+| 35e0b | R10 Français | Énoncé : « Les valeurs d'angle seront arrondis » (arrondies) ; même énoncé que 2G11-3 | seront arrondies | relecture |
+| 365f4 | R10 Français | Correction : la solution est donnée comme $\sqrt{2\,025}$ sans la calculer (45) alors que la saisie 45 est acceptée | Conclure avec $45$ | relecture |
+| 37e37 | R10 Français | Correction : « n'est pas un paraléllogramme particulier » (parallélogramme) et phrase entière dans miseEnEvidence | parallélogramme ; texteEnCouleurEtGras | relecture |
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
-| 3cde4 | R16  | Énoncé : « à 2 025 pout obtenir » (pour) | pour | relecture |
-| 3wv4j | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 3wx9f | R16  | Titre « Question 24 » (titre de CAN/test, pas un intitulé d'exercice) | Renseigner le titre | relecture |
-| 41d8d | R16  | Titre : « Effetuer » (Effectuer) | Effectuer | relecture |
-| 43cd9 | R16  | Titre : « dixèmes/centièmes » (dixièmes), même faute que 0021e | dixièmes | relecture |
-| 446ba | R16  | Titre vide dans le référentiel (aussi 603f6) | Renseigner le titre | relecture |
-| 448b5 | R10 Français | Correction : « Pour obtenir 2 025, on a ajouté 1 600 à 425 » raisonnement inversé (même défaut que 6fmcu) | On retranche 425 à 2 025 : 1 600 | relecture |
-| 45d05 | R16  | Titre : « Calculer Le volume » majuscule à Le | Calculer le volume | relecture |
-| 45dad | R16  | Énoncé : « Combien de fois 1/4 d'unité dans 1 unité ? » verbe manquant | Combien de fois $\dfrac14$ d'unité y a-t-il dans $1$ unité ? | relecture |
-| 46bae | R1 Titre | Énoncé : « ici 35 », « 28 » nombres hors $ | $35$ | relecture |
-| 471c3 | R16  | Titre tronqué : « Exprimer en fonction de » (de quoi ?) | Titre complet | relecture |
-| 47d36 | R16  | Correction : « le prix d'un papayes » (d'une papaye) ; « 3 papayes » hors $ | le prix d'une papaye | relecture |
-| 47f36 | R16  | Titre : « Aumentation » (Augmentation) ; énoncé « 280 € » hors $ | Augmentation | relecture |
-| 47u56 | R3  | Énoncé : « du triangle $ABC$? » sans espace insécable avant ? ; correction de 47d56 réduite à « Une translation » sans justification | ⍽? | relecture |
-| 47v56 | R16  | Énoncé : « Quelle est lle volume » (le volume ; coquille et accord) ; correction \frac au lieu de \dfrac | Quel est le volume | relecture |
-| 4af87 | R16  | Correction : « soustraire -2 des deux membres » (tournure maladroite) | ajouter $2$ aux deux membres | relecture |
-| 4c0a8 | R16  | Titre : « ECalculer un rendu de monnaie » (Calculer) ; énoncé « billet de $5$ euros » après « $1,50$ € » (euros/€ mélangés) | Calculer ; € partout | relecture |
-| 4c7ca | R14  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
-| 4e684 | R16  | Titre : « valeurs remarquables  du » deux espaces | Un espace | relecture |
-| 4ed52 | R10 Français | Énoncé : « undefined » devant le QCM ; correction : proposition mise en évidence « Il y a 7 fois 5 et il reste 2 » avec nombres hors $ et texte dans miseEnEvidence | Initialiser la question ; $7$ fois $5$ | relecture |
-| 4f2a3 | R3  | Énoncé : « $A\left(5\,800\right).$ » point final dans les maths | Point hors $ | relecture |
-| 4ih30 | R16  | Titre « Calculer le périmètre d'un rectangle » mais l'exercice est un rendu de monnaie | Titre : Calculer un rendu de monnaie | relecture |
-| 4mProbStat-11 | R16  | Énoncé : « club du 3ème age » (3e âge) ; titre « l'union et l'intersection  de » deux espaces | 3e âge | relecture |
-| 4mProbStat-8 | R16  | Titre : « coefficcient » (coefficient) | coefficient | relecture |
-| 4mProbStat-9 | R12  | Tableau : cellule inconnue « $....$ » au lieu de \ldots ou ? | \ldots | relecture |
-| 4pvxi | R3  | Énoncé et correction : durées écrites de deux façons ($20\text{h}26\text{min}$ puis $1$ h $46$ min) | Uniformiser les durées | relecture |
-| 4r5kj | R16  | Titre « Question 12 » (titre de CAN/test, pas un intitulé) | Renseigner le titre | relecture |
-| 4vfug | R16  | Correction : « L'préimage est la solution » (La préimage) | La préimage | relecture |
-| 50ee5 | R10 Français | Correction : « x_M=(2+-4)/2 » signe +- au lieu de 2+(-4) | \dfrac{2+(-4)}{2} | relecture |
-| 5120f | R2 Tutoiement, impératif | Consigne : « Sujet inspiré d'un exercice du sujet Bac Asie Juin 2021 » entouré de miseEnEvidence dans l'énoncé (mise en couleur injustifiée) ; titre terminé par un point ; « 10 lettres », « 4 voyelles » hors $ | texteEnCouleur ou texte simple ; $10$ | relecture |
-| 51fac | R16  | Énoncé : « La moitié de 100 » sans verbe ni consigne (que faut-il faire ?) | Calculer la moitié de $100$. | relecture |
-| 54140 | R1 Titre | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
-| 5494d | R16  | Titre « Calculer une dérivée » mais l'exercice porte sur l'orthogonalité de deux vecteurs | Titre cohérent | relecture |
-| 565f3 | R16  | Titre « Convertir des heures en heures/minutes » mais l'exercice convertit des minutes en heures et minutes | Titre cohérent | relecture |
-| 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
-| 5ab89 | R16  | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
-| 5aece | R16  | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine | Titre : Enlever une dizaine | relecture |
-| 5b0ab | R16  | Correction : « son pente est égal à » (sa pente est égale) | sa pente est égale | relecture |
-| 5b60d | R1 Titre | Énoncé : « par 89 », « 81 479=88$\cdot$925 $+$ 79 » nombres hors $ et équation coupée en morceaux de $ (opérateurs seuls dans $) | $81\,479=88\cdot925+79$ | relecture |
-| 5b767 | R14  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
-| 5c854 | R3  | Correction : « J'ai donné: » sans espace insécable avant les deux-points | donné⍽: | relecture |
-| 5e041 | R16  | Correction : « La figure A est composé de » (composée) | composée | relecture |
-| 5e90f | R1 Titre | Énoncé et correction : « 8 boules », « 7 boules », « 7 tirages », « 7-uplets » nombres hors $ ; ensemble « {1;2;....;8} » points de suspension mal écrits | $8$ boules… ; \ldots | relecture |
-| 5fe2c | R16  | Énoncé : « Quel est la pente » (Quelle est) ; correction : « coeffcient » (coefficient) | Quelle ; coefficient | relecture |
-| 603f6 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 61geo | R16  | Titre vide dans le référentiel (même énoncé que 6c365, année 2025) | Renseigner le titre | relecture |
-| 63ec7 | R16  | Titre « Trouver la moitié d'un nombre » mais l'exercice porte sur les pattes de vaches (multiplication) | Titre cohérent | relecture |
-| 65bd7 | R3  | Énoncé : « $BG=4,7\ \text{cm}$ . » espace avant le point final | Retirer l'espace | relecture |
+| 3cde4 | R10 Français | Énoncé : « à 2 025 pout obtenir » (pour) | pour | relecture |
+| 3wv4j | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 3wx9f | R1 Titre | Titre « Question 24 » (titre de CAN/test, pas un intitulé d'exercice) | Renseigner le titre | relecture |
+| 41d8d | R1 Titre | Titre : « Effetuer » (Effectuer) | Effectuer | relecture |
+| 43cd9 | R1 Titre | Titre : « dixèmes/centièmes » (dixièmes), même faute que 0021e | dixièmes | relecture |
+| 446ba | R1 Titre | Titre vide dans le référentiel (aussi 603f6) | Renseigner le titre | relecture |
+| 45d05 | R1 Titre | Titre : « Calculer Le volume » majuscule à Le | Calculer le volume | relecture |
+| 45dad | R10 Français | Énoncé : « Combien de fois 1/4 d'unité dans 1 unité ? » verbe manquant | Combien de fois $\dfrac14$ d'unité y a-t-il dans $1$ unité ? | relecture |
+| 471c3 | R1 Titre | Titre tronqué : « Exprimer en fonction de » (de quoi ?) | Titre complet | relecture |
+| 47d36 | R10 Français | Correction : « le prix d'un papayes » (d'une papaye) ; « 3 papayes » hors $ | le prix d'une papaye | relecture |
+| 47f36 | R1 Titre | Titre : « Aumentation » (Augmentation) ; énoncé « 280 € » hors $ | Augmentation | relecture |
+| 47v56 | R10 Français | Énoncé : « Quelle est lle volume » (le volume ; coquille et accord) ; correction \frac au lieu de \dfrac | Quel est le volume | relecture |
+| 4af87 | R10 Français | Correction : « soustraire -2 des deux membres » (tournure maladroite) | ajouter $2$ aux deux membres | relecture |
+| 4c0a8 | R1 Titre | Titre : « ECalculer un rendu de monnaie » (Calculer) ; énoncé « billet de $5$ euros » après « $1,50$ € » (euros/€ mélangés) | Calculer ; € partout | relecture |
+| 4e684 | R1 Titre | Titre : « valeurs remarquables  du » deux espaces | Un espace | relecture |
+| 4ih30 | R1 Titre | Titre « Calculer le périmètre d'un rectangle » mais l'exercice est un rendu de monnaie | Titre : Calculer un rendu de monnaie | relecture |
+| 4mProbStat-11 | R1 Titre | Énoncé : « club du 3ème age » (3e âge) ; titre « l'union et l'intersection  de » deux espaces | 3e âge | relecture |
+| 4mProbStat-8 | R1 Titre | Titre : « coefficcient » (coefficient) | coefficient | relecture |
+| 4r5kj | R1 Titre | Titre « Question 12 » (titre de CAN/test, pas un intitulé) | Renseigner le titre | relecture |
+| 4vfug | R10 Français | Correction : « L'préimage est la solution » (La préimage) | La préimage | relecture |
+| 51fac | R10 Français | Énoncé : « La moitié de 100 » sans verbe ni consigne (que faut-il faire ?) | Calculer la moitié de $100$. | relecture |
+| 5494d | R1 Titre | Titre « Calculer une dérivée » mais l'exercice porte sur l'orthogonalité de deux vecteurs | Titre cohérent | relecture |
+| 565f3 | R1 Titre | Titre « Convertir des heures en heures/minutes » mais l'exercice convertit des minutes en heures et minutes | Titre cohérent | relecture |
+| 56772 | R10 Français | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
+| 5ab89 | R1 Titre | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
+| 5aece | R1 Titre | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine | Titre : Enlever une dizaine | relecture |
+| 5b0ab | R10 Français | Correction : « son pente est égal à » (sa pente est égale) | sa pente est égale | relecture |
+| 5e041 | R10 Français | Correction : « La figure A est composé de » (composée) | composée | relecture |
+| 5fe2c | R10 Français | Énoncé : « Quel est la pente » (Quelle est) ; correction : « coeffcient » (coefficient) | Quelle ; coefficient | relecture |
+| 603f6 | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 61geo | R1 Titre | Titre vide dans le référentiel (même énoncé que 6c365, année 2025) | Renseigner le titre | relecture |
+| 63ec7 | R1 Titre | Titre « Trouver la moitié d'un nombre » mais l'exercice porte sur les pattes de vaches (multiplication) | Titre cohérent | relecture |
 | 667d9 | R12  | Correction : « \int_{0}^{5}f(x).dx » point au lieu de \,\mathrm{d}x | \int_0^5 f(x)\,\mathrm{d}x | relecture |
-| 67a5b | R16  | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation | Résoudre une inéquation graphiquement | relecture |
-| 67e15 | R16  | Titre « Titre à modifier » (placeholder exposé) | Renseigner le titre (Calculer une image par une fonction affine) | relecture |
-| 691a7 | R1 Titre | Énoncé : « dé à 6 faces 10 000 fois » nombres hors $ | $6$ faces $10\,000$ fois | relecture |
+| 67a5b | R1 Titre | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation | Résoudre une inéquation graphiquement | relecture |
+| 67e15 | R1 Titre | Titre « Titre à modifier » (placeholder exposé) | Renseigner le titre (Calculer une image par une fonction affine) | relecture |
 | 6a336 | R12  | Énoncé : « (d_3)//(d_2) » barres obliques au lieu de \parallel | (d_3)\parallel(d_2) | relecture |
-| 6c365 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 6ca15 | R3  | Énoncé : « 2 024 · 3 » année écrite avec espace fine des milliers (les années s'écrivent 2024) ; titre « CAN Spéciale année 2024 » | Écrire 2024 sans espace | relecture |
-| 6cc79 | R2 Tutoiement, impératif | Correction : ⟦315\textbf{ m}^3⟧ unité en \textbf dans miseEnEvidence (champ attend 315 + unité) | Vérifier que la mise en évidence correspond au champ (unité incluse) | relecture |
-| 6d56a | R16  | Titre « Calculer une dérivée » mais l'exercice demande de simplifier (e^x+3)(e^x-3) | Titre : Simplifier une expression avec des exponentielles | relecture |
-| 6dff5 | R16  | Titre « Développer une identité remarquable » mais l'exercice porte sur un pourcentage (élèves externes) | Titre : Calculer un pourcentage d'une quantité | relecture |
-| 6e82d | R16  | Correction : « comme axe de symétries » (symétrie) | axe de symétrie | relecture |
-| 6fdab | R3  | Énoncé : « Tracer $[FG$], $[GH$) et $(HF$). » crochets et parenthèses fermants hors des $ | $[FG]$, $[GH)$ et $(HF)$ | relecture |
-| 6fmcu | R10 Français | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) | Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | relecture |
-| 7057b | R16  | Énoncé : « évènements » alors que d'autres exercices écrivent « événements » (orthographe non uniformisée) | Uniformiser | relecture |
-| 71b1f | R16  | Titre : « Mltiplier astucieusement » (Multiplier) | Multiplier | relecture |
-| 72e9d | R3  | Énoncé : « en grammes? » sans espace insécable avant ? ; « une étoile en gramme » (grammes) | en grammes⍽? ; en grammes | relecture |
-| 7522d | R16  | Énoncé : « figure d'aire 5 unités d'aire (ua) » répétition | figure d'aire $5$ ua | relecture |
-| 75f89 | R16  | Titre : « Générer dees pyramides » (des) | Générer des pyramides | relecture |
-| 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
-| 76efb | R16  | Titre : « Numeration » sans accent | Numération | relecture |
-| 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
-| 77d18 | R16  | Exercice inutilisable exposé : « Cet exercice n'a pas pu être conservé pour des raisons techniques. Vous trouverez dans la section 3F1 ne nombreux exercices… » (coquille « ne nombreux »), aucune question | Retirer l'exercice du référentiel ou corriger « de nombreux » | relecture |
-| 784a7 | R16  | Correction : « Un parallélogramme est un quadrilatère qui a ses côtés opposés deux à deux. » mot « parallèles » manquant (définition incomplète) | ses côtés opposés parallèles deux à deux | relecture |
-| 79fdf | R16  | Titre tronqué : « équation produit mul » | produit nul | relecture |
-| 7b6ee | R10 Français | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins | 2\,025+20 | relecture |
-| 7k09a | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 80a7b | R16  | Énoncé : « Combien en reste-il ? » (reste-t-il) | reste-t-il | relecture |
-| 82a2f | R16  | Correction : renvoie à « la décomposition » jamais donnée ; titre « multiple » mais la phrase conclut sur « diviseur » | Formuler avec multiple : $2\,025=25\cdot81$ | relecture |
-| 82a41 | R10 Français | Correction : « 3² est positif (puissance paire d'un nombre négatif) » alors que 3 est positif ; titre « Calculer un prix après des évolutions successives » sans rapport | 3² est positif (puissance d'un nombre positif) ; titre cohérent | relecture |
-| 82d4a | R16  | Titre contenant « (ancien exercice) » (comme 25143, 1380f) | Retirer la mention | relecture |
-| 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
-| 845fa | R16  | Titre « Tracer une figure avec une aire donnée » mais l'exercice demande de lire un nombre sur une droite graduée | Titre cohérent | relecture |
-| 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
-| 8802x | R1 Titre | Énoncé : « 15 pirates », « 149 pièces d'or » nombres hors $ | $15$ pirates | relecture |
-| 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
-| 884fe | R10 Français | Énoncé : « undefined » devant le QCM (aucune consigne) ; même défaut que 83789 et 4ed52 | Initialiser la question du qcm | relecture |
-| 88a60 | R1 Titre | Titre « Numeration » sans accent ; énoncé « entre 128 et 200 », « dizaines est 2 » nombres hors $ (aussi 85dfc : « point 22 ») | Numération ; $128$ | relecture |
-| 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
-| 8ac2d | R3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
-| 8e7a5 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 8f060 | R16  | Titre terminé par un astérisque « * » | Retirer l'astérisque | relecture |
+| 6c365 | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 6d56a | R1 Titre | Titre « Calculer une dérivée » mais l'exercice demande de simplifier (e^x+3)(e^x-3) | Titre : Simplifier une expression avec des exponentielles | relecture |
+| 6dff5 | R1 Titre | Titre « Développer une identité remarquable » mais l'exercice porte sur un pourcentage (élèves externes) | Titre : Calculer un pourcentage d'une quantité | relecture |
+| 6e82d | R10 Français | Correction : « comme axe de symétries » (symétrie) | axe de symétrie | relecture |
+| 7057b | R10 Français | Énoncé : « évènements » alors que d'autres exercices écrivent « événements » (orthographe non uniformisée) | Uniformiser | relecture |
+| 71b1f | R1 Titre | Titre : « Mltiplier astucieusement » (Multiplier) | Multiplier | relecture |
+| 7522d | R10 Français | Énoncé : « figure d'aire 5 unités d'aire (ua) » répétition | figure d'aire $5$ ua | relecture |
+| 75f89 | R1 Titre | Titre : « Générer dees pyramides » (des) | Générer des pyramides | relecture |
+| 76efb | R1 Titre | Titre : « Numeration » sans accent | Numération | relecture |
+| 77432 | R1 Titre | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
+| 77d18 | R10 Français | Exercice inutilisable exposé : « Cet exercice n'a pas pu être conservé pour des raisons techniques. Vous trouverez dans la section 3F1 ne nombreux exercices… » (coquille « ne nombreux »), aucune question | Retirer l'exercice du référentiel ou corriger « de nombreux » | relecture |
+| 784a7 | R10 Français | Correction : « Un parallélogramme est un quadrilatère qui a ses côtés opposés deux à deux. » mot « parallèles » manquant (définition incomplète) | ses côtés opposés parallèles deux à deux | relecture |
+| 79fdf | R1 Titre | Titre tronqué : « équation produit mul » | produit nul | relecture |
+| 7k09a | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 80a7b | R10 Français | Énoncé : « Combien en reste-il ? » (reste-t-il) | reste-t-il | relecture |
+| 82a2f | R1 Titre | Correction : renvoie à « la décomposition » jamais donnée ; titre « multiple » mais la phrase conclut sur « diviseur » | Formuler avec multiple : $2\,025=25\cdot81$ | relecture |
+| 82d4a | R1 Titre | Titre contenant « (ancien exercice) » (comme 25143, 1380f) | Retirer la mention | relecture |
+| 845fa | R1 Titre | Titre « Tracer une figure avec une aire donnée » mais l'exercice demande de lire un nombre sur une droite graduée | Titre cohérent | relecture |
+| 89710 | R1 Titre | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
+| 8e7a5 | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 8f060 | R1 Titre | Titre terminé par un astérisque « * » | Retirer l'astérisque | relecture |
 | 8u8my | R12  | Titre : « e^(x+a) = 1 » écrit avec des parenthèses au lieu de LaTeX ; énoncé \text{e} au lieu de \mathrm{e} | $\mathrm{e}^{x+a}=1$ | relecture |
-| 90671 | R2 Tutoiement, impératif | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
-| 90ae3 | R16  | Titre : « Trouver une longuer » (longueur) | longueur | relecture |
-| 90fd5 | R3  | Énoncé et correction : « triangle BEC », « la droite (CE) » sans $ ; « un sommet , » espace avant la virgule | $BEC$ ; $(CE)$ ; sommet, | relecture |
-| 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
-| 936a4 | R16  | Titre « Trouver un inverse ou un opposé » alors que la question porte sur la valeur décimale de 2 025 + 1/2 (même défaut que 2guhi) ; correction « 2025 » sans espace puis « 2 025,5 » | Titre cohérent | relecture |
-| 97290 | R16  | Titre : « Différence de fracion » (fraction) | fractions | relecture |
-| 986cd | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
-| 9b8f9 | R16  | Titre : « Dtéreminer un reste à payer » (Déterminer) | Déterminer | relecture |
-| 9e8ae | R3  | Titre terminé par un point ; « ... » au lieu de \ldots (aussi 9af48 : espaces parasites « $ 7,99+5,8$ ») | Retirer le point ; \ldots | relecture |
-| 9eaa5 | R16  | Énoncé et correction : « Le pente de la droite … est donné » (La pente … donnée), même défaut que 11QCM-5 et 11QCM-80 | La pente … donnée | relecture |
-| 9efa5 | R10 Français | Correction : A(-5;0) et B(0;2) → « \dfrac{2-0}{0-5}=\dfrac{2}{+5} » : x_A=-5 est écrit sans parenthèses (0-(-5)), le calcul affiché est faux ; « Son pente » | \dfrac{2-0}{0-(-5)}=\dfrac{2}{5} ; Sa pente | relecture |
+| 90ae3 | R1 Titre | Titre : « Trouver une longuer » (longueur) | longueur | relecture |
+| 91304 | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 936a4 | R1 Titre | Titre « Trouver un inverse ou un opposé » alors que la question porte sur la valeur décimale de 2 025 + 1/2 (même défaut que 2guhi) ; correction « 2025 » sans espace puis « 2 025,5 » | Titre cohérent | relecture |
+| 97290 | R1 Titre | Titre : « Différence de fracion » (fraction) | fractions | relecture |
+| 986cd | R1 Titre | Titre vide dans le référentiel | Renseigner le titre | relecture |
+| 9b8f9 | R1 Titre | Titre : « Dtéreminer un reste à payer » (Déterminer) | Déterminer | relecture |
+| 9eaa5 | R10 Français | Énoncé et correction : « Le pente de la droite … est donné » (La pente … donnée), même défaut que 11QCM-5 et 11QCM-80 | La pente … donnée | relecture |
 | 9ES1D-15 | R16  | Titre « Connaitre » | « Connaître » | relecture |
-| 9f6e6 | R16  | Exercice modèle exposé : « Titre de l'exercice », « Consigne », « Question 1 de type 2 » | Retirer du référentiel | relecture |
-| 9f722 | R16  | Titre : « astucieusment » (astucieusement), même faute que 5ab89 | astucieusement | relecture |
-| 9t36i | R16  | Titre vide dans le référentiel (doublon CH de 91304) | Renseigner le titre | relecture |
+| 9f6e6 | R1 Titre | Exercice modèle exposé : « Titre de l'exercice », « Consigne », « Question 1 de type 2 » | Retirer du référentiel | relecture |
+| 9f722 | R1 Titre | Titre : « astucieusment » (astucieusement), même faute que 5ab89 | astucieusement | relecture |
+| 9t36i | R1 Titre | Titre vide dans le référentiel (doublon CH de 91304) | Renseigner le titre | relecture |
 | c3202 | R10 Français | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ | Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | relecture |
 | c35c9 | R16  | Correction : « Il faur donc » | « Il faut donc » | relecture |
 | c52a3 | R16  | Titre « Reconnaitre » sans accent | « Reconnaître » | relecture |
@@ -396,7 +397,6 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | f0e17 | R16  | Énoncé : « deux notes ($11$ et $10$) coefficient $1$ » (de coefficient) | « de coefficient $1$ » | src/exercices/can/can2a-2025/can2a-2025-Q21.ts |
 | f3208 | R16  | Correction : « Le terme constant vient de $-2\cdot 3=6$ » (erreur de signe : $-2\cdot 3=-6$) | $-2\cdot 3=-6$ | src/exercices/can/can2a-2025/can2a-2025-Q3.ts |
 | f3a3e | R16  | Titre « Nombre de dizaines » alors que la question porte sur les centaines | « Nombre de centaines » | src/exercices/can/can6a-2025/can6a-2025-Q3.ts |
-| 83789 | R10 Français | Énoncé : « undefined » devant le QCM (this.question += qcm.texte sans question initialisée) | this.question = qcm.texte | src/exercices/can/canc3a-CM1-2025/canc3a-CM1-2025-Q25.ts:52 |
 | f6jd7 | R10 Français | Énoncé : le mot « undefined » s'affiche devant le QCM (`this.question += monQcm.texte` alors que this.question n'est pas initialisé) | this.question = monQcm.texte (ou initialiser à "") | src/exercices/can/canCE2a-2025/canCE2-2025-Q11.ts:369 |
 | e9cf0 | R13  | Correction : « J'ai donné $1$ billets de $20$ € » (accord) | « $1$ billet » | src/exercices/can/canCE2a-2025/canCE2-2025-Q13.ts |
 | evon2 | R16  | Énoncé : « Quel est la pente… » ; correction : « coeffcient » (déjà vu dans can2L2-03) | « Quelle est la pente » ; « coefficient » | src/exercices/can/canNY-2026/canTNY-2026-Q13.ts |

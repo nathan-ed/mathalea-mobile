@@ -97,7 +97,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
-| CM2N2A-1 | R16  | Consigne : « Colorier en bleu un segment de longueur … » phrase terminée par « ... » puis la fraction dans l'énoncé (consigne coupée) | Mettre la fraction dans la consigne | relecture |
+| CM2N2A-1 | R10 Français | Consigne : « Colorier en bleu un segment de longueur … » phrase terminée par « ... » puis la fraction dans l'énoncé (consigne coupée) | Mettre la fraction dans la consigne | relecture |
 | canc3a-2023 | R10 Français | Q24 : correction « $140 = 1$ centaines et $4$ dizaines » : accord (1 centaine), égalité coupée entre maths et texte. | $140 = 1$ centaine et $4$ dizaines | src/exercices/can/c3/_Canc3a.ts |
 | canc3a-2023 | R10 Français | Q22 : « Ainsi, en en 1 h et 15 min » (mot répété). | Ainsi, en $1~\text{h}$ et $15~\text{min}$ | src/exercices/can/c3/_Canc3a.ts:1182 |
 | canc3a-2023 | R10 Français | Q8 : « oeufs » (œufs), double espace « boites de  $4$ ». | œufs ; boîtes de $4$ | src/exercices/can/c3/_Canc3a.ts:393 |
@@ -147,14 +147,20 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Tirages | Exemple |
 | --- | --- | ---: | --- |
+| CM1N2B | I1 Bonne réponse refusée | 40 | bonne réponse refusée (0/1) La fraction doit être inférieure à 1. |
 | canc3a | I4 Question sans champ | 13 | champ absent de la page |
 | canc3C16 | I4 Question sans champ | 1 | champ absent de la page |
+| CM1N2B | I4 Question sans champ | 86 | champ absent de la page |
 | CM2N1D-2 | I4 Question sans champ | 110 | champ absent de la page |
+| CM2N3A-1 | I4 Question sans champ | 36 | champ absent de la page |
 | CM2N3A-14 | I4 Question sans champ | 4 | champ absent de la page |
 | CM2N3A-2 | I4 Question sans champ | 24 | champ absent de la page |
 | CM2N3A-3 | I4 Question sans champ | 33 | champ absent de la page |
+| CM2N3A-9 | I4 Question sans champ | 42 | champ absent de la page |
 | canCE2-2026 | X1 Erreur | 5 | rendu correction : page.evaluate: Error: aucun exercice préparé     at Module.rendre (http://127.0.0.1:5173/alea/revue-sonde.ts?t=1793185166125:127:18)     at e |
+| CM2N1D-1 | X1 Erreur | 1 | console : KaTeX auto-render: Failed to parse `0}}` with  ParseError: KaTeX parse error: Expected 'EOF', got '}' at position 4: {0}}̲}     at _Parser.expect (htt |
 | CM2N1D-2 | X1 Erreur | 1 | console : KaTeX auto-render: Failed to parse `0}}` with  ParseError: KaTeX parse error: Expected 'EOF', got '}' at position 4: {0}}̲}     at _Parser.expect (htt |
+| CM2N1D-1 | X2 Formule cassée | 14 | « $ » visible : 1. {\color{#F15929}\boldsymbol{$0}}$ |
 | CM2N1D-2 | X2 Formule cassée | 92 | « $ » visible : étant avec les nombres (à un seul chiffre) qui conviennent. $1= ~unité$ |
 | canCE2a-2025 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | CM2N2A-4 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |

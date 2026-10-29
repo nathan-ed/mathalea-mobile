@@ -14,7 +14,7 @@ const ici = dirname(fileURLToPath(import.meta.url))
 const MATHALEA = process.env.MATHALEA ?? '/home/user/mathalea-main'
 const [id, ...opts] = process.argv.slice(2)
 const nom = id.replace(/[^\w-]+/g, '_')
-const f = join(ici, 'sorties', `${nom}.json`)
+const f = join(ici, 'sorties', `${nom}${process.env.EXTRA ? '_extra' : ''}.json`)
 if (!existsSync(f)) {
   console.log(`pas encore passé au banc : ${id}`)
   process.exit(1)
