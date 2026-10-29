@@ -2,7 +2,7 @@
 
 Correction à la chaîne : ce qui est mis en évidence doit être exactement ce que le champ attend, sans texte ni unité.
 
-7417 constats, 1350 exercices. Données complètes : `revue/classement/mise-en-evidence.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
+7421 constats, 1350 exercices. Données complètes : `revue/classement/mise-en-evidence.jsonl` (clé, graines, saisies). Fichier produit par `node revue/classer.mjs`.
 
 | Règle | Constats | Exercices |
 | --- | ---: | ---: |
@@ -12,7 +12,7 @@ Correction à la chaîne : ce qui est mis en évidence doit être exactement ce 
 | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 22 | 20 |
 | [M5 Texte dans miseEnEvidence](#m5) | 129 | 68 |
 | [M6 Pas de mise en évidence du résultat](#m6) | 401 | 390 |
-| [M7 Explication en orange](#m7) | 134 | 33 |
+| [M7 Explication en orange](#m7) | 138 | 35 |
 | [M8 Nombre de mises en évidence et de champs différents](#m8) | 161 | 142 |
 
 ## M1
@@ -7205,6 +7205,7 @@ Correction à la chaîne : ce qui est mis en évidence doit être exactement ce 
 | A-68afbc8df4 | 2L22-1 (2e) | src/exercices/2e/2L22-1.ts:167 | texteEnCouleur sans couleur (orange par défaut) : 'Un produit est nul si et seulement si au moins un de ses facteurs est nul.' | détection automatique |  |
 | A-724b4989e7 | 2L22-1 (2e) | src/exercices/2e/2L22-1.ts:93 | texteEnCouleur sans couleur (orange par défaut) : 'Un produit est nul si et seulement si au moins un de ses facteurs est nul.' | détection automatique |  |
 | A-a2b73e65a2 | 2L22-1 (2e) | src/exercices/2e/2L22-1.ts:139 | texteEnCouleur sans couleur (orange par défaut) : 'Un produit est nul si et seulement si au moins un de ses facteurs est nul.' | détection automatique |  |
+| A-a350d41952 | 3Auto (3e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Mentalement : La longueur | détection automatique | sup2=true sup3=true, graine revue-1-a, q7 ([site](https://coopmaths.fr/alea/?uuid=a531a&id=3Auto&s2=true&s3=true&alea=revue-1-a&i=1&cd=1)) |
 | A-1345a3cedf | 3G23 (3e) | correction | texte orange (texteEnCouleur sans couleur) : Donc le point H est un point qui convient. | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=91513&id=3G23&alea=revue-0-a&i=1&cd=1)) |
 | A-21e17d230e | 3G23 (3e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Donc le point G est un point qui convient. | détection automatique |  |
 | A-62a3d91914 | 3G23 (3e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Donc le point H est un point qui convient. | détection automatique |  |
@@ -7222,6 +7223,7 @@ Correction à la chaîne : ce qui est mis en évidence doit être exactement ce 
 | A-bf01459c4a | 4L16 (4e) | correction | texte orange (texteEnCouleur sans couleur) : Cette expression est donc un quotient. (×31) | détection automatique | sup=false sup2=false sup3=5, graine revue-0-a, q4 ([site](https://coopmaths.fr/alea/?uuid=68cda&id=4L16&s=false&s2=false&s3=5&alea=revue-0-a&i=1&cd=1)) |
 | A-f97c1dd01b | 4L16 (4e) | correction | texte orange (texteEnCouleur sans couleur) : Cette expression est donc une différence. (×14) | détection automatique | sup=false sup2=false sup3=5, graine revue-0-a, q3 ([site](https://coopmaths.fr/alea/?uuid=68cda&id=4L16&s=false&s2=false&s3=5&alea=revue-0-a&i=1&cd=1)) |
 | A-137627659c | 5G5B-2 (5e) | correction | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment (×32) | détection automatique | sup=4 sup2=true, graine revue-6-a, q1 ([site](https://coopmaths.fr/alea/?uuid=36116&id=5G5B-2&s=4&s2=true&alea=revue-6-a&i=1&cd=1)) |
+| A-483576888a | 5G5B-2 (5e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment (×32) | détection automatique | sup=4 sup2=true, graine revue-6-a, q1 ([site](https://coopmaths.fr/alea/?uuid=36116&id=5G5B-2&s=4&s2=true&alea=revue-6-a&i=1&cd=1)) |
 | A-b0d5fc8258 | 5G6B-1 (5e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que | détection automatique |  |
 | A-bf5d0d7ce1 | 5G6B-1 (5e) | correction | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que (×11) | détection automatique | défaut, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=72e52&id=5G6B-1&alea=revue-0-a&i=1&cd=1)) |
 | A-485cafd1e4 | 5G6F-3 (5e) | correction | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que tous les côtés du losange mesure en (×7) | détection automatique | sup=0, graine revue-1-a, q1 ([site](https://coopmaths.fr/alea/?uuid=b3a4c&id=5G6F-3&s=0&alea=revue-1-a&i=1&cd=1)) |
@@ -7230,6 +7232,7 @@ Correction à la chaîne : ce qui est mis en évidence doit être exactement ce 
 | A-bd42ea19c1 | 5G6F-3 (5e) | correction | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que tous les côtés du carré mesure envi (×7) | détection automatique | sup=1-2-3-4-5-6, graine revue-0-a, q3 ([site](https://coopmaths.fr/alea/?uuid=b3a4c&id=5G6F-3&s=1-2-3-4-5-6&alea=revue-0-a&i=1&cd=1)) |
 | A-e635c89aaf | 5G6F-3 (5e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Pour l'auto-correction, on peut vérifier que tous les côtés du carré mesure envi | détection automatique |  |
 | A-11df59ba23 | 6G6A-1 (6e) | correction | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment (×32) | détection automatique | sup=4 sup2=true, graine revue-6-a, q1 ([site](https://coopmaths.fr/alea/?uuid=e0bc9&id=6G6A-1&s=4&s2=true&alea=revue-6-a&i=1&cd=1)) |
+| A-a4e57b0774 | 6G6A-1 (6e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment (×32) | détection automatique | sup=4 sup2=true, graine revue-6-a, q1 ([site](https://coopmaths.fr/alea/?uuid=e0bc9&id=6G6A-1&s=4&s2=true&alea=revue-6-a&i=1&cd=1)) |
 | L-353381e580 | 6G6A-1 (6e) | src/exercices/6e/6G6A-1.ts | Corrections = figure + bouton InstrumenPoche sans texte de construction (98 M6, 96 M7) ; « Voici la construction qu'il fallait réaliser » (conditionnel passé) ; à tester à la main. → Décrire les étapes ; « qu'il fallait réaliser » → « à réaliser ». | confirmé à la relecture |  |
 | A-8c1bcbe322 | 6G6A-3 (6e) | correction non interactive | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment (×6) | détection automatique |  |
 | A-d6dac42262 | 6G6A-3 (6e) | correction | texte orange (texteEnCouleur sans couleur) : Auto-vérification : le segment (×106) | détection automatique | sup=4 sup2=false, graine revue-0-a, q1 ([site](https://coopmaths.fr/alea/?uuid=f4fdd&id=6G6A-3&s=4&s2=false&alea=revue-0-a&i=1&cd=1)) |
@@ -7280,6 +7283,7 @@ Correction à la chaîne : ce qui est mis en évidence doit être exactement ce 
 | A-6bf6c60a20 | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts:73 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 1 | détection automatique |  |
 | A-7a751eeee6 | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts:39 | texteEnCouleur sans couleur (orange par défaut) : `&lt;br> Mentalement : &lt;br> Comme $1$ L $=100$ cL, le nombre cherché est donné par la différence : $100-${a}=${100 - a}$. ` | détection automatique |  |
 | L-b28486bb3b | can6M3-02 (CAN) | src/exercices/can/6e/can6M3-02.ts | Bloc « Mentalement » en orange (texteEnCouleur sans couleur) ; unités hors maths (« $40$ cL ») ; « $ ....$ » dans l'énoncé. → texteEnCouleur(…, bleuMathalea) ; $40~\text{cL}+\ldots~\text{cL}=1~\text{L}$ | confirmé à la relecture |  |
+| A-9aad638b8d | canc3a-2023 (CAN) | correction | texte orange (texteEnCouleur sans couleur) : ans. | détection automatique | défaut, graine revue-0-b, q11 ([site](https://coopmaths.fr/alea/?uuid=57239&id=canc3a-2023&alea=revue-0-b&i=1&cd=1)) |
 | A-60a0bbc4db | canc3C05 (CAN) | correction | texte orange (texteEnCouleur sans couleur) : Mentalement on peut ajouter seulement les chiffres des unités des deux nombres : (×2) | détection automatique | défaut nb=10, graine revue-1-a, q7 ([site](https://coopmaths.fr/alea/?uuid=d0287&id=canc3C05&n=10&alea=revue-1-a&i=1&cd=1)) |
 | A-70f96f0212 | canc3C05 (CAN) | correction | texte orange (texteEnCouleur sans couleur) : Mentalement on peut soustraire les chiffres des unités des deux nombres (en empr | détection automatique | défaut nb=10, graine revue-1-a, q10 ([site](https://coopmaths.fr/alea/?uuid=d0287&id=canc3C05&n=10&alea=revue-1-a&i=1&cd=1)) |
 | A-f690aba23f | canc3C05 (CAN) | correction | texte orange (texteEnCouleur sans couleur) : Mentalement on peut soustraire les chiffres des unités des deux nombres : (×3) | détection automatique | défaut nb=10, graine revue-1-a, q1 ([site](https://coopmaths.fr/alea/?uuid=d0287&id=canc3C05&n=10&alea=revue-1-a&i=1&cd=1)) |

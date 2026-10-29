@@ -22,7 +22,12 @@ const relecture = [...lire(join(ici, 'relecture.jsonl')), ...lire(join(ici, 'sou
 // Règles de texte : prises dans texte.jsonl (rejoué avec les derniers contrôles), pas dans le journal
 const deTexte = (c) => /^(N[1-7]|T\d|R\d+|M5|M7|X3)$/.test(c.regle) || (c.regle === 'X2' && /^nombre impair/.test(c.extrait ?? ''))
 // I1 sans aucune saisie : la question n'existait plus (variante sans question), relevé par X4
-const journalBanc = journal.filter((c) => !deTexte(c) && !(c.regle === 'I1' && c.saisie && !Object.keys(c.saisie).length))
+// … sauf aux endroits que le contrôle rejoué ne couvre pas (variantes non interactives…)
+const texteLignes = lire(join(ici, 'texte.jsonl'))
+const couverts = new Set(texteLignes.map((c) => `${c.id}|${c.regle}|${c.ou ?? ''}`))
+const journalBanc = journal.filter(
+  (c) => !(deTexte(c) && couverts.has(`${c.id}|${c.regle}|${c.ou ?? ''}`)) && !(c.regle === 'I1' && c.saisie && !Object.keys(c.saisie).length),
+)
 const referentiel = existsSync(join(ici, 'referentiel.json')) ? JSON.parse(readFileSync(join(ici, 'referentiel.json'), 'utf8')) : []
 const fait = existsSync(join(ici, 'fait.txt')) ? new Set(readFileSync(join(ici, 'fait.txt'), 'utf8').split('\n').filter(Boolean)) : new Set()
 // Constats écartés à la relecture (faux positifs) : { id, regle, motif }

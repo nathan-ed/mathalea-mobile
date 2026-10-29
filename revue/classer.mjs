@@ -140,10 +140,15 @@ const motif = (s) => String(s ?? '').replace(/\d+/g, '#').replace(/\s+/g, ' ').s
 const estEcarte = (c) => ecartes.find((e) => e.id === c.id && e.regle === c.regle && (!e.motif || motif(c.extrait).includes(e.motif)))
 
 // Lignes du journal remplacées par texte.jsonl (contrôles de texte rejoués) : comptées à part
-const remplacees = journal.filter(deTexte)
+// sauf quand le contrôle rejoué ne couvre pas l'endroit (variantes non interactives non
+// gardées dans les sorties, par exemple) : ces lignes restent, origine « banc ».
+const couverts = new Set(texte.map((c) => `${c.id}|${c.regle}|${c.ou ?? ''}`))
+const remplacees = journal.filter((c) => deTexte(c) && couverts.has(`${c.id}|${c.regle}|${c.ou ?? ''}`))
+const gardees = journal.filter((c) => deTexte(c) && !couverts.has(`${c.id}|${c.regle}|${c.ou ?? ''}`))
 const i1SansSaisie = journal.filter((c) => !deTexte(c) && c.regle === 'I1' && c.saisie && !Object.keys(c.saisie).length)
 const auto = [
   ...journal.filter((c) => !deTexte(c) && !(c.regle === 'I1' && c.saisie && !Object.keys(c.saisie).length)),
+  ...gardees,
   ...texte,
   ...source,
 ]
@@ -266,7 +271,7 @@ for (const k of ordre) {
 
 // Index et bilan de correspondance
 const total = constats.length
-const lignes = { journal: journal.length, remplacees: remplacees.length, i1SansSaisie: i1SansSaisie.length, texte: texte.length, source: source.length, relecture: relecture.length }
+const lignes = { journal: journal.length, remplacees: remplacees.length, textesGardes: gardees.length, i1SansSaisie: i1SansSaisie.length, texte: texte.length, source: source.length, relecture: relecture.length }
 let md = `# Classement des constats par type d'action
 
 Tous les constats de la revue (banc, contrôles de texte, code, relecture),
@@ -287,7 +292,9 @@ md += `
 - Code (\`revue/source.jsonl\`) : ${lignes.source} lignes.
 - Contrôles de texte rejoués (\`revue/texte.jsonl\`) : ${lignes.texte} lignes.
 - Banc (\`revue/journal.jsonl\`) : ${lignes.journal} lignes, dont ${lignes.remplacees} de texte
-  remplacées par les contrôles rejoués (même sortie, contrôles plus récents) et
+  remplacées par les contrôles rejoués (même sortie, contrôles plus récents),
+  ${lignes.textesGardes} de texte gardées telles quelles (endroit que le contrôle rejoué ne
+  couvre pas, par exemple les variantes non interactives) et
   ${lignes.i1SansSaisie} « bonne réponse refusée » sans saisie (question absente,
   relevée en X4).
 - Les constats automatiques sont regroupés comme dans \`trouvailles.md\` (même

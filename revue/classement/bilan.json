@@ -1,8 +1,9 @@
 {
- "total": 19695,
+ "total": 20348,
  "lignes": {
   "journal": 681130,
-  "remplacees": 569288,
+  "remplacees": 558894,
+  "textesGardes": 10394,
   "i1SansSaisie": 287,
   "texte": 207602,
   "source": 1121,
@@ -17,9 +18,9 @@
   ],
   [
    "tickets-rendu",
-   1328,
-   492,
-   13783
+   1360,
+   493,
+   13939
   ],
   [
    "maths-formulation",
@@ -29,27 +30,27 @@
   ],
   [
    "decisions",
-   1690,
-   1081,
-   20641
+   1714,
+   1084,
+   20782
   ],
   [
    "mise-en-evidence",
-   7417,
+   7421,
    1350,
-   58013
+   58079
   ],
   [
    "francais",
-   1971,
-   1416,
-   9173
+   2080,
+   1422,
+   9533
   ],
   [
    "typographie",
-   6269,
-   2476,
-   194489
+   6753,
+   2498,
+   204160
   ],
   [
    "app-mobile",
