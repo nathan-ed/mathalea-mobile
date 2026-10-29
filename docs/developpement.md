@@ -631,6 +631,26 @@ Reste à faire :
   site et le compare au moteur (identique, hors exercices plus récents que le
   commit du moteur).
 
+## 0.4.9 : corriger un parcours déjà travaillé (fait)
+
+- Constat : ajouter ou déplacer un exercice faisait disparaître des ceintures
+  du Suivi (les passages étaient retrouvés par numéro d'exercice) et refermait
+  le palier suivant d'un parcours à seuil.
+- `ceinturesObtenues` retrouve un passage par le rang du palier dans sa copie
+  figée, ou par les `uuid` de ses exercices, et juge la réussite avec le seuil
+  de la version du passage : une ceinture obtenue n'est jamais retirée.
+- `etatsPaliers(..., acquis)` : une ceinture acquise garde le palier suivant
+  ouvert (`acquisDe`). Le palier modifié reste à terminer.
+- `Etape.remiseAZero` : case « Les élèves repartent de zéro » dans l'éditeur ;
+  `enregistrer()` remplace `true` par le numéro de la version ouverte, et
+  `reprendreResultats` n'y reprend rien. Un marqueur d'une version antérieure
+  disparaît. À reporter sur le site (`docs/a-reporter-site-parcours.md`).
+- « Parcours mis à jour » (`DetailParcours`) : tant que tous les passages de
+  l'élève sont d'une version antérieure ; aucune clé de stockage nouvelle.
+- Tests : `tests/correction-parcours.test.ts`, `node e2e/correction-parcours.mjs`
+  (V1, correction, sauvegarde, téléphone neuf, ceinture terminée), dans le
+  groupe 3 de `release.yml`.
+
 ## 0.4.8 : défilement au doigt rétabli (fait)
 
 - Depuis 0.4.6, aucun écran ne défilait au doigt ni à la molette (Réglages,
@@ -793,7 +813,7 @@ Reste à faire :
   (`taille`, 6 par défaut), une par exercice, les plus fragiles (boîte basse)
   puis les plus en retard, à tour de rôle par chapitre ; jamais de stock
   affiché (Nathan : « pas comme dans Anki, 90 questions d'un coup ») ;
-  `enTetesMasques`, `titreMasque` ;
+  `enTetesMasques`, `titreMasque`, `remiseAZero` ;
   ordre `entrelacer` (`fixerOrdre`, id `revisions`) : jamais deux questions du
   même exercice à la suite. Résultats (`resultatsRevision`) une fois par
   exercice et par séance ; bilan : titres dévoilés, « Revient dans… ».

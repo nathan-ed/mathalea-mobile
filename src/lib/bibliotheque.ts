@@ -187,8 +187,12 @@ export function enregistrer(b: Bibliotheque, classes: string[], p: Parcours): Bi
   const inchange = precedent && JSON.stringify(precedent.parcours) === JSON.stringify(p)
   const dejaExportee = Math.max(0, ...Object.values(precedent?.exportee ?? {}))
   const version = !precedent || inchange ? p.version : dejaExportee >= p.version ? dejaExportee + 1 : p.version
+  // `true` posé dans l'éditeur vaut pour cette version seulement ; un marqueur d'une version antérieure disparaît
+  const etapes = p.etapes.map(({ remiseAZero, ...e }) =>
+    remiseAZero === true || remiseAZero === version ? { ...e, remiseAZero: version } : e,
+  )
   const pe: ParcoursEnseignant = {
-    parcours: { ...p, id: p.id || identifiant(p.titre), version },
+    parcours: { ...p, etapes, id: p.id || identifiant(p.titre), version },
     classes,
     exportee: precedent?.exportee ?? {},
   }

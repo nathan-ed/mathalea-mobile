@@ -40,3 +40,15 @@ branche que les fiches : type `ouverture?: string` (`parcoursTypes.ts`),
 contrôle (`parcoursFile.ts`), champ jour dans `ParcoursEditor.svelte`
 (« À partir d'une date », 8 h affichées), schéma `ParcoursSchema.svelte` (palier
 fermé avant la date).
+
+## Repartir de zéro pour un exercice (à reporter)
+
+Un exercice transformé en profondeur peut porter `remiseAZero` (`Etape`, voir
+`catalogue.ts`) : dans la version qui le porte, l'élève n'y reprend pas son
+ancien résultat (`reprendreResultats`). Case à cocher « Les élèves repartent de
+zéro » dans l'éditeur de l'app ; `enregistrer()` remplace `true` par le numéro
+de la version ouverte et efface le marqueur d'une version antérieure. À faire
+sur le site : type `remiseAZero?: boolean | number` (`parcoursTypes.ts`),
+contrôle (`parcoursFile.ts`), conservation par `parcoursEditing.ts`. Côté
+élève, la fiche du parcours affiche « Parcours mis à jour » tant qu'aucun
+passage n'a été terminé dans la nouvelle version.

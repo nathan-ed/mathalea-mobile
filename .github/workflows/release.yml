@@ -59,7 +59,7 @@ jobs:
         suites:
           - defilement un-toucher regressions changer-appareil
           - classe-qr en-classe fiche-parcours session-qr
-          - ouverture-paliers paliers papier recherche
+          - ouverture-paliers paliers papier recherche correction-parcours
           - reponses-session revisions test-niveau test-niveau-reel
     steps:
       - uses: actions/checkout@v7

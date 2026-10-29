@@ -183,8 +183,10 @@ export const SEUIL_PAR_DEFAUT = 80
  * soit son accès (`avantOuverture`). `maintenant` : heure des serveurs
  * (heure.svelte.ts) ; inconnue (hors ligne), le palier reste fermé et
  * `heureAVerifier` dit que la date est peut-être passée (`appareil`).
+ * `acquis` : ceintures déjà obtenues (`ceinturesObtenues`) ; un exercice ajouté
+ * à un palier réussi ne referme pas le suivant.
  */
-export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtape>, maintenant: number | null, appareil = Date.now()) {
+export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtape>, maintenant: number | null, appareil = Date.now(), acquis: boolean[] = []) {
   const paliers = paliersDe(p)
   const bilans = paliers.map((x) => {
     const rs = x.etapes.map((i) => resultats[i])
@@ -204,7 +206,8 @@ export function etatsPaliers(p: Parcours, resultats: Record<number, ResultatEtap
   paliers.forEach((x, k) => {
     if (avantOuverture[k]) return ouverts.push(false)
     if (k === 0 || x.acces !== 'seuil') return ouverts.push(true)
-    ouverts.push(ouverts[k - 1] && bilans[k - 1].fini && bilans[k - 1].pourcentage >= x.seuil)
+    // Ceinture précédente déjà obtenue (même dans une version antérieure) : le palier reste ouvert
+    ouverts.push(acquis[k - 1] === true || (ouverts[k - 1] && bilans[k - 1].fini && bilans[k - 1].pourcentage >= x.seuil))
   })
   return paliers.map((x, k) => {
     const suivant = paliers[k + 1]
@@ -275,24 +278,42 @@ export function objectifsTravailles(passages: Seance[]): ObjectifTravaille[] {
   return [...parObjectif.values()]
 }
 
+/** Ceintures déjà obtenues, dans l'ordre des paliers (pour `etatsPaliers`) */
+export const acquisDe = (p: Parcours, passages: Seance[]) => ceinturesObtenues(p, passages).map((c) => c.obtenue)
+
+/** Réussite attendue pour la ceinture `k` d'un parcours : seuil du palier suivant, sinon 80 % */
+const attenduDe = (paliers: ReturnType<typeof paliersDe>, k: number) => {
+  const suivant = paliers[k + 1]
+  return suivant?.acces === 'seuil' ? suivant.seuil : SEUIL_PAR_DEFAUT
+}
+const signature = (p: Parcours, etapes: number[]) => etapes.map((i) => p.etapes[i]?.uuid).sort().join()
+
 /**
  * Ceintures d'un parcours d'après les passages terminés : une ceinture est
  * obtenue quand son palier a été terminé au moins une fois avec la réussite
- * attendue (seuil de la suivante, sinon 80 %).
+ * attendue (seuil de la suivante, sinon 80 %). Corriger le parcours ne la
+ * retire jamais : un passage compte pour la ceinture de même rang, ou pour
+ * celle dont les exercices sont les mêmes si les paliers ont changé de place,
+ * et sa réussite est jugée sur le seuil de la version où il a eu lieu.
  */
 export function ceinturesObtenues(p: Parcours, passages: Seance[]) {
   const paliers = paliersDe(p)
+  const passagesDe = passages.filter((s) => s.fin && s.contenu.id === p.id)
   return paliers.map((x, k) => {
-    const suivant = paliers[k + 1]
-    const attendu = suivant?.acces === 'seuil' ? suivant.seuil : SEUIL_PAR_DEFAUT
-    const meilleur = Math.max(
-      0,
-      ...passages
-        .filter((s) => s.fin && s.contenu.id === p.id && s.etapes.join() === x.etapes.join())
-        .map((s) => bilan(s))
-        .filter((b) => b.faites === b.sur)
-        .map((b) => b.pourcentage),
-    )
-    return { nom: nomPalier(p, k), couleur: couleurCeinture(p, k), obtenue: meilleur >= attendu, meilleur }
+    const sig = signature(p, x.etapes)
+    let meilleur = 0
+    let obtenue = false
+    for (const s of passagesDe) {
+      // Palier du passage dans sa copie figée
+      const anciens = paliersDe(s.contenu)
+      const rang = anciens.findIndex((a) => a.etapes.join() === s.etapes.join())
+      if (rang === -1) continue
+      if (rang !== k && signature(s.contenu, s.etapes) !== sig) continue
+      const b = bilan(s)
+      if (b.faites !== b.sur) continue
+      meilleur = Math.max(meilleur, b.pourcentage)
+      if (b.pourcentage >= attenduDe(anciens, rang)) obtenue = true
+    }
+    return { nom: nomPalier(p, k), couleur: couleurCeinture(p, k), obtenue, meilleur }
   })
 }

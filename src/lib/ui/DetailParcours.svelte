@@ -4,7 +4,7 @@
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
   import { couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
-  import { etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
+  import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
   import { modeQr, nouveauCode, normaliserCode } from '$lib/progression'
@@ -79,10 +79,12 @@
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const date = (s: Seance) =>
     new Date(s.fin ?? s.debut).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+  // Version modifiée depuis le dernier passage terminé de l'élève (sans tentative en cours, qui reste sur l'ancienne)
+  const misAJour = $derived(!enCours && passages.length > 0 && passages.every((s) => s.contenu.version < parcours.version))
   const dejaFait = $derived(Object.keys(resultats).length > 0)
   const nbQuestions = $derived(parcours.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0))
 
-  const paliers = $derived(etatsPaliers(parcours, resultats, heure.maintenant))
+  const paliers = $derived(etatsPaliers(parcours, resultats, heure.maintenant, Date.now(), acquisDe(parcours, passages)))
   // Dates d'ouverture : l'heure des serveurs fait foi
   $effect(() => {
     if (parcours.paliers?.some((x) => x.ouverture)) exigerHeure()
@@ -188,6 +190,11 @@
       <p class="mt-1 {discret}">
         {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceintures' : 'paliers'}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
       </p>
+      {#if misAJour}
+        <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <i aria-hidden="true" class="bx bx-refresh text-lg"></i> Parcours mis à jour
+        </p>
+      {/if}
     </div>
 
     {#if avecPaliers}

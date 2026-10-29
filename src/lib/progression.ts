@@ -292,7 +292,8 @@ export async function supprimerSeance(st: Stockage, parcours: string) {
  * Résultats d'une version. Une version sans résultats reprend ceux de la
  * précédente pour chaque exercice resté dans le parcours (même exercice
  * MathALÉA, même s'il a été déplacé ou ses réglages corrigés) : corriger un
- * parcours ne remet pas l'élève à zéro. Un exercice ajouté part de zéro.
+ * parcours ne remet pas l'élève à zéro. Un exercice ajouté, ou marqué
+ * `remiseAZero` par l'enseignant, part de zéro.
  */
 export async function lireResultats(st: Stockage, parcours: Parcours): Promise<Record<number, ResultatEtape>> {
   const propres = await st.lire<Record<number, ResultatEtape>>(cleResultats(parcours))
@@ -311,6 +312,8 @@ export function reprendreResultats(avant: Parcours, resultats: Record<number, Re
   const repris: Record<number, ResultatEtape> = {}
   const pris = new Set<number>()
   apres.etapes.forEach((e, i) => {
+    // L'enseignant a demandé de repartir de zéro pour cet exercice dans cette version
+    if (e.remiseAZero === apres.version) return
     // Même rang d'abord, sinon le premier exercice identique pas encore repris
     const candidats = avant.etapes.map((a, j) => j).filter((j) => avant.etapes[j].uuid === e.uuid && !pris.has(j) && resultats[j])
     const j = candidats.includes(i) ? i : candidats[0]

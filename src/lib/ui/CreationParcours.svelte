@@ -436,6 +436,22 @@
           <p class={discret}>Absent de la liste vue par les élèves, sans titre pendant l’activité.</p>
         {/if}
         <ReglagesExercice bind:etape={p.etapes[i]} description={descriptions[e.uuid] ?? null} />
+        {#if p.version > 1 || p.id}
+          {@const zero = e.remiseAZero === true || e.remiseAZero === p.version}
+          <div class="flex flex-col gap-2">
+            <button
+              type="button"
+              role="checkbox"
+              aria-checked={zero}
+              class="{puce(zero)} self-start"
+              onclick={() => (e.remiseAZero = zero ? undefined : true)}
+            >
+              {#if zero}<i aria-hidden="true" class="bx bx-check"></i>{/if}
+              Les élèves repartent de zéro
+            </button>
+            <p class={discret}>Sans cela, les résultats déjà obtenus à cet exercice sont conservés.</p>
+          </div>
+        {/if}
         <div class="flex flex-col gap-2">
           <p class={sousTitre}>Objectifs</p>
           {#if objectifsProposes.length}

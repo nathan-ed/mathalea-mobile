@@ -1,0 +1,5 @@
+<fr-FR>
+- Corriger un parcours ne fait plus perdre les ceintures déjà obtenues.
+- Un exercice ajouté à une ceinture réussie ne referme plus la suivante.
+- « Parcours mis à jour » s'affiche sur le parcours modifié.
+- Éditeur : possibilité de faire repartir les élèves de zéro sur un exercice.

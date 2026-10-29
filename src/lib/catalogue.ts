@@ -6,6 +6,9 @@ export interface Etape extends ParamsExercice {
   titre: string // titre vu par l'élève : celui de MathALÉA par défaut, modifiable
   titreMasque?: boolean // l'élève voit « Exercice n »
   objectifs?: string[] // libellés des objectifs visés (liste de l'enseignant)
+  // Exercice transformé en profondeur : l'élève repart de zéro pour cet exercice dans la version qui
+  // le porte. `true` dans l'éditeur, remplacé à l'enregistrement par le numéro de cette version.
+  remiseAZero?: boolean | number
 }
 
 /** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ */

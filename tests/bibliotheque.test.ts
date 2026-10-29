@@ -368,6 +368,29 @@ describe('correction d’un parcours déjà travaillé', async () => {
     expect((await lireResultats(st, { ...v2, version: 3 }))[2]).toMatchObject({ points: 1 })
   })
 
+  it('un exercice marqué « repartir de zéro » pour cette version perd son ancien résultat, pas les autres', async () => {
+    const v2 = { ...v1, version: 2, etapes: [{ ...v1.etapes[0], remiseAZero: 2 }, v1.etapes[1]] }
+    const r = await lireResultats(st, v2)
+    expect(r[0]).toBeUndefined()
+    expect(r[1]).toMatchObject({ points: 0, sur: 1 })
+    // Le marqueur ne vaut que pour la version qui le porte : la V3 reprend à nouveau
+    expect((await lireResultats(st, { ...v2, version: 3 }))[0]).toMatchObject({ points: 1 })
+  })
+
+  it('l’enregistrement date le marqueur de la version ouverte et efface celui d’une version antérieure', () => {
+    const b = { ...enregistrer({ classes: [], parcours: [] } as never, [], v1) }
+    const exporte = { ...b, parcours: [{ ...b.parcours[0], exportee: { '': 1 } }] }
+    const modif = { ...v1, etapes: [{ ...v1.etapes[0], remiseAZero: true as const }, v1.etapes[1]] }
+    const v2 = enregistrer(exporte as never, [], modif).parcours[0].parcours
+    expect(v2.version).toBe(2)
+    expect(v2.etapes[0].remiseAZero).toBe(2)
+    expect(v2.etapes[1].remiseAZero).toBeUndefined()
+    // Nouvelle modification après un export de la V2 : la V3 ne remet rien à zéro
+    const v3 = enregistrer({ ...exporte, parcours: [{ parcours: v2, classes: [], exportee: { '': 2 } }] } as never, [], { ...v2, titre: 'Autre' }).parcours[0].parcours
+    expect(v3.version).toBe(3)
+    expect(v3.etapes[0].remiseAZero).toBeUndefined()
+  })
+
   it('la relecture d’un passage V1 rejoue la V1 (copie figée, nombre de questions d’alors)', async () => {
     const { lireHistorique, questionsDe } = await import('../src/lib/progression')
     const [passage] = await lireHistorique(st, 'fractions')

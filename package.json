@@ -1,6 +1,6 @@
 {
   "name": "mathalea-mobile",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "Parcours MathALÉA hors ligne pour élèves et enseignants (Tauri)",
   "type": "module",
   "scripts": {
