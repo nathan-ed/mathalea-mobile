@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **125 sur 325**. Constats confirmés : **43**.
+Exercices relus : **149 sur 325**. Constats confirmés : **45**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -11,7 +11,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 1 |
 | Mise en évidence (miseEnEvidence et champs) | 9 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 13 |
+| Rédaction (français, titres, consignes) | 15 |
 
 ## Contenu mathématique faux
 
@@ -68,6 +68,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
 | 1A-C08-2 | R5 Virgule | Correction : phrase terminée par deux points « …⟦9y+4y⟧.. » | Un seul point | src/exercices/1e/ |
+| 1A-C15-5 | R3  | Correction : « $\dfrac{2000}{1000}$ » sans espace fine (mais $2\,000$ avant) | texNombre | src/exercices/1e/ |
+| 1A-E04-2 | R16  | Énoncé : « Le prix d’un article connait » (connaît) | « connaît » | src/exercices/1e/ |
 | can1E1-01 | R10 Français | Libellé du paramètre « Produit et puisances » | puissances | src/exercices/1e/1AN30-2.ts:58 |
 | can1SD11-01 | R10 Français | « L'abscisse du sommet de la parabole est positif / négatif. Celui-ci est donné par » (accords) ; guillemets droits « "les bras" » | est positive / négative. Elle est donnée par | src/exercices/can/1e/can1SD11-01.ts:111 |
 | can1SD21-03 | R10 Français | « Un poduit de deux facteurs » | produit | src/exercices/can/1e/can1SD21-03.ts:305 |
@@ -91,8 +93,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | can1a-NY2026 | I2 Réponse fausse acceptée | 3 | réponse fausse acceptée |
 | 1A | I4 Question sans champ | 77 | champ absent de la page |
 | can1D3-03 | X2 Formule cassée | 10 | nombre impair de $ : a fonction définie par $f(x)=\dfrac{3}{-3x+5}$.&lt;br> f'(x)=$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
+| 1A-F03-7 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | can1SD22-04 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 384 ; T6 Points de suspension 168 ; N1 Nombre hors $ 161 ; R5 Virgule 131 ; T4  94 ; T3  54 ; N6 Écriture algébrique 23 ; N2 Séparateur des milliers 13 ; R10 Français 4 ; N3  4 ; X2 Formule cassée 4.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : T5 Espaces 500 ; T6 Points de suspension 169 ; N1 Nombre hors $ 161 ; R5 Virgule 134 ; T4  125 ; T3  55 ; N2 Séparateur des milliers 46 ; N6 Écriture algébrique 23 ; R10 Français 13 ; N3  4 ; X2 Formule cassée 4.
