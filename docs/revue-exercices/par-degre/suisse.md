@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **893 sur 1168**. Constats confirmés : **378**.
+Exercices relus : **909 sur 1168**. Constats confirmés : **383**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 287 |
+| Rédaction (français, titres, consignes) | 292 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -136,6 +136,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | --- | --- | --- |
 | 0021e | R16  | Titre : « dixèmes » (dixièmes) | dixièmes | relecture |
 | 01607 | R1 Titre | Énoncé : « carré ABCD de côté 4 » nombre hors $ (aussi 02d8w : « 9 boules rouges… ») | $4$ | relecture |
+| 046ba | R16  | Correction : « on multiplie le volume visible par par 5 » (doublon) | par | relecture |
+| 05b52 | R16  | Consigne : « …la représentation graphique.` » accent grave parasite en fin de phrase | Supprimer le caractère parasite | relecture |
+| 065cf | R1 Titre | Énoncé : « 40° » hors $ | $40^\circ$ | relecture |
 | 0a113 | R3  | Énoncé : « $1,75$€ » et « $13,91$€ » sans espace avant € ; « 5 pains », « 4 tartelettes » hors $ | $1,75$ € ; $5$ pains | relecture |
 | 0ff6a | R16  | Titre « Tracer une droite à partir de son équation » mais l'exercice (QCM) demande de lire l'équation d'une droite représentée | Titre cohérent avec la variante QCM | relecture |
 | 10NO3D-11 | R12  | Proposition du QCM « N=125\times 15^{2} » avec \times alors que l'énoncé et la correction (version CH) utilisent \cdot | \cdot dans les propositions | relecture |
@@ -154,6 +157,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 1mF3-16 | R16  | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) | Titre : Déterminer l'axe de symétrie d'une parabole | relecture |
 | 1mQCM-22 | R1 Titre | Correction : « égal à 0 » zéro hors $ | $0$ | relecture |
 | 23241 | R16  | Titre : « probabilté » (probabilité) | probabilité | relecture |
+| 23b3e | R16  | Titre « Déterminer un encadrement avec la fonction carré » mais l'exercice demande l'écriture décimale de 7,2·10^{-4} | Titre cohérent | relecture |
 | 25143 | R16  | Titre contenant « (ancien exercice) » visible dans le référentiel | Retirer la mention ou retirer l'exercice du référentiel | relecture |
 | 26434 | R16  | Titre « Effectuer un calcul avec des fractions » mais l'exercice porte sur un pourcentage d'élèves | Titre : Calculer un pourcentage | relecture |
 | 29202 | R10 Français | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) | Utiliser la même valeur a dans les trois libellés | relecture |
@@ -213,6 +217,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 6fmcu | R10 Français | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) | Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
+| 7b6ee | R10 Français | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins | 2\,025+20 | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
@@ -470,4 +475,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38441 ; T6 Points de suspension 6580 ; T5 Espaces 2451 ; T4  1848 ; M7  781 ; R2 Tutoiement, impératif 678 ; T3  661 ; R5 Virgule 564 ; T2  371 ; N2 Séparateur des milliers 247 ; N6 Écriture algébrique 241 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 38452 ; T6 Points de suspension 6600 ; T5 Espaces 2463 ; T4  1848 ; M7  781 ; R2 Tutoiement, impératif 678 ; T3  662 ; R5 Virgule 564 ; T2  371 ; N2 Séparateur des milliers 247 ; N6 Écriture algébrique 241 ; N3  132 ; R9  94 ; R10 Français 71 ; X3  71 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 4 ; N4  2 ; R6  1.
