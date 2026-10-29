@@ -811,6 +811,12 @@ Environnement (machine de Nathan)
   `MetaInteractif2dEx<n>Q<i>` → JSON ; un champ retiré de la page renvoie
   un trou vide (lire la valeur LaTeX). Le bug (« la réponse n'a pas été
   prise en compte ») ne se voyait qu'avec la correction à la fin.
+- Plusieurs réponses dans une question (Thales2D, 3G20, ticket 1 de la forge,
+  « réponses décimales mal corrigées ») : rangs 2e et 2e+1 de
+  `autoCorrection` pour la question e. `verifier(i)` ne regardait que le rang
+  i : à partir de la 2e question, champ absent de la page, erreur avalée par
+  MathALÉA, ni smiley ni point. Le moteur lit désormais les rangs dans
+  l'énoncé (`indicesDeLaQuestion`). Environ 80 exercices ont ce schéma.
 - Tracés à main levée (`MainLevee`) : besoin de `div#appMathalea` dans la
   page, créé par `initialiser()` du moteur ; sans lui, figures sans segments.
 - Champ à trous (« 81 = … × … ») : MathLive n'envoie ni `input` ni
