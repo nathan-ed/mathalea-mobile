@@ -134,22 +134,62 @@ node --max-old-space-size=6000 revue/classer.mjs && node --max-old-space-size=60
   `a-tester-main`, `pour-memoire`, `faux-positifs`.
 - Rejeu de l'interactif : `node revue/rejouer.mjs` (I1 à I5) et
   `node revue/rejouer.mjs --m1` ; écrit `revue/rejeu.jsonl` (reproduit ou non,
-  graine, paramètres, saisie), repris par `classer.mjs`.
+  graine, paramètres, saisie), repris par `classer.mjs`. Plusieurs instances :
+  `--part k/n`. Une fois le rejeu M1 fini, deux rejeux ciblés dont les lignes
+  l'emportent sur le rejeu ordinaire :
+  - `node revue/champs-decales.mjs > revue/champs-decales.json` (exercices dont
+    une question porte des champs numérotés sur tout l'exercice), puis
+    `node revue/rejouer.mjs --decales` : chaque champ est comparé à la mise en
+    évidence de la question qui le contient vraiment ;
+  - `node revue/rejouer.mjs --unites` : mise en évidence en `\text{ cm}` alors
+    que le champ attend la touche d'unité (`\operatorname{cm}`).
+  Un M1 de ces rejeux « accepté » passe en faux positif, avec la forme acceptée.
+- Approfondir un constat douteux avant de le garder comme ticket :
+  - `RETOUR=1 node revue/essayer.mjs <id> <graine> '<réglages>' <nb> <question 1…> <saisies…>` :
+    essayer les écritures d'un élève (accolades de MathLive, `\frac`, touche
+    d'unité, `\emptyset`, valeur recalculée à la main) ; « question » est le
+    numéro du champ quand la question en a plusieurs ;
+  - `node revue/un-champ.mjs …` : la question est-elle jugée juste avec un
+    seul de ses champs rempli ;
+  - `node revue/sonder-champs.mjs <id> <graine> '<réglages>' <nb>` : questions
+    produites, déclarées interactives, champs présents ;
+  - `node revue/trier-i4.mjs > revue/trier-i4.jsonl` : I4 dont la question
+    n'existe pas (réponse attendue orpheline, invisible pour l'élève) ;
+  - lire la ligne du code et l'écrire dans la précision (fichier:ligne,
+    graine, réglages, nombre de questions, question, saisies essayées).
+  Pièges vus : le banc saisit parfois la réponse attendue telle quelle
+  (première forme d'une liste mal formée, `z^10` sans accolades, unité tapée
+  en lettres, intervalle des valeurs possibles) : un refus n'est un défaut que
+  si une saisie d'élève correcte est refusée.
+- Faux positifs reconnus par règle dans `classer.mjs` : texte des scripts
+  Scratch (N1, T3, T5, T6). À la main : références absolues de tableur
+  (`$B$8`), primitive + 1.
 - Corrections du classement à la main : `revue/reclassement.jsonl`, une ligne
   `{ "cle", "categorie", "precision" }` par constat (la source n'est jamais
   réécrite).
 - `verifier-classement.mjs` doit répondre « aucune perte » : une clé par
   ligne de relecture, somme des occurrences égale aux lignes sources
   retenues, aucune ligne de texte du journal sans constat.
+- Corrections par exercice : `revue/reclassement-exercices.jsonl`
+  (`{ "id" | "motifId", "categorie", "regles", "precision" }`).
 - Rendus : `docs/revue-exercices/classement/` (un fichier par catégorie, lien
-  de reproduction vers le site avec la graine) ; données :
+  de reproduction vers le site avec la graine ; au-delà de 400 ko, un dossier
+  par catégorie avec un fichier par règle) ; données :
   `revue/classement/<catégorie>.jsonl` et l'archive complète
   `revue/classement/constats.jsonl.gz`.
+- Tickets par cause : `node revue/tickets.mjs` (après `classer.mjs`) écrit
+  `tickets-par-cause.md` : chaque constat de `tickets-interactif`,
+  `tickets-rendu` et `app-mobile` dans la première cause qui le reconnaît
+  (liste `CAUSES` : où, ce qui se passe, correction proposée), sinon dans
+  « Autres tickets » ; le script s'arrête si le compte ne tombe pas juste.
+  Ajouter une cause quand plusieurs constats ont la même origine.
 
 ## 6. Après
 
 - Tickets sur la forge depuis l'ordinateur de Nathan, à partir de
-  `tickets-*.md` et `maths-formulation.md`.
+  `tickets-par-cause.md` (un ticket par cause) et `maths-formulation.md`.
+- Défauts de l'app (`app-mobile.md`, causes « App : … ») : à Nathan, jamais
+  corrigés pendant la revue.
 - Corrections à la chaîne (mise en évidence, français, typographie) dans
   MathALÉA, une MR par catégorie et par lot, à partir des fichiers `.jsonl`.
 - Règles à proposer à MathALÉA : `docs/revue-exercices/propositions.md`.

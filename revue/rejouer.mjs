@@ -5,6 +5,8 @@
 // --decales : refait les M1 des exercices de revue/champs-decales.json (champs numérotés à
 // la suite sur tout l'exercice) en comparant le champ k aux mises en évidence de la question
 // qui le contient réellement (le banc prenait la correction de la question k).
+// --unites : refait les M1 dont la mise en évidence écrit l'unité en \\text{ cm} alors que le
+// champ attend une grandeur saisie avec la touche d'unité (\\operatorname{cm}).
 import { appendFileSync, existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -16,7 +18,8 @@ const BASE = process.env.BASE ?? 'http://127.0.0.1:5173/alea/'
 const args = process.argv.slice(2)
 const opt = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d)
 const DECALES = args.includes('--decales')
-const REGLES = args.includes('--m1') || DECALES ? ['M1'] : ['I1', 'I2', 'I3', 'I4', 'I5']
+const UNITES = args.includes('--unites')
+const REGLES = args.includes('--m1') || DECALES || UNITES ? ['M1'] : ['I1', 'I2', 'I3', 'I4', 'I5']
 const idsDecales = DECALES ? new Set(JSON.parse(readFileSync(join(ici, 'champs-decales.json'), 'utf8')).map((x) => x.id)) : null
 const LIMITE = Number(opt('--limite', Infinity))
 // --part k/n : ne rejoue qu'un constat sur n (k de 0 à n-1), pour lancer plusieurs instances
@@ -24,7 +27,7 @@ const PARTS = opt('--part', '0/1').split('/').map(Number)
 const FICHIER = join(ici, 'rejeu.jsonl')
 const lignesRejeu = existsSync(FICHIER) ? readFileSync(FICHIER, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []
 // avec --decales, on reprend les constats déjà rejoués et reproduits, sauf ceux déjà refaits
-const faits = new Set(DECALES ? lignesRejeu.filter((l) => l.decales).map((l) => l.cle) : lignesRejeu.map((l) => l.cle))
+const faits = new Set(DECALES ? lignesRejeu.filter((l) => l.decales).map((l) => l.cle) : UNITES ? lignesRejeu.filter((l) => l.unites).map((l) => l.cle) : lignesRejeu.map((l) => l.cle))
 const constats = gunzipSync(readFileSync(join(ici, 'classement', 'constats.jsonl.gz')))
   .toString()
   .split('\n')
@@ -32,6 +35,7 @@ const constats = gunzipSync(readFileSync(join(ici, 'classement', 'constats.jsonl
   .map((l) => JSON.parse(l))
   .filter((c) => c.origine === 'banc' && REGLES.includes(c.regle) && c.categorie !== 'faux-positifs' && !faits.has(c.cle))
   .filter((c) => !DECALES || idsDecales.has(c.id))
+  .filter((c) => !UNITES || c.exemples.every((e) => /\\text\{ ?[a-zµ]+\}/.test(e) && /operatorname/.test(e)))
   .filter((c, i) => i % PARTS[1] === PARTS[0])
   .slice(0, LIMITE)
 console.log(`${constats.length} constats à rejouer`)
@@ -104,6 +108,13 @@ async function essayer(c, o) {
     if (!x.juste && c.regle === 'M1' && x.format === 'mathlive') {
       // comme le banc : la réunion des morceaux mis en évidence peut être acceptée
       const evs = await page.evaluate((qq) => window.sonde.evidencesDe(qq), q)
+      if (UNITES) {
+        // l'élève tape la valeur puis l'unité avec la touche d'unité du clavier
+        const enUnite = (v) => v.replace(/(?:\\,|~|\s)*\\text\{ ?([a-zµ]+)\}(\^\{?(\d)\}?)?/g, (_, u, __, e) => `\\operatorname{${u}${e ? '^' + e : ''}}`)
+        for (const v of [...new Set(evs.map(enUnite))])
+          if (await page.evaluate(([qq, vv]) => window.sonde.essai(qq, vv), [q, v])) return { ...base, reproduit: false, detail: `accepté avec la touche d'unité : ${v}` }
+        return { ...base, reproduit: true, detail: `refusé même avec la touche d'unité : ${evs.map(enUnite).join(' ; ')}` }
+      }
       for (const v of [evs.join(''), evs[0]].filter(Boolean))
         if (await page.evaluate(([qq, vv]) => window.sonde.essai(qq, vv), [q, v])) return { ...base, reproduit: false, detail: `accepté sous la forme ${v}` }
       return { ...base, reproduit: true, detail: `mise en évidence ${JSON.stringify(evs)} refusée (${x.points}/${x.total})` }
@@ -137,7 +148,7 @@ for (const c of constats) {
       await nouvellePage()
     }
   }
-  const ligne = { ...(DECALES ? { decales: true } : {}), cle: c.cle, id: c.id, regle: c.regle, reproduit: !!res?.reproduit, detail: res?.detail ?? essais.at(-1)?.erreur ?? 'aucune occurrence', occurrence: res?.occurrence ?? occs[0] ?? null, params: res?.params ?? null, saisie: res?.saisie ?? null, retour: res?.retour ?? '', essais }
+  const ligne = { ...(DECALES ? { decales: true } : {}), ...(UNITES ? { unites: true } : {}), cle: c.cle, id: c.id, regle: c.regle, reproduit: !!res?.reproduit, detail: res?.detail ?? essais.at(-1)?.erreur ?? 'aucune occurrence', occurrence: res?.occurrence ?? occs[0] ?? null, params: res?.params ?? null, saisie: res?.saisie ?? null, retour: res?.retour ?? '', essais }
   appendFileSync(FICHIER, JSON.stringify(ligne) + '\n')
   if (i % 10 === 0 || i === constats.length) console.log(`[${i}/${constats.length}] ${c.id} ${c.regle} ${ligne.reproduit ? 'reproduit' : 'non reproduit'} : ${ligne.detail.slice(0, 80)}`)
 }

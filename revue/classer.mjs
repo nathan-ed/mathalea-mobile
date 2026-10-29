@@ -7,7 +7,7 @@
 // Chaque constat a une clé stable (A-… automatique regroupé, L-… relecture) ;
 // revue/verifier-classement.mjs contrôle que chaque ligne source est comptée une fois.
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { gzipSync } from 'node:zlib'
@@ -134,7 +134,9 @@ const relecture = lire('relecture.jsonl')
 const ecartes = lire('ecartes.jsonl')
 // une ligne refaite avec --decales (champ rattaché à sa vraie question) l'emporte sur le rejeu ordinaire
 const rejeu = new Map()
-for (const x of lire('rejeu.jsonl')) if (x.decales || !rejeu.get(x.cle)?.decales) rejeu.set(x.cle, x)
+// de même pour --unites (unité saisie avec la touche d'unité)
+const special = (x) => x?.decales || x?.unites
+for (const x of lire('rejeu.jsonl')) if (special(x) || !special(rejeu.get(x.cle))) rejeu.set(x.cle, x)
 const reclassement = new Map(lire('reclassement.jsonl').map((x) => [x.cle, x]))
 // Reclassement par exercice : { id, categorie, regles (regex, facultatif), precision }
 const parExercice = lire('reclassement-exercices.jsonl')
@@ -217,6 +219,11 @@ for (const c of constats) {
   if (rj) {
     c.rejeu = rj
     c.statut = rj.reproduit ? 'rejoué : reproduit' : 'rejoué : non reproduit'
+    // M1 refait avec le bon champ ou la touche d'unité et accepté : artefact du banc
+    if (!rj.reproduit && special(rj) && /accept/.test(rj.detail)) {
+      c.categorie = 'faux-positifs'
+      c.precision = `Artefact du banc, rejoué comme un élève : ${rj.detail}`
+    }
   }
   const rc = reclassement.get(c.cle)
   if (rc) {
@@ -283,17 +290,40 @@ for (const k of ordre) {
   let md = `# ${CATEGORIES[k].titre}\n\n${CATEGORIES[k].qui}\n\n${l.length} constats, ${exos.size} exercices. Données complètes : \`revue/classement/${k}.jsonl\` (clé, graines, saisies). Fichier produit par \`node revue/classer.mjs\`.\n`
   const parRegle = new Map()
   for (const c of l) parRegle.set(c.regle, [...(parRegle.get(c.regle) ?? []), c])
-  md += '\n| Règle | Constats | Exercices |\n| --- | ---: | ---: |\n'
-  for (const [r, lr] of parRegle) md += `| [${r} ${NOMS[r] ?? ''}](#${r.toLowerCase()}) | ${lr.length} | ${new Set(lr.map((c) => c.id)).size} |\n`
-  for (const [r, lr] of parRegle) {
-    md += `\n## ${r}\n\n**${NOMS[r] ?? r}**\n\n| Clé | Exercice | Où | Constat | Statut | Reproduire |\n| --- | --- | --- | --- | --- | --- |\n`
-    for (const c of lr) {
-      const o = c.rejeu?.occurrence ?? c.occurrences[0]
-      const rep = o && o[1] ? `${o[0] || 'défaut'}, graine ${o[1]}${o[2] != null ? `, q${o[2] + 1}` : ''}${o[3] && Object.keys(o[3]).length ? `, saisie ${JSON.stringify(o[3]).slice(0, 80)}` : ''}${lien(c) ? ` ([site](${lien(c)}))` : ''}` : ''
-      const texteC = [c.precision ? `**${c.precision}**` : '', ...c.exemples.slice(0, 3)].filter(Boolean).join(' ‖ ') + (c.correction ? ` → ${c.correction}` : '')
-      md += `| ${c.cle} | ${c.id} (${echapper(c.niveau)}${c.pays === 'CH' ? ', CH' : ''}) | ${echapper(c.ou)} | ${echapper(texteC)}${c.n > 1 ? ` (×${c.n})` : ''} | ${c.statut}${c.rejeu?.detail ? ` : ${echapper(c.rejeu.detail)}` : ''} | ${echapper(rep)} |\n`
-    }
+  const entete = '| Clé | Exercice | Où | Constat | Statut | Reproduire |\n| --- | --- | --- | --- | --- | --- |\n'
+  const ligneMd = (c) => {
+    const o = c.rejeu?.occurrence ?? c.occurrences[0]
+    const rep = o && o[1] ? `${o[0] || 'défaut'}, graine ${o[1]}${o[2] != null ? `, q${o[2] + 1}` : ''}${o[3] && Object.keys(o[3]).length ? `, saisie ${JSON.stringify(o[3]).slice(0, 80)}` : ''}${lien(c) ? ` ([site](${lien(c)}))` : ''}` : ''
+    const texteC = [c.precision ? `**${c.precision}**` : '', ...c.exemples.slice(0, 3)].filter(Boolean).join(' ‖ ') + (c.correction ? ` → ${c.correction}` : '')
+    return `| ${c.cle} | ${c.id} (${echapper(c.niveau)}${c.pays === 'CH' ? ', CH' : ''}) | ${echapper(c.ou)} | ${echapper(texteC)}${c.n > 1 ? ` (×${c.n})` : ''} | ${c.statut}${c.rejeu?.detail ? ` : ${echapper(c.rejeu.detail)}` : ''} | ${echapper(rep)} |\n`
   }
+  // Une section par règle ; au-delà de TAILLE, la catégorie est découpée en un fichier par
+  // règle (et par morceau de TAILLE au plus) dans le dossier <catégorie>/, pour rester lisible sur la forge.
+  const TAILLE = 400_000
+  const sections = [...parRegle].map(([r, lr]) => [r, lr, lr.map(ligneMd)])
+  const decoupe = sections.reduce((s, [, , ls]) => s + ls.join('').length, 0) > TAILLE
+  rmSync(join(dossierDoc, k), { recursive: true, force: true })
+  if (decoupe) mkdirSync(join(dossierDoc, k), { recursive: true })
+  md += '\n| Règle | Constats | Exercices |\n| --- | ---: | ---: |\n'
+  for (const [r, lr, ls] of sections) {
+    const morceaux = [[]]
+    for (const x of ls) {
+      if (morceaux.at(-1).join('').length + x.length > TAILLE && morceaux.at(-1).length) morceaux.push([])
+      morceaux.at(-1).push(x)
+    }
+    const nom = (i) => `${r}${morceaux.length > 1 ? `-${i + 1}` : ''}.md`
+    const titre = `${r} ${NOMS[r] ?? ''}`.trim()
+    if (decoupe) {
+      md += `| ${titre} : ${morceaux.map((_, i) => `[${morceaux.length > 1 ? `partie ${i + 1}` : 'liste'}](${k}/${nom(i)})`).join(', ')} | ${lr.length} | ${new Set(lr.map((c) => c.id)).size} |\n`
+      morceaux.forEach((m, i) =>
+        writeFileSync(
+          join(dossierDoc, k, nom(i)),
+          `# ${CATEGORIES[k].titre} : ${titre}${morceaux.length > 1 ? ` (partie ${i + 1} sur ${morceaux.length})` : ''}\n\n[Retour à la catégorie](../${k}.md). ${m.length} constats sur ${lr.length} pour cette règle.\n\n${entete}${m.join('')}`,
+        ),
+      )
+    } else md += `| [${titre}](#${r.toLowerCase()}) | ${lr.length} | ${new Set(lr.map((c) => c.id)).size} |\n`
+  }
+  if (!decoupe) for (const [r, , ls] of sections) md += `\n## ${r}\n\n**${NOMS[r] ?? r}**\n\n${entete}${ls.join('')}`
   writeFileSync(join(dossierDoc, `${k}.md`), md)
 }
 
@@ -313,6 +343,9 @@ catégorie. Fichier produit par \`node revue/classer.mjs\`, contrôlé par
 `
 for (const [k, n, e, o] of resume) md += `| [${CATEGORIES[k].titre}](${k}.md) | ${CATEGORIES[k].qui} | ${n} | ${e} | ${o} |\n`
 md += `| **Total** | | **${total}** | | **${resume.reduce((s, r) => s + r[3], 0)}** |\n`
+md += `\nLes constats à ticket (interactif, rendu, app) sont regroupés par cause dans
+[tickets-par-cause.md](tickets-par-cause.md) (\`node revue/tickets.mjs\`, après ce script).
+Les catégories de plus de 400 ko sont découpées par règle dans un dossier du même nom.\n`
 md += `
 ## Correspondance avec les sources
 
