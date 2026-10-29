@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **707 sur 1168**. Constats confirmés : **330**.
+Exercices relus : **735 sur 1168**. Constats confirmés : **340**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 239 |
+| Rédaction (français, titres, consignes) | 249 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -140,6 +140,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
 | 2mLogExp-7 | R12  | Correction : \text{e}^{rn} (e droit en \text) au lieu de \mathrm{e} | \mathrm{e} | relecture |
 | 2mLogExp-8 | R16  | Titre : « croissance  et » deux espaces | Un espace | relecture |
+| 2mLogExp-9 | R16  | uuid « 2l9cb » non hexadécimal (aussi 2mLogExp-10 « 2l10e ») | Vrai uuid | relecture |
+| 317bd | R16  | Titre « Calculer la longueur d'un segment par comparaison » mais l'exercice porte sur un prix (proportionnalité) | Titre : Calculer un prix par comparaison | relecture |
+| 34aa9 | R16  | Énoncé : « Dans 30 combien de fois 5 ? » (virgule et verbe manquants) | Dans $30$, combien de fois $5$ y a-t-il ? | relecture |
+| 35e0b | R16  | Énoncé : « Les valeurs d'angle seront arrondis » (arrondies) ; même énoncé que 2G11-3 | seront arrondies | relecture |
+| 365f4 | R16  | Correction : la solution est donnée comme $\sqrt{2\,025}$ sans la calculer (45) alors que la saisie 45 est acceptée | Conclure avec $45$ | relecture |
+| 37e37 | R16  | Correction : « n'est pas un paraléllogramme particulier » (parallélogramme) et phrase entière dans miseEnEvidence | parallélogramme ; texteEnCouleurEtGras | relecture |
 | 3a071 | R1 Titre | Énoncé et correction : « 50 fois », « $n=$ 50 » : nombre hors $ | $50$ | relecture |
 | 3a384 | R1 Titre | Correction : « 6 adhérents parmi 38 » hors $ ; « Conseil d'Administration » (majuscule) | $6$, $38$ ; « conseil d'administration » | relecture |
 | 3c2cb | R16  | Titre « Convertir kg &lt;--> g (QCM) » flèche ASCII ; consigne tutoyée « Coche la bonne réponse. » | « Convertir des kg et des g » ; infinitif | relecture |
@@ -163,6 +169,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
 | 5ab89 | R16  | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
 | 5aece | R16  | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine | Titre : Enlever une dizaine | relecture |
+| 5b0ab | R16  | Correction : « son pente est égal à » (sa pente est égale) | sa pente est égale | relecture |
+| 5b767 | R14  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
+| 5c854 | R3  | Correction : « J'ai donné: » sans espace insécable avant les deux-points | donné⍽: | relecture |
+| 5e041 | R16  | Correction : « La figure A est composé de » (composée) | composée | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
@@ -406,4 +416,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12540 ; T5 Espaces 1969 ; T4  1227 ; T6 Points de suspension 1100 ; R2 Tutoiement, impératif 622 ; R5 Virgule 453 ; T2  371 ; T3  269 ; N2 Séparateur des milliers 224 ; N6 Écriture algébrique 163 ; N3  132 ; M7  97 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 15 ; X2 Formule cassée 12 ; R1 Titre 3 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12611 ; T5 Espaces 1969 ; T4  1227 ; T6 Points de suspension 1165 ; R2 Tutoiement, impératif 624 ; R5 Virgule 457 ; T2  371 ; T3  281 ; N2 Séparateur des milliers 227 ; N6 Écriture algébrique 172 ; N3  132 ; M7  97 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 15 ; X2 Formule cassée 12 ; R1 Titre 3 ; N4  2 ; R6  1.
