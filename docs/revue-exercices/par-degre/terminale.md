@@ -1,7 +1,7 @@
 # Revue des exercices : Terminale
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **293 sur 293**. Constats confirmés : **272**.
+Exercices relus : **293 sur 293**. Constats confirmés : **275**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 11 |
 | Mise en évidence (miseEnEvidence et champs) | 23 |
 | Typographie (nombres, espaces, notations) | 28 |
-| Rédaction (français, titres, consignes) | 167 |
+| Rédaction (français, titres, consignes) | 170 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -148,6 +148,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| canTSpea-NY2025 | R10 Français | Coquille : « pout obtenir » (balayage automatique) | corriger la coquille |  |
+| canTSpea-NY2026 | R10 Français | Coquille : « pout obtenir » (balayage automatique) | corriger la coquille |  |
+| TSA5-31 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
 | canTSpea-2026 | R10 Français | Q18 : « Un polynome du second degré » ; doubles espaces | polynôme | src/exercices/can/canTspea-2026/canTspea-2026-Q18.ts:55 |
 | canTSpea-2026 | R10 Français | Q21 : « Le total des coefficents » | coefficients | src/exercices/can/canTspea-2026/canTspea-2026-Q21.ts:79 |
 | canTEC1-02 | R1 Titre | Titre « produit de nombres complexes » (minuscule, sans verbe) | Calculer le produit de nombres complexes | src/exercices/can/Ex/canTEC1-02.ts:14 |

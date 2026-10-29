@@ -20,6 +20,14 @@ if (!existsSync(f)) {
   process.exit(1)
 }
 const s = JSON.parse(readFileSync(f, 'utf8'))
+// EXTRA=1 : seulement les variantes absentes de la sortie normale
+if (process.env.EXTRA) {
+  const g = join(ici, 'sorties', `${nom}.json`)
+  if (existsSync(g)) {
+    const vues = new Set(JSON.parse(readFileSync(g, 'utf8')).variantes.map((v) => v.variante))
+    s.variantes = s.variantes.filter((v) => !vues.has(v.variante.replace(/ nb=\d+/, '')) && !vues.has(v.variante))
+  }
+}
 
 /** {\color{#F15929}\boldsymbol{X}} → ⟦X⟧ (accolades équilibrées) */
 function marquer(t) {

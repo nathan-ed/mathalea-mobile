@@ -1,7 +1,7 @@
 # Revue des exercices : Autres
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **268 sur 268**. Constats confirmés : **268**.
+Exercices relus : **268 sur 268**. Constats confirmés : **270**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -11,7 +11,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 139 |
 | Mise en évidence (miseEnEvidence et champs) | 20 |
 | Typographie (nombres, espaces, notations) | 12 |
-| Rédaction (français, titres, consignes) | 92 |
+| Rédaction (français, titres, consignes) | 94 |
 
 ## Contenu mathématique faux
 
@@ -213,6 +213,8 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| BP1AA08 | R6  | Majuscule sans accent : « . Etudier » (balayage automatique) | É |  |
+| BP1CF01 | R10 Français | Mot répété : « est est » (balayage automatique) | supprimer le doublon |  |
 | transversal | R10 Français | « pour passer des $\text{m}$ au $\text{cm}$ » (aux) dans 26 corrections : can6M4-03 (8 fois), can6M4-05 (4), can6M3-01, can6a-2021 (790, 806), can6a-2025-Q29, canc3a-2025-Q29, canc3a-CM1-2025-Q29, can3a-2026-Q4 (3), can5a-2024-Q9 (3), can3a-2022 (300, 317), can5a-2022 (346, 360), can4a-2022 (318, 330). | pour passer des $\text{m}$ aux $\text{cm}$ | grep « passer des $\\text{…}$ au $ » dans src/exercices |
 | BP1AA02 | R3  | Correction : couleurs violet/purple différentes pour un même terme (« {\color{violet}…} », « {\color{purple}…} ») : code couleur non expliqué ; « w_{n+1} = w_n -4 » espace avant -4 ; calcul juste. | Une seule couleur par terme ; espace. | src/exercices/BP1/BP1AA02.ts |
 | BP1AA03 | R3  | « suite arithmétique de raison $r=8$ et de premier terme $u_1=-5$ » puis « $u_n=-13+8n$ » correct (u_15=107) ; $n\in\mathbb{N}^*$ sans espace ; correction recopie l'énoncé. | Supprimer la répétition de l'énoncé. | src/exercices/BP1/BP1AA03.ts |

@@ -1,7 +1,7 @@
 # Revue des exercices : 1re
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **325 sur 325**. Constats confirmés : **78**.
+Exercices relus : **325 sur 325**. Constats confirmés : **95**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 2 |
 | Mise en évidence (miseEnEvidence et champs) | 13 |
 | Typographie (nombres, espaces, notations) | 19 |
-| Rédaction (français, titres, consignes) | 33 |
+| Rédaction (français, titres, consignes) | 50 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -88,6 +88,23 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 1A-A01-1 | R10 Français | Mot répété : « par par » (balayage automatique) | supprimer le doublon |  |
+| 1A-C10-4 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| 1A-F02-11 | R10 Français | Coquille : « coeffcient » (balayage automatique) | corriger la coquille |  |
+| 1AL12-20 | R6  | Majuscule sans accent : « . Etudier » (balayage automatique) | É |  |
+| 1AL12-21 | R6  | Majuscule sans accent : « . Etudier » (balayage automatique) | É |  |
+| 1G10-6 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| 1G10-8 | R10 Français | Mot répété : « que que » (balayage automatique) | supprimer le doublon |  |
+| 1G21-5 | R10 Français | Mot répété : « de de » (balayage automatique) | supprimer le doublon |  |
+| can1a-NY2026 | R10 Français | Coquille : « pout obtenir » (balayage automatique) | corriger la coquille |  |
+| can1D2-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can1G2-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can1G2-05 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| can1S1-03 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can1S21-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can1S22-06 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can1SD21-06 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can1SD3-04 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
 | 1A-F08-2 | R10 Français | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
 | 1A-F08-3 | R10 Français | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) | est donné | relecture |
 | 1AL11-4QCM | R10 Français | Correction : « de rasion r » (raison) | raison | relecture |

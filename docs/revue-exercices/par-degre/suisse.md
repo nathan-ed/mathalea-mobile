@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **1168 sur 1168**. Constats confirmés : **456**.
+Exercices relus : **1168 sur 1168**. Constats confirmés : **475**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 64 |
 | Mise en évidence (miseEnEvidence et champs) | 21 |
 | Typographie (nombres, espaces, notations) | 38 |
-| Rédaction (français, titres, consignes) | 311 |
+| Rédaction (français, titres, consignes) | 330 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -188,6 +188,25 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 0ff6a | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 10QCM-15 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) | nettoyer le titre |  |
+| 11QCM-77 | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 1972e | R10 Français | Mot répété : « le le » (balayage automatique) | supprimer le doublon |  |
+| 1mQCM-2 | R10 Français | Coquille : « coeffcient » (balayage automatique) | corriger la coquille |  |
+| 2102b | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| 2mIneq-13 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| 3a64e | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 49275 | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 5120f | R1 Titre | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) | nettoyer le titre |  |
+| 5e11f | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 6ca15 | R10 Français | Coquille : « coeffcient » (balayage automatique) | corriger la coquille |  |
+| 6e534 | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 9b70b | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| 9QCM-2 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) | nettoyer le titre |  |
+| bc570 | R10 Français | Mot répété : « par par » (balayage automatique) | supprimer le doublon |  |
+| brlw7 | R10 Français | Accord : « pente » est féminin : « ce pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| c8ee7 | R10 Français | Accord : « pente » est féminin : « Le pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
+| psq07 | R10 Français | Accord : « pente » est féminin : « Son pente » (balayage automatique) | la pente, sa pente, donnée, égale |  |
 | 0021e | R1 Titre | Titre : « dixèmes » (dixièmes) | dixièmes | relecture |
 | 046ba | R10 Français | Correction : « on multiplie le volume visible par par 5 » (doublon) | par | relecture |
 | 05b52 | R10 Français | Consigne : « …la représentation graphique.` » accent grave parasite en fin de phrase | Supprimer le caractère parasite | relecture |

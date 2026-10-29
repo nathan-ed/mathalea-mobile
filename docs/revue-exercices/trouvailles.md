@@ -5,7 +5,7 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
 Avancement : **4190 exercices passés sur 4190**.
-Constats regroupés : 19139 (un groupe = même exercice, même règle,
+Constats regroupés : 19248 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : famille de règles (interactif, contenu, mise en évidence, rendu,
@@ -21,9 +21,9 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Interactif | [I1 Bonne réponse refusée](#i1) | 73 | 85 |
 | Interactif | [I2 Réponse fausse acceptée](#i2) | 36 | 51 |
 | Interactif | [I3 Champ vide accepté ou en erreur](#i3) | 4 | 5 |
-| Interactif | [I4 Question interactive sans champ](#i4) | 44 | 51 |
+| Interactif | [I4 Question interactive sans champ](#i4) | 45 | 52 |
 | Interactif | [I5 Barème qui change selon le tirage](#i5) | 9 | 9 |
-| Contenu mathématique | [C1 Contenu mathématique faux ou ambigu](#c1) | 128 | 138 |
+| Contenu mathématique | [C1 Contenu mathématique faux ou ambigu](#c1) | 128 | 139 |
 | Contenu mathématique | [C2 ](#c2) | 3 | 3 |
 | Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 502 | 3699 |
 | Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 64 | 216 |
@@ -35,11 +35,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 142 | 161 |
 | Rendu et robustesse | [X1 Erreur ou exception](#x1) | 42 | 133 |
 | Rendu et robustesse | [X2 Formule cassée (KaTeX, $)](#x2) | 28 | 320 |
-| Rendu et robustesse | [X3 undefined, NaN…](#x3) | 42 | 151 |
+| Rendu et robustesse | [X3 undefined, NaN…](#x3) | 42 | 153 |
 | Rendu et robustesse | [X4 Question en double ou vide](#x4) | 355 | 679 |
 | Rendu et robustesse | [X5 Débordement à 390 px](#x5) | 831 | 1173 |
 | Rendu et robustesse | [X6 Même graine, exercice différent](#x6) | 24 | 25 |
-| Rendu et robustesse | [X7 Combinaisons de paramètres non toutes passées](#x7) | 226 | 226 |
+| Rendu et robustesse | [X7 Combinaisons de paramètres non toutes passées](#x7) | 230 | 230 |
 | Nombres | [N1 Nombre hors $](#n1) | 1018 | 1789 |
 | Nombres | [N2 Séparateur des milliers](#n2) | 201 | 298 |
 | Nombres | [N3 Point décimal](#n3) | 45 | 57 |
@@ -55,16 +55,16 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Typographie | [T6 Points de suspension](#t6) | 748 | 1015 |
 | Typographie | [T8 Commande LaTeX collée](#t8) | 5 | 12 |
 | Typographie | [T9 Mot non écrit en \text dans une formule](#t9) | 8 | 8 |
-| Rédaction | [R1 Titre](#r1) | 677 | 728 |
+| Rédaction | [R1 Titre](#r1) | 716 | 791 |
 | Rédaction | [R2 Impératif ou tutoiement](#r2) | 273 | 446 |
 | Rédaction | [R3 Point final](#r3) | 250 | 250 |
 | Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 5 | 5 |
 | Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 348 | 511 |
-| Rédaction | [R6 Majuscule sans accent](#r6) | 18 | 24 |
+| Rédaction | [R6 Majuscule sans accent](#r6) | 18 | 27 |
 | Rédaction | [R7 ](#r7) | 1 | 1 |
 | Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 5 | 7 |
 | Rédaction | [R9 Notation des probabilités](#r9) | 5 | 9 |
-| Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 249 | 328 |
+| Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 268 | 363 |
 | Rédaction | [R11 ](#r11) | 2 | 2 |
 | Rédaction | [R12 Notation incohérente (× et ·, e droit, //, …)](#r12) | 16 | 16 |
 | Rédaction | [R13 Accord, majuscule accentuée, unité (relecture)](#r13) | 7 | 7 |
@@ -210,7 +210,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N1G (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×82 ; sup=3 sup2=false sup3=true sup4=true sup5=2 ; sup=2 sup2=true sup3=true sup4=true sup5=1… (revue-0-a) |
 | 5N1G-1 (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×490 ; sup=3 sup2=false sup3=true sup4=true sup5=2 ; sup=1 sup2=true sup3=true sup4=true sup5=1… (revue-0-a) |
 | 5N1G-3 (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×34 ; sup=2 ; sup=1… (revue-0-a) |
-| 5N1H (5e) |  q1 meta-custom | format meta-custom : à tester à la main | ×370 ; sup=3 sup2=4 sup3=3 sup4=2-3 ; sup=1 sup2=4 sup3=1 sup4=2-3… (revue-0-a) |
+| 5N1H (5e) |  q1 meta-custom | format meta-custom : à tester à la main | ×668 ; sup=3 sup2=4 sup3=3 sup4=2-3 ; sup=1 sup2=4 sup3=1 sup4=2-3… (revue-0-a) |
 | 5N1J-1 (5e) |  q1 mathalea-labyrinthe | format mathalea-labyrinthe : à tester à la main | ×10 ; sup=5 ; sup=1… (revue-0-a) |
 | 5N1L-3 (5e) |  q1 mathalea-labyrinthe | format mathalea-labyrinthe : à tester à la main | ×26 ; sup=100 ; sup=1… (revue-0-a) |
 | 5N1L-4 (5e) |  q1 possible-multi-lines-answer | format possible-multi-lines-answer : à tester à la main | ×154 ; sup=2 sup2=false sup5=2 ; sup=1 sup2=true sup5=1… (revue-0-a) |
@@ -244,7 +244,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G7A (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×62 ; sup=1 sup2=1 sup3=3 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 6G7B-11 (6e) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×394 ; sup=1 sup2=6 sup3=1 sup4=5 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 6G7B-4 (6e) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×90 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-0-a) |
-| 6I1B-3 (6e) |  q1 clique-figure | format clique-figure : à tester à la main | ×2 ; sup= (revue-0-a) |
+| 6I1B-3 (6e) |  q1 clique-figure | format clique-figure : à tester à la main | ×18 ; sup= ; sup=1… (revue-0-a) |
 | 6I1B-4 (6e) |  q1 meta-custom | format meta-custom : à tester à la main | ×100 ; sup=3 sup2=5 ; sup=1 sup2=1… (revue-0-a) |
 | 6I1B-5 (6e) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×32 ; sup=0 sup2=3 ; sup=0 sup2=1… (revue-0-a) |
 | 6I1B-6 (6e) |  q1 clique-figure | format clique-figure : à tester à la main | ×90 ; sup=1 sup2=3 sup3=false ; sup=1 sup2=1 sup3=true… (revue-0-a) |
@@ -585,6 +585,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N0A-1 (6e) | 6e/6N0A-1.ts:63 | Valeur maximale 1 (réglage permis, minimum 1) : randint(2, 1) donne des questions sans champ ni réponse. → Minimum 2 pour le paramètre, ou Math.max(2, this.sup). | ×1 |
 | 6N0A-4 (6e) |  q5 mathlive | champ absent de la page | ×6 ; sup=1 sup2=2 sup3=1 ; sup=3 sup2=2 sup3=3… (revue-4-b) |
 | 6N3autoD-6 (6e) |  q9 fillInTheBlank | champ absent de la page | ×1 ; sup=3-4-5-6-7-8-9 sup2=4 (revue-4-b) |
+| 6N3F-1 (6e) |  q2 fillInTheBlank | champ absent de la page | ×97 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=2 sup3=false… (revue-10-a) |
 | 6N3O (6e) |  q4 multi-mathfield | champ absent de la page | ×16 ; sup=10 sup2=1 sup3=1 ; sup=10 sup2=2 sup3=2… (revue-45-a) |
 | BP2CCF10 (BP2) |  q4 mathlive | champ absent de la page | ×1 ; sup=2 sup2=true (revue-3-a) |
 | can6a-Aléa (CAN) |  q1 mathlive | champ absent de la page | ×87 ; sup=All ; sup=All nb=10… (revue-0-a) |
@@ -712,6 +713,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpeE02 (CAN) | src/exercices/can/TSpe/canTSpeE02.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
 | canTSpeE03 (CAN) | src/exercices/can/TSpe/canTSpeE03.ts:51 | Repère noté « $\big(0,\vec\imath,\vec\jmath,\vec k\big)$ » : origine écrite avec le chiffre 0 au lieu de la lettre O ; coordonnées écrites avec ~;~ → $\big(O\,;\vec\imath,\vec\jmath,\vec k\big)$ | ×1 |
 | CM2N1D-1 (cm2) | src/exercices/CM2/CM2N1D-1.ts:104 | « en complétant avec les adjectifs numéraux qui conviennent (unité(s) ou dizaine(s)…) » : unité, dizaine, centaine sont des noms, pas des adjectifs numéraux ; mise en évidence de toute la décomposition avec les mots en \textbf (texte dans miseEnEvidence) ; « ou ... » / « ou $....$ » → « avec les mots qui conviennent (unités, dizaines…) » ; \ldots | ×1 |
+| CM2N1D-1 (cm2) | src/exercices/CM2/CM2N1D-1.ts:93-111 | Variante sup=true sup2=2 sup4=3 sup5=true : correction « 700=⟦7 dizaines⟧ », « 500=⟦5 dizaines⟧ » (7 centaines) ; variante sup=true sup2=1 sup4=2 : nombre à décomposer « 0 » et correction « ⟦$0⟧$ » ($ mal placé) → Vérifier le calcul de l'exposant avec des zéros consécutifs et le minimum de chiffres (sup2) | ×1 |
 | CM2N3A-14 (cm2) | src/exercices/CM2/CM2N3A-14.ts | Types « 10 - n » et « n + … = 10 » seuls : moins de cas possibles que les $10$ questions par défaut, la série est plus courte que l'autoCorrection (champs absents) → limiter nbQuestions au nombre de cas ou autoriser les doublons | ×1 |
 | CM2N3A-2 (cm2) | src/exercices/CM2/CM2N3A-2.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | ×1 |
 | CM2N3A-3 (cm2) | src/exercices/CM2/CM2N3A-3.ts | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) → borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | ×1 |
@@ -8359,6 +8361,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | moteur-app (?) | moteur/fichiers/src/moteur/index.ts:183 | ajusterFigures (moteur de l'app) replace les étiquettes d'une figure réduite avec Number(etiquette.dataset.top ?? 0) : les étiquettes sans data-top/data-left (figures apigeom statiques, apigeomZoom.ts) partent toutes en (0, 0) et s'empilent en haut à gauche. Sur téléphone, 6N3D (énoncé : noms des points et graduations illisibles, exercice inutilisable) et la correction de 6N1G. Le site garde leur position (Number(undefined) donne NaN, ignoré). → Dans ajusterFigures, si data-top/data-left manquent, les initialiser depuis style.top/style.left (parseFloat) avant de multiplier par coef. Pas modifié sans accord de Nathan. | ×1 |
 | 2F21-9 (2e) | correction q1 | ta-largeur1='50'> &lt;div id='cols-responsive1-undefined'style='min-width:200px;' > $\begin | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2F21-9 (2e) | correction q1 | ed}$ &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:200px;' > De mêm | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| 3A10 (3e) |  | Texte « undefined » / NaN visible : « undefined » (balayage automatique) → initialiser la question | ×1 |
 | 3A10 (3e) | énoncé q5 | Quel est le plus grand undefined possible dans une division euclidienne p | ×1 ; sup=1 sup2=1 sup3=1 sup4=11 (revue-39-a) |
 | 3A10 (3e) | correction q5 | Si on divise par $32$, undefined | ×1 ; sup=1 sup2=1 sup3=1 sup4=11 (revue-39-a) |
 | 3AutoDNB2026-3 (3e) | énoncé q6 | ta-largeur1='80'> &lt;div id='cols-responsive1-undefined'style='min-width:400px;' > Une rou | ×3 ; sup=false ; sup=true… (revue-0-a) |
@@ -8439,6 +8442,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3Z1DNB-22 (3e) | énoncé non interactif q1 | &lt;br> &lt;/div> &lt;div id='cols-responsive2-undefined' style='min-width:300px;' > &lt;div c | ×1 |
 | 4G31 (4e) | énoncé q1 | .getElementById('M2D_0_Q0_t1').dataset.colorie == undefined \|\| (document.getElementById('M2D_0_Q0_t1 | ×28 ; sup=1 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | 4G31 (4e) | énoncé non interactif q1 | .getElementById('M2D_0_Q0_t1').dataset.colorie == undefined \|\| (document.getElementById('M2D_0_Q0_t1 | ×3 |
+| 5N1L (5e) |  | Texte « undefined » / NaN visible : « undefined » (balayage automatique) → initialiser la question | ×1 |
 | 5N1L (5e) | correction q7 | est inférieur à $2$, c'est-à-dire par les nombres undefined, le reste n'est jamais nul.&lt;br>&lt;span sty | ×1 ; défaut (revue-0-a) |
 | 6A (6e) | énoncé non interactif q3 | ta-largeur1='60'> &lt;div id='cols-responsive1-undefined_0'style='min-width:500px;' > &lt;div | ×1 |
 | 6A (6e) | énoncé non interactif q3 | div> &lt;/div> &lt;div id='cols-responsive2-undefined_0' style='min-width:300px;' > Comp | ×1 |
@@ -9800,9 +9804,9 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6G6D-1 (6e) | énoncé | page de 417 px pour 390 px | ×9 ; sup=1 ; sup=2… (revue-0-a) |
 | 6G6D-1 (6e) | correction q1 | table.tableauMathlive de 401 px pour 390 px | ×18 ; sup=1 ; sup=2… (revue-0-a) |
 | 6G6D-1 (6e) | correction | page de 417 px pour 390 px | ×9 ; sup=1 ; sup=2… (revue-0-a) |
-| 6G7B-6 (6e) | correction | page de 411 px pour 390 px | ×1 ; sup2=1 (revue-0-a) |
-| 6G7B-8 (6e) | énoncé | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
-| 6G7B-8 (6e) | correction | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 6G7B-6 (6e) | correction | page de 411 px pour 390 px | ×4 ; sup2=1 ; sup2=4… (revue-0-a) |
+| 6G7B-8 (6e) | énoncé | page de 575 px pour 390 px | ×38 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 6G7B-8 (6e) | correction | page de 575 px pour 390 px | ×38 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
 | 6I1B (6e) | correction q1 | table de 600 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
 | 6I1B (6e) | correction | page de 616 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
 | 6I1B (6e) | énoncé q1 | table de 435 px pour 390 px | ×1 ; sup=3 sup2=true sup3=false (revue-9-a) |
@@ -9863,8 +9867,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1G (6e) | 6e/6N1G.ts | À 390 px, la figure interactive (apigeom) ne montre qu'une partie de l'axe : Q1 demande A(4,8), B(6,7), C(7,3) sur un axe visible de 2 à 5 (capture 000-a-enonce) ; deux points sur trois ne peuvent pas être placés. → Adapter la largeur de l'axe à l'écran (échelle recalculée) ou permettre le défilement ; vérifier sur téléphone. | ×1 |
 | 6N1H (6e) | 6e/6N1H.ts | Trois décimales à 390 px : environ 3 px entre deux graduations des millièmes, lecture impossible sur téléphone ; le point A recouvre l'étiquette 3,96 (capture 002-a-enonce). → Zoom (loupe) ou droite plus courte autour des points sur petit écran. | ×1 |
 | 6N1H-3 (6e) | 6e/6N1H-3.ts | Zooms successifs à 390 px : les droites du zoom se superposent et leurs étiquettes se chevauchent (« 10,2 10, 21 10, 22… » illisibles, capture 000-a-correction) ; au millième, la lecture est impossible sur téléphone. → Espacer verticalement les droites, n'écrire que les graduations extrêmes du zoom sur petit écran, texNombre pour les étiquettes. | ×1 |
-| 6N1H-4 (6e) | énoncé | page de 400 px pour 390 px | ×9 ; sup=6 sup2=3 ; sup=7 sup2=3… (revue-6-a) |
-| 6N1H-4 (6e) | correction | page de 400 px pour 390 px | ×9 ; sup=6 sup2=3 ; sup=7 sup2=3… (revue-6-a) |
+| 6N1H-4 (6e) | énoncé | page de 400 px pour 390 px | ×75 ; sup=6 sup2=3 ; sup=7 sup2=3… (revue-6-a) |
+| 6N1H-4 (6e) | correction | page de 400 px pour 390 px | ×75 ; sup=6 sup2=3 ; sup=7 sup2=3… (revue-6-a) |
 | 6N1J (6e) | correction | page de 455 px pour 390 px | ×37 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-1-a) |
 | 6N1J (6e) | 6e/6N0A-10.ts | Six champs à trous sur une ligne : à 390 px, le dernier champ sort de l'écran une fois rempli (même défaut que 6N0A-10). → Voir 6N0A-10. | ×1 |
 | 6N2autoB-1 (6e) | énoncé q1 | table.tableauMathlive de 523 px pour 390 px | ×18 ; sup=1-2-3 ; sup=1… (revue-0-a) |
@@ -10520,6 +10524,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N1autoA-5 (5e) |  | 1120 combinaisons : 71 passées (couverture par paires) | ×1 |
 | 5N1B-1 (5e) |  | 832 combinaisons : 209 passées (couverture par paires) | ×1 |
 | 5N1G (5e) |  | 64 combinaisons : 9 passées (couverture par paires) | ×1 |
+| 5N1H (5e) |  | 315 combinaisons : 36 passées (couverture par paires) | ×1 |
 | 5N1I-4 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
 | 5N1I-5 (5e) |  | 150 combinaisons : 26 passées (couverture par paires) | ×1 |
 | 5N1J (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
@@ -10559,6 +10564,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6I1D (6e) |  | 64 combinaisons : 64 passées (couverture par paires) | ×1 |
 | 6M1D (6e) |  | 72 combinaisons : 19 passées (couverture par paires) | ×1 |
 | 6M2autoC-1 (6e) |  | 128 combinaisons : 17 passées (couverture par paires) | ×1 |
+| 6M2C-3 (6e) |  | 56 combinaisons : 15 passées (couverture par paires) | ×1 |
 | 6M2C-4 (6e) |  | 60 combinaisons : 16 passées (couverture par paires) | ×1 |
 | 6N0A-2 (6e) |  | 468 combinaisons : 118 passées (couverture par paires) | ×1 |
 | 6N0A-4 (6e) |  | 80 combinaisons : 40 passées (couverture par paires) | ×1 |
@@ -10567,10 +10573,12 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N1A-3 (6e) |  | 2730 combinaisons : 92 passées (couverture par paires) | ×1 |
 | 6N1A-4 (6e) |  | 588 combinaisons : 50 passées (couverture par paires) | ×1 |
 | 6N1A-7 (6e) |  | 2376 combinaisons : 100 passées (couverture par paires) | ×1 |
+| 6N1H-4 (6e) |  | 77 combinaisons : 77 passées (couverture par paires) | ×1 |
 | 6N2autoC (6e) |  | 240 combinaisons : 31 passées (couverture par paires) | ×1 |
 | 6N2E (6e) |  | 256 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 6N3autoD-2 (6e) |  | 1536 combinaisons : 73 passées (couverture par paires) | ×1 |
 | 6N3autoD-3 (6e) |  | 468 combinaisons : 118 passées (couverture par paires) | ×1 |
+| 6N3F-1 (6e) |  | 128 combinaisons : 65 passées (couverture par paires) | ×1 |
 | 6N3H-1 (6e) |  | 4992 combinaisons : 109 passées (couverture par paires) | ×1 |
 | 6N3M (6e) |  | 480 combinaisons : 121 passées (couverture par paires) | ×1 |
 | 6N3O (6e) |  | 375 combinaisons : 78 passées (couverture par paires) | ×1 |
@@ -16760,6 +16768,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 10QCM-15 (10e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 10QCM-15 (10e) | titre | titre terminé par un point : Calculer avec inverse, double, carré, ... | ×1 |
 | 11QCM-5 (11e) | relecture | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » → La pente | ×1 |
 | 11QCM-80 (11e) | relecture | Énoncé et correction : « Le pente m … est égal » (La pente … est égale) ; titre « coefficient directeur » (même défaut que 11QCM-5) → La pente … égale | ×1 |
@@ -16778,10 +16787,12 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1A-A01-7 (1e) | src/exercices/1e/1A-A01-7.ts:10 | titre sans infinitif en tête : France métropole Sans Spécialité | ×1 |
 | 1A-A01-8 (1e) | src/exercices/1e/1A-A01-8.ts:14 | titre sans infinitif en tête : France métropole Techno | ×1 |
 | 1A-A01-9 (1e) | src/exercices/1e/1A-A01-9.ts:10 | titre sans infinitif en tête : Antilles Guyane Spécialité | ×1 |
+| 1A-C10-4 (1e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 1AL20-11 (1e) | relecture | Titre : « discriminant  d'une » deux espaces → Un seul espace | ×1 |
 | 1AL23-23 (1e) | relecture | uuid « fe4dg » contient un caractère non hexadécimal (les autres sont en hexadécimal) → Vérifier l'uuid | ×1 |
 | 1AN14-1 (1e) | relecture | Titre contenant du LaTeX brut « $\lambda u$ » (aussi 1AN14-4 « $u + v$ ») → Titre lisible ou rendu LaTeX | ×1 |
 | 1G10-5 (1e) | relecture | Titre : « Calculer un  produit scalaire » deux espaces (aussi 1G10-6) → Un espace | ×1 |
+| 1G10-6 (1e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 1G10-7 (1e) | relecture | Titre « Al-Kashi » mais correction « Al Kashi » → Harmoniser en Al-Kashi | ×1 |
 | 1P10-3 (1e) | relecture | Titre : « Calculer  une » deux espaces → Un espace | ×1 |
 | 1Tec-D13 (1e) | relecture | Titre : « tangente  avec image et nombre dérivée » (deux espaces ; « nombre dérivé ») → nombre dérivé | ×1 |
@@ -16789,10 +16800,13 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1mF3-16 (1re Collège) | relecture | Titre « Trouver l'extremum à partir d'une forme canonique » mais l'exercice demande l'axe de symétrie de la parabole (forme développée) → Titre : Déterminer l'axe de symétrie d'une parabole | ×1 |
 | 2A (2e) | src/exercices/2e/2a-automatismes.ts:10 | titre sans infinitif en tête : Sélection d'automatismes | ×1 |
 | 2A-F1-3 (2e) | src/exercices/1e/1A-F01-3.ts:34 | titre sans infinitif en tête : Retrouver, graphiquement, la phrase correcte avec des images et antécédents | ×1 |
+| 2A-N4-3 (2e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 2A-N4-3 (2e) | src/exercices/1e/1A-C04-3.ts:19 | titre terminé par un point : Calculer avec inverse, double, carré, ... | ×1 |
 | 2A-N4-3 (2e) | titre | titre terminé par un point : Calculer avec inverse, double, carré, ... | ×1 |
+| 2A-N4-4 (2e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 2A-N4-4 (2e) | src/exercices/1e/1A-C04-4.ts:18 | titre terminé par un point : Calculer avec tiers, quart, demi, ... | ×1 |
 | 2A-N4-4 (2e) | titre | titre terminé par un point : Calculer avec tiers, quart, demi, ... | ×1 |
+| 2F21-9 (2e) |  | Majuscule sans accent dans le titre : « Etudier » (balayage automatique) → É | ×1 |
 | 2G34-2 (2e) | relecture | Titre terminé par un point ; « couple de points » au lieu de « couple de réels »/« couple » → Retirer le point final | ×1 |
 | 2G34-2 (2e) | src/exercices/2e/2G34-2.ts:18 | titre terminé par un point : Tester si un couple de points vérifie un système de deux équations à deux inconnues. | ×1 |
 | 2G34-2 (2e) | titre | titre terminé par un point : Tester si un couple de points vérifie un système de deux équations à deux inconnues. | ×1 |
@@ -16803,6 +16817,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2P20-3 (2e) | relecture | Titre : « Calculer  une » deux espaces → Un espace | ×1 |
 | 2mEqCar-3 (2e Collège) | relecture | uuid « asdea » non hexadécimal (valeur de saisie au clavier) → Vrai uuid | ×1 |
 | 2mFctRat-1 (2e Collège) | relecture | Titre : « homographiquee » (homographique) ; uuid « 2rgct » non hexadécimal → homographique | ×1 |
+| 2mIneq-13 (2e Collège) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 2mLogExp-8 (2e Collège) | relecture | Titre : « croissance  et » deux espaces → Un espace | ×1 |
 | 2mLogExp-9 (2e Collège) | relecture | uuid « 2l9cb » non hexadécimal (aussi 2mLogExp-10 « 2l10e ») → Vrai uuid | ×1 |
 | 2mTrigoTri-5 (2e Collège) | src/exercices/ch/2mTrigo-5.ts:35 | titre sans infinitif en tête : Résolution de triangles (cas non ambigus) | ×1 |
@@ -16826,9 +16841,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3C1QCM-04 (3e) | src/exercices/QCMBrevet/A2022/MS22E1Q1.ts:15 | titre sans infinitif en tête : Calcul avec des puissances (septembre 2022 Métropole) | ×1 |
 | 3C1QCM-05 (3e) | src/exercices/QCMBrevet/A2021/AJ21E1Q5.ts:17 | titre sans infinitif en tête : Puissances (06/2021 Asie) | ×1 |
 | 3C1QCM-06 (3e) | src/exercices/QCMBrevet/A2020/AGS20E2Q4.ts:15 | titre sans infinitif en tête : Notation scientifique (09/2020 Antilles-Guyane) | ×1 |
+| 3C1QCM-07 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3C1QCM-07 (3e) | src/exercices/QCMBrevet/A2019/NCD19E1Q3.ts:14 | titre sans infinitif en tête : Puissances de 10 et ordre de grandeur (12/2019 Nouvelle-Calédonie) | ×1 |
 | 3F14DNB-1 (3e) | src/exercices/3e/3F14DNB-1.ts:22 | titre sans infinitif en tête : Préparation DNB : Fonctions, tableur et équation produit nul | ×1 |
 | 3F24DNB-1 (3e) | src/exercices/3e/3F24DNB-1.ts:32 | titre sans infinitif en tête : Préparation DNB : Fonctions, fonction affine, tableur et équation produit-nul | ×1 |
+| 3F2QCM-1 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3F2QCM-1 (3e) | src/exercices/QCMBrevet/A2022/AN22E2Q3.ts:16 | titre sans infinitif en tête : Fonction linéaire (Juin 2022 Amérique du nord) | ×1 |
 | 3G10-2 (3e) | src/exercices/3e/3G10-2.ts | Énoncé et correction : « angle 90° » : nombre et degré hors $ → $90^\circ$ | ×1 |
 | 3G12-1 (3e) | src/exercices/3e/3G12-1.ts | Énoncé : « figure 80 », « centre G » hors $ (4G11-1 pareil) → Nombres et points entre $ | ×1 |
@@ -16838,6 +16855,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G1QCM-5 (3e) | src/exercices/QCMBrevet/A2024/MJ24E4Q4bis.ts:26 | titre sans infinitif en tête : Rotations (2024 Métropole sujet de secours) | ×1 |
 | 3G1QCM-6 (3e) | src/exercices/3e/3G1QCM-6.ts | Énoncé : « tournée 2 fois de 30° », « droite (d) » hors $ ; correction « motif 3 » (aussi 3G1QCM-5) → Nombres et points entre $ | ×1 |
 | 3G1QCM-6 (3e) | src/exercices/QCMBrevet/A2024/MJ24E4Q3bis.ts:24 | titre sans infinitif en tête : Symétrie (2024 Métropole sujet de secours) | ×1 |
+| 3G20DNB0 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3G20DNB0 (3e) | src/exercices/3e/3G20DNB0.ts:27 | titre sans infinitif en tête : Se préparer au DNB : Thalès, Pythagore, aire | ×1 |
 | 3G2QCM-1 (3e) | src/exercices/QCMBrevet/A2013/PJ13E1Q3.ts:15 | titre sans infinitif en tête : Agrandissement volume (2013 Polynésie) | ×1 |
 | 3G30DNB0 (3e) | src/exercices/3e/3G30DNB0.ts:31 | titre sans infinitif en tête : Se préparer au DNB : Pythagore, trigonométrie, aire, volume | ×1 |
@@ -16859,9 +16877,12 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L1QCM-04 (3e) | src/exercices/QCMBrevet/A2023/MS23E1Q3.ts:17 | titre sans infinitif en tête : Calcul expression 2nd degré (septembre 2023 Métropole) | ×1 |
 | 3L1QCM-05 (3e) | src/exercices/QCMBrevet/A2013/PJ13E1Q4-2.ts:14 | titre sans infinitif en tête : Calcul littéral factorisation (2013 Centres étrangers) | ×1 |
 | 3L1QCM-06 (3e) | src/exercices/QCMBrevet/A2013/PJ13E1Q4.ts:14 | titre sans infinitif en tête : Calcul littéral factorisation (2013 Polynésie) | ×1 |
+| 3L1QCM-07 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3L1QCM-07 (3e) | src/exercices/QCMBrevet/A2022/MS22E1Q3.ts:15 | titre sans infinitif en tête : Calcul littéral développement (septembre 2022 Métropole) | ×1 |
+| 3L1QCM-08 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3L1QCM-08 (3e) | src/exercices/QCMBrevet/A2022/MS22E1Q4.ts:15 | titre sans infinitif en tête : Équation produit nul (septembre 2022 Métropole) | ×1 |
 | 3L1QCM-09 (3e) | src/exercices/QCMBrevet/A2021/AJ21E1Q4.ts:17 | titre sans infinitif en tête : Équation type $x^2=a$ (06/2021 Asie) | ×1 |
+| 3L1QCM-10 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3L1QCM-10 (3e) | src/exercices/QCMBrevet/A2020/AGS20E2Q5.ts:14 | titre sans infinitif en tête : Calcul littéral développement (09/2020 Antilles-Guyane) | ×1 |
 | 3P11-1 (3e) | src/exercices/egaliteFG/egaliteFG14.ts:15 | titre sans infinitif en tête : Au pressing et à la table à repasser | ×1 |
 | 3P1QCM-1 (3e) | src/exercices/QCMBrevet/A2023/NCD23E1Q3.ts:16 | titre sans infinitif en tête : Calcul d'un pourcentage (12/2023 Nouvelle Calédonie) | ×1 |
@@ -16873,8 +16894,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3S20DNB (3e) | src/exercices/3e/3S20DNB.ts | Correction : « numéro 30 », « 37 numéros » hors $ → $30$, $37$ | ×1 |
 | 3S2QCM-1 (3e) | src/exercices/QCMBrevet/A2023/NCD23E1Q1.ts:16 | titre sans infinitif en tête : Probabilité (12/2023 Nouvelle Calédonie) | ×1 |
 | 3S2QCM-2 (3e) | src/exercices/QCMBrevet/A2020/NCD20E1Q5.ts:16 | titre sans infinitif en tête : Probabilité simple (12/2020 Nouvelle Calédonie) | ×1 |
+| 3S2QCM-3 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3S2QCM-3 (3e) | src/exercices/QCMBrevet/A2022/MS22E1Q5.ts:17 | titre sans infinitif en tête : Probabilités (septembre 2022 Métropole) | ×1 |
 | 3S2QCM-4 (3e) | src/exercices/QCMBrevet/A2022/AN22E2Q1.ts:16 | titre sans infinitif en tête : Probabilités (Juin 2022 Amérique du nord) | ×1 |
+| 3S2QCM-5 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3S2QCM-5 (3e) | src/exercices/QCMBrevet/A2021/MS22E1Q2.ts:17 | titre sans infinitif en tête : Probabilités (septembre 2021 Métropole) | ×1 |
 | 3S2QCM-7 (3e) | src/exercices/QCMBrevet/A2023/MS23E1Q4.ts:15 | titre sans infinitif en tête : Probabilités (septembre 2023 Métropole) | ×1 |
 | 3Z1DNB-07 (3e) | src/exercices/3e/3Z1DNB-07.ts:29 | titre sans infinitif en tête : Se préparer au DNB : Pythagore, Thalès, trigonométrie | ×1 |
@@ -16889,6 +16912,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3Z1DNB-21 (3e) | src/exercices/3e/3Z1DNB-21.ts:26 | titre sans infinitif en tête : Se préparer au DNB : aires, prise d'initiative, volumes | ×1 |
 | 3Z1DNB-22 (3e) | src/exercices/3e/3Z1DNB-22.ts:29 | titre sans infinitif en tête : Préparation DNB : Statistiques, pourcentages, trigonométrie | ×1 |
 | 3Z1DNB-23 (3e) | src/exercices/3e/3Z1DNB-23.ts:17 | titre sans infinitif en tête : Préparation DNB : Probabilité, arithmétique | ×1 |
+| 3Z1DNB-25 (3e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 3Z1DNB-25 (3e) | src/exercices/3e/3Z1DNB-25.ts:20 | titre sans infinitif en tête : Se préparer au DNB : graphique, vitesse et proportionnalité | ×1 |
 | 3Z1OS-01 (3e) | src/exercices/3e/3Z1OS-01.ts:26 | titre sans infinitif en tête : Se préparer à la seconde : fonction, équation, calcul littéral | ×1 |
 | 3mComb-2 (3e Collège) | src/exercices/ | Correction : « de 0 à 9, soit 10 possibilités » : nombres hors $ → Nombres entre $ | ×1 |
@@ -16903,6 +16927,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4C2QCM-02 (4e) | src/exercices/QCMBrevet/A2022/MS22E1Q2.ts:16 | titre sans infinitif en tête : Fraction irréductible (septembre 2022 Métropole) | ×1 |
 | 4C2QCM-03 (4e) | src/exercices/QCMBrevet/A2022/AN22E2Q2.ts:15 | titre sans infinitif en tête : Ratios (Juin 2022 Amérique du nord) | ×1 |
 | 4C2QCM-04 (4e) | src/exercices/QCMBrevet/A2021/MS22E1Q1.ts:17 | titre sans infinitif en tête : Somme de fractions (septembre 2021 Métropole) | ×1 |
+| 4C2QCM-05 (4e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 4C2QCM-05 (4e) | src/exercices/QCMBrevet/A2021/AJ21E1Q6.ts:16 | titre sans infinitif en tête : Ratios (06/2021 Asie) | ×1 |
 | 4C2QCM-06 (4e) | src/exercices/QCMBrevet/A2020/AGS20E2Q3.ts:17 | titre sans infinitif en tête : Somme de fractions (09/2021 Antilles-Guyane) | ×1 |
 | 4G10 (4e) | src/exercices/4e/4G10.ts | Énoncé : « translation qui transforme B en N » : points hors $ (aussi 4G10-1 correction « 90$^\circ$ » nombre hors $) → $B$, $N$ ; $90^\circ$ | ×1 |
@@ -16917,9 +16942,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4L10-1 (4e) | src/exercices/4e/4L10-1.ts:16 | titre sans infinitif en tête : Réduire, si possible, une expression littérale simple | ×1 |
 | 4L13-2 (4e) | src/exercices/4e/4L13-2.ts | Correction : « 2 choix sont possibles » : 2 hors $ → $2$ | ×1 |
 | 4L15-1 (4e) | src/exercices/4e/4L15-1.ts | Correction : « On divise les deux membres par 8 . » : 8 hors $ et espace avant le point ; titre avec deux espaces (« du type  $\dfrac{x}{a}$ ») → « par $8$. » ; une seule espace | ×1 |
+| 4P1QCM-01 (4e) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 4P1QCM-01 (4e) | src/exercices/QCMBrevet/A2019/NCD19E1Q2.ts:15 | titre sans infinitif en tête : Proportionnalité et ordre de grandeur (12/2019 Nouvelle-Calédonie) | ×1 |
 | 4S11-3 (4e) | src/exercices/4e/4S11-3.ts | Énoncé : salaires « 2 200 €, 2 300 €… » hors $ ; titre « médianes » (pluriel) ; résultat ⟦6240⟧ sans espace fine → $2\,200\text{ €}$ ; « médiane » ; 6\,240 | ×1 |
 | 4S20 (4e) | src/exercices/4e/4S20.ts | Énoncé : « 26 desserts lactés », « 3 sont au chocolat »… hors $ → Nombres entre $ | ×1 |
+| 4S20-4 (4e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 4S20-4 (4e) | src/exercices/4e/4S20-4.ts:8 | titre terminé par un point : Calculer des probabilités. | ×1 |
 | 4S20-4 (4e) | titre | titre terminé par un point : Calculer des probabilités. | ×1 |
 | 4mProbStat-11 (4e Collège) | relecture | Énoncé : « club du 3ème age » (3e âge) ; titre « l'union et l'intersection  de » deux espaces → 3e âge | ×1 |
@@ -16951,12 +16978,16 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoF2-2 (6e) | src/exercices/6e/6N3autoC-1.ts:20 | titre sans infinitif en tête : Passer, de façon automatique, d'une valeur décimale à une valeur fractionnaire et réciproquement sur des valeurs simples | ×1 |
 | 6AutoF3 (6e) | src/exercices/6e/6N3autoB.ts:11 | titre sans infinitif en tête : Connaître, de façon automatique, les liens entre 1/4, 1/2 et 3/4 | ×1 |
 | 6AutoF3-1 (6e) | src/exercices/6e/6AutoF3-1.ts | Titre « Effectuer des calculs simples avec  des fractions » (double espace) → une espace | ×1 |
+| 6AutoG1-7 (6e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 6AutoG1-7 (6e) | src/exercices/6e/6G1autoA.ts:29 | titre terminé par un point : Tracer des droites, segments, ... | ×1 |
 | 6AutoG1-7 (6e) | titre | titre terminé par un point : Tracer des droites, segments, ... | ×1 |
+| 6AutoN4 (6e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 6AutoN4 (6e) | src/exercices/6e/6AutoN4.ts:21 | titre terminé par un point : Multiplier un décimal par 10, 100, 1000, 0,1, 0,01, 0,001... | ×1 |
 | 6AutoN4 (6e) | titre | titre terminé par un point : Multiplier un décimal par 10, 100, 1000, 0,1, 0,01, 0,001... | ×1 |
+| 6AutoN4-1 (6e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 6AutoN4-1 (6e) | src/exercices/6e/6N2C.ts:16 | titre terminé par un point : Diviser par 10, 100, 1 000 revient à .... | ×1 |
 | 6AutoN4-1 (6e) | titre | titre terminé par un point : Diviser par 10, 100, 1 000 revient à .... | ×1 |
+| 6AutoN4-4 (6e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 6AutoN4-4 (6e) | src/exercices/6e/6N2C-2.ts:20 | titre terminé par un point : Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ... ‖ titre sans infinitif en tête : Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ... | ×2 |
 | 6AutoN4-4 (6e) | titre | titre terminé par un point : Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ... | ×1 |
 | 6AutoP1-1 (6e) | src/exercices/6e/6P3autoA-2.ts:11 | titre sans infinitif en tête : Quart | ×1 |
@@ -16996,6 +17027,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6P2B-1 (6e) | src/exercices/6e/6P2B-1.ts | Énoncé et correction : « 26 desserts lactés », « 3 sont au chocolat »… tous les nombres hors des $ (la correction mélange « 6 chances sur 26 » texte et $\dfrac{6}{26}$) ; 570 N1 (nombres) ; effectifs vérifiés (3+6+6+6+5=26). → $26$, $3$, $6$ entre dollars. | ×1 |
 | 9FA2B-17 (9e) | src/exercices/CM2/CM2N5C-4.ts:18 | titre sans infinitif en tête : Au marché (addition et soustraction de masses, conversions) | ×1 |
 | 9NO3C-16 (9e) | src/exercices/CM2/CM2N5C-6.ts:23 | titre sans infinitif en tête : La bouteille (problème de conversion avec fraction simple) | ×1 |
+| 9QCM-2 (9e) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 9QCM-2 (9e) | titre | titre terminé par un point : Calculer avec tiers, quart, demi, ... | ×1 |
 | 9QCM-5 (9e) | src/exercices/QCMBrevet/A2022/AN22E2Q4.ts:15 | titre sans infinitif en tête : Nombres premiers (Juin 2022 Amérique du nord) | ×1 |
 | BP1AUTO055 (BP1) | src/exercices/bp1/BP1AUTO055.ts:2 | titre sans infinitif en tête : Fonctions linéaires | ×1 |
@@ -17004,19 +17036,55 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | BP1AUTO096 (BP1) | src/exercices/bp1/BP1AUTO096.ts:2 | titre sans infinitif en tête : Calculs de volumes | ×1 |
 | BP1GEO01 (BP1) | src/exercices/bp1/BP1GEO01.ts:2 | titre sans infinitif en tête : Cosinus et sinus des valeurs particulières | ×1 |
 | BP2AutoQ3 (BP2) | src/exercices/CM/c3N30.ts:2 | titre sans infinitif en tête : Conversion d'unités des préfixes k,h,da vers unité de référence | ×1 |
+| can1D2-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can1G2-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can1G2-05 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can1S1-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can1S21-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can1S22-06 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can1SD21-06 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
 | can1SD23-01 (CAN) | src/exercices/can/1e/can1SD23-01.ts:15 | Titre « Déterminer le sens de variation d'un pôlynome du second degré » → polynôme | ×1 |
+| can1SD3-04 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can2G20-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can2L11-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
 | can2N3-01 (CAN) | src/exercices/can/2e/can2N3-01.ts | Titre « Simplifier un quotient de nombre relatifs » → nombres relatifs | ×1 |
 | can2N4-02 (CAN) | src/exercices/can/2e/can2N4-02.ts:9 | Titre « Calculer avec  des puissances* » : double espace et astérisque → Calculer avec des puissances | ×1 |
+| can2N4-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can2N5-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can2N5-04 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
 | can2N5-05 (CAN) | src/exercices/can/2e/can2N5-05.ts:7 | Titre terminé par une espace « Calculer avec des racines carrées  » → retirer l'espace finale | ×1 |
+| can2P2-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can2P2-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can3F3-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can3G1-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can4C21-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | can4C21-03 (CAN) | src/exercices/can/4e/can4C21-03.ts:4 | titre terminé par un point : Calculer une fraction de dénominateur 0,25 ou 0,1 ... | ×1 |
 | can4C21-03 (CAN) | titre | titre terminé par un point : Calculer une fraction de dénominateur 0,25 ou 0,1 ... | ×1 |
+| can4L2-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can5C2-04 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | can5C2-04 (CAN) | src/exercices/can/5e/can5C2-04.ts:9 | titre terminé par un point : Multiplier par 1,5 ou 2,5 ou ... | ×1 |
 | can5C2-04 (CAN) | titre | titre terminé par un point : Multiplier par 1,5 ou 2,5 ou ... | ×1 |
+| can5C3-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can5C4-10 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can5C5-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can5C5-04 (CAN) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
+| can5D-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can5P1-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can5P1-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
 | can6a-Aléa (CAN) | src/exercices/can/6e/can6a-alea.ts:11 | titre sans infinitif en tête : Choix aléatoires des questions | ×1 |
+| can6C52-04 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can6C6-05 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can6C6-07 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
 | can6M3-03 (CAN) | src/exercices/can/6e/can6M3-03.ts:7 | titre sans infinitif en tête : Volume de pavé droit | ×1 |
 | can6M3-04 (CAN) | src/exercices/can/6e/can6M3-04.ts:13 | titre sans infinitif en tête : Volume de pavé droit par dénombrement de cubes unités | ×1 |
+| can6N1-04 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | can6N1-04 (CAN) | src/exercices/can/6e/can6N1-04.ts:6 | titre terminé par un point : Déterminer le chiffre des ... | ×1 |
 | can6N1-04 (CAN) | titre | titre terminé par un point : Déterminer le chiffre des ... | ×1 |
+| can6N21-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can6N21-03 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| can6P1-02 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| canc3C08 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
+| canc3C10 (CAN) |  | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) → nettoyer le titre | ×1 |
 | canTEC1-01 (CAN) | src/exercices/can/Ex/canTEC1-01.ts:10 | titre sans infinitif en tête : Somme de nombres complexes | ×1 |
 | canTEC1-02 (CAN) | src/exercices/can/Ex/canTEC1-02.ts:14 | Titre « produit de nombres complexes » (minuscule, sans verbe) → Calculer le produit de nombres complexes | ×1 |
 | canTEC1-02 (CAN) | src/exercices/can/Ex/canTEC1-02.ts:14 | titre sans infinitif en tête : produit de nombres complexes | ×1 |
@@ -17249,6 +17317,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1bb30 (Non classés) | relecture | Titre « à partir de deux points » mais l'énoncé donne un point et un vecteur normal (doublon CH de 1G21-1) → Titre cohérent | ×1 |
 | 1eb36 (Non classés) | relecture | Exercice modèle exposé : titre « Nom de l'exercice », consigne « consigne » → Compléter le titre et la consigne ou retirer l'exercice du référentiel | ×1 |
 | 1eb36 (Non classés) | src/exercices/modèlesExos/30_constructions_géométriques.ts:16 | titre sans infinitif en tête : Nom de l'exercice | ×1 |
+| 2102b (Non classés) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | 23241 (Non classés) | relecture | Titre : « probabilté » (probabilité) → probabilité | ×1 |
 | 23b3e (Non classés) | relecture | Titre « Déterminer un encadrement avec la fonction carré » mais l'exercice demande l'écriture décimale de 7,2·10^{-4} → Titre cohérent | ×1 |
 | 25143 (Non classés) | relecture | Titre contenant « (ancien exercice) » visible dans le référentiel → Retirer la mention ou retirer l'exercice du référentiel | ×1 |
@@ -17280,6 +17349,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4ed52 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q15.ts:7 | titre sans infinitif en tête : Division euclidienne | ×1 |
 | 4ih30 (Non classés) | relecture | Titre « Calculer le périmètre d'un rectangle » mais l'exercice est un rendu de monnaie → Titre : Calculer un rendu de monnaie | ×1 |
 | 4r5kj (Non classés) | relecture | Titre « Question 12 » (titre de CAN/test, pas un intitulé) → Renseigner le titre | ×1 |
+| 5120f (Non classés) |  | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) → nettoyer le titre | ×1 |
 | 5120f (Non classés) | titre | titre terminé par un point : Utiliser le dénombrement et les probabilités élémentaires. | ×1 |
 | 5160f (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q2.ts:3 | titre sans infinitif en tête : Tables de multiplication | ×1 |
 | 5494d (Non classés) | relecture | Titre « Calculer une dérivée » mais l'exercice porte sur l'orthogonalité de deux vecteurs → Titre cohérent | ×1 |
@@ -17420,6 +17490,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | TSA4-QCM02 (Terminale) | src/exercices/QCMBac/A2022/Polynesie2022_2Q3.ts | Propositions du QCM « 3 », « 1 », « 0 », « 2 » hors des $ ; correction : « ⟦a trois solutions.⟧ » texte (avec le point final) dans la mise en évidence ; décimaux 0,9 non écrits en {,}. → $3$ ; texteEnCouleurEtGras('trois solutions'). | ×1 |
 | TSA4-QCM02 (Terminale) | src/exercices/QCMBac/A2022/Polynesie2022_2Q3.ts:13 | titre sans infinitif en tête : Polynésie 05/22 : équation | ×1 |
 | TSA5-10 (Terminale) | src/exercices/TSpe/TSA5-10.ts | Correction : « pour tous réels a et b strictement positifs » : a, b et n hors des $ ; espaces insécables inutiles (⍽) avant les formules. → $a$, $b$, $n$ entre dollars. | ×1 |
+| TSA5-31 (Terminale) |  | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) → nettoyer le titre | ×1 |
 | TSA5-QCM01 (Terminale) | src/exercices/QCMBac/A2023/AmNordAout2023Q1.ts:12 | titre sans infinitif en tête : Amérique 08/23 : limite | ×1 |
 | TSA5-QCM02 (Terminale) | src/exercices/QCMBac/A2022/Etrangers2022_2Q1_alea.ts | Correction : « Si a et b sont deux réels strictement positifs » : a et b hors des $ ; équivalences coupées en trois blocs aligned avec \phantom{6+12}. → $a$ et $b$ entre dollars ; un seul bloc aligned. | ×1 |
 | TSA5-QCM02 (Terminale) | src/exercices/QCMBac/A2022/Etrangers2022_2Q1_alea.ts:17 | titre sans infinitif en tête : Centres étrangers 05/22 : équation | ×1 |
@@ -18735,14 +18806,17 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 
 | Exercice | Où | Constat | Tirages |
 | --- | --- | --- | --- |
+| 1AL12-20 (1e) |  | Majuscule sans accent : « . Etudier » (balayage automatique) → É | ×1 |
 | 1AL12-20 (1e) | titre | majuscule sans accent : Etudier le sens de variation d'une suite définie d | ×1 |
 | 1AL12-20 (1e) | énoncé q1 | majuscule sans accent : . Etudier le sens de variation de la suite | ×22 ; sup=4 ; sup=1… (revue-0-a) |
+| 1AL12-21 (1e) |  | Majuscule sans accent : « . Etudier » (balayage automatique) → É | ×1 |
 | 1AL12-21 (1e) | titre | majuscule sans accent : Etudier le sens de variation d'une suite définie p | ×1 |
 | 1AL12-21 (1e) | énoncé q1 | majuscule sans accent : . Etudier le sens de variation de la suite | ×22 ; sup=4 ; sup=1… (revue-0-a) |
 | 2A-G2-1 (2e) | src/exercices/2e/ | Correction : miseEnEvidence englobe « A(5 ; −2) » avec le nom du point alors que les champs attendent seulement 5 et −2 → Mettre en évidence les deux valeurs | ×1 |
 | 2F21-9 (2e) | titre | majuscule sans accent : Etudier une fonction affine à partir de son expres | ×1 |
 | 2N11-2 (2e) | correction q1 | majuscule sans accent : pas. A partir de la graduation | ×13 ; sup=3 sup2=true sup3=true ; sup=3 sup2=false sup3=true… (revue-9-a) |
 | 3AutoP01-2 (3e) | src/exercices/3e/3AutoP01-2.ts | Le champ attend « 100 » (unité km déjà affichée après le champ) mais la correction met en évidence « 100\textbf{ km} » avec l'unité → Mettre en évidence 100 seul | ×1 |
+| BP1AA08 (BP1) |  | Majuscule sans accent : « . Etudier » (balayage automatique) → É | ×1 |
 | BP1AA08 (BP1) | énoncé q1 | majuscule sans accent : . Etudier le sens de variation de la suite | ×13 ; défaut ; défaut nb=10 (revue-0-a) |
 | can3F2-05 (CAN) | src/exercices/can/3e/can3F2-05.ts | « son ordonnée $3$. les » (minuscule après un point) ; can3G2-03 : « ⟦12/13⟧.$ » (point dans la formule). → Les | ×1 |
 | can6N3-02 (CAN) | src/exercices/can/6e/can6N3-02.ts | Énoncé « Determiner l'abscisse du point $A$. » (accent manquant) ; correction « du point A » hors maths, sans point final. → Déterminer l'abscisse du point $A$. | ×1 |
@@ -18809,8 +18883,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 10QCM-47 (10e) | relecture | Énoncé : « connait » (connaît) → connaît | ×1 |
 | 11FA2A-6 (11e) | relecture | Correction : « Dans une 1 heure, il y a » (Dans 1 heure) → Dans $1$ heure | ×1 |
 | 11FA4E-2 (11e) | relecture | Énoncé : « Le périmètre P d'un rectangle est donnée » (donné) → est donné | ×1 |
+| 11QCM-77 (11e) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
+| 1A-A01-1 (1e) |  | Mot répété : « par par » (balayage automatique) → supprimer le doublon | ×1 |
 | 1A-A01-1 (1e) | correction q2 | mot répété « par par » : , on multiplie le volume visible par par | ×4 ; sup=false sup4=false ; sup=true sup4=true… (revue-0-a) |
 | 1A-C15-3 (1e) | correction q1 | élision manquante « que Alice » : . La fraction de la dépense totale que Alice doit donner à Louis est donc | ×9 ; sup3=false ; sup3=true… (revue-0-a) |
+| 1A-F02-11 (1e) |  | Coquille : « coeffcient » (balayage automatique) → corriger la coquille | ×1 |
 | 1A-F02-13 (1e) | src/exercices/1e/ | Correction : guillemets droits "les bras" tournés vers le bas (aussi 1A-F02-14) → Guillemets français | ×1 |
 | 1A-F08-2 (1e) | relecture | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) → est donné | ×1 |
 | 1A-F08-3 (1e) | relecture | Correction : « Le coefficient directeur m … est donnée par la formule » (accord) → est donné | ×1 |
@@ -18824,12 +18901,18 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1AL13-1 (1e) | énoncé q10 | élision manquante « de Alice » : Le salaire de Alice augmente de ‖ élision manquante « de Alice » : par an. Quels étaient les salaires annuels de Alice et de Benoît en ‖ élision manquante « de Alice » : ? On modélise les salaires de Alice et de Benoît à l'aide de suites. On not | ×6 ; sup=11 nb=10 (revue-11-a) |
 | 1AL13-1 (1e) | correction q10 | élision manquante « de Alice » : Tous les ans le salaire de Alice augmente de ‖ élision manquante « de Alice » : . Le salaire de Alice en ‖ élision manquante « de Alice » : €. Comme le salaire de Alice augmente de | ×6 ; sup=11 nb=10 (revue-11-a) |
 | 1AN20-5 (1e) | relecture | Correction : « ne s'annule pas $\mathbb{R}\smallsetminus\{-5\}$ » (manque « sur ») → ne s'annule pas sur | ×1 |
+| 1G10-8 (1e) |  | Mot répété : « que que » (balayage automatique) → supprimer le doublon | ×1 |
 | 1G10-8 (1e) | correction q1 | mot répété « car car » : car car les vecteurs ‖ mot répété « que que » : , on en déduit que que les vecteurs ‖ mot répété « que que » : , on en déduit que que que les vecteurs | ×6 ; sup=3 ; sup=4… (revue-3-a) |
+| 1G21-5 (1e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | 1G21-5 (1e) | correction q3 | mot répété « de de » : . On procède de la même manière pour éliminer | ×1 ; défaut (revue-0-a) |
 | 1mCL4-2 (1re Collège) | relecture | Consigne : « Résoudre $\mathbb{R}$ les équations » (manque « dans ») → Résoudre, dans $\mathbb{R}$, | ×1 |
+| 1mQCM-2 (1re Collège) |  | Coquille : « coeffcient » (balayage automatique) → corriger la coquille | ×1 |
 | 2A (2e) | relecture | Énoncé : « chargement... » (meta-custom jamais rempli dans le banc, voir 3Auto) → Voir bug meta-custom | ×1 |
+| 2A-A01-1 (2e) |  | Mot répété : « par par » (balayage automatique) → supprimer le doublon | ×1 |
 | 2A-A01-1 (2e) | correction q2 | mot répété « par par » : , on multiplie le volume visible par par | ×3 ; sup=false sup4=false ; sup=true sup4=true… (revue-0-a) |
+| 2A-E1-1 (2e) |  | Mot répété : « est est » (balayage automatique) → supprimer le doublon | ×1 |
 | 2A-E1-1 (2e) | correction q2 | mot répété « est est » : est est | ×4 ; défaut nb=10 (revue-1-a) |
+| 2F31-1 (2e) |  | Mot répété : « est est » (balayage automatique) → supprimer le doublon | ×1 |
 | 2F31-1 (2e) | correction q1 | mot répété « est est » : . La valeur systolique mesurée est est donnée par l'ordonnée du point le plus hau ‖ mot répété « est est » : mmHg. La valeur diastolique mesurée est est donnée par l'ordonnée du point le plus bas | ×4 ; sup=8 ; sup=12 nb=10 (revue-8-a) |
 | 2G11-3 (2e) | relecture | Énoncé : « Les valeurs d'angle seront arrondis au degré près » (accord) → seront arrondies | ×1 |
 | 2G12-3 (2e) | src/exercices/2e/2G12-3.ts:191,349 | Correction : « En utilisant les milieux : : » deux deux-points (texteGras('… :') suivi de ' :') → Retirer un des deux | ×1 |
@@ -18849,6 +18932,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3G40-1 (3e) | énoncé q1 | élision manquante « de Addis-Abeba » : Quelle est la longitude de Addis-Abeba dont les coordonnées GPS sont ‖ élision manquante « de Ankara » : Quelle est la latitude de Ankara dont les coordonnées GPS sont ‖ élision manquante « de Istanbul » : Quelle est la longitude de Istanbul ? [champ] | ×5 ; sup=false ; sup=true nb=10 (revue-1-a) |
 | 3G40-1 (3e) | correction q1 | élision manquante « de Addis-Abeba » : La longitude de Addis-Abeba est d'environ ‖ élision manquante « que Addis-Abeba » : plus, la longitude est positive, ce qui signifie que Addis-Abeba est située à l'est. ‖ élision manquante « de Ankara » : La latitude de Ankara est d'environ | ×7 ; sup=false ; sup=true nb=10 (revue-1-a) |
 | 3G41-1 (3e) | titre | mot répété « un un » : Construire la section d'un plan dans un un pavé droit | ×1 |
+| 3L12-3 (3e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | 3L12-3 (3e) | correction q1 | mot répété « de de » : On procède de la manière suivante | ×140 ; sup=1 sup2=1 sup3=1 sup4=1 sup5=1 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2… (revue-0-a) |
 | 3S20-3 (3e) | énoncé q1 | ligature œ manquante « Coeur » : le. Le deuxième tas contient 6 cartes : Valet de Coeur, Roi de Pique, As de Trèfle, Valet de Pique, ‖ ligature œ manquante « Coeur » : s de Trèfle, Valet de Pique, As de Carreau, As de Coeur. Le joueur tire une carte au hasard dans ch ‖ ligature œ manquante « Coeur » : et de Pique, Roi de Pique, As de Carreau, Dame de Coeur. Le deuxième tas contient 6 cartes : Roi de | ×9 ; sup=5 ; sup=0 nb=10 (revue-5-a) |
 | 3Z1DNB-09 (3e) | src/exercices/3e/3Z1DNB-09.ts | La correction recopie le bloc &lt;style> .cols-responsive de l'énoncé (dupliqué) → Ne pas recopier la feuille de style | ×1 |
@@ -18873,9 +18957,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N1E-1 (5e) | énoncé non interactif q2 | élision manquante « de Olivier » : le nombre indiqué par la cible. Voici les calculs de Olivier : | ×1 |
 | 5N1J-3 (5e) | titre | mot répété « de de » : Utiliser des critères de divisibilité de de 2, 3, 5, 9 et 10 | ×1 |
 | 5N1J-4 (5e) | correction q1 | mot répété « par par » : Pour qu'un nombre soit divisible par par | ×17 ; sup=2-6 ; sup=2… (revue-0-a) |
+| 5N3autoD (5e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | 5N3autoD (5e) | correction q1 | mot répété « de de » : . Pour les autres points on procède de la même façon. | ×322 ; sup=2-3-4-10 sup2=1-2-4-6 ; sup=2-3-4-10 sup2=0… (revue-0-a) |
 | 5N3autoD (5e) | correction non interactive q1 | mot répété « de de » : . Pour les autres points on procède de la même façon. | ×3 |
 | 5N3C (5e) | correction q2 | élision manquante « que Ulysse » : . C'est donc en VTT que Ulysse fait la plus grande distance. | ×1 ; sup=1 sup2=true (revue-2-a) |
+| 5N4autoB (5e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | 5N5C (5e) | src/exercices/5e/5N5C.ts | Correction : « $25≠24$ » caractère Unicode dans les maths ; « l'égalité n'est pas vraie » (texte) en miseEnEvidence → $25\neq 24$ ; texteEnCouleurEtGras | ×1 |
 | 5P1A-2 (5e) | correction q1 | élision manquante « de Yvette » : . Donc, l'échelle du plan de la ville du voisin de Yvette est de : ‖ élision manquante « de Yvette, » : signifie que, sur le plan de la ville du voisin de Yvette, ‖ élision manquante « de Yann » : . Donc, l'échelle du plan de la ville du frère de Yann est de : | ×6 ; sup=1 sup2=false ; sup=4 sup2=false nb=10 (revue-2-a) |
 | 5P1A-2 (5e) | énoncé q1 | élision manquante « de Ursule » : Le plan de la ville de la voisine de Ursule a une échelle de ‖ élision manquante « de Yann » : Le plan de la maison du père de Yann a une échelle de | ×2 ; sup=2 sup2=false ; sup=4 sup2=true (revue-4-a) |
@@ -18891,6 +18977,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6AutoS1-4 (6e) | énoncé non interactif q1 | élision manquante « de Adam » : L'emploi du temps de Adam Ce tableau donne une partie de l'emploi du ‖ élision manquante « de Adam. » : Ce tableau donne une partie de l'emploi du temps de Adam. un cours de SVT a lieu le Jeudi. un cours | ×2 |
 | 6I1B-2 (6e) | correction q1 | mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc ‖ mot répété « Blanc Blanc » : On obtient la série de couleurs suivante : Blanc Blanc Blanc Blanc Vert Noir ‖ mot répété « Blanc Blanc » : ient la série de couleurs suivante : Blanc Blanc Blanc Blanc Vert Noir | ×7 ; sup=3 sup2=1 sup3=3 sup4=false ; sup=1 sup2=1 sup3=6 sup4=true… (revue-7-a) |
 | 6M1C-1 (6e) | src/exercices/5e/5G2E-2.ts:112 | Correction : « 4.5\pi+9 » avec point décimal dans les maths (4{,}5) ; « 9 cm », « 4 cm » dans les phrases hors des $ ; « La figure est trois quarts d'un disque » (un disque aux trois quarts) ; la valeur attendue est tronquée (14.2) et le champ accepte aussi l'arrondi (+0,1) mais la correction montre 14,3 sans l'expliquer. → 4{,}5\pi+9 ; $9\text{ cm}$ ; « un trois-quarts de disque » ; préciser « arrondi au dixième ». | ×1 |
+| 6M2autoB (6e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
+| 6M3A (6e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | 6N0A-12 (6e) | 6e/6N0A-12.ts | Consigne : « compléter les tables de multiplication » pour des tableaux de produits partiels (une table de multiplication est autre chose). → « Dans chaque cas, compléter le tableau puis écrire le résultat de la multiplication. » | ×1 |
 | 6N0B-1 (6e) | 6e/6N0B-1.ts:129 | Double numérotation « 1. a) », « 2. b) » : numAlpha(i) ajouté à la numérotation de l'exercice. → Retirer numAlpha(i). | ×1 |
 | 6N0B-4 (6e) | 6e/6N0B-4.ts:73 | « je soustrais 9 au résultat » (on soustrait d'un nombre) ; « j'ajoute 3 puis je le multiplie par 9 » : « le » désigne le nombre choisi, pas la somme, alors que la correction multiplie la somme. → « je soustrais 9 du résultat » ; « j'ajoute 3 puis je multiplie le résultat par 9 ». | ×1 |
@@ -18909,6 +18997,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N2K-1 (6e) | correction q2 | ligature œ manquante « oeufs » : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour u ‖ ligature œ manquante « oeufs » : ra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour une boîte. ‖ ligature œ manquante « oeufs » : Il lui manquera 3 oeufs pour en remplir une de plus. | ×21 ; sup=9 ; sup=2… (revue-0-a) |
 | 6N2K-1 (6e) | énoncé non interactif q2 | ligature œ manquante « oeufs » : Un fermier ramasse 429 oeufs et souhaite les ranger dans des boîtes de 12 ‖ ligature œ manquante « oeufs » : ièrement faudra-t-il ? b) Combien manque-t-il d'oeufs pour en remplir une de plus ? | ×2 |
 | 6N2K-1 (6e) | correction non interactive q2 | ligature œ manquante « oeufs » : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour u ‖ ligature œ manquante « oeufs » : ra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour une boîte. ‖ ligature œ manquante « oeufs » : Il lui manquera 3 oeufs pour en remplir une de plus. | ×3 |
+| 6N3M (6e) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | 6N3M (6e) | correction q1 | mot répété « de de » : , on peut dire que l'ensemble des livres jeunesse de de cette librairie représente ‖ mot répété « de de » : des livres jeunesse de de cette librairie sont des livres jeunesse des | ×14 ; sup=10 sup2=1-2-3 sup3=12 ; sup=1 sup2=1-2-3 sup3=1… (revue-0-a) |
 | 6N3M (6e) | énoncé q1 | élision manquante « de Ursule, » : Dans une salle du cinéma de Ursule, il y a ‖ élision manquante « de Océane, » : Dans une salle du cinéma de Océane, il y a ‖ élision manquante « de Yvette, » : Dans une salle du cinéma de Yvette, il y a | ×7 ; sup=4 sup2=1 sup3=3 ; sup=4 sup2=2 sup3=2… (revue-14-a) |
 | 6N3M-1 (6e) | 6e/6N3M-1.ts | « l'heure est partagée en 4 parts égales » (4 hors $) ; « ce qui représente 3 fois plus » (3 fois plus que la part : tournure ambiguë, « 3 fois cette durée »). → $4$ ; « soit $3$ fois $15$ minutes ». | ×1 |
@@ -18927,6 +19016,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6P1autoA-4 (6e) | énoncé q4 | élision manquante « de Élodie, » : Voici l'emploi du temps de la semaine de Élodie, élève de 6e. Le tiret (-) signifie qu'i | ×1 ; sup=6 sup2=1-2-3-4 nb=10 (revue-36-a) |
 | 6P2B (6e) | énoncé q1 | élision manquante « que Yazid » : boule blanche. Quelle est la probabilité que Yazid pioche une boule blanche ? [champ] ‖ élision manquante « que Élodie » : boules blanches. Quelle est la probabilité que Élodie pioche une boule noire ? [champ] ‖ élision manquante « que Yasmine » : boules blanches. Quelle est la probabilité que Yasmine pioche une boule blanche ? [champ] | ×4 ; défaut nb=10 (revue-1-a) |
 | 6P2B (6e) | correction q1 | élision manquante « que Yazid » : boules. La probabilité que Yazid pioche une boule blanche est de ‖ élision manquante « que Élodie » : boules. La probabilité que Élodie pioche une boule noire est de ‖ élision manquante « que Yasmine » : boules. La probabilité que Yasmine pioche une boule blanche est de | ×4 ; défaut nb=10 (revue-1-a) |
+| 6P3B (6e) |  | Mot répété : « par par » (balayage automatique) → supprimer le doublon | ×1 |
 | 6P3B (6e) | correction q3 | mot répété « par par » : le nombre de jours triple, la quantité d’eau bue par par Nathalie triple aussi. | ×1 ; défaut nb=10 (revue-1-a) |
 | 6P3B-1 (6e) | src/exercices/6e/6P3B-1.ts | Titre « Reconnaitre » (Reconnaître) ; 31 R10 (valeurs du tableau en maths avec notation décimale à vérifier) ; tableau « \text{puzzles}&5&6… » : nombres du tableau sans \text ni séparateurs (862 N1) ; 76 phrases sans virgule ; 7 pages > 390 px (tableau à 6 colonnes). → Reconnaître ; tableau défilant. | ×1 |
 | 6P3B-1 (6e) | énoncé q1 | élision manquante « de Ursule » : e. L'âge de son père est-il proportionnel à l'âge de Ursule ? [champ] ‖ élision manquante « de Yvette » : e. L'âge de son père est-il proportionnel à l'âge de Yvette ? [champ] ‖ élision manquante « de Elsa » : e. L'âge de son père est-il proportionnel à l'âge de Elsa ? [champ] | ×4 ; sup=3 sup2=true ; sup=3 sup2=false (revue-5-a) |
@@ -18936,6 +19026,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6P3E (6e) | correction q1 | élision manquante « de Yvette » : . Donc, l'échelle du plan de la ville du voisin de Yvette est de : ‖ élision manquante « de Yvette, » : signifie que, sur le plan de la ville du voisin de Yvette, ‖ élision manquante « de Aude » : . Donc, l'échelle du plan du pays du voisin de Aude est de : | ×4 ; sup=1 sup2=true ; sup=4 sup2=false (revue-2-a) |
 | 6P3E (6e) | énoncé non interactif q1 | élision manquante « de Yazid » : Le plan du pays du cousin de Yazid a une échelle de | ×1 |
 | 9FA2B-15 (9e) | correction q1 | mot répété « ne ne » : Hélène ne payerait que | ×1 ; sup=6 sup2=true sup3=true sup4=1 (revue-13-a) |
+| BP1CF01 (BP1) |  | Mot répété : « est est » (balayage automatique) → supprimer le doublon | ×1 |
 | BP1CF01 (BP1) | correction q2 | mot répété « est est » : est est | ×4 ; défaut nb=10 (revue-1-a) |
 | BP1F2D06 (BP1) | src/exercices/BP1/BP1F2D06.ts | « $\mathscr{f}$ » : la lettre f n'a pas de forme calligraphique (rendu dégradé) ; « Séparer les racines par un point-virgule » : champ à saisir en texte, forme (1;3) non précisée ; 17 M1. → $f$ ; préciser « sans espace ». | ×1 |
 | BP2AutoD3 (BP2) | src/exercices/BP2/BP2AutoD3.ts | Série écrite « $29$$ ⍽; 18$$ ⍽; 11$$ … $ » : dollars doublés ($$ = mode display) entre les valeurs : 23 T5/T6, rendu avec blocs centrés possibles ; énoncé « La moyenne de la série ci-dessous est ... » points de suspension en texte (23 T6) ; calcul vérifié (234/13=18). → $29~;~18~;~11~;…$ en un dollar ; « est : ». | ×1 |
@@ -18946,6 +19037,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can1a-2024 (CAN) | src/exercices/can/can1a-2024/can1a-2024-Q20.ts:51 | Q20 : « l'espérance mathématiques » ; Q14 : « L' ordonnée » (espace après l'apostrophe) → mathématique ; L'ordonnée | ×1 |
 | can1a-2025 (CAN) | src/exercices/can/can1a-2025/can1a-2025-Q26.ts:42 | Q26 : « le taux d'évolution globale » → taux d'évolution global | ×1 |
 | can1a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q15 (officiel) : « cette équation a ⟦1⟧ seule solution réelle : 0. » (minuscule après le point, 0 hors $) → Cette équation a une seule solution réelle : $0$. | ×1 |
+| can1a-NY2026 (CAN) |  | Coquille : « pout obtenir » (balayage automatique) → corriger la coquille | ×1 |
 | can1E1-01 (CAN) | src/exercices/1e/1AN30-2.ts:58 | Libellé du paramètre « Produit et puisances » → puissances | ×1 |
 | can1SD11-01 (CAN) | src/exercices/can/1e/can1SD11-01.ts:111 | « L'abscisse du sommet de la parabole est positif / négatif. Celui-ci est donné par » (accords) ; guillemets droits « "les bras" » → est positive / négative. Elle est donnée par | ×1 |
 | can1SD21-03 (CAN) | src/exercices/can/1e/can1SD21-03.ts:305 | « Un poduit de deux facteurs » → produit | ×1 |
@@ -18972,6 +19064,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can2G1-02 (CAN) | src/exercices/can/2e/can2G1-02.ts:79 | « multiplées » (aussi can3G1-01 et can4G2-05, 8 occurrences) → multipliées | ×1 |
 | can2G30-05 (CAN) | src/exercices/can/2e/can2G30-05.ts | « Le coefficient directeur … est donnée par la formule » → est donné | ×1 |
 | can2G30-06 (CAN) | src/exercices/can/2e/can2G30-06.ts | « le coeffcient directeur » → coefficient | ×1 |
+| can2I2-01 (CAN) |  | Mot répété : « est est » (balayage automatique) → supprimer le doublon | ×1 |
 | can2I2-01 (CAN) | correction q2 | mot répété « est est » : est est | ×4 ; défaut nb=10 (revue-1-a) |
 | can2L12-02 (CAN) | src/exercices/can/2e/can2L12-02.ts:224 | « Le périmètre $P$ d'un rectangle est donnée en fonction de sa longueur $L$ et sa largeur » : accord et préposition → est donné en fonction de sa longueur $L$ et de sa largeur | ×1 |
 | can2L2-03 (CAN) | src/exercices/can/2e/can2L2-03.ts:45 | « l'expression … est égal au coefficient multiplicateur » ; « coeffcient » (même coquille dans canTNY-2025-Q13, canTNY-2026-Q13, CANSpeciale2024, can2G30-06, 3G24-2) ; double espace « de  $…$ » → est égale ; coefficient | ×1 |
@@ -19013,6 +19106,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | can6C2-02 (CAN) | src/exercices/can/6e/can6C2-02.ts | « on peut ajouter $50$ et on retranche $1$ » (construction bancale ; même tournure dans canCE2-2026 Q7). → on peut ajouter $50$ puis retrancher $1$ | ×1 |
 | can6C4-02 (CAN) | src/exercices/can/6e/can6C4-02.ts | Correction « Comme $59=56 + 3$, donc il me restera… » (comme … donc redondant) ; deux blocs bleus successifs. → Comme $59=56+3$, il me restera $3$ bonbons. | ×1 |
 | can6C51-03 (CAN) | src/exercices/can/6e/can6C51-03.ts | Consigne « Complèter. » (accent en trop). → Compléter. | ×1 |
+| can6C6-06 (CAN) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | can6C6-06 (CAN) | correction q7 | élision manquante « de Yvette. » : € de plus que celui de Yvette. Elle l'a donc payé ( ‖ élision manquante « que Olivier. » : de plus que Olivier. Il mesure donc ( | ×2 ; défaut nb=10 (revue-1-a) |
 | can6C6-10 (CAN) | src/exercices/can/6e/can6C6-10.ts | « le prix du litre d'essence est $5$ centimes moins cher » (un prix n'est pas cher ou moins cher) ; can6C6-05, can6C6-06 : espace avant le point (« litre . », « de plus . »). → le litre d'essence coûte $5$ centimes de moins | ×1 |
 | can6M2-03 (CAN) | src/exercices/can/6e/can6M2-03.ts:45 | Titre du paramètre « Choixe de l'unité d'aire » (aussi dans 6M2autoC-1) ; correction « $⟦4\times4⟧\text{ soit }⟦16⟧\text{cm}^2$ » (calcul mis en évidence, texte dans la formule, pas d'espace avant l'unité). → Choix de l'unité d'aire ; $4\times 4=⟦16⟧~\text{cm}^2$ | ×1 |
@@ -19037,6 +19131,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canc3a-NY2025 (CAN) | src/exercices/can/canNY-2025 | Q25 : « Mehdi en a $1\,600$ timbres » (pronom « en » et complément en double) ; Q30 : correction sans calcul ($2\,043-2\,025=18$, moitié $9$). → Mehdi a $1\,600$ timbres. | ×1 |
 | canc3a-NY2026 (CAN) | src/exercices/can/canNY-2026 | Q25 : « Mehdi en possède $426$ timbres de moins que Elsa » (élision qu'Elsa, « en » en double) et « Mehdi en a … timbres » ; Q24 : « $2026$ » sans séparateur à côté de « $2\,002$ » ; Q30 sans calcul. → Mehdi possède $426$ timbres de moins qu'Elsa. | ×1 |
 | canc3a-NY2026 (CAN) | correction q25 | élision manquante « que Elsa. » : timbres de moins que Elsa. | ×2 ; sup=false ; sup=true (revue-0-a) |
+| canc3C07 (CAN) |  | Mot répété : « de de » (balayage automatique) → supprimer le doublon | ×1 |
 | canc3C07 (CAN) | énoncé q1 | élision manquante « que Isabelle » : s que Lilian. Sachant que Isabelle a | ×1 ; défaut nb=10 (revue-1-a) |
 | canc3C07 (CAN) | correction q1 | élision manquante « que Isabelle. » : ballons de plus que Isabelle. Il a donc ( | ×1 ; défaut nb=10 (revue-1-a) |
 | canc3C08 (CAN) | correction q1 | élision manquante « que Isabelle. » : € de plus que Isabelle. Nawel a donc : ‖ élision manquante « que Isabelle. » : ballons de plus que Isabelle. Il a donc ( | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -19061,6 +19156,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canCE2a-2025 (CAN) | src/exercices/can/canCE2a-2025 | Q18 : « Quel nombre j'obtiens si… » (registre oral) ; Q10 : double espace avant « : » (« chiffres  : »). → Quel nombre obtient-on si l'on enlève… | ×1 |
 | canTSpea-2026 (CAN) | src/exercices/can/canTspea-2026/canTspea-2026-Q21.ts:79 | Q21 : « Le total des coefficents » → coefficients | ×1 |
 | canTSpea-2026 (CAN) | src/exercices/can/canTspea-2026/canTspea-2026-Q18.ts:55 | Q18 : « Un polynome du second degré » ; doubles espaces → polynôme | ×1 |
+| canTSpea-NY2025 (CAN) |  | Coquille : « pout obtenir » (balayage automatique) → corriger la coquille | ×1 |
+| canTSpea-NY2026 (CAN) |  | Coquille : « pout obtenir » (balayage automatique) → corriger la coquille | ×1 |
 | canTSpeS01 (CAN) | src/exercices/can/TSpe/canTSpeS01.ts | « avec les limites de références » ; titre « Limite d'un polynôme. » (point, sans verbe) → limites de référence ; Déterminer la limite d'un polynôme | ×1 |
 | canTSpeS07 (CAN) | src/exercices/can/TSpe/canTSpeS07.ts | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ → indéterminée ; n\to+\infty | ×1 |
 | canTSpeS08 (CAN) | src/exercices/can/TSpe/canTSpeS08.ts | « forme indeterminée » (accent) ; $\lim\limits_{n\to\infty}$ au lieu de $n\to+\infty$ → indéterminée ; n\to+\infty | ×1 |
@@ -19078,6 +19175,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 046ba (Non classés) | correction q1 | mot répété « par par » : , on multiplie le volume visible par par | ×11 ; sup3=true ; sup3=false… (revue-0-a) |
 | 046ba (Non classés) | correction non interactive q1 | mot répété « par par » : , on multiplie le volume visible par par | ×1 |
 | 05b52 (Non classés) | relecture | Consigne : « …la représentation graphique.` » accent grave parasite en fin de phrase → Supprimer le caractère parasite | ×1 |
+| 0ff6a (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
+| 1972e (Non classés) |  | Mot répété : « le le » (balayage automatique) → supprimer le doublon | ×1 |
 | 1972e (Non classés) | correction q2 | mot répété « le le » : . Le point M est le le centre du cercle inscrit au triangle ‖ mot répété « le le » : . Le point K est le le centre de gravité au triangle ‖ mot répété « le le » : . Le point J est le le centre du cercle circonscrit au triangle | ×126 ; sup=0 sup2=true sup3=true ; sup=0 sup2=true sup3=false… (revue-0-a) |
 | 1b8d4 (Non classés) | relecture | Correction : « forme indeterminée » (indéterminée) → forme indéterminée | ×1 |
 | 1b8d5 (Non classés) | relecture | Correction : « forme indeterminée » (indéterminée) → forme indéterminée | ×1 |
@@ -19087,18 +19186,23 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 35e0b (Non classés) | relecture | Énoncé : « Les valeurs d'angle seront arrondis » (arrondies) ; même énoncé que 2G11-3 → seront arrondies | ×1 |
 | 365f4 (Non classés) | relecture | Correction : la solution est donnée comme $\sqrt{2\,025}$ sans la calculer (45) alors que la saisie 45 est acceptée → Conclure avec $45$ | ×1 |
 | 37e37 (Non classés) | relecture | Correction : « n'est pas un paraléllogramme particulier » (parallélogramme) et phrase entière dans miseEnEvidence → parallélogramme ; texteEnCouleurEtGras | ×1 |
+| 3a64e (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | 3cde4 (Non classés) | relecture | Énoncé : « à 2 025 pout obtenir » (pour) → pour | ×1 |
 | 3f39d (Non classés) | correction q1 | mot répété « parmi parmi » : a proportion de garçons en première technologique parmi parmi les élèves en première technologique e ‖ mot répété « parmi parmi » : La proportion de filles en première technologique parmi parmi les élèves en première technologique e | ×9 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
 | 45dad (Non classés) | relecture | Énoncé : « Combien de fois 1/4 d'unité dans 1 unité ? » verbe manquant → Combien de fois $\dfrac14$ d'unité y a-t-il dans $1$ unité ? | ×1 |
 | 47d36 (Non classés) | relecture | Correction : « le prix d'un papayes » (d'une papaye) ; « 3 papayes » hors $ → le prix d'une papaye | ×1 |
 | 47v56 (Non classés) | relecture | Énoncé : « Quelle est lle volume » (le volume ; coquille et accord) ; correction \frac au lieu de \dfrac → Quel est le volume | ×1 |
+| 49275 (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | 4af87 (Non classés) | relecture | Correction : « soustraire -2 des deux membres » (tournure maladroite) → ajouter $2$ aux deux membres | ×1 |
 | 4vfug (Non classés) | relecture | Correction : « L'préimage est la solution » (La préimage) → La préimage | ×1 |
 | 51fac (Non classés) | relecture | Énoncé : « La moitié de 100 » sans verbe ni consigne (que faut-il faire ?) → Calculer la moitié de $100$. | ×1 |
 | 56772 (Non classés) | relecture | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée → Supprimer le doublon | ×1 |
 | 5b0ab (Non classés) | relecture | Correction : « son pente est égal à » (sa pente est égale) → sa pente est égale | ×1 |
 | 5e041 (Non classés) | relecture | Correction : « La figure A est composé de » (composée) → composée | ×1 |
+| 5e11f (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | 5fe2c (Non classés) | relecture | Énoncé : « Quel est la pente » (Quelle est) ; correction : « coeffcient » (coefficient) → Quelle ; coefficient | ×1 |
+| 6ca15 (Non classés) |  | Coquille : « coeffcient » (balayage automatique) → corriger la coquille | ×1 |
+| 6e534 (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | 6e82d (Non classés) | relecture | Correction : « comme axe de symétries » (symétrie) → axe de symétrie | ×1 |
 | 7057b (Non classés) | relecture | Énoncé : « évènements » alors que d'autres exercices écrivent « événements » (orthographe non uniformisée) → Uniformiser | ×1 |
 | 7522d (Non classés) | relecture | Énoncé : « figure d'aire 5 unités d'aire (ua) » répétition → figure d'aire $5$ ua | ×1 |
@@ -19113,16 +19217,21 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 8802x (Non classés) | correction q2 | ligature œ manquante « oeufs » : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour ‖ ligature œ manquante « oeufs » : a 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour une boîte. ‖ ligature œ manquante « oeufs » : Il lui manquera 3 oeufs pour en remplir une de plus. | ×21 ; sup=9 ; sup=2… (revue-0-a) |
 | 8802x (Non classés) | énoncé non interactif q2 | t euphonique manquant « faudra-il » : e 12. a) Combien de boîtes remplies entièrement faudra-il ? b) Combien manque-t-il d'oeufs pour ‖ ligature œ manquante « oeufs » : Un fermier ramasse 429 oeufs et souhaite les ranger dans des boîtes de 12 ‖ ligature œ manquante « oeufs » : ntièrement faudra-il ? b) Combien manque-t-il d'oeufs pour en remplir une de plus ? | ×3 |
 | 8802x (Non classés) | correction non interactive q2 | ligature œ manquante « oeufs » : Il lui faudra 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour ‖ ligature œ manquante « oeufs » : a 35 boîtes et il restera 9 oeufs. b) Il reste 9 oeufs et il en faut 12 pour une boîte. ‖ ligature œ manquante « oeufs » : Il lui manquera 3 oeufs pour en remplir une de plus. | ×3 |
+| 9b70b (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | 9eaa5 (Non classés) | relecture | Énoncé et correction : « Le pente de la droite … est donné » (La pente … donnée), même défaut que 11QCM-5 et 11QCM-80 → La pente … donnée | ×1 |
 | a0d16 (Non classés) | src/exercices/CH/a0d16.ts | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. → $300\,000=$ en un dollar ; titre cohérent. | ×1 |
 | b5563 (Non classés) | titre | mot répété « la la » : Trouver la la fraction un demi (QCM) | ×1 |
+| bc570 (Non classés) |  | Mot répété : « par par » (balayage automatique) → supprimer le doublon | ×1 |
 | bc570 (Non classés) | correction q2 | mot répété « par par » : Pour qu'un nombre soit divisible par par | ×11 ; sup=1-2-4 ; sup=2… (revue-0-a) |
+| brlw7 (Non classés) |  | Accord : « pente » est féminin : « ce pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | c3202 (Non classés) | relecture | Correction : exposant vide « x^{} » dans $\dfrac{-2x^{}}{x^{4}}$ → Écrire $\dfrac{-2x}{x^{4}}$ (x^1 non affiché) | ×1 |
+| c8ee7 (Non classés) |  | Accord : « pente » est féminin : « Le pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | d88d6 (Non classés) | relecture | Correction : « $25≠24$ » caractère Unicode dans les maths → $25\neq 24$ | ×1 |
 | e1938 (Non classés) | énoncé q2 | élision manquante « que Yvette » : iprobabilité ? [champ] Calculer la probabilité que Yvette et Quentin aient choisi tous les deux u ‖ élision manquante « que Yvette » : iprobabilité ? [champ] Calculer la probabilité que Yvette et Ulysse aient choisi tous les deux un | ×2 ; sup=1 nb=10 (revue-5-a) |
 | e1938 (Non classés) | correction q2 | élision manquante « que Yvette » : la fraise, et 11 yaourts en tout, la probabilité que Yvette choisisse un yaourt à la fraise est : ‖ élision manquante « que Yvette » : la banane, et 14 yaourts en tout, la probabilité que Yvette choisisse un yaourt à la banane est : | ×2 ; sup=1 nb=10 (revue-5-a) |
 | f6jd7 (Non classés) | src/exercices/can/canCE2a-2025/canCE2-2025-Q11.ts:369 | Énoncé : le mot « undefined » s'affiche devant le QCM (`this.question += monQcm.texte` alors que this.question n'est pas initialisé) → this.question = monQcm.texte (ou initialiser à "") | ×1 |
 | ff9d1 (Non classés) | src/exercices/TSpe/ | Correction : « $\lim\limits_{n\to+\infty} 5n^{}+4=+\infty$ » : exposant vide « n^{} » → $5n+4$ | ×1 |
+| psq07 (Non classés) |  | Accord : « pente » est féminin : « Son pente » (balayage automatique) → la pente, sa pente, donnée, égale | ×1 |
 | TEA1-14 (Terminale) | src/exercices/TSpe/TEA1-14.ts | Titre « …entiers naturels $n$ tels que $an+b$ divise $cn+d$ » avec LaTeX dans le titre ; correction vérifiée (24 = 2(5n+2)-5(2n-4)) ; « {#216D9A:Analyse.} » point dans la couleur. → Titre en texte. | ×1 |
 | TEA2-01 (Terminale) | src/exercices/TSpe/TEA2-01.ts | « $PGCD (92⍽; 46)$ » : PGCD en italique (\text{PGCD} ou \operatorname) avec espace avant la parenthèse ; titre « …d'Euclide. » avec point et espace final ; « Le dernier reste non nul est 46 » : 46 hors des $ ; énoncé avec $PGCD(92~;~46)$ (sans espace) dans le champ : incohérence. → \operatorname{PGCD}(92~;~46) ; titre sans point ; $46$. | ×1 |
 | TEC3-03 (Terminale) | src/exercices/TSpe/TEC3-03.ts | « $Acos(3t+\phi)$ » : cos sans antislash (italique : A·c·o·s) dans l'énoncé et la correction ; titre contenant la formule LaTeX entière ($\cos(\theta+\theta^\prime)=…$) ; \theta^\prime au lieu de \theta' ; 20 phrases sans virgule. → $A\cos(3t+\varphi)$ ; titre en texte. | ×1 |

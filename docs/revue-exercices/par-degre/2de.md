@@ -1,7 +1,7 @@
 # Revue des exercices : 2de
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **615 sur 615**. Constats confirmés : **188**.
+Exercices relus : **615 sur 615**. Constats confirmés : **202**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 7 |
 | Mise en évidence (miseEnEvidence et champs) | 39 |
 | Typographie (nombres, espaces, notations) | 39 |
-| Rédaction (français, titres, consignes) | 83 |
+| Rédaction (français, titres, consignes) | 97 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -148,6 +148,20 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| 2A-A01-1 | R10 Français | Mot répété : « par par » (balayage automatique) | supprimer le doublon |  |
+| 2A-E1-1 | R10 Français | Mot répété : « est est » (balayage automatique) | supprimer le doublon |  |
+| 2A-N4-3 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) | nettoyer le titre |  |
+| 2A-N4-4 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « . » (balayage automatique) | nettoyer le titre |  |
+| 2F21-9 | R1 Titre | Majuscule sans accent dans le titre : « Etudier » (balayage automatique) | É |  |
+| 2F31-1 | R10 Français | Mot répété : « est est » (balayage automatique) | supprimer le doublon |  |
+| can2G20-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can2I2-01 | R10 Français | Mot répété : « est est » (balayage automatique) | supprimer le doublon |  |
+| can2L11-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can2N4-03 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| can2N5-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can2N5-04 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| can2P2-02 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
+| can2P2-03 | R1 Titre | Titre : espaces en trop, astérisque ou point final : «    » (balayage automatique) | nettoyer le titre |  |
 | 2A | R10 Français | Énoncé : « chargement... » (meta-custom jamais rempli dans le banc, voir 3Auto) | Voir bug meta-custom | relecture |
 | 2A-P3-3 | R16  | Titre « Comparer des probabilités » terminé par une espace | Retirer | relecture |
 | 2A-R1-5 | R16  | Titre « Comparer  avec des pourcentages » : deux espaces | Une seule espace | relecture |

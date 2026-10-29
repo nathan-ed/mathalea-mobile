@@ -1,18 +1,18 @@
 # Revue des exercices : Primaire
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **145 sur 145**. Constats confirmés : **99**.
+Exercices relus : **145 sur 145**. Constats confirmés : **103**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
 | Nature | Constats |
 | --- | ---: |
 | Interactif faux (la bonne réponse est refusée, ou pas de champ) | 2 |
-| Contenu mathématique faux | 14 |
+| Contenu mathématique faux | 15 |
 | Rendu cassé (formule, débordement, erreur) | 6 |
 | Mise en évidence (miseEnEvidence et champs) | 7 |
 | Typographie (nombres, espaces, notations) | 25 |
-| Rédaction (français, titres, consignes) | 45 |
+| Rédaction (français, titres, consignes) | 48 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -36,6 +36,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | canCE2a-2025 | C1 Contenu mathématique faux | Q14 : « compris entre 238 et 300 » avec chiffre des dizaines 3 : 238 convient aussi si « entre » est large ; seule 239 est acceptée. Nombres hors $. | strictement compris entre $238$ et $300$ | src/exercices/can/canCE2a-2025 |
 | canc3a-NY2025 | C1 Contenu mathématique faux | Q8 : quand l'écart vaut 5 (2 020 à 2 025, 5 intervalles), la correction écrit « $5 \div 5 = 5$ » et « Une graduation correspond donc à $5$ unités » : valeur écrite en dur, juste seulement pour l'écart 25. | $${texNombre(abs1 - abs0)} \\div 5 = ${choix ? 5 : 1}$ (modèle : canc3NY-2026-Q8, variable pas) | src/exercices/can/canNY-2025/canc3NY-2025-Q8.ts:63 |
 | CM2N1D-1 | C1 Contenu mathématique faux | « en complétant avec les adjectifs numéraux qui conviennent (unité(s) ou dizaine(s)…) » : unité, dizaine, centaine sont des noms, pas des adjectifs numéraux ; mise en évidence de toute la décomposition avec les mots en \textbf (texte dans miseEnEvidence) ; « ou ... » / « ou $....$ » | « avec les mots qui conviennent (unités, dizaines…) » ; \ldots | src/exercices/CM2/CM2N1D-1.ts:104 |
+| CM2N1D-1 | C1 Contenu mathématique faux | Variante sup=true sup2=2 sup4=3 sup5=true : correction « 700=⟦7 dizaines⟧ », « 500=⟦5 dizaines⟧ » (7 centaines) ; variante sup=true sup2=1 sup4=2 : nombre à décomposer « 0 » et correction « ⟦$0⟧$ » ($ mal placé) | Vérifier le calcul de l'exposant avec des zéros consécutifs et le minimum de chiffres (sup2) | src/exercices/CM2/CM2N1D-1.ts:93-111 |
 | CM2N3A-14 | C1 Contenu mathématique faux | Types « 10 - n » et « n + … = 10 » seuls : moins de cas possibles que les $10$ questions par défaut, la série est plus courte que l'autoCorrection (champs absents) | limiter nbQuestions au nombre de cas ou autoriser les doublons | src/exercices/CM2/CM2N3A-14.ts |
 | CM2N3A-2 | C1 Contenu mathématique faux | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) | borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | src/exercices/CM2/CM2N3A-2.ts |
 | CM2N3A-3 | C1 Contenu mathématique faux | Valeur maximale 1 : une seule question produite au lieu des $10$ demandées, avec des nombres au-delà du maximum (« $2+2$ ») ; autoCorrection plus longue que la liste (champs absents) | borner le paramètre (minimum 2 ou 3) ou autoriser les doublons quand il n'y a pas assez de cas | src/exercices/CM2/CM2N3A-3.ts |
@@ -97,6 +98,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 | Exercice | Règle | Constat | Correction proposée | Fichier |
 | --- | --- | --- | --- | --- |
+| canc3C07 | R10 Français | Mot répété : « de de » (balayage automatique) | supprimer le doublon |  |
+| canc3C08 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
+| canc3C10 | R1 Titre | Titre : espaces en trop, astérisque ou point final : « * » (balayage automatique) | nettoyer le titre |  |
 | CM2N2A-1 | R10 Français | Consigne : « Colorier en bleu un segment de longueur … » phrase terminée par « ... » puis la fraction dans l'énoncé (consigne coupée) | Mettre la fraction dans la consigne | relecture |
 | canc3a-2023 | R10 Français | Q24 : correction « $140 = 1$ centaines et $4$ dizaines » : accord (1 centaine), égalité coupée entre maths et texte. | $140 = 1$ centaine et $4$ dizaines | src/exercices/can/c3/_Canc3a.ts |
 | canc3a-2023 | R10 Français | Q22 : « Ainsi, en en 1 h et 15 min » (mot répété). | Ainsi, en $1~\text{h}$ et $15~\text{min}$ | src/exercices/can/c3/_Canc3a.ts:1182 |
