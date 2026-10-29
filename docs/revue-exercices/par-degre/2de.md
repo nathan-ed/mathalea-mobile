@@ -259,6 +259,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A-G3-7 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1)  |
 | 2A-S2-9 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (0/1) Résultat incorrect car une valeur décimale (ou entière) est attendue. |
 | 2L31-2 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $\\{\dfrac38\}$. |
+| 2N30-1 | I1 Bonne réponse refusée | 36 | bonne réponse refusée (0/1) La fraction doit être inférieure à 1. |
 | 2N51-6 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (0/1) Incorrect car la réponse attendue est une fraction. |
 | 2P20-1 | I1 Bonne réponse refusée | 4 | bonne réponse refusée (2/3) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 2S20-15 | I1 Bonne réponse refusée | 12 | bonne réponse refusée (2/3) Il manque 1 réponse. |
@@ -267,6 +268,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 2A | I4 Question sans champ | 58 | champ absent de la page |
 | 2F30-3 | I4 Question sans champ | 1 | champ absent de la page |
 | 2I11-2 | I4 Question sans champ | 1 | champ absent de la page |
+| 2N30-1 | I4 Question sans champ | 24 | champ absent de la page |
 | 2F21-2 | X1 Erreur | 14 | interactif (correcte) : page.evaluate: Target page, context or browser has been closed |
 | 2F21-4 | X1 Erreur | 12 | interactif (correcte) : page.evaluate: Target page, context or browser has been closed |
 | can2F4-03 | X1 Erreur | 7 | rendu enonce : page.evaluate: Target page, context or browser has been closed |

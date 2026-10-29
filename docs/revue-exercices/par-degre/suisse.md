@@ -549,12 +549,16 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 4mInt-1 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | 4mInt-2 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | 95adb | I2 Réponse fausse acceptée | 4 | réponse fausse acceptée |
-| afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
+| afd39 | I2 Réponse fausse acceptée | 4 | réponse fausse acceptée |
+| 0e6bd | I4 Question sans champ | 36 | champ absent de la page |
+| 1871d | I4 Question sans champ | 70 | champ absent de la page |
 | 1mCL4-2 | I4 Question sans champ | 53 | champ absent de la page |
 | 2mTrigoFct-6 | I4 Question sans champ | 4 | champ absent de la page |
 | 2mTrigoFct-7 | I4 Question sans champ | 4 | champ absent de la page |
 | 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
 | 3f39d | I4 Question sans champ | 6 | champ absent de la page |
+| 612b9 | I4 Question sans champ | 70 | champ absent de la page |
+| 665a0 | I4 Question sans champ | 36 | champ absent de la page |
 | 2mFctRat-1 | X1 Erreur | 2 | arrêt : page.evaluate: Target page, context or browser has been closed |
 | 8cd45 | X1 Erreur | 99 | interactif (vide) : page.evaluate: Target page, context or browser has been closed |
 | 9b8f9 | X1 Erreur | 5 | interactif (vide) : page.evaluate: Target page, context or browser has been closed |
@@ -562,10 +566,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 9NO1G-9 | X1 Erreur | 3 | console : texNombre : Trop de chiffres le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un De |
 | acb80 | X1 Erreur | 64 | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed |
 | AchangerOBLIGATOIREMENT | X1 Erreur | 1 | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection |
-| bc372 | X1 Erreur | 3 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
+| bc372 | X1 Erreur | 16 | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P01 |
+| de353 | X1 Erreur | 24 | génération : page.evaluate: TypeError: this.sup.replaceAll is not a function     at EncodeurTexte.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/prof |
+| de363 | X1 Erreur | 24 | génération : page.evaluate: TypeError: this.sup.replaceAll is not a function     at EncodeurTexte.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/prof |
 | 1mG3-6 | X2 Formule cassée | 18 | nombre impair de $ : {EB}^2} = \sqrt{49 + 84} = \sqrt{133}\text{ cm}$, d'où $AE = {\color{#F15929}\boldsymbol{\sqrt{133}\textbf{ cm}}}. |
 | a343t | X2 Formule cassée | 14 | nombre impair de $ : ique de nombres&nbsp;: $25$&nbsp;; $50$&nbsp;; $75$&nbsp;; $$&lt;label>&lt;/label> [champ] &lt;span>&nbsp;.&lt;/span> &lt;div class ="m |
-| afd39 | X2 Formule cassée | 1 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
+| afd39 | X2 Formule cassée | 2 | nombre impair de $ : $P(x)=a(x-\alpha)^2+\beta)$, avec $a&lt;0$ est croissant sur $$&lt;label>&lt;/label> [champ] &lt;div class ="ml-2 py-2 italic text- |
 | PR-32 | X2 Formule cassée | 11 | « $ » visible : 000 100000 8 , 164 ÷ 8 ≈ 8 ÷ 8 , soit 1 8,164÷8≈8÷8, soit 1 $\text{{\color{#F15929}\boldsymbol{X}}$  |
 | 12a46 | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |
 | 1474f | X6  | 1 | même graine, énoncés différents (aléa hors nouvelleVersion ?) |

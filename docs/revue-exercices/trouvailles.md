@@ -5,7 +5,7 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
 Avancement : **4190 exercices passés sur 4190**.
-Constats regroupés : 19248 (un groupe = même exercice, même règle,
+Constats regroupés : 19650 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : famille de règles (interactif, contenu, mise en évidence, rendu,
@@ -18,28 +18,28 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | Famille | Règle | Exercices | Constats |
 | --- | --- | ---: | ---: |
 | Interactif | [IM Interactif à tester à la main](#im) | 289 | 304 |
-| Interactif | [I1 Bonne réponse refusée](#i1) | 73 | 85 |
+| Interactif | [I1 Bonne réponse refusée](#i1) | 74 | 86 |
 | Interactif | [I2 Réponse fausse acceptée](#i2) | 36 | 51 |
 | Interactif | [I3 Champ vide accepté ou en erreur](#i3) | 4 | 5 |
-| Interactif | [I4 Question interactive sans champ](#i4) | 45 | 52 |
+| Interactif | [I4 Question interactive sans champ](#i4) | 51 | 58 |
 | Interactif | [I5 Barème qui change selon le tirage](#i5) | 9 | 9 |
-| Contenu mathématique | [C1 Contenu mathématique faux ou ambigu](#c1) | 128 | 139 |
+| Contenu mathématique | [C1 Contenu mathématique faux ou ambigu](#c1) | 131 | 142 |
 | Contenu mathématique | [C2 ](#c2) | 3 | 3 |
-| Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 502 | 3699 |
+| Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 504 | 4056 |
 | Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 64 | 216 |
-| Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 468 | 2291 |
+| Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 468 | 2297 |
 | Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 20 | 22 |
 | Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 68 | 129 |
 | Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 390 | 401 |
 | Mise en évidence | [M7 Explication en orange](#m7) | 33 | 134 |
 | Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 142 | 161 |
-| Rendu et robustesse | [X1 Erreur ou exception](#x1) | 42 | 133 |
+| Rendu et robustesse | [X1 Erreur ou exception](#x1) | 44 | 135 |
 | Rendu et robustesse | [X2 Formule cassée (KaTeX, $)](#x2) | 28 | 320 |
 | Rendu et robustesse | [X3 undefined, NaN…](#x3) | 42 | 153 |
-| Rendu et robustesse | [X4 Question en double ou vide](#x4) | 355 | 679 |
-| Rendu et robustesse | [X5 Débordement à 390 px](#x5) | 831 | 1173 |
+| Rendu et robustesse | [X4 Question en double ou vide](#x4) | 361 | 685 |
+| Rendu et robustesse | [X5 Débordement à 390 px](#x5) | 834 | 1176 |
 | Rendu et robustesse | [X6 Même graine, exercice différent](#x6) | 24 | 25 |
-| Rendu et robustesse | [X7 Combinaisons de paramètres non toutes passées](#x7) | 230 | 230 |
+| Rendu et robustesse | [X7 Combinaisons de paramètres non toutes passées](#x7) | 248 | 248 |
 | Nombres | [N1 Nombre hors $](#n1) | 1018 | 1789 |
 | Nombres | [N2 Séparateur des milliers](#n2) | 201 | 298 |
 | Nombres | [N3 Point décimal](#n3) | 45 | 57 |
@@ -318,8 +318,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-KillerSudoku (EN) |  q1 killer-sudoku-grille | format killer-sudoku-grille : à tester à la main | ×36 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
 | EN-Monnaie (EN) |  q1 tableau-hybride | format tableau-hybride : à tester à la main | ×22 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Pyramide (EN) |  q1 pyramide-nombres | format pyramide-nombres : à tester à la main | ×116 ; sup=1 sup2=false sup3=99 ; sup=1 sup2=true sup3=1… (revue-0-a) |
-| EN-Shikaku (EN) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×2 ; sup=5 sup2=5 sup3=3 (revue-0-a) |
-| EN-SquarO (EN) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×28 ; sup=5 sup2=5 sup3=true sup4=7 ; sup=5 sup2=5 sup3=true sup4=1… (revue-0-a) |
+| EN-Shikaku (EN) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×100 ; sup=5 sup2=5 sup3=3 ; sup=5 sup2=1 sup3=3… (revue-0-a) |
+| EN-SquarO (EN) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×138 ; sup=5 sup2=5 sup3=true sup4=7 ; sup=5 sup2=5 sup3=true sup4=1… (revue-0-a) |
 | EN-TablesEffacees (EN) |  q1 tables-effacees-grille | format tables-effacees-grille : à tester à la main | ×20 ; sup=3 ; sup=1… (revue-0-a) |
 | 01607 (Non classés) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×2 ; défaut (revue-0-a) |
 | 0688e (Non classés) |  q1 dnd | format dnd : à tester à la main | ×268 ; sup=4 sup2=0 sup3=1 sup4=true ; sup=2 sup2=0 sup3=1 sup4=true… (revue-0-a) |
@@ -332,7 +332,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2cdd4 (Non classés) |  q2 qcm | aucune proposition | ×9 ; sup=false nb=10 (revue-2-a) |
 | 31b4c (Non classés) |  q2 qcm | aucune proposition | ×9 ; sup=false nb=10 (revue-2-a) |
 | 39232 (Non classés) |  q1 tableau-signes-variations | format tableau-signes-variations : à tester à la main | ×70 ; sup=4 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
-| 3b474 (Non classés) |  q1 meta-custom | format meta-custom : à tester à la main | ×130 ; sup=3 sup2=4 sup3=2-3 ; sup=1 sup2=4 sup3=2-3… (revue-0-a) |
+| 3b474 (Non classés) |  q1 meta-custom | format meta-custom : à tester à la main | ×428 ; sup=3 sup2=4 sup3=2-3 ; sup=1 sup2=4 sup3=2-3… (revue-0-a) |
 | 3c2cb (Non classés) |  q2 qcm | aucune proposition | ×9 ; sup=false nb=10 (revue-2-a) |
 | 4662d (Non classés) |  q1 my-spreadsheet | format my-spreadsheet : à tester à la main | ×70 ; sup=0 sup2=3 ; sup=0 sup2=1… (revue-0-a) |
 | 46bae (Non classés) |  q1 meta-custom | format meta-custom : à tester à la main | ×100 ; sup=0 sup2=3 ; sup=0 sup2=1… (revue-0-a) |
@@ -406,6 +406,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A-S2-9 (2e) |  q1 mathlive | bonne réponse refusée (0/1) Résultat incorrect car une valeur décimale (ou entière) est attendue. | ×12 ; sup3=false ; sup3=false nb=10 (revue-0-a) |
 | 2L31-2 (2e) |  q1 mathlive | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $\\{\dfrac38\}$. | ×3 ; sup=4 sup2=true ; sup=4 sup2=false (revue-6-a) |
 | 2L31-2 (2e) |  q4 mathlive | bonne réponse refusée (0/1) Il y a une erreur avec la valeur : $\\{-\dfrac34\}$. | ×1 ; sup=4 sup2=false (revue-7-a) |
+| 2N30-1 (2e) |  q1 fillInTheBlank | bonne réponse refusée (0/1) La fraction doit être inférieure à 1. | ×36 ; sup=1 sup2=1-2-3 sup3=false ; sup=1 sup2=1 sup3=true… (revue-9-a) |
 | 2N51-6 (2e) |  q1 mathlive | bonne réponse refusée (0/1) Incorrect car la réponse attendue est une fraction. | ×1 ; sup=4 (revue-3-a) |
 | 2P20-1 (2e) |  q1 multi-mathfield | bonne réponse refusée (2/3) Résultat incorrect car majuscules ou minuscules non respectées. | ×4 ; sup=3 ; sup=3 nb=10 (revue-0-a) |
 | 2S20-15 (2e) |  q1 multi-mathfield | bonne réponse refusée (2/3) Il manque 1 réponse. | ×12 ; sup=5 ; sup=1… (revue-0-a) |
@@ -511,7 +512,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | canTSpea-NY2026 (CAN) |  q16 mathlive | réponse fausse acceptée | ×3 ; sup=false ; sup=true (revue-0-a) |
 | 28997 (Non classés) |  q1 mathlive | réponse fausse acceptée | ×5 ; sup=2 sup2=2 ; sup=2 sup2=3… (revue-11-b) |
 | 95adb (Non classés) |  q1 mathlive | réponse fausse acceptée | ×4 ; sup2=4 (revue-4-a) |
-| afd39 (Non classés) |  q2 mathlive | réponse fausse acceptée | ×1 ; sup= (revue-0-b) |
+| afd39 (Non classés) |  q2 mathlive | réponse fausse acceptée | ×4 ; sup= ; sup=2… (revue-0-b) |
 | afd39 (Non classés) | src/exercices/CH/afd39.ts | Titre « Questions de cours » trop vague ; réponse fausse acceptée (1 I2) ; énoncé « avec a&lt;b et a,b∈I » : $a, b\in I$ virgule sans espace fine ; 8 T5, 6 T6, 1 X2. → Titre précis ; comparaison. | ×1 |
 | TEG1-21 (Terminale) |  q1 mathlive | réponse fausse acceptée | ×46 ; sup=3 sup2=3 sup3=false ; sup=1 sup2=1 sup3=true… (revue-0-a) |
 | TEG1-21 (Terminale) | src/exercices/TSpe/TEG1-21.ts | Même défaut (46 I2 : matrice + 1 acceptée) ; matrice d'adjacence vérifiée plausible ; guillemets sans insécables (92 T4). → Idem TEM1-14. | ×1 |
@@ -563,6 +564,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2A (2e) |  q3 liste-deroulante | liste absente de la page | ×2 ; sup2=true sup3=true ; sup2=true sup3=false (revue-1-a) |
 | 2F30-3 (2e) |  q7 mathlive | champ absent de la page | ×1 ; défaut nb=10 (revue-1-a) |
 | 2I11-2 (2e) |  q9 multi-mathfield | champ absent de la page | ×1 ; sup=2 sup2=false nb=10 (revue-6-a) |
+| 2N30-1 (2e) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=2 sup3=false… (revue-10-a) |
 | 2mTrigoFct-6 (2e Collège) |  q5 mathlive | champ absent de la page | ×4 ; sup=2 sup2=true sup3=3 ; sup=2 sup2=false sup3=3 (revue-11-a) |
 | 2mTrigoFct-7 (2e Collège) |  q5 mathlive | champ absent de la page | ×4 ; sup=2 sup2=true sup3=3 ; sup=2 sup2=false sup3=3 (revue-11-a) |
 | 3Auto (3e) |  q1 mathlive | champ absent de la page | ×45 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
@@ -573,6 +575,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4F12 (4e) |  q4 multi-mathfield | champ absent de la page | ×1 ; sup=4 nb=10 (revue-4-a) |
 | 4G20-9 (4e) |  q3 fillInTheBlank | champ absent de la page | ×6 ; sup=1 sup2=2 sup3=true ; sup=2 sup2=1 sup3=true… (revue-14-a) |
 | 4P16-2 (4e) |  q9 mathlive | champ absent de la page | ×1 ; sup=1 sup2=false nb=10 (revue-6-a) |
+| 5N1autoC-1 (5e) |  q10 mathlive | champ absent de la page | ×36 ; sup=1 sup2=1 sup3=false sup4=true ; sup=1 sup2=2 sup3=true sup4=true… (revue-5-a) |
 | 5N2G (5e) |  q4 mathlive | champ absent de la page | ×2 ; sup=1 sup2=3 sup3=false sup4=false (revue-2-a) |
 | 5N2I-1 (5e) |  q4 fillInTheBlank | champ absent de la page | ×2 ; sup=1 sup2=false sup3=false (revue-2-a) |
 | 5N5F (5e) |  q2 mathlive | champ absent de la page | ×4 ; sup=1 sup2=false ; sup=2 sup2=false (revue-2-a) |
@@ -600,8 +603,12 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-2 (cm2) |  q2 fillInTheBlank | champ absent de la page | ×24 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | CM2N3A-3 (cm2) |  q3 fillInTheBlank | champ absent de la page | ×33 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-1-a) |
 | CM2N3A-9 (cm2) |  q10 mathlive | champ absent de la page | ×42 ; sup=1 sup2=1 ; sup=1 sup2=2… (revue-3-a) |
+| 0e6bd (Non classés) |  q10 mathlive | champ absent de la page | ×36 ; sup=1 sup2=1 sup3=false sup4=true ; sup=1 sup2=2 sup3=true sup4=true… (revue-4-a) |
+| 1871d (Non classés) |  q4 mathlive | champ absent de la page | ×70 ; sup=1 sup2=1 sup3=2 ; sup=1 sup2=2 sup3=1… (revue-2-a) |
 | 3ca3e (Non classés) |  q10 mathlive | champ absent de la page | ×1 ; sup=1 sup2=5 nb=10 (revue-13-a) |
 | 3f39d (Non classés) |  q49 mathlive | champ absent de la page | ×6 ; sup=2 nb=10 (revue-3-a) |
+| 612b9 (Non classés) |  q4 mathlive | champ absent de la page | ×70 ; sup=1 sup2=1 sup3=2 ; sup=1 sup2=2 sup3=1… (revue-2-a) |
+| 665a0 (Non classés) |  q10 mathlive | champ absent de la page | ×36 ; sup=1 sup2=1 sup3=false sup4=true ; sup=1 sup2=2 sup3=true sup4=true… (revue-4-a) |
 | TSG1-04 (Terminale) |  q8 multi-mathfield | champ absent de la page | ×1 ; défaut nb=10 (revue-1-a) |
 
 ## I5
@@ -628,7 +635,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 1AL11-1QCM (1e) | relecture | Énoncé : « u_n=-1n^2+4 » (coefficient 1 écrit) → rienSi1 / ecritureAlgebrique | ×1 |
 | 1AN43 (1e) | relecture | Correction : « cos(x)=-√(1-sin²(x)) = √(1--0,5^2) = √0,75 » signe moins devant la racine alors que cos(x)≥0, et « 1--0,5^2 » (double moins, parenthèses manquantes autour de -0,5) → cos(x)=\sqrt{1-\sin^2(x)}=\sqrt{1-(-0,5)^2} | ×1 |
+| 5N1autoA-1 (5e) | relecture | Variante sup=1 : labyrinthe « nombre multiple de 1 » : tous les nombres conviennent, l'exercice n'a plus de sens (valeur de paramètre à exclure ou à remplacer par 2) → Retirer la valeur 1 (multiple de 1) ou la remplacer | ×1 |
 | 5N1B-1 (5e) | relecture | Correction : « $39 \times 2 = $$⟦78⟧$ » deux $ collés ($$ vide) autour du résultat → Un seul bloc $39\times2=78$ | ×1 |
+| 5N1I-4 (5e) | relecture | Variante sup=1 : labyrinthe « nombre multiple de 1 » : tous les nombres conviennent, l'exercice n'a plus de sens (valeur de paramètre à exclure ou à remplacer par 2) → Retirer la valeur 1 (multiple de 1) ou la remplacer | ×1 |
+| 5N1J (5e) | relecture | Variante sup=1 : labyrinthe « nombre multiple de 1 » : tous les nombres conviennent, l'exercice n'a plus de sens (valeur de paramètre à exclure ou à remplacer par 2) → Retirer la valeur 1 (multiple de 1) ou la remplacer | ×1 |
 | 6AutoG1-6 (6e) | src/exercices/6e/6G4A-2.ts:119 | « Un angle obtus est un angle dont la mesure est supérieure à 90°. » : définition incomplète (et inférieure à 180°) ; 0°, 90° hors $ → comprise entre $90°$ et $180°$ | ×1 |
 | 6AutoN4-4 (6e) | src/exercices/6e/6N2C-2.ts:116 | Exemple de la correction faux : « $34,9\div 100 = 0$ », « $98,6\div 1\,000=0$ » (texNombre(…, 0) arrondit le quotient à l'unité) ; exemple « 34,9 » hors $ → texNombre(exemple * 10 ** (choixAlea - 3), 4) ; $34,9$ | ×1 |
 | 6G6C-1 (6e) | src/exercices/6e/6G6C-1.ts | Correction : somme des angles = 180° donc « on peut construire le triangle » alors que la bonne réponse du QCM est « constructible mais n'est pas plat » : la justification de « pas plat » (aucun angle nul ni plat) manque ; « \; » dans le dollar avant \widehat ; ⟦…⟧$⟦BIP⟧$ deux évidences. → Ajouter « aucun angle n'est nul ni égal à 180°, donc le triangle n'est pas plat ». | ×1 |
@@ -1333,10 +1343,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3F13 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3","4","-3","4"] ; attendu : {"champ":"-3;4"} | ×10 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
 | 3F13 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"1","champ2":"1"} ; attendu : {"champ1":"-4","champ2":"1"} | ×3 ; sup=1 ; sup=3 (revue-1-a) |
 | 3F13 (3e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"-3","champ2":"-3"} ; attendu : {"champ1":"-6","champ2":"-3"} | ×1 ; sup=1 (revue-1-b) |
-| 3F13-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3","3","-3","3"] ; attendu : {"champ":"-3;3"} | ×2 ; sup=0 ; sup=0 nb=10 (revue-0-a) |
-| 3F13-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1","1","3","-1","1","3"] ; attendu : {"champ":"-1;1;3"} | ×3 ; sup=0 ; sup=0 nb=10 (revue-0-b) |
-| 3F13-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-3","-1","-3","-1"] ; attendu : {"champ":"-3;-1"} | ×2 ; sup=0 nb=10 (revue-1-a) |
-| 3F13-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-4","-1","4","-4","-1","4"] ; attendu : {"champ":"-4;-1;4"} | ×1 ; sup=0 nb=10 (revue-1-a) |
+| 3F13-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3","3","-3","3"] ; attendu : {"champ":"-3;3"} | ×6 ; sup=0 ; sup=0 nb=10… (revue-0-a) |
+| 3F13-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1","1","3","-1","1","3"] ; attendu : {"champ":"-1;1;3"} | ×13 ; sup=0 ; sup=0 nb=10… (revue-0-b) |
+| 3F13-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-3","-1","-3","-1"] ; attendu : {"champ":"-3;-1"} | ×4 ; sup=0 nb=10 ; sup=2 (revue-1-a) |
+| 3F13-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-4","-1","4","-4","-1","4"] ; attendu : {"champ":"-4;-1;4"} | ×3 ; sup=0 nb=10 ; sup=4… (revue-1-a) |
+| 3F13-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["0","2","4","0","2","4"] ; attendu : {"champ":"0;2;4"} | ×1 ; sup=3 (revue-3-b) |
 | 3F20 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{220}{21}."] ; attendu : {"champ":"\\dfrac{220}{21}"} | ×28 ; sup=2 sup2=2 ; sup=2 sup2=3… (revue-10-a) |
 | 3F20 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{64}{15}."] ; attendu : {"champ":"\\dfrac{-64}{15}"} | ×26 ; sup=2 sup2=2 ; sup=2 sup2=3… (revue-10-a) |
 | 3F20-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{160}{15}."] ; attendu : {"champ":"\\dfrac{-160}{15}"} | ×27 ; sup=2 sup2=1 sup3=2 sup4=3 ; sup=2 sup2=11 sup3=2 sup4=1… (revue-12-a) |
@@ -1663,6 +1674,360 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L11-6 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["(x-3)","(x-3)","(x-3)","(x-3)","(x-3)"] ; attendu : {"champ":"(3x+2)(x-3)"} | ×1 ; sup=3 sup2=2 (revue-7-b) |
 | 3L11-6 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["(2x-3)","(2x-3)","(2x-3)","(2x-3)","(2x-3)"] ; attendu : {"champ":"(-3x-2)(2x-3)"} | ×1 ; sup=3 sup2=3 (revue-8-a) |
 | 3L11-6 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["(x-4)","(x-4)","(x-4)","(x-4)","(x-4)"] ; attendu : {"champ":"(-x-2)(x-4)"} | ×1 ; sup=3 sup2=3 (revue-8-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["2 t","2 t\\mathopen{}\\left(7 r-8 t\\right)\\mathclose{}^2"] ; attendu : {"champ":"2t\\times(7r-8t)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["5 s","5 s\\mathopen{}\\left(7 s^2+3 z\\right)\\mathclose{}^2"] ; attendu : {"champ":"5s\\times(7s^2+3z)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(6 r z+1\\right)\\mathclose{}^2"] ; attendu : {"champ":"2r\\times(6rz+1)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["3 t","3 t\\mathopen{}\\left(2 s- 7 \\right)\\mathclose{}\\mathopen{}\\left(2 s+7 \\right)\\mathclose{}"] ; attendu : {"champ":"3t\\times(2s+7)(2s-7)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["3 s","3 s\\mathopen{}\\left(y-6 s\\right)\\mathclose{}^2"] ; attendu : {"champ":"3s\\times(y-6s)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(3 s x- 7 \\right)\\mathclose{}\\mathopen{}\\left(3 s x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(3sx+7)(3sx-7)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(8 y+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2x\\times(8y+7)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(7 t-2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5x\\times(7t-2)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 y","3 y\\mathopen{}\\left(4 x^2 y- 5 \\right)\\mathclose{}\\mathopen{}\\left(4 x^2 y+5 \\right)\\mathclose{}"] ; attendu : {"champ":"3y\\times(4x^2y+5)(4x^2y-5)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["3 z","3 z\\mathopen{}\\left(5 r^2-2 z\\right)\\mathclose{}^2"] ; attendu : {"champ":"3z\\times(5r^2-2z)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-t","-t\\mathopen{}\\left(2 t^2 x- 5 \\right)\\mathclose{}\\mathopen{}\\left(2 t^2 x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-t\\times(2t^2x+5)(2t^2x-5)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(3 t^2+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5z\\times(3t^2+7)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 y","5 y\\mathopen{}\\left(8 y- 3 \\right)\\mathclose{}\\mathopen{}\\left(8 y+3 \\right)\\mathclose{}"] ; attendu : {"champ":"5y\\times(8y+3)(8y-3)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(7 s^2 z+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3s\\times(7s^2z+3)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["2 y","2 y\\mathopen{}\\left(7 y-2 t\\right)\\mathclose{}^2"] ; attendu : {"champ":"2y\\times(7y-2t)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["5 s","5 s\\mathopen{}\\left(9 s x-2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5s\\times(9sx-2)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 z","-3 z\\mathopen{}\\left(2 s^2 z-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3z\\times(2s^2z-3)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["5 z","5 z\\mathopen{}\\left(6 r z^2-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5z\\times(6rz^2-5)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(3 r+10 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2r\\times(3r+10)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["2 t","2 t\\mathopen{}\\left(9 t-8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2t\\times(9t-8)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 r^2","-2 r^2\\mathopen{}\\left(r^2 y-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2r^2\\times(r^2y-5)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-z","-z\\mathopen{}\\left(7 y^2 z- 10 \\right)\\mathclose{}\\mathopen{}\\left(7 y^2 z+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-z\\times(7y^2z+10)(7y^2z-10)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5 t y","-5 t y\\mathopen{}\\left(8 s t^2 y+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5ty\\times(8st^2y+3)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 x^2","-3 x^2\\mathopen{}\\left(10 t x-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x^2\\times(10tx-3)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 r","-2 r\\mathopen{}\\left(10 y^2+r x\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2r\\times(10y^2+rx)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 t^2","3 t^2\\mathopen{}\\left(7 r^2 s+ 9 t\\right)\\mathclose{}\\mathopen{}\\left(7 r^2 s-9 t\\right)\\mathclose{}"] ; attendu : {"champ":"3t^2\\times(7r^2s+9t)(7r^2s-9t)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-2 t y","-2 t y\\mathopen{}\\left(8 t^2+ 7 r y\\right)\\mathclose{}\\mathopen{}\\left(8 t^2-7 r y\\right)\\mathclose{}"] ; attendu : {"champ":"-2ty\\times(8t^2+7ry)(8t^2-7ry)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-s","-s\\mathopen{}\\left(2 r s y^2+5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-s\\times(2rsy^2+5)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-3 y z","-3 y z\\mathopen{}\\left(4 t z^2-5 y\\right)\\mathclose{}^2"] ; attendu : {"champ":"-3yz\\times(4tz^2-5y)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-z","-z\\mathopen{}\\left(5 x z^2+2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-z\\times(5xz^2+2)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 z^2","-3 z^2\\mathopen{}\\left(z- 1\\right)\\mathclose{}\\mathopen{}\\left(z+1\\right)\\mathclose{}"] ; attendu : {"champ":"-3z^2\\times(z+1)(z-1)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 t","-5 t\\mathopen{}\\left(6 r^2 t^2+ 5 \\right)\\mathclose{}\\mathopen{}\\left(6 r^2 t^2-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5t\\times(6r^2t^2+5)(6r^2t^2-5)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-3 t y","-3 t y\\mathopen{}\\left(7 s-6 t^2 y\\right)\\mathclose{}^2"] ; attendu : {"champ":"-3ty\\times(7s-6t^2y)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 r^2","-3 r^2\\mathopen{}\\left(6 y z-7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3r^2\\times(6yz-7)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-r s","-r s\\mathopen{}\\left(10 y^2-7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-rs\\times(10y^2-7)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["2 t","2 t\\mathopen{}\\left(8 t z+7 y\\right)\\mathclose{}^2"] ; attendu : {"champ":"2t\\times(8tz+7y)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["5 z^2","5 z^2\\mathopen{}\\left(5 s x-6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5z^2\\times(5sx-6)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-r^2","-r^2\\mathopen{}\\left(2 r^2 s x-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-r^2\\times(2r^2sx-5)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-2 s","-2 s\\mathopen{}\\left(6 y-1\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2s\\times(6y-1)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["5 s x","5 s x\\mathopen{}\\left(3 r- 2 s\\right)\\mathclose{}\\mathopen{}\\left(3 r+2 s\\right)\\mathclose{}"] ; attendu : {"champ":"5sx\\times(3r+2s)(3r-2s)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=3 sup5=true (revue-8-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 t","-3 t\\mathopen{}\\left(5 t-s\\right)\\mathclose{}^2"] ; attendu : {"champ":"-3t\\times(5t-s)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2 s t^2","2 s t^2\\mathopen{}\\left(10 r+9 z\\right)\\mathclose{}^2"] ; attendu : {"champ":"2st^2\\times(10r+9z)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-2 r s","-2 r s\\mathopen{}\\left(7 y+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2rs\\times(7y+3)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["5 t x","5 t x\\mathopen{}\\left(10 y+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5tx\\times(10y+3)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(3 x+4 y\\right)\\mathclose{}^2"] ; attendu : {"champ":"2r\\times(3x+4y)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-3 r s x","-3 r s x\\mathopen{}\\left(3 z+5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3rsx\\times(3z+5)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-2 r s y","-2 r s y\\mathopen{}\\left(2 s-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2rsy\\times(2s-3)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["3 t z","3 t z\\mathopen{}\\left(t- 7 x\\right)\\mathclose{}\\mathopen{}\\left(t+7 x\\right)\\mathclose{}"] ; attendu : {"champ":"3tz\\times(t+7x)(t-7x)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["5 t x","5 t x\\mathopen{}\\left(7 s+2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5tx\\times(7s+2)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-5 s x","-5 s x\\mathopen{}\\left(8 z+7 r\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5sx\\times(8z+7r)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 r x","-2 r x\\mathopen{}\\left(7 s-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2rx\\times(7s-5)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 z^2","-5 z^2\\mathopen{}\\left(3 t-10 r\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5z^2\\times(3t-10r)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["2 r s^2","2 r s^2\\mathopen{}\\left(9 t+5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2rs^2\\times(9t+5)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-2 x^2 y","-2 x^2 y\\mathopen{}\\left(4 z-s\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2x^2y\\times(4z-s)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(z-s\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2z\\times(z-s)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 t","3 t\\mathopen{}\\left(3 r+2 s\\right)\\mathclose{}^2"] ; attendu : {"champ":"3t\\times(3r+2s)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 s x","-3 s x\\mathopen{}\\left(3 s-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3sx\\times(3s-5)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-5 r s x","-5 r s x\\mathopen{}\\left(x+6 r\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5rsx\\times(x+6r)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-2 r y z","-2 r y z\\mathopen{}\\left(8 s- y\\right)\\mathclose{}\\mathopen{}\\left(8 s+y\\right)\\mathclose{}"] ; attendu : {"champ":"-2ryz\\times(8s+y)(8s-y)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-2 r s t","-2 r s t\\mathopen{}\\left(z- 10 \\right)\\mathclose{}\\mathopen{}\\left(z+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-2rst\\times(z+10)(z-10)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=5 sup5=false (revue-9-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 t","-3 t\\mathopen{}\\left(5 y-1\\right)\\mathclose{}\\mathopen{}\\left(5 y+8 \\right)\\mathclose{}"] ; attendu : {"champ":"-3t\\times(5y-1)(5y+8)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 t","-3 t\\mathopen{}\\left(4 s x z+5 \\right)\\mathclose{}\\mathopen{}\\left(4 s x z+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-3t\\times(4sxz+5)(4sxz+7)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 s","5 s\\mathopen{}\\left(5 s^2 y+8 \\right)\\mathclose{}\\mathopen{}\\left(5 s^2 y-9 \\right)\\mathclose{}"] ; attendu : {"champ":"5s\\times(5s^2y+8)(5s^2y-9)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 y","2 y\\mathopen{}\\left(7 t y-1\\right)\\mathclose{}\\mathopen{}\\left(7 t y+5 \\right)\\mathclose{}"] ; attendu : {"champ":"2y\\times(7ty-1)(7ty+5)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-t","-t\\mathopen{}\\left(6 y z+7 \\right)\\mathclose{}\\mathopen{}\\left(6 y z-1\\right)\\mathclose{}"] ; attendu : {"champ":"-t\\times(6yz+7)(6yz-1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 t","3 t\\mathopen{}\\left(5 z+9 \\right)\\mathclose{}\\mathopen{}\\left(5 z-7 \\right)\\mathclose{}"] ; attendu : {"champ":"3t\\times(5z+9)(5z-7)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["3 z","3 z\\mathopen{}\\left(2 s^2 t y+5 \\right)\\mathclose{}\\mathopen{}\\left(2 s^2 t y+9 \\right)\\mathclose{}"] ; attendu : {"champ":"3z\\times(2s^2ty+5)(2s^2ty+9)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-3 t","-3 t\\mathopen{}\\left(10 t x+9 \\right)\\mathclose{}\\mathopen{}\\left(10 t x-1\\right)\\mathclose{}"] ; attendu : {"champ":"-3t\\times(10tx+9)(10tx-1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["5 t","5 t\\mathopen{}\\left(9 r s z+7 \\right)\\mathclose{}\\mathopen{}\\left(9 r s z+4 \\right)\\mathclose{}"] ; attendu : {"champ":"5t\\times(9rsz+7)(9rsz+4)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(2 y+7 \\right)\\mathclose{}\\mathopen{}\\left(2 y-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(2y+7)(2y-5)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 r","-2 r\\mathopen{}\\left(5 s x y+7 \\right)\\mathclose{}\\mathopen{}\\left(5 s x y-1\\right)\\mathclose{}"] ; attendu : {"champ":"-2r\\times(5sxy+7)(5sxy-1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["3 s","3 s\\mathopen{}\\left(9 s-5 \\right)\\mathclose{}\\mathopen{}\\left(9 s+1\\right)\\mathclose{}"] ; attendu : {"champ":"3s\\times(9s-5)(9s+1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 t","5 t\\mathopen{}\\left(8 s^2+3 \\right)\\mathclose{}\\mathopen{}\\left(8 s^2-5 \\right)\\mathclose{}"] ; attendu : {"champ":"5t\\times(8s^2+3)(8s^2-5)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(s x z+4 \\right)\\mathclose{}\\mathopen{}\\left(s x z+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(sxz+4)(sxz+5)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 s","-2 s\\mathopen{}\\left(s y+8 \\right)\\mathclose{}\\mathopen{}\\left(s y-1\\right)\\mathclose{}"] ; attendu : {"champ":"-2s\\times(sy+8)(sy-1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-2 s","-2 s\\mathopen{}\\left(8 x^2-9 \\right)\\mathclose{}\\mathopen{}\\left(8 x^2-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-2s\\times(8x^2-9)(8x^2-7)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-2 y","-2 y\\mathopen{}\\left(7 t^2 y+5 \\right)\\mathclose{}\\mathopen{}\\left(7 t^2 y+1\\right)\\mathclose{}"] ; attendu : {"champ":"-2y\\times(7t^2y+5)(7t^2y+1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["2 y","2 y\\mathopen{}\\left(5 r t x^2 y+8 \\right)\\mathclose{}\\mathopen{}\\left(5 r t x^2 y-7 \\right)\\mathclose{}"] ; attendu : {"champ":"2y\\times(5rtx^2y+8)(5rtx^2y-7)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(7 s t+2 \\right)\\mathclose{}\\mathopen{}\\left(7 s t+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(7st+2)(7st+5)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(7 r t y z-1\\right)\\mathclose{}\\mathopen{}\\left(7 r t y z-9 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(7rtyz-1)(7rtyz-9)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=5 sup5=true (revue-13-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(6 z-1\\right)\\mathclose{}\\mathopen{}\\left(6 z+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5z\\times(6z-1)(6z+7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 r s","-5 r s\\mathopen{}\\left(7 s+9 \\right)\\mathclose{}\\mathopen{}\\left(7 s+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-5rs\\times(7s+9)(7s+10)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["2 z","2 z\\mathopen{}\\left(2 r-9 \\right)\\mathclose{}\\mathopen{}\\left(2 r+7 \\right)\\mathclose{}"] ; attendu : {"champ":"2z\\times(2r-9)(2r+7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["5 t","5 t\\mathopen{}\\left(10 z+7 \\right)\\mathclose{}\\mathopen{}\\left(10 z+1\\right)\\mathclose{}"] ; attendu : {"champ":"5t\\times(10z+7)(10z+1)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["5 x^2","5 x^2\\mathopen{}\\left(10 y+7 \\right)\\mathclose{}\\mathopen{}\\left(10 y+3 \\right)\\mathclose{}"] ; attendu : {"champ":"5x^2\\times(10y+7)(10y+3)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(4 x-9 \\right)\\mathclose{}\\mathopen{}\\left(4 x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(4x-9)(4x+7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-5 r s","-5 r s\\mathopen{}\\left(3 r-1\\right)\\mathclose{}\\mathopen{}\\left(3 r-10 \\right)\\mathclose{}"] ; attendu : {"champ":"-5rs\\times(3r-1)(3r-10)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["2 t","2 t\\mathopen{}\\left(6 s-7 \\right)\\mathclose{}\\mathopen{}\\left(6 s+5 \\right)\\mathclose{}"] ; attendu : {"champ":"2t\\times(6s-7)(6s+5)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["5 r^2","5 r^2\\mathopen{}\\left(3 r-8 \\right)\\mathclose{}\\mathopen{}\\left(3 r-1\\right)\\mathclose{}"] ; attendu : {"champ":"5r^2\\times(3r-8)(3r-1)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x+9 \\right)\\mathclose{}\\mathopen{}\\left(x-8 \\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x+9)(x-8)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3 s x","3 s x\\mathopen{}\\left(3 s-2 \\right)\\mathclose{}\\mathopen{}\\left(3 s-8 \\right)\\mathclose{}"] ; attendu : {"champ":"3sx\\times(3s-2)(3s-8)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(7 x+10 \\right)\\mathclose{}\\mathopen{}\\left(7 x-9 \\right)\\mathclose{}"] ; attendu : {"champ":"-2z\\times(7x+10)(7x-9)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["2 y z","2 y z\\mathopen{}\\left(8 y+7 \\right)\\mathclose{}\\mathopen{}\\left(8 y-9 \\right)\\mathclose{}"] ; attendu : {"champ":"2yz\\times(8y+7)(8y-9)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-5 r y","-5 r y\\mathopen{}\\left(8 r+9 \\right)\\mathclose{}\\mathopen{}\\left(8 r+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5ry\\times(8r+9)(8r+5)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(2 z-5 \\right)\\mathclose{}\\mathopen{}\\left(2 z-1\\right)\\mathclose{}"] ; attendu : {"champ":"-5z\\times(2z-5)(2z-1)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-t x","-t x\\mathopen{}\\left(7 x-4 \\right)\\mathclose{}\\mathopen{}\\left(7 x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-tx\\times(7x-4)(7x+5)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["2 r x","2 r x\\mathopen{}\\left(7 x-4 \\right)\\mathclose{}\\mathopen{}\\left(7 x-8 \\right)\\mathclose{}"] ; attendu : {"champ":"2rx\\times(7x-4)(7x-8)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-3 t^2","-3 t^2\\mathopen{}\\left(10 t+7 \\right)\\mathclose{}\\mathopen{}\\left(10 t+9 \\right)\\mathclose{}"] ; attendu : {"champ":"-3t^2\\times(10t+7)(10t+9)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-t","-t\\mathopen{}\\left(7 t-4 \\right)\\mathclose{}\\mathopen{}\\left(7 t+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-t\\times(7t-4)(7t+10)"} | ×2 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-14-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-3 z^2","-3 z^2\\mathopen{}\\left(10 z-9 \\right)\\mathclose{}\\mathopen{}\\left(10 z-3 \\right)\\mathclose{}"] ; attendu : {"champ":"-3z^2\\times(10z-9)(10z-3)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-z^2","-z^2\\mathopen{}\\left(5 x z+1\\right)\\mathclose{}\\mathopen{}\\left(5 x z+6 \\right)\\mathclose{}"] ; attendu : {"champ":"-z^2\\times(5xz+1)(5xz+6)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 y z^2","-5 y z^2\\mathopen{}\\left(7 t z-6 \\right)\\mathclose{}\\mathopen{}\\left(7 t z+8 \\right)\\mathclose{}"] ; attendu : {"champ":"-5yz^2\\times(7tz-6)(7tz+8)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["3 t x z","3 t x z\\mathopen{}\\left(3 t x-2 \\right)\\mathclose{}\\mathopen{}\\left(3 t x-8 \\right)\\mathclose{}"] ; attendu : {"champ":"3txz\\times(3tx-2)(3tx-8)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-2 s x^2","-2 s x^2\\mathopen{}\\left(7 x z+4 \\right)\\mathclose{}\\mathopen{}\\left(7 x z-8 \\right)\\mathclose{}"] ; attendu : {"champ":"-2sx^2\\times(7xz+4)(7xz-8)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["3 r","3 r\\mathopen{}\\left(s x+2 \\right)\\mathclose{}\\mathopen{}\\left(s x+4 \\right)\\mathclose{}"] ; attendu : {"champ":"3r\\times(sx+2)(sx+4)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(9 r+1\\right)\\mathclose{}\\mathopen{}\\left(9 r-2 \\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(9r+1)(9r-2)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-r","-r\\mathopen{}\\left(6 t-5 \\right)\\mathclose{}\\mathopen{}\\left(6 t-1\\right)\\mathclose{}"] ; attendu : {"champ":"-r\\times(6t-5)(6t-1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-s t^2","-s t^2\\mathopen{}\\left(8 x-1\\right)\\mathclose{}\\mathopen{}\\left(8 x+9 \\right)\\mathclose{}"] ; attendu : {"champ":"-st^2\\times(8x-1)(8x+9)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(r t-2 \\right)\\mathclose{}\\mathopen{}\\left(r t-8 \\right)\\mathclose{}"] ; attendu : {"champ":"2r\\times(rt-2)(rt-8)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["5 y","5 y\\mathopen{}\\left(9 s-5 \\right)\\mathclose{}\\mathopen{}\\left(9 s-4 \\right)\\mathclose{}"] ; attendu : {"champ":"5y\\times(9s-5)(9s-4)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3 t z","3 t z\\mathopen{}\\left(r-4 \\right)\\mathclose{}\\mathopen{}\\left(r+6 \\right)\\mathclose{}"] ; attendu : {"champ":"3tz\\times(r-4)(r+6)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["5 s","5 s\\mathopen{}\\left(3 s y+5 \\right)\\mathclose{}\\mathopen{}\\left(3 s y-10 \\right)\\mathclose{}"] ; attendu : {"champ":"5s\\times(3sy+5)(3sy-10)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 s x","5 s x\\mathopen{}\\left(r s+5 \\right)\\mathclose{}\\mathopen{}\\left(r s+6 \\right)\\mathclose{}"] ; attendu : {"champ":"5sx\\times(rs+5)(rs+6)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["3 s y","3 s y\\mathopen{}\\left(7 s-9 \\right)\\mathclose{}\\mathopen{}\\left(7 s+6 \\right)\\mathclose{}"] ; attendu : {"champ":"3sy\\times(7s-9)(7s+6)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-t^2 x","-t^2 x\\mathopen{}\\left(5 y+9 \\right)\\mathclose{}\\mathopen{}\\left(5 y+6 \\right)\\mathclose{}"] ; attendu : {"champ":"-t^2x\\times(5y+9)(5y+6)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-r t","-r t\\mathopen{}\\left(2 z+5 \\right)\\mathclose{}\\mathopen{}\\left(2 z-1\\right)\\mathclose{}"] ; attendu : {"champ":"-rt\\times(2z+5)(2z-1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(3 y^2-2 \\right)\\mathclose{}\\mathopen{}\\left(3 y^2+1\\right)\\mathclose{}"] ; attendu : {"champ":"3x^2\\times(3y^2-2)(3y^2+1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 s","-2 s\\mathopen{}\\left(6 t x-7 \\right)\\mathclose{}\\mathopen{}\\left(6 t x+1\\right)\\mathclose{}"] ; attendu : {"champ":"-2s\\times(6tx-7)(6tx+1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 s t","2 s t\\mathopen{}\\left(10 s t+1\\right)\\mathclose{}\\mathopen{}\\left(10 s t-9 \\right)\\mathclose{}"] ; attendu : {"champ":"2st\\times(10st+1)(10st-9)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-2 t y","-2 t y\\mathopen{}\\left(9 y+4 \\right)\\mathclose{}\\mathopen{}\\left(9 y-2 \\right)\\mathclose{}"] ; attendu : {"champ":"-2ty\\times(9y+4)(9y-2)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=4 sup5=true (revue-15-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3 t","3 t\\mathopen{}\\left(6 t- 5 \\right)\\mathclose{}\\mathopen{}\\left(6 t+5 \\right)\\mathclose{}"] ; attendu : {"champ":"3t\\times(6t+5)(6t-5)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["5 y","5 y\\mathopen{}\\left(5 y^2+8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5y\\times(5y^2+8)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5 s","-5 s\\mathopen{}\\left(10 s^2-7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5s\\times(10s^2-7)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["3 s","3 s\\mathopen{}\\left(5 s^2+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3s\\times(5s^2+3)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 y","-2 y\\mathopen{}\\left(2 y^2-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2y\\times(2y^2-3)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-5 s","-5 s\\mathopen{}\\left(8 s-1\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5s\\times(8s-1)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(10 x^2-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(10x^2-3)^2"} | ×2 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(7 s-2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3s\\times(7s-2)^2"} | ×2 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(r+6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2r\\times(r+6)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["2 t","2 t\\mathopen{}\\left(8 t^2- 1\\right)\\mathclose{}\\mathopen{}\\left(8 t^2+1\\right)\\mathclose{}"] ; attendu : {"champ":"2t\\times(8t^2+1)(8t^2-1)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(8 x-7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2x\\times(8x-7)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["3 y","3 y\\mathopen{}\\left(4 y+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3y\\times(4y+3)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-r","-r\\mathopen{}\\left(5 r+6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-r\\times(5r+6)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["5 z","5 z\\mathopen{}\\left(10 z^2+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5z\\times(10z^2+3)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-y","-y\\mathopen{}\\left(7 y+ 3 \\right)\\mathclose{}\\mathopen{}\\left(7 y-3 \\right)\\mathclose{}"] ; attendu : {"champ":"-y\\times(7y+3)(7y-3)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(6 x-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(6x-5)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(5 x+8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3x\\times(5x+8)^2"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-5 t","-5 t\\mathopen{}\\left(9 t- 10 \\right)\\mathclose{}\\mathopen{}\\left(9 t+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-5t\\times(9t+10)(9t-10)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(2 s+ 1\\right)\\mathclose{}\\mathopen{}\\left(2 s-1\\right)\\mathclose{}"] ; attendu : {"champ":"-3s\\times(2s+1)(2s-1)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(8 s^3 t x- 3 \\right)\\mathclose{}\\mathopen{}\\left(8 s^3 t x+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(8s^3tx+3)(8s^3tx-3)"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(r z^2+2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2z\\times(rz^2+2)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-2 s","-2 s\\mathopen{}\\left(2 s t z-1\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2s\\times(2stz-1)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(8 r^2 s-9 x\\right)\\mathclose{}^2"] ; attendu : {"champ":"2x\\times(8r^2s-9x)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 r","3 r\\mathopen{}\\left(5 r t^2+8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3r\\times(5rt^2+8)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-r","-r\\mathopen{}\\left(10 r^3 t x-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-r\\times(10r^3tx-3)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["2 z","2 z\\mathopen{}\\left(3 x-8 s z\\right)\\mathclose{}^2"] ; attendu : {"champ":"2z\\times(3x-8sz)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(7 t^3 x^2+2 s\\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(7t^3x^2+2s)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-2 r","-2 r\\mathopen{}\\left(2 r s^2 z+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2r\\times(2rs^2z+3)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 y","-2 y\\mathopen{}\\left(5 z^2+7 s^2\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2y\\times(5z^2+7s^2)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 s","-5 s\\mathopen{}\\left(4 s y^3 z-7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5s\\times(4sy^3z-7)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5 y","-5 y\\mathopen{}\\left(3 s^2 x y+5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5y\\times(3s^2xy+5)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(9 x-5 y^2\\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(9x-5y^2)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-s","-s\\mathopen{}\\left(5 x-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-s\\times(5x-3)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(3 r^2 t x+1\\right)\\mathclose{}^2"] ; attendu : {"champ":"3x\\times(3r^2tx+1)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-5 y","-5 y\\mathopen{}\\left(2 t x^2 y+ 7 \\right)\\mathclose{}\\mathopen{}\\left(2 t x^2 y-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5y\\times(2tx^2y+7)(2tx^2y-7)"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(8 x^2 z+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(8x^2z+3)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(5 s-9 r x\\right)\\mathclose{}^2"] ; attendu : {"champ":"2x\\times(5s-9rx)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-y","-y\\mathopen{}\\left(9 x^3 y+8 z\\right)\\mathclose{}^2"] ; attendu : {"champ":"-y\\times(9x^3y+8z)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=3 sup5=true (revue-27-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["5 t","5 t\\mathopen{}\\left(8 t-3 \\right)\\mathclose{}\\mathopen{}\\left(8 t-7 \\right)\\mathclose{}"] ; attendu : {"champ":"5t\\times(8t-3)(8t-7)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(6 x^2-5 \\right)\\mathclose{}\\mathopen{}\\left(6 x^2-7 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(6x^2-5)(6x^2-7)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["3 t","3 t\\mathopen{}\\left(6 t^3+1\\right)\\mathclose{}\\mathopen{}\\left(6 t^3-5 \\right)\\mathclose{}"] ; attendu : {"champ":"3t\\times(6t^3+1)(6t^3-5)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["3 r","3 r\\mathopen{}\\left(10 r^2+3 \\right)\\mathclose{}\\mathopen{}\\left(10 r^2-1\\right)\\mathclose{}"] ; attendu : {"champ":"3r\\times(10r^2+3)(10r^2-1)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(5 z^3+9 \\right)\\mathclose{}\\mathopen{}\\left(5 z^3-4 \\right)\\mathclose{}"] ; attendu : {"champ":"-2z\\times(5z^3+9)(5z^3-4)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(8 x+9 \\right)\\mathclose{}\\mathopen{}\\left(8 x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(8x+9)(8x+5)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-3 y","-3 y\\mathopen{}\\left(5 y^3+7 \\right)\\mathclose{}\\mathopen{}\\left(5 y^3-8 \\right)\\mathclose{}"] ; attendu : {"champ":"-3y\\times(5y^3+7)(5y^3-8)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-5 y","-5 y\\mathopen{}\\left(4 y-3 \\right)\\mathclose{}\\mathopen{}\\left(4 y-9 \\right)\\mathclose{}"] ; attendu : {"champ":"-5y\\times(4y-3)(4y-9)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["3 y","3 y\\mathopen{}\\left(5 y^3+3 \\right)\\mathclose{}\\mathopen{}\\left(5 y^3+9 \\right)\\mathclose{}"] ; attendu : {"champ":"3y\\times(5y^3+3)(5y^3+9)"} | ×2 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-30-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 r","-3 r\\mathopen{}\\left(10 r^3+3 \\right)\\mathclose{}\\mathopen{}\\left(10 r^3+1\\right)\\mathclose{}"] ; attendu : {"champ":"-3r\\times(10r^3+3)(10r^3+1)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(10 z+7 \\right)\\mathclose{}\\mathopen{}\\left(10 z+1\\right)\\mathclose{}"] ; attendu : {"champ":"-5z\\times(10z+7)(10z+1)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(6 r-5 \\right)\\mathclose{}\\mathopen{}\\left(6 r-7 \\right)\\mathclose{}"] ; attendu : {"champ":"2r\\times(6r-5)(6r-7)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-z","-z\\mathopen{}\\left(7 z^3-3 \\right)\\mathclose{}\\mathopen{}\\left(7 z^3+1\\right)\\mathclose{}"] ; attendu : {"champ":"-z\\times(7z^3-3)(7z^3+1)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(2 x-5 \\right)\\mathclose{}\\mathopen{}\\left(2 x-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(2x-5)(2x-7)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(2 s^3+1\\right)\\mathclose{}\\mathopen{}\\left(2 s^3-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-3s\\times(2s^3+1)(2s^3-5)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["5 r","5 r\\mathopen{}\\left(4 r-7 \\right)\\mathclose{}\\mathopen{}\\left(4 r+1\\right)\\mathclose{}"] ; attendu : {"champ":"5r\\times(4r-7)(4r+1)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(2 r^3+5 \\right)\\mathclose{}\\mathopen{}\\left(2 r^3+1\\right)\\mathclose{}"] ; attendu : {"champ":"2r\\times(2r^3+5)(2r^3+1)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(6 x^2-5 \\right)\\mathclose{}\\mathopen{}\\left(6 x^2+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(6x^2-5)(6x^2+7)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["5 z","5 z\\mathopen{}\\left(4 z^3+1\\right)\\mathclose{}\\mathopen{}\\left(4 z^3-9 \\right)\\mathclose{}"] ; attendu : {"champ":"5z\\times(4z^3+1)(4z^3-9)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(8 x z^2-9 \\right)\\mathclose{}\\mathopen{}\\left(8 x z^2-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5z\\times(8xz^2-9)(8xz^2-7)"} | ×2 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-z","-z\\mathopen{}\\left(10 x z^3-3 \\right)\\mathclose{}\\mathopen{}\\left(10 x z^3-1\\right)\\mathclose{}"] ; attendu : {"champ":"-z\\times(10xz^3-3)(10xz^3-1)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 s","5 s\\mathopen{}\\left(5 s^3-9 \\right)\\mathclose{}\\mathopen{}\\left(5 s^3-6 \\right)\\mathclose{}"] ; attendu : {"champ":"5s\\times(5s^3-9)(5s^3-6)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 s","2 s\\mathopen{}\\left(3 s^2-8 \\right)\\mathclose{}\\mathopen{}\\left(3 s^2-1\\right)\\mathclose{}"] ; attendu : {"champ":"2s\\times(3s^2-8)(3s^2-1)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["2 y","2 y\\mathopen{}\\left(2 s^2 y^2-7 \\right)\\mathclose{}\\mathopen{}\\left(2 s^2 y^2+5 \\right)\\mathclose{}"] ; attendu : {"champ":"2y\\times(2s^2y^2-7)(2s^2y^2+5)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(7 r x+9 \\right)\\mathclose{}\\mathopen{}\\left(7 r x+4 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(7rx+9)(7rx+4)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(5 t z^2-4 \\right)\\mathclose{}\\mathopen{}\\left(5 t z^2+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-2z\\times(5tz^2-4)(5tz^2+7)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(5 s x^2-6 \\right)\\mathclose{}\\mathopen{}\\left(5 s x^2-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-3s\\times(5sx^2-6)(5sx^2-7)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["5 z","5 z\\mathopen{}\\left(8 z-1\\right)\\mathclose{}\\mathopen{}\\left(8 z+5 \\right)\\mathclose{}"] ; attendu : {"champ":"5z\\times(8z-1)(8z+5)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-5 t","-5 t\\mathopen{}\\left(2 t x^3-9 \\right)\\mathclose{}\\mathopen{}\\left(2 t x^3+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5t\\times(2tx^3-9)(2tx^3+5)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(7 s^2 x-5 \\right)\\mathclose{}\\mathopen{}\\left(7 s^2 x-1\\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(7s^2x-5)(7s^2x-1)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(7 r x^2+2 \\right)\\mathclose{}\\mathopen{}\\left(7 r x^2-3 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(7rx^2+2)(7rx^2-3)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-s","-s\\mathopen{}\\left(8 s^2+7 \\right)\\mathclose{}\\mathopen{}\\left(8 s^2+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-s\\times(8s^2+7)(8s^2+3)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(8 x^2 y+1\\right)\\mathclose{}\\mathopen{}\\left(8 x^2 y-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(8x^2y+1)(8x^2y-5)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 y","-3 y\\mathopen{}\\left(10 y+7 \\right)\\mathclose{}\\mathopen{}\\left(10 y-3 \\right)\\mathclose{}"] ; attendu : {"champ":"-3y\\times(10y+7)(10y-3)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-3 z","-3 z\\mathopen{}\\left(5 t^2+3 \\right)\\mathclose{}\\mathopen{}\\left(5 t^2+6 \\right)\\mathclose{}"] ; attendu : {"champ":"-3z\\times(5t^2+3)(5t^2+6)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(8 y^4+3 \\right)\\mathclose{}\\mathopen{}\\left(8 y^4-1\\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(8y^4+3)(8y^4-1)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["2 r","2 r\\mathopen{}\\left(10 r+3 \\right)\\mathclose{}\\mathopen{}\\left(10 r-1\\right)\\mathclose{}"] ; attendu : {"champ":"2r\\times(10r+3)(10r-1)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=2 sup5=true (revue-31-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(x-6 z\\right)\\mathclose{}^2"] ; attendu : {"champ":"-3s\\times(x-6z)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["5 y","5 y\\mathopen{}\\left(7 t+y\\right)\\mathclose{}^2"] ; attendu : {"champ":"5y\\times(7t+y)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(r-5 x\\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(r-5x)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 t","-3 t\\mathopen{}\\left(6 t+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3t\\times(6t+7)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["3 z","3 z\\mathopen{}\\left(2 z-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3z\\times(2z-3)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-y","-y\\mathopen{}\\left(r-9 y\\right)\\mathclose{}^2"] ; attendu : {"champ":"-y\\times(r-9y)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-s","-s\\mathopen{}\\left(2 z+5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-s\\times(2z+5)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(10 s+9 x\\right)\\mathclose{}^2"] ; attendu : {"champ":"2x\\times(10s+9x)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(10 r+3 x\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5x\\times(10r+3x)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-3 s","-3 s\\mathopen{}\\left(3 r+5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3s\\times(3r+5)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["3 r","3 r\\mathopen{}\\left(2 y- 7 \\right)\\mathclose{}\\mathopen{}\\left(2 y+7 \\right)\\mathclose{}"] ; attendu : {"champ":"3r\\times(2y+7)(2y-7)"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["3 t","3 t\\mathopen{}\\left(7 s+ 6 \\right)\\mathclose{}\\mathopen{}\\left(7 s-6 \\right)\\mathclose{}"] ; attendu : {"champ":"3t\\times(7s+6)(7s-6)"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 r","5 r\\mathopen{}\\left(r-8 s\\right)\\mathclose{}^2"] ; attendu : {"champ":"5r\\times(r-8s)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-5 t","-5 t\\mathopen{}\\left(4 y-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5t\\times(4y-3)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(z+5 x\\right)\\mathclose{}^2"] ; attendu : {"champ":"-2z\\times(z+5x)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(3 s-4 x\\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(3s-4x)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 z","-3 z\\mathopen{}\\left(7 t-2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3z\\times(7t-2)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["3 r","3 r\\mathopen{}\\left(10 t+z\\right)\\mathclose{}^2"] ; attendu : {"champ":"3r\\times(10t+z)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-3 z","-3 z\\mathopen{}\\left(9 t-5 z\\right)\\mathclose{}^2"] ; attendu : {"champ":"-3z\\times(9t-5z)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-5 r","-5 r\\mathopen{}\\left(9 z-7 t\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5r\\times(9z-7t)^2"} | ×1 ; sup=3 sup2=1 sup3=1 sup4=4 sup5=true (revue-36-b) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 z","-3 z\\mathopen{}\\left(10 z+9 \\right)\\mathclose{}\\mathopen{}\\left(10 z+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-3z\\times(10z+9)(10z+7)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-s","-s\\mathopen{}\\left(4 y-1\\right)\\mathclose{}\\mathopen{}\\left(4 y-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-s\\times(4y-1)(4y-5)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-2 z","-2 z\\mathopen{}\\left(6 r+7 \\right)\\mathclose{}\\mathopen{}\\left(6 r+1\\right)\\mathclose{}"] ; attendu : {"champ":"-2z\\times(6r+7)(6r+1)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["3 y","3 y\\mathopen{}\\left(3 x-5 \\right)\\mathclose{}\\mathopen{}\\left(3 x+2 \\right)\\mathclose{}"] ; attendu : {"champ":"3y\\times(3x-5)(3x+2)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(5 x+4 \\right)\\mathclose{}\\mathopen{}\\left(5 x+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(5x+4)(5x+3)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(x+9 \\right)\\mathclose{}\\mathopen{}\\left(x+2 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(x+9)(x+2)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(4 x-7 \\right)\\mathclose{}\\mathopen{}\\left(4 x+1\\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(4x-7)(4x+1)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-5 y","-5 y\\mathopen{}\\left(3 r+5 \\right)\\mathclose{}\\mathopen{}\\left(3 r-4 \\right)\\mathclose{}"] ; attendu : {"champ":"-5y\\times(3r+5)(3r-4)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 t","2 t\\mathopen{}\\left(r+1\\right)\\mathclose{}\\mathopen{}\\left(r+8 \\right)\\mathclose{}"] ; attendu : {"champ":"2t\\times(r+1)(r+8)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-5 s","-5 s\\mathopen{}\\left(9 s+7 \\right)\\mathclose{}\\mathopen{}\\left(9 s+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-5s\\times(9s+7)(9s+10)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-a) |
+| 3L12-2 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(10 z+1\\right)\\mathclose{}\\mathopen{}\\left(10 z+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5z\\times(10z+1)(10z+7)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 y","-2 y\\mathopen{}\\left(6 r-1\\right)\\mathclose{}\\mathopen{}\\left(6 r-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-2y\\times(6r-1)(6r-7)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(2 y-7 \\right)\\mathclose{}\\mathopen{}\\left(2 y-9 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(2y-7)(2y-9)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 y","2 y\\mathopen{}\\left(t+4 \\right)\\mathclose{}\\mathopen{}\\left(t+5 \\right)\\mathclose{}"] ; attendu : {"champ":"2y\\times(t+4)(t+5)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["3 z","3 z\\mathopen{}\\left(5 s+8 \\right)\\mathclose{}\\mathopen{}\\left(5 s+2 \\right)\\mathclose{}"] ; attendu : {"champ":"3z\\times(5s+8)(5s+2)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-2 y","-2 y\\mathopen{}\\left(r-10 \\right)\\mathclose{}\\mathopen{}\\left(r-6 \\right)\\mathclose{}"] ; attendu : {"champ":"-2y\\times(r-10)(r-6)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-5 r","-5 r\\mathopen{}\\left(6 s-1\\right)\\mathclose{}\\mathopen{}\\left(6 s+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5r\\times(6s-1)(6s+5)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 t","-2 t\\mathopen{}\\left(3 x+1\\right)\\mathclose{}\\mathopen{}\\left(3 x-4 \\right)\\mathclose{}"] ; attendu : {"champ":"-2t\\times(3x+1)(3x-4)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-5 z","-5 z\\mathopen{}\\left(9 s+4 \\right)\\mathclose{}\\mathopen{}\\left(9 s+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5z\\times(9s+4)(9s+7)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-2 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(5 r-3 \\right)\\mathclose{}\\mathopen{}\\left(5 r+2 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(5r-3)(5r+2)"} | ×1 ; sup=5 sup2=1 sup3=1 sup4=3 sup5=true (revue-37-b) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(6 x^2+ 7 \\right)\\mathclose{}\\mathopen{}\\left(6 x^2-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(6x^2+7)(6x^2-7)"} | ×3 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(2 x^3+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x\\times(2x^3+7)^2"} | ×2 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-7-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(2 x+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(2x+3)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(7 x^2- 5 \\right)\\mathclose{}\\mathopen{}\\left(7 x^2+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(7x^2+5)(7x^2-5)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(7 x-6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(7x-6)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(7 x-8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(7x-8)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(8 x+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x\\times(8x+7)^2"} | ×3 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(3 x- 8 \\right)\\mathclose{}\\mathopen{}\\left(3 x+8 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(3x+8)(3x-8)"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(10 x+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(10x+7)^2"} | ×1 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(7 x^3-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2x\\times(7x^3-5)^2"} | ×4 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(7 x^3-6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(7x^3-6)^2"} | ×3 ; sup=3 sup2=1 sup3=3 sup4=2 sup5=true (revue-7-b) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(x^3+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5x\\times(x^3+7)^2"} | ×6 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true… (revue-8-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-5 x^2","-5 x^2\\mathopen{}\\left(x^3+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5x^2\\times(x^3+7)^2"} | ×2 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x^3-6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x\\times(x^3-6)^2"} | ×3 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true… (revue-8-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-2 x^2","-2 x^2\\mathopen{}\\left(x^3- 8 \\right)\\mathclose{}\\mathopen{}\\left(x^3+8 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x^2\\times(x^3+8)(x^3-8)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x^2","-x^2\\mathopen{}\\left(x+ 6 \\right)\\mathclose{}\\mathopen{}\\left(x-6 \\right)\\mathclose{}"] ; attendu : {"champ":"-x^2\\times(x+6)(x-6)"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-5 x^2","-5 x^2\\mathopen{}\\left(x-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-5x^2\\times(x-5)^2"} | ×2 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x^3-8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(x^3-8)^2"} | ×3 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true (revue-8-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x- 8 \\right)\\mathclose{}\\mathopen{}\\left(x+8 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x+8)(x-8)"} | ×2 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true (revue-8-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x^3+ 6 \\right)\\mathclose{}\\mathopen{}\\left(x^3-6 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(x^3+6)(x^3-6)"} | ×2 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true (revue-8-a) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(x-7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3x^2\\times(x-7)^2"} | ×6 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-8-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(x^3-3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"3x^2\\times(x^3-3)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-b) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-3 x^2","-3 x^2\\mathopen{}\\left(x^3+ 6 \\right)\\mathclose{}\\mathopen{}\\left(x^3-6 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x^2\\times(x^3+6)(x^3-6)"} | ×2 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x-6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x\\times(x-6)^2"} | ×10 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false… (revue-8-b) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x^3-1\\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(x^3-1)^2"} | ×1 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false (revue-8-b) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 x^2","-3 x^2\\mathopen{}\\left(x+6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x^2\\times(x+6)^2"} | ×3 ; sup=3 sup2=2 sup3=4 sup4=1 sup5=false ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true (revue-8-b) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x-6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"5x\\times(x-6)^2"} | ×6 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false ; sup=6 sup2=1 sup3=1 sup4=1 sup5=true… (revue-9-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["3 x^3","3 x^3\\mathopen{}\\left(x- 7 \\right)\\mathclose{}\\mathopen{}\\left(x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^3\\times(x+7)(x-7)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["2 x^2","2 x^2\\mathopen{}\\left(x+6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2x^2\\times(x+6)^2"} | ×3 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x+ 6 \\right)\\mathclose{}\\mathopen{}\\left(x-6 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x+6)(x-6)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-5 x^3","-5 x^3\\mathopen{}\\left(x+ 10 \\right)\\mathclose{}\\mathopen{}\\left(x-10 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x^3\\times(x+10)(x-10)"} | ×2 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x+3 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-2x\\times(x+3)^2"} | ×2 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-9-a) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-x^3","-x^3\\mathopen{}\\left(x- 1\\right)\\mathclose{}\\mathopen{}\\left(x+1\\right)\\mathclose{}"] ; attendu : {"champ":"-x^3\\times(x+1)(x-1)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-x^2","-x^2\\mathopen{}\\left(x- 7 \\right)\\mathclose{}\\mathopen{}\\left(x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-x^2\\times(x+7)(x-7)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-b) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-5 x^3","-5 x^3\\mathopen{}\\left(x-1\\right)\\mathclose{}^2"] ; attendu : {"champ":"-5x^3\\times(x-1)^2"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-b) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-3 x^3","-3 x^3\\mathopen{}\\left(x+ 1\\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"-3x^3\\times(x+1)(x-1)"} | ×1 ; sup=3 sup2=3 sup3=1 sup4=1 sup5=false (revue-9-b) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x-9 \\right)\\mathclose{}\\mathopen{}\\left(x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(x-9)(x+5)"} | ×5 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true… (revue-13-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x+8 \\right)\\mathclose{}\\mathopen{}\\left(x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x+8)(x+5)"} | ×3 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false… (revue-13-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(x^3+7 \\right)\\mathclose{}\\mathopen{}\\left(x^3-8 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(x^3+7)(x^3-8)"} | ×3 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-13-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(x^3-9 \\right)\\mathclose{}\\mathopen{}\\left(x^3-3 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(x^3-9)(x^3-3)"} | ×2 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-13-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x+1\\right)\\mathclose{}\\mathopen{}\\left(x-9 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(x+1)(x-9)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true (revue-13-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x^3+10 \\right)\\mathclose{}\\mathopen{}\\left(x^3+1\\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(x^3+10)(x^3+1)"} | ×2 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=6 sup2=1 sup3=4 sup4=1 sup5=true (revue-13-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x-1\\right)\\mathclose{}\\mathopen{}\\left(x+10 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x-1)(x+10)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true (revue-13-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(x^5+2 \\right)\\mathclose{}\\mathopen{}\\left(x^5-7 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(x^5+2)(x^5-7)"} | ×9 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true… (revue-13-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(x^3+7 \\right)\\mathclose{}\\mathopen{}\\left(x^3+4 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(x^3+7)(x^3+4)"} | ×2 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true (revue-13-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x^3+6 \\right)\\mathclose{}\\mathopen{}\\left(x^3-1\\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x^3+6)(x^3-1)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true (revue-13-b) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x^3+10 \\right)\\mathclose{}\\mathopen{}\\left(x^3-8 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x^3+10)(x^3-8)"} | ×1 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true (revue-13-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x-7 \\right)\\mathclose{}\\mathopen{}\\left(x+9 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(x-7)(x+9)"} | ×5 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true… (revue-13-b) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(x-5 \\right)\\mathclose{}\\mathopen{}\\left(x-4 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(x-5)(x-4)"} | ×6 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true… (revue-13-b) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x-3 \\right)\\mathclose{}\\mathopen{}\\left(x-5 \\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x-3)(x-5)"} | ×2 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true (revue-13-b) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x^3-3 \\right)\\mathclose{}\\mathopen{}\\left(x^3-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x^3-3)(x^3-5)"} | ×2 ; sup=5 sup2=1 sup3=5 sup4=1 sup5=true (revue-13-b) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(5 x+7 \\right)\\mathclose{}\\mathopen{}\\left(5 x-9 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(5x+7)(5x-9)"} | ×2 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(3 x-10 \\right)\\mathclose{}\\mathopen{}\\left(3 x+4 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(3x-10)(3x+4)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-5 x^2","-5 x^2\\mathopen{}\\left(6 x-1\\right)\\mathclose{}\\mathopen{}\\left(6 x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x^2\\times(6x-1)(6x+7)"} | ×2 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(7 x+2 \\right)\\mathclose{}\\mathopen{}\\left(7 x-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(7x+2)(7x-5)"} | ×2 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(7 x+6 \\right)\\mathclose{}\\mathopen{}\\left(7 x-3 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(7x+6)(7x-3)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(6 x+1\\right)\\mathclose{}\\mathopen{}\\left(6 x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^2\\times(6x+1)(6x+7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(3 x-1\\right)\\mathclose{}\\mathopen{}\\left(3 x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(3x-1)(3x+5)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-a) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(7 x-6 \\right)\\mathclose{}\\mathopen{}\\left(7 x-3 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(7x-6)(7x-3)"} | ×2 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["5 x^2","5 x^2\\mathopen{}\\left(9 x-4 \\right)\\mathclose{}\\mathopen{}\\left(9 x-8 \\right)\\mathclose{}"] ; attendu : {"champ":"5x^2\\times(9x-4)(9x-8)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x^2","-x^2\\mathopen{}\\left(5 x-8 \\right)\\mathclose{}\\mathopen{}\\left(5 x-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-x^2\\times(5x-8)(5x-7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-5 x^2","-5 x^2\\mathopen{}\\left(9 x-7 \\right)\\mathclose{}\\mathopen{}\\left(9 x-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x^2\\times(9x-7)(9x-5)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(6 x-7 \\right)\\mathclose{}\\mathopen{}\\left(6 x-1\\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(6x-7)(6x-1)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 x^2","-2 x^2\\mathopen{}\\left(4 x-5 \\right)\\mathclose{}\\mathopen{}\\left(4 x-1\\right)\\mathclose{}"] ; attendu : {"champ":"-2x^2\\times(4x-5)(4x-1)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(x-1\\right)\\mathclose{}\\mathopen{}\\left(x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(x-1)(x+7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(8 x+9 \\right)\\mathclose{}\\mathopen{}\\left(8 x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(8x+9)(8x+7)"} | ×1 ; sup=5 sup2=2 sup3=1 sup4=2 sup5=false (revue-14-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x+5 \\right)\\mathclose{}\\mathopen{}\\left(x+7 \\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x+5)(x+7)"} | ×3 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true ; sup=6 sup2=1 sup3=1 sup4=1 sup5=true… (revue-15-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["3 x^3","3 x^3\\mathopen{}\\left(x+5 \\right)\\mathclose{}\\mathopen{}\\left(x+3 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^3\\times(x+5)(x+3)"} | ×2 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x+3 \\right)\\mathclose{}\\mathopen{}\\left(x-9 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(x+3)(x-9)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-5 x^2","-5 x^2\\mathopen{}\\left(x-8 \\right)\\mathclose{}\\mathopen{}\\left(x+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x^2\\times(x-8)(x+3)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x+3 \\right)\\mathclose{}\\mathopen{}\\left(x+1\\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x+3)(x+1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["5 x^2","5 x^2\\mathopen{}\\left(x-9 \\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"5x^2\\times(x-9)(x-1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-a) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-5 x^3","-5 x^3\\mathopen{}\\left(x+8 \\right)\\mathclose{}\\mathopen{}\\left(x+9 \\right)\\mathclose{}"] ; attendu : {"champ":"-5x^3\\times(x+8)(x+9)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-a) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-2 x^2","-2 x^2\\mathopen{}\\left(x+7 \\right)\\mathclose{}\\mathopen{}\\left(x-5 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x^2\\times(x+7)(x-5)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2 x^3","2 x^3\\mathopen{}\\left(x+5 \\right)\\mathclose{}\\mathopen{}\\left(x+1\\right)\\mathclose{}"] ; attendu : {"champ":"2x^3\\times(x+5)(x+1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(x+1\\right)\\mathclose{}\\mathopen{}\\left(x+5 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^2\\times(x+1)(x+5)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x^2","-x^2\\mathopen{}\\left(x+6 \\right)\\mathclose{}\\mathopen{}\\left(x+9 \\right)\\mathclose{}"] ; attendu : {"champ":"-x^2\\times(x+6)(x+9)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["-x^3","-x^3\\mathopen{}\\left(x+4 \\right)\\mathclose{}\\mathopen{}\\left(x-8 \\right)\\mathclose{}"] ; attendu : {"champ":"-x^3\\times(x+4)(x-8)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 x^2","-2 x^2\\mathopen{}\\left(x-7 \\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"-2x^2\\times(x-7)(x-1)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 x^3","3 x^3\\mathopen{}\\left(x-9 \\right)\\mathclose{}\\mathopen{}\\left(x-6 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^3\\times(x-9)(x-6)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q10 mathlive | valeur en évidence refusée par le champ : ["-3 x^3","-3 x^3\\mathopen{}\\left(x+1\\right)\\mathclose{}\\mathopen{}\\left(x-7 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x^3\\times(x+1)(x-7)"} | ×1 ; sup=5 sup2=3 sup3=2 sup4=1 sup5=true (revue-15-b) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x+6 \\right)\\mathclose{}\\mathopen{}\\left(x+4 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x+6)(x+4)"} | ×1 ; sup=6 sup2=1 sup3=1 sup4=1 sup5=true (revue-16-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x-8 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(x-8)^2"} | ×6 ; sup=6 sup2=1 sup3=1 sup4=1 sup5=true ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true… (revue-16-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x-4 \\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x-4)(x-1)"} | ×2 ; sup=6 sup2=1 sup3=1 sup4=1 sup5=true ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-16-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 x^2","-3 x^2\\mathopen{}\\left(3 x-10 \\right)\\mathclose{}\\mathopen{}\\left(3 x+4 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x^2\\times(3x-10)(3x+4)"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(8 x^2+9 \\right)\\mathclose{}\\mathopen{}\\left(8 x^2+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(8x^2+9)(8x^2+5)"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(7 x-1\\right)\\mathclose{}^2"] ; attendu : {"champ":"3x^2\\times(7x-1)^2"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 x^2","-3 x^2\\mathopen{}\\left(5 x+6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-3x^2\\times(5x+6)^2"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(3 x^3+1\\right)\\mathclose{}\\mathopen{}\\left(3 x^3+5 \\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(3x^3+1)(3x^3+5)"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-b) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["5 x^2","5 x^2\\mathopen{}\\left(9 x^3+5 \\right)\\mathclose{}\\mathopen{}\\left(9 x^3+4 \\right)\\mathclose{}"] ; attendu : {"champ":"5x^2\\times(9x^3+5)(9x^3+4)"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-b) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["2 x^2","2 x^2\\mathopen{}\\left(x^5+2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2x^2\\times(x^5+2)^2"} | ×1 ; sup=6 sup2=2 sup3=5 sup4=2 sup5=false (revue-17-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-x^3","-x^3\\mathopen{}\\left(x-10 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-x^3\\times(x-10)^2"} | ×1 ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true (revue-18-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-5 x","-5 x\\mathopen{}\\left(x+8 \\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"-5x\\times(x+8)(x-1)"} | ×1 ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true (revue-18-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 x^2","3 x^2\\mathopen{}\\left(x-3 \\right)\\mathclose{}\\mathopen{}\\left(x+10 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^2\\times(x-3)(x+10)"} | ×1 ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true (revue-18-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["3 x^3","3 x^3\\mathopen{}\\left(x+ 3 \\right)\\mathclose{}\\mathopen{}\\left(x-3 \\right)\\mathclose{}"] ; attendu : {"champ":"3x^3\\times(x+3)(x-3)"} | ×1 ; sup=6 sup2=3 sup3=2 sup4=1 sup5=true (revue-18-a) |
+| 3L12-4 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x- 10 \\right)\\mathclose{}\\mathopen{}\\left(x+10 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(x+10)(x-10)"} | ×2 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x+7 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(x+7)^2"} | ×4 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true… (revue-26-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x+6 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2x\\times(x+6)^2"} | ×9 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true… (revue-26-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(x+ 1\\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(x+1)(x-1)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-a) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x- 3 \\right)\\mathclose{}\\mathopen{}\\left(x+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x+3)(x-3)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x- 1\\right)\\mathclose{}\\mathopen{}\\left(x+1\\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x+1)(x-1)"} | ×1 ; sup=3 sup2=1 sup3=2 sup4=1 sup5=true (revue-26-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x^5+2 \\right)\\mathclose{}^2"] ; attendu : {"champ":"2x\\times(x^5+2)^2"} | ×1 ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true (revue-27-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x^5- 3 \\right)\\mathclose{}\\mathopen{}\\left(x^5+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x^5+3)(x^5-3)"} | ×2 ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true (revue-27-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x^3-5 \\right)\\mathclose{}^2"] ; attendu : {"champ":"-x\\times(x^3-5)^2"} | ×2 ; sup=3 sup2=1 sup3=5 sup4=1 sup5=true (revue-27-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x^3-8 \\right)\\mathclose{}\\mathopen{}\\left(x^3+9 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(x^3-8)(x^3+9)"} | ×6 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-30-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x-6 \\right)\\mathclose{}\\mathopen{}\\left(x-9 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x-6)(x-9)"} | ×3 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x^3-4 \\right)\\mathclose{}\\mathopen{}\\left(x^3+9 \\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x^3-4)(x^3+9)"} | ×2 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["3 x","3 x\\mathopen{}\\left(x^3-7 \\right)\\mathclose{}\\mathopen{}\\left(x^3-6 \\right)\\mathclose{}"] ; attendu : {"champ":"3x\\times(x^3-7)(x^3-6)"} | ×3 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true ; sup=6 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x-1\\right)\\mathclose{}\\mathopen{}\\left(x+9 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(x-1)(x+9)"} | ×1 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true (revue-30-a) |
+| 3L12-4 (3e) |  q6 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x+10 \\right)\\mathclose{}\\mathopen{}\\left(x-3 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(x+10)(x-3)"} | ×5 ; sup=5 sup2=1 sup3=3 sup4=1 sup5=true ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-30-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["-3 x","-3 x\\mathopen{}\\left(x^3+1\\right)\\mathclose{}\\mathopen{}\\left(x^3-4 \\right)\\mathclose{}"] ; attendu : {"champ":"-3x\\times(x^3+1)(x^3-4)"} | ×2 ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-31-a) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x+1\\right)\\mathclose{}\\mathopen{}\\left(x+6 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x+1)(x+6)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-31-a) |
+| 3L12-4 (3e) |  q4 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x+6 \\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x+6)(x-1)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-31-a) |
+| 3L12-4 (3e) |  q9 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x^3+8 \\right)\\mathclose{}\\mathopen{}\\left(x^3+7 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x^3+8)(x^3+7)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-31-a) |
+| 3L12-4 (3e) |  q8 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x^3+1\\right)\\mathclose{}\\mathopen{}\\left(x^3+5 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x^3+1)(x^3+5)"} | ×1 ; sup=5 sup2=1 sup3=4 sup4=1 sup5=true (revue-31-b) |
+| 3L12-4 (3e) |  q3 mathlive | valeur en évidence refusée par le champ : ["5 x","5 x\\mathopen{}\\left(x^3+ 8 \\right)\\mathclose{}\\mathopen{}\\left(x^3-8 \\right)\\mathclose{}"] ; attendu : {"champ":"5x\\times(x^3+8)(x^3-8)"} | ×1 ; sup=6 sup2=1 sup3=3 sup4=1 sup5=true (revue-32-b) |
+| 3L12-4 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["2 x","2 x\\mathopen{}\\left(x-3 \\right)\\mathclose{}\\mathopen{}\\left(x-1\\right)\\mathclose{}"] ; attendu : {"champ":"2x\\times(x-3)(x-1)"} | ×1 ; sup=6 sup2=1 sup3=4 sup4=1 sup5=true (revue-33-a) |
+| 3L12-4 (3e) |  q5 mathlive | valeur en évidence refusée par le champ : ["-2 x","-2 x\\mathopen{}\\left(x^3+8 \\right)\\mathclose{}\\mathopen{}\\left(x^3+4 \\right)\\mathclose{}"] ; attendu : {"champ":"-2x\\times(x^3+8)(x^3+4)"} | ×1 ; sup=6 sup2=1 sup3=4 sup4=1 sup5=true (revue-33-b) |
+| 3L12-4 (3e) |  q7 mathlive | valeur en évidence refusée par le champ : ["-x","-x\\mathopen{}\\left(x^3-4 \\right)\\mathclose{}\\mathopen{}\\left(x^3+3 \\right)\\mathclose{}"] ; attendu : {"champ":"-x\\times(x^3-4)(x^3+3)"} | ×1 ; sup=6 sup2=1 sup3=4 sup4=1 sup5=true (revue-33-b) |
 | 3L13-3 (3e) |  q2 mathlive | valeur en évidence refusée par le champ : ["37","37"] ; attendu : {"champ":"37\\operatorname{mm}"} | ×28 ; sup=0 sup2=true ; sup=9 sup2=true… (revue-1-b) |
 | 3L13-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["4"] ; attendu : {"champ":"4\\operatorname{cm}"} | ×4 ; sup=4 sup2=true (revue-8-a) |
 | 3L13-3 (3e) |  q1 mathlive | valeur en évidence refusée par le champ : ["6,2"] ; attendu : {"champ":"6,2\\operatorname{cm}"} | ×4 ; sup=4 sup2=false (revue-9-a) |
@@ -2176,10 +2541,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G5D-1 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["7,5\\text{ cm}^2"] ; attendu : {"champ":"7,5\\operatorname{cm^2}"} | ×8 ; sup=3 ; sup=1… (revue-0-a) |
 | 5G5D-1 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["24\\text{ cm}^2"] ; attendu : {"champ":"24\\operatorname{cm^2}"} | ×20 ; sup=3 ; sup=1… (revue-0-a) |
 | 5G6G (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["12\\text{ cm}^2"] ; attendu : {"champ":"12\\operatorname{cm^2}"} | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| 5N1autoA-1 (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"2"} ; attendu : {"champ1":"2","champ2":"9"} | ×133 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| 5N1autoA-1 (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"2"} ; attendu : {"champ1":"2","champ2":"9"} | ×292 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 5N1I-3 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["30&nbsp;; 60&nbsp;; 90&nbsp;; 120&nbsp;; 150"] ; attendu : {"champ":"30;60;90;120;150"} | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | 5N1I-3 (5e) |  q1 mathlive | valeur en évidence refusée par le champ : ["600&nbsp;; 1\\,200&nbsp;; 1\\,800&nbsp;; 2\\,400&nbsp;; 3\\,000"] ; attendu : {"champ":"600;1200;1800;2400;3000"} | ×2 ; défaut ; défaut nb=10 (revue-0-b) |
-| 5N1I-4 (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"2"} ; attendu : {"champ1":"2","champ2":"9"} | ×133 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| 5N1I-4 (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"9","champ2":"2"} ; attendu : {"champ1":"2","champ2":"9"} | ×291 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 5N1I-4 (5e) | src/exercices/5e/5N1I-4.ts | Clone de 6N3autoD-2 : mêmes champs sortie/nombre dans l'ordre inverse de la correction (133 M1) ; « un nombre multiple de 2 » : 2 hors des $ ; 215 N1. → Voir 6N3autoD-2. | ×1 |
 | 5N1I-5 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["14","28","14","28"] ; attendu : {"champ":"81"} | ×7 ; sup=1 sup2=3 sup3=false sup4=3 ; sup=2 sup2=3 sup3=false sup4=1… (revue-0-a) |
 | 5N1I-5 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["7","9","21","7","9","21"] ; attendu : {"champ":"100"} | ×4 ; sup=1 sup2=3 sup3=false sup4=3 ; sup=3 sup2=2 sup3=false sup4=5… (revue-0-b) |
@@ -2187,7 +2552,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5N1I-5 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["106","166"] ; attendu : {"champ":"14"} | ×18 ; sup=1 sup2=3 sup3=true sup4=3 ; sup=2 sup2=2 sup3=true sup4=4… (revue-3-a) |
 | 5N1I-5 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["6","7","14","21","6","7","14","21"] ; attendu : {"champ":"7"} | ×5 ; sup=2 sup2=1 sup3=false sup4=3 ; sup=2 sup2=3 sup3=false sup4=1… (revue-4-b) |
 | 5N1I-5 (5e) |  q2 mathlive | valeur en évidence refusée par le champ : ["36","42","48","54","60","66","36","42","48","54","60","66"] ; attendu : {"champ":"15"} | ×2 ; sup=2 sup2=2 sup3=true sup4=4 ; sup=3 sup2=2 sup3=false sup4=5 (revue-5-b) |
-| 5N1J (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"4","champ2":"1"} ; attendu : {"champ1":"1","champ2":"4"} | ×136 ; sup=3-9 sup2=4 sup3=1 sup4=1 ; sup=3-9 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| 5N1J (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"4","champ2":"1"} ; attendu : {"champ1":"1","champ2":"4"} | ×292 ; sup=3-9 sup2=4 sup3=1 sup4=1 ; sup=3-9 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 5N1L-2 (5e) |  q1 multi-mathfield | valeur en évidence refusée par le champ : {"champ1":"6","champ2":"5"} ; attendu : {"champ1":"5","champ2":"6"} | ×419 ; sup=1 sup2=6 sup3=1 sup4=1 ; sup=1 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | 5N2G-1 (5e) |  q4 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"-13"} ; attendu : {"champ1":"(-13)"} | ×39 ; sup=1 sup2=20 ; sup=1 sup2=1… (revue-0-b) |
 | 5N2G-1 (5e) |  q1 fillInTheBlank | valeur en évidence refusée par le champ : {"champ1":"-7\\,342"} ; attendu : {"champ1":"(-7342)"} | ×1 ; sup=1 sup2=9999 (revue-13-a) |
@@ -3844,7 +4209,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 98a08 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["108,81\\text{ dm}^3"] ; attendu : {"champ":"108,81\\operatorname{dm^3}"} | ×14 ; sup=2 sup2=true sup3=2 sup4=1-2-4 ; sup=2 sup2=true sup3=2 sup4=2… (revue-30-a) |
 | 98a08 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["3\\,869,893\\text{ mm}^3"] ; attendu : {"champ":"3869,893\\operatorname{mm^3}"} | ×1 ; sup=2 sup2=true sup3=2 sup4=1 (revue-31-b) |
 | 9e17a (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["\\mathbb{R}\\smallsetminus\\{-2\\,025\\}"] ; attendu : {"champ":"\\mathbb{R}\\\\{-2025\\}}"} | ×1 ; défaut (revue-0-a) |
-| a3870 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["5","3"] ; attendu : {"champ":"9"} | ×289 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
+| a3870 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["5","3"] ; attendu : {"champ":"9"} | ×604 ; sup=2-5-10 sup2=4 sup3=1 sup4=1 ; sup=2-5-10 sup2=1 sup3=1 sup4=1… (revue-0-a) |
 | a3870 (Non classés) | src/exercices/CH/a3870.ts | Labyrinthe de multiples : 289 M1 (deux champs sortie / nombre de cases, ordre inverse de la correction : même défaut que 6N3autoD-2) ; 995 N1. → Même ordre champs/correction. | ×1 |
 | a8c21 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["7\\,587","7","7\\,588"] ; attendu : {"champ":"9859"} | ×8 ; sup=4 ; sup=1… (revue-0-a) |
 | a8c21 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["8\\,886,19","9","8\\,886,2"] ; attendu : {"champ":"7587"} | ×4 ; sup=4 ; sup=4 nb=10 (revue-0-a) |
@@ -4001,7 +4366,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | d2a2d (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["(2x-2)\\mathrm{e}^{x^{2}-2x}"] ; attendu : {"champ":"2x-2e^{x^2-2x}"} | ×1 ; sup=3 (revue-3-a) |
 | d2a2d (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["(2x+3)\\mathrm{e}^{x^{2}+3x+2}"] ; attendu : {"champ":"2x+3e^{x^2+3x+2}"} | ×1 ; sup=3 (revue-3-b) |
 | d2a2d (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["-1\\mathrm{e}^x"] ; attendu : {"champ":"(-x)e^{x}"} | ×1 ; sup=4 (revue-4-b) |
-| d41c5 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["20","20","50","50","135","135","500","500","20","50","135","500"] ; attendu : {"champ":"31"} | ×64 ; sup=2 sup2=7 sup3=0 sup4=0 ; sup=1 sup2=7 sup3=7 sup4=0… (revue-0-a) |
+| d41c5 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["20","20","50","50","135","135","500","500","20","50","135","500"] ; attendu : {"champ":"31"} | ×128 ; sup=2 sup2=7 sup3=0 sup4=0 ; sup=1 sup2=7 sup3=7 sup4=0… (revue-0-a) |
 | d88d6 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["63","63","58","57"] ; attendu : {"champ":"24"} | ×12 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | d88d6 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["20","52","180","180"] ; attendu : {"champ":"Non"} | ×6 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=2… (revue-0-a) |
 | d88d6 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["24","24","9","-1"] ; attendu : {"champ":"14"} | ×3 ; sup=1 sup2=false sup3=2 ; sup=2 sup2=true sup3=2… (revue-0-b) |
@@ -4160,8 +4525,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | f1f9d (Non classés) |  q9 mathlive | valeur en évidence refusée par le champ : ["\\left]-\\infty;-\\dfrac{7}{3}\\right[","-\\dfrac{10^{6}+7}{3}"] ; attendu : {"champ":"\\left]-\\infty;-\\dfrac59\\right["} | ×1 ; sup=1 sup2=true nb=10 (revue-6-a) |
 | f1f9d (Non classés) |  q10 mathlive | valeur en évidence refusée par le champ : ["\\left]-\\infty;\\dfrac{9}{4}\\right[","-\\dfrac{10^{-7}-9}{4}"] ; attendu : {"champ":"\\emptyset"} | ×1 ; sup=1 sup2=true nb=10 (revue-6-a) |
 | f8a4d (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["6","8"] ; attendu : {"champ":"5"} | ×8 ; sup=13 sup2=4 sup3=1 sup4=1 nb=10 (revue-109-a) |
-| f8b5e (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["13","31","57","57","301"] ; attendu : {"champ":"22"} | ×15 ; sup=2 sup2=7 sup3=0 ; sup=1 sup2=7 sup3=0… (revue-0-a) |
-| f8b5e (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["20","50","63","500"] ; attendu : {"champ":"70"} | ×5 ; sup=2 sup2=7 sup3=0 ; sup=1 sup2=7 sup3=0… (revue-0-a) |
+| f8b5e (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["13","31","57","57","301"] ; attendu : {"champ":"22"} | ×51 ; sup=2 sup2=7 sup3=0 ; sup=1 sup2=7 sup3=0… (revue-0-a) |
+| f8b5e (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["20","50","63","500"] ; attendu : {"champ":"70"} | ×14 ; sup=2 sup2=7 sup3=0 ; sup=1 sup2=7 sup3=0… (revue-0-a) |
+| f8b5e (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["38","38"] ; attendu : {"champ":"20"} | ×1 ; sup=3 sup2=6 sup3=1-2 (revue-20-a) |
+| f8b5e (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["26"] ; attendu : {"champ":"15"} | ×1 ; sup=1 sup2=6 sup3=6 (revue-51-b) |
 | f9a02 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["10\\pi","31,4","31,5","25\\pi","78,5","78,6"] ; attendu : {"champ":"56.5"} | ×6 ; sup=3 sup2=true sup3=4 sup4=3 ; sup=3 sup2=true sup3=4 sup4=3 nb=10 (revue-0-a) |
 | f9a02 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["16\\pi","50,2","50,3","64\\pi","201","201,1"] ; attendu : {"champ":"81\\pi"} | ×3 ; sup=3 sup2=true sup3=4 sup4=3 ; sup=3 sup2=true sup3=3 sup4=2… (revue-0-a) |
 | f9a02 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["16\\pi","50,2","50,3","64\\pi","201","201,1"] ; attendu : {"champ":"12.5"} | ×2 ; sup=3 sup2=true sup3=4 sup4=3 ; sup=3 sup2=true sup3=4 sup4=3 nb=10 (revue-0-b) |
@@ -6674,6 +7041,12 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | ae85a (Non classés) |  q7 qcm | QCM : bonne proposition (\dfraca\timesa^7a^5=a^3) absente de la mise en évidence (\dfraca\cdota^7a^5=a^3) | ×1 ; sup3=true nb=10 (revue-2-a) |
 | aeca7 (Non classés) |  q3 qcm | QCM : bonne proposition (191,25mm^3) absente de la mise en évidence (191mm^3) | ×2 ; sup=1 sup2=true sup3=1 (revue-1-a) |
 | afd39 (Non classés) |  q6 qcm | QCM : bonne proposition (\cos(x)) absente de la mise en évidence () | ×1 ; sup= nb=10 (revue-1-a) |
+| afd39 (Non classés) |  q3 qcm | QCM : bonne proposition (-\cos(x)) absente de la mise en évidence () | ×1 ; sup=2 (revue-2-a) |
+| afd39 (Non classés) |  q5 qcm | QCM : bonne proposition (-\sin(x)) absente de la mise en évidence () | ×3 ; sup=2 ; sup=5… (revue-2-a) |
+| afd39 (Non classés) |  q1 qcm | QCM : bonne proposition (\sin(x)) absente de la mise en évidence () | ×1 ; sup=4 (revue-4-a) |
+| afd39 (Non classés) |  q2 qcm | QCM : bonne proposition (\left(1+\dfracp100\right)\left(1-\dfracq100\right)) absente de la mise en évidence () | ×1 ; sup=5 (revue-5-b) |
+| afd39 (Non classés) |  q3 qcm | QCM : bonne proposition (abscisses) absente de la mise en évidence () | ×1 ; sup=5 (revue-5-b) |
+| afd39 (Non classés) |  q2 qcm | QCM : bonne proposition (t_1\rightarrow2=\dfracv_2-v_1v_1) absente de la mise en évidence () | ×2 ; sup=1-2 ; sup= nb=10 (revue-7-a) |
 | b2fb3 (Non classés) |  q1 qcm | QCM : bonne proposition (100km) absente de la mise en évidence (100) | ×12 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
 | b44b5 (Non classés) |  q1 qcm | QCM : bonne proposition (30images/seconde) absente de la mise en évidence (30) | ×12 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
 | b5324 (Non classés) |  q1 qcm | QCM : bonne proposition (6790) absente de la mise en évidence (6580) | ×1 ; défaut nb=10 (revue-1-a) |
@@ -7447,14 +7820,14 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-Juniper-Green (EN) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | EN-KenKen (EN) | série q1 | aucune mise en évidence dans la correction | ×81 ; sup=1 sup2=1-2-3-4 sup3=3 sup4=true ; sup=1 sup2=1-2-3-4 sup3=3 sup4=false… (revue-5-a) |
 | EN-KillerSudoku (EN) | série q1 | aucune mise en évidence dans la correction | ×36 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
-| EN-Shikaku (EN) | série q1 | aucune mise en évidence dans la correction | ×2 ; sup=5 sup2=5 sup3=3 (revue-0-a) |
-| EN-SquarO (EN) | série q1 | aucune mise en évidence dans la correction | ×28 ; sup=5 sup2=5 sup3=true sup4=7 ; sup=5 sup2=5 sup3=true sup4=1… (revue-0-a) |
+| EN-Shikaku (EN) | série q1 | aucune mise en évidence dans la correction | ×100 ; sup=5 sup2=5 sup3=3 ; sup=5 sup2=1 sup3=3… (revue-0-a) |
+| EN-SquarO (EN) | série q1 | aucune mise en évidence dans la correction | ×138 ; sup=5 sup2=5 sup3=true sup4=7 ; sup=5 sup2=5 sup3=true sup4=1… (revue-0-a) |
 | EN-TablesEffacees (EN) | série q1 | aucune mise en évidence dans la correction | ×20 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Zeros (EN) | série q1 | aucune mise en évidence dans la correction | ×82 ; sup=3 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | 01607 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | 05b52 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×18 ; sup=1 ; sup=2… (revue-0-a) |
 | 12a46 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup3=true ; sup3=false… (revue-0-a) |
-| 1871d (Non classés) | série q1 | aucune mise en évidence dans la correction | ×21 ; sup=1 sup2=2-3-5-7-11-13-17-19-23 sup3=1 ; sup=1 sup2=2-3-5-7-11-13-17-19-23 sup3=2… (revue-1-a) |
+| 1871d (Non classés) | série q1 | aucune mise en évidence dans la correction | ×34 ; sup=1 sup2=2-3-5-7-11-13-17-19-23 sup3=1 ; sup=1 sup2=2-3-5-7-11-13-17-19-23 sup3=2… (revue-1-a) |
 | 1eb36 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2c20c (Non classés) | série q1 | aucune mise en évidence dans la correction | ×106 ; sup=1 sup2=false sup3=3 sup4=false ; sup=1 sup2=true sup3=1 sup4=true… (revue-0-a) |
 | 35b4c (Non classés) | série q1 | aucune mise en évidence dans la correction | ×356 ; sup=1-2-3-4-5 sup2=1-2-3 sup3=3 ; sup=1-2-3-4-5 sup2=1-2-3 sup3=1… (revue-0-a) |
@@ -7470,7 +7843,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4af87 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 4d4a8 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | 5b60d (Non classés) | série q1 | aucune mise en évidence dans la correction | ×1700 ; sup=3 sup2=10 ; sup=1 sup2=1… (revue-0-a) |
-| 612b9 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×21 ; sup=1 sup2=2-3-5-7 sup3=1 ; sup=1 sup2=2-3-5-7 sup3=2… (revue-1-a) |
+| 612b9 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×31 ; sup=1 sup2=2-3-5-7 sup3=1 ; sup=1 sup2=2-3-5-7 sup3=2… (revue-1-a) |
 | 65bd7 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×47 ; sup=5 sup2=true sup3=2 ; sup=4 sup2=true sup3=1… (revue-0-b) |
 | 691a7 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×27 ; sup=1 sup2=10000 sup3=6 ; sup=1 sup2=10000 sup3=1… (revue-0-a) |
 | 6a336 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×90 ; sup=4 sup2=false sup3=true ; sup=1 sup2=true sup3=true… (revue-0-a) |
@@ -7493,7 +7866,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | aaaaa (Non classés) | série q1 | aucune mise en évidence dans la correction | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | AchangerOBLIGATOIREMENT (Non classés) | série q1 | aucune mise en évidence dans la correction | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | addd5 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
-| afd39 (Non classés) | série q2 | aucune mise en évidence dans la correction | ×4 ; sup= ; sup= nb=10 (revue-0-b) |
+| afd39 (Non classés) | série q2 | aucune mise en évidence dans la correction | ×37 ; sup= ; sup= nb=10… (revue-0-b) |
 | aModifier (Non classés) | série q1 | aucune mise en évidence dans la correction | ×20 ; défaut (revue-0-a) |
 | b6250 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | b9935 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -7504,9 +7877,9 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | cce0c (Non classés) | série q1 | aucune mise en évidence dans la correction | ×90 ; sup=0 sup2=0 sup3=0 ; sup=0 sup2=0 sup3=1… (revue-0-a) |
 | cee5d (Non classés) | série q1 | aucune mise en évidence dans la correction | ×26 ; sup=true sup2=false sup3=false ; sup=true sup2=true sup3=true… (revue-0-a) |
 | d1513 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×58 ; sup=4 sup2=3 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
-| d41c5 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×78 ; sup=1 sup2=1 sup3=1 sup4=0 ; sup=2 sup2=1 sup3=2 sup4=0… (revue-1-a) |
+| d41c5 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×282 ; sup=1 sup2=1 sup3=1 sup4=0 ; sup=2 sup2=1 sup3=2 sup4=0… (revue-1-a) |
 | d7202 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup3=true ; sup3=false… (revue-0-a) |
-| de353 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×5 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
+| de353 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×14 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
 | deriv (Non classés) | série q1 | aucune mise en évidence dans la correction | ×19 ; défaut (revue-0-a) |
 | e1938 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=1 ; sup=2… (revue-0-a) |
 | e39b8 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×18 ; sup=4 ; sup=1… (revue-0-a) |
@@ -7516,7 +7889,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | e7bad (Non classés) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | exemple-qcm-json (Non classés) | série q1 | aucune mise en évidence dans la correction | ×9 ; défaut ; défaut nb=10 (revue-0-a) |
 | f5a23 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| f8b5e (Non classés) | série q1 | aucune mise en évidence dans la correction | ×22 ; sup=1 sup2=1 sup3=0 ; sup=1 sup2=6 sup3=0… (revue-1-a) |
+| f8b5e (Non classés) | série q1 | aucune mise en évidence dans la correction | ×79 ; sup=1 sup2=1 sup3=0 ; sup=1 sup2=6 sup3=0… (revue-1-a) |
 | f9261 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×60 ; sup=2 ; sup=1… (revue-0-a) |
 | fa2eb (Non classés) | série q1 | aucune mise en évidence dans la correction | ×30 ; sup=false ; sup=true… (revue-0-a) |
 | fe6e0 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; sup3= ; sup3=1… (revue-0-a) |
@@ -7753,8 +8126,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2L30-2 (2e) |  q3 multi-mathfield | 1 mise(s) en évidence pour 2 champ(s) | ×1 ; sup=5 nb=10 (revue-5-a) |
 | 2N11-3 (2e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 3 champ(s) | ×52 ; sup=7 ; sup=1… (revue-0-a) |
 | 2N11-4 (2e) |  q1 fillInTheBlank | 0 mise(s) en évidence pour 1 trou(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
-| 2N20-1 (2e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 5 champ(s) | ×16 ; sup=3-3-3 sup2=8-10-12 ; sup=3-3-3 sup2=8-10-12 nb=10 (revue-0-a) |
-| 2N30-1 (2e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 3 trou(s) | ×18 ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=false ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=true… (revue-0-a) |
+| 2N20-1 (2e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 5 champ(s) | ×410 ; sup=3-3-3 sup2=8-10-12 ; sup=3-3-3 sup2=8-10-12 nb=10… (revue-0-a) |
+| 2N30-1 (2e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 3 trou(s) | ×264 ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=false ; sup=2-3-4-5-6-7-8-9-10-11 sup2=1-2-3 sup3=true… (revue-0-a) |
 | 2N33-1 (2e) |  q4 fillInTheBlank | 3 mise(s) en évidence pour 4 trou(s) | ×83 ; sup=6 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 2N44-2 (2e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 4 champ(s) | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2P10-2 (2e) |  q2 multi-mathfield | 3 mise(s) en évidence pour 4 champ(s) | ×9 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -7825,7 +8198,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N5-11 (6e) | src/exercices/6e/6N5-11.ts | Correction avec \text{} partout ($8\ \text{pellicules} \times 600\ \text{m}$), « $1\text{h}40$ » sans « min » ; deux champs (7 puis 9) : la mise en évidence les donne dans l'ordre inverse de l'attendu (7.00 et 9.00 refusés) ; guillemets sans insécable dans « nombre de départ ». → Unités en \text{ m} courtes ; $1\text{ h }40\text{ min}$ ; ordre des valeurs identique aux champs ; « et » insécables. | ×1 |
 | 6N5-4 (6e) |  q1 fillInTheBlank | 0 mise(s) en évidence pour 2 trou(s) | ×15 ; sup=11 ; sup=5… (revue-0-a) |
 | 9ES1C-1 (9e) |  q1 multi-mathfield | 0 mise(s) en évidence pour 1 champ(s) | ×50 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
-| 9NO1A-16 (9e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 4 champ(s) | ×16 ; sup=2 sup2=8 ; sup=2 sup2=8 nb=10 (revue-0-a) |
+| 9NO1A-16 (9e) |  q1 multi-mathfield | 1 mise(s) en évidence pour 4 champ(s) | ×362 ; sup=2 sup2=8 ; sup=2 sup2=8 nb=10… (revue-0-a) |
 | 9NO3B-1 (9e) |  q1 fillInTheBlank | 1 mise(s) en évidence pour 2 trou(s) | ×46 ; sup=3 ; sup=1… (revue-0-a) |
 | can1a-2022 (CAN) | src/exercices/can/can1a-2022/can1a-2022-Q7.ts:61 | Q7 : la fraction non simplifiée ⟦\dfrac{4}{6}⟧ est mise en évidence, puis simplifiée en $\dfrac{2}{3}$ sans évidence → mettre en évidence la forme finale | ×1 |
 | can1a-2026 (CAN) | src/exercices/can/can1a-2026/can1a-2026-Q14.ts | Q14 : deux mises en évidence (⟦45⟧ pour Δ, ⟦2⟧ pour le nombre de solutions) pour un seul champ → seul le nombre de solutions en évidence | ×1 |
@@ -8016,8 +8389,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | acb80 (Non classés) | src/exercices/CH/acb80.ts | Pyramide à base triangulaire : 64 X1 (exécution interrompue du banc, à repasser), 160 M1 ; correction juste (V≈41 cm³) ; « arrondi au $\text{ cm}^3$ près » unité sans nombre ; 73 pages > 390 px. → Repasser le banc ; « à l'unité de cm³ près ». | ×1 |
 | AchangerOBLIGATOIREMENT (Non classés) |  | console : Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection | ×1 |
 | AchangerOBLIGATOIREMENT (Non classés) |  | console : [bugsnag] Event failed to send… Error: Request failed with status 0     at req.onreadystatechange (http://127.0.0.1:5173/alea/node_modules/.vite/deps/@bugsnag_js.js?v=d560f057:1928:32) | ×1 |
-| bc372 (Non classés) |  | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P016.ts:34:29)     at SimulateurDes.exportedNouvelleVersionWrapper (http://127.0.0.1:5173/alea/src/exercices/exerciseMethods.ts:26:8)     at Module.preparer | ×3 ; sup=6 ; sup=6 nb=10 (revue-0-a) |
+| bc372 (Non classés) |  | génération : page.evaluate: TypeError: this.sup.split is not a function     at SimulateurDes.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P016.ts:34:29)     at SimulateurDes.exportedNouvelleVersionWrapper (http://127.0.0.1:5173/alea/src/exercices/exerciseMethods.ts:26:8)     at Module.preparer | ×16 ; sup=6 ; sup=6 nb=10… (revue-0-a) |
 | bc372 (Non classés) | src/exercices/CH/bc372.ts | « Simuler des lancers de dés » : le banc a échoué 3 fois (X1) : l'exercice n'a pas pu être passé ; à repasser et à tester à la main (simulation aléatoire). → Repasser le banc. | ×1 |
+| de353 (Non classés) |  | génération : page.evaluate: TypeError: this.sup.replaceAll is not a function     at EncodeurTexte.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P020-old.ts:105:36)     at EncodeurTexte.exportedNouvelleVersionWrapper (http://127.0.0.1:5173/alea/src/exercices/exerciseMethods.ts:26:8)     at Modul | ×24 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-2-a) |
+| de363 (Non classés) |  | génération : page.evaluate: TypeError: this.sup.replaceAll is not a function     at EncodeurTexte.nouvelleVersion (http://127.0.0.1:5173/alea/src/exercices/profs/P020.ts:141:36)     at EncodeurTexte.exportedNouvelleVersionWrapper (http://127.0.0.1:5173/alea/src/exercices/exerciseMethods.ts:26:8)     at Module.pr | ×24 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-2-a) |
 | TEC1-51 (Terminale) |  | console : KaTeX auto-render: Failed to parse `z\neqi` with  ParseError: KaTeX parse error: Undefined control sequence: \neqi at position 3: {z\̲n̲e̲q̲i̲}     at _Parser.parseGroup (http://127.0.0.1:5173/alea/node_modules/.vite/deps/chunk-G6BNTU62.js?v=d560f057:13866:17)     at _Parser.parseAtom (http://127.0. | ×1 |
 | TTE-7 (Terminale) |  | non interactif : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=1 sup2=true nb=10 (revue-6-a) |
 | TTE-9 (Terminale) |  | interactif (incorrecte) : page.evaluate: Target page, context or browser has been closed | ×1 ; sup=3 (revue-2-b) |
@@ -8536,7 +8911,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2N13-1 (2e) | série q4 | question 4 identique à la question 1 | ×2 ; défaut ; défaut nb=10 (revue-0-a) |
 | 2N14-4 (2e) | série q1 | énoncé vide | ×10 ; sup=5 ; sup=1… (revue-0-a) |
 | 2N21-1 (2e) | série q1 | correction vide | ×1 ; défaut (revue-0-b) |
-| 2N30-4 (2e) | série q1 | énoncé vide | ×58 ; sup2=10 sup3=true sup4=true ; sup2=10 sup3=true sup4=false… (revue-0-a) |
+| 2N30-4 (2e) | série q1 | énoncé vide | ×452 ; sup2=10 sup3=true sup4=true ; sup2=10 sup3=true sup4=false… (revue-0-a) |
 | 2N41-4 (2e) | série q1 | énoncé vide | ×90 ; sup=4 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 2N41-4 (2e) | série q3 | question 3 identique à la question 2 | ×2 ; sup=3 sup2=false (revue-6-b) |
 | 2N43-1 (2e) | série q3 | question 3 identique à la question 2 | ×10 ; sup=1 sup2=1 sup3=true ; sup=1 sup2=1 sup3=false… (revue-1-a) |
@@ -8546,6 +8921,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2mLogExp-5 (2e Collège) | série q3 | question 3 identique à la question 1 | ×1 ; sup=6 (revue-6-b) |
 | 2mLogExp-7 (2e Collège) | série q8 | question 8 identique à la question 5 | ×1 ; sup=6 nb=10 (revue-6-a) |
 | 2mLogExp-8 (2e Collège) | série q2 | question 2 identique à la question 1 | ×2 ; sup=5 sup2=3 ; sup=5 sup2=4 (revue-23-a) |
+| 3A11-0 (3e) |  | aucune question générée pour cette combinaison de paramètres | ×70 ; sup=1 sup2=1 sup3=2 ; sup=1 sup2=2 sup3=1… (revue-2-a) |
 | 3Auto (3e) | série q1 | correction vide | ×80 ; sup2=false sup3=false ; sup2=true sup3=true… (revue-0-a) |
 | 3AutoDNB2026-5 (3e) | série q9 | correction vide | ×5 ; sup=false ; sup=true… (revue-0-a) |
 | 3AutoDNB2026-6 (3e) | série q4 | correction vide | ×25 ; sup=false ; sup=true… (revue-0-a) |
@@ -8559,6 +8935,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L15-3 (3e) | série q2 | énoncé vide | ×112 ; sup=1 sup2=false sup3=1 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | 4C10-3 (4e) | série q2 | question 2 identique à la question 1 | ×23 ; sup=1 sup2=true ; sup=1 sup2=false… (revue-1-a) |
 | 4C20-3 (4e) | série q1 | énoncé vide | ×74 ; sup=1 sup2=false sup3=1 ; sup=1 sup2=true sup3=1… (revue-0-a) |
+| 4C24 (4e) |  | aucune question générée pour cette combinaison de paramètres | ×84 ; sup=1-2 sup2=1 sup3=2 ; sup=1-2 sup2=2 sup3=1… (revue-2-a) |
 | 4C30-1 (4e) | série q1 | énoncé vide | ×50 ; sup=4 ; sup=1… (revue-0-a) |
 | 4C30-1b (4e) | série q1 | énoncé vide | ×50 ; sup=4 ; sup=1… (revue-0-a) |
 | 4C32-0 (4e) | série q3 | question 3 identique à la question 1 | ×1 ; sup=2 sup2=false (revue-4-a) |
@@ -8577,6 +8954,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G5B-1 (5e) | série q1 | correction vide | ×18 ; sup=true sup2=false sup3=1 ; sup=true sup2=false sup3=2… (revue-4-a) |
 | 5N1autoA (5e) | série q1 | énoncé vide | ×340 ; sup=4 sup2=5 sup3=7 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
 | 5N1autoA (5e) | série q1 | correction vide | ×340 ; sup=4 sup2=5 sup3=7 ; sup=1 sup2=1 sup3=1… (revue-0-a) |
+| 5N1autoC-1 (5e) | série q8 | question 8 identique à la question 4 | ×2 ; sup=2-3-4-5-6-7-8-9-10 sup2=2 sup3=false sup4=false (revue-2-a) |
 | 5N1B-1 (5e) | série q4 | question 4 identique à la question 2 | ×138 ; sup=1 sup2=1 sup3=false sup4=3 ; sup=1 sup2=2 sup3=true sup4=4… (revue-3-a) |
 | 5N1J-1 (5e) | série q1 | énoncé vide | ×10 ; sup=5 ; sup=1… (revue-0-a) |
 | 5N1J-1 (5e) | série q1 | correction vide | ×10 ; sup=5 ; sup=1… (revue-0-a) |
@@ -9061,10 +9439,11 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | EN-KillerSudoku (EN) | série q1 | énoncé vide | ×36 ; sup=2 sup2=1 sup3=true ; sup=1 sup2=1 sup3=true… (revue-0-a) |
 | EN-Monnaie (EN) | série q1 | énoncé vide | ×22 ; sup=3 ; sup=1… (revue-0-a) |
 | EN-Pyramide (EN) | série q1 | énoncé vide | ×116 ; sup=1 sup2=false sup3=99 ; sup=1 sup2=true sup3=1… (revue-0-a) |
-| EN-Shikaku (EN) | série q1 | énoncé vide | ×2 ; sup=5 sup2=5 sup3=3 (revue-0-a) |
-| EN-SquarO (EN) | série q1 | énoncé vide | ×14 ; sup=5 sup2=5 sup3=false sup4=1 ; sup=5 sup2=5 sup3=false sup4=2… (revue-7-a) |
+| EN-Shikaku (EN) | série q1 | énoncé vide | ×100 ; sup=5 sup2=5 sup3=3 ; sup=5 sup2=1 sup3=3… (revue-0-a) |
+| EN-SquarO (EN) | série q1 | énoncé vide | ×38 ; sup=5 sup2=5 sup3=false sup4=1 ; sup=5 sup2=5 sup3=false sup4=2… (revue-7-a) |
 | EN-TablesEffacees (EN) | série q1 | énoncé vide | ×20 ; sup=3 ; sup=1… (revue-0-a) |
 | 02d8w (Non classés) | série q2 | question 2 identique à la question 1 | ×9 ; sup=false nb=10 (revue-2-a) |
+| 0e6bd (Non classés) | série q8 | question 8 identique à la question 7 | ×1 ; sup=2-3-4-5-6-7-8-9-10 sup2=2 sup3=false sup4=false (revue-1-a) |
 | 1473g (Non classés) | série q2 | question 2 identique à la question 1 | ×9 ; sup=false nb=10 (revue-2-a) |
 | 19b3f (Non classés) | série q1 | énoncé vide | ×14 ; sup=false ; sup=true… (revue-0-a) |
 | 225c1 (Non classés) | série q10 | question 10 identique à la question 4 | ×1 ; sup=false nb=10 (revue-2-a) |
@@ -9081,13 +9460,14 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5b767 (Non classés) | série q1 | correction vide | ×60 ; sup=(-5;0)/(0;5)/(5;0) sup2=true sup3=1 sup4=3 ; sup=(-5;0)/(0;5)/(5;0) sup2=true sup3=1 sup4=1… (revue-0-a) |
 | 5b767 (Non classés) | relecture | Correction vide (aucun texte de correction) → Ajouter la correction | ×1 |
 | 5bd1f (Non classés) | série q1 | énoncé vide | ×14 ; sup=false ; sup=true… (revue-0-a) |
-| 62f5e (Non classés) | série q1 | correction vide | ×3 ; sup=2-3-4-5 sup2=5 ; sup=2-3-4-5 sup2=5 nb=10 (revue-0-a) |
-| 691a6 (Non classés) | série q1 | correction vide | ×62 ; sup=1 sup2=1234.5-789.2 sup3=0 ; sup=1 sup2=1234.5-789.2 sup3=1… (revue-0-a) |
+| 62f5e (Non classés) | série q1 | correction vide | ×116 ; sup=2-3-4-5 sup2=5 ; sup=2-3-4-5 sup2=5 nb=10… (revue-0-a) |
+| 665a0 (Non classés) | série q4 | question 4 identique à la question 3 | ×1 ; sup=2-3-4-5-6-7-8-9 sup2=2 sup3=false sup4=false (revue-1-a) |
+| 691a6 (Non classés) | série q1 | correction vide | ×164 ; sup=1 sup2=1234.5-789.2 sup3=0 ; sup=1 sup2=1234.5-789.2 sup3=1… (revue-0-a) |
 | 691a7 (Non classés) | série q1 | correction vide | ×26 ; sup=2 sup2=10000 sup3=1 ; sup=2 sup2=10000 sup3=2… (revue-13-a) |
 | 697a7 (Non classés) | série q1 | énoncé vide | ×2 ; défaut (revue-0-a) |
 | 697a7 (Non classés) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
-| 6b74b (Non classés) | série q1 | énoncé vide | ×52 ; sup= sup2=5 sup3=true ; sup= sup2=1 sup3=true… (revue-0-a) |
-| 6b74b (Non classés) | série q1 | correction vide | ×52 ; sup= sup2=5 sup3=true ; sup= sup2=1 sup3=true… (revue-0-a) |
+| 6b74b (Non classés) | série q1 | énoncé vide | ×260 ; sup= sup2=5 sup3=true ; sup= sup2=1 sup3=true… (revue-0-a) |
+| 6b74b (Non classés) | série q1 | correction vide | ×260 ; sup= sup2=5 sup3=true ; sup= sup2=1 sup3=true… (revue-0-a) |
 | 6ea89 (Non classés) | série q3 | question 3 identique à la question 2 | ×40 ; sup=1 sup2=true sup3=1 ; sup=1 sup2=false sup3=1… (revue-1-a) |
 | 6fdab (Non classés) | série q1 | correction vide | ×2 ; défaut (revue-0-a) |
 | 77d18 (Non classés) | série q1 | correction vide | ×10 ; sup=5 ; sup=1… (revue-0-a) |
@@ -9115,7 +9495,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | ad5f6 (Non classés) | src/exercices/CH/ad5f6.ts | « Construire des droites graduées avec zoom » : outil sans consigne ni correction (22 X4). → Idem. | ×1 |
 | ad5f7 (Non classés) | série q1 | correction vide | ×28 ; sup=1 ; sup=2… (revue-0-a) |
 | ad5f7 (Non classés) | src/exercices/CH/ad5f7.ts | « Utiliser des grilles décimales » : outil sans consigne (28 X4). → Idem. | ×1 |
-| ad5f8 (Non classés) | série q1 | correction vide | ×28 ; sup=4 sup2=1-1 sup3=true ; sup=1 sup2=1-1 sup3=true… (revue-0-a) |
+| ad5f8 (Non classés) | série q1 | correction vide | ×140 ; sup=4 sup2=1-1 sup3=true ; sup=1 sup2=1-1 sup3=true… (revue-0-a) |
 | ad5f8 (Non classés) | src/exercices/CH/ad5f8.ts | « Fabriquer des pavages pour travailler les transformations » : outil sans consigne (28 X4). → Idem. | ×1 |
 | ae7c2 (Non classés) | série q1 | énoncé vide | ×14 ; sup=false ; sup=true… (revue-0-a) |
 | ae7c2 (Non classés) | src/exercices/CH/ae7c2.ts | QCM « Ordre de grandeur » dont l'énoncé est vide (14 X4) : seules les trois propositions 0,4 cm / 0,4 km / 0,4 m sont affichées, la phrase « Un terrain de foot est un rectangle… » n'apparaît que dans la correction : l'élève ne sait pas ce qu'on mesure. → Mettre la question dans l'énoncé. | ×1 |
@@ -9131,6 +9511,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | babybel (Non classés) | série q1 | énoncé vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | babybel (Non classés) | série q1 | correction vide | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | babybel (Non classés) | src/exercices/CH/babybel.ts | Exercice « TITRE » : titre de remplissage, figure apigeom sans consigne ni correction (24 X4, 12 IM) : exercice de test laissé dans la liste. → Retirer de la liste. | ×1 |
+| bc372 (Non classés) | série q1 | correction vide | ×2 ; sup=1-2 (revue-6-a) |
 | bd726 (Non classés) | série q1 | énoncé vide | ×14 ; défaut ; défaut nb=10 (revue-0-a) |
 | c5503 (Non classés) | relecture | QCM interactif : consigne « Entoure la bonne réponse. » sans l'affirmation (les deux fractions manquent, présentes en non interactif) → Afficher l'affirmation dans la question QCM | ×1 |
 | c938e (Non classés) | série q2 | question 2 identique à la question 1 | ×2 ; sup=1 sup2=1 sup3=1 ; sup=1 sup2=1 sup3=6 (revue-1-b) |
@@ -9386,7 +9767,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2N13-5 (2e) | énoncé | page de 523 px pour 390 px | ×100 ; sup=3 sup2=1-2-3 sup3=false ; sup=1 sup2=1-2-3 sup3=true… (revue-0-a) |
 | 2N13-5 (2e) | correction q1 | table.tableauMathlive de 529 px pour 390 px | ×100 ; sup=3 sup2=1-2-3 sup3=false ; sup=1 sup2=1-2-3 sup3=true… (revue-0-a) |
 | 2N13-5 (2e) | correction | page de 545 px pour 390 px | ×100 ; sup=3 sup2=1-2-3 sup3=false ; sup=1 sup2=1-2-3 sup3=true… (revue-0-a) |
-| 2N20-1 (2e) | correction | page de 402 px pour 390 px | ×2 ; sup=3-3-3 sup2=8-10-12 ; sup=3-3-3 sup2=8-10-12 nb=10 (revue-0-a) |
+| 2N20-1 (2e) | correction | page de 402 px pour 390 px | ×21 ; sup=3-3-3 sup2=8-10-12 ; sup=3-3-3 sup2=8-10-12 nb=10… (revue-0-a) |
 | 2N32-2 (2e) | correction | page de 619 px pour 390 px | ×17 ; sup=4 sup2=2 ; sup=1 sup2=1… (revue-0-a) |
 | 2N33-1 (2e) | correction | page de 483 px pour 390 px | ×19 ; sup=6 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | 2N40-1 (2e) | correction | page de 494 px pour 390 px | ×3 ; sup=true sup2=false ; sup=true sup2=false nb=10 (revue-0-a) |
@@ -9534,8 +9915,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L11-8 (3e) | correction q1 | table.tableauMathlive de 454 px pour 390 px | ×22 ; sup4=false ; sup4=true… (revue-0-a) |
 | 3L11-8 (3e) | correction | page de 478 px pour 390 px | ×5 ; sup4=false ; sup4=true… (revue-0-a) |
 | 3L12-1 (3e) | correction | page de 429 px pour 390 px | ×4 ; sup=3 sup2=false ; sup=4 sup2=false (revue-5-a) |
-| 3L12-3 (3e) | correction | page de 531 px pour 390 px | ×28 ; sup=1 sup2=1 sup3=1 sup4=1 sup5=1 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2… (revue-0-a) |
-| 3L12-3 (3e) | énoncé | page de 550 px pour 390 px | ×17 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2 ; sup=1 sup2=3 sup3=1 sup4=3 sup5=3… (revue-1-a) |
+| 3L12-2 (3e) | correction | page de 410 px pour 390 px | ×64 ; sup=2 sup2=1 sup3=2 sup4=3 sup5=false ; sup=2 sup2=2 sup3=1 sup4=4 sup5=true… (revue-4-a) |
+| 3L12-3 (3e) | correction | page de 531 px pour 390 px | ×84 ; sup=1 sup2=1 sup3=1 sup4=1 sup5=1 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2… (revue-0-a) |
+| 3L12-3 (3e) | énoncé | page de 550 px pour 390 px | ×44 ; sup=1 sup2=2 sup3=2 sup4=2 sup5=2 ; sup=1 sup2=3 sup3=1 sup4=3 sup5=3… (revue-1-a) |
+| 3L12-4 (3e) | correction | page de 448 px pour 390 px | ×59 ; sup=2 sup2=1 sup3=2 sup4=1 sup5=true ; sup=2 sup2=2 sup3=1 sup4=2 sup5=true… (revue-4-a) |
 | 3L13-3 (3e) | correction | page de 399 px pour 390 px | ×4 ; sup=8 sup2=true ; sup=8 sup2=false… (revue-16-b) |
 | 3L13-5 (3e) | correction | page de 419 px pour 390 px | ×2 ; sup=5 (revue-5-a) |
 | 3L13-7 (3e) | correction | page de 411 px pour 390 px | ×1 ; sup=3 sup2=2-3-4-5-6 sup3=0 sup4=2026 sup5=true nb=10 (revue-105-a) |
@@ -9614,8 +9997,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4C33-1 (4e) | correction | page de 412 px pour 390 px | ×15 ; sup=1-2-3-4 sup2=2 ; sup=1-2-3-4 sup2=3… (revue-1-a) |
 | 4C35 (4e) | correction | page de 546 px pour 390 px | ×1 ; sup=true sup2=false (revue-2-a) |
 | 4F11 (4e) | énoncé q1 | table.tableauMathlive de 528 px pour 390 px | ×42 ; sup=7 sup2=true ; sup=1 sup2=true… (revue-0-a) |
-| 4G12 (4e) | énoncé | page de 575 px pour 390 px | ×17 ; sup=4 sup2=8-10-12 sup3=false ; sup=1 sup2=8-10-12 sup3=true… (revue-0-a) |
-| 4G12 (4e) | correction | page de 575 px pour 390 px | ×17 ; sup=4 sup2=8-10-12 sup3=false ; sup=1 sup2=8-10-12 sup3=true… (revue-0-a) |
+| 4G12 (4e) | énoncé | page de 575 px pour 390 px | ×84 ; sup=4 sup2=8-10-12 sup3=false ; sup=1 sup2=8-10-12 sup3=true… (revue-0-a) |
+| 4G12 (4e) | correction | page de 575 px pour 390 px | ×84 ; sup=4 sup2=8-10-12 sup3=false ; sup=1 sup2=8-10-12 sup3=true… (revue-0-a) |
 | 4G22 (4e) | correction | page de 416 px pour 390 px | ×6 ; sup=2 sup2=true ; sup=2 sup2=false… (revue-3-a) |
 | 4G30-0 (4e) | énoncé | page de 816 px pour 390 px | ×9 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
 | 4G30-0 (4e) | correction | page de 816 px pour 390 px | ×9 ; sup=false sup2=false ; sup=true sup2=true… (revue-0-a) |
@@ -9693,8 +10076,8 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5G2E-5 (5e) | correction | page de 526 px pour 390 px | ×18 ; sup=0 sup2=true sup3=1 sup4=3 sup5=false ; sup=1 sup2=false sup3=2 sup4=2 sup5=false… (revue-0-a) |
 | 5G2E-6 (5e) | correction | page de 470 px pour 390 px | ×59 ; sup=1 sup2=false sup3=2 sup4=3 ; sup=1 sup2=true sup3=1 sup4=1… (revue-0-a) |
 | 5G3A-1 (5e) | énoncé | page de 640 px pour 390 px | ×57 ; sup2=1 sup4=false sup5=3 ; sup2=1 sup4=true sup5=1… (revue-0-a) |
-| 5G3A-11 (5e) | énoncé | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
-| 5G3A-11 (5e) | correction | page de 575 px pour 390 px | ×5 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 5G3A-11 (5e) | énoncé | page de 575 px pour 390 px | ×38 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
+| 5G3A-11 (5e) | correction | page de 575 px pour 390 px | ×38 ; sup2=8-10-12 sup3=false ; sup2=8-10-12 sup3=true… (revue-0-a) |
 | 5G3A-2 (5e) | énoncé | page de 640 px pour 390 px | ×41 ; sup=1 sup2=3 ; sup=1 sup2=1… (revue-0-a) |
 | 5G4A-1 (5e) | correction | page de 402 px pour 390 px | ×6 ; sup=1 ; sup=2… (revue-0-a) |
 | 5G5D (5e) | correction | page de 401 px pour 390 px | ×4 ; sup=1 ; sup=7 (revue-1-a) |
@@ -9920,6 +10303,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 9ES1E-20 (9e) | énoncé | page de 840 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | 9ES1E-20 (9e) | correction | page de 840 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | 9FA2B-16 (9e) | correction | page de 424 px pour 390 px | ×9 ; sup=true sup2=5 ; sup=true sup2=1… (revue-0-a) |
+| 9NO1A-16 (9e) | correction | page de 474 px pour 390 px | ×6 ; sup=5 sup2=1 ; sup=5 sup2=1-2… (revue-33-b) |
 | BP1AUTO061 (BP1) | correction | page de 544 px pour 390 px | ×10 ; sup=4 sup2=3 ; sup=1 sup2=2… (revue-0-a) |
 | BP1AUTO091 (BP1) | correction | page de 450 px pour 390 px | ×17 ; sup=1 sup2=false sup3=false ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | BP1AUTO094 (BP1) | correction | page de 443 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
@@ -10239,7 +10623,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | c8fe9 (Non classés) | énoncé | page de 451 px pour 390 px | ×1 ; sup=3 sup2=true sup3=false (revue-9-a) |
 | cee5d (Non classés) | correction q2 | table.tableauMathlive de 417 px pour 390 px | ×2 ; sup=true sup2=false sup3=false nb=10 (revue-8-a) |
 | cee5d (Non classés) | correction | page de 433 px pour 390 px | ×1 ; sup=true sup2=false sup3=false nb=10 (revue-8-a) |
-| d41c5 (Non classés) | correction | page de 411 px pour 390 px | ×1 ; sup=3 sup2=7 sup3=5 sup4=0 (revue-21-b) |
+| d41c5 (Non classés) | correction | page de 411 px pour 390 px | ×2 ; sup=3 sup2=7 sup3=5 sup4=0 (revue-21-b) |
 | d4c81 (Non classés) | énoncé q1 | table.tableauMathlive de 528 px pour 390 px | ×106 ; sup=8 sup2=false ; sup=1 sup2=true… (revue-0-a) |
 | d5ee3 (Non classés) | correction | page de 434 px pour 390 px | ×217 ; sup=11 sup2=3 sup3=true sup4=true sup5=0 ; sup=2 sup2=2 sup3=true sup4=true sup5=4… (revue-0-a) |
 | d6f1f (Non classés) | correction | page de 478 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -10247,10 +10631,10 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | d8c24 (Non classés) | correction | page de 411 px pour 390 px | ×17 ; sup=1 sup2=false sup3=2 ; sup=1 sup2=true sup3=1… (revue-0-a) |
 | da6a3 (Non classés) | correction | page de 409 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | dc629 (Non classés) | correction | page de 438 px pour 390 px | ×54 ; sup=1 sup2=false sup3=2 sup4=3 ; sup=1 sup2=true sup3=1 sup4=1… (revue-0-a) |
-| de353 (Non classés) | énoncé q1 | table.tableauMathlive de 827 px pour 390 px | ×5 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
-| de353 (Non classés) | énoncé | page de 843 px pour 390 px | ×5 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
-| de363 (Non classés) | énoncé q1 | table.tableauMathlive de 827 px pour 390 px | ×5 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
-| de363 (Non classés) | énoncé | page de 843 px pour 390 px | ×5 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
+| de353 (Non classés) | énoncé q1 | table.tableauMathlive de 827 px pour 390 px | ×14 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
+| de353 (Non classés) | énoncé | page de 843 px pour 390 px | ×14 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
+| de363 (Non classés) | énoncé q1 | table.tableauMathlive de 827 px pour 390 px | ×14 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
+| de363 (Non classés) | énoncé | page de 843 px pour 390 px | ×14 ; sup=mathématiques sup2=false ; sup=mathématiques sup2=true… (revue-0-a) |
 | debc6 (Non classés) | correction | page de 583 px pour 390 px | ×2 ; sup=3 (revue-2-a) |
 | deriv (Non classés) | correction | page de 427 px pour 390 px | ×1 ; défaut (revue-0-b) |
 | e1938 (Non classés) | correction | page de 557 px pour 390 px | ×5 ; sup=3 ; sup=4… (revue-2-a) |
@@ -10443,7 +10827,9 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2L21-4 (2e) |  | 144 combinaisons : 20 passées (couverture par paires) | ×1 |
 | 2N12-1 (2e) |  | 243 combinaisons : 82 passées (couverture par paires) | ×1 |
 | 2N12-10 (2e) |  | 75 combinaisons : 25 passées (couverture par paires) | ×1 |
+| 2N20-1 (2e) |  | 64 combinaisons : 64 passées (couverture par paires) | ×1 |
 | 2N20-3 (2e) |  | 2340 combinaisons : 79 passées (couverture par paires) | ×1 |
+| 2N30-1 (2e) |  | 128 combinaisons : 65 passées (couverture par paires) | ×1 |
 | 2N31-2 (2e) |  | 120 combinaisons : 16 passées (couverture par paires) | ×1 |
 | 2N40-2 (2e) |  | 162 combinaisons : 11 passées (couverture par paires) | ×1 |
 | 2mFctPoly1-1 (2e Collège) |  | 64 combinaisons : 9 passées (couverture par paires) | ×1 |
@@ -10451,6 +10837,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3A10 (3e) |  | 1950 combinaisons : 79 passées (couverture par paires) | ×1 |
 | 3A10-6 (3e) |  | 864 combinaisons : 55 passées (couverture par paires) | ×1 |
 | 3A10-7 (3e) |  | 1152 combinaisons : 69 passées (couverture par paires) | ×1 |
+| 3A11-0 (3e) |  | 80 combinaisons : 41 passées (couverture par paires) | ×1 |
 | 3A13-3 (3e) |  | 180 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 3AutoL03-1 (3e) |  | 84 combinaisons : 22 passées (couverture par paires) | ×1 |
 | 3AutoM07-1 (3e) |  | 80 combinaisons : 21 passées (couverture par paires) | ×1 |
@@ -10472,9 +10859,9 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3L11-1b (3e) |  | 162 combinaisons : 11 passées (couverture par paires) | ×1 |
 | 3L11-3b (3e) |  | 96 combinaisons : 17 passées (couverture par paires) | ×1 |
 | 3L11-9 (3e) |  | 260 combinaisons : 66 passées (couverture par paires) | ×1 |
-| 3L12-2 (3e) |  | 150 combinaisons : 26 passées (couverture par paires) | ×1 |
-| 3L12-3 (3e) |  | 72 combinaisons : 14 passées (couverture par paires) | ×1 |
-| 3L12-4 (3e) |  | 60 combinaisons : 17 passées (couverture par paires) | ×1 |
+| 3L12-2 (3e) |  | 150 combinaisons : 26 passées (couverture par paires) | ×2 |
+| 3L12-3 (3e) |  | 72 combinaisons : 14 passées (couverture par paires) | ×2 |
+| 3L12-4 (3e) |  | 60 combinaisons : 17 passées (couverture par paires) | ×2 |
 | 3L13 (3e) |  | 128 combinaisons : 18 passées (couverture par paires) | ×1 |
 | 3L13-7 (3e) |  | 1872 combinaisons : 105 passées (couverture par paires) | ×1 |
 | 3L16 (3e) |  | 144 combinaisons : 25 passées (couverture par paires) | ×1 |
@@ -10486,7 +10873,9 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4C21-3 (4e) |  | 260 combinaisons : 66 passées (couverture par paires) | ×1 |
 | 4C22 (4e) |  | 120 combinaisons : 16 passées (couverture par paires) | ×1 |
 | 4C22-4 (4e) |  | 260 combinaisons : 66 passées (couverture par paires) | ×1 |
+| 4C24 (4e) |  | 96 combinaisons : 49 passées (couverture par paires) | ×1 |
 | 4C33-0 (4e) |  | 54 combinaisons : 11 passées (couverture par paires) | ×1 |
+| 4G12 (4e) |  | 64 combinaisons : 33 passées (couverture par paires) | ×1 |
 | 4G20-8 (4e) |  | 156 combinaisons : 40 passées (couverture par paires) | ×1 |
 | 4G20-9 (4e) |  | 104 combinaisons : 52 passées (couverture par paires) | ×1 |
 | 4G53 (4e) |  | 108 combinaisons : 28 passées (couverture par paires) | ×1 |
@@ -10520,14 +10909,15 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5I1D (5e) |  | 64 combinaisons : 9 passées (couverture par paires) | ×1 |
 | 5I1F (5e) |  | 144 combinaisons : 24 passées (couverture par paires) | ×1 |
 | 5N1autoA (5e) |  | 676 combinaisons : 170 passées (couverture par paires) | ×1 |
-| 5N1autoA-1 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
+| 5N1autoA-1 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×2 |
 | 5N1autoA-5 (5e) |  | 1120 combinaisons : 71 passées (couverture par paires) | ×1 |
+| 5N1autoC-1 (5e) |  | 128 combinaisons : 33 passées (couverture par paires) | ×1 |
 | 5N1B-1 (5e) |  | 832 combinaisons : 209 passées (couverture par paires) | ×1 |
 | 5N1G (5e) |  | 64 combinaisons : 9 passées (couverture par paires) | ×1 |
 | 5N1H (5e) |  | 315 combinaisons : 36 passées (couverture par paires) | ×1 |
-| 5N1I-4 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
+| 5N1I-4 (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×2 |
 | 5N1I-5 (5e) |  | 150 combinaisons : 26 passées (couverture par paires) | ×1 |
-| 5N1J (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
+| 5N1J (5e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×2 |
 | 5N1J-5 (5e) |  | 1120 combinaisons : 71 passées (couverture par paires) | ×1 |
 | 5N1L-2 (5e) |  | 1152 combinaisons : 69 passées (couverture par paires) | ×1 |
 | 5N2autoA (5e) |  | 128 combinaisons : 17 passées (couverture par paires) | ×1 |
@@ -10588,6 +10978,7 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 6N5-2 (6e) |  | 108 combinaisons : 28 passées (couverture par paires) | ×1 |
 | 9ES1E-19 (9e) |  | 120 combinaisons : 32 passées (couverture par paires) | ×1 |
 | 9FA2B-15 (9e) |  | 120 combinaisons : 31 passées (couverture par paires) | ×1 |
+| 9NO1A-16 (9e) |  | 56 combinaisons : 56 passées (couverture par paires) | ×1 |
 | 9NO1A-17 (9e) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
 | can2N10-05 (CAN) |  | 243 combinaisons : 81 passées (couverture par paires) | ×1 |
 | can2N10-06 (CAN) |  | 243 combinaisons : 82 passées (couverture par paires) | ×1 |
@@ -10602,12 +10993,16 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | CM2N3A-1 (cm2) |  | 128 combinaisons : 32 passées (couverture par paires) | ×1 |
 | CM2N4D-1 (cm2) |  | 640 combinaisons : 41 passées (couverture par paires) | ×1 |
 | EN-CompteBon (EN) |  | 3380 combinaisons : 170 passées (couverture par paires) | ×1 |
+| EN-SquarO (EN) |  | 686 combinaisons : 55 passées (couverture par paires) | ×1 |
 | 05079 (Non classés) |  | 1152 combinaisons : 69 passées (couverture par paires) | ×1 |
 | 0688e (Non classés) |  | 252 combinaisons : 43 passées (couverture par paires) | ×1 |
+| 0e6bd (Non classés) |  | 128 combinaisons : 32 passées (couverture par paires) | ×1 |
+| 1871d (Non classés) |  | 80 combinaisons : 41 passées (couverture par paires) | ×1 |
 | 2se81 (Non classés) |  | 78 combinaisons : 40 passées (couverture par paires) | ×1 |
 | 35b4c (Non classés) |  | 175 combinaisons : 39 passées (couverture par paires) | ×1 |
 | 37e37 (Non classés) |  | 60 combinaisons : 31 passées (couverture par paires) | ×1 |
-| 3ca24 (Non classés) |  | 338 combinaisons : 170 passées (couverture par paires) | ×1 |
+| 3b474 (Non classés) |  | 105 combinaisons : 36 passées (couverture par paires) | ×1 |
+| 3ca24 (Non classés) |  | 338 combinaisons : 170 passées (couverture par paires) | ×2 |
 | 3ca25 (Non classés) |  | 338 combinaisons : 170 passées (couverture par paires) | ×1 |
 | 3ca39 (Non classés) |  | 429 combinaisons : 144 passées (couverture par paires) | ×1 |
 | 3cb25 (Non classés) |  | 338 combinaisons : 170 passées (couverture par paires) | ×1 |
@@ -10621,7 +11016,12 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5999e (Non classés) |  | 96 combinaisons : 24 passées (couverture par paires) | ×1 |
 | 5999f (Non classés) |  | 84 combinaisons : 21 passées (couverture par paires) | ×1 |
 | 5b60d (Non classés) |  | 169 combinaisons : 169 passées (couverture par paires) | ×1 |
+| 612b9 (Non classés) |  | 80 combinaisons : 40 passées (couverture par paires) | ×1 |
+| 62f5e (Non classés) |  | 56 combinaisons : 56 passées (couverture par paires) | ×1 |
 | 65bed (Non classés) |  | 80 combinaisons : 21 passées (couverture par paires) | ×1 |
+| 665a0 (Non classés) |  | 128 combinaisons : 32 passées (couverture par paires) | ×1 |
+| 691a6 (Non classés) |  | 240 combinaisons : 51 passées (couverture par paires) | ×1 |
+| 6b74b (Non classés) |  | 208 combinaisons : 104 passées (couverture par paires) | ×1 |
 | 6fb13 (Non classés) |  | 169 combinaisons : 169 passées (couverture par paires) | ×1 |
 | 72489 (Non classés) |  | 96 combinaisons : 13 passées (couverture par paires) | ×1 |
 | 75f89 (Non classés) |  | 260 combinaisons : 130 passées (couverture par paires) | ×1 |
@@ -10630,17 +11030,19 @@ une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 85618 (Non classés) |  | 252 combinaisons : 43 passées (couverture par paires) | ×1 |
 | 8561e (Non classés) |  | 252 combinaisons : 42 passées (couverture par paires) | ×1 |
 | 8cd45 (Non classés) |  | 338 combinaisons : 170 passées (couverture par paires) | ×1 |
-| a3870 (Non classés) |  | 384 combinaisons : 65 passées (couverture par paires) | ×1 |
+| a3870 (Non classés) |  | 384 combinaisons : 65 passées (couverture par paires) | ×2 |
 | ac571 (Non classés) |  | 96 combinaisons : 13 passées (couverture par paires) | ×1 |
+| ad5f8 (Non classés) |  | 112 combinaisons : 56 passées (couverture par paires) | ×1 |
 | b6cbe (Non classés) |  | 108 combinaisons : 28 passées (couverture par paires) | ×1 |
 | b8afd (Non classés) |  | 56 combinaisons : 28 passées (couverture par paires) | ×1 |
 | ba520 (Non classés) |  | 90 combinaisons : 31 passées (couverture par paires) | ×1 |
 | ba521 (Non classés) |  | 90 combinaisons : 31 passées (couverture par paires) | ×1 |
 | c938e (Non classés) |  | 54 combinaisons : 19 passées (couverture par paires) | ×1 |
-| d41c5 (Non classés) |  | 273 combinaisons : 92 passées (couverture par paires) | ×1 |
+| d41c5 (Non classés) |  | 273 combinaisons : 92 passées (couverture par paires) | ×2 |
 | d5ee3 (Non classés) |  | 1560 combinaisons : 131 passées (couverture par paires) | ×1 |
 | f6413 (Non classés) |  | 144 combinaisons : 17 passées (couverture par paires) | ×1 |
 | f8a4d (Non classés) |  | 4992 combinaisons : 109 passées (couverture par paires) | ×1 |
+| f8b5e (Non classés) |  | 168 combinaisons : 57 passées (couverture par paires) | ×1 |
 | f9a02 (Non classés) |  | 72 combinaisons : 15 passées (couverture par paires) | ×1 |
 | fcf1b (Non classés) |  | 90 combinaisons : 16 passées (couverture par paires) | ×1 |
 | fd4d8 (Non classés) |  | 1536 combinaisons : 73 passées (couverture par paires) | ×1 |
