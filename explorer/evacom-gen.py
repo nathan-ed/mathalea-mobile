@@ -4,8 +4,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 APP = ROOT / 'mathalea-mobile'
-CAT_CH = json.loads((ROOT / 'mathalea/src/json/exercicesCH.json').read_text())
-CAT_FR = json.loads((ROOT / 'mathalea/src/json/exercicesFR.json').read_text())
+# Catalogue le plus récent : le worktree propre d'abord, le dépôt principal sinon.
+CAT_DIR = next(d for d in (ROOT / 'mathalea-evacom/src/json', ROOT / 'mathalea/src/json') if (d / 'exercicesCH.json').exists())
+CAT_CH = json.loads((CAT_DIR / 'exercicesCH.json').read_text())
+CAT_FR = json.loads((CAT_DIR / 'exercicesFR.json').read_text())
 BY_UUID = {}
 for item in list(CAT_FR.values())+list(CAT_CH.values()):
     if item.get('features', {}).get('interactif', {}).get('isActive') and 'old' not in item.get('url', '').lower() and 'xxx' not in item.get('url', '').lower():
@@ -92,16 +94,16 @@ B = {
    'Le carré d’une somme contient trois termes : a² + 2ab + b². Le terme du milieu apparaît deux fois dans le produit.',
    'Développer (x + 3)².', ['(x + 3)² = (x + 3)(x + 3).', 'On obtient x² + 6x + 9.'],
    'Quel est le terme du milieu de (x + 3)² ?', ['6x', '3x', '9x'], 0, 'Le terme du milieu vaut 2 × x × 3 = 6x.'),
-  ('Factoriser et résoudre', [('Factoriser une expression', '0ee90 0bd00'), ('Résoudre des équations', '23bdc b9e01')],
-   'Factoriser, c’est écrire une somme sous forme de produit. Une équation du premier degré se résout en conservant l’égalité à chaque étape.',
-   'Factoriser 3x + 6.', ['3 est commun aux deux termes.', '3x + 6 = 3(x + 2).'],
-   'Quelle factorisation de 3x + 6 convient ?', ['3(x + 2)', '3(x + 6)', 'x(3 + 6)'], 0, '3 × x + 3 × 2 = 3(x + 2).'),
+  ('Factoriser et résoudre', [('Factoriser une expression', '0ee90 0bd00'), ('Factoriser un trinôme x² + bx + c', '8cb63'), ('Résoudre des équations', '23bdc b9e01')],
+   'Factoriser, c’est écrire une somme sous forme de produit. Pour x² + bx + c, on cherche deux nombres dont la somme vaut b et le produit vaut c : si ce sont p et q, alors x² + bx + c = (x + p)(x + q). Une équation du premier degré se résout en conservant l’égalité à chaque étape.',
+   'Factoriser x² + 13x + 40.', ['On cherche deux nombres de somme 13 et de produit 40.', '5 + 8 = 13 et 5 × 8 = 40.', 'Donc x² + 13x + 40 = (x + 5)(x + 8).'],
+   'Quelle factorisation de x² + 2x − 15 convient ?', ['(x + 5)(x − 3)', '(x − 5)(x + 3)', '(x + 5)(x + 3)'], 0, 'On cherche deux nombres de somme 2 et de produit −15 : 5 et −3, car 5 + (−3) = 2 et 5 × (−3) = −15.'),
   ('Formules et géométrie', [('Transformer une formule', '96bac 14e86'), ('Appliquer Pythagore', 'bd660 b18e8'), ('Vérifier si un triangle est rectangle', 'ab5d4 5344c')],
    'Pour isoler une lettre, on applique une opération inverse dans les deux membres. Pour vérifier qu’un triangle est rectangle, on compare le carré du plus long côté à la somme des carrés des deux autres.',
    'Un triangle a des côtés de 5 cm, 12 cm et 13 cm. Est-il rectangle ?', ['13² = 169.', '5² + 12² = 25 + 144 = 169 : il est rectangle.'],
    'Ce triangle est-il rectangle ?', ['Oui', 'Non', 'On ne peut pas savoir'], 0, 'Les deux calculs donnent 169 : la réciproque de Pythagore s’applique.'),
-  ('Solides et volumes', [('Reconnaître des solides et leurs patrons', '051aa f57fe'), ('Calculer des volumes simples', '6ec4a c7b58'), ('Calculer les volumes de pyramides, cônes et boules', 'f0128 f0d92 c2f91')],
-   'Le volume d’un prisme ou d’un cylindre vaut aire de la base × hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise 4πr³/3.',
+  ('Solides et volumes', [('Reconnaître des solides et leurs patrons', '051aa f57fe'), ('Calculer des volumes simples', '6ec4a c7b58'), ('Calculer les volumes de pyramides, cônes et boules', 'f0128 f0d92 c2f91'), ('Calculer le volume d’un solide composé', '8473d')],
+   'Le volume d’un prisme ou d’un cylindre vaut aire de la base × hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise 4πr³/3. Pour un solide composé, on calcule le volume de chaque partie puis on les additionne, ou on retranche le volume du trou.',
    'Calculer le volume d’un cône de rayon 3 cm et de hauteur 4 cm.', ['Aire de la base : π × 3² = 9π cm².', 'Volume : 9π × 4 ÷ 3 = 12π cm³.'],
    'Quel est le volume de ce cône ?', ['12π cm³', '36π cm³', '9π cm³'], 0, 'On multiplie l’aire de la base par la hauteur, puis on divise par 3.'),
  ],
@@ -121,9 +123,12 @@ def stage(uuid, objective, filiere):
     if uuid=='12b72': params.update({'sup':'1','sup2':'true'})
     if uuid=='ff2ce': params.update({'sup3':'1'})
     if uuid=='1cd08' and filiere=='11LC': params.update({'sup':'2','sup2':'1','sup3':'1','sup4':'1'})
+    # 3L12-4 : seulement x² + bx + c par somme et produit, sans mise en évidence.
+    if uuid=='8cb63': params.update({'sup':'4','sup2':'1','sup3':'1','sup4':'1'})
     return {'uuid':uuid,'id':item['id'],'nbQuestions':3,'titre':item['titre'].strip(),
             'objectifs':[f'{objective} (EVACOM {filiere})'],**params}
 
+AUTEURS=['l’équipe CoopMaths','Nathan Scheinmann','Claude Opus 5.5','Sol']
 paths=[]; objectives=[]
 for filiere, belts in B.items():
     steps=[];paliers=[]
@@ -137,9 +142,12 @@ for filiere, belts in B.items():
         paliers.append({'titre':title,'nb':sum(len(u.split()) for _,u in groups),
                         'fiche':{'titre':title,'avant':True,'blocs':blocks},
                         **({} if i==0 else {'acces':'seuil','seuil':80})})
-    paths.append({'id':f'evacom-{filiere.lower()}-revision','version':1,
+    paths.append({'id':f'evacom-{filiere.lower()}-revision','version':3,
                   'titre':f'Réviser l’EVACOM {filiere}',
-                  'objectif':f'Revoir progressivement les savoir-faire évalués dans les sujets EVACOM {filiere} depuis 2018.',
+                  'objectif':f'Réviser l’EVACOM {filiere}, ceinture par ceinture.',
+                  'auteurs':AUTEURS,
+                  'descriptionEleves':f'Pour réviser l’EVACOM {filiere}. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.',
+                  'descriptionEnseignant':f'Révision de l’EVACOM {filiere} en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM {filiere}) » pour le suivi.',
                   'niveau':'11e','theme':f'EVACOM {filiere}','difficulte':2,
                   'presentation':'une_question_par_page','correction':'question',
                   'enTetesMasques':True,'melanger':True,'style':'ceintures',

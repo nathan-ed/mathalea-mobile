@@ -1,18 +1,19 @@
 # Catalogue de l'Explorer
 
-Parcours proposés par l'équipe MathALÉA, à déposer dans le dossier servi à
-l'adresse `URL_EXPLORER` (`src/lib/partage.ts`). Ils ne sont pas intégrés à
-l'app : elle les lit dans ce dossier, comme ceux des enseignants.
+Parcours proposés par l'équipe MathALÉA, intégrés au build de l'app
+(`src/lib/catalogueIntegre.ts`) et lus par le même lecteur que les fichiers
+des enseignants. À terme, MathALÉA pourra servir ce dossier
+(`VITE_URL_EXPLORER`, `src/lib/partage.ts`) : une version plus récente en
+ligne remplacera alors celle de l'app, parcours par parcours.
 
 - Format `classes-mathalea/1` (`docs/guide/format-parcours.md`), un fichier
   par degré.
 - `niveau` et `theme` : noms du référentiel de MathALÉA (« 4e Collège »,
   « Intégration »). L'app range l'Explorer par degré puis par chapitre dans
   l'ordre du référentiel et en déduit le pays (un degré suisse, sinon France).
-- Seulement des exercices **référencés** dans le référentiel du pays, au
-  degré du parcours ou dans ses chapitres (jamais « Non classés » ni un
-  exercice d'un autre pays). Interactifs, `uuid` lus sur le site ou dans le
-  moteur.
+- Exercices interactifs, `uuid` lus sur le site ou dans le moteur. Un
+  parcours suisse peut prendre un exercice que le référentiel suisse range
+  dans « Non classés » (exercice français) : le moteur le prépare de même.
 - Fiches de cours dans les paliers (`fiche`, format dans
   `docs/guide/format-parcours.md`), rédigées pour l'app et relues avant d'être
   déposées. Figures plus riches que les graphiques de l'app : images SVG ou

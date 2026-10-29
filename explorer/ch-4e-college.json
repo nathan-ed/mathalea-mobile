@@ -7,9 +7,17 @@
       "parcours": [
         {
           "id": "ch-4c-integrales",
-          "version": 2,
+          "version": 3,
           "titre": "Calcul intégral",
           "objectif": "Encadrer une aire, trouver une primitive, calculer une intégrale et s'en servir pour une valeur moyenne, une aire ou un volume.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Après des rappels de dérivées, tu encadres une aire par des sommes, puis tu cherches des primitives. Tu calcules ensuite des intégrales et tu t’en sers pour une valeur moyenne, une aire ou un volume de révolution. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Huit ceintures d’un à trois exercices, de la blanche à la ceinture noire, 2e dan : Rappels de dérivées ; Aire et sommes de Darboux ; Primitives ; Primitives de fonctions composées ; Calculer une intégrale ; Valeur moyenne ; Aires ; Volumes de révolution. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "4e Collège",
           "theme": "Intégration",
           "difficulte": 2,
@@ -946,9 +954,17 @@
         },
         {
           "id": "ch-4c-exp-log",
-          "version": 1,
+          "version": 2,
           "titre": "Exponentielle et logarithme",
           "objectif": "Calculer avec ln et exp : propriétés, équations, dérivées, primitives, limites, aires et volumes.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu découvres le logarithme naturel, tu le dérives et tu t’en sers pour trouver des primitives. Viennent ensuite l’exponentielle, les autres bases, puis des aires et des volumes. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Neuf ceintures d’un à trois exercices, de la blanche à la ceinture noire, 3e dan : Le logarithme naturel ; Dériver avec ln ; Primitives avec ln ; Graphe et limites ; Décomposition en éléments simples ; La fonction exponentielle ; Primitives avec l'exponentielle ; Autres bases ; Aires et volumes. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "4e Collège",
           "theme": "Exponentielles et logarithmes",
           "difficulte": 2,

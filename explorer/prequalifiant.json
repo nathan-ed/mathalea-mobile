@@ -7,9 +7,17 @@
       "parcours": [
         {
           "id": "prq-nombres-ecritures-reperage",
-          "version": 10,
+          "version": 11,
           "titre": "Situer et comparer les nombres",
           "objectif": "Lire les rangs, placer, comparer et encadrer des nombres entiers et décimaux.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu commences par comparer et ranger des nombres entiers. Viennent ensuite les rangs des chiffres, les décimaux et la droite graduée, jusqu’à encadrer un nombre et en intercaler un entre deux autres. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Comparer et ranger les entiers ; Comprendre les rangs ; Lire les décimaux ; Décomposer un nombre ; Se repérer sur une droite ; Comparer et ranger ; Encadrer et intercaler. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Nombres",
           "difficulte": 2,
@@ -369,9 +377,17 @@
         },
         {
           "id": "prq-calculs-decimaux-relatifs",
-          "version": 10,
+          "version": 11,
           "titre": "Calculer avec les décimaux et les relatifs",
           "objectif": "Calculer avec les décimaux et les relatifs en respectant les priorités.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu choisis d’abord la bonne opération, puis tu calcules avec les décimaux et avec les nombres relatifs. La dernière ceinture enchaîne plusieurs calculs en respectant les priorités. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Choisir une opération ; Additionner et soustraire des décimaux ; Multiplier des décimaux ; Multiplier et diviser par 10, 100, 1 000 ; Additionner et soustraire des relatifs ; Multiplier et diviser des relatifs ; Enchaîner les calculs. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Calculs",
           "difficulte": 2,
@@ -724,9 +740,17 @@
         },
         {
           "id": "prq-puissances-carres-racines",
-          "version": 10,
+          "version": 11,
           "titre": "Puissances, carrés et racines",
           "objectif": "Calculer des puissances et des racines, puis utiliser la notation scientifique.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Des carrés aux puissances, puis aux règles de calcul sur les puissances. Tu apprends ensuite à reconnaître les carrés parfaits, à encadrer une racine carrée et à écrire un nombre en notation scientifique. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Calculer un carré ; Écrire une puissance ; Calculer des puissances ; Utiliser les règles des puissances ; Reconnaître les carrés parfaits ; Encadrer une racine ; Notation scientifique. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Puissances",
           "difficulte": 2,
@@ -1081,9 +1105,17 @@
         },
         {
           "id": "prq-donnees-raisonnement",
-          "version": 10,
+          "version": 11,
           "titre": "Lire une situation, traduire et vérifier",
           "objectif": "Lire des données, choisir les calculs utiles et contrôler ses résultats.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu lis un diagramme, tu prélèves les données utiles d’un énoncé et tu les traduis en calcul. Tu apprends ensuite à estimer un résultat et à le vérifier avant de conclure. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux ou trois exercices, de la blanche à la noire : Lire un diagramme ; Prélever les données utiles ; Traduire en calcul ; Organiser plusieurs calculs ; Estimer un résultat ; Vérifier une égalité ; Résoudre et contrôler un problème. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Raisonnement",
           "difficulte": 2,
@@ -1435,9 +1467,17 @@
         },
         {
           "id": "prq-grandeurs-conversions",
-          "version": 10,
+          "version": 11,
           "titre": "Grandeurs, unités et conversions",
           "objectif": "Comprendre les préfixes et convertir des grandeurs simples ou composées.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Kilo, centi, milli : tu comprends d’abord les préfixes, puis tu convertis longueurs, masses, capacités, durées, aires et volumes. La dernière ceinture porte sur les vitesses. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Comprendre les préfixes usuels ; Utiliser les préfixes ; Convertir longueurs et masses ; Convertir capacités et prix ; Convertir les durées ; Convertir aires et volumes ; Convertir vitesses et grandeurs composées. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Grandeurs et mesures",
           "difficulte": 2,
@@ -1782,9 +1822,17 @@
         },
         {
           "id": "prq-figures-angles-solides",
-          "version": 10,
+          "version": 11,
           "titre": "Figures, angles et solides",
           "objectif": "Reconnaître les figures et les solides, mesurer les angles et utiliser les transformations.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu nommes les figures, tu repères droites et angles, puis tu mesures des angles. Viennent ensuite les quadrilatères, les solides et leurs patrons, les symétries et les autres transformations. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Nommer les figures ; Repérer droites et angles ; Mesurer un angle ; Reconnaître les quadrilatères ; Décrire les solides et patrons ; Reconnaître les symétries ; Utiliser les transformations. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Géométrie",
           "difficulte": 2,
@@ -2125,9 +2173,17 @@
         },
         {
           "id": "prq-perimetres-aires-volumes",
-          "version": 10,
+          "version": 11,
           "titre": "Périmètres, aires et volumes",
           "objectif": "Calculer des périmètres, des aires et des volumes, y compris sur des figures composées.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu comptes d’abord sur un quadrillage, puis tu calcules des périmètres et des aires. Tu travailles ensuite le disque, les volumes usuels et les figures à découper en morceaux. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Compter sur un quadrillage ; Calculer un périmètre ; Calculer une aire simple ; Choisir les dimensions utiles ; Calculer avec les disques ; Calculer les volumes usuels ; Décomposer des figures et calculer des aires. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Mesures géométriques",
           "difficulte": 2,
@@ -2469,9 +2525,17 @@
         },
         {
           "id": "prq-divisibilite-decomposition",
-          "version": 10,
+          "version": 11,
           "titre": "Divisibilité et décomposition",
           "objectif": "Utiliser les critères de divisibilité, les facteurs premiers, le PGDC et le PPMC.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Diviseurs et multiples, critères de divisibilité par 2, 3, 5, 9 et 10, puis décomposition en facteurs premiers. Tu t’en sers pour trouver un PGDC ou un PPMC et résoudre des problèmes. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Reconnaître diviseurs et multiples ; Critères de 2, 5 et 10 ; Critères de 3 et 9 ; Lister diviseurs et multiples ; Décomposer en facteurs premiers ; Trouver PGDC et PPMC ; Résoudre un problème de divisibilité. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Arithmétique",
           "difficulte": 2,
@@ -2815,9 +2879,17 @@
         },
         {
           "id": "prq-fractions-representer-calculer",
-          "version": 10,
+          "version": 11,
           "titre": "Fractions : représenter, comparer, calculer",
           "objectif": "Représenter, comparer et calculer avec des fractions.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Tu représentes une fraction, tu la places et tu la compares, puis tu trouves des fractions égales. Tu relies ensuite fraction, nombre décimal et pourcentage avant de calculer avec des fractions. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Sept ceintures de deux exercices, de la blanche à la noire : Représenter une fraction ; Placer et comparer les fractions ; Trouver des fractions équivalentes ; Relier fraction, décimal et pourcentage ; Additionner et soustraire ; Multiplier, diviser et prendre une fraction ; Enchaîner les calculs fractionnaires. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "Préqualifiant",
           "theme": "Fractions",
           "difficulte": 2,

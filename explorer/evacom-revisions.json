@@ -1,15 +1,23 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-10-28T19:45:58.586Z",
+  "exporteLe": "2026-10-29T12:57:19.794Z",
   "classes": [
     {
       "nom": "EVACOM 11LC",
       "parcours": [
         {
           "id": "evacom-11lc-revision",
-          "version": 1,
+          "version": 3,
           "titre": "Réviser l’EVACOM 11LC",
-          "objectif": "Revoir progressivement les savoir-faire évalués dans les sujets EVACOM 11LC depuis 2018.",
+          "objectif": "Réviser l’EVACOM 11LC, ceinture par ceinture.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Pour réviser l’EVACOM 11LC. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Révision de l’EVACOM 11LC en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM 11LC) » pour le suivi.",
           "niveau": "11e",
           "theme": "EVACOM 11LC",
           "difficulte": 2,
@@ -569,9 +577,17 @@
       "parcours": [
         {
           "id": "evacom-11ls-revision",
-          "version": 1,
+          "version": 3,
           "titre": "Réviser l’EVACOM 11LS",
-          "objectif": "Revoir progressivement les savoir-faire évalués dans les sujets EVACOM 11LS depuis 2018.",
+          "objectif": "Réviser l’EVACOM 11LS, ceinture par ceinture.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Pour réviser l’EVACOM 11LS. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Révision de l’EVACOM 11LS en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM 11LS) » pour le suivi.",
           "niveau": "11e",
           "theme": "EVACOM 11LS",
           "difficulte": 2,
@@ -722,33 +738,34 @@
             },
             {
               "titre": "Factoriser et résoudre",
-              "nb": 4,
+              "nb": 5,
               "fiche": {
                 "titre": "Factoriser et résoudre",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Factoriser, c’est écrire une somme sous forme de produit. Une équation du premier degré se résout en conservant l’égalité à chaque étape."
+                    "texte": "Factoriser, c’est écrire une somme sous forme de produit. Pour x² + bx + c, on cherche deux nombres dont la somme vaut b et le produit vaut c : si ce sont p et q, alors x² + bx + c = (x + p)(x + q). Une équation du premier degré se résout en conservant l’égalité à chaque étape."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Factoriser 3x + 6.",
+                    "enonce": "Factoriser x² + 13x + 40.",
                     "etapes": [
-                      "3 est commun aux deux termes.",
-                      "3x + 6 = 3(x + 2)."
+                      "On cherche deux nombres de somme 13 et de produit 40.",
+                      "5 + 8 = 13 et 5 × 8 = 40.",
+                      "Donc x² + 13x + 40 = (x + 5)(x + 8)."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle factorisation de 3x + 6 convient ?",
+                    "enonce": "Quelle factorisation de x² + 2x − 15 convient ?",
                     "choix": [
-                      "3(x + 2)",
-                      "3(x + 6)",
-                      "x(3 + 6)"
+                      "(x + 5)(x − 3)",
+                      "(x − 5)(x + 3)",
+                      "(x + 5)(x + 3)"
                     ],
                     "bonne": 0,
-                    "explication": "3 × x + 3 × 2 = 3(x + 2)."
+                    "explication": "On cherche deux nombres de somme 2 et de produit −15 : 5 et −3, car 5 + (−3) = 2 et 5 × (−3) = −15."
                   }
                 ]
               },
@@ -792,14 +809,14 @@
             },
             {
               "titre": "Solides et volumes",
-              "nb": 7,
+              "nb": 8,
               "fiche": {
                 "titre": "Solides et volumes",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le volume d’un prisme ou d’un cylindre vaut aire de la base × hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise 4πr³/3."
+                    "texte": "Le volume d’un prisme ou d’un cylindre vaut aire de la base × hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise 4πr³/3. Pour un solide composé, on calcule le volume de chaque partie puis on les additionne, ou on retranche le volume du trou."
                   },
                   {
                     "type": "exemple",
@@ -993,6 +1010,19 @@
               ]
             },
             {
+              "uuid": "8cb63",
+              "id": "1mCL2-4",
+              "nbQuestions": 3,
+              "titre": "Factoriser à l'aide de la mise en évidence ou des identités remarquables",
+              "objectifs": [
+                "Factoriser un trinôme x² + bx + c (EVACOM 11LS)"
+              ],
+              "sup": "4",
+              "sup2": "1",
+              "sup3": "1",
+              "sup4": "1"
+            },
+            {
               "uuid": "23bdc",
               "id": "10FA5C-2",
               "nbQuestions": 3,
@@ -1128,6 +1158,15 @@
               "objectifs": [
                 "Calculer les volumes de pyramides, cônes et boules (EVACOM 11LS)"
               ]
+            },
+            {
+              "uuid": "8473d",
+              "id": "11GM2-3",
+              "nbQuestions": 3,
+              "titre": "Calculer le volume d'un solide composé",
+              "objectifs": [
+                "Calculer le volume d’un solide composé (EVACOM 11LS)"
+              ]
             }
           ]
         }
@@ -1138,9 +1177,17 @@
       "parcours": [
         {
           "id": "evacom-taf-revision",
-          "version": 1,
+          "version": 3,
           "titre": "Réviser l’EVACOM TAF",
-          "objectif": "Revoir progressivement les savoir-faire évalués dans les sujets EVACOM TAF depuis 2018.",
+          "objectif": "Réviser l’EVACOM TAF, ceinture par ceinture.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5",
+            "Sol"
+          ],
+          "descriptionEleves": "Pour réviser l’EVACOM TAF. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Révision de l’EVACOM TAF en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM TAF) » pour le suivi.",
           "niveau": "11e",
           "theme": "EVACOM TAF",
           "difficulte": 2,
@@ -1400,7 +1447,7 @@
               "uuid": "6d577",
               "id": "9QCM-22",
               "nbQuestions": 3,
-              "titre": "Lire l'abscisse d'un point sur une droite graduée",
+              "titre": "Placer un point d'abscisse donnée sur une droite graduée",
               "objectifs": [
                 "Placer et comparer des nombres (EVACOM TAF)"
               ]
@@ -1950,6 +1997,11 @@
         "theme": "EVACOM 11LS"
       },
       {
+        "libelle": "Factoriser un trinôme x² + bx + c (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
         "libelle": "Résoudre des équations (EVACOM 11LS)",
         "niveau": "11e",
         "theme": "EVACOM 11LS"
@@ -1981,6 +2033,11 @@
       },
       {
         "libelle": "Calculer les volumes de pyramides, cônes et boules (EVACOM 11LS)",
+        "niveau": "11e",
+        "theme": "EVACOM 11LS"
+      },
+      {
+        "libelle": "Calculer le volume d’un solide composé (EVACOM 11LS)",
         "niveau": "11e",
         "theme": "EVACOM 11LS"
       }
