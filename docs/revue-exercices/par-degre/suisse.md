@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **1064 sur 1168**. Constats confirmés : **428**.
+Exercices relus : **1089 sur 1168**. Constats confirmés : **439**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 335 |
+| Rédaction (français, titres, consignes) | 346 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -198,9 +198,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 3wx9f | R16  | Titre « Question 24 » (titre de CAN/test, pas un intitulé d'exercice) | Renseigner le titre | relecture |
 | 41d8d | R16  | Titre : « Effetuer » (Effectuer) | Effectuer | relecture |
 | 43cd9 | R16  | Titre : « dixèmes/centièmes » (dixièmes), même faute que 0021e | dixièmes | relecture |
+| 446ba | R16  | Titre vide dans le référentiel (aussi 603f6) | Renseigner le titre | relecture |
+| 448b5 | R10 Français | Correction : « Pour obtenir 2 025, on a ajouté 1 600 à 425 » raisonnement inversé (même défaut que 6fmcu) | On retranche 425 à 2 025 : 1 600 | relecture |
 | 45d05 | R16  | Titre : « Calculer Le volume » majuscule à Le | Calculer le volume | relecture |
 | 45dad | R16  | Énoncé : « Combien de fois 1/4 d'unité dans 1 unité ? » verbe manquant | Combien de fois $\dfrac14$ d'unité y a-t-il dans $1$ unité ? | relecture |
 | 46bae | R1 Titre | Énoncé : « ici 35 », « 28 » nombres hors $ | $35$ | relecture |
+| 471c3 | R16  | Titre tronqué : « Exprimer en fonction de » (de quoi ?) | Titre complet | relecture |
 | 47d36 | R16  | Correction : « le prix d'un papayes » (d'une papaye) ; « 3 papayes » hors $ | le prix d'une papaye | relecture |
 | 47f36 | R16  | Titre : « Aumentation » (Augmentation) ; énoncé « 280 € » hors $ | Augmentation | relecture |
 | 47u56 | R3  | Énoncé : « du triangle $ABC$? » sans espace insécable avant ? ; correction de 47d56 réduite à « Une translation » sans justification | ⍽? | relecture |
@@ -221,6 +224,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 50ee5 | R10 Français | Correction : « x_M=(2+-4)/2 » signe +- au lieu de 2+(-4) | \dfrac{2+(-4)}{2} | relecture |
 | 51fac | R16  | Énoncé : « La moitié de 100 » sans verbe ni consigne (que faut-il faire ?) | Calculer la moitié de $100$. | relecture |
 | 54140 | R1 Titre | Énoncé : « inférieur à 100 et supérieur à 10 » nombres hors $ | $100$ et $10$ | relecture |
+| 565f3 | R16  | Titre « Convertir des heures en heures/minutes » mais l'exercice convertit des minutes en heures et minutes | Titre cohérent | relecture |
 | 56772 | R16  | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée | Supprimer le doublon | relecture |
 | 5ab89 | R16  | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
 | 5aece | R16  | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine | Titre : Enlever une dizaine | relecture |
@@ -231,8 +235,12 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 5e041 | R16  | Correction : « La figure A est composé de » (composée) | composée | relecture |
 | 5e90f | R1 Titre | Énoncé et correction : « 8 boules », « 7 boules », « 7 tirages », « 7-uplets » nombres hors $ ; ensemble « {1;2;....;8} » points de suspension mal écrits | $8$ boules… ; \ldots | relecture |
 | 5fe2c | R16  | Énoncé : « Quel est la pente » (Quelle est) ; correction : « coeffcient » (coefficient) | Quelle ; coefficient | relecture |
+| 603f6 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 61geo | R16  | Titre vide dans le référentiel (même énoncé que 6c365, année 2025) | Renseigner le titre | relecture |
 | 63ec7 | R16  | Titre « Trouver la moitié d'un nombre » mais l'exercice porte sur les pattes de vaches (multiplication) | Titre cohérent | relecture |
+| 65bd7 | R3  | Énoncé : « $BG=4,7\ \text{cm}$ . » espace avant le point final | Retirer l'espace | relecture |
+| 67a5b | R16  | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation | Résoudre une inéquation graphiquement | relecture |
+| 67e15 | R16  | Titre « Titre à modifier » (placeholder exposé) | Renseigner le titre (Calculer une image par une fonction affine) | relecture |
 | 6a336 | R12  | Énoncé : « (d_3)//(d_2) » barres obliques au lieu de \parallel | (d_3)\parallel(d_2) | relecture |
 | 6c365 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 6ca15 | R3  | Énoncé : « 2 024 · 3 » année écrite avec espace fine des milliers (les années s'écrivent 2024) ; titre « CAN Spéciale année 2024 » | Écrire 2024 sans espace | relecture |
@@ -252,6 +260,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 7b6ee | R10 Français | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins | 2\,025+20 | relecture |
 | 7k09a | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 80a7b | R16  | Énoncé : « Combien en reste-il ? » (reste-t-il) | reste-t-il | relecture |
+| 82a2f | R16  | Correction : renvoie à « la décomposition » jamais donnée ; titre « multiple » mais la phrase conclut sur « diviseur » | Formuler avec multiple : $2\,025=25\cdot81$ | relecture |
+| 82a41 | R10 Français | Correction : « 3² est positif (puissance paire d'un nombre négatif) » alors que 3 est positif ; titre « Calculer un prix après des évolutions successives » sans rapport | 3² est positif (puissance d'un nombre positif) ; titre cohérent | relecture |
+| 82d4a | R16  | Titre contenant « (ancien exercice) » (comme 25143, 1380f) | Retirer la mention | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
@@ -530,4 +541,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39064 ; T6 Points de suspension 6754 ; T5 Espaces 2738 ; T4  1974 ; R2 Tutoiement, impératif 824 ; T3  811 ; M7  792 ; R5 Virgule 615 ; T2  371 ; N6 Écriture algébrique 285 ; N2 Séparateur des milliers 274 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 5 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39064 ; T6 Points de suspension 6770 ; T5 Espaces 2762 ; T4  1974 ; R2 Tutoiement, impératif 841 ; T3  811 ; M7  792 ; R5 Virgule 615 ; T2  371 ; N6 Écriture algébrique 285 ; N2 Séparateur des milliers 274 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 5 ; N4  2 ; R6  1.

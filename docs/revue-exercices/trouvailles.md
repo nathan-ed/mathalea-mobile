@@ -4,8 +4,8 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 (`revue/journal.jsonl`) et de la relecture (`revue/relecture.jsonl`).
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
-Avancement : **4104 exercices passés sur 4190**.
-Constats regroupés : 18753 (un groupe = même exercice, même règle,
+Avancement : **4123 exercices passés sur 4190**.
+Constats regroupés : 18799 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -29,9 +29,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 1 Interactif faux | [R12 ](#r12) | 11 | 11 |
 | 1 Interactif faux | [R13 ](#r13) | 1 | 1 |
 | 1 Interactif faux | [R14 ](#r14) | 4 | 4 |
-| 1 Interactif faux | [R16 ](#r16) | 123 | 123 |
+| 1 Interactif faux | [R16 ](#r16) | 126 | 126 |
 | 1 Interactif faux | [R2 Impératif ou tutoiement](#r2) | 12 | 12 |
-| 1 Interactif faux | [R3 Point final](#r3) | 69 | 69 |
+| 1 Interactif faux | [R3 Point final](#r3) | 70 | 70 |
 | 1 Interactif faux | [R5 Virgule (soit, alors, or)](#r5) | 5 | 5 |
 | 1 Interactif faux | [R6 Majuscule sans accent](#r6) | 4 | 4 |
 | 1 Interactif faux | [R7 ](#r7) | 1 | 1 |
@@ -54,7 +54,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [R13 ](#r13) | 2 | 2 |
 | 2 Rendu cassé | [R14 ](#r14) | 6 | 6 |
 | 2 Rendu cassé | [R15 ](#r15) | 1 | 1 |
-| 2 Rendu cassé | [R16 ](#r16) | 108 | 108 |
+| 2 Rendu cassé | [R16 ](#r16) | 112 | 112 |
 | 2 Rendu cassé | [R2 Impératif ou tutoiement](#r2) | 19 | 19 |
 | 2 Rendu cassé | [R3 Point final](#r3) | 18 | 18 |
 | 2 Rendu cassé | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
@@ -72,24 +72,24 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 6 | 6 |
 | 3 Mise en évidence | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
-| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 490 | 3608 |
+| 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 492 | 3612 |
 | 3 Mise en évidence | [M2 Unité dans miseEnEvidence](#m2) | 59 | 211 |
 | 3 Mise en évidence | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 9 | 9 |
 | 3 Mise en évidence | [M4 QCM : mise en évidence et bonne proposition différentes](#m4) | 11 | 11 |
 | 3 Mise en évidence | [M5 Texte dans miseEnEvidence](#m5) | 61 | 122 |
-| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 376 | 378 |
+| 3 Mise en évidence | [M6 Pas de mise en évidence du résultat](#m6) | 377 | 379 |
 | 3 Mise en évidence | [M7 Explication en orange](#m7) | 33 | 132 |
 | 3 Mise en évidence | [M8 Nombre de mises en évidence et de champs différents](#m8) | 138 | 152 |
 | 3 Mise en évidence | [N1 Nombre hors $](#n1) | 11 | 11 |
 | 3 Mise en évidence | [N2 Séparateur des milliers](#n2) | 3 | 3 |
 | 3 Mise en évidence | [N3 Point décimal](#n3) | 4 | 4 |
 | 3 Mise en évidence | [R1 Titre](#r1) | 25 | 25 |
-| 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 20 | 20 |
+| 3 Mise en évidence | [R10 Français (accords, fautes, coquilles)](#r10) | 22 | 22 |
 | 3 Mise en évidence | [R11 ](#r11) | 1 | 1 |
 | 3 Mise en évidence | [R12 ](#r12) | 2 | 2 |
 | 3 Mise en évidence | [R13 ](#r13) | 5 | 5 |
 | 3 Mise en évidence | [R14 ](#r14) | 9 | 9 |
-| 3 Mise en évidence | [R16 ](#r16) | 163 | 163 |
+| 3 Mise en évidence | [R16 ](#r16) | 164 | 164 |
 | 3 Mise en évidence | [R2 Impératif ou tutoiement](#r2) | 13 | 13 |
 | 3 Mise en évidence | [R3 Point final](#r3) | 16 | 16 |
 | 3 Mise en évidence | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 2 |
@@ -138,16 +138,16 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4 Typographie | [X2 Formule cassée (KaTeX, $)](#x2) | 1 | 1 |
 | 4 Typographie | [X3 undefined, NaN…](#x3) | 2 | 2 |
 | 4 Typographie | [X4 Question en double ou vide](#x4) | 4 | 4 |
-| 4 Typographie | [X5 Débordement à 390 px](#x5) | 807 | 1119 |
+| 4 Typographie | [X5 Débordement à 390 px](#x5) | 808 | 1121 |
 | 5 Rédaction | [C1 Contenu mathématique faux ou ambigu](#c1) | 26 | 33 |
-| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 457 | 2240 |
+| 5 Rédaction | [M3 QCM : la bonne proposition n’est pas mise en évidence telle quelle (à vérifier)](#m3) | 460 | 2249 |
 | 5 Rédaction | [N1 Nombre hors $](#n1) | 48 | 58 |
 | 5 Rédaction | [N2 Séparateur des milliers](#n2) | 163 | 235 |
 | 5 Rédaction | [N6 Écriture algébrique (1x, +-, -0…)](#n6) | 125 | 175 |
 | 5 Rédaction | [R1 Titre](#r1) | 52 | 84 |
 | 5 Rédaction | [R10 Français (accords, fautes, coquilles)](#r10) | 167 | 233 |
 | 5 Rédaction | [R16 ](#r16) | 3 | 3 |
-| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 229 | 385 |
+| 5 Rédaction | [R2 Impératif ou tutoiement](#r2) | 231 | 391 |
 | 5 Rédaction | [R3 Point final](#r3) | 5 | 5 |
 | 5 Rédaction | [R4 Dernière phrase en saisie libre](#r4) | 1 | 1 |
 | 5 Rédaction | [R5 Virgule (soit, alors, or)](#r5) | 329 | 478 |
@@ -155,12 +155,12 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5 Rédaction | [R8 Orthographe uniformisée (en dessous, au-dessus…)](#r8) | 2 | 4 |
 | 5 Rédaction | [R9 Notation des probabilités](#r9) | 5 | 8 |
 | 5 Rédaction | [T4 Guillemets](#t4) | 62 | 82 |
-| 5 Rédaction | [T5 Espaces en trop](#t5) | 725 | 1160 |
-| 5 Rédaction | [T6 Points de suspension](#t6) | 726 | 980 |
+| 5 Rédaction | [T5 Espaces en trop](#t5) | 728 | 1166 |
+| 5 Rédaction | [T6 Points de suspension](#t6) | 731 | 986 |
 | 5 Rédaction | [T9 Mot non écrit en \text dans une formule](#t9) | 7 | 7 |
 | 5 Rédaction | [X2 Formule cassée (KaTeX, $)](#x2) | 3 | 3 |
 | 5 Rédaction | [X4 Question en double ou vide](#x4) | 73 | 73 |
-| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 273 | 288 |
+| 6 Pour mémoire | [IM Interactif à tester à la main](#im) | 274 | 289 |
 | 6 Pour mémoire | [R1 Titre](#r1) | 457 | 457 |
 | 6 Pour mémoire | [X7 Combinaisons de paramètres non toutes passées](#x7) | 211 | 211 |
 
@@ -602,8 +602,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4af87 (Non classés) | relecture | Correction : « soustraire -2 des deux membres » (tournure maladroite) → ajouter $2$ aux deux membres | ×1 |
 | 4e684 (Non classés) | relecture | Titre : « valeurs remarquables  du » deux espaces → Un espace | ×1 |
 | 51fac (Non classés) | relecture | Énoncé : « La moitié de 100 » sans verbe ni consigne (que faut-il faire ?) → Calculer la moitié de $100$. | ×1 |
+| 565f3 (Non classés) | relecture | Titre « Convertir des heures en heures/minutes » mais l'exercice convertit des minutes en heures et minutes → Titre cohérent | ×1 |
 | 56772 (Non classés) | relecture | Correction b : « 83·9·1 000 = 83·9·1 000 = 747·1 000 » étape répétée → Supprimer le doublon | ×1 |
+| 67a5b (Non classés) | relecture | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation → Résoudre une inéquation graphiquement | ×1 |
 | 76efb (Non classés) | relecture | Titre : « Numeration » sans accent → Numération | ×1 |
+| 82a2f (Non classés) | relecture | Correction : renvoie à « la décomposition » jamais donnée ; titre « multiple » mais la phrase conclut sur « diviseur » → Formuler avec multiple : $2\,025=25\cdot81$ | ×1 |
 | 8f060 (Non classés) | relecture | Titre terminé par un astérisque « * » → Retirer l'astérisque | ×1 |
 | c52a3 (Non classés) | relecture | Titre « Reconnaitre » sans accent → « Reconnaître » | ×1 |
 | c8515 (Non classés) | relecture | Titre « Trouver la moitié d'un nombre » mais la question est $3\cdot ?=18$ (division) → Titre à revoir | ×1 |
@@ -716,6 +719,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4f2a3 (Non classés) | relecture | Énoncé : « $A\left(5\,800\right).$ » point final dans les maths → Point hors $ | ×1 |
 | 4pvxi (Non classés) | relecture | Énoncé et correction : durées écrites de deux façons ($20\text{h}26\text{min}$ puis $1$ h $46$ min) → Uniformiser les durées | ×1 |
 | 5c854 (Non classés) | relecture | Correction : « J'ai donné: » sans espace insécable avant les deux-points → donné⍽: | ×1 |
+| 65bd7 (Non classés) | relecture | Énoncé : « $BG=4,7\ \text{cm}$ . » espace avant le point final → Retirer l'espace | ×1 |
 | 6ca15 (Non classés) | relecture | Énoncé : « 2 024 · 3 » année écrite avec espace fine des milliers (les années s'écrivent 2024) ; titre « CAN Spéciale année 2024 » → Écrire 2024 sans espace | ×1 |
 | 6fdab (Non classés) | relecture | Énoncé : « Tracer $[FG$], $[GH$) et $(HF$). » crochets et parenthèses fermants hors des $ → $[FG]$, $[GH)$ et $(HF)$ | ×1 |
 | 76230 (Non classés) | relecture | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ → « Pile » ; $1$ boule bleue… | ×1 |
@@ -1146,11 +1150,14 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 365f4 (Non classés) | relecture | Correction : la solution est donnée comme $\sqrt{2\,025}$ sans la calculer (45) alors que la saisie 45 est acceptée → Conclure avec $45$ | ×1 |
 | 3wv4j (Non classés) | relecture | Titre vide dans le référentiel → Renseigner le titre | ×1 |
 | 3wx9f (Non classés) | relecture | Titre « Question 24 » (titre de CAN/test, pas un intitulé d'exercice) → Renseigner le titre | ×1 |
+| 446ba (Non classés) | relecture | Titre vide dans le référentiel (aussi 603f6) → Renseigner le titre | ×1 |
 | 45dad (Non classés) | relecture | Énoncé : « Combien de fois 1/4 d'unité dans 1 unité ? » verbe manquant → Combien de fois $\dfrac14$ d'unité y a-t-il dans $1$ unité ? | ×1 |
+| 471c3 (Non classés) | relecture | Titre tronqué : « Exprimer en fonction de » (de quoi ?) → Titre complet | ×1 |
 | 47d36 (Non classés) | relecture | Correction : « le prix d'un papayes » (d'une papaye) ; « 3 papayes » hors $ → le prix d'une papaye | ×1 |
 | 4r5kj (Non classés) | relecture | Titre « Question 12 » (titre de CAN/test, pas un intitulé) → Renseigner le titre | ×1 |
 | 5aece (Non classés) | relecture | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine → Titre : Enlever une dizaine | ×1 |
 | 5e041 (Non classés) | relecture | Correction : « La figure A est composé de » (composée) → composée | ×1 |
+| 603f6 (Non classés) | relecture | Titre vide dans le référentiel → Renseigner le titre | ×1 |
 | 61geo (Non classés) | relecture | Titre vide dans le référentiel (même énoncé que 6c365, année 2025) → Renseigner le titre | ×1 |
 | 63ec7 (Non classés) | relecture | Titre « Trouver la moitié d'un nombre » mais l'exercice porte sur les pattes de vaches (multiplication) → Titre cohérent | ×1 |
 | 6c365 (Non classés) | relecture | Titre vide dans le référentiel → Renseigner le titre | ×1 |
@@ -1161,6 +1168,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 79fdf (Non classés) | relecture | Titre tronqué : « équation produit mul » → produit nul | ×1 |
 | 7k09a (Non classés) | relecture | Titre vide dans le référentiel → Renseigner le titre | ×1 |
 | 80a7b (Non classés) | relecture | Énoncé : « Combien en reste-il ? » (reste-t-il) → reste-t-il | ×1 |
+| 82d4a (Non classés) | relecture | Titre contenant « (ancien exercice) » (comme 25143, 1380f) → Retirer la mention | ×1 |
 | 89710 (Non classés) | relecture | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe → Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | ×1 |
 | 8e7a5 (Non classés) | relecture | Titre vide dans le référentiel → Renseigner le titre | ×1 |
 | 91304 (Non classés) | relecture | Titre vide dans le référentiel → Renseigner le titre | ×1 |
@@ -5289,6 +5297,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 65bed (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["117,5\\text{ m}^3"] ; attendu : {"champ":"117,5\\operatorname{m^3}"} | ×1 ; sup=1 sup2=true sup3=2 sup4=4 (revue-6-b) |
 | 65bed (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["1\\,331\\text{ m}^3"] ; attendu : {"champ":"1331\\operatorname{m^3}"} | ×4 ; sup=2 sup2=false sup3=2 sup4=1 ; sup=2 sup2=false sup3=2 sup4=9 (revue-13-a) |
 | 65bed (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["1\\,367\\text{ dm}^3"] ; attendu : {"champ":"1367\\operatorname{dm^3}"} | ×3 ; sup=2 sup2=false sup3=2 sup4=6 ; sup=2 sup2=false sup3=2 sup4=9… (revue-16-a) |
+| 667d6 (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["3"] ; attendu : {"champ":"=3"} | ×7 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6ca15 (Non classés) |  q17 mathlive | valeur en évidence refusée par le champ : ["21","6"] ; attendu : {"champ":"21h06min"} | ×18 ; sup=x ; sup=7… (revue-0-a) |
 | 6ca15 (Non classés) |  q30 mathlive | valeur en évidence refusée par le champ : ["[2\\,024 \\,&nbsp;;\\, +\\infty["] ; attendu : {"champ":"]2024;+\\infty["} | ×4 ; sup=x ; sup=1… (revue-0-b) |
 | 6ca15 (Non classés) |  q23 mathlive | valeur en évidence refusée par le champ : ["]-\\infty \\,&nbsp;;\\, -2\\,024]"] ; attendu : {"champ":"]-\\infty;-2024["} | ×1 ; sup=1 (revue-7-a) |
@@ -5347,6 +5356,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 7f0dc (Non classés) |  q4 mathlive | valeur en évidence refusée par le champ : ["\\dfrac{3}{5}","1"] ; attendu : {"champ":"\\{-\\dfrac53;2\\}"} | ×1 ; sup=3 sup2=false nb=10 (revue-6-a) |
 | 7f0dc (Non classés) |  q6 mathlive | valeur en évidence refusée par le champ : ["-\\dfrac{2}{5}","\\dfrac{2}{3}"] ; attendu : {"champ":"\\{\\dfrac25;4\\}"} | ×1 ; sup=3 sup2=false nb=10 (revue-6-a) |
 | 7f0dc (Non classés) |  q7 mathlive | valeur en évidence refusée par le champ : ["-2-\\sqrt{3}","-2+\\sqrt{3}"] ; attendu : {"champ":"\\dfrac{16}{25}"} | ×1 ; sup=3 sup2=false nb=10 (revue-6-a) |
+| 85dfc (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["8"] ; attendu : {"champ":"23"} | ×10 ; sup=1 sup2=1 sup3=true ; sup=2 sup2=1 sup3=true… (revue-1-a) |
+| 85dfc (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["46","0"] ; attendu : {"champ":"34"} | ×10 ; sup=1 sup2=2 sup3=true ; sup=2 sup2=2 sup3=true… (revue-2-a) |
+| 85dfc (Non classés) |  q1 mathlive | valeur en évidence refusée par le champ : ["31","16","34"] ; attendu : {"champ":"40"} | ×10 ; sup=1 sup2=3 sup3=true ; sup=2 sup2=3 sup3=true… (revue-4-a) |
 | 88021 (Non classés) |  q4 mathlive | valeur en évidence refusée par le champ : ["12","16"] ; attendu : {"champ":"5"} | ×22 ; sup=11 ; sup=8… (revue-0-a) |
 | 88021 (Non classés) |  q3 mathlive | valeur en évidence refusée par le champ : ["3\\,015","603"] ; attendu : {"champ":"35"} | ×8 ; sup=11 ; sup=5… (revue-0-b) |
 | 88021 (Non classés) |  q2 mathlive | valeur en évidence refusée par le champ : ["34","0","14","14"] ; attendu : {"champ":"25"} | ×6 ; sup=7 (revue-7-a) |
@@ -6685,6 +6697,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4af87 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 4d4a8 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×2 ; défaut (revue-0-a) |
 | 5b60d (Non classés) | série q1 | aucune mise en évidence dans la correction | ×1700 ; sup=3 sup2=10 ; sup=1 sup2=1… (revue-0-a) |
+| 612b9 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×21 ; sup=1 sup2=2-3-5-7 sup3=1 ; sup=1 sup2=2-3-5-7 sup3=2… (revue-1-a) |
 | 65bd7 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×47 ; sup=5 sup2=true sup3=2 ; sup=4 sup2=true sup3=1… (revue-0-b) |
 | 6a336 (Non classés) | série q1 | aucune mise en évidence dans la correction | ×90 ; sup=4 sup2=false sup3=true ; sup=1 sup2=true sup3=true… (revue-0-a) |
 | 6e82d (Non classés) | série q1 | aucune mise en évidence dans la correction | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -7167,9 +7180,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | BP1F2D06 (BP1) | src/exercices/BP1/BP1F2D06.ts | « $\mathscr{f}$ » : la lettre f n'a pas de forme calligraphique (rendu dégradé) ; « Séparer les racines par un point-virgule » : champ à saisir en texte, forme (1;3) non précisée ; 17 M1. → $f$ ; préciser « sans espace ». | ×1 |
 | BP2AutoD3 (BP2) | src/exercices/BP2/BP2AutoD3.ts | Série écrite « $29$$ ⍽; 18$$ ⍽; 11$$ … $ » : dollars doublés ($$ = mode display) entre les valeurs : 23 T5/T6, rendu avec blocs centrés possibles ; énoncé « La moyenne de la série ci-dessous est ... » points de suspension en texte (23 T6) ; calcul vérifié (234/13=18). → $29~;~18~;~11~;…$ en un dollar ; « est : ». | ×1 |
 | 29202 (Non classés) | relecture | Énoncé : le champ est libellé « f'(6)= » alors que la question porte sur f'(8) ; correction : « entre 6 et 6+h » alors que les calculs sont faits en 8 (valeur 6 codée en dur) → Utiliser la même valeur a dans les trois libellés | ×1 |
+| 448b5 (Non classés) | relecture | Correction : « Pour obtenir 2 025, on a ajouté 1 600 à 425 » raisonnement inversé (même défaut que 6fmcu) → On retranche 425 à 2 025 : 1 600 | ×1 |
 | 4ed52 (Non classés) | relecture | Énoncé : « undefined » devant le QCM ; correction : proposition mise en évidence « Il y a 7 fois 5 et il reste 2 » avec nombres hors $ et texte dans miseEnEvidence → Initialiser la question ; $7$ fois $5$ | ×1 |
 | 6fmcu (Non classés) | relecture | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) → Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | ×1 |
 | 7b6ee (Non classés) | relecture | Correction : « 2 025-(-20)=2 025+(--20) » double signe moins → 2\,025+20 | ×1 |
+| 82a41 (Non classés) | relecture | Correction : « 3² est positif (puissance paire d'un nombre négatif) » alors que 3 est positif ; titre « Calculer un prix après des évolutions successives » sans rapport → 3² est positif (puissance d'un nombre positif) ; titre cohérent | ×1 |
 | 83789 (Non classés) | src/exercices/can/canc3a-CM1-2025/canc3a-CM1-2025-Q25.ts:52 | Énoncé : « undefined » devant le QCM (this.question += qcm.texte sans question initialisée) → this.question = qcm.texte | ×1 |
 | 9efa5 (Non classés) | relecture | Correction : A(-5;0) et B(0;2) → « \dfrac{2-0}{0-5}=\dfrac{2}{+5} » : x_A=-5 est écrit sans parenthèses (0-(-5)), le calcul affiché est faux ; « Son pente » → \dfrac{2-0}{0-(-5)}=\dfrac{2}{5} ; Sa pente | ×1 |
 | a0d16 (Non classés) | src/exercices/CH/a0d16.ts | « $300\,000$$⍽=$ » : deux $ collés ($$ = mode display) avant l'égal ; titre « Associer un nombre décimal à sa notation scientifique » alors que la consigne demande de donner la notation ; 8 N6. → $300\,000=$ en un dollar ; titre cohérent. | ×1 |
@@ -7335,6 +7350,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5ab89 (Non classés) | relecture | Titre : « astucieusment » (astucieusement) → astucieusement | ×1 |
 | 5b0ab (Non classés) | relecture | Correction : « son pente est égal à » (sa pente est égale) → sa pente est égale | ×1 |
 | 5fe2c (Non classés) | relecture | Énoncé : « Quel est la pente » (Quelle est) ; correction : « coeffcient » (coefficient) → Quelle ; coefficient | ×1 |
+| 67e15 (Non classés) | relecture | Titre « Titre à modifier » (placeholder exposé) → Renseigner le titre (Calculer une image par une fonction affine) | ×1 |
 | 71b1f (Non classés) | relecture | Titre : « Mltiplier astucieusement » (Multiplier) → Multiplier | ×1 |
 | 77d18 (Non classés) | relecture | Exercice inutilisable exposé : « Cet exercice n'a pas pu être conservé pour des raisons techniques. Vous trouverez dans la section 3F1 ne nombreux exercices… » (coquille « ne nombreux »), aucune question → Retirer l'exercice du référentiel ou corriger « de nombreux » | ×1 |
 | 97290 (Non classés) | relecture | Titre : « Différence de fracion » (fraction) → fractions | ×1 |
@@ -12375,6 +12391,8 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 4d4a8 (Non classés) | correction | page de 840 px pour 390 px | ×2 ; défaut (revue-0-a) |
 | 4f2a3 (Non classés) | correction | page de 393 px pour 390 px | ×1 ; sup=4 (revue-3-a) |
 | 56772 (Non classés) | correction | page de 484 px pour 390 px | ×49 ; sup=4 sup2=1 sup3=false sup4=false ; sup=1 sup2=1 sup3=true sup4=false… (revue-0-a) |
+| 594eb (Non classés) | correction q1 | table de 660 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
+| 594eb (Non classés) | correction | page de 676 px pour 390 px | ×12 ; sup=1 sup2=true sup3=true ; sup=1 sup2=true sup3=false… (revue-1-a) |
 | 5fec2 (Non classés) | correction | page de 434 px pour 390 px | ×3 ; défaut ; défaut nb=10 (revue-0-a) |
 | 63f83 (Non classés) | correction | page de 395 px pour 390 px | ×4 ; sup3=true ; sup3=false… (revue-0-a) |
 | 65bed (Non classés) | correction | page de 444 px pour 390 px | ×35 ; sup=1 sup2=false sup3=2 sup4=8 ; sup=1 sup2=true sup3=1 sup4=1… (revue-0-a) |
@@ -14429,6 +14447,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 42fc1 (Non classés) |  q1 qcm | QCM : bonne proposition (h=\dfrac3v\pir^2) absente de la mise en évidence (\dfrac3v\pir^2) | ×2 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
 | 42fc1 (Non classés) |  q2 qcm | QCM : bonne proposition (r=\sqrt\dfraca\pi) absente de la mise en évidence (\sqrt\dfraca\pi) | ×1 ; sup3=true nb=10 (revue-2-a) |
 | 42fc1 (Non classés) |  q3 qcm | QCM : bonne proposition (m=\dfrac2ev^2) absente de la mise en évidence (\dfrac2ev^2) | ×1 ; sup3=true nb=10 (revue-2-a) |
+| 471c3 (Non classés) |  q1 qcm | QCM : bonne proposition (r=\sqrt\dfracg\timesm_1\timesm_2f) absente de la mise en évidence (r=\sqrt\dfracg\cdotm_1\cdotm_2f) | ×2 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
+| 471c3 (Non classés) |  q1 qcm | QCM : bonne proposition (m_1=\dfracf\timesr^2g\timesm_2) absente de la mise en évidence (m_1=\dfracf\cdotr^2g\cdotm_2) | ×3 ; sup3=true ; sup3=true nb=10 (revue-0-b) |
+| 471c3 (Non classés) |  q2 qcm | QCM : bonne proposition (g=\dfracf\timesr^2m_1\timesm_2) absente de la mise en évidence (g=\dfracf\cdotr^2m_1\cdotm_2) | ×1 ; sup3=true nb=10 (revue-2-a) |
 | 47d36 (Non classés) |  q1 qcm | QCM : bonne proposition (25,20€) absente de la mise en évidence () | ×10 ; défaut ; défaut nb=10 (revue-0-a) |
 | 47d36 (Non classés) |  q1 qcm | QCM : bonne proposition (28€) absente de la mise en évidence () | ×2 ; défaut nb=10 (revue-1-a) |
 | 47d56 (Non classés) |  q1 qcm | QCM : bonne proposition (unetranslation) absente de la mise en évidence () | ×4 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -14438,6 +14459,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 47f36 (Non classés) |  q1 qcm | QCM : bonne proposition (420€) absente de la mise en évidence () | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 47u56 (Non classés) |  q1 qcm | QCM : bonne proposition (202,5cm^2) absente de la mise en évidence () | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
 | 47v56 (Non classés) |  q1 qcm | QCM : bonne proposition (1846800cm^3) absente de la mise en évidence () | ×12 ; défaut ; défaut nb=10 (revue-0-a) |
+| 481aa (Non classés) |  q1 qcm | QCM : bonne proposition (c) absente de la mise en évidence (b) | ×1 ; sup=false nb=10 (revue-2-a) |
+| 481aa (Non classés) |  q2 qcm | QCM : bonne proposition () absente de la mise en évidence (c) | ×2 ; sup=false nb=10 (revue-2-a) |
+| 481aa (Non classés) |  q3 qcm | QCM : bonne proposition () absente de la mise en évidence (b) | ×1 ; sup=false nb=10 (revue-2-a) |
+| 481aa (Non classés) |  q4 qcm | QCM : bonne proposition () absente de la mise en évidence (d) | ×1 ; sup=false nb=10 (revue-2-a) |
+| 481aa (Non classés) |  q6 qcm | QCM : bonne proposition () absente de la mise en évidence (a) | ×2 ; sup=false nb=10 (revue-2-a) |
 | 48d36 (Non classés) |  q1 qcm | QCM : bonne proposition (10x^2-19x-15) absente de la mise en évidence () | ×10 ; défaut ; défaut nb=10 (revue-0-a) |
 | 48d36 (Non classés) |  q8 qcm | QCM : bonne proposition (8x^2+2x-10) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
 | 48d36 (Non classés) |  q9 qcm | QCM : bonne proposition (2x^2+x-10) absente de la mise en évidence () | ×1 ; défaut nb=10 (revue-1-a) |
@@ -14453,6 +14479,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 64fa8 (Non classés) |  q4 qcm | QCM : bonne proposition () absente de la mise en évidence (c) | ×1 ; défaut nb=10 (revue-1-a) |
 | 64fa8 (Non classés) |  q5 qcm | QCM : bonne proposition () absente de la mise en évidence (d) | ×1 ; défaut nb=10 (revue-1-a) |
 | 65bed (Non classés) |  q2 qcm | QCM : bonne proposition (244,2m^3) absente de la mise en évidence (244m^3) | ×1 ; sup=1 sup2=true sup3=1 sup4=10 (revue-12-a) |
+| 667d9 (Non classés) |  q1 qcm | QCM : bonne proposition (4&lt;\mathcala&lt;14 / 6&lt;\mathcala&lt;12) absente de la mise en évidence (612) | ×4 ; sup=1 ; sup=2 (revue-0-a) |
 | 6cc79 (Non classés) |  q3 qcm | QCM : bonne proposition (471,528dm^3) absente de la mise en évidence (472dm^3) | ×3 ; sup=1 sup2=true sup3=1 ; sup=3 sup2=true sup3=1 (revue-1-a) |
 | 6cc79 (Non classés) |  q2 qcm | QCM : bonne proposition (354,24mm^3) absente de la mise en évidence (354mm^3) | ×1 ; sup=1 sup2=true sup3=1 (revue-1-b) |
 | 6ebf5 (Non classés) |  q1 qcm | QCM : bonne proposition (baissede2\%) absente de la mise en évidence (2\%baissede) | ×9 ; sup3=true ; sup3=true nb=10 (revue-0-a) |
@@ -15941,6 +15968,10 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 41aff (Non classés) | énoncé q1 | impératif : Résous | ×1 ; défaut (revue-0-a) |
 | 41aff (Non classés) | énoncé non interactif q1 | impératif : Résous | ×1 |
 | 450b6 (Non classés) | src/exercices/can/canc3a-CM1-2026/canc3a-CM1-2026-Q11.ts:33 | consigne à l'impératif : Complète. | ×1 |
+| 450b6 (Non classés) | consigne | impératif : Complète. | ×1 ; sup=false (revue-0-a) |
+| 496e9 (Non classés) | titre | deuxième personne : Trouver un nombre de boîtes | ×1 |
+| 496e9 (Non classés) | énoncé q1 | deuxième personne : . Combien de boîtes faut-il ? [champ] | ×12 ; sup=false ; sup=true… (revue-0-a) |
+| 496e9 (Non classés) | énoncé non interactif q1 | deuxième personne : . Combien de boîtes faut-il ? | ×1 |
 | 4c6e2 (Non classés) | énoncé non interactif q1 | impératif : Trace une réduction de coefficient ‖ impératif : Trace un agrandissement du triangle KGL de telle s | ×4 |
 | 4d92a (Non classés) | énoncé q1 | deuxième personne : lapins. Combien comptes-tu d'oreilles ? [champ] oreilles | ×11 ; sup=false ; sup=false nb=10 (revue-0-a) |
 | 4d92a (Non classés) | énoncé non interactif q1 | deuxième personne : lapins. Combien comptes-tu d'oreilles ? | ×1 |
@@ -15951,6 +15982,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 51b60 (Non classés) | énoncé q1 | impératif : Écris, en chiffres, le nombre : mille-cinq [ ‖ impératif : Écris, en chiffres, le nombre : mille-deux [ ‖ impératif : Écris, en chiffres, le nombre : mille-trente-cin | ×11 ; sup=false ; sup=true… (revue-0-a) |
 | 51b60 (Non classés) | énoncé non interactif q1 | impératif : Écris, en chiffres, le nombre : mille-cinq | ×1 |
 | 565f3 (Non classés) | src/exercices/can/canc3a-CM1-2025/canc3a-CM1-2025-Q27.ts:37 | consigne à l'impératif : Complète. | ×1 |
+| 565f3 (Non classés) | consigne | impératif : Complète. | ×1 ; défaut (revue-0-a) |
 | 5aa67 (Non classés) | énoncé q1 | impératif : Écris le nombre qui a | ×12 ; sup=false ; sup=true… (revue-0-a) |
 | 5aa67 (Non classés) | énoncé non interactif q1 | impératif : Écris le nombre qui a | ×1 |
 | 5bd1f (Non classés) | src/exercices/can/canCE2a-2026/canCE2-2026-Q11.ts:57 | consigne à l'impératif : Coche la bonne réponse.&lt;br>Un cube a : | ×1 |
@@ -15958,6 +15990,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5bd1f (Non classés) | consigne | impératif : Coche la bonne réponse. Un cube a : | ×1 ; sup=false (revue-0-a) |
 | 63ec7 (Non classés) | énoncé q1 | deuxième personne : vaches. Combien comptes-tu de pattes ? [champ] pattes | ×8 ; sup=false ; sup=false nb=10 (revue-0-a) |
 | 63ec7 (Non classés) | énoncé non interactif q1 | deuxième personne : vaches. Combien comptes-tu de pattes ? | ×1 |
+| 66e74 (Non classés) | énoncé non interactif q1 | impératif : . Complète. | ×1 |
 | 698bb (Non classés) | src/exercices/can/canc3a-2025/canc3a-2025-Q19.ts:35 | consigne à l'impératif : Complète.  | ×1 |
 | 6efd8 (Non classés) | énoncé q1 | impératif : Complète. Le reste de la division de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | 6efd8 (Non classés) | énoncé non interactif q1 | impératif : Complète. Le reste de la division de | ×1 |
@@ -17727,6 +17760,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3ed97 (Non classés) | correction q1 | double espace : , donc l'arrondi au centième de | ×3 ; sup=true ; sup=false nb=10 (revue-1-a) |
 | 3f39d (Non classés) | correction q1 | double espace : garçons en première technologique parmi les garçons est donnée par le quotient : ‖ double espace : e filles en première technologique parmi les filles est donnée par le quotient : | ×9 ; sup=2 ; sup=2 nb=10 (revue-0-a) |
 | 3fes1 (Non classés) | correction q1 | double espace : Le nombre cherché vérifie l'égalité : | ×1 ; défaut (revue-0-a) |
+| 416d2 (Non classés) | énoncé q1 | double espace : Valeur exacte du périmètre du cercle de rayon | ×1 ; défaut (revue-0-a) |
+| 416d2 (Non classés) | correction q1 | double espace : , la valeur exacte du périmètre est : | ×1 ; défaut (revue-0-a) |
+| 416d2 (Non classés) | énoncé non interactif q1 | double espace : Valeur exacte du périmètre du cercle de rayon | ×1 |
 | 46bae (Non classés) | correction q1 | double espace : tableur : Pour calculer le double de 35, la formule à saisir dans la cellule B2 est : =B1*2. Pour c ‖ double espace : : =B1*2. Pour calculer le produit de 35, la formule à saisir dans la cellule B3 est : =B1*38. Pour ‖ double espace : : =B1*38. Pour calculer la moitié de 35, la formule à saisir dans la cellule B4 est : =B1/2. | ×80 ; sup=0 sup2=3 ; sup=0 sup2=1… (revue-0-a) |
 | 4c0a8 (Non classés) | énoncé q1 | double espace : euros. On me rend [champ] €. | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | 4e684 (Non classés) | titre | double espace : Utiliser les valeurs remarquables du cosinus et sinus | ×1 |
@@ -17738,6 +17774,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 57688 (Non classés) | correction q1 | double espace : égal au vecteur | ×1 ; défaut (revue-0-a) |
 | 61geo (Non classés) | énoncé q1 | double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s ‖ double espace : h. Combien d'heures faut-il attendre avant de pouvoir se s | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
 | 61geo (Non classés) | énoncé non interactif q1 | double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s | ×1 |
+| 65bed (Non classés) | énoncé q1 | double espace : et dont la base est un carré de | ×9 ; sup=1 sup2=true sup3=1 sup4=6 ; sup=2 sup2=false sup3=2 sup4=6… (revue-8-a) |
+| 66e74 (Non classés) | énoncé q1 | double espace : La longueur du contour de ce triangle est de | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
+| 66e74 (Non classés) | énoncé non interactif q1 | double espace : La longueur du contour de ce triangle est de | ×1 |
 | 6a336 (Non classés) | correction q1 | double espace : oites données parallèles dans l'énoncé sont de même couleur/style. | ×35 ; sup=4 sup2=false sup3=true ; sup=1 sup2=false sup3=true… (revue-0-a) |
 | 6a336 (Non classés) | correction non interactive q1 | double espace : oites données parallèles dans l'énoncé sont de même couleur/style. | ×3 |
 | 6c365 (Non classés) | énoncé q1 | double espace : h du matin. Combien d'heures faut-il attendre avant de pouvoir se s ‖ double espace : h. Combien d'heures faut-il attendre avant de pouvoir se s | ×11 ; défaut ; défaut nb=10 (revue-0-a) |
@@ -18651,7 +18690,11 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3fl04 (Non classés) | énoncé non interactif q1 | points de suspension : .... | ×1 |
 | 3izfu (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | 3wx9f (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| 416d2 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....\text{ cm}$ | ×1 |
+| 422ef (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | 43cd9 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
+| 450b6 (Non classés) | correction q1 | points de suspension en maths (\ldots) : $\begin{aligned} 3+ 6 &= .... + 2\\ 9 &={\color{}\bo$ ‖ points de suspension en maths (\ldots) : $\begin{aligned} 5+ 6 &= .... + 3\\ 11 &={\color{}\b$ | ×10 ; sup=false ; sup=false nb=10 (revue-0-a) |
+| 450b6 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $3+ 6 = .... +2$ | ×1 |
 | 45e51 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
 | 4b3b4 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $P(A\cap B)=....$ | ×1 |
 | 4c0a8 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....$ | ×1 |
@@ -18662,6 +18705,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 50cd1 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $150\text{ min }= ~.... ~\text{h}~....~\text{min}$ ‖ points de suspension en maths (\ldots) : $text{ min }= ~.... ~\text{h}~....~\text{min}$ | ×2 |
 | 50ee5 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $(....;....)$ | ×2 |
 | 50n52 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $....\text{ dm}^3$ | ×1 |
+| 565f3 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $90\text{ min }= ~.... ~\text{h}~....~\text{min}$ ‖ points de suspension en maths (\ldots) : $text{ min }= ~.... ~\text{h}~....~\text{min}$ | ×2 |
 | 57688 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $htarrow{AB}=\overrightarrow{B{....}}$ | ×1 |
 | 5a981 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $284 + 70 = ....$ | ×1 |
 | 5b60d (Non classés) | énoncé q4 | points de suspension en maths (\ldots) : $................$ | ×5130 ; sup=3 sup2=10 ; sup=1 sup2=1… (revue-0-a) |
@@ -18669,6 +18713,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 5e27b (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $P(B)=....$ | ×1 |
 | 5e90f (Non classés) | correction q1 | points de suspension en maths (\ldots) : $E=\left\{1;2;....;8\right\}$ ‖ points de suspension en maths (\ldots) : $A_n^k=n\cdot (n-1).... (n-k+1)$ | ×14 ; sup=1 ; sup=2… (revue-0-a) |
 | 62d69 (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $2\cdot25=....$ | ×1 |
+| 69jkh (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $t=....$ | ×1 |
 | 6ca15 (Non classés) | énoncé non interactif q8 | points de suspension en maths (\ldots) : $....$ ‖ points de suspension en maths (\ldots) : $....\text{ m}$ | ×5 |
 | 6d3cf (Non classés) | énoncé non interactif q1 | points de suspension en maths (\ldots) : $S=....$ | ×1 |
 | 6ea89 (Non classés) | titre | points de suspension : Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décima ‖ points de suspension : poser un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale) | ×2 |
@@ -19227,6 +19272,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 3b474 (Non classés) |  q1 meta-custom | format meta-custom : à tester à la main | ×130 ; sup=3 sup2=4 sup3=2-3 ; sup=1 sup2=4 sup3=2-3… (revue-0-a) |
 | 3c2cb (Non classés) |  q2 qcm | aucune proposition | ×9 ; sup=false nb=10 (revue-2-a) |
 | 46bae (Non classés) |  q1 meta-custom | format meta-custom : à tester à la main | ×100 ; sup=0 sup2=3 ; sup=0 sup2=1… (revue-0-a) |
+| 481aa (Non classés) |  q2 qcm | aucune proposition | ×6 ; sup=false nb=10 (revue-2-a) |
 | 4d4a8 (Non classés) |  q1 apigeom-figure | format apigeom-figure : à tester à la main | ×2 ; défaut (revue-0-a) |
 | 4f2a3 (Non classés) |  q1 points-cliquables | format points-cliquables : à tester à la main | ×50 ; sup=1 ; sup=2… (revue-0-a) |
 | 58286 (Non classés) |  q1 mathalea-solveur | format mathalea-solveur : à tester à la main | ×42 ; sup=true sup2=false sup3=1 ; sup=true sup2=true sup3=1… (revue-0-a) |
