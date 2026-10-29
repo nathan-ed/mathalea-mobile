@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **787 sur 1168**. Constats confirmés : **352**.
+Exercices relus : **815 sur 1168**. Constats confirmés : **359**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 261 |
+| Rédaction (français, titres, consignes) | 268 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -141,6 +141,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 10QCM-47 | R16  | Énoncé : « connait » (connaît) | connaît | relecture |
 | 11FA2A-6 | R16  | Correction : « Dans une 1 heure, il y a » (Dans 1 heure) | Dans $1$ heure | relecture |
 | 11FA4E-2 | R16  | Énoncé : « Le périmètre P d'un rectangle est donnée » (donné) | est donné | relecture |
+| 11QCM-14 | R3  | Correction : intervalle « ]0\,;+\infty[ » espace fine d'un seul côté du point-virgule | ]0\,;\,+\infty[ | relecture |
+| 11QCM-18 | R3  | Énoncé : « est égale $…$? » point d'interrogation sans espace insécable | $…$⍽? | relecture |
+| 11QCM-5 | R16  | Énoncé et correction : « Le pente m » (La pente) ; titre « coefficient directeur » mais texte « pente » | La pente | relecture |
 | 2mEqCar-1 | R16  | Énoncé : « du cercle de rayon 9 est de centre » (et) ; 9 hors $ | rayon $9$ et de centre | relecture |
 | 2mEqCar-3 | R16  | uuid « asdea » non hexadécimal (valeur de saisie au clavier) | Vrai uuid | relecture |
 | 2mFctPoly1-1 | R16  | Correction : « à l'aide du critères des racines rationnelles » (du critère) ; polynômes « 5 x^3-23 x^2 + 27 x-9 » avec espaces irréguliers | du critère ; écriture normalisée | relecture |
@@ -177,6 +180,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 5ab89 | R16  | Titre : « astucieusment » (astucieusement) | astucieusement | relecture |
 | 5aece | R16  | Titre « Enlever une centaine » alors que l'énoncé demande d'enlever une dizaine | Titre : Enlever une dizaine | relecture |
 | 5b0ab | R16  | Correction : « son pente est égal à » (sa pente est égale) | sa pente est égale | relecture |
+| 5b60d | R1 Titre | Énoncé : « par 89 », « 81 479=88$\cdot$925 $+$ 79 » nombres hors $ et équation coupée en morceaux de $ (opérateurs seuls dans $) | $81\,479=88\cdot925+79$ | relecture |
 | 5b767 | R14  | Correction vide (aucun texte de correction) | Ajouter la correction | relecture |
 | 5c854 | R3  | Correction : « J'ai donné: » sans espace insécable avant les deux-points | donné⍽: | relecture |
 | 5e041 | R16  | Correction : « La figure A est composé de » (composée) | composée | relecture |
@@ -185,6 +189,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 6a336 | R12  | Énoncé : « (d_3)//(d_2) » barres obliques au lieu de \parallel | (d_3)\parallel(d_2) | relecture |
 | 6c365 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 6ca15 | R3  | Énoncé : « 2 024 · 3 » année écrite avec espace fine des milliers (les années s'écrivent 2024) ; titre « CAN Spéciale année 2024 » | Écrire 2024 sans espace | relecture |
+| 6cc79 | R2 Tutoiement, impératif | Correction : ⟦315\textbf{ m}^3⟧ unité en \textbf dans miseEnEvidence (champ attend 315 + unité) | Vérifier que la mise en évidence correspond au champ (unité incluse) | relecture |
+| 6d56a | R16  | Titre « Calculer une dérivée » mais l'exercice demande de simplifier (e^x+3)(e^x-3) | Titre : Simplifier une expression avec des exponentielles | relecture |
+| 6dff5 | R16  | Titre « Développer une identité remarquable » mais l'exercice porte sur un pourcentage (élèves externes) | Titre : Calculer un pourcentage d'une quantité | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
@@ -402,7 +409,10 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | --- | --- | ---: | --- |
 | 10FA4C-9 | I1 Bonne réponse refusée | 10 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : un calcul numérique reste à effectuer. |
 | 10FA4F-10 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1) La valeur est correcte. Cette expression n'est pas assez réduite : elle contient un facteur trivial ou un terme nul. |
+| 11FA4A-5 | I1 Bonne réponse refusée | 8 | bonne réponse refusée (0/1) Incorrect car cette expression n'est pas égale à celle attendue. |
 | 11NO3A-2 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) La réponse fournie est bien égale à celle attendue mais la réponse fournie n'est pas en notation scientifique. |
+| 1mCL4-1 | I1 Bonne réponse refusée | 1 | bonne réponse refusée (1/2) Les nombres doivent tous être séparés par un point-virgule. |
+| 2mTrigoFct-6 | I1 Bonne réponse refusée | 66 | bonne réponse refusée (0/1) Les nombres doivent tous être séparés par un point-virgule. |
 | 3G98-5 | I1 Bonne réponse refusée | 14 | bonne réponse refusée (0/1) Une seule variable de paramétrage doit être utilisée. Une seule variable de paramétrage doit être utilisée. Par exemple, utilisez se |
 | 3mLimCont-1 | I1 Bonne réponse refusée | 13 | bonne réponse refusée (0/1) Résultat incorrect car majuscules ou minuscules non respectées. |
 | 6ca15 | I1 Bonne réponse refusée | 2 | bonne réponse refusée (0/1)  |
@@ -414,6 +424,9 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 4mInt-1 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | 4mInt-2 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
+| 1mCL4-2 | I4 Question sans champ | 53 | champ absent de la page |
+| 2mTrigoFct-6 | I4 Question sans champ | 4 | champ absent de la page |
+| 2mTrigoFct-7 | I4 Question sans champ | 4 | champ absent de la page |
 | 3ca3e | I4 Question sans champ | 1 | champ absent de la page |
 | 3f39d | I4 Question sans champ | 6 | champ absent de la page |
 | 2mFctRat-1 | X1 Erreur | 1 | arrêt : délai de 10 min dépassé |
@@ -432,4 +445,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 12641 ; T5 Espaces 2163 ; T6 Points de suspension 1273 ; T4  1229 ; R2 Tutoiement, impératif 624 ; R5 Virgule 503 ; T2  371 ; T3  281 ; N2 Séparateur des milliers 231 ; N6 Écriture algébrique 217 ; N3  132 ; M7  97 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 17 ; X2 Formule cassée 12 ; R1 Titre 4 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 37440 ; T6 Points de suspension 6405 ; T5 Espaces 2215 ; T4  1798 ; M7  781 ; T3  659 ; R2 Tutoiement, impératif 636 ; R5 Virgule 511 ; T2  371 ; N2 Séparateur des milliers 231 ; N6 Écriture algébrique 228 ; N3  132 ; R9  94 ; X3  71 ; R10 Français 59 ; T1 Espace avant % 40 ; N5 Négatif sans parenthèses 17 ; X2 Formule cassée 12 ; R1 Titre 4 ; N4  2 ; R6  1.
