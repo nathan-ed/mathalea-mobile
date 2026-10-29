@@ -1,7 +1,7 @@
 # Revue des exercices : Suisse
 
 Résumé intermédiaire produit par `node revue/degres.mjs` (revue en cours).
-Exercices relus : **1089 sur 1168**. Constats confirmés : **439**.
+Exercices relus : **1121 sur 1168**. Constats confirmés : **444**.
 
 Les constats confirmés ont été vus à la relecture (texte, code, essais de saisie) : on peut les corriger. Les constats du banc plus bas sont automatiques et restent à confirmer.
 
@@ -12,7 +12,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | Rendu cassé (formule, débordement, erreur) | 59 |
 | Mise en évidence (miseEnEvidence et champs) | 16 |
 | Typographie (nombres, espaces, notations) | 3 |
-| Rédaction (français, titres, consignes) | 346 |
+| Rédaction (français, titres, consignes) | 351 |
 
 ## Interactif faux (la bonne réponse est refusée, ou pas de champ)
 
@@ -239,6 +239,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 61geo | R16  | Titre vide dans le référentiel (même énoncé que 6c365, année 2025) | Renseigner le titre | relecture |
 | 63ec7 | R16  | Titre « Trouver la moitié d'un nombre » mais l'exercice porte sur les pattes de vaches (multiplication) | Titre cohérent | relecture |
 | 65bd7 | R3  | Énoncé : « $BG=4,7\ \text{cm}$ . » espace avant le point final | Retirer l'espace | relecture |
+| 667d9 | R12  | Correction : « \int_{0}^{5}f(x).dx » point au lieu de \,\mathrm{d}x | \int_0^5 f(x)\,\mathrm{d}x | relecture |
 | 67a5b | R16  | Titre « Résoudre une équation graphiquement » mais la correction traite une inéquation | Résoudre une inéquation graphiquement | relecture |
 | 67e15 | R16  | Titre « Titre à modifier » (placeholder exposé) | Renseigner le titre (Calculer une image par une fonction affine) | relecture |
 | 6a336 | R12  | Énoncé : « (d_3)//(d_2) » barres obliques au lieu de \parallel | (d_3)\parallel(d_2) | relecture |
@@ -252,6 +253,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 6fmcu | R10 Français | Correction : « Pour obtenir 2 026, on a ajouté 1 600 à 426 » : raisonnement inversé (on a soustrait 426 à 2 026 pour obtenir 1 600) | Pour trouver ce nombre, on commence par retrancher 426 à 2 026 : 1 600 | relecture |
 | 71b1f | R16  | Titre : « Mltiplier astucieusement » (Multiplier) | Multiplier | relecture |
 | 72e9d | R3  | Énoncé : « en grammes? » sans espace insécable avant ? ; « une étoile en gramme » (grammes) | en grammes⍽? ; en grammes | relecture |
+| 75f89 | R16  | Titre : « Générer dees pyramides » (des) | Générer des pyramides | relecture |
 | 76230 | R3  | Énoncé : «Pile» sans espaces insécables ; nombres de boules (1, 2, 3) hors $ | « Pile » ; $1$ boule bleue… | relecture |
 | 76efb | R16  | Titre : « Numeration » sans accent | Numération | relecture |
 | 77432 | R16  | Titre vide dans le référentiel (aucun intitulé affiché) | Renseigner le titre (ex. Calculer la moyenne d'une série) | relecture |
@@ -266,12 +268,15 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 83800 | R3  | Correction : $[f(x)=a(x-\alpha)^2+\beta]$ crochets au lieu de \[ \] | \[ … \] | relecture |
 | 88021 | R1 Titre | Énoncé et correction : « 5 amis », « 12 jours », « 38 et 30 » nombres hors $ | Mettre les nombres entre $ | relecture |
 | 88488 | R1 Titre | Énoncé : « 19 fois » hors $ ; correction : « n= 19 » espace et 19 hors maths, « p=0,4.$ » point dans les maths | $19$ fois ; n=19 ; $p=0,4$. | relecture |
+| 88a60 | R1 Titre | Titre « Numeration » sans accent ; énoncé « entre 128 et 200 », « dizaines est 2 » nombres hors $ (aussi 85dfc : « point 22 ») | Numération ; $128$ | relecture |
 | 89710 | R16  | Titre « Ordre de grandeur » sans rapport avec l'exercice (figure sans axe de symétrie) ; consigne « n' ayant » espace après l'apostrophe | Titre « Reconnaître une figure sans axe de symétrie » ; n'ayant | relecture |
 | 8ac2d | R3  | Énoncé : « $355 -11 =$ » espace avant le moins et pas après | $355-11=$ | relecture |
 | 8e7a5 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 8f060 | R16  | Titre terminé par un astérisque « * » | Retirer l'astérisque | relecture |
 | 8u8my | R12  | Titre : « e^(x+a) = 1 » écrit avec des parenthèses au lieu de LaTeX ; énoncé \text{e} au lieu de \mathrm{e} | $\mathrm{e}^{x+a}=1$ | relecture |
 | 90671 | R2 Tutoiement, impératif | Correction : ⟦70\textbf{ km}⟧ unité en \textbf dans miseEnEvidence ; consigne « Coche » (tutoiement) alors que d'autres consignes disent « Cocher » | miseEnEvidence(70) + unité ; harmoniser | relecture |
+| 90ae3 | R16  | Titre : « Trouver une longuer » (longueur) | longueur | relecture |
+| 90fd5 | R3  | Énoncé et correction : « triangle BEC », « la droite (CE) » sans $ ; « un sommet , » espace avant la virgule | $BEC$ ; $(CE)$ ; sommet, | relecture |
 | 91304 | R16  | Titre vide dans le référentiel | Renseigner le titre | relecture |
 | 92572 | R2 Tutoiement, impératif | Correction : ⟦10\textbf{ est un diviseur de }90⟧ texte dans miseEnEvidence, et phrase différente de la bonne proposition « 90 est un multiple de 10. » | texteEnCouleurEtGras ; reprendre la proposition correcte | relecture |
 | 97290 | R16  | Titre : « Différence de fracion » (fraction) | fractions | relecture |
@@ -512,6 +517,7 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 | 4mExpLog-2 | I2 Réponse fausse acceptée | 18 | réponse fausse acceptée |
 | 4mInt-1 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
 | 4mInt-2 | I2 Réponse fausse acceptée | 16 | réponse fausse acceptée |
+| 95adb | I2 Réponse fausse acceptée | 4 | réponse fausse acceptée |
 | afd39 | I2 Réponse fausse acceptée | 1 | réponse fausse acceptée |
 | 1mCL4-2 | I4 Question sans champ | 53 | champ absent de la page |
 | 2mTrigoFct-6 | I4 Question sans champ | 4 | champ absent de la page |
@@ -541,4 +547,4 @@ Les constats confirmés ont été vus à la relecture (texte, code, essais de sa
 
 ## Typographie et rédaction détectées automatiquement
 
-Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39064 ; T6 Points de suspension 6770 ; T5 Espaces 2762 ; T4  1974 ; R2 Tutoiement, impératif 841 ; T3  811 ; M7  792 ; R5 Virgule 615 ; T2  371 ; N6 Écriture algébrique 285 ; N2 Séparateur des milliers 274 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 5 ; N4  2 ; R6  1.
+Volume par règle (détail dans [trouvailles.md](../trouvailles.md)) : N1 Nombre hors $ 39578 ; T6 Points de suspension 6803 ; T5 Espaces 2904 ; T4  1976 ; R2 Tutoiement, impératif 914 ; T3  812 ; M7  792 ; R5 Virgule 640 ; T2  371 ; N6 Écriture algébrique 292 ; N2 Séparateur des milliers 276 ; R10 Français 209 ; N3  132 ; R9  94 ; X3  71 ; T1 Espace avant % 41 ; N5 Négatif sans parenthèses 23 ; X2 Formule cassée 19 ; R1 Titre 6 ; N4  2 ; R6  1.
