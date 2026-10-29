@@ -5,7 +5,7 @@ Fichier produit par `node revue/rapport.mjs` à partir du journal du banc
 Règles : [regles.md](regles.md). État : [etat.md](etat.md).
 
 Avancement : **4190 exercices passés sur 4190**.
-Constats regroupés : 19109 (un groupe = même exercice, même règle,
+Constats regroupés : 19111 (un groupe = même exercice, même règle,
 même extrait aux nombres près ; « ×n » = nombre de tirages concernés).
 
 Tri : gravité, puis règle, puis niveau et exercice. Les constats
@@ -69,7 +69,7 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | 2 Rendu cassé | [X6 Même graine, exercice différent](#x6) | 24 | 24 |
 | 3 Mise en évidence | [C1 Contenu mathématique faux ou ambigu](#c1) | 35 | 35 |
 | 3 Mise en évidence | [C2 ](#c2) | 3 | 3 |
-| 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 6 | 6 |
+| 3 Mise en évidence | [I1 Bonne réponse refusée](#i1) | 8 | 8 |
 | 3 Mise en évidence | [I2 Réponse fausse acceptée](#i2) | 1 | 1 |
 | 3 Mise en évidence | [I3 Champ vide accepté ou en erreur](#i3) | 1 | 1 |
 | 3 Mise en évidence | [M1 Valeur mise en évidence refusée par le champ](#m1) | 501 | 3681 |
@@ -2429,7 +2429,9 @@ candidats : une partie est écartée à la relecture (`revue/ecartes.jsonl`).
 | --- | --- | --- | --- |
 | 1A-E05-1 (1e) | src/exercices/1e/ | Question « Quel est le taux à appliquer… ? » : seule la fraction exacte 11/39 est acceptée ; « 28,2 \% » et « 0,282 » sont refusés (testé) alors que la consigne n'impose ni fraction ni pourcentage → Préciser « sous forme de fraction irréductible » ou accepter une valeur approchée en pourcentage | ×1 |
 | 3AutoDNB2026-6 (3e) | src/exercices/dnbAutomatismes/ | Question « Donner une écriture du nombre $2,4$ sous la forme d'une fraction » : la saisie « 2,4 » (écriture décimale, pas une fraction) est acceptée (testé avec essayer.mjs ; 24/10 et 12/5 aussi) → Attendre une fraction (fractionEgale / texteSansCasse) plutôt qu'une égalité numérique | ×1 |
+| 3AutoG12 (3e) | src/exercices/3e/3AutoG12.ts:121 | Interactif : réponse attendue en flottant (2,1 × 24 = 50.400000000000006) : « 50,4 » est refusé, seule la chaîne « 50.400000000000006 » est acceptée (confirmé avec revue/essayer.mjs) → this.reponse = arrondi(rapport * longueurAC, 2) ou comparaison avec tolérance | ×1 |
 | 3AutoN01 (3e) | relecture | Confirmé avec essayer.mjs : « 2,5 » est accepté comme réponse à « sous la forme d'une fraction » → Exiger une fraction | ×1 |
+| 4C32-3 (4e) | relecture | Interactif (sup=2) : 3,3×10^8 × 17 Mo = 5 610 000 Go, attendu 5609999.999999999 : « 5610000 » et « 5,61\times10^{6} » refusés, seule la chaîne flottante passe (confirmé avec revue/essayer.mjs) → Arrondir la réponse attendue | ×1 |
 | 6N3G-1 (6e) | 6e/6N3G-1.ts | « Calculer $5\times\dfrac{1}{2}$ » : « 2,5 » (valeur exacte) est refusé, seules les fractions sont acceptées, sans que la consigne demande une fraction (revue/saisir.mjs, graine revue-0-a). → Consigne « Calculer et donner le résultat sous forme de fraction », ou accepter l'écriture décimale exacte. | ×1 |
 | 16c6f (Non classés) | src/exercices/can/Ex/canTEC2-06.ts:26,35 | Interactif : la réponse attendue est une chaîne vide (this.reponse = ''), la valeur de la correction (3√2/2 + 3√2/2 i) est refusée ; consigne « forme trigonométrique algébrique » contradictoire, « sous  forme » deux espaces (le titre est « à partir de son expression trigonométrique ») → Renseigner this.reponse (forme algébrique) ; « sous forme algébrique » | ×1 |
 | 9e17a (Non classés) | relecture | Interactif : seule la saisie « \mathbb{R}\backslash\{-2025\} » est acceptée ; « \setminus » et « \smallsetminus » (ceux de la correction) sont refusés → Accepter \setminus et \smallsetminus (réponse attendue \mathbb{R}\setminus\{…\}) | ×1 |
