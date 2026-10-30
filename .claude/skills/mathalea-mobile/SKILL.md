@@ -728,8 +728,9 @@ Environnement (machine de Nathan)
 - Vrais appareils : `e2e/appareil-android.mjs` (APK d'essai x86_64 installée
   sur l'émulateur, `adb`) et `e2e/appareil-ios.mjs` (simulateur, CI
   `emulateurs.yml`). Les deux affirment, pas seulement des captures.
-- Mise à jour de l'app : `e2e/mise-a-jour.mjs` ouvre avec la version courante
-  les données laissées par d'anciennes versions (`e2e/donnees/*.json`).
+- Migration des données entre versions : **à faire en priorité** dès que
+  l'app est de nouveau fonctionnelle (méthode et état dans
+  `docs/developpement.md`, « À faire » ; amorce `e2e/donnees/creer.mjs`).
 - Captures pour la doc (hors vérification) : `captures-enseignant`, `guide`,
   `fiche-play`, `apercu-parcours` ; vrais drives : `drives`.
 - Pièges Playwright : sélecteurs ambigus (`Enregistrer et quitter`,

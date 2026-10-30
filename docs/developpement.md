@@ -485,6 +485,20 @@ ancienne app.
 
 ## À faire (sans version fixée)
 
+- **PRIORITAIRE : vérifier la migration des données entre les versions de
+  l'app** (Nathan, 2026-10-30), dès que l'app est de nouveau fonctionnelle :
+  la 0.4.8 en production refusait de nombreux élèves, ses données ne servent
+  pas de référence. Méthode prévue : une version publiée jouée dans un
+  worktree à son tag (`git worktree add --detach … v<x>`, `pnpm install`,
+  `static/moteur`, `npx vite dev --port 1521`), scénario élève et enseignant
+  par `e2e/donnees/creer.mjs` (séance terminée, ceinture obtenue, séance
+  quittée en cours, démonstration chargée) qui garde le stockage dans
+  `e2e/donnees/<version>-<qui>.json` ; puis une suite `e2e/mise-a-jour.mjs`
+  (à écrire) qui ouvre ces données avec la version courante : rien de perdu,
+  séance reprise à la bonne question, ceintures, bibliothèque, sauvegarde
+  valide (`cleInvalide`), aucune erreur JavaScript. Reste à régler dans
+  `creer.mjs` : les réponses de la ceinture ne sont pas enregistrées (0/2).
+  Une version par release au moins, la précédente en production d'abord.
 - **Politique de confidentialité** à mettre à jour avant de publier les
   réponses de session (caméra, prénom) : texte prêt dans
   `docs/confidentialite-brouillon.html`, à copier sur
