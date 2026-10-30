@@ -133,6 +133,30 @@ math-field,
   max-width: 48rem;
   margin-inline: auto;
 }
+/* Grands écrans (tablette en paysage, ordinateur ; Nathan, 2026-10-30) : les
+   listes s'élargissent et leurs tuiles passent en grille ; ce qui se lit
+   (séance, fiche, panneaux du bas, onglets) garde la largeur de lecture. */
+@media (min-width: 1024px) {
+  .colonne {
+    max-width: 76rem;
+  }
+  .colonne .lecture,
+  .lecture {
+    max-width: 48rem;
+    margin-inline: auto;
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .liste-tuiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+  /* Titres, formulaires, pastilles : toute la ligne */
+  .liste-tuiles > :not(.tuile) {
+    grid-column: 1 / -1;
+  }
+}
 
 /* Énoncé d'une question et ses champs de réponse (qui suivent la taille du texte) */
 .question-eleve {

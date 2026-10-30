@@ -62,7 +62,7 @@
     aria-modal="true"
     tabindex="-1"
     onkeydown={clavier}
-    class="feuille relative colonne flex flex-col gap-3 px-4 pt-3 pb-4 outline-none
+    class="feuille relative colonne lecture flex flex-col gap-3 px-4 pt-3 pb-4 outline-none
     bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
   >
     <div class="feuille-poignee shrink-0" aria-hidden="true"></div>

@@ -432,7 +432,7 @@
     </div>
   {/if}
 
-  <main class="flex-1 px-4" class:pt-4={pages.length <= 1} style="padding-bottom: calc({hauteurClavier}px + 6rem)">
+  <main class="lecture flex-1 px-4" class:pt-4={pages.length <= 1} style="padding-bottom: calc({hauteurClavier}px + 6rem)">
     {#if pret && pages.length <= 1 && palier}<div class="pb-2">{@render ceinture()}</div>{/if}
     {#if seance.code}
       <p class="pb-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">

@@ -216,7 +216,7 @@
   {/if}
   <main class="flex-1 avec-onglets">
     {#if onglet === 'mes'}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#if tous.length}
         <label
           class="w-full flex flex-row items-center gap-2 rounded-full px-4 py-3
@@ -349,19 +349,19 @@
         {/if}
       </div>
     {:else if onglet === 'explorer' && chapitreOuvert}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#each chapitreOuvert.parcours as p (p.id)}
           <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
         {/each}
       </div>
     {:else if onglet === 'explorer' && niveauOuvert}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#each niveauOuvert.chapitres as c (c.theme)}
           <Tuile icon="bx-folder" title={c.theme} subtitle="{c.parcours.length} parcours" onclick={() => (chapitre = c.theme)} />
         {/each}
       </div>
     {:else if onglet === 'explorer'}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#if ontest}
           <Tuile icon="bx-timer" title="Teste ton niveau" subtitle={resumeTest} onclick={ontest} />
         {/if}

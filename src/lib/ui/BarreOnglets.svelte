@@ -10,7 +10,7 @@
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
   border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
 >
-  <div class="colonne grid" style="grid-template-columns: repeat({onglets.length}, minmax(0, 1fr))" role="tablist">
+  <div class="colonne lecture grid" style="grid-template-columns: repeat({onglets.length}, minmax(0, 1fr))" role="tablist">
     {#each onglets as o (o.cle)}
       <button
         type="button"
