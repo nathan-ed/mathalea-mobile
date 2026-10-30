@@ -59,10 +59,18 @@ async function webview() {
   throw new Error("WebView introuvable (inspectable ?)");
 }
 
+/** Premier élément affiché (un même titre peut exister caché, par exemple dans un chapitre replié) */
+async function affiche(xpath) {
+  for (let i = 0; i < 20; i++) {
+    for (const el of await nav.$$(xpath)) if (await el.isDisplayed().catch(() => false)) return el;
+    await pause(500);
+  }
+  return nav.$(xpath);
+}
 const bouton = (debut) =>
-  nav.$(`//button[starts-with(normalize-space(.), ${JSON.stringify(debut)})]`);
+  affiche(`//button[starts-with(normalize-space(.), ${JSON.stringify(debut)})]`);
 const exact = (texte) =>
-  nav.$(`//button[normalize-space(.)=${JSON.stringify(texte)}]`);
+  affiche(`//button[normalize-space(.)=${JSON.stringify(texte)}]`);
 async function attendre(el, ms = 60_000) {
   await el.waitForDisplayed({ timeout: ms });
   return el;
@@ -102,7 +110,7 @@ await attendre(bouton("France"), 120_000);
 await capture("premier-lancement");
 await toucher(await bouton("France"));
 await attendre(
-  await nav.$(
+  await affiche(
     '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
   ),
 );
@@ -110,11 +118,11 @@ ok(true, "premier lancement : France choisie, accueil de l’élève");
 
 // 2. Réglages : défilement au doigt, puis démonstration chargée par l'enseignant
 await toucher(
-  await nav.$(
+  await affiche(
     '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
   ),
 );
-const interrupteur = await attendre(await nav.$('//*[@role="switch"]'));
+const interrupteur = await attendre(await affiche('//*[@role="switch"]'));
 const { height } = await nav.getWindowSize();
 await glisser(height * 0.8, height * 0.2);
 ok(
@@ -128,7 +136,7 @@ await toucher(
 );
 await pause(3000);
 await capture("demonstration-chargee");
-await toucher(await nav.$('//*[@role="switch"]'));
+await toucher(await affiche('//*[@role="switch"]'));
 const enregistrer = await exact("Enregistrer et quitter");
 if (await enregistrer.isDisplayed().catch(() => false))
   await toucher(enregistrer);
@@ -143,7 +151,7 @@ await capture("accueil-demonstration");
 // 3. Parcours « Nombres relatifs » répondu juste, au clavier de MathALÉA
 await toucher(await bouton("Nombres relatifs"));
 await toucher(
-  await nav.$(
+  await affiche(
     '//button[starts-with(normalize-space(.), "Commencer") or starts-with(normalize-space(.), "Continuer")]',
   ),
 );
@@ -241,7 +249,7 @@ for (let tour = 0; tour < 20; tour++) {
   await verifier.click();
   await pause(1300);
   verifiees++;
-  const suite = await nav.$(
+  const suite = await affiche(
     '//button[normalize-space(.)="Question suivante" or normalize-space(.)="Voir le bilan"]',
   );
   if (!(await suite.isDisplayed().catch(() => false))) break;
@@ -261,7 +269,7 @@ ok(
 );
 
 // 4. Quitter une séance commencée : retour à l'accueil, la tuile « En cours »
-const accueil = await nav.$(
+const accueil = await affiche(
   '//button[starts-with(normalize-space(.), "Retour à l’accueil")]',
 );
 if (await accueil.isDisplayed().catch(() => false)) await toucher(accueil);
@@ -271,7 +279,7 @@ await toucher(
   ),
 );
 await toucher(
-  await nav.$(
+  await affiche(
     '//button[starts-with(normalize-space(.), "Commencer") or starts-with(normalize-space(.), "Continuer")]',
   ),
 );
@@ -282,14 +290,14 @@ await toucher(await exact("Quitter"));
 await toucher(await attendre(await exact("Reprendre plus tard")));
 ok(
   await (
-    await nav.$(
+    await affiche(
       '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
     )
   ).isDisplayed(),
   "Quitter : « Reprendre plus tard » ramène à l’accueil",
 );
 ok(
-  await (await nav.$('//*[normalize-space(.)="En cours"]'))
+  await (await affiche('//*[normalize-space(.)="En cours"]'))
     .isDisplayed()
     .catch(() => false),
   "accueil : la séance quittée est « En cours »",
