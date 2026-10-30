@@ -144,7 +144,7 @@ jobs:
           for f in captures-android-${{ matrix.api }}/*.png; do
             [ -e "$f" ] || continue
             echo "=== CAPTURE $(basename "$f" .png)"
-            convert "$f" -resize 360x -quality 60 jpg:- | base64 -w0
+            ffmpeg -loglevel error -i "$f" -vf scale=360:-2 -q:v 6 -f mjpeg - | base64 -w0
             echo
           done
       - uses: actions/upload-artifact@v7

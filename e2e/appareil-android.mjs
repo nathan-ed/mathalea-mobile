@@ -46,6 +46,15 @@ async function lancer() {
 let page = await lancer();
 const erreurs = [];
 page.on("pageerror", (e) => erreurs.push(e.message));
+const consoles = [];
+page.on("console", (m) => consoles.push(`${m.type()}: ${m.text()}`));
+process.on("uncaughtException", async (e) => {
+  console.log(`✘ arrêt : ${e.message.split("\n")[0]}`);
+  console.log(`Console de la WebView :\n${consoles.slice(-40).join("\n")}`);
+  console.log(`Page : ${(await page.evaluate(() => document.body?.innerText?.slice(0, 500)).catch(() => "?"))}`);
+  await capture("erreur").catch(() => {});
+  process.exit(1);
+});
 console.log(`WebView : ${await page.evaluate(() => navigator.userAgent)}`);
 const scrollY = () => page.evaluate(() => scrollY);
 
@@ -69,9 +78,19 @@ async function glisser(x, y1, y2) {
   });
   await pause(700);
 }
+/** Toucher du doigt au centre d'un élément (vrais événements tactiles de la WebView) */
+async function tapLoc(loc) {
+  await loc.scrollIntoViewIfNeeded();
+  const b = await loc.boundingBox();
+  if (!b) throw new Error("élément invisible");
+  const point = { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [point] });
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+}
 const toucher = async (loc) => {
   await loc.scrollIntoViewIfNeeded();
-  await loc.tap();
+  await tapLoc(loc);
   await pause(300);
 };
 
@@ -176,7 +195,7 @@ async function taper(c) {
   const voulus =
     c === "-" ? ["-", "−", "–"] : c === "." || c === "," ? [","] : [c];
   const i = textes.findIndex((t) => voulus.includes(t));
-  if (i >= 0) await touches.nth(i).tap();
+  if (i >= 0) await tapLoc(touches.nth(i));
   else await page.keyboard.type(c);
   await pause(120);
 }
@@ -211,7 +230,7 @@ for (let tour = 0; tour < 20; tour++) {
     await verifier.isEnabled(),
     `question ${tour + 1} : « Vérifier » actif après « ${reponse} »`,
   );
-  await verifier.tap();
+  await tapLoc(verifier);
   await pause(1200);
   verifiees++;
   const suite = page.getByRole("button", {
@@ -219,7 +238,7 @@ for (let tour = 0; tour < 20; tour++) {
   });
   if (!(await suite.isVisible().catch(() => false))) break;
   const bilan = (await suite.innerText()).includes("bilan");
-  await suite.tap();
+  await tapLoc(suite);
   await pause(1500);
   if (bilan) break;
 }
