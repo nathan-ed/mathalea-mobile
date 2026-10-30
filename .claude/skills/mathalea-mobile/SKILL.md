@@ -108,6 +108,14 @@ Ergonomie décidée
   classe ; « Lancer la session » mène directement à la page de la session
   (QR code et code affichés), jamais un détour par plusieurs onglets.
 
+Fonctionnalités (Nathan, 2026-10-30 ; liste dans `docs/developpement.md`, « À faire »)
+- À faire : grands écrans ; toutes les fiches de cours à un endroit
+  (enregistrer, organiser) ; ceinture générale **par chapitre** (jamais par
+  parcours) ; plusieurs appareils pour un élève par **fusion** des données.
+- **Aucune notification hors de l'app** (rappels de révision dans l'app seulement).
+- Plus tard : suivi de classe dans la durée, sauvegarde sur un drive en
+  lecture seule, catalogue servi par MathALÉA.
+
 Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce
   projet, Nathan a demandé de **pousser souvent**, même sans release prête.

@@ -499,6 +499,22 @@ ancienne app.
   valide (`cleInvalide`), aucune erreur JavaScript. Reste à régler dans
   `creer.mjs` : les réponses de la ceinture ne sont pas enregistrées (0/2).
   Une version par release au moins, la précédente en production d'abord.
+- **Fonctionnalités décidées par Nathan (2026-10-30)**, à faire :
+  - **Grands écrans** (tablette, ordinateur des testeurs) : mise en page
+    propre aux grands écrans, l'app est aujourd'hui pensée pour 390 px.
+  - **Toutes les fiches de cours à un endroit** : retrouver chaque fiche hors
+    de son parcours, l'enregistrer pour y revenir vite, organiser les siennes.
+  - **Ceinture générale de chapitre** : **par chapitre**, pas par parcours
+    (plusieurs parcours travaillent les mêmes ceintures).
+  - **Plusieurs appareils pour un même élève** : fusionner les données au lieu
+    de remplacer (exporter puis importer), avec une vraie gestion des cas
+    (même séance des deux côtés, ceintures, révisions).
+  - Révisions : rappels **dans l'app seulement**, jamais de notification
+    hors de l'app.
+- Plus tard (pas une priorité) : suivi de classe dans la durée (relevés
+  regroupés par élève et par objectif), sauvegarde déposée sur un drive en
+  lecture seule, catalogue de l'Explorer servi par MathALÉA (le jour où des
+  parcours seront développés avec MathALÉA).
 - **Politique de confidentialité** à mettre à jour avant de publier les
   réponses de session (caméra, prénom) : texte prêt dans
   `docs/confidentialite-brouillon.html`, à copier sur
