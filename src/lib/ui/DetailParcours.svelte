@@ -3,7 +3,7 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
@@ -190,6 +190,14 @@
       <p class="mt-1 {discret}">
         {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceintures' : 'paliers'}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
       </p>
+      {#if parcours.auteurs?.length}
+        <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <i aria-hidden="true" class="bx bx-user text-lg"></i> Rédigé par {auteursTexte(parcours)}
+        </p>
+      {/if}
+      {#if parcours.descriptionEleves}
+        <p class="mt-3 whitespace-pre-line font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{parcours.descriptionEleves}</p>
+      {/if}
       {#if misAJour}
         <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">
           <i aria-hidden="true" class="bx bx-refresh text-lg"></i> Parcours mis à jour

@@ -333,14 +333,16 @@ export async function ecrireClasses(st: Stockage, classes: Classe[]) {
 }
 
 /**
- * Explorer : dossier partagé de l'équipe MathALÉA, au même format que ceux des
- * enseignants (une « classe » par thème ou par niveau). Adresse provisoire, à
- * fixer avec l'équipe ; VITE_URL_EXPLORER pour les essais.
+ * Explorer : le catalogue est intégré à l'app (catalogueIntegre.ts). À terme,
+ * MathALÉA pourra le servir, au même format que les dossiers des enseignants :
+ * adresse à fixer avec l'équipe. Sans adresse (VITE_URL_EXPLORER), rien n'est
+ * demandé en ligne.
  */
-export const URL_EXPLORER: string = import.meta.env?.VITE_URL_EXPLORER ?? 'https://coopmaths.fr/alea/parcours/'
+export const URL_EXPLORER: string = import.meta.env?.VITE_URL_EXPLORER ?? ''
 
-/** Parcours du catalogue Explorer (doublons retirés) */
+/** Parcours du catalogue Explorer en ligne (doublons retirés) */
 export async function lireExplorer(req: Requete = requete): Promise<Parcours[]> {
+  if (!URL_EXPLORER) return []
   const fichier = await lireFichierDistant(URL_EXPLORER, req)
   const vus = new Map<string, Parcours>()
   for (const c of fichier.classes) for (const p of c.parcours) vus.set(p.id, p)

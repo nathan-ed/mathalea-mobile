@@ -24,8 +24,35 @@ function allege(p: Parcours): Parcours {
   return paliers ? { ...reste, paliers: paliers.map(({ pause: _p, ressource: _r, ...x }) => x) } : reste
 }
 
+/** Sans les fiches de cours (souvent des images) : l'élève qui a le parcours garde les siennes (rejoindreSession) */
+function sansFiches(p: Parcours): Parcours {
+  const { fiche: _f, paliers, ...reste } = p
+  return paliers ? { ...reste, paliers: paliers.map(({ fiche: _x, ...x }) => x) } : reste
+}
+const sansObjectifs = (p: Parcours): Parcours => ({ ...p, etapes: p.etapes.map(({ objectifs: _o, ...e }) => e) })
+function sansPresentation(p: Parcours): Parcours {
+  const { auteurs: _a, descriptionEleves: _e, descriptionEnseignant: _d, ...reste } = p
+  return reste
+}
+
+/** Octets d'un QR code au plus (version 40, correction L, mode octet) */
+export const TAILLE_QR = 2953
+
+/**
+ * Texte du QR code de session. Le parcours entier s'il tient dans un QR code,
+ * sinon allégé dans l'ordre : fiches de cours, objectifs, auteurs et
+ * descriptions. Les exercices et leurs réglages restent toujours.
+ */
 export function encoderInvitation(i: InvitationSession) {
-  return PREFIXE_SESSION + versBase64(deflateSync(strToU8(JSON.stringify({ ...i, p: allege(i.p) })), { level: 9 }))
+  const texte = (p: Parcours) => PREFIXE_SESSION + versBase64(deflateSync(strToU8(JSON.stringify({ ...i, p })), { level: 9 }))
+  let p = allege(i.p)
+  let t = texte(p)
+  for (const reduire of [sansFiches, sansObjectifs, sansPresentation]) {
+    if (t.length <= TAILLE_QR) break
+    p = reduire(p)
+    t = texte(p)
+  }
+  return t
 }
 
 export function decoderInvitation(texte: string): InvitationSession | null {

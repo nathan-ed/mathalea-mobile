@@ -5,12 +5,20 @@
 import jsQR from 'jsqr'
 import qrcode from 'qrcode-generator'
 
-/** SVG d'un QR code, à la taille de son conteneur (correction L : un écran est net, des modules plus gros se lisent mieux de loin) */
+/**
+ * SVG d'un QR code, à la taille de son conteneur (correction L : un écran est
+ * net, des modules plus gros se lisent mieux de loin). Vide si le texte ne
+ * tient pas dans un QR code : l'écran le dit au lieu de ne rien afficher.
+ */
 export function dessinerQr(texte: string) {
-  const qr = qrcode(0, 'L')
-  qr.addData(texte, 'Byte')
-  qr.make()
-  return qr.createSvgTag({ cellSize: 4, margin: 4, scalable: true })
+  try {
+    const qr = qrcode(0, 'L')
+    qr.addData(texte, 'Byte')
+    qr.make()
+    return qr.createSvgTag({ cellSize: 4, margin: 4, scalable: true })
+  } catch {
+    return ''
+  }
 }
 
 /**

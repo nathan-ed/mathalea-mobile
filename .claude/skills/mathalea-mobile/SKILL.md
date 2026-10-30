@@ -458,12 +458,16 @@ Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
   les dossiers suivis et l'Explorer (`actualiser()`),
   servi par `moteur://`, repli sur le moteur livré. Réglages : version et
   « Rechercher une mise à jour ».
-- `URL_EXPLORER` (catalogue Explorer, `partage.ts`) est une **adresse
-  provisoire** (coopmaths.fr répond 503 ; le site tourne sur mathalea.fr/alea) : Nathan les
-  fixe avec les devs Coopmaths. Essais : `MATHALEA_MOTEUR_URL`,
-  `VITE_URL_EXPLORER` (`.env.development.local`, ignoré par Git).
-- Sans adresse servie, tout fonctionne : moteur livré, Explorer « Aucun
-  parcours proposé pour le moment. ».
+- Catalogue de l'Explorer : `explorer/*.json` **intégré au build**
+  (`src/lib/catalogueIntegre.ts`, chargé à la demande). `URL_EXPLORER`
+  (`partage.ts`) est vide par défaut : un catalogue en ligne servi plus tard
+  par MathALÉA se règle par `VITE_URL_EXPLORER` et remplace un parcours de
+  l'app seulement s'il est d'une version plus haute (`fusionnerCatalogues`).
+  Essais : `MATHALEA_MOTEUR_URL`, `VITE_URL_EXPLORER`
+  (`.env.development.local`, ignoré par Git ; `scripts/e2e-ci.sh` le fixe à
+  `http://127.0.0.1:8702/explorer.json`).
+- Sans adresse servie, tout fonctionne : moteur livré, Explorer avec le
+  catalogue intégré.
 - Hébergement possible partout où les trois fichiers sont publics sous une
   même adresse fixe (coopmaths.fr, GitLab Pages, `-/raw/` d'un projet public) ;
   redirections suivies (testé). Adresse et clé sont compilées dans l'app :
@@ -916,7 +920,8 @@ Environnement (machine de Nathan)
 - 0.1.1 : publiée (éditeur sur un écran, navigateur d'exercices, plusieurs
   fichiers par dossier, téléchargements après validation, partage Android,
   mises à jour du moteur et Explorer avec adresses provisoires).
-- À fixer avec Coopmaths : adresse `URL_EXPLORER`,
+- À fixer avec Coopmaths : adresse du catalogue servi (`VITE_URL_EXPLORER`,
+  le catalogue est intégré à l'app en attendant),
   vraie clé de signature du moteur et de l'APK, projet de la forge public,
   MR du moteur dans MathALÉA (puis supprimer `moteur/` et la release `moteur`
   du miroir GitHub).

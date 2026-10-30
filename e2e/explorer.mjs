@@ -108,8 +108,9 @@ for (const [appareil, theme] of [
   // Référentiel lu par le moteur : attendre qu'il ait rangé l'Explorer
   await e.waitForTimeout(1500)
   const racine = await texte(e)
-  ok(racine.includes('4e Collège') && racine.includes('2 parcours'), `${suffixe} : degré 4e Collège, 2 parcours`)
-  ok(!/\b9e\b|\b10e\b|\b11e\b|1re Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
+  // Catalogue intégré à l'app (explorer/*.json) : 11e, Préqualifiant, 4e Collège, dans cet ordre
+  ok(/11e 3 chapitres · 3 parcours Préqualifiant 9 chapitres · 9 parcours 4e Collège 2 chapitres · 2 parcours/.test(racine), `${suffixe} : 11e, Préqualifiant puis 4e Collège, avec leurs parcours`, racine)
+  ok(!/\b9e\b|\b10e\b|1re Collège|2e Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
   ok(!racine.includes('5e') && !racine.includes('Nombres relatifs'), `${suffixe} : aucun parcours français en Suisse`)
   ok(!(await debordement(e)), `${suffixe} : pas de défilement horizontal`)
   await cap(e, `1-degres-${suffixe}`)
@@ -239,7 +240,7 @@ for (const [appareil, theme] of [
   await f.getByRole('button', { name: /^5e/ }).waitFor({ timeout: 60_000 })
   await f.waitForTimeout(1500)
   const fr = await texte(f)
-  ok(!fr.includes('Collège'), 'France : aucun degré suisse')
+  ok(!/Collège|Préqualifiant|\b11e\b|EVACOM/.test(fr), 'France : aucun degré ni parcours suisse', fr)
   await f.getByRole('button', { name: /^5e/ }).click()
   ok((await texte(f)).includes('Nombres relatifs'), 'France : chapitre du parcours de 5e')
   await f.context().close()

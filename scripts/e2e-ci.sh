@@ -18,6 +18,9 @@ if ! python3 -I -c 'import PIL' 2>/dev/null || ! command -v ffmpeg > /dev/null; 
   if [ "$(id -u)" = 0 ]; then apt-get install -y python3-pil ffmpeg; else sudo apt-get install -y python3-pil ffmpeg; fi
 fi
 
+# Catalogue de l'Explorer servi par les suites elles-mêmes (explorer,
+# defilement-ecrans) ; sans elles, rien ne répond et l'Explorer reste vide
+export VITE_URL_EXPLORER="${VITE_URL_EXPLORER:-http://127.0.0.1:8702/explorer.json}"
 journal="${RUNNER_TEMP:-/tmp}/pnpm-dev.log"
 # Groupe de processus à part : pnpm, sh et vite arrêtés ensemble à la fin
 setsid pnpm dev > "$journal" 2>&1 &

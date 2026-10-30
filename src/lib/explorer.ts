@@ -1,7 +1,7 @@
 // Explorer : parcours de l'équipe MathALÉA rangés par degré puis par chapitre.
 // Degrés, chapitres et leur ordre viennent du référentiel de MathALÉA (lu par
 // le moteur) : s'il change, l'Explorer suit. Le pays d'un parcours se déduit
-// de son niveau (« 4e Collège » est suisse) ; aucun champ de plus dans le fichier.
+// de son niveau (« 4e Collège » ou « Préqualifiant » est suisse) ; aucun champ de plus dans le fichier.
 import type { Parcours } from './catalogue'
 import { NIVEAUX, type ExerciceDuReferentiel, type Pays } from './moteur'
 
@@ -55,14 +55,28 @@ const rang = (liste: string[], nom: string) => {
 const comparer = (x: number, y: number) => (x === y ? 0 : x - y)
 const rangNiveau = (reperes: Repere[], niveau: string) => reperes.findIndex((r) => rang(r.noms, niveau) !== Infinity)
 
+// Degrés suisses absents du référentiel de MathALÉA, rangés après un degré connu
+const DEGRES_SUISSES = [{ nom: 'Préqualifiant', apres: '11e' }]
+
+function avecDegresSuisses(reperes: Repere[]): Repere[] {
+  const liste = [...reperes]
+  for (const d of DEGRES_SUISSES) {
+    if (liste.some((r) => rang(r.noms, d.nom) !== Infinity)) continue
+    const i = liste.findIndex((r) => rang(r.noms, d.apres) !== Infinity)
+    liste.splice(i === -1 ? liste.length : i + 1, 0, { noms: [d.nom], chapitres: [] })
+  }
+  return liste
+}
+
 /**
  * Parcours du pays choisi, par degré puis par chapitre. Un parcours est suisse
  * si son niveau est un degré suisse, français sinon. Seuls les degrés et les
  * chapitres qui ont des parcours apparaissent ; ceux que le référentiel ne
  * connaît pas viennent après, dans l'ordre du fichier.
  */
-export function arborescence(parcours: Parcours[], pays: Pays, reperes: Repere[]): NiveauExplorer[] {
-  const suisses = pays === 'CH' ? [...reperes.flatMap((r) => r.noms), ...NIVEAUX.CH] : NIVEAUX.CH
+export function arborescence(parcours: Parcours[], pays: Pays, referentiel: Repere[]): NiveauExplorer[] {
+  const reperes = pays === 'CH' ? avecDegresSuisses(referentiel) : referentiel
+  const suisses = [...(pays === 'CH' ? reperes.flatMap((r) => r.noms) : []), ...NIVEAUX.CH, ...DEGRES_SUISSES.map((d) => d.nom)]
   const estSuisse = (p: Parcours) => rang(suisses, p.niveau) !== Infinity
   const retenus = parcours.filter((p) => estSuisse(p) === (pays === 'CH'))
 

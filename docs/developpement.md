@@ -155,7 +155,29 @@ Rust `telecharger`.
 - `pnpm e2e` : bout en bout, trois appareils simulés (voir README). Parcours
   de test : `tests/parcours-de-test.ts`, déposés par `e2e/preparer.mts`.
 - `node e2e/retour.mjs` : bouton retour du téléphone (simulé par
-  « précédent ») à chaque niveau, confirmations de la séance.
+  « précédent ») à chaque niveau de l'élève (page d'un parcours, fiche,
+  panneau du bas, onglets, Réglages), confirmations de la séance, aucune
+  entrée en attente à l'accueil. Téléphone et bureau, seul `pnpm dev`.
+- Avant chaque release, `release.yml` lance toutes les suites de vérification
+  (`scripts/e2e-ci.sh`, Explorer servi sur `127.0.0.1:8702`) ; une suite
+  oubliée fait échouer `tests/suites-e2e.test.ts`. En local, les lancer l'une
+  après l'autre : `pnpm test` pendant une suite recharge la page du serveur
+  de dev (`.svelte-kit` régénéré), et `explorer`, `defilement-ecrans` servent
+  tous deux le port 8702.
+- `node e2e/defilement-ecrans.mjs` : chaque écran (élève, Explorer,
+  enseignant) et chaque panneau du bas défile au doigt jusqu'en bas et revient
+  en haut, rien n'est caché sous une barre fixée, aucune liste écrasée ;
+  390 × 844, 360 × 640 et bureau à la molette.
+- `node e2e/auteurs.mjs` : auteurs et descriptions saisis dans l'éditeur,
+  page de l'enseignant, vue de l'élève (jamais la description des enseignants).
+- `node e2e/session-qr-long.mjs` : session d'un long parcours (fiches
+  illustrées, 36 exercices) lancée, QR code exporté puis lu à la fausse
+  caméra ; l'élève qui a déjà le parcours garde ses fiches.
+- `node e2e/catalogue-moteur.mjs` : chaque exercice des parcours livrés
+  préparé par le moteur sous trois graines, interactif.
+- `tests/catalogues.test.ts`, `tests/invitations.test.ts` : fichiers du dépôt
+  lus par l'app (paliers bien comptés, auteurs), invitations de session et de
+  classe, place dans un QR code.
 - `node e2e/regressions.mjs` : défauts déjà corrigés (brouillon d'une question
   quittée aussitôt, Entrée avec correction à la fin, suivi après modification
   d'un parcours). Seul `pnpm dev` est nécessaire. Code de sortie 1 si un
@@ -231,8 +253,9 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
 - Mises à jour du moteur sans réinstaller l'app (fait ; adresse de publication
   à fixer) : voir « Moteur servi par Coopmaths » ci-dessous.
 - Explorer : catalogue de parcours proposés par l'équipe MathALÉA, au format
-  `parcours-mathalea.json` (fait ; adresse provisoire `URL_EXPLORER` dans
-  `src/lib/partage.ts`, `VITE_URL_EXPLORER` pour les essais). Copie locale hors
+  `parcours-mathalea.json`, fichiers `explorer/*.json` intégrés au build
+  (`src/lib/catalogueIntegre.ts`). Catalogue en ligne optionnel par
+  `VITE_URL_EXPLORER` (aucun par défaut), fusionné par version. Copie locale hors
   connexion ; « Ajouter à l'accueil » garde une copie du parcours, qui suit ses
   nouvelles versions.
 - Explorer par degré puis par chapitre (`src/lib/explorer.ts`) : degrés,

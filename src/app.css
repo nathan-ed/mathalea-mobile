@@ -288,6 +288,11 @@ body:has(input:focus, textarea:focus) .barre-onglets {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+/* Trop haut pour l'écran, le panneau défile : ses enfants gardent leur hauteur.
+   Une liste en overflow-hidden (coins arrondis) s'écrasait sinon jusqu'à zéro. */
+.feuille > * {
+  flex-shrink: 0;
+}
 /* Politique de confidentialité (Réglages), texte de static/confidentialite.html */
 .politique h2 {
   margin-top: 1rem;

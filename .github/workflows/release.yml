@@ -57,10 +57,11 @@ jobs:
       fail-fast: false
       matrix:
         suites:
-          - defilement un-toucher regressions changer-appareil reponses-elements
-          - classe-qr en-classe fiche-parcours session-qr
-          - ouverture-paliers paliers papier recherche correction-parcours
-          - reponses-session revisions test-niveau test-niveau-reel
+          - defilement defilement-ecrans un-toucher regressions retour reponses-elements
+          - changer-appareil classe-qr en-classe fiche-parcours session-qr session-qr-long auteurs
+          - ouverture-paliers paliers papier recherche explorer catalogue-moteur
+          - correction-parcours reponses-session
+          - revisions test-niveau test-niveau-reel
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8

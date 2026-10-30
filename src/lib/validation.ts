@@ -128,6 +128,9 @@ export function estParcours(v: unknown): v is Parcours {
     p.version > 0 &&
     estTexte(p.titre) &&
     estTexte(p.objectif) &&
+    optionnel(p.auteurs, (l) => listeDe(l, estTexte)) &&
+    optionnel(p.descriptionEleves, estTexte) &&
+    optionnel(p.descriptionEnseignant, estTexte) &&
     estTexte(p.niveau) &&
     estTexte(p.theme) &&
     [1, 2, 3].includes(p.difficulte) &&

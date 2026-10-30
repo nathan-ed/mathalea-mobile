@@ -24,6 +24,10 @@ etape() {
 }
 
 test -s static/moteur/manifest.json || { echo "static/moteur manquant : pnpm moteur"; exit 1; }
+# Moteur compilé à partir de moteur/ tel qu'il est : un static/moteur d'avant
+# la dernière correction du moteur fait échouer (ou passer) les suites à tort
+empreinte="$(cd moteur && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)"
+grep -q "\"version\":\"[^\"]*\.$empreinte\"" static/moteur/manifest.json || { echo "static/moteur ne correspond pas à moteur/ : pnpm moteur"; exit 1; }
 etape check pnpm check
 etape test pnpm test
 etape cargo bash -c 'cd src-tauri && cargo test'
@@ -72,7 +76,7 @@ for s in "${paralleles[@]}"; do
   if [ "$(cat "$SORTIE/$s.code")" = 0 ]; then echo "== $s"; echo "   vert"; else echo "== $s"; echo "   ÉCHEC (voir $SORTIE/$s.log)"; echecs+=("$s"); fi
 done
 for s in reponses-elements defilement un-toucher regressions changer-appareil classe-qr en-classe \
-  fiche-parcours session-qr ouverture-paliers paliers papier recherche correction-parcours \
+  fiche-parcours session-qr session-qr-long auteurs ouverture-paliers paliers papier recherche correction-parcours \
   reponses-session revisions test-niveau test-niveau-reel retour; do
   etape "$s" node "e2e/$s.mjs"
 done
@@ -87,6 +91,8 @@ sleep 1
 # Explorer : la suite sert elle-même son catalogue sur 8702
 demarrer "http://127.0.0.1:8702/explorer.json"
 etape explorer node e2e/explorer.mjs
+etape catalogue-moteur node e2e/catalogue-moteur.mjs
+etape defilement-ecrans node e2e/defilement-ecrans.mjs
 arreter
 
 echo

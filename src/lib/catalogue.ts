@@ -125,6 +125,9 @@ export interface Parcours {
   version: number // augmente à chaque export modifié ; les séances gardent la leur
   titre: string
   objectif: string
+  auteurs?: string[] // personnes qui ont rédigé le parcours
+  descriptionEleves?: string // présentation montrée aux élèves
+  descriptionEnseignant?: string // note pour les collègues : usage, prérequis, déroulé
   niveau: string
   theme: string
   difficulte: 1 | 2 | 3
@@ -140,6 +143,15 @@ export interface Parcours {
   melanger?: boolean // questions de plusieurs exercices dans un ordre mélangé (sauf un exercice par page)
   fiche?: Fiche // cours du parcours entier (parcours sans paliers, ou fiche générale)
 }
+
+/** Auteurs en une phrase : « Ana », « Ana et Ben », « Ana, Ben et Chloé » */
+export function auteursTexte(p: Pick<Parcours, 'auteurs'>) {
+  const a = p.auteurs ?? []
+  return a.length < 2 ? (a[0] ?? '') : `${a.slice(0, -1).join(', ')} et ${a[a.length - 1]}`
+}
+
+/** Noms saisis séparés par des virgules ou des points-virgules, sans vides ni doublons */
+export const decouperAuteurs = (saisie: string) => [...new Set(saisie.split(/[,;]/).map((x) => x.trim()).filter(Boolean))]
 
 /** Ordre mélangé : seulement si une page ou le parcours mêle plusieurs exercices */
 export const melange = (p: Pick<Parcours, 'melanger' | 'presentation'>) => !!p.melanger && p.presentation !== 'un_exo_par_page'

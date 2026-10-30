@@ -633,7 +633,7 @@
       <div class="flex flex-col gap-2 overflow-y-auto" style="max-height: 45vh">
         {#each parNiveau as n (n.niveau)}
           <p class="pl-1 pt-1 text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">{n.niveau || 'Sans niveau'}</p>
-          <ul class={listeGroupee}>
+          <ul class="{listeGroupee} shrink-0">
             {#each n.chapitres.flatMap((c) => c.parcours) as pe (pe.parcours.id)}
               {@const coche = choixExport.includes(pe.parcours.id)}
               <li>
@@ -794,7 +794,7 @@
       <div class="flex flex-col gap-2 overflow-y-auto" style="max-height: 55vh">
         {#each parNiveau as n (n.niveau)}
           <p class="pl-1 pt-1 text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">{n.niveau || 'Sans niveau'}</p>
-          <ul class={listeGroupee}>
+          <ul class="{listeGroupee} shrink-0">
             {#each n.chapitres.flatMap((c) => c.parcours) as pe (pe.parcours.id)}
               {@const coche = choix.includes(pe.parcours.id)}
               <li>

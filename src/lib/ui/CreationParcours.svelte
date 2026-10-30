@@ -5,7 +5,7 @@
   // pages et validation. Tout reste modifiable dans n'importe quel ordre.
   // Les classes se choisissent ensuite : on crée pour un niveau, on donne à une classe.
   import { onMount, untrack } from 'svelte'
-  import { CEINTURES, ICONES, couleurCeinture, estJour, estOuverture, iconeProposee, jourOuverture, ouvertureDuJour, melange, nomPalier, type Etape, type Palier, type Parcours, type Ressource, type StylePaliers } from '$lib/catalogue'
+  import { CEINTURES, ICONES, decouperAuteurs, couleurCeinture, estJour, estOuverture, iconeProposee, jourOuverture, ouvertureDuJour, melange, nomPalier, type Etape, type Palier, type Parcours, type Ressource, type StylePaliers } from '$lib/catalogue'
   import { chapitres, chapitresDeBibliotheque, etapesDepuisLienMathalea, type Bibliotheque, type ChapitreConnu } from '$lib/bibliotheque'
   import { NIVEAUX, type DescriptionExercice, type ExerciceDuReferentiel, type Moteur, type Pays } from '$lib/moteur'
   import { cleExercice, type Objectif } from '$lib/objectifs'
@@ -77,6 +77,12 @@
   })
   let p: Parcours = $state(untrack(() => JSON.parse(JSON.stringify(initial))))
   const depart = untrack(() => JSON.stringify(initial))
+  // Saisie libre des auteurs (la virgule finale doit rester tapable) ; la liste suit
+  let auteursSaisis = $state(untrack(() => (initial.auteurs ?? []).join(', ')))
+  $effect(() => {
+    const liste = decouperAuteurs(auteursSaisis)
+    if (liste.join('\n') !== (untrack(() => p.auteurs) ?? []).join('\n')) p.auteurs = liste
+  })
   const modifie = $derived(JSON.stringify(p) !== depart)
 
   let referentiel: ExerciceDuReferentiel[] = $state([])
@@ -339,6 +345,13 @@
     const copie = $state.snapshot(p) as Parcours
     // Date d'ouverture demandée mais pas encore choisie : pas de date
     for (const x of copie.paliers ?? []) if (x.ouverture !== undefined && !estOuverture(x.ouverture)) delete x.ouverture
+    // Champs facultatifs vides : absents du fichier
+    if (!copie.auteurs?.length) delete copie.auteurs
+    for (const cle of ['descriptionEleves', 'descriptionEnseignant'] as const) {
+      const t = copie[cle]?.trim()
+      if (t) copie[cle] = t
+      else delete copie[cle]
+    }
     return copie
   }
 
@@ -540,6 +553,18 @@
       <h2 class={titreSection}>Parcours</h2>
       <ChampTexte id="titre" titre="Titre" bind:valeur={p.titre} />
       <ChampTexte id="objectif" titre="But du parcours (vu par les élèves)" bind:valeur={p.objectif} />
+      <ChampTexte id="auteurs" titre="Auteurs (séparés par des virgules)" bind:valeur={auteursSaisis} />
+      {#each [{ id: 'description-eleves', titre: 'Description pour les élèves', cle: 'descriptionEleves' }, { id: 'description-enseignant', titre: 'Description pour les enseignants (usage, prérequis, déroulé)', cle: 'descriptionEnseignant' }] as d (d.id)}
+        <div class="w-full">
+          <label class="font-light text-sm block text-coopmaths-struct dark:text-coopmathsdark-struct" for={d.id}>{d.titre}</label>
+          <textarea
+            id={d.id}
+            rows="3"
+            bind:value={p[d.cle as 'descriptionEleves' | 'descriptionEnseignant']}
+            class="block w-full text-sm border p-2 border-coopmaths-action dark:border-coopmathsdark-action focus:outline-0 focus:ring-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          ></textarea>
+        </div>
+      {/each}
       <p class={sousTitre}>Type</p>
       <div class="flex flex-row flex-wrap gap-2" role="radiogroup" aria-label="Type">
         {#each difficultes as d, i (d)}

@@ -37,13 +37,21 @@
   <EnTete {titre} onretour={onfermer} />
   <main class="flex-1 flex flex-col items-center justify-center gap-4 p-4 zone-sure-bas">
     <!-- Fond blanc dans les deux thèmes : un QR code se lit mal en clair sur sombre -->
-    <div class="qr-session w-full rounded-2xl bg-white p-2" role="img" aria-label="QR code {classe ? '' : 'de la session '}{code}">
-      {@html svg}
-    </div>
+    {#if svg}
+      <div class="qr-session w-full rounded-2xl bg-white p-2" role="img" aria-label="QR code {classe ? '' : 'de la session '}{code}">
+        {@html svg}
+      </div>
+    {:else}
+      <p class="text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">
+        Trop long pour un QR code. Les élèves ouvrent le parcours et entrent ce code :
+      </p>
+    {/if}
     <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style={classe ? 'font-size: 2rem' : 'font-size: 2.5rem; letter-spacing: 0.15em'}>{code}</div>
-    <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={exporter}>
-      <i aria-hidden="true" class="bx bx-share-alt text-xl"></i> Exporter l’image
-    </button>
+    {#if svg}
+      <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={exporter}>
+        <i aria-hidden="true" class="bx bx-share-alt text-xl"></i> Exporter l’image
+      </button>
+    {/if}
     {#if message}<p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">{message}</p>{/if}
   </main>
 </div>
