@@ -78,6 +78,9 @@ export interface QuestionPreparee {
   enonce: string
   correction: string
   interactive: boolean
+  // Une case laissée vide fait partie de la bonne réponse (« laisser vides les
+  // lignes inutiles ») : Vérifier doit marcher sans saisie
+  videAccepte: boolean
 }
 
 export interface ExercicePrepare {
@@ -166,6 +169,9 @@ export async function preparerExercice(
     enonce: html,
     correction: mathaleaFormatExercice(exercice.listeCorrections?.[i] ?? ''),
     interactive: indicesDeLaQuestion(exercice, i, enonces).length > 0,
+    videAccepte: indicesDeLaQuestion(exercice, i, enonces).some((k) =>
+      contientValeurVide(exercice.autoCorrection?.[k]?.valeur),
+    ),
   }))
   return {
     uuid: params.uuid,
@@ -350,6 +356,17 @@ function rangsDansEnonce(exercice: IExercice, html: string): Set<number> {
  * question 2) ne lui fait pas vérifier la réponse de celle-ci, absente de la
  * page. Sans rang repéré, le rang de la question.
  */
+/** Réponse attendue dont une case vaut « » (tableau à compléter en partie) */
+function contientValeurVide(valeur: unknown, profondeur = 0): boolean {
+  if (valeur == null || typeof valeur !== 'object' || profondeur > 4)
+    return false
+  return Object.entries(valeur as Record<string, unknown>).some(([cle, v]) =>
+    cle === 'value'
+      ? v === '' || (Array.isArray(v) && v.includes(''))
+      : contientValeurVide(v, profondeur + 1),
+  )
+}
+
 function indicesDeLaQuestion(
   exercice: IExercice,
   i: number,
