@@ -219,6 +219,7 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   TestFlight, numéro de compilation daté. Fiche : catégorie Éducation, 4+, pas
   la catégorie Enfants (elle impose un contrôle parental avant tout lien
   externe) ; `ITSAppUsesNonExemptEncryption` faux (`src-tauri/Info.ios.plist`).
+  Pas à pas sans Mac (compte, clés, secrets, lien TestFlight) : `docs/iphone.md`.
 - Partage natif iOS : plugin Swift `src-tauri/ios/` (feuille de partage,
   barre d'état, zones sûres), compilé et lié par `src-tauri/build.rs` sur macOS
   seulement, avec l'API Swift de Tauri copiée dans `src-tauri/.tauri/`.
