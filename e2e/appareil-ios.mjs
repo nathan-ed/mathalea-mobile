@@ -211,7 +211,10 @@ async function taper(c) {
   );
   if (i >= 0)
     await (await nav.$$("#mathalea-virtual-keyboard button"))[i].click();
-  else await nav.keys(c);
+  else {
+    console.log(`  touche « ${c} » absente du clavier : clavier du téléphone`);
+    await nav.keys(c);
+  }
   await pause(150);
 }
 
@@ -228,6 +231,8 @@ for (let tour = 0; tour < 20; tour++) {
   await pause(700);
   if (tour === 0) await capture("clavier-ouvert");
   for (const c of reponse) await taper(c);
+  // Ce que le champ contient vraiment (touche « − » du clavier sur iPhone)
+  console.log(`  saisi « ${reponse} » → champ ${JSON.stringify(await champ.getProperty("value"))}`);
   const verifier = await nav.$(
     '(//button[normalize-space(.)="Vérifier"])[last()]',
   );
@@ -290,7 +295,7 @@ await toucher(
 if (await entrainement.waitForDisplayed({ timeout: 5000 }).catch(() => false))
   await toucher(entrainement);
 await attendre(await nav.$("main .contenu-mathalea"), 120_000);
-await toucher(await exact("Quitter"));
+await toucher(await affiche('//button[@aria-label="Quitter" or normalize-space(.)="Quitter"]'));
 await toucher(await attendre(await exact("Reprendre plus tard")));
 ok(
   await (
