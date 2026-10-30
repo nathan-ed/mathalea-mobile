@@ -158,12 +158,14 @@ Rust `telecharger`.
   « précédent ») à chaque niveau de l'élève (page d'un parcours, fiche,
   panneau du bas, onglets, Réglages), confirmations de la séance, aucune
   entrée en attente à l'accueil. Téléphone et bureau, seul `pnpm dev`.
-- Avant chaque release, `release.yml` lance toutes les suites de vérification
-  (`scripts/e2e-ci.sh`, Explorer servi sur `127.0.0.1:8702`) ; une suite
-  oubliée fait échouer `tests/suites-e2e.test.ts`. En local, les lancer l'une
-  après l'autre : `pnpm test` pendant une suite recharge la page du serveur
-  de dev (`.svelte-kit` régénéré), et `explorer`, `defilement-ecrans` servent
-  tous deux le port 8702.
+- Liste unique des suites : `e2e/suites.json` (groupes de la matrice de
+  `release.yml`, longues suites locales, suites des émulateurs, scripts hors
+  vérification avec leur raison). `tests/suites-e2e.test.ts` échoue si un
+  script de `e2e/` n'y est pas classé ou si `release.yml` ou `emulateurs.yml`
+  s'en écartent. `scripts/verifier-release.sh` la lit et joue les suites en
+  parallèle (`PARALLELE`, 4 par défaut), sauf celles qui servent le port 8702
+  (`port8702`), jouées une à une. Ne pas lancer `pnpm test` pendant une suite :
+  il recharge la page du serveur de dev (`.svelte-kit` régénéré).
 - `node e2e/defilement-ecrans.mjs` : chaque écran (élève, Explorer,
   enseignant) et chaque panneau du bas défile au doigt jusqu'en bas et revient
   en haut, rien n'est caché sous une barre fixée, aucune liste écrasée ;
@@ -717,8 +719,9 @@ Reste à faire :
   construit aussi notre moteur (`scripts/moteur.sh`).
 - Release : `bash scripts/publier.sh v<x>` sur l'ordinateur de Nathan :
   `scripts/verifier-release.sh` (toutes les suites, tous les formats, tous les
-  parcours de `explorer/` et de la démonstration joués de A à Z, environ
-  2 h 30), puis tag et push seulement si tout est vert. La CI GitHub ne garde
+  parcours de `explorer/` et de la démonstration joués de A à Z, en
+  parallèle ; il refuse un `static/moteur` qui ne correspond pas à `moteur/`,
+  `scripts/moteur-a-jour.sh`), puis tag et push seulement si tout est vert. La CI GitHub ne garde
   que les suites rapides.
 - Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
 - Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
@@ -726,7 +729,8 @@ Reste à faire :
   `node e2e/parcours-az.mjs` : parcours de l'Explorer joués de A à Z par un
   élève qui répond juste (tous formats, vrais seuils, suivi) ;
   `FORMATS=1 node e2e/parcours-az.mjs <fichier>` : un exercice par format ;
-  `node e2e/az-1.mjs` (2, 3) : tous les parcours proposés, en trois groupes.
+  `GROUPE=1 GROUPES=5 node e2e/az-groupe.mjs` : tous les parcours proposés,
+  en groupes équilibrés par nombre de questions.
   Inventaire des formats : `docs/types-de-reponse.md`.
 
 ## 0.4.9 : corriger un parcours déjà travaillé (fait)

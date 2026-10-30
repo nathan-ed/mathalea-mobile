@@ -1,0 +1,26 @@
+{
+  "_": "Liste unique des suites e2e (tests/suites-e2e.test.ts la confronte à release.yml et à emulateurs.yml). groupes : la matrice de release.yml, à l'identique ; scripts/verifier-release.sh les joue en parallèle. longues : seulement sur l'ordinateur de qui publie. port8702 : servent elles-mêmes un catalogue ou un dossier sur 8702, jamais deux à la fois.",
+  "groupes": [
+    ["defilement", "defilement-ecrans", "un-toucher", "regressions", "retour", "reponses-elements"],
+    ["changer-appareil", "classe-qr", "en-classe", "fiche-parcours", "session-qr", "session-qr-long", "auteurs"],
+    ["ouverture-paliers", "paliers", "papier", "recherche", "explorer", "catalogue-moteur"],
+    ["correction-parcours", "reponses-session"],
+    ["revisions", "test-niveau", "test-niveau-reel"]
+  ],
+  "longues": ["formats", "az-groupe"],
+  "port8702": ["explorer", "defilement-ecrans", "complet"],
+  "emulateurs": ["appareil-android", "appareil-ios"],
+  "horsCi": {
+    "apercu-parcours": "planches de relecture d’un parcours",
+    "parcours-az": "module importé par formats et az-groupe",
+    "captures-enseignant": "captures pour la documentation",
+    "fiche-play": "captures des boutiques",
+    "guide": "captures du guide",
+    "guide-site": "captures du site MathALÉA (autre dépôt)",
+    "image-presentation": "image de la fiche Google Play",
+    "drives": "vrais drives : réseau nécessaire",
+    "referentiel-site": "site MathALÉA servi en local (autre dépôt)",
+    "sonde-can": "sonde du moteur, sans vérification de l’app",
+    "complet": "dossier partagé local (verifier-release.sh seulement)"
+  }
+}

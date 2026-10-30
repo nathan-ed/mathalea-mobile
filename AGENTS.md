@@ -67,8 +67,9 @@ complète (détails dans le skill, « Vérification »).
   après tout changement de CSS ou de mise en page (`overflow`, `position`,
   `touch-action`, `height`, `flex`). `release.yml` et `google-play.yml` lancent
   les suites e2e (`scripts/e2e-ci.sh`) et ne construisent ni n'envoient rien si
-  l'une échoue. Toute nouvelle suite e2e va dans la matrice de `release.yml`
-  (`tests/suites-e2e.test.ts` le vérifie).
+  l'une échoue. Toute nouvelle suite e2e se classe dans `e2e/suites.json`,
+  liste unique (matrice de `release.yml` à l'identique, longues suites,
+  émulateurs, hors vérification) ; `tests/suites-e2e.test.ts` le vérifie.
 - Catalogue de l'Explorer : avant de déposer un fichier, `node e2e/catalogue-moteur.mjs`
   (chaque exercice préparé par le moteur, sous trois graines, interactif).
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux

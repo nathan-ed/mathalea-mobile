@@ -157,6 +157,9 @@ const prefixes: Record<string, (v: unknown, suffixe: string) => boolean> = {
   'complet:': estNombre,
 }
 
+/** La sauvegarde sait contrôler cette clé (tests/stockage-cles.test.ts : toute clé écrite par l'app) */
+export const cleConnue = (cle: string) => cle in valeurs || Object.keys(prefixes).some((p) => cle.startsWith(p)) || cle === CLE_AVANT_RESTAURATION || CLES_DE_L_APPAREIL.includes(cle)
+
 /** Première clé dont la valeur n'a pas la forme attendue (ou inconnue), sinon undefined */
 export function cleInvalide(donnees: Record<string, unknown>): string | undefined {
   for (const [cle, valeur] of Object.entries(donnees)) {

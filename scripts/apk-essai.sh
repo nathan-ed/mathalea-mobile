@@ -11,6 +11,8 @@ export ANDROID_HOME="${ANDROID_HOME:-$HOME/.local/share/the-file-android/sdk}"
 export NDK_HOME="${NDK_HOME:-$(ls -d "$ANDROID_HOME"/ndk/* | sort -V | tail -1)}"
 export CARGO_TARGET_DIR="$(cd "$(dirname "$0")/.." && pwd)/src-tauri/target-essai"
 export CARGO_PROFILE_RELEASE_LTO=false CARGO_PROFILE_RELEASE_CODEGEN_UNITS=16 CARGO_PROFILE_RELEASE_OPT_LEVEL=2
+# Le moteur embarqué doit être celui de moteur/ (sinon l'essai teste un ancien moteur)
+bash "$(dirname "$0")/moteur-a-jour.sh"
 pnpm tauri android build --apk --split-per-abi --target "$cible"
 
 # Rangée dans releases/essai (non versionné) : toujours au même endroit
