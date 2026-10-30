@@ -8,6 +8,9 @@ name: emulateurs
 
 on:
   workflow_dispatch:
+  # Branche de travail de Claude (essais sans lancement manuel possible)
+  push:
+    branches: [ccr-3626951a-ud6bbr]
 
 permissions:
   contents: read
