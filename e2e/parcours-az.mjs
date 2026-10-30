@@ -517,7 +517,10 @@ async function jouerSeance(e, p, nomCeinture) {
     if (libelle === 'Voir le bilan') break
   }
   // Chaque vérification enregistrée : une bonne réponse doit être comptée correcte
-  const fin = await lireSeance(page, p.id).catch(() => null)
+  const fin = await lireSeance(page, p.id).catch((err) => {
+    problemes.push(`séance illisible à la fin (${err.message.split('\n')[0]})`)
+    return null
+  })
   for (const essai of fin?.essais ?? []) {
     if (essai.juste) continue
     const etape = s0.contenu.etapes[essai.etape]
@@ -545,6 +548,7 @@ if (process.env.FORMATS) {
           if (process.env.FORMAT && !process.env.FORMAT.split(',').includes(etape.titre.split(' ')[0])) continue
           const seul = { ...p, id: `format-${etape.uuid}`, titre: `Format ${etape.uuid}`, paliers: undefined, style: undefined, etapes: [etape] }
           const e = await eleve(seul.id, classe.nom, [seul])
+          const erreursAvant = erreurs.length
           let problemes
           try {
             await toucher(e, e.page.getByRole('button', { name: new RegExp(`^\\s*${seul.titre}`) }).first())
@@ -569,14 +573,24 @@ if (process.env.FORMATS) {
             problemes = [`erreur : ${err.message.split('\n')[0]}`]
             await capture(e.page, `format-${etape.uuid}-erreur`)
           }
-          const s = await lireSeance(e.page, seul.id).catch(() => null)
+          // Séance relue même si la page vient de se recharger (sinon « 0/0 correctes » sans message)
+          let s = null
+          for (let essai = 0; essai < 3 && !s; essai++) {
+            s = await lireSeance(e.page, seul.id).catch(async (err) => {
+              if (essai === 2) problemes.push(`séance illisible (${err.message.split('\n')[0]})`)
+              await e.page.waitForLoadState('load').catch(() => {})
+              await pause(e.page, 1000).catch(() => {})
+              return null
+            })
+          }
           const essais = s?.essais ?? []
           // Format dont la bonne réponse ne se saisit pas automatiquement : il suffit que
           // la réponse soit prise en compte (Vérifier actif) et vérifiée sans erreur
-          if (etape.verifie === 'prise-en-compte') {
-            problemes = problemes.filter((x) => !/comptée incorrecte|touché seulement/.test(x))
-            if (!essais.length && !problemes.length) problemes.push('aucune vérification enregistrée')
-          }
+          if (etape.verifie === 'prise-en-compte') problemes = problemes.filter((x) => !/comptée incorrecte|touché seulement/.test(x))
+          // Un format sans aucune vérification enregistrée n'a rien prouvé
+          if (!essais.length && !problemes.length) problemes.push('aucune vérification enregistrée')
+          // Erreurs JavaScript de la page pendant ce format (rechargement, module introuvable…)
+          for (const err of erreurs.slice(erreursAvant)) problemes.push(`erreur JavaScript : ${err.split('\n')[0]}`)
           const statut = problemes.length ? '✘' : '✔'
           const mode = e.restaurees ? ' (toucher, puis réponse écrite dans l’élément comme MathALÉA la restaure)' : ''
           tableau.push(`${statut} ${etape.titre} : ${essais.filter((x) => x.juste).length}/${essais.length} correctes${mode}${problemes.length ? '\n    ' + problemes.join('\n    ') : ''}`)
