@@ -22,6 +22,8 @@ export interface QuestionPreparee {
   enonce: string
   correction: string
   interactive: boolean
+  // Une case laissée vide fait partie de la bonne réponse : Vérifier marche sans saisie (absent d'un moteur ancien)
+  videAccepte?: boolean
 }
 
 export interface ExercicePrepare {

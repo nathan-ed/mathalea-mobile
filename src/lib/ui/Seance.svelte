@@ -328,7 +328,10 @@
       // Sans focus, le clavier peut rester affiché (WebKit, clavier qui se
       // referme) : la barre passe au-dessus de sa partie visible, jamais dessous
       const visible = affiche ? Math.max(0, Math.round(innerHeight - clavier!.getBoundingClientRect().top)) : 0
-      hauteurClavier = saisieEnCours && affiche ? h : visible > 8 ? visible : 0
+      // Pavé de chiffres propre à un élément de MathALÉA (pyramide de nombres), fixé en bas lui aussi
+      const pave = [...document.querySelectorAll<HTMLElement>('main .contenu-mathalea .fixed.bottom-0')].find((x) => !x.hidden && x.getClientRects().length)
+      const hautPave = pave ? Math.max(0, Math.round(innerHeight - pave.getBoundingClientRect().top)) : 0
+      hauteurClavier = Math.max(hautPave, saisieEnCours && affiche ? h : visible > 8 ? visible : 0)
     }, 120)
     try {
       for (const etape of seance.etapes) {

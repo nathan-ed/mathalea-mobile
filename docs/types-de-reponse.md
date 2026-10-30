@@ -76,6 +76,10 @@ Dans l'app :
 - Messages de retour de MathALÉA : formules non rendues.
 - Éléments plus larges que l'écran (glisser-déposer, grille de Juniper Green,
   guide-âne) : ils passent à la ligne ou défilent dans la question.
+- Tableau à laisser vide en partie (résoudre un triangle sans solution) :
+  « Vérifier » restait grisé alors que la bonne réponse est vide.
+- Pyramide de nombres : son pavé de chiffres cachait « Passer » et « Vérifier » ;
+  la barre d'actions passe au-dessus, comme pour le clavier de MathALÉA.
 
 Dans le moteur de l'app (`moteur/fichiers/src/moteur/index.ts`, à reporter
 dans `src/moteur/index.ts` de MathALÉA pour les mises à jour du moteur) :
@@ -84,6 +88,7 @@ dans `src/moteur/index.ts` de MathALÉA pour les mises à jour du moteur) :
 - `clique-figure` : figures activées après l'affichage, comme le site.
 - Figures apigeom trop larges : réduites par leur zoom.
 - Espaces entre les chiffres jamais exigés.
+- `videAccepte` : une question dont une case attendue est vide se vérifie sans saisie.
 
 Dans MathALÉA (à signaler, rien de modifié) : 845fa reprend dans la question 2
 les id de la question 1 (`meta-interactif-2dEx0Q0field0`) ; 5d1e2 affiche

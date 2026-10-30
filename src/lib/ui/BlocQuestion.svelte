@@ -157,7 +157,7 @@
     // sa valeur ne se lit pas une à une, la frappe suffit pour que Vérifier s'active
     const cible = e.target
     if (cible instanceof HTMLElement && !cible.id && ID_REPONSE.test(cible.parentElement?.closest('[id]')?.id ?? '')) interagi = true
-    aSaisi = interagi || Object.keys(lireSaisies()).length > 0
+    aSaisi = interagi || !!q.videAccepte || Object.keys(lireSaisies()).length > 0
     // Seulement une vraie frappe : « change » arrive aussi quand le champ perd
     // le focus, par exemple à l'ouverture du panneau « Soumettre quand même ? »,
     // qui se refermait alors aussitôt (premier toucher perdu)
@@ -222,7 +222,7 @@
 
   /** État de la question pour le garde-fou de la séance */
   export const etat = (): 'verifiee' | 'saisie' | 'vide' =>
-    resultat ? 'verifiee' : interagi || Object.keys(lireSaisies()).length ? 'saisie' : 'vide'
+    resultat ? 'verifiee' : interagi || q.videAccepte || Object.keys(lireSaisies()).length ? 'saisie' : 'vide'
 
   export const estVerifiee = () => resultat !== null
 
@@ -254,8 +254,8 @@
       if (brouillon && Object.keys(brouillon).length) {
         await moteur.ecrireReponses(brouillon)
         await tick()
-        aSaisi = Object.keys(lireSaisies()).length > 0
-      }
+        aSaisi = !!q.videAccepte || Object.keys(lireSaisies()).length > 0
+      } else if (q.videAccepte) aSaisi = true
       if (!q.interactive && (correctionVue || lectureSeule)) {
         vue = true
         await afficherCorrection()
