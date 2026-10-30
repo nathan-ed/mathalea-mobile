@@ -37,6 +37,8 @@ const nav = await remote({
   },
 });
 
+// Scripts asynchrones (réponses attendues par le moteur) : 1 ms par défaut
+await nav.setTimeout({ script: 60_000 });
 let n = 0;
 const capture = async (nom) => {
   await pause(700);
