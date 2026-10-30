@@ -116,7 +116,9 @@
     if (r?.paliers) return r.paliers.reussis ? `${r.paliers.reussis}/${r.paliers.total}` : ''
     return r?.pourcentage != null ? `${r.pourcentage} %` : ''
   }
-  const ouvrir = (p: Parcours) => (resumes[p.id]?.enCours ? oncontinuer(p) : onouvrir(p))
+  // La tuile « En cours » reprend la séance ; ailleurs, la page du parcours (Continuer,
+  // autres paliers, supprimer la tentative) : quitter une séance ramène ici, pas à cette page
+  const ouvrir = (p: Parcours) => onouvrir(p)
 
   let recherche = $state('')
   // Classe affichée quand il y en a plusieurs (pastilles) : la première par défaut

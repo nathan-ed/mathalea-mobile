@@ -321,17 +321,15 @@
     mesure = setInterval(() => {
       const clavier = document.getElementById('mathalea-virtual-keyboard')
       const h = clavier?.getBoundingClientRect().height ?? 0
-      // Seulement si un champ (ou le clavier) a le focus : après une validation,
-      // la barre reste en bas pendant que le clavier se referme
-      const saisieEnCours = document.activeElement?.closest('math-field, mathalea-mathfield, multi-mathfield, #mathalea-virtual-keyboard') != null
       const affiche = !!clavier && h > 0 && getComputedStyle(clavier).display !== 'none'
-      // Sans focus, le clavier peut rester affiché (WebKit, clavier qui se
-      // referme) : la barre passe au-dessus de sa partie visible, jamais dessous
+      // Toujours la partie visible du clavier : pendant qu'il monte, la barre
+      // ne couvre pas la question (un toucher tombait sur elle) ; quand il se
+      // referme (WebKit), elle passe au-dessus de ce qui en reste, jamais dessous
       const visible = affiche ? Math.max(0, Math.round(innerHeight - clavier!.getBoundingClientRect().top)) : 0
       // Pavé de chiffres propre à un élément de MathALÉA (pyramide de nombres), fixé en bas lui aussi
       const pave = [...document.querySelectorAll<HTMLElement>('main .contenu-mathalea .fixed.bottom-0')].find((x) => !x.hidden && x.getClientRects().length)
       const hautPave = pave ? Math.max(0, Math.round(innerHeight - pave.getBoundingClientRect().top)) : 0
-      hauteurClavier = Math.max(hautPave, saisieEnCours && affiche ? h : visible > 8 ? visible : 0)
+      hauteurClavier = Math.max(hautPave, visible > 8 ? visible : 0)
     }, 120)
     try {
       for (const etape of seance.etapes) {

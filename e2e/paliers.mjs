@@ -214,6 +214,9 @@ for (const theme of ['clair', 'sombre']) {
   await e.getByRole('button', { name: 'Quitter', exact: true }).click()
   await e.getByRole('button', { name: 'Reprendre plus tard' }).click()
   await e.waitForTimeout(400)
+  // Quitter ramène à l'accueil : on rouvre le parcours (sa ligne ; la tuile « En cours » reprendrait la séance)
+  await e.getByRole('button', { name: /^Relatifs en trois paliers/ }).last().click()
+  await e.waitForTimeout(400)
   ok((await texte(e)).includes('Réussi · 50 %'), 'carte : palier 1 réussi au seuil choisi')
   // Session partagée : elle porte sur un palier ouvert, pas sur tout le parcours
   await e.getByRole('button', { name: 'Autres actions' }).click()

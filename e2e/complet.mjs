@@ -226,6 +226,8 @@ await b.getByRole('button', { name: 'Passer' }).click()
 await b.getByRole('button', { name: 'Quitter', exact: true }).click()
 ok(!(await b.getByRole('button', { name: 'Terminer maintenant' }).isVisible()), 'sortie sans aucune réponse : pas de « Terminer maintenant »')
 await b.getByRole('button', { name: 'Reprendre plus tard' }).click()
+// Quitter ramène à l'accueil ; la tentative se reprend depuis le parcours
+await parcoursDeTest(b, 'Nombres relatifs')
 await b.getByRole('button', { name: 'Continuer', exact: true }).waitFor()
 ok((await b.locator('main button').count()) <= 4, `détail : un seul bouton principal (${await b.locator('main button').count()} boutons)`)
 await b.getByRole('button', { name: 'Autres actions' }).click()
