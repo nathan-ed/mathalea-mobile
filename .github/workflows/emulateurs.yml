@@ -133,14 +133,16 @@ jobs:
         continue-on-error: true
         run: |
           export PATH="$ANDROID_HOME/platform-tools:$PATH"
-          base=https://commondatastorage.googleapis.com/chromium-browser-snapshots/Android_x64
+          base=https://commondatastorage.googleapis.com/chromium-browser-snapshots/Android
           rev=$(curl -sf "$base/LAST_CHANGE")
           curl -sfLo chromium.zip "$base/$rev/chrome-android.zip"
           unzip -q chromium.zip
           apk=$(find chrome-android -name 'SystemWebView*.apk' | head -1)
           echo "WebView : $apk (Chromium $rev)"
           adb install -r "$apk"
-          adb shell cmd webviewupdate set-webview-implementation com.android.webview
+          # Paquet de la WebView installée, choisi comme WebView du système
+          paquet=$(unzip -p "$apk" AndroidManifest.xml | strings -el | grep -m1 -o 'com\.[a-z.]*webview' || echo com.android.webview)
+          adb shell cmd webviewupdate set-webview-implementation "$paquet" || true
           adb shell dumpsys webviewupdate | head -20
       - name: Élève sur l'app installée
         timeout-minutes: 20
