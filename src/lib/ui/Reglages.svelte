@@ -15,6 +15,7 @@
   import { choisirTheme, theme, type PreferenceTheme } from '$lib/theme.svelte'
   import { version } from '../../../package.json'
   import { ouvrirLien } from '$lib/fichiers'
+  import type { BilanFusion } from '$lib/fusion'
   import type { resumerSauvegarde } from '$lib/sauvegarde'
   const URL_GUIDE = 'https://coopmaths.forge.apps.education.fr/mathalea-mobile/'
 
@@ -30,6 +31,8 @@
     onexporterSauvegarde,
     onrestaurer,
     onresumer,
+    onfusionner,
+    onapercuFusion,
     onannulerRestauration,
     moteur,
     miseAJourMoteur,
@@ -51,6 +54,8 @@
     onexporterSauvegarde: () => Promise<string>
     onrestaurer: (texte: string) => Promise<string>
     onresumer: typeof resumerSauvegarde
+    onfusionner: (texte: string) => Promise<string>
+    onapercuFusion: (texte: string) => Promise<BilanFusion>
     onannulerRestauration: (() => Promise<string>) | null // la dernière restauration peut être annulée
     moteur: InfoMoteur | null
     miseAJourMoteur: string | null // version installée, active au prochain lancement
@@ -86,7 +91,7 @@
 
   let messageSauvegarde = $state('')
   // Restauration : aperçu de la sauvegarde et confirmation avant de remplacer quoi que ce soit
-  let aRestaurer: { texte: string; resume: ReturnType<typeof onresumer> } | null = $state(null)
+  let aRestaurer: { texte: string; resume: ReturnType<typeof onresumer>; fusion: BilanFusion | null } | null = $state(null)
   // Politique de confidentialité : page livrée avec l'app (static/confidentialite.html,
   // la même qu'en ligne), affichée sans quitter l'app
   let confidentialite: string | null = $state(null)
@@ -113,7 +118,8 @@
     if (!f) return
     const texte = await f.text()
     try {
-      aRestaurer = { texte, resume: onresumer(texte) }
+      const resume = onresumer(texte)
+      aRestaurer = { texte, resume, fusion: await onapercuFusion(texte).catch(() => null) }
     } catch (err) {
       messageSauvegarde = (err as Error).message
     }
@@ -282,12 +288,12 @@
 
     <section class="flex flex-col gap-3">
       <h2 class={titreSection}>Sauvegarde</h2>
-      <p class="pl-2 {texteDiscret}">Pour changer d’appareil : exportez une sauvegarde, envoyez le fichier sur le nouvel appareil, puis touchez « Récupérer mes données » à son premier lancement.</p>
+      <p class="pl-2 {texteDiscret}">Pour changer d’appareil : exportez une sauvegarde, envoyez le fichier sur le nouvel appareil, puis touchez « Récupérer mes données » à son premier lancement. Pour travailler sur deux appareils : « Ajouter une sauvegarde » réunit ce qui a été fait sur l’autre.</p>
       <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageSauvegarde = await onexporterSauvegarde())}>
         Exporter une sauvegarde
       </button>
       <label class="{boutonInverse} w-full cursor-pointer" style="min-height: 44px; display: flex; align-items: center; justify-content: center">
-        Restaurer une sauvegarde
+        Ajouter ou restaurer une sauvegarde
         <input type="file" accept=".json,application/json" class="hidden" onchange={restaurer} />
       </label>
       {#if onannulerRestauration}
@@ -426,6 +432,12 @@
     <ConfirmationRestauration
       resume={aRestaurer.resume}
       remplacer
+      fusion={aRestaurer.fusion}
+      onfusionner={async () => {
+        const texte = aRestaurer!.texte
+        aRestaurer = null
+        messageSauvegarde = await onfusionner(texte)
+      }}
       onannuler={() => (aRestaurer = null)}
       onconfirmer={async () => {
         const texte = aRestaurer!.texte

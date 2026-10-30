@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
-  import { CLE_AVANT_RESTAURATION, exporterSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
+  import { CLE_AVANT_RESTAURATION, apercuFusion, exporterSauvegarde, fusionnerSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier } from '$lib/fichiers'
@@ -873,6 +873,17 @@
     }
   }
 
+  /** Sauvegarde d'un autre appareil de l'élève, réunie avec celui-ci */
+  async function fusionner(texte: string) {
+    try {
+      await fusionnerSauvegarde(stockage!, texte)
+      location.reload()
+      return ''
+    } catch (e) {
+      return (e as Error).message
+    }
+  }
+
   /** Annule la dernière restauration : l'état remplacé revient */
   async function annulerRestauration() {
     const copie = await stockage!.lire<string>(CLE_AVANT_RESTAURATION)
@@ -1173,6 +1184,8 @@
       onexporterSauvegarde={sauvegarder}
       onrestaurer={restaurer}
       onresumer={resumerSauvegarde}
+      onfusionner={fusionner}
+      onapercuFusion={(texte) => apercuFusion(stockage!, texte)}
       onannulerRestauration={restaurationAnnulable ? annulerRestauration : null}
       moteur={moteur ? infoMoteur() : null}
       {miseAJourMoteur}

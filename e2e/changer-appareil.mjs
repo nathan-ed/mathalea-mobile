@@ -4,6 +4,8 @@
 // téléphone neuf : « Récupérer mes données » dès le premier écran, aperçu,
 // puis la séance en cours reprend à la bonne question et se termine ;
 // suivi et parcours terminés retrouvés. Fichier invalide : rien ne change.
+// Enfin, l'ancien téléphone fusionne la sauvegarde du nouveau (deux appareils
+// pour un même élève) : rien de perdu, la séance terminée ailleurs compte.
 //   CAPTURES=<dossier> node e2e/changer-appareil.mjs
 // Autre serveur que celui de pnpm dev : BASE=http://localhost:1431/.
 import { chromium } from 'playwright'
@@ -210,6 +212,32 @@ await b.waitForTimeout(800)
 const suivi = await texte(b)
 ok(suivi.includes('Additions de relatifs') && suivi.includes('Soustractions de relatifs'), 'suivi : les deux parcours')
 await b.screenshot({ path: `${captures}/changer-5-suivi.png` })
+
+// ---------- Deux appareils : l'ancien téléphone fusionne la sauvegarde du nouveau ----------
+// Sur l'ancien, les soustractions sont encore en cours ; le nouveau les a terminées.
+for (let i = 0; i < 5 && !(await b.getByRole('button', { name: 'Réglages' }).isVisible().catch(() => false)); i++) {
+  await b.getByRole('button', { name: 'Revenir en arrière' }).first().click().catch(() => {})
+  await b.waitForTimeout(300)
+}
+await b.getByRole('button', { name: 'Réglages' }).click()
+const [dlNeuf] = await Promise.all([b.waitForEvent('download'), b.getByRole('button', { name: 'Exporter une sauvegarde' }).click()])
+const fichierNeuf = join(dossier, `neuf-${dlNeuf.suggestedFilename()}`)
+await dlNeuf.saveAs(fichierNeuf)
+await a.locator('input[type=file]').setInputFiles(fichierNeuf)
+await a.getByText('Ajouter cette sauvegarde à cet appareil ?').waitFor()
+const apercuFusion = await texte(a, '[role=dialog]')
+ok(apercuFusion.includes('1 passage terminé de l’autre appareil s’ajoute'), `fusion : aperçu de ce qui s'ajoute (${apercuFusion.slice(0, 200)})`)
+await a.screenshot({ path: `${captures}/changer-6-fusion.png` })
+await a.getByRole('button', { name: 'Fusionner', exact: true }).click()
+await a.getByRole('tab', { name: 'Suivi' }).waitFor({ timeout: 30_000 })
+await ouvrir(a, soustractions)
+ok((await texte(a)).includes('100 %') || (await texte(a)).includes('3 / 3'), `fusion : soustractions terminées sur l'autre téléphone (${(await texte(a)).slice(0, 160)})`)
+for (let i = 0; i < 5 && !(await a.getByRole('tab', { name: 'Explorer' }).isVisible().catch(() => false)); i++) {
+  await a.getByRole('button', { name: 'Revenir en arrière' }).first().click().catch(() => {})
+  await a.waitForTimeout(300)
+}
+await ouvrir(a, additions)
+ok((await texte(a)).includes('50 %') || (await texte(a)).includes('1 / 2'), 'fusion : additions de cet appareil gardées')
 
 // Sombre : premier écran et aperçu
 const s = await telephone('sombre', null, true)

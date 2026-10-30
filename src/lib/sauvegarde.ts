@@ -1,6 +1,7 @@
 // Sauvegarde personnelle : réglages, liens, bibliothèque de l'enseignant et
 // suivi complet, dans un fichier versionné. Aucun identifiant n'y figure :
 // l'app n'en stocke aucun. Une restauration invalide laisse tout intact.
+import { fusionnerDonnees, type BilanFusion } from './fusion'
 import type { Seance } from './progression'
 import { estRevisions } from './revisions'
 import { estReleves } from './releve'
@@ -207,13 +208,38 @@ export function resumerSauvegarde(texte: string) {
  * remet l'état d'avant. L'état remplacé est gardé pour annuler la restauration.
  */
 export async function restaurerSauvegarde(st: Stockage, texte: string) {
-  const s = lireSauvegarde(texte)
+  await ecrireTout(st, lireSauvegarde(texte).donnees)
+}
+
+/**
+ * Fusionne la sauvegarde d'un autre appareil avec les données de celui-ci
+ * (fusion.ts) ; même garde-fou et même annulation qu'une restauration.
+ */
+export async function fusionnerSauvegarde(st: Stockage, texte: string): Promise<BilanFusion> {
+  const { donnees, bilan } = await fusion(st, texte)
+  await ecrireTout(st, donnees)
+  return bilan
+}
+
+/** Ce que la fusion ajouterait, montré avant de l'écrire */
+export const apercuFusion = async (st: Stockage, texte: string) => (await fusion(st, texte)).bilan
+
+async function fusion(st: Stockage, texte: string) {
+  const la = lireSauvegarde(texte).donnees
+  const ici = (JSON.parse(await exporterSauvegarde(st)) as Sauvegarde).donnees
+  const r = fusionnerDonnees(ici, la)
+  const cle = cleInvalide(r.donnees)
+  if (cle !== undefined) throw new Error(`Fusion impossible (${cle}) : rien n’a changé.`)
+  return r
+}
+
+async function ecrireTout(st: Stockage, donnees: Record<string, unknown>) {
   const avant: Record<string, unknown> = {}
   for (const cle of await st.cles()) avant[cle] = await st.lire(cle)
   const copie = await exporterSauvegarde(st)
   try {
     for (const cle of Object.keys(avant)) if (!CLES_DE_L_APPAREIL.includes(cle)) await st.effacer(cle)
-    for (const [cle, valeur] of Object.entries(s.donnees)) if (!CLES_DE_L_APPAREIL.includes(cle)) await st.ecrire(cle, valeur)
+    for (const [cle, valeur] of Object.entries(donnees)) if (!CLES_DE_L_APPAREIL.includes(cle)) await st.ecrire(cle, valeur)
     await st.ecrire(CLE_AVANT_RESTAURATION, copie)
   } catch (e) {
     for (const cle of await st.cles()) await st.effacer(cle)
