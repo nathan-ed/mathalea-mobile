@@ -171,16 +171,20 @@ export const CEINTURES = [
 ] as const
 
 type OptionsCeintures = Pick<Parcours, 'style' | 'premiereCeinture'>
-const rangCeinture = (p: OptionsCeintures, k: number) => (p.premiereCeinture ?? 0) + k
+export const rangCeinture = (p: OptionsCeintures, k: number) => (p.premiereCeinture ?? 0) + k
+
+/** « Ceinture verte », puis « Ceinture noire, 2e dan » au-delà de la noire */
+export function nomCeinture(rang: number) {
+  return rang < CEINTURES.length ? `Ceinture ${CEINTURES[rang].nom}` : `Ceinture noire, ${rang - CEINTURES.length + 2}e dan`
+}
+export const couleurDuRang = (rang: number) => CEINTURES[Math.min(rang, CEINTURES.length - 1)].couleur
 
 /** Nom d'un palier selon le style : « Palier 2 » ou « Ceinture jaune » (à partir de la première ceinture choisie) */
 export function nomPalier(p: OptionsCeintures, k: number) {
-  if (p.style !== 'ceintures') return `Palier ${k + 1}`
-  const r = rangCeinture(p, k)
-  return r < CEINTURES.length ? `Ceinture ${CEINTURES[r].nom}` : `Ceinture noire, ${r - CEINTURES.length + 2}e dan`
+  return p.style === 'ceintures' ? nomCeinture(rangCeinture(p, k)) : `Palier ${k + 1}`
 }
 
-export const couleurCeinture = (p: OptionsCeintures, k: number) => CEINTURES[Math.min(rangCeinture(p, k), CEINTURES.length - 1)].couleur
+export const couleurCeinture = (p: OptionsCeintures, k: number) => couleurDuRang(rangCeinture(p, k))
 
 /** Jour de l'appareil, au format AAAA-MM-JJ (celui des dates d'ouverture) */
 export function jourLocal(d = new Date()) {

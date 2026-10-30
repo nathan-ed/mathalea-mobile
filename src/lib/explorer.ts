@@ -31,6 +31,9 @@ const normaliser = (t: string) =>
     .toLowerCase()
 const cle = (t: string) => normaliser(ALIAS[t.trim()] ?? t)
 
+/** Chapitre d'un parcours, comme l'Explorer le range : même degré et même chapitre du référentiel, accents et casse ignorés */
+export const cleChapitre = (p: Pick<Parcours, 'niveau' | 'theme'>) => `${cle(p.niveau)}|${cle(p.theme)}`
+
 /** Degrés et chapitres dans l'ordre du menu du site */
 export function reperesDu(liste: ExerciceDuReferentiel[]): Repere[] {
   const reperes: Repere[] = []
