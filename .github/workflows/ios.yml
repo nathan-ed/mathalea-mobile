@@ -2,9 +2,10 @@
 # Sans clé Apple : compilation pour le simulateur, lancement de l'app et
 # captures (clair, sombre) en artefacts, plus le projet Xcode généré.
 # Avec les secrets App Store Connect : .ipa signée, envoyée à TestFlight.
-# Comme Google Play, la boutique embarque le moteur publié sur mathalea.fr
-# (signature, taille et SHA-256 vérifiés : scripts/moteur-publie.mjs) ; iOS ne
-# télécharge jamais de moteur (moteur.rs, MISES_A_JOUR).
+# Comme toutes les apps, elle embarque notre moteur (scripts/moteur.sh),
+# construit sous Linux (sous macOS, pnpm ne passe pas à la version demandée par
+# MathALÉA) ; iOS ne télécharge jamais de moteur (moteur.rs, MISES_A_JOUR).
+# Pas à pas depuis un ordinateur sans Mac : docs/iphone.md.
 name: ios
 
 on:
@@ -23,7 +24,23 @@ permissions:
   contents: read
 
 jobs:
+  moteur:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - name: Moteur dans l'app
+        run: bash scripts/moteur.sh
+      - uses: actions/upload-artifact@v7
+        with:
+          name: moteur
+          path: static/moteur
+
   ios:
+    needs: moteur
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
@@ -45,8 +62,13 @@ jobs:
         with:
           workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
-      - name: Moteur publié
-        run: echo "MOTEUR=$(node scripts/moteur-publie.mjs)" >> "$GITHUB_ENV"
+      - uses: actions/download-artifact@v8
+        with:
+          name: moteur
+          path: static/moteur
+      # Notre moteur : commit de MathALÉA et empreinte de moteur/ (comme scripts/moteur.sh)
+      - name: Moteur
+        run: echo "MOTEUR=$(cut -c1-9 moteur/COMMIT).$(cd moteur && find . -type f -print0 | sort -z | xargs -0 shasum -a 256 | shasum -a 256 | cut -c1-7)" >> "$GITHUB_ENV"
       # Projet Xcode : généré s'il n'est pas encore dans le dépôt (src-tauri/gen/apple)
       - name: Projet Xcode
         run: |
