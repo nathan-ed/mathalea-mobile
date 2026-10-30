@@ -26,7 +26,7 @@
   import EnTete from './EnTete.svelte'
   import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
-  import { retourSi } from '$lib/navigation.svelte'
+  import { retourAccueil, retourSi } from '$lib/navigation.svelte'
 
   let {
     sources,
@@ -158,13 +158,15 @@
   // Onglet d'accueil, où l'app s'ouvre : « retour » y ramène avant de quitter l'app
   // (en vue élève : Mes parcours, puis l'espace enseignant)
   const depart = $derived(espaceProf ? 'creer' : 'mes')
+  const aRefermer = () => retourAccueil({ chapitre, niveau, onglet, depart, enseignant: !!enseignant, vueEleve: !!vueEleve })
   retourSi(
-    () => niveau !== null || onglet !== depart || (enseignant && vueEleve),
+    () => aRefermer() !== null,
     () => {
-      if (chapitre) chapitre = null
-      else if (niveau) niveau = null
-      else if (onglet !== depart) changerOnglet(depart)
-      else onquitterVueEleve?.()
+      const r = aRefermer()
+      if (r === 'chapitre') chapitre = null
+      else if (r === 'niveau') niveau = null
+      else if (r === 'depart') changerOnglet(depart)
+      else if (r === 'quitterVueEleve') onquitterVueEleve?.()
     },
   )
 
