@@ -293,11 +293,20 @@ await capture("accueil-en-cours");
 
 // 5. Thème sombre du téléphone
 await appareil.shell("cmd uimode night yes");
+await pause(3000);
 page = await lancer();
 await page
   .getByRole("button", { name: "Réglages" })
   .first()
   .waitFor({ timeout: 90_000 });
+await page.waitForTimeout(1500);
+const sombre = await page.evaluate(() => ({
+  telephone: matchMedia("(prefers-color-scheme: dark)").matches,
+  app: document.documentElement.classList.contains("dark"),
+  reglage: localStorage.getItem("theme"),
+}));
+console.log(`Thème sombre : ${JSON.stringify(sombre)}`);
+ok(sombre.app, `mode nuit du téléphone : l'app passe en sombre (${JSON.stringify(sombre)})`);
 await capture("accueil-sombre");
 await toucher(page.getByRole("button", { name: /^\s*Fractions/ }).first());
 await page
