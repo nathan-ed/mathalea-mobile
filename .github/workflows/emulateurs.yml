@@ -100,16 +100,20 @@ jobs:
         timeout-minutes: 25
         run: |
           sdk="$ANDROID_HOME/cmdline-tools/latest/bin"
+          # Même dossier d'appareils virtuels pour avdmanager et l'émulateur
+          export ANDROID_AVD_HOME="$HOME/.android/avd"
+          mkdir -p "$ANDROID_AVD_HOME"
           image="system-images;android-${{ matrix.api }};google_apis;x86_64"
           yes | "$sdk/sdkmanager" --licenses > /dev/null
           "$sdk/sdkmanager" emulator platform-tools "$image" > /dev/null
           echo no | "$sdk/avdmanager" create avd -n essai -k "$image" -d pixel_5 --force
           nohup "$ANDROID_HOME/emulator/emulator" -avd essai -no-window -no-audio -no-boot-anim -no-snapshot \
             -gpu swiftshader_indirect -camera-back none -memory 4096 > emulateur.log 2>&1 &
+          emulateur=$!
           export PATH="$ANDROID_HOME/platform-tools:$PATH"
           "$ANDROID_HOME/emulator/emulator" -accel-check || true
-          # Démarrage : 15 min au plus, sinon le journal de l'émulateur
-          if ! timeout 900 bash -c 'adb wait-for-device; until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 5; done'; then
+          # Démarrage : 15 min au plus (arrêt dès que l'émulateur se ferme), sinon son journal
+          if ! timeout 900 bash -c "until [ \"\$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')\" = 1 ]; do kill -0 $emulateur || exit 1; sleep 5; done"; then
             echo "::error::L'émulateur n'a pas démarré"
             cat emulateur.log
             adb devices -l || true
