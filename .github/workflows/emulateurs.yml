@@ -16,7 +16,9 @@ permissions:
   contents: read
 
 jobs:
-  apk:
+  # Notre moteur, construit une fois sous Linux (sous macOS, pnpm ne passe pas
+  # à la version demandée par MathALÉA) et donné à l'APK et à l'iPhone
+  moteur:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -27,6 +29,24 @@ jobs:
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - name: Moteur dans l'app
         run: bash scripts/moteur.sh
+      - uses: actions/upload-artifact@v7
+        with:
+          name: moteur
+          path: static/moteur
+
+  apk:
+    needs: moteur
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - uses: actions/download-artifact@v8
+        with:
+          name: moteur
+          path: static/moteur
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
@@ -56,6 +76,7 @@ jobs:
   android:
     needs: apk
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -85,14 +106,19 @@ jobs:
           nohup "$ANDROID_HOME/emulator/emulator" -avd essai -no-window -no-audio -no-boot-anim -no-snapshot \
             -gpu swiftshader_indirect -camera-back none -memory 4096 > emulateur.log 2>&1 &
           export PATH="$ANDROID_HOME/platform-tools:$PATH"
-          adb wait-for-device
-          for _ in $(seq 120); do [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break; sleep 5; done
-          adb shell getprop sys.boot_completed
+          "$ANDROID_HOME/emulator/emulator" -accel-check || true
+          # Démarrage : 15 min au plus, sinon le journal de l'émulateur
+          if ! timeout 900 bash -c 'adb wait-for-device; until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 5; done'; then
+            echo "::error::L'émulateur n'a pas démarré"
+            tail -80 emulateur.log
+            exit 1
+          fi
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           adb install -r MathALEA-emulateur.apk
       - name: Élève sur l'app installée
+        timeout-minutes: 20
         run: |
           export PATH="$ANDROID_HOME/platform-tools:$PATH"
           CAPTURES="captures-android-${{ matrix.api }}" node e2e/appareil-android.mjs
@@ -110,6 +136,7 @@ jobs:
           path: captures-android-${{ matrix.api }}
 
   iphone:
+    needs: moteur
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
@@ -124,8 +151,10 @@ jobs:
         with:
           workspaces: src-tauri -> target
           key: emulateur
-      - name: Moteur dans l'app
-        run: bash scripts/moteur.sh
+      - uses: actions/download-artifact@v8
+        with:
+          name: moteur
+          path: static/moteur
       - run: pnpm install --frozen-lockfile
       - name: Projet Xcode
         run: |
