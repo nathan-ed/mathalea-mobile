@@ -6,3 +6,4 @@
 - Ceinture en cours et réponses en vert ou en rouge en haut de l'activité.
 - Orange de MathALÉA en thème sombre.
 - Ordinateur : fenêtre en grand, texte plus grand.
+- Nouveaux exercices sur les solides et les formules d'aire et de volume.
