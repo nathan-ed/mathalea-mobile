@@ -2,6 +2,8 @@
   import { onMount } from 'svelte'
   import { ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
+  import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
+  import Fiches from '$lib/ui/Fiches.svelte'
   import { CLE_AVANT_RESTAURATION, apercuFusion, exporterSauvegarde, fusionnerSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
@@ -110,12 +112,13 @@
   let vue: Vue = $state('accueil')
   // « creer » (Parcours), « classes » et « classe » (En classe) : seulement avec le
   // réglage Enseignant ; « mes » et « suivi » pour lui seulement en vue élève
-  let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe' = $state('mes')
+  let onglet: 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe' = $state('mes')
   let vueEleve = $state(false)
   let actif: Parcours | undefined = $state()
   // Fiche de cours ouverte, l'écran d'où elle vient et, avant une séance, de quoi la lancer
   let cours: { fiche: Fiche; depuis: Vue; ensuite?: () => void } | null = $state(null)
   let fichesVues: string[] = $state([]) // fiches déjà montrées d'office (« id#palier »)
+  let fichesEnregistrees: FicheDuParcours[] = $state([]) // onglet Fiches, dans l'ordre de l'élève
   // Formules des fiches : KaTeX du moteur (centrées : style « display »)
   const formule: RenduFormule = $derived((latex: string, centree: boolean) =>
     moteur?.titreHtml ? moteur.titreHtml(`$${centree ? '\\displaystyle ' : ''}${latex}$`) : formuleBrute(latex, centree),
@@ -270,6 +273,7 @@
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     fichesVues = (await stockage.lire<string[]>('fiches-vues')) ?? []
+    fichesEnregistrees = (await stockage.lire<FicheDuParcours[]>(CLE_FICHES)) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
     // Catalogue intégré à l'app, remplacé parcours par parcours par une version plus récente reçue en ligne
     integre = await catalogueIntegre().catch((e) => (console.warn('Catalogue intégré', e), []))
@@ -1274,6 +1278,17 @@
           ontest={ouvrirTest}
           {revisions}
           passagesRevision={historiques[ID_REVISIONS] ?? []}
+        />
+      {/snippet}
+      {#snippet fiches()}
+        <Fiches
+          parcours={tous}
+          enregistrees={fichesEnregistrees}
+          onenregistrer={async (liste) => {
+            fichesEnregistrees = liste
+            await stockage!.ecrire(CLE_FICHES, $state.snapshot(liste))
+          }}
+          onouvrir={(f) => ouvrirCours(f.fiche)}
         />
       {/snippet}
       {#snippet espaceEnseignant()}

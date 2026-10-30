@@ -1,6 +1,7 @@
 // Sauvegarde personnelle : réglages, liens, bibliothèque de l'enseignant et
 // suivi complet, dans un fichier versionné. Aucun identifiant n'y figure :
 // l'app n'en stocke aucun. Une restauration invalide laisse tout intact.
+import { CLE_FICHES, estFichesEnregistrees } from './fiches'
 import { fusionnerDonnees, type BilanFusion } from './fusion'
 import type { Seance } from './progression'
 import { estRevisions } from './revisions'
@@ -117,6 +118,7 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
   bibliotheque: estBibliotheque,
   epingles: textesUniques,
   'fiches-vues': textesUniques, // fiches de cours déjà montrées d'office (« id#rang du palier »)
+  [CLE_FICHES]: estFichesEnregistrees, // onglet Fiches
   chapitres: (v) => dictionnaireDe(v, (o) => estObjet(o) && textesUniques(o.ordre) && textesUniques(o.fermes)),
   explorer: parcoursUniques,
   ajoutes: parcoursUniques,

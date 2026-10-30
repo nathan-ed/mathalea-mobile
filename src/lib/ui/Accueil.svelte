@@ -41,6 +41,7 @@
     chapitre = $bindable(null),
     enseignant = false,
     suivi,
+    fiches,
     espaceEnseignant,
     classesEnseignant,
     enClasse,
@@ -66,11 +67,12 @@
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
-    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe'
+    onglet?: 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
     niveau?: string | null // Explorer : degré ouvert (gardé au retour d'un parcours)
     chapitre?: string | null // Explorer : chapitre ouvert
     enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
     suivi: Snippet
+    fiches?: Snippet // fiches de cours de l'élève (fiches.ts)
     espaceEnseignant?: Snippet // bibliothèque (onglet Parcours, clé « creer »)
     classesEnseignant?: Snippet
     enClasse?: Snippet // sessions de l'enseignant
@@ -377,6 +379,8 @@
           </p>
         {/each}
       </div>
+    {:else if onglet === 'fiches' && fiches}
+      {@render fiches()}
     {:else}
       {@render suivi()}
     {/if}
@@ -395,6 +399,7 @@
           { cle: 'mes' as const, libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
           { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
           { cle: 'suivi' as const, libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
+          ...(fiches ? [{ cle: 'fiches' as const, libelle: 'Fiches', icone: 'bx-bookmark', iconeActive: 'bxs-bookmark' }] : []),
         ]}
     actif={onglet}
     onchoisir={(o) => {

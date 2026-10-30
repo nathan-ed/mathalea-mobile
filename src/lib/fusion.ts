@@ -6,6 +6,7 @@
 // d'après eux, dans l'ordre où ils ont eu lieu. Les réglages restent ceux de
 // cet appareil.
 import type { Parcours } from './catalogue'
+import { CLE_FICHES, type FicheDuParcours } from './fiches'
 import { bilan, type ResultatEtape, type Seance } from './progression'
 import type { Releve } from './releve'
 import { ID_REVISIONS, integrerPassages, jour, resultatsRevision, revisionsVides, type Revisions } from './revisions'
@@ -94,6 +95,10 @@ export function fusionnerDonnees(ici: Donnees, la: Donnees): { donnees: Donnees;
       const r: Record<string, string[]> = { ...(a as Record<string, string[]>) }
       for (const [k, v] of Object.entries(x as Record<string, string[]>)) r[k] = union(r[k], v)
       d[cle] = r
+    } else if (cle === CLE_FICHES) {
+      // Ordre de cet appareil, puis les fiches enregistrées seulement là-bas
+      const vues = new Set((a as FicheDuParcours[]).map((f) => f.cle))
+      d[cle] = [...(a as FicheDuParcours[]), ...(x as FicheDuParcours[]).filter((f) => !vues.has(f.cle))]
     } else if (cle === 'objectifs') {
       const vus = new Set((a as { libelle: string }[]).map((o) => o.libelle))
       d[cle] = [...(a as { libelle: string }[]), ...(x as { libelle: string }[]).filter((o) => !vus.has(o.libelle))]
