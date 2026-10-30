@@ -242,7 +242,11 @@ for (let tour = 0; tour < 20; tour++) {
   await pause(1500);
   if (bilan) break;
 }
-await page.getByText(/Bilan/).first().waitFor({ timeout: 30_000 });
+// Bilan : score et « Tout refaire » (« Bilan : … » n'est écrit que pour un palier)
+await page
+  .getByRole("button", { name: "Tout refaire" })
+  .first()
+  .waitFor({ timeout: 30_000 });
 const texte = await page.locator("main").innerText();
 await capture("bilan");
 ok(
@@ -277,20 +281,44 @@ ok(
 );
 await capture("accueil-en-cours");
 
-// 5. Thème sombre du téléphone
+// 5. Thème sombre. L'app suit exactement ce que la WebView signale du
+// téléphone (prefers-color-scheme) ; le réglage « Apparence » l'impose.
+const theme = () =>
+  page.evaluate(() => ({
+    webview: matchMedia("(prefers-color-scheme: dark)").matches,
+    app: document.documentElement.classList.contains("dark"),
+    fond: getComputedStyle(document.body).backgroundColor,
+  }));
+const sombre = (fond) => {
+  const [r, g, b] = fond.match(/\d+/g).map(Number);
+  return r + g + b < 200;
+};
 await appareil.shell("cmd uimode night yes");
 page = await lancer();
 await page
   .getByRole("button", { name: "Réglages" })
   .first()
   .waitFor({ timeout: 90_000 });
-await capture("accueil-sombre");
+await pause(800);
+let t = await theme();
+ok(t.app === t.webview && sombre(t.fond) === t.app, `mode nuit du téléphone : l'app suit la WebView (${JSON.stringify(t)})`);
+if (!t.webview)
+  console.log("⚠ la WebView ne signale pas le mode nuit du téléphone (prefers-color-scheme) : à vérifier sur un vrai téléphone");
+await capture("accueil-mode-nuit");
+await toucher(page.getByRole("button", { name: "Réglages" }).first());
+await toucher(page.getByRole("radio", { name: "Sombre" }));
+await pause(800);
+t = await theme();
+ok(t.app && sombre(t.fond), `Apparence « Sombre » : l'app passe en sombre (${t.fond})`);
+await toucher(page.getByRole("button", { name: /Enregistrer et quitter/ }).first()).catch(() => {});
 await toucher(page.getByRole("button", { name: /^\s*Fractions/ }).first());
 await page
   .locator("main .contenu-mathalea")
   .first()
   .waitFor({ timeout: 90_000 });
 await pause(1500);
+t = await theme();
+ok(t.app && sombre(t.fond), "séance en sombre");
 await capture("seance-sombre");
 await appareil.shell("cmd uimode night no");
 
