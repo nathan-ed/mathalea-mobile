@@ -132,6 +132,16 @@ jobs:
           mkdir -p "captures-android-${{ matrix.api }}"
           timeout 60 adb logcat -d > "captures-android-${{ matrix.api }}/logcat.txt" || true
           cp emulateur.log "captures-android-${{ matrix.api }}/" || true
+      # Captures réduites aussi dans le journal (lisibles sans télécharger d'artefact)
+      - name: Captures dans le journal
+        if: always()
+        run: |
+          for f in captures-android-${{ matrix.api }}/*.png; do
+            [ -e "$f" ] || continue
+            echo "=== CAPTURE $(basename "$f" .png)"
+            convert "$f" -resize 360x -quality 60 jpg:- | base64 -w0
+            echo
+          done
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -187,6 +197,16 @@ jobs:
             xcrun simctl terminate "$appareil" fr.coopmaths.mathalea || true
           done
           xcrun simctl spawn "$appareil" log show --last 5m --predicate 'process == "mathalea-mobile"' --style compact | tail -200 > captures-iphone/journal.txt || true
+      - name: Captures dans le journal
+        if: always()
+        run: |
+          for f in captures-iphone/*.png; do
+            [ -e "$f" ] || continue
+            echo "=== CAPTURE $(basename "$f" .png)"
+            sips -Z 720 -s format jpeg -s formatOptions 60 "$f" --out /tmp/c.jpg > /dev/null
+            base64 -i /tmp/c.jpg | tr -d '\n'
+            echo
+          done
       - uses: actions/upload-artifact@v7
         if: always()
         with:
