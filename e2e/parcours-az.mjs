@@ -252,7 +252,7 @@ async function repondre(e, n, k, a) {
     case 'drag-and-drop': {
       for (const [cle, rep] of Object.entries(v)) {
         if (!cle.startsWith('rectangle')) continue
-        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
+        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
       }
       return
     }
