@@ -97,6 +97,7 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Émulateur Android ${{ matrix.api }}
+        timeout-minutes: 25
         run: |
           sdk="$ANDROID_HOME/cmdline-tools/latest/bin"
           image="system-images;android-${{ matrix.api }};google_apis;x86_64"
@@ -110,7 +111,8 @@ jobs:
           # Démarrage : 15 min au plus, sinon le journal de l'émulateur
           if ! timeout 900 bash -c 'adb wait-for-device; until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 5; done'; then
             echo "::error::L'émulateur n'a pas démarré"
-            tail -80 emulateur.log
+            cat emulateur.log
+            adb devices -l || true
             exit 1
           fi
           adb shell settings put global window_animation_scale 0
@@ -124,10 +126,11 @@ jobs:
           CAPTURES="captures-android-${{ matrix.api }}" node e2e/appareil-android.mjs
       - name: Journal Android
         if: always()
+        timeout-minutes: 3
         run: |
           export PATH="$ANDROID_HOME/platform-tools:$PATH"
           mkdir -p "captures-android-${{ matrix.api }}"
-          adb logcat -d > "captures-android-${{ matrix.api }}/logcat.txt" || true
+          timeout 60 adb logcat -d > "captures-android-${{ matrix.api }}/logcat.txt" || true
           cp emulateur.log "captures-android-${{ matrix.api }}/" || true
       - uses: actions/upload-artifact@v7
         if: always()
