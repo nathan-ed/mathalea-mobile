@@ -486,9 +486,10 @@ ancienne app.
 ## À faire (sans version fixée)
 
 - **PRIORITAIRE : vérifier la migration des données entre les versions de
-  l'app** (Nathan, 2026-10-30), dès que l'app est de nouveau fonctionnelle :
-  la 0.4.8 en production refusait de nombreux élèves, ses données ne servent
-  pas de référence. Méthode prévue : une version publiée jouée dans un
+  l'app** (Nathan, 2026-10-30), dès que l'app est de nouveau fonctionnelle
+  (première séance en classe difficile en 0.4.8). Avant d'envoyer une
+  version sur Google Play, celle en production d'abord : les élèves gardent
+  ses données. Méthode prévue : une version publiée jouée dans un
   worktree à son tag (`git worktree add --detach … v<x>`, `pnpm install`,
   `static/moteur`, `npx vite dev --port 1521`), scénario élève et enseignant
   par `e2e/donnees/creer.mjs` (séance terminée, ceinture obtenue, séance
