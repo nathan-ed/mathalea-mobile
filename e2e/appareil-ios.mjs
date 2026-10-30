@@ -72,10 +72,12 @@ const bouton = (debut) =>
 const exact = (texte) =>
   affiche(`//button[normalize-space(.)=${JSON.stringify(texte)}]`);
 async function attendre(el, ms = 60_000) {
+  el = await el;
   await el.waitForDisplayed({ timeout: ms });
   return el;
 }
 async function toucher(el) {
+  el = await el;
   await el.scrollIntoView({ block: "center" }).catch(() => {});
   await el.click();
   await pause(400);

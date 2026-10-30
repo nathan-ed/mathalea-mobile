@@ -306,7 +306,19 @@ const sombre = await page.evaluate(() => ({
   reglage: localStorage.getItem("theme"),
 }));
 console.log(`Thème sombre : ${JSON.stringify(sombre)}`);
-ok(sombre.app, `mode nuit du téléphone : l'app passe en sombre (${JSON.stringify(sombre)})`);
+const nuit = (await appareil.shell("cmd uimode night")).toString().trim();
+console.log(`Mode nuit d'Android : ${nuit}`);
+if (sombre.telephone) ok(sombre.app, `mode nuit du téléphone : l'app passe en sombre (${JSON.stringify(sombre)})`);
+else console.log("La WebView de l'émulateur n'annonce pas le mode nuit : thème choisi dans les Réglages.");
+if (!sombre.app) {
+  // Thème « Sombre » choisi dans les Réglages de l'app
+  await toucher(page.getByRole("button", { name: "Réglages" }).first());
+  await toucher(page.getByRole("radio", { name: "Sombre" }));
+  await pause(600);
+  ok(await page.evaluate(() => document.documentElement.classList.contains("dark")), "Réglages, Apparence « Sombre » : l'app passe en sombre");
+  await page.goBack();
+  await pause(800);
+}
 await capture("accueil-sombre");
 await toucher(page.getByRole("button", { name: /^\s*Fractions/ }).first());
 await page

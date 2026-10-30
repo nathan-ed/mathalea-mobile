@@ -124,26 +124,9 @@ jobs:
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           adb install -r MathALEA-emulateur.apk
-      # Android 11 de l'émulateur : WebView d'origine (Chrome 83). Un vrai téléphone
-      # la met à jour par le Play Store : on installe une WebView récente
-      # (Chromium) pour jouer l'élève comme sur ce téléphone. Sans elle, le test
-      # vérifie l'écran « Mise à jour nécessaire ».
-      - name: WebView récente
-        if: matrix.api == 30
-        continue-on-error: true
-        run: |
-          export PATH="$ANDROID_HOME/platform-tools:$PATH"
-          base=https://commondatastorage.googleapis.com/chromium-browser-snapshots/Android
-          rev=$(curl -sf "$base/LAST_CHANGE")
-          curl -sfLo chromium.zip "$base/$rev/chrome-android.zip"
-          unzip -q chromium.zip
-          apk=$(find chrome-android -name 'SystemWebView*.apk' | head -1)
-          echo "WebView : $apk (Chromium $rev)"
-          adb install -r "$apk"
-          # Paquet de la WebView installée, choisi comme WebView du système
-          paquet=$(unzip -p "$apk" AndroidManifest.xml | strings -el | grep -m1 -o 'com\.[a-z.]*webview' || echo com.android.webview)
-          adb shell cmd webviewupdate set-webview-implementation "$paquet" || true
-          adb shell dumpsys webviewupdate | head -20
+      # Android 11 de l'émulateur : WebView d'origine (Chrome 83, sans Play Store
+      # pour la mettre à jour). Le test y vérifie l'écran « Mise à jour
+      # nécessaire » ; le parcours complet est joué sur Android 15.
       - name: Élève sur l'app installée
         timeout-minutes: 20
         run: |
