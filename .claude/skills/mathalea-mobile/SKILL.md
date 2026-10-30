@@ -111,9 +111,15 @@ Ergonomie décidée
 Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce
   projet, Nathan a demandé de **pousser souvent**, même sans release prête.
-- MathALÉA : « on ne fork pas ». Le code du moteur vit dans `moteur/` en
-  attendant la MR !9394 (branche `moteur-app-mobile`, voir 3). Pousser vers
-  MathALÉA : HTTPS avec `-c 'credential.helper=!glab auth git-credential'`
+- Une session = une branche et un worktree (`bash scripts/worktree.sh <nom>`) ;
+  le travail en cours se commite sur sa branche, jamais laissé dans la copie
+  de travail de `main` (plusieurs sessions, locales et cloud, travaillent sur
+  ce dépôt ; un « WIP temporaire » mis de côté puis réappliqué a failli se
+  perdre le 2026-10-30). Une seule suite e2e à la fois sur la machine : les
+  worktrees partagent les ports 1420 et 8702.
+- MathALÉA : « on ne fork pas ». Le moteur est dans le `main` de MathALÉA
+  (MR !9394) ; nos ajouts vivent dans `moteur/fichiers/` (voir 3). Pousser
+  vers MathALÉA : HTTPS avec `-c 'credential.helper=!glab auth git-credential'`
   (le SSH ne passe pas) ; travailler dans `~/Documents/projets/mathalea`
   (Nathan l'a autorisé) puis le remettre sur sa branche.
 
@@ -382,13 +388,10 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `docs/confidentialite-brouillon.html`. Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
   un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
-  Envoi automatique du lundi (`google-play.yml`) **désactivé** sur GitHub
-  le 2026-10-19 pendant cet examen ; le réactiver seulement sur demande de
-  Nathan (`gh workflow enable google-play.yml --repo nathan-ed/mathalea-mobile`).
-  Pour un envoi à la main pendant la pause : `enable`, `workflow run … -f
-  piste=internal`, puis `disable` aussitôt (un run lancé continue). 0.4.0
-  (code 26101907), 0.4.1 et 0.4.2 envoyées ainsi en test interne le 2026-10-19,
-  0.4.5 (code 26102520) le 2026-10-25. Le run sans `piste` part en production.
+  `google-play.yml` reste **désactivé** sur GitHub : l'activer seulement
+  le temps d'un envoi demandé par Nathan (`gh workflow enable`, `gh workflow
+  run … -f piste=internal`, puis `disable` aussitôt ; un run lancé continue).
+  Sans `piste`, l'envoi part en production.
   Réglage dans le code de session (`modeQr` : empreinte du code entier, pas
   une lettre, pour qu'un élève ne puisse pas choisir son mode) : aucun, après,
   avant la correction (correction à la fin et QR code avant les résultats),
@@ -429,35 +432,11 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
 - Suisse : niveaux 9e, 10e, 11e, 1re à 4e Collège, référentiel CH. Le niveau
   d'un parcours d'un autre pays reste affiché dans l'éditeur.
 
-Mises à jour du moteur sans mise à jour de l'app (`src-tauri/src/moteur.rs`)
-- Publication : par le site, à chaque mise en ligne, sur
-  `https://mathalea.fr/releases/` (`URL_MISES_A_JOUR`). Scripts dans
-  `moteur/fichiers/tasks/` (entrent dans MathALÉA avec la MR) :
-  `pnpm build:moteur` puis `pnpm deploy:moteur` (`deploy_moteur.sh` :
-  `publier_moteur.mjs` signe, rsync de l'archive puis de `mise-a-jour.json`
-  et `.sig` vers `REMOTE_RELEASES_PATH`, trois archives gardées ; sans
-  `REMOTE_SERVER`, dossier local pour les essais) ; `build:deploy` enchaîne
-  site et moteur. Deux scripts séparés voulus : publier le moteur seul, et
-  un échec du moteur ne bloque pas le site. Mode d'emploi des clés pour qui
-  publie : `moteur/fichiers/documentation/developpement/maintenance-moteur/architecture/publication-moteur.md`
-  (`node tasks/cles_moteur.mjs <.pem>`, la clé publique revient à l'app dans
-  `CLE_PUBLIQUE`). Clé actuelle = clé de mathalea.fr (Rémi Angot, depuis
-  0.1.5) ; la clé de test (`~/.local/share/mathalea-mobile/moteur-ed25519.pem`)
-  ne signe plus que des publications locales, refusées par `CLE_PUBLIQUE`.
-  Contrôle sur la vraie publication : copier `mise-a-jour.json`, `.sig` et
-  l'archive de mathalea.fr/releases dans un dossier, puis
-  `MOTEUR_PUBLICATION=<dossier> cargo test moteur -- --include-ignored`.
-- Format : `moteur-<v>.tar.gz`, `mise-a-jour.json` (format `moteur-mathalea/1`,
-  version, api, publieLe, archive, taille, sha256), `mise-a-jour.json.sig`
-  (Ed25519, base64). La signature protège les apps d'un serveur web
-  compromis (le moteur a les droits de l'app) ; la clé privée n'est pas sur
-  le serveur.
-- App : signature, même API, plus récent (`publieLe`), taille et SHA-256,
-  extraction à part, activation au lancement suivant (jamais en séance),
-  recherche au lancement, au retour dans l'app et toutes les 10 min comme
-  les dossiers suivis et l'Explorer (`actualiser()`),
-  servi par `moteur://`, repli sur le moteur livré. Réglages : version et
-  « Rechercher une mise à jour ».
+Mises à jour du moteur téléchargées (`src-tauri/src/moteur.rs`) : **désactivées**
+(Nathan, 2026-10-29 : « les apps doivent toutes utiliser notre moteur »). Le
+code reste (signature Ed25519, `moteur://`, repli sur le moteur livré), actif
+seulement avec `MATHALEA_MOTEUR_MAJ=1`. Publication, format et clés :
+`docs/historique.md`.
 - Catalogue de l'Explorer : `explorer/*.json` **intégré au build**
   (`src/lib/catalogueIntegre.ts`, chargé à la demande). `URL_EXPLORER`
   (`partage.ts`) est vide par défaut : un catalogue en ligne servi plus tard
@@ -693,31 +672,16 @@ Environnement (machine de Nathan)
   `node e2e/guide-site.mjs` (MathALÉA local, `npx vite --port 5180` dans le
   worktree), puis `FICHIER=<publié> SEULEMENT=importer node e2e/guide.mjs`.
   Ton voulu par Nathan : simple, « pas une syntaxe de livre ».
-- Historique réécrit le 15 octobre 2026 (adresse personnelle retirée de deux
-  commits) : tags `v*` et releases de la forge recréés, tag `moteur` supprimé.
-- Google Play (15 octobre 2026) : 0.2.4 (code 26101518) envoyée en
-  production, en examen. Bundle : `google-play.yml` (signé `CN=CoopMaths`,
-  vérifier `keytool -printcert -jarfile`). Exigence des pages de 16 Ko :
-  `-Wl,-z,max-page-size=16384` dans `src-tauri/build.rs` (Tauri impose
-  RUSTFLAGS, `.cargo/config.toml` ne marcherait pas) ; contrôle
-  `readelf -lW` sur le `.so`, segments `LOAD` à `0x4000`. Un code de version
-  déjà importé est refusé : « Ajouter à partir de la bibliothèque ».
-  Bêta-testeurs (inscription par Mattermost auprès de Nathan) : piste
-  « Tests fermés » avec liste d'adresses Gmail, pas « Tests ouverts ».
-  Avertissements Play sur `setStatusBarColor` : viennent d'androidx
-  (`enableEdgeToEdge`), rien à faire. Envoi automatique : secret
-  `GOOGLE_PLAY_SERVICE_ACCOUNT` posé, API « Google Play Android Developer »
-  activée le 16 octobre 2026 (projet 922562518325). Envoi à la main :
-  `gh workflow run google-play.yml --repo nathan-ed/mathalea-mobile -f forcer=true -f piste=internal`.
-  0.3.0 envoyée en « Test interne » le 16 octobre 2026, puis 0.3.1. Le
-  `versionCode` est daté à l'heure (`AAMMJJHH`, UTC) : deux envois dans la
-  même heure sont refusés (« Version code … has already been used ») ;
-  relancer après l'heure pleine. Test fermé (liste « Test 1 ») = piste
-  `alpha` ; une version pour le test interne et le fermé = deux envois dans
-  deux heures différentes (0.3.2, 17 octobre 2026). Attention : le
-  lundi, sans `piste`, l'envoi part en **production** (dernier tag `v*`, si
-  nouveau moteur publié). Le `.aab` (70 Mo) ne va pas sur la forge ; trop
-  gros pour SendUserFile (30 Mo).
+- Google Play : bundle par `google-play.yml` (signé `CN=CoopMaths`, vérifier
+  `keytool -printcert -jarfile`). Pages de 16 Ko : `-Wl,-z,max-page-size=16384`
+  dans `src-tauri/build.rs` (Tauri impose RUSTFLAGS) ; contrôle `readelf -lW`
+  sur le `.so`, segments `LOAD` à `0x4000`. `versionCode` daté à l'heure
+  (`AAMMJJHH`, UTC) : deux envois dans la même heure sont refusés. Pistes :
+  `internal` (test interne), `alpha` (test fermé « Test 1 », adresses Gmail
+  des bêta-testeurs inscrits auprès de Nathan) ; **sans `piste`, envoi en
+  production**. Un code déjà importé : « Ajouter à partir de la bibliothèque ».
+  Avertissements `setStatusBarColor` : androidx, rien à faire. Le `.aab`
+  (70 Mo) ne va pas sur la forge. Historique des envois : `docs/historique.md`.
 - `.ipa` non signée pour iPhone (`ios.yml`, `ipa=true`,
   `scripts/ios-sans-signature.sh`) jointe aux releases de la forge : lancer
   `gh workflow run ios.yml --ref v<x> -f ipa=true` (ou sur main au même
@@ -741,39 +705,33 @@ Environnement (machine de Nathan)
 
 ## 8. Tests
 
-- `pnpm check` (svelte-check, 0 erreur et 0 avertissement),
-  `pnpm test` (vitest : partage, drives simulés, fusion, versions, sessions,
-  bibliothèque, sauvegarde), `cd src-tauri && cargo test` (moteur : signature,
-  archive altérée, autre API…) ; `cargo test -- --include-ignored` lit aussi
-  les vrais dossiers kDrive et Dropbox ;
-  `MOTEUR_PUBLICATION=<sortie> cargo test -- --ignored` vérifie une
-  publication du script Node.
-- Bout en bout `e2e/complet.mjs` (Playwright, Chromium système, trois
-  appareils simulés à 390 px) : serveur `pnpm dev` sur 1420 ; dossier partagé
-  local `spike-sync` (`../parcours-spikes/spike-sync`, 8701 WebDAV, 8702
-  public, lien `http://127.0.0.1:8702/s/Xk42demo/test/`) ;
-  `npx tsx e2e/preparer.mts <dossier>` (classes de test et catalogue
-  Explorer) ; `.env.development.local` avec
-  `VITE_URL_EXPLORER=http://127.0.0.1:8702/s/Xk42demo/explorer/` ;
-  `DOSSIER=<dossier> CAPTURES=e2e/captures node e2e/complet.mjs` →
-  « TOUT VERT ». Vider `<dossier>/classe-3a` avant. Regarder les captures.
-- `node e2e/test-niveau-reel.mjs` (seulement `pnpm dev`, `THEME`, `NIVEAU`) :
-  test parcouru au toucher sur téléphone et bureau, suivi, suppression,
-  parcours de l'Explorer non ajouté, exercice masqué.
-- `node e2e/regressions.mjs` (seulement `pnpm dev`) : brouillon d'une question
-  quittée aussitôt, Entrée avec correction à la fin, suivi d'une ancienne
-  version. Vraie frappe clavier : la sonde réessaie tant que le champ
-  MathLive n'est pas prêt (sinon résultats aléatoires).
-- Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
-  par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
-- `node e2e/papier.mjs` et `node e2e/recherche.mjs` (seulement `pnpm dev`,
-  sans le serveur de dossier qui remplace l'Explorer) : exercice papier,
-  tous les chapitres.
-- `node e2e/retour.mjs` (seulement `pnpm dev` et le dossier « test ») :
-  bouton retour (`page.goBack()`) à chaque niveau.
-- `node e2e/captures-enseignant.mjs <dossier>` : captures enseignant en clair
-  et en sombre.
-- `node e2e/drives.mjs` : vrais kDrive et Dropbox dans le navigateur (relais).
+- `pnpm check` (svelte-check, 0 erreur et 0 avertissement), `pnpm test`
+  (vitest), `cd src-tauri && cargo test` ; `cargo test -- --include-ignored`
+  lit aussi les vrais dossiers kDrive et Dropbox.
+- Avant une release : `bash scripts/verifier-release.sh` (lancé par
+  `publier.sh`), environ 1 h : check, test, cargo, puis toutes les suites de
+  `e2e/suites.json` en parallèle (`PARALLELE`, 4 par défaut), formats de
+  réponse et parcours de A à Z (`GROUPES_AZ`, 5), celles du port 8702 une à
+  une, enfin `complet` (trois appareils, dossier partagé servi par python sur
+  8702). Il refuse un `static/moteur` périmé (`scripts/moteur-a-jour.sh` :
+  après tout changement de `moteur/`, `pnpm moteur`) et un port 1420 déjà
+  occupé. Journaux et captures dans `$SORTIE` : regarder les captures.
+- Liste des suites : `e2e/suites.json`, seule source (`tests/suites-e2e.test.ts`
+  vérifie `release.yml`, `emulateurs.yml` et le script local). Une nouvelle
+  suite s'y classe, dans un groupe de la matrice ou dans `horsCi` avec sa raison.
+- Une suite seule : `pnpm dev` (1420) puis `node e2e/<suite>.mjs` ; l'en-tête
+  de chaque script dit ce qu'il lui faut. `explorer` et `defilement-ecrans`
+  servent eux-mêmes leur catalogue sur 8702 et demandent
+  `VITE_URL_EXPLORER=http://127.0.0.1:8702/explorer.json`. Rien ne doit
+  tourner sur 1420 ni 8702 avant (un serveur resté ouvert fait tourner les
+  suites sur la mauvaise adresse : vu le 2026-10-30).
+- Vrais appareils : `e2e/appareil-android.mjs` (APK d'essai x86_64 installée
+  sur l'émulateur, `adb`) et `e2e/appareil-ios.mjs` (simulateur, CI
+  `emulateurs.yml`). Les deux affirment, pas seulement des captures.
+- Mise à jour de l'app : `e2e/mise-a-jour.mjs` ouvre avec la version courante
+  les données laissées par d'anciennes versions (`e2e/donnees/*.json`).
+- Captures pour la doc (hors vérification) : `captures-enseignant`, `guide`,
+  `fiche-play`, `apercu-parcours` ; vrais drives : `drives`.
 - Pièges Playwright : sélecteurs ambigus (`Enregistrer et quitter`,
   `Ouvrir le dossier`, boutons « Retirer l'exercice 4C21 » vs l'exercice) →
   `.first()/.last()` ou nom plus précis ; attendre la description d'un
@@ -914,31 +872,3 @@ Environnement (machine de Nathan)
   premier texte en gras, focus gardé, hauteur limitée à la zone visible.
 - Ne jamais faire de capture du bureau de Nathan (`import -window root`) :
   données personnelles. Vérifier par Playwright avec ses données copiées.
-
-## 10. Feuille de route
-
-- 0.1.1 : publiée (éditeur sur un écran, navigateur d'exercices, plusieurs
-  fichiers par dossier, téléchargements après validation, partage Android,
-  mises à jour du moteur et Explorer avec adresses provisoires).
-- À fixer avec Coopmaths : adresse du catalogue servi (`VITE_URL_EXPLORER`,
-  le catalogue est intégré à l'app en attendant),
-  vraie clé de signature du moteur et de l'APK, projet de la forge public,
-  MR du moteur dans MathALÉA (puis supprimer `moteur/` et la release `moteur`
-  du miroir GitHub).
-- 0.1.2 (publiée) : fiabilité (sauvegardes, brouillons, Entrée, suivi).
-- 0.1.3 (publiée) : espace enseignant réorganisé (Publier et état « à jour chez les
-  élèves », mise en route, « Éditer un parcours existant » pour tous les
-  parcours, « Exporter ce parcours », Dupliquer, ordre par classe,
-  correction invisible pour les élèves : `reprendreResultats`), relecture
-  des dossiers et du moteur à chaque retour dans l'app.
-- 0.1.4 : interface d'app, APK plus compatible, écran WebView ancien.
-- 0.1.5 : dictionnaire de compétences par chapitre (édité dans l'app ou
-  importé en JSON), étiquetage rapide des exercices, suivi par compétence.
-- Idées notées par Nathan (docs/developpement.md, « À faire ») : création
-  de parcours depuis le site MathALÉA (et édition d'un `.json` chargé),
-  retour élève vers enseignant (QR ou fichier `bilan-mathalea/1` avec
-  statistiques et réponses des tentatives dernière et meilleure, graines
-  pour régénérer les questions ; tailles mesurées dans la doc).
-- Plus tard : moteur en ressource Android (une copie), iOS sur TestFlight,
-  Wi-Fi seulement pour le moteur, version minimale du moteur par parcours,
-  clé Google Drive, ressources (PDF, images) à côté des parcours.

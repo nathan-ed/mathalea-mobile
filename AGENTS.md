@@ -82,3 +82,7 @@ complète (détails dans le skill, « Vérification »).
   `docs/fiche-boutiques.md`).
 - Ne rien commiter ni pousser sans demande explicite (sur ce projet, Nathan a
   demandé de pousser souvent).
+- Une session = une branche et un worktree : `bash scripts/worktree.sh <nom>`.
+  Le travail en cours se commite sur sa branche, jamais laissé dans la copie
+  de travail de `main` (plusieurs sessions, locales et cloud, travaillent sur
+  ce dépôt). Une seule suite e2e à la fois sur la machine (ports 1420, 8702).
