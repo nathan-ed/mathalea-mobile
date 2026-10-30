@@ -42,6 +42,12 @@ toute modification.
   (`MISES_A_JOUR`, `moteur.rs`). Le code de MathALÉA n'est jamais modifié ;
   les corrections vont dans `moteur/fichiers/src/moteur/index.ts`, le style
   dans `src/app.css`.
+- Moteur de chaque version : toujours commiter le moteur construit avec la
+  version, dans `releases/<vX.Y.Z>/MathALEA-<X.Y.Z>-moteur.tar.gz` (Git LFS ;
+  `tar -czf … -C static moteur`). Sans lui, on ne peut plus rejouer ni
+  vérifier une version sans la forge de MathALÉA (session sans accès à la
+  forge, 30 octobre 2026). Pour une version déjà publiée sans archive :
+  `scripts/moteur-depuis-app.py` l'extrait du binaire Linux de la release.
 
 ## Vérifier avant de rendre
 

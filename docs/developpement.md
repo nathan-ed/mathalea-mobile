@@ -18,6 +18,13 @@ un **paquet moteur** construit depuis le dépôt MathALÉA (branche
   morceaux, `moteur.css`, polices, `manifest.json`) et le copie dans
   `static/moteur/` (non versionné). Taille : 70 Mo sur disque, 20 Mo
   compressé.
+- Chaque version garde son moteur : commiter le moteur construit dans
+  `releases/<vX.Y.Z>/MathALEA-<X.Y.Z>-moteur.tar.gz` (Git LFS,
+  `tar -czf releases/vX.Y.Z/MathALEA-X.Y.Z-moteur.tar.gz -C static moteur`).
+  Pour le remettre : `tar -xzf … -C static`. Sans cette archive, rejouer une
+  version demande la forge de MathALÉA. Pour une version publiée sans
+  archive, `scripts/moteur-depuis-app.py` extrait le moteur du binaire Linux
+  de la release (`.deb`) et le contrôle avec `manifest.json`.
 - `src/lib/moteur.ts` le charge (`import()` dynamique) et vérifie la version
   d'API (`API_MOTEUR`).
 - API : `preparerExercice` (uuid, paramètres, graine), `afficher` (KaTeX,

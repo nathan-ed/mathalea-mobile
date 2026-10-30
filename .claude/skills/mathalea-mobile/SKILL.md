@@ -332,6 +332,12 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   Le clone est remis à l'état exact du commit à chaque fois : n'y rien éditer.
   Éditer le moteur = éditer `moteur/fichiers/`. Version du moteur :
   `date+commit.empreinte` (empreinte de `moteur/`, via `MOTEUR_VERSION`).
+- **Toujours commiter le moteur avec une nouvelle version** (Nathan,
+  2026-10-30) : `releases/<v>/MathALEA-<x>-moteur.tar.gz` (LFS,
+  `tar -czf … -C static moteur`), pour pouvoir le reprendre plus tard sans la
+  forge (une session cloud n'y a pas accès). Version publiée sans archive :
+  `python3 -I scripts/moteur-depuis-app.py <binaire du .deb> <sortie>`
+  (moteur embarqué dans le binaire, en brotli ; contrôle par `manifest.json`).
 - Sur la machine de Nathan, le cache est un worktree du dépôt
   `~/Documents/projets/mathalea` ; le worktree `~/Documents/projets/mathalea-moteur`
   (branche `moteur-embarquable`, non commité) a servi au développement et
