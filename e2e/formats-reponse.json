@@ -1,0 +1,604 @@
+{
+ "format": "classes-mathalea/1",
+ "classes": [
+  {
+   "nom": "Types",
+   "parcours": [
+    {
+     "id": "types-reponse",
+     "version": 1,
+     "titre": "Formats de réponse",
+     "objectif": "",
+     "niveau": "9e",
+     "theme": "Essai",
+     "difficulte": 1,
+     "icone": "bx-calculator",
+     "presentation": "une_question_par_page",
+     "correction": "question",
+     "style": "paliers",
+     "paliers": [
+      {
+       "titre": "MetaInteractif2d",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "alea-iep-editeur",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "apigeom-figure",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "clique-figure",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "decomposition-facteurs-premiers",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "demi-droite-interactive",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "diagram-pie-assessment",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "dnd",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "echiquier-probleme",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "ensemble-intervalles-droite",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "etoile-calculs",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "fill-in-the-blank",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "fillInTheBlank",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "grimuku-grille",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "guide-ane",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "interactive-clock",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "intervalle-droite",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "juniper-green",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "kenken-grille",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "killer-sudoku-grille",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "liste-deroulante",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-branching-qcm",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-compte-est-bon",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-couteau-suisse",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-labyrinthe",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-mathfield",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-qcm",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-solveur",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathalea-textfield",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "mathlive",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "meta-custom",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "meta-interactif-2d",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "multi-mathfield",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "my-calculator",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "my-spreadsheet",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "objets-cliquables",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "points-cliquables",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "possible-multi-lines-answer",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "pyramide-nombres",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "qcm",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "relier-etiquettes",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "scratch-editor",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "svg-selection",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "tableau-hybride",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "tableau-mathlive",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "tableau-signes-variations",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "tableauMathlive",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "tables-effacees-grille",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "traceur-de-courbe",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
+       "titre": "trigo-circle-selection",
+       "nb": 1,
+       "acces": "libre"
+      }
+     ],
+     "etapes": [
+      {
+       "uuid": "845fa",
+       "id": "845fa",
+       "nbQuestions": 2,
+       "titre": "MetaInteractif2d (845fa)"
+      },
+      {
+       "uuid": "d7c5c",
+       "id": "6AutoG2-3",
+       "nbQuestions": 2,
+       "titre": "alea-iep-editeur (6AutoG2-3)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "1d6ca",
+       "id": "9ES1E-20",
+       "nbQuestions": 2,
+       "titre": "apigeom-figure (9ES1E-20)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "f57fe",
+       "id": "CM2G5C-1",
+       "nbQuestions": 2,
+       "titre": "clique-figure (CM2G5C-1)"
+      },
+      {
+       "uuid": "984fb",
+       "id": "5N1L-5",
+       "nbQuestions": 2,
+       "titre": "decomposition-facteurs-premiers (5N1L-5)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "cff13",
+       "id": "6N3D-1",
+       "nbQuestions": 2,
+       "titre": "demi-droite-interactive (6N3D-1)"
+      },
+      {
+       "uuid": "d3ba7",
+       "id": "5D1D-1",
+       "nbQuestions": 2,
+       "titre": "diagram-pie-assessment (5D1D-1)"
+      },
+      {
+       "uuid": "85618",
+       "id": "85618",
+       "nbQuestions": 2,
+       "titre": "dnd (85618)"
+      },
+      {
+       "uuid": "b7f28",
+       "id": "6N5-14",
+       "nbQuestions": 2,
+       "titre": "echiquier-probleme (6N5-14)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "6a1956",
+       "id": "2N12-9",
+       "nbQuestions": 2,
+       "titre": "ensemble-intervalles-droite (2N12-9)"
+      },
+      {
+       "uuid": "e7f3a",
+       "id": "EN-EtoileCalculs",
+       "nbQuestions": 2,
+       "titre": "etoile-calculs (EN-EtoileCalculs)"
+      },
+      {
+       "uuid": "6d205",
+       "id": "9NO1G-9",
+       "nbQuestions": 2,
+       "titre": "fill-in-the-blank (9NO1G-9)"
+      },
+      {
+       "uuid": "0e77e",
+       "id": "9NO3B-1",
+       "nbQuestions": 2,
+       "titre": "fillInTheBlank (9NO3B-1)"
+      },
+      {
+       "uuid": "01def",
+       "id": "EN-Grimuku",
+       "nbQuestions": 2,
+       "titre": "grimuku-grille (EN-Grimuku)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "327f2",
+       "id": "4G30-0",
+       "nbQuestions": 2,
+       "titre": "guide-ane (4G30-0)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "51242",
+       "id": "canc3D04",
+       "nbQuestions": 2,
+       "titre": "interactive-clock (canc3D04)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "a6e62",
+       "id": "2N12-7",
+       "nbQuestions": 2,
+       "titre": "intervalle-droite (2N12-7)"
+      },
+      {
+       "uuid": "cc308",
+       "id": "EN-Juniper-Green",
+       "nbQuestions": 2,
+       "titre": "juniper-green (EN-Juniper-Green)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "5b4fa",
+       "id": "EN-KenKen",
+       "nbQuestions": 2,
+       "titre": "kenken-grille (EN-KenKen)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "4f449",
+       "id": "EN-KillerSudoku",
+       "nbQuestions": 2,
+       "titre": "killer-sudoku-grille (EN-KillerSudoku)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "043ca",
+       "id": "9ES1D-15",
+       "nbQuestions": 2,
+       "titre": "liste-deroulante (9ES1D-15)"
+      },
+      {
+       "uuid": "8d4f2",
+       "id": "4L23",
+       "nbQuestions": 2,
+       "titre": "mathalea-branching-qcm (4L23)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "dcef5",
+       "id": "EN-CompteBon",
+       "nbQuestions": 2,
+       "titre": "mathalea-compte-est-bon (EN-CompteBon)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "99d95",
+       "id": "CM2D1A-1",
+       "nbQuestions": 2,
+       "titre": "mathalea-couteau-suisse (CM2D1A-1)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "labyvec",
+       "id": "labyvec",
+       "nbQuestions": 2,
+       "titre": "mathalea-labyrinthe (labyvec)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "d4k7m",
+       "id": "9NO1G-19",
+       "nbQuestions": 2,
+       "titre": "mathalea-mathfield (9NO1G-19)"
+      },
+      {
+       "uuid": "d1fb2",
+       "id": "9NO3B-9",
+       "nbQuestions": 2,
+       "titre": "mathalea-qcm (9NO3B-9)"
+      },
+      {
+       "uuid": "58286",
+       "id": "58286",
+       "nbQuestions": 2,
+       "titre": "mathalea-solveur (58286)"
+      },
+      {
+       "uuid": "95371",
+       "id": "6AutoE1-1",
+       "nbQuestions": 2,
+       "titre": "mathalea-textfield (6AutoE1-1)"
+      },
+      {
+       "uuid": "15fd6",
+       "id": "9NO1A-13",
+       "nbQuestions": 2,
+       "titre": "mathlive (9NO1A-13)"
+      },
+      {
+       "uuid": "a7f28",
+       "id": "3G95-17",
+       "nbQuestions": 2,
+       "titre": "meta-custom (3G95-17)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "e8254",
+       "id": "canc3a-2026-Q22",
+       "nbQuestions": 2,
+       "titre": "meta-interactif-2d (e8254)"
+      },
+      {
+       "uuid": "9ea32",
+       "id": "9NO1A-16",
+       "nbQuestions": 2,
+       "titre": "multi-mathfield (9NO1A-16)"
+      },
+      {
+       "uuid": "0aaea",
+       "id": "can6C7-07",
+       "nbQuestions": 2,
+       "titre": "my-calculator (can6C7-07)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "4662d",
+       "id": "4662d",
+       "nbQuestions": 2,
+       "titre": "my-spreadsheet (4662d)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "40d57",
+       "id": "4G20-0",
+       "nbQuestions": 2,
+       "titre": "objets-cliquables (4G20-0)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "4f2a3",
+       "id": "4f2a3",
+       "nbQuestions": 2,
+       "titre": "points-cliquables (4f2a3)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "5e37d",
+       "id": "CM2N4B-1",
+       "nbQuestions": 2,
+       "titre": "possible-multi-lines-answer (CM2N4B-1)"
+      },
+      {
+       "uuid": "fa607",
+       "id": "EN-Pyramide",
+       "nbQuestions": 2,
+       "titre": "pyramide-nombres (EN-Pyramide)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "667d9",
+       "id": "667d9",
+       "nbQuestions": 2,
+       "titre": "qcm (667d9)"
+      },
+      {
+       "uuid": "bd726",
+       "id": "bd726",
+       "nbQuestions": 2,
+       "titre": "relier-etiquettes (bd726)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "c1f91",
+       "id": "5I1C",
+       "nbQuestions": 2,
+       "titre": "scratch-editor (5I1C)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "1474f",
+       "id": "1474f",
+       "nbQuestions": 2,
+       "titre": "svg-selection (1474f)"
+      },
+      {
+       "uuid": "b74c8",
+       "id": "6AutoS1-4",
+       "nbQuestions": 2,
+       "titre": "tableau-hybride (6AutoS1-4)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "0c3d9",
+       "id": "3mLimCont-3",
+       "nbQuestions": 2,
+       "titre": "tableau-mathlive (3mLimCont-3)"
+      },
+      {
+       "uuid": "39232",
+       "id": "39232",
+       "nbQuestions": 2,
+       "titre": "tableau-signes-variations (39232)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "b7e2d",
+       "id": "2mTrigoTri-6",
+       "nbQuestions": 2,
+       "titre": "tableauMathlive (2mTrigoTri-6)"
+      },
+      {
+       "uuid": "eb23a",
+       "id": "EN-TablesEffacees",
+       "nbQuestions": 2,
+       "titre": "tables-effacees-grille (EN-TablesEffacees)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "d4c81",
+       "id": "d4c81",
+       "nbQuestions": 2,
+       "titre": "traceur-de-courbe (d4c81)",
+       "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "d9a41",
+       "id": "2mTrigoFct-3",
+       "nbQuestions": 2,
+       "titre": "trigo-circle-selection (2mTrigoFct-3)",
+       "verifie": "prise-en-compte"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

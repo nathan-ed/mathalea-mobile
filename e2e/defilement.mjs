@@ -72,6 +72,29 @@ ok((await page.evaluate(() => scrollY)) > 200, 'accueil allongé : le doigt fait
 await glisser(cdp, page, 350, 400, 400, 20)
 const large = await page.evaluate(() => ({ largeur: innerWidth, decalage: visualViewport?.offsetLeft ?? 0, x: scrollX }))
 ok(large.largeur === 390 && large.decalage === 0 && large.x === 0, `contenu de 1200 px : la page garde la largeur de l’écran (${JSON.stringify(large)})`)
+
+// Séance : un énoncé plus haut que l'écran défile au doigt, même en partant de
+// la question (cadre qui défile en largeur, `.question-eleve`)
+await page.goto('http://localhost:1420/')
+await page.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
+await page.getByRole('button', { name: /^(Commencer|Continuer)/ }).first().click()
+const entrainement = page.getByRole('button', { name: 'Commencer l’entraînement' })
+if (await entrainement.isVisible({ timeout: 3000 }).catch(() => false)) await entrainement.click()
+await page.locator('.question-eleve').first().waitFor({ timeout: 30000 })
+await page.waitForTimeout(800)
+await page.evaluate(() => {
+  const d = document.createElement('div')
+  d.style.cssText = 'height: 1500px'
+  document.querySelector('.question-eleve')?.append(d)
+  ;document.activeElement?.blur?.()
+})
+await page.waitForTimeout(500)
+const zone = await page.locator('.question-eleve').first().boundingBox()
+await glisser(cdp, page, 200, Math.min(600, zone.y + zone.height - 20), 150)
+ok((await page.evaluate(() => scrollY)) > 200, 'séance : le doigt fait descendre un énoncé long, depuis la question')
+await glisser(cdp, page, 200, 200, 700)
+await glisser(cdp, page, 200, 200, 700)
+ok((await page.evaluate(() => scrollY)) === 0, 'séance : le doigt fait remonter en haut')
 await ctx.close()
 
 // Fenêtre de bureau : molette

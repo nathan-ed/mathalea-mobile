@@ -62,9 +62,10 @@
    * ne répond plus à getPromptValue : sa valeur LaTeX, elle, reste lisible.
    */
   function trouDe(champ: HTMLElement & { value?: string; getPromptValue?: (p: string) => string }) {
-    const v = champ.isConnected ? (champ.getPromptValue?.('champ1') ?? '') : ''
-    if (v) return v
-    return /\\placeholder\[champ1\](?:\[[^\]]*\])*\{(.*)\}/.exec(champ.value ?? '')?.[1] ?? ''
+    // Dans la page, le trou fait foi, même vide : la valeur LaTeX contient aussi
+    // ce qui suit le trou (« \\text{ cm}^2 »), pris sinon pour une réponse
+    if (champ.isConnected && typeof champ.getPromptValue === 'function') return champ.getPromptValue('champ1') ?? ''
+    return /\\placeholder\[champ1\](?:\[[^\]]*\])*\{([^{}]*)\}/.exec(champ.value ?? '')?.[1] ?? ''
   }
 
   /** Champ à trous (« 81 = … × … ») dont aucun trou n'est rempli : sa valeur LaTeX n'est jamais vide */
@@ -73,9 +74,54 @@
     return trous.length > 0 && trous.every((t) => !champ.getPromptValue?.(t)?.trim())
   }
 
+  // Éléments de réponse de MathALÉA qui ne sont ni un champ ni une case :
+  // liste déroulante, champs multiples (« … < √a < … »), glisser-déposer,
+  // sélection dans une figure (plaque de chocolat). Leur valeur (id → value)
+  // est celle que MathALÉA enregistre et réécrit.
+  const ELEMENTS_REPONSE = 'liste-deroulante[id], multi-mathfield[id], drag-and-drop[id], svg-selection[id]'
+  // Éléments lus par leurs champs ou par leur valeur : un toucher n'y est pas une réponse
+  const LUS = new Set(['MATH-FIELD', 'INPUT', 'TEXTAREA', 'SELECT', 'LISTE-DEROULANTE', 'MULTI-MATHFIELD', 'DRAG-AND-DROP', 'SVG-SELECTION', 'MATHALEA-QCM'])
+  // Élément de réponse de MathALÉA : id …Ex<n>Q<k>… (Ex<n>F<k> pour apigeom), hors smiley et message de retour
+  const ID_REPONSE = /Ex\d+[QF]\d+/
+  const ID_RETOUR = /^(resultatCheck|feedback)/
+
+  // Toucher une figure, un point, une horloge… (cliquer une figure, placer un
+  // point avec apigeom, etc.) : ces réponses ne se lisent pas toutes ; le
+  // toucher suffit pour que Vérifier s'active
+  let interagi = false
+  function surInteraction(e: Event) {
+    if (resultat || lectureSeule) return
+    const chemin = e.composedPath().filter((n): n is Element => n instanceof Element)
+    if (chemin.some((n) => LUS.has(n.tagName))) return
+    if (!chemin.some((n) => ID_REPONSE.test(n.id) && !ID_RETOUR.test(n.id))) return
+    interagi = true
+    setTimeout(() => zone?.isConnected && surSaisie(new Event('input')))
+  }
+
+  /** Valeur d'un élément de réponse : texte, ou JSON (champs multiples, zones du glisser-déposer) */
+  function remplie(v: unknown): boolean {
+    if (typeof v === 'string') {
+      if (v.trim() === '') return false
+      try {
+        const x: unknown = JSON.parse(v)
+        if (x !== null && typeof x === 'object') return remplie(x)
+      } catch {
+        /* texte simple */
+      }
+      return true
+    }
+    if (Array.isArray(v)) return v.some(remplie)
+    if (v !== null && typeof v === 'object') return Object.values(v).some(remplie)
+    return v != null
+  }
+
   function lireSaisies(): Record<string, string> {
     const saisies: Record<string, string> = {}
     const figures: Record<string, Record<string, string>> = {}
+    for (const element of zone.querySelectorAll<HTMLElement & { value?: unknown }>(ELEMENTS_REPONSE)) {
+      const v = element.value
+      if ((typeof v === 'string' && remplie(v)) || (typeof v === 'number' && v !== 0)) saisies[element.id] = String(v)
+    }
     for (const champ of zone.querySelectorAll<HTMLElement>('math-field[id], input[id]')) {
       const figure = CHAMP_FIGURE.exec(champ.id)
       if (figure) {
@@ -92,6 +138,11 @@
     return saisies
   }
 
+  // Glisser-déposer : aucune saisie n'est signalée, on relit après le dépôt
+  function surDepot() {
+    setTimeout(() => zone?.isConnected && surSaisie(new Event('input')))
+  }
+
   // Dans un trou, MathLive n'envoie pas « input » : seulement « beforeinput »
   // (avant le changement) et « selection-change ». On relit juste après.
   function surSaisieTrou(e: Event) {
@@ -102,7 +153,11 @@
 
   function surSaisie(e: Event) {
     if (resultat) return
-    aSaisi = Object.keys(lireSaisies()).length > 0
+    // Case sans id dans un élément de MathALÉA (grilles KenKen, sudoku, curseurs) :
+    // sa valeur ne se lit pas une à une, la frappe suffit pour que Vérifier s'active
+    const cible = e.target
+    if (cible instanceof HTMLElement && !cible.id && ID_REPONSE.test(cible.parentElement?.closest('[id]')?.id ?? '')) interagi = true
+    aSaisi = interagi || !!q.videAccepte || Object.keys(lireSaisies()).length > 0
     // Seulement une vraie frappe : « change » arrive aussi quand le champ perd
     // le focus, par exemple à l'ouverture du panneau « Soumettre quand même ? »,
     // qui se refermait alors aussitôt (premier toucher perdu)
@@ -134,6 +189,9 @@
   }
 
   async function afficherCorrection() {
+    // Message de retour de MathALÉA écrit à la vérification (« Le point $A$ a
+    // pour abscisse… ») : ses formules ne sont pas encore rendues
+    for (const retour of zone.querySelectorAll<HTMLElement>('[id^="feedbackEx"]')) if (retour.textContent?.includes('$')) await moteur.afficher(retour)
     await tick()
     if (zoneCorrection) {
       zoneCorrection.innerHTML = q.correction
@@ -149,7 +207,10 @@
     requestAnimationFrame(() => {
       if (!zone?.isConnected) return
       // Premier champ vide, sinon le premier champ
-      const champs = [...zone.querySelectorAll<HTMLElement>('math-field, input:not([type=checkbox])')].filter((c) => c.isConnected)
+      // Champs multiples : leurs champs sont dans l'élément (shadow DOM)
+      const champs = [...zone.querySelectorAll<HTMLElement>('math-field, input:not([type=checkbox]), multi-mathfield')]
+        .flatMap((c) => (c.tagName === 'MULTI-MATHFIELD' ? [...(c.shadowRoot?.querySelectorAll<HTMLElement>('math-field') ?? [])] : [c]))
+        .filter((c) => c.isConnected)
       const vide = champs.find((c) => !(c as HTMLInputElement).value?.trim())
       try {
         ;(vide ?? champs[0])?.focus({ preventScroll: defiler })
@@ -161,7 +222,7 @@
 
   /** État de la question pour le garde-fou de la séance */
   export const etat = (): 'verifiee' | 'saisie' | 'vide' =>
-    resultat ? 'verifiee' : Object.keys(lireSaisies()).length ? 'saisie' : 'vide'
+    resultat ? 'verifiee' : interagi || q.videAccepte || Object.keys(lireSaisies()).length ? 'saisie' : 'vide'
 
   export const estVerifiee = () => resultat !== null
 
@@ -193,8 +254,8 @@
       if (brouillon && Object.keys(brouillon).length) {
         await moteur.ecrireReponses(brouillon)
         await tick()
-        aSaisi = Object.keys(lireSaisies()).length > 0
-      }
+        aSaisi = !!q.videAccepte || Object.keys(lireSaisies()).length > 0
+      } else if (q.videAccepte) aSaisi = true
       if (!q.interactive && (correctionVue || lectureSeule)) {
         vue = true
         await afficherCorrection()
@@ -217,7 +278,13 @@
   onMount(() => {
     const z = zone
     z.addEventListener('selection-change', surSaisieTrou)
-    return () => z.removeEventListener('selection-change', surSaisieTrou)
+    for (const type of ['drop', 'dragend', 'touchend']) z.addEventListener(type, surDepot)
+    for (const type of ['click', 'pointerup', 'keyup']) z.addEventListener(type, surInteraction)
+    return () => {
+      z.removeEventListener('selection-change', surSaisieTrou)
+      for (const type of ['drop', 'dragend', 'touchend']) z.removeEventListener(type, surDepot)
+      for (const type of ['click', 'pointerup', 'keyup']) z.removeEventListener(type, surInteraction)
+    }
   })
   onMount(() => {
     addEventListener('resize', surRedimension)
@@ -239,8 +306,8 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     bind:this={zone}
-    class="contenu-mathalea text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-    style="font-size: 1.15rem; line-height: 1.6; {lectureSeule ? 'pointer-events: none' : ''}"
+    class="contenu-mathalea question-eleve text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    style={lectureSeule ? 'pointer-events: none' : undefined}
     inert={lectureSeule}
     oninput={surSaisie}
     onchange={surSaisie}

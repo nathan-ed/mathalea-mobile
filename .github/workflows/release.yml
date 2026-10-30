@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         suites:
-          - defilement un-toucher regressions changer-appareil
+          - defilement un-toucher regressions changer-appareil reponses-elements
           - classe-qr en-classe fiche-parcours session-qr
           - ouverture-paliers paliers papier recherche correction-parcours
           - reponses-session revisions test-niveau test-niveau-reel

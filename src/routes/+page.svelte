@@ -582,9 +582,14 @@
     }
   })
 
-  /** Quitter une séance ou son bilan : le test revient à ses niveaux */
+  /** Fermer le bilan : la carte du parcours ; le test revient à ses niveaux */
   function quitterSeance() {
     aller(estTest(seance?.parcours) ? 'test' : estRevision(seance?.parcours) ? 'revisions' : 'parcours')
+  }
+  /** Quitter une séance en cours (« Reprendre plus tard ») : l'accueil (Nathan, après la première séance en classe) */
+  function quitterVersAccueil() {
+    if (estTest(seance?.parcours) || estRevision(seance?.parcours)) return quitterSeance()
+    aller('accueil')
   }
 
   // ---------- Révisions espacées (sur l'appareil, d'après les passages terminés) ----------
@@ -1340,7 +1345,7 @@
         {moteur}
         onsauver={sauverSeance}
         bilanDirect={estTest(seance.parcours) || (modeQr(seance.code) === 'avant' && !seance.qrMontre)}
-        onquitter={quitterSeance}
+        onquitter={quitterVersAccueil}
         onterminer={terminer}
         onsupprimer={() => supprimerTentative(seance!.parcours)}
       />

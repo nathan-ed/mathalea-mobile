@@ -177,11 +177,15 @@ fn session(app: &tauri::AppHandle) -> &'static Option<(Actif, PathBuf)> {
     })
 }
 
-/// Versions des boutiques (Google Play, App Store) : moteur livré seulement, mis
-/// à jour avec l'app. Leurs règles interdisent de télécharger du code qui
-/// change l'app (Play : « Device and Network Abuse » ; Apple : 2.5.2). Toujours
-/// sur iOS ; ailleurs, construction avec MATHALEA_MOTEUR_FIGE=1 (fichier Play).
-pub const MISES_A_JOUR: bool = !cfg!(target_os = "ios") && option_env!("MATHALEA_MOTEUR_FIGE").is_none();
+/// Moteur livré avec l'app, mis à jour avec elle : toutes les apps utilisent le
+/// moteur construit depuis moteur/ de ce dépôt (corrections de l'app comprises),
+/// jamais celui publié par mathalea.fr, qui n'a pas ces corrections (Nathan,
+/// octobre 2026). Les règles des boutiques l'imposent aussi (Play : « Device and
+/// Network Abuse » ; Apple : 2.5.2). Mises à jour téléchargées seulement pour une
+/// construction avec MATHALEA_MOTEUR_MAJ=1, jamais sur iOS ni avec
+/// MATHALEA_MOTEUR_FIGE=1.
+pub const MISES_A_JOUR: bool =
+    !cfg!(target_os = "ios") && option_env!("MATHALEA_MOTEUR_MAJ").is_some() && option_env!("MATHALEA_MOTEUR_FIGE").is_none();
 
 /// Le moteur peut-il être mis à jour sans mettre à jour l'app ?
 #[tauri::command]
@@ -470,14 +474,12 @@ mod tests {
         assert!(donnees.path().join(&actif.dossier).join("moteur.css").is_file());
     }
 
-    /// Versions de la forge : mises à jour du moteur ; celles des boutiques sont
-    /// construites avec MATHALEA_MOTEUR_FIGE=1 (ou pour iOS)
+    /// Moteur de l'app seulement, sauf construction avec MATHALEA_MOTEUR_MAJ=1
     #[test]
-    fn mises_a_jour_hors_boutiques() {
-        assert_eq!(MISES_A_JOUR, option_env!("MATHALEA_MOTEUR_FIGE").is_none() && !cfg!(target_os = "ios"));
-        if option_env!("MATHALEA_MOTEUR_FIGE").is_none() {
-            assert!(mises_a_jour_moteur());
-        }
+    fn moteur_de_l_app_par_defaut() {
+        let maj = option_env!("MATHALEA_MOTEUR_MAJ").is_some() && option_env!("MATHALEA_MOTEUR_FIGE").is_none() && !cfg!(target_os = "ios");
+        assert_eq!(MISES_A_JOUR, maj);
+        assert_eq!(mises_a_jour_moteur(), maj);
     }
 
     #[test]

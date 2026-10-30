@@ -19,3 +19,6 @@ vite.config.ts.timestamp-*
 
 # APK d'essai compilées ici (scripts/apk-essai.sh) : rangées, pas versionnées
 releases/essai/
+
+# Aperçus de parcours (e2e/apercu-parcours.mjs)
+/apercus

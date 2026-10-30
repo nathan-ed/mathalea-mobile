@@ -50,6 +50,43 @@ change, mettre à jour la page, le schéma et l'exemple (un test les compare,
 - Pour les fiches, appliquer `fiches-cours`. Dans « À retenir », écrire une règle utilisable, jamais le libellé de l'objectif. L'exemple résolu et, s'il y en a une, la petite question portent sur cette ceinture. Le retour explique le raisonnement en français naturel. Éviter les longues réponses en toutes lettres si elles n'apportent rien à l'apprentissage mathématique sur mobile.
 - Livrer avec le JSON une courte liste des savoir-faire non couverts par le moteur actuel et une idée précise d'exercice à créer. Augmenter la version des parcours déjà importés avant de rediffuser, sinon l'app peut garder l'ancienne copie.
 
+## Retours de la première séance en classe (Préqualifiant, octobre 2026)
+
+- Premières ceintures : phrases à **une seule opération** (9NO1F-7 `1f853`
+  avec `sup4: "1"`, puis `"1-2"` plus loin). Les phrases à trois opérations
+  imbriquées ne vont pas en début de parcours.
+- Règles avant écritures difficiles : une règle à la fois, d'abord avec des
+  puissances de 10 (10NO3D-2 `f5dcf`, `sup2: "1-3"` ; 10NO3D-21 `6b2e5`,
+  `sup: "1"`) ; pas de quotient avec changement de base (10NO3D-27) dans une
+  première ceinture de règles.
+- Espaces entre les chiffres : jamais exigés (le moteur de l'app les ignore,
+  le clavier du téléphone ne les tape pas). Ne pas choisir un exercice pour
+  « écrire avec les espaces ».
+- Unités : l'élève tape le nombre puis la touche d'unité du clavier de
+  MathALÉA (cm, cm², cm³). Vérifier que la touche existe pour l'unité attendue.
+- Tout format de réponse de `docs/types-de-reponse.md` marqué « correcte » se
+  saisit au téléphone ; un format « prise en compte » (construction, jeu,
+  programme) se fait mal au doigt : l'éviter dans un parcours mobile, ou le
+  signaler à Nathan.
+- Nouvelle version d'un parcours diffusé : `version` + 1, et noter le
+  changement dans le fichier `*-manques.md` du catalogue.
+
+## Avant de rendre : aperçu et parcours de A à Z
+
+1. **Aperçu pour Nathan, à chaque travail sur un parcours** (pnpm dev) :
+   `node e2e/apercu-parcours.mjs <fichier.json> <id>` écrit dans
+   `apercus/<id>/` chaque fiche (étapes dévoilées, question « À toi » répondue)
+   et chaque question dans l'ordre de passage, avec la ceinture et l'exercice
+   en légende, une planche par ceinture (`planche-k.png`) et `index.html`.
+   Relire soi-même chaque planche (difficulté croissante, vocabulaire,
+   calculs), puis **envoyer les planches à Nathan** pour validation.
+2. **Parcours joué de A à Z** : `PARCOURS=<id> node e2e/parcours-az.mjs
+   <fichier.json>` : un élève qui répond juste à chaque question doit obtenir
+   chaque ceinture (vrais seuils) jusqu'au suivi. Un échec « bonne réponse
+   comptée incorrecte » est un exercice à remplacer ou un bug à corriger.
+3. Le contrôle du format (`lireFichier`, plus haut) et `pnpm test` (les
+   fichiers de `explorer/` sont contrôlés).
+
 ## Rédaction
 
 Français, titres d'élève courts (sans la référence du site), aucun tiret

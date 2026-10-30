@@ -649,8 +649,8 @@ Environnement (machine de Nathan)
 - Déroulé d'une release (0.1.3, fait de bout en bout) : tests complets
   (check, test, cargo test, job CI rejoué dans Docker, `complet.mjs`,
   `regressions.mjs`), version montée et `docs/developpement.md` à jour,
-  commit, `git tag v<x>`, push du tag **seul** :
-  `git push origin main v<x>` puis `git push github main v<x>` (le tag sur
+  commit, puis `bash scripts/publier.sh v<x>` (vérification complète, tag,
+  push sur `origin` et `github`) (le tag sur
   GitHub lance `release.yml` avec `cibles=tout`, environ 20 min ; suivre avec
   `gh run watch`). Puis `scripts/release.sh v<x>` ; il ne commite rien :
   `git add releases` (README et `releases/v<x>/`), commit, push sur les deux
@@ -811,6 +811,45 @@ Environnement (machine de Nathan)
   `MetaInteractif2dEx<n>Q<i>` → JSON ; un champ retiré de la page renvoie
   un trou vide (lire la valeur LaTeX). Le bug (« la réponse n'a pas été
   prise en compte ») ne se voyait qu'avec la correction à la fin.
+- Plusieurs réponses dans une question (Thales2D, 3G20, ticket 1 de la forge,
+  « réponses décimales mal corrigées ») : rangs 2e et 2e+1 de
+  `autoCorrection` pour la question e. `verifier(i)` ne regardait que le rang
+  i : à partir de la 2e question, champ absent de la page, erreur avalée par
+  MathALÉA, ni smiley ni point. Le moteur lit désormais les rangs dans
+  l'énoncé (`indicesDeLaQuestion`). Environ 80 exercices ont ce schéma.
+- Éléments de réponse qui ne sont ni champ ni case (`liste-deroulante`,
+  `multi-mathfield`, `drag-and-drop`, première séance en classe, octobre
+  2026) : `lireSaisies` doit les lire (`ELEMENTS_REPONSE`, leur `value`),
+  sinon « Vérifier » reste grisé. Un nouvel élément de MathALÉA (liste dans
+  `listOfCustomElements`) s'y ajoute, avec un exercice dans
+  `e2e/reponses-elements.mjs`. Le glisser-déposer n'émet aucun `input`.
+- Tout nouveau format de réponse (liste `InteractivityType` de MathALÉA,
+  `src/lib/types.ts`) : le jouer par `FORMATS=1 node e2e/parcours-az.mjs`
+  et l'ajouter à `docs/types-de-reponse.md`. Le site fait après l'affichage
+  des choses que le moteur doit refaire (prepareExerciceCliqueFigure,
+  zoom des figures apigeom) : relire QuestionParPage.svelte et
+  ExerciceMathaleaVueEleve.svelte à chaque mise à jour de COMMIT.
+- Plusieurs rangs par question : un rang n'appartient qu'à une question
+  (`indicesDeLaQuestion`) ; vérifier l'effet sur tout le référentiel avant
+  de toucher à la règle (107 exercices cassés par la première version).
+- Ne pas modifier `src/` pendant une suite e2e : le rechargement de Vite
+  recharge la page et fait échouer la suite au hasard.
+- Moteur : toutes les apps utilisent le nôtre, livré avec l'app (Nathan,
+  2026-10-29 : « les apps doivent toutes utiliser notre moteur »). Plus de
+  mise à jour téléchargée depuis mathalea.fr (`MISES_A_JOUR`, sauf
+  `MATHALEA_MOTEUR_MAJ=1`). Jamais modifier le code de MathALÉA : corrections
+  dans `moteur/fichiers/`, style dans `src/app.css`.
+- Tests de release sur l'ordinateur de Nathan (« je serai le seul à faire des
+  releases ») : `bash scripts/publier.sh v<x>` lance `verifier-release.sh`
+  (tous les parcours de A à Z, sans exception : « je ne veux plus jamais que
+  ce type de problèmes apparaisse ») et ne pose le tag que si tout est vert.
+  Les parcours sont pris d'office dans `explorer/*.json` et la démonstration
+  (`e2e/az-groupe.mjs`) : un nouveau fichier est testé sans rien changer.
+- Espaces dans les nombres : jamais exigés (pas de touche espace dans
+  MathLive au clavier du téléphone), `sansEspacesExiges` dans le moteur.
+- Construire le moteur sans accès à git.sesamath.net (`instrumenpoche`,
+  dépendance git) : paquet factice en `file:` dans le `package.json` du
+  clone, seulement pour les essais locaux (animations d'instruments).
 - Tracés à main levée (`MainLevee`) : besoin de `div#appMathalea` dans la
   page, créé par `initialiser()` du moteur ; sans lui, figures sans segments.
 - Champ à trous (« 81 = … × … ») : MathLive n'envoie ni `input` ni

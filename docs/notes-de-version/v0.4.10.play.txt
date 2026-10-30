@@ -1,0 +1,8 @@
+<fr-FR>
+- Listes déroulantes, champs multiples et glisser-déposer : la réponse est prise en compte.
+- Les espaces entre les chiffres ne sont plus exigés.
+- Questions à plusieurs réponses correctement vérifiées.
+- « Quitter » ramène à l'accueil.
+- Ceinture en cours et réponses en vert ou en rouge en haut de l'activité.
+- Orange de MathALÉA en thème sombre.
+- Ordinateur : fenêtre en grand, texte plus grand.

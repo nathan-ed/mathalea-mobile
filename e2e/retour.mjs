@@ -51,9 +51,7 @@ ok(!(await page.getByText('Quitter l’activité ?').isVisible()) && (await page
 await retour()
 await page.getByRole('button', { name: 'Reprendre plus tard' }).click()
 await page.waitForTimeout(300)
-ok(await visible('button', /Commencer|Continuer/), 'séance quittée → détail du parcours')
-await retour()
-ok(await visible('button', 'Réglages'), 'détail → accueil')
+ok(await visible('button', 'Réglages'), 'séance quittée → accueil')
 
 // Réglages → accueil, puis plus rien à refermer
 await page.getByRole('button', { name: 'Réglages' }).click()

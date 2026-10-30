@@ -186,7 +186,8 @@ ok(true, 'récupéré : l’accueil de l’élève s’ouvre')
 
 // La séance en cours reprend où elle en était, avec les mêmes questions
 await ouvrir(b, soustractions)
-// La tuile d'un parcours en cours rouvre directement sa séance
+// Page du parcours en cours : « Continuer » rouvre sa séance
+await b.getByRole('button', { name: 'Continuer', exact: true }).click({ timeout: 30_000 })
 await b.getByText('Question 3 sur 3').waitFor({ timeout: 60_000 })
 ok((await texte(b, 'body')).includes('2/3'), 'soustractions : la séance reprend à la question 3, deux réponses déjà faites')
 await b.screenshot({ path: `${captures}/changer-4-reprise.png` })

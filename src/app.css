@@ -19,6 +19,13 @@
   --app-gris: var(--color-coopmaths-corpus-light);
 }
 .dark {
+  /* Orange de MathALÉA aussi en sombre (Nathan, première séance en classe :
+     l'orange pâle du thème sombre ne se reconnaît pas) */
+  --color-coopmathsdark-action: var(--color-coopmaths-action);
+  --color-coopmathsdark-action-light: var(--color-coopmaths-action-light);
+  --color-coopmathsdark-action-lightest: var(--color-coopmaths-action-lightest);
+  --color-coopmathsdark-action-dark: var(--color-coopmaths-action-dark);
+  --color-coopmathsdark-action-darkest: var(--color-coopmaths-action-darkest);
   --app-fond: var(--color-coopmathsdark-canvas);
   --app-fond-2: var(--color-coopmathsdark-canvas-dark);
   --app-presse: var(--color-coopmathsdark-canvas-darkest);
@@ -27,6 +34,15 @@
   --app-discret: var(--color-coopmathsdark-corpus-lightest);
   --app-vert: var(--color-coopmaths-warn); /* le « warn » sombre est rose : on garde le vert */
   --app-gris: var(--color-coopmathsdark-corpus-light);
+}
+
+/* Bouton plein inactif en sombre : l'orange à 40 % sur le fond sombre tirait
+   sur le rouge brun ; il devient gris */
+.dark button.dark\:bg-coopmathsdark-action:disabled {
+  background-color: var(--color-coopmathsdark-canvas-darkest);
+  color: var(--color-coopmathsdark-corpus-lightest);
+  box-shadow: none;
+  opacity: 0.6;
 }
 
 html {
@@ -118,6 +134,22 @@ math-field,
   margin-inline: auto;
 }
 
+/* Énoncé d'une question et ses champs de réponse (qui suivent la taille du texte) */
+.question-eleve {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  /* Un élément de réponse plus large que l'écran (grille de Juniper Green,
+     guide-âne, tableau) défile dans la question au lieu d'être coupé : sinon
+     une partie de la réponse est hors d'atteinte (html est en overflow-x: clip) */
+  overflow-x: auto;
+}
+/* Fenêtre d'ordinateur : texte et champs plus grands, lisibles à distance */
+@media (min-width: 768px) and (pointer: fine) {
+  .question-eleve {
+    font-size: 1.45rem;
+  }
+}
+
 /* Contenu des exercices : les figures se réduisent à la largeur de l'écran,
    les tableaux et formules larges défilent dans leur propre cadre, pour que
    la page elle-même ne déborde jamais. */
@@ -135,6 +167,21 @@ math-field,
   display: block;
   max-width: 100%;
   overflow-x: auto;
+}
+
+/* Glisser-déposer : les cases à remplir passent à la ligne au lieu de
+   sortir de l'écran (le site les aligne sur une seule ligne) */
+.contenu-mathalea .rectangles {
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+.contenu-mathalea .rectangles > span {
+  white-space: nowrap;
+}
+/* Une case garde la largeur de son étiquette, même seule sur sa ligne */
+.contenu-mathalea .rectangles > .rectangleDND {
+  flex: 0 0 auto;
 }
 
 /* Clavier de MathALÉA (fixé en bas) : au-dessus de la barre de navigation

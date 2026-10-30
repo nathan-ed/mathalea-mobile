@@ -1,10 +1,17 @@
 # Préqualifiant : couverture à compléter
 
-Ce bilan accompagne `prequalifiant.json` (version 10). Les ceintures comportent au moins deux exercices interactifs ; certaines révisent aussi un prérequis ou un savoir-faire connexe. La fiche de cours et le score ne suffisent pas à prouver la maîtrise d'un savoir-faire qui n'est pas interrogé directement.
+Ce bilan accompagne `prequalifiant.json` (version 10, version 11 pour trois parcours). Les ceintures comportent au moins deux exercices interactifs ; certaines révisent aussi un prérequis ou un savoir-faire connexe. La fiche de cours et le score ne suffisent pas à prouver la maîtrise d'un savoir-faire qui n'est pas interrogé directement.
 
 Chaque exercice porte un objectif précis. L'application affiche un pourcentage de réussite par objectif, distinct du résultat de la ceinture. Le passage à la ceinture suivante dépend de son seuil de 80 %. Le format actuel ne permet pas de fixer un seuil de validation indépendant pour chaque objectif.
 
 La compétence NO01 (écrire les nombres en toutes lettres) a été retirée à la demande de Nathan : elle demande des réponses trop longues pour ce parcours mobile.
+
+## Version 11 (après la première séance en classe, octobre 2026)
+
+- Calculer avec les décimaux et les relatifs, ceinture blanche : 9NO1F-7 (`1f853`, nouvelle version de `cd0d8`) réglé sur une opération par phrase. Les phrases à trois opérations imbriquées étaient trop difficiles pour une première ceinture.
+- Lire une situation, traduire et vérifier, « Traduire en calcul » : même exercice, une ou deux opérations.
+- Puissances, carrés et racines, « Utiliser les règles des puissances » : puissances de 10 seulement, une règle à la fois (10NO3D-2 `f5dcf` produit et puissance de puissance, 10NO3D-21 `6b2e5` calculs de base). L'ancien 10NO3D-27 (`a8a2e`) mêlait quotients et changements de base ($27^3/3$) dès la quatrième ceinture. Fiche réécrite sur ces trois règles.
+- À créer : une famille « règles des puissances de même base » avec des bases 2, 3, 5 et un seul calcul par question, avant les écritures fractionnaires.
 
 ## Exercices à créer ou à étendre
 
