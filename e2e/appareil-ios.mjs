@@ -198,7 +198,7 @@ console.log(`Réponses attendues : ${JSON.stringify(attendues)}`);
 /** Touche du clavier de MathALÉA pour un caractère */
 async function taper(c) {
   const voulus =
-    c === "-" ? ["-", "−", "–"] : c === "." || c === "," ? [","] : [c];
+    c === "-" ? ["-", "−", "–", "\u2014"] : c === "." || c === "," ? [","] : [c];
   const i = await nav.execute(
     (voulus) =>
       [

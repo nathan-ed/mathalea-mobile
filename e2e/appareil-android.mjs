@@ -207,7 +207,7 @@ async function taper(c) {
     bs.map((b) => b.innerText.replace(/\s/g, "")),
   );
   const voulus =
-    c === "-" ? ["-", "−", "–"] : c === "." || c === "," ? [","] : [c];
+    c === "-" ? ["-", "−", "–", "\u2014"] : c === "." || c === "," ? [","] : [c];
   const i = textes.findIndex((t) => voulus.includes(t));
   if (i >= 0) await tapLoc(touches.nth(i));
   else await page.keyboard.type(c);
