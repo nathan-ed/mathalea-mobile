@@ -345,6 +345,7 @@ export async function lireExplorer(req: Requete = requete): Promise<Parcours[]> 
   if (!URL_EXPLORER) return []
   const fichier = await lireFichierDistant(URL_EXPLORER, req)
   const vus = new Map<string, Parcours>()
-  for (const c of fichier.classes) for (const p of c.parcours) vus.set(p.id, p)
+  // Un parcours présent dans plusieurs classes : sa version la plus haute
+  for (const c of fichier.classes) for (const p of c.parcours) if (!vus.has(p.id) || p.version > vus.get(p.id)!.version) vus.set(p.id, p)
   return [...vus.values()]
 }
