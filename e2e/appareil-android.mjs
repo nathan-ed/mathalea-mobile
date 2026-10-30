@@ -94,10 +94,24 @@ const toucher = async (loc) => {
   await pause(300);
 };
 
-// 1. Premier lancement : programme
+// 0. WebView trop ancienne (Android 11 sans mise à jour) : l'app le dit et
+// propose la mise à jour ; rien d'autre à essayer sur cet appareil
 await page
-  .getByRole("button", { name: /^\s*France/ })
+  .getByRole("button", { name: /^\s*France|Mettre à jour Android System WebView/ })
+  .first()
   .waitFor({ timeout: 90_000 });
+if (await page.getByText("Mise à jour nécessaire").isVisible()) {
+  await capture("webview-ancienne");
+  ok(
+    await page.getByRole("button", { name: "Mettre à jour Android System WebView" }).isVisible(),
+    `WebView ${await page.evaluate(() => /Chrome\/(\d+)/.exec(navigator.userAgent)?.[1])} : écran « Mise à jour nécessaire » avec le bouton du Play Store`,
+  );
+  console.log("WebView trop ancienne sur cet émulateur : parcours de l'élève non joué.");
+  await appareil.close();
+  process.exit(echecs ? 1 : 0);
+}
+
+// 1. Premier lancement : programme
 await capture("premier-lancement");
 await toucher(page.getByRole("button", { name: /^\s*France/ }).first());
 await page.getByRole("button", { name: "Réglages" }).first().waitFor();
@@ -193,7 +207,7 @@ async function taper(c) {
     bs.map((b) => b.innerText.replace(/\s/g, "")),
   );
   const voulus =
-    c === "-" ? ["-", "−", "–"] : c === "." || c === "," ? [","] : [c];
+    c === "-" ? ["-", "−", "–", "\u2014"] : c === "." || c === "," ? [","] : [c];
   const i = textes.findIndex((t) => voulus.includes(t));
   if (i >= 0) await tapLoc(touches.nth(i));
   else await page.keyboard.type(c);
@@ -242,7 +256,7 @@ for (let tour = 0; tour < 20; tour++) {
   await pause(1500);
   if (bilan) break;
 }
-await page.getByText(/Bilan/).first().waitFor({ timeout: 30_000 });
+await page.getByRole("button", { name: "Retour à l’accueil" }).first().waitFor({ timeout: 30_000 });
 const texte = await page.locator("main").innerText();
 await capture("bilan");
 ok(
@@ -279,11 +293,32 @@ await capture("accueil-en-cours");
 
 // 5. Thème sombre du téléphone
 await appareil.shell("cmd uimode night yes");
+await pause(3000);
 page = await lancer();
 await page
   .getByRole("button", { name: "Réglages" })
   .first()
   .waitFor({ timeout: 90_000 });
+await page.waitForTimeout(1500);
+const sombre = await page.evaluate(() => ({
+  telephone: matchMedia("(prefers-color-scheme: dark)").matches,
+  app: document.documentElement.classList.contains("dark"),
+  reglage: localStorage.getItem("theme"),
+}));
+console.log(`Thème sombre : ${JSON.stringify(sombre)}`);
+const nuit = (await appareil.shell("cmd uimode night")).toString().trim();
+console.log(`Mode nuit d'Android : ${nuit}`);
+if (sombre.telephone) ok(sombre.app, `mode nuit du téléphone : l'app passe en sombre (${JSON.stringify(sombre)})`);
+else console.log("La WebView de l'émulateur n'annonce pas le mode nuit : thème choisi dans les Réglages.");
+if (!sombre.app) {
+  // Thème « Sombre » choisi dans les Réglages de l'app
+  await toucher(page.getByRole("button", { name: "Réglages" }).first());
+  await toucher(page.getByRole("radio", { name: "Sombre" }));
+  await pause(600);
+  ok(await page.evaluate(() => document.documentElement.classList.contains("dark")), "Réglages, Apparence « Sombre » : l'app passe en sombre");
+  await page.goBack();
+  await pause(800);
+}
 await capture("accueil-sombre");
 await toucher(page.getByRole("button", { name: /^\s*Fractions/ }).first());
 await page

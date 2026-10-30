@@ -124,6 +124,9 @@ jobs:
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           adb install -r MathALEA-emulateur.apk
+      # Android 11 de l'émulateur : WebView d'origine (Chrome 83, sans Play Store
+      # pour la mettre à jour). Le test y vérifie l'écran « Mise à jour
+      # nécessaire » ; le parcours complet est joué sur Android 15.
       - name: Élève sur l'app installée
         timeout-minutes: 20
         run: |
@@ -144,7 +147,7 @@ jobs:
           for f in captures-android-${{ matrix.api }}/*.png; do
             [ -e "$f" ] || continue
             echo "=== CAPTURE $(basename "$f" .png)"
-            ffmpeg -loglevel error -i "$f" -vf scale=360:-2 -q:v 6 -f mjpeg - | base64 -w0
+            base64 -w0 "$f"
             echo
           done
       - uses: actions/upload-artifact@v7
@@ -198,7 +201,7 @@ jobs:
       # Appium (XCUITest) et webdriverio, à part : rien dans package.json
       - name: Appium
         run: |
-          npm install -g appium@2 > /dev/null
+          npm install -g appium@3 > /dev/null
           appium driver install xcuitest
           nohup appium --address 127.0.0.1 --port 4723 > appium.log 2>&1 &
           mkdir -p "$RUNNER_TEMP/ios" && cd "$RUNNER_TEMP/ios" && npm init -y > /dev/null && npm install webdriverio@9 > /dev/null

@@ -3,6 +3,8 @@
          avant l'affichage de l'interface -->
     <style name="Theme.mathalea_mobile" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/fond</item>
+        <!-- La WebView en déduit prefers-color-scheme (thème « Comme le téléphone ») -->
+        <item name="android:isLightTheme" tools:targetApi="29">false</item>
         <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/fond</item>
     </style>
 </resources>

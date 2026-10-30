@@ -163,6 +163,28 @@ Rust `telecharger`.
 - `node e2e/changer-appareil.mjs` : un élève change de téléphone (sauvegarde
   exportée, « Récupérer mes données » au premier lancement, séance en cours
   reprise et terminée, suivi). Seul `pnpm dev` (`BASE=` pour un autre port).
+- Appareils virtuels (`.github/workflows/emulateurs.yml`, GitHub, gratuit pour
+  un dépôt public ; lancé à la main ou par un push sur la branche de travail
+  de Claude) : notre moteur construit une fois sous Linux, puis l'app
+  installée et jouée comme un élève dans sa vraie WebView.
+  - Android 15 (API 35) : APK de débogage, `e2e/appareil-android.mjs`
+    (Playwright `_android`, touchers par la WebView) : premier lancement,
+    Réglages défilés au doigt, démonstration, « Nombres relatifs » répondu
+    juste au clavier de MathALÉA jusqu'au bilan 9/9, « Vérifier » au-dessus du
+    clavier, « Quitter » vers l'accueil, thème sombre.
+  - Android 11 (API 30) : la WebView de l'émulateur est Chrome 83 (pas de
+    Play Store pour la mettre à jour) ; le test vérifie l'écran « Mise à jour
+    nécessaire ». La WebView Chromium récente n'existe qu'en ARM, inutilisable
+    sur l'émulateur x86_64.
+  - iPhone (simulateur iOS, macOS) : build de débogage, `e2e/appareil-ios.mjs`
+    (Appium 3, XCUITest, webdriverio) : mêmes étapes, vrai glissé iOS.
+  - Captures du vrai écran en artefacts et, en base64, dans le journal de
+    chaque job. La touche « moins » du clavier de MathALÉA affiche un tiret
+    long (U+2014) : les tests la cherchent par ce texte.
+  - Limite connue : sur l'émulateur Android, la WebView n'annonce pas le mode
+    nuit du système (`prefers-color-scheme` reste clair) ; le thème est alors
+    vérifié par Réglages, Apparence, « Sombre ». Sur le simulateur iPhone, le
+    thème du téléphone est suivi.
 
 ## Signature Android
 
