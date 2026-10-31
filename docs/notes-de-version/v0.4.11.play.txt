@@ -1,7 +1,7 @@
 <fr-FR>
-- Teste ton niveau : les ceintures se passent dans l'ordre, chacune s'ouvre quand la précédente est validée.
-- La ceinture du niveau s'affiche en haut pendant le test.
-- Thème sombre : retour à l'orange pâle de MathALÉA.
+- Teste ton niveau : les ceintures se passent dans l'ordre, la ceinture du niveau s'affiche en haut.
+- On retrouve l'écran quitté en revenant dans l'app.
+- Tableur de nouveau visible ; Scratch, décompositions et figures mieux enregistrés.
+- Bonne réponse en vert, incorrecte en orange de MathALÉA.
+- Thème sombre : orange pâle et figures lisibles.
 - Champs de réponse : le bas du cadre n'est plus coupé.
-- Bonne réponse en vert dans la correction, vert et orange de MathALÉA au bilan et dans la barre.
-- Thème sombre : figures lisibles.

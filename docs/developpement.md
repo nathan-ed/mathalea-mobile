@@ -766,6 +766,28 @@ Reste à faire :
   figures (MR proposée).
 - Test : `node e2e/test-niveau.mjs` (CM1 et CM2 validés d'avance, 5e fermée
   puis ouverte, ceinture en haut, champs entiers à chaque question).
+- Tous les formats de réponse validés (Nathan, 31 octobre 2026 : « validables
+  et validés et pris en compte ») : `e2e/formats-reponse.json` n'a plus
+  d'exemption (`verifie: "prise-en-compte"` refusé). Chaque format est saisi
+  juste et compté correct, avec la correction à chaque question
+  (`node e2e/formats.mjs`) et à la fin (`node e2e/formats-fin.mjs`, réponse
+  gardée jusqu'à la soumission), tous deux dans `verifier-release.sh`.
+  Défauts de l'app trouvés ainsi :
+  - tableur (`my-spreadsheet`) invisible depuis la 0.1.0 (règle `table` de
+    `app.css` qui le réduisait à 2 px) ; Entrée dans le tableur ou une
+    décomposition en facteurs premiers vérifiait la question (`surTouche`) ;
+  - correction à la fin : l'état des éléments de MathALÉA (décomposition,
+    échiquier, tableau de signes…) et des figures apigeom tracées est gardé
+    en brouillon (`lireSaisies`) ; réponses des figures apigeom gardées au
+    bilan (`reponsesDeLaQuestion`, clés `Ex<n>F<k>`) ;
+  - exercice qui vérifie sans ranger ses réponses (tableauMathlive de
+    2mTrigoTri-6) : les champs affichés sont gardés pour le bilan et le suivi ;
+  - Scratch : son calque (z-index 1000) couvrait « Voir le bilan »
+    (`isolation: isolate` sur `.contenu-mathalea`).
+- Relancement de l'app : retour à l'écran quitté (onglet, Teste ton niveau,
+  séance en cours ; `ecran` dans le stockage). Supprimer une tentative de
+  test reprise au relancement restait sur « Lecture des sujets… ». Test :
+  `node e2e/reprise-ecran.mjs`.
 
 ## 0.4.9 : corriger un parcours déjà travaillé (fait)
 

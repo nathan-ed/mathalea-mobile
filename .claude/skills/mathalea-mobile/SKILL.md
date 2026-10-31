@@ -830,8 +830,13 @@ Environnement (machine de Nathan)
   `listOfCustomElements`) s'y ajoute, avec un exercice dans
   `e2e/reponses-elements.mjs`. Le glisser-déposer n'émet aucun `input`.
 - Tout nouveau format de réponse (liste `InteractivityType` de MathALÉA,
-  `src/lib/types.ts`) : le jouer par `FORMATS=1 node e2e/parcours-az.mjs`
-  et l'ajouter à `docs/types-de-reponse.md`. Le site fait après l'affichage
+  `src/lib/types.ts`) : l'ajouter à `e2e/formats-reponse.json` et à
+  `docs/types-de-reponse.md`, et écrire dans `repondre` (`parcours-az.mjs`)
+  la vraie bonne réponse. Jamais d'exemption : chaque format doit être
+  « validable, validé et pris en compte » (Nathan, 31 octobre 2026), compté
+  correct avec la correction à chaque question (`node e2e/formats.mjs`) et à
+  la fin (`node e2e/formats-fin.mjs`). Un format qui ne passe pas est un
+  défaut de l'app ou du test à corriger, pas un cas à excuser. Le site fait après l'affichage
   des choses que le moteur doit refaire (prepareExerciceCliqueFigure,
   zoom des figures apigeom) : relire QuestionParPage.svelte et
   ExerciceMathaleaVueEleve.svelte à chaque mise à jour de COMMIT.

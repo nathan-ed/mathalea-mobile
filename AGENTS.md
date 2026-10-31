@@ -60,6 +60,10 @@ complète (détails dans le skill, « Vérification »).
   **tous les parcours** de `explorer/` et de la démonstration joués de A à Z
   par un élève qui répond juste) et ne pose le tag que si tout est vert.
   Jamais de tag `v*` posé à la main.
+- Formats de réponse (Nathan, 31 octobre 2026 : « validables et validés et
+  pris en compte ») : chacun est saisi juste et compté correct, correction à
+  chaque question et à la fin (`node e2e/formats.mjs`,
+  `node e2e/formats-fin.mjs`). Aucune exemption dans `e2e/formats-reponse.json`.
 - `pnpm check` et `pnpm test` ; `cargo test` dans `src-tauri`.
 - Parcourir le changement comme un élève (vraies réponses, vrais boutons,
   jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais
