@@ -258,9 +258,22 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'meta-custom':
     case 'fillInTheBlank':
     case 'fill-in-the-blank': {
       const champ = main.locator(`#champTexte${q}`)
+      // meta-custom sans réponse rangée (l'exercice vérifie lui-même) : vecteur
+      // orthogonal à u et v (3G95-17), le produit vectoriel de u et v
+      if (a.format === 'meta-custom' && !Object.keys(v).some((k) => /^champ\d+$/.test(k))) {
+        const tex = await main.locator('.contenu-mathalea').first().evaluate((z) => [...z.querySelectorAll('annotation')].map((x) => x.textContent).join(' '))
+        const vecteur = (nom) => (new RegExp(`\\\\vec ${nom}\\s*\\\\begin\\{pmatrix\\}([^\\\\]+)\\\\\\\\([^\\\\]+)\\\\\\\\([^\\\\]+)\\\\end`).exec(tex) ?? []).slice(1).map(Number)
+        const [u, w] = [vecteur('u'), vecteur('v')]
+        if (u.length !== 3 || w.length !== 3) throw new Error(`format sans saisie connue : meta-custom (${tex.slice(0, 80)})`)
+        const n = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]]
+        for (let j = 0; j < 3; j++) await champ.evaluate((el, [p, val]) => el.setPromptValue(p, val, { mode: 'math' }), [`champ${j + 1}`, String(n[j])])
+        await champ.evaluate((el) => el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true })))
+        return
+      }
       for (const [nom, rep] of Object.entries(v)) {
         if (!/^champ\d+$/.test(nom)) continue
         await champ.evaluate((el, [p, val]) => el.setPromptValue(p, val, { mode: 'math' }), [nom, texteDe(rep)])
@@ -451,10 +464,31 @@ async function repondre(e, n, k, a) {
       }
       // Puis la réponse attendue, écrite dans l'élément comme MathALÉA réécrit une réponse enregistrée
       const heure = /^(\d+) h (\d+) min$/.exec(texteDe(v.reponse))
-      const attendu = heure ? JSON.stringify({ hour: Number(heure[1]), minute: Number(heure[2]), second: 0 }) : typeof v.reponse?.value === 'string' ? v.reponse.value : JSON.stringify(Object.fromEntries(Object.entries(v).filter(([, x]) => x && typeof x === 'object' && 'value' in x).map(([k, x]) => [k, texteDe(x)])))
+      let attendu = heure ? JSON.stringify({ hour: Number(heure[1]), minute: Number(heure[2]), second: 0 }) : typeof v.reponse?.value === 'string' ? v.reponse.value : JSON.stringify(Object.fromEntries(Object.entries(v).filter(([, x]) => x && typeof x === 'object' && 'value' in x).map(([k, x]) => [k, texteDe(x)])))
+      // Tableau de signes : une double barre se pose à part (case <clé>B), le
+      // signe ou le zéro reste dans la case, comme le fait l'élève
+      if (a.format === 'tableau-signes-variations') {
+        const cases = JSON.parse(attendu)
+        for (const [k, x] of Object.entries(cases))
+          if (!k.startsWith('L0C') && typeof x === 'string' && /^\|+0?$/.test(x)) {
+            cases[k] = x.replace(/\|+/, '')
+            cases[`${k}B`] = /\|+/.exec(x)[0]
+          }
+        attendu = JSON.stringify(cases)
+      }
       const ecrit = await main.locator(`#${a.format}${q}`).evaluate((el, val) => {
         try {
-          el.value = val
+          // Réponse attendue partielle (guide-âne : n et p seulement) : complétée
+          // par l'état de l'élément, comme une réponse enregistrée complète
+          let complet = val
+          try {
+            const actuel = typeof el.value === 'string' ? JSON.parse(el.value) : null
+            const voulu = JSON.parse(val)
+            if (actuel && typeof actuel === 'object' && !Array.isArray(actuel) && voulu && typeof voulu === 'object' && !Array.isArray(voulu)) complet = JSON.stringify({ ...actuel, ...voulu })
+          } catch {
+            /* valeur simple */
+          }
+          el.value = complet
           return true
         } catch {
           return false
