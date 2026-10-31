@@ -13,6 +13,7 @@
 //   par format de réponse de MathALÉA (docs/types-de-reponse.md)
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { champsCoupes } from './champs-visibles.mjs'
 
 const base = 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
@@ -433,6 +434,8 @@ async function jouerSeance(e, p, nomCeinture) {
       const m = /Ex(\d+)[QF](\d+)/.exec(id)
       if (m && !/^(resultatCheck|feedback)/.test(id)) rangs.set(`${m[1]}-${m[2]}`, [Number(m[1]), Number(m[2]), /F\d/.test(id.slice(m.index))])
     }
+    // Champs de réponse entièrement visibles (aucun bord coupé)
+    for (const c of await champsCoupes(page)) problemes.push(`${[...rangs.values()].map(([n]) => s0.contenu.etapes[n]?.id).join(' ')} : champ coupé (${c})`)
     const papier = await page.getByRole('button', { name: 'Voir la correction' }).count()
     if (papier) {
       await toucher(e, page.getByRole('button', { name: 'Voir la correction' }))

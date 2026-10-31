@@ -746,8 +746,12 @@ Reste à faire :
 - Thème sombre : retour à l'orange pâle de MathALÉA (`--color-coopmathsdark-action`),
   l'orange du thème clair de la 0.4.10 était trop vif (Nathan). Le bouton
   plein inactif reste gris.
+- Champs de réponse : le bas était coupé depuis la 0.4.10 (`overflow-x: auto`
+  de `.question-eleve` coupe aussi en hauteur) ; marge `padding-block`.
+  Critère `e2e/champs-visibles.mjs` : aucun champ à moins de 2 px du bord
+  d'un cadre qui coupe, joué par `test-niveau.mjs` et `parcours-az.mjs`.
 - Test : `node e2e/test-niveau.mjs` (CM1 et CM2 validés d'avance, 5e fermée
-  puis ouverte, ceinture en haut).
+  puis ouverte, ceinture en haut, champs entiers à chaque question).
 
 ## 0.4.9 : corriger un parcours déjà travaillé (fait)
 

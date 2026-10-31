@@ -6,6 +6,7 @@
 // CAN 6e 2026), corrigée à la fin. Captures à 390 px, en clair et en sombre.
 //   CAPTURES=<dossier> node e2e/test-niveau.mjs
 import { chromium } from 'playwright'
+import { champsCoupes } from './champs-visibles.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -87,6 +88,15 @@ for (const theme of ['clair', 'sombre']) {
   ok((await page.locator('main h1').count()) === 0, `${theme} : aucun en-tête d'exercice`)
   ok((await texte(page, 'body')).includes('Question 1 sur 15'), `${theme} : barre de progression`)
   ok((await texte(page, 'body')).includes('6e · ceinture orange'), `${theme} : ceinture du test en haut`)
+  // Chaque question du tirage : champs de réponse entièrement visibles
+  const coupes = []
+  for (let i = 0; i < onglets; i++) {
+    await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').nth(i).click()
+    await page.waitForTimeout(500)
+    coupes.push(...(await champsCoupes(page)).map((c) => `Q${i + 1} ${c}`))
+  }
+  ok(coupes.length === 0, `${theme} : champs de réponse entièrement visibles${coupes.length ? ` (${coupes.join(' ; ')})` : ''}`)
+  await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').first().click()
   await cap(page, '4-question', theme)
 
   // Quitter, puis reprendre avec toutes les réponses correctes

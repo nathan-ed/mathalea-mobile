@@ -137,6 +137,9 @@ math-field,
      guide-âne, tableau) défile dans la question au lieu d'être coupé : sinon
      une partie de la réponse est hors d'atteinte (html est en overflow-x: clip) */
   overflow-x: auto;
+  /* Ce cadre coupe aussi en hauteur : sans marge, le bord bas d'un champ de
+     la dernière ligne disparaissait (0.4.10, e2e/champs-visibles.mjs) */
+  padding-block: 0.25rem;
 }
 /* Fenêtre d'ordinateur : texte et champs plus grands, lisibles à distance */
 @media (min-width: 768px) and (pointer: fine) {

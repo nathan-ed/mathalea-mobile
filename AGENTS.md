@@ -65,6 +65,13 @@ complète (détails dans le skill, « Vérification »).
   jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais
   de réponses écrites directement dans le stockage pour conclure.
 - Toutes les suites e2e, pas seulement celle du changement.
+- Bon sens d'abord (Nathan, 31 octobre 2026 : « make common sense a
+  priority ») : ce qu'un élève remarquerait au premier coup d'œil (champ ou
+  bouton coupé, texte illisible, couleur qui change sans raison, ordre
+  illogique) est un défaut bloquant. Le transformer en critère vérifié par les
+  suites, comme `e2e/champs-visibles.mjs` (aucun champ de réponse coupé, joué
+  par `test-niveau.mjs` et `parcours-az.mjs`), et regarder chaque capture
+  comme un élève avant de dire que c'est fini.
 - Défilement au doigt : `node e2e/defilement.mjs` après tout changement de CSS
   de page (`overflow`, `position`, `touch-action`, `height`). `release.yml` et
   `google-play.yml` lancent les suites e2e (`scripts/e2e-ci.sh`) et ne
