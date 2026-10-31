@@ -180,6 +180,10 @@ math-field,
    la page elle-même ne déborde jamais. */
 .contenu-mathalea {
   max-width: 100%;
+  /* Empilement propre au contenu : un élément de MathALÉA à z-index élevé
+     (calque de l'éditeur Scratch après vérification, z-index 1000) ne passe
+     plus au-dessus de la barre du bas de l'app, où il bloquait « Voir le bilan » */
+  isolation: isolate;
 }
 /* Les figures mathalea2d sont réduites par le moteur (ajusterFigures), étiquettes comprises */
 .contenu-mathalea img,

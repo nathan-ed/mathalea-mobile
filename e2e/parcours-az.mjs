@@ -276,6 +276,17 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'scratch-editor': {
+      // Programme attendu posé dans l'éditeur comme MathALÉA recharge un
+      // programme enregistré (blocs de la solution) ; un toucher d'abord
+      const el = main.locator(`#scratch-editor${q}`)
+      const b = await el.boundingBox()
+      if (b) await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + 30) : page.mouse.click(b.x + b.width / 2, b.y + 30))
+      const { solutionBlocks, solutionScratchXml } = JSON.parse(v.reponse.value)
+      await el.evaluate((x, val) => (x.value = val), JSON.stringify(solutionScratchXml ? { version: 1, workspaceXml: solutionScratchXml } : { version: 1, workspaceJson: solutionBlocks }))
+      e.restaurees = (e.restaurees ?? 0) + 1
+      return
+    }
     case 'my-spreadsheet': {
       // L'élève touche chaque cellule puis écrit sa formule dans la barre de
       // formule, validée par Entrée
