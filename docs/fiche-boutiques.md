@@ -128,7 +128,7 @@ MathALÉA is a free, open-source maths practice app made by CoopMaths, a non-pro
 What the app does beyond the MathALÉA website: it stores each student's progress on the device (paths, levels and belts, results per learning objective, spaced revision) and works fully offline once a path has been received. The website only generates exercises; it keeps no progress over time.
 
 How to test without a class:
-1. Open the app and choose a curriculum (France or Suisse romande).
+1. Open the app and choose a curriculum ("France" or "Suisse").
 2. Open Settings ("Réglages"), turn on "Je suis enseignant" (I am a teacher), then tap "Charger les parcours de démonstration" (load the demonstration paths). A class "Démonstration" appears.
 3. In the teacher space, tap "Vue élève" (student view) and open a path, for example "Relatifs en ceintures". Answer the questions with the maths keyboard: each answer is corrected immediately and the progress is saved on the device.
 4. The teacher tab "Explorer" lists all MathALÉA exercises by grade and chapter; "Teste ton niveau" gives a 15-question test with a report.
