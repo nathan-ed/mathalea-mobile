@@ -115,7 +115,8 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
 - **Appareils** : iPhone et iPad. Captures exigées : iPhone 6,9 pouces
   (1320 × 2868) et iPad 13 pouces (2064 × 2752) :
   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>` (pnpm
-  dev), mêmes écrans que pour Google Play.
+  dev), mêmes écrans que pour Google Play. Captures du 31 octobre 2026
+  (version 0.4.10) : `docs/app-store/`.
 
 ### Informations pour la vérification d'Apple
 

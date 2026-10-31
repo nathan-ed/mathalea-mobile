@@ -81,8 +81,13 @@ for (format of choisis) {
   // Enseignant : bibliothèque, éditeur d'un parcours en paliers
   const t = await appareil({ profil: 'enseignant', pays: 'FR', bibliotheque })
   await t.getByRole('button', { name: /^Relatifs par paliers/ }).waitFor()
+  // Rappel « Version différente de celle du drive » (données de la fiche) : fermé
+  const rappel = t.getByRole('button', { name: 'Fermer le rappel' })
+  if (await rappel.isVisible()) await rappel.click()
   await cap(t, '5-bibliotheque')
   await t.getByRole('button', { name: /^Relatifs par paliers/ }).click()
+  // Page du parcours (depuis la 0.4.4), puis son éditeur
+  await t.getByRole('button', { name: 'Modifier', exact: true }).click()
   await t.waitForTimeout(800)
   // Les paliers en haut de l'écran
   await t.getByLabel('Palier 1 : titre vu par les élèves').evaluate((el) => (el.closest('section')?.scrollIntoView({ block: 'start' }), scrollBy(0, -90)))
