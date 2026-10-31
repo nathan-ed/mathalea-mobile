@@ -51,6 +51,9 @@ for (const theme of ['clair', 'sombre']) {
     localStorage.setItem('theme', theme)
     localStorage.setItem('copie:profil', JSON.stringify('eleve'))
     localStorage.setItem('copie:pays', JSON.stringify('CH'))
+    // CM1 et CM2 déjà validés : la 6e est le niveau ouvert suivant
+    const le = new Date().toISOString()
+    localStorage.setItem('copie:test-niveau', JSON.stringify({ cm1: { valideLe: le }, cm2: { valideLe: le } }))
   }, theme)
   const page = await ctx.newPage()
   page.on('pageerror', (e) => erreurs.push(`${theme}: ${e.message}`))
@@ -65,7 +68,10 @@ for (const theme of ['clair', 'sombre']) {
   await page.getByRole('button', { name: /^6e · ceinture orange/ }).waitFor({ timeout: 60_000 })
   const niveaux = await texte(page)
   ok(['CM1', 'CM2', '6e', '5e', '4e', '3e', '2de', '1re', 'Terminale'].every((n) => niveaux.includes(`${n} · ceinture`)), `${theme} : neuf niveaux, en Suisse aussi`)
-  ok(niveaux.includes('Commence ici'), `${theme} : niveau proposé`)
+  ok(/6e · ceinture orange Commence ici/.test(niveaux), `${theme} : niveau proposé après les ceintures validées`)
+  ok(await page.getByRole('button', { name: /^5e · ceinture verte/ }).isDisabled(), `${theme} : 5e fermée tant que la 6e n'est pas validée`)
+  ok(/5e · ceinture verte Au moins 80 % à : ceinture orange/.test(niveaux), `${theme} : condition d'ouverture affichée`)
+  ok(await page.getByRole('button', { name: /^CM1 · ceinture blanche/ }).isEnabled(), `${theme} : niveau validé toujours ouvert`)
   ok(!(await debordement(page)), `${theme} : pas de débordement (niveaux)`)
   await cap(page, '2-niveaux', theme)
 
@@ -80,6 +86,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(onglets === 15, `${theme} : 15 questions (${onglets})`)
   ok((await page.locator('main h1').count()) === 0, `${theme} : aucun en-tête d'exercice`)
   ok((await texte(page, 'body')).includes('Question 1 sur 15'), `${theme} : barre de progression`)
+  ok((await texte(page, 'body')).includes('6e · ceinture orange'), `${theme} : ceinture du test en haut`)
   await cap(page, '4-question', theme)
 
   // Quitter, puis reprendre avec toutes les réponses correctes
@@ -106,6 +113,8 @@ for (const theme of ['clair', 'sombre']) {
   const apres = await texte(page)
   ok(apres.includes('Validé le'), `${theme} : niveau validé affiché`)
   ok(/5e · ceinture verte Commence ici/.test(apres), `${theme} : le niveau suivant est proposé`)
+  ok(await page.getByRole('button', { name: /^5e · ceinture verte/ }).isEnabled(), `${theme} : 5e ouverte après la 6e`)
+  ok(await page.getByRole('button', { name: /^4e · ceinture bleue/ }).isDisabled(), `${theme} : 4e encore fermée`)
   await cap(page, '7-niveaux-apres', theme)
 
   // Bouton retour : vers l'Explorer, avec la ceinture dans la tuile

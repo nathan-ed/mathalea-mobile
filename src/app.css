@@ -19,13 +19,8 @@
   --app-gris: var(--color-coopmaths-corpus-light);
 }
 .dark {
-  /* Orange de MathALÉA aussi en sombre (Nathan, première séance en classe :
-     l'orange pâle du thème sombre ne se reconnaît pas) */
-  --color-coopmathsdark-action: var(--color-coopmaths-action);
-  --color-coopmathsdark-action-light: var(--color-coopmaths-action-light);
-  --color-coopmathsdark-action-lightest: var(--color-coopmaths-action-lightest);
-  --color-coopmathsdark-action-dark: var(--color-coopmaths-action-dark);
-  --color-coopmathsdark-action-darkest: var(--color-coopmaths-action-darkest);
+  /* Orange pâle du thème sombre de MathALÉA (Nathan, 31 octobre 2026 :
+     l'orange du thème clair, essayé en 0.4.10, est trop vif en sombre) */
   --app-fond: var(--color-coopmathsdark-canvas);
   --app-fond-2: var(--color-coopmathsdark-canvas-dark);
   --app-presse: var(--color-coopmathsdark-canvas-darkest);

@@ -2,6 +2,7 @@
   import { garderSaisie } from './barreDuBas'
   import { onDestroy, onMount, tick } from 'svelte'
   import { couleurCeinture, nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
+  import { NIVEAUX_TEST, ceintureDu, couleurDu, niveauDuTest } from '$lib/testNiveau'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import { empreinteEnonces } from '$lib/releve'
@@ -80,6 +81,9 @@
 
   // Palier ou ceinture en cours, affiché en haut de la séance
   const palier = $derived.by(() => {
+    // Teste ton niveau : la ceinture du niveau passé
+    const rang = niveauDuTest(parcours.id)
+    if (rang !== -1) return { nom: `${NIVEAUX_TEST[rang].nom} · ${ceintureDu(rang).toLowerCase()}`, couleur: couleurDu(rang) }
     const ps = paliersDe(parcours)
     const k = ps.length > 1 ? ps.findIndex((x) => x.etapes.join() === seance.etapes.join()) : -1
     if (k === -1) return null

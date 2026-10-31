@@ -1,6 +1,8 @@
 <script lang="ts">
   // « Teste ton niveau » : une ceinture par niveau, du CM1 à la Terminale.
   // Toucher un niveau ouvre un panneau du bas : commencer ou reprendre.
+  // Les ceintures se passent dans l'ordre : un niveau s'ouvre quand le
+  // précédent est validé (un niveau déjà validé ou commencé reste ouvert).
   import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, couleurDu, type EtatTest } from '$lib/testNiveau'
   import { boutonAction, boutonInverse } from './classes'
   import EnTete from './EnTete.svelte'
@@ -29,6 +31,10 @@
   // Niveau proposé : celui qui suit le dernier validé
   const dernierValide = $derived(Math.max(-1, ...NIVEAUX_TEST.map((n, rang) => (etat[n.cle]?.valideLe ? rang : -1))))
   const propose = $derived(niveaux.find((n) => n.rang > dernierValide)?.rang ?? null)
+  const ouvert = (n: { cle: string; rang: number }) =>
+    propose === null || n.rang <= propose || !!etat[n.cle]?.valideLe || !!enCours[n.cle]
+  // Niveau à valider avant celui-ci (le précédent proposé dans la liste)
+  const avant = (rang: number) => niveaux.findLast((n) => n.rang < rang)?.rang ?? rang - 1
 
   function etatDu(cle: string) {
     const e = etat[cle]
@@ -60,24 +66,32 @@
           class="w-full flex flex-row items-center justify-between gap-3 text-left rounded-2xl px-4 py-3
           bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
           active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+          disabled={!ouvert(n)}
           onclick={() => (choisi = n.rang)}
         >
           <span class="flex flex-row items-center gap-3 min-w-0">
             <span
               aria-hidden="true"
               class="shrink-0 w-10 h-5 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
+              class:opacity-40={!ouvert(n)}
               style="background-color: {couleurDu(n.rang)}"
             ></span>
             <span class="flex flex-col min-w-0">
               <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{n.nom} · {ceintureDu(n.rang).toLowerCase()}</span>
-              {#if etatDu(n.cle)}
+              {#if !ouvert(n)}
+                <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+                  Au moins {SEUIL_TEST} % à : {ceintureDu(avant(n.rang)).toLowerCase()}
+                </span>
+              {:else if etatDu(n.cle)}
                 <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{etatDu(n.cle)}</span>
               {:else if n.rang === propose}
                 <span class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action">Commence ici</span>
               {/if}
             </span>
           </span>
-          {#if etat[n.cle]?.valideLe}
+          {#if !ouvert(n)}
+            <i aria-hidden="true" class="bx bx-lock-alt shrink-0 text-2xl text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
+          {:else if etat[n.cle]?.valideLe}
             <i aria-hidden="true" class="bx bxs-check-circle shrink-0 text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
           {:else}
             <i aria-hidden="true" class="bx bx-chevron-right shrink-0 text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>

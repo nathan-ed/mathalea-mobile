@@ -735,6 +735,20 @@ Reste à faire :
   `node e2e/az-1.mjs` (2, 3) : tous les parcours proposés, en trois groupes.
   Inventaire des formats : `docs/types-de-reponse.md`.
 
+## 0.4.11 : Teste ton niveau dans l'ordre, orange pâle en sombre (fait)
+
+- Teste ton niveau (Nathan, 31 octobre 2026) : un niveau s'ouvre quand le
+  précédent proposé est validé (`TestNiveau.svelte`, `ouvert`) ; fermé :
+  bouton inactif, cadenas, « Au moins 80 % à : ceinture … ». Un niveau
+  validé ou commencé reste ouvert (états d'avant la 0.4.11 compris).
+- Séance d'un test : ceinture du niveau en haut (`Seance.svelte`, `palier`),
+  comme pour un parcours à plusieurs ceintures.
+- Thème sombre : retour à l'orange pâle de MathALÉA (`--color-coopmathsdark-action`),
+  l'orange du thème clair de la 0.4.10 était trop vif (Nathan). Le bouton
+  plein inactif reste gris.
+- Test : `node e2e/test-niveau.mjs` (CM1 et CM2 validés d'avance, 5e fermée
+  puis ouverte, ceinture en haut).
+
 ## 0.4.9 : corriger un parcours déjà travaillé (fait)
 
 - Constat : ajouter ou déplacer un exercice faisait disparaître des ceintures
