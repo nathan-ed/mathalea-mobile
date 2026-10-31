@@ -391,11 +391,24 @@ function reponsesDeLaQuestion(exercice: IExercice, indices: number[]) {
   const motifs = indices.map(
     (k) => new RegExp(`Ex${exercice.numeroExercice}[QF]${k}(?!\\d)`),
   )
-  return Object.fromEntries(
+  const rangees = Object.fromEntries(
     Object.entries(exercice.answers ?? {}).filter(([cle]) =>
       motifs.some((motif) => motif.test(cle)),
     ),
   )
+  if (Object.keys(rangees).length) return rangees
+  // Vérification propre à l'exercice (tableauMathlive à fonction de rappel,
+  // 2mTrigoTri-6) : rien n'est rangé dans answers. On garde alors les champs
+  // affichés, sinon la réponse n'était ni dans le bilan ni dans le suivi
+  const affichees: Record<string, string> = {}
+  for (const champ of document.querySelectorAll<HTMLElement & { value?: unknown }>(
+    'math-field[id], input[id]:not([type="checkbox"])',
+  )) {
+    if (!motifs.some((motif) => motif.test(champ.id))) continue
+    const v = champ.value
+    if (typeof v === 'string' && v.trim() !== '') affichees[champ.id] = v
+  }
+  return affichees
 }
 
 type Verification = {

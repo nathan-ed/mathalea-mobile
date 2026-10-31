@@ -77,6 +77,14 @@ async function attendues(e, etape, graine, numero) {
   return e.calcul.evaluate(
     async ({ etape, graine, numero }) => {
       const ex = await window.__moteur.preparerExercice({ ...etape, alea: graine }, numero)
+      // Construction apigeom : la figure de la correction (même tirage), au
+      // format que MathALÉA réécrit dans la figure de l'élève
+      const correction = (ex.interne.figuresApiGeom ?? []).find((f) => /Correction$/.test(f.id ?? ''))
+      let figureCorrection = null
+      if (correction) {
+        const { options: _options, ...json } = JSON.parse(correction.json)
+        figureCorrection = JSON.stringify(json)
+      }
       return ex.interne.autoCorrection.map((a) =>
         a == null
           ? null
@@ -84,6 +92,7 @@ async function attendues(e, etape, graine, numero) {
               format: a.formatInteractif ?? null,
               valeur: JSON.parse(JSON.stringify(a.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
               statuts: a.propositions?.map((p) => !!p.statut) ?? null,
+              figureCorrection,
               // Traceur de courbe : la fonction attendue n'est pas transmissible,
               // ses valeurs le sont (pas de 0,25 entre −20 et 20)
               valeurs:
@@ -233,6 +242,12 @@ async function glisser(e, de, vers, auBout = false) {
 }
 
 /** Donne la bonne réponse au rang k (format de autoCorrection[k]) de l'exercice numéro n affiché */
+/** Réponse posée dans un élément comme MathALÉA la restaure, puis signalée comme une vraie saisie (l'app relit son brouillon) */
+function ecrireEtSignaler(x, val) {
+  x.value = val
+  x.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
+}
+
 async function repondre(e, n, k, a) {
   const page = e.page
   const q = `Ex${n}Q${k}`
@@ -296,7 +311,7 @@ async function repondre(e, n, k, a) {
       const points = []
       for (let x = xMin; x <= xMax + 1e-9; x += pas) points.push({ x, y: a.valeurs[x] ?? a.valeurs[String(x)] })
       if (points.some((p) => p.y == null)) throw new Error(`traceur de courbe : abscisse hors des valeurs (${xMin} ; ${xMax})`)
-      await el.evaluate((x, val) => (x.value = val), JSON.stringify({ version: 1, points }))
+      await el.evaluate(ecrireEtSignaler, JSON.stringify({ version: 1, points }))
       e.restaurees = (e.restaurees ?? 0) + 1
       return
     }
@@ -307,7 +322,7 @@ async function repondre(e, n, k, a) {
       const b = await el.boundingBox()
       if (b) await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + 30) : page.mouse.click(b.x + b.width / 2, b.y + 30))
       const { solutionBlocks, solutionScratchXml } = JSON.parse(v.reponse.value)
-      await el.evaluate((x, val) => (x.value = val), JSON.stringify(solutionScratchXml ? { version: 1, workspaceXml: solutionScratchXml } : { version: 1, workspaceJson: solutionBlocks }))
+      await el.evaluate(ecrireEtSignaler, JSON.stringify(solutionScratchXml ? { version: 1, workspaceXml: solutionScratchXml } : { version: 1, workspaceJson: solutionBlocks }))
       e.restaurees = (e.restaurees ?? 0) + 1
       return
     }
@@ -358,7 +373,7 @@ async function repondre(e, n, k, a) {
         structure: att.expectedStructure ?? '',
         operation: att.expectedOperation ?? '',
       }
-      await el.evaluate((x, val) => (x.value = val), JSON.stringify(valeur))
+      await el.evaluate(ecrireEtSignaler, JSON.stringify(valeur))
       e.restaurees = (e.restaurees ?? 0) + 1
       return
     }
@@ -628,6 +643,16 @@ async function repondre(e, n, k, a) {
         const fig = main.locator(`[id^="apigeomEx${n}F"] svg`).last()
         const b = await fig.boundingBox()
         if (b) await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2) : page.mouse.click(b.x + b.width / 2, b.y + b.height / 2))
+        // puis la construction de la correction, réécrite dans la figure comme
+        // MathALÉA restaure une figure enregistrée (évènement au nom de la figure)
+        if (a.figureCorrection) {
+          const id = await main.locator(`div[id^="apigeomEx${n}F"]`).first().getAttribute('id')
+          await page.evaluate(([id, json]) => document.dispatchEvent(new CustomEvent(id, { detail: json })), [id, a.figureCorrection])
+          await main.locator(`#${id}`).evaluate((x) => x.dispatchEvent(new Event('input', { bubbles: true, composed: true })))
+          await pause(page, 300)
+          e.restaurees = (e.restaurees ?? 0) + 1
+          return
+        }
         throw new Error('touché seulement : apigeom-figure (construction)')
       }
       await (e.touche ? page.touchscreen.tap(cible.x, cible.y) : page.mouse.click(cible.x, cible.y))
@@ -663,7 +688,7 @@ async function repondre(e, n, k, a) {
         const y = b.y + b.height * f
         await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, y) : page.mouse.click(b.x + b.width / 2, y))
         await pause(page, 400)
-        const chiffre = page.locator('main button:visible', { hasText: /^\s*1\s*$/ }).last()
+        const chiffre = page.locator('main button:visible:enabled', { hasText: /^\s*1\s*$/ }).last()
         if (await chiffre.count()) await toucher(e, chiffre)
         await pause(page, 300)
       }
@@ -694,6 +719,8 @@ async function repondre(e, n, k, a) {
             /* valeur simple */
           }
           el.value = complet
+          // Comme après une vraie saisie : l'app relit la réponse (brouillon)
+          el.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
           return true
         } catch {
           return false
@@ -753,7 +780,8 @@ async function jouerSeance(e, p, nomCeinture) {
       if ([...rangs.values()].some(([, , f]) => f)) {
         const [n] = [...rangs.values()].find(([, , f]) => f)
         try {
-          await repondre(e, n, 0, { format: 'apigeom-figure' })
+          cache[n] ??= await attendues(e, { ...s0.contenu.etapes[n] }, s0.graines[n], n)
+          await repondre(e, n, 0, { format: 'apigeom-figure', figureCorrection: cache[n].find((x) => x?.figureCorrection)?.figureCorrection })
         } catch (err) {
           problemes.push(`${s0.contenu.etapes[n].id} apigeom-figure : saisie impossible (${err.message.split('\n')[0]})`)
         }
@@ -886,9 +914,12 @@ if (process.env.FORMATS) {
             })
           }
           const essais = s?.essais ?? []
+          if (process.env.DEBUG) console.log('seance', JSON.stringify({ brouillons: s?.brouillons, essais: essais.map((x) => [x.question, x.reponses]) }).slice(0, 1500))
           // Format dont la bonne réponse ne se saisit pas automatiquement : il suffit que
           // la réponse soit prise en compte (Vérifier actif) et vérifiée sans erreur
-          if (etape.verifie === 'prise-en-compte') problemes = problemes.filter((x) => !/comptée incorrecte|touché seulement/.test(x))
+          // Aucune exemption : chaque format doit être saisi juste et compté correct
+          // (Nathan, 31 octobre 2026 : « validables et validés et pris en compte »)
+          if (etape.verifie) problemes.push(`exemption « ${etape.verifie} » interdite`)
           // Correction à la fin : chaque question répondue garde sa réponse jusqu'à la soumission
           if (process.env.CORRECTION === 'parcours') {
             const sansReponse = essais.filter((x) => !Object.keys(x.reponses ?? {}).length).map((x) => `Q${x.question + 1}`)

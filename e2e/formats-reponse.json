@@ -284,15 +284,13 @@
        "uuid": "d7c5c",
        "id": "6AutoG2-3",
        "nbQuestions": 2,
-       "titre": "alea-iep-editeur (6AutoG2-3)",
-       "verifie": "prise-en-compte"
+       "titre": "alea-iep-editeur (6AutoG2-3)"
       },
       {
        "uuid": "1d6ca",
        "id": "9ES1E-20",
        "nbQuestions": 2,
-       "titre": "apigeom-figure (9ES1E-20)",
-       "verifie": "prise-en-compte"
+       "titre": "apigeom-figure (9ES1E-20)"
       },
       {
        "uuid": "ab88c",
@@ -313,8 +311,7 @@
        "uuid": "984fb",
        "id": "5N1L-5",
        "nbQuestions": 2,
-       "titre": "decomposition-facteurs-premiers (5N1L-5)",
-       "verifie": "prise-en-compte"
+       "titre": "decomposition-facteurs-premiers (5N1L-5)"
       },
       {
        "uuid": "cff13",
@@ -338,8 +335,7 @@
        "uuid": "b7f28",
        "id": "6N5-14",
        "nbQuestions": 2,
-       "titre": "echiquier-probleme (6N5-14)",
-       "verifie": "prise-en-compte"
+       "titre": "echiquier-probleme (6N5-14)"
       },
       {
        "uuid": "6a1956",
@@ -369,22 +365,19 @@
        "uuid": "01def",
        "id": "EN-Grimuku",
        "nbQuestions": 2,
-       "titre": "grimuku-grille (EN-Grimuku)",
-       "verifie": "prise-en-compte"
+       "titre": "grimuku-grille (EN-Grimuku)"
       },
       {
        "uuid": "327f2",
        "id": "4G30-0",
        "nbQuestions": 2,
-       "titre": "guide-ane (4G30-0)",
-       "verifie": "prise-en-compte"
+       "titre": "guide-ane (4G30-0)"
       },
       {
        "uuid": "51242",
        "id": "canc3D04",
        "nbQuestions": 2,
-       "titre": "interactive-clock (canc3D04)",
-       "verifie": "prise-en-compte"
+       "titre": "interactive-clock (canc3D04)"
       },
       {
        "uuid": "a6e62",
@@ -396,22 +389,19 @@
        "uuid": "cc308",
        "id": "EN-Juniper-Green",
        "nbQuestions": 2,
-       "titre": "juniper-green (EN-Juniper-Green)",
-       "verifie": "prise-en-compte"
+       "titre": "juniper-green (EN-Juniper-Green)"
       },
       {
        "uuid": "5b4fa",
        "id": "EN-KenKen",
        "nbQuestions": 2,
-       "titre": "kenken-grille (EN-KenKen)",
-       "verifie": "prise-en-compte"
+       "titre": "kenken-grille (EN-KenKen)"
       },
       {
        "uuid": "4f449",
        "id": "EN-KillerSudoku",
        "nbQuestions": 2,
-       "titre": "killer-sudoku-grille (EN-KillerSudoku)",
-       "verifie": "prise-en-compte"
+       "titre": "killer-sudoku-grille (EN-KillerSudoku)"
       },
       {
        "uuid": "043ca",
@@ -423,29 +413,25 @@
        "uuid": "8d4f2",
        "id": "4L23",
        "nbQuestions": 2,
-       "titre": "mathalea-branching-qcm (4L23)",
-       "verifie": "prise-en-compte"
+       "titre": "mathalea-branching-qcm (4L23)"
       },
       {
        "uuid": "dcef5",
        "id": "EN-CompteBon",
        "nbQuestions": 2,
-       "titre": "mathalea-compte-est-bon (EN-CompteBon)",
-       "verifie": "prise-en-compte"
+       "titre": "mathalea-compte-est-bon (EN-CompteBon)"
       },
       {
        "uuid": "99d95",
        "id": "CM2D1A-1",
        "nbQuestions": 2,
-       "titre": "mathalea-couteau-suisse (CM2D1A-1)",
-       "verifie": "prise-en-compte"
+       "titre": "mathalea-couteau-suisse (CM2D1A-1)"
       },
       {
        "uuid": "labyvec",
        "id": "labyvec",
        "nbQuestions": 2,
-       "titre": "mathalea-labyrinthe (labyvec)",
-       "verifie": "prise-en-compte"
+       "titre": "mathalea-labyrinthe (labyvec)"
       },
       {
        "uuid": "d4k7m",
@@ -481,8 +467,7 @@
        "uuid": "a7f28",
        "id": "3G95-17",
        "nbQuestions": 2,
-       "titre": "meta-custom (3G95-17)",
-       "verifie": "prise-en-compte"
+       "titre": "meta-custom (3G95-17)"
       },
       {
        "uuid": "e8254",
@@ -500,29 +485,25 @@
        "uuid": "0aaea",
        "id": "can6C7-07",
        "nbQuestions": 2,
-       "titre": "my-calculator (can6C7-07)",
-       "verifie": "prise-en-compte"
+       "titre": "my-calculator (can6C7-07)"
       },
       {
        "uuid": "4662d",
        "id": "4662d",
        "nbQuestions": 2,
-       "titre": "my-spreadsheet (4662d)",
-       "verifie": "prise-en-compte"
+       "titre": "my-spreadsheet (4662d)"
       },
       {
        "uuid": "40d57",
        "id": "4G20-0",
        "nbQuestions": 2,
-       "titre": "objets-cliquables (4G20-0)",
-       "verifie": "prise-en-compte"
+       "titre": "objets-cliquables (4G20-0)"
       },
       {
        "uuid": "4f2a3",
        "id": "4f2a3",
        "nbQuestions": 2,
-       "titre": "points-cliquables (4f2a3)",
-       "verifie": "prise-en-compte"
+       "titre": "points-cliquables (4f2a3)"
       },
       {
        "uuid": "5e37d",
@@ -534,8 +515,7 @@
        "uuid": "fa607",
        "id": "EN-Pyramide",
        "nbQuestions": 2,
-       "titre": "pyramide-nombres (EN-Pyramide)",
-       "verifie": "prise-en-compte"
+       "titre": "pyramide-nombres (EN-Pyramide)"
       },
       {
        "uuid": "667d9",
@@ -547,15 +527,13 @@
        "uuid": "bd726",
        "id": "bd726",
        "nbQuestions": 2,
-       "titre": "relier-etiquettes (bd726)",
-       "verifie": "prise-en-compte"
+       "titre": "relier-etiquettes (bd726)"
       },
       {
        "uuid": "c1f91",
        "id": "5I1C",
        "nbQuestions": 2,
-       "titre": "scratch-editor (5I1C)",
-       "verifie": "prise-en-compte"
+       "titre": "scratch-editor (5I1C)"
       },
       {
        "uuid": "1474f",
@@ -567,8 +545,7 @@
        "uuid": "b74c8",
        "id": "6AutoS1-4",
        "nbQuestions": 2,
-       "titre": "tableau-hybride (6AutoS1-4)",
-       "verifie": "prise-en-compte"
+       "titre": "tableau-hybride (6AutoS1-4)"
       },
       {
        "uuid": "0c3d9",
@@ -580,8 +557,7 @@
        "uuid": "39232",
        "id": "39232",
        "nbQuestions": 2,
-       "titre": "tableau-signes-variations (39232)",
-       "verifie": "prise-en-compte"
+       "titre": "tableau-signes-variations (39232)"
       },
       {
        "uuid": "b7e2d",
@@ -593,22 +569,19 @@
        "uuid": "eb23a",
        "id": "EN-TablesEffacees",
        "nbQuestions": 2,
-       "titre": "tables-effacees-grille (EN-TablesEffacees)",
-       "verifie": "prise-en-compte"
+       "titre": "tables-effacees-grille (EN-TablesEffacees)"
       },
       {
        "uuid": "d4c81",
        "id": "d4c81",
        "nbQuestions": 2,
-       "titre": "traceur-de-courbe (d4c81)",
-       "verifie": "prise-en-compte"
+       "titre": "traceur-de-courbe (d4c81)"
       },
       {
        "uuid": "d9a41",
        "id": "2mTrigoFct-3",
        "nbQuestions": 2,
-       "titre": "trigo-circle-selection (2mTrigoFct-3)",
-       "verifie": "prise-en-compte"
+       "titre": "trigo-circle-selection (2mTrigoFct-3)"
       }
      ]
     }
