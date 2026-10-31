@@ -26,10 +26,9 @@ export const boutonLien = `presse inline-flex items-center justify-center gap-2 
 
 export const desactive = 'disabled:opacity-40'
 
-/** Pastille de compteur (MobileEndingItem.svelte), verte dans les deux thèmes (le « warn » sombre est rose) */
+/** Pastille de compteur (MobileEndingItem.svelte), au vert de MathALÉA dans les deux thèmes (le « warn » sombre est rose) */
 export const pastille = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
-  bg-coopmaths-warn
-  text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs font-bold`
+  fond-vert-mathalea text-white text-xs font-bold`
 
 /** Liste groupée (MobileBrowser.svelte) */
 export const listeGroupee = `flex flex-col rounded-xl overflow-hidden
@@ -46,4 +45,7 @@ export const elementListe = `w-full flex flex-row items-center justify-between g
 export const pastilleNeutre = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
   bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest
   text-coopmaths-corpus dark:text-coopmathsdark-corpus text-xs font-bold`
+/** Pastille « Incorrecte » : rouge des segments de la barre de progression (Seance.svelte) */
+export const pastilleIncorrecte = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
+  bg-red-600 text-white text-xs font-bold`
 export const pastilleScore = (pourcentage: number) => (pourcentage >= 80 ? pastille : pastilleNeutre)

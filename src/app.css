@@ -141,6 +141,41 @@ math-field,
      la dernière ligne disparaissait (0.4.10, e2e/champs-visibles.mjs) */
   padding-block: 0.25rem;
 }
+/* Vert de MathALÉA (vertMathalea de colors.ts, sans classe Tailwind compilée) :
+   segments corrects de la barre de progression et pastilles (Nathan,
+   31 octobre 2026) */
+.fond-vert-mathalea {
+  background-color: #4d8613;
+}
+
+/* Réponse correcte : la réponse mise en évidence dans la correction (orange
+   de MathALÉA, miseEnEvidence) passe au vert de MathALÉA (vertMathalea,
+   colors.ts), dans les deux thèmes comme l'orange (Nathan, 31 octobre 2026) ;
+   incorrecte, elle reste orange. */
+.correction-juste :is([style*='241, 89, 41'], [style*='#f15929' i]) {
+  color: #4d8613 !important;
+}
+
+/* Thème sombre : figures inversées (traits clairs sur fond sombre) au lieu
+   du fond gris de MathALÉA, où les champs posés sur la figure étaient
+   illisibles (Nathan, 31 octobre 2026). Seuls le tracé et ses étiquettes
+   sont inversés (hue-rotate garde les teintes) ; champs de réponse et
+   smileys restent dans les couleurs du thème sombre. */
+.dark .contenu-mathalea .svgContainer .mathalea2d {
+  background-color: transparent;
+  filter: invert(1) hue-rotate(180deg);
+}
+.dark .contenu-mathalea .svgContainer .divLatex:not(:has(math-field, input, select, [id^='resultatCheck'])) {
+  filter: invert(1) hue-rotate(180deg);
+}
+/* Champ posé sur la figure : texte plein (MathALÉA l'atténue), lisible en sombre */
+.dark .contenu-mathalea .svgContainer .divLatex:has(math-field) {
+  opacity: 1;
+}
+.dark .contenu-mathalea .svgContainer math-field {
+  color: var(--color-coopmathsdark-corpus);
+}
+
 /* Fenêtre d'ordinateur : texte et champs plus grands, lisibles à distance */
 @media (min-width: 768px) and (pointer: fine) {
   .question-eleve {

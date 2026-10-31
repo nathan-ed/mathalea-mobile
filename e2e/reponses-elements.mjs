@@ -117,7 +117,7 @@ for (const appareil of (process.env.APPAREILS ?? "telephone,bureau").split(","))
     ok(await verifier(e), `${appareil} liste : Vérifier actif après le choix`)
     let s = await lireSeance(e.page, id)
     ok(s.essais.length === 1 && s.essais[0].juste, `${appareil} liste : bonne réponse comptée correcte`, JSON.stringify(s.essais))
-    ok((await segment(e.page, 0).locator('span').getAttribute('class')).includes('bg-coopmaths-warn'), `${appareil} liste : segment vert pour une réponse correcte`)
+    ok((await segment(e.page, 0).locator('span').getAttribute('class')).includes('fond-vert-mathalea'), `${appareil} liste : segment vert pour une réponse correcte`)
     await capture(e.page, `${appareil}-liste`)
     // Question 2 : un choix faux, gardé en brouillon si l'on quitte la question
     await toucher(e, e.page.getByRole('button', { name: 'Question suivante' }))
@@ -266,11 +266,11 @@ for (const appareil of (process.env.APPAREILS ?? 'telephone,bureau').split(','))
   await e.ctx.close()
 }
 
-// 7. Thème sombre : vert pour une réponse correcte, orange de MathALÉA pour les boutons
+// 7. Thème sombre : vert pour une réponse correcte, orange pâle du thème sombre de MathALÉA pour les boutons (Nathan, 31 octobre 2026)
 {
   const e = await eleve('sombre', parcours('sombre', '5d1e2'), 'telephone', 'dark')
   const couleur = await e.page.getByRole('button', { name: 'Passer' }).evaluate((b) => getComputedStyle(b).color)
-  ok(couleur === 'rgb(241, 89, 41)', 'sombre : boutons à l’orange de MathALÉA', couleur)
+  ok(couleur === 'rgb(255, 184, 108)', 'sombre : boutons à l’orange pâle du thème sombre', couleur)
   await capture(e.page, 'sombre')
   await e.ctx.close()
 }

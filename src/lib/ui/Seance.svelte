@@ -116,7 +116,7 @@
     if (e && !(finale && !seance.soumise)) {
       // Mêmes couleurs dans les deux thèmes (le « warn » sombre de MathALÉA est rose) ; orange : en partie correcte
       const v = valeur(e)
-      return v === 1 ? 'bg-coopmaths-warn' : v > 0 ? 'bg-coopmaths-action' : 'bg-red-600'
+      return v === 1 ? 'fond-vert-mathalea' : v > 0 ? 'bg-coopmaths-action' : 'bg-red-600'
     }
     if (actuelle) return 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'
     if (e || Object.keys(seance.brouillons[cle] ?? {}).length) return 'bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light'

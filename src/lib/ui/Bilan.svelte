@@ -7,7 +7,7 @@
   import MesReponses from './MesReponses.svelte'
   import { reponsesDeSeance } from '$lib/releve'
   import { modeQr } from '$lib/progression'
-  import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastilleScore } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import { navigation } from '$lib/navigation.svelte'
 
@@ -142,7 +142,7 @@
           >
             <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Question {i + 1}</span>
             <span class="flex flex-row items-center gap-2">
-              <span class={pastilleScore(100 * v)}>{v === 1 ? 'Correcte' : 'Incorrecte'}</span>
+              <span class={v === 1 ? pastille : pastilleIncorrecte}>{v === 1 ? 'Correcte' : 'Incorrecte'}</span>
               <i aria-hidden="true"
                 class="bx {questionsOuvertes[cle] ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"
               ></i>

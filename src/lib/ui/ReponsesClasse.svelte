@@ -17,7 +17,7 @@
     type Releve,
     type VerdictQuestion,
   } from '$lib/releve'
-  import { boutonInverse, listeGroupee, pastille, pastilleScore } from './classes'
+  import { boutonInverse, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
 
   let {
@@ -280,7 +280,7 @@
                     <li class="flex flex-col text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                       <span class="flex flex-row items-baseline justify-between gap-3">
                         <span class="min-w-0 overflow-x-auto" use:rendu={reponseHtml(g.reponse)}></span>
-                        <span class="shrink-0 {pastilleScore(g.juste ? 100 : 0)}">{g.juste ? 'Correcte' : 'Incorrecte'} · {g.nb}</span>
+                        <span class="shrink-0 {g.juste ? pastille : pastilleIncorrecte}">{g.juste ? 'Correcte' : 'Incorrecte'} · {g.nb}</span>
                       </span>
                       <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{g.passages.map((d) => nomDe.get(d)).join(', ')}</span>
                     </li>

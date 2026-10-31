@@ -6,7 +6,7 @@
   import { ouvrirLien } from '$lib/fichiers'
   import { retourSi } from '$lib/navigation.svelte'
   import { texteRiche, titreRiche, type RenduFormule } from '$lib/texteRiche'
-  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import GraphiqueCours from './GraphiqueCours.svelte'
 
@@ -70,7 +70,7 @@
                 <button type="button" role="radio" aria-checked={choix[i] === k} class={elementListe} onclick={() => (choix[i] = k)}>
                   <span class="texte-cours">{@html riche(c)}</span>
                   {#if choix[i] === k}
-                    <span class={pastilleScore(k === bloc.bonne ? 100 : 0)}>{k === bloc.bonne ? 'Correcte' : 'Incorrecte'}</span>
+                    <span class={k === bloc.bonne ? pastille : pastilleIncorrecte}>{k === bloc.bonne ? 'Correcte' : 'Incorrecte'}</span>
                   {/if}
                 </button>
               {/each}
@@ -103,7 +103,7 @@
             {#if verifiees[i]}
               {@const ok = juste(attendu, saisies[i] ?? '')}
               <div class="flex flex-col gap-2" aria-live="polite">
-                <span class="self-start {pastilleScore(ok ? 100 : 0)}">{ok ? 'Correcte' : 'Incorrecte'}</span>
+                <span class="self-start {ok ? pastille : pastilleIncorrecte}">{ok ? 'Correcte' : 'Incorrecte'}</span>
                 <div class="texte-cours leading-relaxed">{@html riche(bloc.explication)}</div>
               </div>
             {/if}

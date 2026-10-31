@@ -750,6 +750,18 @@ Reste à faire :
   de `.question-eleve` coupe aussi en hauteur) ; marge `padding-block`.
   Critère `e2e/champs-visibles.mjs` : aucun champ à moins de 2 px du bord
   d'un cadre qui coupe, joué par `test-niveau.mjs` et `parcours-az.mjs`.
+- Couleurs (Nathan) : réponse mise en évidence de la correction (orange de
+  `miseEnEvidence`) au vert de MathALÉA (`vertMathalea`, #4d8613) quand la
+  question est correcte (`.correction-juste`, `BlocQuestion`) ; segments
+  corrects et pastilles au même vert (`.fond-vert-mathalea`) ; « Incorrecte »
+  en rouge (`pastilleIncorrecte`, rouge des segments). Critère
+  `e2e/couleurs-verdict.mjs` (vert si et seulement si tous les smileys de
+  MathALÉA sont 😎), joué par `parcours-az.mjs` ; `e2e/couleurs-reponse.mjs`
+  (juste puis faux, clair et sombre).
+- Thème sombre : figures `mathalea2d` inversées (tracé et étiquettes ;
+  champs et smileys non) au lieu du fond gris où un champ posé sur la figure
+  était illisible ; à retirer quand MathALÉA aura son propre mode sombre des
+  figures (MR proposée).
 - Test : `node e2e/test-niveau.mjs` (CM1 et CM2 validés d'avance, 5e fermée
   puis ouverte, ceinture en haut, champs entiers à chaque question).
 

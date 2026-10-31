@@ -356,7 +356,7 @@
   <div
     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 mb-4 ml-0 py-2 pl-4"
   >
-    <div class="contenu-mathalea container overflow-x-auto overflow-y-hidden py-1" bind:this={zoneCorrection}></div>
+    <div class="contenu-mathalea container overflow-x-auto overflow-y-hidden py-1" class:correction-juste={resultat?.juste === true} bind:this={zoneCorrection}></div>
     <div
       class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-0.75 -top-3.75 bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
     >

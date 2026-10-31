@@ -29,6 +29,8 @@ async function toutCorrect(page) {
     s.essais = s.etapes.flatMap((etape) =>
       Array.from({ length: s.nbQuestions[etape] }, (_, question) => ({ etape, question, juste: true, points: 1, total: 1, reponses: {}, le: new Date().toISOString() })),
     )
+    // Une seule incorrecte (14/15, la ceinture reste obtenue) : pastilles des deux couleurs au bilan
+    Object.assign(s.essais.at(-1), { juste: false, points: 0 })
     localStorage.setItem(cle, JSON.stringify(s))
   })
 }
@@ -115,6 +117,11 @@ for (const theme of ['clair', 'sombre']) {
   ok(verdict.includes('Ceinture orange obtenue'), `${theme} : ceinture obtenue`)
   ok(verdict.includes('Niveau suivant : 5e'), `${theme} : niveau suivant proposé`)
   ok(verdict.includes('Question 15') && !verdict.includes('CAN 6e'), `${theme} : bilan par question, sans nom de sujet`)
+  const fond = (t) => page.getByText(t, { exact: true }).first().evaluate((x) => getComputedStyle(x).backgroundColor)
+  const fc = await fond('Correcte')
+  const fi = await fond('Incorrecte')
+  ok(fc === 'rgb(77, 134, 19)', `${theme} : pastille Correcte verte (${fc})`)
+  ok(/^(rgb\(2[01]\d, \d+, \d+\)|oklch\(0\.57)/.test(fi), `${theme} : pastille Incorrecte rouge (${fi})`)
   await page.getByRole('button', { name: /^Question 1 / }).click()
   await page.locator('main math-field, main .mathalea2d, main .katex').first().waitFor({ timeout: 60_000 })
   await cap(page, '5-bilan', theme)

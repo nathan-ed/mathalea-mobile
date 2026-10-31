@@ -14,6 +14,7 @@
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { champsCoupes } from './champs-visibles.mjs'
+import { incoherencesVert } from './couleurs-verdict.mjs'
 
 const base = 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
@@ -491,6 +492,8 @@ async function jouerSeance(e, p, nomCeinture) {
         }
       }
     }
+    // Réponse mise en évidence dans la correction : verte si MathALÉA juge la question correcte
+    for (const c of await incoherencesVert(page)) problemes.push(`couleur de la correction (${c})`)
     await pause(page, 300)
     // Suite : question ou exercice suivant, soumission de la tentative (correction à la fin), bilan
     const suivant = page.locator('footer').getByRole('button', { name: /^(Question suivante|Exercice suivant|Soumettre la tentative|Voir le bilan)$/ })

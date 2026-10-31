@@ -73,7 +73,7 @@ for s in "${paralleles[@]}"; do
 done
 for s in reponses-elements defilement un-toucher regressions changer-appareil classe-qr en-classe \
   fiche-parcours session-qr ouverture-paliers paliers papier recherche correction-parcours \
-  reponses-session revisions test-niveau test-niveau-reel retour; do
+  reponses-session revisions test-niveau test-niveau-reel couleurs-reponse retour; do
   etape "$s" node "e2e/$s.mjs"
 done
 arreter
