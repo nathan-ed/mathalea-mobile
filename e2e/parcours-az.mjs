@@ -267,6 +267,52 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'mathalea-compte-est-bon': {
+      // Suite de calculs qui atteint le meilleur écart (recherche exhaustive),
+      // jouée au doigt : deux cartes, puis l'opération
+      const el = main.locator(`#mathalea-compte-est-bon${q}`)
+      const cible = Number(await el.getAttribute('cible'))
+      const tirage = JSON.parse(await el.getAttribute('tirage'))
+      const ecart = Number(await el.getAttribute('meilleur-ecart')) || 0
+      const division = (await el.getAttribute('avec-division')) === 'true'
+      const calcul = (g, d, o) => (o === '+' ? g + d : o === '*' ? g * d : o === '-' ? (g > d ? g - d : null) : division && d && g % d === 0 ? g / d : null)
+      const chercher = (cartes, etapes) => {
+        for (const c of cartes) if (Math.abs(c - cible) === ecart) return { etapes, finale: c }
+        if (etapes.length >= tirage.length - 1) return null
+        for (let i = 0; i < cartes.length; i++)
+          for (let j = 0; j < cartes.length; j++) {
+            if (i === j) continue
+            for (const o of ['+', '-', '*', '/']) {
+              if ((o === '+' || o === '*') && i > j) continue
+              const r = calcul(cartes[i], cartes[j], o)
+              if (r == null || r === cartes[i] || r === cartes[j]) continue
+              const reste = cartes.filter((_, k) => k !== i && k !== j)
+              const t = chercher([...reste, r], [...etapes, [cartes[i], cartes[j], o]])
+              if (t) return t
+            }
+          }
+        return null
+      }
+      const solution = chercher(tirage, [])
+      if (!solution) throw new Error(`compte est bon sans solution trouvée (cible ${cible})`)
+      if (process.env.DEBUG) console.log('compte est bon', cible, tirage, ecart, JSON.stringify(solution))
+      const carte = (valeur) => el.locator('.carte[aria-pressed="false"]', { hasText: new RegExp(`^${valeur}$`) }).first()
+      const SIGNES = { '+': '+', '-': '−', '*': '×', '/': '÷' }
+      for (const [g, d, o] of solution.etapes) {
+        // Le résultat d'un calcul reste sélectionné : on le désélectionne d'abord
+        for (let k = await el.locator('.carte[aria-pressed="true"]').count(); k > 0; k--) await toucher(e, el.locator('.carte[aria-pressed="true"]').first())
+        await toucher(e, carte(g))
+        await toucher(e, carte(d))
+        await toucher(e, el.locator('.operation', { hasText: SIGNES[o] }).first())
+        await pause(page, 200)
+      }
+      // Nombre du tirage déjà au meilleur écart : il est proposé tel quel
+      if (!solution.etapes.length) {
+        await toucher(e, carte(solution.finale))
+        await toucher(e, el.locator('.proposer'))
+      }
+      return
+    }
     case 'mathalea-branching-qcm': {
       const k = a.branches?.findIndex((b) => b.statut) ?? -1
       if (k === -1) throw new Error('QCM à branches sans bonne proposition')
@@ -558,6 +604,7 @@ async function jouerSeance(e, p, nomCeinture) {
         try {
           await repondre(e, n, k, a)
         } catch (err) {
+          if (process.env.DEBUG) console.log(err.message)
           problemes.push(`${etiquette}: saisie impossible (${err.message.split('\n')[0]})`)
         }
       }
