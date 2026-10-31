@@ -543,13 +543,22 @@
     return [...vus.values()]
   })
 
-  async function ouvrirTest() {
+  function ouvrirTest() {
     aller('test')
-    if (!referentielCan && moteur) {
-      // Sujets : référentiel français quel que soit le pays (la CAN n'existe que là)
-      referentielCan = (await moteur.listerExercices('FR')).filter((e) => e.niveau === 'CAN')
-    }
   }
+  // Sujets lus dès que l'écran des niveaux s'affiche, quel que soit le chemin
+  // (séance de test reprise au relancement puis tentative supprimée : l'écran
+  // restait sur « Lecture des sujets… »)
+  let lectureCan = false
+  $effect(() => {
+    if (vue !== 'test' || referentielCan || !moteur || lectureCan) return
+    lectureCan = true
+    // Référentiel français quel que soit le pays (la CAN n'existe que là)
+    void moteur
+      .listerExercices('FR')
+      .then((liste) => (referentielCan = liste.filter((e) => e.niveau === 'CAN')))
+      .finally(() => (lectureCan = false))
+  })
 
   async function sauverTest() {
     await stockage!.ecrire('test-niveau', $state.snapshot(etatTest))

@@ -311,6 +311,29 @@ async function repondre(e, n, k, a) {
       for (let j = 0; j < Math.round((Number(num) * total) / den); j++) await toucher(e, boutons.nth(j))
       return
     }
+    case 'decomposition-facteurs-premiers': {
+      // L'élève écrit chaque division (diviseur premier, puis quotient) jusqu'au
+      // quotient 1, puis la décomposition : MathALÉA exige tout l'algorithme
+      const el = main.locator(`#decomposition-facteurs-premiers${q}`)
+      let reste = Number(await el.getAttribute('nombre'))
+      const ecrire = async (texte) => {
+        const champ = el.locator('.dfp-champ').last()
+        await remplirChamp(e, champ, texte)
+        await toucher(e, el.locator('.dfp-valide').last())
+        await pause(page, 300)
+      }
+      for (let d = 2; reste > 1 && d <= reste; ) {
+        if (reste % d) {
+          d++
+          continue
+        }
+        await ecrire(String(d))
+        reste /= d
+        await ecrire(String(reste))
+      }
+      await remplirChamp(e, el.locator('[data-dfp-final] math-field').first(), reponseDe(v.reponse))
+      return
+    }
     case 'mathalea-textfield': {
       const champ = main.locator(`#champTexte${q}`)
       await toucher(e, champ)

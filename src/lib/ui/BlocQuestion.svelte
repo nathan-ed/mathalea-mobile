@@ -135,6 +135,17 @@
       }
     }
     for (const [cle, valeurs] of Object.entries(figures)) saisies[cle] = JSON.stringify(valeurs)
+    // Autres éléments de MathALÉA (<tag>Ex<n>Q<k> : décomposition en facteurs
+    // premiers, échiquier, tableau de signes…) : tout leur état, celui que
+    // MathALÉA range et réécrit (sans lui, seules les étapes déjà vérifiées
+    // survivaient au changement de question, correction à la fin)
+    for (const element of zone.querySelectorAll<HTMLElement & { value?: unknown }>('[id*="Ex"]')) {
+      if (!element.tagName.includes('-') || element.id in saisies || !ID_REPONSE.test(element.id) || ID_RETOUR.test(element.id)) continue
+      if (/^(MATH-FIELD|MATHALEA-MATHFIELD|APIGEOM-FIGURE)$/.test(element.tagName) || element.matches(ELEMENTS_REPONSE)) continue
+      const v = element.value
+      const texte = typeof v === 'string' ? v : v != null && typeof v === 'object' ? JSON.stringify(v) : ''
+      if (remplie(texte)) saisies[element.id] = texte
+    }
     // Figure apigeom (tracer un segment, placer un point) : son état, au format
     // que MathALÉA réécrit (clé apigeomEx<n>F<k>, JSON sans options). Seulement
     // après un toucher : la figure de départ n'est pas une réponse.

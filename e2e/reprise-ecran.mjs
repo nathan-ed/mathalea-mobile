@@ -64,6 +64,20 @@ for (const appareil of ['telephone', 'bureau']) {
   await relancer()
   ok(await visible(page.getByText(/ceinture blanche/i)), `${appareil} : Teste ton niveau retrouvé`)
 
+  // Test commencé, app relancée dans la séance, tentative supprimée : la liste
+  // des niveaux s'affiche (elle restait sur « Lecture des sujets… »)
+  await page.getByRole('button', { name: /^CM1 · ceinture blanche/ }).click()
+  await page.getByRole('dialog').getByRole('button', { name: 'Commencer' }).click()
+  await page.getByText(/Question 1 sur 15/).waitFor({ timeout: 120000 })
+  await relancer()
+  await page.getByText(/Question 1 sur 15/).waitFor({ timeout: 120000 })
+  ok(true, `${appareil} : séance de test reprise au relancement`)
+  await page.goBack()
+  await page.getByRole('button', { name: 'Supprimer la tentative' }).click()
+  await page.getByRole('button', { name: 'Supprimer', exact: true }).click()
+  await page.getByRole('button', { name: /^CM1 · ceinture blanche/ }).waitFor({ timeout: 60000 }).catch(() => {})
+  ok(await visible(page.getByRole('button', { name: /^CM1 · ceinture blanche/ })), `${appareil} : niveaux affichés après la suppression de la tentative`)
+
   ok(!erreurs.length, `${appareil} : aucune erreur JavaScript ${erreurs.slice(0, 2).join(' | ')}`)
   await ctx.close()
 }
