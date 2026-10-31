@@ -84,6 +84,15 @@ async function attendues(e, etape, graine, numero) {
               format: a.formatInteractif ?? null,
               valeur: JSON.parse(JSON.stringify(a.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
               statuts: a.propositions?.map((p) => !!p.statut) ?? null,
+              // Couteau suisse : ses éléments, chacun avec sa propre réponse attendue
+              elements: Array.isArray(a.elements)
+                ? a.elements.map((x) => ({
+                    format: x.formatInteractif,
+                    k: Number.isInteger(x.questionIndex) ? x.questionIndex : null,
+                    valeur: JSON.parse(JSON.stringify(x.autoCorrection?.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
+                    statuts: x.autoCorrection?.propositions?.map((p) => !!p.statut) ?? null,
+                  }))
+                : null,
               // QCM à branches : bonne proposition et sa justification ; un
               // contre-exemple (vérifié par l'exercice lui-même) est cherché parmi
               // les entiers, comme l'essaierait un élève
@@ -265,6 +274,12 @@ async function repondre(e, n, k, a) {
         if (!cle.startsWith('rectangle')) continue
         for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
       }
+      return
+    }
+    case 'mathalea-couteau-suisse': {
+      // Chaque élément du couteau suisse reçoit sa propre bonne réponse
+      if (!a.elements?.length) throw new Error('couteau suisse sans éléments')
+      for (const x of a.elements) await repondre(e, n, x.k ?? k, { format: x.format, valeur: x.valeur, statuts: x.statuts })
       return
     }
     case 'juniper-green': {
