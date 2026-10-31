@@ -187,7 +187,9 @@ math-field,
   max-width: 100%;
   height: auto;
 }
-.contenu-mathalea table,
+/* Sauf la grille du tableur (jspreadsheet), qui défile dans son propre cadre :
+   en bloc, elle tombait à 2 px de large et le tableur était invisible */
+.contenu-mathalea table:not(.jss_worksheet),
 .contenu-mathalea .katex-display {
   display: block;
   max-width: 100%;

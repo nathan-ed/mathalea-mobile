@@ -200,6 +200,9 @@
 
   function surTouche(e: KeyboardEvent) {
     if (e.key !== 'Enter') return
+    // Entrée déjà prise par un élément de MathALÉA (cellule du tableur, division
+    // de la décomposition…) : elle n'y vérifie pas la question
+    if (e.defaultPrevented || e.composedPath().some((n) => n instanceof Element && n.matches('.jss_spreadsheet, textarea'))) return
     e.preventDefault()
     if (onvalider) onvalider()
     else if (!resultat && aSaisi) verifier()

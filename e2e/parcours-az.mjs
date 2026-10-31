@@ -276,6 +276,34 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'my-spreadsheet': {
+      // L'élève touche chaque cellule puis écrit sa formule dans la barre de
+      // formule, validée par Entrée
+      const el = main.locator(`#my-spreadsheet${q}`)
+      const attendu = v.sheetAnswer ?? JSON.parse(v.reponse?.value ?? '{}').sheetAnswer ?? {}
+      for (const { ref, formula, value } of attendu.goodAnswerFormulas ?? []) {
+        const col = ref.charCodeAt(0) - 65
+        const row = Number(ref.slice(1)) - 1
+        // Toucher à l'écran, la cellule amenée au centre de la zone qui défile
+        const cellule = el.locator(`td[data-x="${col}"][data-y="${row}"]`).first()
+        await cellule.evaluate((x) => x.scrollIntoView({ block: 'center', inline: 'center' }))
+        await pause(page, 200)
+        const b = await cellule.boundingBox()
+        await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2) : page.mouse.click(b.x + b.width / 2, b.y + b.height / 2))
+        // Barre de formule si le tableur en a une, sinon saisie directe dans la cellule
+        const barre = el.locator('.barre-formule-saisie')
+        if (await barre.count()) {
+          await toucher(e, barre)
+          await barre.fill(String(formula ?? value))
+          await barre.press('Enter')
+        } else {
+          await page.keyboard.type(String(formula ?? value))
+          await page.keyboard.press('Enter')
+        }
+        await pause(page, 200)
+      }
+      return
+    }
     case 'echiquier-probleme': {
       // Échiquier construit comme l'attend l'exercice (grandeurs, objets,
       // données, grisés, structure et opération), écrit dans l'élément comme
