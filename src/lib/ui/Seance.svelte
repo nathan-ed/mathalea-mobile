@@ -109,14 +109,14 @@
     return () => clearTimeout(minuterie)
   })
 
-  /** Segment de la barre de progression : vert si correcte, rouge si incorrecte (une fois corrigée), sinon en cours, répondue ou à faire */
+  /** Segment de la barre de progression : vert si correcte, orange si incorrecte (une fois corrigée), sinon en cours, répondue ou à faire */
   function etatSegment(ref: Ref, actuelle: boolean) {
     const cle = cleQuestion(ref.etape, ref.question)
     const e = premiers.get(cle)
     if (e && !(finale && !seance.soumise)) {
-      // Mêmes couleurs dans les deux thèmes (le « warn » sombre de MathALÉA est rose) ; orange : en partie correcte
+      // Vert et orange de MathALÉA dans les deux thèmes (le « warn » sombre est rose) ; orange clair : en partie correcte
       const v = valeur(e)
-      return v === 1 ? 'fond-vert-mathalea' : v > 0 ? 'bg-coopmaths-action' : 'bg-red-600'
+      return v === 1 ? 'fond-vert-mathalea' : v > 0 ? 'fond-orange-clair' : 'bg-coopmaths-action'
     }
     if (actuelle) return 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'
     if (e || Object.keys(seance.brouillons[cle] ?? {}).length) return 'bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light'

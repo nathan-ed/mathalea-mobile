@@ -147,6 +147,11 @@ math-field,
 .fond-vert-mathalea {
   background-color: #4d8613;
 }
+/* Segment d'une question en partie correcte : orange clair de MathALÉA
+   (coopmathsActionLightest), l'orange plein marquant une incorrecte */
+.fond-orange-clair {
+  background-color: #f79b7f;
+}
 
 /* Réponse correcte : la réponse mise en évidence dans la correction (orange
    de MathALÉA, miseEnEvidence) passe au vert de MathALÉA (vertMathalea,

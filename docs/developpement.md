@@ -754,7 +754,9 @@ Reste à faire :
   `miseEnEvidence`) au vert de MathALÉA (`vertMathalea`, #4d8613) quand la
   question est correcte (`.correction-juste`, `BlocQuestion`) ; segments
   corrects et pastilles au même vert (`.fond-vert-mathalea`) ; « Incorrecte »
-  en rouge (`pastilleIncorrecte`, rouge des segments). Critère
+  et segments incorrects à l'orange de MathALÉA (`pastilleIncorrecte`,
+  Nathan : « le rouge trop violent »), orange clair en partie correcte
+  (`.fond-orange-clair`). Critère
   `e2e/couleurs-verdict.mjs` (vert si et seulement si tous les smileys de
   MathALÉA sont 😎), joué par `parcours-az.mjs` ; `e2e/couleurs-reponse.mjs`
   (juste puis faux, clair et sombre).

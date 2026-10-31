@@ -3,5 +3,5 @@
 - La ceinture du niveau s'affiche en haut pendant le test.
 - Thème sombre : retour à l'orange pâle de MathALÉA.
 - Champs de réponse : le bas du cadre n'est plus coupé.
-- Bonne réponse en vert dans la correction, « Incorrecte » en rouge au bilan.
+- Bonne réponse en vert dans la correction, vert et orange de MathALÉA au bilan et dans la barre.
 - Thème sombre : figures lisibles.

@@ -121,7 +121,7 @@ for (const theme of ['clair', 'sombre']) {
   const fc = await fond('Correcte')
   const fi = await fond('Incorrecte')
   ok(fc === 'rgb(77, 134, 19)', `${theme} : pastille Correcte verte (${fc})`)
-  ok(/^(rgb\(2[01]\d, \d+, \d+\)|oklch\(0\.57)/.test(fi), `${theme} : pastille Incorrecte rouge (${fi})`)
+  ok(fi === 'rgb(241, 89, 41)', `${theme} : pastille Incorrecte à l'orange de MathALÉA (${fi})`)
   await page.getByRole('button', { name: /^Question 1 / }).click()
   await page.locator('main math-field, main .mathalea2d, main .katex').first().waitFor({ timeout: 60_000 })
   await cap(page, '5-bilan', theme)
