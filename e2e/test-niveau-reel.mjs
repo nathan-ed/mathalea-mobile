@@ -96,6 +96,20 @@ for (const a of appareils) {
   await page.getByText(/obtenue|Il faut/).first().waitFor({ timeout: 120_000 })
   const bilan = await texte(page)
   ok(!/CAN|Course aux nombres|sujet 20/.test(bilan), `${a.nom} : bilan sans nom de sujet`)
+  // Bilan : chaque réponse tapée réapparaît dans son champ (jamais un champ vide)
+  const vides = []
+  for (let i = 0; i < n; i++) {
+    if (types[i] !== 'champ') continue
+    const ligne = page.getByRole('button', { name: new RegExp(`^Question ${i + 1} `) })
+    await ligne.click()
+    await page.waitForTimeout(1200)
+    const valeurs = await page.locator('main .question-eleve math-field').evaluateAll((ms) => ms.map((m) => m.value ?? ''))
+    if (!valeurs.length || valeurs.some((v) => !v.trim())) vides.push(`Q${i + 1} (${JSON.stringify(valeurs)})`)
+    if (i === types.indexOf('champ')) await page.screenshot({ path: `${captures}/reel-${a.nom}-bilan-reponse.png` })
+    await ligne.click()
+    await page.waitForTimeout(300)
+  }
+  ok(types.includes('champ') && vides.length === 0, `${a.nom} : réponses tapées affichées au bilan${vides.length ? ' ; vides : ' + vides.join(' ') : ''}`)
   await page.screenshot({ path: `${captures}/reel-${a.nom}-bilan.png`, fullPage: true })
 
   // Suivi : le test y figure, avec sa ceinture
