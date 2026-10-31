@@ -76,6 +76,14 @@ jobs:
             brew install xcodegen
             pnpm tauri ios init --ci
           fi
+      # Manifeste de confidentialité exigé par Apple : dans le dossier de
+      # l'app (source du projet), projet régénéré pour l'embarquer
+      - name: Manifeste de confidentialité
+        run: |
+          cp src-tauri/PrivacyInfo.xcprivacy src-tauri/gen/apple/mathalea-mobile_iOS/
+          command -v xcodegen > /dev/null || brew install xcodegen
+          (cd src-tauri/gen/apple && xcodegen generate)
+          grep -q PrivacyInfo.xcprivacy src-tauri/gen/apple/mathalea-mobile.xcodeproj/project.pbxproj
       - uses: actions/upload-artifact@v7
         with:
           name: projet-xcode

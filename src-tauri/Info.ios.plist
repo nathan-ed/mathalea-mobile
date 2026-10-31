@@ -9,9 +9,10 @@
   <!-- Seul chiffrement : HTTPS du système (exempté), pas de déclaration d'exportation -->
   <key>ITSAppUsesNonExemptEncryption</key>
   <false/>
-  <!-- Caméra : l'enseignant lit les QR codes des réponses de ses élèves -->
+  <!-- Caméra : l'élève lit le QR code de la session projetée, l'enseignant
+       ceux des réponses de ses élèves (Apple refuse une raison incomplète) -->
   <key>NSCameraUsageDescription</key>
-  <string>La caméra sert à lire les QR codes des réponses de vos élèves après une session partagée.</string>
+  <string>La caméra sert uniquement à lire des QR codes : celui que l'enseignant projette pour rejoindre une classe ou une session, et ceux des réponses des élèves. L'image reste sur l'appareil.</string>
   <key>LSApplicationCategoryType</key>
   <string>public.app-category.education</string>
 </dict>

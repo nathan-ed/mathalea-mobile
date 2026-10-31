@@ -18,10 +18,12 @@ gratuit pour un dépôt public.
 
 ## Une fois : compte et clés
 
-1. **Programme développeur Apple** (environ 99 $ par an) :
-   developer.apple.com/programs/enroll, avec son identifiant Apple. Apple
-   vérifie l'identité (sur le web ou dans l'app « Apple Developer » de
-   l'iPhone), compter un à deux jours.
+1. **Programme développeur Apple**, au nom de l'association CoopMaths
+   (organisation, numéro D-U-N-S) : developer.apple.com/programs/enroll.
+   Apple vérifie l'entité juridique, souvent par un appel à son représentant
+   (quelques jours à deux semaines). Exonération des 99 $ par an pour
+   association à but non lucratif demandée en octobre 2026 : réponse en
+   quelques semaines.
 2. **Team ID** : developer.apple.com, « Membership ».
 3. **App Store Connect** (appstoreconnect.apple.com) :
    - « Apps », « + », « Nouvelle app » : plateforme iOS, nom « MathALÉA »,
@@ -65,6 +67,23 @@ gratuit pour un dépôt public.
    versions arrivent seules (notification TestFlight).
 
 Une version TestFlight reste valable 90 jours : en envoyer une nouvelle avant.
+
+## Le jour où le compte est ouvert
+
+1. Team ID, clé d'API et secrets GitHub (plus haut, « Une fois »).
+2. App Store Connect, « Nouvelle app » : nom, identifiant de lot, et la fiche
+   de `docs/fiche-boutiques.md`, section « App Store » (sous-titre, mots-clés,
+   classification 4+, « Données non collectées », notes pour la
+   vérification).
+3. Captures iPhone 6,9 pouces et iPad 13 pouces :
+   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>`.
+4. Workflow **ios** sur le dernier tag, case « Signer et envoyer à
+   TestFlight » ; essayer la version TestFlight sur un vrai iPhone (caméra
+   des QR codes comprise).
+5. « Distribution » : choisir cette compilation, « Soumettre pour
+   vérification ». Compter un à deux jours ; une première app est souvent
+   refusée une fois (réponse dans le « Resolution Center », puis nouvel
+   envoi).
 Pour l'App Store ensuite : même version, « Distribution », fiche de
 `docs/fiche-boutiques.md` (catégorie Éducation, 4+, pas la catégorie
 Enfants).
