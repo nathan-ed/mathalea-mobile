@@ -1,7 +1,8 @@
 # APK d'essai de la branche, construites ici plutôt que sur la machine de
 # Nathan (mémoire et disque limités) : arm64 pour un téléphone, x86_64 pour
-# l'émulateur. Sans LTO (plus rapide), clé de test, moteur publié sur
-# mathalea.fr. Artefact « apk-essai », à ranger dans releases/essai/.
+# l'émulateur. Sans LTO (plus rapide), clé de test, moteur de la branche
+# (moteur/COMMIT et moteur/fichiers, comme la release : l'essai doit être ce
+# qui sera publié). Artefact « apk-essai », à ranger dans releases/essai/.
 name: apk-essai
 
 on:
@@ -34,8 +35,14 @@ jobs:
           workspaces: src-tauri -> target
           key: essai
       - run: pnpm install --frozen-lockfile
-      - name: Moteur publié
-        run: node scripts/moteur-publie.mjs
+      - uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/mathalea-mobile
+            ~/.local/share/pnpm/store
+          key: moteur-${{ hashFiles('moteur/COMMIT') }}
+      - name: Moteur de la branche
+        run: bash scripts/moteur.sh
       - name: Clé de test
         env:
           CLE_BASE64: ${{ secrets.ANDROID_KEYSTORE }}
