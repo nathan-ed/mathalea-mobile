@@ -86,16 +86,22 @@ async function toucher(el) {
 }
 const scrollY = () => nav.execute(() => window.scrollY);
 
-/** Vrai glissé du doigt (natif XCUITest), en points de l'écran */
+/**
+ * Vrai glissé du doigt (natif XCUITest), en points de l'écran. Geste rapide :
+ * dragFromToForDuration appuie d'abord 0,3 s, ce qu'iOS prend parfois pour un
+ * appui long (sélection) au lieu d'un défilement.
+ */
 async function glisser(deY, versY) {
   await nav.switchContext("NATIVE_APP");
   const { width } = await nav.getWindowSize();
-  await nav.execute("mobile: dragFromToForDuration", {
+  await nav.execute("mobile: dragFromToWithVelocity", {
     fromX: width / 2,
     fromY: deY,
     toX: width / 2,
     toY: versY,
-    duration: 0.3,
+    pressDuration: 0.05,
+    holdDuration: 0.05,
+    velocity: 1500,
   });
   await pause(900);
   await webview();
@@ -129,6 +135,8 @@ await toucher(
 const interrupteur = await attendre(await affiche('//*[@role="switch"]'));
 const { height } = await nav.getWindowSize();
 await glisser(height * 0.8, height * 0.2);
+// Un second geste si le premier n'a pas pris (simulateur encore occupé)
+if ((await scrollY()) <= 100) await glisser(height * 0.8, height * 0.2);
 ok(
   (await scrollY()) > 100,
   `Réglages : le doigt fait descendre la page (${await scrollY()})`,
