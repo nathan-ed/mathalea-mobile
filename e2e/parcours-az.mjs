@@ -267,6 +267,23 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'juniper-green': {
+      // Partie jouée jusqu'au bout : chaque nombre est un multiple ou un
+      // diviseur du précédent, jamais repris ; elle s'arrête quand plus aucun
+      // coup n'est possible (score maximal)
+      const el = main.locator(`#juniper-green${q}`)
+      const max = Number(await el.getAttribute('max')) || 100
+      for (let coup = 0; coup < max; coup++) {
+        const suite = await el.evaluate((x) => x.value)
+        const dernier = suite.at(-1)
+        const libres = Array.from({ length: max }, (_, i) => i + 1).filter((x) => !suite.includes(x))
+        const possibles = dernier == null ? [4] : libres.filter((x) => x % dernier === 0 || dernier % x === 0)
+        if (!possibles.length) break
+        await toucher(e, el.locator(`[data-nombre="${possibles[0]}"]`))
+        await pause(page, 100)
+      }
+      return
+    }
     case 'mathalea-labyrinthe': {
       // L'élève touche les cases dont le contenu est une bonne réponse
       // (départ et arrivée exclus), le chemin se trace
