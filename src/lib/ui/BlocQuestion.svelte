@@ -50,6 +50,9 @@
   let erreur = $state('')
   let minuterie: ReturnType<typeof setTimeout> | undefined
   let enAttente = false
+  // Saisies lues à la dernière frappe : à la fermeture de la question, un
+  // élément de MathALÉA déjà retiré de la page (tableau) n'a plus ses champs
+  let derniereLecture: Record<string, string> = {}
   const q = $derived(exercice.questions[question])
 
   // Champ placé dans une figure (MetaInteractif2d) : la réponse est le « trou »
@@ -180,7 +183,8 @@
     // sa valeur ne se lit pas une à une, la frappe suffit pour que Vérifier s'active
     const cible = e.target
     if (cible instanceof HTMLElement && !cible.id && ID_REPONSE.test(cible.parentElement?.closest('[id]')?.id ?? '')) interagi = true
-    aSaisi = interagi || !!q.videAccepte || Object.keys(lireSaisies()).length > 0
+    derniereLecture = lireSaisies()
+    aSaisi = interagi || !!q.videAccepte || Object.keys(derniereLecture).length > 0
     // Seulement une vraie frappe : « change » arrive aussi quand le champ perd
     // le focus, par exemple à l'ouverture du panneau « Soumettre quand même ? »,
     // qui se refermait alors aussitôt (premier toucher perdu)
@@ -257,7 +261,11 @@
     ;(document.activeElement as HTMLElement | null)?.blur?.()
     clearTimeout(minuterie)
     enAttente = false
-    resultat = moteur.verifier(exercice, question)
+    const saisies = lireSaisies()
+    const verifie = moteur.verifier(exercice, question)
+    // Exercice qui ne range pas ses réponses (tableauMathlive de 2mTrigoTri-6) :
+    // la saisie lue avant la vérification, sinon rien n'arrive au bilan
+    resultat = Object.keys(verifie.reponses).length ? verifie : { ...verifie, reponses: saisies }
     onverifiee(resultat)
     await afficherCorrection()
   }
@@ -325,7 +333,8 @@
   onDestroy(() => {
     clearTimeout(minuterie)
     if (!enAttente || resultat) return
-    const saisies = lireSaisies()
+    const lues = lireSaisies()
+    const saisies = Object.keys(lues).length ? lues : derniereLecture
     queueMicrotask(() => onbrouillon(saisies))
   })
 </script>

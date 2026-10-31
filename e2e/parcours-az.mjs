@@ -45,6 +45,7 @@ async function eleve(nom, classe, parcours) {
     for (const [cle, valeur] of Object.entries(d)) localStorage.setItem(`copie:${cle}`, JSON.stringify(valeur))
   }, donnees)
   const page = await ctx.newPage()
+  if (process.env.DEBUG) page.on('console', (m) => m.text().startsWith('[trace]') && console.log(m.text()))
   page.on('pageerror', (e) => erreurs.push(`${nom}: ${e.message}`))
   await page.goto(base)
   // Page séparée pour régénérer les exercices (réponses attendues)
@@ -503,7 +504,12 @@ async function repondre(e, n, k, a) {
     }
     case 'tableauMathlive':
     case 'tableau-mathlive': {
-      for (const [cellule, rep] of Object.entries(v)) if (/^L\d+C\d+$/.test(cellule)) await remplirChamp(e, main.locator(`#champTexte${q}${cellule}`), reponseDe(rep))
+      const cellules = Object.entries(v).filter(([cellule]) => /^L\d+C\d+$/.test(cellule))
+      // Bonne réponse « tableau vide » (2mTrigoTri-6, aucun triangle) : rien à
+      // écrire, Vérifier est actif sans saisie ; avec la correction à la fin, la
+      // question reste « sans réponse » pour l'app, comme pour l'élève
+      if (cellules.every(([, rep]) => reponseDe(rep) === '')) (e.videsAttendus ??= new Set()).add(`${n}-${k}`)
+      for (const [cellule, rep] of cellules) if (reponseDe(rep) !== '') await remplirChamp(e, main.locator(`#champTexte${q}${cellule}`), reponseDe(rep))
       return
     }
     case 'MetaInteractif2d':
@@ -833,7 +839,7 @@ async function jouerSeance(e, p, nomCeinture) {
     if (libelle === 'Soumettre la tentative') {
       const garde = page.getByRole('button', { name: /quand même$/ })
       if (await garde.count()) {
-        problemes.push(`garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
+        if (!e.videsAttendus?.size) problemes.push(`garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
         await toucher(e, garde)
       }
       // Relecture corrigée, puis le bilan
@@ -922,7 +928,7 @@ if (process.env.FORMATS) {
           if (etape.verifie) problemes.push(`exemption « ${etape.verifie} » interdite`)
           // Correction à la fin : chaque question répondue garde sa réponse jusqu'à la soumission
           if (process.env.CORRECTION === 'parcours') {
-            const sansReponse = essais.filter((x) => !Object.keys(x.reponses ?? {}).length).map((x) => `Q${x.question + 1}`)
+            const sansReponse = essais.filter((x) => !Object.keys(x.reponses ?? {}).length && !e.videsAttendus?.has(`${x.etape}-${x.question}`)).map((x) => `Q${x.question + 1}`)
             if (sansReponse.length) problemes.push(`réponse perdue avant la soumission : ${sansReponse.join(', ')}`)
           }
           // Un format sans aucune vérification enregistrée n'a rien prouvé
