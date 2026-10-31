@@ -161,22 +161,9 @@ math-field,
   color: #4d8613 !important;
 }
 
-/* Thème sombre : figures inversées (traits clairs sur fond sombre) au lieu
-   du fond gris de MathALÉA, où les champs posés sur la figure étaient
-   illisibles (Nathan, 31 octobre 2026). Seuls le tracé et ses étiquettes
-   sont inversés (hue-rotate garde les teintes) ; champs de réponse et
-   smileys restent dans les couleurs du thème sombre. */
-.dark .contenu-mathalea .svgContainer .mathalea2d {
-  background-color: transparent;
-  filter: invert(1) hue-rotate(180deg);
-}
-.dark .contenu-mathalea .svgContainer .divLatex:not(:has(math-field, input, select, [id^='resultatCheck'])) {
-  filter: invert(1) hue-rotate(180deg);
-}
-/* Champ posé sur la figure : texte plein (MathALÉA l'atténue), lisible en sombre */
-.dark .contenu-mathalea .svgContainer .divLatex:has(math-field) {
-  opacity: 1;
-}
+/* Thème sombre : figures inversées par MathALÉA (MR !9788, dans le moteur
+   depuis c07ca58ff). Reste propre à l'app : le texte du champ posé sur une
+   figure, aux couleurs du thème sombre de l'app. */
 .dark .contenu-mathalea .svgContainer math-field {
   color: var(--color-coopmathsdark-corpus);
 }

@@ -61,7 +61,7 @@ trap 'kill -- -"${serveur:-0}" 2>/dev/null; kill "$partage" 2>/dev/null' EXIT
 # catalogue en cache), imposée même si .env.development.local en donne une autre
 demarrer "https://coopmaths.fr/alea/parcours/"
 # Longues suites en parallèle : formats de réponse et parcours de l'Explorer
-paralleles=(formats az-1 az-2 az-3)
+paralleles=(formats formats-fin az-1 az-2 az-3)
 pids=()
 for s in "${paralleles[@]}"; do
   (node "e2e/$s.mjs" > "$SORTIE/$s.log" 2>&1; echo $? > "$SORTIE/$s.code") &
@@ -73,7 +73,7 @@ for s in "${paralleles[@]}"; do
 done
 for s in reponses-elements defilement un-toucher regressions changer-appareil classe-qr en-classe \
   fiche-parcours session-qr ouverture-paliers paliers papier recherche correction-parcours \
-  reponses-session revisions test-niveau test-niveau-reel couleurs-reponse retour; do
+  reponses-session revisions test-niveau test-niveau-reel couleurs-reponse reprise-ecran retour; do
   etape "$s" node "e2e/$s.mjs"
 done
 arreter

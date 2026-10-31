@@ -135,6 +135,18 @@
       }
     }
     for (const [cle, valeurs] of Object.entries(figures)) saisies[cle] = JSON.stringify(valeurs)
+    // Figure apigeom (tracer un segment, placer un point) : son état, au format
+    // que MathALÉA réécrit (clé apigeomEx<n>F<k>, JSON sans options). Seulement
+    // après un toucher : la figure de départ n'est pas une réponse.
+    if (interagi) {
+      const apigeom = (exercice.interne as { figuresApiGeom?: { id: string; json: string }[] }).figuresApiGeom ?? []
+      for (const element of zone.querySelectorAll<HTMLElement>('[id^="apigeomEx"]')) {
+        const figure = apigeom.find((f) => f.id === element.id)
+        if (!figure) continue
+        const { options: _options, ...sansOptions } = JSON.parse(figure.json) as Record<string, unknown>
+        saisies[element.id] = JSON.stringify(sansOptions)
+      }
+    }
     return saisies
   }
 
@@ -252,6 +264,8 @@
       await afficherCorrection()
     } else {
       if (brouillon && Object.keys(brouillon).length) {
+        // Figure déjà touchée : elle reste une réponse au retour sur la question
+        if (Object.keys(brouillon).some((k) => k.startsWith('apigeomEx'))) interagi = true
         await moteur.ecrireReponses(brouillon)
         await tick()
         aSaisi = !!q.videAccepte || Object.keys(lireSaisies()).length > 0

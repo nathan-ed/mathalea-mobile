@@ -354,6 +354,35 @@ async function repondre(e, n, k, a) {
         avant = c
       }
       if (!cible) {
+        // « Trace un segment de longueur a/b u.l » : l'unité est le segment de
+        // référence (le plus long de la figure) ; deux touchers avec l'outil
+        // segment, sous la référence, à la longueur demandée
+        const trace = await main.locator(`[id^="apigeomEx${n}F"]`).first().evaluate((fig) => {
+          const z = fig.closest('.contenu-mathalea')
+          const tex = [...z.querySelectorAll('annotation')].filter((a) => !fig.contains(a)).map((a) => a.textContent).join(' ')
+          if (!/segment de longueur/i.test(z.innerText)) return null
+          const f = /\\[dt]?frac\{(\d+)\}\{(\d+)\}/.exec(tex)
+          const d = /(\d+(?:[.,]\d+)?)\s*~?\s*\\text\{\s*u\.l/.exec(tex)
+          const longueur = f ? Number(f[1]) / Number(f[2]) : d ? Number(d[1].replace(',', '.')) : NaN
+          // Horizontales plus courtes que la grille (qui occupe toute la largeur)
+          const horizontales = [...fig.querySelectorAll('svg line, svg path')].map((l) => l.getBoundingClientRect()).filter((r) => r.height < 4 && r.width > 10)
+          const pleine = Math.max(...horizontales.map((r) => r.width))
+          const ref = horizontales.filter((r) => r.width < pleine - 2).sort((p, q) => q.width - p.width)[0]
+          const grille = [...fig.querySelectorAll('svg line')].map((l) => l.getBoundingClientRect()).filter((r) => r.width < 2 && r.height > 20)
+          if (!ref || !Number.isFinite(longueur) || !grille.length) return null
+          // Pas de la grille : écart entre deux verticales voisines
+          const xs = [...new Set(grille.map((r) => Math.round(r.x)))].sort((a, b) => a - b)
+          const pas = Math.min(...xs.slice(1).map((x, j) => x - xs[j]).filter((x) => x > 3))
+          const y = ref.y + ref.height / 2 + 2 * pas
+          return { x1: ref.x, x2: ref.x + longueur * ref.width, y }
+        })
+        if (trace) {
+          for (const x of [trace.x1, trace.x2]) {
+            await (e.touche ? page.touchscreen.tap(x, trace.y) : page.mouse.click(x, trace.y))
+            await pause(page, 300)
+          }
+          return
+        }
         // Autre figure (construction) : un toucher sur la figure
         const fig = main.locator(`[id^="apigeomEx${n}F"] svg`).last()
         const b = await fig.boundingBox()
@@ -552,7 +581,9 @@ if (process.env.FORMATS) {
         for (const etape of p.etapes) {
           // FORMAT=dnd,qcm : seulement ces formats (premier mot du titre)
           if (process.env.FORMAT && !process.env.FORMAT.split(',').includes(etape.titre.split(' ')[0])) continue
-          const seul = { ...p, id: `format-${etape.uuid}`, titre: `Format ${etape.uuid}`, paliers: undefined, style: undefined, etapes: [etape] }
+          // CORRECTION=parcours : correction à la fin, la réponse doit survivre au
+          // changement de question et à la soumission (brouillon puis relecture)
+          const seul = { ...p, id: `format-${etape.uuid}`, titre: `Format ${etape.uuid}`, paliers: undefined, style: undefined, etapes: [etape], correction: process.env.CORRECTION ?? p.correction }
           const e = await eleve(seul.id, classe.nom, [seul])
           const erreursAvant = erreurs.length
           let problemes
@@ -593,6 +624,11 @@ if (process.env.FORMATS) {
           // Format dont la bonne réponse ne se saisit pas automatiquement : il suffit que
           // la réponse soit prise en compte (Vérifier actif) et vérifiée sans erreur
           if (etape.verifie === 'prise-en-compte') problemes = problemes.filter((x) => !/comptée incorrecte|touché seulement/.test(x))
+          // Correction à la fin : chaque question répondue garde sa réponse jusqu'à la soumission
+          if (process.env.CORRECTION === 'parcours') {
+            const sansReponse = essais.filter((x) => !Object.keys(x.reponses ?? {}).length).map((x) => `Q${x.question + 1}`)
+            if (sansReponse.length) problemes.push(`réponse perdue avant la soumission : ${sansReponse.join(', ')}`)
+          }
           // Un format sans aucune vérification enregistrée n'a rien prouvé
           if (!essais.length && !problemes.length) problemes.push('aucune vérification enregistrée')
           // Erreurs JavaScript de la page pendant ce format (rechargement, module introuvable…)

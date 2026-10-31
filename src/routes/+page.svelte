@@ -109,7 +109,8 @@
   let vue: Vue = $state('accueil')
   // « creer » (Parcours), « classes » et « classe » (En classe) : seulement avec le
   // réglage Enseignant ; « mes » et « suivi » pour lui seulement en vue élève
-  let onglet: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe' = $state('mes')
+  type Onglet = 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe'
+  let onglet: Onglet = $state('mes')
   let vueEleve = $state(false)
   let actif: Parcours | undefined = $state()
   // Fiche de cours ouverte, l'écran d'où elle vient et, avant une séance, de quoi la lancer
@@ -283,6 +284,8 @@
     restaurationAnnulable = !!(await stockage.lire<string>(CLE_AVANT_RESTAURATION))
     for (const p of tous) await chargerParcours(p)
     await chargerRevisions()
+    // Écran où l'on était à la dernière fermeture, lu avant que l'accueil ne l'écrase
+    const ecranAvant = await stockage.lire<Ecran>('ecran')
     vue = 'accueil'
     // Réglage Enseignant : l'app s'ouvre sur l'onglet Créer
     if (profil === 'enseignant') onglet = 'creer'
@@ -292,6 +295,7 @@
       moteur = await chargerMoteur()
       moteur.definirLangue(pays === 'CH' ? 'fr-CH' : 'fr-FR')
       void lireReperes()
+      if (ecranAvant) await reprendreEcran(ecranAvant)
     } catch (e) {
       erreurMoteur = (e as Error).message
     }
@@ -385,6 +389,31 @@
   }
 
   const accueil = () => aller('accueil')
+
+  // Reprise après une fermeture (Android arrête l'app laissée en arrière-plan) :
+  // retour sur l'écran où l'on était, une séance en cours reprend à sa question
+  type Ecran = { vue: Vue; onglet: Onglet; parcours?: string }
+  $effect(() => {
+    if (!pret || !stockage) return
+    void stockage.ecrire('ecran', { vue, onglet, parcours: actif?.id } satisfies Ecran)
+  })
+  async function reprendreEcran(e: Ecran) {
+    if (profil === null) return
+    // Onglets de l'élève ou de l'enseignant, selon le profil d'aujourd'hui
+    const ONGLETS_ELEVE = ['mes', 'explorer', 'suivi']
+    if (ONGLETS_ELEVE.includes(e.onglet) === (profil !== 'enseignant') || vueEleve) onglet = e.onglet
+    const tests = NIVEAUX_TEST.flatMap((n) => etatTest[n.cle]?.tirage ?? [])
+    const p = e.parcours ? [...tous, ...(catalogue ?? []), ...tests].find((x) => x.id === e.parcours) : undefined
+    if (e.vue === 'test') return ouvrirTest()
+    if (!p || !['parcours', 'seance', 'bilan', 'relecture'].includes(e.vue)) return
+    const s = seances[p.id]
+    if (e.vue === 'seance' && s && !s.fin) {
+      actif = p
+      return lancer(s)
+    }
+    if (estTest(p.id)) return ouvrirTest()
+    ouvrir(p)
+  }
   // Sessions de l'enseignant (onglet En classe) et celle ouverte sur sa page
   let sessionOuverte: string | null = $state(null)
   const releveOuvert = $derived(releves.find((r) => r.cle === sessionOuverte) ?? null)

@@ -33,6 +33,11 @@
        "acces": "libre"
       },
       {
+       "titre": "apigeom-segment",
+       "nb": 1,
+       "acces": "libre"
+      },
+      {
        "titre": "clique-figure",
        "nb": 1,
        "acces": "libre"
@@ -288,6 +293,15 @@
        "nbQuestions": 2,
        "titre": "apigeom-figure (9ES1E-20)",
        "verifie": "prise-en-compte"
+      },
+      {
+       "uuid": "ab88c",
+       "id": "canc3a-2026",
+       "nbQuestions": 1,
+       "sup": "false",
+       "sup2": "26",
+       "sup3": "false",
+       "titre": "apigeom-segment (canc3a-2026 Q26)"
       },
       {
        "uuid": "f57fe",

@@ -385,8 +385,11 @@ function indicesDeLaQuestion(
 }
 
 function reponsesDeLaQuestion(exercice: IExercice, indices: number[]) {
+  // …Ex<n>Q<k> pour les champs, …Ex<n>F<k> pour une figure apigeom (son état,
+  // rangé par correctionInteractive) : sans elle, la figure tracée n'était ni
+  // relue ni gardée au bilan
   const motifs = indices.map(
-    (k) => new RegExp(`Ex${exercice.numeroExercice}Q${k}(?!\\d)`),
+    (k) => new RegExp(`Ex${exercice.numeroExercice}[QF]${k}(?!\\d)`),
   )
   return Object.fromEntries(
     Object.entries(exercice.answers ?? {}).filter(([cle]) =>
