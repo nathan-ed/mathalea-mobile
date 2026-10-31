@@ -276,6 +276,29 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'echiquier-probleme': {
+      // Échiquier construit comme l'attend l'exercice (grandeurs, objets,
+      // données, grisés, structure et opération), écrit dans l'élément comme
+      // MathALÉA réécrit une réponse enregistrée ; un toucher d'abord
+      const el = main.locator(`#echiquier-probleme${q}`)
+      const b = await el.boundingBox()
+      if (b) await (e.touche ? page.touchscreen.tap(b.x + 20, b.y + 20) : page.mouse.click(b.x + 20, b.y + 20))
+      const att = JSON.parse(v.reponse.value)
+      const cellValues = {}
+      att.expectedRows.forEach((r, i) => att.expectedColumns.forEach((c, j) => (cellValues[`${i}:${j}`] = att.cells.find((x) => x.row === r && x.column === c)?.value ?? '')))
+      const valeur = {
+        rowHeaders: att.expectedRows,
+        columnHeaders: att.expectedColumns,
+        cellValues,
+        greyedRows: att.expectedGreyedRows ?? [],
+        greyedColumns: att.expectedGreyedColumns ?? [],
+        structure: att.expectedStructure ?? '',
+        operation: att.expectedOperation ?? '',
+      }
+      await el.evaluate((x, val) => (x.value = val), JSON.stringify(valeur))
+      e.restaurees = (e.restaurees ?? 0) + 1
+      return
+    }
     case 'mathalea-couteau-suisse': {
       // Chaque élément du couteau suisse reçoit sa propre bonne réponse
       if (!a.elements?.length) throw new Error('couteau suisse sans éléments')
