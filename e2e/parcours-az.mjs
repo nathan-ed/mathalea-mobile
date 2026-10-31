@@ -267,6 +267,29 @@ async function repondre(e, n, k, a) {
       }
       return
     }
+    case 'mathalea-labyrinthe': {
+      // L'élève touche les cases dont le contenu est une bonne réponse
+      // (départ et arrivée exclus), le chemin se trace
+      const el = main.locator(`#labyrinthe${q}`)
+      const norme = (t) => t.replace(/[−–]/g, '-').replace(/\s+/g, '')
+      const bonnes = JSON.parse(v.reponse.value).goodAnswers.map(norme)
+      // Grille dans une racine fermée (shadow « closed ») : position de chaque
+      // case lue par l'élément, puis toucher à l'écran
+      const cases = () =>
+        el.evaluate((x) =>
+          [...x.root.querySelectorAll('.grid-cell:not(.start):not(.end)')].map((c) => {
+            const r = c.getBoundingClientRect()
+            return { id: `${c.dataset.row}-${c.dataset.col}`, x: r.x + r.width / 2, y: r.y + r.height / 2, t: c.querySelector('annotation')?.textContent ?? c.textContent }
+          }),
+        )
+      for (const { id } of (await cases()).filter((c) => bonnes.some((b) => norme(c.t).includes(b)))) {
+        await el.evaluate((x, id) => x.root.querySelector(`.grid-cell[data-row="${id.split('-')[0]}"][data-col="${id.split('-')[1]}"]`).scrollIntoView({ block: 'center' }), id)
+        const c = (await cases()).find((c) => c.id === id)
+        await (e.touche ? page.touchscreen.tap(c.x, c.y) : page.mouse.click(c.x, c.y))
+        await pause(page, 150)
+      }
+      return
+    }
     case 'mathalea-compte-est-bon': {
       // Suite de calculs qui atteint le meilleur écart (recherche exhaustive),
       // jouée au doigt : deux cartes, puis l'opération
