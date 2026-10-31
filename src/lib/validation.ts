@@ -21,6 +21,9 @@ const VALIDATIONS = ['question', 'page', 'parcours']
 // Paramètres d'exercice : chaînes comme dans l'URL du site (anciennes données : nombres ou booléens)
 const estParametre = (v: unknown) => estTexte(v) || estNombre(v) || typeof v === 'boolean'
 
+/** Au-delà, la préparation de l'exercice fige le téléphone */
+export const NB_QUESTIONS_MAX = 100
+
 export function estEtape(v: unknown): v is Etape {
   const e = v as Etape
   return (
@@ -28,7 +31,7 @@ export function estEtape(v: unknown): v is Etape {
     estTexte(e.uuid) &&
     estTexte(e.titre) &&
     optionnel(e.id, estTexte) &&
-    optionnel(e.nbQuestions, (n) => estEntier(n) && (n as number) > 0) &&
+    optionnel(e.nbQuestions, (n) => estEntier(n) && (n as number) > 0 && (n as number) <= NB_QUESTIONS_MAX) &&
     optionnel(e.titreMasque, (b) => typeof b === 'boolean') &&
     optionnel(e.remiseAZero, (r) => typeof r === 'boolean' || estEntier(r)) &&
     optionnel(e.objectifs, textesUniques) &&

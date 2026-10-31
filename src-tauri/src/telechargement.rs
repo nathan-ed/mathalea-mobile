@@ -3,7 +3,12 @@
 //! d'une autre origine que la sienne (redirection vers une page d'erreur).
 
 use serde::Serialize;
+use std::time::Duration;
 use tauri_plugin_http::reqwest;
+
+/// Au-delà, le fichier n'est pas un dossier de classe (le zip d'un dossier
+/// Dropbox ou Nextcloud contient aussi ses PDF et vidéos : marge large)
+const TAILLE_MAX: usize = 100 * 1024 * 1024;
 
 #[derive(Serialize)]
 pub struct Reponse {
@@ -30,15 +35,29 @@ pub async fn telecharger(url: String) -> Result<Reponse, String> {
     }
     let client = reqwest::Client::builder()
         .user_agent("MathALEA")
+        // Un drive qui ne répond plus ne bloque pas l'actualisation ; un gros
+        // zip sur une connexion lente passe tant que les données arrivent
+        .connect_timeout(Duration::from_secs(15))
+        .read_timeout(Duration::from_secs(30))
         .build()
         .map_err(|e| e.to_string())?;
     // Toujours la version du drive, jamais une copie gardée en route
-    let r = client
+    let mut r = client
         .get(url)
         .header(reqwest::header::CACHE_CONTROL, "no-cache")
         .send().await.map_err(|e| format!("Réseau : {e}"))?;
     let statut = r.status().as_u16();
-    let corps = r.bytes().await.map_err(|e| format!("Réseau : {e}"))?.to_vec();
+    let trop_gros = || "Fichier trop volumineux pour un dossier de classe".to_string();
+    if r.content_length().is_some_and(|n| n as usize > TAILLE_MAX) {
+        return Err(trop_gros());
+    }
+    let mut corps = Vec::new();
+    while let Some(morceau) = r.chunk().await.map_err(|e| format!("Réseau : {e}"))? {
+        if corps.len() + morceau.len() > TAILLE_MAX {
+            return Err(trop_gros());
+        }
+        corps.extend_from_slice(&morceau);
+    }
     Ok(Reponse { statut, corps })
 }
 

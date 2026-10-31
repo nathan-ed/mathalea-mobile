@@ -6,6 +6,7 @@ import type { Etape, Parcours } from './catalogue'
 import { creerFichier, nomHorodate, type FichierClasses } from './partage'
 import type { Objectif } from './objectifs'
 import type { Stockage } from './stockage'
+import { NB_QUESTIONS_MAX } from './validation'
 
 export interface ParcoursEnseignant {
   parcours: Parcours
@@ -367,7 +368,7 @@ export function etapesDepuisLienMathalea(lien: string): Omit<Etape, 'titre'>[] {
     const e = etapes.at(-1)
     if (!e) continue
     if (cle === 'id') e.id = valeur
-    else if (cle === 'n' && Number(valeur) > 0) e.nbQuestions = Number(valeur)
+    else if (cle === 'n' && Number(valeur) > 0) e.nbQuestions = Math.min(Number(valeur), NB_QUESTIONS_MAX)
     else if (cle === 's') e.sup = valeur
     else if (cle === 's2') e.sup2 = valeur
     else if (cle === 's3') e.sup3 = valeur

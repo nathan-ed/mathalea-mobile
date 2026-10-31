@@ -99,6 +99,8 @@ async function octets(r: Response, quoi: string) {
 }
 
 const estJson = (nom: string) => nom.toLowerCase().endsWith('.json')
+/** Taille maximale d'un fichier de parcours lu dans un zip (images de fiches comprises) */
+const JSON_MAX = 20 * 1024 * 1024
 const absent = () => new Error('Le dossier ne contient pas encore de fichier de parcours.')
 
 /**
@@ -157,7 +159,8 @@ async function lireGoogle(lien: string, req: Requete): Promise<Uint8Array[]> {
  * dossier partagé sous un dossier de tête à son nom (teteUnique).
  */
 function jsonDuZip(contenu: Uint8Array, teteUnique = false): Uint8Array[] {
-  const fichiers = unzipSync(contenu)
+  // Seuls les .json sont décompressés : pas les PDF ni les vidéos du dossier
+  const fichiers = unzipSync(contenu, { filter: (f) => estJson(f.name) && f.originalSize <= JSON_MAX })
   const noms = Object.keys(fichiers).map((n) => n.replace(/^\//, ''))
   const tetes = new Set(noms.filter((n) => n.includes('/')).map((n) => n.split('/')[0]))
   const prefixe = teteUnique && tetes.size === 1 && !noms.some((n) => !n.includes('/') && estJson(n)) ? `${[...tetes][0]}/` : ''
