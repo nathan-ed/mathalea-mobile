@@ -84,6 +84,15 @@ async function attendues(e, etape, graine, numero) {
               format: a.formatInteractif ?? null,
               valeur: JSON.parse(JSON.stringify(a.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
               statuts: a.propositions?.map((p) => !!p.statut) ?? null,
+              // QCM à branches : bonne proposition et sa justification ; un
+              // contre-exemple (vérifié par l'exercice lui-même) est cherché parmi
+              // les entiers, comme l'essaierait un élève
+              branches: a.branchingQcm?.choices.map((c) => {
+                const f = c.followup
+                let justification = f?.expected ? String(Array.isArray(f.expected.value) ? f.expected.value[0] : f.expected.value) : null
+                if (f?.callback) for (let x = -5; x <= 10 && justification == null; x++) if (f.callback(String(x), c)?.isOk) justification = String(x)
+                return { statut: c.statut === true, justification }
+              }) ?? null,
             },
       )
     },
@@ -256,6 +265,15 @@ async function repondre(e, n, k, a) {
         if (!cle.startsWith('rectangle')) continue
         for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
       }
+      return
+    }
+    case 'mathalea-branching-qcm': {
+      const k = a.branches?.findIndex((b) => b.statut) ?? -1
+      if (k === -1) throw new Error('QCM à branches sans bonne proposition')
+      await toucher(e, main.locator(`#branchingQcm${q}R${k}`))
+      await pause(page, 300)
+      const justification = a.branches[k].justification
+      if (justification != null) await remplirChamp(e, main.locator(`#mathalea-branching-qcm${q}-followup`), justification)
       return
     }
     case 'meta-custom':
