@@ -102,6 +102,10 @@ jobs:
           app=$(find src-tauri/gen/apple/build -name '*.app' -path '*simulator*' | head -1)
           [ -n "$app" ] || app=$(find src-tauri/gen/apple/build -name '*.app' | head -1)
           echo "App : $app"
+          # Ce qu'Apple contrôle à l'envoi : manifeste et raison de la caméra
+          test -f "$app/PrivacyInfo.xcprivacy"
+          plutil -p "$app/Info.plist" | grep -E "NSCameraUsageDescription|ITSAppUsesNonExemptEncryption"
+          plutil -p "$app/Info.plist" | grep -q "rejoindre une classe"
           appareil=$(xcrun simctl list devices available -j | node -e '
             const d = JSON.parse(require("fs").readFileSync(0, "utf8")).devices
             const t = Object.entries(d).filter(([k]) => k.includes("iOS")).flatMap(([, l]) => l)
