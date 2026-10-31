@@ -84,6 +84,12 @@ async function attendues(e, etape, graine, numero) {
               format: a.formatInteractif ?? null,
               valeur: JSON.parse(JSON.stringify(a.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
               statuts: a.propositions?.map((p) => !!p.statut) ?? null,
+              // Traceur de courbe : la fonction attendue n'est pas transmissible,
+              // ses valeurs le sont (pas de 0,25 entre −20 et 20)
+              valeurs:
+                typeof a.valeur?.reponse?.value === 'function'
+                  ? Object.fromEntries(Array.from({ length: 161 }, (_, i) => -20 + i / 4).map((x) => [x, a.valeur.reponse.value(x)]))
+                  : null,
               // Couteau suisse : ses éléments, chacun avec sa propre réponse attendue
               elements: Array.isArray(a.elements)
                 ? a.elements.map((x) => ({
@@ -274,6 +280,24 @@ async function repondre(e, n, k, a) {
         if (!cle.startsWith('rectangle')) continue
         for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
       }
+      return
+    }
+    case 'traceur-de-courbe': {
+      // Tableau de valeurs rempli avec des abscisses régulières de l'intervalle
+      // et leurs images, posé comme MathALÉA recharge une réponse ; un toucher d'abord
+      const el = main.locator(`#traceur-de-courbe${q}`)
+      const b = await el.boundingBox()
+      if (b) await (e.touche ? page.touchscreen.tap(b.x + 20, b.y + 20) : page.mouse.click(b.x + 20, b.y + 20))
+      if (!a.valeurs) throw new Error('traceur de courbe sans fonction attendue')
+      const { xMin, xMax } = await el.evaluate((x) => ({ xMin: x.xMin, xMax: x.xMax }))
+      // Deux colonnes par unité (l'élève ajoute des colonnes) : MathALÉA ne
+      // compte correcte qu'une courbe « très précise »
+      const pas = xMax - xMin > 4 ? 0.5 : 0.25
+      const points = []
+      for (let x = xMin; x <= xMax + 1e-9; x += pas) points.push({ x, y: a.valeurs[x] ?? a.valeurs[String(x)] })
+      if (points.some((p) => p.y == null)) throw new Error(`traceur de courbe : abscisse hors des valeurs (${xMin} ; ${xMax})`)
+      await el.evaluate((x, val) => (x.value = val), JSON.stringify({ version: 1, points }))
+      e.restaurees = (e.restaurees ?? 0) + 1
       return
     }
     case 'scratch-editor': {
@@ -743,6 +767,7 @@ async function jouerSeance(e, p, nomCeinture) {
         else problemes.push(`${etiquette}: Vérifier reste inactif après la réponse`)
         await pause(page, 500)
       }
+      if (process.env.DEBUG) console.log('retours', await page.locator('main').evaluate((m) => [...m.querySelectorAll('[id^="feedbackEx"]')].map((x) => x.id + ' : ' + x.textContent.trim()).join(' | ')))
       // Bouton du bas : vérifier la question ou soumettre la page
       const bas = page.locator('footer').getByRole('button', { name: /^(Vérifier|Soumettre l’exercice|Soumettre)$/ })
       if (await bas.count()) {
@@ -752,6 +777,7 @@ async function jouerSeance(e, p, nomCeinture) {
           await toucher(e, page.getByRole('button', { name: /^(Passer|Terminer)$/ }))
         } else await toucher(e, bas.first())
         await pause(page, 900)
+        if (process.env.DEBUG) console.log("retours", await page.locator("main").evaluate((m) => [...m.querySelectorAll("[id^=feedbackEx]")].map((x) => x.id + " : " + x.textContent.trim()).join(" | ")))
         const garde = page.getByRole('button', { name: /quand même$/ })
         if (await garde.count()) {
           problemes.push(`${etiquette}: garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
