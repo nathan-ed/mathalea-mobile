@@ -67,7 +67,7 @@ Détails : [Révisions](revisions.md).
 ### Explorer et Teste ton niveau
 
 - **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré puis par chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ».
-- **Teste ton niveau** : 15 questions de tous les domaines, du CM1 à la Terminale, corrigées à la fin. 80 % donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange, 5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire de nouvelles questions.
+- **Teste ton niveau** (programme France seulement ; absent en Suisse) : 15 questions de tous les domaines, du CM1 à la Terminale, corrigées à la fin. 80 % donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange, 5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire de nouvelles questions.
 
 ## Côté enseignant
 
@@ -76,7 +76,7 @@ Activez **Je suis enseignant** en bas des Réglages. L'application s'ouvre alors
 - **Parcours** : votre bibliothèque et vos objectifs ;
 - **Classes** : ce que reçoit chaque classe, et ses sessions ;
 - **En classe** : vos sessions ;
-- **Explorer** : les parcours de l'équipe MathALÉA et Teste ton niveau.
+- **Explorer** : les parcours de l'équipe MathALÉA, et Teste ton niveau en France.
 
 Pour voir l'application comme vos élèves (Mes parcours, Suivi), touchez « Vue élève » dans l'onglet Parcours ; « Quitter », dans le bandeau, ou le bouton retour vous ramène. Les élèves ne voient jamais vos onglets.
 
@@ -135,6 +135,7 @@ On crée pour un niveau, on donne à des classes : un même parcours sert à tou
 ### Publier
 
 - **Une fois** : un dossier sur votre drive, partagé par lien en lecture. Collez son lien dans la Mise en route de l'onglet Parcours. Ce lien ne change plus : c'est celui de vos élèves, toute l'année.
+- **Déjà un dossier dans l'application** (ajouté avant de passer enseignant, ou dans les Réglages) : le premier est votre drive. Ses classes, ses parcours et son lien sont repris d'office, il n'y a pas de Mise en route. Sans drive, la bannière dit « Drive pas encore configuré » ; **Configurer** demande le lien.
 - **À chaque changement** : une petite bannière en haut de l'écran rappelle ce qui reste à faire. « Version différente de celle du drive » : **Mettre à jour** enregistre le fichier de toute votre bibliothèque. « Fichier exporté : déposez-le sur le drive » : déposez-le dans le dossier, sans supprimer les anciens. La bannière disparaît quand l'application voit le fichier dans le dossier.
 - **Versions** : un parcours modifié après publication passe en V2, V3… Les élèves la reçoivent au prochain lancement ; leurs résultats sont gardés, une séance commencée se termine dans sa version.
 
@@ -145,7 +146,7 @@ On crée pour un niveau, on donne à des classes : un même parcours sert à tou
 
 ### Avec les collègues
 
-- **Reprendre leurs parcours** : ajoutez leur dossier (Réglages, « Dossiers partagés ») ; leurs parcours apparaissent dans « Éditer un parcours existant ». Ou importez un fichier qu'ils vous ont envoyé.
+- **Reprendre leurs parcours** : ajoutez leur dossier (Réglages, « Dossiers partagés »), puis choisissez sur sa ligne **Seulement les parcours** (sans leurs classes) ou **Classes et parcours** (un autre dossier à vous, un autre établissement par exemple). Leurs parcours apparaissent aussi un par un dans « Éditer un parcours existant ». Ou importez un fichier qu'ils vous ont envoyé.
 - **Leur envoyer des parcours** : « Exporter des parcours », décochez ceux qui ne les concernent pas.
 - **Votre bibliothèque sur un autre appareil** : « Reprendre ma bibliothèque publiée », avec le lien de votre dossier. Rien n'est jamais effacé par une reprise.
 
@@ -167,7 +168,7 @@ Illustré pas à pas : [Sessions et réponses de la classe](sessions.md).
 
 - **Programme** : France ou Suisse.
 - **Apparence** : clair, sombre, ou comme le téléphone.
-- **Dossiers partagés** : ajouter, retirer, actualiser.
+- **Dossiers partagés** : ajouter, retirer, actualiser. Enseignant : chaque ligne montre toutes les classes du dossier ; « Votre drive » pour le vôtre, « Classes et parcours » ou « Seulement les parcours » pour reprendre les autres.
 - **Sauvegarde** : « Exporter une sauvegarde » enregistre tout (réglages, dossiers, parcours, suivi) dans un fichier. « Restaurer une sauvegarde » montre d'abord ce qu'elle contient ; « Annuler la dernière restauration » revient en arrière. Pratique pour changer de téléphone.
 - **Enseignant** : « Je suis enseignant », valeurs de départ d'un nouveau parcours, parcours de démonstration.
 - **Moteur MathALÉA** : les exercices se mettent à jour avec le site, sans mettre à jour l'application (versions installées hors boutique). « Rechercher une mise à jour ».

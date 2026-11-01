@@ -81,7 +81,21 @@ complète (détails dans le skill, « Vérification »).
     réseau, chargement) porte `aria-busy="true"` tant qu'il dure : c'est ce
     qu'attend `pagePrete` ;
   - un échec se rejoue d'abord seul, sur un petit sous-ensemble et plusieurs
-    fois, avant de relancer toute la vérification.
+    fois, avant de relancer toute la vérification. Vert seul mais rouge sous
+    charge : la cause est dans la suite (geste fait trop tôt ou hors écran),
+    on la trouve, on ne relance pas en espérant ;
+  - écrire une suite (modèle : `e2e/eleve-puis-enseignant.mjs`) : toucher
+    seulement un bouton immobile et visible (`pointStable`, `touchable` : la
+    barre du bas suit le clavier), vérifier que chaque geste a eu son effet
+    (arrivée au bilan, étiquette posée) et le refaire au plus deux fois comme
+    un élève, faire défiler pour voir ce qu'on touche, téléphone (clair) et
+    bureau (sombre), bouton retour, aucune erreur de page, captures
+    regardées. Drives simulés par `ctx.route('**/__telecharger?**')`, jamais
+    de vrai réseau. Le stockage (`copie:<clé>`) sert à poser un état de
+    départ, jamais à donner une réponse. Une nouvelle suite entre dans
+    `scripts/verifier-release.sh` ;
+  - ne jamais modifier une suite pendant que `verifier-release.sh` tourne,
+    ni reconstruire : elle joue le code présent au moment où elle le lit.
 - Bon sens d'abord (Nathan, 31 octobre 2026 : « make common sense a
   priority ») : ce qu'un élève remarquerait au premier coup d'œil (champ ou
   bouton coupé, texte illisible, couleur qui change sans raison, ordre

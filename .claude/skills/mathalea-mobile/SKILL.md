@@ -260,7 +260,9 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   (`Seance.papier`), bilan « Correction vue » (choix de Nathan). Le
   référentiel a des doublons d'uuid dans un même chapitre : dédoublonner
   toute liste à clé (`e2e/recherche.mjs` ouvre tous les chapitres).
-- Teste ton niveau (Explorer, pour tous ; « on prend les annales », Nathan) :
+- Teste ton niveau (Explorer, programme France seulement depuis la 0.4.12 :
+  Nathan, 2026-11-01, « si on est en mode Suisse on voit pas ce test » ;
+  `testPropose` dans `+page.svelte` ; « on prend les annales », Nathan) :
   `src/lib/testNiveau.ts`, `TestNiveau.svelte`. Sujets CAN officiels de 2024
   et après (`can<niv>a-<année>`, racine `CAN` du référentiel FR, même en
   Suisse) ; `MetaExerciceCan` donne les questions de `sup2` (« 3-7-12 »).
@@ -788,6 +790,58 @@ Environnement (machine de Nathan)
 - `node e2e/captures-enseignant.mjs <dossier>` : captures enseignant en clair
   et en sombre.
 - `node e2e/drives.mjs` : vrais kDrive et Dropbox dans le navigateur (relais).
+- `node e2e/eleve-puis-enseignant.mjs` : élève qui passe enseignant (premier
+  dossier repris d'office, au passage et au lancement), dossiers suivants
+  dans les Réglages (« Classes et parcours », « Seulement les parcours »),
+  ligne vue par l'enseignant, pas de Mise en route avec un lien connu.
+- Vérification complète : `bash scripts/verifier-release.sh` (environ
+  30 min ; `SORTIE=<dossier>` pour les journaux et captures). Elle construit
+  et sert l'app elle-même sur 1420 : arrêter son propre `vite preview`
+  avant, ne rien modifier ni reconstruire pendant qu'elle tourne. Suites en
+  parallèle (`formats`, `formats-fin`, `az-1` à `az-3`) : la charge révèle
+  les gestes faits trop tôt. Une suite rouge se rejoue seule
+  (`PARCOURS=<id> node e2e/parcours-az.mjs <fichier>`,
+  `FORMATS=1 FORMAT=dnd node e2e/parcours-az.mjs e2e/formats-reponse.json`,
+  `CORRECTION=parcours` pour la correction à la fin), plusieurs fois, puis
+  les groupes `az` ensemble.
+- Écrire une suite e2e (leçons de la vérification du 1er novembre 2026 ;
+  modèle `e2e/eleve-puis-enseignant.mjs`) :
+  - en-tête : ce qui est vérifié, pourquoi (phrase de Nathan), comment
+    lancer ; `ok(cond, message)` qui compte les échecs, `TOUT VERT` et code
+    de sortie 1 ; `page.on('pageerror')` et « aucune erreur de page » ;
+  - téléphone (390 × 844, `isMobile`, `hasTouch`, clair) et bureau
+    (1280 × 800, sombre) ; captures nommées `<suite>-<n>-<écran>-<thème>.png`
+    dans `CAPTURES`, regardées avant de rendre ;
+  - toucher : `pagePrete` avant et après ; un bouton de la barre du bas
+    seulement quand il est immobile (`pointStable`) : elle suit le clavier
+    qui se ferme après « Vérifier », un toucher pendant ce mouvement tombait
+    à côté (« Voir le bilan » d'`az-2`) ; puis vérifier l'effet (bilan
+    atteint) et retoucher au plus deux fois ;
+  - geste au doigt (`Input.dispatchTouchEvent`) : d'abord faire défiler pour
+    voir la source et la cible entre les barres du haut et du bas ; une zone
+    sous le bas de l'écran ne reçoit rien (glisser-déposer `dnd`, selon la
+    longueur des étiquettes tirées). Vérifier chaque dépôt ;
+  - drives simulés : `ctx.route('**/__telecharger?**')` répond comme l'API
+    de kDrive (`/init` → `file_id`, `/files/<id>/files`, `/download`) ; un
+    contenu par uuid de partage pour plusieurs dossiers ; catalogue de
+    l'Explorer servi de même (adresse `URL_EXPLORER`) ;
+  - état de départ : `localStorage` `copie:<clé>` (profil, par exemple) puis
+    `page.reload()` ; jamais pour donner une réponse ou conclure ;
+  - horloge : `page.clock.install()` puis `setSystemTime` (révisions,
+    ouverture de paliers) ;
+  - un texte change (bandeau, libellé) : chercher toutes les suites qui le
+    touchent (`grep -n "Mettre à jour'" e2e/*.mjs`) avant de le changer ;
+  - la suite entre dans `scripts/verifier-release.sh` (liste des suites sur
+    l'app au catalogue de l'équipe, ou phase à part si elle sert son
+    propre catalogue).
+- Vidéos de présentation (`e2e/video/`, voir `docs/developpement.md`,
+  0.4.12) : `npx tsx e2e/video/dossier.mts <dossier.json> <catalogue.json>`
+  puis `DOSSIER=… CATALOGUE=… SORTIE=… bash e2e/video/filmer.sh
+  e2e/video/video-eleve.mjs`. Xvfb obligatoire (fenêtre réelle, sinon
+  390 × 844) ; screencast PNG (le JPEG brouille les formules) ; durée de
+  chaque image = écart jusqu'à la suivante (concat ffmpeg). Nathan enregistre
+  sa voix en regardant la vidéo (un « top » au début), puis on cale : image
+  figée là où il parle plus longtemps.
 - Pièges Playwright : sélecteurs ambigus (`Enregistrer et quitter`,
   `Ouvrir le dossier`, boutons « Retirer l'exercice 4C21 » vs l'exercice) →
   `.first()/.last()` ou nom plus précis ; attendre la description d'un

@@ -143,16 +143,33 @@ pnpm test                   # tests unitaires (partage, versions, sessions, sauv
 cd src-tauri && cargo test -- --include-ignored   # dont la lecture des dossiers kDrive et Dropbox de démonstration
 ```
 
-Test de bout en bout (trois appareils simulés, format téléphone) :
+Vérification complète avant une release (environ 30 min ; construit et sert
+l'app elle-même sur le port 1420, arrêter tout autre serveur sur ce port) :
 
 ```bash
-pnpm dev                                                   # terminal 1
+SORTIE=/tmp/verif bash scripts/verifier-release.sh   # « TOUT VERT » ou la liste des suites en échec
+```
+
+Une suite seule, toujours sur l'app construite (jamais sur `pnpm dev`) :
+
+```bash
+NODE_ENV=development npx vite build && npx vite preview --port 1420 --strictPort   # terminal 1
+CAPTURES=/tmp/captures node e2e/eleve-puis-enseignant.mjs                          # par exemple
+PARCOURS=<id> node e2e/parcours-az.mjs explorer/<fichier>.json                     # un parcours de A à Z
+FORMATS=1 FORMAT=dnd node e2e/parcours-az.mjs e2e/formats-reponse.json             # un format de réponse
+```
+
+Test de bout en bout avec un dossier partagé local (trois appareils simulés) :
+
+```bash
 cd ../parcours-spikes/spike-sync && pnpm run server /tmp/drive # terminal 2 : dossier partagé local
 npx tsx e2e/preparer.mts /tmp/drive                        # dépose les parcours de test
 DOSSIER=/tmp/drive pnpm e2e
-node e2e/regressions.mjs    # défauts corrigés (brouillon, Entrée, suivi) : pnpm dev suffit
-node e2e/captures-enseignant.mjs /tmp/captures   # espace enseignant en clair et en sombre, 390 px
 ```
+
+Écrire une nouvelle suite : règles dans `AGENTS.md` (« Suites e2e ») et dans
+le skill `mathalea-mobile` (« Écrire une suite e2e ») ; modèle
+`e2e/eleve-puis-enseignant.mjs`.
 
 ## Clés et secrets
 
