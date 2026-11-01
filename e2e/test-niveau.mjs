@@ -107,10 +107,9 @@ for (const theme of ['clair', 'sombre']) {
   await page.getByRole('button', { name: /^6e · ceinture orange/ }).waitFor()
   ok((await texte(page)).includes('En cours'), `${theme} : tentative en cours signalée`)
   await toutCorrect(page)
+  // Relancement : l'app rouvre la liste des niveaux, où l'on était
   await page.reload()
-  await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click()
-  await page.getByRole('button', { name: /^Teste ton niveau/ }).click()
-  await page.getByRole('button', { name: /^6e · ceinture orange/ }).click()
+  await page.getByRole('button', { name: /^6e · ceinture orange/ }).click({ timeout: 60_000 })
   await page.getByRole('dialog').getByRole('button', { name: 'Reprendre' }).click()
   await seanceJusquAuBilan(page)
   const verdict = await texte(page)

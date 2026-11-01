@@ -53,8 +53,11 @@ ok(!(await page.evaluate(() => document.activeElement?.closest('math-field'))), 
 // Page de plusieurs questions : une réponse tapée, puis « Soumettre » ; le
 // panneau « Soumettre quand même ? » doit rester ouvert (il se refermait quand
 // le champ, en perdant le focus, signalait la fin de sa saisie)
-await page.getByRole('button', { name: 'Fermer la séance' }).or(page.getByRole('button', { name: 'Quitter' })).first().click().catch(() => {})
+// Relancement : la séance reprend à sa question ; on la quitte pour l'accueil
 await page.goto('http://localhost:1420/')
+await page.getByText(/Question 1 sur 9/).waitFor({ timeout: 60_000 })
+await page.goBack()
+await page.getByRole('button', { name: 'Reprendre plus tard' }).click()
 await page.getByRole('button', { name: /^Fractions/ }).first().click()
 await page.getByRole('button', { name: /^(Commencer|Reprendre)/ }).first().click()
 const premier = page.locator('main math-field').first()

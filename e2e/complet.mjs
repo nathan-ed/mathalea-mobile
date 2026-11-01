@@ -286,9 +286,9 @@ ok(
     (await b.locator('main').getByRole('button', { name: /%/ }).count()) === 1,
   'détail : tentative supprimée, passage terminé gardé',
 )
+// Relancement : l'app rouvre la page du parcours, où l'on était
 await b.reload()
-await b.getByRole('button', { name: /^\s*Nombres relatifs/ }).first().waitFor()
-await parcoursDeTest(b, 'Nombres relatifs')
+await b.getByRole('button', { name: 'Recommencer' }).waitFor({ timeout: 60_000 })
 ok(!(await b.getByRole('button', { name: 'Continuer', exact: true }).isVisible()), 'après relance : la tentative supprimée ne revient pas')
 
 // Relecture, suivi

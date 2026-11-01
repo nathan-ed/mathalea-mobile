@@ -295,6 +295,12 @@ describe('relevés dans la sauvegarde, clé d’API (ancienne version) jamais ex
     expect(await st.lire('profil')).toBe('eleve')
     expect(await st.lire('releves')).toBeNull()
   })
+
+  it('l’écran ouvert n’est pas exporté : la sauvegarde reste lisible', async () => {
+    const st = memoire({ profil: 'eleve', ecran: { vue: 'accueil', onglet: 'suivi' } })
+    const texte = await exporterSauvegarde(st)
+    expect(lireSauvegarde(texte).donnees).not.toHaveProperty('ecran')
+  })
 })
 
 import { noterSession } from '../src/lib/releve'

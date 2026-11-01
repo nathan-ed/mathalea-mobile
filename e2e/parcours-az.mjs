@@ -671,10 +671,16 @@ async function repondre(e, n, k, a) {
       if (await champ.count()) return remplirChamp(e, champ, reponseDe(v.reponse ?? Object.values(v).find((x) => x && typeof x === 'object' && 'value' in x)))
       // Autre élément de MathALÉA (horloge, grille, tableau de signes…) : un toucher au centre
       const el = main.locator(`[id*="${q}"]:not([id^="resultatCheck"]):not([id^="feedback"])`).first()
+      // Élément centré à l'écran, et un toucher seulement là où il est visible :
+      // un grand tableau passe sous la barre du bas, le toucher tomberait sur « Passer »
+      const centrer = () => el.evaluate((x) => x.scrollIntoView({ block: 'center' })).catch(() => {})
+      const surElement = (px, py) => el.evaluate((x, [u, v]) => x.contains(document.elementFromPoint(u, v)), [px, py])
+      if (await el.count()) await centrer()
       const b = (await el.count()) ? await el.boundingBox() : null
       if (!b) throw new Error(`format sans saisie connue : ${a.format}`)
       const x = Math.min(b.x + b.width / 2, b.x + (await page.evaluate(() => innerWidth)) / 3)
-      await (e.touche ? page.touchscreen.tap(x, b.y + Math.min(b.height / 2, 40)) : page.mouse.click(x, b.y + Math.min(b.height / 2, 40)))
+      if (await surElement(x, b.y + Math.min(b.height / 2, 40)))
+        await (e.touche ? page.touchscreen.tap(x, b.y + Math.min(b.height / 2, 40)) : page.mouse.click(x, b.y + Math.min(b.height / 2, 40)))
       // Une case de grille a pris le focus : l'élève y tape un chiffre
       await pause(page, 300)
       if (await page.evaluate(() => /^(INPUT|MATH-FIELD)$/.test(document.activeElement?.tagName ?? ''))) await page.keyboard.type('1')
@@ -691,8 +697,12 @@ async function repondre(e, n, k, a) {
       // Ou une case qui ouvre un pavé de chiffres propre à l'élément (pyramide de nombres)
       for (const f of [0.1, 0.3, 0.5]) {
         if (await actif()) break
-        const y = b.y + b.height * f
-        await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, y) : page.mouse.click(b.x + b.width / 2, y))
+        await centrer()
+        const r = await el.boundingBox()
+        if (!r) break
+        const y = r.y + r.height * f
+        if (!(await surElement(r.x + r.width / 2, y))) continue
+        await (e.touche ? page.touchscreen.tap(r.x + r.width / 2, y) : page.mouse.click(r.x + r.width / 2, y))
         await pause(page, 400)
         const chiffre = page.locator('main button:visible:enabled', { hasText: /^\s*1\s*$/ }).last()
         if (await chiffre.count()) await toucher(e, chiffre)

@@ -228,6 +228,8 @@ await page.screenshot({ path: `${captures}/revisions-6-suivi.png`, fullPage: tru
 // Sombre
 await page.evaluate(() => localStorage.setItem('theme', 'sombre'))
 await page.reload()
+// Relancement : l'app rouvre le Suivi, où l'on était
+await page.getByRole('tab', { name: 'Mes parcours' }).click({ timeout: 60_000 })
 await tuile.waitFor({ timeout: 60_000 })
 await tuile.click()
 await page.waitForTimeout(600)
