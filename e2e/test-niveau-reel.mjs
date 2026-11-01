@@ -7,7 +7,7 @@
 // parcours de l'Explorer : suivi sans être ajouté, exercice masqué absent.
 //   CAPTURES=<dossier> NIVEAU=CM1 THEME=clair|sombre node e2e/test-niveau-reel.mjs
 import { chromium } from 'playwright'
-import { pagePrete, SANS_BRIDAGE, taperDans, pointStable } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans, touchable } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -20,15 +20,6 @@ const ok = (cond, msg) => {
 }
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
-
-/** Le bouton est-il à l'écran et touchable (rien posé dessus) ? */
-const touchable = (bouton) =>
-  bouton.evaluate((b) => {
-    const r = b.getBoundingClientRect()
-    if (!r.width || !r.height || r.bottom > innerHeight || r.top < 0) return false
-    const dessus = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
-    return !!dessus && (dessus === b || b.contains(dessus))
-  })
 
 /** Une réponse à la question affichée : une case, un champ, sinon rien */
 async function repondre(page, i) {
@@ -81,8 +72,7 @@ for (const a of appareils) {
     await pagePrete(page)
     const libelle = i === n - 1 ? 'Soumettre la tentative' : 'Question suivante'
     const bouton = page.getByRole('button', { name: libelle })
-    // La barre du bas suit le clavier qui s'ouvre : bouton immobile d'abord
-    const visible = (await bouton.count()) === 1 && (await pointStable(bouton, 5_000).then(() => true, () => false)) && (await touchable(bouton))
+    const visible = (await bouton.count()) === 1 && (await touchable(bouton))
     ok(visible, `${a.nom} : « ${libelle} » touchable après une réponse (${types[i]}) à la question ${i + 1}`)
     if (!visible) await page.screenshot({ path: `${captures}/reel-${a.nom}-q${i + 1}.png` })
     if (i < n - 1) {

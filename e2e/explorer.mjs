@@ -12,7 +12,7 @@
 import { readFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
-import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans, touchable } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -49,13 +49,6 @@ const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: S
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
 const titre = async (page) => (await page.locator('header h1').first().innerText()).trim()
 const cap = async (page, nom) => (await pagePrete(page), page.screenshot({ path: `${captures}/explorer-${nom}.png` }))
-const touchable = (bouton) =>
-  bouton.evaluate((b) => {
-    const r = b.getBoundingClientRect()
-    if (!r.width || !r.height || r.bottom > innerHeight || r.top < 0) return false
-    const dessus = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
-    return !!dessus && (dessus === b || b.contains(dessus))
-  })
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 
 const appareils = {

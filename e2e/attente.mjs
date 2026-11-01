@@ -91,3 +91,14 @@ export async function pointStable(locator, timeout = 30_000) {
     await new Promise((r) => setTimeout(r, 150))
   }
 }
+
+/**
+ * Bouton visible en entier dans l'écran, immobile et non recouvert : ce qu'un
+ * élève peut toucher. La barre du bas suit le clavier qui s'ouvre : un seul
+ * coup d'œil la jugeait parfois en plein déplacement (novembre 2026).
+ */
+export const touchable = (bouton, timeout = 5_000) =>
+  pointStable(bouton, timeout).then(
+    () => bouton.evaluate((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.top >= 0 && r.bottom <= innerHeight }),
+    () => false,
+  )
