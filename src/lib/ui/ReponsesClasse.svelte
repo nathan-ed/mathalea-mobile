@@ -212,7 +212,7 @@
     {#if erreur}
       <p class="font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
     {:else if !calcul}
-      <p class="py-6 text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">{progression || 'Préparation des questions de la session…'}</p>
+      <p class="py-6 text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status" aria-busy="true">{progression || 'Préparation des questions de la session…'}</p>
     {:else}
       <!-- Résumé de la classe -->
       <section class="flex flex-col gap-3 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="Résumé de la classe">

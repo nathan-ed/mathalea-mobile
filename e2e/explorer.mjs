@@ -12,7 +12,7 @@
 import { readFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -48,7 +48,7 @@ const serveur = createServer((req, res) => {
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
 const titre = async (page) => (await page.locator('header h1').first().innerText()).trim()
-const cap = async (page, nom) => (await page.waitForTimeout(450), page.screenshot({ path: `${captures}/explorer-${nom}.png` }))
+const cap = async (page, nom) => (await pagePrete(page), page.screenshot({ path: `${captures}/explorer-${nom}.png` }))
 const touchable = (bouton) =>
   bouton.evaluate((b) => {
     const r = b.getBoundingClientRect()
@@ -90,8 +90,7 @@ async function repondre(page, i) {
     return 'case'
   }
   const champ = page.locator('main math-field:visible').first()
-  await champ.click()
-  await page.keyboard.type(i % 2 ? '-4sin(x)' : 'x^3')
+  await taperDans(page, champ, i % 2 ? '-4sin(x)' : 'x^3')
   return 'champ'
 }
 
@@ -107,7 +106,7 @@ for (const [appareil, theme] of [
   const degre = e.getByRole('button', { name: /^4e Collège/ })
   await degre.waitFor({ timeout: 60_000 })
   // Référentiel lu par le moteur : attendre qu'il ait rangé l'Explorer
-  await e.waitForTimeout(1500)
+  await pagePrete(e)
   const racine = await texte(e)
   ok(racine.includes('4e Collège') && racine.includes('2 parcours'), `${suffixe} : degré 4e Collège, 2 parcours`)
   ok(!/\b9e\b|\b10e\b|\b11e\b|1re Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
@@ -116,7 +115,7 @@ for (const [appareil, theme] of [
   await cap(e, `1-degres-${suffixe}`)
 
   await degre.click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok((await titre(e)) === '4e Collège', `${suffixe} : écran du degré`)
   const chapitre = e.getByRole('button', { name: /^Intégration/ })
   ok((await texte(e)).includes('Intégration 1 parcours'), `${suffixe} : chapitre du référentiel avec ses parcours`)
@@ -124,7 +123,7 @@ for (const [appareil, theme] of [
   await cap(e, `2-chapitres-${suffixe}`)
 
   await chapitre.click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok((await titre(e)) === 'Intégration', `${suffixe} : écran du chapitre`)
   const liste = await texte(e)
   ok(liste.includes('Calcul intégral') && (liste.includes('8 ceintures') || liste.includes('Ceintures blanche à noire, 2e dan')), `${suffixe} : parcours du chapitre, ses ceintures`)
@@ -132,13 +131,13 @@ for (const [appareil, theme] of [
 
   // Bouton retour du téléphone : chapitre, degré, Explorer, puis Mes parcours
   await e.goBack()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok((await titre(e)) === '4e Collège', `${suffixe} : retour au degré`)
   await e.goBack()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok(await degre.isVisible(), `${suffixe} : retour à l'Explorer`)
   await e.goBack()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok((await onglet(e, 'Mes parcours').getAttribute('aria-selected')) === 'true' || (await texte(e)).includes('Mes parcours'), `${suffixe} : retour à Mes parcours`)
 
   // Ouvrir un parcours puis revenir : on retrouve le chapitre
@@ -149,7 +148,7 @@ for (const [appareil, theme] of [
   await e.getByRole('button', { name: 'Commencer', exact: true }).waitFor()
   await cap(e, `4-fiche-${suffixe}`)
   await e.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   ok((await titre(e)) === 'Intégration', `${suffixe} : retour d'un parcours au chapitre`)
 
   // Ceinture blanche, au clavier, jusqu'au bilan
@@ -174,8 +173,7 @@ for (const [appareil, theme] of [
   await qcm.getByRole('radio').nth(1).click()
   ok((await qcm.innerText()).includes('Correcte') && !(await qcm.innerText()).includes('Incorrecte'), `${suffixe} : bonne réponse, explication`)
   const nombre = e.getByRole('region', { name: 'À toi' }).nth(1)
-  await nombre.getByLabel('Ta réponse').click()
-  await e.keyboard.type('3')
+  await taperDans(e, nombre.getByLabel('Ta réponse'), '3')
   await nombre.getByRole('button', { name: 'Vérifier' }).click()
   ok((await nombre.innerText()).includes('Correcte'), `${suffixe} : réponse tapée au clavier, corrigée`)
   await nombre.scrollIntoViewIfNeeded()
@@ -185,17 +183,17 @@ for (const [appareil, theme] of [
   const types = new Set()
   for (; n < 20; n++) {
     await e.locator('main math-field:visible, main input[type="checkbox"]:visible, main input[type="radio"]:visible').first().waitFor({ timeout: 60_000 })
-    await e.waitForTimeout(500)
+    await pagePrete(e)
     types.add(await repondre(e, n))
     const verifier = e.getByRole('button', { name: 'Vérifier' })
     if (n === 0) ok(await touchable(verifier), `${suffixe} : « Vérifier » visible et touchable`)
     await verifier.click()
-    await e.waitForTimeout(400)
+    await pagePrete(e)
     const suite = e.getByRole('button', { name: /^(Question suivante|Voir le bilan)$/ })
     const libelle = await suite.innerText()
     if (n === 0) await cap(e, `5-question-${suffixe}`)
     await suite.click()
-    await e.waitForTimeout(400)
+    await pagePrete(e)
     if (libelle.includes('bilan')) break
   }
   ok(n + 1 === 6, `${suffixe} : 6 questions dans la ceinture blanche (${n + 1})`)
@@ -205,30 +203,30 @@ for (const [appareil, theme] of [
   await cap(e, `6-bilan-${suffixe}`)
   ok(await e.getByRole('button', { name: 'Revoir la fiche : Rappels de dérivées' }).isVisible(), `${suffixe} : bilan sous le seuil, fiche à revoir`)
   await e.getByRole('button', { name: 'Voir la carte du parcours' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   // La fiche reste dans le parcours, comme ressource ; la séance suivante commence sans elle
   await e.getByRole('button', { name: 'Fiche : Rappels de dérivées', exact: true }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   ok((await titre(e)) === 'Rappels de dérivées' && !(await entrainement.count()), `${suffixe} : fiche relue depuis le parcours, sans lancer de séance`)
   await e.goBack()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   ok((await titre(e)) === 'Calcul intégral', `${suffixe} : retour de la fiche à la page du parcours`)
   await e.getByRole('region', { name: /Ceinture blanche/ }).getByRole('button').last().click()
   await e.locator('main math-field:visible, main input[type="radio"]:visible').first().waitFor({ timeout: 60_000 })
   ok(!(await entrainement.count()), `${suffixe} : fiche montrée d'office une seule fois`)
   await e.getByRole('button', { name: 'Quitter', exact: true }).click()
   await e.getByRole('button', { name: 'Reprendre plus tard' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   await e.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
 
   // Commencé depuis l'Explorer : il est dans Mes parcours et dans le suivi
   await onglet(e, 'Mes parcours').click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok(await e.getByRole('button', { name: /^Calcul intégral/ }).first().isVisible(), `${suffixe} : parcours commencé ajouté à Mes parcours`)
   await cap(e, `7-mes-parcours-${suffixe}`)
   await onglet(e, 'Suivi').click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok((await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours dans le suivi`)
   await e.context().close()
 
@@ -238,7 +236,7 @@ for (const [appareil, theme] of [
   const f = await ouvrir('élève FR', appareil, theme, { profil: 'eleve', pays: 'FR' })
   await onglet(f, 'Explorer').click()
   await f.getByRole('button', { name: /^5e/ }).waitFor({ timeout: 60_000 })
-  await f.waitForTimeout(1500)
+  await pagePrete(f)
   const fr = await texte(f)
   ok(!fr.includes('Collège'), 'France : aucun degré suisse')
   await f.getByRole('button', { name: /^5e/ }).click()
@@ -249,7 +247,7 @@ for (const [appareil, theme] of [
   const c = await ouvrir('changement de pays', appareil, theme, { profil: 'eleve', pays: 'FR' })
   await onglet(c, 'Explorer').waitFor({ timeout: 60_000 })
   await c.getByRole('button', { name: 'Réglages' }).click()
-  await c.waitForTimeout(500)
+  await pagePrete(c)
   await c.getByRole('radio', { name: /Suisse/ }).click()
   await c.getByRole('button', { name: 'Enregistrer et quitter' }).click()
   await onglet(c, 'Explorer').click()
@@ -265,7 +263,7 @@ for (const [appareil, theme] of [
   await t.getByRole('button', { name: /^Calcul intégral/ }).click()
   ok(!(await t.getByRole('button', { name: 'Ajouter à l’accueil' }).count()), 'enseignant : pas d’ajout à l’accueil')
   await t.getByRole('button', { name: 'Donner à des classes' }).click()
-  await t.waitForTimeout(500)
+  await pagePrete(t)
   ok((await titre(t)) === 'Calcul intégral' && (await texte(t)).includes('Classes'), 'enseignant : page du parcours dans sa bibliothèque, choix des classes')
   await cap(t, `8-enseignant-${theme}`)
   const biblio = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')))

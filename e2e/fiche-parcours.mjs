@@ -3,7 +3,7 @@
 // publication, Essayer, Modifier, Lancer une session, Autres actions ; chaque
 // retour revient à la page, puis à Parcours. Captures : CAPTURES=<dossier>.
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -40,13 +40,13 @@ for (const sombre of [false, true]) {
   await t.goto(base)
   const retour = async () => {
     await t.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})
-    await t.waitForTimeout(400)
+    await pagePrete(t)
   }
   const surFiche = () => t.getByRole('button', { name: 'Lancer une session' }).isVisible()
   const ouvrirFiche = async () => {
     await t.getByRole('button', { name: /^\s*Relatifs express/ }).first().click({ timeout: 60_000 })
     await t.getByRole('button', { name: 'Lancer une session' }).waitFor()
-    await t.waitForTimeout(300)
+    await pagePrete(t)
   }
 
   await ouvrirFiche()
@@ -56,14 +56,14 @@ for (const sombre of [false, true]) {
 
   // Classes au toucher : 5e B ajoutée, donc à publier pour elle
   await t.getByRole('button', { name: '5e B' }).click()
-  await t.waitForTimeout(200)
+  await pagePrete(t)
   ok((await t.getByRole('button', { name: '5e B' }).getAttribute('aria-pressed')) === 'true' && (await t.locator('main').innerText()).includes('V1 à publier pour 5e B'), '5e B touchée : donnée à la classe, à publier')
   const classes = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours[0].classes)
   ok(classes.join() === '5e A,5e B', `bibliothèque enregistrée (${classes})`)
   await t.getByRole('button', { name: 'Nouvelle classe' }).click()
   await t.getByLabel('Nom de la classe').fill('5e C')
   await t.getByRole('button', { name: 'Donner à cette classe' }).click()
-  await t.waitForTimeout(300)
+  await pagePrete(t)
   ok((await t.getByRole('button', { name: '5e C' }).getAttribute('aria-pressed')) === 'true', 'nouvelle classe 5e C créée et cochée')
   await t.screenshot({ path: `${captures}/fiche-2-classes${s}.png` })
 
@@ -109,7 +109,7 @@ for (const sombre of [false, true]) {
   await t.getByRole('button', { name: 'Supprimer le parcours' }).click()
   ok(await t.getByText('Supprimer « Relatifs express » ?').isVisible(), 'suppression : confirmation d’abord')
   await t.getByRole('button', { name: 'Supprimer', exact: true }).click()
-  await t.waitForTimeout(400)
+  await pagePrete(t)
   ok(!(await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours.length)), 'parcours supprimé, retour à Parcours')
   await ctx.close()
 }

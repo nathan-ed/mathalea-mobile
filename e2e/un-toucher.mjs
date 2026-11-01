@@ -4,7 +4,7 @@
 //   node e2e/un-toucher.mjs
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans, pointStable } from './attente.mjs'
 
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const classe = { lien: 'https://kdrive.infomaniak.com/app/share/1/demo', nom: '5e A', disponibles: ['5e A'], parcours: demo.classes.flatMap((c) => c.parcours) }
@@ -23,12 +23,13 @@ await ctx.addInitScript((classe) => {
 const page = await ctx.newPage()
 const cdp = await ctx.newCDPSession(page)
 async function toucherLent(locator) {
-  const b = await locator.boundingBox()
-  const point = { x: b.x + b.width / 2, y: b.y + b.height / 2 }
+  // Bouton immobile et découvert : la barre du bas remonte au-dessus du clavier
+  // qui s'ouvre ; le doigt relevé ailleurs annulerait le toucher
+  const point = await pointStable(locator)
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] })
-  await page.waitForTimeout(250)
+  await page.waitForTimeout(250) // doigt posé un quart de seconde : c'est le geste testé
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
-  await page.waitForTimeout(600)
+  await pagePrete(page)
 }
 
 await page.goto('http://localhost:1420/')
@@ -41,7 +42,7 @@ await champ.evaluate((el) => {
   el.setValue('3')
   el.dispatchEvent(new Event('input', { bubbles: true }))
 })
-await page.waitForTimeout(600)
+await pagePrete(page)
 const clavier = await page.evaluate(() => {
   const k = document.getElementById('mathalea-virtual-keyboard')
   return !!k && k.getBoundingClientRect().height > 0 && getComputedStyle(k).display !== 'none'
@@ -63,9 +64,8 @@ await page.getByRole('button', { name: /^Fractions/ }).first().click()
 await page.getByRole('button', { name: /^(Commencer|Reprendre)/ }).first().click()
 const premier = page.locator('main math-field').first()
 await premier.waitFor({ timeout: 20000 })
-await premier.click()
-await page.keyboard.type('12')
-await page.waitForTimeout(500)
+await taperDans(page, premier, '12')
+await pagePrete(page)
 await toucherLent(page.getByRole('button', { name: /^Soumettre/ }).first())
 ok(await page.getByRole('dialog').getByText('Soumettre quand même ?').isVisible(), 'page : un toucher sur Soumettre ouvre le panneau, qui reste ouvert')
 await nav.close()

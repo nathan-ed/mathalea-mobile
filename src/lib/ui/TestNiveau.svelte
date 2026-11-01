@@ -58,7 +58,7 @@
       {NB_QUESTIONS} questions de tous les domaines. {SEUIL_TEST} % de réponses correctes donnent la ceinture du niveau.
     </p>
     {#if disponibles === null}
-      <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">Lecture des sujets…</p>
+      <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status" aria-busy="true">Lecture des sujets…</p>
     {:else}
       {#each niveaux as n (n.cle)}
         <button

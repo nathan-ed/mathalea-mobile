@@ -4,7 +4,7 @@
 // (« Dériver » montrait canc3D01, « Lire l'heure »).
 //   node e2e/recherche.mjs
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, jusqua, aLeFocus } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 let echecs = 0
@@ -30,18 +30,19 @@ await page.getByRole('button', { name: /Créer un parcours|Nouveau parcours/ }).
 await page.getByRole('button', { name: /Ajouter des exercices/ }).first().click({ timeout: 30_000 })
 const champ = page.getByRole('searchbox')
 await champ.waitFor({ timeout: 60_000 })
-await page.waitForTimeout(1500)
+await pagePrete(page)
 const ids = async () => page.locator('main li .font-bold').allInnerTexts()
 
 // Frappe lettre par lettre, comme au clavier
 await champ.click()
+await jusqua(() => aLeFocus(champ), { quoi: 'focus de la recherche' })
 for (const c of 'Dériver') await page.keyboard.type(c, { delay: 80 })
-await page.waitForTimeout(500)
+await pagePrete(page)
 const derive = await ids()
 ok(/^(1AN|BP1FDEV)/.test(derive[0] ?? '') && derive.every((id) => !id.startsWith('canc3D')), `« Dériver » : exercices de dérivation (${derive.slice(0, 3).join(', ')})`)
 ok(new Set(derive).size === derive.length, 'aucun exercice en double')
 await champ.fill('polynome')
-await page.waitForTimeout(400)
+await pagePrete(page)
 ok((await page.locator('main').innerText()).includes('Dériver un polynôme'), '« polynome » : la liste suit la nouvelle recherche')
 await champ.fill('')
 
@@ -63,7 +64,7 @@ const explorer = async (chemin) => {
     if (!nb || erreurs.length > avant) fermes.push([...chemin, c].join(' / '))
     await explorer([...chemin, c])
     await page.goBack()
-    await page.waitForTimeout(80)
+    await pagePrete(page)
     const titre = (await page.locator('h1:visible').last().innerText()).replace(/\s+/g, ' ')
     if (titre !== (chemin.at(-1) ?? 'Ajouter des exercices').replace(/\s+/g, ' ').trim()) throw new Error(`retour depuis ${[...chemin, c].join(' / ')} : « ${titre} »`)
   }
@@ -77,7 +78,7 @@ ok(!niveaux.some((n) => /Égalité/.test(n)), '« Égalité filles-garçons » r
 await page.getByRole('button', { name: /^Troisième/ }).first().click()
 ok((await titres()).some((t) => t.endsWith('Exercices de synthèse')), '3e : « Exercices de synthèse » (non interactif) proposé')
 await page.goBack()
-await page.waitForTimeout(200)
+await pagePrete(page)
 await ctx.close()
 
 // Suisse : référentiel CH, chapitres non interactifs compris
@@ -96,7 +97,7 @@ await ctx.close()
   await page.getByRole('button', { name: /Créer un parcours|Nouveau parcours/ }).first().click({ timeout: 60_000 })
   await page.getByRole('button', { name: /Ajouter des exercices/ }).first().click({ timeout: 30_000 })
   await page.getByRole('searchbox').waitFor({ timeout: 60_000 })
-  await page.waitForTimeout(1500)
+  await pagePrete(page)
   const titresCH = async () => page.locator('main button .font-bold, main button h3').allInnerTexts()
   // Le niveau du parcours peut être ouvert d'office : remonter aux niveaux
   if (!(await titresCH()).includes('2e Collège')) await page.getByRole('button', { name: /Retour/ }).first().click().catch(() => {})

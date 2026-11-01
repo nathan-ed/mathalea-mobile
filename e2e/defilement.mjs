@@ -7,7 +7,7 @@
 //   node e2e/defilement.mjs
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const classe = { lien: 'https://kdrive.infomaniak.com/app/share/1/demo', nom: '5e A', disponibles: ['5e A'], parcours: demo.classes.flatMap((c) => c.parcours) }
@@ -39,14 +39,14 @@ async function glisser(cdp, page, x, y1, y2, x2 = x) {
     await page.waitForTimeout(16)
   }
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
-  await page.waitForTimeout(600)
+  await pagePrete(page)
 }
 
 // Téléphone, thème sombre comme sur la capture du bug
 const { ctx, page, cdp } = await ouvrir({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, colorScheme: 'dark' })
 await page.getByRole('button', { name: 'Réglages' }).first().click()
 await page.getByRole('heading', { name: 'Sauvegarde' }).waitFor()
-await page.waitForTimeout(400)
+await pagePrete(page)
 await glisser(cdp, page, 200, 650, 150)
 ok((await page.evaluate(() => scrollY)) > 200, 'Réglages : le doigt fait descendre la page')
 await glisser(cdp, page, 200, 650, 150)
@@ -67,7 +67,7 @@ await page.evaluate(() => {
   d.style.cssText = 'width: 1200px; height: 1500px'
   document.querySelector('main')?.append(d)
 })
-await page.waitForTimeout(300)
+await pagePrete(page)
 await glisser(cdp, page, 200, 650, 150)
 ok((await page.evaluate(() => scrollY)) > 200, 'accueil allongé : le doigt fait descendre la page')
 await glisser(cdp, page, 350, 400, 400, 20)
@@ -82,14 +82,14 @@ await page.getByRole('button', { name: /^(Commencer|Continuer)/ }).first().click
 const entrainement = page.getByRole('button', { name: 'Commencer l’entraînement' })
 if (await entrainement.isVisible({ timeout: 3000 }).catch(() => false)) await entrainement.click()
 await page.locator('.question-eleve').first().waitFor({ timeout: 30000 })
-await page.waitForTimeout(800)
+await pagePrete(page)
 await page.evaluate(() => {
   const d = document.createElement('div')
   d.style.cssText = 'height: 1500px'
   document.querySelector('.question-eleve')?.append(d)
   ;document.activeElement?.blur?.()
 })
-await page.waitForTimeout(500)
+await pagePrete(page)
 const zone = await page.locator('.question-eleve').first().boundingBox()
 await glisser(cdp, page, 200, Math.min(600, zone.y + zone.height - 20), 150)
 ok((await page.evaluate(() => scrollY)) > 200, 'séance : le doigt fait descendre un énoncé long, depuis la question')
@@ -104,7 +104,7 @@ await bureau.page.getByRole('button', { name: 'Réglages' }).first().click()
 await bureau.page.getByRole('heading', { name: 'Sauvegarde' }).waitFor()
 await bureau.page.mouse.move(640, 400)
 await bureau.page.mouse.wheel(0, 600)
-await bureau.page.waitForTimeout(600)
+await pagePrete(bureau.page)
 ok((await bureau.page.evaluate(() => scrollY)) > 200, 'bureau : la molette fait descendre les Réglages')
 await bureau.ctx.close()
 

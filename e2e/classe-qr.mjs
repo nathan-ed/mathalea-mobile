@@ -8,6 +8,7 @@ import { execFileSync, spawn } from 'node:child_process'
 import { rmSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -77,7 +78,6 @@ function videoDe(image, nom) {
     '-I', '-c',
     `
 import sys
-import { SANS_BRIDAGE } from './attente.mjs'
 from PIL import Image
 fond = Image.new('RGB', (1280, 720), (90, 90, 95))
 qr = Image.open(sys.argv[1]).convert('RGB')
@@ -118,7 +118,7 @@ const imageB = join(dossier, 'qr-5b.png')
 await telechargement.saveAs(imageB)
 ok(telechargement.suggestedFilename() === 'classe-5B.png' && readFileSync(imageB).subarray(1, 4).toString() === 'PNG', `image exportée : ${telechargement.suggestedFilename()}`)
 await prof.goBack()
-await prof.waitForTimeout(400)
+await pagePrete(prof)
 ok(!(await qr.count()) && (await prof.getByRole('tab', { name: '5B' }).isVisible()), 'retour : le QR code se referme, la classe reste affichée')
 // Aussi dans les actions de la classe ; 5C n'est pas encore sur le drive
 await prof.getByRole('tab', { name: '5C' }).click()
@@ -130,7 +130,7 @@ const imageC = join(dossier, 'qr-5c.png')
 await t2.saveAs(imageC)
 ok(true, 'actions de la classe : « QR code pour les élèves »')
 await prof.goBack()
-await prof.waitForTimeout(400)
+await pagePrete(prof)
 // QR code du dossier entier : dans la fiche « Dossier partagé » de l'onglet Parcours
 await prof.getByRole('tab', { name: 'Parcours' }).click()
 await prof.getByRole('button', { name: /^Dossier partagé/ }).click()
@@ -203,7 +203,7 @@ await prof.reload()
 await prof.getByRole('tab', { name: 'Classes' }).click({ timeout: 60_000 })
 await prof.getByRole('button', { name: /^QR code de la classe/ }).click()
 await qr.waitFor()
-await prof.waitForTimeout(400)
+await pagePrete(prof)
 await prof.screenshot({ path: `${captures}/classe-qr-5-sombre.png` })
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)

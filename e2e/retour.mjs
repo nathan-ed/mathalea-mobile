@@ -2,7 +2,7 @@
 // niveau se referme, la séance et l'éditeur demandent confirmation.
 // Prérequis : comme complet.mjs (pnpm dev, dossier partagé local avec « test »).
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const lienTest = 'http://127.0.0.1:8702/s/Xk42demo/test/'
@@ -18,7 +18,7 @@ const erreurs = []
 page.on('pageerror', (e) => erreurs.push(e.message))
 const retour = async () => {
   await page.goBack({ waitUntil: 'commit' }).catch(() => {})
-  await page.waitForTimeout(300)
+  await pagePrete(page)
 }
 const visible = (role, name) => page.getByRole(role, { name }).first().isVisible()
 
@@ -51,7 +51,7 @@ await retour()
 ok(!(await page.getByText('Quitter l’activité ?').isVisible()) && (await page.locator('main math-field, main input').first().isVisible()), 'séance : second retour, on reste')
 await retour()
 await page.getByRole('button', { name: 'Reprendre plus tard' }).click()
-await page.waitForTimeout(300)
+await pagePrete(page)
 ok(await visible('button', 'Réglages'), 'séance quittée → accueil')
 
 // Réglages → accueil, puis plus rien à refermer

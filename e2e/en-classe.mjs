@@ -5,7 +5,7 @@
 // de quitter l'app, et sort de la vue élève. Un élève n'a que ses onglets.
 // Captures : CAPTURES=<dossier>.
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -47,7 +47,7 @@ const actif = (page) => page.locator('nav [role=tab][aria-selected=true]').inner
 const sentinelle = (page) => page.evaluate(() => !!history.state?.['sveltekit:states']?.retour)
 const retour = async (page) => {
   await page.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})
-  await page.waitForTimeout(400)
+  await pagePrete(page)
 }
 
 for (const sombre of [false, true]) {
@@ -60,18 +60,18 @@ for (const sombre of [false, true]) {
 
   // Nouvelle session depuis l'onglet
   await t.getByRole('tab', { name: 'En classe' }).click()
-  await t.waitForTimeout(300)
+  await pagePrete(t)
   await t.screenshot({ path: `${captures}/en-classe-1-onglet${suffixe}.png` })
   await t.getByRole('button', { name: 'Nouvelle session' }).click()
   await t.getByRole('dialog').getByRole('button', { name: /Relatifs au tableau/ }).click()
   // Classe proposée : la seule qui reçoit le parcours
   ok((await t.getByRole('radio', { name: '5e B' }).getAttribute('aria-checked')) === 'true' && (await t.getByRole('radio', { name: '5e A' }).getAttribute('aria-checked')) === 'false', 'classe proposée : celle du parcours (5e B)')
   await t.getByRole('switch', { name: /QR code des réponses/ }).check()
-  await t.waitForTimeout(300)
+  await pagePrete(t)
   await t.screenshot({ path: `${captures}/en-classe-2-reglage${suffixe}.png` })
   await t.getByRole('button', { name: 'Lancer la session' }).click()
   await t.locator('.qr-page').waitFor()
-  await t.waitForTimeout(300)
+  await pagePrete(t)
   ok((await t.getByRole('heading', { name: 'Relatifs au tableau' }).isVisible()) && (await t.getByRole('button', { name: 'Lire les QR codes' }).isVisible()) && (await t.locator('main').innerText()).includes('5e B · QR code'), 'Nouvelle session → page de la session (classe, QR code, lecture des réponses)')
   await t.screenshot({ path: `${captures}/en-classe-3-session${suffixe}.png` })
 
@@ -95,7 +95,7 @@ for (const sombre of [false, true]) {
   // Vue élève : Mes parcours et Suivi, puis Session pour la classe sur un parcours
   await t.getByRole('tab', { name: 'Parcours' }).click()
   await t.getByRole('button', { name: /^\s*Vue élève/ }).click()
-  await t.waitForTimeout(300)
+  await pagePrete(t)
   const ongletsEleve = (await t.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',')
   ok(ongletsEleve === 'Mes parcours,Explorer,Suivi' && (await t.getByText('Vue élève : l’app comme vos élèves la voient').isVisible()), `vue élève : onglets des élèves et bandeau (${ongletsEleve})`)
   await t.screenshot({ path: `${captures}/en-classe-6-vue-eleve${suffixe}.png` })
@@ -127,11 +127,11 @@ for (const sombre of [false, true]) {
   // Retours rapprochés (double appui) depuis un parcours de la vue élève : on s'arrête à Parcours
   await t.getByRole('button', { name: /^\s*Vue élève/ }).click()
   await t.getByRole('button', { name: /^\s*Relatifs au tableau/ }).first().click()
-  await t.waitForTimeout(400)
+  await pagePrete(t)
   await t.goBack({ waitUntil: 'commit' }).catch(() => {})
   await t.waitForTimeout(60)
   await t.goBack({ waitUntil: 'commit' }).catch(() => {})
-  await t.waitForTimeout(600)
+  await pagePrete(t)
   ok((await actif(t)) === 'Parcours', `double retour rapide depuis un parcours de la vue élève : Parcours (${await actif(t)})`)
   await t.context().close()
 }

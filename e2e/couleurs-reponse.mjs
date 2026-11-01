@@ -6,7 +6,7 @@
 //   CAPTURES=<dossier> node e2e/couleurs-reponse.mjs
 import { chromium } from 'playwright'
 import { incoherencesVert } from './couleurs-verdict.mjs'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -57,12 +57,11 @@ for (const theme of ['clair', 'sombre']) {
     [1, String(Number(attendues[1]) + 7)],
   ]) {
     await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').nth(i).click()
-    await page.waitForTimeout(800)
-    await page.locator('main math-field[id^="MetaInteractif2dEx"]').first().click()
-    await page.keyboard.type(saisie)
-    await page.waitForTimeout(500)
+    await pagePrete(page)
+    await taperDans(page, page.locator('main math-field[id^="MetaInteractif2dEx"]').first(), saisie)
+    await pagePrete(page)
     await page.locator('footer').getByRole('button', { name: 'Vérifier', exact: true }).click()
-    await page.waitForTimeout(1200)
+    await pagePrete(page)
     const couleur = await page.locator('main .correction-juste .mathbf, main .contenu-mathalea .mathbf').last().evaluate((c) => getComputedStyle(c).color)
     if (i === 0) ok(couleur === 'rgb(77, 134, 19)', `${theme} : réponse correcte, mise en évidence en vert (${couleur})`)
     else ok(couleur === 'rgb(241, 89, 41)', `${theme} : réponse incorrecte, mise en évidence orange (${couleur})`)

@@ -193,7 +193,7 @@
   async function lireReperes() {
     const p = pays
     try {
-      const r = reperesDu((await moteur?.listerExercices(p)) ?? [])
+      const r = reperesDu((await suivre(moteur?.listerExercices(p) ?? Promise.resolve([]))) ?? [])
       if (p === pays) reperes = r.length ? r : null
     } catch (e) {
       console.warn('Référentiel', e)
@@ -256,7 +256,26 @@
     derniersComplets[p.id] = await stockage!.lire<number>(`complet:${p.id}`)
   }
 
+  // Travail en cours (démarrage, référentiel, relecture des dossiers et de
+  // l'Explorer) : aria-busy sur la colonne, le contenu peut encore changer
+  let travaux = $state(1)
+  async function suivre<T>(travail: Promise<T>): Promise<T> {
+    travaux++
+    try {
+      return await travail
+    } finally {
+      travaux--
+    }
+  }
+
   onMount(async () => {
+    try {
+      await demarrer()
+    } finally {
+      travaux--
+    }
+  })
+  async function demarrer() {
     stockage = await ouvrirStockage()
     profil = await stockage.lire<Profil>('profil')
     pays = (await stockage.lire<Pays>('pays')) ?? 'FR'
@@ -300,7 +319,7 @@
       erreurMoteur = (e as Error).message
     }
     actualiser()
-  })
+  }
 
   // Parcours des dossiers suivis, Explorer et moteur : relus au lancement, à chaque retour
   // dans l'app, au retour de la connexion et toutes les 10 minutes tant qu'elle est affichée
@@ -312,12 +331,12 @@
     actualiseLe = Date.now()
     // Fichier exporté pas encore vu sur le drive : il y est peut-être maintenant
     const aVerifier = profil === 'enseignant' && bibliotheque.lien && bibliotheque.publieLe && !bibliotheque.verifieLe
-    actualisation = Promise.all([
+    actualisation = suivre(Promise.all([
       classes.length ? synchroniserClasses() : null,
       synchroniserExplorer(),
       moteur && moteurMisAJour ? chercherMoteur() : null,
       aVerifier ? verifierDossier() : null,
-    ]).finally(
+    ])).finally(
       () => (actualisation = null),
     )
   }
@@ -1165,7 +1184,7 @@
       />
 {/snippet}
 
-<div class="colonne">
+<div class="colonne" aria-busy={travaux > 0}>
   {#if erreurMoteur}
     <p class="p-4 font-bold text-coopmaths-action" role="alert">Moteur MathALÉA indisponible : {erreurMoteur}</p>
   {/if}

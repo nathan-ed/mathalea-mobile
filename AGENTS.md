@@ -69,6 +69,19 @@ complète (détails dans le skill, « Vérification »).
   jusqu'au bilan et au suivi), sur téléphone et en fenêtre de bureau. Jamais
   de réponses écrites directement dans le stockage pour conclure.
 - Toutes les suites e2e, pas seulement celle du changement.
+- Suites e2e (Nathan, 1er novembre 2026 : « toujours tester sur la version
+  construite », un test qui échoue alors que l'app va bien n'est pas normal) :
+  - toujours sur l'app construite (`NODE_ENV=development npx vite build` puis
+    `npx vite preview --port 1420`), jamais sur `pnpm dev` ; arrêter `vite
+    preview` avant de reconstruire ;
+  - aucune pause fixe : attendre un état avec `e2e/attente.mjs` (`pagePrete`,
+    `taperDans`, `pointStable`, `jusqua`), ou au plus une durée qui fait partie
+    du geste testé (appui long, glissement) ;
+  - tout travail asynchrone de l'app (rendu d'une question, démarrage,
+    réseau, chargement) porte `aria-busy="true"` tant qu'il dure : c'est ce
+    qu'attend `pagePrete` ;
+  - un échec se rejoue d'abord seul, sur un petit sous-ensemble et plusieurs
+    fois, avant de relancer toute la vérification.
 - Bon sens d'abord (Nathan, 31 octobre 2026 : « make common sense a
   priority ») : ce qu'un élève remarquerait au premier coup d'œil (champ ou
   bouton coupé, texte illisible, couleur qui change sans raison, ordre

@@ -2,7 +2,7 @@
 // Prérequis : serveur de dev (pnpm dev). Aucun dossier partagé : les données
 // de l'élève sont écrites directement dans le stockage du navigateur.
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 let echecs = 0
@@ -62,7 +62,7 @@ const taper = async (page, texte) => {
     await page.keyboard.type(texte)
     if ((await champ.evaluate((el) => el.value)) === texte) return
     await champ.evaluate((el) => el.setValue(''))
-    await page.waitForTimeout(250)
+    await pagePrete(page)
   }
   throw new Error('Champ de réponse jamais prêt')
 }
@@ -73,7 +73,7 @@ const taper = async (page, texte) => {
   await ouvrir(page, 'Audit brouillon')
   await taper(page, '42')
   await page.getByRole('button', { name: 'Question suivante' }).click()
-  await page.waitForTimeout(400)
+  await pagePrete(page)
   const s = await lire(page, 'seance:brouillon')
   ok(Object.values(s.brouillons['0-0'] ?? {}).includes('42'), 'brouillon enregistré malgré un changement de question immédiat', JSON.stringify([s.position, s.brouillons]))
 }
@@ -84,7 +84,7 @@ const taper = async (page, texte) => {
   await ouvrir(page, 'Audit entree')
   await taper(page, '42')
   await page.keyboard.press('Enter')
-  await page.waitForTimeout(600)
+  await pagePrete(page)
   const s = await lire(page, 'seance:entree')
   ok(s.essais.length === 0, 'Entrée ne vérifie pas la réponse avant la soumission')
   ok((await page.getByText('Correction', { exact: true }).count()) === 0, 'aucune correction affichée avant la soumission')

@@ -7,7 +7,7 @@
 //   CAPTURES=<dossier> node e2e/test-niveau.mjs
 import { chromium } from 'playwright'
 import { champsCoupes } from './champs-visibles.mjs'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -19,7 +19,7 @@ const ok = (cond, msg) => {
 }
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
-const cap = async (page, n, theme) => (await page.waitForTimeout(400), page.screenshot({ path: `${captures}/test-niveau-${n}-${theme}.png` }))
+const cap = async (page, n, theme) => (await pagePrete(page), page.screenshot({ path: `${captures}/test-niveau-${n}-${theme}.png` }))
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 
 /** Toutes les questions de la tentative en cours comptées correctes, puis reprise */
@@ -95,7 +95,7 @@ for (const theme of ['clair', 'sombre']) {
   const coupes = []
   for (let i = 0; i < onglets; i++) {
     await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').nth(i).click()
-    await page.waitForTimeout(500)
+    await pagePrete(page)
     coupes.push(...(await champsCoupes(page)).map((c) => `Q${i + 1} ${c}`))
   }
   ok(coupes.length === 0, `${theme} : champs de réponse entièrement visibles${coupes.length ? ` (${coupes.join(' ; ')})` : ''}`)
@@ -161,7 +161,7 @@ for (const theme of ['clair', 'sombre']) {
   // Page de la bande : celle qui contient le champ de la figure
   for (const i of [0, 1]) {
     await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').nth(i).click()
-    await page.waitForTimeout(800)
+    await pagePrete(page)
     if (await page.locator('main [id^="MetaInteractif2dEx"][id$="field0"]').count()) break
   }
   const attendue = await page.evaluate(async () => {
@@ -172,9 +172,8 @@ for (const theme of ['clair', 'sombre']) {
     return ex.interne.autoCorrection[0].valeur.field0.value
   })
   const champ = page.locator('main math-field[id^="MetaInteractif2dEx"]').first()
-  await champ.click()
-  await page.keyboard.type(String(attendue))
-  await page.waitForTimeout(800) // brouillon (350 ms)
+  await taperDans(page, champ, String(attendue))
+  await pagePrete(page) // brouillon (350 ms)
   await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').last().click()
   await page.getByRole('button', { name: 'Soumettre la tentative' }).click()
   const garde = page.getByRole('button', { name: 'Soumettre quand même' })

@@ -12,6 +12,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
 import qrcode from 'qrcode-generator'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -65,7 +66,7 @@ async function contexte(nav, profil, explorer) {
 /** Capture du guide avec un anneau autour de ce qu'on touche ensuite (comme reponses-session.mjs) */
 async function guide(page, nomCapture, cible) {
   if (!process.env.GUIDE) return
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   if (cible) {
     const b = await cible.first().boundingBox()
     await page.evaluate((b) => {
@@ -96,7 +97,6 @@ function videoDe(image, nom) {
     '-I', '-c',
     `
 import sys
-import { SANS_BRIDAGE } from './attente.mjs'
 from PIL import Image
 fond = Image.new('RGB', (1280, 720), (90, 90, 95))
 qr = Image.open(sys.argv[1]).convert('RGB')
@@ -149,11 +149,11 @@ await telechargement.saveAs(join(captures, 'session-qr-image.png'))
 ok(telechargement.suggestedFilename() === `session-${code}.png` && readFileSync(imageQr).subarray(1, 4).toString() === 'PNG', `image exportée : ${telechargement.suggestedFilename()}`)
 await prof.getByText('Image enregistrée.').waitFor()
 await prof.goBack()
-await prof.waitForTimeout(400)
+await pagePrete(prof)
 ok(!(await qr.count()) && (await qrPage.isVisible()), 'retour : le plein écran se referme, la page de la session reste')
 // Retour : onglet En classe, la session y est
 await prof.goBack()
-await prof.waitForTimeout(400)
+await pagePrete(prof)
 ok((await prof.getByRole('tab', { name: 'En classe' }).getAttribute('aria-selected')) === 'true' && (await prof.getByRole('button', { name: /Relatifs au tableau/ }).isVisible()), 'retour : onglet En classe, avec la session')
 await prof.reload()
 await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
@@ -190,7 +190,7 @@ const seance = await a.evaluate((id) => JSON.parse(localStorage.getItem(`copie:s
 ok(seance?.code === code && seance.contenu.version === 2 && seance.contenu.etapes.length === 2, `élève : image exportée scannée, dans la session ${seance?.code}, parcours en version 2`)
 await a.screenshot({ path: `${captures}/session-qr-3-eleve-session.png` })
 await a.getByRole('button', { name: /Quitter|Revenir en arrière/ }).first().click()
-await a.waitForTimeout(800)
+await pagePrete(a)
 const ajoutes = await a.evaluate(() => JSON.parse(localStorage.getItem('copie:ajoutes') ?? '[]'))
 ok(ajoutes.some((p) => p.id === parcours.id), 'élève : le parcours est ajouté à son accueil (bilan, QR code des réponses)')
 
@@ -214,7 +214,7 @@ await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
 await prof.screenshot({ path: `${captures}/session-qr-5-en-classe-sombre.png` })
 await prof.getByRole('button', { name: /Relatifs au tableau/ }).click()
 await qrPage.waitFor()
-await prof.waitForTimeout(500)
+await pagePrete(prof)
 await prof.screenshot({ path: `${captures}/session-qr-6-page-sombre.png` })
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)

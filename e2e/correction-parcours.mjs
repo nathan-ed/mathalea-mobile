@@ -10,7 +10,7 @@ import { chromium } from 'playwright'
 import { mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -64,7 +64,7 @@ async function telephone(nom, avant, sombre = false) {
   return page
 }
 const texte = async (p, sel = 'main') => (await p.locator(sel).first().innerText()).replace(/\s+/g, ' ')
-const cap = async (p, nom) => (await p.waitForTimeout(400), p.screenshot({ path: `${captures}/correction-${nom}.png` }))
+const cap = async (p, nom) => (await pagePrete(p), p.screenshot({ path: `${captures}/correction-${nom}.png` }))
 
 const reponseAttendue = (page, id, rang) =>
   page.evaluate(
@@ -92,25 +92,25 @@ async function saisir(page, latex) {
         return el.value === v
       }, latex)
       .catch(() => false)
-    if (pris && (await page.waitForTimeout(300), await page.locator('main math-field').last().evaluate((el, v) => el.value === v, latex).catch(() => false))) return
-    await page.waitForTimeout(250)
+    if (pris && (await pagePrete(page), await page.locator('main math-field').last().evaluate((el, v) => el.value === v, latex).catch(() => false))) return
+    await pagePrete(page)
   }
   throw new Error(`saisie impossible : ${latex}`)
 }
 /** Répond (vraiment, au clavier MathLive) aux `total` questions d'une séance, puis « Voir le bilan » */
 async function repondre(page, id, total) {
   await page.locator('main math-field').first().waitFor({ timeout: 60_000 })
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   for (let rang = 0; rang < total; rang++) {
     await page.getByText(`Question ${rang + 1} sur ${total}`).waitFor({ timeout: 30_000 })
     await saisir(page, await reponseAttendue(page, id, rang))
     await page.getByRole('button', { name: 'Vérifier' }).click()
-    await page.waitForTimeout(400)
+    await pagePrete(page)
     if (rang < total - 1) {
       const btn = page.getByRole('button', { name: 'Question suivante' })
       for (let essai = 0; essai < 20 && !(await page.getByText(`Question ${rang + 2} sur ${total}`).isVisible().catch(() => false)); essai++) {
         if (await btn.isVisible().catch(() => false)) await btn.click().catch(() => {})
-        await page.waitForTimeout(400)
+        await pagePrete(page)
       }
     } else await page.getByRole('button', { name: 'Voir le bilan' }).click()
   }
@@ -118,7 +118,7 @@ async function repondre(page, id, total) {
 async function versLAccueil(page) {
   for (let i = 0; i < 6 && !(await page.getByRole('tab', { name: 'Suivi' }).isVisible().catch(() => false)); i++) {
     await page.getByRole('button', { name: /Retour à l’accueil|Revenir en arrière/ }).first().click().catch(() => {})
-    await page.waitForTimeout(350)
+    await pagePrete(page)
   }
 }
 async function ouvrir(page, p) {
@@ -167,7 +167,7 @@ await cap(a, '1-v1')
 await publier(a, v2)
 await a.reload()
 await ouvrir(a, v2)
-await a.waitForTimeout(500)
+await pagePrete(a)
 const etatV2 = await texte(a, 'body')
 ok(etatV2.includes('Parcours mis à jour'), 'V2 : « Parcours mis à jour »')
 ok(!/Au moins 80 %/.test(etatV2) && !/bx-lock/.test(await a.locator('body').innerHTML().then((h) => (h.includes('Au moins 80') ? 'bx-lock' : ''))), 'V2 : la ceinture 2 reste ouverte malgré l’exercice ajouté')
@@ -178,7 +178,7 @@ await cap(a, '2-v2')
 // Suivi : la ceinture orange reste obtenue
 await versLAccueil(a)
 await a.getByRole('tab', { name: 'Suivi' }).click()
-await a.waitForTimeout(800)
+await pagePrete(a)
 const suiviV2 = await texte(a, 'body')
 ok(suiviV2.includes('Relatifs en ceintures'), 'V2 : le parcours figure au suivi')
 await a.screenshot({ path: `${captures}/correction-3-suivi-v2.png` })
@@ -200,7 +200,7 @@ ok(/1 passage terminé/.test(await texte(b, '[role=dialog]')), 'aperçu : le pas
 await b.getByRole('button', { name: 'Récupérer', exact: true }).click()
 await b.getByRole('tab', { name: 'Mes parcours' }).waitFor({ timeout: 60_000 })
 await ouvrir(b, v2)
-await b.waitForTimeout(500)
+await pagePrete(b)
 const etatB = await texte(b, 'body')
 ok(etatB.includes('Parcours mis à jour'), 'téléphone neuf : « Parcours mis à jour » retrouvé')
 ok(/1 exercice sur 2/.test(etatB), 'téléphone neuf : résultat de la V1 conservé sur la ceinture corrigée')
@@ -216,7 +216,7 @@ await b.getByText(/\d+ \/ \d+/).first().waitFor({ timeout: 30_000 })
 ok(true, `V2 : ceinture corrigée terminée (${total} questions)`)
 await b.getByRole('button', { name: 'Retour à l’accueil' }).click().catch(() => {})
 await ouvrir(b, v2)
-await b.waitForTimeout(500)
+await pagePrete(b)
 const fin = await texte(b, 'body')
 ok(!fin.includes('Parcours mis à jour'), 'après un passage en V2 : la mention disparaît')
 ok((fin.match(/Réussi · 100 %/g) ?? []).length >= 1, `après un passage en V2 : ceinture 1 réussie (${fin.slice(0, 200)})`)

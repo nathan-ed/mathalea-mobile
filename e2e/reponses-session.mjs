@@ -14,6 +14,7 @@ import { execFileSync } from 'node:child_process'
 import { rmSync, mkdtempSync, writeFileSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -78,13 +79,13 @@ async function eleve(nom, theme = 'clair', bureau = false) {
 /** Capture du guide : `cible`, ce qu'on touche ensuite, entourée d'un anneau (comme guide.mjs) */
 async function guide(page, nomCapture, cible) {
   if (!process.env.GUIDE || avecWebkit) return
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   if (cible) {
     const c = cible.first()
     await c.evaluate((el) => {
       if (getComputedStyle(el.closest('nav, footer, header') ?? el).position !== 'fixed') el.scrollIntoView({ block: 'center' })
     })
-    await page.waitForTimeout(200)
+    await pagePrete(page)
     const b = await c.boundingBox()
     await page.evaluate((b) => {
       const marge = 5
@@ -137,7 +138,7 @@ async function suivante(page, rang, bouton = 'Question suivante') {
   if (!(await btn.click({ timeout: 10_000 }).then(() => true, () => false))) throw await diagnostic('clic')
   for (let essai = 0; essai < 20; essai++) {
     if (await cible.isVisible().catch(() => false)) return
-    await page.waitForTimeout(500)
+    await pagePrete(page)
     // Toucher ignoré (trop tôt après « Vérifier ») : le bouton est encore là, on retouche
     if (essai % 4 === 3 && (await btn.isVisible().catch(() => false))) await btn.click({ timeout: 5000 }).catch(() => {})
   }
@@ -161,8 +162,8 @@ async function saisir(page, latex) {
       }, latex)
       .catch(() => false)
     // La valeur tient (le champ n'a pas été remplacé entre-temps)
-    if (pris && (await page.waitForTimeout(300), await page.locator('main math-field').last().evaluate((el, v) => el.value === v, latex).catch(() => false))) return
-    await page.waitForTimeout(250)
+    if (pris && (await pagePrete(page), await page.locator('main math-field').last().evaluate((el, v) => el.value === v, latex).catch(() => false))) return
+    await pagePrete(page)
   }
   throw new Error(`saisie impossible : ${latex}`)
 }
@@ -181,11 +182,11 @@ async function faireSession(page, faux) {
   await page.getByLabel('Code de session').fill(code.toUpperCase())
   await page.getByRole('button', { name: 'Rejoindre la session' }).click()
   await page.locator('main math-field').first().waitFor({ timeout: 60_000 })
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   for (let rang = 0; rang < 6; rang++) {
     await saisir(page, faux[rang] ?? (await reponseAttendue(page, rang)))
     await page.getByRole('button', { name: 'Vérifier' }).click()
-    await page.waitForTimeout(400)
+    await pagePrete(page)
     if (rang < 5) await suivante(page, rang)
     else await page.getByRole('button', { name: 'Voir le bilan' }).click()
   }
@@ -212,7 +213,7 @@ async function qrDe(page, fichier, premier = false, prenom) {
   if (prenom) await donnerPrenom(page, prenom, premier)
   const qr = page.locator('.qr-reponses')
   await qr.waitFor()
-  await page.waitForTimeout(200)
+  await pagePrete(page)
   await qr.screenshot({ path: fichier })
   return fichier
 }
@@ -249,7 +250,7 @@ ok((await pages.A.locator('.qr-reponses').count()) === 1 && !(await pages.A.getB
 
 // Retour du téléphone : le QR code se referme, le bilan reste
 await pages.A.goBack({ waitUntil: 'commit' })
-await pages.A.waitForTimeout(300)
+await pagePrete(pages.A)
 ok(!(await pages.A.locator('.qr-reponses').count()) && (await pages.A.getByRole('button', { name: 'Montrer mes réponses à l’enseignant' }).isVisible()), 'retour : QR code refermé, bilan affiché')
 
 // Un cinquième élève (sur ordinateur) envoie un fichier au lieu du QR code
@@ -339,7 +340,6 @@ execFileSync('python3', [
   '-c',
   `
 import sys
-import { SANS_BRIDAGE } from './attente.mjs'
 from PIL import Image, ImageFilter
 qrs = sys.argv[2:6]
 table = Image.new('RGB', (3000, 2250), (150, 120, 90))
@@ -430,7 +430,7 @@ ok(
 
 // Bureau, puis thème sombre (choisi dans les réglages, comme un utilisateur)
 await t.setViewportSize({ width: 1200, height: 800 })
-await t.waitForTimeout(300)
+await pagePrete(t)
 await t.screenshot({ path: `${captures}/${nom}-reponses-4-classe-bureau.png` })
 await t.setViewportSize({ width: 390, height: 844 })
 await t.evaluate(() => localStorage.setItem('theme', 'sombre'))
@@ -438,7 +438,7 @@ await t.reload()
 await t.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
 await t.getByRole('button', { name: /Relatifs en classe/ }).click()
 await t.locator('section[aria-label="Résumé de la classe"]').waitFor({ timeout: 30_000 })
-await t.waitForTimeout(800)
+await pagePrete(t)
 await t.screenshot({ path: `${captures}/${nom}-reponses-4-classe-sombre.png` })
 
 // Suppression d'une session relevée
@@ -446,7 +446,7 @@ await t.getByRole('button', { name: 'Revenir en arrière' }).click()
 await t.getByRole('button', { name: 'Supprimer la session r54z4' }).click()
 ok(await t.getByText('Supprimer la session r54z4 ?').isVisible(), 'session avec réponses : suppression confirmée d’abord')
 await t.getByRole('button', { name: 'Supprimer', exact: true }).click()
-await t.waitForTimeout(300)
+await pagePrete(t)
 ok(!(await t.locator('main').innerText()).includes('Session r54z4'), 'session supprimée')
 
 // Caméra refusée : message clair, import toujours possible
@@ -520,7 +520,7 @@ await prof.screenshot({ path: `${captures}/${nom}-reponses-6a-page.png` })
 
 // La session lancée est gardée : on peut partir et la relever plus tard
 await prof.getByRole('button', { name: 'Revenir en arrière' }).click()
-await prof.waitForTimeout(500)
+await pagePrete(prof)
 ok((await prof.getByRole('tab', { name: 'En classe' }).getAttribute('aria-selected')) === 'true', 'retour de la page de session : onglet En classe')
 await prof.reload()
 await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
@@ -536,16 +536,16 @@ ok((await prof.locator('main').innerText()).includes(codeAvant) && (await prof.g
 await guide(prof, 'sessions-6c-code', prof.getByRole('button', { name: 'Lire les QR codes' }))
 await prof.screenshot({ path: `${captures}/${nom}-reponses-6c-code.png` })
 await prof.goBack()
-await prof.waitForTimeout(400)
+await pagePrete(prof)
 await prof.evaluate(() => localStorage.setItem('theme', 'sombre'))
 await prof.reload()
 await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
-await prof.waitForTimeout(500)
+await pagePrete(prof)
 await prof.screenshot({ path: `${captures}/${nom}-reponses-6b-sessions-sombre.png` })
 await prof.getByRole('button', { name: `Supprimer la session ${codeAvant}` }).click()
 ok(await prof.getByText(`Supprimer la session ${codeAvant} ?`).isVisible(), 'session sans réponse : suppression confirmée aussi')
 await prof.getByRole('button', { name: 'Supprimer', exact: true }).click()
-await prof.waitForTimeout(300)
+await pagePrete(prof)
 ok(!(await prof.locator('main ul > li').count()), 'session sans réponse : supprimée après confirmation')
 await prof.screenshot({ path: `${captures}/${nom}-reponses-6-session-enseignant.png` })
 // Session sans QR code des réponses (réglage par défaut) : rien à relever
@@ -571,11 +571,11 @@ await f.getByRole('button', { name: 'Rejoindre une session' }).click()
 await f.getByLabel('Code de session').fill(codeAvant)
 await f.getByRole('button', { name: 'Rejoindre la session' }).click()
 await f.locator('main math-field').first().waitFor({ timeout: 60_000 })
-await f.waitForTimeout(500)
+await pagePrete(f)
 ok(!(await f.getByRole('button', { name: 'Vérifier' }).isVisible().catch(() => false)), 'avant la correction : aucune vérification pendant la session')
 for (let rang = 0; rang < 6; rang++) {
   await saisir(f, rang === 0 ? '999' : await reponseAttendue(f, rang))
-  await f.waitForTimeout(300)
+  await pagePrete(f)
   if (rang < 5) await suivante(f, rang)
   else await f.getByRole('button', { name: 'Soumettre la tentative' }).click()
 }
@@ -585,7 +585,7 @@ await f.screenshot({ path: `${captures}/${nom}-reponses-7-avant-qr.png` })
 await guide(f, 'sessions-5-avant', f.getByRole('button', { name: 'C’est fait : voir mes résultats' }))
 // Le retour ne dévoile rien : on revient au parcours, le QR code revient à la relecture
 await f.getByRole('button', { name: 'Revenir en arrière' }).click()
-await f.waitForTimeout(500)
+await pagePrete(f)
 ok(!(await f.getByText('Avant tes résultats').count()) && !/\d+ \/ 6/.test(await f.locator('main').innerText()), 'retour : pas de résultats dévoilés')
 const passage = f.getByRole('button', { name: /QR code à montrer/ })
 ok((await passage.count()) === 1, 'passages : « QR code à montrer » au lieu du score')
@@ -593,7 +593,7 @@ await passage.click()
 await f.getByText('Avant tes résultats').waitFor({ timeout: 30_000 })
 ok(true, 'relecture : le QR code passe d’abord')
 await f.getByRole('button', { name: 'C’est fait : voir mes résultats' }).click()
-await f.waitForTimeout(800)
+await pagePrete(f)
 ok(!(await f.getByText('Avant tes résultats').count()), 'C’est fait : résultats et corrections visibles')
 ok(await f.getByRole('button', { name: 'Montrer mes réponses à l’enseignant' }).isVisible(), 'ensuite : le QR code reste disponible')
 await f.screenshot({ path: `${captures}/${nom}-reponses-8-apres-qr.png` })
@@ -605,7 +605,7 @@ await g.getByRole('button', { name: 'Rejoindre une session' }).click()
 await g.getByLabel('Code de session').fill(codeSansQr)
 await g.getByRole('button', { name: 'Rejoindre la session' }).click()
 await g.locator('main math-field').first().waitFor({ timeout: 60_000 })
-await g.waitForTimeout(500)
+await pagePrete(g)
 for (let rang = 0; rang < 6; rang++) {
   await saisir(g, '1')
   const verif = g.getByRole('button', { name: 'Vérifier' })
@@ -614,7 +614,7 @@ for (let rang = 0; rang < 6; rang++) {
     console.log(`  (élève G, question ${rang + 1} : ${(await g.locator('button:visible').allInnerTexts()).map((x) => x.trim()).filter(Boolean).slice(0, 6).join(' / ')})`)
   }
   await verif.click()
-  await g.waitForTimeout(400)
+  await pagePrete(g)
   if (rang < 5) await suivante(g, rang)
   else await g.getByRole('button', { name: 'Voir le bilan' }).click()
 }

@@ -4,7 +4,7 @@
 // Captures à 390 px, en clair et en sombre.
 //   CAPTURES=<dossier> node e2e/paliers.mjs
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -35,8 +35,8 @@ async function appareil(nom, theme, stockage) {
   return page
 }
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
-const cap = async (page, n, theme) => (await page.waitForTimeout(300), page.screenshot({ path: `${captures}/paliers-${n}-${theme}.png`, fullPage: false }))
-const capTout = async (page, n, theme) => (await page.waitForTimeout(300), page.screenshot({ path: `${captures}/paliers-${n}-${theme}.png`, fullPage: true }))
+const cap = async (page, n, theme) => (await pagePrete(page), page.screenshot({ path: `${captures}/paliers-${n}-${theme}.png`, fullPage: false }))
+const capTout = async (page, n, theme) => (await pagePrete(page), page.screenshot({ path: `${captures}/paliers-${n}-${theme}.png`, fullPage: true }))
 /** Réponse attendue par MathALÉA (exercice régénéré avec la graine de la séance) */
 const reponseAttendue = (page, parcours, e, q) =>
   page.evaluate(
@@ -137,7 +137,7 @@ for (const theme of ['clair', 'sombre']) {
   await t2.locator('input[type=file]').last().setInputFiles(fichier)
   await t2.getByText('1 parcours repris, 1 classe.').waitFor()
   await t2.goBack({ waitUntil: 'commit' })
-  await t2.waitForTimeout(300)
+  await pagePrete(t2)
   ok((await texte(t2)).includes('5e A · 3 paliers'), 'autre appareil : bibliothèque reprise (classe, paliers)')
   await t2.getByRole('tab', { name: 'Objectifs' }).click()
   ok((await texte(t2)).includes('5N2G'), 'autre appareil : objectifs repris')
@@ -200,9 +200,9 @@ for (const theme of ['clair', 'sombre']) {
     )
     await saisir(e, 0, etape === 0 ? await reponseAttendue(e, id, etape, q) : '0')
     await e.getByRole('button', { name: 'Vérifier' }).click()
-    await e.waitForTimeout(350)
+    await pagePrete(e)
     await e.getByRole('button', { name: n < 3 ? 'Question suivante' : 'Voir le bilan' }).click()
-    await e.waitForTimeout(400)
+    await pagePrete(e)
   }
   const bilanTexte = await texte(e)
   ok(bilanTexte.includes('2 / 4') && bilanTexte.includes('Bilan : palier 1'), 'bilan : score du palier, titré par le palier')
@@ -214,17 +214,17 @@ for (const theme of ['clair', 'sombre']) {
   ok((await e.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}`)).etapes, id)).join() === '2', 'continuer : séance du palier 2')
   await e.getByRole('button', { name: 'Quitter', exact: true }).click()
   await e.getByRole('button', { name: 'Reprendre plus tard' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   // Quitter ramène à l'accueil : on rouvre le parcours (sa ligne ; la tuile « En cours » reprendrait la séance)
   await e.getByRole('button', { name: /^Relatifs en trois paliers/ }).last().click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   ok((await texte(e)).includes('Réussi · 50 %'), 'carte : palier 1 réussi au seuil choisi')
   // Session partagée : elle porte sur un palier ouvert, pas sur tout le parcours
   await e.getByRole('button', { name: 'Autres actions' }).click()
   ok(!(await e.getByRole('button', { name: 'Session partagée' }).isVisible()) || true, 'autres actions ouvertes')
   await e.getByRole('button', { name: 'Supprimer la tentative en cours' }).click()
   await e.getByRole('button', { name: 'Supprimer', exact: true }).click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   await e.getByRole('button', { name: 'Autres actions' }).click()
   await e.getByRole('button', { name: 'Session partagée' }).click()
   const paliersSession = await e.getByRole('radiogroup', { name: 'Palier de la session' }).getByRole('radio').allInnerTexts()
@@ -237,7 +237,7 @@ for (const theme of ['clair', 'sombre']) {
   await e.getByRole('button', { name: 'Quitter', exact: true }).click()
   await e.getByRole('button', { name: 'Supprimer la tentative' }).click()
   await e.getByRole('button', { name: 'Supprimer', exact: true }).click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   // Suivi : objectifs et niveau atteint
   await e.getByRole('button', { name: 'Revenir en arrière' }).click()
   await e.getByRole('tab', { name: 'Suivi' }).click()
@@ -251,7 +251,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(/1\/3/.test(await texte(e)), 'accueil : progression en paliers, pas le score d’un palier')
   // Épingler depuis l’accueil, sans ouvrir le parcours
   await e.getByRole('button', { name: /Épingler « Relatifs en trois paliers »/ }).click()
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok(await e.getByRole('button', { name: /Retirer « Relatifs en trois paliers » de l’accueil/ }).first().isVisible(), 'accueil : épinglé depuis la tuile')
   await cap(e, '13-accueil-epingle', theme)
   ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
@@ -269,7 +269,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(accueilDemo.includes('Relatifs en ceintures') && accueilDemo.includes('Ceintures orange à bleue'), 'démonstration : ceintures visibles à l’accueil')
   await cap(d, '14-demo-accueil', theme)
   await d.getByRole('button', { name: /^Relatifs en ceintures/ }).click()
-  await d.waitForTimeout(400)
+  await pagePrete(d)
   ok((await texte(d)).includes('Ceinture orange') && (await texte(d)).includes('Au moins 80 % à : ceinture orange'), 'démonstration : ceintures à partir de l’orange')
   await capTout(d, '15-demo-ceintures', theme)
   await d.getByRole('button', { name: 'Revenir en arrière' }).click()

@@ -337,7 +337,7 @@
               {#if messageLien}
                 <p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{messageLien}</p>
               {/if}
-              <button type="submit" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim() || ajoutEnCours}>
+              <button type="submit" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim() || ajoutEnCours} aria-busy={ajoutEnCours}>
                 {ajoutEnCours ? 'Ajout du dossier…' : 'Ajouter le dossier'}
               </button>
             </form>

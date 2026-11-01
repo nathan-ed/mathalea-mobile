@@ -5,7 +5,7 @@
 // relancement (données gardées, état de la page perdu).
 // Prérequis : pnpm dev (port 1420).
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 let echecs = 0
@@ -31,7 +31,7 @@ for (const appareil of ['telephone', 'bureau']) {
   page.on('pageerror', (e) => erreurs.push(e.message))
   const relancer = async () => {
     await page.reload()
-    await page.waitForTimeout(4000)
+    await pagePrete(page)
   }
   const visible = (loc) => loc.first().isVisible().catch(() => false)
 
@@ -55,7 +55,7 @@ for (const appareil of ['telephone', 'bureau']) {
 
   // Onglet Explorer
   await page.getByRole('tab', { name: 'Explorer' }).click()
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   await relancer()
   ok((await page.getByRole('tab', { name: 'Explorer' }).getAttribute('aria-selected')) === 'true', `${appareil} : onglet Explorer retrouvé`)
 

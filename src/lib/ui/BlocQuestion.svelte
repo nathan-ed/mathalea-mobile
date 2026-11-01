@@ -2,6 +2,7 @@
   // Une question MathALÉA : affichage, brouillon, vérification, correction.
   // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
   import { onDestroy, onMount, tick } from 'svelte'
+  import { bornerListes } from '$lib/listeDeroulante'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
   import { boutonInverse, boutonLien } from './classes'
@@ -285,12 +286,15 @@
     await afficherCorrection()
   }
 
+  let arreterBornage: (() => void) | null = null
   onMount(async () => {
     try {
       await monter()
     } finally {
       rendus--
     }
+    // Listes déroulantes : jamais sous la barre du bas (listeDeroulante.ts)
+    if (zone) arreterBornage = bornerListes(zone)
   })
   async function monter() {
     zone.innerHTML = (avecContexte && q.contexte.trim() ? `<div class="mb-4">${q.contexte}</div>` : '') + `<div>${q.enonce}</div>`
@@ -353,6 +357,7 @@
   // démontage seulement : pendant celui-ci, Svelte relit les anciennes valeurs
   // de l'état et la séance repartirait à la question quittée.
   onDestroy(() => {
+    arreterBornage?.()
     clearTimeout(minuterie)
     if (!enAttente || resultat) return
     const lues = lireSaisies()

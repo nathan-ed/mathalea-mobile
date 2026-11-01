@@ -8,7 +8,7 @@
 // la date ; palier 1 joué au toucher. Clair et sombre, 390 px.
 //   CAPTURES=<dossier> node e2e/ouverture-paliers.mjs
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -62,7 +62,7 @@ async function appareil(nom, theme, stockage, telephone, serveur = telephone) {
   return page
 }
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
-const cap = async (page, n, theme, fullPage = true) => (await page.waitForTimeout(350), page.screenshot({ path: `${captures}/ouverture-${n}-${theme}.png`, fullPage }))
+const cap = async (page, n, theme, fullPage = true) => (await pagePrete(page), page.screenshot({ path: `${captures}/ouverture-${n}-${theme}.png`, fullPage }))
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 const carte = (page, nom) => page.getByRole('region', { name: new RegExp(`^${nom}`) })
 
@@ -97,7 +97,7 @@ for (const theme of ['clair', 'sombre']) {
   await cap(t, '1-editeur', theme, false)
   ok(!(await debordement(t)), 'éditeur : aucun débordement horizontal')
   await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
-  await t.waitForTimeout(400)
+  await pagePrete(t)
   enregistre = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours[0].parcours)
   ok(JSON.stringify(enregistre.paliers.map((x) => x.ouverture ?? null)) === '[null,"2026-11-12T08:00:00+01:00","2026-11-20T08:00:00+01:00"]', `bibliothèque : dates enregistrées (${enregistre.paliers.map((x) => x.ouverture)})`)
   ok(!('ouverture' in enregistre.paliers[0]), 'premier palier : aucune date vide gardée')
@@ -105,7 +105,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(enregistre.version === 2, 'parcours publié modifié : version suivante (V2)')
   // Panneau d'après l'enregistrement, puis la page du parcours
   await t.goBack({ waitUntil: 'commit' }).catch(() => {})
-  await t.waitForTimeout(400)
+  await pagePrete(t)
   if (!(await t.getByRole('button', { name: 'Modifier' }).isVisible())) await t.getByRole('button', { name: /^\s*Relatifs au fil des semaines/ }).first().click()
   await t.getByRole('button', { name: 'Modifier' }).waitFor()
   const fiche = await texte(t)
@@ -122,7 +122,7 @@ for (const theme of ['clair', 'sombre']) {
   const r = (points) => ({ points, sur: 1, complet: true, le: '2026-11-09T08:00:00Z', version: 2 })
   const ouvrir = async (e) => {
     await e.getByRole('button', { name: /^Relatifs au fil des semaines/ }).waitFor({ timeout: 60_000 })
-    await e.waitForTimeout(1500)
+    await pagePrete(e)
     await e.getByRole('button', { name: /^Relatifs au fil des semaines/ }).click().catch(async (x) => {
       await e.screenshot({ path: `${captures}/ouverture-erreur.png` })
       throw x
@@ -131,7 +131,7 @@ for (const theme of ['clair', 'sombre']) {
       await e.screenshot({ path: `${captures}/ouverture-erreur.png` })
       throw x
     })
-    await e.waitForTimeout(300)
+    await pagePrete(e)
   }
 
   const blancheReussie = { profil: 'eleve', pays: 'FR', classes: [classe], [`resultats:${id}@2`]: { 0: r(1) } }
@@ -147,7 +147,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
   // 8 h passe, l'app reste ouverte : la jaune s'ouvre d'elle-même
   await e.clock.runFor(90_000)
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok(await carte(e, 'Ceinture jaune').getByRole('button', { name: 'Commencer cette ceinture' }).isVisible(), '8 h passée, app ouverte : jaune ouverte sans relancer')
   ok((await texte(e)).includes('À partir du vendredi 20 novembre à 8 h'), '8 h passée : orange toujours fermée')
   await cap(e, '4-eleve-le-jour', theme)
@@ -169,7 +169,7 @@ for (const theme of ['clair', 'sombre']) {
   await cap(e, '4b-hors-ligne', theme)
   e.serveur = '2026-11-13T10:00:00+01:00'
   await e.evaluate(() => document.dispatchEvent(new Event('visibilitychange')))
-  await e.waitForTimeout(500)
+  await pagePrete(e)
   ok((await carte(e, 'Ceinture jaune').getByRole('button', { name: /Commencer/ }).count()) === 1 && !(await texte(e)).includes('connexion'), 'connexion revenue, retour dans l’app : jaune ouverte')
   await e.context().close()
 
@@ -179,7 +179,7 @@ for (const theme of ['clair', 'sombre']) {
   await e.clock.setSystemTime(new Date('2026-11-20T08:30:00+01:00'))
   e.serveur = '2026-11-20T08:30:00+01:00'
   await e.evaluate(() => document.dispatchEvent(new Event('visibilitychange')))
-  await e.waitForTimeout(300)
+  await pagePrete(e)
   ok(!(await texte(e)).includes('vendredi 20 novembre') && (await carte(e, 'Ceinture orange').getByRole('button', { name: /Commencer/ }).count()) === 1, 'retour dans l’app le 20 : orange ouverte')
   await e.context().close()
 
@@ -209,15 +209,15 @@ for (const theme of ['clair', 'sombre']) {
   for (let i = 0; i < 20; i++) {
     await champ.click()
     await e.keyboard.type(reponse.replace(/[{}]/g, ''))
-    await e.waitForTimeout(200)
+    await pagePrete(e)
     if (await e.getByRole('button', { name: 'Vérifier' }).isEnabled()) break
     await champ.evaluate((el) => el.setValue(''))
-    await e.waitForTimeout(250)
+    await pagePrete(e)
   }
   await e.getByRole('button', { name: 'Vérifier' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   await e.getByRole('button', { name: 'Voir le bilan' }).click()
-  await e.waitForTimeout(500)
+  await pagePrete(e)
   tx = await texte(e)
   ok(tx.includes('1 / 1'), `bilan : réponse saisie au clavier comptée correcte (${reponse})`)
   ok(tx.includes('Pour ouvrir ceinture jaune : à partir du jeudi 12 novembre à 8 h.'), 'bilan : la date, pas de seuil (atteint)')
@@ -227,15 +227,15 @@ for (const theme of ['clair', 'sombre']) {
   ok(classeCarte.includes('bg-coopmaths-action ') && !classeRefaire.includes('bg-coopmaths-action '), 'bilan : réussi, seule la date manque : « Voir la carte » en bouton plein, pas « Refaire »')
   await cap(e, '5-bilan', theme)
   await e.getByRole('button', { name: 'Voir la carte du parcours' }).click()
-  await e.waitForTimeout(500)
+  await pagePrete(e)
   tx = await texte(e)
   ok(tx.includes('Réussi · 100 %') && tx.includes('À partir du jeudi 12 novembre à 8 h'), 'carte : blanche réussie, jaune attend sa date')
   // Suivi : la ceinture blanche est obtenue
   await e.getByRole('button', { name: 'Revenir en arrière' }).click()
   await e.getByRole('tab', { name: 'Suivi' }).click()
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   await e.getByRole('tab', { name: 'Ceintures' }).click().catch(() => {})
-  await e.waitForTimeout(400)
+  await pagePrete(e)
   ok((await e.getByLabel('Ceinture blanche : obtenue').count()) >= 1 && (await e.getByLabel('Ceinture jaune : pas encore obtenue').count()) >= 1, 'suivi : ceinture blanche obtenue, jaune pas encore')
   await cap(e, '6-suivi', theme)
   await e.context().close()

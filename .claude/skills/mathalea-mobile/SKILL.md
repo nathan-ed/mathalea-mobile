@@ -290,7 +290,7 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   premières communes à deux niveaux) : lire les imports du sujet, pas son
   dossier. Les sujets 2018-2023, « Spéciale année » (NY) et Aléa/CoopMaths
   ne choisissent pas leurs questions. Vérifier : `node e2e/sonde-can.mjs`,
-  `node e2e/test-niveau.mjs` (pnpm dev).
+  `node e2e/test-niveau.mjs` (app construite sur 1420).
 - Explorer par degré puis par chapitre (Nathan, 2026-10-26) : noms et ordre
   repris du référentiel de MathALÉA (« si le référentiel change, il faut que
   ça change »), `src/lib/explorer.ts` (`reperesDu`, `arborescence`) ; seuls
@@ -751,7 +751,8 @@ Environnement (machine de Nathan)
   `MOTEUR_PUBLICATION=<sortie> cargo test -- --ignored` vérifie une
   publication du script Node.
 - Bout en bout `e2e/complet.mjs` (Playwright, Chromium système, trois
-  appareils simulés à 390 px) : serveur `pnpm dev` sur 1420 ; dossier partagé
+  appareils simulés à 390 px) : app construite servie sur 1420 (`vite build`
+  puis `vite preview`, voir AGENTS.md, « Suites e2e ») ; dossier partagé
   local `spike-sync` (`../parcours-spikes/spike-sync`, 8701 WebDAV, 8702
   public, lien `http://127.0.0.1:8702/s/Xk42demo/test/`) ;
   `npx tsx e2e/preparer.mts <dossier>` (classes de test et catalogue
@@ -759,19 +760,19 @@ Environnement (machine de Nathan)
   `VITE_URL_EXPLORER=http://127.0.0.1:8702/s/Xk42demo/explorer/` ;
   `DOSSIER=<dossier> CAPTURES=e2e/captures node e2e/complet.mjs` →
   « TOUT VERT ». Vider `<dossier>/classe-3a` avant. Regarder les captures.
-- `node e2e/test-niveau-reel.mjs` (seulement `pnpm dev`, `THEME`, `NIVEAU`) :
+- `node e2e/test-niveau-reel.mjs` (seulement l'app servie sur 1420, `THEME`, `NIVEAU`) :
   test parcouru au toucher sur téléphone et bureau, suivi, suppression,
   parcours de l'Explorer non ajouté, exercice masqué.
-- `node e2e/regressions.mjs` (seulement `pnpm dev`) : brouillon d'une question
+- `node e2e/regressions.mjs` (seulement l'app servie sur 1420) : brouillon d'une question
   quittée aussitôt, Entrée avec correction à la fin, suivi d'une ancienne
   version. Vraie frappe clavier : la sonde réessaie tant que le champ
   MathLive n'est pas prêt (sinon résultats aléatoires).
 - Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
   par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
-- `node e2e/papier.mjs` et `node e2e/recherche.mjs` (seulement `pnpm dev`,
+- `node e2e/papier.mjs` et `node e2e/recherche.mjs` (seulement l'app servie sur 1420,
   sans le serveur de dossier qui remplace l'Explorer) : exercice papier,
   tous les chapitres.
-- `node e2e/retour.mjs` (seulement `pnpm dev` et le dossier « test ») :
+- `node e2e/retour.mjs` (seulement l'app servie sur 1420 et le dossier « test ») :
   bouton retour (`page.goBack()`) à chaque niveau.
 - `node e2e/captures-enseignant.mjs <dossier>` : captures enseignant en clair
   et en sombre.

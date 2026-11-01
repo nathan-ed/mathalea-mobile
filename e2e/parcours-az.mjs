@@ -224,6 +224,13 @@ async function remplirChamp(e, champ, latex) {
 }
 
 /** Glisse une étiquette vers une case : au doigt (événements tactiles) ou à la souris */
+/** Message d'erreur de Playwright réduit à l'essentiel : la cause et les dernières lignes du journal (attente, élément qui intercepte…) */
+function raisonDe(err) {
+  const lignes = err.message.replace(/\x1b\[\d+m/g, '').split('\n').map((l) => l.trim()).filter(Boolean)
+  const journal = lignes.filter((l) => /waiting for|intercepts|not stable|not visible|outside of the viewport|retrying/.test(l))
+  return [lignes[0], ...[...new Set(journal)].slice(-3)].join(' ; ')
+}
+
 async function glisser(e, de, vers, auBout = false) {
   // auBout : lâchée après la dernière étiquette déjà posée (réponse ordonnée), pas au centre
   const bout = auBout
@@ -277,8 +284,16 @@ async function repondre(e, n, k, a) {
       const liste = main.locator(`#liste-deroulante${q}`)
       const choix = JSON.parse(decodeURIComponent(await liste.getAttribute('choices'))).filter((c) => (typeof c === 'string' ? c : c.value) !== '')
       const voulu = texteDe(v.reponse)
-      await toucher(e, liste)
-      await toucher(e, liste.locator('[role=option]').nth(choix.findIndex((c) => (typeof c === 'string' ? c : c.value) === voulu)))
+      const option = liste.locator('[role=option]').nth(choix.findIndex((c) => (typeof c === 'string' ? c : c.value) === voulu))
+      // Un toucher ouvre ou referme la liste (toggle) : on touche jusqu'à la voir ouverte
+      for (let essai = 0; !(await option.isVisible()); essai++) {
+        if (essai >= 5) throw new Error('liste déroulante restée fermée')
+        await toucher(e, liste.locator('.currentChoice'))
+        await option.waitFor({ state: 'visible', timeout: 2_000 }).catch(() => {})
+      }
+      // Le choix doit recevoir le toucher : la liste s'arrête au-dessus de la
+      // barre du bas (src/lib/listeDeroulante.ts), sinon « Passer » le recouvre
+      await toucher(e, option)
       return
     }
     case 'multi-mathfield': {
@@ -799,7 +814,7 @@ async function jouerSeance(e, p, nomCeinture) {
           await repondre(e, n, k, a)
         } catch (err) {
           if (process.env.DEBUG) console.log(err.message)
-          problemes.push(`${etiquette}: saisie impossible (${err.message.split('\n')[0]})`)
+          problemes.push(`${etiquette}: saisie impossible (${raisonDe(err)})`)
         }
       }
       // Figure apigeom seule (rang porté par l'exercice) : format apigeom-figure

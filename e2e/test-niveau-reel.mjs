@@ -7,7 +7,7 @@
 // parcours de l'Explorer : suivi sans être ajouté, exercice masqué absent.
 //   CAPTURES=<dossier> NIVEAU=CM1 THEME=clair|sombre node e2e/test-niveau-reel.mjs
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -36,8 +36,7 @@ async function repondre(page, i) {
   if (await caseACocher.count()) return caseACocher.nth(i % (await caseACocher.count())).click({ force: true }), 'case'
   const champ = page.locator('main math-field:visible')
   if (await champ.count()) {
-    await champ.first().click()
-    await page.keyboard.type(String(i + 2))
+    await taperDans(page, champ.first(), String(i + 2))
     return 'champ'
   }
   const liste = page.locator('main select:visible')
@@ -74,12 +73,12 @@ for (const a of appareils) {
   const n = await onglets.getByRole('tab').count()
   const types = []
   for (let i = 0; i < n; i++) {
-    await page.waitForTimeout(700)
+    await pagePrete(page)
     ok((await texte(page, 'body')).includes(`Question ${i + 1} sur ${n}`), `${a.nom} : question ${i + 1} affichée`)
     const score = await page.locator('header .pastille, header [class*="rounded-full"]').count()
     if (i === 0) ok(score === 0, `${a.nom} : pas de score avant la correction`)
     types.push(await repondre(page, i))
-    await page.waitForTimeout(500)
+    await pagePrete(page)
     const libelle = i === n - 1 ? 'Soumettre la tentative' : 'Question suivante'
     const bouton = page.getByRole('button', { name: libelle })
     const visible = (await bouton.count()) === 1 && (await touchable(bouton))
@@ -103,12 +102,12 @@ for (const a of appareils) {
     if (types[i] !== 'champ') continue
     const ligne = page.getByRole('button', { name: new RegExp(`^Question ${i + 1} `) })
     await ligne.click()
-    await page.waitForTimeout(1200)
+    await pagePrete(page)
     const valeurs = await page.locator('main .question-eleve math-field').evaluateAll((ms) => ms.map((m) => m.value ?? ''))
     if (!valeurs.length || valeurs.some((v) => !v.trim())) vides.push(`Q${i + 1} (${JSON.stringify(valeurs)})`)
     if (i === types.indexOf('champ')) await page.screenshot({ path: `${captures}/reel-${a.nom}-bilan-reponse.png` })
     await ligne.click()
-    await page.waitForTimeout(300)
+    await pagePrete(page)
   }
   ok(types.includes('champ') && vides.length === 0, `${a.nom} : réponses tapées affichées au bilan${vides.length ? ' ; vides : ' + vides.join(' ') : ''}`)
   await page.screenshot({ path: `${captures}/reel-${a.nom}-bilan.png`, fullPage: true })
@@ -117,7 +116,7 @@ for (const a of appareils) {
   await page.getByRole('button', { name: 'Retour aux niveaux' }).click()
   await page.goBack()
   await page.getByRole('tab', { name: 'Suivi' }).or(page.getByRole('button', { name: 'Suivi' })).first().click()
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   const suivi = await texte(page)
   ok(suivi.includes(`Teste ton niveau : ${niveau}`), `${a.nom} : le test figure dans le suivi`)
   await page.screenshot({ path: `${captures}/reel-${a.nom}-suivi.png`, fullPage: true })
@@ -134,7 +133,7 @@ for (const a of appareils) {
   await page.getByRole('button', { name: 'Quitter' }).click()
   await page.getByRole('button', { name: 'Supprimer la tentative' }).click()
   await page.getByRole('dialog').getByRole('button', { name: 'Supprimer' }).click()
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   const apres = await texte(page, 'body')
   ok(apres.includes(`${niveau} · ceinture`) && !/Ajouter à l’accueil|sujet 20/.test(apres), `${a.nom} : après suppression, retour aux niveaux`)
   await ctx.close()
@@ -164,7 +163,7 @@ for (const a of appareils) {
   page.on('pageerror', (e) => erreurs.push(`explorer: ${e.message}`))
   await page.goto(base)
   await page.getByRole('tab', { name: 'Mes parcours' }).or(page.getByRole('button', { name: 'Mes parcours' })).first().waitFor({ timeout: 60_000 })
-  await page.waitForTimeout(800)
+  await pagePrete(page)
   ok(!(await texte(page, 'body')).includes('Teste ton niveau : CM2'), 'ancien test ajouté à l’accueil : retiré')
   await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click()
   await page.getByText('6e').first().click().catch(() => {})
@@ -180,14 +179,14 @@ for (const a of appareils) {
   await page.getByRole('button', { name: 'Soumettre la tentative' }).click()
   await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 5000 }).catch(() => {})
   await page.getByRole('button', { name: 'Voir le bilan' }).click({ timeout: 120_000 })
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   // Un retour à la fois : l'app remet son entrée d'historique entre deux
   await page.goBack()
-  await page.waitForTimeout(300)
+  await pagePrete(page)
   await page.goBack()
-  await page.waitForTimeout(300)
+  await pagePrete(page)
   await page.getByRole('tab', { name: 'Suivi' }).or(page.getByRole('button', { name: 'Suivi' })).first().click()
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   ok((await texte(page)).includes('Parcours Explorer'), 'suivi : parcours fait depuis l’Explorer')
   await ctx.close()
 }

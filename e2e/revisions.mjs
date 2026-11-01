@@ -7,7 +7,7 @@
 // Captures du guide (docs/guide/images/revisions-*.png) : GUIDE=docs/guide/images.
 import { chromium } from 'playwright'
 import { join } from 'node:path'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -53,7 +53,7 @@ await page.goto(base)
 /** Capture du guide avec un anneau autour de ce qu'on touche ensuite */
 async function guide(nom, cible) {
   if (!process.env.GUIDE) return
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   if (cible) {
     const b = await cible.first().boundingBox()
     await page.evaluate((b) => {
@@ -98,8 +98,8 @@ async function saisir(latex) {
         return el.value === v
       }, latex)
       .catch(() => false)
-    if (pris && (await page.waitForTimeout(300), await page.locator('main math-field').last().evaluate((el, v) => el.value === v, latex).catch(() => false))) return
-    await page.waitForTimeout(250)
+    if (pris && (await pagePrete(page), await page.locator('main math-field').last().evaluate((el, v) => el.value === v, latex).catch(() => false))) return
+    await pagePrete(page)
   }
   throw new Error(`saisie impossible : ${latex}`)
 }
@@ -107,16 +107,16 @@ async function saisir(latex) {
 /** Répond à `total` questions (fausses aux rangs de `faux`), en vérifiant chacune, jusqu'au bilan */
 async function repondre(id, total, faux = []) {
   await page.locator('main math-field').first().waitFor({ timeout: 60_000 })
-  await page.waitForTimeout(500)
+  await pagePrete(page)
   for (let rang = 0; rang < total; rang++) {
     await saisir(faux.includes(rang) ? '999' : await reponseAttendue(id, rang))
     await page.getByRole('button', { name: 'Vérifier' }).click()
-    await page.waitForTimeout(400)
+    await pagePrete(page)
     if (rang < total - 1) {
       const btn = page.getByRole('button', { name: 'Question suivante' })
       for (let essai = 0; essai < 20 && !(await page.getByText(`Question ${rang + 2} sur ${total}`).isVisible().catch(() => false)); essai++) {
         if (await btn.isVisible().catch(() => false)) await btn.click().catch(() => {})
-        await page.waitForTimeout(400)
+        await pagePrete(page)
       }
     } else await page.getByRole('button', { name: 'Voir le bilan' }).click()
   }
@@ -131,7 +131,7 @@ async function faireParcours(p, faux) {
   await page.getByRole('button', { name: 'Commencer' }).click()
   await repondre(p.id, 2, faux)
   await page.getByRole('button', { name: 'Retour à l’accueil' }).click()
-  await page.waitForTimeout(500)
+  await pagePrete(page)
 }
 
 const tuile = page.getByRole('button', { name: /^Révisions/ })
@@ -176,15 +176,15 @@ await page.screenshot({ path: `${captures}/revisions-2-ecran.png`, fullPage: tru
 const interrupteur = page.getByRole('switch', { name: 'Réviser Calcul littéral' })
 const autre = page.getByRole('switch', { name: 'Réviser Nombres relatifs' })
 await interrupteur.uncheck()
-await page.waitForTimeout(300)
+await pagePrete(page)
 ok((await page.evaluate(() => JSON.parse(localStorage.getItem('copie:revisions')).chapitres))?.join() === '5e|Nombres relatifs' && (await commencer.isVisible()), 'un chapitre décoché : seul l’autre est révisé')
 await guide('revisions-3-chapitres', interrupteur)
 await autre.uncheck()
-await page.waitForTimeout(300)
+await pagePrete(page)
 ok((await texteMain()).includes('Rien à revoir aujourd’hui') && !(await commencer.isVisible()), 'aucun chapitre : rien à revoir')
 await interrupteur.check()
 await autre.check()
-await page.waitForTimeout(300)
+await pagePrete(page)
 ok(await commencer.isVisible(), 'chapitres recochés')
 const choix = await page.evaluate(() => JSON.parse(localStorage.getItem('copie:revisions')).chapitres)
 ok(choix === undefined, 'tous cochés : aucun filtre gardé (les nouveaux chapitres seront inclus)')
@@ -192,7 +192,7 @@ ok(choix === undefined, 'tous cochés : aucun filtre gardé (les nouveaux chapit
 // Séance de révision : 4 questions mélangées, sans titre d'exercice
 await commencer.click()
 await page.locator('main math-field').first().waitFor({ timeout: 60_000 })
-await page.waitForTimeout(600)
+await pagePrete(page)
 const pendant = (await page.locator('body').innerText()).replace(/\s+/g, ' ')
 ok(!/5N2G|5N2H|Additionner des relatifs|Soustraire des relatifs/.test(pendant), 'pendant la révision : aucun titre d’exercice')
 ok(pendant.includes('Question 1 sur 2'), 'une question par exercice (2 exercices à revoir, 3 demandées)')
@@ -212,7 +212,7 @@ const etat = await page.evaluate(() => Object.values(JSON.parse(localStorage.get
 // additions : boîte 3, manquée → 2 (3 jours) ; soustractions : boîte 1, réussie → 2 (3 jours)
 ok(etat.join(' ') === '36e2a:2:2026-10-29 cbc26:2:2026-10-29', `boîtes après la révision : ${etat.join(' ')}`)
 await page.getByRole('button', { name: 'Terminer' }).click()
-await page.waitForTimeout(500)
+await pagePrete(page)
 const apres = (await main.innerText()).replace(/\s+/g, ' ')
 ok(apres.includes('Rien à revoir aujourd’hui') && apres.includes('Prochaine révision dans 3 jours'), `retour à l’écran des révisions : ${apres.slice(0, 70)}`)
 await page.screenshot({ path: `${captures}/revisions-5-fait.png` })
@@ -221,7 +221,7 @@ await page.screenshot({ path: `${captures}/revisions-5-fait.png` })
 await page.getByRole('button', { name: 'Revenir en arrière' }).click()
 await page.getByRole('tab', { name: 'Suivi' }).click()
 await page.getByRole('tab', { name: /Objectifs/ }).click().catch(() => {})
-await page.waitForTimeout(400)
+await pagePrete(page)
 const suivi = (await main.innerText()).replace(/\s+/g, ' ')
 ok(suivi.includes('révision : à consolider') && !suivi.includes('Sans niveau'), `suivi : solidité affichée, chapitres gardés (${suivi.slice(0, 160)})`)
 await page.screenshot({ path: `${captures}/revisions-6-suivi.png`, fullPage: true })
@@ -233,7 +233,7 @@ await page.reload()
 await page.getByRole('tab', { name: 'Mes parcours' }).click({ timeout: 60_000 })
 await tuile.waitFor({ timeout: 60_000 })
 await tuile.click()
-await page.waitForTimeout(600)
+await pagePrete(page)
 await page.screenshot({ path: `${captures}/revisions-7-ecran-sombre.png`, fullPage: true })
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)

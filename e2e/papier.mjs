@@ -4,7 +4,7 @@
 // questions passées, bilan « Correction vue » (pnpm dev seulement).
 //   CAPTURES=<dossier> THEME=clair|sombre node e2e/papier.mjs
 import { chromium } from 'playwright'
-import { SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -61,11 +61,11 @@ for (const correction of ['question', 'parcours']) {
       if (q === 1 && correction === 'question') ok((await page.locator('header').first().innerText()).includes('0/1'), `${nom} : le score ne compte que la question à réponse`)
       ok(!(await texte(page)).includes('Correction'), `${nom} : question ${q}, correction cachée avant le toucher`)
       await voir.first().click()
-      await page.waitForTimeout(600)
+      await pagePrete(page)
       ok((await texte(page)).includes('Correction') && (await voir.count()) === 0, `${nom} : question ${q}, correction ouverte`)
       if (q === 1) await page.screenshot({ path: `${captures}/papier-${a.nom}-${correction}-${process.env.THEME ?? 'clair'}-correction.png`, fullPage: true })
       await page.getByRole('button', { name: 'Question suivante' }).filter({ visible: true }).click()
-      await page.waitForTimeout(800)
+      await pagePrete(page)
     }
 
     // Question 3 : réponse au clavier de MathALÉA
@@ -74,10 +74,10 @@ for (const correction of ['question', 'parcours']) {
     const clavier = page.locator('#mathalea-virtual-keyboard')
     for (let r = 0; r < 10; r++) {
       await champ.click()
-      await page.waitForTimeout(300)
+      await pagePrete(page)
       if (await clavier.getByRole('button', { name: '9', exact: true }).count()) await clavier.getByRole('button', { name: '9', exact: true }).first().click()
       else await page.keyboard.type('9')
-      await page.waitForTimeout(400)
+      await pagePrete(page)
       if ((await page.evaluate(() => document.querySelector('main math-field')?.getPromptValue?.('champ1') ?? '')) !== '') break
     }
     if (correction === 'question') {
@@ -91,24 +91,24 @@ for (const correction of ['question', 'parcours']) {
       await page.getByRole('button', { name: 'Soumettre quand même' }).click({ timeout: 3000 }).catch(() => {})
       await page.getByRole('button', { name: 'Voir le bilan' }).filter({ visible: true }).click({ timeout: 120_000 })
     }
-    await page.waitForTimeout(800)
+    await pagePrete(page)
     const b = await texte(page)
     ok(/\b[01] \/ 1\b/.test(b), `${nom} : bilan sur la seule question à réponse`)
     ok(b.includes('Correction vue') && !/passée/.test(b), `${nom} : bilan « Correction vue », aucune question passée`)
     await page.screenshot({ path: `${captures}/papier-${a.nom}-${correction}-${process.env.THEME ?? 'clair'}-bilan.png`, fullPage: true })
     // Le détail de l'exercice papier montre sa correction
     await page.getByRole('button', { name: /Utiliser le codage/ }).first().click()
-    await page.waitForTimeout(1500)
+    await pagePrete(page)
     ok((await page.locator('main').innerText()).split('Correction').length > 2, `${nom} : détail du bilan avec les corrections`)
     // Fiche du parcours : pas de pourcentage pour l'exercice papier
     await page.goBack()
-    await page.waitForTimeout(800)
+    await pagePrete(page)
     const fiche = await texte(page)
     ok(!/NaN|Infinity/.test(fiche), `${nom} : fiche sans pourcentage impossible`)
     await page.goBack()
-    await page.waitForTimeout(500)
+    await pagePrete(page)
     await page.getByRole('tab', { name: 'Suivi' }).or(page.getByRole('button', { name: 'Suivi' })).first().click()
-    await page.waitForTimeout(800)
+    await pagePrete(page)
     const suivi = await texte(page)
     ok(suivi.includes('Parcours papier') && !/NaN|Infinity/.test(suivi), `${nom} : le parcours figure dans le suivi`)
     await ctx.close()

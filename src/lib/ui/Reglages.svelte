@@ -244,6 +244,7 @@
         class="{boutonAction} w-full disabled:opacity-40"
         style="min-height: 44px"
         disabled={!lien.trim() || enCours}
+        aria-busy={enCours}
         onclick={ajouter}
       >
         Ajouter le dossier
