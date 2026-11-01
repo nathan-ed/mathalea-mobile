@@ -7,7 +7,7 @@
 // parcours de l'Explorer : suivi sans être ajouté, exercice masqué absent.
 //   CAPTURES=<dossier> NIVEAU=CM1 THEME=clair|sombre node e2e/test-niveau-reel.mjs
 import { chromium } from 'playwright'
-import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans, pointStable } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -81,7 +81,8 @@ for (const a of appareils) {
     await pagePrete(page)
     const libelle = i === n - 1 ? 'Soumettre la tentative' : 'Question suivante'
     const bouton = page.getByRole('button', { name: libelle })
-    const visible = (await bouton.count()) === 1 && (await touchable(bouton))
+    // La barre du bas suit le clavier qui s'ouvre : bouton immobile d'abord
+    const visible = (await bouton.count()) === 1 && (await pointStable(bouton, 5_000).then(() => true, () => false)) && (await touchable(bouton))
     ok(visible, `${a.nom} : « ${libelle} » touchable après une réponse (${types[i]}) à la question ${i + 1}`)
     if (!visible) await page.screenshot({ path: `${captures}/reel-${a.nom}-q${i + 1}.png` })
     if (i < n - 1) {

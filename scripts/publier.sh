@@ -13,8 +13,12 @@ test -f "docs/notes-de-version/$version.play.txt" || { echo "Note Google Play ma
 for f in package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml; do
   grep -q "\"$v\"\|= \"$v\"" "$f" || { echo "Version $v absente de $f"; exit 1; }
 done
+# La version vérifiée est HEAD (souvent une branche release-X.Y.Z, main étant
+# pris par une autre copie de travail) : elle doit prolonger main sans rien perdre
+git fetch -q origin main
+git merge-base --is-ancestor origin/main HEAD || { echo "HEAD ne prolonge pas origin/main : fusionner d'abord."; exit 1; }
 bash scripts/verifier-release.sh
 git tag "$version"
-git push origin main "$version"
-if git remote | grep -qx github; then git push github main "$version"; fi
+git push origin HEAD:main "$version"
+if git remote | grep -qx github; then git push github HEAD:main "$version"; fi
 echo "Version $version publiée : la CI construit les binaires (release.yml)."
