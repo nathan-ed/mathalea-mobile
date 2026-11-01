@@ -423,7 +423,7 @@
     if (ONGLETS_ELEVE.includes(e.onglet) === (profil !== 'enseignant') || vueEleve) onglet = e.onglet
     const tests = NIVEAUX_TEST.flatMap((n) => etatTest[n.cle]?.tirage ?? [])
     const p = e.parcours ? [...tous, ...(catalogue ?? []), ...tests].find((x) => x.id === e.parcours) : undefined
-    if (e.vue === 'test') return ouvrirTest()
+    if (e.vue === 'test') return testPropose ? ouvrirTest() : undefined
     if (!p || !['parcours', 'seance', 'bilan', 'relecture'].includes(e.vue)) return
     const s = seances[p.id]
     if (e.vue === 'seance' && s && !s.fin) {
@@ -550,6 +550,9 @@
     return rang >= 0 ? `${ceintureDu(rang)} · ${NIVEAUX_TEST[rang].nom} validé` : 'Du CM1 à la Terminale'
   })
   // Ceintures du test pour le Suivi : toutes, obtenues ou non, dès qu'un test a été passé
+  // Teste ton niveau : niveaux français (CM1 à Terminale), seulement en France
+  // (Nathan, 1er novembre 2026 : en Suisse, on ne le propose pas)
+  const testPropose = $derived((pays as Pays) !== 'CH')
   const ceinturesTest = $derived(
     NIVEAUX_TEST.some((n) => etatTest[n.cle]?.tirage)
       ? NIVEAUX_TEST.map((n, rang) => ({ nom: ceintureDu(rang), niveau: n.nom, couleur: couleurDu(rang), obtenue: !!etatTest[n.cle]?.valideLe }))
@@ -1284,7 +1287,7 @@
       onscanner={moteur ? () => (scanSession = true) : undefined}
       revisions={resumeRevisions}
       onrevisions={() => aller('revisions')}
-      ontest={moteur ? ouvrirTest : undefined}
+      ontest={moteur && testPropose ? ouvrirTest : undefined}
       {resumeTest}
       onajouter={ajouterClasse}
       onchoisirClasse={choisirClasse}
@@ -1299,7 +1302,7 @@
           parcours={parcoursSuivis}
           {historiques}
           enCours={seances}
-          {ceinturesTest}
+          ceinturesTest={testPropose ? ceinturesTest : []}
           onouvrir={(p) => (estTest(p.id) ? void ouvrirTest() : ouvrir(p))}
           ontest={ouvrirTest}
           {revisions}
