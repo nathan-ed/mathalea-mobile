@@ -46,6 +46,19 @@ describe('bibliothèque de l’enseignant', () => {
     expect(nbAExporter(b)).toBe(0)
   })
 
+  it('dossier d’un collègue : seulement les parcours, ni classe ni attribution', () => {
+    const f = lireFichier(exporter(enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('F'))).texte)
+    const local = enregistrer({ classes: [{ nom: '9A' }], parcours: [] }, ['9A'], brouillon('À moi'))
+    const b = reprendre(local, f, { classes: false })
+    expect(b.classes.map((c) => c.nom)).toEqual(['9A'])
+    expect(b.parcours.map((pe) => [pe.parcours.titre, pe.classes])).toEqual([
+      ['À moi', ['9A']],
+      ['F', []],
+    ])
+    // Reprendre ensuite tout le dossier n'ajoute aucun doublon
+    expect(reprendre(b, f).parcours).toHaveLength(2)
+  })
+
   it('reprend toute la bibliothèque : parcours sans classe et objectifs compris, sans rien perdre localement', () => {
     let source = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
     source = enregistrer(source, [], { ...brouillon('Brouillon sans classe'), id: '' })

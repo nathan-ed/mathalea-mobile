@@ -328,11 +328,12 @@ export const exporterUn = (b: Bibliotheque, id: string) => exporterChoix(b, [id]
  * Reprend la bibliothèque d'un fichier publié (autre appareil, page du site) :
  * classes, attributions et ordre, parcours sans classe. Un parcours plus récent
  * dans le fichier remplace la copie locale ; un parcours local plus récent est
- * gardé. Rien n'est supprimé.
+ * gardé. Rien n'est supprimé. `classes: false` : seulement les parcours, sans
+ * classe ni attribution (dossier d'un collègue).
  */
-export function reprendre(b: Bibliotheque, f: FichierClasses): Bibliotheque {
+export function reprendre(b: Bibliotheque, f: FichierClasses, { classes: avecClasses = true } = {}): Bibliotheque {
   const classes = [...b.classes]
-  for (const c of f.classes) if (!classes.some((x) => x.nom === c.nom)) classes.push({ nom: c.nom })
+  if (avecClasses) for (const c of f.classes) if (!classes.some((x) => x.nom === c.nom)) classes.push({ nom: c.nom })
   const parcours = [...b.parcours]
   const prendre = (p: Parcours) => {
     const i = parcours.findIndex((pe) => pe.parcours.id === p.id)
@@ -341,6 +342,7 @@ export function reprendre(b: Bibliotheque, f: FichierClasses): Bibliotheque {
   }
   for (const c of f.classes) for (const p of c.parcours) prendre(p)
   for (const p of f.bibliotheque?.parcours ?? []) prendre(p)
+  if (!avecClasses) return { ...b, parcours }
   // Attributions du fichier, dans l'ordre de chaque classe
   for (const c of f.classes) {
     for (const p of c.parcours) {

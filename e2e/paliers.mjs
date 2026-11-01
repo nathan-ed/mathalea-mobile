@@ -127,7 +127,12 @@ for (const theme of ['clair', 'sombre']) {
   parcoursCree = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours[0].parcours)
   // Publier : le fichier porte toute la bibliothèque ; un autre appareil la reprend
   await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-  const [publie] = await Promise.all([t.waitForEvent('download'), t.getByRole('button', { name: 'Mettre à jour', exact: true }).click()])
+  // Sans drive, le rappel invite à le configurer (jamais « Version différente
+  // de celle du drive ») ; l'export complet passe par « Exporter des parcours »
+  await pagePrete(t)
+  ok((await t.getByText('Drive pas encore configuré').isVisible()) && !(await t.getByText('Version différente de celle du drive').count()), 'sans drive : rappel « Drive pas encore configuré »')
+  await t.getByRole('button', { name: /^Exporter des parcours/ }).click()
+  const [publie] = await Promise.all([t.waitForEvent('download'), t.getByRole('dialog').getByRole('button', { name: 'Exporter tous les parcours', exact: true }).click()])
   const fichier = `${captures}/publie-${theme}.json`
   await publie.saveAs(fichier)
   await t.context().close()
