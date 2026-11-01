@@ -8,6 +8,7 @@
   // et ses sessions.
   import { paliersDe, type Parcours } from '$lib/catalogue'
   import { aExporter, aJour, parcoursDeClasse, type Bibliotheque, type ParcoursEnseignant } from '$lib/bibliotheque'
+  import { rappelExport } from '$lib/rappelExport.svelte'
   import { NIVEAUX, type Pays } from '$lib/moteur'
   import { reglageQr } from '$lib/progression'
   import type { Releve } from '$lib/releve'
@@ -23,6 +24,7 @@
 
   let {
     bibliotheque,
+    dossiersSuivis = [],
     modeles,
     objectifs,
     pays,
@@ -52,6 +54,7 @@
     onclasses,
   }: {
     bibliotheque: Bibliotheque
+    dossiersSuivis?: { lien: string }[] // dossiers suivis, sauf celui de l'enseignant (reprise : Réglages)
     modeles: Parcours[] // parcours des dossiers suivis et fichiers importés que l'enseignant n'a pas déjà
     objectifs: Objectif[]
     pays: Pays
@@ -119,6 +122,17 @@
     champ.value = ''
     if (f) await reprendreDepuis({ texte: await f.text() })
   }
+  // Mise en route seulement si l'app ne connaît aucun lien (Nathan, 1er
+  // novembre 2026) ; avec un dossier suivi, son lien se donne par « Dossier
+  // partagé » ou le rappel « Configurer »
+  const miseEnRoute = $derived(!bibliotheque.lien && !dossiersSuivis.length)
+  $effect(() => {
+    if (!rappelExport.demandeLien) return
+    rappelExport.demandeLien = false
+    if (miseEnRoute) return
+    feuilleDossier = true
+    modifierLien = true
+  })
   retourSi(() => modifierLien, () => (modifierLien = false))
   $effect.pre(() => {
     lien = bibliotheque.lien ?? ''
@@ -295,8 +309,13 @@
   }
 
   function enregistrerLien() {
-    onlien(lien.trim())
+    const l = lien.trim()
     modifierLien = false
+    // Lien d'un dossier déjà suivi : c'est son drive, ses classes et ses
+    // parcours sont repris (la reprise enregistre aussi le lien ; dossier
+    // illisible pour le moment : le lien est quand même enregistré)
+    if (dossiersSuivis.some((d) => d.lien === l)) void reprendreDepuis({ lien: l }).then(() => bibliotheque.lien || onlien(l))
+    else onlien(l)
   }
 
   const hote = (adresse: string) => {
@@ -363,7 +382,7 @@
 
     <main class="flex-1 flex flex-col gap-3 p-4 avec-onglets {vue === 'parcours' ? 'avec-bouton-flottant' : ''}">
       {#if section === 'parcours'}
-      {#if !bibliotheque.lien}
+      {#if miseEnRoute}
         <!-- Mise en route : sans dossier partagé, rien n'arrive aux élèves -->
         <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="Mise en route">
           <h2 class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Mise en route</h2>
@@ -437,6 +456,11 @@
         <ul class={listeGroupee}>
           {#if bibliotheque.lien}
             {@render ligne('bx-folder', 'Dossier partagé', hote(bibliotheque.lien), () => (feuilleDossier = true))}
+          {:else if !miseEnRoute}
+            {@render ligne('bx-folder', 'Dossier partagé', 'Pas encore configuré', () => {
+              feuilleDossier = true
+              modifierLien = true
+            })}
           {/if}
           {@render ligne('bx-folder-open', 'Éditer un parcours existant', 'Dossiers suivis, fichiers de collègues', () => (modelesOuverts = true))}
           {#if onvueEleve}

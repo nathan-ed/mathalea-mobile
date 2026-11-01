@@ -225,6 +225,32 @@
       return !local || local.classes.length === 0 || local.parcours.version < p.version
     })
   })
+  // Dossiers suivis qui ne sont pas le drive de l'enseignant (Nathan, 1er
+  // novembre 2026 : en passant enseignant, « je voyais plus les classes ») : le
+  // premier est repris d'office (reprendrePremier), les suivants au choix dans
+  // les Réglages, classes et parcours ou seulement les parcours
+  const dossiersSuivis = $derived.by(() => {
+    const parLien = new Map<string, { lien: string; classes: string[]; parcours: Set<string> }>()
+    for (const c of classes) {
+      if (c.lien === LIEN_DEMONSTRATION || c.lien === bibliotheque.lien) continue
+      const d = parLien.get(c.lien) ?? { lien: c.lien, classes: [], parcours: new Set<string>() }
+      for (const k of c.fichier ?? [{ nom: c.nom, parcours: c.parcours }]) {
+        if (k.nom && !d.classes.includes(k.nom)) d.classes.push(k.nom)
+        for (const p of k.parcours) d.parcours.add(p.id)
+      }
+      parLien.set(c.lien, d)
+    }
+    return [...parLien.values()].filter((d) => d.parcours.size).map((d) => ({ lien: d.lien, classes: d.classes, parcours: d.parcours.size, ids: [...d.parcours] }))
+  })
+  // Réglages : dossiers dont un parcours manque encore à la bibliothèque
+  const dossiersAReprendre = $derived(
+    dossiersSuivis.filter((d) => d.ids.some((id) => !bibliotheque.parcours.some((pe) => pe.parcours.id === id))).map((d) => d.lien),
+  )
+  /** Enseignant sans bibliothèque ni drive qui suit un dossier : le premier est le sien, tout est repris */
+  async function reprendrePremier() {
+    if (profil !== 'enseignant' || bibliotheque.lien || bibliotheque.parcours.length || bibliotheque.classes.length || !dossiersSuivis.length) return
+    await suivre(reprendreBibliotheque({ lien: dossiersSuivis[0].lien }))
+  }
   const classesDuModele = (id: string) => [
     ...new Set([...classesDesDossiers.filter((c) => c.parcours.some((p) => p.id === id)).map((c) => c.nom), ...(classesImportees[id] ?? [])]),
   ]
@@ -271,6 +297,7 @@
   onMount(async () => {
     try {
       await demarrer()
+      await reprendrePremier()
     } finally {
       travaux--
     }
@@ -393,6 +420,7 @@
     vueEleve = false
     onglet = p === 'enseignant' ? 'creer' : ['creer', 'classes', 'classe'].includes(onglet) ? 'mes' : onglet
     await stockage!.ecrire('profil', p)
+    await reprendrePremier()
   }
 
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
@@ -865,6 +893,7 @@
     classes = [...classes, c]
     await ecrireClasses(stockage!, classes)
     for (const p of parcoursDuDossier(c)) await chargerParcours(p)
+    await reprendrePremier()
     return null
   }
 
@@ -1026,16 +1055,25 @@
   /**
    * Reprend la bibliothèque publiée (lien du dossier partagé ou fichier) :
    * autre appareil, ou modifications faites sur la page du site. Rien n'est effacé.
+   * `parcoursSeuls` : dossier d'un collègue, ni ses classes ni son lien.
    */
-  async function reprendreBibliotheque(source: { lien?: string; texte?: string }): Promise<string> {
+  async function reprendreBibliotheque(source: { lien?: string; texte?: string; parcoursSeuls?: boolean }): Promise<string> {
     try {
       const f = source.lien ? await lireFichierDistant(source.lien) : lireFichier(source.texte ?? '')
+      if (source.parcoursSeuls) {
+        const avant = bibliotheque.parcours.length
+        await sauverBibliotheque(reprendre($state.snapshot(bibliotheque) as Bibliotheque, f, { classes: false }))
+        const n = bibliotheque.parcours.length - avant
+        return `${n} parcours repris.`
+      }
       let b = reprendre($state.snapshot(bibliotheque) as Bibliotheque, f)
       if (source.lien && !b.lien) b = definirLien(b, source.lien)
       const liste = fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], f.bibliotheque?.objectifs ?? [])
       // Rien de plus ici que dans le fichier complet repris : l'app est à jour avec lui
       const duFichier = empreinte(reprendre({ classes: [], parcours: [] }, f), f.bibliotheque?.objectifs ?? [])
-      if (f.banque && duFichier === empreinte(b, liste)) b = { ...b, empreinte: duFichier, publieLe: f.exporteLe }
+      // Lu sur le drive : il y est déjà, rien à déposer
+      if (f.banque && duFichier === empreinte(b, liste))
+        b = { ...b, empreinte: duFichier, publieLe: f.exporteLe, ...(source.lien ? { verifieLe: new Date().toISOString() } : {}) }
       await sauverBibliotheque(b)
       if (f.bibliotheque?.objectifs?.length) await sauverObjectifs(liste)
       const ids = new Set([...f.classes.flatMap((c) => c.parcours), ...(f.bibliotheque?.parcours ?? [])].map((p) => p.id))
@@ -1112,6 +1150,7 @@
   // Sans dossier partagé : rappel de le configurer (champ de la mise en route, onglet Créer)
   rappelExport.exporter = () => exporterClasse()
   rappelExport.configurer = () => {
+    rappelExport.demandeLien = true
     versCreer()
     setTimeout(() => document.getElementById('lien-dossier')?.focus(), 400)
   }
@@ -1119,10 +1158,11 @@
     rappelExport.etat =
       profil !== 'enseignant' || ['seance', 'test', 'bilan', 'relecture'].includes(vue) || !bibliotheque.parcours.length
         ? null
-        : !aJour(bibliotheque, objectifs)
-          ? 'differente'
-          : !bibliotheque.lien
-            ? 'configurer'
+        : // Sans drive, « Version différente de celle du drive » n'aurait pas de sens
+          !bibliotheque.lien
+          ? 'configurer'
+          : !aJour(bibliotheque, objectifs)
+            ? 'differente'
             : bibliotheque.publieLe && !bibliotheque.verifieLe
               ? 'deposer'
               : null
@@ -1158,6 +1198,7 @@
           aller('accueil')
         }}
         {bibliotheque}
+        {dossiersSuivis}
         modeles={modeles}
         {objectifs}
         {pays}
@@ -1216,6 +1257,9 @@
       onsynchroniser={synchroniserClasses}
       onretirer={retirerClasse}
       onchoisirClasse={choisirClasse}
+      lienDrive={bibliotheque.lien}
+      {dossiersAReprendre}
+      onreprendreDossier={(lien, parcoursSeuls) => reprendreBibliotheque({ lien, parcoursSeuls })}
       onexporterSauvegarde={sauvegarder}
       onrestaurer={restaurer}
       onresumer={resumerSauvegarde}

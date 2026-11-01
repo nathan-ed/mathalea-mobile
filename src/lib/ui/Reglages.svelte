@@ -27,6 +27,9 @@
     onsynchroniser,
     onretirer,
     onchoisirClasse,
+    lienDrive,
+    dossiersAReprendre = [],
+    onreprendreDossier,
     onexporterSauvegarde,
     onrestaurer,
     onresumer,
@@ -48,6 +51,9 @@
     onsynchroniser: () => Promise<void>
     onretirer: (lien: string) => void
     onchoisirClasse: (lien: string, classe: string) => void
+    lienDrive?: string // enseignant : lien de son drive
+    dossiersAReprendre?: string[] // enseignant : dossiers dont un parcours manque à sa bibliothèque
+    onreprendreDossier?: (lien: string, parcoursSeuls: boolean) => Promise<string>
     onexporterSauvegarde: () => Promise<string>
     onrestaurer: (texte: string) => Promise<string>
     onresumer: typeof resumerSauvegarde
@@ -65,6 +71,14 @@
   let messageDemonstration = $state('')
   // Retrait d'un dossier suivi : confirmé, les résultats restent
   let aRetirer: Classe | null = $state(null)
+  // Enseignant : reprise d'un dossier suivi (message par lien)
+  let reprise = $state(false)
+  let messagesReprise: Record<string, string> = $state({})
+  async function reprendreDossier(lien: string, parcoursSeuls: boolean) {
+    reprise = true
+    messagesReprise[lien] = await onreprendreDossier!(lien, parcoursSeuls)
+    reprise = false
+  }
 
   // Création de parcours : mêmes valeurs par défaut que parcoursVide()
   const pref = $derived<Preferences>({ niveau: '', difficulte: 1, presentation: 'une_question_par_page', correction: 'question', enTetesMasques: true, melanger: true, ...preferences })
@@ -198,8 +212,11 @@
           {#each classes as c (c.lien)}
             <li class="flex flex-row items-center justify-between gap-3 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
               <div class="min-w-0">
-                <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.nom || 'Classe à choisir'}</div>
-                {#if c.disponibles.length > 1}
+                <!-- L'enseignant voit tout le dossier (toutes ses classes) ; l'élève choisit la sienne -->
+                <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+                  {profil === 'enseignant' ? c.disponibles.join(', ') || c.nom : c.nom || 'Classe à choisir'}
+                </div>
+                {#if c.disponibles.length > 1 && profil !== 'enseignant'}
                   <ChoixRadio
                     nom="classe-{c.lien}"
                     valeur={c.nom}
@@ -208,10 +225,28 @@
                   />
                 {/if}
                 <div class={texteDiscret}>
-                  {c.parcours.length} parcours{c.maj ? ` · mis à jour le ${date(c.maj)}` : ''}
+                  {profil === 'enseignant' ? new Set([...c.parcours, ...(c.fichier ?? []).flatMap((f) => f.parcours)].map((p) => p.id)).size : c.parcours.length} parcours{c.maj
+                    ? ` · mis à jour le ${date(c.maj)}`
+                    : ''}
                 </div>
                 {#if c.erreur}
                   <div class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action">{c.erreur}</div>
+                {/if}
+                {#if profil === 'enseignant'}
+                  {#if c.lien === lienDrive}
+                    <div class={texteDiscret}>Votre drive</div>
+                  {:else if dossiersAReprendre.includes(c.lien) && onreprendreDossier}
+                    <!-- Dossier suivi : le reprendre comme le sien, ou seulement ses parcours (collègue) -->
+                    <div class="flex flex-row flex-wrap gap-2 pt-2">
+                      <button type="button" class="{boutonInverse} disabled:opacity-40" style="min-height: 40px" disabled={reprise} onclick={() => reprendreDossier(c.lien, false)}>
+                        Classes et parcours
+                      </button>
+                      <button type="button" class="{boutonInverse} disabled:opacity-40" style="min-height: 40px" disabled={reprise} onclick={() => reprendreDossier(c.lien, true)}>
+                        Seulement les parcours
+                      </button>
+                    </div>
+                  {/if}
+                  {#if messagesReprise[c.lien]}<div class={texteDiscret} role="status">{messagesReprise[c.lien]}</div>{/if}
                 {/if}
               </div>
               <button

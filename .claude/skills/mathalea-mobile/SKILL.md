@@ -80,6 +80,17 @@ Ergonomie décidée
   (`FicheParcours`), pas l'éditeur. Une session porte sa classe (facultatif). Pas de choix
   du profil au premier lancement (programme seulement). L'enseignant voit
   toutes les classes de ses dossiers (pastilles), l'élève choisit la sienne.
+- Dossiers suivis et bibliothèque de l'enseignant (Nathan, 2026-11-01 : en
+  passant enseignant « je voyais plus les classes ») : le **premier** dossier
+  suivi d'un enseignant sans bibliothèque ni drive est repris d'office
+  (classes, parcours, lien du drive : `reprendrePremier`, au passage en
+  enseignant, à l'ajout d'un lien, au lancement). Les **suivants** se
+  reprennent dans les Réglages (« Dossiers partagés ») : « Classes et
+  parcours » ou « Seulement les parcours » (collègue : ni classes ni lien).
+  « C'est là où c'est le plus pratique » : pas de panneau ni de bloc ailleurs.
+  Mise en route seulement si l'app ne connaît aucun lien ; sans drive, le
+  rappel dit « Drive pas encore configuré » (jamais « Version différente »).
+  Test : `node e2e/eleve-puis-enseignant.mjs`.
 - Rien de chargé (« c'est hyper chargé », « pas joli ») : un seul bouton plein
   par écran ; actions secondaires en lien (`boutonLien`) ou dans « Autres
   actions » (panneau du bas en liste avec icônes) ; confirmations et

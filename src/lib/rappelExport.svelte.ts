@@ -10,4 +10,7 @@ export const rappelExport = $state({
   ferme: null as EtatRappel,
   exporter: async (): Promise<unknown> => undefined,
   configurer: () => {},
+  // « Configurer » quand Mise en route n'est pas affichée (dossier suivi) :
+  // l'espace enseignant ouvre le panneau du lien
+  demandeLien: false,
 })

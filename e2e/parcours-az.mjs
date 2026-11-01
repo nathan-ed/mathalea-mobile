@@ -15,7 +15,7 @@ import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { champsCoupes } from './champs-visibles.mjs'
 import { incoherencesVert } from './couleurs-verdict.mjs'
-import { jusqua, pagePrete, SANS_BRIDAGE } from './attente.mjs'
+import { jusqua, pagePrete, pointStable, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
@@ -242,6 +242,22 @@ async function glisser(e, de, vers, auBout = false) {
       })
     : null
   if (!e.touche) return de.dragTo(vers, bout ? { targetPosition: bout } : {})
+  // Comme un élève : on fait défiler pour voir l'étiquette et la zone en même
+  // temps, entre la barre du haut et celle du bas. Un geste vers une zone sous
+  // le bas de l'écran n'était pas pris (dnd, 1er novembre 2026)
+  const [hautDe, basDe] = await de.evaluate((x) => [x.getBoundingClientRect().top + scrollY, x.getBoundingClientRect().bottom + scrollY])
+  await vers.evaluate(
+    (zone, [hautDe, basDe]) => {
+      const r = zone.getBoundingClientRect()
+      const haut = Math.min(hautDe, r.top + scrollY)
+      const bas = Math.max(basDe, r.bottom + scrollY)
+      const enHaut = document.querySelector('header')?.getBoundingClientRect().bottom ?? 0
+      const enBas = [...document.querySelectorAll('footer')].reduce((m, f) => Math.min(m, f.getBoundingClientRect().top), innerHeight)
+      scrollTo({ top: (haut + bas) / 2 - (enHaut + enBas) / 2, behavior: 'instant' })
+    },
+    [hautDe, basDe],
+  )
+  await pause(e.page)
   const cdp = (e.cdp ??= await e.ctx.newCDPSession(e.page))
   const centre = async (loc) => {
     const b = await loc.boundingBox()
@@ -318,7 +334,19 @@ async function repondre(e, n, k, a) {
     case 'drag-and-drop': {
       for (const [cle, rep] of Object.entries(v)) {
         if (!cle.startsWith('rectangle')) continue
-        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), main.locator(`#rectangle${q}R${cle.slice(9)}`), true)
+        const zone = main.locator(`#rectangle${q}R${cle.slice(9)}`)
+        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) {
+          // Chaque dépôt vérifié : sous charge, un geste n'était pas pris et
+          // l'étiquette manquait (formats, 1er novembre 2026) ; l'élève refait le geste
+          const posees = () => zone.evaluate((r) => r.querySelectorAll('[id^="etiquette"]').length)
+          const avant = await posees()
+          for (let essai = 0; ; essai++) {
+            await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), zone, true)
+            if (await jusqua(async () => (await posees()) > avant, { timeout: 3_000, quoi: 'étiquette posée' }).then(() => true, () => false)) break
+            if (process.env.DEBUG) console.log('dnd', id, await zone.evaluate((r) => ({ zone: JSON.stringify(r.getBoundingClientRect()), enfants: [...r.children].map((c) => `${c.id}:${Math.round(c.getBoundingClientRect().left)},${Math.round(c.getBoundingClientRect().top)},${Math.round(c.getBoundingClientRect().right)}`) })))
+            if (essai >= 2) throw new Error(`étiquette ${id} jamais posée`)
+          }
+        }
       }
       return
     }
@@ -869,8 +897,27 @@ async function jouerSeance(e, p, nomCeinture) {
       continue
     }
     const libelle = (await suivant.first().innerText()).trim()
+    // La barre du bas suit le clavier qui se referme après « Vérifier » : un
+    // toucher pendant ce mouvement tombait à côté (az-2 sous charge, 1er
+    // novembre 2026). Bouton immobile d'abord, puis on contrôle l'arrivée.
+    await pointStable(suivant.first())
     await toucher(e, suivant.first())
     await pause(page, 900)
+    if (libelle === 'Voir le bilan') {
+      await jusqua(
+        async () => {
+          if (!(await page.locator('main .contenu-mathalea').count())) return true
+          const encore = page.locator('footer').getByRole('button', { name: 'Voir le bilan' })
+          if (await encore.count()) {
+            await pointStable(encore.first())
+            await toucher(e, encore.first())
+            await pause(page)
+          }
+          return !(await page.locator('main .contenu-mathalea').count())
+        },
+        { timeout: 30_000, quoi: 'arrivée au bilan' },
+      ).catch(() => problemes.push('« Voir le bilan » ne mène pas au bilan'))
+    }
     if (libelle === 'Soumettre la tentative') {
       const garde = page.getByRole('button', { name: /quand même$/ })
       if (await garde.count()) {
