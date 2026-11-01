@@ -1,7 +1,7 @@
 # MathALÉA : politique de confidentialité
 
 Application MathALÉA (`fr.coopmaths.mathalea`), par CoopMaths. En vigueur le
-15 octobre 2026.
+1er novembre 2026.
 
 ## En bref
 
@@ -22,6 +22,19 @@ L'application enregistre, sur l'appareil seulement :
 Ces données ne sont envoyées nulle part. Elles disparaissent quand
 l'application est désinstallée. L'utilisateur peut en exporter une sauvegarde
 (Réglages) : le fichier est enregistré ou partagé là où il le choisit.
+
+## Supprimer vos données
+
+Toutes les données de MathALÉA sont sur l'appareil, nulle part ailleurs : il
+n'y a rien à demander à personne. Pour les supprimer :
+
+- désinstaller l'application supprime toutes ses données ;
+- sur Android, sans désinstaller : Paramètres › Applications › MathALÉA ›
+  Stockage › Effacer les données ;
+- sur iPhone et iPad : supprimer l'app.
+
+Une sauvegarde exportée (Réglages) est un fichier rangé par l'utilisateur, là
+où il l'a choisi : il la supprime comme n'importe quel fichier.
 
 ## Connexions à Internet
 

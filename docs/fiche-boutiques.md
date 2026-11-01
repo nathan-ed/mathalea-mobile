@@ -66,8 +66,16 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
   Familles de Google Play (aucune publicité, aucune donnée collectée, aucun
   SDK tiers).
 - **Sécurité des données** : aucune donnée collectée, aucune donnée partagée.
-  Données chiffrées en transit : oui (HTTPS). Suppression : sans objet (rien
-  n'est collecté ; tout disparaît à la désinstallation).
+  Données chiffrées en transit : oui (HTTPS). Suppression : rien n'est
+  collecté ; tout disparaît à la désinstallation. La fiche du Play Store
+  affichait pourtant que le développeur n'explique pas comment supprimer les
+  données (Nathan, 1er novembre 2026). À faire par Nathan dans la Play Console
+  (Contenu de l'application › Sécurité des données), quand Google le
+  permettra : si une question porte sur la suppression, répondre que
+  l'utilisateur peut supprimer ses données (désinstallation ou « Effacer les
+  données » d'Android) et donner le lien
+  https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html#supprimer
+  (section « Supprimer vos données » de la politique).
   Caméra (QR codes de session scannés par l'élève, QR codes de réponses scannés par l'enseignant) : image lue sur l'appareil, rien n'est envoyé, aucune
   déclaration. L'analyse des réponses par une IA est mise de côté (branche
   locale `analyse-ia`, avec ce qu'il faudrait alors déclarer à Google) :
