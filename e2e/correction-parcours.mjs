@@ -10,6 +10,7 @@ import { chromium } from 'playwright'
 import { mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -52,7 +53,7 @@ const v2 = {
   ],
 }
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 async function telephone(nom, avant, sombre = false) {
   const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, acceptDownloads: true, colorScheme: sombre ? 'dark' : 'light' })
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))

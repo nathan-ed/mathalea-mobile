@@ -8,6 +8,7 @@
 // la date ; palier 1 joué au toucher. Clair et sombre, 390 px.
 //   CAPTURES=<dossier> node e2e/ouverture-paliers.mjs
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -29,7 +30,7 @@ const parcours = {
   ],
   style: 'ceintures',
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 /**
  * Appareil à l'heure `telephone` (horloge de Playwright, réglable par l'élève) ;

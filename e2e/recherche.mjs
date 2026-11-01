@@ -4,6 +4,7 @@
 // (« Dériver » montrait canc3D01, « Lire l'heure »).
 //   node e2e/recherche.mjs
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 let echecs = 0
@@ -12,7 +13,7 @@ const ok = (cond, msg) => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
 await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
 await ctx.addInitScript(() => {

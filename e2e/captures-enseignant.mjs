@@ -1,8 +1,9 @@
 // Captures de l'espace enseignant en clair et en sombre, à 390 px (pnpm dev).
 //   node e2e/captures-enseignant.mjs <dossier>
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 const sortie = process.argv[2]
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const p = (id, titre, classes) => ({ parcours: { id, version: 2, titre, objectif: '', niveau: '4e', theme: 'Fractions', difficulte: 1, icone: 'bx-book-content', presentation: 'un_exo_par_page', correction: 'page', etapes: [{ uuid: '5f429', id: '4C21', titre: 'Additionner', nbQuestions: 2 }] }, classes, exportee: { '3e A': 1 } })
 const bib = { lien: 'https://kdrive.infomaniak.com/app/share/1/abc', classes: [{ nom: '3e A' }, { nom: '3e B' }], parcours: [p('fractions', 'Fractions express', ['3e A', '3e B']), p('relatifs', 'Relatifs', ['3e A'])] }
 for (const theme of ['clair', 'sombre']) {

@@ -5,6 +5,7 @@
 // jusqu'à la vérification, au brouillon repris et au bilan.
 // Prérequis : serveur de dev (pnpm dev) et static/moteur.
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
@@ -14,7 +15,7 @@ const ok = (cond, msg, detail = '') => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg, cond ? '' : detail)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 const etape = (uuid, nb = 2) => ({ uuid, id: uuid, nbQuestions: nb, titre: `Exercice ${uuid}` })
 /** Deux ceintures : l'exercice essayé, puis une seconde (le nom de la ceinture s'affiche dès qu'il y en a plusieurs) */

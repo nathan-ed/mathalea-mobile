@@ -10,6 +10,7 @@ import { chromium } from 'playwright'
 import { mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -38,7 +39,7 @@ const parcours = (id, titre, uuid, exo, objectif, nbQuestions) => ({
 const additions = parcours('ca-additions', 'Additions de relatifs', 'cbc26', '5N2G', 'Additionner des relatifs', 2)
 const soustractions = parcours('ca-soustractions', 'Soustractions de relatifs', '36e2a', '5N2H', 'Soustraire des relatifs', 3)
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 async function telephone(nom, avant, sombre = false) {
   const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, acceptDownloads: true, colorScheme: sombre ? 'dark' : 'light' })
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))

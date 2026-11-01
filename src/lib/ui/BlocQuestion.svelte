@@ -48,6 +48,8 @@
   // Question à faire sur papier (exercice non interactif) : l'élève ouvre la correction lui-même
   let vue = $state(false)
   let erreur = $state('')
+  // Rendu en cours par le moteur (énoncé, correction) : aria-busy sur la question
+  let rendus = $state(1)
   let minuterie: ReturnType<typeof setTimeout> | undefined
   let enAttente = false
   // Saisies lues à la dernière frappe : à la fermeture de la question, un
@@ -194,8 +196,13 @@
     minuterie = setTimeout(envoyerBrouillon, 350)
   }
 
-  /** Enregistre le brouillon en attente */
-  function envoyerBrouillon() {
+  /**
+   * Enregistre le brouillon en attente. La séance l'appelle avant de changer de
+   * page : à la fermeture de la question, un élément de MathALÉA déjà démonté
+   * (tableur, Scratch) ne rend plus sa réponse, perdue si l'élève passait à la
+   * suite moins de 350 ms après sa dernière frappe (novembre 2026)
+   */
+  export function envoyerBrouillon() {
     clearTimeout(minuterie)
     if (!enAttente || resultat) return
     enAttente = false
@@ -219,6 +226,14 @@
   }
 
   async function afficherCorrection() {
+    rendus++
+    try {
+      await afficherCorrection0()
+    } finally {
+      rendus--
+    }
+  }
+  async function afficherCorrection0() {
     // Message de retour de MathALÉA écrit à la vérification (« Le point $A$ a
     // pour abscisse… ») : ses formules ne sont pas encore rendues
     for (const retour of zone.querySelectorAll<HTMLElement>('[id^="feedbackEx"]')) if (retour.textContent?.includes('$')) await moteur.afficher(retour)
@@ -271,6 +286,13 @@
   }
 
   onMount(async () => {
+    try {
+      await monter()
+    } finally {
+      rendus--
+    }
+  })
+  async function monter() {
     zone.innerHTML = (avecContexte && q.contexte.trim() ? `<div class="mb-4">${q.contexte}</div>` : '') + `<div>${q.enonce}</div>`
     await moteur.afficher(zone)
     if (essai) {
@@ -304,7 +326,7 @@
         }
       }
     }
-  })
+  }
 
   // Rotation ou redimensionnement : les figures reprennent la bonne largeur
   const surRedimension = () => {
@@ -344,6 +366,7 @@
   <div
     bind:this={zone}
     class="contenu-mathalea question-eleve text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    aria-busy={rendus > 0}
     style={lectureSeule ? 'pointer-events: none' : undefined}
     inert={lectureSeule}
     oninput={surSaisie}

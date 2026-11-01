@@ -173,8 +173,14 @@
     sauver()
   }
 
+  /** Brouillons des questions affichées, enregistrés avant de quitter la page */
+  function garderBrouillons() {
+    for (const bloc of blocs) bloc?.envoyerBrouillon()
+  }
+
   async function allerPage(p: number) {
     if (!pages[p]) return
+    garderBrouillons()
     seance.position = pages[p][0].rang
     aSaisi = false
     sauver()
@@ -195,6 +201,7 @@
   // tout de suite ou supprimer la tentative
   let sortie: 'choix' | 'suppression' | null = $state(null)
   function demanderSortie() {
+    garderBrouillons()
     if (onsupprimer) sortie = 'choix'
     else onquitter()
   }
@@ -211,6 +218,7 @@
 
   /** Correction à la fin pas encore demandée : on soumet ; sinon, bilan avec ce qui est fait */
   function terminerMaintenant() {
+    garderBrouillons()
     sortie = null
     if (finale && !seance.soumise) void soumettreTentative()
     else onterminer()
@@ -303,6 +311,7 @@
 
   /** Correction à la fin : toutes les questions sont vérifiées en relecture */
   async function soumettreTentative() {
+    garderBrouillons()
     seance.soumise = true
     seance.position = 0
     sauver()
@@ -448,7 +457,7 @@
     {/if}
 
     {#if correctionCachee}
-      <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">Correction…</p>
+      <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status" aria-busy="true">Correction…</p>
     {/if}
     {#if pret && pages[page]}
       <div style:visibility={correctionCachee ? 'hidden' : undefined}>

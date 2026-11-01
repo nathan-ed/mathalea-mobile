@@ -6,13 +6,14 @@
 //   FICHIER=<publié sur le site> SEULEMENT=importer node e2e/guide.mjs
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const sortie = process.argv[2] ?? 'docs/guide/images'
 const SEULEMENT = process.env.SEULEMENT
 const base = 'http://localhost:1420/'
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const LIEN = 'https://kdrive.infomaniak.com/app/share/123456/7e1c0f4a-5b2d-4c1e-9f3a-2d6b8e0c4a17'
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 async function appareil(stockage = {}) {
   const ctx = await nav.newContext({ viewport: { width: 390, height: 780 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, acceptDownloads: true })

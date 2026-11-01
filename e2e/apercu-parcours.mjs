@@ -8,6 +8,7 @@
 // par ceinture (<id>/planche-k.png) et <id>/index.html.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const [fichier, ...ids] = process.argv.slice(2)
@@ -29,7 +30,7 @@ const nomCeinture = (p, k) => {
 }
 const couleur = (p, k) => COULEURS[Math.min((p.premiereCeinture ?? 0) + k, COULEURS.length - 1)]
 const slug = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40)
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const pause = (page, ms) => page.waitForTimeout(ms)
 
 for (const original of choisis) {

@@ -9,6 +9,7 @@
 //   APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const sortie = process.argv[2] ?? '.'
 const base = 'http://localhost:1420/'
@@ -24,7 +25,7 @@ const FORMATS = {
   'ipad-13': { width: 1032, height: 1376, echelle: 2 },
 }
 const choisis = process.env.APPAREILS?.split(',') ?? ['telephone', 'tablette-7', 'tablette-10']
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 let format
 
 async function appareil(stockage, theme = 'clair') {

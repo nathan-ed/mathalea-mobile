@@ -7,6 +7,7 @@
 //   CAPTURES=<dossier> node e2e/test-niveau.mjs
 import { chromium } from 'playwright'
 import { champsCoupes } from './champs-visibles.mjs'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -16,7 +17,7 @@ const ok = (cond, msg) => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
 const cap = async (page, n, theme) => (await page.waitForTimeout(400), page.screenshot({ path: `${captures}/test-niveau-${n}-${theme}.png` }))
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)

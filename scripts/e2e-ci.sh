@@ -18,9 +18,12 @@ if ! python3 -I -c 'import PIL' 2>/dev/null || ! command -v ffmpeg > /dev/null; 
   if [ "$(id -u)" = 0 ]; then apt-get install -y python3-pil ffmpeg; else sudo apt-get install -y python3-pil ffmpeg; fi
 fi
 
-journal="${RUNNER_TEMP:-/tmp}/pnpm-dev.log"
-# Groupe de processus à part : pnpm, sh et vite arrêtés ensemble à la fin
-setsid pnpm dev > "$journal" 2>&1 &
+journal="${RUNNER_TEMP:-/tmp}/preview.log"
+# Version construite (comme chez les élèves), servie avec les relais de
+# vite.config.js ; NODE_ENV=development garde le relais de téléchargement
+NODE_ENV=development npx vite build > "$journal" 2>&1 || { cat "$journal"; exit 1; }
+# Groupe de processus à part : arrêté d'un coup à la fin
+setsid npx vite preview --port 1420 --strictPort >> "$journal" 2>&1 &
 serveur=$!
 trap 'kill -- -$serveur 2>/dev/null || true' EXIT
 for _ in $(seq 120); do

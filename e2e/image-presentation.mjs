@@ -4,6 +4,7 @@
 //   node e2e/image-presentation.mjs <dossier des captures>   # écrit image-de-presentation.png dans ce dossier
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const dossier = process.argv[2] ?? 'docs/play-store'
 const base = 'http://localhost:1420/'
@@ -14,7 +15,7 @@ const drapeauFrance =
 const drapeauSuisse =
   '<svg width="22" height="22" viewBox="0 0 32 32" style="flex:none;margin:0 5px"><rect width="32" height="32" fill="#D52B1E"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg>'
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const ctx = await nav.newContext({ viewport: { width: 1024, height: 500 }, deviceScaleFactor: 1 })
 await ctx.route('**/*', (q) => (['localhost', '127.0.0.1'].includes(new URL(q.request().url()).hostname) ? q.continue() : q.abort()))
 const page = await ctx.newPage()

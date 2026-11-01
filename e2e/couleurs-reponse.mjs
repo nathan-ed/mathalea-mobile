@@ -6,6 +6,7 @@
 //   CAPTURES=<dossier> node e2e/couleurs-reponse.mjs
 import { chromium } from 'playwright'
 import { incoherencesVert } from './couleurs-verdict.mjs'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -15,7 +16,7 @@ const ok = (cond, msg) => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 // Deux questions à un champ dans une figure (bande de mesure, CAN 6e 2026)
 const etape = { uuid: '098c5', id: 'can6a-2026', titre: 'CAN 6e sujet 2026', nbQuestions: 1, sup: 'false', sup2: '4', sup3: 'false' }

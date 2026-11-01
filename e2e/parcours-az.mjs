@@ -15,6 +15,7 @@ import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { champsCoupes } from './champs-visibles.mjs'
 import { incoherencesVert } from './couleurs-verdict.mjs'
+import { jusqua, pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
@@ -28,8 +29,9 @@ const ok = (cond, msg, detail = '') => {
   console.log(cond ? '✔' : '✘', msg, cond ? '' : detail)
   return cond
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
-const pause = (page, ms) => page.waitForTimeout(ms)
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
+// Après une action : on attend que la page soit prête (e2e/attente.mjs), jamais une durée
+const pause = (page) => pagePrete(page)
 
 
 async function eleve(nom, classe, parcours) {
@@ -48,24 +50,25 @@ async function eleve(nom, classe, parcours) {
   if (process.env.DEBUG) page.on('console', (m) => m.text().startsWith('[trace]') && console.log(m.text()))
   page.on('pageerror', (e) => erreurs.push(`${nom}: ${e.message}`))
   await page.goto(base)
-  // Page séparée pour régénérer les exercices (réponses attendues)
-  const calcul = await ctx.newPage()
-  // Serveur de dev qui recharge la page au premier chargement : on réessaie
-  for (let essai = 0; ; essai++) {
-    try {
-      await calcul.goto(base)
-      await calcul.evaluate(async () => {
-        const man = await (await fetch('/moteur/manifest.json')).json()
-        const m = await import('/moteur/' + man.entree)
-        await m.initialiser()
-        m.definirLangue('fr-CH')
-        window.__moteur = m
-      })
-      break
-    } catch (err) {
-      if (essai >= 2) throw err
-      await calcul.waitForTimeout(3000)
-    }
+  // Page séparée pour régénérer les exercices (réponses attendues) : son propre
+  // contexte et le moteur seul, sans l'app. Une seconde app ouverte dans le
+  // même contexte bridait la page de l'élève à une image par seconde
+  // (chaque toucher attendait 2 à 7 s, novembre 2026)
+  const contexteCalcul = await nav.newContext()
+  const calcul = await contexteCalcul.newPage()
+  await calcul.goto(`${base}moteur/manifest.json`)
+  await calcul.evaluate(async () => {
+    const man = await (await fetch('/moteur/manifest.json')).json()
+    const m = await import('/moteur/' + man.entree)
+    await m.initialiser()
+    m.definirLangue('fr-CH')
+    window.__moteur = m
+  })
+  // Fermer l'élève ferme aussi sa page de calcul
+  const fermer = ctx.close.bind(ctx)
+  ctx.close = async () => {
+    await contexteCalcul.close().catch(() => {})
+    return fermer()
   }
   return { ctx, page, calcul, touche: appareil !== 'bureau' }
 }
@@ -161,19 +164,27 @@ function reponseDe(rep) {
   return t
 }
 
+/**
+ * Touche un champ et attend qu'il ait le focus avant de taper : MathLive le
+ * donne un peu après le toucher, et ce qui était tapé avant partait dans le
+ * champ précédent (« 10-38 » dans la question 1, novembre 2026)
+ */
+async function focaliser(e, champ) {
+  await toucher(e, champ)
+  await jusqua(() => champ.evaluate((el) => el.getRootNode().activeElement === el || document.activeElement === el), { timeout: 10_000, quoi: 'focus du champ' })
+}
+
 /** Saisit une valeur dans un math-field : au clavier si c'est un nombre, sinon comme le clavier de MathALÉA (setValue) */
 async function remplirChamp(e, champ, latex) {
   // Champ de texte (réponse en mots) : au clavier
   if ((await champ.evaluate((el) => el.tagName)) === 'INPUT') {
-    await toucher(e, champ)
-    await pause(e.page, 300)
+    await focaliser(e, champ)
     return e.page.keyboard.type(latex)
   }
   // Nombre suivi d'une unité (« 24cm », « 12cm^2 ») : chiffres au clavier, unité par sa touche du clavier de MathALÉA
   const unite = /^(-?[\d,.]+)\s*(?:\\,)?\s*(?:\\(?:text|mathrm|operatorname)\{)?([a-zA-Zµμ]+)\}?(\^\{?([23])\}?)?$/.exec(latex)
   if (unite) {
-    await toucher(e, champ)
-    await pause(e.page, 300)
+    await focaliser(e, champ)
     await e.page.keyboard.type(unite[1].replace('.', ','))
     // Texte d'une touche du clavier de MathALÉA : « cm », « cm² », ou « cm⁡3cm3 » pour cm³ (rendu MathLive doublé)
     const touche = unite[2] + (unite[4] ?? '')
@@ -192,15 +203,13 @@ async function remplirChamp(e, champ, latex) {
   const t = tapable(latex)
   // Champ à trous dont la réponse n'est pas un nombre (vecteur, matrice) : l'élève remplit le premier trou
   if (t == null && (await champ.evaluate((el) => el.getPrompts?.().length ?? 0))) {
-    await toucher(e, champ)
-    await pause(e.page, 300)
+    await focaliser(e, champ)
     return e.page.keyboard.type('1')
   }
   if (t != null) {
     for (let i = 0; i < 10; i++) {
-      await toucher(e, champ)
-      // Le champ prend le focus à l'image suivante (MathLive) : un élève ne tape pas plus vite
-      await pause(e.page, 300)
+      // Focus pas venu : on retouche le champ plutôt que de taper ailleurs
+      if (!(await focaliser(e, champ).then(() => true, () => false))) continue
       await e.page.keyboard.type(t)
       const lu = await champ.evaluate((el) => el.value)
       if (lu.replace(/\{,\}/g, ',') === t) return
@@ -236,7 +245,7 @@ async function glisser(e, de, vers, auBout = false) {
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [a] })
   for (let k = 1; k <= 8; k++) {
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: a.x + ((b.x - a.x) * k) / 8, y: a.y + ((b.y - a.y) * k) / 8 }] })
-    await pause(e.page, 25)
+    await e.page.waitForTimeout(25) // geste du doigt, pas une attente
   }
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
   await pause(e.page, 250)
@@ -575,7 +584,7 @@ async function repondre(e, n, k, a) {
     }
     case 'mathalea-textfield': {
       const champ = main.locator(`#champTexte${q}`)
-      await toucher(e, champ)
+      await focaliser(e, champ)
       await page.keyboard.type(texteDe(v.reponse))
       return
     }
@@ -690,8 +699,9 @@ async function repondre(e, n, k, a) {
       const dedans = el.locator('math-field:visible, input:visible').first()
       if (!(await actif()) && (await dedans.count())) {
         await toucher(e, dedans)
-        await pause(page, 300)
-        await page.keyboard.type('1')
+        await pause(page)
+        // Seulement si le champ a pris le focus : sinon la frappe irait ailleurs
+        if (await dedans.evaluate((el) => el.getRootNode().activeElement === el || document.activeElement === el)) await page.keyboard.type('1')
         await pause(page, 300)
       }
       // Ou une case qui ouvre un pavé de chiffres propre à l'élément (pyramide de nombres)
@@ -852,9 +862,10 @@ async function jouerSeance(e, p, nomCeinture) {
         if (!e.videsAttendus?.size) problemes.push(`garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
         await toucher(e, garde)
       }
-      // Relecture corrigée, puis le bilan
-      await pause(page, 3000)
+      // Relecture corrigée (« Correction… » le temps de corriger), puis le bilan
       const bilan = page.locator('footer').getByRole('button', { name: 'Voir le bilan' })
+      await bilan.or(page.getByRole('button', { name: /^Continuer|^Tout refaire|^Recommencer/ })).first().waitFor({ timeout: 60_000 }).catch(() => {})
+      await pause(page)
       if (await bilan.count()) await toucher(e, bilan)
       break
     }
@@ -916,7 +927,9 @@ if (process.env.FORMATS) {
             problemes = [...avantProblemes, ...(await avecDelai(jouerSeance(e, seul, etape.titre), 600000, etape.titre))]
           } catch (err) {
             if (process.env.DEBUG) console.log(err.stack)
-            problemes = [`erreur : ${err.message.split('\n')[0]}`]
+            // Ce que le test attendait (ligne « waiting for » de Playwright), pas seulement « Timeout »
+            const attente = err.message.split('\n').find((l) => l.includes('waiting for'))?.replace(/\x1b\[\d+m/g, '').trim()
+            problemes = [`erreur : ${err.message.split('\n')[0]}${attente ? ` (${attente})` : ''}`]
             await capture(e.page, `format-${etape.uuid}-erreur`)
           }
           // Séance relue même si la page vient de se recharger (sinon « 0/0 correctes » sans message)

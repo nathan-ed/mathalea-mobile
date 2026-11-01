@@ -2,6 +2,7 @@
 // Prérequis : serveur de dev (pnpm dev). Aucun dossier partagé : les données
 // de l'élève sont écrites directement dans le stockage du navigateur.
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 let echecs = 0
@@ -10,7 +11,7 @@ const ok = (cond, msg, detail = '') => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg, cond ? '' : detail)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 const etape = (id, uuid) => ({ uuid, id, nbQuestions: 2, titre: `Exercice ${id}` })
 const parcours = (id, correction, etapes) => ({

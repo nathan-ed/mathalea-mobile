@@ -2,8 +2,9 @@
 // sujet de CAN retenu produit exactement les questions demandées (sup2).
 //   node e2e/sonde-can.mjs
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const page = await nav.newPage()
 await page.goto('http://localhost:1420/')
 const resultat = await page.evaluate(async () => {

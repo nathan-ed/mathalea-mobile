@@ -3,6 +3,7 @@
 // publication, Essayer, Modifier, Lancer une session, Autres actions ; chaque
 // retour revient à la page, puis à Parcours. Captures : CAPTURES=<dossier>.
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -22,7 +23,7 @@ const parcours = {
 }
 const bibliotheque = { lien: 'https://kdrive.infomaniak.com/app/share/1/essai', classes: [{ nom: '5e A' }, { nom: '5e B' }], parcours: [{ parcours, classes: ['5e A'], exportee: { '5e A': 1 } }] }
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 for (const sombre of [false, true]) {
   const s = sombre ? '-sombre' : ''
   const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, colorScheme: sombre ? 'dark' : 'light' })

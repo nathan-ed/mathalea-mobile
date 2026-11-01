@@ -2,6 +2,7 @@
 // niveau se referme, la séance et l'éditeur demandent confirmation.
 // Prérequis : comme complet.mjs (pnpm dev, dossier partagé local avec « test »).
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const lienTest = 'http://127.0.0.1:8702/s/Xk42demo/test/'
@@ -10,7 +11,7 @@ const ok = (cond, msg) => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
 const page = await ctx.newPage()
 const erreurs = []

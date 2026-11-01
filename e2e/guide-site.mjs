@@ -4,11 +4,12 @@
 // pour le guide de l'app (import).
 //   SITE=http://localhost:5180/alea/ node e2e/guide-site.mjs [dossier] [fichier.json]
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const sortie = process.argv[2] ?? 'docs/guide/images'
 const fichier = process.argv[3] ?? '/tmp/parcours-mathalea-site.json'
 const site = process.env.SITE ?? 'http://localhost:5180/alea/'
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const p = await (await nav.newContext({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 1.5, acceptDownloads: true })).newPage()
 
 /** Capture ; `cible` : ce qu'on touche ensuite, entouré d'un anneau (couleur

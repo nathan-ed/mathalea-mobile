@@ -40,7 +40,7 @@ const parcours = {
   ],
 }
 
-const lancer = (args = []) => chromium.launch({ executablePath: '/usr/bin/chromium', args })
+const lancer = (args = []) => chromium.launch({ executablePath: '/usr/bin/chromium', args: [...SANS_BRIDAGE, ...args] })
 const filtrer = (ctx) => ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
 
 async function contexte(nav, profil, explorer) {
@@ -96,6 +96,7 @@ function videoDe(image, nom) {
     '-I', '-c',
     `
 import sys
+import { SANS_BRIDAGE } from './attente.mjs'
 from PIL import Image
 fond = Image.new('RGB', (1280, 720), (90, 90, 95))
 qr = Image.open(sys.argv[1]).convert('RGB')

@@ -4,6 +4,7 @@
 //   node e2e/un-toucher.mjs
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const classe = { lien: 'https://kdrive.infomaniak.com/app/share/1/demo', nom: '5e A', disponibles: ['5e A'], parcours: demo.classes.flatMap((c) => c.parcours) }
@@ -12,7 +13,7 @@ const ok = (cond, msg) => {
   if (!cond) echecs++
   console.log(cond ? '✔' : '✘', msg)
 }
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true })
 await ctx.addInitScript((classe) => {
   localStorage.setItem('copie:profil', '"eleve"')

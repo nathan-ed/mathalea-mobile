@@ -46,7 +46,7 @@ const parcours = {
 }
 
 const avecWebkit = process.env.NAVIGATEUR === 'webkit'
-const lancer = (args = []) => (avecWebkit ? webkit.launch() : chromium.launch({ executablePath: '/usr/bin/chromium', args }))
+const lancer = (args = []) => (avecWebkit ? webkit.launch() : chromium.launch({ executablePath: '/usr/bin/chromium', args: [...SANS_BRIDAGE, ...args] }))
 const nom = avecWebkit ? 'webkit' : 'chromium'
 console.log(`Navigateur : ${nom}`)
 const nav = await lancer()
@@ -339,6 +339,7 @@ execFileSync('python3', [
   '-c',
   `
 import sys
+import { SANS_BRIDAGE } from './attente.mjs'
 from PIL import Image, ImageFilter
 qrs = sys.argv[2:6]
 table = Image.new('RGB', (3000, 2250), (150, 120, 90))

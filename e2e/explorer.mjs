@@ -12,6 +12,7 @@
 import { readFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -44,7 +45,7 @@ const serveur = createServer((req, res) => {
   res.writeHead(req.url === '/explorer.json' ? 200 : 404, { 'content-type': 'application/json' })
   res.end(req.url === '/explorer.json' ? JSON.stringify(catalogue) : '')
 }).listen(8702, '127.0.0.1')
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()).replace(/\s+/g, ' ')
 const titre = async (page) => (await page.locator('header h1').first().innerText()).trim()
 const cap = async (page, nom) => (await page.waitForTimeout(450), page.screenshot({ path: `${captures}/explorer-${nom}.png` }))

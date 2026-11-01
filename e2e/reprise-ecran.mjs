@@ -5,6 +5,7 @@
 // relancement (données gardées, état de la page perdu).
 // Prérequis : pnpm dev (port 1420).
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 let echecs = 0
@@ -15,7 +16,7 @@ const ok = (cond, msg) => {
 const etape = { uuid: 'ab88c', id: 'canc3a-2026', titre: 'Calcul', titreMasque: true, nbQuestions: 3, sup: 'false', sup2: '1-2-3', sup3: 'false' }
 const parcours = { id: 'reprise', version: 1, titre: 'Reprise', objectif: 'Calculer', niveau: 'CM2', theme: 'Calcul', difficulte: 1, icone: 'bx-calculator', presentation: 'une_question_par_page', correction: 'parcours', etapes: [etape] }
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 for (const appareil of ['telephone', 'bureau']) {
   const ctx = await nav.newContext(
     appareil === 'telephone' ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : { viewport: { width: 1280, height: 800 } },

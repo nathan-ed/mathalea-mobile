@@ -7,6 +7,7 @@
 // Captures du guide (docs/guide/images/revisions-*.png) : GUIDE=docs/guide/images.
 import { chromium } from 'playwright'
 import { join } from 'node:path'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -34,7 +35,7 @@ const parcours = (id, titre, theme, uuid, exo, objectif) => ({
 const additions = parcours('rev-additions', 'Additions de relatifs', 'Nombres relatifs', 'cbc26', '5N2G', 'Additionner des relatifs')
 const soustractions = parcours('rev-soustractions', 'Soustractions de relatifs', 'Calcul littéral', '36e2a', '5N2H', 'Soustraire des relatifs')
 
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true })
 await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
 await ctx.addInitScript((explorer) => {

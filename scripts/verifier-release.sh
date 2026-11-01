@@ -2,10 +2,10 @@
 # Vérification complète avant une release, sur l'ordinateur de qui publie :
 # pnpm check, pnpm test, cargo test, puis toutes les suites e2e jouées comme
 # un élève (dont tous les formats de réponse et les parcours de l'Explorer de
-# A à Z). Rien ne doit être modifié dans src/ pendant qu'il tourne : Vite
-# rechargerait la page et ferait échouer une suite au hasard.
-#   bash scripts/verifier-release.sh   (tout, environ 2 h 30 ; tous les parcours
-#   de explorer/ et la démonstration sont joués de A à Z, sans exception)
+# A à Z), sur la version construite de l'app (vite build, comme chez les
+# élèves) servie par vite preview, jamais sur le serveur de développement.
+#   bash scripts/verifier-release.sh   (tout ; tous les parcours de explorer/
+#   et la démonstration sont joués de A à Z, sans exception)
 # Lancé par scripts/publier.sh, qui ne pose le tag que si tout est vert.
 # Il faut static/moteur (pnpm moteur), Chromium à /usr/bin/chromium, python3
 # et ffmpeg (fausse caméra des suites QR). Captures et journaux dans $SORTIE.
@@ -36,23 +36,15 @@ npx tsx e2e/preparer.mts "$dossier" > /dev/null
 partage=$!
 
 demarrer() {
-  # Groupe de processus à part : pnpm, sh et vite arrêtés ensemble
-  VITE_URL_EXPLORER="$1" setsid pnpm dev > "$SORTIE/pnpm-dev.log" 2>&1 &
+  # Version construite, servie avec les relais de vite.config.js (téléchargement,
+  # heure). NODE_ENV=development garde le relais de téléchargement des drives
+  # (partage.ts), comme dans un navigateur en développement
+  NODE_ENV=development VITE_URL_EXPLORER="$1" npx vite build > "$SORTIE/build.log" 2>&1 || { echo "vite build échoue (voir $SORTIE/build.log)"; exit 1; }
+  # Groupe de processus à part : arrêté d'un coup par arreter()
+  setsid npx vite preview --port 1420 --strictPort > "$SORTIE/preview.log" 2>&1 &
   serveur=$!
-  for _ in $(seq 120); do curl -sf http://localhost:1420/ > /dev/null && break; sleep 1; done
-  curl -sf http://localhost:1420/ > /dev/null || { echo "pnpm dev ne démarre pas"; exit 1; }
-  # Premier chargement : Vite optimise ses dépendances puis recharge la page ;
-  # on le fait ici, pas pendant une suite
-  node -e "
-    const { chromium } = require('playwright')
-    ;(async () => {
-      const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
-      const page = await nav.newPage()
-      await page.goto('http://localhost:1420/')
-      await page.waitForTimeout(15000)
-      await nav.close()
-    })()
-  " > /dev/null 2>&1
+  for _ in $(seq 60); do curl -sf http://localhost:1420/ > /dev/null && break; sleep 0.5; done
+  curl -sf http://localhost:1420/ > /dev/null || { echo "vite preview ne démarre pas"; exit 1; }
 }
 arreter() { kill -- -"$serveur" 2>/dev/null; sleep 2; }
 trap 'kill -- -"${serveur:-0}" 2>/dev/null; kill "$partage" 2>/dev/null' EXIT

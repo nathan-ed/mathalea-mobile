@@ -6,9 +6,10 @@
 // (dans le dépôt mathalea : npx vite --port 5199).
 //   node e2e/referentiel-site.mjs FR|CH
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 const pays = process.argv[2] ?? 'FR'
 const lang = pays === 'CH' ? 'fr-CH' : 'fr-FR'
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 // Moteur (app)
 const app = await (await nav.newContext()).newPage()

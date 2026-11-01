@@ -4,6 +4,7 @@
 // questions passées, bilan « Correction vue » (pnpm dev seulement).
 //   CAPTURES=<dossier> THEME=clair|sombre node e2e/papier.mjs
 import { chromium } from 'playwright'
+import { SANS_BRIDAGE } from './attente.mjs'
 
 const base = 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -14,7 +15,7 @@ const ok = (cond, msg) => {
   console.log(cond ? '✔' : '✘', msg)
 }
 const texte = async (page) => (await page.locator('main').innerText()).replace(/\s+/g, ' ')
-const nav = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 const appareils = [
   { nom: 'telephone', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
