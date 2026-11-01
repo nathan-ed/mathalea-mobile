@@ -22,3 +22,6 @@ releases/essai/
 
 # Aperçus de parcours (e2e/apercu-parcours.mjs)
 /apercus
+
+# Vidéos de présentation (e2e/video/filmer.sh)
+videos/
