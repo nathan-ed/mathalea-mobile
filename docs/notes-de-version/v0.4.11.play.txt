@@ -2,6 +2,7 @@
 - Teste ton niveau : les ceintures se passent dans l'ordre, la ceinture du niveau s'affiche en haut.
 - On retrouve l'écran quitté en revenant dans l'app.
 - Tableur de nouveau visible ; Scratch, décompositions et figures mieux enregistrés.
+- Listes déroulantes : tous les choix se touchent.
 - Bonne réponse en vert, incorrecte en orange de MathALÉA.
 - Thème sombre : orange pâle et figures lisibles.
 - Champs de réponse : le bas du cadre n'est plus coupé.
