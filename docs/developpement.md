@@ -735,7 +735,54 @@ Reste à faire :
   `node e2e/az-1.mjs` (2, 3) : tous les parcours proposés, en trois groupes.
   Inventaire des formats : `docs/types-de-reponse.md`.
 
+## 0.4.12 : en cours (branche `suite-0.4.12`)
+
+- Suisse : plus de « Teste ton niveau » (Nathan, 1er novembre 2026 : ses
+  niveaux sont ceux de la France) ; ni dans l'Explorer, ni dans le Suivi, ni
+  au relancement (`testPropose` dans `+page.svelte`). Test :
+  `node e2e/explorer.mjs` (absent en Suisse, présent en France, disparaît au
+  passage du programme à Suisse) ; `test-niveau.mjs` joue en France.
+- Élève qui passe enseignant (Nathan : « je voyais plus les classes ») :
+  dossiers suivis et bibliothèque de l'enseignant sont deux choses séparées.
+  Le premier dossier suivi d'un enseignant sans bibliothèque ni drive est
+  repris d'office (`reprendrePremier` : au passage en enseignant, à l'ajout
+  d'un lien, au lancement) ; les suivants dans les Réglages, sur la ligne du
+  dossier : « Classes et parcours » ou « Seulement les parcours »
+  (`reprendre(b, f, { classes: false })`, ni classes ni lien du collègue).
+  Ligne vue par l'enseignant : toutes les classes du dossier, « Votre
+  drive » pour le sien, sans le choix de classe de l'élève. Mise en route
+  seulement si l'app ne connaît aucun lien ; sans drive, le rappel dit
+  « Drive pas encore configuré » avant « Version différente » ; « Configurer »
+  ouvre le panneau du lien (`rappelExport.demandeLien`) ; un lien suivi
+  collé comme drive reprend ses classes. Reprise par le lien : `verifieLe`
+  posé (le fichier vient du drive, plus de « déposez-le »). Test :
+  `node e2e/eleve-puis-enseignant.mjs`.
+- Suites rendues fiables (vérification complète du 1er novembre 2026) :
+  `parcours-az` attend que « Voir le bilan » soit immobile (la barre du bas
+  suit le clavier qui se referme) et vérifie l'arrivée au bilan ; avant un
+  glisser-déposer au doigt, fait défiler pour voir l'étiquette et la zone
+  ensemble (zone sous le bas de l'écran selon le tirage) et vérifie chaque
+  dépôt ; `paliers` exporte par « Exporter des parcours ».
+
 ## 0.4.11 : Teste ton niveau dans l'ordre, orange pâle en sombre (fait)
+
+- Vérification complète fiable et rapide (Nathan, 1er novembre 2026 : « pas
+  normal que le test échoue alors que l'app va bien ») : de 2 h à 27 min.
+  Aucune pause fixe : `e2e/attente.mjs` (`pagePrete` : page chargée, polices,
+  aucun `aria-busy`, aucune animation ; `jusqua`, `taperDans`, `pointStable`
+  qui lit aussi le shadow DOM, `touchable`) ; tout travail asynchrone de l'app
+  porte `aria-busy` (rendu d'une question, démarrage, relecture des dossiers,
+  écran de lancement). Chromium des suites (`SANS_BRIDAGE`) : pas de page
+  bridée en arrière-plan, pas de « page précédente » au glissement horizontal
+  (`OverscrollHistoryNavigation`, il ouvrait « Quitter » pendant un
+  glisser-déposer). Suites sur l'app construite (`vite build` puis
+  `vite preview`), jamais sur `pnpm dev`. `publier.sh` pousse `HEAD:main`
+  après contrôle d'avance rapide.
+- Listes déroulantes de MathALÉA : leurs derniers choix passaient sous la
+  barre du bas (1mG1-3) ; arrêtées au-dessus de la barre ou ouvertes vers le
+  haut (`src/lib/listeDeroulante.ts`).
+- Politique de confidentialité : section « Supprimer vos données »
+  (`#supprimer`), demandée par la fiche Google Play.
 
 - Teste ton niveau (Nathan, 31 octobre 2026) : un niveau s'ouvre quand le
   précédent proposé est validé (`TestNiveau.svelte`, `ouvert`) ; fermé :

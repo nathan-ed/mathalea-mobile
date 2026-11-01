@@ -35,9 +35,15 @@ version la plus récente.
 - Un élève peut suivre plusieurs dossiers (changement d'enseignant en cours
   d'année, ressources d'un autre collègue) : Réglages, « Dossiers partagés ».
   Le premier s'ajoute aussi depuis l'accueil.
-- Un enseignant peut ajouter les dossiers de ses collègues (Réglages,
-  « Dossiers partagés ») : leurs parcours apparaissent dans « Éditer un parcours
-  existant », prêts à être repris.
+- Le premier dossier suivi d'un enseignant (ajouté comme élève avant de
+  passer enseignant, ou dans les Réglages), sans bibliothèque ni drive, est
+  son drive : classes, parcours et lien sont repris d'office.
+- Un enseignant peut ajouter d'autres dossiers (Réglages, « Dossiers
+  partagés ») : sur la ligne du dossier, **Seulement les parcours** (dossier
+  d'un collègue, sans ses classes) ou **Classes et parcours** (un autre
+  dossier à soi). Ses parcours apparaissent aussi un par un dans « Éditer un
+  parcours existant ». La ligne montre toutes les classes du dossier ;
+  « Votre drive » marque le vôtre.
 - Retirer un dossier ne supprime ni les résultats ni le suivi de l'élève.
 
 ## Essayer avec le dossier de démonstration
@@ -187,8 +193,9 @@ voir d'autre :
 
 ## Partager avec les élèves
 
-Tant que le dossier partagé n'est pas renseigné, l'onglet Parcours affiche une
-« Mise en route » :
+Tant que l'application ne connaît aucun dossier, l'onglet Parcours affiche une
+« Mise en route » (avec un dossier déjà suivi, voir « Dossiers partagés » :
+il est repris d'office) :
 
 1. Créez un dossier sur votre drive et partagez-le par lien public, en lecture
    seule.
@@ -207,7 +214,9 @@ le drive :
   un objectif a changé dans l'app, parcours sans classe compris ;
   **Mettre à jour** exporte le fichier complet ;
 - « Drive pas encore configuré » tant qu'aucun lien de dossier partagé n'est
-  enregistré ; **Configurer** ouvre le champ du lien ;
+  enregistré (elle passe avant « Version différente », qui n'a pas de sens
+  sans drive) ; **Configurer** ouvre le champ du lien. Le lien d'un dossier
+  déjà suivi collé ici reprend ses classes et ses parcours ;
 - « Fichier exporté : déposez-le sur le drive » tant que l'app ne l'a pas
   trouvé dans le dossier partagé (relu au retour dans l'app, ou avec
   « Vérifier le dossier partagé » dans l'onglet Parcours). L'app ne peut pas
@@ -279,7 +288,8 @@ plus récent remplace l'ancien.
   avant la première séance si elle est prévue ainsi, puis reste sur la page
   du parcours et revient au bilan quand le palier n'est pas réussi. Format :
   guide, « Format des parcours ».
-- « Teste ton niveau », en tête de l'Explorer, est ouvert à tous : questions
+- « Teste ton niveau », en tête de l'Explorer, est ouvert à tous avec le
+  programme France (absent en Suisse : ses niveaux sont ceux de la France) : questions
   des sujets de la Course aux nombres, du CM1 à la Terminale. Par niveau,
   15 questions de tous les domaines (nombres et calcul, mesures, géométrie,
   proportionnalité, données, algèbre), jamais deux fois la même, corrigées à

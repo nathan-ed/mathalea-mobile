@@ -20,6 +20,8 @@ L'accueil attend le dossier de votre classe. Pour l'instant, touchez la roue den
 
 En bas des Réglages, activez « Je suis enseignant ». L'application passe à vos onglets : Parcours, Classes, En classe et Explorer.
 
+Si vous aviez déjà ajouté le dossier de vos classes comme un élève, il devient votre drive : ses classes et ses parcours arrivent dans vos onglets, sans rien refaire.
+
 ![Réglage Je suis enseignant](images/decouvrir-3-enseignant.png)
 
 ## 4. La démonstration

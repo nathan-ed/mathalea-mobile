@@ -30,7 +30,7 @@ Onglet **Classes** : « + » crée la classe (5e B, par exemple), puis cochez se
 
 ## 5. Publier pour les élèves
 
-Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien, et collez ce lien dans la Mise en route de l'onglet Parcours.
+Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien, et collez ce lien dans la Mise en route de l'onglet Parcours. Si l'application suit déjà votre dossier (ajouté dans les Réglages), il est repris d'office : classes, parcours et lien.
 
 Puis, à chaque changement : la bannière en haut propose **Mettre à jour**. L'application enregistre un fichier ; déposez-le dans ce dossier. C'est tout.
 
