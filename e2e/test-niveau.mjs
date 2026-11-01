@@ -54,7 +54,8 @@ for (const theme of ['clair', 'sombre']) {
     sessionStorage.setItem('pret', '1')
     localStorage.setItem('theme', theme)
     localStorage.setItem('copie:profil', JSON.stringify('eleve'))
-    localStorage.setItem('copie:pays', JSON.stringify('CH'))
+    // Teste ton niveau n'existe qu'en France (absent en Suisse : explorer.mjs)
+    localStorage.setItem('copie:pays', JSON.stringify('FR'))
     // CM1 et CM2 déjà validés : la 6e est le niveau ouvert suivant
     const le = new Date().toISOString()
     localStorage.setItem('copie:test-niveau', JSON.stringify({ cm1: { valideLe: le }, cm2: { valideLe: le } }))
@@ -71,7 +72,7 @@ for (const theme of ['clair', 'sombre']) {
   await tuile.click()
   await page.getByRole('button', { name: /^6e · ceinture orange/ }).waitFor({ timeout: 60_000 })
   const niveaux = await texte(page)
-  ok(['CM1', 'CM2', '6e', '5e', '4e', '3e', '2de', '1re', 'Terminale'].every((n) => niveaux.includes(`${n} · ceinture`)), `${theme} : neuf niveaux, en Suisse aussi`)
+  ok(['CM1', 'CM2', '6e', '5e', '4e', '3e', '2de', '1re', 'Terminale'].every((n) => niveaux.includes(`${n} · ceinture`)), `${theme} : neuf niveaux`)
   ok(/6e · ceinture orange Commence ici/.test(niveaux), `${theme} : niveau proposé après les ceintures validées`)
   ok(await page.getByRole('button', { name: /^5e · ceinture verte/ }).isDisabled(), `${theme} : 5e fermée tant que la 6e n'est pas validée`)
   ok(/5e · ceinture verte Au moins 80 % à : ceinture orange/.test(niveaux), `${theme} : condition d'ouverture affichée`)

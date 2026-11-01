@@ -104,6 +104,8 @@ for (const [appareil, theme] of [
   ok(racine.includes('4e Collège') && racine.includes('2 parcours'), `${suffixe} : degré 4e Collège, 2 parcours`)
   ok(!/\b9e\b|\b10e\b|\b11e\b|1re Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
   ok(!racine.includes('5e') && !racine.includes('Nombres relatifs'), `${suffixe} : aucun parcours français en Suisse`)
+  // Teste ton niveau : niveaux français, jamais proposé en Suisse (Nathan, 1er novembre 2026)
+  ok(!racine.includes('Teste ton niveau'), `${suffixe} : pas de « Teste ton niveau » en Suisse`)
   ok(!(await debordement(e)), `${suffixe} : pas de défilement horizontal`)
   await cap(e, `1-degres-${suffixe}`)
 
@@ -221,6 +223,7 @@ for (const [appareil, theme] of [
   await onglet(e, 'Suivi').click()
   await pagePrete(e)
   ok((await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours dans le suivi`)
+  ok(!(await texte(e)).includes('Teste ton niveau'), `${suffixe} : suivi sans « Teste ton niveau » en Suisse`)
   await e.context().close()
 
   if (appareil !== 'telephone' || theme !== 'clair') continue
@@ -232,6 +235,7 @@ for (const [appareil, theme] of [
   await pagePrete(f)
   const fr = await texte(f)
   ok(!fr.includes('Collège'), 'France : aucun degré suisse')
+  ok(await f.getByRole('button', { name: /^Teste ton niveau/ }).isVisible(), 'France : « Teste ton niveau » proposé')
   await f.getByRole('button', { name: /^5e/ }).click()
   ok((await texte(f)).includes('Nombres relatifs'), 'France : chapitre du parcours de 5e')
   await f.context().close()
@@ -246,6 +250,7 @@ for (const [appareil, theme] of [
   await onglet(c, 'Explorer').click()
   await c.getByRole('button', { name: /^4e Collège/ }).waitFor({ timeout: 60_000 })
   ok(!(await texte(c)).includes('5e'), 'programme changé en Suisse : parcours suisses seulement')
+  ok(!(await texte(c)).includes('Teste ton niveau'), 'programme changé en Suisse : « Teste ton niveau » retiré')
   await c.context().close()
 
   // ---------- Enseignant : donner un parcours de l'Explorer à des classes ----------
