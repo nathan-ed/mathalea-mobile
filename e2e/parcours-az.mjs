@@ -149,7 +149,7 @@ function reponseDe(rep) {
   const t = texteDe(rep)
   const o = rep?.options ?? {}
   // Un nombre dans un intervalle (« intercaler ») : le milieu
-  const intervalle = /^[\]\[](-?[\d.,]+);(-?[\d.,]+)[\]\[]$/.exec(t)
+  const intervalle = /^[\]\[]\s*(-?[\d.,]+)\s*;\s*(-?[\d.,]+)\s*[\]\[]$/.exec(t)
   if (intervalle && (o.estDansIntervalle || o.estDecimalDansIntervalle)) {
     const [a, b] = [intervalle[1], intervalle[2]].map((x) => Number(x.replace(',', '.')))
     const decimales = Math.max(...[intervalle[1], intervalle[2]].map((x) => (x.split(/[.,]/)[1] ?? '').length)) + 1
@@ -188,10 +188,22 @@ async function remplirChamp(e, champ, latex) {
     await e.page.keyboard.type(unite[1].replace('.', ','))
     // Texte d'une touche du clavier de MathALÉA : « cm », « cm² », ou « cm⁡3cm3 » pour cm³ (rendu MathLive doublé)
     const touche = unite[2] + (unite[4] ?? '')
-    const rang = await e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll(
-      (bs, t) => bs.findIndex((b) => [t, t + t].includes(b.innerText.replace(/[\s\u2061]/g, '').replace('²', '2').replace('³', '3'))),
-      touche
-    )
+    const chercher = () =>
+      e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll(
+        (bs, t) => bs.findIndex((b) => [t, t + t].includes(b.innerText.replace(/[\s\u2061]/g, '').replace('²', '2').replace('³', '3'))),
+        touche
+      )
+    let rang = await chercher()
+    // Unité rangée dans un autre onglet du clavier (« Volumes » quand il s'ouvre sur « Capacités ») : l'élève change d'onglet
+    if (rang < 0) {
+      const onglets = await e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll((bs) => bs.map((b) => b.innerText.trim()))
+      for (const [k, nom] of onglets.entries()) {
+        if (!/^[A-ZÉ][a-zéè]+s$/.test(nom)) continue
+        await toucher(e, e.page.locator('#mathalea-virtual-keyboard button:visible').nth(k))
+        await pause(e.page, 200)
+        if ((rang = await chercher()) >= 0) break
+      }
+    }
     const bouton = e.page.locator('#mathalea-virtual-keyboard button:visible').nth(Math.max(rang, 0))
     if (rang >= 0) {
       await toucher(e, bouton)
@@ -568,6 +580,13 @@ async function repondre(e, n, k, a) {
     case 'meta-interactif-2d': {
       for (const [nom, rep] of Object.entries(v)) {
         if (!/^field\d+$/.test(nom)) continue
+        const liste = main.locator(`#liste-deroulante${q}${nom}`)
+        if (await liste.count()) {
+          const choix = JSON.parse(decodeURIComponent(await liste.getAttribute('choices'))).filter((c) => (typeof c === 'string' ? c : c.value) !== '')
+          await toucher(e, liste)
+          await toucher(e, liste.locator('[role=option]').nth(choix.findIndex((c) => (typeof c === 'string' ? c : c.value) === texteDe(rep))))
+          continue
+        }
         // 845fa reprend dans la question 2 les id de la question 1 (défaut de MathALÉA) : le champ affiché
         let champ = main.locator(`#MetaInteractif2d${q}${nom}`)
         if (!(await champ.count())) champ = main.locator(`math-field[id^="MetaInteractif2dEx${n}Q"][id$="${nom}"]`).last()
