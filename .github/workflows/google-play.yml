@@ -8,9 +8,10 @@
 # sinon, le .aab reste un artefact du job.
 name: google-play
 
+# Plus d'envoi automatique (Nathan, 2 novembre 2026) : Nathan crée lui-même
+# la version dans la Play Console, avec le .aab de release.yml. Ce workflow
+# reste désactivé sur GitHub et ne se lance plus le lundi.
 on:
-  schedule:
-    - cron: '0 3 * * 1' # lundi, 3 h UTC
   workflow_dispatch:
     inputs:
       forcer:

@@ -246,6 +246,11 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   construit par `release.yml` (artefact `google-play`, pas dans `releases/`),
   signé avec la clé d'importation (README, tableau des clés). Numéro de
   version interne daté (`AAMMJJHH`) : toujours croissant.
+- **Plus d'envoi à la Play Console par la CI** (Nathan, 2 novembre 2026) :
+  Nathan crée la version Play à la main avec le `.aab` de `release.yml`
+  (artefact `google-play`) et `docs/notes-de-version/<vX.Y.Z>.play.txt`.
+  `google-play.yml` reste désactivé et n'a plus de déclenchement le lundi ;
+  ce qui suit décrit son fonctionnement s'il est un jour réactivé.
 - Chaque lundi, `google-play.yml` construit une version Google Play si
   mathalea.fr a publié un nouveau moteur (`scripts/moteur-publie.mjs` :
   signature, taille et SHA-256 vérifiés), avec le code du dernier tag `v*`,

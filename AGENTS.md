@@ -116,6 +116,12 @@ complète (détails dans le skill, « Vérification »).
   (chaque exercice préparé par le moteur, sous trois graines, interactif).
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux
   captures, en clair et en sombre, à 390 px de large.
+- Google Play (Nathan, 2 novembre 2026 : « plus de Play Console pour
+  l'instant ») : aucun envoi à la Play Console par la CI ni par Claude.
+  `google-play.yml` reste désactivé ; Nathan crée lui-même la version Play
+  avec le `.aab` de `release.yml` (artefact `google-play`) et sa note
+  `.play.txt`. Claude peut faire la release de la forge (`scripts/publier.sh`)
+  quand tout est vert.
 - Toute release porte sa note de version : écrire `docs/notes-de-version/<vX.Y.Z>.md`
   (en français) avant de poser le tag ; `release.yml` la joint à la release
   GitHub et échoue si elle manque. Même exigence pour Google Play : sans elle la

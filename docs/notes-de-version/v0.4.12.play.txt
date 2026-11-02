@@ -1,0 +1,8 @@
+- Imprimer un parcours en PDF : fiches, corrections, jusqu'à 4 versions.
+- Explorer : les parcours d'un degré sur une page, par chapitre ; en ajouter plusieurs d'un coup.
+- Nouveaux parcours de 11e (Suisse romande).
+- Onglet Fiches : toutes ses fiches de cours.
+- Ceintures par chapitre ; fusion de deux appareils.
+- Modifier un parcours ne fait plus perdre les ceintures.
+- Listes déroulantes, glisser-déposer, tableur, grilles : réponses prises en compte.
+- Espaces dans les nombres non exigés.

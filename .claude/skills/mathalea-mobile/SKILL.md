@@ -418,6 +418,9 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   `docs/confidentialite-brouillon.html`. Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
   un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
+  Depuis le 2 novembre 2026 : **plus aucun envoi à la Play Console** par la
+  CI ni par Claude ; Nathan crée la version Play avec le `.aab` de
+  `release.yml`. Claude peut publier la release de la forge.
   `google-play.yml` reste **désactivé** sur GitHub : l'activer seulement
   le temps d'un envoi demandé par Nathan (`gh workflow enable`, `gh workflow
   run … -f piste=internal`, puis `disable` aussitôt ; un run lancé continue).
