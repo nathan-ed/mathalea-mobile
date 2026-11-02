@@ -63,7 +63,9 @@
     onorganiser,
     onepingler,
     dejaAjoute,
+    retirable,
     onajouterPlusieurs,
+    onretirerPlusieurs,
   }: {
     sources: Source[]
     explorer: NiveauExplorer[] // parcours de l'équipe MathALÉA du pays choisi, par degré et chapitre
@@ -95,7 +97,9 @@
     onorganiser: (source: string, o: Organisation) => void
     onepingler: (p: Parcours) => void
     dejaAjoute: (p: Parcours) => boolean // Explorer : déjà à l'accueil (élève) ou dans la bibliothèque (enseignant)
+    retirable?: (p: Parcours) => boolean // Explorer, élève : ajouté depuis l'Explorer, il peut être retiré de l'accueil
     onajouterPlusieurs: (liste: Parcours[]) => Promise<void> // Explorer : ajout de plusieurs parcours d'un coup
+    onretirerPlusieurs?: (liste: Parcours[]) => Promise<void> // Explorer, élève : parcours retirés de l'accueil
   } = $props()
 
   let lien = $state('')
@@ -195,20 +199,44 @@
     defilementNiveau = null
   })
 
-  // Explorer : plusieurs parcours du degré ajoutés d'un coup (panneau du bas)
+  // Explorer : plusieurs parcours du degré ajoutés (ou, pour l'élève, retirés) d'un coup (panneau du bas).
+  // Coché = sur l'accueil (élève) ou dans la bibliothèque (enseignant) une fois validé
   const espaceAjout = $derived(espaceProf ? 'à votre bibliothèque' : 'à ton accueil')
   let choixAjout: string[] | null = $state(null)
   let messageAjout = $state('')
-  const aAjouter = $derived(niveauOuvert ? niveauOuvert.chapitres.flatMap((c) => c.parcours).filter((p) => !dejaAjoute(p)) : [])
+  const peutRetirer = (p: Parcours) => !!onretirerPlusieurs && !!retirable?.(p)
+  // Parcours qu'on peut cocher ou décocher : pas encore ajoutés, ou retirables
+  const modifiables = $derived(niveauOuvert ? niveauOuvert.chapitres.flatMap((c) => c.parcours).filter((p) => !dejaAjoute(p) || peutRetirer(p)) : [])
+  const aAjouter = $derived(modifiables.filter((p) => !dejaAjoute(p) && choixAjout?.includes(p.id)))
+  const aRetirer = $derived(modifiables.filter((p) => dejaAjoute(p) && !choixAjout?.includes(p.id)))
+  const avecRetrait = $derived(modifiables.some((p) => dejaAjoute(p)))
+  const ouvrirChoix = () => (choixAjout = modifiables.filter((p) => dejaAjoute(p)).map((p) => p.id))
   const basculerChoix = (ids: string[], cocher: boolean) => {
     const reste = (choixAjout ?? []).filter((id) => !ids.includes(id))
     choixAjout = cocher ? [...reste, ...ids] : reste
   }
-  async function ajouterChoisis() {
-    const liste = aAjouter.filter((p) => choixAjout?.includes(p.id))
+  const pluriel = (n: number, mot: string) => `${n} parcours ${mot}${n > 1 ? 's' : ''}`
+  const libelleValider = $derived(
+    aAjouter.length && aRetirer.length
+      ? `Ajouter ${aAjouter.length}, retirer ${aRetirer.length}`
+      : aRetirer.length
+        ? `Retirer ${aRetirer.length} parcours`
+        : !aAjouter.length
+          ? 'Ajouter'
+          : aAjouter.length === modifiables.length
+            ? `Ajouter les ${aAjouter.length} parcours`
+            : `Ajouter ${aAjouter.length} parcours`,
+  )
+  async function validerChoix() {
+    const ajout = aAjouter
+    const retrait = aRetirer
     choixAjout = null
-    await onajouterPlusieurs(liste)
-    messageAjout = `${liste.length} parcours ajouté${liste.length > 1 ? 's' : ''} ${espaceAjout}.`
+    if (ajout.length) await onajouterPlusieurs(ajout)
+    if (retrait.length) await onretirerPlusieurs?.(retrait)
+    messageAjout = [ajout.length ? `${pluriel(ajout.length, 'ajouté')} ${espaceAjout}` : '', retrait.length ? `${pluriel(retrait.length, 'retiré')} de ${espaceProf ? 'votre bibliothèque' : 'ton accueil'}` : '']
+      .filter(Boolean)
+      .join(', ')
+    messageAjout = messageAjout.charAt(0).toUpperCase() + messageAjout.slice(1) + '.'
   }
   $effect(() => {
     void niveau
@@ -306,7 +334,7 @@
           {#if ajoutesVisibles.length}
             <h2 class={titreSection}>Ajoutés depuis Explorer</h2>
             {#each ajoutesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} onepingler={() => onepingler(p)} />
             {/each}
           {/if}
           {#each aChoisir as d (d.lien)}
@@ -385,9 +413,9 @@
     {:else if onglet === 'explorer' && niveauOuvert}
       <!-- Tous les parcours du degré, rangés sous leur chapitre -->
       <div class="liste-tuiles flex flex-col gap-3 p-4">
-        {#if aAjouter.length > 1}
-          <button type="button" class="{boutonInverse} w-full" onclick={() => (choixAjout = [])}>
-            <i aria-hidden="true" class="bx bx-list-plus mr-1"></i> Ajouter plusieurs parcours
+        {#if modifiables.length > 1}
+          <button type="button" class="{boutonInverse} w-full" onclick={ouvrirChoix}>
+            <i aria-hidden="true" class="bx bx-list-plus mr-1"></i> {avecRetrait ? 'Ajouter ou retirer des parcours' : 'Ajouter plusieurs parcours'}
           </button>
         {/if}
         {#if messageAjout}
@@ -402,10 +430,10 @@
       </div>
       {#if choixAjout}
         <Feuille onfermer={() => (choixAjout = null)}>
-          <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Ajouter des parcours de {niveauOuvert.niveau}</p>
+          <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{avecRetrait ? `Parcours de ${niveauOuvert.niveau} sur ton accueil` : `Ajouter des parcours de ${niveauOuvert.niveau}`}</p>
           <div class="flex flex-col gap-2 overflow-y-auto" style="max-height: 50vh">
             {#each niveauOuvert.chapitres as c (c.theme)}
-              {@const ids = c.parcours.filter((p) => !dejaAjoute(p)).map((p) => p.id)}
+              {@const ids = c.parcours.filter((p) => !dejaAjoute(p) || peutRetirer(p)).map((p) => p.id)}
               {#if ids.length}
                 {@const tousCoches = ids.every((id) => choixAjout?.includes(id))}
                 <button
@@ -420,7 +448,7 @@
                   <i aria-hidden="true" class="bx text-2xl text-coopmaths-action dark:text-coopmathsdark-action {tousCoches ? 'bx-checkbox-checked' : 'bx-checkbox'}"></i>
                 </button>
                 <ul class="{listeGroupee} shrink-0">
-                  {#each c.parcours.filter((p) => !dejaAjoute(p)) as p (p.id)}
+                  {#each c.parcours.filter((p) => !dejaAjoute(p) || peutRetirer(p)) as p (p.id)}
                     {@const coche = !!choixAjout?.includes(p.id)}
                     <li>
                       <button type="button" role="checkbox" aria-checked={coche} class={elementListe} onclick={() => basculerChoix([p.id], !coche)}>
@@ -436,11 +464,13 @@
               {/if}
             {/each}
           </div>
-          <button type="button" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!choixAjout.length} onclick={ajouterChoisis}>
-            {!choixAjout.length ? 'Ajouter' : choixAjout.length === aAjouter.length ? `Ajouter les ${aAjouter.length} parcours` : `Ajouter ${choixAjout.length} parcours`}
+          <button type="button" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!aAjouter.length && !aRetirer.length} onclick={validerChoix}>
+            {libelleValider}
           </button>
-          {#if choixAjout.length < aAjouter.length}
-            <button type="button" class={boutonLien} onclick={() => (choixAjout = aAjouter.map((p) => p.id))}>Tout cocher</button>
+          {#if choixAjout.length < modifiables.length}
+            <button type="button" class={boutonLien} onclick={() => (choixAjout = modifiables.map((p) => p.id))}>Tout cocher</button>
+          {:else if avecRetrait}
+            <button type="button" class={boutonLien} onclick={() => (choixAjout = [])}>Tout décocher</button>
           {/if}
         </Feuille>
       {/if}

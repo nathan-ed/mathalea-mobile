@@ -137,9 +137,23 @@ for (const [appareil, theme] of [
   await pagePrete(e)
   ok((await texte(e)).includes('2 parcours ajoutés à ton accueil.'), `${suffixe} : ajout confirmé, on reste dans le degré`)
   ok((await e.locator('main .tuile', { hasText: 'Ajouté' }).count()) === 2, `${suffixe} : parcours marqués « Ajouté »`)
-  ok(!(await e.getByRole('button', { name: 'Ajouter plusieurs parcours' }).count()), `${suffixe} : plus rien à ajouter, bouton retiré`)
-  const ajoutes = await e.evaluate(() => JSON.parse(localStorage.getItem('copie:ajoutes') ?? '[]').map((p) => p.id))
+  const lireAjoutes = () => e.evaluate(() => JSON.parse(localStorage.getItem('copie:ajoutes') ?? '[]').map((p) => p.id))
+  const ajoutes = await lireAjoutes()
   ok(ajoutes.length === 2 && ajoutes.includes('ch-4c-integrales'), `${suffixe} : parcours enregistrés à l'accueil`, ajoutes)
+
+  // Retirer : le panneau coche ce qui est sur l'accueil, décocher le retire
+  await e.getByRole('button', { name: 'Ajouter ou retirer des parcours' }).click()
+  await panneau.waitFor()
+  ok((await panneau.locator('li [role=checkbox][aria-checked=true]').count()) === 2, `${suffixe} : parcours de l'accueil cochés dans le panneau`)
+  await panneau.getByRole('checkbox', { name: /Exponentielle et logarithme/ }).click()
+  const valider = panneau.getByRole('button', { name: /^(Ajouter|Retirer)/ })
+  ok((await valider.innerText()).trim() === 'Retirer 1 parcours', `${suffixe} : décocher propose de retirer`)
+  await cap(e, `2c-retirer-${suffixe}`)
+  await valider.click()
+  await pagePrete(e)
+  ok((await texte(e)).includes('1 parcours retiré de ton accueil.'), `${suffixe} : retrait confirmé`)
+  ok((await e.locator('main .tuile', { hasText: 'Ajouté' }).count()) === 1, `${suffixe} : un seul parcours encore marqué « Ajouté »`)
+  ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : parcours retiré de l'accueil enregistré`)
 
   // Bouton retour du téléphone : degré, Explorer, puis Mes parcours
   await e.goBack()
@@ -149,6 +163,18 @@ for (const [appareil, theme] of [
   await pagePrete(e)
   ok((await onglet(e, 'Mes parcours').getAttribute('aria-selected')) === 'true' || (await texte(e)).includes('Mes parcours'), `${suffixe} : retour à Mes parcours`)
   ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours ajoutés sur l'accueil`)
+  ok(!(await texte(e)).includes('Exponentielle et logarithme'), `${suffixe} : parcours retiré absent de l'accueil`)
+
+  // Épingler depuis l'accueil un parcours venu de l'Explorer : il monte dans « Épinglés » et reste ajouté
+  await e.getByRole('button', { name: 'Épingler « Calcul intégral » à l’accueil' }).click()
+  await pagePrete(e)
+  const accueilEpingle = await texte(e)
+  ok(/Épinglés Calcul intégral/.test(accueilEpingle) && !accueilEpingle.includes('Ajoutés depuis Explorer'), `${suffixe} : parcours de l'Explorer épinglé depuis l'accueil`)
+  ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : épingler ne retire pas le parcours`)
+  await cap(e, `2d-epingle-${suffixe}`)
+  await e.getByRole('button', { name: 'Désépingler « Calcul intégral »' }).click()
+  await pagePrete(e)
+  ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : désépinglé, toujours sur l'accueil`)
 
   // Ouvrir un parcours puis revenir : on retrouve le degré
   await onglet(e, 'Explorer').click()

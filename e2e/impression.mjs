@@ -84,7 +84,6 @@ for (const a of appareils) {
   await page.goto(base)
   await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
   await page.getByText('6e').first().click().catch(() => {})
-  await page.getByRole('button', { name: /^Géométrie/ }).first().click()
   await page.getByRole('button', { name: /^Parcours à imprimer/ }).first().click({ timeout: 30_000 })
   await pagePrete(page)
 

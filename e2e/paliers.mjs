@@ -257,7 +257,7 @@ for (const theme of ['clair', 'sombre']) {
   // Épingler depuis l’accueil, sans ouvrir le parcours
   await e.getByRole('button', { name: /Épingler « Relatifs en trois paliers »/ }).click()
   await pagePrete(e)
-  ok(await e.getByRole('button', { name: /Retirer « Relatifs en trois paliers » de l’accueil/ }).first().isVisible(), 'accueil : épinglé depuis la tuile')
+  ok(await e.getByRole('button', { name: /Désépingler « Relatifs en trois paliers »/ }).first().isVisible(), 'accueil : épinglé depuis la tuile')
   await cap(e, '13-accueil-epingle', theme)
   ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
   await e.context().close()

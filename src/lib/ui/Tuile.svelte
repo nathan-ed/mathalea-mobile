@@ -63,7 +63,7 @@
     </button>
     <button
       type="button"
-      aria-label={epingle ? `Retirer « ${title} » de l’accueil` : `Épingler « ${title} » à l’accueil`}
+      aria-label={epingle ? `Désépingler « ${title} »` : `Épingler « ${title} » à l’accueil`}
       aria-pressed={epingle}
       class="bouton-icone mr-1"
       onclick={onepingler}

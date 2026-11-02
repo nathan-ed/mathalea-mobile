@@ -427,6 +427,17 @@
     for (const p of nouveaux) await chargerParcours(p)
   }
 
+  /** Explorer, élève : parcours retirés de l'accueil et de ses épingles */
+  async function retirerPlusieurs(liste: Parcours[]) {
+    const ids = liste.map((p) => p.id)
+    ajoutes = ajoutes.filter((a) => !ids.includes(a.id))
+    await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
+    if (epingles.some((id) => ids.includes(id))) {
+      epingles = epingles.filter((id) => !ids.includes(id))
+      await stockage!.ecrire('epingles', epingles)
+    }
+  }
+
   async function changerPays(p: Pays) {
     pays = p
     moteur?.definirLangue(p === 'CH' ? 'fr-CH' : 'fr-FR')
@@ -1378,10 +1389,12 @@
       {resumeTest}
       onajouter={ajouterClasse}
       onchoisirClasse={choisirClasse}
-      onepingler={(p) => (dansSources(p.id) ? basculerEpingle(p) : basculerAjout(p))}
+      onepingler={basculerEpingle}
       dejaAjoute={(p) =>
         profil === 'enseignant' && !vueEleve ? bibliotheque.parcours.some((pe) => pe.parcours.id === p.id) : dansSources(p.id) || ajoutes.some((a) => a.id === p.id)}
       onajouterPlusieurs={(liste) => (profil === 'enseignant' && !vueEleve ? adopterPlusieurs(liste) : ajouterPlusieurs(liste))}
+      retirable={(p) => !dansSources(p.id) && ajoutes.some((a) => a.id === p.id)}
+      onretirerPlusieurs={profil === 'enseignant' && !vueEleve ? undefined : retirerPlusieurs}
       onorganiser={async (source, o) => {
         organisations = { ...organisations, [source]: o }
         await stockage!.ecrire('chapitres', $state.snapshot(organisations))
