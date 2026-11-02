@@ -11,6 +11,8 @@
   import ChampTexte from './ChampTexte.svelte'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
+  import Impression from './Impression.svelte'
+  import { impressionPossible } from '$lib/impression'
   import ReglageSession from './ReglageSession.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille } from './classes'
 
@@ -45,7 +47,7 @@
   } = $props()
 
   const p = $derived(pe.parcours)
-  let feuille: 'actions' | 'suppression' | 'classe' | 'session' | null = $state(null)
+  let feuille: 'actions' | 'suppression' | 'classe' | 'session' | 'impression' | null = $state(null)
   let nouvelle = $state('')
   let message = $state('')
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
@@ -213,6 +215,7 @@
   </Feuille>
 {:else if feuille === 'actions'}
   {@const actions = [
+    ...(impressionPossible() ? [{ icone: 'bx-printer', libelle: 'Imprimer', fn: () => (feuille = 'impression') }] : []),
     { icone: 'bx-export', libelle: 'Exporter ce parcours seul', fn: async () => ((feuille = null), (message = await onexporter())) },
     { icone: 'bx-copy', libelle: 'Dupliquer', fn: () => ((feuille = null), ondupliquer()) },
     { icone: 'bx-trash', libelle: 'Supprimer le parcours', fn: () => (feuille = 'suppression') },
@@ -231,6 +234,8 @@
       {/each}
     </ul>
   </Feuille>
+{:else if feuille === 'impression'}
+  <Impression parcours={p} enseignant onfermer={() => (feuille = null)} />
 {:else if feuille === 'suppression'}
   <Feuille onfermer={() => (feuille = null)}>
     <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Supprimer « {p.titre || 'Sans titre'} » ?</p>

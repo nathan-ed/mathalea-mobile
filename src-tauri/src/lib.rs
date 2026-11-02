@@ -1,3 +1,4 @@
+mod impression;
 mod moteur;
 mod partage;
 mod telechargement;
@@ -28,7 +29,8 @@ pub fn run() {
             partage::partager_fichier,
             partage::enregistrer_fichier,
             partage::barre_etat,
-            partage::marges
+            partage::marges,
+            impression::compiler_pdf
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

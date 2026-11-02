@@ -36,6 +36,11 @@ sha2 = "0.11.1"
 flate2 = "1.1.10"
 tar = "0.4.46"
 base64 = "0.23.1"
+# Impression : compilateur Typst embarqué (voir src/impression.rs)
+typst = "0.15.1"
+typst-pdf = "0.15.1"
+typst-layout = "0.15.1"
+include_dir = "0.7.4"
 
 # Linux : caméra dans le WebView (WebKitGTK), pour lire les QR codes des élèves
 [target.'cfg(target_os = "linux")'.dependencies]

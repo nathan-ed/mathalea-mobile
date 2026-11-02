@@ -22,7 +22,7 @@ import java.io.File
 class PartagerArgs {
   lateinit var nom: String
   var texte: String = ""
-  // Fichier binaire (image) : ses octets en base64, à la place du texte
+  // Fichier binaire (image, PDF) : ses octets en base64, à la place du texte
   var base64: String? = null
 }
 
@@ -35,6 +35,7 @@ private fun typeDe(nom: String) = when {
   nom.endsWith(".csv") -> "text/csv"
   nom.endsWith(".txt") -> "text/plain"
   nom.endsWith(".png") -> "image/png"
+  nom.endsWith(".pdf") -> "application/pdf"
   else -> "application/json"
 }
 

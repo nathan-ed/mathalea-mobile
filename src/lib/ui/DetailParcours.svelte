@@ -17,6 +17,8 @@
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
+  import Impression from './Impression.svelte'
+  import { impressionPossible } from '$lib/impression'
   import { retourSi } from '$lib/navigation.svelte'
 
   let {
@@ -71,7 +73,7 @@
   let code = $state('')
   // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton ;
   // « session » : réglages de la session pour la classe (enseignant)
-  let feuille: 'actions' | 'suppression' | 'session' | null = $state(null)
+  let feuille: 'actions' | 'suppression' | 'session' | 'impression' | null = $state(null)
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
@@ -457,6 +459,7 @@
         session = 'rejoindre'
         feuille = null
       }),
+      ...(impressionPossible() ? [action('bx-printer', 'Imprimer', () => (feuille = 'impression'))] : []),
     ]}
     <Feuille onfermer={() => (feuille = null)}>
       <ul class={listeGroupee}>
@@ -489,6 +492,9 @@
         >
       </div>
     </Feuille>
+  {/if}
+  {#if feuille === 'impression'}
+    <Impression {parcours} enseignant={!!onsessionClasse} onfermer={() => (feuille = null)} />
   {/if}
   {#if feuille === 'session' && onsessionClasse}
     <ReglageSession

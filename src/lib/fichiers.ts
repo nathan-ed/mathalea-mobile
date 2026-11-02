@@ -42,8 +42,8 @@ export async function enregistrerFichier(nom: string, texte: string): Promise<En
   return 'fichier'
 }
 
-/** Image PNG (octets en base64) : partagée, enregistrée sur le téléphone, ou « Enregistrer sous » */
-export async function enregistrerImage(nom: string, base64: string): Promise<Enregistrement> {
+/** Fichier binaire (octets en base64) : partagé, enregistré sur le téléphone, ou « Enregistrer sous » */
+async function enregistrerOctets(nom: string, base64: string, type: string, filtre: { name: string; extensions: string[] }): Promise<Enregistrement> {
   if (partageNatif) {
     const { invoke } = await import('@tauri-apps/api/core')
     const choix = android ? await choisirEnregistrement(nom) : 'partager'
@@ -56,18 +56,24 @@ export async function enregistrerImage(nom: string, base64: string): Promise<Enr
   if (dansTauri) {
     const { save } = await import('@tauri-apps/plugin-dialog')
     const { writeFile } = await import('@tauri-apps/plugin-fs')
-    const chemin = await save({ defaultPath: nom, filters: [{ name: 'Image PNG', extensions: ['png'] }] })
+    const chemin = await save({ defaultPath: nom, filters: [filtre] })
     if (!chemin) return false
     await writeFile(chemin, octets)
     return 'fichier'
   }
   const lien = document.createElement('a')
-  lien.href = URL.createObjectURL(new Blob([octets], { type: 'image/png' }))
+  lien.href = URL.createObjectURL(new Blob([octets], { type }))
   lien.download = nom
   lien.click()
   setTimeout(() => URL.revokeObjectURL(lien.href), 1000)
   return 'fichier'
 }
+
+/** Image PNG (octets en base64) */
+export const enregistrerImage = (nom: string, base64: string) => enregistrerOctets(nom, base64, 'image/png', { name: 'Image PNG', extensions: ['png'] })
+
+/** Document PDF (octets en base64) */
+export const enregistrerPdf = (nom: string, base64: string) => enregistrerOctets(nom, base64, 'application/pdf', { name: 'PDF', extensions: ['pdf'] })
 
 /** Ouvre un lien (ressource d'un palier, dossier partagé) dans le navigateur du téléphone */
 export async function ouvrirLien(adresse: string) {

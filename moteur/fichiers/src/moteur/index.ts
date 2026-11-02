@@ -42,6 +42,17 @@ import {
 import { loadMathLive } from '../modules/loaders'
 import katex from 'katex'
 import {
+  buildTypstDocument,
+  defaultTypstDocumentOptions,
+  type TypstDocumentOptions,
+  type TypstExerciseInput,
+} from '../components/setup/typst/buildTypstDocument'
+import {
+  escapeTypstText,
+  htmlToTypst,
+} from '../components/setup/typst/latexToTypst'
+import { context } from '../modules/context'
+import {
   buildReferentiel,
   codeToLevelTitle,
   getAllEndings,
@@ -766,4 +777,184 @@ export async function listerExercices(
   }
   parcourir(arbre, [])
   return liste
+}
+
+// ---------------------------------------------------------------------------
+// Impression : source Typst d'une fiche d'exercices (et de ses fiches de
+// cours), compilée en PDF par l'hôte. Même mise en page que la vue Typst du
+// site (buildTypstDocument), exercices générés sans interactivité.
+
+/** Bloc d'une fiche de cours, déjà en HTML (formules LaTeX entre $ gardées telles quelles) */
+export type BlocCoursImprime =
+  | { type: 'texte'; html: string }
+  | { type: 'encadre'; titre: string; html: string }
+  | { type: 'exemple'; titre: string; html: string; etapes: string[] }
+  /** Image fournie à part à la compilation (`fichier` : chemin dans le projet Typst) */
+  | { type: 'image'; fichier: string; legende?: string }
+
+export interface CoursImprime {
+  titre: string
+  blocs: BlocCoursImprime[]
+}
+
+export interface OptionsImpression {
+  titre: string
+  sousTitre?: string
+  /** Nombre de versions (sujets A, B…) : mêmes exercices, autres valeurs */
+  versions?: number
+  /** Corrections en fin de document */
+  corrections?: boolean
+  /** Fiches de cours, imprimées avant les exercices (une seule fois) */
+  cours?: CoursImprime[]
+}
+
+/** Contenu d'un exercice, généré pour l'impression (comme Typst.svelte, `buildInputs`) */
+async function entreeTypst(
+  params: ParamsExercice,
+  numero: number,
+): Promise<TypstExerciseInput> {
+  const exercice = await mathaleaLoadExerciceFromUuid(params.uuid)
+  const entree: TypstExerciseInput = {
+    title: exercice.titre ?? '',
+    ref: params.id ?? '',
+    intro: '',
+    questions: [],
+    introCorrection: '',
+    corrections: [],
+    numbered: false,
+  }
+  if (
+    exercice.typeExercice === 'statique' ||
+    (exercice.typeExercice != null && exercice.typeExercice.includes('html'))
+  ) {
+    entree.warning = `${exercice.titre ?? 'Exercice'} : cet exercice ne peut pas être imprimé.`
+    return entree
+  }
+  const p: InterfaceParams = {
+    ...params,
+    alea: params.alea ?? mathaleaGenerateSeed(),
+    interactif: '0',
+  } as InterfaceParams
+  mathaleaHandleParamOfOneExercice(exercice, p)
+  exercice.interactif = false
+  exercice.numeroExercice = numero
+  seedrandom(String(exercice.seed), { global: true })
+  context.isTypst = true
+  try {
+    if (exercice.typeExercice === 'simple') {
+      mathaleaHandleExerciceSimple(exercice, false, numero)
+    } else if (typeof exercice.nouvelleVersionWrapper === 'function') {
+      exercice.nouvelleVersionWrapper(numero)
+    }
+  } finally {
+    context.isTypst = false
+  }
+  const format = (texte: string) =>
+    mathaleaFormatExercice(texte).replaceAll('{zoomFactor}', '1')
+  entree.intro = mathaleaFormatExercice(
+    [exercice.consigne, exercice.introduction]
+      .filter((t) => t != null && t.length > 0)
+      .join('<br>'),
+  )
+  entree.consigne = mathaleaFormatExercice(exercice.consigne ?? '')
+  entree.introduction = mathaleaFormatExercice(exercice.introduction ?? '')
+  entree.questions = (exercice.listeQuestions ?? []).map(format)
+  entree.corrections = (exercice.listeCorrections ?? []).map(format)
+  entree.introCorrection = mathaleaFormatExercice(
+    exercice.consigneCorrection ?? '',
+  )
+  entree.numbered = exercice.listeAvecNumerotation !== false
+  return entree
+}
+
+/** Chaîne Typst entre guillemets */
+const chaineTypst = (t: string) =>
+  `"${t.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`
+
+/**
+ * Fiches de cours en Typst. Les figures SVG rencontrées par htmlToTypst sont
+ * déclarées sous des noms propres au cours (`cours-fig-N`), pour ne pas
+ * croiser celles des exercices (`fig-N`, déclarées par buildTypstDocument).
+ */
+function coursTypst(cours: CoursImprime[]): string {
+  const figures: string[] = []
+  const conv = (html: string) =>
+    htmlToTypst(html, figures).replace(/\bfig-(\d+)/g, 'cours-fig-$1')
+  const corps: string[] = []
+  for (const fiche of cours) {
+    corps.push(
+      `#block(width: 100%, above: 1.2em, below: 0.8em)[#text(size: 1.3em, weight: "bold", fill: couleur)[${escapeTypstText(fiche.titre)}]]`,
+    )
+    for (const bloc of fiche.blocs) {
+      if (bloc.type === 'texte') {
+        corps.push(`#block(width: 100%)[\n${conv(bloc.html)}\n]`)
+      } else if (bloc.type === 'encadre') {
+        corps.push(
+          `#block(width: 100%, inset: 10pt, radius: 4pt, fill: luma(240), breakable: false)[#text(weight: "bold", fill: couleur)[${conv(bloc.titre)}]\n\n${conv(bloc.html)}\n]`,
+        )
+      } else if (bloc.type === 'exemple') {
+        const etapes = bloc.etapes
+          .map((e) => `#block(width: 100%, inset: (left: 8pt), stroke: (left: 2pt + couleur))[\n${conv(e)}\n]`)
+          .join('\n')
+        corps.push(
+          `#block(width: 100%, inset: 10pt, radius: 4pt, stroke: 0.6pt + luma(180))[#text(weight: "bold", fill: couleur)[${conv(bloc.titre)}]\n\n${conv(bloc.html)}\n\n${etapes}\n]`,
+        )
+      } else if (bloc.type === 'image') {
+        const legende =
+          bloc.legende != null && bloc.legende !== ''
+            ? `, caption: [${conv(bloc.legende)}]`
+            : ''
+        corps.push(
+          `#figure(image(${chaineTypst(bloc.fichier)}, width: 55%)${legende})`,
+        )
+      }
+    }
+  }
+  const declarations = figures.flatMap((f, i) => [
+    `#let cours-fig-${i + 1} = ${f}`,
+    `#let cours-fig-${i + 1}-zoom = 1`,
+    `#let cours-fig-${i + 1}-align = center`,
+  ])
+  return [...declarations, ...corps, '#pagebreak(weak: true)', ''].join('\n')
+}
+
+/**
+ * Source Typst complète d'une fiche à imprimer : exercices (nouvelles valeurs
+ * à chaque appel, une version par sujet), corrections en fin de document,
+ * fiches de cours en tête.
+ */
+export async function sourceTypst(
+  exercices: ParamsExercice[],
+  options: OptionsImpression,
+): Promise<string> {
+  const versions = Math.max(1, Math.min(10, Math.round(options.versions ?? 1)))
+  const sujets: TypstExerciseInput[][] = []
+  for (let v = 0; v < versions; v++) {
+    const entrees: TypstExerciseInput[] = []
+    for (const [k, e] of exercices.entries()) {
+      entrees.push(await entreeTypst({ ...e, alea: undefined }, k))
+    }
+    sujets.push(entrees)
+  }
+  const reglages: TypstDocumentOptions = {
+    ...defaultTypstDocumentOptions,
+    title: options.titre,
+    subtitle: options.sousTitre ?? '',
+    showCorrections: options.corrections !== false,
+  }
+  // Un exercice ne commence en bas de page que s'il reste environ 4 cm : à
+  // 5em (réglage de MathALÉA), le titre et la consigne tenaient seuls en bas
+  // de page et les questions partaient sur la suivante
+  let source = buildTypstDocument(sujets[0], reglages, {}, sujets.slice(1), {
+    exportMode: true,
+  }).replaceAll('#mathalea-needspace()', '#mathalea-needspace(hauteur: 10em)')
+  if (options.cours != null && options.cours.length > 0) {
+    // Le cours vient avant les énoncés du premier sujet, sous l'en-tête
+    const repere = '// ----- Énoncés -----'
+    const i = source.indexOf(repere)
+    if (i >= 0) {
+      source = `${source.slice(0, i)}// ----- Cours -----\n${coursTypst(options.cours)}\n${source.slice(i)}`
+    }
+  }
+  return source
 }

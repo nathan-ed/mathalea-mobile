@@ -18,6 +18,19 @@ if ! python3 -I -c 'import PIL' 2>/dev/null || ! command -v ffmpeg > /dev/null; 
   if [ "$(id -u)" = 0 ]; then apt-get install -y python3-pil ffmpeg; else sudo apt-get install -y python3-pil ffmpeg; fi
 fi
 
+# Suite impression : Typst de la même version que celui de l'app (Cargo.toml),
+# et pdftotext / pdftoppm pour lire le PDF
+if ! command -v pdftotext > /dev/null; then
+  if [ "$(id -u)" = 0 ]; then apt-get install -y poppler-utils; else sudo apt-get install -y poppler-utils; fi
+fi
+version_typst="$(sed -nE 's/^typst = "([0-9.]+)"/\1/p' src-tauri/Cargo.toml)"
+if [ "$(typst --version 2>/dev/null | cut -d' ' -f2)" != "$version_typst" ]; then
+  mkdir -p "$HOME/.local/bin"
+  curl -sfL "https://github.com/typst/typst/releases/download/v$version_typst/typst-x86_64-unknown-linux-musl.tar.xz" |
+    tar -xJ --strip-components=1 -C "$HOME/.local/bin" typst-x86_64-unknown-linux-musl/typst
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 journal="${RUNNER_TEMP:-/tmp}/preview.log"
 # Version construite (comme chez les élèves), servie avec les relais de
 # vite.config.js ; NODE_ENV=development garde le relais de téléchargement
