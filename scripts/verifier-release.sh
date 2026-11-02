@@ -38,6 +38,9 @@ npx tsx e2e/preparer.mts "$dossier" > /dev/null
 partage=$!
 
 demarrer() {
+  # Un serveur déjà ouvert sur 1420 (pnpm dev d'une autre session) ferait jouer
+  # les suites sur un autre code : vu le 2026-11-02
+  if curl -s -o /dev/null localhost:1420/; then echo "port 1420 déjà occupé : l'arrêter, ou lancer dans un réseau isolé (unshare -rn, voir docs/developpement.md)"; exit 1; fi
   # Version construite, servie avec les relais de vite.config.js (téléchargement,
   # heure). NODE_ENV=development garde le relais de téléchargement des drives
   # (partage.ts), comme dans un navigateur en développement

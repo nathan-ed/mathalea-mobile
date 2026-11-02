@@ -165,6 +165,9 @@ Rust `telecharger`.
   « précédent ») à chaque niveau de l'élève (page d'un parcours, fiche,
   panneau du bas, onglets, Réglages), confirmations de la séance, aucune
   entrée en attente à l'accueil. Téléphone et bureau, sur l'app servie sur 1420.
+- Port 1420 pris par une autre session (`pnpm dev`) : `verifier-release.sh`
+  refuse de démarrer. Sans toucher à l'autre serveur, le lancer dans un réseau
+  isolé : `unshare -rn bash -c 'ip link set lo up; bash scripts/verifier-release.sh'`.
 - Liste des suites : `scripts/verifier-release.sh` (toutes, sur l'app
   construite servie par `vite preview` sur 1420) et la matrice de
   `release.yml` (suites rapides en CI). Une nouvelle suite entre dans les deux.
