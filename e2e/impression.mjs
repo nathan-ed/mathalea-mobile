@@ -119,6 +119,19 @@ for (const a of appareils) {
   ok(pages >= 3, `${a.nom} : ${pages} pages`)
   execFileSync('pdftoppm', ['-r', '50', '-png', '-f', '1', '-l', '2', chemin, join(captures, `impression-${a.nom}-page`)])
   ok(!(await panneau.count()), `${a.nom} : panneau refermé après l'enregistrement`)
+
+  // Depuis l'accueil : bouton « ⋯ » de la tuile › Imprimer
+  await page.getByRole('button', { name: 'Ajouter à l’accueil' }).click()
+  await page.getByRole('button', { name: 'Ajouté à l’accueil' }).waitFor()
+  await page.getByRole('button', { name: 'Revenir en arrière' }).click()
+  await pagePrete(page)
+  await page.getByRole('tab', { name: 'Mes parcours' }).click()
+  await pagePrete(page)
+  await page.getByRole('button', { name: 'Actions pour « Parcours à imprimer »' }).click()
+  await page.getByRole('dialog').getByRole('button', { name: 'Imprimer' }).click()
+  await page.getByRole('dialog').getByText('Corrections à la fin').waitFor()
+  ok((await page.getByRole('dialog').getByRole('switch').count()) === 5, `${a.nom} : impression ouverte depuis l'accueil`)
+  await page.screenshot({ path: `${captures}/impression-${a.nom}-${a.theme}-accueil.png` })
   await ctx.close()
 }
 

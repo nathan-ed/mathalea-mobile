@@ -304,9 +304,11 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   cases (chapitre entier, « Tout cocher ») et ajoute d'un coup à l'accueil
   (élève) ou à la bibliothèque, sans classe (enseignant), sans quitter
   l'Explorer. Élève : ce qui est déjà à l'accueil est coché, le décocher le
-  retire (`retirerPlusieurs`, épingle comprise). Accueil : épingle sur les
-  tuiles « Ajoutés depuis Explorer » ; l'épingle épingle seulement
-  (`basculerEpingle`), elle ne retire jamais un parcours. Retour d'un parcours : même position dans la page. Test :
+  retire (`retirerPlusieurs`, épingle comprise). Accueil élève : bouton « ⋯ »
+  sur chaque tuile de parcours (`Tuile` `onactions`) : épingler
+  (`basculerEpingle`, qui ne retire jamais), imprimer, retirer de l'accueil
+  pour un parcours de l'Explorer. Retirer ne touche ni `seance:`, ni
+  `historique:`, ni `resultats:` : remis, le parcours reprend tel quel. Retour d'un parcours : même position dans la page. Test :
   `node e2e/explorer.mjs` (catalogue d'essai servi en local, voir l'en-tête).
 - Fiches de cours (`Fiche` dans `catalogue.ts`, écran `Cours.svelte`) : portées
   par le palier (`fiche`) ou le parcours, elles voyagent avec lui et la séance

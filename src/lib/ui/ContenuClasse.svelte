@@ -23,6 +23,7 @@
     onorganiser,
     epingles = [],
     onepingler,
+    onactions,
   }: {
     nom: string
     parcours: Parcours[]
@@ -33,6 +34,7 @@
     onorganiser: (o: Organisation) => void
     epingles?: string[]
     onepingler?: (p: Parcours) => void
+    onactions?: (p: Parcours) => void
   } = $props()
 
   let organiser = $state(false)
@@ -193,6 +195,7 @@
         onclick={() => onouvrir(p)}
         epingle={epingles.includes(p.id)}
         onepingler={onepingler ? () => onepingler(p) : undefined}
+        onactions={onactions ? () => onactions(p) : undefined}
       />
     {/each}
   {/if}

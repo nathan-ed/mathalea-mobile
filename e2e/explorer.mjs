@@ -165,16 +165,29 @@ for (const [appareil, theme] of [
   ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours ajoutés sur l'accueil`)
   ok(!(await texte(e)).includes('Exponentielle et logarithme'), `${suffixe} : parcours retiré absent de l'accueil`)
 
-  // Épingler depuis l'accueil un parcours venu de l'Explorer : il monte dans « Épinglés » et reste ajouté
-  await e.getByRole('button', { name: 'Épingler « Calcul intégral » à l’accueil' }).click()
+  // Bouton « ⋯ » d'une tuile : épingler, puis désépingler, puis retirer de l'accueil
+  const actionsTuile = async (nom) => {
+    await e.getByRole('button', { name: `Actions pour « ${nom} »` }).first().click()
+    const f = e.getByRole('dialog')
+    await f.waitFor()
+    return f
+  }
+  let menu = await actionsTuile('Calcul intégral')
+  ok((await menu.getByRole('button', { name: 'Retirer de l’accueil' }).count()) === 1, `${suffixe} : menu de la tuile, « Retirer de l’accueil » proposé`)
+  await cap(e, `2d-menu-tuile-${suffixe}`)
+  await menu.getByRole('button', { name: 'Épingler à l’accueil' }).click()
   await pagePrete(e)
   const accueilEpingle = await texte(e)
   ok(/Épinglés Calcul intégral/.test(accueilEpingle) && !accueilEpingle.includes('Ajoutés depuis Explorer'), `${suffixe} : parcours de l'Explorer épinglé depuis l'accueil`)
   ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : épingler ne retire pas le parcours`)
-  await cap(e, `2d-epingle-${suffixe}`)
-  await e.getByRole('button', { name: 'Désépingler « Calcul intégral »' }).click()
+  menu = await actionsTuile('Calcul intégral')
+  await menu.getByRole('button', { name: 'Désépingler' }).click()
   await pagePrete(e)
   ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : désépinglé, toujours sur l'accueil`)
+  menu = await actionsTuile('Calcul intégral')
+  await menu.getByRole('button', { name: 'Retirer de l’accueil' }).click()
+  await pagePrete(e)
+  ok(!(await texte(e)).includes('Ajoutés depuis Explorer') && !(await lireAjoutes()).length, `${suffixe} : parcours retiré depuis l'accueil`)
 
   // Ouvrir un parcours puis revenir : on retrouve le degré
   await onglet(e, 'Explorer').click()
@@ -264,6 +277,33 @@ for (const [appareil, theme] of [
   await pagePrete(e)
   ok((await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours dans le suivi`)
   ok(!(await texte(e)).includes('Teste ton niveau'), `${suffixe} : suivi sans « Teste ton niveau » en Suisse`)
+
+  // Retirer un parcours commencé puis le remettre : rien n'est perdu
+  const travail = () => e.evaluate(() => Object.keys(localStorage).filter((k) => /^copie:(seance|historique|resultats):ch-4c-integrales/.test(k) && localStorage.getItem(k) !== 'null').sort().join())
+  const avant = await travail()
+  ok(avant.includes('seance'), `${suffixe} : tentative en cours enregistrée`, avant)
+  await onglet(e, 'Mes parcours').click()
+  await pagePrete(e)
+  await e.getByRole('button', { name: 'Actions pour « Calcul intégral »' }).first().click()
+  await e.getByRole('dialog').getByRole('button', { name: 'Retirer de l’accueil' }).click()
+  await pagePrete(e)
+  ok(!(await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours commencé retiré de l'accueil`)
+  await onglet(e, 'Suivi').click()
+  await pagePrete(e)
+  ok((await texte(e)).includes('Calcul intégral'), `${suffixe} : retiré, toujours dans le suivi`)
+  await onglet(e, 'Explorer').click()
+  await degre.click()
+  await e.getByRole('button', { name: /^Calcul intégral/ }).click()
+  await e.getByRole('button', { name: 'Ajouter à l’accueil' }).click()
+  await e.getByRole('button', { name: 'Ajouté à l’accueil' }).waitFor()
+  await e.getByRole('button', { name: 'Revenir en arrière' }).click()
+  await pagePrete(e)
+  await e.getByRole('button', { name: 'Revenir en arrière' }).click()
+  await pagePrete(e)
+  await onglet(e, 'Mes parcours').click()
+  await pagePrete(e)
+  ok(/En cours Calcul intégral/.test(await texte(e)), `${suffixe} : remis, de nouveau « En cours »`)
+  ok((await travail()) === avant, `${suffixe} : remis, tentative et résultats intacts`)
   await e.context().close()
 
   if (appareil !== 'telephone' || theme !== 'clair') continue

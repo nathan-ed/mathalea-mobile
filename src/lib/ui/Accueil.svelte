@@ -28,6 +28,8 @@
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
+  import Impression from './Impression.svelte'
+  import { impressionPossible } from '$lib/impression'
   import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
   import { retourAccueil, retourSi } from '$lib/navigation.svelte'
@@ -238,6 +240,21 @@
       .join(', ')
     messageAjout = messageAjout.charAt(0).toUpperCase() + messageAjout.slice(1) + '.'
   }
+  // Accueil : bouton « ⋯ » d'une tuile (épingler, imprimer, retirer un parcours de l'Explorer)
+  let actionsDe: Parcours | null = $state(null)
+  let imprimerParcours: Parcours | null = $state(null)
+  const actionsTuile = $derived.by(() => {
+    const p = actionsDe
+    if (!p) return []
+    return [
+      epingles.includes(p.id)
+        ? { icone: 'bxs-pin', libelle: 'Désépingler', fn: () => onepingler(p) }
+        : { icone: 'bx-pin', libelle: 'Épingler à l’accueil', fn: () => onepingler(p) },
+      ...(impressionPossible() ? [{ icone: 'bx-printer', libelle: 'Imprimer', fn: () => (imprimerParcours = p) }] : []),
+      ...(onretirerPlusieurs && retirable?.(p) ? [{ icone: 'bx-trash', libelle: 'Retirer de l’accueil', fn: () => onretirerPlusieurs([p]) }] : []),
+    ]
+  })
+
   $effect(() => {
     void niveau
     messageAjout = ''
@@ -322,20 +339,47 @@
           {#if enCours.length}
             <h2 class={titreSection}>En cours</h2>
             {#each enCours as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => oncontinuer(p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => oncontinuer(p)} onactions={() => (actionsDe = p)} />
             {/each}
           {/if}
           {#if epinglesVisibles.length}
             <h2 class={titreSection}>Épinglés</h2>
             {#each epinglesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle onepingler={() => onepingler(p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} onactions={() => (actionsDe = p)} />
             {/each}
           {/if}
           {#if ajoutesVisibles.length}
             <h2 class={titreSection}>Ajoutés depuis Explorer</h2>
             {#each ajoutesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} onepingler={() => onepingler(p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} onactions={() => (actionsDe = p)} />
             {/each}
+          {/if}
+          {#if actionsDe}
+            <Feuille onfermer={() => (actionsDe = null)}>
+              <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{actionsDe?.titre}</p>
+              <ul class={listeGroupee}>
+                {#each actionsTuile as a (a.libelle)}
+                  <li>
+                    <button
+                      type="button"
+                      class={elementListe}
+                      onclick={() => {
+                        actionsDe = null
+                        a.fn()
+                      }}
+                    >
+                      <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                        <i aria-hidden="true" class="bx {a.icone} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                        {a.libelle}
+                      </span>
+                    </button>
+                  </li>
+                {/each}
+              </ul>
+            </Feuille>
+          {/if}
+          {#if imprimerParcours}
+            <Impression parcours={imprimerParcours} onfermer={() => (imprimerParcours = null)} />
           {/if}
           {#each aChoisir as d (d.lien)}
             <h2 class={titreSection}>Choisis ta classe</h2>
@@ -355,6 +399,7 @@
               onorganiser={(o) => onorganiser(sources[0].id, o)}
               {epingles}
               {onepingler}
+              onactions={(p) => (actionsDe = p)}
             />
           {:else if sources.length > 1}
             <!-- Plusieurs classes : pastilles pour passer de l'une à l'autre -->
@@ -386,6 +431,7 @@
                   onorganiser={(o) => onorganiser(classeVue!.id, o)}
                   {epingles}
                   {onepingler}
+                  onactions={(p) => (actionsDe = p)}
                 />
               {/key}
             {/if}

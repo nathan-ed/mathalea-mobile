@@ -15,12 +15,15 @@
     /** Épingle à l'accueil, à côté de la tuile (sans ouvrir le parcours) */
     epingle?: boolean
     onepingler?: () => void
+    /** Bouton « ⋯ » à côté de la tuile : actions sur le parcours (à la place de l'épingle) */
+    onactions?: () => void
   }
-  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler }: Props = $props()
+  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler, onactions }: Props = $props()
+  const aCote = $derived(!!(onactions || onepingler))
 
   // Avec l'épingle, le fond est porté par l'enveloppe : la tuile et l'épingle forment une seule carte
   const sharedClasses = $derived(`w-full flex flex-row items-center justify-between gap-3 text-left rounded-2xl
-  ${onepingler ? '' : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
+  ${aCote ? '' : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
   active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest
   transition-colors duration-150
   ${size === 'large' ? 'p-5' : 'px-4 py-3'}`)
@@ -56,7 +59,16 @@
 {/snippet}
 
 
-{#if onepingler}
+{#if onactions}
+  <div class="tuile flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+    <button type="button" {onclick} class="{sharedClasses} min-w-0 flex-1">
+      {@render contenu(false)}
+    </button>
+    <button type="button" aria-label="Actions pour « {title} »" aria-haspopup="dialog" class="bouton-icone mr-1" onclick={onactions}>
+      <i aria-hidden="true" class="bx bx-dots-vertical-rounded text-2xl"></i>
+    </button>
+  </div>
+{:else if onepingler}
   <div class="tuile flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
     <button type="button" {onclick} class="{sharedClasses} min-w-0 flex-1">
       {@render contenu(false)}
