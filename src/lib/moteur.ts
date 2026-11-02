@@ -59,6 +59,28 @@ export interface Moteur {
   /** Absent des moteurs antérieurs au 2026-10-18 */
   titreHtml?(titre: string): string
   definirLangue(langue: 'fr-FR' | 'fr-CH'): void
+  /** Source Typst d'une fiche à imprimer (absent des moteurs antérieurs au 2026-11-02) */
+  sourceTypst?(exercices: ParamsExercice[], options: OptionsImpression): Promise<string>
+}
+
+/** Bloc d'une fiche de cours, en HTML (formules LaTeX entre $) */
+export type BlocCoursImprime =
+  | { type: 'texte'; html: string }
+  | { type: 'encadre'; titre: string; html: string }
+  | { type: 'exemple'; titre: string; html: string; etapes: string[] }
+  | { type: 'image'; fichier: string; legende?: string } // fichier fourni à la compilation
+
+export interface CoursImprime {
+  titre: string
+  blocs: BlocCoursImprime[]
+}
+
+export interface OptionsImpression {
+  titre: string
+  sousTitre?: string
+  versions?: number
+  corrections?: boolean
+  cours?: CoursImprime[]
 }
 
 export type Pays = 'FR' | 'CH'
