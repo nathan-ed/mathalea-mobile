@@ -312,10 +312,10 @@ await a.getByRole('tab', { name: 'Explorer' }).click()
 await a.getByText('Parcours proposés par l’équipe MathALÉA').waitFor({ timeout: 60_000 })
 await cap(a, '6b-explorer')
 ok(await a.getByRole('button', { name: /^Teste ton niveau/ }).isVisible(), 'explorer : Teste ton niveau en tête')
-// Explorer rangé par degré puis par chapitre : on descend jusqu'au parcours
+// Explorer rangé par degré, les parcours sous leur chapitre : on ouvre le degré
 // (la tuile « Teste ton niveau » vient avant les degrés)
-for (let i = 0; i < 3 && !(await a.getByRole('button', { name: /Fractions : les bases/ }).isVisible()); i++) {
-  await a.locator('main').getByRole('button').filter({ hasNotText: 'Teste ton niveau' }).first().click()
+for (let i = 0; i < 2 && !(await a.getByRole('button', { name: /Fractions : les bases/ }).isVisible()); i++) {
+  await a.locator('main .tuile').filter({ hasNotText: 'Teste ton niveau' }).first().click()
   await pagePrete(a)
 }
 await a.getByRole('button', { name: /Fractions : les bases/ }).click()

@@ -77,11 +77,10 @@ describe('retour à l’accueil', () => {
   beforeEach(async () => {
     retourAccueil = (await import('../src/lib/navigation.svelte')).retourAccueil
   })
-  const eleve = { chapitre: null, niveau: null, onglet: 'mes', depart: 'mes', enseignant: false, vueEleve: false }
+  const eleve = { niveau: null, onglet: 'mes', depart: 'mes', enseignant: false, vueEleve: false }
   const prof = { ...eleve, onglet: 'creer', depart: 'creer', enseignant: true }
 
-  it('élève : chapitre, puis degré de l’Explorer, puis onglet de départ, puis quitter l’app', () => {
-    expect(retourAccueil({ ...eleve, onglet: 'explorer', niveau: '5e', chapitre: 'Relatifs' })).toBe('chapitre')
+  it('élève : degré de l’Explorer, puis onglet de départ, puis quitter l’app', () => {
     expect(retourAccueil({ ...eleve, onglet: 'explorer', niveau: '5e' })).toBe('niveau')
     expect(retourAccueil({ ...eleve, onglet: 'explorer' })).toBe('depart')
     expect(retourAccueil({ ...eleve, onglet: 'suivi' })).toBe('depart')

@@ -158,7 +158,6 @@ for (const a of appareils) {
   ok(!(await texte(page, 'body')).includes('Teste ton niveau : CM2'), 'ancien test ajouté à l’accueil : retiré')
   await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click()
   await page.getByText('6e').first().click().catch(() => {})
-  await page.getByRole('button', { name: /^Calcul/ }).first().click()
   await page.getByRole('button', { name: /^Parcours Explorer/ }).first().click({ timeout: 30_000 })
   const fiche = await texte(page)
   ok(fiche.includes('Calcul visible') && !/Exercice 2|CAN 6e/.test(fiche), 'fiche : exercice masqué absent')

@@ -66,7 +66,7 @@ Détails : [Révisions](revisions.md).
 
 ### Explorer et Teste ton niveau
 
-- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré puis par chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ».
+- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ». « Ajouter plusieurs parcours » (page d'un degré) en ajoute plusieurs d'un coup, tout le degré si l'on veut : à l'accueil de l'élève, ou à la bibliothèque de l'enseignant.
 - **Teste ton niveau** (programme France seulement ; absent en Suisse) : 15 questions de tous les domaines, du CM1 à la Terminale, corrigées à la fin. 80 % donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange, 5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire de nouvelles questions.
 
 ## Côté enseignant

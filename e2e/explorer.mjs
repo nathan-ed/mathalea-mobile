@@ -1,9 +1,11 @@
 // Explorer rangé par degré puis par chapitre, selon le référentiel du pays
-// (pnpm dev). Élève suisse : seuls les degrés qui ont des parcours, chapitre,
-// liste, bouton retour à chaque niveau, puis la ceinture blanche faite au
+// (pnpm dev). Élève suisse : seuls les degrés qui ont des parcours, page du
+// degré (parcours sous leur chapitre), ajout de plusieurs parcours d'un coup,
+// bouton retour à chaque niveau, puis la ceinture blanche faite au
 // clavier jusqu'au bilan ; le parcours commencé rejoint Mes parcours et le
 // suivi. Élève français : seulement les parcours français. Enseignant :
-// « Donner à des classes » reprend le parcours dans sa bibliothèque.
+// « Donner à des classes » reprend le parcours dans sa bibliothèque, et
+// « Ajouter plusieurs parcours » en reprend plusieurs d'un coup.
 // Téléphone (390 px, clair et sombre) et fenêtre de bureau.
 // Le script sert lui-même le catalogue d'essai (explorer/ch-4e-college.json et
 // un parcours de 5e) ; pnpm dev doit le lire :
@@ -102,7 +104,7 @@ for (const [appareil, theme] of [
   await pagePrete(e)
   const racine = await texte(e)
   // Catalogue intégré à l'app (explorer/*.json) : 11e, Préqualifiant, 4e Collège, dans cet ordre
-  ok(/11e 3 chapitres · 3 parcours Préqualifiant 9 chapitres · 9 parcours 4e Collège 2 chapitres · 2 parcours/.test(racine), `${suffixe} : 11e, Préqualifiant puis 4e Collège, avec leurs parcours`, racine)
+  ok(/11e \d+ chapitres · \d+ parcours Préqualifiant 9 chapitres · 9 parcours 4e Collège 2 chapitres · 2 parcours/.test(racine), `${suffixe} : 11e, Préqualifiant puis 4e Collège, avec leurs parcours`, racine)
   ok(!/\b9e\b|\b10e\b|1re Collège|2e Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
   ok(!racine.includes('5e') && !racine.includes('Nombres relatifs'), `${suffixe} : aucun parcours français en Suisse`)
   // Teste ton niveau : niveaux français, jamais proposé en Suisse (Nathan, 1er novembre 2026)
@@ -113,39 +115,50 @@ for (const [appareil, theme] of [
   await degre.click()
   await pagePrete(e)
   ok((await titre(e)) === '4e Collège', `${suffixe} : écran du degré`)
-  const chapitre = e.getByRole('button', { name: /^Intégration/ })
-  ok((await texte(e)).includes('Intégration 1 parcours'), `${suffixe} : chapitre du référentiel avec ses parcours`)
-  ok((await texte(e)).includes('Exponentielles et logarithmes 1 parcours'), `${suffixe} : second chapitre du degré`)
-  await cap(e, `2-chapitres-${suffixe}`)
+  // Plus de dossier par chapitre : les parcours du degré sous le titre de leur chapitre
+  const chapitres = (await e.locator('main h2').allInnerTexts()).map((x) => x.trim())
+  ok(chapitres.join(',') === 'Exponentielles et logarithmes,Intégration', `${suffixe} : chapitres du référentiel en titres, dans son ordre`)
+  ok(await e.getByRole('button', { name: /^Calcul intégral/ }).isVisible(), `${suffixe} : parcours visibles dès la page du degré`)
+  ok(!(await e.locator('main .bx-folder').count()), `${suffixe} : aucun dossier de chapitre`)
+  await cap(e, `2-degre-${suffixe}`)
 
-  await chapitre.click()
+  // Ajouter plusieurs parcours : panneau du bas, chapitre entier, puis tout
+  await e.getByRole('button', { name: 'Ajouter plusieurs parcours' }).click()
+  const panneau = e.getByRole('dialog')
+  await panneau.waitFor()
+  const ajouter = panneau.getByRole('button', { name: /^Ajouter/ })
+  ok((await ajouter.innerText()).trim() === 'Ajouter' && (await ajouter.isDisabled()), `${suffixe} : rien de coché, ajout impossible`)
+  await panneau.getByRole('checkbox', { name: 'Tout le chapitre Intégration' }).click()
+  ok((await ajouter.innerText()).trim() === 'Ajouter 1 parcours', `${suffixe} : chapitre coché d'un toucher`)
+  await panneau.getByRole('button', { name: 'Tout cocher' }).click()
+  ok((await ajouter.innerText()).trim() === 'Ajouter les 2 parcours', `${suffixe} : tout le degré coché`)
+  await cap(e, `2b-ajout-plusieurs-${suffixe}`)
+  await ajouter.click()
   await pagePrete(e)
-  ok((await titre(e)) === 'Intégration', `${suffixe} : écran du chapitre`)
-  const liste = await texte(e)
-  ok(liste.includes('Calcul intégral') && (liste.includes('8 ceintures') || liste.includes('Ceintures blanche à noire, 2e dan')), `${suffixe} : parcours du chapitre, ses ceintures`)
-  await cap(e, `3-parcours-${suffixe}`)
+  ok((await texte(e)).includes('2 parcours ajoutés à ton accueil.'), `${suffixe} : ajout confirmé, on reste dans le degré`)
+  ok((await e.locator('main .tuile', { hasText: 'Ajouté' }).count()) === 2, `${suffixe} : parcours marqués « Ajouté »`)
+  ok(!(await e.getByRole('button', { name: 'Ajouter plusieurs parcours' }).count()), `${suffixe} : plus rien à ajouter, bouton retiré`)
+  const ajoutes = await e.evaluate(() => JSON.parse(localStorage.getItem('copie:ajoutes') ?? '[]').map((p) => p.id))
+  ok(ajoutes.length === 2 && ajoutes.includes('ch-4c-integrales'), `${suffixe} : parcours enregistrés à l'accueil`, ajoutes)
 
-  // Bouton retour du téléphone : chapitre, degré, Explorer, puis Mes parcours
-  await e.goBack()
-  await pagePrete(e)
-  ok((await titre(e)) === '4e Collège', `${suffixe} : retour au degré`)
+  // Bouton retour du téléphone : degré, Explorer, puis Mes parcours
   await e.goBack()
   await pagePrete(e)
   ok(await degre.isVisible(), `${suffixe} : retour à l'Explorer`)
   await e.goBack()
   await pagePrete(e)
   ok((await onglet(e, 'Mes parcours').getAttribute('aria-selected')) === 'true' || (await texte(e)).includes('Mes parcours'), `${suffixe} : retour à Mes parcours`)
+  ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours ajoutés sur l'accueil`)
 
-  // Ouvrir un parcours puis revenir : on retrouve le chapitre
+  // Ouvrir un parcours puis revenir : on retrouve le degré
   await onglet(e, 'Explorer').click()
   await degre.click()
-  await chapitre.click()
   await e.getByRole('button', { name: /^Calcul intégral/ }).click()
   await e.getByRole('button', { name: 'Commencer', exact: true }).waitFor()
   await cap(e, `4-fiche-${suffixe}`)
   await e.getByRole('button', { name: 'Revenir en arrière' }).click()
   await pagePrete(e)
-  ok((await titre(e)) === 'Intégration', `${suffixe} : retour d'un parcours au chapitre`)
+  ok((await titre(e)) === '4e Collège', `${suffixe} : retour d'un parcours au degré`)
 
   // Ceinture blanche, au clavier, jusqu'au bilan
   await e.getByRole('button', { name: /^Calcul intégral/ }).click()
@@ -258,7 +271,6 @@ for (const [appareil, theme] of [
   const t = await ouvrir('enseignant', appareil, theme, { profil: 'enseignant', pays: 'CH' })
   await onglet(t, 'Explorer').click()
   await t.getByRole('button', { name: /^4e Collège/ }).click({ timeout: 60_000 })
-  await t.getByRole('button', { name: /^Intégration/ }).click()
   await t.getByRole('button', { name: /^Calcul intégral/ }).click()
   ok(!(await t.getByRole('button', { name: 'Ajouter à l’accueil' }).count()), 'enseignant : pas d’ajout à l’accueil')
   await t.getByRole('button', { name: 'Donner à des classes' }).click()
@@ -268,6 +280,24 @@ for (const [appareil, theme] of [
   const biblio = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')))
   ok(biblio?.parcours?.some((pe) => pe.parcours.id === 'ch-4c-integrales'), 'enseignant : parcours repris dans la bibliothèque')
   await t.context().close()
+
+  // ---------- Enseignant : tout un degré dans sa bibliothèque d'un coup ----------
+  const t2 = await ouvrir('enseignant, plusieurs', appareil, theme, { profil: 'enseignant', pays: 'CH' })
+  await onglet(t2, 'Explorer').click()
+  await t2.getByRole('button', { name: /^Préqualifiant/ }).click({ timeout: 60_000 })
+  await pagePrete(t2)
+  await t2.getByRole('button', { name: 'Ajouter plusieurs parcours' }).click()
+  await t2.getByRole('dialog').getByRole('button', { name: 'Tout cocher' }).click()
+  await t2.getByRole('dialog').getByRole('button', { name: 'Ajouter les 9 parcours' }).click()
+  await pagePrete(t2)
+  ok((await titre(t2)) === 'Préqualifiant' && (await texte(t2)).includes('9 parcours ajoutés à votre bibliothèque.'), 'enseignant : 9 parcours ajoutés, on reste dans l’Explorer')
+  await cap(t2, `9-enseignant-plusieurs-${theme}`)
+  const biblio2 = await t2.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')))
+  ok(biblio2?.parcours?.length === 9 && biblio2.parcours.every((pe) => pe.parcours.niveau === 'Préqualifiant' && !pe.classes.length), 'enseignant : les 9 parcours dans la bibliothèque, sans classe')
+  await onglet(t2, 'Parcours').click()
+  await pagePrete(t2)
+  ok((await texte(t2)).includes('Fractions'), 'enseignant : parcours ajoutés dans l’onglet Parcours')
+  await t2.context().close()
 }
 
 await nav.close()

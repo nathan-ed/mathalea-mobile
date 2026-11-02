@@ -235,7 +235,7 @@ for (const appareil of Object.keys(appareils)) {
     await o.ctx.close()
   }
 
-  // ---------- Explorer (Suisse) : degrés, chapitres, parcours, fiche de cours ----------
+  // ---------- Explorer (Suisse) : degrés, parcours d'un degré, ajout de plusieurs, parcours, fiche de cours ----------
   {
     const o = await ouvrir(appareil, { profil: 'eleve', pays: 'CH' })
     const { page } = o
@@ -244,10 +244,12 @@ for (const appareil of Object.keys(appareils)) {
     await verifier(o, a('Explorer, degrés'))
     await page.getByRole('button', { name: /^\s*Préqualifiant/ }).click()
     await page.getByRole('button', { name: /^\s*Fractions/ }).waitFor()
-    await verifier(o, a('Explorer, chapitres du Préqualifiant'))
+    await verifier(o, a('Explorer, parcours du Préqualifiant'))
+    await page.getByRole('button', { name: 'Ajouter plusieurs parcours' }).click()
+    await verifierPanneau(o, a('Explorer, panneau « Ajouter des parcours »'), true)
+    await retour(page)
     await retour(page)
     await page.getByRole('button', { name: /^\s*11e/ }).click()
-    await page.getByRole('button', { name: /^\s*EVACOM TAF/ }).click()
     await page.getByRole('button', { name: /Réviser l’EVACOM TAF/ }).first().click()
     await page.getByRole('button', { name: /Commencer/ }).first().waitFor()
     await verifier(o, a('Explorer, page du parcours EVACOM TAF'))

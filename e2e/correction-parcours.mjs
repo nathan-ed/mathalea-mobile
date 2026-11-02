@@ -127,7 +127,6 @@ async function ouvrir(page, p) {
   if (!(await tuile.isVisible().catch(() => false))) {
     await page.getByRole('tab', { name: 'Explorer' }).click({ timeout: 60_000 })
     await page.getByText('5e').first().click().catch(() => {})
-    await page.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
   }
   await page.getByRole('button', { name: new RegExp(`^${p.titre}`) }).first().click({ timeout: 30_000 })
 }

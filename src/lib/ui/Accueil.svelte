@@ -12,18 +12,22 @@
     nom: string
     parcours: import('$lib/catalogue').Parcours[]
   }
+
+  // Position dans la page d'un degré de l'Explorer, retrouvée au retour d'un parcours
+  let defilementNiveau: { niveau: string | null; y: number } | null = null
 </script>
 
 <script lang="ts">
   import { quand } from '$lib/revisions'
   import { organisationDe } from '$lib/catalogue'
-  import type { Snippet } from 'svelte'
+  import { onMount, type Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
   import type { NiveauExplorer } from '$lib/explorer'
   import ChampTexte from './ChampTexte.svelte'
   import ContenuClasse, { type Organisation } from './ContenuClasse.svelte'
-  import { boutonAction } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
   import EnTete from './EnTete.svelte'
+  import Feuille from './Feuille.svelte'
   import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
   import { retourAccueil, retourSi } from '$lib/navigation.svelte'
@@ -38,7 +42,6 @@
     epingles,
     onglet = $bindable('mes'),
     niveau = $bindable(null),
-    chapitre = $bindable(null),
     enseignant = false,
     suivi,
     fiches,
@@ -59,6 +62,8 @@
     onchoisirClasse,
     onorganiser,
     onepingler,
+    dejaAjoute,
+    onajouterPlusieurs,
   }: {
     sources: Source[]
     explorer: NiveauExplorer[] // parcours de l'équipe MathALÉA du pays choisi, par degré et chapitre
@@ -69,7 +74,6 @@
     epingles: string[]
     onglet?: 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
     niveau?: string | null // Explorer : degré ouvert (gardé au retour d'un parcours)
-    chapitre?: string | null // Explorer : chapitre ouvert
     enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
     suivi: Snippet
     fiches?: Snippet // fiches de cours de l'élève (fiches.ts)
@@ -90,6 +94,8 @@
     onchoisirClasse: (lien: string, classe: string) => void
     onorganiser: (source: string, o: Organisation) => void
     onepingler: (p: Parcours) => void
+    dejaAjoute: (p: Parcours) => boolean // Explorer : déjà à l'accueil (élève) ou dans la bibliothèque (enseignant)
+    onajouterPlusieurs: (liste: Parcours[]) => Promise<void> // Explorer : ajout de plusieurs parcours d'un coup
   } = $props()
 
   let lien = $state('')
@@ -136,7 +142,6 @@
   })
   const ajoutesVisibles = $derived(ajoutes.filter((p) => !resumes[p.id]?.enCours && !epingles.includes(p.id)))
   const niveauOuvert = $derived(explorer.find((n) => n.niveau === niveau) ?? null)
-  const chapitreOuvert = $derived(niveauOuvert?.chapitres.find((c) => c.theme === chapitre) ?? null)
   const enCours = $derived(tous.filter((p) => resumes[p.id]?.enCours))
   const epinglesVisibles = $derived(
     epingles.map((id) => tous.find((p) => p.id === id)).filter((p): p is Parcours => !!p && !resumes[p.id]?.enCours),
@@ -160,13 +165,12 @@
   // Onglet d'accueil, où l'app s'ouvre : « retour » y ramène avant de quitter l'app
   // (en vue élève : Mes parcours, puis l'espace enseignant)
   const depart = $derived(espaceProf ? 'creer' : 'mes')
-  const aRefermer = () => retourAccueil({ chapitre, niveau, onglet, depart, enseignant: !!enseignant, vueEleve: !!vueEleve })
+  const aRefermer = () => retourAccueil({ niveau, onglet, depart, enseignant: !!enseignant, vueEleve: !!vueEleve })
   retourSi(
     () => aRefermer() !== null,
     () => {
       const r = aRefermer()
-      if (r === 'chapitre') chapitre = null
-      else if (r === 'niveau') niveau = null
+      if (r === 'niveau') niveau = null
       else if (r === 'depart') changerOnglet(depart)
       else if (r === 'quitterVueEleve') onquitterVueEleve?.()
     },
@@ -175,9 +179,41 @@
   function changerOnglet(o: typeof onglet) {
     onglet = o
     niveau = null
-    chapitre = null
     recherche = ''
   }
+
+  // Explorer : la page du degré garde sa position au retour d'un parcours
+  const ouvrirDepuisNiveau = (p: Parcours) => {
+    defilementNiveau = { niveau, y: scrollY }
+    ouvrir(p)
+  }
+  onMount(() => {
+    if (onglet === 'explorer' && niveau && defilementNiveau?.niveau === niveau) {
+      const y = defilementNiveau.y
+      requestAnimationFrame(() => scrollTo(0, y))
+    }
+    defilementNiveau = null
+  })
+
+  // Explorer : plusieurs parcours du degré ajoutés d'un coup (panneau du bas)
+  const espaceAjout = $derived(espaceProf ? 'à votre bibliothèque' : 'à ton accueil')
+  let choixAjout: string[] | null = $state(null)
+  let messageAjout = $state('')
+  const aAjouter = $derived(niveauOuvert ? niveauOuvert.chapitres.flatMap((c) => c.parcours).filter((p) => !dejaAjoute(p)) : [])
+  const basculerChoix = (ids: string[], cocher: boolean) => {
+    const reste = (choixAjout ?? []).filter((id) => !ids.includes(id))
+    choixAjout = cocher ? [...reste, ...ids] : reste
+  }
+  async function ajouterChoisis() {
+    const liste = aAjouter.filter((p) => choixAjout?.includes(p.id))
+    choixAjout = null
+    await onajouterPlusieurs(liste)
+    messageAjout = `${liste.length} parcours ajouté${liste.length > 1 ? 's' : ''} ${espaceAjout}.`
+  }
+  $effect(() => {
+    void niveau
+    messageAjout = ''
+  })
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -188,9 +224,7 @@
   {:else if onglet === 'classe' && espaceProf && enClasse}
     {@render enClasse()}
   {:else}
-  {#if onglet === 'explorer' && chapitreOuvert}
-    <EnTete titre={chapitreOuvert.theme} onretour={() => (chapitre = null)} />
-  {:else if onglet === 'explorer' && niveauOuvert}
+  {#if onglet === 'explorer' && niveauOuvert}
     <EnTete titre={niveauOuvert.niveau} onretour={() => (niveau = null)} />
   {:else}
     <EnTete>
@@ -348,18 +382,68 @@
           {/if}
         {/if}
       </div>
-    {:else if onglet === 'explorer' && chapitreOuvert}
-      <div class="liste-tuiles flex flex-col gap-3 p-4">
-        {#each chapitreOuvert.parcours as p (p.id)}
-          <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
-        {/each}
-      </div>
     {:else if onglet === 'explorer' && niveauOuvert}
+      <!-- Tous les parcours du degré, rangés sous leur chapitre -->
       <div class="liste-tuiles flex flex-col gap-3 p-4">
+        {#if aAjouter.length > 1}
+          <button type="button" class="{boutonInverse} w-full" onclick={() => (choixAjout = [])}>
+            <i aria-hidden="true" class="bx bx-list-plus mr-1"></i> Ajouter plusieurs parcours
+          </button>
+        {/if}
+        {#if messageAjout}
+          <p class="pl-2 text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="status">{messageAjout}</p>
+        {/if}
         {#each niveauOuvert.chapitres as c (c.theme)}
-          <Tuile icon="bx-folder" title={c.theme} subtitle="{c.parcours.length} parcours" onclick={() => (chapitre = c.theme)} />
+          <h2 class={titreSection}>{c.theme}</h2>
+          {#each c.parcours as p (p.id)}
+            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p) || (dejaAjoute(p) ? 'Ajouté' : '')} onclick={() => ouvrirDepuisNiveau(p)} />
+          {/each}
         {/each}
       </div>
+      {#if choixAjout}
+        <Feuille onfermer={() => (choixAjout = null)}>
+          <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Ajouter des parcours de {niveauOuvert.niveau}</p>
+          <div class="flex flex-col gap-2 overflow-y-auto" style="max-height: 50vh">
+            {#each niveauOuvert.chapitres as c (c.theme)}
+              {@const ids = c.parcours.filter((p) => !dejaAjoute(p)).map((p) => p.id)}
+              {#if ids.length}
+                {@const tousCoches = ids.every((id) => choixAjout?.includes(id))}
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked={tousCoches}
+                  aria-label="Tout le chapitre {c.theme}"
+                  class="presse flex flex-row items-center justify-between gap-2 rounded-lg pl-1 pr-4 pt-1 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
+                  onclick={() => basculerChoix(ids, !tousCoches)}
+                >
+                  <span class="min-w-0">{c.theme}</span>
+                  <i aria-hidden="true" class="bx text-2xl text-coopmaths-action dark:text-coopmathsdark-action {tousCoches ? 'bx-checkbox-checked' : 'bx-checkbox'}"></i>
+                </button>
+                <ul class="{listeGroupee} shrink-0">
+                  {#each c.parcours.filter((p) => !dejaAjoute(p)) as p (p.id)}
+                    {@const coche = !!choixAjout?.includes(p.id)}
+                    <li>
+                      <button type="button" role="checkbox" aria-checked={coche} class={elementListe} onclick={() => basculerChoix([p.id], !coche)}>
+                        <span class="flex flex-col min-w-0">
+                          <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{p.titre}</span>
+                          <span class="truncate text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{organisationDe(p) || difficultes[p.difficulte - 1]}</span>
+                        </span>
+                        <i aria-hidden="true" class="bx text-2xl text-coopmaths-action dark:text-coopmathsdark-action {coche ? 'bx-checkbox-checked' : 'bx-checkbox'}"></i>
+                      </button>
+                    </li>
+                  {/each}
+                </ul>
+              {/if}
+            {/each}
+          </div>
+          <button type="button" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!choixAjout.length} onclick={ajouterChoisis}>
+            {!choixAjout.length ? 'Ajouter' : choixAjout.length === aAjouter.length ? `Ajouter les ${aAjouter.length} parcours` : `Ajouter ${choixAjout.length} parcours`}
+          </button>
+          {#if choixAjout.length < aAjouter.length}
+            <button type="button" class={boutonLien} onclick={() => (choixAjout = aAjouter.map((p) => p.id))}>Tout cocher</button>
+          {/if}
+        </Feuille>
+      {/if}
     {:else if onglet === 'explorer'}
       <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#if ontest}

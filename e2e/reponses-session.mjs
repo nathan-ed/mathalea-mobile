@@ -175,7 +175,6 @@ async function saisir(page, latex) {
 async function faireSession(page, faux) {
   await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
   await page.getByText('5e').first().click().catch(() => {})
-  await page.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
   await page.getByRole('button', { name: /^Relatifs en classe/ }).first().click({ timeout: 30_000 })
   await page.getByRole('button', { name: 'Autres actions' }).click()
   await page.getByRole('button', { name: 'Rejoindre une session' }).click()
@@ -487,7 +486,6 @@ async function avecParcours(profil) {
   await page.goto(base)
   await page.getByRole('tab', { name: 'Explorer' }).or(page.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
   await page.getByText('5e').first().click().catch(() => {})
-  await page.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
   await page.getByRole('button', { name: /^Relatifs en classe/ }).first().click({ timeout: 30_000 })
   return page
 }
@@ -551,7 +549,6 @@ await prof.screenshot({ path: `${captures}/${nom}-reponses-6-session-enseignant.
 // Session sans QR code des réponses (réglage par défaut) : rien à relever
 await prof.getByRole('tab', { name: 'Explorer' }).click()
 await prof.getByText('5e').first().click().catch(() => {})
-await prof.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
 await prof.getByRole('button', { name: /^Relatifs en classe/ }).first().click({ timeout: 30_000 })
 await prof.getByRole('button', { name: 'Session pour la classe' }).click()
 await prof.getByRole('button', { name: 'Lancer la session' }).click()

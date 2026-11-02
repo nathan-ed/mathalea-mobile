@@ -323,7 +323,10 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   ça change »), `src/lib/explorer.ts` (`reperesDu`, `arborescence`) ; seuls
   les degrés et chapitres qui ont des parcours apparaissent ; pays déduit du
   niveau (aucun champ `pays`). « Commencer » ajoute à Mes parcours ;
-  enseignant : « Donner à des classes » (`adopter`, puis sa page). Sources
+  enseignant : « Donner à des classes » (`adopter`, puis sa page). Page d'un
+  degré : tous ses parcours sous le titre de leur chapitre, sans écran de
+  chapitre ; « Ajouter plusieurs parcours » ajoute d'un coup (accueil de
+  l'élève, bibliothèque de l'enseignant) (Nathan, 2026-11-02). Sources
   du catalogue dans `explorer/` (Suisse : `ch-4e-college.json`, chapitre
   4mInt). Le référentiel se lit dans le moteur compilé (`listerExercices`),
   même sans accès à la forge (moteur extrait d'un `.deb` de release si

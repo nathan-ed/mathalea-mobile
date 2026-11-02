@@ -41,8 +41,10 @@ async function ouvrir(appareil, sombre, stockage) {
   await page.goto(base)
   return { ctx, page }
 }
-// Capture après le glissement d'entrée de l'écran (180 ms, app.css)
-const finAnimations = (p) => p.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)))
+// Capture après le glissement d'entrée de l'écran (180 ms, app.css). Une
+// animation annulée (élément retiré, machine chargée) rejette `finished` : elle
+// est finie aussi
+const finAnimations = (p) => p.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished.catch(() => {}))))
 const texte = async (page) => (await page.locator('main').innerText()).replace(/\s+/g, ' ')
 const retour = async (page) => {
   await page.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})

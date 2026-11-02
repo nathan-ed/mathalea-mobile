@@ -199,7 +199,6 @@
   let reperes: Repere[] | null = $state(null)
   const explorer = $derived(arborescence(catalogue ?? [], pays, reperes ?? reperesParDefaut(pays)))
   let explorerNiveau: string | null = $state(null)
-  let explorerChapitre: string | null = $state(null)
   async function lireReperes() {
     const p = pays
     try {
@@ -420,11 +419,19 @@
     await chargerParcours(p)
   }
 
+  /** Explorer, élève : plusieurs parcours ajoutés à l'accueil d'un coup */
+  async function ajouterPlusieurs(liste: Parcours[]) {
+    const nouveaux = liste.filter((p) => !estTest(p.id) && !ajoutes.some((a) => a.id === p.id))
+    ajoutes = [...ajoutes, ...nouveaux]
+    await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
+    for (const p of nouveaux) await chargerParcours(p)
+  }
+
   async function changerPays(p: Pays) {
     pays = p
     moteur?.definirLangue(p === 'CH' ? 'fr-CH' : 'fr-FR')
     reperes = null
-    explorerNiveau = explorerChapitre = null
+    explorerNiveau = null
     void lireReperes()
     await stockage!.ecrire('pays', p)
   }
@@ -520,6 +527,12 @@
       creation = null
       aller('fiche')
     } else versCreer()
+  }
+  /** Explorer, enseignant : plusieurs parcours repris dans sa bibliothèque d'un coup, sans classe ; on reste dans l'Explorer */
+  async function adopterPlusieurs(liste: Parcours[]) {
+    let b = $state.snapshot(bibliotheque) as Bibliotheque
+    for (const p of liste) b = adopter(b, $state.snapshot(p) as Parcours)
+    await sauverBibliotheque(b)
   }
   /** Parcours de l'Explorer repris par l'enseignant : dans sa bibliothèque, puis sa page (choix des classes) */
   async function donnerAuxClasses(p: Parcours) {
@@ -1342,7 +1355,6 @@
       {sources}
       {explorer}
       bind:niveau={explorerNiveau}
-      bind:chapitre={explorerChapitre}
       {ajoutes}
       {aChoisir}
       {organisations}
@@ -1367,6 +1379,9 @@
       onajouter={ajouterClasse}
       onchoisirClasse={choisirClasse}
       onepingler={(p) => (dansSources(p.id) ? basculerEpingle(p) : basculerAjout(p))}
+      dejaAjoute={(p) =>
+        profil === 'enseignant' && !vueEleve ? bibliotheque.parcours.some((pe) => pe.parcours.id === p.id) : dansSources(p.id) || ajoutes.some((a) => a.id === p.id)}
+      onajouterPlusieurs={(liste) => (profil === 'enseignant' && !vueEleve ? adopterPlusieurs(liste) : ajouterPlusieurs(liste))}
       onorganiser={async (source, o) => {
         organisations = { ...organisations, [source]: o }
         await stockage!.ecrire('chapitres', $state.snapshot(organisations))
