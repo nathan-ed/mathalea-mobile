@@ -556,11 +556,12 @@ const c = await appareil('C')
 await c.getByRole('button', { name: /France/ }).click()
 await c.getByRole('button', { name: 'Réglages' }).click()
 await c.locator('input[type=file]').setInputFiles(fichierSauvegarde)
-// Restauration : aperçu et confirmation avant de remplacer quoi que ce soit
-await c.getByText('Remplacer les données de cet appareil ?').waitFor()
+// Restauration : aperçu et confirmation avant de remplacer quoi que ce soit ;
+// la fusion avec cet appareil est proposée d'abord
+await c.getByText('Ajouter cette sauvegarde à cet appareil ?').waitFor()
 ok(/Sauvegarde du .*passage/.test(await texte(c, '[role=dialog]')), 'restauration : aperçu de la sauvegarde avant de remplacer')
 await cap(c, '11-restauration')
-await c.getByRole('button', { name: 'Remplacer', exact: true }).click()
+await c.getByRole('button', { name: 'Tout remplacer', exact: true }).click()
 await c.getByRole('tab', { name: 'Mes parcours' }).waitFor({ timeout: 10000 })
 await c.getByRole('tab', { name: 'Suivi' }).click()
 await pagePrete(c)

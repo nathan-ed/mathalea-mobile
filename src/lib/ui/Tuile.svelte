@@ -57,7 +57,7 @@
 
 
 {#if onepingler}
-  <div class="flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+  <div class="tuile flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
     <button type="button" {onclick} class="{sharedClasses} min-w-0 flex-1">
       {@render contenu(false)}
     </button>
@@ -72,7 +72,7 @@
     </button>
   </div>
 {:else}
-<button type="button" {onclick} class={sharedClasses}>
+<button type="button" {onclick} class="tuile {sharedClasses}">
   {@render contenu(true)}
 </button>
 

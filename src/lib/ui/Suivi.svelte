@@ -1,7 +1,7 @@
 <script lang="ts">
   // Suivi du travail dans la durée, avec la rampe « struct » de MathALÉA
   import { paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
-  import { MAITRISES, ceinturesObtenues, maitrise, objectifsTravailles } from '$lib/objectifs'
+  import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { estTest } from '$lib/testNiveau'
   import { SOLIDITES, soliditeObjectif, type Revisions } from '$lib/revisions'
@@ -124,9 +124,8 @@
     })
   })
   let objectifOuvert: string | null = $state(null)
-  const ceintures = $derived(
-    parcours.filter((p) => p.style === 'ceintures' && (p.paliers?.length ?? 0) > 1).map((p) => ({ p, liste: ceinturesObtenues(p, historiques[p.id] ?? []) })),
-  )
+  // Par chapitre du référentiel : plusieurs parcours y donnent les mêmes ceintures
+  const ceintures = $derived(ceinturesParChapitre(parcours, historiques))
   const vues = $derived([
     ['activite', 'Activité'],
     ['objectifs', 'Objectifs'],
@@ -248,14 +247,27 @@
           {@render rangee(ceinturesTest)}
         </section>
       {/if}
-      {#each ceintures as c (c.p.id)}
-        {@const plusHaute = c.liste.filter((x) => x.obtenue).at(-1)}
+      {#each ceintures as c (`${c.niveau}|${c.theme}`)}
+        {@const plusHaute = c.ceintures.filter((x) => x.obtenue).at(-1)}
         <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
-          <button type="button" class="text-left" onclick={() => onouvrir(c.p)}>
-            <span class="block font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.p.titre}</span>
-            <span class={discret}>{plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')}` : 'Aucune ceinture pour le moment'}</span>
-          </button>
-          {@render rangee(c.liste)}
+          <div>
+            <h3 class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.theme}</h3>
+            <span class={discret}>{c.niveau} · {plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')}` : 'Aucune ceinture pour le moment'}</span>
+          </div>
+          {@render rangee(c.ceintures)}
+          <ul class="flex flex-col">
+            {#each c.parcours as x (x.p.id)}
+              <li>
+                <button type="button" class="flex w-full flex-row items-center gap-2 py-2 text-left" onclick={() => onouvrir(x.p)}>
+                  <span class="flex-1">
+                    <span class="block text-coopmaths-corpus dark:text-coopmathsdark-corpus">{x.p.titre}</span>
+                    <span class={discret}>{x.obtenues} ceinture{x.obtenues > 1 ? 's' : ''} sur {x.total}</span>
+                  </span>
+                  <i aria-hidden="true" class="bx bx-chevron-right text-xl text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
+                </button>
+              </li>
+            {/each}
+          </ul>
         </section>
       {/each}
     {:else}

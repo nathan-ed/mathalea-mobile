@@ -2,7 +2,9 @@
   import { onMount } from 'svelte'
   import { ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
-  import { CLE_AVANT_RESTAURATION, exporterSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
+  import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
+  import Fiches from '$lib/ui/Fiches.svelte'
+  import { CLE_AVANT_RESTAURATION, apercuFusion, exporterSauvegarde, fusionnerSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier } from '$lib/fichiers'
@@ -37,7 +39,8 @@
   import { rappelExport } from '$lib/rappelExport.svelte'
   import { heure, suivreHeure } from '$lib/heure.svelte'
   import { acquisDe, ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
-  import { LIEN_DEMONSTRATION, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
+  import { catalogueIntegre, fusionnerCatalogues } from '$lib/catalogueIntegre'
+  import { LIEN_DEMONSTRATION, URL_EXPLORER, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
     bilan,
@@ -109,13 +112,14 @@
   let vue: Vue = $state('accueil')
   // « creer » (Parcours), « classes » et « classe » (En classe) : seulement avec le
   // réglage Enseignant ; « mes » et « suivi » pour lui seulement en vue élève
-  type Onglet = 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe'
+  type Onglet = 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
   let onglet: Onglet = $state('mes')
   let vueEleve = $state(false)
   let actif: Parcours | undefined = $state()
   // Fiche de cours ouverte, l'écran d'où elle vient et, avant une séance, de quoi la lancer
   let cours: { fiche: Fiche; depuis: Vue; ensuite?: () => void } | null = $state(null)
   let fichesVues: string[] = $state([]) // fiches déjà montrées d'office (« id#palier »)
+  let fichesEnregistrees: FicheDuParcours[] = $state([]) // onglet Fiches, dans l'ordre de l'élève
   // Formules des fiches : KaTeX du moteur (centrées : style « display »)
   const formule: RenduFormule = $derived((latex: string, centree: boolean) =>
     moteur?.titreHtml ? moteur.titreHtml(`$${centree ? '\\displaystyle ' : ''}${latex}$`) : formuleBrute(latex, centree),
@@ -185,6 +189,12 @@
   const parcoursDuDossier = (c: Classe) => [...c.parcours, ...(profil === 'enseignant' ? (c.fichier ?? []).flatMap((f) => f.parcours) : [])]
   // Explorer : catalogue de l'équipe MathALÉA (copie locale) et parcours ajoutés à l'accueil
   let catalogue: Parcours[] | null = $state(null)
+  let integre: Parcours[] = []
+  /** Copie de l'accueil remplacée par la version du catalogue si elle est plus récente */
+  const plusRecent = (a: Parcours) => {
+    const c = catalogue?.find((p) => p.id === a.id)
+    return c && c.version > a.version ? c : a
+  }
   // Degrés et chapitres du référentiel du pays (moteur), pour ranger l'Explorer ; degré et chapitre ouverts
   let reperes: Repere[] | null = $state(null)
   const explorer = $derived(arborescence(catalogue ?? [], pays, reperes ?? reperesParDefaut(pays)))
@@ -310,10 +320,14 @@
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     fichesVues = (await stockage.lire<string[]>('fiches-vues')) ?? []
+    fichesEnregistrees = (await stockage.lire<FicheDuParcours[]>(CLE_FICHES)) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
-    catalogue = await stockage.lire<Parcours[]>('explorer')
-    // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau
-    ajoutes = ((await stockage.lire<Parcours[]>('ajoutes')) ?? []).filter((p) => !estTest(p.id))
+    // Catalogue intégré à l'app, remplacé parcours par parcours par une version plus récente reçue en ligne
+    integre = await catalogueIntegre().catch((e) => (console.warn('Catalogue intégré', e), []))
+    catalogue = fusionnerCatalogues(integre, (await stockage.lire<Parcours[]>('explorer')) ?? [])
+    // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau.
+    // Un parcours de l'Explorer ajouté à l'accueil suit sa nouvelle version (mise à jour de l'app)
+    ajoutes = ((await stockage.lire<Parcours[]>('ajoutes')) ?? []).filter((p) => !estTest(p.id)).map((a) => plusRecent(a))
     bibliotheque = await lireBibliotheque(stockage)
     importes = (await stockage.lire<Parcours[]>('importes')) ?? []
     classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
@@ -383,13 +397,14 @@
     }
   })
 
-  /** Nouvelle version du catalogue ; les parcours ajoutés suivent leur nouvelle version */
+  /** Nouvelle version du catalogue en ligne ; les parcours ajoutés suivent leur nouvelle version */
   async function synchroniserExplorer() {
+    if (!URL_EXPLORER) return
     try {
       const recu = await lireExplorer()
-      catalogue = recu
+      catalogue = fusionnerCatalogues(integre, recu)
       await stockage!.ecrire('explorer', recu)
-      ajoutes = ajoutes.map((a) => recu.find((p) => p.id === a.id) ?? a)
+      ajoutes = ajoutes.map((a) => plusRecent(a))
       await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
       for (const p of [...ajoutes, ...recu]) await chargerParcours(p)
     } catch (e) {
@@ -803,7 +818,10 @@
   }
   async function rejoindreSession(inv: InvitationSession) {
     invitationAncienne = null
-    const p = tous.find((x) => x.id === inv.p.id && x.version === inv.p.version) ?? inv.p
+    // Copie de l'appareil si elle est de la même version (le QR code d'un long
+    // parcours n'emporte pas ses fiches de cours) : classes, accueil, Explorer
+    const memeVersion = (x: Parcours) => x.id === inv.p.id && x.version === inv.p.version
+    const p = tous.find(memeVersion) ?? catalogue?.find(memeVersion) ?? inv.p
     // Ajouté à l'accueil s'il n'y est pas : l'élève y retrouve son bilan et son QR code
     if (!dansSources(p.id) && !estTest(p.id)) {
       const deja = ajoutes.find((a) => a.id === p.id)
@@ -941,6 +959,17 @@
   async function restaurer(texte: string) {
     try {
       await restaurerSauvegarde(stockage!, texte)
+      location.reload()
+      return ''
+    } catch (e) {
+      return (e as Error).message
+    }
+  }
+
+  /** Sauvegarde d'un autre appareil de l'élève, réunie avec celui-ci */
+  async function fusionner(texte: string) {
+    try {
+      await fusionnerSauvegarde(stockage!, texte)
       location.reload()
       return ''
     } catch (e) {
@@ -1263,6 +1292,8 @@
       onexporterSauvegarde={sauvegarder}
       onrestaurer={restaurer}
       onresumer={resumerSauvegarde}
+      onfusionner={fusionner}
+      onapercuFusion={(texte) => apercuFusion(stockage!, texte)}
       onannulerRestauration={restaurationAnnulable ? annulerRestauration : null}
       moteur={moteur ? infoMoteur() : null}
       {miseAJourMoteur}
@@ -1351,6 +1382,17 @@
           ontest={ouvrirTest}
           {revisions}
           passagesRevision={historiques[ID_REVISIONS] ?? []}
+        />
+      {/snippet}
+      {#snippet fiches()}
+        <Fiches
+          parcours={tous}
+          enregistrees={fichesEnregistrees}
+          onenregistrer={async (liste) => {
+            fichesEnregistrees = liste
+            await stockage!.ecrire(CLE_FICHES, $state.snapshot(liste))
+          }}
+          onouvrir={(f) => ouvrirCours(f.fiche)}
         />
       {/snippet}
       {#snippet espaceEnseignant()}

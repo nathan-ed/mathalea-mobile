@@ -29,10 +29,13 @@ toute modification.
   remplissage ni placeholder : chaque texte porte une information ou une action.
 - Icônes boxicons avec `aria-hidden="true"`.
 - Aucune donnée de l'élève ne quitte l'appareil ; l'app ne stocke aucun
-  identifiant. Les parcours arrivent par les dossiers partagés
-  (`parcours-mathalea.json`), aucun n'est intégré à l'app. Seule exception :
-  les parcours de démonstration (`static/demo`, `scripts/demonstration.mts`),
-  chargés et retirés par l'enseignant dans les Réglages, jamais d'office.
+  identifiant. Les parcours de l'enseignant arrivent par les dossiers partagés
+  (`parcours-mathalea.json`). Le catalogue de l'Explorer (`explorer/*.json`)
+  est intégré au build (`src/lib/catalogueIntegre.ts`) ; à terme, MathALÉA
+  pourra le servir (`VITE_URL_EXPLORER`), une version plus récente en ligne
+  remplaçant alors celle de l'app. Les parcours de démonstration
+  (`static/demo`, `scripts/demonstration.mts`) sont chargés et retirés par
+  l'enseignant dans les Réglages, jamais d'office.
 - Une séance garde une copie figée de son parcours (`contenu`) : ne jamais lire
   la version courante pour rejouer, relire ou reprendre.
 - Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source
@@ -103,10 +106,14 @@ complète (détails dans le skill, « Vérification »).
   suites, comme `e2e/champs-visibles.mjs` (aucun champ de réponse coupé, joué
   par `test-niveau.mjs` et `parcours-az.mjs`), et regarder chaque capture
   comme un élève avant de dire que c'est fini.
-- Défilement au doigt : `node e2e/defilement.mjs` après tout changement de CSS
-  de page (`overflow`, `position`, `touch-action`, `height`). `release.yml` et
+- Défilement au doigt : `node e2e/defilement.mjs` et `node e2e/defilement-ecrans.mjs`
+  (chaque écran et chaque panneau du bas, deux tailles de téléphone, bureau)
+  après tout changement de CSS ou de mise en page (`overflow`, `position`,
+  `touch-action`, `height`, `flex`). `release.yml` et
   `google-play.yml` lancent les suites e2e (`scripts/e2e-ci.sh`) et ne
   construisent ni n'envoient rien si l'une échoue.
+- Catalogue de l'Explorer : avant de déposer un fichier, `node e2e/catalogue-moteur.mjs`
+  (chaque exercice préparé par le moteur, sous trois graines, interactif).
 - Changement d'interface : `pnpm e2e` (voir README) et un coup d'œil aux
   captures, en clair et en sombre, à 390 px de large.
 - Toute release porte sa note de version : écrire `docs/notes-de-version/<vX.Y.Z>.md`
@@ -117,3 +124,7 @@ complète (détails dans le skill, « Vérification »).
   `docs/fiche-boutiques.md`).
 - Ne rien commiter ni pousser sans demande explicite (sur ce projet, Nathan a
   demandé de pousser souvent).
+- Une session = une branche et un worktree : `bash scripts/worktree.sh <nom>`.
+  Le travail en cours se commite sur sa branche, jamais laissé dans la copie
+  de travail de `main` (plusieurs sessions, locales et cloud, travaillent sur
+  ce dépôt). Une seule suite e2e à la fois sur la machine (ports 1420, 8702).

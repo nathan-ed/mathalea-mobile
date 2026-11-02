@@ -28,6 +28,39 @@ function declarations(nom: string): Record<string, string> {
 
 const creeUnDefilement = (v?: string) => !!v && /\b(hidden|auto|scroll)\b/.test(v)
 
+// Composants : un écran (min-h-screen) qui coupe son débordement devient un
+// conteneur et prend le geste ; touch-action none bloque le doigt. Permis
+// seulement sur une poignée de déplacement, annoncée dans un commentaire.
+const { readdirSync } = await import(/* @vite-ignore */ fs)
+const composants = (readdirSync('src', { recursive: true }) as string[])
+  .filter((f) => f.endsWith('.svelte'))
+  .map((f) => ({ f, texte: readFileSync(`src/${f}`, 'utf8') as string }))
+
+describe('défilement des écrans (composants)', () => {
+  it('les composants sont bien lus', () => {
+    expect(composants.length).toBeGreaterThan(20)
+  })
+
+  it('aucun écran entier ne coupe son débordement vertical', () => {
+    const fautifs = composants.flatMap(({ f, texte }) =>
+      [...texte.matchAll(/class="([^"]*\bmin-h-screen\b[^"]*)"/g)].filter((m) => /\b(overflow-hidden|overflow-y-hidden|overflow-auto|overflow-y-auto|overflow-scroll|touch-none)\b/.test(m[1])).map(() => f),
+    )
+    expect(fautifs).toEqual([])
+  })
+
+  it('touch-action none seulement sur une poignée, annoncée', () => {
+    const fautifs = composants.flatMap(({ f, texte }) =>
+      texte
+        .split('\n')
+        .map((l, i, lignes) => ({ l, avant: lignes.slice(Math.max(0, i - 5), i).join('\n') }))
+        .filter(({ l }) => /touch-action:\s*none|\btouch-none\b/.test(l) && !/<!--/.test(l))
+        .filter(({ avant }) => !/Poignée/.test(avant))
+        .map(({ l }) => `${f} : ${l.trim()}`),
+    )
+    expect(fautifs).toEqual([])
+  })
+})
+
 describe('défilement de la page', () => {
   const html = declarations('html')
   const body = declarations('body')

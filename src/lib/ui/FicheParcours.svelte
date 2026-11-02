@@ -4,7 +4,7 @@
   // toucher), où il en est chez les élèves, « Lancer une session », l'essayer,
   // le modifier, ses sessions ; exporter, dupliquer, supprimer dans « Autres
   // actions ».
-  import { momentOuverture, nomPalier, organisationDe, paliersDe } from '$lib/catalogue'
+  import { auteursTexte, momentOuverture, nomPalier, organisationDe, paliersDe } from '$lib/catalogue'
   import { aExporter, type ParcoursEnseignant } from '$lib/bibliotheque'
   import { reglageQr } from '$lib/progression'
   import type { Releve } from '$lib/releve'
@@ -94,6 +94,19 @@
       <p class="mt-1 {discret}">
         {[p.niveau, p.theme, organisationDe(p) || difficultes[p.difficulte - 1], `${nbQuestions} questions`].filter(Boolean).join(' · ')}
       </p>
+      {#if p.auteurs?.length}
+        <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <i aria-hidden="true" class="bx bx-user text-lg"></i> Rédigé par {auteursTexte(p)}
+        </p>
+      {/if}
+      {#if p.descriptionEleves}
+        <p class="mt-3 {discret}">Pour les élèves</p>
+        <p class="whitespace-pre-line font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{p.descriptionEleves}</p>
+      {/if}
+      {#if p.descriptionEnseignant}
+        <p class="mt-3 {discret}">Pour les enseignants</p>
+        <p class="whitespace-pre-line font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{p.descriptionEnseignant}</p>
+      {/if}
     </div>
 
     <p class="flex flex-row items-center gap-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">

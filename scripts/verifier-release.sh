@@ -24,6 +24,8 @@ etape() {
 }
 
 test -s static/moteur/manifest.json || { echo "static/moteur manquant : pnpm moteur"; exit 1; }
+# Moteur construit à partir de moteur/ tel qu'il est (sinon suites faussées)
+bash scripts/moteur-a-jour.sh || exit 1
 etape check pnpm check
 etape test pnpm test
 etape cargo bash -c 'cd src-tauri && cargo test'
@@ -65,7 +67,8 @@ for s in "${paralleles[@]}"; do
 done
 for s in reponses-elements defilement un-toucher regressions changer-appareil classe-qr en-classe \
   fiche-parcours session-qr ouverture-paliers paliers papier recherche correction-parcours \
-  reponses-session revisions test-niveau test-niveau-reel couleurs-reponse reprise-ecran retour eleve-puis-enseignant; do
+  reponses-session revisions test-niveau test-niveau-reel couleurs-reponse reprise-ecran retour eleve-puis-enseignant \
+  auteurs session-qr-long catalogue-moteur; do
   etape "$s" node "e2e/$s.mjs"
 done
 arreter
@@ -79,6 +82,7 @@ sleep 1
 # Explorer : la suite sert elle-même son catalogue sur 8702
 demarrer "http://127.0.0.1:8702/explorer.json"
 etape explorer node e2e/explorer.mjs
+etape defilement-ecrans node e2e/defilement-ecrans.mjs
 arreter
 
 echo

@@ -162,14 +162,33 @@ Rust `telecharger`.
 - `pnpm e2e` : bout en bout, trois appareils simulés (voir README). Parcours
   de test : `tests/parcours-de-test.ts`, déposés par `e2e/preparer.mts`.
 - `node e2e/retour.mjs` : bouton retour du téléphone (simulé par
-  « précédent ») à chaque niveau, confirmations de la séance.
+  « précédent ») à chaque niveau de l'élève (page d'un parcours, fiche,
+  panneau du bas, onglets, Réglages), confirmations de la séance, aucune
+  entrée en attente à l'accueil. Téléphone et bureau, sur l'app servie sur 1420.
+- Liste des suites : `scripts/verifier-release.sh` (toutes, sur l'app
+  construite servie par `vite preview` sur 1420) et la matrice de
+  `release.yml` (suites rapides en CI). Une nouvelle suite entre dans les deux.
+- `node e2e/defilement-ecrans.mjs` : chaque écran (élève, Explorer,
+  enseignant) et chaque panneau du bas défile au doigt jusqu'en bas et revient
+  en haut, rien n'est caché sous une barre fixée, aucune liste écrasée ;
+  390 × 844, 360 × 640 et bureau à la molette.
+- `node e2e/auteurs.mjs` : auteurs et descriptions saisis dans l'éditeur,
+  page de l'enseignant, vue de l'élève (jamais la description des enseignants).
+- `node e2e/session-qr-long.mjs` : session d'un long parcours (fiches
+  illustrées, 36 exercices) lancée, QR code exporté puis lu à la fausse
+  caméra ; l'élève qui a déjà le parcours garde ses fiches.
+- `node e2e/catalogue-moteur.mjs` : chaque exercice des parcours livrés
+  préparé par le moteur sous trois graines, interactif.
+- `tests/catalogues.test.ts`, `tests/invitations.test.ts` : fichiers du dépôt
+  lus par l'app (paliers bien comptés, auteurs), invitations de session et de
+  classe, place dans un QR code.
 - `node e2e/regressions.mjs` : défauts déjà corrigés (brouillon d'une question
   quittée aussitôt, Entrée avec correction à la fin, suivi après modification
-  d'un parcours). Seul `pnpm dev` est nécessaire. Code de sortie 1 si un
+  d'un parcours). Seulement l'app servie sur 1420. Code de sortie 1 si un
   contrôle échoue (comme `pnpm e2e`).
 - `node e2e/changer-appareil.mjs` : un élève change de téléphone (sauvegarde
   exportée, « Récupérer mes données » au premier lancement, séance en cours
-  reprise et terminée, suivi). Seul `pnpm dev` (`BASE=` pour un autre port).
+  reprise et terminée, suivi). Seulement l'app servie sur 1420 (`BASE=` pour un autre port).
 - Appareils virtuels (`.github/workflows/emulateurs.yml`, GitHub, gratuit pour
   un dépôt public ; lancé à la main ou par un push sur la branche de travail
   de Claude) : notre moteur construit une fois sous Linux, puis l'app
@@ -260,8 +279,9 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
 - Mises à jour du moteur sans réinstaller l'app (fait ; adresse de publication
   à fixer) : voir « Moteur servi par Coopmaths » ci-dessous.
 - Explorer : catalogue de parcours proposés par l'équipe MathALÉA, au format
-  `parcours-mathalea.json` (fait ; adresse provisoire `URL_EXPLORER` dans
-  `src/lib/partage.ts`, `VITE_URL_EXPLORER` pour les essais). Copie locale hors
+  `parcours-mathalea.json`, fichiers `explorer/*.json` intégrés au build
+  (`src/lib/catalogueIntegre.ts`). Catalogue en ligne optionnel par
+  `VITE_URL_EXPLORER` (aucun par défaut), fusionné par version. Copie locale hors
   connexion ; « Ajouter à l'accueil » garde une copie du parcours, qui suit ses
   nouvelles versions.
 - Explorer par degré puis par chapitre (`src/lib/explorer.ts`) : degrés,
@@ -489,6 +509,37 @@ ancienne app.
 
 ## À faire (sans version fixée)
 
+- **PRIORITAIRE : vérifier la migration des données entre les versions de
+  l'app** (Nathan, 2026-10-30), dès que l'app est de nouveau fonctionnelle
+  (première séance en classe difficile en 0.4.8). Avant d'envoyer une
+  version sur Google Play, celle en production d'abord : les élèves gardent
+  ses données. Méthode prévue : une version publiée jouée dans un
+  worktree à son tag (`git worktree add --detach … v<x>`, `pnpm install`,
+  `static/moteur`, `npx vite dev --port 1521`), scénario élève et enseignant
+  par `e2e/donnees/creer.mjs` (séance terminée, ceinture obtenue, séance
+  quittée en cours, démonstration chargée) qui garde le stockage dans
+  `e2e/donnees/<version>-<qui>.json` ; puis une suite `e2e/mise-a-jour.mjs`
+  (à écrire) qui ouvre ces données avec la version courante : rien de perdu,
+  séance reprise à la bonne question, ceintures, bibliothèque, sauvegarde
+  valide (`cleInvalide`), aucune erreur JavaScript. Reste à régler dans
+  `creer.mjs` : les réponses de la ceinture ne sont pas enregistrées (0/2).
+  Une version par release au moins, la précédente en production d'abord.
+- **Fonctionnalités décidées par Nathan (2026-10-30)**, à faire :
+  - **Grands écrans** (tablette, ordinateur des testeurs) : mise en page
+    propre aux grands écrans, l'app est aujourd'hui pensée pour 390 px.
+  - **Toutes les fiches de cours à un endroit** : retrouver chaque fiche hors
+    de son parcours, l'enregistrer pour y revenir vite, organiser les siennes.
+  - **Ceinture générale de chapitre** : **par chapitre**, pas par parcours
+    (plusieurs parcours travaillent les mêmes ceintures).
+  - **Plusieurs appareils pour un même élève** : fusionner les données au lieu
+    de remplacer (exporter puis importer), avec une vraie gestion des cas
+    (même séance des deux côtés, ceintures, révisions).
+  - Révisions : rappels **dans l'app seulement**, jamais de notification
+    hors de l'app.
+- Plus tard (pas une priorité) : suivi de classe dans la durée (relevés
+  regroupés par élève et par objectif), sauvegarde déposée sur un drive en
+  lecture seule, catalogue de l'Explorer servi par MathALÉA (le jour où des
+  parcours seront développés avec MathALÉA).
 - **Politique de confidentialité** à mettre à jour avant de publier les
   réponses de session (caméra, prénom) : texte prêt dans
   `docs/confidentialite-brouillon.html`, à copier sur
@@ -723,8 +774,9 @@ Reste à faire :
   construit aussi notre moteur (`scripts/moteur.sh`).
 - Release : `bash scripts/publier.sh v<x>` sur l'ordinateur de Nathan :
   `scripts/verifier-release.sh` (toutes les suites, tous les formats, tous les
-  parcours de `explorer/` et de la démonstration joués de A à Z, environ
-  2 h 30), puis tag et push seulement si tout est vert. La CI GitHub ne garde
+  parcours de `explorer/` et de la démonstration joués de A à Z, en
+  parallèle ; il refuse un `static/moteur` qui ne correspond pas à `moteur/`,
+  `scripts/moteur-a-jour.sh`), puis tag et push seulement si tout est vert. La CI GitHub ne garde
   que les suites rapides.
 - Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
 - Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
@@ -732,7 +784,8 @@ Reste à faire :
   `node e2e/parcours-az.mjs` : parcours de l'Explorer joués de A à Z par un
   élève qui répond juste (tous formats, vrais seuils, suivi) ;
   `FORMATS=1 node e2e/parcours-az.mjs <fichier>` : un exercice par format ;
-  `node e2e/az-1.mjs` (2, 3) : tous les parcours proposés, en trois groupes.
+  `GROUPE=1 GROUPES=5 node e2e/az-groupe.mjs` : tous les parcours proposés,
+  en groupes équilibrés par nombre de questions.
   Inventaire des formats : `docs/types-de-reponse.md`.
 
 ## 0.4.12 : en cours (branche `suite-0.4.12`)

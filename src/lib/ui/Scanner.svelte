@@ -45,7 +45,7 @@
     }
     try {
       flux = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } },
         audio: false,
       })
       if (fini) return arreter()
@@ -67,13 +67,24 @@
   async function boucle() {
     const canvas = document.createElement('canvas')
     const c = canvas.getContext('2d', { willReadFrequently: true })!
+    let centre = false
     while (!fini) {
       if (video.readyState >= 2 && video.videoWidth) {
-        // Image réduite : lecture plus rapide, un QR code tenu près de l'objectif reste lisible
-        const echelle = Math.min(1, 960 / video.videoWidth)
-        canvas.width = Math.round(video.videoWidth * echelle)
-        canvas.height = Math.round(video.videoHeight * echelle)
-        c.drawImage(video, 0, 0, canvas.width, canvas.height)
+        const [l, h] = [video.videoWidth, video.videoHeight]
+        if (centre) {
+          // Centre de l'image en pleine résolution, là où l'on vise : un QR code
+          // dense (long parcours) garde assez de pixels par module pour être lu
+          const cote = Math.min(l, h, 1080)
+          canvas.width = canvas.height = cote
+          c.drawImage(video, (l - cote) / 2, (h - cote) / 2, cote, cote, 0, 0, cote, cote)
+        } else {
+          // Image entière réduite : lecture rapide, QR code tenu près de l'objectif ou décentré
+          const echelle = Math.min(1, 960 / l)
+          canvas.width = Math.round(l * echelle)
+          canvas.height = Math.round(h * echelle)
+          c.drawImage(video, 0, 0, canvas.width, canvas.height)
+        }
+        centre = !centre
         for (const texte of await lireImageVideo(canvas)) {
           if (vus.has(texte)) continue
           vus.add(texte)

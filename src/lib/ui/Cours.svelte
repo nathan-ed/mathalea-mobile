@@ -37,7 +37,7 @@
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre={fiche.titre} {onretour} />
-  <main class="colonne flex-1 flex flex-col gap-5 p-4 {oncommencer ? 'pb-28' : 'zone-sure-bas'} text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+  <main class="colonne lecture flex-1 flex flex-col gap-5 p-4 {oncommencer ? 'pb-28' : 'zone-sure-bas'} text-coopmaths-corpus dark:text-coopmathsdark-corpus">
     {#each fiche.blocs as bloc, i (i)}
       {#if bloc.type === 'texte'}
         <div class="texte-cours leading-relaxed">{@html riche(bloc.texte)}</div>
@@ -132,7 +132,7 @@
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
-      <div class="colonne">
+      <div class="colonne lecture">
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={oncommencer}>Commencer l’entraînement</button>
       </div>
     </footer>

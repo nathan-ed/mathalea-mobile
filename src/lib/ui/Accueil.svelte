@@ -26,7 +26,7 @@
   import EnTete from './EnTete.svelte'
   import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
-  import { retourSi } from '$lib/navigation.svelte'
+  import { retourAccueil, retourSi } from '$lib/navigation.svelte'
 
   let {
     sources,
@@ -41,6 +41,7 @@
     chapitre = $bindable(null),
     enseignant = false,
     suivi,
+    fiches,
     espaceEnseignant,
     classesEnseignant,
     enClasse,
@@ -66,11 +67,12 @@
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
-    onglet?: 'mes' | 'explorer' | 'suivi' | 'creer' | 'classes' | 'classe'
+    onglet?: 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
     niveau?: string | null // Explorer : degré ouvert (gardé au retour d'un parcours)
     chapitre?: string | null // Explorer : chapitre ouvert
     enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
     suivi: Snippet
+    fiches?: Snippet // fiches de cours de l'élève (fiches.ts)
     espaceEnseignant?: Snippet // bibliothèque (onglet Parcours, clé « creer »)
     classesEnseignant?: Snippet
     enClasse?: Snippet // sessions de l'enseignant
@@ -158,13 +160,15 @@
   // Onglet d'accueil, où l'app s'ouvre : « retour » y ramène avant de quitter l'app
   // (en vue élève : Mes parcours, puis l'espace enseignant)
   const depart = $derived(espaceProf ? 'creer' : 'mes')
+  const aRefermer = () => retourAccueil({ chapitre, niveau, onglet, depart, enseignant: !!enseignant, vueEleve: !!vueEleve })
   retourSi(
-    () => niveau !== null || onglet !== depart || (enseignant && vueEleve),
+    () => aRefermer() !== null,
     () => {
-      if (chapitre) chapitre = null
-      else if (niveau) niveau = null
-      else if (onglet !== depart) changerOnglet(depart)
-      else onquitterVueEleve?.()
+      const r = aRefermer()
+      if (r === 'chapitre') chapitre = null
+      else if (r === 'niveau') niveau = null
+      else if (r === 'depart') changerOnglet(depart)
+      else if (r === 'quitterVueEleve') onquitterVueEleve?.()
     },
   )
 
@@ -212,7 +216,7 @@
   {/if}
   <main class="flex-1 avec-onglets">
     {#if onglet === 'mes'}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#if tous.length}
         <label
           class="w-full flex flex-row items-center gap-2 rounded-full px-4 py-3
@@ -345,19 +349,19 @@
         {/if}
       </div>
     {:else if onglet === 'explorer' && chapitreOuvert}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#each chapitreOuvert.parcours as p (p.id)}
           <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
         {/each}
       </div>
     {:else if onglet === 'explorer' && niveauOuvert}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#each niveauOuvert.chapitres as c (c.theme)}
           <Tuile icon="bx-folder" title={c.theme} subtitle="{c.parcours.length} parcours" onclick={() => (chapitre = c.theme)} />
         {/each}
       </div>
     {:else if onglet === 'explorer'}
-      <div class="flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#if ontest}
           <Tuile icon="bx-timer" title="Teste ton niveau" subtitle={resumeTest} onclick={ontest} />
         {/if}
@@ -375,6 +379,8 @@
           </p>
         {/each}
       </div>
+    {:else if onglet === 'fiches' && fiches}
+      {@render fiches()}
     {:else}
       {@render suivi()}
     {/if}
@@ -393,6 +399,7 @@
           { cle: 'mes' as const, libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
           { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
           { cle: 'suivi' as const, libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
+          ...(fiches ? [{ cle: 'fiches' as const, libelle: 'Fiches', icone: 'bx-bookmark', iconeActive: 'bxs-bookmark' }] : []),
         ]}
     actif={onglet}
     onchoisir={(o) => {

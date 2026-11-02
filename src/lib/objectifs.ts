@@ -2,7 +2,8 @@
 // La liste est rangée par niveau et chapitre ; un fichier au format
 // objectifs-mathalea/1 (le sien, celui d'un collègue ou de Coopmaths) la complète.
 import type { Etape, Parcours } from './catalogue'
-import { couleurCeinture, momentOuverture, nomPalier, paliersDe } from './catalogue'
+import { couleurCeinture, couleurDuRang, momentOuverture, nomCeinture, nomPalier, paliersDe, rangCeinture } from './catalogue'
+import { cleChapitre } from './explorer'
 import { bilan, type ResultatEtape, type Seance } from './progression'
 import { estObjet, estTexte, listeDe, optionnel } from './validation'
 
@@ -316,4 +317,51 @@ export function ceinturesObtenues(p: Parcours, passages: Seance[]) {
     }
     return { nom: nomPalier(p, k), couleur: couleurCeinture(p, k), obtenue, meilleur }
   })
+}
+
+export interface CeintureDuChapitre {
+  nom: string
+  couleur: string
+  obtenue: boolean
+  par: string[] // titres des parcours qui l'ont donnée
+}
+
+export interface ChapitreCeintures {
+  niveau: string
+  theme: string
+  ceintures: CeintureDuChapitre[]
+  parcours: { p: Parcours; obtenues: number; total: number }[]
+}
+
+/**
+ * Ceintures par chapitre (Nathan, 2026-10-30 : « vraiment par chapitre, vu que
+ * plusieurs parcours peuvent travailler les mêmes ceintures »). Chapitre du
+ * référentiel, comme l'Explorer (degré et chapitre du parcours). Une ceinture
+ * du chapitre est obtenue dès qu'un de ses parcours en ceintures l'a donnée ;
+ * chaque parcours garde sa première ceinture, la rangée va de la plus basse à
+ * la plus haute de tous.
+ */
+export function ceinturesParChapitre(parcours: Parcours[], historiques: Record<string, Seance[]>): ChapitreCeintures[] {
+  const chapitres = new Map<string, ChapitreCeintures & { rangs: Map<number, CeintureDuChapitre> }>()
+  for (const p of parcours) {
+    if (p.style !== 'ceintures' || paliersDe(p).length < 2) continue
+    const cle = cleChapitre(p)
+    let c = chapitres.get(cle)
+    if (!c) chapitres.set(cle, (c = { niveau: p.niveau, theme: p.theme, ceintures: [], parcours: [], rangs: new Map() }))
+    const liste = ceinturesObtenues(p, historiques[p.id] ?? [])
+    liste.forEach((x, k) => {
+      const r = rangCeinture(p, k)
+      let ceinture = c.rangs.get(r)
+      if (!ceinture) c.rangs.set(r, (ceinture = { nom: nomCeinture(r), couleur: couleurDuRang(r), obtenue: false, par: [] }))
+      if (x.obtenue) {
+        ceinture.obtenue = true
+        ceinture.par.push(p.titre)
+      }
+    })
+    c.parcours.push({ p, obtenues: liste.filter((x) => x.obtenue).length, total: liste.length })
+  }
+  return [...chapitres.values()].map(({ rangs, ...c }) => ({
+    ...c,
+    ceintures: [...rangs.entries()].sort(([a], [b]) => a - b).map(([, x]) => x),
+  }))
 }

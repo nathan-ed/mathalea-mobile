@@ -63,6 +63,12 @@ describe('Explorer : degrés et chapitres du référentiel', () => {
     expect(arborescence(tous, 'CH', CH)[0].chapitres.map((c) => c.theme)).toEqual(['Intégration', 'Chapitre B', 'Chapitre A'])
   })
 
+  it('range le Préqualifiant en Suisse, après la 11e', () => {
+    const tous = [parcours('integrales', '4e Collège', 'Intégration'), parcours('prq', 'Préqualifiant', 'Nombres'), parcours('evacom', '11e', 'EVACOM TAF')]
+    expect(arborescence(tous, 'CH', CH).map((n) => n.niveau)).toEqual(['11e', 'Préqualifiant', '4e Collège'])
+    expect(arborescence(tous, 'FR', FR)).toEqual([])
+  })
+
   it('réunit un degré écrit avec son code ou son libellé', () => {
     const a = arborescence([parcours('x', '1re', 'Suites'), parcours('y', 'Première', 'Suites')], 'FR', FR)
     expect(a).toHaveLength(1)

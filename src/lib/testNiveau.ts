@@ -5,7 +5,7 @@
 // les domaines et ne prend jamais deux fois la même question ni le même titre.
 // 80 % donnent la ceinture du niveau. Tout vient du moteur : rien ne quitte
 // l'appareil.
-import { CEINTURES, type Etape, type Parcours } from './catalogue'
+import { couleurDuRang, nomCeinture, type Etape, type Parcours } from './catalogue'
 import type { ExerciceDuReferentiel } from './moteur'
 import { melanger } from './progression'
 import QUESTIONS_CAN from './questionsCan.json'
@@ -35,11 +35,8 @@ export const NIVEAUX_TEST: NiveauTest[] = [
   { cle: 'terminale', nom: 'Terminale', prefixe: 'TSpe' },
 ]
 
-/** « Ceinture verte », puis « Ceinture noire, 2e dan » au-delà de la noire */
-export function ceintureDu(rang: number) {
-  return rang < CEINTURES.length ? `Ceinture ${CEINTURES[rang].nom}` : `Ceinture noire, ${rang - CEINTURES.length + 2}e dan`
-}
-export const couleurDu = (rang: number) => CEINTURES[Math.min(rang, CEINTURES.length - 1)].couleur
+export const ceintureDu = nomCeinture
+export const couleurDu = couleurDuRang
 
 /**
  * Sujets officiels utilisables : à partir de 2024, les sujets du site
