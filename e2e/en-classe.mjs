@@ -97,7 +97,7 @@ for (const sombre of [false, true]) {
   await t.getByRole('button', { name: /^\s*Vue élève/ }).click()
   await pagePrete(t)
   const ongletsEleve = (await t.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',')
-  ok(ongletsEleve === 'Mes parcours,Explorer,Suivi' && (await t.getByText('Vue élève : l’app comme vos élèves la voient').isVisible()), `vue élève : onglets des élèves et bandeau (${ongletsEleve})`)
+  ok(ongletsEleve === 'Mes parcours,Explorer,Suivi,Fiches' && (await t.getByText('Vue élève : l’app comme vos élèves la voient').isVisible()), `vue élève : onglets des élèves et bandeau (${ongletsEleve})`)
   await t.screenshot({ path: `${captures}/en-classe-6-vue-eleve${suffixe}.png` })
   await t.getByRole('button', { name: /^\s*Relatifs au tableau/ }).first().click()
   await t.getByRole('button', { name: 'Session pour la classe' }).click()
@@ -138,7 +138,7 @@ for (const sombre of [false, true]) {
 
 // Élève : ni En classe ni Créer, retour vers Mes parcours
 const e = await ouvrir('eleve')
-ok((await e.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',') === 'Mes parcours,Explorer,Suivi', 'élève : Mes parcours, Explorer, Suivi seulement')
+ok((await e.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',') === 'Mes parcours,Explorer,Suivi,Fiches', 'élève : Mes parcours, Explorer, Suivi, Fiches seulement')
 await e.getByRole('tab', { name: 'Suivi' }).click()
 await retour(e)
 ok((await actif(e)) === 'Mes parcours' && !(await sentinelle(e)), 'élève : Suivi → Mes parcours, accueil')

@@ -41,6 +41,8 @@ async function ouvrir(appareil, sombre, stockage) {
   await page.goto(base)
   return { ctx, page }
 }
+// Capture après le glissement d'entrée de l'écran (180 ms, app.css)
+const finAnimations = (p) => p.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)))
 const texte = async (page) => (await page.locator('main').innerText()).replace(/\s+/g, ' ')
 const retour = async (page) => {
   await page.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})
@@ -81,6 +83,7 @@ for (const [appareil, sombre] of [['telephone', false], ['telephone', true], ['b
   await t.getByLabel('Description pour les élèves').fill(ELEVES)
   await t.getByLabel(/Description pour les enseignants/).fill(PROFS)
   await pagePrete(t)
+  await finAnimations(t)
   if (appareil === 'telephone') await t.screenshot({ path: `${captures}/auteurs-1-editeur-${s}.png` })
   await enregistrer()
   ok(await surFiche(), `${s} : retour à la page du parcours après l’enregistrement`)
@@ -90,6 +93,7 @@ for (const [appareil, sombre] of [['telephone', false], ['telephone', true], ['b
   const fiche = await texte(t)
   ok(fiche.includes('Rédigé par Ana et Ben'), `${s} : page du parcours, « Rédigé par Ana et Ben »`, fiche.slice(0, 300))
   ok(fiche.includes(`Pour les élèves ${ELEVES}`) && fiche.includes(`Pour les enseignants ${PROFS}`), `${s} : page du parcours, les deux descriptions`)
+  await finAnimations(t)
   await t.screenshot({ path: `${captures}/auteurs-2-fiche-${s}.png` })
 
   // Reprise à la modification, puis champs vidés
@@ -118,6 +122,7 @@ for (const [appareil, sombre] of [['telephone', false], ['telephone', true], ['b
   ok(vue.includes('Rédigé par l’équipe CoopMaths et Nathan Scheinmann'), `${s} : élève, « Rédigé par »`, vue.slice(0, 300))
   ok(vue.includes(ELEVES), `${s} : élève, description pour les élèves`)
   ok(!vue.includes(PROFS) && !vue.includes('Pour les enseignants'), `${s} : élève, jamais la description des enseignants`)
+  await finAnimations(e)
   await e.screenshot({ path: `${captures}/auteurs-3-eleve-${s}.png` })
   await ce.close()
 }
