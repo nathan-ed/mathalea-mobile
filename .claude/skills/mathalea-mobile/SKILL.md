@@ -365,6 +365,10 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   Le clone est remis à l'état exact du commit à chaque fois : n'y rien éditer.
   Éditer le moteur = éditer `moteur/fichiers/`. Version du moteur :
   `date+commit.empreinte` (empreinte de `moteur/`, via `MOTEUR_VERSION`).
+  L'empreinte dépend de la locale (`sort -z` de `moteur.sh`) : 9dac720 en
+  local (en_US.UTF-8), 35c2a45 en CI pour les mêmes fichiers (0.4.12). Pour
+  comparer un moteur de CI au moteur testé : contenus des fichiers, noms
+  sans le hachage Vite. Correctif prévu : `LC_ALL=C` dans `moteur.sh`.
 - **Toujours commiter le moteur avec une nouvelle version** (Nathan,
   2026-10-30) : `releases/<v>/MathALEA-<x>-moteur.tar.gz` (LFS,
   `tar -czf … -C static moteur`), pour pouvoir le reprendre plus tard sans la
@@ -716,7 +720,10 @@ Environnement (machine de Nathan)
   `internal` (test interne), `alpha` (test fermé « Test 1 », adresses Gmail
   des bêta-testeurs inscrits auprès de Nathan) ; **sans `piste`, envoi en
   production**. Un code déjà importé : « Ajouter à partir de la bibliothèque ».
-  Avertissements `setStatusBarColor` : androidx, rien à faire. Le `.aab`
+  Avertissements `setStatusBarColor` : androidx, rien à faire (ticket forge
+  #5, bord à bord Android 15). Symboles natifs absents : ticket #6. Taille
+  de l'APK (+15 Mo en 0.4.12, Typst embarqué) : acceptée par Nathan, pas de
+  ticket. Le `.aab`
   (70 Mo) ne va pas sur la forge. Historique des envois : `docs/historique.md`.
 - `.ipa` non signée pour iPhone (`ios.yml`, `ipa=true`,
   `scripts/ios-sans-signature.sh`) jointe aux releases de la forge : lancer

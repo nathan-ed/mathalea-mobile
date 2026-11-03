@@ -531,6 +531,20 @@ ancienne app.
 
 ## À faire (sans version fixée)
 
+- Après la 0.4.12 (2026-11-03) ; tickets forge #2 à #6 pour le reste :
+  - `LC_ALL=C` dans `scripts/moteur.sh` : même empreinte du moteur en local
+    et en CI ;
+  - `publier.sh` : reprendre une vérification complète verte du même commit
+    au lieu de la relancer (0.4.12 : tag posé à la main, accord de Nathan) ;
+  - clé d'une étape = uuid et réglages ; contrôle automatique de la version
+    d'un parcours ;
+  - Explorer tolérant à un fichier invalide (aujourd'hui tout l'Explorer
+    se vide) ;
+  - `defilement-ecrans` : attendre la fin de la transition (Réglages, petit
+    téléphone, échec isolé) ;
+  - lenteur au lancement sous Linux (environ 6 s) : diagnostic avec
+    l'AppImage 0.4.12.
+
 - **PRIORITAIRE : vérifier la migration des données entre les versions de
   l'app** (Nathan, 2026-10-30), dès que l'app est de nouveau fonctionnelle
   (première séance en classe difficile en 0.4.8). Avant d'envoyer une
