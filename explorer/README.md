@@ -21,8 +21,13 @@ ligne remplacera alors celle de l'app, parcours par parcours.
 
 Fichiers :
 
-- `ch-4e-college.json` : Suisse, 4e Collège, deux parcours à ceintures
+- `ch-4e-college.json` : Suisse, 4e Collège, trois parcours à ceintures
   suivant le cours de 4M1, une fiche par ceinture, montrée d'office.
+  - « Prérequis pour l'analyse » (chapitre 4mAna), entrée des deux parcours
+    suivants, sept ceintures (blanche à noire) d'un savoir-faire et trois
+    exercices ciblés chacune : puissances, factoriser, résoudre une
+    équation, signe, limites, dériver, tangente. Écrit par
+    `ch-4e-prerequis-gen.py` (le relancer remplace le parcours).
   - « Calcul intégral » (chapitre 4mInt), huit ceintures (blanche à noire,
     2e dan) : rappels de dérivées, sommes de Darboux, primitives, fonctions
     composées, intégrale, valeur moyenne, aires, volumes de révolution.
@@ -33,3 +38,7 @@ Fichiers :
     primitives avec exp, autres bases, aires et volumes. Exercices
     4mExpLog-1 à 6, 4mAna-1 et 4, 4mInt-8, et 2mLogExp-3, 4, 10, 11, 12
     (2e Collège : pas encore d'équivalent en 4e Collège).
+- `evacom-revisions.json` : révisions des EVACOM 11LC, 11LS et TAF
+  (`evacom-gen.py`, qui écrit dans le dépôt principal). Paliers libres, une
+  partie par sujet : les sujets sont indépendants, ce n'est pas une
+  progression (Nathan, 3 novembre 2026).

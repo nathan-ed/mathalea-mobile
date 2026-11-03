@@ -9,15 +9,15 @@
           "id": "evacom-11lc-revision",
           "version": 4,
           "titre": "Réviser l’EVACOM 11LC",
-          "objectif": "Réviser l’EVACOM 11LC, ceinture par ceinture.",
+          "objectif": "Réviser l’EVACOM 11LC, sujet par sujet.",
           "auteurs": [
             "l’équipe CoopMaths",
             "Nathan Scheinmann",
             "Claude Opus 5.5",
-            "Sol"
+            "GPT-6.1-Sol"
           ],
-          "descriptionEleves": "Pour réviser l’EVACOM 11LC. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Révision de l’EVACOM 11LC en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM 11LC) » pour le suivi.",
+          "descriptionEleves": "Pour réviser l’EVACOM 11LC. Chaque partie reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Toutes les parties sont ouvertes : commence par celle que tu veux revoir.",
+          "descriptionEnseignant": "Révision de l’EVACOM 11LC, une partie par famille de savoir-faire, toutes ouvertes d’emblée : les sujets sont indépendants, sans progression imposée. Chaque partie s’ouvre avec une fiche de cours. Les objectifs sont étiquetés « (EVACOM 11LC) » pour le suivi.",
           "niveau": "11e",
           "theme": "EVACOM 11LC",
           "difficulte": 2,
@@ -25,8 +25,7 @@
           "correction": "question",
           "enTetesMasques": true,
           "melanger": true,
-          "style": "ceintures",
-          "premiereCeinture": 0,
+          "style": "paliers",
           "paliers": [
             {
               "titre": "Calculer avec les fractions",
@@ -93,8 +92,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Calcul littéral : comprendre et réduire",
@@ -128,8 +126,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Développer et transformer",
@@ -163,8 +160,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Mettre en équation et résoudre",
@@ -198,8 +194,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Pythagore et mesures du plan",
@@ -233,8 +228,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Résoudre des problèmes composés",
@@ -268,8 +262,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             }
           ],
           "etapes": [
@@ -583,15 +576,15 @@
           "id": "evacom-11ls-revision",
           "version": 4,
           "titre": "Réviser l’EVACOM 11LS",
-          "objectif": "Réviser l’EVACOM 11LS, ceinture par ceinture.",
+          "objectif": "Réviser l’EVACOM 11LS, sujet par sujet.",
           "auteurs": [
             "l’équipe CoopMaths",
             "Nathan Scheinmann",
             "Claude Opus 5.5",
-            "Sol"
+            "GPT-6.1-Sol"
           ],
-          "descriptionEleves": "Pour réviser l’EVACOM 11LS. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Révision de l’EVACOM 11LS en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM 11LS) » pour le suivi.",
+          "descriptionEleves": "Pour réviser l’EVACOM 11LS. Chaque partie reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Toutes les parties sont ouvertes : commence par celle que tu veux revoir.",
+          "descriptionEnseignant": "Révision de l’EVACOM 11LS, une partie par famille de savoir-faire, toutes ouvertes d’emblée : les sujets sont indépendants, sans progression imposée. Chaque partie s’ouvre avec une fiche de cours. Les objectifs sont étiquetés « (EVACOM 11LS) » pour le suivi.",
           "niveau": "11e",
           "theme": "EVACOM 11LS",
           "difficulte": 2,
@@ -599,8 +592,7 @@
           "correction": "question",
           "enTetesMasques": true,
           "melanger": true,
-          "style": "ceintures",
-          "premiereCeinture": 0,
+          "style": "paliers",
           "paliers": [
             {
               "titre": "Fractions, puissances et carrés",
@@ -667,8 +659,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Notation scientifique et lettres",
@@ -702,8 +693,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Développer avec les identités",
@@ -737,8 +727,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Factoriser et résoudre",
@@ -773,8 +762,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Formules et géométrie",
@@ -808,8 +796,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Solides et volumes",
@@ -843,8 +830,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             }
           ],
           "etapes": [
@@ -1187,15 +1173,15 @@
           "id": "evacom-taf-revision",
           "version": 4,
           "titre": "Réviser l’EVACOM TAF",
-          "objectif": "Réviser l’EVACOM TAF, ceinture par ceinture.",
+          "objectif": "Réviser l’EVACOM TAF, sujet par sujet.",
           "auteurs": [
             "l’équipe CoopMaths",
             "Nathan Scheinmann",
             "Claude Opus 5.5",
-            "Sol"
+            "GPT-6.1-Sol"
           ],
-          "descriptionEleves": "Pour réviser l’EVACOM TAF. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Révision de l’EVACOM TAF en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM TAF) » pour le suivi.",
+          "descriptionEleves": "Pour réviser l’EVACOM TAF. Chaque partie reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Toutes les parties sont ouvertes : commence par celle que tu veux revoir.",
+          "descriptionEnseignant": "Révision de l’EVACOM TAF, une partie par famille de savoir-faire, toutes ouvertes d’emblée : les sujets sont indépendants, sans progression imposée. Chaque partie s’ouvre avec une fiche de cours. Les objectifs sont étiquetés « (EVACOM TAF) » pour le suivi.",
           "niveau": "11e",
           "theme": "EVACOM TAF",
           "difficulte": 2,
@@ -1203,8 +1189,7 @@
           "correction": "question",
           "enTetesMasques": true,
           "melanger": true,
-          "style": "ceintures",
-          "premiereCeinture": 0,
+          "style": "paliers",
           "paliers": [
             {
               "titre": "Lire et placer les nombres",
@@ -1271,8 +1256,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Calculer avec les fractions",
@@ -1306,8 +1290,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Fractions et pourcentages en situation",
@@ -1341,8 +1324,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Convertir les unités",
@@ -1376,8 +1358,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Mesurer des figures planes",
@@ -1411,8 +1392,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             },
             {
               "titre": "Résoudre des problèmes géométriques",
@@ -1446,8 +1426,7 @@
                   }
                 ]
               },
-              "acces": "seuil",
-              "seuil": 80
+              "acces": "libre"
             }
           ],
           "etapes": [

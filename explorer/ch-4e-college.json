@@ -6,15 +6,574 @@
       "nom": "4e Collège",
       "parcours": [
         {
+          "id": "ch-4c-prerequis-analyse",
+          "version": 1,
+          "titre": "Prérequis pour l’analyse",
+          "objectif": "Revoir les calculs dont l’analyse de 4e a besoin : puissances, factorisation, équations, signe, limites, dérivées et tangente.",
+          "auteurs": [
+            "l’équipe CoopMaths",
+            "Nathan Scheinmann",
+            "Claude Opus 5.5"
+          ],
+          "descriptionEleves": "Avant le calcul intégral et le logarithme : sept ceintures pour revoir les puissances, la factorisation, les équations, le signe d’une expression, les limites, les dérivées et la tangente. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Entrée des parcours « Calcul intégral » et « Exponentielle et logarithme ». Sept ceintures de trois exercices ciblés, de la blanche à la noire : Puissances ; Factoriser ; Résoudre une équation ; Signe d’une expression ; Limites ; Dériver ; Tangente. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %. La ceinture noire mène aux premières ceintures des deux parcours (dérivée d’une fonction composée, logarithme naturel).",
+          "niveau": "4e Collège",
+          "theme": "Analyse",
+          "difficulte": 2,
+          "icone": "bx-line-chart",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": true,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Puissances",
+              "nb": 3,
+              "fiche": {
+                "titre": "Puissances",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Pour dériver ou trouver une primitive, on écrit chaque terme comme une puissance de $x$ : $\\dfrac{1}{x^2}=x^{-2}$, $\\sqrt{x}=x^{\\frac12}$. Cette ceinture reprend les règles de calcul avec les puissances."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Règles de calcul",
+                    "texte": "Pour $a\\neq0$ et des exposants entiers $m$ et $n$ :\n- $a^m\\cdot a^n=a^{m+n}$ et $\\dfrac{a^m}{a^n}=a^{m-n}$\n- $\\left(a^m\\right)^n=a^{m\\cdot n}$ et $(a\\cdot b)^n=a^n\\cdot b^n$\n- $a^0=1$ et $a^{-n}=\\dfrac{1}{a^n}$"
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Racines",
+                    "texte": "Pour $x>0$ : $\\sqrt{x}=x^{\\frac12}$, $\\sqrt[n]{x^m}=x^{\\frac{m}{n}}$ et $\\dfrac{1}{\\sqrt{x}}=x^{-\\frac12}$. Les règles ci-dessus restent vraies avec ces exposants."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un quotient",
+                    "enonce": "Écrire $\\dfrac{x^3\\cdot x^{-1}}{x^5}$ sous la forme $x^n$.",
+                    "etapes": [
+                      "Au numérateur, même base : on additionne les exposants, $x^{3+(-1)}=x^2$.",
+                      "Quotient de même base : on soustrait les exposants, $\\dfrac{x^2}{x^5}=x^{2-5}=x^{-3}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avant de dériver",
+                    "enonce": "Écrire $f(x)=\\dfrac{2}{x^3}+\\dfrac{1}{\\sqrt{x}}$ avec des puissances de $x$.",
+                    "etapes": [
+                      "$\\dfrac{2}{x^3}=2\\cdot\\dfrac{1}{x^3}=2x^{-3}$.",
+                      "$\\dfrac{1}{\\sqrt{x}}=\\dfrac{1}{x^{\\frac12}}=x^{-\\frac12}$, donc $f(x)=2x^{-3}+x^{-\\frac12}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\dfrac{1}{x^2}$ s’écrit :",
+                    "choix": [
+                      "$x^{-2}$",
+                      "$-x^2$",
+                      "$x^{\\frac12}$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Diviser par $x^2$, c’est multiplier par $x^{-2}$. Le signe « $-$ » est dans l’exposant : $-x^2$ est un tout autre nombre, négatif."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut $2^{-3}\\cdot2^{5}$ ?",
+                    "reponse": 4,
+                    "explication": "Même base : on additionne les exposants, $-3+5=2$, et $2^2=4$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Factoriser",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Factoriser",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Factoriser sert à trouver les zéros d’une fonction, à étudier son signe et à simplifier une fraction : on s’en sert dans presque chaque calcul d’aire."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Méthode",
+                    "texte": "1. Mettre en évidence le facteur commun : $ab+ac=a\\,(b+c)$.\n2. Reconnaître une identité remarquable : $a^2-b^2=(a-b)(a+b)$ et $a^2\\pm2ab+b^2=(a\\pm b)^2$.\n3. Pour $x^2+bx+c$, chercher deux nombres de somme $b$ et de produit $c$ : $x^2-x-6=(x-3)(x+2)$."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Facteur commun puis identité",
+                    "enonce": "Factoriser $2x^3-8x$.",
+                    "etapes": [
+                      "Facteur commun $2x$ : $2x^3-8x=2x\\,(x^2-4)$.",
+                      "$x^2-4=x^2-2^2=(x-2)(x+2)$, donc $2x^3-8x=2x\\,(x-2)(x+2)$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Même dénominateur",
+                    "enonce": "Écrire $\\dfrac{1}{x}-\\dfrac{1}{x+1}$ en une seule fraction.",
+                    "etapes": [
+                      "Dénominateur commun : $x\\,(x+1)$.",
+                      "$\\dfrac{x+1}{x\\,(x+1)}-\\dfrac{x}{x\\,(x+1)}=\\dfrac{x+1-x}{x\\,(x+1)}=\\dfrac{1}{x\\,(x+1)}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Une factorisation de $x^2-6x+9$ est :",
+                    "choix": [
+                      "$(x-3)^2$",
+                      "$(x+3)^2$",
+                      "$(x-3)(x+3)$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$9=3^2$ et $6x=2\\cdot x\\cdot3$ : c’est un carré. Le terme en $x$ est négatif, donc $(x-3)^2$. Le produit $(x-3)(x+3)$ donnerait $x^2-9$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Piège",
+                    "texte": "On ne simplifie une fraction que par un **facteur** : $\\dfrac{(x-3)(x+3)}{x+3}=x-3$ pour $x\\neq-3$, mais $\\dfrac{x+3}{x}$ ne se simplifie pas."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Résoudre une équation",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Résoudre une équation",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Les bornes d’une aire sont souvent les solutions d’une équation : $f(x)=0$ pour les zéros, $f(x)=g(x)$ pour l’intersection de deux courbes."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Produit nul",
+                    "texte": "Un produit est nul si et seulement si l’un de ses facteurs est nul : $A\\cdot B=0$ équivaut à $A=0$ ou $B=0$. On ramène donc tout d’un côté ($\\ldots=0$), puis on factorise."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Deuxième degré",
+                    "texte": "Pour $ax^2+bx+c=0$ ($a\\neq0$), on calcule $\\Delta=b^2-4ac$ :\n- $\\Delta>0$ : deux solutions $x=\\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x=\\dfrac{-b+\\sqrt{\\Delta}}{2a}$ ;\n- $\\Delta=0$ : une solution $x=-\\dfrac{b}{2a}$ ;\n- $\\Delta<0$ : aucune solution réelle."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Intersection de deux courbes",
+                    "enonce": "Trouver les points d’intersection des courbes de $f(x)=x^2$ et $g(x)=x+2$.",
+                    "etapes": [
+                      "$x^2=x+2$ équivaut à $x^2-x-2=0$.",
+                      "Deux nombres de somme $-1$ et de produit $-2$ : $-2$ et $1$. Donc $(x-2)(x+1)=0$.",
+                      "$x=2$ ou $x=-1$ : les courbes se coupent en $(2\\,;4)$ et $(-1\\,;1)$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien de solutions a l’équation $x^3-4x=0$ ?",
+                    "reponse": 3,
+                    "explication": "$x^3-4x=x\\,(x^2-4)=x\\,(x-2)(x+2)$. Le produit est nul pour $x=0$, $x=2$ ou $x=-2$ : trois solutions."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Piège",
+                    "texte": "Ne pas diviser les deux membres par $x$ : dans $x^3=4x$, on perdrait la solution $x=0$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Signe d’une expression",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Signe d’une expression",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Pour calculer l’aire entre deux courbes, il faut savoir laquelle est au-dessus : c’est le signe de $f(x)-g(x)$. Le signe de la dérivée donne aussi les variations d’une fonction."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Tableau de signes",
+                    "texte": "1. Factoriser l’expression.\n2. Chercher le zéro de chaque facteur : $ax+b$ s’annule en $x=-\\dfrac{b}{a}$ et a le signe de $a$ à sa droite.\n3. Une ligne par facteur, puis la dernière ligne par la règle des signes.\n4. Dans un quotient, une valeur qui annule le dénominateur est interdite (double barre)."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un produit",
+                    "enonce": "Étudier le signe de $f(x)=(x-1)(x+3)$.",
+                    "etapes": [
+                      "Zéros : $x=1$ et $x=-3$.",
+                      "Pour $x<-3$ : deux facteurs négatifs, $f(x)>0$. Pour $-3<x<1$ : $(x-1)<0$ et $(x+3)>0$, $f(x)<0$. Pour $x>1$ : $f(x)>0$.",
+                      "Donc $f(x)<0$ exactement sur $]-3\\,;1[$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Pour quels $x$ a-t-on $\\dfrac{x-2}{x+1}\\leqslant0$ ?",
+                    "choix": [
+                      "$]-1\\,;2]$",
+                      "$[-1\\,;2]$",
+                      "$]-\\infty\\,;-1[\\,\\cup\\,[2\\,;+\\infty[$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Le numérateur s’annule en $2$ (valeur comprise, car on accepte $0$) ; $-1$ est interdit. Entre les deux, le numérateur est négatif et le dénominateur positif : le quotient est négatif."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Limites",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Limites",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Les limites décrivent une fonction au bord de son domaine : asymptotes, puis, plus tard, les limites avec le logarithme et l’exponentielle."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "En l’infini",
+                    "texte": "Pour une fonction rationnelle, seuls les termes de plus haut degré comptent : $\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{2x^2+1}{x^2-3x}=\\lim_{x\\to+\\infty}\\dfrac{2x^2}{x^2}=2$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Près d’une valeur interdite",
+                    "texte": "- Numérateur vers un nombre non nul, dénominateur vers $0$ : la limite est infinie (asymptote verticale) ; son signe se lit de chaque côté avec un tableau de signes.\n- Numérateur et dénominateur vers $0$ : factoriser et simplifier, puis remplacer."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Forme « 0/0 »",
+                    "enonce": "Calculer $\\displaystyle\\lim_{x\\to2}\\dfrac{x^2-4}{x-2}$.",
+                    "etapes": [
+                      "En $x=2$, numérateur et dénominateur valent $0$ : on factorise.",
+                      "$\\dfrac{(x-2)(x+2)}{x-2}=x+2$ pour $x\\neq2$, donc la limite vaut $2+2=4$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Asymptote verticale",
+                    "enonce": "Calculer $\\displaystyle\\lim_{x\\to1^+}\\dfrac{3}{x-1}$.",
+                    "etapes": [
+                      "Le numérateur vaut $3$ et le dénominateur tend vers $0$ en restant positif ($x>1$).",
+                      "La limite vaut $+\\infty$ : la droite $x=1$ est une asymptote verticale."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Que vaut $\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{6x-1}{2x+5}$ ?",
+                    "reponse": 3,
+                    "explication": "En l’infini, on garde les termes de plus haut degré : $\\dfrac{6x}{2x}=3$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Dériver",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Dériver",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Chercher une primitive, c’est dériver à l’envers : les règles de dérivation doivent être sûres avant le calcul intégral."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Règles de base",
+                    "texte": "- $(k)^{\\prime}=0$ et $\\left(x^n\\right)^{\\prime}=n\\,x^{n-1}$, aussi pour un exposant négatif ou fractionnaire\n- $(k\\cdot u)^{\\prime}=k\\cdot u^{\\prime}$ et $(u+v)^{\\prime}=u^{\\prime}+v^{\\prime}$\n- $\\big(u(ax+b)\\big)^{\\prime}=a\\cdot u^{\\prime}(ax+b)$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Avec des puissances",
+                    "enonce": "Dériver $f(x)=3x^4-\\dfrac{2}{x}+\\sqrt{x}$.",
+                    "etapes": [
+                      "On écrit des puissances : $f(x)=3x^4-2x^{-1}+x^{\\frac12}$.",
+                      "$f^{\\prime}(x)=12x^3+2x^{-2}+\\dfrac12x^{-\\frac12}=12x^3+\\dfrac{2}{x^2}+\\dfrac{1}{2\\sqrt{x}}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Du type u(ax+b)",
+                    "enonce": "Dériver $g(x)=(5x-2)^3$.",
+                    "etapes": [
+                      "$u(t)=t^3$, $u^{\\prime}(t)=3t^2$, avec $a=5$.",
+                      "$g^{\\prime}(x)=5\\cdot3\\,(5x-2)^2=15\\,(5x-2)^2$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$f(x)=x^3-6x$. Que vaut $f^{\\prime}(2)$ ?",
+                    "reponse": 6,
+                    "explication": "$f^{\\prime}(x)=3x^2-6$, donc $f^{\\prime}(2)=3\\cdot4-6=6$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Tangente",
+              "nb": 3,
+              "acces": "seuil",
+              "seuil": 80,
+              "fiche": {
+                "titre": "Tangente",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Le nombre dérivé $f^{\\prime}(a)$ est la pente de la tangente au point d’abscisse $a$. Les études de fonctions avec le logarithme et l’exponentielle s’en servent sans cesse."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Équation de la tangente",
+                    "texte": "La tangente à la courbe de $f$ au point d’abscisse $a$ a pour équation\n$$y=f^{\\prime}(a)\\,(x-a)+f(a)$$\nIl faut deux nombres : $f(a)$ (le point de contact) et $f^{\\prime}(a)$ (la pente)."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Calcul",
+                    "enonce": "Déterminer la tangente à la courbe de $f(x)=x^2-3x$ au point d’abscisse $a=1$.",
+                    "etapes": [
+                      "$f(1)=1-3=-2$.",
+                      "$f^{\\prime}(x)=2x-3$, donc $f^{\\prime}(1)=-1$.",
+                      "$y=-1\\cdot(x-1)-2$, soit $y=-x-1$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La tangente à la courbe de $f$ au point d’abscisse $a$ passe par $(0\\,;1)$ et $(2\\,;5)$. Que vaut $f^{\\prime}(a)$ ?",
+                    "reponse": 2,
+                    "explication": "$f^{\\prime}(a)$ est la pente de la tangente : $\\dfrac{5-1}{2-0}=2$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Piège",
+                    "texte": "$f^{\\prime}(a)$ est un nombre : on calcule d’abord $f^{\\prime}(x)$, puis on remplace $x$ par $a$. Remplacer avant de dériver donne la dérivée d’une constante, $0$."
+                  }
+                ]
+              }
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "a8a2e",
+              "id": "2N43-2",
+              "nbQuestions": 3,
+              "titre": "Écrire sous la forme d’une seule puissance",
+              "sup": "true",
+              "objectifs": [
+                "Calculer avec des puissances"
+              ]
+            },
+            {
+              "uuid": "32a31",
+              "id": "1A-C03-2",
+              "nbQuestions": 3,
+              "titre": "Simplifier avec les propriétés des puissances",
+              "objectifs": [
+                "Calculer avec des puissances"
+              ]
+            },
+            {
+              "uuid": "eb865",
+              "id": "10NO3D-25",
+              "nbQuestions": 2,
+              "titre": "Puissances à exposant négatif",
+              "sup": "2",
+              "objectifs": [
+                "Calculer avec des puissances"
+              ]
+            },
+            {
+              "uuid": "8cb63",
+              "id": "3L12-4",
+              "nbQuestions": 3,
+              "titre": "Factoriser une expression",
+              "objectifs": [
+                "Factoriser une expression"
+              ]
+            },
+            {
+              "uuid": "c4b73",
+              "id": "1mCL2-1",
+              "nbQuestions": 3,
+              "titre": "Mise en évidence ou identité remarquable",
+              "objectifs": [
+                "Factoriser une expression"
+              ]
+            },
+            {
+              "uuid": "2cb9a",
+              "id": "2L13-5",
+              "nbQuestions": 2,
+              "titre": "Calculer avec des fractions littérales",
+              "objectifs": [
+                "Factoriser une expression"
+              ]
+            },
+            {
+              "uuid": "cf78f",
+              "id": "1AL23-21",
+              "nbQuestions": 3,
+              "titre": "Résoudre une équation du deuxième degré",
+              "objectifs": [
+                "Résoudre une équation"
+              ]
+            },
+            {
+              "uuid": "6357e",
+              "id": "1mCL4-5",
+              "nbQuestions": 3,
+              "titre": "Factoriser puis résoudre",
+              "objectifs": [
+                "Résoudre une équation"
+              ]
+            },
+            {
+              "uuid": "ecf62",
+              "id": "11FA5B-2",
+              "nbQuestions": 2,
+              "titre": "Résoudre une équation produit nul",
+              "objectifs": [
+                "Résoudre une équation"
+              ]
+            },
+            {
+              "uuid": "fa1c5",
+              "id": "2L31-1",
+              "nbQuestions": 3,
+              "titre": "Résoudre une inéquation produit",
+              "objectifs": [
+                "Étudier le signe d’une expression"
+              ]
+            },
+            {
+              "uuid": "0c09b",
+              "id": "2L31-2",
+              "nbQuestions": 3,
+              "titre": "Résoudre une inéquation quotient",
+              "objectifs": [
+                "Étudier le signe d’une expression"
+              ]
+            },
+            {
+              "uuid": "a7860",
+              "id": "2F32-3",
+              "nbQuestions": 2,
+              "titre": "Lire un tableau de signes sur un graphique",
+              "objectifs": [
+                "Étudier le signe d’une expression"
+              ]
+            },
+            {
+              "uuid": "34de8",
+              "id": "3mLimCont-2",
+              "nbQuestions": 3,
+              "titre": "Lire une limite sur un graphique",
+              "objectifs": [
+                "Calculer une limite"
+              ]
+            },
+            {
+              "uuid": "0c3d9",
+              "id": "3mLimCont-3",
+              "nbQuestions": 2,
+              "titre": "Compléter un tableau de limites",
+              "objectifs": [
+                "Calculer une limite"
+              ]
+            },
+            {
+              "uuid": "04b1e",
+              "id": "3mLimCont-1",
+              "nbQuestions": 3,
+              "titre": "Limite d’une fonction rationnelle",
+              "objectifs": [
+                "Calculer une limite"
+              ]
+            },
+            {
+              "uuid": "ec088",
+              "id": "1AN14-3",
+              "nbQuestions": 3,
+              "titre": "Dériver un polynôme",
+              "objectifs": [
+                "Dériver une fonction"
+              ]
+            },
+            {
+              "uuid": "a83c0",
+              "id": "3mA2-3",
+              "nbQuestions": 3,
+              "titre": "Dériver une somme : polynôme, inverse, racine",
+              "objectifs": [
+                "Dériver une fonction"
+              ]
+            },
+            {
+              "uuid": "3391d",
+              "id": "1AN14-7",
+              "nbQuestions": 2,
+              "titre": "Dériver une fonction du type u(ax+b)",
+              "objectifs": [
+                "Dériver une fonction"
+              ]
+            },
+            {
+              "uuid": "4c8c7",
+              "id": "1AN11-3",
+              "nbQuestions": 3,
+              "titre": "Déterminer une équation de tangente",
+              "sup": "2-3",
+              "objectifs": [
+                "Déterminer une tangente"
+              ]
+            },
+            {
+              "uuid": "da914",
+              "id": "1Tec-D13",
+              "nbQuestions": 2,
+              "titre": "Tangente avec image et nombre dérivé",
+              "objectifs": [
+                "Déterminer une tangente"
+              ]
+            },
+            {
+              "uuid": "8c073",
+              "id": "1AN11-5",
+              "nbQuestions": 3,
+              "titre": "Lire un nombre dérivé sur la tangente",
+              "objectifs": [
+                "Déterminer une tangente"
+              ]
+            }
+          ]
+        },
+        {
           "id": "ch-4c-integrales",
-          "version": 3,
+          "version": 4,
           "titre": "Calcul intégral",
           "objectif": "Encadrer une aire, trouver une primitive, calculer une intégrale et s'en servir pour une valeur moyenne, une aire ou un volume.",
           "auteurs": [
             "l’équipe CoopMaths",
             "Nathan Scheinmann",
             "Claude Opus 5.5",
-            "Sol"
+            "GPT-6.1-Sol"
           ],
           "descriptionEleves": "Après des rappels de dérivées, tu encadres une aire par des sommes, puis tu cherches des primitives. Tu calcules ensuite des intégrales et tu t’en sers pour une valeur moyenne, une aire ou un volume de révolution. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
           "descriptionEnseignant": "Huit ceintures d’un à trois exercices, de la blanche à la ceinture noire, 2e dan : Rappels de dérivées ; Aire et sommes de Darboux ; Primitives ; Primitives de fonctions composées ; Calculer une intégrale ; Valeur moyenne ; Aires ; Volumes de révolution. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
@@ -954,14 +1513,14 @@
         },
         {
           "id": "ch-4c-exp-log",
-          "version": 2,
+          "version": 3,
           "titre": "Exponentielle et logarithme",
           "objectif": "Calculer avec ln et exp : propriétés, équations, dérivées, primitives, limites, aires et volumes.",
           "auteurs": [
             "l’équipe CoopMaths",
             "Nathan Scheinmann",
             "Claude Opus 5.5",
-            "Sol"
+            "GPT-6.1-Sol"
           ],
           "descriptionEleves": "Tu découvres le logarithme naturel, tu le dérives et tu t’en sers pour trouver des primitives. Viennent ensuite l’exponentielle, les autres bases, puis des aires et des volumes. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
           "descriptionEnseignant": "Neuf ceintures d’un à trois exercices, de la blanche à la ceinture noire, 3e dan : Le logarithme naturel ; Dériver avec ln ; Primitives avec ln ; Graphe et limites ; Décomposition en éléments simples ; La fonction exponentielle ; Primitives avec l'exponentielle ; Autres bases ; Aires et volumes. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
@@ -1957,5 +2516,45 @@
         }
       ]
     }
-  ]
+  ],
+  "bibliotheque": {
+    "objectifs": [
+      {
+        "libelle": "Calculer avec des puissances",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      },
+      {
+        "libelle": "Factoriser une expression",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      },
+      {
+        "libelle": "Résoudre une équation",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      },
+      {
+        "libelle": "Étudier le signe d’une expression",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      },
+      {
+        "libelle": "Calculer une limite",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      },
+      {
+        "libelle": "Dériver une fonction",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      },
+      {
+        "libelle": "Déterminer une tangente",
+        "niveau": "4e Collège",
+        "theme": "Analyse"
+      }
+    ],
+    "parcours": []
+  }
 }

@@ -13,7 +13,8 @@ for item in list(CAT_FR.values())+list(CAT_CH.values()):
     if item.get('features', {}).get('interactif', {}).get('isActive') and 'old' not in item.get('url', '').lower() and 'xxx' not in item.get('url', '').lower():
         BY_UUID[item['uuid']] = item
 
-# Une ceinture : titre, deux savoir-faire évalués, règle, exemple corrigé, question courte.
+# Une partie (palier libre : les sujets de l'EVACOM sont indépendants, pas une progression) :
+# titre, savoir-faire évalués, règle, exemple corrigé, question courte.
 # Chaque savoir-faire a deux exercices, avec trois questions demandées par exercice.
 # Le second exercice « triangle rectangle ou non » n'est pas classé en fr-CH.
 B = {
@@ -139,7 +140,7 @@ def stage(uuid, objective, filiere):
     return {'uuid':uuid,'id':item['id'],'nbQuestions':3,'titre':titre or item['titre'].strip(),
             'objectifs':[f'{objective} (EVACOM {filiere})'],**params}
 
-AUTEURS=['l’équipe CoopMaths','Nathan Scheinmann','Claude Opus 5.5','Sol']
+AUTEURS=['l’équipe CoopMaths','Nathan Scheinmann','Claude Opus 5.5','GPT-6.1-Sol']
 paths=[]; objectives=[]
 for filiere, belts in B.items():
     steps=[];paliers=[]
@@ -152,17 +153,17 @@ for filiere, belts in B.items():
                 {'type':'question','enonce':question,'choix':choices,'bonne':correct,'explication':explanation}]
         paliers.append({'titre':title,'nb':sum(len(u.split()) for _,u in groups),
                         'fiche':{'titre':title,'avant':True,'blocs':blocks},
-                        **({} if i==0 else {'acces':'seuil','seuil':80})})
+                        **({} if i==0 else {'acces':'libre'})})
     paths.append({'id':f'evacom-{filiere.lower()}-revision','version':4,
                   'titre':f'Réviser l’EVACOM {filiere}',
-                  'objectif':f'Réviser l’EVACOM {filiere}, ceinture par ceinture.',
+                  'objectif':f'Réviser l’EVACOM {filiere}, sujet par sujet.',
                   'auteurs':AUTEURS,
-                  'descriptionEleves':f'Pour réviser l’EVACOM {filiere}. Chaque ceinture reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Tu passes à la ceinture suivante à partir de 80 % de réponses correctes.',
-                  'descriptionEnseignant':f'Révision de l’EVACOM {filiere} en ceintures. Chaque ceinture s’ouvre avec une fiche de cours ; le palier suivant se débloque à 80 %. Les objectifs sont étiquetés « (EVACOM {filiere}) » pour le suivi.',
+                  'descriptionEleves':f'Pour réviser l’EVACOM {filiere}. Chaque partie reprend une famille de savoir-faire : tu lis la règle, tu étudies un exemple, puis tu t’entraînes. Toutes les parties sont ouvertes : commence par celle que tu veux revoir.',
+                  'descriptionEnseignant':f'Révision de l’EVACOM {filiere}, une partie par famille de savoir-faire, toutes ouvertes d’emblée : les sujets sont indépendants, sans progression imposée. Chaque partie s’ouvre avec une fiche de cours. Les objectifs sont étiquetés « (EVACOM {filiere}) » pour le suivi.',
                   'niveau':'11e','theme':f'EVACOM {filiere}','difficulte':2,
                   'presentation':'une_question_par_page','correction':'question',
-                  'enTetesMasques':True,'melanger':True,'style':'ceintures',
-                  'premiereCeinture':0,'paliers':paliers,'etapes':steps})
+                  'enTetesMasques':True,'melanger':True,'style':'paliers',
+                  'paliers':paliers,'etapes':steps})
 
 data={'format':'classes-mathalea/1','exporteLe':datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00','Z'),
       'classes':[{'nom':'EVACOM 11LC','parcours':[paths[1]]},{'nom':'EVACOM 11LS','parcours':[paths[2]]},{'nom':'EVACOM TAF','parcours':[paths[0]]}],
@@ -170,4 +171,4 @@ data={'format':'classes-mathalea/1','exporteLe':datetime.now(timezone.utc).isofo
 out=APP/'explorer/evacom-revisions.json'
 out.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 print(out)
-print('parcours',len(paths),'ceintures',sum(len(p['paliers']) for p in paths),'étapes',sum(len(p['etapes']) for p in paths),'objectifs',len(objectives))
+print('parcours',len(paths),'parties',sum(len(p['paliers']) for p in paths),'étapes',sum(len(p['etapes']) for p in paths),'objectifs',len(objectives))
