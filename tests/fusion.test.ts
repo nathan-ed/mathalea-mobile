@@ -75,10 +75,10 @@ describe('fusion de deux appareils', () => {
   })
 
   it('réglages de cet appareil, listes réunies', () => {
-    const a = appareil({}, { prenom: 'Alix', epingles: ['p'], classes: [{ lien: 'L1', nom: '5e A', disponibles: ['5e A'], parcours: [] }] })
-    const b = appareil({}, { prenom: 'Autre', pays: 'CH', epingles: ['q', 'p'], classes: [{ lien: 'L2', nom: '5e B', disponibles: ['5e B'], parcours: [] }, { lien: 'L1', nom: 'x', disponibles: [], parcours: [] }] })
+    const a = appareil({}, { prenom: 'Alix', epingles: ['p'], caches: ['r'], classes: [{ lien: 'L1', nom: '5e A', disponibles: ['5e A'], parcours: [] }] })
+    const b = appareil({}, { prenom: 'Autre', pays: 'CH', epingles: ['q', 'p'], caches: ['s', 'r'], classes: [{ lien: 'L2', nom: '5e B', disponibles: ['5e B'], parcours: [] }, { lien: 'L1', nom: 'x', disponibles: [], parcours: [] }] })
     const { donnees } = fusionnerDonnees(a, b)
-    expect([donnees.prenom, donnees.pays, donnees.epingles]).toEqual(['Alix', 'FR', ['p', 'q']])
+    expect([donnees.prenom, donnees.pays, donnees.epingles, donnees.caches]).toEqual(['Alix', 'FR', ['p', 'q'], ['r', 's']])
     expect((donnees.classes as { lien: string; nom: string }[]).map((c) => `${c.lien} ${c.nom}`)).toEqual(['L1 5e A', 'L2 5e B'])
   })
 

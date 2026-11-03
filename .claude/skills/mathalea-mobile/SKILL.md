@@ -325,8 +325,11 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   niveau (aucun champ `pays`). « Commencer » ajoute à Mes parcours ;
   enseignant : « Donner à des classes » (`adopter`, puis sa page). Page d'un
   degré : tous ses parcours sous le titre de leur chapitre, sans écran de
-  chapitre ; « Ajouter plusieurs parcours » ajoute d'un coup (accueil de
-  l'élève, bibliothèque de l'enseignant) (Nathan, 2026-11-02). Sources
+  chapitre ; « + » sur chaque tuile pour ajouter d'un toucher, « ✓ » pour
+  retirer, « Tout ajouter » pour le reste du degré (accueil de l'élève,
+  bibliothèque de l'enseignant) (Nathan, 2026-11-03). Accueil : épingle et
+  œil (cacher, `caches`) sur chaque tuile, sans « ⋯ » ; parcours cachés en
+  bas, repliés. Sources
   du catalogue dans `explorer/` (Suisse : `ch-4e-college.json`, chapitre
   4mInt). Le référentiel se lit dans le moteur compilé (`listerExercices`),
   même sans accès à la forge (moteur extrait d'un `.deb` de release si

@@ -25,11 +25,8 @@
   import type { NiveauExplorer } from '$lib/explorer'
   import ChampTexte from './ChampTexte.svelte'
   import ContenuClasse, { type Organisation } from './ContenuClasse.svelte'
-  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee } from './classes'
+  import { boutonAction, boutonLien } from './classes'
   import EnTete from './EnTete.svelte'
-  import Feuille from './Feuille.svelte'
-  import Impression from './Impression.svelte'
-  import { impressionPossible } from '$lib/impression'
   import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
   import { retourAccueil, retourSi } from '$lib/navigation.svelte'
@@ -209,65 +206,23 @@
     defilementNiveau = null
   })
 
-  // Explorer : plusieurs parcours du degré ajoutés (ou, pour l'élève, retirés) d'un coup (panneau du bas).
-  // Coché = sur l'accueil (élève) ou dans la bibliothèque (enseignant) une fois validé
+  // Explorer : chaque tuile du degré a son « + » (ajouter d'un toucher, « ✓ » pour retirer) ;
+  // « Tout ajouter » met d'un coup le reste du degré sur l'accueil (élève) ou dans la bibliothèque (enseignant)
   const espaceAjout = $derived(espaceProf ? 'à votre bibliothèque' : 'à ton accueil')
-  let choixAjout: string[] | null = $state(null)
   let messageAjout = $state('')
   const peutRetirer = (p: Parcours) => !!onretirerPlusieurs && !!retirable?.(p)
-  // Parcours qu'on peut cocher ou décocher : pas encore ajoutés, ou retirables
-  const modifiables = $derived(niveauOuvert ? niveauOuvert.chapitres.flatMap((c) => c.parcours).filter((p) => !dejaAjoute(p) || peutRetirer(p)) : [])
-  const aAjouter = $derived(modifiables.filter((p) => !dejaAjoute(p) && choixAjout?.includes(p.id)))
-  const aRetirer = $derived(modifiables.filter((p) => dejaAjoute(p) && !choixAjout?.includes(p.id)))
-  const avecRetrait = $derived(modifiables.some((p) => dejaAjoute(p)))
-  const ouvrirChoix = () => (choixAjout = modifiables.filter((p) => dejaAjoute(p)).map((p) => p.id))
-  const basculerChoix = (ids: string[], cocher: boolean) => {
-    const reste = (choixAjout ?? []).filter((id) => !ids.includes(id))
-    choixAjout = cocher ? [...reste, ...ids] : reste
-  }
+  const restantsDegre = $derived(niveauOuvert ? niveauOuvert.chapitres.flatMap((c) => c.parcours).filter((p) => !dejaAjoute(p)) : [])
   const pluriel = (n: number, mot: string) => `${n} parcours ${mot}${n > 1 ? 's' : ''}`
-  const libelleValider = $derived(
-    aAjouter.length && aRetirer.length
-      ? `Ajouter ${aAjouter.length}, retirer ${aRetirer.length}`
-      : aRetirer.length
-        ? `Retirer ${aRetirer.length} parcours`
-        : !aAjouter.length
-          ? 'Ajouter'
-          : aAjouter.length === modifiables.length
-            ? `Ajouter les ${aAjouter.length} parcours`
-            : `Ajouter ${aAjouter.length} parcours`,
-  )
-  async function validerChoix() {
-    const ajout = aAjouter
-    const retrait = aRetirer
-    choixAjout = null
-    if (ajout.length) await onajouterPlusieurs(ajout)
-    if (retrait.length) await onretirerPlusieurs?.(retrait)
-    messageAjout = [ajout.length ? `${pluriel(ajout.length, 'ajouté')} ${espaceAjout}` : '', retrait.length ? `${pluriel(retrait.length, 'retiré')} de ${espaceProf ? 'votre bibliothèque' : 'ton accueil'}` : '']
-      .filter(Boolean)
-      .join(', ')
-    messageAjout = messageAjout.charAt(0).toUpperCase() + messageAjout.slice(1) + '.'
+  async function toutAjouter() {
+    const ajout = restantsDegre
+    await onajouterPlusieurs(ajout)
+    messageAjout = `${pluriel(ajout.length, 'ajouté')} ${espaceAjout}.`
   }
-  // Explorer : « + » d'une tuile, un parcours ajouté ou retiré d'un toucher, sans quitter la liste
   async function basculerUn(p: Parcours) {
     messageAjout = ''
     if (!dejaAjoute(p)) await onajouterPlusieurs([p])
     else if (peutRetirer(p)) await onretirerPlusieurs?.([p])
   }
-  // Accueil : bouton « ⋯ » d'une tuile (épingler, imprimer, retirer un parcours de l'Explorer)
-  let actionsDe: Parcours | null = $state(null)
-  let imprimerParcours: Parcours | null = $state(null)
-  const actionsTuile = $derived.by(() => {
-    const p = actionsDe
-    if (!p) return []
-    return [
-      epingles.includes(p.id)
-        ? { icone: 'bxs-pin', libelle: 'Désépingler', fn: () => onepingler(p) }
-        : { icone: 'bx-pin', libelle: 'Épingler à l’accueil', fn: () => onepingler(p) },
-      ...(impressionPossible() ? [{ icone: 'bx-printer', libelle: 'Imprimer', fn: () => (imprimerParcours = p) }] : []),
-      ...(onretirerPlusieurs && retirable?.(p) ? [{ icone: 'bx-trash', libelle: 'Retirer de l’accueil', fn: () => onretirerPlusieurs([p]) }] : []),
-    ]
-  })
 
   $effect(() => {
     void niveau
@@ -368,33 +323,6 @@
               <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
-          {#if actionsDe}
-            <Feuille onfermer={() => (actionsDe = null)}>
-              <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{actionsDe?.titre}</p>
-              <ul class={listeGroupee}>
-                {#each actionsTuile as a (a.libelle)}
-                  <li>
-                    <button
-                      type="button"
-                      class={elementListe}
-                      onclick={() => {
-                        actionsDe = null
-                        a.fn()
-                      }}
-                    >
-                      <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                        <i aria-hidden="true" class="bx {a.icone} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
-                        {a.libelle}
-                      </span>
-                    </button>
-                  </li>
-                {/each}
-              </ul>
-            </Feuille>
-          {/if}
-          {#if imprimerParcours}
-            <Impression parcours={imprimerParcours} onfermer={() => (imprimerParcours = null)} />
-          {/if}
           {#each aChoisir as d (d.lien)}
             <h2 class={titreSection}>Choisis ta classe</h2>
             {#each d.disponibles as nomClasse (nomClasse)}
@@ -413,7 +341,6 @@
               onorganiser={(o) => onorganiser(sources[0].id, o)}
               {epingles}
               {onepingler}
-              onactions={(p) => (actionsDe = p)}
               {oncacher}
             />
           {:else if sources.length > 1}
@@ -446,7 +373,6 @@
                   onorganiser={(o) => onorganiser(classeVue!.id, o)}
                   {epingles}
                   {onepingler}
-                  onactions={(p) => (actionsDe = p)}
                   {oncacher}
                 />
               {/key}
@@ -493,9 +419,19 @@
       <!-- Tous les parcours du degré, rangés sous leur chapitre -->
       <div class="liste-tuiles flex flex-col gap-3 p-4">
         <p class="pl-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          Touche <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
-          pour mettre un parcours {espaceProf ? 'dans votre bibliothèque' : 'sur ton accueil'}, à nouveau pour l’{espaceProf ? 'y' : 'en'} retirer.
+          {#if espaceProf}
+            Touchez <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
+            pour mettre un parcours dans votre bibliothèque.
+          {:else}
+            Touche <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
+            pour mettre un parcours sur ton accueil, à nouveau pour l’en retirer.
+          {/if}
         </p>
+        {#if restantsDegre.length > 1}
+          <button type="button" class="{boutonLien} self-start" onclick={toutAjouter}>
+            <i aria-hidden="true" class="bx bx-list-plus"></i> Tout ajouter ({restantsDegre.length})
+          </button>
+        {/if}
         {#if messageAjout}
           <p class="pl-2 text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="status">{messageAjout}</p>
         {/if}
@@ -516,52 +452,6 @@
           {/each}
         {/each}
       </div>
-      {#if choixAjout}
-        <Feuille onfermer={() => (choixAjout = null)}>
-          <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{avecRetrait ? `Parcours de ${niveauOuvert.niveau} sur ton accueil` : `Ajouter des parcours de ${niveauOuvert.niveau}`}</p>
-          <div class="flex flex-col gap-2 overflow-y-auto" style="max-height: 50vh">
-            {#each niveauOuvert.chapitres as c (c.theme)}
-              {@const ids = c.parcours.filter((p) => !dejaAjoute(p) || peutRetirer(p)).map((p) => p.id)}
-              {#if ids.length}
-                {@const tousCoches = ids.every((id) => choixAjout?.includes(id))}
-                <button
-                  type="button"
-                  role="checkbox"
-                  aria-checked={tousCoches}
-                  aria-label="Tout le chapitre {c.theme}"
-                  class="presse flex flex-row items-center justify-between gap-2 rounded-lg pl-1 pr-4 pt-1 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
-                  onclick={() => basculerChoix(ids, !tousCoches)}
-                >
-                  <span class="min-w-0">{c.theme}</span>
-                  <i aria-hidden="true" class="bx text-2xl text-coopmaths-action dark:text-coopmathsdark-action {tousCoches ? 'bx-checkbox-checked' : 'bx-checkbox'}"></i>
-                </button>
-                <ul class="{listeGroupee} shrink-0">
-                  {#each c.parcours.filter((p) => !dejaAjoute(p) || peutRetirer(p)) as p (p.id)}
-                    {@const coche = !!choixAjout?.includes(p.id)}
-                    <li>
-                      <button type="button" role="checkbox" aria-checked={coche} class={elementListe} onclick={() => basculerChoix([p.id], !coche)}>
-                        <span class="flex flex-col min-w-0">
-                          <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{p.titre}</span>
-                          <span class="truncate text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{organisationDe(p) || difficultes[p.difficulte - 1]}</span>
-                        </span>
-                        <i aria-hidden="true" class="bx text-2xl text-coopmaths-action dark:text-coopmathsdark-action {coche ? 'bx-checkbox-checked' : 'bx-checkbox'}"></i>
-                      </button>
-                    </li>
-                  {/each}
-                </ul>
-              {/if}
-            {/each}
-          </div>
-          <button type="button" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!aAjouter.length && !aRetirer.length} onclick={validerChoix}>
-            {libelleValider}
-          </button>
-          {#if choixAjout.length < modifiables.length}
-            <button type="button" class={boutonLien} onclick={() => (choixAjout = modifiables.map((p) => p.id))}>Tout cocher</button>
-          {:else if avecRetrait}
-            <button type="button" class={boutonLien} onclick={() => (choixAjout = [])}>Tout décocher</button>
-          {/if}
-        </Feuille>
-      {/if}
     {:else if onglet === 'explorer'}
       <div class="liste-tuiles flex flex-col gap-3 p-4">
         {#if ontest}

@@ -300,14 +300,17 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   « Commencer » ajoute le parcours à Mes parcours ; l'enseignant le reprend par
   « Donner à des classes » (`adopter`, puis sa page). La page d'un degré montre
   tous ses parcours sous le titre de leur chapitre (plus d'écran par chapitre,
-  Nathan, 2 novembre 2026) ; « Ajouter plusieurs parcours » ouvre un panneau à
-  cases (chapitre entier, « Tout cocher ») et ajoute d'un coup à l'accueil
-  (élève) ou à la bibliothèque, sans classe (enseignant), sans quitter
-  l'Explorer. Élève : ce qui est déjà à l'accueil est coché, le décocher le
-  retire (`retirerPlusieurs`, épingle comprise). Accueil élève : bouton « ⋯ »
-  sur chaque tuile de parcours (`Tuile` `onactions`) : épingler
-  (`basculerEpingle`, qui ne retire jamais), imprimer, retirer de l'accueil
-  pour un parcours de l'Explorer. Retirer ne touche ni `seance:`, ni
+  Nathan, 2 novembre 2026). Chaque tuile du degré a son « + » (`Tuile`
+  `onajouter`, Nathan, 3 novembre 2026 : « tu fais plus et après […] ça
+  l'ajoute, ça l'enlève ») : ajouté d'un toucher à l'accueil (élève) ou à la
+  bibliothèque, sans classe (enseignant), sans quitter l'Explorer ; « ✓ » le
+  retire (élève, `retirerPlusieurs`, épingle et cache compris ; enseignant :
+  coche inactive, `ajoutFige`). « Tout ajouter » ajoute le reste du degré.
+  Accueil élève, sans « ⋯ » : épingle (`basculerEpingle`, qui ne retire
+  jamais) et œil (`basculerCache`, clé `caches`, réunie à la fusion de deux
+  appareils) sur chaque tuile ; les parcours cachés sont repliés dans
+  « Parcours cachés » en bas, l'œil ouvert les remet. Imprimer : page du
+  parcours, « Autres actions ». Retirer ou cacher ne touche ni `seance:`, ni
   `historique:`, ni `resultats:` : remis, le parcours reprend tel quel. Retour d'un parcours : même position dans la page. Test :
   `node e2e/explorer.mjs` (catalogue d'essai servi en local, voir l'en-tête).
 - Fiches de cours (`Fiche` dans `catalogue.ts`, écran `Cours.svelte`) : portées

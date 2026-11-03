@@ -235,7 +235,8 @@ for (const appareil of Object.keys(appareils)) {
     await o.ctx.close()
   }
 
-  // ---------- Explorer (Suisse) : degrés, parcours d'un degré, ajout de plusieurs, parcours, fiche de cours ----------
+  // ---------- Explorer (Suisse) : degrés, parcours d'un degré, ajout d'un toucher, parcours, fiche de cours ;
+  // puis l'accueil avec ses parcours ajoutés et les parcours cachés dépliés en bas ----------
   {
     const o = await ouvrir(appareil, { profil: 'eleve', pays: 'CH' })
     const { page } = o
@@ -245,9 +246,12 @@ for (const appareil of Object.keys(appareils)) {
     await page.getByRole('button', { name: /^\s*Préqualifiant/ }).click()
     await page.getByRole('button', { name: /^\s*Fractions/ }).waitFor()
     await verifier(o, a('Explorer, parcours du Préqualifiant'))
-    await page.getByRole('button', { name: 'Ajouter plusieurs parcours' }).click()
-    await verifierPanneau(o, a('Explorer, panneau « Ajouter des parcours »'), true)
-    await retour(page)
+    const plus = page.getByRole('button', { name: /^Ajouter « / })
+    for (let k = 0; k < 4; k++) {
+      await plus.first().click()
+      await pagePrete(page)
+    }
+    await verifier(o, a('Explorer, parcours ajoutés d’un toucher'))
     await retour(page)
     await page.getByRole('button', { name: /^\s*11e/ }).click()
     await page.getByRole('button', { name: /Réviser l’EVACOM TAF/ }).first().click()
@@ -256,6 +260,15 @@ for (const appareil of Object.keys(appareils)) {
     await page.getByRole('button', { name: /^\s*Fiche :/ }).first().click()
     await pagePrete(page)
     await verifier(o, a('Explorer, fiche de cours'))
+    // Retour jusqu'aux onglets (fiche, parcours, degré), puis l'accueil
+    for (let k = 0; k < 4 && !(await page.getByRole('tab', { name: 'Mes parcours', exact: true }).isVisible()); k++) await retour(page)
+    await onglet(page, 'Mes parcours')
+    await page.getByRole('button', { name: /^Cacher « / }).first().waitFor()
+    await page.getByRole('button', { name: /^Cacher « / }).first().click()
+    await page.getByRole('button', { name: /^Cacher « / }).first().click()
+    await page.getByRole('button', { name: /Parcours cachés/ }).click()
+    await pagePrete(page)
+    await verifier(o, a('accueil, parcours cachés dépliés'))
     await o.ctx.close()
   }
 

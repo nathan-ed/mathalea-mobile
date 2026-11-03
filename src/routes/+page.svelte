@@ -439,6 +439,11 @@
       epingles = epingles.filter((id) => !ids.includes(id))
       await stockage!.ecrire('epingles', epingles)
     }
+    // Remis plus tard depuis l'Explorer : il revient visible
+    if (caches.some((id) => ids.includes(id))) {
+      caches = caches.filter((id) => !ids.includes(id))
+      await stockage!.ecrire('caches', caches)
+    }
   }
 
   async function changerPays(p: Pays) {

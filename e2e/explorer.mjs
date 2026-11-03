@@ -1,11 +1,11 @@
 // Explorer rangé par degré puis par chapitre, selon le référentiel du pays
 // (pnpm dev). Élève suisse : seuls les degrés qui ont des parcours, page du
-// degré (parcours sous leur chapitre), ajout de plusieurs parcours d'un coup,
-// bouton retour à chaque niveau, puis la ceinture blanche faite au
+// degré (parcours sous leur chapitre), ajout et retrait d'un toucher (« + » / « ✓ »)
+// et « Tout ajouter », épingler et cacher depuis l'accueil, bouton retour à chaque niveau, puis la ceinture blanche faite au
 // clavier jusqu'au bilan ; le parcours commencé rejoint Mes parcours et le
 // suivi. Élève français : seulement les parcours français. Enseignant :
 // « Donner à des classes » reprend le parcours dans sa bibliothèque, et
-// « Ajouter plusieurs parcours » en reprend plusieurs d'un coup.
+// « Tout ajouter » reprend tout un degré d'un coup.
 // Téléphone (390 px, clair et sombre) et fenêtre de bureau.
 // Le script sert lui-même le catalogue d'essai (explorer/ch-4e-college.json et
 // un parcours de 5e) ; pnpm dev doit le lire :
@@ -122,39 +122,41 @@ for (const [appareil, theme] of [
   ok(!(await e.locator('main .bx-folder').count()), `${suffixe} : aucun dossier de chapitre`)
   await cap(e, `2-degre-${suffixe}`)
 
-  // Ajouter plusieurs parcours : panneau du bas, chapitre entier, puis tout
-  await e.getByRole('button', { name: 'Ajouter plusieurs parcours' }).click()
-  const panneau = e.getByRole('dialog')
-  await panneau.waitFor()
-  const ajouter = panneau.getByRole('button', { name: /^Ajouter/ })
-  ok((await ajouter.innerText()).trim() === 'Ajouter' && (await ajouter.isDisabled()), `${suffixe} : rien de coché, ajout impossible`)
-  await panneau.getByRole('checkbox', { name: 'Tout le chapitre Intégration' }).click()
-  ok((await ajouter.innerText()).trim() === 'Ajouter 1 parcours', `${suffixe} : chapitre coché d'un toucher`)
-  await panneau.getByRole('button', { name: 'Tout cocher' }).click()
-  ok((await ajouter.innerText()).trim() === 'Ajouter les 3 parcours', `${suffixe} : tout le degré coché`)
-  await cap(e, `2b-ajout-plusieurs-${suffixe}`)
-  await ajouter.click()
-  await pagePrete(e)
-  ok((await texte(e)).includes('3 parcours ajoutés à ton accueil.'), `${suffixe} : ajout confirmé, on reste dans le degré`)
-  ok((await e.locator('main .tuile', { hasText: 'Ajouté' }).count()) === 3, `${suffixe} : parcours marqués « Ajouté »`)
+  // Ajouter d'un toucher : « + » de la tuile, qui devient « ✓ » ; on reste dans le degré
+  // Onglet Explorer : il rouvre le degré laissé ouvert, sinon on le touche
+  const auDegre = async () => {
+    await onglet(e, 'Explorer').click()
+    await pagePrete(e)
+    if ((await e.locator('header h1').first().innerText({ timeout: 2000 }).catch(() => '')).trim() !== '4e Collège') await degre.click()
+    await pagePrete(e)
+  }
   const lireAjoutes = () => e.evaluate(() => JSON.parse(localStorage.getItem('copie:ajoutes') ?? '[]').map((p) => p.id))
+  const coches = () => e.locator('main button[aria-pressed=true]').count()
+  ok(!(await e.getByRole('button', { name: 'Ajouter plusieurs parcours' }).count()), `${suffixe} : plus de panneau « Ajouter plusieurs parcours »`)
+  await e.getByRole('button', { name: 'Ajouter « Calcul intégral » à ton accueil' }).click()
+  await pagePrete(e)
+  ok(await e.getByRole('button', { name: 'Retirer « Calcul intégral » de ton accueil' }).isVisible(), `${suffixe} : « + » devenu « ✓ »`)
+  ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : ajouté d'un toucher, enregistré`)
+  ok((await titre(e)) === '4e Collège', `${suffixe} : on reste dans le degré`)
+  // « Tout ajouter » : le reste du degré d'un coup
+  await e.getByRole('button', { name: /^Tout ajouter \(2\)/ }).click()
+  await pagePrete(e)
+  ok((await texte(e)).includes('2 parcours ajoutés à ton accueil.'), `${suffixe} : « Tout ajouter » confirmé, on reste dans le degré`)
+  ok((await coches()) === 3, `${suffixe} : les trois parcours marqués « ✓ »`)
   const ajoutes = await lireAjoutes()
   ok(ajoutes.length === 3 && ajoutes.includes('ch-4c-integrales'), `${suffixe} : parcours enregistrés à l'accueil`, ajoutes)
+  ok(!(await e.getByRole('button', { name: /^Tout ajouter/ }).count()), `${suffixe} : tout est ajouté, plus de « Tout ajouter »`)
+  await cap(e, `2b-ajoutes-${suffixe}`)
 
-  // Retirer : le panneau coche ce qui est sur l'accueil, décocher le retire
-  await e.getByRole('button', { name: 'Ajouter ou retirer des parcours' }).click()
-  await panneau.waitFor()
-  ok((await panneau.locator('li [role=checkbox][aria-checked=true]').count()) === 3, `${suffixe} : parcours de l'accueil cochés dans le panneau`)
-  await panneau.getByRole('checkbox', { name: /Exponentielle et logarithme/ }).click()
-  await panneau.getByRole('checkbox', { name: /Prérequis pour l’analyse/ }).click()
-  const valider = panneau.getByRole('button', { name: /^(Ajouter|Retirer)/ })
-  ok((await valider.innerText()).trim() === 'Retirer 2 parcours', `${suffixe} : décocher propose de retirer`)
-  await cap(e, `2c-retirer-${suffixe}`)
-  await valider.click()
+  // Retirer d'un toucher sur « ✓ »
+  await e.getByRole('button', { name: 'Retirer « Exponentielle et logarithme » de ton accueil' }).click()
   await pagePrete(e)
-  ok((await texte(e)).includes('2 parcours retirés de ton accueil.'), `${suffixe} : retrait confirmé`)
-  ok((await e.locator('main .tuile', { hasText: 'Ajouté' }).count()) === 1, `${suffixe} : un seul parcours encore marqué « Ajouté »`)
-  ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : parcours retiré de l'accueil enregistré`)
+  await e.getByRole('button', { name: 'Retirer « Prérequis pour l’analyse » de ton accueil' }).click()
+  await pagePrete(e)
+  ok((await coches()) === 1, `${suffixe} : un seul parcours encore marqué « ✓ »`)
+  ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : parcours retirés de l'accueil enregistrés`)
+  ok(await e.getByRole('button', { name: 'Ajouter « Exponentielle et logarithme » à ton accueil' }).isVisible(), `${suffixe} : retiré, de nouveau « + »`)
+  await cap(e, `2c-retirer-${suffixe}`)
 
   // Bouton retour du téléphone : degré, Explorer, puis Mes parcours
   await e.goBack()
@@ -166,33 +168,36 @@ for (const [appareil, theme] of [
   ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours ajoutés sur l'accueil`)
   ok(!(await texte(e)).includes('Exponentielle et logarithme'), `${suffixe} : parcours retiré absent de l'accueil`)
 
-  // Bouton « ⋯ » d'une tuile : épingler, puis désépingler, puis retirer de l'accueil
-  const actionsTuile = async (nom) => {
-    await e.getByRole('button', { name: `Actions pour « ${nom} »` }).first().click()
-    const f = e.getByRole('dialog')
-    await f.waitFor()
-    return f
-  }
-  let menu = await actionsTuile('Calcul intégral')
-  ok((await menu.getByRole('button', { name: 'Retirer de l’accueil' }).count()) === 1, `${suffixe} : menu de la tuile, « Retirer de l’accueil » proposé`)
-  await cap(e, `2d-menu-tuile-${suffixe}`)
-  await menu.getByRole('button', { name: 'Épingler à l’accueil' }).click()
+  // Accueil : épingle et œil sur chaque tuile, sans « ⋯ » : épingler, désépingler, cacher, remettre
+  ok(!(await e.getByRole('button', { name: /^Actions pour/ }).count()), `${suffixe} : pas de « ⋯ » sur les tuiles`)
+  await e.getByRole('button', { name: 'Épingler « Calcul intégral » à l’accueil' }).first().click()
   await pagePrete(e)
   const accueilEpingle = await texte(e)
   ok(/Épinglés Calcul intégral/.test(accueilEpingle) && !accueilEpingle.includes('Ajoutés depuis Explorer'), `${suffixe} : parcours de l'Explorer épinglé depuis l'accueil`)
   ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : épingler ne retire pas le parcours`)
-  menu = await actionsTuile('Calcul intégral')
-  await menu.getByRole('button', { name: 'Désépingler' }).click()
+  await cap(e, `2d-epingle-${suffixe}`)
+  await e.getByRole('button', { name: 'Désépingler « Calcul intégral »' }).first().click()
   await pagePrete(e)
   ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : désépinglé, toujours sur l'accueil`)
-  menu = await actionsTuile('Calcul intégral')
-  await menu.getByRole('button', { name: 'Retirer de l’accueil' }).click()
+  await e.getByRole('button', { name: 'Cacher « Calcul intégral »' }).first().click()
   await pagePrete(e)
-  ok(!(await texte(e)).includes('Ajoutés depuis Explorer') && !(await lireAjoutes()).length, `${suffixe} : parcours retiré depuis l'accueil`)
+  const accueilCache = await texte(e)
+  ok(!accueilCache.includes('Ajoutés depuis Explorer') && accueilCache.includes('Parcours cachés · 1') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : caché, rangé en bas, toujours enregistré`)
+  await e.getByRole('button', { name: /Parcours cachés/ }).click()
+  await cap(e, `2e-caches-${suffixe}`)
+  await e.getByRole('button', { name: 'Remettre « Calcul intégral » sur l’accueil' }).click()
+  await pagePrete(e)
+  ok((await texte(e)).includes('Ajoutés depuis Explorer') && !(await texte(e)).includes('Parcours cachés'), `${suffixe} : remis sur l'accueil`)
+  // Retirer depuis l'Explorer (« ✓ ») : il quitte l'accueil
+  await auDegre()
+  await e.getByRole('button', { name: 'Retirer « Calcul intégral » de ton accueil' }).click()
+  await pagePrete(e)
+  await onglet(e, 'Mes parcours').click()
+  await pagePrete(e)
+  ok(!(await texte(e)).includes('Ajoutés depuis Explorer') && !(await lireAjoutes()).length, `${suffixe} : parcours retiré, absent de l'accueil`)
 
   // Ouvrir un parcours puis revenir : on retrouve le degré
-  await onglet(e, 'Explorer').click()
-  await degre.click()
+  await auDegre()
   await e.getByRole('button', { name: /^Calcul intégral/ }).click()
   await e.getByRole('button', { name: 'Commencer', exact: true }).waitFor()
   await cap(e, `4-fiche-${suffixe}`)
@@ -279,21 +284,29 @@ for (const [appareil, theme] of [
   ok((await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours dans le suivi`)
   ok(!(await texte(e)).includes('Teste ton niveau'), `${suffixe} : suivi sans « Teste ton niveau » en Suisse`)
 
-  // Retirer un parcours commencé puis le remettre : rien n'est perdu
+  // Cacher un parcours commencé puis le remettre, puis le retirer depuis l'Explorer et le remettre : rien n'est perdu
   const travail = () => e.evaluate(() => Object.keys(localStorage).filter((k) => /^copie:(seance|historique|resultats):ch-4c-integrales/.test(k) && localStorage.getItem(k) !== 'null').sort().join())
   const avant = await travail()
   ok(avant.includes('seance'), `${suffixe} : tentative en cours enregistrée`, avant)
   await onglet(e, 'Mes parcours').click()
   await pagePrete(e)
-  await e.getByRole('button', { name: 'Actions pour « Calcul intégral »' }).first().click()
-  await e.getByRole('dialog').getByRole('button', { name: 'Retirer de l’accueil' }).click()
+  await e.getByRole('button', { name: 'Cacher « Calcul intégral »' }).first().click()
+  await pagePrete(e)
+  ok(!/En cours Calcul intégral/.test(await texte(e)) && (await texte(e)).includes('Parcours cachés · 1'), `${suffixe} : parcours commencé caché`)
+  await e.getByRole('button', { name: /Parcours cachés/ }).click()
+  await e.getByRole('button', { name: 'Remettre « Calcul intégral » sur l’accueil' }).click()
+  await pagePrete(e)
+  ok(/En cours Calcul intégral/.test(await texte(e)) && (await travail()) === avant, `${suffixe} : caché puis remis, de nouveau « En cours », rien de perdu`)
+  await auDegre()
+  await e.getByRole('button', { name: 'Retirer « Calcul intégral » de ton accueil' }).click()
+  await pagePrete(e)
+  await onglet(e, 'Mes parcours').click()
   await pagePrete(e)
   ok(!(await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours commencé retiré de l'accueil`)
   await onglet(e, 'Suivi').click()
   await pagePrete(e)
   ok((await texte(e)).includes('Calcul intégral'), `${suffixe} : retiré, toujours dans le suivi`)
-  await onglet(e, 'Explorer').click()
-  await degre.click()
+  await auDegre()
   await e.getByRole('button', { name: /^Calcul intégral/ }).click()
   await e.getByRole('button', { name: 'Ajouter à l’accueil' }).click()
   await e.getByRole('button', { name: 'Ajouté à l’accueil' }).waitFor()
@@ -353,10 +366,9 @@ for (const [appareil, theme] of [
   await onglet(t2, 'Explorer').click()
   await t2.getByRole('button', { name: /^Préqualifiant/ }).click({ timeout: 60_000 })
   await pagePrete(t2)
-  await t2.getByRole('button', { name: 'Ajouter plusieurs parcours' }).click()
-  await t2.getByRole('dialog').getByRole('button', { name: 'Tout cocher' }).click()
-  await t2.getByRole('dialog').getByRole('button', { name: 'Ajouter les 9 parcours' }).click()
+  await t2.getByRole('button', { name: /^Tout ajouter \(9\)/ }).click()
   await pagePrete(t2)
+  ok((await t2.locator('main button[aria-pressed=true]:disabled').count()) === 9, 'enseignant : les 9 marqués « ✓ », sans retrait possible d’ici')
   ok((await titre(t2)) === 'Préqualifiant' && (await texte(t2)).includes('9 parcours ajoutés à votre bibliothèque.'), 'enseignant : 9 parcours ajoutés, on reste dans l’Explorer')
   await cap(t2, `9-enseignant-plusieurs-${theme}`)
   const biblio2 = await t2.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')))

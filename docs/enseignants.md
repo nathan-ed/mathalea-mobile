@@ -253,9 +253,11 @@ plus récent remplace l'ancien.
 ## Ce que voient les élèves
 
 - Leurs parcours par chapitre ; ils peuvent replier et réordonner les
-  chapitres ; le bouton « ⋯ » d'une tuile épingle le parcours sur l'accueil,
-  l'imprime, ou retire un parcours de l'Explorer (ses ceintures sont
-  gardées). Un parcours à paliers affiche sa progression (« 1/3 »).
+  chapitres ; l'épingle d'une tuile met le parcours en haut de l'accueil,
+  l'œil le cache (il est rangé dans « Parcours cachés », en bas, d'où l'œil
+  ouvert le remet ; ses ceintures sont gardées). Dans l'Explorer, le « + »
+  d'un parcours l'ajoute à l'accueil, « ✓ » l'en retire. Un parcours à
+  paliers affiche sa progression (« 1/3 »).
 - Pendant le travail : clavier mathématique de MathALÉA, sauvegarde
   automatique, reprise exacte après fermeture. « Vérifier » et « Passer »
   restent en bas, sous le clavier. Avant de soumettre, ou en touchant

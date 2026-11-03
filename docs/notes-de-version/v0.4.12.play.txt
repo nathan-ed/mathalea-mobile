@@ -1,5 +1,5 @@
 - Imprimer un parcours en PDF : fiches, corrections, jusqu'à 4 versions.
-- Explorer : les parcours d'un degré sur une page, par chapitre ; en ajouter plusieurs d'un coup.
+- Explorer : ajouter d'un toucher (+). Accueil : épingler, cacher.
 - Nouveaux parcours de 11e et de 4e Collège ; moins de QCM.
 - Onglet Fiches : toutes ses fiches de cours.
 - Ceintures par chapitre ; fusion de deux appareils.
