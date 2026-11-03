@@ -245,6 +245,18 @@ math-field,
   padding-bottom: calc(var(--bas) + 0.5rem) !important;
 }
 
+/* Séance : le clavier s'ouvre au-dessus de la barre d'actions (Vérifier,
+   Passer), qui reste en bas ; la barre porte déjà la marge de la barre de
+   navigation du téléphone. Même chose pour le pavé de chiffres d'un élément
+   de MathALÉA (pyramide de nombres) */
+body:has(.barre-seance) #mathalea-virtual-keyboard {
+  bottom: var(--barre-seance, 0px) !important;
+  padding-bottom: 0.5rem !important;
+}
+body:has(.barre-seance) main .contenu-mathalea .fixed.bottom-0 {
+  bottom: var(--barre-seance, 0px) !important;
+}
+
 /* Panneau du bas ouvert (Feuille) : le clavier, qui peut s'ouvrir juste après
    (focus sur la question suivante), ne le recouvre pas */
 body:has(.feuille) #mathalea-virtual-keyboard {

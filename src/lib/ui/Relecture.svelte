@@ -89,18 +89,20 @@
       {#each liste as ref, i (`${ref.etape}-${ref.question}`)}
         {@const ex = exercices[ref.etape]}
         {#if parcours.enTetesMasques}
-          <div class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
+          {#if liste.length > 1}<div class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
             <div class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg">{i + 1}</div>
-          </div>
+          </div>{/if}
         {:else if i === 0 || liste[i - 1].etape !== ref.etape}
           <h1 class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex flex-row items-center" class:mt-6={i > 0}>
             <div class="flex flex-row justify-start items-start">
-              <div
-                class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg translate-y-1"
-              >
-                {seance.etapes.indexOf(ref.etape) + 1}
-              </div>
-              <div class="font-light ml-2" style="font-size: 1.25rem; line-height: 1.3;">
+              {#if seance.etapes.length > 1}
+                <div
+                  class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg translate-y-1"
+                >
+                  {seance.etapes.indexOf(ref.etape) + 1}
+                </div>
+              {/if}
+              <div class="font-light {seance.etapes.length > 1 ? 'ml-2' : ''}" style="font-size: 1.25rem; line-height: 1.3;">
                 {#if !parcours.etapes[ref.etape].titreMasque}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
               </div>
             </div>

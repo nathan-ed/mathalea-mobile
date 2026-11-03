@@ -40,6 +40,15 @@
   let erreur = $state('')
   let hoteClavier: HTMLDivElement
   let hauteurClavier = $state(0)
+  // Barre d'actions fixe en bas : le clavier de MathALÉA s'ouvre juste au-dessus
+  // d'elle (Nathan, 3 novembre 2026 : Vérifier et Passer ne bougent plus quand le
+  // clavier s'ouvre ou se ferme). Sa hauteur est donnée au clavier par --barre-seance
+  let hauteurBarre = $state(0)
+  $effect(() => {
+    if (!hauteurBarre) return
+    document.documentElement.style.setProperty('--barre-seance', `${hauteurBarre}px`)
+    return () => document.documentElement.style.removeProperty('--barre-seance')
+  })
   let aSaisi = $state(false)
   let blocs: (BlocQuestion | undefined)[] = $state([])
   let demonterClavier: (() => void) | undefined
@@ -191,7 +200,9 @@
 
   function avancer() {
     if (!derniere) void allerPage(page + 1)
-    else onterminer()
+    // Fin de l'activité : signaler d'abord les questions passées (avec la
+    // correction par question, celles de la page viennent d'être signalées)
+    else garder(parQuestion ? liste.filter((r) => !pages[page]?.some((q) => q.rang === r.rang)) : liste, true, 'Terminer quand même', onterminer)
   }
 
   // ---------- Garde-fou : réponses manquantes ou pas encore vérifiées ----------
@@ -238,7 +249,7 @@
     return Object.keys(seance.brouillons[cle] ?? {}).length ? 'saisie' : 'vide'
   }
 
-  const nomQuestion = (ref: Ref) => (sansEnTete ? `Question ${ref.rang + 1}` : `Ex ${seance.etapes.indexOf(ref.etape) + 1} · Q${ref.question + 1}`)
+  const nomQuestion = (ref: Ref) => (sansEnTete || unique ? `Question ${ref.rang + 1}` : `Ex ${seance.etapes.indexOf(ref.etape) + 1} · Q${ref.question + 1}`)
 
   /** Continue tout de suite, ou signale d'abord ce qui manque */
   function garder(refs: Ref[], exigerVerification: boolean, libelle: string, continuer: () => void) {
@@ -330,7 +341,8 @@
 
   onMount(async () => {
     demonterClavier = moteur.monterClavier(hoteClavier)
-    // Le clavier de MathALÉA est fixé en bas : la barre d'actions se place au-dessus
+    // Le clavier de MathALÉA (au-dessus de la barre d'actions) : la page garde
+    // de la place pour lui, la question n'est jamais dessous
     mesure = setInterval(() => {
       const clavier = document.getElementById('mathalea-virtual-keyboard')
       const h = clavier?.getBoundingClientRect().height ?? 0
@@ -466,8 +478,8 @@
           {@const ex = exercices[ref.etape]}
           {@const debutEtape = i === 0 || pages[page][i - 1].etape !== ref.etape}
           {#if sansEnTete}
-            {#if !unique}
-              <!-- Numéro de la question, au style de l'en-tête d'exercice -->
+            {#if !unique && liste.length > 1}
+              <!-- Numéro de la question, au style de l'en-tête d'exercice (aucun pour une seule question) -->
               <div class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
                 <div class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg">
                   {ref.rang + 1}
@@ -478,12 +490,15 @@
             <!-- En-tête d'exercice de la vue élève (HeaderExerciceVueEleve.svelte) -->
             <h1 class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex flex-row items-center" class:mt-6={i > 0}>
               <div class="flex flex-row justify-start items-start">
-                <div
-                  class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg translate-y-1"
-                >
-                  {seance.etapes.indexOf(ref.etape) + 1}
-                </div>
-                <div class="font-light ml-2" style="font-size: 1.25rem; line-height: 1.3;">
+                {#if seance.etapes.length > 1}
+                  <!-- Numéro de l'exercice : aucun s'il n'y en a qu'un -->
+                  <div
+                    class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg translate-y-1"
+                  >
+                    {seance.etapes.indexOf(ref.etape) + 1}
+                  </div>
+                {/if}
+                <div class="font-light {seance.etapes.length > 1 ? 'ml-2' : ''}" style="font-size: 1.25rem; line-height: 1.3;">
                   {#if !parcours.etapes[ref.etape].titreMasque}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
                 </div>
               </div>
@@ -516,10 +531,10 @@
   {#if pret && !correctionCachee}
     <footer
       use:garderSaisie
-      class="fixed left-0 right-0 z-20 flex flex-col gap-3 px-4 py-3 {hauteurClavier ? '' : 'zone-sure-bas'}
+      class="barre-seance fixed bottom-0 left-0 right-0 z-20 flex flex-col gap-3 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-      style="bottom: {hauteurClavier}px"
+      bind:offsetHeight={hauteurBarre}
     >
       <div class="flex flex-row gap-3">
       {#if finale && !seance.soumise}

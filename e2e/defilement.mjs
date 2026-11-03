@@ -90,8 +90,14 @@ await page.evaluate(() => {
   ;document.activeElement?.blur?.()
 })
 await pagePrete(page)
+// Le doigt se pose sur l'énoncé, au-dessus du clavier de MathALÉA s'il est ouvert
+const hautClavier = await page.evaluate(() => {
+  const k = document.getElementById('mathalea-virtual-keyboard')
+  const r = k?.getBoundingClientRect()
+  return r && r.height > 0 && getComputedStyle(k).display !== 'none' ? r.top : innerHeight
+})
 const zone = await page.locator('.question-eleve').first().boundingBox()
-await glisser(cdp, page, 200, Math.min(600, zone.y + zone.height - 20), 150)
+await glisser(cdp, page, 200, Math.min(600, zone.y + zone.height - 20, hautClavier - 30), 150)
 ok((await page.evaluate(() => scrollY)) > 200, 'séance : le doigt fait descendre un énoncé long, depuis la question')
 await glisser(cdp, page, 200, 200, 700)
 await glisser(cdp, page, 200, 200, 700)

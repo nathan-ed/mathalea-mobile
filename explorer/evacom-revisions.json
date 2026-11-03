@@ -275,6 +275,7 @@
           "etapes": [
             {
               "uuid": "51ab4",
+              "sup": "11*melange*1*0*0*1",
               "id": "9NO3F-12",
               "nbQuestions": 3,
               "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
@@ -846,6 +847,7 @@
           "etapes": [
             {
               "uuid": "51ab4",
+              "sup": "11*melange*1*0*0*1",
               "id": "9NO3F-12",
               "nbQuestions": 3,
               "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
@@ -1538,6 +1540,7 @@
             },
             {
               "uuid": "51ab4",
+              "sup": "11*melange*1*0*0*1",
               "id": "9NO3F-12",
               "nbQuestions": 3,
               "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
