@@ -951,8 +951,11 @@ Environnement (machine de Nathan)
   un niveau doit ne le faire qu'une fois (sinon « retour » impossible).
 - Titres MathALÉA avec `$…$` : KaTeX dans les en-têtes, `$` retirés dans les
   listes.
-- La barre d'actions de la séance ne suit la hauteur du clavier que si un
-  champ de réponse (`math-field`, clavier MathALÉA) a le focus.
+- La barre d'actions de la séance (Vérifier, Passer) reste en bas (Nathan,
+  3 novembre 2026 : elle ne doit plus bouger avec le clavier) : le clavier de
+  MathALÉA et le pavé de la pyramide s'ouvrent au-dessus d'elle
+  (`--barre-seance`, `.barre-seance` dans `app.css`). `hauteurClavier` ne sert
+  plus qu'à la marge du bas de la page.
 
 - Serveur de dev ouvert depuis longtemps : après de gros changements de
   modules, le rechargement à chaud peut garder un module périmé (« nomPalier is

@@ -253,12 +253,14 @@ plus récent remplace l'ancien.
 ## Ce que voient les élèves
 
 - Leurs parcours par chapitre ; ils peuvent replier et réordonner les
-  chapitres, et épingler un parcours sur l'accueil d'un geste (l'épingle de
-  sa tuile). Un parcours à paliers affiche sa progression (« 1/3 »).
+  chapitres ; le bouton « ⋯ » d'une tuile épingle le parcours sur l'accueil,
+  l'imprime, ou retire un parcours de l'Explorer (ses ceintures sont
+  gardées). Un parcours à paliers affiche sa progression (« 1/3 »).
 - Pendant le travail : clavier mathématique de MathALÉA, sauvegarde
-  automatique, reprise exacte après fermeture. Avant de soumettre, l'application
-  signale les questions sans réponse ou non vérifiées et place le curseur sur
-  la première.
+  automatique, reprise exacte après fermeture. « Vérifier » et « Passer »
+  restent en bas, sous le clavier. Avant de soumettre, ou en touchant
+  « Terminer » après des questions passées, l'application signale les
+  questions sans réponse ou non vérifiées et propose d'y revenir.
 - En quittant une activité : reprendre plus tard, terminer tout de suite
   (bilan avec ce qui est fait) ou supprimer la tentative. Les passages
   terminés restent.

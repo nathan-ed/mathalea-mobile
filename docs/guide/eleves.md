@@ -16,13 +16,13 @@ Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche
 
 ## 2. Ses parcours
 
-Les parcours donnés à sa classe s'affichent, rangés par chapitre. L'épingle garde un parcours en haut de la liste. L'élève touche un parcours pour l'ouvrir.
+Les parcours donnés à sa classe s'affichent, rangés par chapitre. L'élève touche un parcours pour l'ouvrir. Le bouton « ⋯ » d'une tuile l'épingle en haut de la liste, l'imprime, ou le retire de l'accueil s'il vient de l'Explorer.
 
 ![Mes parcours](images/eleve-2-parcours.png)
 
 ## 3. Répondre
 
-Dans « Relatifs en ceintures », l'élève touche « Commencer », répond avec le clavier de MathALÉA, puis touche « Soumettre ».
+Dans « Relatifs en ceintures », l'élève touche « Commencer », répond avec le clavier de MathALÉA, puis touche « Soumettre ». Les boutons restent en bas de l'écran ; le clavier s'ouvre juste au-dessus. S'il touche « Terminer » après avoir passé des questions, l'application les lui rappelle avant le bilan.
 
 ![Réponses](images/eleve-3-reponses.png)
 
@@ -55,7 +55,7 @@ L'élève y voit le nombre de questions faites, de réponses correctes et de jou
 - Sans connexion, l'élève travaille quand même. Les nouveaux parcours arrivent à la prochaine connexion.
 - Un parcours commencé se reprend là où il s'est arrêté.
 - Pour changer de téléphone, l'élève touche « Exporter une sauvegarde » dans les Réglages et envoie le fichier sur le nouveau téléphone (AirDrop, message, drive). Au premier lancement du nouveau téléphone, « Récupérer mes données » reprend tout : dossiers, parcours terminés, séance en cours (à la question où elle s'était arrêtée), suivi.
-- L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, rangés par degré selon le programme choisi (France ou Suisse) : la page d'un degré montre tous ses parcours sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours ; « Ajouter plusieurs parcours » en met plusieurs d'un coup à l'accueil.
+- L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, rangés par degré selon le programme choisi (France ou Suisse) : la page d'un degré montre tous ses parcours sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours ; « Ajouter plusieurs parcours » en met plusieurs d'un coup à l'accueil ; dans ce même panneau, décocher un parcours le retire. Un parcours retiré garde ses ceintures : remis, il reprend là où il en était.
 - Certains parcours ont des fiches de cours : formules, graphiques à manipuler, exemples pas à pas et petites questions qui ne comptent pas. La fiche s'ouvre la première fois avant l'entraînement, puis reste sur la page du parcours.
 - En haut de l'Explorer (programme France seulement), « Teste ton niveau » : 15 questions de Course aux nombres ; avec 12 bonnes réponses, l'élève gagne la ceinture du niveau. On commence au niveau que l'on veut.
 

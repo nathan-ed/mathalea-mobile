@@ -19,7 +19,7 @@ Illustré pas à pas : [Côté élève](eleves.md).
 ### L'accueil
 
 - **Le dossier de la classe** : l'élève colle le lien donné par l'enseignant, puis « Ajouter le dossier ». Si le dossier contient plusieurs classes, il choisit la sienne une fois. Il peut suivre d'autres dossiers (changement d'enseignant, ressources d'un collègue) dans les Réglages, « Dossiers partagés ».
-- **Ses parcours**, rangés par chapitre. Il peut replier et réordonner les chapitres, et épingler un parcours en haut de l'accueil (l'épingle de sa tuile).
+- **Ses parcours**, rangés par chapitre. Il peut replier et réordonner les chapitres. Le bouton « ⋯ » d'une tuile épingle le parcours en haut de l'accueil, l'imprime, ou le retire de l'accueil s'il vient de l'Explorer (ses ceintures sont gardées).
 - **En cours** : un parcours commencé se reprend exactement là où il en était, même après avoir fermé l'application.
 - **Rechercher** : par titre, chapitre, niveau ou exercice.
 - **Le QR code de session**, en haut : l'élève vise le QR code projeté par l'enseignant et arrive directement dans la session.
@@ -33,10 +33,10 @@ Illustré pas à pas : [Côté élève](eleves.md).
 
 ### Répondre
 
-- Clavier mathématique de MathALÉA, figures, tableaux, réponses en plusieurs étapes.
+- Clavier mathématique de MathALÉA, figures, tableaux, réponses en plusieurs étapes. « Vérifier » et « Passer » restent en bas de l'écran ; le clavier s'ouvre juste au-dessus.
 - Correction après chaque question, à la fin de la page ou à la fin du parcours, selon le choix de l'enseignant.
 - **Le score retient la première vérification** de chaque question : on ne gagne rien à essayer au hasard.
-- Avant de soumettre, l'application signale les questions sans réponse et place le curseur sur la première.
+- Avant de soumettre, ou en touchant « Terminer » après avoir passé des questions, l'application signale les questions sans réponse (« Aller à Question 2 ») ; on peut aussi terminer quand même.
 - **Exercice sur papier** (exercice de MathALÉA sans réponse en ligne) : l'élève le fait sur sa feuille, puis ouvre lui-même la correction. Il ne compte pas dans le score.
 - **Quitter** : « Reprendre plus tard », « Terminer maintenant » (bilan de ce qui est fait) ou « Supprimer la tentative ».
 
@@ -66,7 +66,7 @@ Détails : [Révisions](revisions.md).
 
 ### Explorer et Teste ton niveau
 
-- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ». « Ajouter plusieurs parcours » (page d'un degré) en ajoute plusieurs d'un coup, tout le degré si l'on veut : à l'accueil de l'élève, ou à la bibliothèque de l'enseignant.
+- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ». « Ajouter plusieurs parcours » (page d'un degré) en ajoute plusieurs d'un coup, tout le degré si l'on veut : à l'accueil de l'élève, ou à la bibliothèque de l'enseignant. L'élève y retire aussi des parcours : ceux de son accueil sont cochés, il décoche ceux qu'il ne veut plus.
 - **Teste ton niveau** (programme France seulement ; absent en Suisse) : 15 questions de tous les domaines, du CM1 à la Terminale, corrigées à la fin. 80 % donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange, 5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire de nouvelles questions.
 
 ## Côté enseignant
