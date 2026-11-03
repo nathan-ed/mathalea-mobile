@@ -42,6 +42,8 @@
     organisations,
     resumes,
     epingles,
+    caches = [],
+    oncacher,
     onglet = $bindable('mes'),
     niveau = $bindable(null),
     enseignant = false,
@@ -76,6 +78,9 @@
     organisations: Record<string, Organisation>
     resumes: Record<string, Resume>
     epingles: string[]
+    /** Accueil : parcours cachés par l'élève (rangés en bas, à remettre d'un toucher) */
+    caches?: string[]
+    oncacher?: (p: Parcours) => void
     onglet?: 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
     niveau?: string | null // Explorer : degré ouvert (gardé au retour d'un parcours)
     enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
@@ -146,11 +151,14 @@
     for (const p of ajoutes) if (!vus.has(p.id)) vus.set(p.id, p)
     return [...vus.values()]
   })
-  const ajoutesVisibles = $derived(ajoutes.filter((p) => !resumes[p.id]?.enCours && !epingles.includes(p.id)))
+  const visible = (p: Parcours) => !caches.includes(p.id)
+  const cachesListe = $derived(tous.filter((p) => !visible(p)))
+  let cachesOuverts = $state(false)
+  const ajoutesVisibles = $derived(ajoutes.filter((p) => visible(p) && !resumes[p.id]?.enCours && !epingles.includes(p.id)))
   const niveauOuvert = $derived(explorer.find((n) => n.niveau === niveau) ?? null)
-  const enCours = $derived(tous.filter((p) => resumes[p.id]?.enCours))
+  const enCours = $derived(tous.filter((p) => visible(p) && resumes[p.id]?.enCours))
   const epinglesVisibles = $derived(
-    epingles.map((id) => tous.find((p) => p.id === id)).filter((p): p is Parcours => !!p && !resumes[p.id]?.enCours),
+    epingles.map((id) => tous.find((p) => p.id === id)).filter((p): p is Parcours => !!p && visible(p) && !resumes[p.id]?.enCours),
   )
   const normaliser = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
   const trouves = $derived(
@@ -239,6 +247,12 @@
       .filter(Boolean)
       .join(', ')
     messageAjout = messageAjout.charAt(0).toUpperCase() + messageAjout.slice(1) + '.'
+  }
+  // Explorer : « + » d'une tuile, un parcours ajouté ou retiré d'un toucher, sans quitter la liste
+  async function basculerUn(p: Parcours) {
+    messageAjout = ''
+    if (!dejaAjoute(p)) await onajouterPlusieurs([p])
+    else if (peutRetirer(p)) await onretirerPlusieurs?.([p])
   }
   // Accueil : bouton « ⋯ » d'une tuile (épingler, imprimer, retirer un parcours de l'Explorer)
   let actionsDe: Parcours | null = $state(null)
@@ -339,19 +353,19 @@
           {#if enCours.length}
             <h2 class={titreSection}>En cours</h2>
             {#each enCours as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => oncontinuer(p)} onactions={() => (actionsDe = p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#if epinglesVisibles.length}
             <h2 class={titreSection}>Épinglés</h2>
             {#each epinglesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} onactions={() => (actionsDe = p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#if ajoutesVisibles.length}
             <h2 class={titreSection}>Ajoutés depuis Explorer</h2>
             {#each ajoutesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} onactions={() => (actionsDe = p)} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#if actionsDe}
@@ -391,7 +405,7 @@
             <!-- Une seule classe : son contenu tout de suite -->
             <ContenuClasse
               nom={sources[0].nom}
-              parcours={sources[0].parcours}
+              parcours={sources[0].parcours.filter(visible)}
               organisation={organisation(sources[0].id)}
               {sousTitre}
               {badge}
@@ -400,6 +414,7 @@
               {epingles}
               {onepingler}
               onactions={(p) => (actionsDe = p)}
+              {oncacher}
             />
           {:else if sources.length > 1}
             <!-- Plusieurs classes : pastilles pour passer de l'une à l'autre -->
@@ -423,7 +438,7 @@
               {#key classeVue.id}
                 <ContenuClasse
                   nom="Chapitres"
-                  parcours={classeVue.parcours}
+                  parcours={classeVue.parcours.filter(visible)}
                   organisation={organisation(classeVue.id)}
                   {sousTitre}
                   {badge}
@@ -432,6 +447,7 @@
                   {epingles}
                   {onepingler}
                   onactions={(p) => (actionsDe = p)}
+                  {oncacher}
                 />
               {/key}
             {/if}
@@ -454,23 +470,49 @@
               </button>
             </form>
           {/if}
+          {#if cachesListe.length && oncacher}
+            <!-- Parcours cachés par l'élève : repliés en bas, l'œil ouvert les remet à leur place -->
+            <button
+              type="button"
+              aria-expanded={cachesOuverts}
+              class="presse flex flex-row items-center justify-between rounded-lg pr-4 text-left"
+              onclick={() => (cachesOuverts = !cachesOuverts)}
+            >
+              <span class={titreSection}>Parcours cachés · {cachesListe.length}</span>
+              <i aria-hidden="true" class="bx {cachesOuverts ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+            </button>
+            {#if cachesOuverts}
+              {#each cachesListe as p (p.id)}
+                <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} onclick={() => ouvrir(p)} cache oncacher={() => oncacher(p)} />
+              {/each}
+            {/if}
+          {/if}
         {/if}
       </div>
     {:else if onglet === 'explorer' && niveauOuvert}
       <!-- Tous les parcours du degré, rangés sous leur chapitre -->
       <div class="liste-tuiles flex flex-col gap-3 p-4">
-        {#if modifiables.length > 1}
-          <button type="button" class="{boutonInverse} w-full" onclick={ouvrirChoix}>
-            <i aria-hidden="true" class="bx bx-list-plus mr-1"></i> {avecRetrait ? 'Ajouter ou retirer des parcours' : 'Ajouter plusieurs parcours'}
-          </button>
-        {/if}
+        <p class="pl-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          Touche <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
+          pour mettre un parcours {espaceProf ? 'dans votre bibliothèque' : 'sur ton accueil'}, à nouveau pour l’{espaceProf ? 'y' : 'en'} retirer.
+        </p>
         {#if messageAjout}
           <p class="pl-2 text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="status">{messageAjout}</p>
         {/if}
         {#each niveauOuvert.chapitres as c (c.theme)}
           <h2 class={titreSection}>{c.theme}</h2>
           {#each c.parcours as p (p.id)}
-            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p) || (dejaAjoute(p) ? 'Ajouté' : '')} onclick={() => ouvrirDepuisNiveau(p)} />
+            <Tuile
+              icon={p.icone}
+              title={p.titre}
+              subtitle={sousTitre(p)}
+              badge={badge(p)}
+              onclick={() => ouvrirDepuisNiveau(p)}
+              onajouter={() => basculerUn(p)}
+              ajoute={dejaAjoute(p)}
+              ajoutFige={!peutRetirer(p)}
+              cible={espaceProf ? 'votre bibliothèque' : 'ton accueil'}
+            />
           {/each}
         {/each}
       </div>

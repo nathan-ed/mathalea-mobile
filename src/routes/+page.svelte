@@ -138,6 +138,8 @@
   let derniersComplets: Record<string, number | null> = $state({})
   let classes: Classe[] = $state([])
   let epingles: string[] = $state([])
+  // Parcours cachés de l'accueil (élève) : rangés en bas, remis d'un toucher
+  let caches: string[] = $state([])
   let organisations: Record<string, Organisation> = $state({})
   let miseAJourMoteur: string | null = $state(null)
   // Versions des boutiques : moteur livré seulement (pas de recherche de mise à jour)
@@ -318,6 +320,7 @@
     prenom = (await stockage.lire<string>('prenom')) ?? ''
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
+    caches = (await stockage.lire<string[]>('caches')) ?? []
     fichesVues = (await stockage.lire<string[]>('fiches-vues')) ?? []
     fichesEnregistrees = (await stockage.lire<FicheDuParcours[]>(CLE_FICHES)) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
@@ -923,6 +926,11 @@
     void lancer(s)
   }
 
+  async function basculerCache(p: Parcours) {
+    caches = caches.includes(p.id) ? caches.filter((id) => id !== p.id) : [...caches, p.id]
+    await stockage!.ecrire('caches', caches)
+  }
+
   async function basculerEpingle(p: Parcours) {
     epingles = epingles.includes(p.id) ? epingles.filter((id) => id !== p.id) : [...epingles, p.id]
     await stockage!.ecrire('epingles', epingles)
@@ -1390,6 +1398,8 @@
       onajouter={ajouterClasse}
       onchoisirClasse={choisirClasse}
       onepingler={basculerEpingle}
+      {caches}
+      oncacher={basculerCache}
       dejaAjoute={(p) =>
         profil === 'enseignant' && !vueEleve ? bibliotheque.parcours.some((pe) => pe.parcours.id === p.id) : dansSources(p.id) || ajoutes.some((a) => a.id === p.id)}
       onajouterPlusieurs={(liste) => (profil === 'enseignant' && !vueEleve ? adopterPlusieurs(liste) : ajouterPlusieurs(liste))}

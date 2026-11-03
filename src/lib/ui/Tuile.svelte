@@ -17,9 +17,19 @@
     onepingler?: () => void
     /** Bouton « ⋯ » à côté de la tuile : actions sur le parcours (à la place de l'épingle) */
     onactions?: () => void
+    /** Explorer : « + » à côté de la tuile, ajoute le parcours sans l'ouvrir ; « ✓ » une fois ajouté, qui le retire */
+    onajouter?: () => void
+    ajoute?: boolean
+    /** Ajouté mais impossible à retirer d'ici (bibliothèque de l'enseignant) : la coche n'est plus un bouton actif */
+    ajoutFige?: boolean
+    /** Où va le parcours, pour le lecteur d'écran : « ton accueil », « votre bibliothèque » */
+    cible?: string
+    /** Accueil : œil barré à côté de la tuile (cacher le parcours) ; œil ouvert s'il est caché (le remettre) */
+    oncacher?: () => void
+    cache?: boolean
   }
-  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler, onactions }: Props = $props()
-  const aCote = $derived(!!(onactions || onepingler))
+  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler, onactions, onajouter, ajoute = false, ajoutFige = false, cible = 'ton accueil', oncacher, cache = false }: Props = $props()
+  const aCote = $derived(!!(onactions || onepingler || onajouter || oncacher))
 
   // Avec l'épingle, le fond est porté par l'enveloppe : la tuile et l'épingle forment une seule carte
   const sharedClasses = $derived(`w-full flex flex-row items-center justify-between gap-3 text-left rounded-2xl
@@ -68,6 +78,22 @@
       <i aria-hidden="true" class="bx bx-dots-vertical-rounded text-2xl"></i>
     </button>
   </div>
+{:else if onajouter}
+  <div class="tuile flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+    <button type="button" {onclick} class="{sharedClasses} min-w-0 flex-1">
+      {@render contenu(false)}
+    </button>
+    <button
+      type="button"
+      aria-label={ajoute ? (ajoutFige ? `« ${title} » est dans ${cible}` : `Retirer « ${title} » de ${cible}`) : `Ajouter « ${title} » à ${cible}`}
+      aria-pressed={ajoute}
+      disabled={ajoute && ajoutFige}
+      class="bouton-icone mr-1 text-coopmaths-action dark:text-coopmathsdark-action"
+      onclick={onajouter}
+    >
+      <i aria-hidden="true" class="bx {ajoute ? 'bxs-check-circle' : 'bx-plus-circle'} text-3xl"></i>
+    </button>
+  </div>
 {:else if onepingler}
   <div class="tuile flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
     <button type="button" {onclick} class="{sharedClasses} min-w-0 flex-1">
@@ -81,6 +107,20 @@
       onclick={onepingler}
     >
       <i aria-hidden="true" class="bx {epingle ? 'bxs-pin' : 'bx-pin'} text-xl"></i>
+    </button>
+    {#if oncacher}
+      <button type="button" aria-label="Cacher « {title} »" class="bouton-icone mr-1" onclick={oncacher}>
+        <i aria-hidden="true" class="bx bx-hide text-xl"></i>
+      </button>
+    {/if}
+  </div>
+{:else if oncacher}
+  <div class="tuile flex flex-row items-center rounded-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+    <button type="button" {onclick} class="{sharedClasses} min-w-0 flex-1">
+      {@render contenu(false)}
+    </button>
+    <button type="button" aria-label={cache ? `Remettre « ${title} » sur l’accueil` : `Cacher « ${title} »`} class="bouton-icone mr-1" onclick={oncacher}>
+      <i aria-hidden="true" class="bx {cache ? 'bx-show' : 'bx-hide'} text-xl"></i>
     </button>
   </div>
 {:else}

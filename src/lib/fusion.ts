@@ -87,7 +87,7 @@ export function fusionnerDonnees(ici: Donnees, la: Donnees): { donnees: Donnees;
       for (const [k, v] of Object.entries(x as Record<string, ResultatEtape>)) if (!r[k] || v.le > r[k].le) r[k] = v
       d[cle] = r
     } else if (['explorer', 'ajoutes', 'importes'].includes(cle)) d[cle] = parId(a, x)
-    else if (['epingles', 'fiches-vues'].includes(cle)) d[cle] = union(a, x)
+    else if (['epingles', 'caches', 'fiches-vues'].includes(cle)) d[cle] = union(a, x)
     else if (cle === 'classes') {
       const liens = new Set((a as { lien: string }[]).map((c) => c.lien))
       d[cle] = [...(a as { lien: string }[]), ...(x as { lien: string }[]).filter((c) => !liens.has(c.lien))]
