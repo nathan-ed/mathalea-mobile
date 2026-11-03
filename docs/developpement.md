@@ -309,8 +309,9 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   Accueil élève, sans « ⋯ » : épingle (`basculerEpingle`, qui ne retire
   jamais) et œil (`basculerCache`, clé `caches`, réunie à la fusion de deux
   appareils) sur chaque tuile ; les parcours cachés sont repliés dans
-  « Parcours cachés » en bas, l'œil ouvert les remet. Imprimer : page du
-  parcours, « Autres actions ». Retirer ou cacher ne touche ni `seance:`, ni
+  « Parcours cachés » en bas, l'œil ouvert les remet. Imprimer : imprimante
+  de la barre du haut du parcours (`DetailParcours` et `FicheParcours`,
+  `EnTete` `droite`), plus dans « Autres actions ». Retirer ou cacher ne touche ni `seance:`, ni
   `historique:`, ni `resultats:` : remis, le parcours reprend tel quel. Retour d'un parcours : même position dans la page. Test :
   `node e2e/explorer.mjs` (catalogue d'essai servi en local, voir l'en-tête).
 - Fiches de cours (`Fiche` dans `catalogue.ts`, écran `Cours.svelte`) : portées

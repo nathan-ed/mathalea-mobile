@@ -91,7 +91,7 @@
       class="bouton-icone mr-1 text-coopmaths-action dark:text-coopmathsdark-action"
       onclick={onajouter}
     >
-      <i aria-hidden="true" class="bx {ajoute ? 'bxs-check-circle' : 'bx-plus-circle'} text-3xl"></i>
+      <i aria-hidden="true" class="bx {ajoute ? 'bxs-check-circle' : 'bx-plus-circle'} text-2xl"></i>
     </button>
   </div>
 {:else if onepingler}

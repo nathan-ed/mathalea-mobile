@@ -172,6 +172,12 @@
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre={parcours.titre} {onretour}>
     {#snippet droite()}
+      <!-- Imprimer à côté de l'épingle, sans passer par « Autres actions » (Nathan, 3 novembre 2026) -->
+      {#if impressionPossible()}
+        <button type="button" aria-label="Imprimer" class="bouton-icone" onclick={() => (feuille = 'impression')}>
+          <i aria-hidden="true" class="bx bx-printer text-2xl"></i>
+        </button>
+      {/if}
       {#if !explorer}
         <button
           type="button"
@@ -459,7 +465,6 @@
         session = 'rejoindre'
         feuille = null
       }),
-      ...(impressionPossible() ? [action('bx-printer', 'Imprimer', () => (feuille = 'impression'))] : []),
     ]}
     <Feuille onfermer={() => (feuille = null)}>
       <ul class={listeGroupee}>

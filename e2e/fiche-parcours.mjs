@@ -35,6 +35,8 @@ for (const sombre of [false, true]) {
     localStorage.setItem('copie:pays', JSON.stringify('FR'))
     localStorage.setItem('copie:bibliotheque', JSON.stringify(bib))
   }, bibliotheque)
+  // Impression proposée comme dans l'app (le PDF n'est pas compilé ici : e2e/impression.mjs le fait)
+  await ctx.addInitScript(() => (window.__compilerPdf = async () => ''))
   const t = await ctx.newPage()
   t.on('pageerror', (e) => erreurs.push(e.message))
   await t.goto(base)
@@ -89,12 +91,14 @@ for (const sombre of [false, true]) {
   ok((await surFiche()) && (await t.locator('main').innerText()).includes('Session '), 'retour de la session : page du parcours, la session y est listée')
   await t.screenshot({ path: `${captures}/fiche-3-sessions${s}.png` })
 
-  // Autres actions
+  // Imprimante dans la barre du haut (comme pour l'élève), puis Autres actions
+  ok(await t.locator('header').getByRole('button', { name: 'Imprimer' }).isVisible(), 'enseignant : imprimante dans la barre du haut du parcours')
   await t.getByRole('button', { name: 'Autres actions' }).click()
   ok(
     (await t.getByRole('button', { name: 'Exporter ce parcours seul' }).isVisible()) && (await t.getByRole('button', { name: 'Dupliquer' }).isVisible()) && (await t.getByRole('button', { name: 'Supprimer le parcours' }).isVisible()),
     'Autres actions : exporter, dupliquer, supprimer',
   )
+  ok(!(await t.getByRole('dialog').getByRole('button', { name: 'Imprimer' }).count()), 'Autres actions : « Imprimer » est dans la barre du haut, plus ici')
   await t.screenshot({ path: `${captures}/fiche-4-actions${s}.png` })
   await retour()
 

@@ -1,4 +1,4 @@
-// Imprimer un parcours (élève) : « Autres actions », « Imprimer », exercices
+// Imprimer un parcours (élève) : imprimante de la barre du haut, à côté de l'épingle, exercices
 // choisis, fiches de cours, corrections, deux versions, puis le PDF.
 // Dans l'app, le PDF est compilé par le Typst embarqué (src-tauri/src/impression.rs) ;
 // ici, par le Typst de l'ordinateur (même version), avec les mêmes paquets et
@@ -87,12 +87,19 @@ for (const a of appareils) {
   await page.getByRole('button', { name: /^Parcours à imprimer/ }).first().click({ timeout: 30_000 })
   await pagePrete(page)
 
+  // Imprimante dans la barre du haut, plus dans « Autres actions »
   const autres = page.getByRole('button', { name: 'Autres actions' })
   await autres.scrollIntoViewIfNeeded()
   const point = await pointStable(autres)
   if (a.hasTouch) await page.touchscreen.tap(point.x, point.y)
   else await page.mouse.click(point.x, point.y)
-  await page.getByRole('button', { name: 'Imprimer' }).click()
+  await page.getByRole('dialog').waitFor()
+  ok(!(await page.getByRole('dialog').getByRole('button', { name: 'Imprimer' }).count()), `${a.nom} : « Imprimer » n'est plus dans « Autres actions »`)
+  await page.goBack()
+  await page.getByRole('dialog').waitFor({ state: 'detached' })
+  const imprimante = page.locator('header').getByRole('button', { name: 'Imprimer' })
+  ok(await imprimante.isVisible(), `${a.nom} : imprimante dans la barre du haut`)
+  await imprimante.click()
   const panneau = page.getByRole('dialog')
   await panneau.getByText('Corrections à la fin').waitFor()
   const interrupteurs = panneau.getByRole('switch')
@@ -120,7 +127,7 @@ for (const a of appareils) {
   execFileSync('pdftoppm', ['-r', '50', '-png', '-f', '1', '-l', '2', chemin, join(captures, `impression-${a.nom}-page`)])
   ok(!(await panneau.count()), `${a.nom} : panneau refermé après l'enregistrement`)
 
-  // Depuis l'accueil : la tuile ouvre le parcours › « Autres actions » › Imprimer
+  // Depuis l'accueil : la tuile ouvre le parcours › imprimante de la barre du haut
   // (plus de « ⋯ » sur les tuiles : épingle et œil à la place)
   await page.getByRole('button', { name: 'Ajouter à l’accueil' }).click()
   await page.getByRole('button', { name: 'Ajouté à l’accueil' }).waitFor()
@@ -131,12 +138,7 @@ for (const a of appareils) {
   ok(!(await page.getByRole('button', { name: /^Actions pour/ }).count()), `${a.nom} : pas de « ⋯ » sur les tuiles de l'accueil`)
   await page.getByRole('button', { name: /^Parcours à imprimer/ }).first().click()
   await pagePrete(page)
-  const autresAccueil = page.getByRole('button', { name: 'Autres actions' })
-  await autresAccueil.scrollIntoViewIfNeeded()
-  const pointAccueil = await pointStable(autresAccueil)
-  if (a.hasTouch) await page.touchscreen.tap(pointAccueil.x, pointAccueil.y)
-  else await page.mouse.click(pointAccueil.x, pointAccueil.y)
-  await page.getByRole('button', { name: 'Imprimer' }).click()
+  await page.locator('header').getByRole('button', { name: 'Imprimer' }).click()
   await page.getByRole('dialog').getByText('Corrections à la fin').waitFor()
   ok((await page.getByRole('dialog').getByRole('switch').count()) === 5, `${a.nom} : impression ouverte depuis l'accueil`)
   await page.screenshot({ path: `${captures}/impression-${a.nom}-${a.theme}-accueil.png` })

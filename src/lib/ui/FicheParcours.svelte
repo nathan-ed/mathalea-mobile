@@ -88,7 +88,16 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete titre={p.titre || 'Sans titre'} {onretour} />
+  <EnTete titre={p.titre || 'Sans titre'} {onretour}>
+    {#snippet droite()}
+      <!-- Imprimer dans la barre du haut, comme pour l'élève (Nathan, 3 novembre 2026) -->
+      {#if impressionPossible()}
+        <button type="button" aria-label="Imprimer" class="bouton-icone" onclick={() => (feuille = 'impression')}>
+          <i aria-hidden="true" class="bx bx-printer text-2xl"></i>
+        </button>
+      {/if}
+    {/snippet}
+  </EnTete>
 
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
     <div>
@@ -215,7 +224,6 @@
   </Feuille>
 {:else if feuille === 'actions'}
   {@const actions = [
-    ...(impressionPossible() ? [{ icone: 'bx-printer', libelle: 'Imprimer', fn: () => (feuille = 'impression') }] : []),
     { icone: 'bx-export', libelle: 'Exporter ce parcours seul', fn: async () => ((feuille = null), (message = await onexporter())) },
     { icone: 'bx-copy', libelle: 'Dupliquer', fn: () => ((feuille = null), ondupliquer()) },
     { icone: 'bx-trash', libelle: 'Supprimer le parcours', fn: () => (feuille = 'suppression') },
