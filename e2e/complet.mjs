@@ -314,11 +314,11 @@ await cap(a, '6b-explorer')
 ok(await a.getByRole('button', { name: /^Teste ton niveau/ }).isVisible(), 'explorer : Teste ton niveau en tête')
 // Explorer rangé par degré, les parcours sous leur chapitre : on ouvre le degré
 // (la tuile « Teste ton niveau » vient avant les degrés)
-for (let i = 0; i < 2 && !(await a.getByRole('button', { name: /Fractions : les bases/ }).isVisible()); i++) {
+for (let i = 0; i < 2 && !(await a.getByRole('button', { name: /^\s*Fractions : les bases/ }).isVisible()); i++) {
   await a.locator('main .tuile').filter({ hasNotText: 'Teste ton niveau' }).first().click()
   await pagePrete(a)
 }
-await a.getByRole('button', { name: /Fractions : les bases/ }).click()
+await a.getByRole('button', { name: /^\s*Fractions : les bases/ }).click()
 await a.getByRole('button', { name: 'Ajouter à l’accueil' }).click()
 ok(await a.getByRole('button', { name: 'Ajouté à l’accueil' }).isVisible(), 'explorer : ajouté à l’accueil')
 await cap(a, '6c-explorer-detail')
@@ -327,7 +327,7 @@ await a.getByRole('tab', { name: 'Mes parcours' }).click()
 await pagePrete(a)
 await cap(a, '6d-accueil-ajout')
 ok(await a.getByText('Ajoutés depuis Explorer').isVisible(), 'explorer : section à l’accueil')
-ok(await a.getByRole('button', { name: /Fractions : les bases/ }).isVisible(), 'explorer : parcours à l’accueil')
+ok(await a.getByRole('button', { name: /^\s*Fractions : les bases/ }).isVisible(), 'explorer : parcours à l’accueil')
 
 // ---------- Enseignant ----------
 const t = await appareil('enseignant')
