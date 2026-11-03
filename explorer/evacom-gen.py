@@ -52,7 +52,7 @@ B = {
    'Une somme exige un dénominateur commun. Pour multiplier, on multiplie les numérateurs entre eux et les dénominateurs entre eux. Diviser par une fraction revient à multiplier par son inverse.',
    'Calculer 2/3 + 1/6.', ['2/3 = 4/6.', '4/6 + 1/6 = 5/6.'],
    'Que vaut 2/3 + 1/6 ?', ['5/6', '3/9', '3/6'], 0, 'On convertit 2/3 en 4/6 avant d’additionner.'),
-  ('Puissances et écritures des nombres', [('Calculer puissances et racines simples', 'eb865 f5cbd'), ('Utiliser la notation scientifique', 'a0d17 762fe')],
+  ('Puissances et écritures des nombres', [('Calculer puissances et racines simples', 'eb865 f5cbd'), ('Utiliser la notation scientifique', 'a0d17 a0d17>decimale')],
    'Une puissance répète une multiplication ; la racine carrée d’un carré parfait redonne son côté positif. En notation scientifique, le nombre devant la puissance de 10 est au moins 1 et inférieur à 10.',
    'Écrire 32 000 en notation scientifique.', ['32 000 = 3,2 × 10 000.', 'Donc 32 000 = 3,2 × 10⁴.'],
    'Quelle écriture est scientifique pour 32 000 ?', ['3,2 × 10⁴', '32 × 10³', '0,32 × 10⁵'], 0, 'Le nombre placé devant 10⁴ doit être compris entre 1 et 10.'),
@@ -82,11 +82,11 @@ B = {
    'Une somme de fractions demande un dénominateur commun. Une puissance est un produit répété ; la racine carrée de 49 est le nombre positif dont le carré vaut 49.',
    'Calculer 1/2 + 1/3.', ['On choisit le dénominateur 6 : 1/2 = 3/6 et 1/3 = 2/6.', 'La somme vaut 5/6.'],
    'Que vaut 1/2 + 1/3 ?', ['5/6', '2/5', '1/6'], 0, '3/6 + 2/6 = 5/6.'),
-  ('Calculer avec les racines', [('Extraire un facteur d’une racine', 'd9495 99b29'), ('Simplifier et encadrer des racines', '12b72 516d2')],
+  ('Calculer avec les racines', [('Extraire un facteur d’une racine', 'd9495 13310'), ('Simplifier et encadrer des racines', '12b72 516d2')],
    'On extrait d’une racine un facteur carré parfait. On additionne ensuite seulement les racines qui portent sur le même nombre.',
    'Simplifier √75.', ['75 = 25 × 3.', '√75 = √25 × √3 = 5√3.'],
    'Quelle est la forme simplifiée de √75 ?', ['5√3', '25√3', '3√5'], 0, 'On extrait le carré parfait 25.'),
-  ('Notation scientifique et lettres', [('Utiliser la notation scientifique', 'a0d17 762fe'), ('Substituer et réduire', '17e39 85d2d')],
+  ('Notation scientifique et lettres', [('Utiliser la notation scientifique', 'a0d17 a0d17>decimale'), ('Substituer et réduire', '17e39 85d2d')],
    'La notation scientifique écrit un nombre sous la forme a × 10ⁿ avec 1 ≤ a < 10. En calcul littéral, on ne regroupe que les termes de même nature.',
    'Réduire 3x + 2x − 4.', ['3x et 2x sont des termes de même nature.', 'L’expression devient 5x − 4.'],
    'Que vaut 3x + 2x − 4 ?', ['5x − 4', '5x', 'x − 4'], 0, 'On ajoute 3x et 2x ; le terme constant reste −4.'),
@@ -115,17 +115,28 @@ for p in PRQ['classes'][0]['parcours']:
     for e in p['etapes']:
         KNOWN.setdefault(e['uuid'], {k:e[k] for k in ('sup','sup2','sup3','sup4') if k in e})
 
+# Variante d'un exercice : réglages et titre propres (QCM remplacés par une réponse tapée, 0.4.12)
+VARIANTES = {
+    'a0d17>decimale': ('a0d17', {'sup':'2','sup2':'2'}, 'Passer de la notation scientifique à l’écriture décimale'),
+}
+
 def stage(uuid, objective, filiere):
+    uuid, reglages, titre = VARIANTES.get(uuid, (uuid, {}, None))
     item=BY_UUID.get(uuid)
     if item is None: raise ValueError(f'UUID non interactif ou absent des référentiels : {uuid}')
     params=dict(KNOWN.get(uuid,{}))
+    params.update(reglages)
     if uuid=='ab5d4': params.update({'sup':'3','sup2':'true'})
+    # Sens direct seulement : la réciproque (« est-il un rectangle ? ») est en QCM
+    if uuid=='b18e8': params.update({'sup':'1'})
+    # Fractions à réponse tapée (sans QCM)
+    if uuid=='51ab4': params.update({'sup':'11*melange*1*0*0*1'})
     if uuid=='12b72': params.update({'sup':'1','sup2':'true'})
     if uuid=='ff2ce': params.update({'sup3':'1'})
     if uuid=='1cd08' and filiere=='11LC': params.update({'sup':'2','sup2':'1','sup3':'1','sup4':'1'})
     # 3L12-4 : seulement x² + bx + c par somme et produit, sans mise en évidence.
     if uuid=='8cb63': params.update({'sup':'4','sup2':'1','sup3':'1','sup4':'1'})
-    return {'uuid':uuid,'id':item['id'],'nbQuestions':3,'titre':item['titre'].strip(),
+    return {'uuid':uuid,'id':item['id'],'nbQuestions':3,'titre':titre or item['titre'].strip(),
             'objectifs':[f'{objective} (EVACOM {filiere})'],**params}
 
 AUTEURS=['l’équipe CoopMaths','Nathan Scheinmann','Claude Opus 5.5','Sol']
@@ -142,7 +153,7 @@ for filiere, belts in B.items():
         paliers.append({'titre':title,'nb':sum(len(u.split()) for _,u in groups),
                         'fiche':{'titre':title,'avant':True,'blocs':blocks},
                         **({} if i==0 else {'acces':'seuil','seuil':80})})
-    paths.append({'id':f'evacom-{filiere.lower()}-revision','version':3,
+    paths.append({'id':f'evacom-{filiere.lower()}-revision','version':4,
                   'titre':f'Réviser l’EVACOM {filiere}',
                   'objectif':f'Réviser l’EVACOM {filiere}, ceinture par ceinture.',
                   'auteurs':AUTEURS,

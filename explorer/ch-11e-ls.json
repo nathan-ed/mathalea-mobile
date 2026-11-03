@@ -1,13 +1,13 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-11-02T13:41:05.000Z",
+  "exporteLe": "2026-11-03T06:57:28.000Z",
   "classes": [
     {
       "nom": "11e LS",
       "parcours": [
         {
           "id": "ch-11ls-puissances-racines",
-          "version": 1,
+          "version": 2,
           "titre": "Puissances et racines",
           "objectif": "Calculer avec des puissances, l’écriture scientifique et des racines carrées.",
           "auteurs": [
@@ -547,10 +547,11 @@
               ]
             },
             {
-              "uuid": "67432",
-              "id": "10NO3D-6",
+              "uuid": "125bd",
+              "id": "10NO3D-5",
               "nbQuestions": 3,
-              "titre": "Trouver le signe d’une puissance",
+              "titre": "Puissances de nombres négatifs",
+              "sup": "true",
               "objectifs": [
                 "Calculer une puissance"
               ]
@@ -574,19 +575,21 @@
               ]
             },
             {
-              "uuid": "b37ab",
-              "id": "10NO3D-14",
+              "uuid": "bae57",
+              "id": "10NO3D-9",
               "nbQuestions": 2,
               "titre": "Produit de puissances de même exposant",
+              "sup": "4",
               "objectifs": [
                 "Utiliser les propriétés des puissances"
               ]
             },
             {
-              "uuid": "65cdf",
-              "id": "10NO3D-13",
+              "uuid": "bae57",
+              "id": "10NO3D-9",
               "nbQuestions": 2,
               "titre": "Puissance d’une puissance",
+              "sup": "3",
               "objectifs": [
                 "Utiliser les propriétés des puissances"
               ]
@@ -610,10 +613,11 @@
               ]
             },
             {
-              "uuid": "762fe",
-              "id": "10NO3F-2",
+              "uuid": "a0d17",
+              "id": "10NO3F-1",
               "nbQuestions": 3,
-              "titre": "Corriger une écriture avec une puissance de 10",
+              "titre": "Écriture scientifique de grands et petits nombres",
+              "sup2": "3",
               "objectifs": [
                 "Écrire un nombre en écriture scientifique"
               ]
@@ -628,10 +632,12 @@
               ]
             },
             {
-              "uuid": "8b399",
-              "id": "11NO3A-1",
+              "uuid": "0ec6a",
+              "id": "11NO3A-2",
               "nbQuestions": 2,
-              "titre": "Calculer un produit de quotients",
+              "titre": "Multiplier et diviser en écriture scientifique",
+              "sup": "3-4",
+              "sup2": "2",
               "objectifs": [
                 "Calculer avec des écritures scientifiques"
               ]
@@ -664,8 +670,8 @@
               ]
             },
             {
-              "uuid": "99b29",
-              "id": "11NO3B-2",
+              "uuid": "13310",
+              "id": "13310",
               "nbQuestions": 3,
               "titre": "Calculer avec les propriétés des racines",
               "objectifs": [
@@ -694,7 +700,7 @@
         },
         {
           "id": "ch-11ls-ensembles-nombres",
-          "version": 1,
+          "version": 2,
           "titre": "Ensembles de nombres et valeurs approchées",
           "objectif": "Classer un nombre dans un ensemble et donner une valeur approchée d’un calcul.",
           "auteurs": [
@@ -937,10 +943,11 @@
               ]
             },
             {
-              "uuid": "ca9b7",
-              "id": "11NO5-2",
+              "uuid": "25fb4",
+              "id": "11NO5-1",
               "nbQuestions": 3,
-              "titre": "Trouver tous les ensembles",
+              "titre": "Classer des nombres moins évidents",
+              "sup": "4-5-7-8-9",
               "objectifs": [
                 "Classer un nombre dans un ensemble de nombres"
               ]
@@ -955,10 +962,10 @@
               ]
             },
             {
-              "uuid": "bba9b",
-              "id": "10NO3E-8",
+              "uuid": "d2b82",
+              "id": "PR-43",
               "nbQuestions": 3,
-              "titre": "Arrondir un nombre",
+              "titre": "Arrondir ou tronquer un nombre",
               "objectifs": [
                 "Donner une valeur approchée"
               ]
@@ -982,8 +989,8 @@
               ]
             },
             {
-              "uuid": "9c484",
-              "id": "10NO3E-3",
+              "uuid": "41188",
+              "id": "10NO3E-2",
               "nbQuestions": 3,
               "titre": "Arrondir une racine carrée",
               "objectifs": [
@@ -1003,7 +1010,7 @@
         },
         {
           "id": "ch-11ls-grandeurs-plan",
-          "version": 1,
+          "version": 2,
           "titre": "Pythagore, périmètres et aires",
           "objectif": "Calculer des longueurs avec Pythagore, des périmètres et des aires, et transformer une formule.",
           "auteurs": [
@@ -1443,6 +1450,7 @@
               "id": "10GM1D-5",
               "nbQuestions": 3,
               "titre": "Utiliser Pythagore dans une figure",
+              "sup": "1",
               "objectifs": [
                 "Résoudre un problème avec le théorème de Pythagore"
               ]
@@ -1550,7 +1558,7 @@
         },
         {
           "id": "ch-11ls-calcul-litteral",
-          "version": 1,
+          "version": 2,
           "titre": "Réduire, développer, factoriser",
           "objectif": "Réduire, développer, factoriser et substituer dans une expression littérale.",
           "auteurs": [
@@ -2221,8 +2229,8 @@
               ]
             },
             {
-              "uuid": "3c1f7",
-              "id": "10FA4A-1",
+              "uuid": "8b18b",
+              "id": "10FA5A-3",
               "nbQuestions": 2,
               "titre": "Écrire une expression littérale",
               "objectifs": [
@@ -4471,7 +4479,7 @@
         },
         {
           "id": "ch-11ls-transformations",
-          "version": 1,
+          "version": 2,
           "titre": "Isométries et homothétie",
           "objectif": "Reconnaître une isométrie, utiliser ses propriétés et calculer avec une homothétie.",
           "auteurs": [
@@ -4804,15 +4812,17 @@
               "id": "11ES3A-3",
               "nbQuestions": 3,
               "titre": "Calculs avec une homothétie",
+              "sup": "2-3-4-5-6-7-8",
               "objectifs": [
                 "Calculer le rapport et les effets d’une homothétie"
               ]
             },
             {
-              "uuid": "c4da7",
-              "id": "11ES3A-6",
+              "uuid": "6f383",
+              "id": "11ES3A-3",
               "nbQuestions": 2,
-              "titre": "Lire le rapport d’une homothétie",
+              "titre": "Calculer le rapport d’une homothétie",
+              "sup": "1-9",
               "objectifs": [
                 "Calculer le rapport et les effets d’une homothétie"
               ]

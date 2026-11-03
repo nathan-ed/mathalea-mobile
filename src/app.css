@@ -252,6 +252,14 @@ math-field,
 body:has(.barre-seance) #mathalea-virtual-keyboard {
   bottom: var(--barre-seance, 0px) !important;
   padding-bottom: 0.5rem !important;
+  /* Sous la barre (z-index 46, voir .barre-seance) : le clavier entre et sort
+     en glissant de toute sa hauteur ; il passe derrière la barre, qui ne
+     disparaît plus le temps de l'animation. Au-dessus de l'en-tête (40), sous
+     les écrans plein cadre (50) et les panneaux (100). */
+  z-index: 45 !important;
+}
+.barre-seance {
+  z-index: 46;
 }
 body:has(.barre-seance) main .contenu-mathalea .fixed.bottom-0 {
   bottom: var(--barre-seance, 0px) !important;

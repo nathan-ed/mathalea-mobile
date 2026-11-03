@@ -68,7 +68,7 @@ wait "${pids[@]}"
 for s in "${paralleles[@]}"; do
   if [ "$(cat "$SORTIE/$s.code")" = 0 ]; then echo "== $s"; echo "   vert"; else echo "== $s"; echo "   ÉCHEC (voir $SORTIE/$s.log)"; echecs+=("$s"); fi
 done
-for s in reponses-elements defilement un-toucher terminer-passees regressions changer-appareil classe-qr en-classe \
+for s in reponses-elements defilement un-toucher terminer-passees barre-clavier regressions changer-appareil classe-qr en-classe \
   fiche-parcours session-qr ouverture-paliers paliers papier recherche correction-parcours \
   reponses-session revisions test-niveau test-niveau-reel couleurs-reponse reprise-ecran retour eleve-puis-enseignant \
   auteurs session-qr-long catalogue-moteur impression; do

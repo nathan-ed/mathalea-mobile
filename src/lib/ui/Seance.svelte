@@ -531,7 +531,7 @@
   {#if pret && !correctionCachee}
     <footer
       use:garderSaisie
-      class="barre-seance fixed bottom-0 left-0 right-0 z-20 flex flex-col gap-3 px-4 py-3 zone-sure-bas
+      class="barre-seance fixed bottom-0 left-0 right-0 flex flex-col gap-3 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       bind:offsetHeight={hauteurBarre}

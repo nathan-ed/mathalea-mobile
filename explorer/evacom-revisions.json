@@ -7,7 +7,7 @@
       "parcours": [
         {
           "id": "evacom-11lc-revision",
-          "version": 3,
+          "version": 4,
           "titre": "Réviser l’EVACOM 11LC",
           "objectif": "Réviser l’EVACOM 11LC, ceinture par ceinture.",
           "auteurs": [
@@ -275,13 +275,13 @@
           "etapes": [
             {
               "uuid": "51ab4",
-              "sup": "11*melange*1*0*0*1",
               "id": "9NO3F-12",
               "nbQuestions": 3,
               "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
               "objectifs": [
                 "Additionner et soustraire des fractions (EVACOM 11LC)"
-              ]
+              ],
+              "sup": "11*melange*1*0*0*1"
             },
             {
               "uuid": "5f429",
@@ -357,13 +357,15 @@
               ]
             },
             {
-              "uuid": "762fe",
-              "id": "10NO3F-2",
+              "uuid": "a0d17",
+              "id": "10NO3F-1",
               "nbQuestions": 3,
-              "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+              "titre": "Passer de la notation scientifique à l’écriture décimale",
               "objectifs": [
                 "Utiliser la notation scientifique (EVACOM 11LC)"
-              ]
+              ],
+              "sup": "2",
+              "sup2": "2"
             },
             {
               "uuid": "17e39",
@@ -493,7 +495,8 @@
               "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
               "objectifs": [
                 "Calculer une longueur avec Pythagore (EVACOM 11LC)"
-              ]
+              ],
+              "sup": "1"
             },
             {
               "uuid": "ab5d4",
@@ -578,7 +581,7 @@
       "parcours": [
         {
           "id": "evacom-11ls-revision",
-          "version": 3,
+          "version": 4,
           "titre": "Réviser l’EVACOM 11LS",
           "objectif": "Réviser l’EVACOM 11LS, ceinture par ceinture.",
           "auteurs": [
@@ -847,13 +850,13 @@
           "etapes": [
             {
               "uuid": "51ab4",
-              "sup": "11*melange*1*0*0*1",
               "id": "9NO3F-12",
               "nbQuestions": 3,
               "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
               "objectifs": [
                 "Calculer avec les fractions (EVACOM 11LS)"
-              ]
+              ],
+              "sup": "11*melange*1*0*0*1"
             },
             {
               "uuid": "3ee4e",
@@ -893,10 +896,10 @@
               ]
             },
             {
-              "uuid": "99b29",
-              "id": "1mCN-7",
+              "uuid": "13310",
+              "id": "13310",
               "nbQuestions": 3,
-              "titre": "Connaitre les propriétés calculatoires des racines carrées",
+              "titre": "Effectuer des calculs simples avec des racines carrées",
               "objectifs": [
                 "Extraire un facteur d’une racine (EVACOM 11LS)"
               ]
@@ -931,13 +934,15 @@
               ]
             },
             {
-              "uuid": "762fe",
-              "id": "10NO3F-2",
+              "uuid": "a0d17",
+              "id": "10NO3F-1",
               "nbQuestions": 3,
-              "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+              "titre": "Passer de la notation scientifique à l’écriture décimale",
               "objectifs": [
                 "Utiliser la notation scientifique (EVACOM 11LS)"
-              ]
+              ],
+              "sup": "2",
+              "sup2": "2"
             },
             {
               "uuid": "17e39",
@@ -1076,7 +1081,8 @@
               "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
               "objectifs": [
                 "Appliquer Pythagore (EVACOM 11LS)"
-              ]
+              ],
+              "sup": "1"
             },
             {
               "uuid": "ab5d4",
@@ -1179,7 +1185,7 @@
       "parcours": [
         {
           "id": "evacom-taf-revision",
-          "version": 3,
+          "version": 4,
           "titre": "Réviser l’EVACOM TAF",
           "objectif": "Réviser l’EVACOM TAF, ceinture par ceinture.",
           "auteurs": [
@@ -1540,13 +1546,13 @@
             },
             {
               "uuid": "51ab4",
-              "sup": "11*melange*1*0*0*1",
               "id": "9NO3F-12",
               "nbQuestions": 3,
               "titre": "Additionner ou soustraire deux fractions positives (dénominateurs multiples)",
               "objectifs": [
                 "Additionner et soustraire des fractions (EVACOM TAF)"
-              ]
+              ],
+              "sup": "11*melange*1*0*0*1"
             },
             {
               "uuid": "5f429",
@@ -1738,7 +1744,8 @@
               "titre": "Résoudre des problèmes utilisant le théorème de Pythagore",
               "objectifs": [
                 "Utiliser Pythagore (EVACOM TAF)"
-              ]
+              ],
+              "sup": "1"
             },
             {
               "uuid": "c7b58",

@@ -7,7 +7,7 @@
       "parcours": [
         {
           "id": "prq-nombres-ecritures-reperage",
-          "version": 11,
+          "version": 12,
           "titre": "Situer et comparer les nombres",
           "objectif": "Lire les rangs, placer, comparer et encadrer des nombres entiers et décimaux.",
           "auteurs": [
@@ -241,14 +241,14 @@
           ],
           "etapes": [
             {
-              "uuid": "a7aa7",
-              "id": "a7aa7",
+              "uuid": "3bba9",
+              "sup": "2",
+              "id": "3bba9",
               "nbQuestions": 3,
-              "titre": "Comparer deux nombres entiers",
+              "titre": "Ranger des nombres entiers dans l’ordre décroissant",
               "objectifs": [
                 "Comparer et ranger les entiers (Situer et comparer les nombres)"
-              ],
-              "sup": "1"
+              ]
             },
             {
               "uuid": "3bba9",
@@ -305,7 +305,8 @@
               "titre": "Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes",
               "objectifs": [
                 "Décomposer un nombre (Situer et comparer les nombres)"
-              ]
+              ],
+              "sup": "false"
             },
             {
               "uuid": "6ee89",
@@ -377,7 +378,7 @@
         },
         {
           "id": "prq-calculs-decimaux-relatifs",
-          "version": 11,
+          "version": 12,
           "titre": "Calculer avec les décimaux et les relatifs",
           "objectif": "Calculer avec les décimaux et les relatifs en respectant les priorités.",
           "auteurs": [
@@ -599,10 +600,11 @@
           ],
           "etapes": [
             {
-              "uuid": "32e02",
-              "id": "9NO1E-1",
+              "uuid": "10777",
+              "sup4": "1-2",
+              "id": "9NO1E-4",
               "nbQuestions": 3,
-              "titre": "Connaitre le vocabulaire lié aux 4 opérations",
+              "titre": "Traduire une phrase par une expression",
               "objectifs": [
                 "Choisir une opération (Calculer avec les décimaux et les relatifs)"
               ]
@@ -741,7 +743,7 @@
         },
         {
           "id": "prq-puissances-carres-racines",
-          "version": 11,
+          "version": 12,
           "titre": "Puissances, carrés et racines",
           "objectif": "Calculer des puissances et des racines, puis utiliser la notation scientifique.",
           "auteurs": [
@@ -1096,10 +1098,12 @@
               ]
             },
             {
-              "uuid": "762fe",
-              "id": "10NO3F-2",
+              "uuid": "a0d17",
+              "sup": "2",
+              "sup2": "2",
+              "id": "10NO3F-1",
               "nbQuestions": 3,
-              "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+              "titre": "Passer de la notation scientifique à l’écriture décimale",
               "objectifs": [
                 "Notation scientifique (Puissances, carrés et racines)"
               ]
@@ -1108,7 +1112,7 @@
         },
         {
           "id": "prq-donnees-raisonnement",
-          "version": 11,
+          "version": 12,
           "titre": "Lire une situation, traduire et vérifier",
           "objectif": "Lire des données, choisir les calculs utiles et contrôler ses résultats.",
           "auteurs": [
@@ -1350,7 +1354,7 @@
               ]
             },
             {
-              "uuid": "81c7b",
+              "uuid": "930ef",
               "id": "9FA3A-2",
               "nbQuestions": 3,
               "titre": "Interpréter un diagramme en barres",
@@ -1359,7 +1363,7 @@
               ]
             },
             {
-              "uuid": "81c7b",
+              "uuid": "930ef",
               "id": "9FA3A-2",
               "nbQuestions": 3,
               "titre": "Interpréter un diagramme en barres",
@@ -1368,10 +1372,10 @@
               ]
             },
             {
-              "uuid": "3ba7a",
+              "uuid": "c02fd",
               "id": "9FA3A-5",
               "nbQuestions": 3,
-              "titre": "Calculer un effectif total à partir d'un diagramme en barres",
+              "titre": "Calculer un effectif total à partir d’un diagramme en barres",
               "objectifs": [
                 "Prélever les données utiles (Lire une situation, traduire et vérifier)"
               ]
@@ -1414,10 +1418,10 @@
               ]
             },
             {
-              "uuid": "de779",
-              "id": "de779",
+              "uuid": "6e828",
+              "id": "9NO1G-16",
               "nbQuestions": 3,
-              "titre": "Trouver un ordre de grandeur (QCM)",
+              "titre": "Trouver un ordre de grandeur d’un produit",
               "objectifs": [
                 "Estimer un résultat (Lire une situation, traduire et vérifier)"
               ]
@@ -1429,7 +1433,8 @@
               "titre": "Estimer un ordre de grandeur",
               "objectifs": [
                 "Estimer un résultat (Lire une situation, traduire et vérifier)"
-              ]
+              ],
+              "sup3": "false"
             },
             {
               "uuid": "d8841",
@@ -1441,10 +1446,11 @@
               ]
             },
             {
-              "uuid": "b9893",
-              "id": "b9893",
+              "uuid": "d8841",
+              "sup": "2",
+              "id": "10FA5B-3",
               "nbQuestions": 3,
-              "titre": "Vérifier si un nombre est solution d’une équation",
+              "titre": "Tester une égalité avec des nombres relatifs",
               "objectifs": [
                 "Vérifier une égalité (Lire une situation, traduire et vérifier)"
               ]
@@ -1826,7 +1832,7 @@
         },
         {
           "id": "prq-figures-angles-solides",
-          "version": 11,
+          "version": 12,
           "titre": "Figures, angles et solides",
           "objectif": "Reconnaître les figures et les solides, mesurer les angles et utiliser les transformations.",
           "auteurs": [
@@ -2048,10 +2054,12 @@
           ],
           "etapes": [
             {
-              "uuid": "e8d33",
-              "id": "9ES1B-7",
+              "uuid": "e10d1",
+              "sup": "1",
+              "sup2": "2",
+              "id": "9ES1B-1",
               "nbQuestions": 3,
-              "titre": "Connaitre le vocabulaire de base des angles",
+              "titre": "Nommer un angle",
               "objectifs": [
                 "Nommer les figures (Figures, angles et solides)"
               ]
@@ -2093,10 +2101,10 @@
               ]
             },
             {
-              "uuid": "e8d33",
-              "id": "9ES1B-7",
+              "uuid": "cded3",
+              "id": "9ES1B-9",
               "nbQuestions": 3,
-              "titre": "Connaitre le vocabulaire de base des angles",
+              "titre": "Connaître la mesure de quelques angles particuliers",
               "objectifs": [
                 "Repérer droites et angles (Figures, angles et solides)"
               ]
@@ -2165,10 +2173,10 @@
               ]
             },
             {
-              "uuid": "428b2",
-              "id": "9ES3C-13",
-              "nbQuestions": 3,
-              "titre": "Reconnaitre une symétrie centrale",
+              "uuid": "8106a",
+              "id": "9ES3C-10",
+              "nbQuestions": 1,
+              "titre": "Trouver l’image d’une figure par symétrie centrale dans un pavage",
               "objectifs": [
                 "Reconnaître les symétries (Figures, angles et solides)"
               ]
@@ -2529,7 +2537,7 @@
         },
         {
           "id": "prq-divisibilite-decomposition",
-          "version": 11,
+          "version": 12,
           "titre": "Divisibilité et décomposition",
           "objectif": "Utiliser les critères de divisibilité, les facteurs premiers, le PGDC et le PPMC.",
           "auteurs": [
@@ -2752,10 +2760,10 @@
           ],
           "etapes": [
             {
-              "uuid": "918c2",
-              "id": "9NO1A-3",
+              "uuid": "e1b05",
+              "id": "9NO1A-9",
               "nbQuestions": 3,
-              "titre": "Dire si un entier donné est un diviseur ou multiple d'un autre",
+              "titre": "Déterminer un multiple",
               "objectifs": [
                 "Reconnaître diviseurs et multiples (Divisibilité et décomposition)"
               ]
@@ -2770,39 +2778,43 @@
               ]
             },
             {
-              "uuid": "4a128",
-              "id": "9NO1A-4",
+              "uuid": "bc57e",
+              "sup": "1-4-7",
+              "id": "9NO1A-6",
               "nbQuestions": 3,
-              "titre": "Utiliser les critères de divisibilité",
-              "objectifs": [
-                "Critères de 2, 5 et 10 (Divisibilité et décomposition)"
-              ],
-              "sup": "1"
-            },
-            {
-              "uuid": "fa3ec",
-              "id": "9NO1A-5",
-              "nbQuestions": 3,
-              "titre": "Utiliser des critères de divisibilité de de 2, 3, 5, 9 et 10",
+              "titre": "Trouver un nombre divisible par 2, 5 ou 10",
               "objectifs": [
                 "Critères de 2, 5 et 10 (Divisibilité et décomposition)"
               ]
             },
             {
-              "uuid": "4a128",
-              "id": "9NO1A-4",
+              "uuid": "5636e",
+              "sup": "2-3",
+              "sup2": "1-3-6-8",
+              "id": "9NO1A-15",
               "nbQuestions": 3,
-              "titre": "Utiliser les critères de divisibilité",
+              "titre": "Trouver un chiffre pour qu’un nombre soit divisible par 2, 5 ou 10",
               "objectifs": [
-                "Critères de 3 et 9 (Divisibilité et décomposition)"
-              ],
-              "sup": "2"
+                "Critères de 2, 5 et 10 (Divisibilité et décomposition)"
+              ]
             },
             {
-              "uuid": "fa3ec",
-              "id": "9NO1A-5",
+              "uuid": "bc57e",
+              "sup": "2-6",
+              "id": "9NO1A-6",
               "nbQuestions": 3,
-              "titre": "Utiliser des critères de divisibilité de de 2, 3, 5, 9 et 10",
+              "titre": "Trouver un nombre divisible par 3 ou 9",
+              "objectifs": [
+                "Critères de 3 et 9 (Divisibilité et décomposition)"
+              ]
+            },
+            {
+              "uuid": "5636e",
+              "sup": "2-3",
+              "sup2": "2-4",
+              "id": "9NO1A-15",
+              "nbQuestions": 3,
+              "titre": "Trouver un chiffre pour qu’un nombre soit divisible par 3 ou 9",
               "objectifs": [
                 "Critères de 3 et 9 (Divisibilité et décomposition)"
               ]
@@ -2883,7 +2895,7 @@
         },
         {
           "id": "prq-fractions-representer-calculer",
-          "version": 11,
+          "version": 12,
           "titre": "Fractions : représenter, comparer, calculer",
           "objectif": "Représenter, comparer et calculer avec des fractions.",
           "auteurs": [

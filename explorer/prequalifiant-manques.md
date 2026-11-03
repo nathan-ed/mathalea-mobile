@@ -6,6 +6,19 @@ Chaque exercice porte un objectif précis. L'application affiche un pourcentage 
 
 La compétence NO01 (écrire les nombres en toutes lettres) a été retirée à la demande de Nathan : elle demande des réponses trop longues pour ce parcours mobile.
 
+## Version 12 (moins de QCM, novembre 2026)
+
+Un QCM ne fait pas travailler l'élève sur téléphone : chaque exercice à cocher est remplacé par un exercice à réponse tapée qui entraîne le même savoir-faire, quand MathALÉA en a un.
+
+- Situer et comparer les nombres : `a7aa7` (comparer deux entiers, QCM) devient `3bba9` dans l'ordre décroissant ; `dcf22` sans sa version QCM (`sup` à `false`).
+- Calculer avec les décimaux et les relatifs : `32e02` (vocabulaire des opérations, QCM) devient 9NO1E-4 (`10777`, traduire une phrase par une expression, une ou deux opérations).
+- Puissances, carrés et racines : `762fe` devient 10NO3F-1 (`a0d17`) de la notation scientifique vers l'écriture décimale.
+- Lire une situation, traduire et vérifier : `81c7b` et `3ba7a` (versions QCM) deviennent 9FA3A-2 (`930ef`) et 9FA3A-5 (`c02fd`) ; `de779` devient 9NO1G-16 (`6e828`) ; `2e229` sans sa version QCM (`sup3` à `false`) ; `b9893` devient 10FA5B-3 (`d8841`) avec des entiers relatifs.
+- Figures, angles et solides : `e8d33` devient 9ES1B-1 (`e10d1`, nom de l'angle tapé) dans « Nommer les figures » et 9ES1B-9 (`cded3`, mesures des angles particuliers) dans « Mesurer un angle » ; le second `428b2` devient 9ES3C-10 (`8106a`, image dans un pavage, une question à plusieurs réponses).
+- Divisibilité et décomposition : `918c2` devient 9NO1A-9 (`e1b05`) ; `4a128` et `fa3ec` deviennent 9NO1A-6 (`bc57e`, trouver un nombre) et 9NO1A-15 (`5636e`, chiffre manquant), réglés sur 2, 5 et 10 puis sur 3 et 9.
+
+QCM gardés, faute d'équivalent à réponse tapée : `e8d33` (vocabulaire des angles, une fois), `4e52e` et `b6c33` (nature d'un quadrilatère), `428b2` (centre de symétrie, une fois), `af4b1` (diviseur, multiple, divisible).
+
 ## Version 11 (après la première séance en classe, octobre 2026)
 
 - Calculer avec les décimaux et les relatifs, ceinture blanche : 9NO1F-7 (`1f853`, nouvelle version de `cd0d8`) réglé sur une opération par phrase. Les phrases à trois opérations imbriquées étaient trop difficiles pour une première ceinture.

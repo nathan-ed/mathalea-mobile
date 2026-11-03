@@ -955,7 +955,13 @@ Environnement (machine de Nathan)
   3 novembre 2026 : elle ne doit plus bouger avec le clavier) : le clavier de
   MathALÉA et le pavé de la pyramide s'ouvrent au-dessus d'elle
   (`--barre-seance`, `.barre-seance` dans `app.css`). `hauteurClavier` ne sert
-  plus qu'à la marge du bas de la page.
+  plus qu'à la marge du bas de la page. Le clavier entre et sort en glissant de
+  toute sa hauteur (transition `fly` de MathALÉA, z-index 9999) : en séance il
+  passe sous la barre (clavier 45, barre 46, en-tête 40, écrans plein cadre 50,
+  panneaux 100), sinon il recouvre les boutons pendant l'animation (vidéo de
+  Nathan, 3 novembre 2026 : « Le bouton ne devrait pas partir »). Vérifié par
+  `e2e/barre-clavier.mjs` à chaque image (chevauchement géométrique : le
+  clavier qui sort est inerte, `elementFromPoint` ne le voit plus).
 
 - Serveur de dev ouvert depuis longtemps : après de gros changements de
   modules, le rechargement à chaud peut garder un module périmé (« nomPalier is

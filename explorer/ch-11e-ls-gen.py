@@ -63,6 +63,16 @@ def X(uuid, ref, n, titre, **sup):
 
 CHAPITRES = []
 
+# Version de chaque parcours, à augmenter à chaque modification diffusée (1 par défaut).
+# 2 : QCM remplacés par des exercices à réponse tapée quand le moteur en a un (0.4.12).
+VERSIONS = {
+    'ch-11ls-puissances-racines': 2,
+    'ch-11ls-ensembles-nombres': 2,
+    'ch-11ls-grandeurs-plan': 2,
+    'ch-11ls-calcul-litteral': 2,
+    'ch-11ls-transformations': 2,
+}
+
 # Chapitre du référentiel suisse (11e) sous lequel l'Explorer range chaque parcours
 THEMES = {
     'ch-11ls-puissances-racines': 'Nombres réels',
@@ -93,7 +103,7 @@ chapitre('ch-11ls-puissances-racines', 'Puissances et racines', 'bx-math',
          'Calculer avec des puissances, l’écriture scientifique et des racines carrées.', [
     C('Calculer une puissance', 'Calculer une puissance', [
         X('36f8b', '10NO3D-1', 4, 'Calculer une puissance'),
-        X('67432', '10NO3D-6', 3, 'Trouver le signe d’une puissance'),
+        X('125bd', '10NO3D-5', 3, 'Puissances de nombres négatifs', sup='true'),
     ], [
         T('Une puissance abrège un produit dont tous les facteurs sont égaux. On en a besoin dès qu’une même multiplication se répète : aires, volumes, très grands ou très petits nombres.'),
         R('Définition', r'Pour un nombre $a$ et un entier $n\geqslant1$ :' '\n' r'$$a^n=\underbrace{a\times a\times\cdots\times a}_{n\text{ facteurs}}$$' '\n' r'$a$ est la **base**, $n$ l’**exposant**. $a^2$ se lit « $a$ au carré », $a^3$ « $a$ au cube ».'),
@@ -134,8 +144,8 @@ chapitre('ch-11ls-puissances-racines', 'Puissances et racines', 'bx-math',
         R('Pièges', r'- $10^{-2}$ est positif : c’est $0{,}01$, pas $-100$.' '\n' r'- $10^3\times10^4=10^7$ : on additionne les exposants, on ne les multiplie pas.'),
     ]),
     C('Propriétés des puissances', 'Utiliser les propriétés des puissances', [
-        X('b37ab', '10NO3D-14', 2, 'Produit de puissances de même exposant'),
-        X('65cdf', '10NO3D-13', 2, 'Puissance d’une puissance'),
+        X('bae57', '10NO3D-9', 2, 'Produit de puissances de même exposant', sup='4'),
+        X('bae57', '10NO3D-9', 2, 'Puissance d’une puissance', sup='3'),
         X('a8a2e', '10NO3D-22', 3, 'Écrire sous la forme d’une seule puissance'),
     ], [
         T('Quand des puissances ont la même base, ou le même exposant, on calcule sans tout développer.'),
@@ -160,7 +170,7 @@ chapitre('ch-11ls-puissances-racines', 'Puissances et racines', 'bx-math',
     ]),
     C('Écriture scientifique', 'Écrire un nombre en écriture scientifique', [
         X('a0d17', '10NO3F-1', 3, 'Passer en écriture scientifique'),
-        X('762fe', '10NO3F-2', 3, 'Corriger une écriture avec une puissance de 10'),
+        X('a0d17', '10NO3F-1', 3, 'Écriture scientifique de grands et petits nombres', sup2='3'),
     ], [
         T(r'La distance de la Terre au Soleil, environ $150\,000\,000$ km, ou la masse d’un atome se lisent mal en écriture décimale. L’écriture scientifique les rend lisibles et faciles à comparer.'),
         R('Définition', r'Un nombre est en **écriture scientifique** s’il s’écrit $a\times10^n$, avec $n$ entier et $1\leqslant a<10$ (précédé d’un « $-$ » pour un nombre négatif).'),
@@ -184,7 +194,7 @@ chapitre('ch-11ls-puissances-racines', 'Puissances et racines', 'bx-math',
     ]),
     C('Calculer en écriture scientifique', 'Calculer avec des écritures scientifiques', [
         X('0ec6a', '11NO3A-2', 3, 'Calculer avec l’écriture scientifique'),
-        X('8b399', '11NO3A-1', 2, 'Calculer un produit de quotients'),
+        X('0ec6a', '11NO3A-2', 2, 'Multiplier et diviser en écriture scientifique', sup='3-4', sup2='2'),
         X('5c9c2', '10NO3F-5', 2, 'Résoudre un problème avec des puissances de 10'),
     ], [
         T('Pour multiplier ou diviser des nombres en écriture scientifique, on traite à part les nombres $a$ et les puissances de 10.'),
@@ -230,7 +240,7 @@ chapitre('ch-11ls-puissances-racines', 'Puissances et racines', 'bx-math',
         R('Pièges', r'- $\sqrt{16}=4$, pas $8$ : la racine n’est pas la moitié.' '\n' r'- $\sqrt{-9}$ n’existe pas : un carré n’est jamais négatif.'),
     ]),
     C('Propriétés des racines', 'Utiliser les propriétés des racines carrées', [
-        X('99b29', '11NO3B-2', 3, 'Calculer avec les propriétés des racines'),
+        X('13310', '13310', 3, 'Calculer avec les propriétés des racines'),
         X('d9495', '11NO3B-3', 3, 'Extraire un entier d’une racine'),
         X('12b72', '11NO3B-4', 2, 'Simplifier une somme de racines'),
     ], [
@@ -262,7 +272,7 @@ chapitre('ch-11ls-ensembles-nombres', 'Ensembles de nombres et valeurs approché
          'Classer un nombre dans un ensemble et donner une valeur approchée d’un calcul.', [
     C('Ensembles de nombres', 'Classer un nombre dans un ensemble de nombres', [
         X('25fb4', '11NO5-1', 3, 'Trouver le plus petit ensemble'),
-        X('ca9b7', '11NO5-2', 3, 'Trouver tous les ensembles'),
+        X('25fb4', '11NO5-1', 3, 'Classer des nombres moins évidents', sup='4-5-7-8-9'),
         X('ec6e7', '11NO5-3', 3, 'Classer le résultat d’un calcul'),
     ], [
         T(r'Selon ce qu’on compte, mesure ou calcule, on rencontre des nombres de plus en plus riches : entiers, décimaux, fractions, puis des nombres comme $\sqrt{2}$ ou $\pi$.'),
@@ -286,7 +296,7 @@ chapitre('ch-11ls-ensembles-nombres', 'Ensembles de nombres et valeurs approché
         R('Pièges', r'- Simplifier avant de classer : $\dfrac{12}{3}=4\in\mathbb{N}$.' '\n' r'- $\sqrt{25}=5$ est entier : seule la racine d’un entier qui n’est pas un carré parfait est irrationnelle.' '\n' r'- $-3$ n’appartient pas à $\mathbb{N}$.'),
     ]),
     C('Arrondir et tronquer', 'Donner une valeur approchée', [
-        X('bba9b', '10NO3E-8', 3, 'Arrondir un nombre'),
+        X('d2b82', 'PR-43', 3, 'Arrondir ou tronquer un nombre'),
         X('013fe', '10NO3E-9', 2, 'Arrondir un quotient'),
     ], [
         T(r'Une calculatrice affiche souvent une valeur approchée : $\dfrac{57}{13}\approx4{,}384615385$. Il faut savoir la raccourcir correctement.'),
@@ -310,7 +320,7 @@ chapitre('ch-11ls-ensembles-nombres', 'Ensembles de nombres et valeurs approché
     ]),
     C('Calculer et arrondir', 'Calculer à la calculatrice et arrondir', [
         X('1cd63', '11NO5-13', 2, 'Calculer avec une barre de fraction'),
-        X('9c484', '10NO3E-3', 3, 'Arrondir une racine carrée'),
+        X('41188', '10NO3E-2', 3, 'Arrondir une racine carrée'),
         X('d8741', '10GM1B-7', 2, 'Calculer avec π et arrondir'),
     ], [
         T('La calculatrice respecte les priorités opératoires, à condition de lui donner les bonnes parenthèses. On arrondit ensuite le résultat à la précision demandée.'),
@@ -359,7 +369,7 @@ chapitre('ch-11ls-grandeurs-plan', 'Pythagore, périmètres et aires', 'bx-shape
         R('Pièges', r'- Repérer l’hypoténuse avant d’écrire l’égalité : elle est seule de son côté du signe $=$.' '\n' r'- Pour un côté de l’angle droit, on **soustrait** les carrés.' '\n' r'- On arrondit seulement à la fin, après la racine.'),
     ]),
     C('Problèmes avec Pythagore', 'Résoudre un problème avec le théorème de Pythagore', [
-        X('b18e8', '10GM1D-5', 3, 'Utiliser Pythagore dans une figure'),
+        X('b18e8', '10GM1D-5', 3, 'Utiliser Pythagore dans une figure', sup='1'),  # sens direct : la réciproque est en QCM
         X('b18e9', '10GM1D-6', 2, 'Calculer dans un triangle équilatéral'),
     ], [
         T('Beaucoup de figures cachent un triangle rectangle : la diagonale d’un rectangle, la hauteur d’un triangle isocèle ou équilatéral.'),
@@ -575,7 +585,7 @@ chapitre('ch-11ls-calcul-litteral', 'Réduire, développer, factoriser', 'bx-fon
         R('Pièges', r'- $(a+b)^2\neq a^2+b^2$ : ne pas oublier $2ab$.' '\n' r'- $(3x)^2=9x^2$, pas $3x^2$.'),
     ]),
     C('Traduire', 'Traduire une phrase par une expression et inversement', [
-        X('3c1f7', '10FA4A-1', 2, 'Écrire une expression littérale'),
+        X('8b18b', '10FA5A-3', 2, 'Écrire une expression littérale'),
         X('fefa0', '10FA4A-2', 3, 'Traduire une phrase par une expression'),
         X('458ae', '10FA4A-8', 2, 'Traduire une expression par une phrase'),
     ], [
@@ -1187,8 +1197,8 @@ chapitre('ch-11ls-transformations', 'Isométries et homothétie', 'bx-transfer',
         QN(r'Centre $\Omega(1;1)$, rapport $2$ et $M(4;3)$. Quelle est l’abscisse de $M^{\prime}$ ?', 7, r'$1+2\times(4-1)=7$.'),
     ]),
     C('Rapport et effets', 'Calculer le rapport et les effets d’une homothétie', [
-        X('6f383', '11ES3A-3', 3, 'Calculs avec une homothétie'),
-        X('c4da7', '11ES3A-6', 2, 'Lire le rapport d’une homothétie'),
+        X('6f383', '11ES3A-3', 3, 'Calculs avec une homothétie', sup='2-3-4-5-6-7-8'),  # sans les cas 10 et 11 (QCM)
+        X('6f383', '11ES3A-3', 2, 'Calculer le rapport d’une homothétie', sup='1-9'),
         X('a0ad1', '11GM1C-2', 2, 'Agrandissement et réduction'),
         X('960f9', '11GM1C-1', 1, 'Effet sur les aires et les volumes'),
     ], [
@@ -1361,7 +1371,7 @@ def parcours(ch):
     noms = [c['titre'] for c in ch['ceintures']]
     rangs = [CEINTURES[k] if k < len(CEINTURES) else f'noire, {k - len(CEINTURES) + 2}e dan' for k in range(len(noms))]
     return {
-        'id': ch['id'], 'version': 1, 'titre': ch['titre'], 'objectif': ch['objectif'], 'auteurs': AUTEURS,
+        'id': ch['id'], 'version': VERSIONS.get(ch['id'], 1), 'titre': ch['titre'], 'objectif': ch['objectif'], 'auteurs': AUTEURS,
         'descriptionEleves': f"{len(noms)} ceintures pour le chapitre « {ch['titre']} » de 11e. Chaque ceinture s’ouvre sur une fiche qui rappelle la méthode ; tu passes à la suivante à partir de 80 % de réponses correctes.",
         'descriptionEnseignant': f"Programme de 11e, voie LS. {len(noms)} ceintures, de la blanche à la {rangs[-1]} : " + ' ; '.join(noms) + '. Une fiche précède chaque ceinture ; la suivante se débloque à 80 %. Chaque exercice est étiqueté avec l’objectif de sa ceinture.',
         'niveau': NIVEAU, 'theme': THEMES[ch['id']], 'difficulte': 2, 'icone': ch['icone'],
