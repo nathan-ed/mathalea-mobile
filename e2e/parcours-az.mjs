@@ -1125,9 +1125,10 @@ for (const f of fichiers) {
         const suivi = await page.locator('body').innerText()
         ok(suivi.includes(p.titre), `${p.id} : le parcours figure dans le suivi`)
         await capture(page, `az-${p.id}-suivi`)
-        // Onglet Ceintures : obtenues en couleur, les autres en contour
+        // Onglet Ceintures (parcours en ceintures seulement ; en paliers, pas de ceinture) :
+        // obtenues en couleur, les autres en contour
         const ceintures = page.getByRole('button', { name: 'Ceintures', exact: true }).or(page.getByRole('tab', { name: 'Ceintures', exact: true }))
-        if (tousPaliers.length > 1 && ok(await ceintures.count(), `${p.id} : onglet Ceintures du suivi`)) {
+        if (p.style === 'ceintures' && tousPaliers.length > 1 && ok(await ceintures.count(), `${p.id} : onglet Ceintures du suivi`)) {
           await toucher(e, ceintures.first())
           await pause(page, 500)
           const obtenues = await page.locator('[aria-label$=" : obtenue"]').count()

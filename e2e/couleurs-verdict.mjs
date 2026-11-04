@@ -1,5 +1,6 @@
 // Critère commun : la réponse mise en évidence dans la correction est verte
-// si et seulement si MathALÉA juge la question correcte (tous ses smileys 😎),
+// si et seulement si MathALÉA juge la question correcte (tous ses smileys 😎,
+// que l'app remplace par la pastille « Correcte » : BlocQuestion.svelte),
 // orange sinon. Renvoie les écarts.
 export function incoherencesVert(page) {
   return page.evaluate(() => {
@@ -9,7 +10,7 @@ export function incoherencesVert(page) {
     for (const zone of document.querySelectorAll('main .question-eleve')) {
       const smileys = [...zone.querySelectorAll('[id^="resultatCheck"]')].map((s) => s.textContent.trim()).filter(Boolean)
       if (!smileys.length) continue
-      const juste = smileys.every((s) => s.includes('😎'))
+      const juste = smileys.every((s) => s.includes('😎') || s === 'Correcte')
       // Correction de la question : le bloc qui suit sa zone
       const bloc = zone.closest('.container')?.nextElementSibling
       const misEnEvidence = bloc ? [...bloc.querySelectorAll('.mathbf, [style*="color"]')].filter((x) => x.closest('.correction-juste') || x.style.color) : []
