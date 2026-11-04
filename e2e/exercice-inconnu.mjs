@@ -3,7 +3,8 @@
 // un exercice inconnu vide. Aucune question connue : l'élève lit qu'il faut
 // mettre l'app à jour (avant : écran vide), Quitter et le bouton retour le
 // ramènent à la page du parcours, sans tentative « en cours ». Une partie
-// connue : ses questions se font normalement. Téléphone (clair), bureau (sombre).
+// connue : ses questions se font normalement. Tout caché : ni titre vide, ni
+// accueil sans issue (tuile de l'Explorer). Téléphone (clair), bureau (sombre).
 //   CAPTURES=<dossier> node e2e/exercice-inconnu.mjs
 import { chromium } from 'playwright'
 import { jusqua, pagePrete, pointStable, SANS_BRIDAGE } from './attente.mjs'
@@ -85,6 +86,26 @@ for (const a of appareils) {
   await pagePrete(page)
   ok((await texte(page)).includes(`sur ${CONNU.nbQuestions}`) && !(await texte(page)).includes('version plus récente'), `${a.nom} : exercices mêlés, les ${CONNU.nbQuestions} questions connues se font`, (await texte(page)).slice(0, 200))
   await page.screenshot({ path: `${captures}/inconnu-moitie${s}.png` })
+
+  // Élève sans classe qui cache tous ses parcours de l'Explorer : pas de titre
+  // « Mes parcours » vide, la tuile de l'Explorer revient (2026-11-05)
+  await toucher(page, page.getByRole('button', { name: 'Quitter' }))
+  await toucher(page, page.getByRole('button', { name: 'Reprendre plus tard' }))
+  for (let i = 0; i < 3 && !(await page.getByRole('tab', { name: 'Suivi' }).isVisible().catch(() => false)); i++) {
+    await page.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})
+    await pagePrete(page)
+  }
+  for (const titre of [tout.titre, moitie.titre]) {
+    for (let i = 0; i < 3; i++) {
+      const oeil = page.getByRole('button', { name: `Cacher « ${titre} »` }).first()
+      if (!(await oeil.isVisible().catch(() => false))) break
+      await toucher(page, oeil)
+    }
+  }
+  ok(!(await page.getByRole('heading', { name: 'Mes parcours', exact: true }).count()), `${a.nom} : tout caché, pas de titre « Mes parcours » vide`)
+  ok(await page.getByRole('button', { name: /^\s*Explorer les parcours/ }).isVisible(), `${a.nom} : tout caché, la tuile de l'Explorer revient`)
+  ok((await texte(page)).includes('Parcours cachés · 2'), `${a.nom} : les deux parcours dans « Parcours cachés »`)
+  await page.screenshot({ path: `${captures}/inconnu-tout-cache${s}.png` })
   await ctx.close()
 }
 await nav.close()

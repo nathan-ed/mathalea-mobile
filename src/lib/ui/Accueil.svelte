@@ -162,6 +162,8 @@
   })
   const visible = (p: Parcours) => !caches.includes(p.id)
   const cachesListe = $derived(tous.filter((p) => !visible(p)))
+  // Ajoutés depuis l'Explorer et pas cachés : sans eux, pas de titre « Mes parcours » vide
+  const ajoutesVisibles = $derived(ajoutes.filter(visible))
   let cachesOuverts = $state(false)
   // Parcours ajoutés depuis l'Explorer : rangés avec ceux de la classe, par chapitre (boussole sur leur tuile)
   const idsAjoutes = $derived(ajoutes.map((p) => p.id))
@@ -389,11 +391,11 @@
                 />
               {/key}
             {/if}
-          {:else if ajoutes.length}
+          {:else if ajoutesVisibles.length}
             <!-- Sans classe : les parcours ajoutés depuis l'Explorer, rangés de la même façon -->
             <ContenuClasse
               nom="Mes parcours"
-              parcours={ajoutes.filter(visible)}
+              parcours={ajoutesVisibles}
               organisation={organisation(SOURCE_EXPLORER)}
               {sousTitre}
               {badge}
@@ -406,7 +408,7 @@
             />
           {/if}
           {#if sources.length === 0 && aChoisir.length === 0 && sansLien}
-            {#if !ajoutes.length}
+            {#if !ajoutesVisibles.length}
               <Tuile icon="bx-compass" title="Explorer les parcours" subtitle="Parcours proposés par l’équipe MathALÉA" onclick={() => changerOnglet('explorer')} />
             {/if}
             <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien?.(false)}>
