@@ -130,6 +130,9 @@ Fonctionnalités (Nathan, 2026-10-30 ; liste dans `docs/developpement.md`, « À
 Git et publication
 - « Ne rien commiter ni pousser sans demande explicite » en général. Sur ce
   projet, Nathan a demandé de **pousser souvent**, même sans release prête.
+- Pas de MR sur ce dépôt (Nathan, 2026-11-04) : une fois le travail vérifié,
+  le pousser directement sur `main`, sur la forge (`origin`, HTTPS avec glab)
+  puis sur le miroir GitHub (`github`), qui ne se met pas à jour seul.
 - Une session = une branche et un worktree (`bash scripts/worktree.sh <nom>`) ;
   le travail en cours se commite sur sa branche, jamais laissé dans la copie
   de travail de `main` (plusieurs sessions, locales et cloud, travaillent sur
