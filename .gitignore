@@ -22,3 +22,7 @@ releases/essai/
 
 # Aperçus de parcours (e2e/apercu-parcours.mjs)
 /apercus
+
+# Captures des suites lancées sans CAPTURES (écrites dans le dossier courant)
+/*.png
+/publie-*.json

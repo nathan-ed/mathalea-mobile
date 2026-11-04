@@ -536,6 +536,26 @@ ancienne app.
   panneau ne rouvre plus le clavier sur la correction.
 - Guide en ligne (Pages de la forge), `.ipa` non signée pour iPhone et iPad.
 
+## Prochaine version (après la 0.4.12, numéro à choisir)
+
+Sur `main` depuis la 0.4.12 : retours des testeurs du 4 novembre (5685170),
+puis corrections et vérification du 4 au 5 novembre (rapport :
+`docs/verification-2026-11-05.md`).
+
+- Élève sans lien (« Je n'ai pas de lien »), lien de classe `?classe=`
+  (insensible aux majuscules et espaces), « Copier le lien » sous le QR code.
+- Explorer hors de l'app : dossier kDrive de CoopMaths, **seul le
+  sous-dossier du pays choisi** (`FR` ou `CH`) est lu, relu au changement de
+  pays ; copie gardée pour le hors ligne (`explorer-pays`).
+- Parcours de l'Explorer rangés avec ceux de la classe (boussole).
+- Onglet Fiches : recherche, chapitres et parcours dépliables (un chapitre
+  seul se replie aussi), Mes fiches.
+- Suivi : ceintures colorées, seulement les parcours commencés.
+- Pastilles Correcte / Incorrecte ; onglets des questions lus « Question 3,
+  correcte ».
+- Grande fenêtre d'ordinateur : colonne de 64rem.
+- Puissances (11e) : bases négatives garanties dans la ceinture blanche.
+
 ## À faire (sans version fixée)
 
 - Après la 0.4.12 (2026-11-03) ; tickets forge #2 à #6 pour le reste :
@@ -567,35 +587,35 @@ ancienne app.
   valide (`cleInvalide`), aucune erreur JavaScript. Reste à régler dans
   `creer.mjs` : les réponses de la ceinture ne sont pas enregistrées (0/2).
   Une version par release au moins, la précédente en production d'abord.
-- **Fonctionnalités décidées par Nathan (2026-10-30)**, à faire :
-  - **Grands écrans** (tablette, ordinateur des testeurs) : mise en page
-    propre aux grands écrans, l'app est aujourd'hui pensée pour 390 px.
-  - **Toutes les fiches de cours à un endroit** : retrouver chaque fiche hors
-    de son parcours, l'enregistrer pour y revenir vite, organiser les siennes.
-  - **Ceinture générale de chapitre** : **par chapitre**, pas par parcours
-    (plusieurs parcours travaillent les mêmes ceintures).
-  - **Plusieurs appareils pour un même élève** : fusionner les données au lieu
-    de remplacer (exporter puis importer), avec une vraie gestion des cas
-    (même séance des deux côtés, ceintures, révisions).
+- **Fonctionnalités décidées par Nathan (2026-10-30)** : faites, sauf la
+  première, en partie.
+  - **Grands écrans** : colonne de lecture (48rem, 64rem dans une grande
+    fenêtre d'ordinateur), barres du bas alignées sur la colonne
+    (`.barre-bas`). Reste une vraie mise en page de tablette (deux colonnes,
+    par exemple), jamais demandée en détail.
+  - **Toutes les fiches de cours à un endroit** : onglet Fiches
+    (`Fiches.svelte`, `fiches.ts` ; `e2e/fiches.mjs`).
+  - **Ceinture générale de chapitre** : Suivi, `ceinturesParChapitre`
+    (`objectifs.ts`).
+  - **Plusieurs appareils pour un même élève** : restaurer une sauvegarde
+    propose « Fusionner » (`fusionnerSauvegarde`, `fusion.ts` ;
+    `e2e/changer-appareil.mjs`).
   - Révisions : rappels **dans l'app seulement**, jamais de notification
-    hors de l'app.
+    hors de l'app (respecté).
 - Plus tard (pas une priorité) : suivi de classe dans la durée (relevés
   regroupés par élève et par objectif), sauvegarde déposée sur un drive en
   lecture seule, catalogue de l'Explorer servi par MathALÉA (le jour où des
   parcours seront développés avec MathALÉA).
-- **Politique de confidentialité** à mettre à jour avant de publier les
-  réponses de session (caméra, prénom) : texte prêt dans
-  `docs/confidentialite-brouillon.html`, à copier sur
-  `static/confidentialite.html` (publiée par le job `pages`). Pas avant la
-  fin de l'examen Google Play en cours (Nathan, 2026-10-19 : Google ne doit
-  pas l'évaluer sur la version examinée). Revoir aussi la « Sécurité des
-  données » de la Play Console (`docs/fiche-boutiques.md`).
-- **Envoi automatique Google Play en pause** depuis le 2026-10-19 (Nathan) :
-  workflow `google-play.yml` désactivé sur GitHub pendant l'examen de la
-  0.2.4, pour qu'aucune version ne parte seule en production. Le réactiver
-  après l'examen et la politique à jour :
-  `gh workflow enable google-play.yml --repo nathan-ed/mathalea-mobile`
-  (désactivé, il ne se lance pas non plus à la main).
+- **Politique de confidentialité** : publiée avec la caméra, le prénom et
+  l'heure (`static/confidentialite.html`, du 1er novembre 2026 ;
+  `docs/confidentialite.md` en est la copie). À ajouter avec le feu vert de
+  Nathan (jamais pendant un examen Google Play) : l'Explorer lit le dossier
+  kDrive (Infomaniak) de CoopMaths du programme choisi. Revoir aussi la
+  « Sécurité des données » de la Play Console (`docs/fiche-boutiques.md`).
+- **Aucun envoi à la Play Console par la CI ni par Claude** (Nathan,
+  2026-11-02) : `google-play.yml` reste désactivé sur GitHub ; Nathan crée
+  la version Play avec le `.aab` de `release.yml` (artefact `google-play`)
+  et la note `.play.txt`.
 
 - Page `?v=parcours` du site : `enTetesMasques` et `melanger` repris (MR !9426, à fusionner).
 - Teste ton niveau : ajouter le CE1 et le CE2 (sujets présents dans le
@@ -831,7 +851,7 @@ Reste à faire :
   en groupes équilibrés par nombre de questions.
   Inventaire des formats : `docs/types-de-reponse.md`.
 
-## 0.4.12 : en cours (branche `suite-0.4.12`)
+## 0.4.12 : Suisse sans Teste ton niveau, dossiers de l'enseignant (fait)
 
 - Suisse : plus de « Teste ton niveau » (Nathan, 1er novembre 2026 : ses
   niveaux sont ceux de la France) ; ni dans l'Explorer, ni dans le Suivi, ni

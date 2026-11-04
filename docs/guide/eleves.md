@@ -18,7 +18,7 @@ Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche
 
 ## 2. Ses parcours
 
-Les parcours donnés à sa classe s'affichent, rangés par chapitre. L'élève touche un parcours pour l'ouvrir. Le bouton « ⋯ » d'une tuile l'épingle en haut de la liste, l'imprime, ou le retire de l'accueil s'il vient de l'Explorer.
+Les parcours donnés à sa classe s'affichent, rangés par chapitre, avec ceux qu'il a ajoutés depuis l'Explorer (boussole à côté du titre). L'élève touche un parcours pour l'ouvrir. L'épingle d'une tuile la met en haut de la liste ; l'œil la cache (« Parcours cachés », en bas de l'accueil, la remet).
 
 ![Mes parcours](images/eleve-2-parcours.png)
 
@@ -40,15 +40,19 @@ Le bilan donne le score et la suite. Ici la ceinture orange n'est pas encore obt
 
 ![Bilan](images/eleve-5-bilan.png)
 
-## 6. Le suivi
+## 6. Les fiches de cours
+
+L'onglet « Fiches » rassemble les fiches de cours de tous ses parcours, rangées par chapitre. Toucher un chapitre le replie ou le déplie ; dans un chapitre qui a plusieurs parcours, chaque parcours se déplie de même. La recherche trouve une fiche par le début d'un mot de son titre, de son parcours ou de son chapitre. Le signet d'une fiche l'enregistre dans « Mes fiches », en haut, dans l'ordre que l'élève choisit (flèches) ; une fiche enregistrée reste même si son parcours quitte l'appareil.
+
+## 7. Le suivi
 
 L'onglet « Suivi » rassemble son travail.
 
 ![Onglet Suivi](images/eleve-6-onglet-suivi.png)
 
-## 7. Ses progrès
+## 8. Ses progrès
 
-L'élève y voit le nombre de questions faites, de réponses correctes et de jours de travail, puis le détail par parcours, par objectif et par ceinture. Tout reste sur son appareil.
+L'élève y voit le nombre de questions faites, de réponses correctes et de jours de travail, puis le détail par parcours, par objectif et par ceinture. Les ceintures sont rangées par chapitre, seulement pour les parcours commencés : une ceinture obtenue prend sa couleur, les autres n'ont que leur contour. Tout reste sur son appareil.
 
 ![Suivi](images/eleve-7-suivi.png)
 
@@ -57,7 +61,7 @@ L'élève y voit le nombre de questions faites, de réponses correctes et de jou
 - Sans connexion, l'élève travaille quand même. Les nouveaux parcours arrivent à la prochaine connexion.
 - Un parcours commencé se reprend là où il s'est arrêté.
 - Pour changer de téléphone, l'élève touche « Exporter une sauvegarde » dans les Réglages et envoie le fichier sur le nouveau téléphone (AirDrop, message, drive). Au premier lancement du nouveau téléphone, « Récupérer mes données » reprend tout : dossiers, parcours terminés, séance en cours (à la question où elle s'était arrêtée), suivi.
-- L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, rangés par degré selon le programme choisi (France ou Suisse) : la page d'un degré montre tous ses parcours sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours ; « Ajouter plusieurs parcours » en met plusieurs d'un coup à l'accueil ; dans ce même panneau, décocher un parcours le retire. Un parcours retiré garde ses ceintures : remis, il reprend là où il en était.
+- L'onglet Explorer propose aussi des parcours de l'équipe MathALÉA, rangés par degré selon le programme choisi (France ou Suisse) : la page d'un degré montre tous ses parcours sous le titre de leur chapitre. Le bouton « + » d'un parcours le met sur l'accueil, la coche l'en retire ; « Tout ajouter » met d'un coup le reste du degré. Un parcours commencé s'ajoute aussi à Mes parcours. Un parcours retiré garde ses ceintures : remis, il reprend là où il en était. La première ouverture de l'Explorer demande une connexion ; l'app garde ensuite sa copie hors ligne.
 - Certains parcours ont des fiches de cours : formules, graphiques à manipuler, exemples pas à pas et petites questions qui ne comptent pas. La fiche s'ouvre la première fois avant l'entraînement, puis reste sur la page du parcours.
 - En haut de l'Explorer (programme France seulement), « Teste ton niveau » : 15 questions de Course aux nombres ; avec 12 bonnes réponses, l'élève gagne la ceinture du niveau. On commence au niveau que l'on veut.
 

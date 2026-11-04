@@ -449,8 +449,9 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   fichier du drive est signalée et rien n'est ajouté.
   Tests : `node e2e/session-qr.mjs`, `node e2e/en-classe.mjs`,
   `node e2e/classe-qr.mjs` (serveur de dossier local sur 8713).
-  Politique de confidentialité : nouveau texte en attente dans
-  `docs/confidentialite-brouillon.html`. Ne jamais modifier
+  Politique de confidentialité : `static/confidentialite.html` fait foi,
+  `docs/confidentialite.md` en est la copie (brouillon retiré le
+  2026-11-05, déjà publié). Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
   un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
   Depuis le 2 novembre 2026 : **plus aucun envoi à la Play Console** par la
