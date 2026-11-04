@@ -324,7 +324,7 @@
 
     <section class="flex flex-col gap-3">
       <h2 class={titreSection}>Sauvegarde</h2>
-      <p class="pl-2 {texteDiscret}">Pour changer d’appareil : exportez une sauvegarde, envoyez le fichier sur le nouvel appareil, puis touchez « Récupérer mes données » à son premier lancement. Pour travailler sur deux appareils : « Ajouter une sauvegarde » réunit ce qui a été fait sur l’autre.</p>
+      <p class="pl-2 {texteDiscret}">Pour changer d’appareil : exportez une sauvegarde, envoyez le fichier sur le nouvel appareil, puis touchez « Récupérer mes données » à son premier lancement. Pour travailler sur deux appareils : « Ajouter ou restaurer une sauvegarde », puis « Fusionner », réunit ce qui a été fait sur l’autre.</p>
       <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageSauvegarde = await onexporterSauvegarde())}>
         Exporter une sauvegarde
       </button>

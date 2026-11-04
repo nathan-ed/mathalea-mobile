@@ -34,6 +34,8 @@ describe('Texte des fiches', () => {
   it('paragraphes, listes, gras, italique', () => {
     expect(texteRiche('Un **mot** et *un autre*.\n\nSuite')).toBe('<p>Un <strong>mot</strong> et <em>un autre</em>.</p><p>Suite</p>')
     expect(texteRiche('- un\n- deux')).toBe('<ul><li>un</li><li>deux</li></ul>')
+    // Phrase qui annonce la liste, sans ligne vide : paragraphe puis liste
+    expect(texteRiche('Règles :\n- un\n- deux')).toBe('<p>Règles :</p><ul><li>un</li><li>deux</li></ul>')
     expect(texteRiche('- un :\n$$x$$\n- deux', rendu)).toBe('<ul><li>un :<span class="formule-centree">[C:x]</span></li><li>deux</li></ul>')
   })
 

@@ -40,7 +40,7 @@ export const CLE_AVANT_RESTAURATION = 'avant-restauration'
  * exporté, il rendait la sauvegarde « endommagée » (clé inconnue), ici comme
  * dans les versions d'avant 0.4.11.
  */
-const CLES_DE_L_APPAREIL = ['cle-ia', 'ecran']
+export const CLES_DE_L_APPAREIL = ['cle-ia', 'ecran']
 
 export async function exporterSauvegarde(st: Stockage): Promise<string> {
   const donnees: Record<string, unknown> = {}

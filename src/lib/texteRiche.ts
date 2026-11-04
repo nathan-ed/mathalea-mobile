@@ -37,16 +37,18 @@ export function texteRiche(texte: string, formule: RenduFormule = formuleBrute):
     .filter(Boolean)
     .map((bloc) => {
       const ls = bloc.split('\n').map((l) => l.trim())
-      // Liste : chaque « - » ouvre un élément, les lignes suivantes le continuent
-      if (/^- /.test(ls[0])) {
-        const elements: string[] = []
-        for (const l of ls) {
-          if (/^- /.test(l)) elements.push(l.slice(2))
-          else elements[elements.length - 1] += `\n${l}`
-        }
-        return `<ul>${elements.map((e) => `<li>${lignes(e.split('\n'))}</li>`).join('')}</ul>`
+      // Liste : chaque « - » ouvre un élément, les lignes suivantes le continuent.
+      // Une phrase qui l'annonce, sans ligne vide avant la liste : paragraphe, puis
+      // liste (sinon les tirets restaient bruts, fiche « Prérequis pour l'analyse »)
+      const debut = ls.findIndex((l) => /^- /.test(l))
+      if (debut === -1) return `<p>${lignes(ls)}</p>`
+      const elements: string[] = []
+      for (const l of ls.slice(debut)) {
+        if (/^- /.test(l)) elements.push(l.slice(2))
+        else elements[elements.length - 1] += `\n${l}`
       }
-      return `<p>${lignes(ls)}</p>`
+      const liste = `<ul>${elements.map((e) => `<li>${lignes(e.split('\n'))}</li>`).join('')}</ul>`
+      return debut === 0 ? liste : `<p>${lignes(ls.slice(0, debut))}</p>${liste}`
     })
     .join('')
 }
