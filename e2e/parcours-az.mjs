@@ -651,8 +651,35 @@ async function repondre(e, n, k, a) {
       return
     }
     case 'mathalea-solveur': {
-      const lignes = main.locator(`#mathalea-solveur${q} math-field`)
-      await remplirChamp(e, lignes.last(), reponseDe(v.reponse))
+      const solveur = main.locator(`#mathalea-solveur${q}`)
+      const attendu = reponseDe(v.reponse)
+      // Conclusion « S= » (1mCL4-0) : l'élève résout pas à pas, puis donne
+      // l'ensemble. Une ligne n'est acceptée que si elle a les mêmes solutions
+      // que l'équation : avec S = {a ; b}, il écrit (x−a)(x−b) = 0, touche
+      // « Équation produit », résout chaque colonne, puis conclut.
+      const ensemble = /^\\left\\\{(.*)\\right\\\}$/.exec(attendu) ?? /^\\\{(.*)\\\}$/.exec(attendu)
+      const variable = (await solveur.getAttribute('variable')) ?? 'x'
+      const produit = (await solveur.getAttribute('equation-produit')) === 'true'
+      const solutions = ensemble?.[1].split(';').map((s) => s.trim()).filter(Boolean) ?? []
+      if ((await solveur.getAttribute('conclusion')) === 'S=' && solutions.length && (solutions.length === 1 || produit)) {
+        const valider = async (latex) => {
+          await remplirChamp(e, solveur.locator('math-field:not(.solver-readonly)').first(), latex)
+          await toucher(e, solveur.getByRole('button', { name: 'Valider cette ligne' }).first())
+          await pause(page, 400)
+        }
+        if (solutions.length === 1) await valider(`${variable}=${solutions[0]}`)
+        else {
+          const facteur = (s) => (s.startsWith('-') ? `(${variable}+${s.slice(1)})` : `(${variable}-${s})`)
+          await valider(`${solutions.map(facteur).join('')}=0`)
+          await toucher(e, solveur.getByRole('button', { name: /produit/i }).first())
+          await pause(page, 400)
+          for (const s of solutions) await valider(`${variable}=${s}`)
+        }
+        await valider(attendu)
+        return
+      }
+      const lignes = solveur.locator('math-field')
+      await remplirChamp(e, lignes.last(), attendu)
       return
     }
     case 'apigeom-figure': {

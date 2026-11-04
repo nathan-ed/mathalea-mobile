@@ -103,9 +103,10 @@ for (const [appareil, theme] of [
   // Référentiel lu par le moteur : attendre qu'il ait rangé l'Explorer
   await pagePrete(e)
   const racine = await texte(e)
-  // Catalogue intégré à l'app (explorer/*.json) : 11e, Préqualifiant, 4e Collège, dans cet ordre
-  ok(/11e \d+ chapitres · \d+ parcours Préqualifiant 9 chapitres · 9 parcours 4e Collège 3 chapitres · 3 parcours/.test(racine), `${suffixe} : 11e, Préqualifiant puis 4e Collège, avec leurs parcours`, racine)
-  ok(!/\b9e\b|\b10e\b|1re Collège|2e Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
+  // Catalogue intégré à l'app (explorer/*.json) : 11e, Préqualifiant, 1re Collège, 4e Collège, dans cet ordre
+  // (4e Collège : un seul chapitre, Analyse, depuis que le référentiel y range Intégration et Exponentielles)
+  ok(/11e \d+ chapitres · \d+ parcours Préqualifiant 9 chapitres · 9 parcours 1re Collège 4 chapitres · 4 parcours 4e Collège 3 parcours/.test(racine), `${suffixe} : 11e, Préqualifiant, 1re Collège puis 4e Collège, avec leurs parcours`, racine)
+  ok(!/\b9e\b|\b10e\b|2e Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
   ok(!racine.includes('5e') && !racine.includes('Nombres relatifs'), `${suffixe} : aucun parcours français en Suisse`)
   // Teste ton niveau : niveaux français, jamais proposé en Suisse (Nathan, 1er novembre 2026)
   ok(!racine.includes('Teste ton niveau'), `${suffixe} : pas de « Teste ton niveau » en Suisse`)
@@ -117,7 +118,7 @@ for (const [appareil, theme] of [
   ok((await titre(e)) === '4e Collège', `${suffixe} : écran du degré`)
   // Plus de dossier par chapitre : les parcours du degré sous le titre de leur chapitre
   const chapitres = (await e.locator('main h2').allInnerTexts()).map((x) => x.trim())
-  ok(chapitres.join(',') === 'Analyse,Exponentielles et logarithmes,Intégration', `${suffixe} : chapitres du référentiel en titres, dans son ordre`)
+  ok(chapitres.join(',') === 'Analyse', `${suffixe} : chapitres du référentiel en titres, dans son ordre`, chapitres.join(','))
   ok(await e.getByRole('button', { name: /^Calcul intégral/ }).isVisible(), `${suffixe} : parcours visibles dès la page du degré`)
   ok(!(await e.locator('main .bx-folder').count()), `${suffixe} : aucun dossier de chapitre`)
   await cap(e, `2-degre-${suffixe}`)
