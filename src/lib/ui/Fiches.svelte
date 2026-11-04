@@ -27,9 +27,11 @@
   const toutes = $derived(fichesDes(parcours))
   const chapitres = $derived(parChapitre(toutes).map((c) => ({ ...c, cle: 'c:' + cleChapitre(c), parcours: parParcours(c.fiches) })))
   const trouvees = $derived(chercherFiches(toutes, recherche))
-  // Un seul chapitre : déplié d'office
-  const deplie = (cle: string) => chapitres.length === 1 || ouverts.includes(cle)
   const ouvrirFermer = (cle: string) => (ouverts = ouverts.includes(cle) ? ouverts.filter((c) => c !== cle) : [...ouverts, cle])
+  // Un seul chapitre : déplié d'office mais refermable (on retient alors qu'il est fermé)
+  const seul = $derived(chapitres.length === 1)
+  const deplie = (cle: string) => (seul ? !ouverts.includes('f:' + cle) : ouverts.includes(cle))
+  const basculerChapitre = (cle: string) => ouvrirFermer(seul ? 'f:' + cle : cle)
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
@@ -116,11 +118,11 @@
         class="flex flex-row items-center justify-between gap-3 pl-2 pt-2 text-left"
         style="min-height: 44px"
         aria-expanded={ouvert}
-        onclick={() => ouvrirFermer(c.cle)}
+        onclick={() => basculerChapitre(c.cle)}
       >
         <span>
           <span class="font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">{c.theme}</span>
-          <span class={discret}>· {c.niveau} · {c.fiches.length} fiche{c.fiches.length > 1 ? 's' : ''}</span>
+          <span class="{discret} whitespace-nowrap">· {c.niveau} · {c.fiches.length} fiche{c.fiches.length > 1 ? 's' : ''}</span>
         </span>
         <i aria-hidden="true" class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'} {chevron}"></i>
       </button>
@@ -128,7 +130,7 @@
         {#if c.parcours.length === 1}
           <ul class={listeGroupee}>
             {#each c.fiches as f (f.cle)}
-              {@render ligne(f, null, f.parcours)}
+              {@render ligne(f, null, '')}
             {/each}
           </ul>
         {:else}
@@ -145,7 +147,7 @@
               >
                 <span>
                   <span class="text-coopmaths-struct dark:text-coopmathsdark-struct">{g.titre}</span>
-                  <span class={discret}>· {g.fiches.length} fiche{g.fiches.length > 1 ? 's' : ''}</span>
+                  <span class="{discret} whitespace-nowrap">· {g.fiches.length} fiche{g.fiches.length > 1 ? 's' : ''}</span>
                 </span>
                 <i aria-hidden="true" class="bx {parcoursOuvert ? 'bx-chevron-up' : 'bx-chevron-down'} {chevron}"></i>
               </button>
