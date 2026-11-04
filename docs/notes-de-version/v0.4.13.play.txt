@@ -1,0 +1,8 @@
+- Rejoindre sans lien de classe ; lien de classe direct (classe=).
+- Explorer mis à jour en ligne, sans nouvelle version de l'app.
+- Parcours de l'Explorer rangés avec les autres.
+- Nouveaux parcours de 1re Collège ; 4e Collège refait.
+- Fiches : recherche et chapitres dépliables.
+- Pastilles Correcte / Incorrecte à la vérification.
+- Ceintures colorées dans le suivi.
+- Ordinateurs : plein écran mieux utilisé.
