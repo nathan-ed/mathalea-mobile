@@ -88,6 +88,11 @@ etape explorer node e2e/explorer.mjs
 etape defilement-ecrans node e2e/defilement-ecrans.mjs
 arreter
 
+# Explorer lu sur son dossier kDrive (simulé par la suite) : sans adresse d'essai
+demarrer ""
+etape explorer-pays node e2e/explorer-pays.mjs
+arreter
+
 echo
 if [ ${#echecs[@]} -gt 0 ]; then
   echo "À CORRIGER AVANT LA RELEASE : ${echecs[*]}"

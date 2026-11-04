@@ -517,15 +517,19 @@ seulement avec `MATHALEA_MOTEUR_MAJ=1`. Publication, format et clés :
   copie (`fusionnerCatalogues`). Hors connexion, l'Explorer le dit
   (« Connecte-toi à internet pour télécharger les parcours » sans copie,
   « … recevoir les nouvelles versions » avec), bouton « Réessayer ».
-  **À reprendre (Nathan, 2026-11-04, « on note cela pour demain »)** :
-  aujourd'hui l'app lit FR et CH et tire le pays du niveau, si bien qu'un
-  fichier déplacé dans FR reste dans l'Explorer suisse (Nathan l'a vu sur
-  l'APK 5685170). Proposé : le dossier décide du pays (Suisse : seulement CH,
-  France : seulement FR ; relire au changement de pays), un parcours de
-  niveau suisse dans FR signalé par les tests du catalogue. Le drive n'avait
+  **Le dossier décide du pays** (fait le 2026-11-04 au soir ; avant, l'app
+  lisait FR et CH et tirait le pays du niveau, si bien qu'un fichier déplacé
+  dans FR restait dans l'Explorer suisse, vu par Nathan sur l'APK 5685170) :
+  `sourcesExplorer(pays)` ne lit que le sous-dossier du pays, relu au
+  changement de pays (`changerPays`) ; la copie est marquée `explorer-pays`
+  et celle de l'autre pays n'est jamais montrée (hors connexion : invitation
+  à se connecter). Le filtre par niveau d'`arborescence` reste. `pnpm test`
+  vérifie que chaque `explorer/*.json` relève d'un seul pays ;
+  `e2e/explorer-pays.mjs` (kDrive simulé, app construite sans
+  `VITE_URL_EXPLORER`) joue Suisse, France, hors connexion. Le drive n'avait
   alors que 6 parcours sur 30 à la version du dépôt (`ch-1re-college.json`
   absent, `ch-4e-college.json` dans FR) : rien ne le met à jour tout seul.
-  Essais : `VITE_URL_EXPLORER` remplace les deux dossiers
+  Essais : `VITE_URL_EXPLORER` remplace le dossier du pays (les deux pays)
   (`.env.development.local`, ignoré par Git ; `scripts/e2e-ci.sh` le fixe à
   `http://127.0.0.1:8702/explorer.json`, servi par les suites).
 - Sans adresse servie : moteur livré, Explorer vide (« Aucun parcours proposé »).

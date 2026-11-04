@@ -117,6 +117,7 @@ const estBibliotheque = (v: unknown) =>
 const valeurs: Record<string, (v: unknown) => boolean> = {
   profil: (v) => v === 'eleve' || v === 'enseignant',
   pays: (v) => v === 'FR' || v === 'CH',
+  'explorer-pays': (v) => v === 'FR' || v === 'CH', // pays du dossier dont vient la copie de l'Explorer
   classes: (v) => listeDe(v, estDossier) && sansDoublon((v as { lien: string }[]).map((c) => c.lien)),
   bibliotheque: estBibliotheque,
   epingles: textesUniques,

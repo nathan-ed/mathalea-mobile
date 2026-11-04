@@ -144,6 +144,11 @@ describe('dossier commun à plusieurs classes', () => {
     const c = await synchroniserClasse({ lien, nom: '3e B', disponibles: [], parcours: [] }, s.req)
     expect(c.parcours.map((x) => x.titre)).toEqual(['B'])
   })
+  it('classe d’un lien tapé à la main : majuscules et espaces ne comptent pas', async () => {
+    const c = await synchroniserClasse({ lien, nom: ' 3E  b', disponibles: [], parcours: [] }, s.req)
+    expect(c.nom).toBe('3e B')
+    expect(c.parcours.map((x) => x.titre)).toEqual(['B'])
+  })
   it('lit encore l’ancien format à une seule classe', async () => {
     const ancien = JSON.stringify({ format: 'classe-mathalea/1', classe: 'Classe test', exporteLe: '', parcours: [p(1)] })
     const c = await synchroniserClasse({ lien: 'https://x.ch/s/a', nom: '', disponibles: [], parcours: [] }, serveur({ 'https://x.ch/s/a/': () => reponse(ancien) }).req)

@@ -440,7 +440,7 @@
         <button
           role="tab"
           aria-selected={i === page}
-          aria-label={unique ? `Question ${i + 1}` : sansEnTete ? `Page ${i + 1}` : `Exercice ${i + 1}`}
+          aria-label={unique ? `Question ${i + 1}${smiley(p[0].etape, p[0].question) ? `, ${smiley(p[0].etape, p[0].question)}` : ''}` : sansEnTete ? `Page ${i + 1}` : `Exercice ${i + 1}`}
           class="relative group flex-1 {i === page ? 'border-b-4' : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action dark:text-coopmathsdark-action"
           style="min-width: 2.75rem"
           onclick={() => allerPage(i)}

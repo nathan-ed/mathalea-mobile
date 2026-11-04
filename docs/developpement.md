@@ -288,7 +288,9 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   à fixer) : voir « Moteur servi par Coopmaths » ci-dessous.
 - Explorer : catalogue de parcours proposés par l'équipe MathALÉA, au format
   `parcours-mathalea.json`, lu sur un dossier kDrive partagé
-  (`DOSSIER_EXPLORER` dans `partage.ts`), sous-dossiers `FR` et `CH`
+  (`DOSSIER_EXPLORER` dans `partage.ts`), sous-dossiers `FR` et `CH` : seul
+  celui du pays choisi est lu, relu au changement de pays (`sourcesExplorer`,
+  copie marquée `explorer-pays` ; `node e2e/explorer-pays.mjs`)
   (`lireFichierDistant(lien, req, sousDossier)`, kDrive seulement ; les
   dossiers des enseignants restent sans sous-dossiers). `VITE_URL_EXPLORER`
   le remplace par une seule adresse pour les essais. Les fichiers
