@@ -795,6 +795,20 @@ Environnement (machine de Nathan)
 
 ## 8. Tests
 
+- Suites ajoutées le 2026-11-05 (dans verifier-release.sh) : `fiches`
+  (onglet Fiches), `explorer-pays` (kDrive simulé, app construite sans
+  `VITE_URL_EXPLORER`), `exercice-inconnu` (parcours plus récent que le
+  moteur, accueil sans classe tout caché), `mise-a-jour` (données des
+  versions publiées, `e2e/donnees/<v>-<qui>.json`, créées par
+  `e2e/donnees/creer.mjs` dans un worktree de la version ; moteur d'une
+  version sans archive : `scripts/moteur-depuis-app.py` sur le `.deb`).
+  Nouvelle version publiée : y ajouter ses données.
+- Session cloud sans forge de Sésamath : le moteur courant ne se construit
+  pas (`instrumenpoche`, `sesajstools`) ; prendre l'archive de la dernière
+  release et rejouer chez Nathan ce qui dépend du moteur. Typst :
+  `cargo install --locked typst-cli --version <celle de Cargo.toml>` ;
+  `cargo test` demande `libgtk-3-dev` et `libwebkit2gtk-4.1-dev`.
+
 - `pnpm check` (svelte-check, 0 erreur et 0 avertissement),
   `pnpm test` (vitest : partage, drives simulés, fusion, versions, sessions,
   bibliothèque, sauvegarde), `cd src-tauri && cargo test` (moteur : signature,
