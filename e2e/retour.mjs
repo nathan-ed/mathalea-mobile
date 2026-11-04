@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 let echecs = 0
 const ok = (cond, msg, detail = '') => {
   if (!cond) echecs++

@@ -67,7 +67,8 @@ body {
 input,
 textarea,
 math-field,
-[contenteditable] {
+[contenteditable],
+.texte-selectionnable {
   -webkit-user-select: text;
   user-select: text;
 }
@@ -122,11 +123,25 @@ math-field,
   }
 }
 
-/* Sur ordinateur et tablette, le contenu reste à une largeur de lecture */
+/* Sur ordinateur et tablette, le contenu reste à une largeur de lecture,
+   plus large dans une grande fenêtre (plein écran d'un ordinateur) */
+:root {
+  --largeur-lecture: 48rem;
+}
+@media (min-width: 1280px) and (pointer: fine) {
+  :root {
+    --largeur-lecture: 64rem;
+  }
+}
 .colonne {
   width: 100%;
-  max-width: 48rem;
+  max-width: var(--largeur-lecture);
   margin-inline: auto;
+}
+/* Barres fixées en bas (séance, fiche, éditeur) : fond sur toute la largeur,
+   boutons alignés sur la colonne au lieu de s'étirer d'un bord à l'autre */
+.barre-bas {
+  padding-inline: max(1rem, calc((100% - var(--largeur-lecture)) / 2 + 1rem));
 }
 /* Grands écrans (tablette en paysage, ordinateur ; Nathan, 2026-10-30) : les
    listes s'élargissent et leurs tuiles passent en grille ; ce qui se lit
@@ -137,7 +152,7 @@ math-field,
   }
   .colonne .lecture,
   .lecture {
-    max-width: 48rem;
+    max-width: var(--largeur-lecture);
     margin-inline: auto;
     width: 100%;
   }
@@ -192,9 +207,23 @@ math-field,
   color: var(--color-coopmathsdark-corpus);
 }
 
+/* Pastille « Correcte / Incorrecte » posée à la place du smiley de MathALÉA :
+   à côté du champ, à la taille de l'app quelle que soit celle de l'énoncé */
+.pastille-verification {
+  margin-inline: 0.375rem;
+  vertical-align: middle;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+/* Correction : même taille que l'énoncé, sur téléphone comme sur ordinateur */
+.correction-eleve {
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
 /* Fenêtre d'ordinateur : texte et champs plus grands, lisibles à distance */
 @media (min-width: 768px) and (pointer: fine) {
-  .question-eleve {
+  .question-eleve,
+  .correction-eleve {
     font-size: 1.45rem;
   }
 }

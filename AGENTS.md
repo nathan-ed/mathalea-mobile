@@ -30,10 +30,11 @@ toute modification.
 - Icônes boxicons avec `aria-hidden="true"`.
 - Aucune donnée de l'élève ne quitte l'appareil ; l'app ne stocke aucun
   identifiant. Les parcours de l'enseignant arrivent par les dossiers partagés
-  (`parcours-mathalea.json`). Le catalogue de l'Explorer (`explorer/*.json`)
-  est intégré au build (`src/lib/catalogueIntegre.ts`) ; à terme, MathALÉA
-  pourra le servir (`VITE_URL_EXPLORER`), une version plus récente en ligne
-  remplaçant alors celle de l'app. Les parcours de démonstration
+  (`parcours-mathalea.json`). Le catalogue de l'Explorer n'est pas dans
+  l'app : les fichiers `explorer/*.json` (sources, testées) sont déposés dans
+  le dossier kDrive partagé de l'Explorer, sous-dossier `FR` ou `CH`
+  (`DOSSIER_EXPLORER` dans `src/lib/partage.ts`), lus comme ceux des enseignants ; l'app garde la
+  dernière copie reçue et, hors connexion, invite à se connecter. Les parcours de démonstration
   (`static/demo`, `scripts/demonstration.mts`) sont chargés et retirés par
   l'enseignant dans les Réglages, jamais d'office.
 - Une séance garde une copie figée de son parcours (`contenu`) : ne jamais lire

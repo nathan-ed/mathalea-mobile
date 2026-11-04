@@ -6,6 +6,7 @@
 import { strFromU8, unzipSync } from 'fflate'
 import type { Parcours } from './catalogue'
 import type { Objectif } from './objectifs'
+import type { Pays } from './moteur'
 import { dansTauri, type Stockage } from './stockage'
 import { classesDuFichier, estObjet, estParcours, estTexte, listeDe, optionnel, parcoursUniques } from './validation'
 
@@ -101,27 +102,40 @@ async function octets(r: Response, quoi: string) {
 const estJson = (nom: string) => nom.toLowerCase().endsWith('.json')
 /** Taille maximale d'un fichier de parcours lu dans un zip (images de fiches comprises) */
 const JSON_MAX = 20 * 1024 * 1024
-const absent = () => new Error('Le dossier ne contient pas encore de fichier de parcours.')
+/** Dossier lu sans erreur, mais sans aucun fichier de parcours */
+export class DossierVide extends Error {}
+const absent = () => new DossierVide('Le dossier ne contient pas encore de fichier de parcours.')
 
 /**
  * kDrive : service de la page de partage (non documenté, voir sonoTour/dev.md).
  * Tous les fichiers .json du dossier (pas des sous-dossiers) : un parcours seul ou plusieurs par fichier.
+ * Avec sousDossier (Explorer : FR, CH), ceux de ce sous-dossier du dossier partagé.
  */
-async function lireKdrive(lien: string, req: Requete): Promise<Uint8Array[]> {
+async function lireKdrive(lien: string, req: Requete, sousDossier?: string): Promise<Uint8Array[]> {
   const m = lien.match(/kdrive\.infomaniak\.com\/app\/share\/(\d+)\/([0-9a-f-]{36})/i)
   if (!m) throw new Error('Lien kDrive non reconnu : copiez le lien de partage du dossier.')
   const api = `https://kdrive.infomaniak.com/2/app/${m[1]}/share/${m[2]}`
   const init = JSON.parse(strFromU8(await octets(await req(`${api}/init`), 'kDrive')))
-  const racine = init?.data?.file_id
-  if (racine == null) throw new Error('kDrive : dossier partagé illisible.')
-  // Fichiers du dossier lui-même : les sous-dossiers ne sont pas lus
-  const fichiers: { id: number; name: string }[] = []
-  for (let page = 1; ; page++) {
-    const r = await req(`${api}/files/${racine}/files?per_page=200&page=${page}`)
-    const liste = JSON.parse(strFromU8(await octets(r, 'kDrive'))).data as { id: number; name: string; type: string }[]
-    fichiers.push(...liste.filter((x) => x.type !== 'dir' && estJson(x.name)))
-    if (liste.length < 200) break
+  const partage = init?.data?.file_id
+  if (partage == null) throw new Error('kDrive : dossier partagé illisible.')
+  const lister = async (dossier: number) => {
+    const tout: { id: number; name: string; type: string }[] = []
+    for (let page = 1; ; page++) {
+      const r = await req(`${api}/files/${dossier}/files?per_page=200&page=${page}`)
+      const liste = JSON.parse(strFromU8(await octets(r, 'kDrive'))).data as { id: number; name: string; type: string }[]
+      tout.push(...liste)
+      if (liste.length < 200) break
+    }
+    return tout
   }
+  let racine = partage
+  if (sousDossier) {
+    const d = (await lister(partage)).find((x) => x.type === 'dir' && x.name.toLowerCase() === sousDossier.toLowerCase())
+    if (!d) throw absent()
+    racine = d.id
+  }
+  // Fichiers du dossier lui-même : ses sous-dossiers ne sont pas lus
+  const fichiers = (await lister(racine)).filter((x) => x.type !== 'dir' && estJson(x.name))
   if (!fichiers.length) throw absent()
   return Promise.all(fichiers.map(async (f) => octets(await req(`${api}/files/${f.id}/download`), 'kDrive')))
 }
@@ -223,11 +237,46 @@ export function fusionner(fichiers: FichierClasses[]): FichierClasses {
   return { format: FORMAT, exporteLe, classes, ...(bibliotheque ? { bibliotheque } : {}) }
 }
 
-export async function lireFichierDistant(lien: string, req: Requete = requete): Promise<FichierClasses> {
+/**
+ * Lien donné aux élèves : le lien du dossier partagé suivi de « classe=… »
+ * (?classe=3A, ou &classe=3A collé à la fin, en majuscules ou non). L'app
+ * lit le dossier sans ce repère et choisit la classe d'office.
+ */
+export function separerClasse(saisi: string): { lien: string; classe: string } {
+  const t = saisi.trim()
+  const m = t.match(/[?&#]classe=([^&#]*)/i)
+  if (!m) return { lien: t, classe: '' }
+  let classe = m[1].replace(/\+/g, ' ')
+  try {
+    classe = decodeURIComponent(classe)
+  } catch {
+    // Lien collé à moitié encodé : la classe telle quelle
+  }
+  const avant = t.slice(0, m.index)
+  const apres = t.slice(m.index! + m[0].length)
+  // « ?classe=3A&dl=0 » : le paramètre suivant reprend le « ? »
+  const reste = m[0][0] === '?' && apres.startsWith('&') ? `?${apres.slice(1)}` : apres
+  return { lien: (avant + reste).replace(/[?&]$/, ''), classe: classe.trim() }
+}
+
+/** Lien du dossier avec la classe à rejoindre (le lien s'ouvre encore dans un navigateur) */
+export function lienDeClasse(lien: string, classe: string): string {
+  const { lien: dossier } = separerClasse(lien)
+  if (!classe) return dossier
+  // Lettres (accents compris) et chiffres lisibles, espaces en « + », le reste encodé
+  const code = [...classe].map((c) => (c === ' ' ? '+' : /[\p{L}\p{N}._~-]/u.test(c) ? c : encodeURIComponent(c))).join('')
+  return `${dossier}${dossier.includes('?') ? '&' : '?'}classe=${code}`
+}
+
+export async function lireFichierDistant(lien: string, req: Requete = requete, sousDossier?: string): Promise<FichierClasses> {
   const lecteurs = { kdrive: lireKdrive, dropbox: lireDropbox, google: lireGoogle, autre: lireAutre }
   let contenus: Uint8Array[]
   try {
-    contenus = await lecteurs[serviceDuLien(lien)](lien, req)
+    const service = serviceDuLien(lien)
+    // Sous-dossier : kDrive seulement (Explorer) ; un autre serveur le sert à son chemin
+    if (sousDossier && service === 'autre') contenus = await lireAutre(new URL(`${encodeURIComponent(sousDossier)}/`, lien.endsWith('/') ? lien : `${lien}/`).href, req)
+    else if (sousDossier && service !== 'kdrive') throw new Error('Sous-dossier lisible seulement sur kDrive.')
+    else contenus = await lecteurs[service](lien, req, sousDossier)
   } catch (e) {
     if (e instanceof TypeError && /URL/.test(e.message)) throw new Error('Ce lien n’est pas une adresse valide.')
     // fetch refusé : pas de réseau, ou drive qui refuse les navigateurs (kDrive)
@@ -336,19 +385,47 @@ export async function ecrireClasses(st: Stockage, classes: Classe[]) {
 }
 
 /**
- * Explorer : le catalogue est intégré à l'app (catalogueIntegre.ts). À terme,
- * MathALÉA pourra le servir, au même format que les dossiers des enseignants :
- * adresse à fixer avec l'équipe. Sans adresse (VITE_URL_EXPLORER), rien n'est
- * demandé en ligne.
+ * Explorer : parcours de l'équipe MathALÉA, déposés dans un dossier kDrive
+ * partagé, sous-dossiers FR et CH, lus comme ceux des enseignants. On les
+ * modifie sans mettre l'app à jour ; l'app garde la dernière copie reçue pour
+ * le hors ligne. VITE_URL_EXPLORER (essais) remplace le dossier par une seule adresse.
  */
-export const URL_EXPLORER: string = import.meta.env?.VITE_URL_EXPLORER ?? ''
+export const DOSSIER_EXPLORER = 'https://kdrive.infomaniak.com/app/share/120240/9635c7c9-5984-4278-a739-d9f8c7d69f50'
+// Un sous-dossier par pays, nommé comme lui ; seuls ses .json sont lus
+const PAYS_EXPLORER: Pays[] = ['FR', 'CH']
+export interface SourceExplorer {
+  lien: string
+  sousDossier?: string
+}
+const URL_EXPLORER_ESSAI: string = import.meta.env?.VITE_URL_EXPLORER ?? ''
+export const SOURCES_EXPLORER: SourceExplorer[] = URL_EXPLORER_ESSAI
+  ? [{ lien: URL_EXPLORER_ESSAI }]
+  : PAYS_EXPLORER.map((pays) => ({ lien: DOSSIER_EXPLORER, sousDossier: pays }))
 
-/** Parcours du catalogue Explorer en ligne (doublons retirés) */
-export async function lireExplorer(req: Requete = requete): Promise<Parcours[]> {
-  if (!URL_EXPLORER) return []
-  const fichier = await lireFichierDistant(URL_EXPLORER, req)
+/** Un parcours par identifiant, à sa version la plus haute, à la place du premier vu */
+export function fusionnerCatalogues(...listes: Parcours[][]): Parcours[] {
   const vus = new Map<string, Parcours>()
-  // Un parcours présent dans plusieurs classes : sa version la plus haute
-  for (const c of fichier.classes) for (const p of c.parcours) if (!vus.has(p.id) || p.version > vus.get(p.id)!.version) vus.set(p.id, p)
+  for (const p of listes.flat()) {
+    const deja = vus.get(p.id)
+    if (!deja || p.version > deja.version) vus.set(p.id, p)
+  }
   return [...vus.values()]
+}
+
+/**
+ * Catalogue de l'Explorer : les parcours de tous les dossiers, et complet
+ * (faux si un dossier n'a pas pu être lu : l'app garde alors aussi sa copie).
+ * Un dossier encore vide n'est pas une erreur. Aucun dossier lu : erreur.
+ */
+export async function lireExplorer(req: Requete = requete, sources = SOURCES_EXPLORER): Promise<{ parcours: Parcours[]; complet: boolean }> {
+  const lus = await Promise.allSettled(sources.map((s) => lireFichierDistant(s.lien, req, s.sousDossier)))
+  const listes: Parcours[][] = []
+  let echec: unknown = null
+  for (const r of lus) {
+    if (r.status === 'fulfilled') listes.push(r.value.classes.flatMap((c) => c.parcours))
+    else if (r.reason instanceof DossierVide) listes.push([])
+    else echec = r.reason
+  }
+  if (!listes.length && echec) throw echec
+  return { parcours: fusionnerCatalogues(...listes), complet: !echec }
 }

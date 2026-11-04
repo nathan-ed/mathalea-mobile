@@ -7,25 +7,28 @@
 // « Donner à des classes » reprend le parcours dans sa bibliothèque, et
 // « Tout ajouter » reprend tout un degré d'un coup.
 // Téléphone (390 px, clair et sombre) et fenêtre de bureau.
-// Le script sert lui-même le catalogue d'essai (explorer/ch-4e-college.json et
-// un parcours de 5e) ; pnpm dev doit le lire :
+// Le script sert lui-même le catalogue d'essai (explorer/*.json et un parcours
+// de 5e), comme les dossiers kDrive de l'Explorer ; pnpm dev doit le lire :
 //   VITE_URL_EXPLORER=http://127.0.0.1:8702/explorer.json dans .env.development.local
 //   CAPTURES=<dossier> node e2e/explorer.mjs
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
 import { pagePrete, SANS_BRIDAGE, taperDans, touchable } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 let echecs = 0
 const erreurs = []
-const ok = (cond, msg) => {
+const ok = (cond, msg, detail = '') => {
   if (!cond) echecs++
-  console.log(cond ? '✔' : '✘', msg)
+  console.log(cond ? '✔' : '✘', msg, cond ? '' : detail)
 }
 
-const catalogue = JSON.parse(readFileSync(new URL('../explorer/ch-4e-college.json', import.meta.url), 'utf8'))
+// Catalogue servi comme le dossier kDrive de l'Explorer : tous les fichiers du dépôt, plus un parcours de 5e
+const catalogue = { format: 'classes-mathalea/1', exporteLe: '2026-11-04T00:00:00.000Z', classes: [] }
+for (const f of readdirSync(new URL('../explorer/', import.meta.url)).filter((x) => x.endsWith('.json')))
+  catalogue.classes.push(...JSON.parse(readFileSync(new URL(`../explorer/${f}`, import.meta.url), 'utf8')).classes)
 catalogue.classes.push({
   nom: '5e',
   parcours: [
@@ -43,6 +46,23 @@ catalogue.classes.push({
     },
   ],
 })
+// Repères tirés des fichiers : le test suit le contenu de l'Explorer
+const tousParcours = catalogue.classes.flatMap((c) => c.parcours)
+// Degrés suisses dans l'ordre du référentiel ; le nombre de chapitres vient du
+// référentiel (il peut ranger deux thèmes sous un même chapitre), pas des fichiers
+const DEGRES_CH = ['9e', '10e', '11e', 'Préqualifiant', '1re Collège', '2e Collège', '3e Collège', '4e Collège']
+const avecParcours = DEGRES_CH.filter((niveau) => tousParcours.some((p) => p.niveau === niveau))
+const sansParcours = DEGRES_CH.filter((niveau) => !avecParcours.includes(niveau))
+const degres = new RegExp(
+  avecParcours.map((niveau) => `${niveau} (\\d+ chapitres · )?${tousParcours.filter((p) => p.niveau === niveau).length} parcours`).join(' '),
+)
+const integrales = tousParcours.find((p) => p.id === 'ch-4c-integrales')
+const blanche = integrales.paliers[0]
+const ficheBlanche = blanche.fiche
+const nbBlanche = integrales.etapes.slice(0, blanche.nb).reduce((a, x) => a + x.nbQuestions, 0)
+const exempleBlanche = ficheBlanche.blocs.find((b) => b.type === 'exemple')
+const qcmBlanche = ficheBlanche.blocs.find((b) => b.type === 'question' && b.choix)
+const nombreBlanche = ficheBlanche.blocs.find((b) => b.type === 'question' && !b.choix)
 const serveur = createServer((req, res) => {
   res.writeHead(req.url === '/explorer.json' ? 200 : 404, { 'content-type': 'application/json' })
   res.end(req.url === '/explorer.json' ? JSON.stringify(catalogue) : '')
@@ -103,10 +123,9 @@ for (const [appareil, theme] of [
   // Référentiel lu par le moteur : attendre qu'il ait rangé l'Explorer
   await pagePrete(e)
   const racine = await texte(e)
-  // Catalogue intégré à l'app (explorer/*.json) : 11e, Préqualifiant, 1re Collège, 4e Collège, dans cet ordre
-  // (4e Collège : un seul chapitre, Analyse, depuis que le référentiel y range Intégration et Exponentielles)
-  ok(/11e \d+ chapitres · \d+ parcours Préqualifiant 9 chapitres · 9 parcours 1re Collège 4 chapitres · 4 parcours 4e Collège 3 parcours/.test(racine), `${suffixe} : 11e, Préqualifiant, 1re Collège puis 4e Collège, avec leurs parcours`, racine)
-  ok(!/\b9e\b|\b10e\b|2e Collège|3e Collège/.test(racine), `${suffixe} : degrés sans parcours masqués`)
+  // Catalogue lu sur le dossier (explorer/*.json) : les degrés qui ont des parcours, dans l'ordre du référentiel
+  ok(degres.test(racine), `${suffixe} : ${avecParcours.join(', ')}, avec leurs parcours`, racine)
+  ok(!new RegExp(sansParcours.map((d) => `\\b${d}\\b`).join('|')).test(racine), `${suffixe} : degrés sans parcours masqués`)
   ok(!racine.includes('5e') && !racine.includes('Nombres relatifs'), `${suffixe} : aucun parcours français en Suisse`)
   // Teste ton niveau : niveaux français, jamais proposé en Suisse (Nathan, 1er novembre 2026)
   ok(!racine.includes('Teste ton niveau'), `${suffixe} : pas de « Teste ton niveau » en Suisse`)
@@ -166,7 +185,9 @@ for (const [appareil, theme] of [
   await e.goBack()
   await pagePrete(e)
   ok((await onglet(e, 'Mes parcours').getAttribute('aria-selected')) === 'true' || (await texte(e)).includes('Mes parcours'), `${suffixe} : retour à Mes parcours`)
-  ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await texte(e)).includes('Calcul intégral'), `${suffixe} : parcours ajoutés sur l'accueil`)
+  // Parcours ajoutés : rangés comme les autres, boussole à côté du titre, plus de section à part
+  const ajouteVisible = async () => (await e.getByRole('button', { name: /Calcul intégral \(ajouté depuis Explorer\)/ }).filter({ visible: true }).count()) > 0
+  ok((await ajouteVisible()) && !(await texte(e)).includes('Ajoutés depuis Explorer'), `${suffixe} : parcours ajoutés sur l'accueil, boussole sur leur tuile`)
   ok(!(await texte(e)).includes('Exponentielle et logarithme'), `${suffixe} : parcours retiré absent de l'accueil`)
 
   // Accueil : épingle et œil sur chaque tuile, sans « ⋯ » : épingler, désépingler, cacher, remettre
@@ -174,28 +195,28 @@ for (const [appareil, theme] of [
   await e.getByRole('button', { name: 'Épingler « Calcul intégral » à l’accueil' }).first().click()
   await pagePrete(e)
   const accueilEpingle = await texte(e)
-  ok(/Épinglés Calcul intégral/.test(accueilEpingle) && !accueilEpingle.includes('Ajoutés depuis Explorer'), `${suffixe} : parcours de l'Explorer épinglé depuis l'accueil`)
+  ok(/Épinglés Calcul intégral/.test(accueilEpingle), `${suffixe} : parcours de l'Explorer épinglé depuis l'accueil`)
   ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : épingler ne retire pas le parcours`)
   await cap(e, `2d-epingle-${suffixe}`)
   await e.getByRole('button', { name: 'Désépingler « Calcul intégral »' }).first().click()
   await pagePrete(e)
-  ok((await texte(e)).includes('Ajoutés depuis Explorer') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : désépinglé, toujours sur l'accueil`)
+  ok(!(await texte(e)).includes('Épinglés') && (await ajouteVisible()) && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : désépinglé, toujours sur l'accueil`)
   await e.getByRole('button', { name: 'Cacher « Calcul intégral »' }).first().click()
   await pagePrete(e)
   const accueilCache = await texte(e)
-  ok(!accueilCache.includes('Ajoutés depuis Explorer') && accueilCache.includes('Parcours cachés · 1') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : caché, rangé en bas, toujours enregistré`)
+  ok(!(await ajouteVisible()) && accueilCache.includes('Parcours cachés · 1') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : caché, rangé en bas, toujours enregistré`)
   await e.getByRole('button', { name: /Parcours cachés/ }).click()
   await cap(e, `2e-caches-${suffixe}`)
   await e.getByRole('button', { name: 'Remettre « Calcul intégral » sur l’accueil' }).click()
   await pagePrete(e)
-  ok((await texte(e)).includes('Ajoutés depuis Explorer') && !(await texte(e)).includes('Parcours cachés'), `${suffixe} : remis sur l'accueil`)
+  ok((await ajouteVisible()) && !(await texte(e)).includes('Parcours cachés'), `${suffixe} : remis sur l'accueil`)
   // Retirer depuis l'Explorer (« ✓ ») : il quitte l'accueil
   await auDegre()
   await e.getByRole('button', { name: 'Retirer « Calcul intégral » de ton accueil' }).click()
   await pagePrete(e)
   await onglet(e, 'Mes parcours').click()
   await pagePrete(e)
-  ok(!(await texte(e)).includes('Ajoutés depuis Explorer') && !(await lireAjoutes()).length, `${suffixe} : parcours retiré, absent de l'accueil`)
+  ok(!(await ajouteVisible()) && !(await texte(e)).includes('Calcul intégral') && !(await lireAjoutes()).length, `${suffixe} : parcours retiré, absent de l'accueil`)
 
   // Ouvrir un parcours puis revenir : on retrouve le degré
   await auDegre()
@@ -213,22 +234,22 @@ for (const [appareil, theme] of [
   // Fiche de la ceinture blanche, montrée d'office la première fois
   const entrainement = e.getByRole('button', { name: 'Commencer l’entraînement' })
   await entrainement.waitFor({ timeout: 30_000 })
-  ok((await titre(e)) === 'Rappels de dérivées', `${suffixe} : fiche de la ceinture avant l'entraînement`)
+  ok((await titre(e)) === ficheBlanche.titre, `${suffixe} : fiche de la ceinture avant l'entraînement`)
   ok(await touchable(entrainement), `${suffixe} : « Commencer l'entraînement » visible et touchable`)
   ok((await e.locator('main .katex').count()) > 10, `${suffixe} : formules rendues`)
   ok(!(await debordement(e)), `${suffixe} : fiche sans défilement horizontal`)
   await cap(e, `4b-fiche-cours-${suffixe}`)
-  const exemple = e.getByRole('region', { name: 'Produit' }).first()
+  const exemple = e.getByRole('region', { name: exempleBlanche.titre.replace(/\$/g, '') }).first()
   await exemple.getByRole('button', { name: 'Voir la première étape' }).click()
-  await exemple.getByRole('button', { name: 'Étape suivante' }).click()
-  ok((await exemple.locator('.border-l-4').count()) === 2 && !(await exemple.getByRole('button').count()), `${suffixe} : exemple dévoilé pas à pas, jusqu'au bout`)
+  for (let k = 1; k < exempleBlanche.etapes.length; k++) await exemple.getByRole('button', { name: 'Étape suivante' }).click()
+  ok((await exemple.locator('.border-l-4').count()) === exempleBlanche.etapes.length && !(await exemple.getByRole('button').count()), `${suffixe} : exemple dévoilé pas à pas, jusqu'au bout`)
   const qcm = e.getByRole('region', { name: 'À toi' }).first()
-  await qcm.getByRole('radio').first().click()
+  await qcm.getByRole('radio').nth(qcmBlanche.bonne === 0 ? 1 : 0).click()
   ok((await qcm.innerText()).includes('Incorrecte'), `${suffixe} : question « À toi », mauvaise réponse signalée`)
-  await qcm.getByRole('radio').nth(1).click()
+  await qcm.getByRole('radio').nth(qcmBlanche.bonne).click()
   ok((await qcm.innerText()).includes('Correcte') && !(await qcm.innerText()).includes('Incorrecte'), `${suffixe} : bonne réponse, explication`)
   const nombre = e.getByRole('region', { name: 'À toi' }).nth(1)
-  await taperDans(e, nombre.getByLabel('Ta réponse'), '3')
+  await taperDans(e, nombre.getByLabel('Ta réponse'), String(nombreBlanche.reponse))
   await nombre.getByRole('button', { name: 'Vérifier' }).click()
   ok((await nombre.innerText()).includes('Correcte'), `${suffixe} : réponse tapée au clavier, corrigée`)
   await nombre.scrollIntoViewIfNeeded()
@@ -251,18 +272,18 @@ for (const [appareil, theme] of [
     await pagePrete(e)
     if (libelle.includes('bilan')) break
   }
-  ok(n + 1 === 6, `${suffixe} : 6 questions dans la ceinture blanche (${n + 1})`)
+  ok(n + 1 === nbBlanche, `${suffixe} : ${nbBlanche} questions dans la ceinture blanche (${n + 1})`)
   ok(types.has('champ'), `${suffixe} : expressions saisies au clavier`)
   const bilan = await texte(e)
-  ok(/\d+ \/ 6/.test(bilan), `${suffixe} : bilan sur 6 questions`)
+  ok(new RegExp(`\\d+ / ${nbBlanche}`).test(bilan), `${suffixe} : bilan sur ${nbBlanche} questions`)
   await cap(e, `6-bilan-${suffixe}`)
-  ok(await e.getByRole('button', { name: 'Revoir la fiche : Rappels de dérivées' }).isVisible(), `${suffixe} : bilan sous le seuil, fiche à revoir`)
+  ok(await e.getByRole('button', { name: `Revoir la fiche : ${ficheBlanche.titre}` }).isVisible(), `${suffixe} : bilan sous le seuil, fiche à revoir`)
   await e.getByRole('button', { name: 'Voir la carte du parcours' }).click()
   await pagePrete(e)
   // La fiche reste dans le parcours, comme ressource ; la séance suivante commence sans elle
-  await e.getByRole('button', { name: 'Fiche : Rappels de dérivées', exact: true }).click()
+  await e.getByRole('button', { name: `Fiche : ${ficheBlanche.titre}`, exact: true }).click()
   await pagePrete(e)
-  ok((await titre(e)) === 'Rappels de dérivées' && !(await entrainement.count()), `${suffixe} : fiche relue depuis le parcours, sans lancer de séance`)
+  ok((await titre(e)) === ficheBlanche.titre && !(await entrainement.count()), `${suffixe} : fiche relue depuis le parcours, sans lancer de séance`)
   await e.goBack()
   await pagePrete(e)
   ok((await titre(e)) === 'Calcul intégral', `${suffixe} : retour de la fiche à la page du parcours`)

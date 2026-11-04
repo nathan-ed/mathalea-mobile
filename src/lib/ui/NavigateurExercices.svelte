@@ -235,7 +235,7 @@
 
   <footer
     use:garderSaisie
-    class="fixed left-0 right-0 bottom-0 z-20 flex flex-row gap-3 px-4 py-3 zone-sure-bas
+    class="barre-bas fixed left-0 right-0 bottom-0 z-20 flex flex-row gap-3 px-4 py-3 zone-sure-bas
     border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     <button type="button" class="{ajoutes ? boutonAction : boutonInverse} flex-1" style="min-height: 44px" onclick={onfermer}>

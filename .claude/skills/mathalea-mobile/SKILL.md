@@ -313,7 +313,32 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
 - Suivi : « tout doit y figurer, ce sont des ceintures comme les autres » :
   tests passés (ligne par niveau, ceintures CM1 à Terminale dans l'onglet
   Ceintures) et parcours de l'Explorer même non ajoutés à l'accueil
-  (`parcoursSuivis` dans `+page.svelte`).
+  (`parcoursSuivis` dans `+page.svelte`). Onglet Ceintures (Nathan,
+  2026-11-04) : seulement les parcours commencés (« sinon beaucoup de
+  ceintures vides, démoralisant ») ; ceinture obtenue en couleur, pas de
+  coche ; à obtenir : contour pointillé.
+- Retours de vérification (2026-11-04) : jamais les smileys de MathALÉA
+  (😎, ☹️) ; `BlocQuestion` les remplace par la pastille « Correcte » /
+  « Incorrecte » des fiches (`pastille-verification`, MutationObserver sur
+  la question). Onglets de pages : icônes `bx-check` / `bx-x`.
+- Correction à la taille de l'énoncé (`.correction-eleve`, comme
+  `.question-eleve`). Grande fenêtre d'ordinateur (≥ 1280 px) : colonne de
+  64rem (`--largeur-colonne`), barres du bas alignées sur la colonne
+  (`.barre-bas`), fond sur toute la largeur.
+- Lien de classe (2026-11-04) : `<lien du dossier>?classe=3A` (ou
+  `&CLASSE=3A` collé) choisit la classe d'office (`separerClasse`,
+  `lienDeClasse` dans `partage.ts`) ; QR code de classe : lien affiché et
+  « Copier le lien ». Le QR code reste `MACLA1.` (lu par les apps déjà
+  installées) ; le scanner accepte aussi un simple lien.
+- Élève sans lien : « Je n'ai pas de lien » (clé `sans-lien`) ; l'accueil ne
+  demande plus le lien, tuile Explorer et « Ajouter le lien de ma classe ».
+- Parcours ajoutés depuis l'Explorer : rangés avec ceux de la classe, par
+  chapitre (`ContenuClasse`, organisables), boussole à côté du titre ; plus de
+  section « Ajoutés depuis Explorer ».
+- Onglet Fiches (2026-11-04, « il y en a trop ») : recherche par début de
+  mot (`chercherFiches`), « Mes fiches » puis chapitres dépliables, et
+  parcours dépliables dans un chapitre qui en a plusieurs (`parParcours`,
+  `fiches.ts`) ; un seul chapitre est déplié d'office.
 - `titreMasque` : l'exercice disparaît de la fiche vue par l'élève (ni titre,
   ni « Exercice n ») et n'a pas de titre pendant l'activité.
   Les questions des sujets sont souvent importées d'un autre sujet (les 10
@@ -480,16 +505,22 @@ Mises à jour du moteur téléchargées (`src-tauri/src/moteur.rs`) : **désacti
 code reste (signature Ed25519, `moteur://`, repli sur le moteur livré), actif
 seulement avec `MATHALEA_MOTEUR_MAJ=1`. Publication, format et clés :
 `docs/historique.md`.
-- Catalogue de l'Explorer : `explorer/*.json` **intégré au build**
-  (`src/lib/catalogueIntegre.ts`, chargé à la demande). `URL_EXPLORER`
-  (`partage.ts`) est vide par défaut : un catalogue en ligne servi plus tard
-  par MathALÉA se règle par `VITE_URL_EXPLORER` et remplace un parcours de
-  l'app seulement s'il est d'une version plus haute (`fusionnerCatalogues`).
-  Essais : `MATHALEA_MOTEUR_URL`, `VITE_URL_EXPLORER`
+- Catalogue de l'Explorer (Nathan, 2026-11-04 : « ne pas les avoir hardcoded
+  dans l'app », « un dossier FR et un dossier CH ») : **pas dans l'app**. Un
+  dossier kDrive partagé de Nathan (`DOSSIER_EXPLORER` dans `partage.ts`,
+  `…/share/120240/9635c7c9-…`) avec les sous-dossiers `FR` et `CH`, lus par
+  `lireExplorer` (`lireFichierDistant(lien, req, sousDossier)`, kDrive
+  seulement) comme les dossiers des enseignants (un dossier vide n'est
+  pas une erreur, `DossierVide`). `explorer/*.json` reste la source : modifier,
+  tester (`catalogue-moteur`, `parcours-az`), puis remplacer le fichier sur le
+  drive. Copie gardée (clé `explorer`) ; un dossier injoignable garde sa
+  copie (`fusionnerCatalogues`). Hors connexion, l'Explorer le dit
+  (« Connecte-toi à internet pour télécharger les parcours » sans copie,
+  « … recevoir les nouvelles versions » avec), bouton « Réessayer ».
+  Essais : `VITE_URL_EXPLORER` remplace les deux dossiers
   (`.env.development.local`, ignoré par Git ; `scripts/e2e-ci.sh` le fixe à
-  `http://127.0.0.1:8702/explorer.json`).
-- Sans adresse servie, tout fonctionne : moteur livré, Explorer avec le
-  catalogue intégré.
+  `http://127.0.0.1:8702/explorer.json`, servi par les suites).
+- Sans adresse servie : moteur livré, Explorer vide (« Aucun parcours proposé »).
 - Hébergement possible partout où les trois fichiers sont publics sous une
   même adresse fixe (coopmaths.fr, GitLab Pages, `-/raw/` d'un projet public) ;
   redirections suivies (testé). Adresse et clé sont compilées dans l'app :
@@ -904,6 +935,8 @@ Environnement (machine de Nathan)
 - Plusieurs rangs par question : un rang n'appartient qu'à une question
   (`indicesDeLaQuestion`) ; vérifier l'effet sur tout le référentiel avant
   de toucher à la règle (107 exercices cassés par la première version).
+- Suites e2e sur un autre port (un autre worktree occupe 1420) : `BASE=http://localhost:1431/`
+  avec `npx vite dev --port 1431 --strictPort`.
 - Ne pas modifier `src/` pendant une suite e2e : le rechargement de Vite
   recharge la page et fait échouer la suite au hasard.
 - Moteur : toutes les apps utilisent le nôtre, livré avec l'app (Nathan,
@@ -917,6 +950,14 @@ Environnement (machine de Nathan)
   ce type de problèmes apparaisse ») et ne pose le tag que si tout est vert.
   Les parcours sont pris d'office dans `explorer/*.json` et la démonstration
   (`e2e/az-groupe.mjs`) : un nouveau fichier est testé sans rien changer.
+- **Toujours vérifier les parcours** (demande de Nathan, 03/11/2026) : après
+  tout changement qui peut toucher un exercice joué par l'app (exercice ou
+  module de MathALÉA modifié, id renommé, mise à jour de `COMMIT` du moteur,
+  parcours modifié), chercher les parcours qui l'utilisent
+  (`grep -l '<uuid>' explorer/*.json static/demo/*.json`, et par id) et les
+  rejouer : `PARCOURS=<id> node e2e/parcours-az.mjs <fichier>`. Sans parcours
+  identifiable, lancer `node e2e/parcours-az.mjs` sur tout. Ne pas annoncer
+  le travail fini avant que ces parcours soient verts.
 - Espaces dans les nombres : jamais exigés (pas de touche espace dans
   MathLive au clavier du téléphone), `sansEspacesExiges` dans le moteur.
 - Construire le moteur sans accès à git.sesamath.net (`instrumenpoche`,

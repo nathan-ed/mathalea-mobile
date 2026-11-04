@@ -14,8 +14,17 @@
     titre,
     classe = false,
     fichier,
+    lien = '',
     onfermer,
-  }: { invitation: string; code: string; titre: string; classe?: boolean; fichier?: string; onfermer: () => void } = $props()
+  }: {
+    invitation: string
+    code: string
+    titre: string
+    classe?: boolean
+    fichier?: string
+    lien?: string // lien à donner aux élèves (dossier, avec « classe=… » pour une classe)
+    onfermer: () => void
+  } = $props()
 
   const svg = $derived(dessinerQr(invitation))
   retourSi(() => true, () => onfermer(), 1)
@@ -30,6 +39,24 @@
     ])
     const fait = await enregistrerImage(fichier ?? `session-${code}.png`, base64)
     if (fait === 'fichier') message = 'Image enregistrée.'
+  }
+
+  // Lien à coller dans un message aux élèves : il ajoute le dossier et choisit la classe
+  async function copierLien() {
+    message = ''
+    try {
+      await navigator.clipboard.writeText(lien)
+    } catch {
+      // Presse-papiers refusé (ancien WebView) : copie par une zone de texte
+      const zone = document.createElement('textarea')
+      zone.value = lien
+      document.body.append(zone)
+      zone.select()
+      const fait = document.execCommand('copy')
+      zone.remove()
+      if (!fait) return (message = 'Copie impossible : sélectionnez le lien.')
+    }
+    message = 'Lien copié.'
   }
 </script>
 
@@ -50,6 +77,12 @@
     {#if svg}
       <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={exporter}>
         <i aria-hidden="true" class="bx bx-share-alt text-xl"></i> Exporter l’image
+      </button>
+    {/if}
+    {#if lien}
+      <p class="w-full text-center text-sm break-all texte-selectionnable text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light">{lien}</p>
+      <button type="button" class="{boutonLien} w-full justify-center" style="min-height: 44px" onclick={copierLien}>
+        <i aria-hidden="true" class="bx bx-copy text-xl"></i> Copier le lien
       </button>
     {/if}
     {#if message}<p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">{message}</p>{/if}

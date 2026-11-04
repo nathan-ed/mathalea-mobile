@@ -16,7 +16,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'reponses-'))
 const code = 'r54z4' // QR code après la correction, avec le prénom (empreinte du code, reglageQr)
@@ -297,7 +297,7 @@ execFileSync('ffmpeg', [
 // ---------- Enseignant ----------
 const camera = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${video}`])
 const ctxT = await camera.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: !avecWebkit, hasTouch: true })
-await ctxT.grantPermissions(avecWebkit ? [] : ['camera', 'clipboard-read', 'clipboard-write'], { origin: 'http://localhost:1420' }).catch(() => {})
+await ctxT.grantPermissions(avecWebkit ? [] : ['camera', 'clipboard-read', 'clipboard-write'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin }).catch(() => {})
 await ctxT.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
 await ctxT.addInitScript(() => {
   if (sessionStorage.getItem('pret')) return

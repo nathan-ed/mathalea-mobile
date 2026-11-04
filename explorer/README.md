@@ -1,10 +1,15 @@
 # Catalogue de l'Explorer
 
-Parcours proposés par l'équipe MathALÉA, intégrés au build de l'app
-(`src/lib/catalogueIntegre.ts`) et lus par le même lecteur que les fichiers
-des enseignants. À terme, MathALÉA pourra servir ce dossier
-(`VITE_URL_EXPLORER`, `src/lib/partage.ts`) : une version plus récente en
-ligne remplacera alors celle de l'app, parcours par parcours.
+Parcours proposés par l'équipe MathALÉA. Ils ne sont pas dans l'app : chaque
+fichier, une fois vérifié (`node e2e/catalogue-moteur.mjs`, puis
+`PARCOURS=<id> node e2e/parcours-az.mjs <fichier>`), est déposé dans le
+sous-dossier `FR` ou `CH` du dossier kDrive partagé de l'Explorer
+(https://kdrive.infomaniak.com/app/share/120240/9635c7c9-5984-4278-a739-d9f8c7d69f50,
+`DOSSIER_EXPLORER` dans `src/lib/partage.ts`). Seuls les `.json` à la racine
+de chaque sous-dossier sont lus. L'app lit ces dossiers comme ceux des enseignants : un
+fichier modifié sur le drive arrive chez les élèves sans mise à jour de l'app.
+Elle garde la dernière copie reçue pour le hors ligne. Ce dépôt reste la
+source : on modifie ici, on teste, puis on remplace le fichier sur le drive.
 
 - Format `classes-mathalea/1` (`docs/guide/format-parcours.md`), un fichier
   par degré.

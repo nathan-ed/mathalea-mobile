@@ -53,3 +53,20 @@ describe('fiches de l’élève', () => {
     expect(cleInvalide({ 'fiches-enregistrees': [{ cle: 'x' }] })).toBe('fiches-enregistrees')
   })
 })
+
+describe('onglet Fiches : recherche et parcours dépliables', () => {
+  const fiches = fichesDes([P, Q, R])
+  it('range les fiches d’un chapitre par parcours', async () => {
+    const { parParcours } = await import('../src/lib/fiches')
+    const [relatifs] = parChapitre(fiches)
+    expect(parParcours(relatifs.fiches).map((g) => `${g.id} ${g.titre} ${g.fiches.length}`)).toEqual(['p Relatifs 2'])
+  })
+  it('cherche par début de mot, sans accents ni majuscules', async () => {
+    const { chercherFiches } = await import('../src/lib/fiches')
+    expect(chercherFiches(fiches, 'soustr').map((f) => f.fiche.titre)).toEqual(['Soustraire'])
+    expect(chercherFiches(fiches, 'aire')).toEqual([])
+    expect(chercherFiches(fiches, 'fractions simpl').map((f) => f.fiche.titre)).toEqual(['Simplifier'])
+    expect(chercherFiches(fiches, 'RELATIFS').map((f) => f.cle)).toEqual(['p#0', 'p#1'])
+    expect(chercherFiches(fiches, '  ')).toEqual([])
+  })
+})

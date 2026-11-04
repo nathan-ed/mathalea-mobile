@@ -5,7 +5,7 @@
 import { describe, expect, it } from 'vitest'
 import { auteursTexte, decouperAuteurs, paliersDe, type Parcours } from '../src/lib/catalogue'
 import { arborescence, reperesParDefaut } from '../src/lib/explorer'
-import { lireFichier } from '../src/lib/partage'
+import { fusionnerCatalogues, lireExplorer, lireFichier } from '../src/lib/partage'
 
 const fs = 'node:fs'
 const { readFileSync, readdirSync } = await import(/* @vite-ignore */ fs)
@@ -101,16 +101,33 @@ describe('auteurs', () => {
   })
 })
 
-describe('catalogue intégré à l’app', () => {
-  it('reprend tous les parcours des fichiers explorer/*.json', async () => {
-    const { catalogueIntegre } = await import('../src/lib/catalogueIntegre')
-    const integre = await catalogueIntegre()
-    expect(integre.map((p) => p.id).sort()).toEqual(catalogue.map((p) => p.id).sort())
+describe('catalogue de l’Explorer lu sur les dossiers', () => {
+  const fichier = (parcours: Parcours[]) => JSON.stringify({ format: 'classes-mathalea/1', exporteLe: '', classes: [{ nom: 'Explorer', parcours }] })
+  // Dossiers servis comme « autre » service : lien d'un .json
+  const servi = (contenus: Record<string, string | null>) => async (url: string) => {
+    const corps = contenus[url]
+    if (corps === undefined) throw new TypeError('Failed to fetch')
+    return new Response(corps, { status: corps === null ? 404 : 200 })
+  }
+  const [a, b] = catalogue
+
+  it('réunit les dossiers France et Suisse', async () => {
+    const r = await lireExplorer(servi({ 'https://x.test/fr.json': fichier([a]), 'https://x.test/ch.json': fichier([b]) }), [{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }])
+    expect(r.complet).toBe(true)
+    expect(r.parcours.map((p) => p.id)).toEqual([a.id, b.id])
   })
 
-  it('une version plus récente reçue en ligne remplace celle de l’app, pas une plus ancienne', async () => {
-    const { fusionnerCatalogues } = await import('../src/lib/catalogueIntegre')
-    const [a, b] = catalogue
+  it('un dossier injoignable : catalogue incomplet, l’app garde sa copie', async () => {
+    const r = await lireExplorer(servi({ 'https://x.test/ch.json': fichier([b]) }), [{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }])
+    expect(r.complet).toBe(false)
+    expect(r.parcours.map((p) => p.id)).toEqual([b.id])
+  })
+
+  it('hors connexion : erreur, rien n’est remplacé', async () => {
+    await expect(lireExplorer(servi({}), [{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }])).rejects.toThrow()
+  })
+
+  it('une version plus récente remplace l’ancienne, pas une plus ancienne', () => {
     const recu = [{ ...a, version: a.version + 1, titre: 'Nouveau' }, { ...b, version: b.version - 1, titre: 'Ancien' }]
     const f = fusionnerCatalogues(catalogue, recu)
     expect(f.length).toBe(catalogue.length)

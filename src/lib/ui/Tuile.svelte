@@ -27,8 +27,10 @@
     /** Accueil : œil barré à côté de la tuile (cacher le parcours) ; œil ouvert s'il est caché (le remettre) */
     oncacher?: () => void
     cache?: boolean
+    /** Parcours ajouté depuis l'Explorer : boussole à côté du titre */
+    explorer?: boolean
   }
-  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler, onactions, onajouter, ajoute = false, ajoutFige = false, cible = 'ton accueil', oncacher, cache = false }: Props = $props()
+  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler, onactions, onajouter, ajoute = false, ajoutFige = false, cible = 'ton accueil', oncacher, cache = false, explorer = false }: Props = $props()
   const aCote = $derived(!!(onactions || onepingler || onajouter || oncacher))
 
   // Avec l'épingle, le fond est porté par l'enveloppe : la tuile et l'épingle forment une seule carte
@@ -53,6 +55,10 @@
         {size === 'large' ? 'text-2xl' : 'text-base'}"
       >
         {#if titleHtml}{@html titleHtml}{:else}{title}{/if}
+        {#if explorer}
+          <i aria-hidden="true" class="bx bx-compass align-middle font-normal text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
+          <span class="sr-only">(ajouté depuis Explorer)</span>
+        {/if}
       </div>
       {#if subtitle}
         <div class="mt-0.5 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">

@@ -74,16 +74,18 @@ describe('catalogue de l’Explorer en ligne', () => {
     const p = catalogue[0]
     const fichier = { format: 'classes-mathalea/1', classes: [{ nom: 'A', parcours: [{ ...p, version: 3 }] }, { nom: 'B', parcours: [{ ...p, version: 1 }] }] }
     const recu = await lireExplorer(async () => new Response(JSON.stringify(fichier)))
-    expect(recu.map((x) => [x.id, x.version])).toEqual([[p.id, 3]])
+    expect(recu.parcours.map((x) => [x.id, x.version])).toEqual([[p.id, 3]])
+    expect(recu.complet).toBe(true)
   })
 
-  it('sans adresse configurée, rien n’est demandé', async () => {
+  it('sans adresse d’essai, les sous-dossiers FR et CH du dossier kDrive de l’Explorer', async () => {
     vi.stubEnv('VITE_URL_EXPLORER', '')
     vi.resetModules()
-    const { lireExplorer } = await import('../src/lib/partage')
-    const req = vi.fn()
-    expect(await lireExplorer(req)).toEqual([])
-    expect(req).not.toHaveBeenCalled()
+    const { DOSSIER_EXPLORER, SOURCES_EXPLORER } = await import('../src/lib/partage')
+    expect(SOURCES_EXPLORER).toEqual([
+      { lien: DOSSIER_EXPLORER, sousDossier: 'FR' },
+      { lien: DOSSIER_EXPLORER, sousDossier: 'CH' },
+    ])
   })
 })
 

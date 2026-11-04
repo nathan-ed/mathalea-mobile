@@ -15,7 +15,7 @@ for (const theme of ['clair', 'sombre']) {
     localStorage.setItem('copie:bibliotheque', JSON.stringify(bib))
   }, { bib, theme })
   const page = await ctx.newPage()
-  await page.goto('http://localhost:1420/')
+  await page.goto(process.env.BASE ?? 'http://localhost:1420/')
   await page.getByRole('tab', { name: 'Parcours', exact: true }).waitFor()
   await page.screenshot({ path: `${sortie}/ens-accueil-${theme}.png` })
   await page.getByRole('tab', { name: 'Classes', exact: true }).click()

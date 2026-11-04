@@ -12,7 +12,7 @@ import { chromium } from 'playwright'
 import { SANS_BRIDAGE } from './attente.mjs'
 
 const sortie = process.argv[2] ?? '.'
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const parcours = demo.classes.flatMap((c) => c.parcours)
 const classe = { lien: 'https://kdrive.infomaniak.com/app/share/1/demo', nom: '5e A', disponibles: ['5e A'], parcours }

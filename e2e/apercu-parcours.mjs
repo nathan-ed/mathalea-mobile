@@ -10,7 +10,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const [fichier, ...ids] = process.argv.slice(2)
 if (!fichier) {
   console.log('node e2e/apercu-parcours.mjs <fichier.json> [id…]')

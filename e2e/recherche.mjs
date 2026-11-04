@@ -6,7 +6,7 @@
 import { chromium } from 'playwright'
 import { pagePrete, SANS_BRIDAGE, jusqua, aLeFocus } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 let echecs = 0
 const erreurs = []
 const ok = (cond, msg) => {

@@ -5,7 +5,7 @@
   import { bornerListes } from '$lib/listeDeroulante'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import type { Essai } from '$lib/progression'
-  import { boutonInverse, boutonLien } from './classes'
+  import { boutonInverse, boutonLien, pastille, pastilleIncorrecte } from './classes'
 
   let {
     moteur,
@@ -348,6 +348,27 @@
       for (const type of ['click', 'pointerup', 'keyup']) z.removeEventListener(type, surInteraction)
     }
   })
+  // Retour de MathALÉA après vérification (😎 ou ☹️ à côté de la réponse) :
+  // remplacé par la pastille « Correcte » ou « Incorrecte », comme dans les fiches
+  const SMILEYS: Record<string, boolean> = { '😎': true, '☹️': false, '☹': false }
+  function pastillesDeVerification(racine: HTMLElement) {
+    for (const el of racine.querySelectorAll<HTMLElement>('span, div, td')) {
+      if (el.children.length) continue
+      const juste = SMILEYS[el.textContent?.trim() ?? '']
+      if (juste === undefined) continue
+      const p = document.createElement('span')
+      p.className = `${juste ? pastille : pastilleIncorrecte} pastille-verification`
+      p.textContent = juste ? 'Correcte' : 'Incorrecte'
+      el.replaceChildren(p)
+    }
+  }
+  onMount(() => {
+    const z = zone
+    pastillesDeVerification(z)
+    const observateur = new MutationObserver(() => pastillesDeVerification(z))
+    observateur.observe(z, { childList: true, subtree: true, characterData: true })
+    return () => observateur.disconnect()
+  })
   onMount(() => {
     addEventListener('resize', surRedimension)
     return () => removeEventListener('resize', surRedimension)
@@ -421,7 +442,7 @@
   <div
     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 mb-4 ml-0 py-2 pl-4"
   >
-    <div class="contenu-mathalea container overflow-x-auto overflow-y-hidden py-1" class:correction-juste={resultat?.juste === true} bind:this={zoneCorrection}></div>
+    <div class="contenu-mathalea correction-eleve container overflow-x-auto overflow-y-hidden py-1" class:correction-juste={resultat?.juste === true} bind:this={zoneCorrection}></div>
     <div
       class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-0.75 -top-3.75 bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
     >

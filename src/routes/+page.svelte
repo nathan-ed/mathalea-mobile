@@ -39,8 +39,7 @@
   import { rappelExport } from '$lib/rappelExport.svelte'
   import { heure, suivreHeure } from '$lib/heure.svelte'
   import { acquisDe, ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
-  import { catalogueIntegre, fusionnerCatalogues } from '$lib/catalogueIntegre'
-  import { LIEN_DEMONSTRATION, URL_EXPLORER, ecrireClasses, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, synchroniserClasse, type Classe } from '$lib/partage'
+  import { LIEN_DEMONSTRATION, SOURCES_EXPLORER, ecrireClasses, fusionnerCatalogues, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
     bilan,
@@ -140,6 +139,8 @@
   let epingles: string[] = $state([])
   // Parcours cachés de l'accueil (élève) : rangés en bas, remis d'un toucher
   let caches: string[] = $state([])
+  // L'élève a dit ne pas avoir de lien de classe : l'accueil ne le lui demande plus
+  let sansLien = $state(false)
   let organisations: Record<string, Organisation> = $state({})
   let miseAJourMoteur: string | null = $state(null)
   // Versions des boutiques : moteur livré seulement (pas de recherche de mise à jour)
@@ -189,9 +190,10 @@
   )
   // Parcours d'un dossier suivi : sa classe, et toutes celles du fichier pour l'enseignant
   const parcoursDuDossier = (c: Classe) => [...c.parcours, ...(profil === 'enseignant' ? (c.fichier ?? []).flatMap((f) => f.parcours) : [])]
-  // Explorer : catalogue de l'équipe MathALÉA (copie locale) et parcours ajoutés à l'accueil
+  // Explorer : catalogue de l'équipe MathALÉA (dernière copie reçue des dossiers kDrive) et parcours ajoutés à l'accueil
   let catalogue: Parcours[] | null = $state(null)
-  let integre: Parcours[] = []
+  // Dernière lecture des dossiers de l'Explorer : en cours, réussie, ou impossible (hors connexion)
+  let etatExplorer: 'lecture' | 'lu' | 'injoignable' = $state('lecture')
   /** Copie de l'accueil remplacée par la version du catalogue si elle est plus récente */
   const plusRecent = (a: Parcours) => {
     const c = catalogue?.find((p) => p.id === a.id)
@@ -217,6 +219,9 @@
     for (const p of ajoutes) if (!vus.has(p.id)) vus.set(p.id, p)
     return [...vus.values()]
   })
+  // Onglet Fiches : dépliés et recherche gardés au retour d'une fiche
+  let fichesOuvertes: string[] = $state([])
+  let rechercheFiches = $state('')
   const dansSources = (id: string) => sources.some((s) => s.parcours.some((p) => p.id === id))
   // Enseignant : parcours éditables venant des dossiers partagés et des parcours de test
   // Toutes les classes des fichiers suivis (l'enseignant voit tout, pas seulement « sa » classe)
@@ -321,12 +326,12 @@
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     caches = (await stockage.lire<string[]>('caches')) ?? []
+    sansLien = (await stockage.lire<boolean>('sans-lien')) ?? false
     fichesVues = (await stockage.lire<string[]>('fiches-vues')) ?? []
     fichesEnregistrees = (await stockage.lire<FicheDuParcours[]>(CLE_FICHES)) ?? []
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
-    // Catalogue intégré à l'app, remplacé parcours par parcours par une version plus récente reçue en ligne
-    integre = await catalogueIntegre().catch((e) => (console.warn('Catalogue intégré', e), []))
-    catalogue = fusionnerCatalogues(integre, (await stockage.lire<Parcours[]>('explorer')) ?? [])
+    // Copie du catalogue reçue la dernière fois : l'Explorer s'affiche aussitôt, même hors connexion
+    catalogue = await stockage.lire<Parcours[]>('explorer')
     // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau.
     // Un parcours de l'Explorer ajouté à l'accueil suit sa nouvelle version (mise à jour de l'app)
     ajoutes = ((await stockage.lire<Parcours[]>('ajoutes')) ?? []).filter((p) => !estTest(p.id)).map((a) => plusRecent(a))
@@ -399,19 +404,32 @@
     }
   })
 
-  /** Nouvelle version du catalogue en ligne ; les parcours ajoutés suivent leur nouvelle version */
-  async function synchroniserExplorer() {
-    if (!URL_EXPLORER) return
+  /** Catalogue relu sur les dossiers de l'Explorer ; les parcours ajoutés suivent leur nouvelle version */
+  let lectureExplorer: Promise<void> | null = null
+  function synchroniserExplorer(): Promise<void> {
+    lectureExplorer ??= lireCatalogue().finally(() => (lectureExplorer = null))
+    return lectureExplorer
+  }
+  async function lireCatalogue() {
+    if (!SOURCES_EXPLORER.length) {
+      etatExplorer = 'lu'
+      return
+    }
+    etatExplorer = 'lecture'
     try {
       const recu = await lireExplorer()
-      catalogue = fusionnerCatalogues(integre, recu)
-      await stockage!.ecrire('explorer', recu)
+      // Un dossier illisible : ses parcours restent ceux de la copie
+      const liste = recu.complet ? recu.parcours : fusionnerCatalogues(catalogue ?? [], recu.parcours)
+      catalogue = liste
+      etatExplorer = recu.complet ? 'lu' : 'injoignable'
+      await stockage!.ecrire('explorer', $state.snapshot(liste))
       ajoutes = ajoutes.map((a) => plusRecent(a))
       await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
-      for (const p of [...ajoutes, ...recu]) await chargerParcours(p)
+      for (const p of [...ajoutes, ...liste]) await chargerParcours(p)
     } catch (e) {
-      // Hors connexion ou adresse indisponible : la copie locale reste affichée
+      // Hors connexion ou dossier indisponible : la copie de l'appareil reste affichée
       console.warn('Explorer', e)
+      etatExplorer = 'injoignable'
     }
   }
 
@@ -841,6 +859,11 @@
   async function lireInvitation(texte: string): Promise<'nouveau' | 'autre' | { erreur: string }> {
     const cl = decoderClasse(texte)
     if (cl) return rejoindreClasse(cl.l, cl.c)
+    // QR code d'un simple lien de dossier (avec ou sans « classe=… »)
+    if (/^https?:\/\/\S+$/.test(texte.trim())) {
+      const { lien, classe } = separerClasse(texte)
+      return rejoindreClasse(lien, classe)
+    }
     const inv = decoderInvitation(texte)
     if (!inv) return 'autre'
     scanSession = false
@@ -941,7 +964,13 @@
     await stockage!.ecrire('epingles', epingles)
   }
 
-  async function ajouterClasse(lien: string): Promise<string | null> {
+  async function ajouterClasse(saisi: string): Promise<string | null> {
+    // Lien avec « classe=… » : la classe est choisie d'office
+    const { lien, classe } = separerClasse(saisi)
+    if (classe) {
+      const r = await rejoindreClasse(lien, classe)
+      return r === 'nouveau' ? null : r.erreur
+    }
     if (classes.some((c) => c.lien === lien)) return 'Cette classe est déjà ajoutée.'
     const c = await synchroniserClasse({ lien, nom: '', disponibles: [], parcours: [] })
     if (c.erreur) return c.erreur
@@ -1378,6 +1407,9 @@
     <Accueil
       {sources}
       {explorer}
+      {etatExplorer}
+      catalogueRecu={catalogue !== null}
+      onrelireExplorer={() => void synchroniserExplorer()}
       bind:niveau={explorerNiveau}
       {ajoutes}
       {aChoisir}
@@ -1410,6 +1442,11 @@
       onajouterPlusieurs={(liste) => (profil === 'enseignant' && !vueEleve ? adopterPlusieurs(liste) : ajouterPlusieurs(liste))}
       retirable={(p) => !dansSources(p.id) && ajoutes.some((a) => a.id === p.id)}
       onretirerPlusieurs={profil === 'enseignant' && !vueEleve ? undefined : retirerPlusieurs}
+      {sansLien}
+      onsansLien={async (v) => {
+        sansLien = v
+        await stockage!.ecrire('sans-lien', v)
+      }}
       onorganiser={async (source, o) => {
         organisations = { ...organisations, [source]: o }
         await stockage!.ecrire('chapitres', $state.snapshot(organisations))
@@ -1436,6 +1473,8 @@
             await stockage!.ecrire(CLE_FICHES, $state.snapshot(liste))
           }}
           onouvrir={(f) => ouvrirCours(f.fiche)}
+          bind:ouverts={fichesOuvertes}
+          bind:recherche={rechercheFiches}
         />
       {/snippet}
       {#snippet espaceEnseignant()}

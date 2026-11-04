@@ -287,10 +287,15 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
 - Mises à jour du moteur sans réinstaller l'app (fait ; adresse de publication
   à fixer) : voir « Moteur servi par Coopmaths » ci-dessous.
 - Explorer : catalogue de parcours proposés par l'équipe MathALÉA, au format
-  `parcours-mathalea.json`, fichiers `explorer/*.json` intégrés au build
-  (`src/lib/catalogueIntegre.ts`). Catalogue en ligne optionnel par
-  `VITE_URL_EXPLORER` (aucun par défaut), fusionné par version. Copie locale hors
-  connexion ; « Ajouter à l'accueil » garde une copie du parcours, qui suit ses
+  `parcours-mathalea.json`, lu sur un dossier kDrive partagé
+  (`DOSSIER_EXPLORER` dans `partage.ts`), sous-dossiers `FR` et `CH`
+  (`lireFichierDistant(lien, req, sousDossier)`, kDrive seulement ; les
+  dossiers des enseignants restent sans sous-dossiers). `VITE_URL_EXPLORER`
+  le remplace par une seule adresse pour les essais. Les fichiers
+  `explorer/*.json` du dépôt en sont la source : modifiés ici, testés, puis
+  déposés sur le drive, sans mise à jour de l'app. Copie locale hors
+  connexion (« Connecte-toi à internet… » dans l'Explorer) ; un dossier vide
+  n'est pas une erreur, un dossier injoignable garde sa copie ; « Ajouter à l'accueil » garde une copie du parcours, qui suit ses
   nouvelles versions.
 - Explorer par degré puis par chapitre (`src/lib/explorer.ts`) : degrés,
   chapitres et leur ordre viennent du référentiel lu par le moteur

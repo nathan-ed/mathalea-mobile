@@ -14,7 +14,7 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'session-qr-long-'))
 let echecs = 0
@@ -92,7 +92,7 @@ ok(readFileSync(imageQr).subarray(1, 4).toString() === 'PNG', 'enseignant : imag
 // ---------- Élève qui n'a pas le parcours ----------
 const navA = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageQr, `a-${parcours.id}`)}`])
 const a = await contexte(navA, { profil: 'eleve', pays: 'CH', explorer: [] })
-await a.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await a.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 await a.getByRole('button', { name: 'Scanner le QR code d’une session' }).click({ timeout: 60_000 })
 await a.locator('main math-field, main input[type=checkbox], main input[type=radio]').first().waitFor({ timeout: 60_000 }).catch(() => {})
 const seanceA = await a.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}`)), parcours.id)
@@ -104,7 +104,7 @@ await a.screenshot({ path: `${captures}/session-qr-long-2-${parcours.id}.png` })
 // ---------- Élève qui a déjà le parcours (Explorer) : ses fiches restent ----------
 const navB = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageQr, `b-${parcours.id}`)}`])
 const b = await contexte(navB, { profil: 'eleve', pays: 'CH', explorer: [parcours] })
-await b.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await b.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 await b.getByRole('button', { name: 'Scanner le QR code d’une session' }).click({ timeout: 60_000 })
 await b.locator('main math-field, main input[type=checkbox], main input[type=radio]').first().waitFor({ timeout: 60_000 }).catch(() => {})
 const seanceB = await b.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}`)), parcours.id)

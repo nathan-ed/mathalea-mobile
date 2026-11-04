@@ -140,7 +140,7 @@
   function smiley(etape: number, q: number) {
     if (finale && !seance.soumise) return ''
     const e = premiers.get(cleQuestion(etape, q))
-    return e ? (valeur(e) === 1 ? '😎' : '☹️') : ''
+    return e ? (valeur(e) === 1 ? 'correcte' : 'incorrecte') : ''
   }
 
   function scoreEtape(etape: number) {
@@ -447,7 +447,7 @@
         >
           <div class="py-2 px-2 text-xl font-light whitespace-nowrap">
             {#if unique}
-              {i + 1}<span class="ml-1 text-sm">{smiley(p[0].etape, p[0].question)}</span>
+              {i + 1}{#if smiley(p[0].etape, p[0].question)}<i aria-hidden="true" class="bx {smiley(p[0].etape, p[0].question) === 'correcte' ? 'bx-check' : 'bx-x'} ml-0.5 text-base align-middle"></i>{/if}
             {:else}
               {sansEnTete ? 'Page' : 'Ex'} {i + 1}<span class="ml-1 text-sm font-bold">{scoreEtape(p[0].etape)}</span>
             {/if}
@@ -531,7 +531,7 @@
   {#if pret && !correctionCachee}
     <footer
       use:garderSaisie
-      class="barre-seance fixed bottom-0 left-0 right-0 flex flex-col gap-3 px-4 py-3 zone-sure-bas
+      class="barre-seance barre-bas fixed bottom-0 left-0 right-0 flex flex-col gap-3 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       bind:offsetHeight={hauteurBarre}

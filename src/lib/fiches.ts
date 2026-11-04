@@ -62,3 +62,33 @@ export function deplacer(liste: FicheDuParcours[], cle: string, sens: -1 | 1) {
 export const estFichesEnregistrees = (v: unknown) =>
   listeDe(v, (f) => estObjet(f) && estTexte(f.cle) && estTexte(f.parcours) && estTexte(f.niveau) && estTexte(f.theme) && estFiche(f.fiche)) &&
   sansDoublon((v as FicheDuParcours[]).map((f) => f.cle))
+
+/** Identifiant du parcours d'une fiche (sa clé est « parcours#palier ») */
+const parcoursDe = (f: FicheDuParcours) => f.cle.slice(0, f.cle.lastIndexOf('#'))
+
+/** Fiches d'un chapitre rangées par parcours, dans l'ordre des parcours */
+export function parParcours(fiches: FicheDuParcours[]) {
+  const groupes = new Map<string, { id: string; titre: string; fiches: FicheDuParcours[] }>()
+  for (const f of fiches) {
+    const id = parcoursDe(f)
+    if (!groupes.has(id)) groupes.set(id, { id, titre: f.parcours, fiches: [] })
+    groupes.get(id)!.fiches.push(f)
+  }
+  return [...groupes.values()]
+}
+
+const normaliser = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+const mots = (t: string) => normaliser(t).split(/[^\p{L}\p{N}]+/u).filter(Boolean)
+
+/**
+ * Recherche : chaque mot cherché commence un mot du titre de la fiche, de son
+ * parcours, de son chapitre ou de son degré (« aire » ne trouve pas « soustraire »).
+ */
+export function chercherFiches(fiches: FicheDuParcours[], recherche: string) {
+  const cherches = mots(recherche)
+  if (!cherches.length) return []
+  return fiches.filter((f) => {
+    const debuts = mots(`${f.fiche.titre} ${f.parcours} ${f.theme} ${f.niveau}`)
+    return cherches.every((m) => debuts.some((d) => d.startsWith(m)))
+  })
+}

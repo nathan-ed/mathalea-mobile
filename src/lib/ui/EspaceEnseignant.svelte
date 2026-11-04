@@ -19,6 +19,7 @@
   import Feuille from './Feuille.svelte'
   import QrSession from './QrSession.svelte'
   import { encoderClasse } from '$lib/invitation'
+  import { lienDeClasse } from '$lib/partage'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
 
@@ -914,6 +915,7 @@
     <QrSession
       classe
       invitation={encoderClasse({ l: bibliotheque.lien, c: qrClasse })}
+      lien={lienDeClasse(bibliotheque.lien, qrClasse)}
       code={qrClasse || 'Toutes les classes'}
       titre={qrClasse ? 'Rejoindre la classe' : 'Rejoindre le dossier'}
       fichier={qrClasse ? `classe-${qrClasse.replace(/[^\p{L}\p{N}-]+/gu, '-')}.png` : 'dossier-mathalea.png'}

@@ -9,6 +9,7 @@
 // Prérequis : pnpm dev et static/moteur.
 //   node e2e/parcours-az.mjs [fichiers…]   (défaut : les parcours de explorer/)
 //   PARCOURS=<id>[,<id>…] pour quelques parcours, APPAREIL=bureau pour une fenêtre d'ordinateur
+//   CEINTURES=<n> : seulement les n premières ceintures (suivi avec des ceintures à obtenir)
 //   FORMATS=1 node e2e/parcours-az.mjs e2e/formats-reponse.json : un exercice
 //   par format de réponse de MathALÉA (docs/types-de-reponse.md)
 import { readFileSync } from 'node:fs'
@@ -17,7 +18,7 @@ import { champsCoupes } from './champs-visibles.mjs'
 import { incoherencesVert } from './couleurs-verdict.mjs'
 import { jusqua, pagePrete, pointStable, SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
 const fichiers = process.argv.slice(2).length ? process.argv.slice(2) : ['explorer/prequalifiant.json', 'explorer/evacom-revisions.json', 'explorer/ch-4e-college.json']
 const appareil = process.env.APPAREIL ?? 'telephone'
@@ -1084,7 +1085,8 @@ for (const f of fichiers) {
     for (const p of classe.parcours) {
       if (process.env.PARCOURS && !process.env.PARCOURS.split(',').includes(p.id)) continue
       // Parcours sans paliers : un seul passage de tous ses exercices
-      const paliers = p.paliers?.length > 1 ? p.paliers : [{ titre: p.titre, nb: p.etapes.length }]
+      const tousPaliers = p.paliers?.length > 1 ? p.paliers : [{ titre: p.titre, nb: p.etapes.length }]
+      const paliers = process.env.CEINTURES ? tousPaliers.slice(0, Number(process.env.CEINTURES)) : tousPaliers
       console.log(`\n=== ${p.titre} (${p.id}, ${paliers.length} ceinture${paliers.length > 1 ? 's' : ''}, ${appareil})`)
       const e = await eleve(p.id, classe.nom, [p])
       const page = e.page
@@ -1123,6 +1125,15 @@ for (const f of fichiers) {
         const suivi = await page.locator('body').innerText()
         ok(suivi.includes(p.titre), `${p.id} : le parcours figure dans le suivi`)
         await capture(page, `az-${p.id}-suivi`)
+        // Onglet Ceintures : obtenues en couleur, les autres en contour
+        const ceintures = page.getByRole('button', { name: 'Ceintures', exact: true }).or(page.getByRole('tab', { name: 'Ceintures', exact: true }))
+        if (tousPaliers.length > 1 && ok(await ceintures.count(), `${p.id} : onglet Ceintures du suivi`)) {
+          await toucher(e, ceintures.first())
+          await pause(page, 500)
+          const obtenues = await page.locator('[aria-label$=" : obtenue"]').count()
+          ok(obtenues === paliers.length, `${p.id} : ${paliers.length} ceinture(s) obtenue(s) dans le suivi (${obtenues})`)
+          await capture(page, `az-${p.id}-ceintures`)
+        }
       } else ok(false, `${p.id} : onglet Suivi introuvable`)
       await e.ctx.close()
     }

@@ -13,7 +13,7 @@ const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: S
 
 // Moteur (app)
 const app = await (await nav.newContext()).newPage()
-await app.goto('http://localhost:1420/')
+await app.goto(process.env.BASE ?? 'http://localhost:1420/')
 const moteur = await app.evaluate(async (pays) => {
   const m = await import('/moteur/moteur.js')
   const l = await m.listerExercices(pays)

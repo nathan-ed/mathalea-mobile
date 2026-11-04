@@ -26,7 +26,7 @@ async function ouvrir(options) {
     localStorage.setItem('copie:classes', JSON.stringify([classe]))
   }, classe)
   const page = await ctx.newPage()
-  await page.goto('http://localhost:1420/')
+  await page.goto(process.env.BASE ?? 'http://localhost:1420/')
   await page.getByRole('button', { name: /^Nombres relatifs/ }).first().waitFor({ timeout: 30000 })
   return { ctx, page, cdp: await ctx.newCDPSession(page) }
 }
@@ -76,7 +76,7 @@ ok(large.largeur === 390 && large.decalage === 0 && large.x === 0, `contenu de 1
 
 // Séance : un énoncé plus haut que l'écran défile au doigt, même en partant de
 // la question (cadre qui défile en largeur, `.question-eleve`)
-await page.goto('http://localhost:1420/')
+await page.goto(process.env.BASE ?? 'http://localhost:1420/')
 await page.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
 await page.getByRole('button', { name: /^(Commencer|Continuer)/ }).first().click()
 const entrainement = page.getByRole('button', { name: 'Commencer l’entraînement' })

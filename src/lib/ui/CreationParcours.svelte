@@ -950,7 +950,7 @@
 
     <footer
       use:garderSaisie
-      class="fixed left-0 right-0 bottom-0 z-20 flex flex-col gap-1 px-4 py-3 zone-sure-bas
+      class="barre-bas fixed left-0 right-0 bottom-0 z-20 flex flex-col gap-1 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       {#if manques.length}

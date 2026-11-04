@@ -5,7 +5,7 @@ import { chromium } from 'playwright'
 import { copyFileSync } from 'node:fs'
 import { pagePrete, SANS_BRIDAGE, jusqua } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const dossierPartage = process.env.DOSSIER // racine servie par le lien public local
 const lienClasse = 'http://127.0.0.1:8702/s/Xk42demo/classe-3a/'
@@ -326,8 +326,10 @@ await accueil(a)
 await a.getByRole('tab', { name: 'Mes parcours' }).click()
 await pagePrete(a)
 await cap(a, '6d-accueil-ajout')
-ok(await a.getByText('Ajoutés depuis Explorer').isVisible(), 'explorer : section à l’accueil')
-ok(await a.getByRole('button', { name: /^\s*Fractions : les bases/ }).isVisible(), 'explorer : parcours à l’accueil')
+// Rangé avec les parcours de la classe, par chapitre, boussole sur sa tuile
+const ajout = a.getByRole('button', { name: /^\s*Fractions : les bases/ }).first()
+ok(await ajout.isVisible(), 'explorer : parcours à l’accueil')
+ok((await ajout.innerText()).length > 0 && (await ajout.locator('.bx-compass').count()) === 1, 'explorer : boussole sur la tuile du parcours ajouté')
 
 // ---------- Enseignant ----------
 const t = await appareil('enseignant')

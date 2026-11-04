@@ -1,7 +1,7 @@
 import { strToU8, zipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
 import type { Parcours } from '../src/lib/catalogue'
-import { creerFichier, fusionner, lireFichier, lireFichierDistant, NOM_FICHIER, nomHorodate, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
+import { creerFichier, fusionner, lienDeClasse, separerClasse, lireFichier, lireFichierDistant, NOM_FICHIER, nomHorodate, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
 
 const p = (version: number, titre = 'Fractions'): Parcours => ({
   id: 'fractions-4e',
@@ -63,6 +63,21 @@ describe('kDrive (service de la page de partage)', () => {
   it('signale un lien supprimé', async () => {
     const s = serveur({})
     await expect(lireFichierDistant(lien, s.req)).rejects.toThrow(/introuvable ou expiré/)
+  })
+  it('Explorer : lit un sous-dossier du pays, pas la racine ni les autres pays', async () => {
+    const s = serveur({
+      [`${api}/init`]: () => reponse(JSON.stringify({ data: { file_id: 7 } })),
+      [`${api}/files/7/files`]: () =>
+        reponse(JSON.stringify({ data: [{ id: 20, name: 'CH', type: 'dir' }, { id: 21, name: 'FR', type: 'dir' }, { id: 9, name: 'racine.json', type: 'file' }] })),
+      [`${api}/files/20/files`]: () => reponse(JSON.stringify({ data: [{ id: 30, name: 'ch.json', type: 'file' }] })),
+      [`${api}/files/21/files`]: () => reponse(JSON.stringify({ data: [] })),
+      [`${api}/files/30/download`]: () => reponse(fichier(5)),
+    })
+    const ch = await lireFichierDistant(lien, s.req, 'CH')
+    expect(ch.classes[0].parcours[0].version).toBe(5)
+    expect(s.demandees).not.toContain(`${api}/files/9/download`)
+    await expect(lireFichierDistant(lien, s.req, 'FR')).rejects.toThrow(/ne contient pas encore/)
+    await expect(lireFichierDistant(lien, s.req, 'IT')).rejects.toThrow(/ne contient pas encore/)
   })
 })
 
@@ -242,5 +257,37 @@ describe('publications horodatées (nom libre, la plus récente compte)', () => 
     const zip = zipSync({ 'archives/vieux.json': strToU8(fichier(9)) })
     const s = serveur({ 'https://www.dropbox.com/scl/fo/abc': () => reponse(zip) })
     await expect(lireFichierDistant('https://www.dropbox.com/scl/fo/abc/def?dl=0', s.req)).rejects.toThrow('pas encore de fichier')
+  })
+})
+
+describe('lien de classe (classe= à la fin du lien)', () => {
+  const kdrive = 'https://kdrive.infomaniak.com/app/share/120240/a9e26ba8-a925-4188-9419-09db583e2151'
+  const dropbox = 'https://www.dropbox.com/scl/fo/abc/xyz?rlkey=k&dl=0'
+
+  it('lit la classe, quelle que soit la façon de l’écrire', () => {
+    expect(separerClasse(`${kdrive}&CLASSE=Préqualifiant`)).toEqual({ lien: kdrive, classe: 'Préqualifiant' })
+    expect(separerClasse(`${kdrive}?classe=4e%20Coll%C3%A8ge`)).toEqual({ lien: kdrive, classe: '4e Collège' })
+    expect(separerClasse(` ${kdrive}?classe=EVACOM+11LC `)).toEqual({ lien: kdrive, classe: 'EVACOM 11LC' })
+    expect(separerClasse(`${dropbox}&classe=3A`)).toEqual({ lien: dropbox, classe: '3A' })
+    expect(separerClasse('https://x.test/s/abc?classe=3A&dl=0')).toEqual({ lien: 'https://x.test/s/abc?dl=0', classe: '3A' })
+  })
+
+  it('sans classe : le lien tel quel', () => {
+    expect(separerClasse(kdrive)).toEqual({ lien: kdrive, classe: '' })
+    expect(separerClasse(dropbox)).toEqual({ lien: dropbox, classe: '' })
+    expect(separerClasse('pas un lien')).toEqual({ lien: 'pas un lien', classe: '' })
+  })
+
+  it('le lien de la classe se relit à l’identique', () => {
+    for (const lien of [kdrive, dropbox]) {
+      for (const classe of ['3A', '4e Collège', 'EVACOM 11LC', 'A&B']) {
+        expect(separerClasse(lienDeClasse(lien, classe))).toEqual({ lien, classe })
+      }
+    }
+    expect(lienDeClasse(kdrive, '3A')).toBe(`${kdrive}?classe=3A`)
+    expect(lienDeClasse(dropbox, '3A')).toBe(`${dropbox}&classe=3A`)
+    expect(lienDeClasse(`${kdrive}?classe=2B`, '3A')).toBe(`${kdrive}?classe=3A`)
+    expect(lienDeClasse(kdrive, '4e Collège')).toBe(`${kdrive}?classe=4e+Collège`)
+    expect(separerClasse(lienDeClasse(kdrive, 'A+B')).classe).toBe('A+B')
   })
 })

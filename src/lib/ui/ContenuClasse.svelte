@@ -7,8 +7,9 @@
 </script>
 
 <script lang="ts">
-  // Parcours d'une classe, par chapitre (thème) : chapitres dépliables, que
-  // l'élève peut réordonner. Dans un chapitre : par difficulté, puis ordre de l'enseignant.
+  // Parcours d'une classe (et ceux ajoutés depuis l'Explorer), par chapitre
+  // (thème) : chapitres dépliables, que l'élève peut réordonner. Dans un
+  // chapitre : par difficulté, puis ordre de l'enseignant.
   import type { Parcours } from '$lib/catalogue'
   import Tuile from './Tuile.svelte'
   import { retourSi } from '$lib/navigation.svelte'
@@ -25,6 +26,7 @@
     onepingler,
     onactions,
     oncacher,
+    explorer = [],
   }: {
     nom: string
     parcours: Parcours[]
@@ -37,6 +39,7 @@
     onepingler?: (p: Parcours) => void
     onactions?: (p: Parcours) => void
     oncacher?: (p: Parcours) => void
+    explorer?: string[] // parcours ajoutés depuis l'Explorer : boussole sur leur tuile
   } = $props()
 
   let organiser = $state(false)
@@ -199,6 +202,7 @@
         onepingler={onepingler ? () => onepingler(p) : undefined}
         onactions={onactions && !oncacher ? () => onactions(p) : undefined}
         oncacher={oncacher ? () => oncacher(p) : undefined}
+        explorer={explorer.includes(p.id)}
       />
     {/each}
   {/if}

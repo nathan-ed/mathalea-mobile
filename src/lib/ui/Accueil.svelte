@@ -19,6 +19,8 @@
 
 <script lang="ts">
   import { quand } from '$lib/revisions'
+  // Organisation des chapitres des parcours ajoutés quand l'élève n'a pas de classe
+  const SOURCE_EXPLORER = 'explorer'
   import { organisationDe } from '$lib/catalogue'
   import { onMount, type Snippet } from 'svelte'
   import type { Parcours } from '$lib/catalogue'
@@ -34,6 +36,9 @@
   let {
     sources,
     explorer,
+    etatExplorer = 'lu',
+    catalogueRecu = true,
+    onrelireExplorer,
     ajoutes,
     aChoisir,
     organisations,
@@ -67,9 +72,14 @@
     retirable,
     onajouterPlusieurs,
     onretirerPlusieurs,
+    sansLien = false,
+    onsansLien,
   }: {
     sources: Source[]
     explorer: NiveauExplorer[] // parcours de l'équipe MathALÉA du pays choisi, par degré et chapitre
+    etatExplorer?: 'lecture' | 'lu' | 'injoignable' // dernière lecture des dossiers de l'Explorer
+    catalogueRecu?: boolean // l'appareil a déjà reçu le catalogue une fois
+    onrelireExplorer?: () => void
     ajoutes: Parcours[] // parcours du catalogue ajoutés à l'accueil
     aChoisir: { lien: string; disponibles: string[] }[] // dossiers à plusieurs classes, classe pas encore choisie
     organisations: Record<string, Organisation>
@@ -104,6 +114,8 @@
     retirable?: (p: Parcours) => boolean // Explorer, élève : ajouté depuis l'Explorer, il peut être retiré de l'accueil
     onajouterPlusieurs: (liste: Parcours[]) => Promise<void> // Explorer : ajout de plusieurs parcours d'un coup
     onretirerPlusieurs?: (liste: Parcours[]) => Promise<void> // Explorer, élève : parcours retirés de l'accueil
+    sansLien?: boolean // l'élève a dit ne pas avoir de lien : le formulaire n'est plus proposé d'office
+    onsansLien?: (v: boolean) => void
   } = $props()
 
   let lien = $state('')
@@ -151,7 +163,11 @@
   const visible = (p: Parcours) => !caches.includes(p.id)
   const cachesListe = $derived(tous.filter((p) => !visible(p)))
   let cachesOuverts = $state(false)
-  const ajoutesVisibles = $derived(ajoutes.filter((p) => visible(p) && !resumes[p.id]?.enCours && !epingles.includes(p.id)))
+  // Parcours ajoutés depuis l'Explorer : rangés avec ceux de la classe, par chapitre (boussole sur leur tuile)
+  const idsAjoutes = $derived(ajoutes.map((p) => p.id))
+  const avecAjoutes = (parcours: Parcours[]) => [...parcours, ...ajoutes.filter((a) => !parcours.some((p) => p.id === a.id))].filter(visible)
+  // Boussole seulement sur ceux qui ne viennent pas aussi du dossier de la classe
+  const depuisExplorer = (parcours: Parcours[]) => idsAjoutes.filter((id) => !parcours.some((p) => p.id === id))
   const niveauOuvert = $derived(explorer.find((n) => n.niveau === niveau) ?? null)
   const enCours = $derived(tous.filter((p) => visible(p) && resumes[p.id]?.enCours))
   const epinglesVisibles = $derived(
@@ -317,12 +333,6 @@
               <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
-          {#if ajoutesVisibles.length}
-            <h2 class={titreSection}>Ajoutés depuis Explorer</h2>
-            {#each ajoutesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
-            {/each}
-          {/if}
           {#each aChoisir as d (d.lien)}
             <h2 class={titreSection}>Choisis ta classe</h2>
             {#each d.disponibles as nomClasse (nomClasse)}
@@ -333,7 +343,7 @@
             <!-- Une seule classe : son contenu tout de suite -->
             <ContenuClasse
               nom={sources[0].nom}
-              parcours={sources[0].parcours.filter(visible)}
+              parcours={avecAjoutes(sources[0].parcours)}
               organisation={organisation(sources[0].id)}
               {sousTitre}
               {badge}
@@ -342,6 +352,7 @@
               {epingles}
               {onepingler}
               {oncacher}
+              explorer={depuisExplorer(sources[0].parcours)}
             />
           {:else if sources.length > 1}
             <!-- Plusieurs classes : pastilles pour passer de l'une à l'autre -->
@@ -365,7 +376,7 @@
               {#key classeVue.id}
                 <ContenuClasse
                   nom="Chapitres"
-                  parcours={classeVue.parcours.filter(visible)}
+                  parcours={avecAjoutes(classeVue.parcours)}
                   organisation={organisation(classeVue.id)}
                   {sousTitre}
                   {badge}
@@ -374,10 +385,34 @@
                   {epingles}
                   {onepingler}
                   {oncacher}
+                  explorer={depuisExplorer(classeVue.parcours)}
                 />
               {/key}
             {/if}
-          {:else if aChoisir.length === 0}
+          {:else if ajoutes.length}
+            <!-- Sans classe : les parcours ajoutés depuis l'Explorer, rangés de la même façon -->
+            <ContenuClasse
+              nom="Mes parcours"
+              parcours={ajoutes.filter(visible)}
+              organisation={organisation(SOURCE_EXPLORER)}
+              {sousTitre}
+              {badge}
+              onouvrir={ouvrir}
+              onorganiser={(o) => onorganiser(SOURCE_EXPLORER, o)}
+              {epingles}
+              {onepingler}
+              {oncacher}
+              explorer={idsAjoutes}
+            />
+          {/if}
+          {#if sources.length === 0 && aChoisir.length === 0 && sansLien}
+            {#if !ajoutes.length}
+              <Tuile icon="bx-compass" title="Explorer les parcours" subtitle="Parcours proposés par l’équipe MathALÉA" onclick={() => changerOnglet('explorer')} />
+            {/if}
+            <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien?.(false)}>
+              <i aria-hidden="true" class="bx bx-link text-xl"></i> Ajouter le lien de ma classe
+            </button>
+          {:else if sources.length === 0 && aChoisir.length === 0}
             <h2 class={titreSection}>Ajoute le dossier de ta classe</h2>
             <!-- Formulaire : Entrée ajoute le dossier ; le lien reste si l'ajout échoue -->
             <form
@@ -394,6 +429,10 @@
               <button type="submit" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim() || ajoutEnCours} aria-busy={ajoutEnCours}>
                 {ajoutEnCours ? 'Ajout du dossier…' : 'Ajouter le dossier'}
               </button>
+              {#if onsansLien}
+                <!-- Pas de lien : l'élève travaille avec l'Explorer ; le QR code de l'enseignant suffit aussi -->
+                <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien(true)}>Je n’ai pas de lien</button>
+              {/if}
             </form>
           {/if}
           {#if cachesListe.length && oncacher}
@@ -458,6 +497,16 @@
           <Tuile icon="bx-timer" title="Teste ton niveau" subtitle={resumeTest} onclick={ontest} />
         {/if}
         <h2 class={titreSection}>Parcours proposés par l’équipe MathALÉA</h2>
+        {#if etatExplorer === 'injoignable' && explorer.length}
+          <!-- Copie de l'appareil affichée : les nouvelles versions attendent la connexion -->
+          <div class="flex flex-row items-center gap-2 pl-2 text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light" role="status">
+            <i aria-hidden="true" class="bx bx-wifi-off text-lg shrink-0"></i>
+            <span class="min-w-0 flex-1">Connecte-toi à internet pour recevoir les nouvelles versions des parcours.</span>
+            {#if onrelireExplorer}
+              <button type="button" class="presse shrink-0 px-2 font-semibold text-coopmaths-action dark:text-coopmathsdark-action" style="min-height: 44px" onclick={onrelireExplorer}>Réessayer</button>
+            {/if}
+          </div>
+        {/if}
         {#each explorer as n (n.niveau)}
           <Tuile
             icon="bx-book-content"
@@ -466,9 +515,21 @@
             onclick={() => (niveau = n.niveau)}
           />
         {:else}
-          <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            Aucun parcours proposé pour le moment.
-          </p>
+          {#if etatExplorer === 'lecture' && !catalogueRecu}
+            <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest" role="status">Téléchargement des parcours…</p>
+          {:else if etatExplorer === 'injoignable'}
+            <div class="flex flex-col items-center gap-3 py-8 text-center" role="status">
+              <i aria-hidden="true" class="bx bx-wifi-off text-4xl text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
+              <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Connecte-toi à internet pour télécharger les parcours.</p>
+              {#if onrelireExplorer}
+                <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onrelireExplorer}>Réessayer</button>
+              {/if}
+            </div>
+          {:else}
+            <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+              Aucun parcours proposé pour le moment.
+            </p>
+          {/if}
         {/each}
       </div>
     {:else if onglet === 'fiches' && fiches}

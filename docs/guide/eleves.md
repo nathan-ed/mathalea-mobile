@@ -10,7 +10,9 @@ Au premier lancement, l'élève choisit son programme, puis colle le lien donné
 
 ![Ajouter le dossier de la classe](images/eleve-1-lien.png)
 
-Si le dossier contient plusieurs classes, l'élève choisit la sienne.
+Si le dossier contient plusieurs classes, l'élève choisit la sienne. Un lien qui se termine par `?classe=3A` (ou `&CLASSE=3A`) choisit la classe d'office : c'est le lien que l'app donne sous le QR code de chaque classe (« Copier le lien »).
+
+Sans lien, l'élève touche « Je n'ai pas de lien » : l'accueil ne le lui demande plus, il travaille avec l'Explorer et ajoute le lien plus tard (« Ajouter le lien de ma classe », ou les Réglages).
 
 Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche l'icône QR code en haut de l'accueil et le vise. Le dossier est ajouté avec sa classe, sans lien à coller. Avec le QR code du dossier entier, l'élève choisit ensuite sa classe.
 

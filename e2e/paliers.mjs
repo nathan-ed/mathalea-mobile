@@ -6,7 +6,7 @@
 import { chromium } from 'playwright'
 import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const lien = 'https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=2&uuid=61b4a&id=5N2G-1&n=2&uuid=36e2a&id=5N2H&n=2&uuid=b6982&id=5N2I&n=2'
 let echecs = 0

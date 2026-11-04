@@ -6,7 +6,7 @@ import { SANS_BRIDAGE } from './attente.mjs'
 
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 const page = await nav.newPage()
-await page.goto('http://localhost:1420/')
+await page.goto(process.env.BASE ?? 'http://localhost:1420/')
 const resultat = await page.evaluate(async () => {
   const man = await (await fetch('/moteur/manifest.json')).json()
   const m = await import('/moteur/' + man.entree)

@@ -128,7 +128,7 @@
   </main>
   {#if oncommencer}
     <footer
-      class="fixed bottom-0 left-0 right-0 z-20 px-4 py-3 zone-sure-bas
+      class="barre-bas fixed bottom-0 left-0 right-0 z-20 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >

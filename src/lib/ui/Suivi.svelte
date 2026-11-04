@@ -124,8 +124,10 @@
     })
   })
   let objectifOuvert: string | null = $state(null)
-  // Par chapitre du référentiel : plusieurs parcours y donnent les mêmes ceintures
-  const ceintures = $derived(ceinturesParChapitre(parcours, historiques))
+  // Par chapitre du référentiel : plusieurs parcours y donnent les mêmes ceintures.
+  // Parcours commencés seulement : une rangée de ceintures vides ne dit rien et décourage
+  const commence = (p: Parcours) => (historiques[p.id] ?? []).length > 0 || !!enCours[p.id]
+  const ceintures = $derived(ceinturesParChapitre(parcours.filter(commence), historiques))
   const vues = $derived([
     ['activite', 'Activité'],
     ['objectifs', 'Objectifs'],
@@ -141,13 +143,11 @@
   <ul class="flex flex-row flex-wrap gap-3">
     {#each liste as x (x.nom)}
       <li class="flex flex-col items-center gap-1" aria-label="{x.nom}{x.niveau ? ` (${x.niveau})` : ''} : {x.obtenue ? 'obtenue' : 'pas encore obtenue'}">
+        <!-- Obtenue : la ceinture prend sa couleur ; sinon seulement son contour -->
         <span
-          class="relative inline-flex items-center justify-center w-14 h-7 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
-          {x.obtenue ? '' : 'opacity-30'}"
-          style="background-color: {x.couleur}"
-        >
-          {#if x.obtenue}<i aria-hidden="true" class="bx bx-check text-lg" style="color: {x.couleur === '#f5f5f4' || x.couleur === '#facc15' ? '#1c1917' : '#ffffff'}"></i>{/if}
-        </span>
+          class="inline-block w-14 h-7 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
+          style={x.obtenue ? `background-color: ${x.couleur}` : 'border-style: dashed'}
+        ></span>
         <span class="text-xs {x.obtenue ? 'font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct' : discret}">{x.niveau ?? x.nom.replace('Ceinture ', '')}</span>
       </li>
     {/each}

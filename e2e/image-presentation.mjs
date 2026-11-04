@@ -7,7 +7,7 @@ import { chromium } from 'playwright'
 import { SANS_BRIDAGE } from './attente.mjs'
 
 const dossier = process.argv[2] ?? 'docs/play-store'
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const image = (nom) => `data:image/png;base64,${readFileSync(`${dossier}/${nom}`).toString('base64')}`
 const ecran = 'position:absolute;width:204px;border:1px solid #c8c8c8;border-radius:22px 22px 0 0;box-shadow:0 2px 10px rgba(0,0,0,.12)'
 const drapeauFrance =

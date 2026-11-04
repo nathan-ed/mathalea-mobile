@@ -121,6 +121,7 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
   bibliotheque: estBibliotheque,
   epingles: textesUniques,
   caches: textesUniques,
+  'sans-lien': (v) => typeof v === 'boolean', // l'élève n'a pas de lien de classe : l'accueil ne le demande plus
   'fiches-vues': textesUniques, // fiches de cours déjà montrées d'office (« id#rang du palier »)
   [CLE_FICHES]: estFichesEnregistrees, // onglet Fiches
   chapitres: (v) => dictionnaireDe(v, (o) => estObjet(o) && textesUniques(o.ordre) && textesUniques(o.fermes)),

@@ -7,7 +7,7 @@
 import { chromium } from 'playwright'
 import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const CAPTURES = process.env.CAPTURES
 let echecs = 0
 const erreurs = []

@@ -250,6 +250,11 @@ plus récent remplace l'ancien.
 | Google Drive | lien de partage du **fichier** (Google ne permet pas de lire un dossier sans clé) ; pour une nouvelle publication, « Gérer les versions », puis importer le nouveau fichier : le lien reste le même |
 | Autres serveurs | lien d'un fichier, ou d'un dossier qui contient `parcours-mathalea.json` |
 
+Lien d'une classe : ajoutez `?classe=` et le nom de la classe à la fin du lien
+du dossier (`…/share/120240/a9e2…?classe=3A`, ou `&classe=3A` si le lien a
+déjà un `?`). L'élève qui le colle arrive directement dans sa classe. L'app le
+fait pour vous : onglet Classes, QR code de la classe, « Copier le lien ».
+
 ## Ce que voient les élèves
 
 - Leurs parcours par chapitre ; ils peuvent replier et réordonner les

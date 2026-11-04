@@ -14,7 +14,7 @@ import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
 import qrcode from 'qrcode-generator'
 import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'session-qr-'))
 let echecs = 0
@@ -177,7 +177,7 @@ writeFileSync(imageRecente, Buffer.from(q.createDataURL(8, 16).split(',')[1], 'b
 // ---------- Élève qui n'a pas le parcours : scan, puis directement la session ----------
 const navA = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageQr, 'a')}`])
 const a = await contexte(navA, 'eleve', [])
-await a.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await a.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 const scan = a.getByRole('button', { name: 'Scanner le QR code d’une session' })
 await scan.waitFor({ timeout: 60_000 })
 ok(!(await a.getByText('Relatifs au tableau').count()), 'élève : le parcours n’est pas dans son app')
@@ -196,7 +196,7 @@ ok(ajoutes.some((p) => p.id === parcours.id), 'élève : le parcours est ajouté
 // ---------- Élève dont l'app est plus ancienne que celle de l'enseignant ----------
 const navB = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageRecente, 'b')}`])
 const b = await contexte(navB, 'eleve', [])
-await b.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await b.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 await b.getByRole('button', { name: 'Scanner le QR code d’une session' }).click({ timeout: 60_000 })
 await b.getByText('Mets l’application à jour').waitFor({ timeout: 30_000 })
 ok(true, 'app plus ancienne : l’élève est prévenu')

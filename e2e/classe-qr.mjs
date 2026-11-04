@@ -10,7 +10,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
-const base = 'http://localhost:1420/'
+const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'classe-qr-'))
 let echecs = 0
@@ -155,7 +155,7 @@ ok(!(await prof.getByRole('button', { name: /^QR code de la classe/ }).count()),
 // ---------- Élève sans aucune classe : scan, puis directement la 5B ----------
 const navA = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageB, 'a')}`])
 const a = await contexte(navA, 'eleve')
-await a.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await a.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 const scan = a.getByRole('button', { name: 'Scanner le QR code d’une session ou d’une classe' })
 await scan.waitFor({ timeout: 60_000 })
 await a.screenshot({ path: `${captures}/classe-qr-2-accueil-eleve.png` })
@@ -172,7 +172,7 @@ ok(true, 'élève : la classe reste après un nouveau lancement')
 // ---------- Élève : QR code du dossier entier, puis choix de sa classe ----------
 const navD = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageD, 'd')}`])
 const d = await contexte(navD, 'eleve')
-await d.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await d.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 await d.getByRole('button', { name: 'Scanner le QR code d’une session ou d’une classe' }).click({ timeout: 60_000 })
 await d.getByRole('button', { name: '5A', exact: true }).first().waitFor({ timeout: 30_000 })
 let cd = await d.evaluate(() => JSON.parse(localStorage.getItem('copie:classes') ?? '[]'))
@@ -186,7 +186,7 @@ ok(cd[0]?.nom === '5A' && !(await d.getByText('Relatifs de la 5B').count()), 'do
 // ---------- Élève : classe pas encore sur le drive ----------
 const navC = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageC, 'c')}`])
 const c = await contexte(navC, 'eleve')
-await c.context().grantPermissions(['camera'], { origin: 'http://localhost:1420' })
+await c.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
 await c.getByRole('button', { name: 'Scanner le QR code d’une session ou d’une classe' }).click({ timeout: 60_000 })
 await c.getByText('La classe 5C n’est pas encore sur le drive de l’enseignant.').waitFor({ timeout: 30_000 })
 await c.screenshot({ path: `${captures}/classe-qr-4-absente.png` })

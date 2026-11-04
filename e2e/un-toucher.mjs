@@ -32,7 +32,7 @@ async function toucherLent(locator) {
   await pagePrete(page)
 }
 
-await page.goto('http://localhost:1420/')
+await page.goto(process.env.BASE ?? 'http://localhost:1420/')
 await page.getByRole('button', { name: /^Nombres relatifs/ }).first().click()
 await page.getByRole('button', { name: 'Commencer', exact: true }).click()
 const champ = page.locator('main math-field').first()
@@ -56,7 +56,7 @@ ok(!(await page.evaluate(() => document.activeElement?.closest('math-field'))), 
 // panneau « Soumettre quand même ? » doit rester ouvert (il se refermait quand
 // le champ, en perdant le focus, signalait la fin de sa saisie)
 // Relancement : la séance reprend à sa question ; on la quitte pour l'accueil
-await page.goto('http://localhost:1420/')
+await page.goto(process.env.BASE ?? 'http://localhost:1420/')
 await page.getByText(/Question 1 sur 9/).waitFor({ timeout: 60_000 })
 await page.goBack()
 await page.getByRole('button', { name: 'Reprendre plus tard' }).click()
