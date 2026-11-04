@@ -1,6 +1,6 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-10-28T08:00:00.000Z",
+  "exporteLe": "2026-11-04T12:19:53.506Z",
   "classes": [
     {
       "nom": "4e Collège",
@@ -566,7 +566,7 @@
         },
         {
           "id": "ch-4c-integrales",
-          "version": 4,
+          "version": 5,
           "titre": "Calcul intégral",
           "objectif": "Encadrer une aire, trouver une primitive, calculer une intégrale et s'en servir pour une valeur moyenne, une aire ou un volume.",
           "auteurs": [
@@ -575,8 +575,8 @@
             "Claude Opus 5.5",
             "GPT-6.1-Sol"
           ],
-          "descriptionEleves": "Après des rappels de dérivées, tu encadres une aire par des sommes, puis tu cherches des primitives. Tu calcules ensuite des intégrales et tu t’en sers pour une valeur moyenne, une aire ou un volume de révolution. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Huit ceintures d’un à trois exercices, de la blanche à la ceinture noire, 2e dan : Rappels de dérivées ; Aire et sommes de Darboux ; Primitives ; Primitives de fonctions composées ; Calculer une intégrale ; Valeur moyenne ; Aires ; Volumes de révolution. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
+          "descriptionEleves": "Le rappel commence par les puissances et les sommes, puis reprend les autres règles de dérivation. Tu passes ensuite des aires aux primitives, aux intégrales et à leurs applications. Les fonctions exponentielle et logarithme sont réservées au chapitre suivant. Les exercices vont du calcul direct aux problèmes ; leur ordre est conservé.",
+          "descriptionEnseignant": "10 ceintures : Puissances, sommes et composées simples ; Produits, quotients et trigonométrie ; Aire et sommes de Darboux ; Primitives et condition initiale ; Primitives de fonctions composées ; Calculer une intégrale ; Valeur moyenne et applications ; Intégrale et aire géométrique ; Aire entre deux courbes ; Volumes de révolution. Les exercices restent dans cet ordre et les familles sont sélectionnées explicitement. Une fiche précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "4e Collège",
           "theme": "Analyse",
           "difficulte": 2,
@@ -584,24 +584,90 @@
           "presentation": "une_question_par_page",
           "correction": "question",
           "enTetesMasques": true,
-          "melanger": true,
+          "melanger": false,
           "style": "ceintures",
           "paliers": [
             {
-              "titre": "Rappels de dérivées",
+              "titre": "Puissances, sommes et composées simples",
               "nb": 3,
               "fiche": {
-                "titre": "Rappels de dérivées",
+                "titre": "Puissances, sommes et composées simples",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "texte",
-                    "texte": "Chercher une primitive, c'est dériver à l'envers : il faut donc savoir dériver sans hésiter. Ce palier reprend les règles de dérivation."
+                    "texte": "Le rappel commence par les puissances et les sommes. On ajoute ensuite une seule composition avec une fonction affine."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dériver une puissance",
+                    "texte": "Pour $x$ dans le domaine de dérivabilité : $\\big(x^r\\big)'=r x^{r-1}$. La dérivée d'une constante est $0$."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un polynôme",
+                    "enonce": "Dériver $f(x)=3x^3-2x^2+5x-4$.",
+                    "etapes": [
+                      "On dérive chaque terme séparément.",
+                      "$(3x^3)\\prime=9x^2$, $(-2x^2)\\prime=-4x$ et $(5x-4)\\prime=5$.",
+                      "$f\\prime(x)=9x^2-4x+5$."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Somme et multiple",
+                    "texte": "$(u+v)\\prime=u\\prime+v\\prime$ et $(ku)\\prime=ku\\prime$."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une puissance composée",
+                    "enonce": "Dériver $g(x)=(2x+1)^3$.",
+                    "etapes": [
+                      "La fonction intérieure est $u(x)=2x+1$, de dérivée $u\\prime(x)=2$.",
+                      "$(u^3)\\prime=3u^2u\\prime$.",
+                      "$g\\prime(x)=6(2x+1)^2$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La dérivée de $4x^3$ est :",
+                    "choix": [
+                      "$12x^2$",
+                      "$4x^2$",
+                      "$12x^3$"
+                    ],
+                    "bonne": 0,
+                    "explication": "On multiplie par $3$ et on diminue l’exposant de $1$ : $4\\cdot3x^2=12x^2$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Pour $h(x)=x^2-3x$, que vaut $h\\prime(2)$ ?",
+                    "reponse": 1,
+                    "explication": "$h\\prime(x)=2x-3$, donc $h\\prime(2)=4-3=1$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "Une constante a pour dérivée $0$. Pour $(ax+b)^n$, multiplier aussi par la dérivée intérieure $a$."
+                  }
+                ]
+              }
+            },
+            {
+              "titre": "Produits, quotients et trigonométrie",
+              "nb": 3,
+              "fiche": {
+                "titre": "Produits, quotients et trigonométrie",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Après les puissances et les sommes, on reprend le produit, le quotient et les composées trigonométriques. Les fonctions de ce rappel sont algébriques ou trigonométriques."
                   },
                   {
                     "type": "retenir",
                     "titre": "Dérivées à connaître",
-                    "texte": "- $\\big(x^n\\big)'=n\\,x^{n-1}$\n- $\\big(\\sqrt{x}\\big)'=\\dfrac{1}{2\\sqrt{x}}$\n- $\\big(\\sin(x)\\big)'=\\cos(x)$ et $\\big(\\cos(x)\\big)'=-\\sin(x)$\n- $\\big(\\tan(x)\\big)'=1+\\tan^2(x)=\\dfrac{1}{\\cos^2(x)}$\n- $\\big(\\mathrm{e}^x\\big)'=\\mathrm{e}^x$ et $\\big(\\ln(x)\\big)'=\\dfrac{1}{x}$"
+                    "texte": "- $\\big(x^n\\big)'=n\\,x^{n-1}$\n- $\\big(\\sqrt{x}\\big)'=\\dfrac{1}{2\\sqrt{x}}$\n- $\\big(\\sin(x)\\big)'=\\cos(x)$ et $\\big(\\cos(x)\\big)'=-\\sin(x)$\n- $\\big(\\tan(x)\\big)'=1+\\tan^2(x)=\\dfrac{1}{\\cos^2(x)}$"
                   },
                   {
                     "type": "retenir",
@@ -659,13 +725,13 @@
                     "texte": "- $(u\\cdot v)'\\neq u'\\cdot v'$.\n- Composée : ne pas oublier de multiplier par la dérivée de la fonction intérieure.\n- Quotient : $u'v-uv'$ dans cet ordre, et le dénominateur au carré."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Aire et sommes de Darboux",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 2,
               "fiche": {
                 "titre": "Aire et sommes de Darboux",
                 "avant": true,
@@ -744,15 +810,15 @@
                     "texte": "- Le pas vaut $\\dfrac{b-a}{n}$, pas $\\dfrac{1}{n}$.\n- Pour une fonction qui n'est pas monotone, chercher le minimum et le maximum sur chaque sous-intervalle.\n- On a toujours $s_n\\leqslant S_n$ : sinon, les rôles sont inversés."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "Primitives",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "titre": "Primitives et condition initiale",
+              "nb": 3,
               "fiche": {
-                "titre": "Primitives",
+                "titre": "Primitives et condition initiale",
                 "avant": true,
                 "blocs": [
                   {
@@ -848,13 +914,13 @@
                     "texte": "- Pour **toutes** les primitives, ne pas oublier le $+C$.\n- $x^{-1}=\\dfrac{1}{x}$ fait exception : la formule donnerait une division par $0$. Sa primitive viendra avec le logarithme.\n- Toujours contrôler en dérivant le résultat."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Primitives de fonctions composées",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 4,
               "fiche": {
                 "titre": "Primitives de fonctions composées",
                 "avant": true,
@@ -930,13 +996,13 @@
                     "texte": "- Seul un facteur **constant** se compense. Un facteur en $x$ ne se compense pas : $\\cos(x^2)$ seule n'a pas de primitive qui s'écrive avec les fonctions usuelles.\n- Vérifier la condition sur $u$ (par exemple $u>0$ pour $\\sqrt{u}$).\n- Contrôler en dérivant."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Calculer une intégrale",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 3,
               "fiche": {
                 "titre": "Calculer une intégrale",
                 "avant": true,
@@ -1061,15 +1127,15 @@
                     "explication": "Additivité de l'intégrale : $2+5=7$."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "Valeur moyenne",
+              "titre": "Valeur moyenne et applications",
               "nb": 3,
-              "acces": "seuil",
-              "seuil": 80,
               "fiche": {
-                "titre": "Valeur moyenne",
+                "titre": "Valeur moyenne et applications",
                 "avant": true,
                 "blocs": [
                   {
@@ -1175,20 +1241,20 @@
                     "texte": "- Ne pas oublier de diviser par $b-a$.\n- Une valeur moyenne peut être négative.\n- Le nombre $c$ du théorème doit appartenir à $[a;b]$ : écarter les autres solutions."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "Aires",
+              "titre": "Intégrale et aire géométrique",
               "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
               "fiche": {
-                "titre": "Aires",
+                "titre": "Intégrale et aire géométrique",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "texte",
-                    "texte": "Une intégrale compte négativement ce qui est sous l'axe des abscisses. Pour une aire géométrique, il faut donc savoir où la fonction change de signe."
+                    "texte": "L'intégrale tient compte du signe de la fonction. Pour calculer une aire géométrique, on additionne des aires positives."
                   },
                   {
                     "type": "retenir",
@@ -1236,6 +1302,49 @@
                   },
                   {
                     "type": "retenir",
+                    "titre": "Méthode",
+                    "texte": "Repérer les zéros dans l'intervalle, établir le signe sur chaque morceau, puis changer le signe des intégrales qui sont négatives."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est l'aire géométrique entre la courbe de $f(x)=x$ et l'axe des abscisses, sur $[-1;1]$ ?",
+                    "reponse": 1,
+                    "explication": "L'intégrale vaut $0$, mais l'aire est $\\dfrac{1}{2}+\\dfrac{1}{2}=1$ : deux triangles, l'un sous l'axe, l'autre au-dessus."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\int_{-1}^1 x\\,\\mathrm{d}x=0$. L’aire entre la courbe et l’axe vaut donc :",
+                    "choix": [
+                      "$0$",
+                      "$1$",
+                      "$2$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Les deux triangles ont chacun une aire de $\\frac12$. Leurs intégrales se compensent, mais leurs aires s’ajoutent : $A=1$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "Ne pas remplacer l'aire par la valeur absolue de l'intégrale sur tout l'intervalle lorsque la fonction change de signe."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Aire entre deux courbes",
+              "nb": 2,
+              "fiche": {
+                "titre": "Aire entre deux courbes",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "On calcule d'abord avec les abscisses d'intersection données, puis on les détermine soi-même."
+                  },
+                  {
+                    "type": "retenir",
                     "titre": "Aire entre deux courbes",
                     "texte": "L'aire du domaine compris entre les courbes de $f$ et $g$ et les droites $x=a$ et $x=b$ est\n$$\\mathcal{A}=\\int_a^b\\big|f(x)-g(x)\\big|\\,\\mathrm{d}x.$$\nSur un intervalle où $f\\geqslant g$, on intègre $f-g$ : la courbe du dessus moins celle du dessous."
                   },
@@ -1275,35 +1384,40 @@
                     ]
                   },
                   {
-                    "type": "question",
-                    "enonce": "Quelle est l'aire du domaine compris entre $f(x)=x$ et $g(x)=x^2$ sur $[0;1]$ ?",
-                    "choix": [
-                      "$\\dfrac{1}{6}$",
-                      "$\\dfrac{5}{6}$",
-                      "$-\\dfrac{1}{6}$"
-                    ],
-                    "bonne": 0,
-                    "explication": "Sur $[0;1]$, $x\\geqslant x^2$, donc\n$$\\mathcal{A}=\\int_0^1(x-x^2)\\,\\mathrm{d}x=\\dfrac{1}{2}-\\dfrac{1}{3}=\\dfrac{1}{6}.$$\nUne aire n'est jamais négative."
+                    "type": "retenir",
+                    "titre": "Méthode",
+                    "texte": "Résoudre $f(x)=g(x)$, comparer les fonctions entre deux intersections, puis intégrer la fonction du haut moins celle du bas. Additionner les aires si leur ordre change."
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle est l'aire géométrique entre la courbe de $f(x)=x$ et l'axe des abscisses, sur $[-1;1]$ ?",
-                    "reponse": 1,
-                    "explication": "L'intégrale vaut $0$, mais l'aire est $\\dfrac{1}{2}+\\dfrac{1}{2}=1$ : deux triangles, l'un sous l'axe, l'autre au-dessus."
+                    "enonce": "Quelle est l’aire entre $f(x)=6x$ et $g(x)=3x^2$ sur $[0;2]$ ?",
+                    "reponse": 4,
+                    "explication": "$6x-3x^2=3x(2-x)\\geqslant0$ sur $[0;2]$. L’aire vaut $[3x^2-x^3]_0^2=12-8=4$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Lorsque $f$ est au-dessus de $g$ sur $[a;b]$, on intègre :",
+                    "choix": [
+                      "$f-g$",
+                      "$g-f$",
+                      "$|f|+|g|$"
+                    ],
+                    "bonne": 0,
+                    "explication": "La hauteur du domaine est $f(x)-g(x)\\geqslant0$. Son intégrale donne l’aire."
                   },
                   {
                     "type": "retenir",
                     "titre": "Pièges",
-                    "texte": "- Chercher d'abord les zéros de $f$ ou les points d'intersection des courbes.\n- Intégrer la courbe du dessus moins celle du dessous ; si elles se croisent dans $[a;b]$, découper.\n- Une aire n'est jamais négative."
+                    "texte": "Une intersection ne suffit pas à connaître l'ordre des courbes : comparer leurs valeurs ou étudier le signe de leur différence sur chaque morceau."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Volumes de révolution",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 2,
               "fiche": {
                 "titre": "Volumes de révolution",
                 "avant": true,
@@ -1408,112 +1522,207 @@
                     "texte": "- On élève $f(x)$ au carré **avant** d'intégrer.\n- Entre deux courbes : $g^2-f^2$, pas $(g-f)^2$.\n- Ne pas oublier le facteur $\\pi$.\n- Un volume est toujours positif."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             }
           ],
           "etapes": [
             {
-              "uuid": "7fccd",
-              "id": "4mAna-4",
-              "nbQuestions": 2,
-              "titre": "Dériver une fonction composée"
+              "uuid": "ec088",
+              "id": "3mA2-2",
+              "nbQuestions": 1,
+              "titre": "Dériver un polynôme de degré 2 à coefficients entiers",
+              "sup": "3",
+              "sup2": "false",
+              "sup3": "false"
+            },
+            {
+              "uuid": "01df0",
+              "id": "4mDer-7",
+              "nbQuestions": 1,
+              "titre": "Dériver une somme de polynômes",
+              "sup": "0-0-1*1-0-0-0-0"
+            },
+            {
+              "uuid": "3391d",
+              "id": "4mDer-3",
+              "nbQuestions": 1,
+              "titre": "Dériver une puissance positive de fonction affine",
+              "sup": "1"
             },
             {
               "uuid": "ce9e6",
-              "id": "4mAna-5",
-              "nbQuestions": 2,
-              "titre": "Dériver un produit de fonctions"
+              "id": "4mDer-5",
+              "nbQuestions": 1,
+              "titre": "Dériver un produit algébrique",
+              "sup": "1-0-0-0*1-1-0-0-0"
             },
             {
               "uuid": "85c63",
-              "id": "4mAna-6",
-              "nbQuestions": 2,
-              "titre": "Dériver un quotient de fonctions"
+              "id": "4mDer-6",
+              "nbQuestions": 1,
+              "titre": "Dériver un quotient de polynômes",
+              "sup": "1-0-0-0*1-0-0-0-0"
+            },
+            {
+              "uuid": "7fccd",
+              "id": "4mDer-4",
+              "nbQuestions": 1,
+              "titre": "Dériver un sinus ou cosinus composé",
+              "sup": "0-0-0-1-1-0-0-0*0-1-0-0-0-0-0-0-0"
             },
             {
               "uuid": "adf78",
               "id": "4mInt-10",
-              "nbQuestions": 2,
-              "titre": "Encadrer une aire par des sommes inférieures et supérieures"
+              "nbQuestions": 1,
+              "titre": "Encadrer une aire sous une fonction affine",
+              "sup": "1-0-0*1"
+            },
+            {
+              "uuid": "adf78",
+              "id": "4mInt-10",
+              "nbQuestions": 1,
+              "titre": "Encadrer une aire sous une fonction quadratique",
+              "sup": "0-1-0*1"
             },
             {
               "uuid": "97303",
               "id": "4mInt-1",
-              "nbQuestions": 3,
-              "titre": "Déterminer une primitive sans composition"
+              "nbQuestions": 1,
+              "titre": "Trouver une primitive de polynôme",
+              "sup": "1-0-0-0-0-0"
+            },
+            {
+              "uuid": "97303",
+              "id": "4mInt-1",
+              "nbQuestions": 2,
+              "titre": "Primitiver puissances, racines, sinus et cosinus",
+              "sup": "0-1-1-1-1-1"
             },
             {
               "uuid": "219c5",
               "id": "4mInt-3",
-              "nbQuestions": 2,
-              "titre": "Déterminer une primitive sans composition vérifiant une condition"
+              "nbQuestions": 1,
+              "titre": "Fixer la constante d’une primitive de polynôme",
+              "sup": "1-0-0-0-0-0*valeur"
             },
             {
               "uuid": "290c1",
               "id": "4mInt-2",
-              "nbQuestions": 3,
-              "titre": "Déterminer une primitive d'une fonction composée"
+              "nbQuestions": 1,
+              "titre": "Primitiver une puissance positive de fonction affine",
+              "sup": "1-0-0-0-0-0-0-0*1-0-0"
+            },
+            {
+              "uuid": "290c1",
+              "id": "4mInt-2",
+              "nbQuestions": 1,
+              "titre": "Reconnaître une puissance composée",
+              "sup": "0-1-1-1-0-0-0-0*1-0-0"
+            },
+            {
+              "uuid": "290c1",
+              "id": "4mInt-2",
+              "nbQuestions": 1,
+              "titre": "Primitiver un inverse de racine affine",
+              "sup": "0-0-0-0-0-1-0-0*1-0-0"
             },
             {
               "uuid": "dcf2d",
               "id": "4mInt-4",
-              "nbQuestions": 2,
-              "titre": "Déterminer la primitive d'une fonction composée vérifiant une condition"
+              "nbQuestions": 1,
+              "titre": "Fixer la constante d’une primitive composée",
+              "sup": "1-1-0-0-0-0-0-0*1-0-0*valeur"
             },
             {
               "uuid": "7d5ee",
               "id": "4mInt-5",
-              "nbQuestions": 3,
-              "titre": "Calculer des intégrales sans composition"
+              "nbQuestions": 1,
+              "titre": "Intégrer un polynôme",
+              "sup": "1-0-0-0-0-0"
+            },
+            {
+              "uuid": "7d5ee",
+              "id": "4mInt-5",
+              "nbQuestions": 1,
+              "titre": "Intégrer une puissance, une racine ou une fonction trigonométrique",
+              "sup": "0-1-1-1-1-1"
             },
             {
               "uuid": "b13e1",
               "id": "4mInt-6",
               "nbQuestions": 2,
-              "titre": "Calculer des intégrales de fonctions composées"
+              "titre": "Calculer une intégrale de fonction composée",
+              "sup": "1-1-1-1-0-1-0-0*1-1-1"
             },
             {
               "uuid": "00e95",
               "id": "4mInt-7",
-              "nbQuestions": 2,
-              "titre": "Déterminer une valeur moyenne et appliquer le théorème de la moyenne"
+              "nbQuestions": 1,
+              "titre": "Calculer une moyenne et une valeur intermédiaire pour une fonction affine",
+              "sup": "1-0-0-0-0-0*0"
             },
             {
               "uuid": "c9471",
               "id": "4mInt-12",
               "nbQuestions": 1,
-              "titre": "Résoudre des problèmes de valeur moyenne"
+              "titre": "Utiliser une valeur moyenne dans un problème",
+              "sup": "1-0-1-0"
             },
             {
               "uuid": "4b128",
               "id": "4mInt-13",
               "nbQuestions": 1,
-              "titre": "Déterminer une borne connaissant la valeur moyenne"
+              "titre": "Retrouver une borne à partir de la moyenne"
             },
             {
               "uuid": "58877",
               "id": "4mInt-11",
-              "nbQuestions": 2,
-              "titre": "Calculer une intégrale et l'aire entre une courbe et l'axe des abscisses"
+              "nbQuestions": 1,
+              "titre": "Distinguer intégrale et aire, zéros donnés",
+              "sup": "1-0-0*1"
+            },
+            {
+              "uuid": "58877",
+              "id": "4mInt-11",
+              "nbQuestions": 1,
+              "titre": "Déterminer les zéros puis calculer l’aire",
+              "sup": "1-1-0*0"
             },
             {
               "uuid": "7b0fb",
               "id": "4mInt-8",
-              "nbQuestions": 2,
-              "titre": "Calculer l'aire d'un domaine délimité par deux courbes",
-              "sup": "1-1-1-1-0*0"
+              "nbQuestions": 1,
+              "titre": "Calculer une aire avec les intersections données",
+              "sup": "1-0-0-0-0*1"
+            },
+            {
+              "uuid": "7b0fb",
+              "id": "4mInt-8",
+              "nbQuestions": 1,
+              "titre": "Déterminer les intersections puis calculer l’aire",
+              "sup": "1-1-0-0-0*0"
             },
             {
               "uuid": "bae8f",
               "id": "4mInt-9",
-              "nbQuestions": 2,
-              "titre": "Calculer un volume de révolution"
+              "nbQuestions": 1,
+              "titre": "Calculer un volume par disques",
+              "sup": "1-0*1-0-0-0"
+            },
+            {
+              "uuid": "bae8f",
+              "id": "4mInt-9",
+              "nbQuestions": 1,
+              "titre": "Calculer un volume entre une racine et une droite",
+              "sup": "0-1*0-0-1-0"
             }
           ]
         },
         {
           "id": "ch-4c-exp-log",
-          "version": 3,
+          "version": 4,
           "titre": "Exponentielle et logarithme",
           "objectif": "Calculer avec ln et exp : propriétés, équations, dérivées, primitives, limites, aires et volumes.",
           "auteurs": [
@@ -1522,8 +1731,8 @@
             "Claude Opus 5.5",
             "GPT-6.1-Sol"
           ],
-          "descriptionEleves": "Tu découvres le logarithme naturel, tu le dérives et tu t’en sers pour trouver des primitives. Viennent ensuite l’exponentielle, les autres bases, puis des aires et des volumes. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Neuf ceintures d’un à trois exercices, de la blanche à la ceinture noire, 3e dan : Le logarithme naturel ; Dériver avec ln ; Primitives avec ln ; Graphe et limites ; Décomposition en éléments simples ; La fonction exponentielle ; Primitives avec l'exponentielle ; Autres bases ; Aires et volumes. Une fiche de cours précède chaque ceinture ; la suivante se débloque à 80 %.",
+          "descriptionEleves": "Tu commences par des calculs et des équations à un seul logarithme, puis tu apprends à dériver et à primitiver avec ln. Les équations plus longues viennent ensuite. L’exponentielle est introduite avant ses dérivées et ses primitives. Les autres bases et les applications terminent le parcours. Les exercices restent dans cet ordre.",
+          "descriptionEnseignant": "11 ceintures : Premiers calculs avec ln ; Dériver avec ln ; Primitives avec ln ; Graphes et limites de ln ; Équations logarithmiques ; Décomposition en éléments simples ; Propriétés et équations exponentielles ; Dériver avec l’exponentielle ; Primitives avec l’exponentielle ; Autres bases ; Croissances comparées, aires et volumes. Les exercices restent dans cet ordre et les familles sont sélectionnées explicitement. Une fiche précède chaque ceinture ; la suivante se débloque à 80 %.",
           "niveau": "4e Collège",
           "theme": "Analyse",
           "difficulte": 2,
@@ -1531,14 +1740,14 @@
           "presentation": "une_question_par_page",
           "correction": "question",
           "enTetesMasques": true,
-          "melanger": true,
+          "melanger": false,
           "style": "ceintures",
           "paliers": [
             {
-              "titre": "Le logarithme naturel",
-              "nb": 3,
+              "titre": "Premiers calculs avec ln",
+              "nb": 2,
               "fiche": {
-                "titre": "Le logarithme naturel",
+                "titre": "Premiers calculs avec ln",
                 "avant": true,
                 "blocs": [
                   {
@@ -1589,19 +1798,9 @@
                     "texte": "Pour tous $x,y>0$ et tout rationnel $r$ :\n\n- $\\ln(x\\cdot y)=\\ln(x)+\\ln(y)$\n- $\\ln\\left(\\dfrac{x}{y}\\right)=\\ln(x)-\\ln(y)$ et $\\ln\\left(\\dfrac{1}{y}\\right)=-\\ln(y)$\n- $\\ln(x^r)=r\\ln(x)$"
                   },
                   {
-                    "type": "exemple",
-                    "titre": "Exprimer en fonction de $\\ln(x)$",
-                    "enonce": "Pour $x>0$, écrire $3\\ln(x^2)-\\ln(x^3)+2\\ln\\left(\\dfrac{1}{x}\\right)$ en fonction de $\\ln(x)$.",
-                    "etapes": [
-                      "$3\\ln(x^2)=6\\ln(x)$ et $\\ln(x^3)=3\\ln(x)$.",
-                      "$2\\ln\\left(\\dfrac{1}{x}\\right)=-2\\ln(x)$.",
-                      "Total : $6\\ln(x)-3\\ln(x)-2\\ln(x)=\\ln(x)$."
-                    ]
-                  },
-                  {
                     "type": "retenir",
                     "titre": "Résoudre une équation",
-                    "texte": "$\\ln$ est strictement croissante : $\\ln(a)=\\ln(b)\\iff a=b$, pour $a,b>0$. Et $\\ln(a)=k\\iff a=\\mathrm{e}^k$.\n\nOn commence toujours par le **domaine** : chaque argument de $\\ln$ doit être strictement positif."
+                    "texte": "$\\ln(a)=\\ln(b)\\iff a=b$ pour $a,b>0$. En particulier, $\\ln(a)=0\\iff a=1$ et $\\ln(a)=1\\iff a=\\mathrm{e}$. On note $\\mathrm{e}$ le nombre positif dont le logarithme vaut $1$. Chaque argument doit être strictement positif."
                   },
                   {
                     "type": "exemple",
@@ -1614,13 +1813,12 @@
                   },
                   {
                     "type": "exemple",
-                    "titre": "Deux logarithmes",
-                    "enonce": "Résoudre $\\ln(x-1)+\\ln(x+2)=\\ln(4x-2)$.",
+                    "titre": "Exprimer en fonction de $\\ln(x)$",
+                    "enonce": "Pour $x>0$, écrire $3\\ln(x^2)-\\ln(x^3)+2\\ln\\left(\\dfrac{1}{x}\\right)$ en fonction de $\\ln(x)$.",
                     "etapes": [
-                      "Domaine : $x>1$, $x>-2$ et $x>\\dfrac{1}{2}$, donc $x>1$.",
-                      "On regroupe : $\\ln\\big((x-1)(x+2)\\big)=\\ln(4x-2)$, d'où $(x-1)(x+2)=4x-2$.",
-                      "$x^2+x-2=4x-2\\iff x^2-3x=0\\iff x=0$ ou $x=3$.",
-                      "$0$ n'est pas dans le domaine : $S=\\{3\\}$."
+                      "$3\\ln(x^2)=6\\ln(x)$ et $\\ln(x^3)=3\\ln(x)$.",
+                      "$2\\ln\\left(\\dfrac{1}{x}\\right)=-2\\ln(x)$.",
+                      "Total : $6\\ln(x)-3\\ln(x)-2\\ln(x)=\\ln(x)$."
                     ]
                   },
                   {
@@ -1636,9 +1834,9 @@
                   },
                   {
                     "type": "question",
-                    "enonce": "Résoudre $\\ln(x+3)+\\ln(x-3)=\\ln(16)$. Quelle est la solution ?",
-                    "reponse": 5,
-                    "explication": "Domaine : $x>3$. $(x+3)(x-3)=16\\iff x^2=25$, donc $x=5$ ($-5$ n'est pas dans le domaine)."
+                    "enonce": "On sait que $\\ln(\\mathrm{e})=1$. Que vaut $\\ln(\\mathrm{e}^2)$ ?",
+                    "reponse": 2,
+                    "explication": "Par la propriété d’une puissance, $\\ln(\\mathrm{e}^2)=2\\ln(\\mathrm{e})=2$."
                   },
                   {
                     "type": "retenir",
@@ -1650,9 +1848,7 @@
             },
             {
               "titre": "Dériver avec ln",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 4,
               "fiche": {
                 "titre": "Dériver avec ln",
                 "avant": true,
@@ -1725,13 +1921,13 @@
                     "texte": "- $\\big(\\ln(u)\\big)'\\neq\\dfrac{1}{u}$ : on multiplie par $u'$.\n- $\\ln(u)$ n'existe que si $u>0$ : préciser l'intervalle.\n- Simplifier avec les propriétés de $\\ln$ avant de dériver allège le calcul."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Primitives avec ln",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 4,
               "fiche": {
                 "titre": "Primitives avec ln",
                 "avant": true,
@@ -1766,16 +1962,6 @@
                       "$g(x)=x^2-4$ et $g'(x)=2x$ : il manque le facteur $2$.",
                       "$f(x)=\\dfrac{1}{2}\\cdot\\dfrac{2x}{x^2-4}$.",
                       "$F(x)=\\dfrac{1}{2}\\ln(x^2-4)$, car $x^2-4>0$ sur cet intervalle."
-                    ]
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Avec $\\ln$ au dénominateur",
-                    "enonce": "Trouver une primitive de $f(x)=\\dfrac{3}{x\\big(1+\\ln(x)\\big)}$ sur $\\left]\\mathrm{e}^{-1};+\\infty\\right[$.",
-                    "etapes": [
-                      "$g(x)=1+\\ln(x)$ et $g'(x)=\\dfrac{1}{x}$.",
-                      "$f(x)=3\\cdot\\dfrac{\\frac{1}{x}}{1+\\ln(x)}=3\\cdot\\dfrac{g'(x)}{g(x)}$.",
-                      "Sur l'intervalle, $\\ln(x)>-1$, donc $g(x)>0$ : $F(x)=3\\ln\\big(1+\\ln(x)\\big)$."
                     ]
                   },
                   {
@@ -1816,20 +2002,20 @@
                     "texte": "- Si le numérateur n'est pas proportionnel à $g'$, la méthode ne s'applique pas telle quelle (par exemple $\\dfrac{1}{x^2+1}$).\n- $\\ln|g|$ : la valeur absolue ne s'enlève que si $g>0$ sur l'intervalle.\n- $g$ ne doit pas s'annuler sur l'intervalle d'intégration."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "Graphe et limites",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "titre": "Graphes et limites de ln",
+              "nb": 3,
               "fiche": {
-                "titre": "Graphe et limites",
+                "titre": "Graphes et limites de ln",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "texte",
-                    "texte": "Pour tracer une fonction logarithmique, il faut son domaine et son comportement aux bords. Tout part du graphe de $\\ln$."
+                    "texte": "On commence par les translations et symétries du graphe, puis on calcule des limites de logarithmes composés et de différences de logarithmes."
                   },
                   {
                     "type": "retenir",
@@ -1878,7 +2064,7 @@
                   {
                     "type": "retenir",
                     "titre": "Transformations",
-                    "texte": "- $\\ln(x)+k$ : translation verticale.\n- $\\ln(x+k)$ : translation horizontale de $-k$, domaine $]-k;+\\infty[$.\n- $-\\ln(x)$ : symétrie par rapport à l'axe des abscisses.\n- $\\ln(-x)$ : symétrie par rapport à l'axe des ordonnées, domaine $]-\\infty;0[$.\n- $|\\ln(x)|$ : la partie sous l'axe est repliée au-dessus.\n- $\\ln|x|$ : domaine $\\mathbb{R}\\setminus\\{0\\}$, courbe symétrique par rapport à l'axe des ordonnées.\n- $2\\ln(x)$ : étirement vertical."
+                    "texte": "- $\\ln(x)+k$ : translation verticale.\n- $\\ln(x+k)$ : translation horizontale de $-k$, domaine $]-k;+\\infty[$.\n- $-\\ln(x)$ : symétrie par rapport à l'axe des abscisses.\n- $\\ln(-x)$ : symétrie par rapport à l'axe des ordonnées, domaine $]-\\infty;0[$."
                   },
                   {
                     "type": "retenir",
@@ -1906,16 +2092,6 @@
                     ]
                   },
                   {
-                    "type": "exemple",
-                    "titre": "Un quotient",
-                    "enonce": "Calculer $\\displaystyle\\lim_{x\\to1^-}\\dfrac{-2x-3\\ln(x)}{\\ln(x)}$.",
-                    "etapes": [
-                      "Numérateur : il tend vers $-2$.",
-                      "Dénominateur : $\\ln(x)$ tend vers $0$ en restant négatif, car $x<1$.",
-                      "Par la règle du quotient, la limite vaut $+\\infty$."
-                    ]
-                  },
-                  {
                     "type": "question",
                     "enonce": "Le domaine de $f(x)=\\ln(4-x^2)$ est :",
                     "choix": [
@@ -1938,13 +2114,82 @@
                     "texte": "- $\\ln(u)\\to-\\infty$ seulement si $u\\to0^+$, pas si $u\\to0$ en restant négatif (hors domaine).\n- Une différence de deux logarithmes qui tendent vers $+\\infty$ : regrouper en un seul $\\ln$.\n- Toujours le domaine avant les limites."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Équations logarithmiques",
+              "nb": 2,
+              "fiche": {
+                "titre": "Équations logarithmiques",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "Après les équations à un seul logarithme, on regroupe plusieurs logarithmes avant de résoudre."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Domaine",
+                    "texte": "Chaque argument de $\\ln$ doit être strictement positif. Une solution de l’équation transformée peut ne pas appartenir à ce domaine."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Regrouper les logarithmes",
+                    "texte": "Pour $u,v>0$, $\\ln(u)+\\ln(v)=\\ln(uv)$ et $\\ln(u)-\\ln(v)=\\ln(u/v)$. La stricte croissance de $\\ln$ permet ensuite de comparer les arguments."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Deux logarithmes",
+                    "enonce": "Résoudre $\\ln(x-1)+\\ln(x+2)=\\ln(4x-2)$.",
+                    "etapes": [
+                      "Domaine : $x>1$, $x>-2$ et $x>\\dfrac{1}{2}$, donc $x>1$.",
+                      "On regroupe : $\\ln\\big((x-1)(x+2)\\big)=\\ln(4x-2)$, d'où $(x-1)(x+2)=4x-2$.",
+                      "$x^2+x-2=4x-2\\iff x^2-3x=0\\iff x=0$ ou $x=3$.",
+                      "$0$ n'est pas dans le domaine : $S=\\{3\\}$."
+                    ]
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Une différence",
+                    "enonce": "Résoudre $\\ln(x+1)-\\ln(x-1)=\\ln(2)$.",
+                    "etapes": [
+                      "Le domaine est $x>1$.",
+                      "$\\frac{x+1}{x-1}=2$, donc $x+1=2x-2$.",
+                      "$x=3$ appartient au domaine : $S=\\{3\\}$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Résoudre $\\ln(x+3)+\\ln(x-3)=\\ln(16)$. Quelle est la solution ?",
+                    "reponse": 5,
+                    "explication": "Domaine : $x>3$. $(x+3)(x-3)=16\\iff x^2=25$, donc $x=5$ ($-5$ n'est pas dans le domaine)."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La condition pour $\\ln(x-2)+\\ln(x+1)$ est :",
+                    "choix": [
+                      "$x>2$",
+                      "$x>-1$",
+                      "$x\\ne2$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Il faut simultanément $x-2>0$ et $x+1>0$, donc $x>2$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "- $\\ln(x+y)\\neq\\ln(x)+\\ln(y)$.\n- Vérifier que chaque solution est dans le domaine.\n- $\\ln(x^2)=2\\ln(x)$ seulement si $x>0$ ; en général, $\\ln(x^2)=2\\ln|x|$."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Décomposition en éléments simples",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 3,
               "fiche": {
                 "titre": "Décomposition en éléments simples",
                 "avant": true,
@@ -2016,15 +2261,15 @@
                     "texte": "- Factoriser complètement le dénominateur avant de décomposer.\n- Diviser d'abord si le numérateur est de degré trop grand.\n- Les primitives s'écrivent avec des valeurs absolues : $\\ln|x-\\alpha|$."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "La fonction exponentielle",
-              "nb": 2,
-              "acces": "seuil",
-              "seuil": 80,
+              "titre": "Propriétés et équations exponentielles",
+              "nb": 3,
               "fiche": {
-                "titre": "La fonction exponentielle",
+                "titre": "Propriétés et équations exponentielles",
                 "avant": true,
                 "blocs": [
                   {
@@ -2071,9 +2316,14 @@
                     "texte": "- $\\mathrm{e}^x>0$ pour tout réel $x$, et $\\mathrm{e}^0=1$.\n- $\\mathrm{e}^{x+y}=\\mathrm{e}^x\\cdot\\mathrm{e}^y$, $\\mathrm{e}^{x-y}=\\dfrac{\\mathrm{e}^x}{\\mathrm{e}^y}$, $\\left(\\mathrm{e}^x\\right)^r=\\mathrm{e}^{rx}$.\n- $\\displaystyle\\lim_{x\\to-\\infty}\\mathrm{e}^x=0$ (asymptote horizontale $y=0$) et $\\displaystyle\\lim_{x\\to+\\infty}\\mathrm{e}^x=+\\infty$."
                   },
                   {
-                    "type": "retenir",
-                    "titre": "Dérivées",
-                    "texte": "$$\\big(\\mathrm{e}^x\\big)'=\\mathrm{e}^x\\qquad\\big(\\mathrm{e}^{u(x)}\\big)'=u'(x)\\cdot\\mathrm{e}^{u(x)}$$"
+                    "type": "exemple",
+                    "titre": "Une solution entière",
+                    "enonce": "Résoudre $2^x=8$.",
+                    "etapes": [
+                      "$8=2^3$.",
+                      "La fonction $x\\mapsto2^x$ est strictement croissante.",
+                      "$2^x=2^3\\iff x=3$."
+                    ]
                   },
                   {
                     "type": "exemple",
@@ -2096,12 +2346,80 @@
                     ]
                   },
                   {
+                    "type": "question",
+                    "enonce": "Résoudre $\\mathrm{e}^x\\cdot\\mathrm{e}^{x+1}=\\mathrm{e}^7$. Quelle est la solution ?",
+                    "reponse": 3,
+                    "explication": "$\\mathrm{e}^{2x+1}=\\mathrm{e}^7\\iff2x+1=7\\iff x=3$."
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\mathrm{e}^{x+2}$ s’écrit :",
+                    "choix": [
+                      "$\\mathrm{e}^x+\\mathrm{e}^2$",
+                      "$\\mathrm{e}^x\\cdot\\mathrm{e}^2$",
+                      "$2\\mathrm{e}^x$"
+                    ],
+                    "bonne": 1,
+                    "explication": "La somme des exposants devient un produit : $\\mathrm{e}^{x+2}=\\mathrm{e}^x\\mathrm{e}^2$."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Pièges",
+                    "texte": "$\\mathrm{e}^x$ est strictement positif. Une somme de deux exponentielles ne se regroupe pas en additionnant les exposants."
+                  }
+                ]
+              },
+              "acces": "seuil",
+              "seuil": 80
+            },
+            {
+              "titre": "Dériver avec l’exponentielle",
+              "nb": 3,
+              "fiche": {
+                "titre": "Dériver avec l’exponentielle",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "texte",
+                    "texte": "On dérive d’abord une exponentielle de fonction affine, puis de fonction polynomiale, avant de l’utiliser dans un produit."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Dérivées",
+                    "texte": "$$\\big(\\mathrm{e}^x\\big)'=\\mathrm{e}^x\\qquad\\big(\\mathrm{e}^{u(x)}\\big)'=u'(x)\\cdot\\mathrm{e}^{u(x)}$$"
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un exposant affine",
+                    "enonce": "Dériver $f(x)=\\mathrm{e}^{-2x+1}$.",
+                    "etapes": [
+                      "$u(x)=-2x+1$, donc $u\\prime(x)=-2$.",
+                      "$f\\prime(x)=u\\prime(x)\\mathrm{e}^{u(x)}$.",
+                      "$f\\prime(x)=-2\\mathrm{e}^{-2x+1}$."
+                    ]
+                  },
+                  {
                     "type": "exemple",
                     "titre": "Dériver",
                     "enonce": "Dériver $h(x)=\\mathrm{e}^{3x^2-1}$.",
                     "etapes": [
                       "$u(x)=3x^2-1$ et $u'(x)=6x$.",
                       "$h'(x)=6x\\,\\mathrm{e}^{3x^2-1}$."
+                    ]
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Produit",
+                    "texte": "$(uv)\\prime=u\\prime v+uv\\prime$."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un produit",
+                    "enonce": "Dériver $h(x)=x^2\\mathrm{e}^x$.",
+                    "etapes": [
+                      "On utilise $u(x)=x^2$ et $v(x)=\\mathrm{e}^x$.",
+                      "$h\\prime(x)=2x\\mathrm{e}^x+x^2\\mathrm{e}^x$.",
+                      "$h\\prime(x)=(2x+x^2)\\mathrm{e}^x$."
                     ]
                   },
                   {
@@ -2117,25 +2435,25 @@
                   },
                   {
                     "type": "question",
-                    "enonce": "Résoudre $\\mathrm{e}^x\\cdot\\mathrm{e}^{x+1}=\\mathrm{e}^7$. Quelle est la solution ?",
+                    "enonce": "Pour $f(x)=\\mathrm{e}^{3x}$, que vaut $f\\prime(0)$ ?",
                     "reponse": 3,
-                    "explication": "$\\mathrm{e}^{2x+1}=\\mathrm{e}^7\\iff2x+1=7\\iff x=3$."
+                    "explication": "$f\\prime(x)=3\\mathrm{e}^{3x}$, donc $f\\prime(0)=3$."
                   },
                   {
                     "type": "retenir",
                     "titre": "Pièges",
-                    "texte": "- $\\mathrm{e}^x+\\mathrm{e}^y\\neq\\mathrm{e}^{x+y}$.\n- $\\mathrm{e}^x$ n'est jamais nul ni négatif : $\\mathrm{e}^x=-2$ n'a pas de solution.\n- En dérivant $\\mathrm{e}^{u}$, ne pas oublier le facteur $u'$."
+                    "texte": "Ne pas oublier $u\\prime$. La dérivée de $\\mathrm{e}^u$ n’est pas une puissance $u\\mathrm{e}^{u-1}$."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "Primitives avec l'exponentielle",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80,
+              "titre": "Primitives avec l’exponentielle",
+              "nb": 3,
               "fiche": {
-                "titre": "Primitives avec l'exponentielle",
+                "titre": "Primitives avec l’exponentielle",
                 "avant": true,
                 "blocs": [
                   {
@@ -2211,15 +2529,15 @@
                     "texte": "- $\\mathrm{e}^{x^2}$ seule, sans facteur $x$, n'a pas de primitive qui s'écrive avec les fonctions usuelles.\n- Ne pas oublier $\\dfrac{1}{a}$ devant $\\mathrm{e}^{ax+b}$.\n- Seul un facteur constant se compense."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
               "titre": "Autres bases",
-              "nb": 3,
-              "acces": "seuil",
-              "seuil": 80,
+              "nb": 4,
               "fiche": {
-                "titre": "Exponentielles et logarithmes de base a",
+                "titre": "Autres bases",
                 "avant": true,
                 "blocs": [
                   {
@@ -2293,20 +2611,35 @@
                     "texte": "- $\\big(a^x\\big)'\\neq x\\,a^{x-1}$ : la variable est dans l'exposant.\n- La base d'un logarithme est différente de $1$.\n- Ne pas oublier le facteur $\\ln(a)$."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             },
             {
-              "titre": "Aires et volumes",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80,
+              "titre": "Croissances comparées, aires et volumes",
+              "nb": 3,
               "fiche": {
-                "titre": "Aires et volumes avec exp et ln",
+                "titre": "Croissances comparées, aires et volumes",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "texte",
-                    "texte": "Les aires et les volumes se calculent comme au chapitre précédent. Les primitives en $\\ln$ et en $\\exp$ en élargissent le champ."
+                    "texte": "Les calculs précédents servent maintenant à étudier un comportement à l’infini, à calculer une aire et à déterminer un volume avec exponentielle et logarithme."
+                  },
+                  {
+                    "type": "retenir",
+                    "titre": "Croissances comparées",
+                    "texte": "À l’infini, une puissance positive domine le logarithme et l’exponentielle domine une puissance : pour $r>0$, $\\lim_{x\\to+\\infty}\\frac{\\ln(x)}{x^r}=0$ et $\\lim_{x\\to+\\infty}\\frac{x^r}{\\mathrm{e}^x}=0$."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Un quotient avec ln",
+                    "enonce": "Calculer $\\lim_{x\\to+\\infty}\\frac{3\\ln(x)+2}{x}$.",
+                    "etapes": [
+                      "On écrit $\\frac{3\\ln(x)+2}{x}=3\\frac{\\ln(x)}{x}+\\frac2x$.",
+                      "Par croissance comparée, $\\lim_{x\\to+\\infty}\\frac{\\ln(x)}x=0$.",
+                      "Par somme, la limite demandée vaut $0$."
+                    ]
                   },
                   {
                     "type": "exemple",
@@ -2371,6 +2704,16 @@
                     ]
                   },
                   {
+                    "type": "exemple",
+                    "titre": "Deux rayons",
+                    "enonce": "Faire tourner le domaine entre $f(x)=\\sqrt{\\mathrm{e}^{2x}-2}$ et $g(x)=\\mathrm{e}^{2x}-2$ autour de l’axe des abscisses.",
+                    "etapes": [
+                      "Les intersections ont pour abscisses $a=\\frac{\\ln(2)}2$ et $b=\\frac{\\ln(3)}2$. Entre ces bornes, $f\\geqslant g\\geqslant0$.",
+                      "$V=\\pi\\int_a^b(f(x)^2-g(x)^2)\\,\\mathrm{d}x$.",
+                      "$V=\\pi\\int_a^b(5\\mathrm{e}^{2x}-\\mathrm{e}^{4x}-6)\\,\\mathrm{d}x=\\pi\\big(\\frac54-3\\ln(\\frac32)\\big)$."
+                    ]
+                  },
+                  {
                     "type": "question",
                     "enonce": "L'aire sous la courbe de $\\dfrac{1}{x}$ entre $x=1$ et $x=\\mathrm{e}$ vaut :",
                     "choix": [
@@ -2393,124 +2736,254 @@
                     "texte": "- $\\ln(x)<0$ sur $]0;1[$ : la courbe y est sous l'axe.\n- Placer les courbes avant d'intégrer : la courbe de $\\mathrm{e}^x$ est sous ses cordes.\n- Un volume se calcule avec $f(x)^2$."
                   }
                 ]
-              }
+              },
+              "acces": "seuil",
+              "seuil": 80
             }
           ],
           "etapes": [
             {
-              "uuid": "2c0b2",
-              "id": "2mLogExp-3",
-              "nbQuestions": 2,
-              "titre": "Exprimer en fonction de ln(x)",
-              "sup2": "true"
-            },
-            {
               "uuid": "305fd",
               "id": "2mLogExp-4",
               "nbQuestions": 2,
-              "titre": "Résoudre une équation avec le logarithme naturel"
+              "titre": "Résoudre une équation à un seul logarithme",
+              "sup": "2"
             },
             {
-              "uuid": "2l11f",
-              "id": "2mLogExp-11",
-              "nbQuestions": 2,
-              "titre": "Résoudre des équations logarithmiques",
-              "sup": "5",
+              "uuid": "2c0b2",
+              "id": "2mLogExp-3",
+              "nbQuestions": 1,
+              "titre": "Réduire une expression en fonction de ln(x)",
+              "sup": "1",
               "sup2": "true"
             },
             {
               "uuid": "25135",
-              "id": "4mAna-1",
-              "nbQuestions": 3,
-              "titre": "Calculer la dérivée de ln(u)",
-              "sup": "4"
+              "id": "4mDer-1",
+              "nbQuestions": 1,
+              "titre": "Dériver ln(ax+b)",
+              "sup": "1"
+            },
+            {
+              "uuid": "25135",
+              "id": "4mDer-1",
+              "nbQuestions": 1,
+              "titre": "Dériver le logarithme d’une puissance",
+              "sup": "3"
             },
             {
               "uuid": "7fccd",
-              "id": "4mAna-4",
-              "nbQuestions": 2,
-              "titre": "Dériver une fonction composée avec ln",
-              "sup": "0-0-0-0-0-0-0-1*1-1-0-0-0-0-0-0-0"
+              "id": "4mDer-4",
+              "nbQuestions": 1,
+              "titre": "Dériver ln(u) avec u polynomiale",
+              "sup": "0-0-0-0-0-0-0-1*0-1-0-0-0-0-0-0-0"
             },
             {
-              "uuid": "d1a94",
-              "id": "4mExpLog-2",
-              "nbQuestions": 3,
-              "titre": "Déterminer une primitive avec ln",
-              "sup": "1-1-1-0-1-0-0"
+              "uuid": "ce9e6",
+              "id": "4mDer-5",
+              "nbQuestions": 1,
+              "titre": "Réviser la règle du produit (polynômes ou ln)",
+              "sup": "1-0-0-0*1-0-0-0-1"
             },
             {
               "uuid": "0f7aa",
               "id": "4mExpLog-1",
-              "nbQuestions": 2,
-              "titre": "Calculer une intégrale avec un logarithme"
+              "nbQuestions": 1,
+              "titre": "Intégrer un inverse de fonction affine"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 1,
+              "titre": "Reconnaître u’/u avec u polynomiale",
+              "sup": "1-0-0-0-0-0-0"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 1,
+              "titre": "Reconnaître u’/u avec sinus ou cosinus",
+              "sup": "0-1-0-0-0-0-0"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 1,
+              "titre": "Primitiver une puissance de ln",
+              "sup": "0-0-0-0-1-0-0"
             },
             {
               "uuid": "c8872",
               "id": "4mExpLog-4",
               "nbQuestions": 1,
-              "titre": "Associer des transformations de la fonction logarithme à leurs courbes"
+              "titre": "Reconnaître translations et symétries de ln, avec les domaines",
+              "sup": "1111000*1"
             },
             {
               "uuid": "ba864",
               "id": "4mExpLog-6",
-              "nbQuestions": 3,
-              "titre": "Calculer une limite avec le logarithme"
+              "nbQuestions": 1,
+              "titre": "Calculer une limite de logarithme composé",
+              "sup": "1-0-0"
             },
             {
-              "uuid": "e0648",
-              "id": "4mExpLog-3",
-              "nbQuestions": 2,
-              "titre": "Décomposer en éléments simples pour calculer une intégrale"
+              "uuid": "ba864",
+              "id": "4mExpLog-6",
+              "nbQuestions": 1,
+              "titre": "Calculer une limite de différence de logarithmes",
+              "sup": "0-0-1"
             },
             {
-              "uuid": "rvjcl",
-              "id": "2mLogExp-12",
-              "nbQuestions": 2,
-              "titre": "Résoudre des équations exponentielles",
+              "uuid": "2l11f",
+              "id": "2mLogExp-11",
+              "nbQuestions": 1,
+              "titre": "Regrouper une somme de logarithmes",
               "sup": "3",
               "sup2": "true"
             },
             {
+              "uuid": "2l11f",
+              "id": "2mLogExp-11",
+              "nbQuestions": 1,
+              "titre": "Regrouper une différence de logarithmes",
+              "sup": "4",
+              "sup2": "true"
+            },
+            {
+              "uuid": "e0648",
+              "id": "4mExpLog-3",
+              "nbQuestions": 1,
+              "titre": "Décomposer avec un numérateur constant et des facteurs unitaires",
+              "sup": "1-0-0-0*1"
+            },
+            {
+              "uuid": "e0648",
+              "id": "4mExpLog-3",
+              "nbQuestions": 1,
+              "titre": "Décomposer avec un numérateur affine et des facteurs unitaires",
+              "sup": "0-1-0-0*1"
+            },
+            {
+              "uuid": "e0648",
+              "id": "4mExpLog-3",
+              "nbQuestions": 1,
+              "titre": "Décomposer avec des coefficients fractionnaires",
+              "sup": "0-0-0-1*0"
+            },
+            {
+              "uuid": "00ec8",
+              "id": "2mLogExp-2",
+              "nbQuestions": 1,
+              "titre": "Résoudre une équation exponentielle à solution entière",
+              "sup": "2",
+              "sup2": "2"
+            },
+            {
+              "uuid": "rvjcl",
+              "id": "2mLogExp-12",
+              "nbQuestions": 1,
+              "titre": "Résoudre une équation exponentielle simple",
+              "sup": "1",
+              "sup2": "true"
+            },
+            {
+              "uuid": "rvjcl",
+              "id": "2mLogExp-12",
+              "nbQuestions": 1,
+              "titre": "Résoudre une équation exponentielle mixte",
+              "sup": "2",
+              "sup2": "true"
+            },
+            {
               "uuid": "7fccd",
-              "id": "4mAna-4",
-              "nbQuestions": 2,
-              "titre": "Dériver une fonction composée avec exp",
-              "sup": "0-0-0-0-0-0-1-0*1-1-0-0-0-0-0-0-0"
+              "id": "4mDer-4",
+              "nbQuestions": 1,
+              "titre": "Dériver une exponentielle d’exposant affine",
+              "sup": "0-0-0-0-0-0-1-0*1-0-0-0-0-0-0-0-0"
+            },
+            {
+              "uuid": "7fccd",
+              "id": "4mDer-4",
+              "nbQuestions": 1,
+              "titre": "Dériver une exponentielle d’exposant polynomial",
+              "sup": "0-0-0-0-0-0-1-0*0-1-0-0-0-0-0-0-0"
+            },
+            {
+              "uuid": "ce9e6",
+              "id": "4mDer-5",
+              "nbQuestions": 1,
+              "titre": "Réviser la règle du produit (polynômes ou exp)",
+              "sup": "1-0-0-0*1-0-0-1-0"
             },
             {
               "uuid": "d1a94",
               "id": "4mExpLog-2",
-              "nbQuestions": 3,
-              "titre": "Déterminer une primitive avec l'exponentielle",
-              "sup": "0-0-1-1-0-1-0"
-            },
-            {
-              "uuid": "c7b5a",
-              "id": "4mExpLog-5",
-              "nbQuestions": 3,
-              "titre": "Dériver des fonctions exponentielles et logarithmes de base a"
+              "nbQuestions": 2,
+              "titre": "Reconnaître u’ exp(u)",
+              "sup": "0-0-0-1-0-0-0"
             },
             {
               "uuid": "d1a94",
               "id": "4mExpLog-2",
-              "nbQuestions": 2,
-              "titre": "Déterminer une primitive d'une exponentielle de base a",
-              "sup": "0-0-0-0-0-0-1"
+              "nbQuestions": 1,
+              "titre": "Primitiver une puissance d’expression exponentielle",
+              "sup": "0-0-0-0-0-1-0"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 1,
+              "titre": "Reconnaître u’/u avec exp ou ln",
+              "sup": "0-0-1-0-0-0-0"
             },
             {
               "uuid": "2l10e",
               "id": "2mLogExp-10",
-              "nbQuestions": 2,
-              "titre": "Utiliser les propriétés des logarithmes",
+              "nbQuestions": 1,
+              "titre": "Utiliser le changement de base des logarithmes",
               "sup": "true"
+            },
+            {
+              "uuid": "c7b5a",
+              "id": "4mExpLog-5",
+              "nbQuestions": 1,
+              "titre": "Dériver une exponentielle ou un logarithme de base a",
+              "sup": "1-0-1-0"
+            },
+            {
+              "uuid": "c7b5a",
+              "id": "4mExpLog-5",
+              "nbQuestions": 1,
+              "titre": "Dériver une fonction composée de base a",
+              "sup": "0-1-0-1"
+            },
+            {
+              "uuid": "d1a94",
+              "id": "4mExpLog-2",
+              "nbQuestions": 1,
+              "titre": "Primitiver une exponentielle de base a",
+              "sup": "0-0-0-0-0-0-1"
+            },
+            {
+              "uuid": "ba864",
+              "id": "4mExpLog-6",
+              "nbQuestions": 1,
+              "titre": "Calculer une limite de quotient avec ln",
+              "sup": "0-1-0"
             },
             {
               "uuid": "7b0fb",
               "id": "4mInt-8",
-              "nbQuestions": 2,
-              "titre": "Calculer l'aire d'un domaine délimité par deux courbes",
+              "nbQuestions": 1,
+              "titre": "Calculer une aire avec exp et ln",
               "sup": "0-0-0-0-1*0"
+            },
+            {
+              "uuid": "bae8f",
+              "id": "4mInt-9",
+              "nbQuestions": 1,
+              "titre": "Calculer un volume entre exponentielle et racine",
+              "sup": "0-1*0-0-0-1"
             }
           ]
         }

@@ -32,7 +32,7 @@ bilan d'un palier raté). Elle prépare les exercices du palier, rien de plus.
 
 Format exact (blocs, champs, expressions des graphiques) :
 `docs/guide/format-parcours.md`, « Fiches de cours ». Vérité : `estFiche`
-dans `src/lib/validation.ts`. Modèle de référence : les six fiches de
+dans `src/lib/validation.ts`. Modèle de référence : les fiches de
 `explorer/ch-4e-college.json` (Intégration, 4e Collège).
 
 ## Où l'écrire
@@ -47,6 +47,14 @@ dans `src/lib/validation.ts`. Modèle de référence : les six fiches de
   toutes ses fiches.
 - À la main ou par une IA : écrire le JSON, le contrôler (plus bas), puis
   l'importer sur le site pour le relire dans l'aperçu.
+- Pour 4M1, `explorer/ch-4e-college.json` contient les parcours complets,
+  les paramètres des exercices et les fiches dans les paliers. Le YAML de
+  `cours2627/4M1/mathalea/parcours.yml` conserve le plan pédagogique et les
+  repères du cours ; les fiches sont maintenues dans le catalogue JSON.
+- Un fichier modifié dans `explorer/` reste local tant qu'il n'a pas été
+  déposé dans le dossier partagé de l'Explorer. Dans le compte rendu,
+  distinguer fichier prêt, vérification locale et publication effective.
+  Une modification de skill ou de contenu ne vaut pas demande de publication.
 
 ## Structure d'une fiche (8 à 15 blocs)
 
@@ -131,6 +139,38 @@ manuel. Il s'ouvre hors de l'app ; le titre dit ce que l'élève va trouver
 (« Vidéo : l'aire sous une courbe, 4 min »). Pour revoir la notion après un
 palier raté, préférer la `ressource` du palier (mise en avant au bilan).
 
+## Progression et paramètres des exercices
+
+Pour les parcours 4M1 d'intégration et d'exp-log, lire aussi
+[les paramètres et pièges vérifiés](references/parametres-4m1.md).
+
+- Respecter les prérequis du chapitre dans les questions et dans la fiche.
+  Pour 4M1, le rappel de dérivation en intégration reste algébrique et
+  trigonométrique ; ln et exp se travaillent après leur introduction.
+- Fixer les familles explicitement, puis lire le formulaire du moteur
+  réellement utilisé et plusieurs tirages. Une case cochée peut autoriser
+  un type sans en garantir la présence : dans les produits de dérivées,
+  les types des deux facteurs sont tirés indépendamment. Étiqueter ce qui
+  est effectivement évalué, y compris une éventuelle révision.
+- Quand les exercices sont gradués au sein d'une ceinture, conserver leur
+  ordre avec `melanger: false`. Commencer par un cas simple garanti avant
+  d'autoriser plusieurs familles ou un calcul plus long : calcul direct
+  avant composition, données utiles fournies avant leur recherche,
+  coefficients simples avant coefficients fractionnaires.
+- Vérifier les limites des filtres dans le générateur : par exemple,
+  « puissance » peut inclure des exposants négatifs et une famille de
+  primitives peut mélanger exp et ln. Choisir un autre exercice si le
+  paramètre ne permet pas d'isoler le savoir-faire annoncé.
+- Contrôler les champs effectivement lus : ordre et longueur des listes,
+  liste binaire ou pondérée, nombres et booléens. Un paramètre mal formé ou
+  une sélection vide peut réactiver des valeurs par défaut. Vérifier aussi
+  les compléments automatiques et les paramètres sans effet sur certaines
+  familles.
+- Identifier le moteur réellement servi pendant les essais, par son
+  `manifest.json`. Un serveur déjà lancé peut venir d'un autre worktree.
+  Comparer ses familles à celles du moteur destiné aux élèves ; consigner
+  une dépendance à une version plus récente.
+
 ## Contrôler avant de rendre
 
 1. `npx tsx scripts/verifier-fiche.mts <fichier>` : fiche seule, fiche nue ou
@@ -139,7 +179,18 @@ palier raté, préférer la `ressource` du palier (mise en avant au bilan).
 3. Relire dans l'aperçu du site (onglet Fiches) puis dans l'app (« Éditer un
    parcours existant », « Aperçu élève ») : formules rendues, graphique
    lisible à 390 px, étapes et questions qui répondent.
-4. Parcours déjà diffusé : `version` + 1.
+4. Parcours déjà diffusé : `version` + 1 ; garder son `id` stable et les
+   métadonnées d'auteur. Si le plan YAML est maintenu, vérifier sa concordance
+   avec les étapes JSON (références, paramètres, ordre, nombres de questions).
+5. Générer plusieurs tirages de chaque configuration finale : relire les
+   énoncés et corrections pour vérifier les prérequis et le savoir-faire
+   annoncé. Distinguer génération sans erreur, contrôle mathématique des
+   exemples et acceptation des réponses dans l'interface.
+6. Lancer `node e2e/apercu-parcours.mjs <fichier> <id>`, relire les planches
+   et les transmettre à Nathan. Puis `PARCOURS=<id> node e2e/parcours-az.mjs
+   <fichier>` : vérifier les bonnes réponses, l'ouverture de la ceinture
+   suivante et les ceintures obtenues dans le suivi. Après une correction
+   des paramètres, contrôler la configuration finale.
 
 ## Faire écrire une fiche par une IA
 
