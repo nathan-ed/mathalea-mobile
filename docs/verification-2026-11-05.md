@@ -36,7 +36,7 @@ L'app est prête pour la release, à cinq conditions, dans l'ordre :
    `docs/notes-de-version/<v>.md` et `.play.txt` (brouillons plus bas), puis
    `bash scripts/publier.sh <v>`.
 
-## Corrigé cette nuit (5 commits)
+## Corrigé cette nuit (7 commits)
 
 | Commit | Quoi |
 | --- | --- |
@@ -45,6 +45,8 @@ L'app est prête pour la release, à cinq conditions, dans l'ordre :
 | 32ecda8 | **Docs** (voir « Plus d'actualité ») ; 165 captures et deux JSON versionnés par erreur à la racine retirés. |
 | 3f36ca7 | **Exercice inconnu du moteur** : un parcours écrit avec un MathALÉA plus récent que l'app donnait un écran vide ; l'élève lit maintenant « Ces exercices demandent une version plus récente de MathALÉA : mets l'application à jour, puis reviens. » (suite `e2e/exercice-inconnu.mjs`). Important depuis que l'Explorer change sans mise à jour de l'app. **Listes des fiches** juste après une phrase rendues en liste. **Migration des données** (prioritaire depuis le 30 octobre, jamais écrite) : données créées dans la 0.4.7 (Google Play, moteur extrait du binaire) et la 0.4.12 (forge), suite `e2e/mise-a-jour.mjs` et test unitaire. |
 | 5c20bdf | **Puissances** (11e, v3) : ceinture blanche avec au moins deux questions où le signe compte. **Primes** : 29 `\prime` seuls rendus « (u+v)ı » dans Calcul intégral et Exp-log. **Prérequis pour l'analyse** : listes en tirets bruts. |
+| 8014693 | **Accueil sans classe** : tous les parcours de l'Explorer cachés donnaient un titre « Mes parcours » vide et plus de tuile « Explorer les parcours ». |
+| b933615 | **EVACOM** (v5) : les 21 fiches passées en notations LaTeX (123 textes : fractions, puissances, racines), comme les autres parcours. |
 
 ### Puissances : ce qui a changé
 
@@ -90,9 +92,25 @@ Toutes les suites qui testent l'app sont vertes, y compris les nouvelles
 - Contrôle de toutes les formules des fiches par KaTeX (3 685) : aucune
   erreur hors les primes corrigées.
 
-### Seconde vérification complète (état final)
+### Seconde vérification complète (commit 879045f, 23 h 00 à 23 h 30)
 
-RÉSULTATS_FINAUX
+Coupée par un redémarrage du conteneur pendant `defilement-ecrans`, l'avant-
+dernière étape. Jusque-là : check, test, **cargo**, formats, formats-fin,
+az-2 et les 37 suites suivantes vertes, dont **impression**, fiches,
+exercice-inconnu, mise-a-jour, complet, explorer. Mêmes trois échecs dus au
+moteur 0.4.12 (az-1, az-3, catalogue-moteur), rien d'autre.
+
+### Après les deux derniers commits (état final b933615)
+
+Rejoué sur l'app construite : explorer-pays, exercice-inconnu, fiches,
+mise-a-jour, en-classe, paliers, retour, defilement, eleve-puis-enseignant
+(app sans adresse d'essai), explorer et defilement-ecrans (catalogue servi
+par la suite), complet (dossier partagé local, trois appareils) : **tous
+verts**. `pnpm check` : 0 erreur ; `pnpm test` : 340 verts ; formules des
+fiches : 3 840, aucune erreur KaTeX ; parcours-az des trois EVACOM : verts.
+
+Bilan : **aucun échec dû à l'app**. Restent à rejouer chez toi, avec le moteur
+à jour : catalogue-moteur et les trois parcours de 1re Collège.
 
 ## Constaté, pas corrigé (à décider)
 
@@ -105,9 +123,6 @@ Contenu (règles de rédaction du projet) :
   l'exemple (« Comparer 4 305 et 4 350 », puis « Quel nombre est le plus
   grand ? »). Pas de générateur dans le dépôt. À réécrire comme celles de
   11e.
-- **EVACOM** : fiches sans LaTeX (« Calculer 2/3 + 1/6 », « x² + 2x − 15 »),
-  contre la ligne éditoriale. Le générateur demande le catalogue JSON de
-  MathALÉA (non constructible ici).
 - MathALÉA : la consigne de 10NO3D-1 finit par « sans exposant et sans · »
   (× rendu en point avec la locale suisse) ; la consigne de la figure du
   guide-âne (4G30-0) est coupée à 390 px.
