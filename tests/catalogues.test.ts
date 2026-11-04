@@ -34,6 +34,13 @@ describe('fichiers de parcours livrés', () => {
     }
   })
 
+  it.each(FICHIERS)('%s : prime de dérivée en exposant (f^{\\prime}), jamais \\prime seul', (chemin) => {
+    // KaTeX dessine \prime seul comme un grand symbole posé sur la ligne : « (u+v)ı »
+    // (Calcul intégral et Exp-log, novembre 2026). $f'$ ou $f^{\prime}$
+    const seuls = JSON.stringify(parcoursDe(chemin)).match(/[^^{\\]\\\\prime/g) ?? []
+    expect(seuls, chemin).toEqual([])
+  })
+
   it.each(FICHIERS)('%s : chaque exercice a un uuid, un titre et des questions', (chemin) => {
     for (const p of parcoursDe(chemin))
       for (const e of p.etapes) {

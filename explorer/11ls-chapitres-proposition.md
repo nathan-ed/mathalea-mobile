@@ -29,7 +29,7 @@ restent à vérifier quand on générera le JSON (méthode `generer-parcours`).
 
 | Ceinture | Exercices |
 | --- | --- |
-| Calculer une puissance | 10NO3D-1 `36f8b`, 10NO3D-25 `eb865`, 10NO3D-6 `67432` (signe) |
+| Calculer une puissance | 10NO3D-1 `36f8b`, 10NO3D-25 `eb865`, 10NO3D-5 `125bd` avec nombres négatifs (pas 10NO3D-6 `67432` : une question sur quatre demande le signe de $a^n$ avec $a>0$) |
 | Puissances de 10 | 10NO3D-3 `93df9`, 10NO3D-2 `f5dcf`, 10NO3D-21 `6b2e5` |
 | Propriétés des puissances | 10NO3D-14 `b37ab`, 10NO3D-13 `65cdf`, 10NO3D-15 `66ec4`, 10NO3D-12 `71eba` |
 | Écriture scientifique | 10NO3F-1 `a0d17`, 10NO3F-2 `762fe`, 11NO3A-1 `8b399` |
@@ -187,6 +187,7 @@ Par utilité pour les élèves, puis par coût.
 | 7 | **Créer** pente en % et dénivellation (thème 10FA2D, vide) | 7 |
 | 8 | **Étendre** les arrondis avec la troncature | 3 |
 | 9 | Patrons de pyramide et de cône, Thalès généralisé, aléatoire ou non (interactif) | 8, 10, 14 |
+| 10 | **Étendre** 10NO3D-6 (signe d'une puissance) : option « bases négatives seulement », sans le type $a^n$ avec $a>0$ (Nathan, 2026-11-04 : sans signe, la question ne sert à rien) | 2 |
 
 Hors téléphone : constructions aux instruments (ch. 11 et 12), perspective cavalière,
 maniement de la TI-30XS, rédaction des justifications (Pythagore, similitude).

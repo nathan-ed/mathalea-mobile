@@ -14,18 +14,31 @@ from pathlib import Path
 
 FICHIER = Path(__file__).with_name('ch-4e-college.json')
 ID = 'ch-4c-prerequis-analyse'
-VERSION = 1
+# 2 : listes des fiches précédées d'une ligne vide (tirets bruts dans les apps 0.4.12 et avant)
+VERSION = 2
 NIVEAU = '4e Collège'
 THEME = 'Analyse'
 AUTEURS = ['l’équipe CoopMaths', 'Nathan Scheinmann', 'Claude Opus 5.5']
 
 
+def listes(texte):
+    """Ligne vide avant une liste qui suit une phrase (comme ch-11e-ls-gen.py) : les
+    apps d'avant le 2026-11-05 laissaient sinon les tirets bruts."""
+    lignes = texte.split('\n')
+    sortie = []
+    for k, l in enumerate(lignes):
+        if l.startswith('- ') and k and lignes[k - 1].strip() and not lignes[k - 1].startswith('- '):
+            sortie.append('')
+        sortie.append(l)
+    return '\n'.join(sortie)
+
+
 def T(texte):
-    return {'type': 'texte', 'texte': texte}
+    return {'type': 'texte', 'texte': listes(texte)}
 
 
 def R(titre, texte):
-    return {'type': 'retenir', 'titre': titre, 'texte': texte}
+    return {'type': 'retenir', 'titre': titre, 'texte': listes(texte)}
 
 
 def E(titre, enonce, etapes):

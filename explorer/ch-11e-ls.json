@@ -1,13 +1,13 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-11-03T06:57:28.000Z",
+  "exporteLe": "2026-11-04T22:35:35.000Z",
   "classes": [
     {
       "nom": "11e LS",
       "parcours": [
         {
           "id": "ch-11ls-puissances-racines",
-          "version": 2,
+          "version": 3,
           "titre": "Puissances et racines",
           "objectif": "Calculer avec des puissances, l’écriture scientifique et des racines carrées.",
           "auteurs": [
@@ -540,7 +540,7 @@
             {
               "uuid": "36f8b",
               "id": "10NO3D-1",
-              "nbQuestions": 4,
+              "nbQuestions": 2,
               "titre": "Calculer une puissance",
               "objectifs": [
                 "Calculer une puissance"
@@ -549,8 +549,8 @@
             {
               "uuid": "125bd",
               "id": "10NO3D-5",
-              "nbQuestions": 3,
-              "titre": "Puissances de nombres négatifs",
+              "nbQuestions": 6,
+              "titre": "Calculer une puissance, bases négatives comprises",
               "sup": "true",
               "objectifs": [
                 "Calculer une puissance"

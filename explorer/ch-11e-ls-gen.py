@@ -65,8 +65,10 @@ CHAPITRES = []
 
 # Version de chaque parcours, à augmenter à chaque modification diffusée (1 par défaut).
 # 2 : QCM remplacés par des exercices à réponse tapée quand le moteur en a un (0.4.12).
+# 3 (puissances) : bases négatives garanties dans la ceinture blanche (Nathan, 2026-11-04 :
+#   le signe d'une puissance n'a d'intérêt qu'avec une base négative).
 VERSIONS = {
-    'ch-11ls-puissances-racines': 2,
+    'ch-11ls-puissances-racines': 3,
     'ch-11ls-ensembles-nombres': 2,
     'ch-11ls-grandeurs-plan': 2,
     'ch-11ls-calcul-litteral': 2,
@@ -102,8 +104,15 @@ def C(titre, objectif, etapes, blocs):
 chapitre('ch-11ls-puissances-racines', 'Puissances et racines', 'bx-math',
          'Calculer avec des puissances, l’écriture scientifique et des racines carrées.', [
     C('Calculer une puissance', 'Calculer une puissance', [
-        X('36f8b', '10NO3D-1', 4, 'Calculer une puissance'),
-        X('125bd', '10NO3D-5', 3, 'Puissances de nombres négatifs', sup='true'),
+        # 10NO3D-1 : bases positives seulement. 10NO3D-5 (avec nombres négatifs)
+        # tire 6 types distincts parmi 10 ; six portent un signe (-a^n, (-a)^n,
+        # exposant pair ou impair, positif ou négatif) et a^0, a^1 ont une base
+        # négative une fois sur deux : au moins deux questions où le signe
+        # compte à chaque passage (avec 3 questions, parfois aucune).
+        # 10NO3D-6 (signe d'une puissance) n'est pas pris : une question sur
+        # quatre demande le signe de a^n avec a > 0, sans intérêt.
+        X('36f8b', '10NO3D-1', 2, 'Calculer une puissance'),
+        X('125bd', '10NO3D-5', 6, 'Calculer une puissance, bases négatives comprises', sup='true'),
     ], [
         T('Une puissance abrège un produit dont tous les facteurs sont égaux. On en a besoin dès qu’une même multiplication se répète : aires, volumes, très grands ou très petits nombres.'),
         R('Définition', r'Pour un nombre $a$ et un entier $n\geqslant1$ :' '\n' r'$$a^n=\underbrace{a\times a\times\cdots\times a}_{n\text{ facteurs}}$$' '\n' r'$a$ est la **base**, $n$ l’**exposant**. $a^2$ se lit « $a$ au carré », $a^3$ « $a$ au cube ».'),
