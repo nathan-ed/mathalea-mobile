@@ -81,6 +81,11 @@ jobs:
           name: captures-e2e-${{ strategy.job-index }}
           path: ${{ runner.temp }}/captures
 
+  # Windows, macOS, Linux. Construit par la CLI de Tauri (aucun secret ne va à
+  # une action tierce) : fichiers de mise à jour signés (clé TAURI_SIGNING_*,
+  # voir src-tauri/src/maj.rs) et, sur Mac, app et .dmg signés Developer ID et
+  # notarisés (secrets APPLE_DEVID_*, voir docs/iphone.md). Sans ces secrets,
+  # les mêmes fichiers sans signature.
   bureau:
     needs: [moteur, e2e]
     if: ${{ !inputs.cibles || inputs.cibles == 'tout' || inputs.cibles == 'bureau' }}
@@ -88,10 +93,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: ubuntu-22.04, args: '' }
-          - { os: windows-latest, args: '' }
-          - { os: macos-latest, args: '--target aarch64-apple-darwin' }
-          - { os: macos-15-intel, args: '--target x86_64-apple-darwin' }
+          - { os: ubuntu-22.04, cible: x86_64-unknown-linux-gnu, nom: linux }
+          - { os: windows-latest, cible: x86_64-pc-windows-msvc, nom: windows }
+          - { os: macos-latest, cible: aarch64-apple-darwin, nom: macos-apple-silicon }
+          - { os: macos-15-intel, cible: x86_64-apple-darwin, nom: macos-intel }
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
@@ -100,7 +105,19 @@ jobs:
         run: |
           f="docs/notes-de-version/$VERSION.md"
           test -s "$f" || { echo "Note de version manquante : $f"; exit 1; }
-          { echo 'NOTES<<FIN_NOTES'; cat "$f"; echo; echo 'FIN_NOTES'; } >> "$GITHUB_ENV"
+      # Les secrets ne vont qu'aux étapes de ce fichier (jamais à une action tierce)
+      - name: Clés fournies
+        id: cles
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          APPLE_DEVID_CERTIFICATE: ${{ secrets.APPLE_DEVID_CERTIFICATE }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+        run: |
+          echo "maj=${TAURI_SIGNING_PRIVATE_KEY:+oui}" >> "$GITHUB_OUTPUT"
+          if [ "$RUNNER_OS" = macOS ] && [ -n "$APPLE_DEVID_CERTIFICATE" ] && [ -n "$APPLE_ID" ]; then
+            echo "mac=oui" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/download-artifact@v8
         with:
           name: moteur
@@ -111,6 +128,8 @@ jobs:
       # Version de pnpm : champ packageManager de package.json
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          targets: ${{ matrix.cible }}
       - name: Dépendances Linux
         if: runner.os == 'Linux'
         run: |
@@ -121,15 +140,134 @@ jobs:
         with:
           workspaces: src-tauri -> target
       - run: pnpm install --frozen-lockfile
-      - uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # v1
+      # Trousseau temporaire : certificat Developer ID et autorité intermédiaire
+      # d'Apple (G2), accessibles à codesign sans fenêtre de mot de passe
+      - name: Certificat Developer ID
+        if: steps.cles.outputs.mac
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_DEVID_CERTIFICATE: ${{ secrets.APPLE_DEVID_CERTIFICATE }}
+          APPLE_DEVID_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DEVID_CERTIFICATE_PASSWORD }}
+        run: |
+          kc="$RUNNER_TEMP/signature.keychain-db"
+          mdp=$(openssl rand -hex 24)
+          security create-keychain -p "$mdp" "$kc"
+          security set-keychain-settings -lut 21600 "$kc"
+          security unlock-keychain -p "$mdp" "$kc"
+          printf '%s' "$APPLE_DEVID_CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/devid.p12"
+          security import "$RUNNER_TEMP/devid.p12" -k "$kc" -P "$APPLE_DEVID_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          rm -f "$RUNNER_TEMP/devid.p12"
+          curl -fsSL https://www.apple.com/certificateauthority/DeveloperIDG2CA.cer -o "$RUNNER_TEMP/g2.cer"
+          security import "$RUNNER_TEMP/g2.cer" -k "$kc" || true
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$mdp" "$kc" > /dev/null
+          security list-keychains -d user -s "$kc" $(security list-keychains -d user | tr -d '"')
+          identite=$(security find-identity -v -p codesigning "$kc" | grep -o '"Developer ID Application[^"]*"' | head -1 | tr -d '"')
+          [ -n "$identite" ] || { echo "::error::Aucune identité Developer ID Application dans le certificat"; exit 1; }
+          echo "APPLE_SIGNING_IDENTITY=$identite" >> "$GITHUB_ENV"
+          # Runtime renforcé (exigé pour la notarisation) : la caméra (QR codes)
+          # doit alors être déclarée, sinon macOS la refuse sans rien demander
+          cat > "$RUNNER_TEMP/droits.plist" <<'FIN'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>com.apple.security.device.camera</key>
+            <true/>
+          </dict>
+          </plist>
+          FIN
+          plutil -lint "$RUNNER_TEMP/droits.plist"
+      # Sur Mac, la CLI signe l'app avec l'identité du trousseau, la notarise
+      # (APPLE_ID, APPLE_PASSWORD, APPLE_TEAM_ID) et agrafe le ticket
+      - name: Construire
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          ID_APPLE: ${{ secrets.APPLE_ID }}
+          MOT_DE_PASSE_APPLE: ${{ secrets.APPLE_APP_PASSWORD }}
+          EQUIPE_APPLE: ${{ secrets.APPLE_DEVELOPMENT_TEAM }}
+          MAJ: ${{ steps.cles.outputs.maj }}
+          MAC: ${{ steps.cles.outputs.mac }}
+        run: |
+          if [ -n "$MAJ" ]; then maj=true; else maj=false; fi
+          if [ -n "$MAC" ]; then
+            export APPLE_ID="$ID_APPLE" APPLE_PASSWORD="$MOT_DE_PASSE_APPLE" APPLE_TEAM_ID="$EQUIPE_APPLE"
+            mac=",\"macOS\":{\"entitlements\":\"$RUNNER_TEMP/droits.plist\",\"hardenedRuntime\":true}"
+          else
+            mac=""
+          fi
+          pnpm tauri build --target ${{ matrix.cible }} \
+            --config "{\"bundle\":{\"createUpdaterArtifacts\":$maj$mac}}"
+      # Le .dmg lui-même : signé, notarisé et agrafé (ouverture sans alerte,
+      # même hors ligne)
+      - name: DMG signé et notarisé
+        if: steps.cles.outputs.mac
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_DEVELOPMENT_TEAM }}
+        run: |
+          dossier="src-tauri/target/${{ matrix.cible }}/release/bundle"
+          dmg=$(ls "$dossier"/dmg/*.dmg | head -1)
+          app=$(ls -d "$dossier"/macos/*.app | head -1)
+          codesign -d --entitlements - "$app" 2>&1 | grep -q com.apple.security.device.camera
+          xcrun stapler validate "$app"
+          codesign --force --timestamp --sign "$APPLE_SIGNING_IDENTITY" "$dmg"
+          xcrun notarytool submit "$dmg" --apple-id "$APPLE_ID" --password "$APPLE_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 30m
+          xcrun stapler staple "$dmg"
+          xcrun stapler validate "$dmg"
+          spctl --assess --type open --context context:primary-signature -vv "$dmg"
+          spctl --assess --type execute -vv "$app"
+      # Noms repris par scripts/release.sh ; l'archive de mise à jour du Mac
+      # (MathALEA.app.tar.gz) porte l'architecture, comme le .dmg
+      - name: Rassembler
+        shell: bash
+        run: |
+          b="src-tauri/target/${{ matrix.cible }}/release/bundle"
+          mkdir -p dist
+          shopt -s nullglob
+          for f in "$b"/appimage/*.AppImage* "$b"/deb/*.deb "$b"/rpm/*.rpm \
+                   "$b"/nsis/*-setup.exe* "$b"/msi/*.msi* "$b"/dmg/*.dmg; do
+            cp "$f" dist/
+          done
+          case "${{ matrix.cible }}" in aarch64-apple-darwin) arch=aarch64 ;; *) arch=x64 ;; esac
+          for f in "$b"/macos/*.app.tar.gz*; do
+            cp "$f" "dist/MathALEA_${VERSION#v}_$arch.app.tar.gz${f##*.app.tar.gz}"
+          done
+          ls -l dist
+      - uses: actions/upload-artifact@v7
         with:
-          tagName: ${{ env.VERSION }}
-          releaseName: MathALÉA ${{ env.VERSION }}
-          releaseBody: ${{ env.NOTES }}
-          releaseDraft: true
-          args: ${{ matrix.args }}
+          name: bureau-${{ matrix.nom }}
+          path: dist/*
+      # Les étapes finales des actions tierces ne doivent plus trouver de clé
+      - name: Effacer le trousseau
+        if: always() && runner.os == 'macOS'
+        run: |
+          security delete-keychain "$RUNNER_TEMP/signature.keychain-db" 2> /dev/null || true
+          rm -f "$RUNNER_TEMP/devid.p12"
+
+  # Release GitHub brouillon (créée si besoin), installateurs et signatures de
+  # mise à jour (.sig) joints ; scripts/release.sh en fait latest.json sur la forge
+  publier:
+    needs: bureau
+    if: ${{ !cancelled() && needs.bureau.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: bureau-*
+          merge-multiple: true
+          path: dist
+      - name: Joindre à la release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$VERSION" > /dev/null 2>&1; then
+            gh release create "$VERSION" --draft --title "MathALÉA $VERSION" \
+              --notes-file "docs/notes-de-version/$VERSION.md"
+          fi
+          gh release upload "$VERSION" dist/* --clobber
 
   android:
     needs: [moteur, e2e]
