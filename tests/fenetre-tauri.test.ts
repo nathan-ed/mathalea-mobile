@@ -2,8 +2,9 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 
 // Tauri capte par défaut le glisser-déposer de la fenêtre (dépôt de
-// fichiers) : sous Windows, les étiquettes des exercices à glisser-déposer
-// de MathALÉA ne se déplaçaient plus dans l'app de bureau. Les suites e2e
+// fichiers) : sous Windows et macOS, le glisser-déposer HTML des exercices
+// de MathALÉA (étiquettes, Compte est bon) ne marchait plus dans l'app de
+// bureau. Les suites e2e
 // jouent dans Chromium, hors de la fenêtre Tauri : seul ce test le garde.
 describe('fenêtres de Tauri', () => {
   const config = JSON.parse(
