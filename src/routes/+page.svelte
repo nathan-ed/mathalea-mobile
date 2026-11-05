@@ -909,7 +909,10 @@
     if (!seance || !seance.fin) return []
     const id = seance.parcours
     if (estTest(id) || estRevision(id) || estRemediation(id) || estPositionnement(id) || estAdapte(id)) return []
-    return objectifsDeLaSeance(seance)
+    // Seulement s'il dit autre chose que la liste des exercices : un exercice à plusieurs objectifs, ou des objectifs par réponse
+    const s = seance
+    if (!s.etapes.some((i) => s.contenu.etapes[i]?.points || (s.contenu.etapes[i]?.objectifs?.length ?? 0) > 1)) return []
+    return objectifsDeLaSeance(s)
   })
 
   /** Bilan d'une remédiation ou d'un test de positionnement : verdict et suite */
