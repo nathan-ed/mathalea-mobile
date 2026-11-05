@@ -107,7 +107,7 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
 - **Catégorie** : Éducation (principale), aucune secondaire. Pas la catégorie
   « Pour les enfants » (Made for Kids) : l'app sert aussi aux enseignants et
   aux lycéens, et cette catégorie impose des règles propres à Apple.
-- **Copyright** : 2026 CoopMaths.
+- **Copyright** : 2026 CoopMaths (nom du compte Apple : COOPMATHS).
 - **Droits sur le contenu** : l'app ne contient que du contenu de CoopMaths
   (exercices MathALÉA, licence AGPL) : « Non » à la question sur le contenu
   de tiers.
@@ -120,8 +120,11 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
 - **Chiffrement (export)** : réglé dans `src-tauri/Info.ios.plist`
   (`ITSAppUsesNonExemptEncryption` à faux, HTTPS du système seulement) : pas
   de question à l'envoi.
-- **Appareils** : iPhone et iPad. Captures exigées : iPhone 6,9 pouces
-  (1320 × 2868) et iPad 13 pouces (2064 × 2752) :
+- **Appareils** : iPhone et iPad. Captures exigées (App Store Connect,
+  novembre 2026) : « iPhone avec Dynamic Island (écran moyen) », 6,1 ou
+  6,3 pouces (1206 × 2622 : captures 6,9 pouces réduites par
+  `magick <f> -resize '1206x2622!'`, mêmes proportions) et iPad 13 pouces
+  (2064 × 2752). Captures 6,9 pouces :
   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>` (pnpm
   dev), mêmes écrans que pour Google Play. Captures du 31 octobre 2026
   (version 0.4.10) : `docs/app-store/`.
@@ -140,7 +143,7 @@ How to test without a class:
 1. Open the app and choose a curriculum ("France" or "Suisse").
 2. Open Settings ("Réglages"), turn on "Je suis enseignant" (I am a teacher) and go back. In the "Parcours" tab, tap "Parcours de démonstration", then "Charger les parcours de démonstration" (load the demonstration paths). A class "Démonstration" appears.
 3. In the teacher space, tap "Vue élève" (student view) and open a path, for example "Relatifs en ceintures". Answer the questions with the maths keyboard: each answer is corrected immediately and the progress is saved on the device.
-4. The "Explorer" tab lists the paths proposed by the MathALÉA team for the chosen curriculum, by grade and chapter (downloaded from CoopMaths' public kDrive folder, so the first opening needs an internet connection; afterwards the copy works offline). "Ajouter à l'accueil" adds a path to the student's home screen. With the "France" curriculum, "Teste ton niveau" gives a 15-question test with a report.
+4. The "Explorer" tab lists the paths proposed by the MathALÉA team for the chosen curriculum, by grade and chapter (downloaded from CoopMaths' public kDrive folder, so the first opening needs an internet connection; afterwards the copy works offline). The ⊕ button next to a path adds it to the student's home screen; "Tout ajouter" (add all) adds every path of the grade. With the "France" curriculum, "Teste ton niveau" gives a 15-question test with a report.
 5. A student without a class link taps "Je n'ai pas de lien" on the home screen and works with the Explorer paths. The "Fiches" tab gathers the lesson sheets of all the student's paths (search, bookmarks).
 
 Camera: used only to read QR codes (a student scans the code projected by the teacher to join a class session; the teacher scans the QR codes of students' answers). Images stay on the device.
