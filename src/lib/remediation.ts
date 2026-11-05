@@ -81,7 +81,16 @@ export function lacunesDe(s: Seance): Lacune[] {
   return lacunes
 }
 
-export type Origine = 'objectif' | 'exercice' | 'parcours' | 'catalogue'
+export type Origine = 'objectif' | 'exercice' | 'parcours' | 'catalogue' | 'referentiel'
+
+/** Exercice du référentiel de MathALÉA (moteur.listerExercices), avec son objectif du programme */
+export interface ExerciceDuProgramme {
+  uuid: string
+  id: string
+  titre: string
+  interactif: boolean
+  objectif?: { code: string; libelle: string }
+}
 
 export interface Proposition {
   etape: number // exercice manqué (rang dans le parcours de la séance)
@@ -133,13 +142,35 @@ function dansLeCatalogue(p: Parcours, etape: number, objectif: string, autres: P
 }
 
 /**
+ * Exercices interactifs du référentiel rangés sous le même objectif du
+ * programme (libellé identique : les objectifs posés d'office le sont), dans
+ * l'ordre du menu du site, autres que l'exercice manqué : deux au plus.
+ */
+function dansLeReferentiel(p: Parcours, etape: number, objectif: string, referentiel: ExerciceDuProgramme[]) {
+  const manque = p.etapes[etape]
+  const vus = new Set<string>()
+  return referentiel
+    .filter((e) => e.interactif && e.objectif?.libelle === objectif && e.uuid !== manque.uuid && !vus.has(e.uuid) && vus.add(e.uuid))
+    .slice(0, 2)
+    .map((e): Etape => ({ uuid: e.uuid, id: e.id, titre: e.titre, nbQuestions: QUESTIONS_REPRISE, objectifs: [objectif] }))
+}
+
+/**
  * Remédiation d'un exercice manqué pour un objectif : celle que l'enseignant a
- * prévue pour l'objectif, sinon des exercices qui le visent (parcours, puis
- * catalogue). Sans objectif : la remédiation propre à l'exercice.
+ * prévue pour l'objectif, sinon des exercices qui le visent (parcours,
+ * catalogue, puis référentiel de MathALÉA pour un objectif du programme).
+ * Sans objectif : la remédiation propre à l'exercice.
  * `exerciceDabord` : diagnostic par l'exercice (pas par le point manqué),
  * la remédiation de l'exercice passe avant celle de l'objectif.
  */
-export function remediationPour(p: Parcours, etape: number, objectif: string | undefined, autres: Parcours[] = [], exerciceDabord = false): Proposition | null {
+export function remediationPour(
+  p: Parcours,
+  etape: number,
+  objectif: string | undefined,
+  autres: Parcours[] = [],
+  exerciceDabord = false,
+  referentiel: ExerciceDuProgramme[] = [],
+): Proposition | null {
   const e = p.etapes[etape]
   if (!e) return null
   const propre: Proposition | null = e.remediation?.length ? { etape, etapes: e.remediation.map((x) => ({ ...x, remediation: undefined })), origine: 'exercice' } : null
@@ -153,6 +184,8 @@ export function remediationPour(p: Parcours, etape: number, objectif: string | u
   if (parcours.length) return { etape, objectif, etapes: parcours, fiche: r?.fiche, origine: 'parcours' }
   const catalogue = dansLeCatalogue(p, etape, objectif, autres)
   if (catalogue.length) return { etape, objectif, etapes: catalogue, fiche: r?.fiche, origine: 'catalogue' }
+  const programme = dansLeReferentiel(p, etape, objectif, referentiel)
+  if (programme.length) return { etape, objectif, etapes: programme, fiche: r?.fiche, origine: 'referentiel' }
   return null
 }
 
@@ -171,7 +204,7 @@ export interface Diagnostic {
  * manquée (son premier point manqué), et sa remédiation. Un exercice manqué
  * sans objectif propose sa propre remédiation, s'il en a une.
  */
-export function diagnostiquer(s: Seance, autres: Parcours[] = []): Diagnostic {
+export function diagnostiquer(s: Seance, autres: Parcours[] = [], referentiel: ExerciceDuProgramme[] = []): Diagnostic {
   const p = s.contenu
   const propositions: Proposition[] = []
   const aPreciser: Diagnostic['aPreciser'] = []
@@ -185,7 +218,7 @@ export function diagnostiquer(s: Seance, autres: Parcours[] = []): Diagnostic {
     const cle = objectif ?? `#${l.etape}`
     if (vus.has(cle)) continue
     // Rien pour cet exercice : une autre question manquée sur le même objectif en aura peut-être
-    const r = remediationPour(p, l.etape, objectif, autres, !l.parPoint)
+    const r = remediationPour(p, l.etape, objectif, autres, !l.parPoint, referentiel)
     if (!r) continue
     vus.add(cle)
     propositions.push(r)
@@ -245,7 +278,7 @@ export function repriseReussie(s: Seance) {
  * retravaillé (prévu par l'enseignant) ou un objectif d'une question manquée
  * de la séance, avec sa remédiation, tant que la profondeur le permet.
  */
-export function suiteDeRemediation(s: Seance, autres: Parcours[] = []): Proposition | null {
+export function suiteDeRemediation(s: Seance, autres: Parcours[] = [], referentiel: ExerciceDuProgramme[] = []): Proposition | null {
   const o = s.remediation
   if (!o || repriseReussie(s) || o.profondeur >= PROFONDEUR_MAX) return null
   const p = s.contenu
@@ -259,7 +292,7 @@ export function suiteDeRemediation(s: Seance, autres: Parcours[] = []): Proposit
   for (const l of lacunesDe(s)) {
     const objectif = l.objectifs.find((x) => x !== o.objectif)
     if (l.etape === k || !objectif) continue
-    const r = remediationPour(p, l.etape, objectif, autres)
+    const r = remediationPour(p, l.etape, objectif, autres, false, referentiel)
     if (r && r.etapes.length) return { ...r, etape: k }
   }
   return null

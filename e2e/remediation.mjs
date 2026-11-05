@@ -17,6 +17,9 @@
 //   6. Progression adaptée (`adaptatif`) : « Exercice suivant » commence au plus
 //      simple, reste au niveau jusqu'à deux réussites, monte, redescend après
 //      un échec (progressionAdaptee.ts).
+//   7. Remédiation automatique, sans rien de prévu par l'enseignant : un
+//      objectif du programme prend des exercices du référentiel de MathALÉA
+//      rangés sous ce même objectif.
 // Téléphone (390 px, clair) et bureau (1280 px, sombre) ; réponses saisies
 // au toucher et au clavier (e2e/eleve-repond.mjs).
 // App construite servie sur 1420 :
@@ -347,8 +350,43 @@ async function adapte(bureau) {
   await e.ctx.close()
 }
 
+/** 7. Objectif du programme sans remédiation prévue : exercices du référentiel */
+const PROGRAMME = 'Additionner deux nombres décimaux relatifs'
+const AUTOMATIQUE = {
+  id: 'relatifs-auto-5e',
+  version: 1,
+  titre: 'Relatifs, remédiation automatique',
+  objectif: '',
+  niveau: '5e',
+  theme: 'Nombres relatifs',
+  difficulte: 1,
+  icone: 'bx-calculator',
+  presentation: 'une_question_par_page',
+  correction: 'question',
+  etapes: [{ uuid: 'cbc26', id: '5N2G', titre: 'Additionner des relatifs', nbQuestions: 2, objectifs: [PROGRAMME] }],
+}
+async function automatique(bureau) {
+  const e = await eleve(bureau ? 'bureau (automatique)' : 'téléphone (automatique)', bureau, AUTOMATIQUE)
+  const ecran = bureau ? 'bureau' : 'téléphone'
+  const page = e.page
+  await appuyer(e, bouton(e, /^\s*Relatifs, remédiation automatique/))
+  await appuyer(e, bouton(e, /^Commencer/))
+  await jouer(e, AUTOMATIQUE.id, toutFaux([0]))
+  const retravailler = bouton(e, `Retravailler : ${PROGRAMME}`)
+  ok(await touchable(e, retravailler), `${ecran} : objectif du programme sans remédiation prévue, « Retravailler » proposé`, (await texte(e)).slice(0, 300))
+  await appuyer(e, retravailler)
+  const s = await lireSeance(page, `remediation-${AUTOMATIQUE.id}`)
+  // Exemple corrigé, deux exercices du référentiel sous le même objectif (dans l'ordre du menu), puis l'exercice manqué
+  ok(s?.contenu.etapes.map((x) => x.uuid).join() === 'cbc26,61b4a,9c5e2,cbc26', `${ecran} : exercices du référentiel sous « ${PROGRAMME} »`, JSON.stringify(s?.contenu.etapes.map((x) => `${x.id} ${x.uuid}`)))
+  const problemes = await jouer(e, `remediation-${AUTOMATIQUE.id}`)
+  ok(problemes.length === 0 && (await texte(e)).includes('Exercice réussi : tu peux reprendre le parcours.'), `${ecran} : remédiation automatique jouée et réussie`, problemes.join(' | '))
+  await e.ctx.close()
+}
+
 await scenario(false)
 await scenario(true)
+await automatique(false)
+await automatique(true)
 await preciser(false)
 await preciser(true)
 await adapte(false)

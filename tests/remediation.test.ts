@@ -126,6 +126,25 @@ describe('diagnostic', () => {
     expect(remediationPour(p, 0, 'Limites', [loin])).toBeNull()
   })
 
+  it('référentiel : exercices rangés sous le même objectif du programme, en dernier recours', () => {
+    const p: Parcours = { ...base, id: 'seul', paliers: undefined, etapes: [etape('x', ['Additionner deux relatifs'])], remediations: undefined }
+    const referentiel = [
+      { uuid: 'x', id: '5N2G', titre: 'L’exercice manqué', interactif: true, objectif: { code: '5N2G', libelle: 'Additionner deux relatifs' } },
+      { uuid: 'papier', id: '5N2G-1', titre: 'Sans interactivité', interactif: false, objectif: { code: '5N2G', libelle: 'Additionner deux relatifs' } },
+      { uuid: 'r1', id: '5N2G-2', titre: 'Additionner', interactif: true, objectif: { code: '5N2G', libelle: 'Additionner deux relatifs' } },
+      { uuid: 'r1', id: '5N2G-2', titre: 'Additionner (doublon du menu)', interactif: true, objectif: { code: '5N2G', libelle: 'Additionner deux relatifs' } },
+      { uuid: 'autre', id: '5N2H', titre: 'Soustraire', interactif: true, objectif: { code: '5N2H', libelle: 'Soustraire deux relatifs' } },
+      { uuid: 'r2', id: '5N2G-3', titre: 'Additionner encore', interactif: true, objectif: { code: '5N2G', libelle: 'Additionner deux relatifs' } },
+      { uuid: 'r3', id: '5N2G-4', titre: 'Troisième', interactif: true, objectif: { code: '5N2G', libelle: 'Additionner deux relatifs' } },
+    ]
+    const r = remediationPour(p, 0, 'Additionner deux relatifs', [], false, referentiel)
+    expect(r?.origine).toBe('referentiel')
+    expect(r?.etapes.map((e) => e.uuid)).toEqual(['r1', 'r2'])
+    expect(r?.etapes[0]).toMatchObject({ nbQuestions: 3, objectifs: ['Additionner deux relatifs'] })
+    // Un objectif propre à l'enseignant n'est pas dans le référentiel
+    expect(remediationPour(p, 0, 'Mon objectif', [], false, referentiel)).toBeNull()
+  })
+
   it('plusieurs objectifs sans résultat par point : l’élève précise', () => {
     const s = seance(base, [3], [[3, 0, 0], [3, 1, 1]])
     const d = diagnostiquer(s)

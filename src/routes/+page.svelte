@@ -224,10 +224,14 @@
   let reperes: Repere[] | null = $state(null)
   const explorer = $derived(arborescence(catalogue ?? [], pays, reperes ?? reperesParDefaut(pays)))
   let explorerNiveau: string | null = $state(null)
+  // Exercices du référentiel du pays : repères de l'Explorer, et remédiation automatique d'un objectif du programme
+  let referentielPays: ExerciceDuReferentiel[] = $state([])
   async function lireReperes() {
     const p = pays
     try {
-      const r = reperesDu((await suivre(moteur?.listerExercices(p) ?? Promise.resolve([]))) ?? [])
+      const liste = (await suivre(moteur?.listerExercices(p) ?? Promise.resolve([]))) ?? []
+      const r = reperesDu(liste)
+      if (p === pays) referentielPays = liste
       if (p === pays) reperes = r.length ? r : null
     } catch (e) {
       console.warn('Référentiel', e)
@@ -881,7 +885,7 @@
     // Progression adaptée : c'est elle qui choisit la suite (plus simple, prérequis)
     if (estTest(s.parcours) || estRevision(s.parcours) || estRemediation(s.parcours) || estPositionnement(s.parcours) || estAdapte(s.parcours)) return null
     const p = s.contenu
-    const d = diagnostiquer(s, autresParcours)
+    const d = diagnostiquer(s, autresParcours, referentielPays)
     const origine = (etape: number) => ({ parcours: p.id, version: p.version, etape })
     const propositions = d.propositions.map((x) => ({
       libelle: libelleProposition(p, x),
@@ -892,7 +896,7 @@
       .map((a) => ({
         exercice: titreEleve(p.etapes[a.etape], a.etape),
         choix: a.objectifs
-          .map((o) => ({ o, r: remediationPour(p, a.etape, o, autresParcours) }))
+          .map((o) => ({ o, r: remediationPour(p, a.etape, o, autresParcours, false, referentielPays) }))
           .filter((c) => c.r)
           .map(({ o, r }) => ({ libelle: o, fn: () => lancerRemediation(p, r!, origine(a.etape), 1) })),
       }))
@@ -938,7 +942,7 @@
             : null
       return { message: 'Exercice réussi : tu peux reprendre le parcours.', actions: [...(continuer ? [continuer] : []), retour] }
     }
-    const suite = suiteDeRemediation(s, autresParcours)
+    const suite = suiteDeRemediation(s, autresParcours, referentielPays)
     if (suite)
       return {
         message: `L’exercice n’est pas encore réussi. Prochaine étape : ${libelleProposition(s.contenu, suite)}.`,
