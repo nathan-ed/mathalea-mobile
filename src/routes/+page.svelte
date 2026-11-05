@@ -558,6 +558,16 @@
     const tests = NIVEAUX_TEST.flatMap((n) => etatTest[n.cle]?.tirage ?? [])
     const p = e.parcours ? [...tous, ...(catalogue ?? []), ...tests].find((x) => x.id === e.parcours) : undefined
     if (e.vue === 'test') return testPropose ? ouvrirTest() : undefined
+    // Remédiation, test de positionnement, exercice adapté : parcours généré, la séance en garde la copie
+    const generee = e.parcours && (estRemediation(e.parcours) || estPositionnement(e.parcours) || estAdapte(e.parcours)) ? seances[e.parcours] : null
+    if (generee && !generee.fin && e.vue === 'seance') {
+      actif = generee.contenu
+      return lancer(generee)
+    }
+    if (generee) {
+      const o = origineDe(generee)
+      if (o) return ouvrir(o)
+    }
     if (!p || !['parcours', 'seance', 'bilan', 'relecture'].includes(e.vue)) return
     const s = seances[p.id]
     if (e.vue === 'seance' && s && !s.fin) {

@@ -217,6 +217,13 @@ async function scenario(bureau) {
   t = await texte(e)
   ok(t.includes(`Retravailler : ${DERIVER}`), `${ecran} : séance de remédiation ouverte`, t.slice(0, 200))
   await capture(e, 'remediation-seance')
+  // L'app fermée puis rouverte (Android la ferme en arrière-plan) : la remédiation reprend à sa question
+  await page.reload()
+  await pagePrete(page)
+  await jusqua(async () => (await page.locator('main .contenu-mathalea').count()) > 0 && (await texte(e)).includes(`Retravailler : ${DERIVER}`), { quoi: 'remédiation reprise au relancement' }).then(
+    () => ok(true, `${ecran} : remédiation reprise au relancement de l'app`),
+    () => ok(false, `${ecran} : remédiation reprise au relancement de l'app`),
+  )
   const s0 = await lireSeance(page, 'remediation-variations-composees-t')
   ok(s0?.contenu.etapes.map((x) => x.id).join() === 'TSA3-32,1AN14-7,TSA3-32' && s0.contenu.etapes[0].interactif === false, `${ecran} : exemple corrigé, exercice de remédiation, puis exercice manqué`, JSON.stringify(s0?.contenu.etapes.map((x) => x.id)))
   // Exemple corrigé : rien à saisir, la correction au toucher
