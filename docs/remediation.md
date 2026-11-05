@@ -221,8 +221,11 @@ ceintures, ni révisions espacées, ni maîtrise des objectifs dans le Suivi.
 ses objectifs. Une étude de fonction où la dérivée est juste et le tableau
 faux donne 100 % à « Dériver » et 0 % à « Tableau de variations », au lieu de
 50 % aux deux. C'est ce qui rend utile un quiz de diagnostic : beaucoup de
-questions sur une page, des objectifs par réponse, le Suivi dit lesquels sont
-acquis.
+questions sur une page, des objectifs par réponse ; le bilan de la séance
+montre « Par objectif » (réussite de chaque objectif, seulement quand un
+exercice en vise plusieurs ou a des objectifs par réponse, sinon il
+répéterait la liste des exercices), le Suivi dit lesquels sont acquis, et la
+vue Objectifs d'une session le dit pour la classe.
 
 ## 7. Éditeur du site (`?v=parcours`)
 
