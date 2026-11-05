@@ -145,7 +145,13 @@ jobs:
           app=$(ls -d "$dossier"/macos/*.app | head -1)
           echo "DMG : $dmg"
           codesign -d --entitlements - "$app" 2>&1 | grep -q com.apple.security.device.camera
-          essayer xcrun stapler validate "$app"
+          # Tauri agrafe le ticket juste après la notarisation, parfois avant
+          # qu'Apple l'ait publié (échec silencieux, vu sur Intel le 5 novembre
+          # 2026) : nouvel essai ici. Sans ticket agrafé, macOS vérifie l'app en
+          # ligne à la première ouverture (spctl ci-dessous le contrôle).
+          if ! xcrun stapler validate "$app" > /dev/null 2>&1; then
+            essayer xcrun stapler staple "$app" || echo "::warning::Ticket non agrafé à l'app (notarisée, vérifiée en ligne par macOS)"
+          fi
           codesign --force --timestamp --sign "$APPLE_SIGNING_IDENTITY" "$dmg"
           xcrun notarytool submit "$dmg" --apple-id "$APPLE_ID" --password "$APPLE_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 30m
           essayer xcrun stapler staple "$dmg"
