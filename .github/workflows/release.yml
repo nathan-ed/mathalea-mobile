@@ -16,6 +16,10 @@ on:
         type: choice
         options: [tout, bureau, android]
         default: tout
+      essai:
+        description: Essai (construire et signer, sans rien joindre à la release)
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -250,7 +254,7 @@ jobs:
   # mise à jour (.sig) joints ; scripts/release.sh en fait latest.json sur la forge
   publier:
     needs: bureau
-    if: ${{ !cancelled() && needs.bureau.result != 'skipped' }}
+    if: ${{ !cancelled() && !inputs.essai && needs.bureau.result != 'skipped' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
