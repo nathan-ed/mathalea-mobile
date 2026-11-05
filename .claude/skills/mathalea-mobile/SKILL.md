@@ -919,6 +919,15 @@ Environnement (machine de Nathan)
 
 ## 9. Pièges rencontrés
 
+- Glisser-déposer dans l'app de bureau (5 novembre 2026, signalé en classe
+  sur la 0.5.0) : Tauri 2 capte par défaut le glisser de la fenêtre pour le
+  dépôt de fichiers (`dragDropEnabled` vrai), ce qui bloque sous Windows le
+  glisser-déposer HTML des exercices de MathALÉA (étiquettes immobiles).
+  `"dragDropEnabled": false` dans `tauri.conf.json`, gardé par
+  `tests/fenetre-tauri.test.ts`. Les suites e2e jouent dans Chromium, hors
+  de la fenêtre Tauri : elles ne voient pas ce qui dépend de la config des
+  fenêtres, à essayer dans l'app installée.
+
 - Sauvegarde : `lireSauvegarde()` contrôle chaque clé (`cleInvalide`) avant
   d'effacer quoi que ce soit, tout le contenu imbriqué et l'unicité des noms
   et identifiants servant de clés aux listes (`src/lib/validation.ts`, aussi

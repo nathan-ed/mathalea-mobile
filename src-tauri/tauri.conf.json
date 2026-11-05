@@ -15,7 +15,8 @@
         "title": "MathALÉA",
         "width": 420,
         "height": 860,
-        "maximized": true
+        "maximized": true,
+        "dragDropEnabled": false
       }
     ],
     "security": {
