@@ -137,6 +137,16 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
   leurs drapeaux, comme l'image de présentation de Google Play. Tailles
   exactes : `iphone-6-9-*` (1320 × 2868), `iphone-6-3-*` (1206 × 2622) et
   `ipad-13-*` (2064 × 2752), PNG sans transparence.
+- **En-tête et résultats de recherche** (Creative assets, iOS 27, section
+  « En-tête et résultats de recherche » de la page produit) :
+  `node e2e/visuels-app-store.mjs` (pnpm dev, ou `BASE=…`) écrit
+  `docs/app-store/visuels/en-tete.png` (21:9, 3840 × 1646) et
+  `resultats-recherche.png` (3:2, 3840 × 2560). Au centre, dans la zone
+  qu'Apple ne rogne jamais (1646 × 661 pour l'en-tête, 2168 × 1030 pour la
+  recherche) : logo, phrase, niveaux de la France et de la Suisse romande avec
+  leurs drapeaux. Sur les côtés, des écrans de l'app, qui peuvent être coupés.
+  `ZONE=1` trace la zone sûre pour vérifier. Pas de prix, d'adresse web ni de
+  symbole de copyright dans ces images (règles d'Apple).
 
 ### Informations pour la vérification d'Apple
 
