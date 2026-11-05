@@ -130,3 +130,29 @@ Le workflow **emulateurs** joue un élève dans l'app sur le simulateur iPhone
 parcours de démonstration répondu juste au clavier de MathALÉA jusqu'au bilan,
 « Quitter », thème sombre. Captures du vrai écran dans les artefacts
 (`captures-iphone`) et dans le journal.
+
+## Mac : .dmg signé et notarisé
+
+Sans signature, macOS affiche « développeur non identifié » (ou « Apple n'a
+pas pu vérifier… ») à l'ouverture. Il faut un certificat **Developer ID
+Application**, que seul le **titulaire du compte** peut créer, puis la
+notarisation par Apple (faisable avec l'identifiant Apple d'un Admin).
+
+1. Demande de certificat, hors du dépôt :
+   `openssl req -new -newkey rsa:2048 -nodes -keyout developer-id.key -out developer-id.csr -subj "/CN=CoopMaths/C=FR"`
+   (dans `~/.local/share/mathalea-mobile/apple/` chez Nathan).
+2. Le titulaire : developer.apple.com, « Certificats », « + »,
+   **Developer ID Application** (G2 Sub-CA), envoie `developer-id.csr`,
+   transmet le `.cer` (non secret).
+3. `.p12` comme pour l'iPhone (`openssl x509 -inform DER …`, puis
+   `openssl pkcs12 -export -legacy …`), puis secrets GitHub
+   `APPLE_DEVID_CERTIFICATE` (`base64 -w0`) et
+   `APPLE_DEVID_CERTIFICATE_PASSWORD`. La notarisation reprend `APPLE_ID`,
+   `APPLE_APP_PASSWORD` et `APPLE_DEVELOPMENT_TEAM`.
+4. Après une release : workflow **macos** (`gh workflow run macos.yml -f
+   version=v<x>`). Il construit le code du tag, signe l'app (runtime renforcé,
+   droit caméra pour les QR codes), la fait notariser, signe et notarise le
+   `.dmg`, puis remplace les `.dmg` de la release GitHub (même nom). Ensuite
+   `scripts/release.sh v<x>` pour la forge.
+
+Certificat valable cinq ans.
