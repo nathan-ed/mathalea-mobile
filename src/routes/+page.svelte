@@ -1721,6 +1721,7 @@
       {releves}
       {moteur}
       niveau={bibliotheque.parcours.find((pe) => pe.parcours.id === releveOuvert.parcours)?.parcours.niveau ?? ''}
+      parcours={bibliotheque.parcours.find((pe) => pe.parcours.id === releveOuvert.parcours && pe.parcours.version === releveOuvert.version)?.parcours}
       onsauver={sauverReleves}
       onretour={retourSession}
     />

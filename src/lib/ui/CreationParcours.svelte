@@ -171,6 +171,7 @@
       p.paliers = undefined
       p.style = undefined
       p.premiereCeinture = undefined
+      p.positionnement = undefined
       return
     }
     if (!avecPaliers) {
@@ -598,6 +599,17 @@
             </button>
           {/each}
         </div>
+      {/if}
+      {#if avecPaliers}
+        <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+          <span class="flex flex-col gap-1 min-w-0">
+            <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Test de positionnement</span>
+            <span class={discret}>
+              Une question par {p.style === 'ceintures' ? 'ceinture' : 'palier'} avant de commencer : l’élève commence {p.style === 'ceintures' ? 'à la première ceinture manquée' : 'au premier palier manqué'}.
+            </span>
+          </span>
+          <input type="checkbox" role="switch" class="interrupteur shrink-0" checked={!!p.positionnement} onchange={(e) => (p.positionnement = e.currentTarget.checked || undefined)} />
+        </label>
       {/if}
       {#if !avecPaliers}
         {#if p.etapes.length}

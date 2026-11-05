@@ -18,12 +18,15 @@
     type VerdictQuestion,
   } from '$lib/releve'
   import { boutonInverse, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
+  import { objectifsDeLaSession } from '$lib/objectifsSession'
+  import { detailDeVerification } from '$lib/remediation'
   import EnTete from './EnTete.svelte'
 
   let {
     releve,
     moteur,
     niveau = '',
+    parcours = undefined,
     onmaj,
     onretour,
     haut,
@@ -31,6 +34,7 @@
     releve: Releve
     moteur: Moteur
     niveau?: string
+    parcours?: Parcours // même version que la session : objectifs des exercices et des réponses
     onmaj: (r: Releve) => void // verdicts recalculés : à garder
     onretour: () => void
     haut?: Snippet // en tête de page : la session (code, QR code, lecture des réponses)
@@ -113,7 +117,8 @@
           const q = Number(k.split('-')[1])
           try {
             const v = moteur.verifier(ex, q)
-            verdicts[k] = { juste: v.juste, score: v.total > 0 ? v.points / v.total : v.juste ? 1 : 0 }
+            const detail = detailDeVerification(v.detail)
+            verdicts[k] = { juste: v.juste, score: v.total > 0 ? v.points / v.total : v.juste ? 1 : 0, ...(detail ? { detail } : {}) }
           } catch {
             /* question non vérifiable : ignorée */
           }
@@ -163,7 +168,13 @@
     const aReprendre = questions.filter((q) => q.repondu && taux(q) < 70).slice(0, 3)
     return { moyenne, tranches, aReprendre }
   })
-  let vue: 'questions' | 'eleves' = $state('questions')
+  // Objectifs de la session (diagnostic de la classe) : les moins réussis d'abord
+  const objectifs = $derived.by(() => {
+    const c: Calcul | null = calcul
+    if (!c || !parcours) return []
+    return objectifsDeLaSession(parcours, ordre, releve.recues, c.verdicts, estHors(c))
+  })
+  let vue: 'questions' | 'eleves' | 'objectifs' = $state('questions')
   let toutes: Record<string, boolean> = $state({})
   let eleveOuvert: string | null = $state(null)
   const horsVersion = $derived.by(() => {
@@ -246,7 +257,7 @@
 
       <!-- Deux vues : par question, par élève -->
       <div class="flex flex-row gap-1 rounded-xl p-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" role="tablist" aria-label="Vue">
-        {#each [['questions', 'Questions'], ['eleves', `Élèves (${nbEleves})`]] as [v, libelleVue] (v)}
+        {#each [['questions', 'Questions'], ['eleves', `Élèves (${nbEleves})`], ...(objectifs.length ? [['objectifs', 'Objectifs']] : [])] as [v, libelleVue] (v)}
           <button
             type="button"
             role="tab"
@@ -255,7 +266,7 @@
             {vue === v
               ? 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct shadow-sm'
               : 'text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'}"
-            onclick={() => (vue = v as 'questions' | 'eleves')}
+            onclick={() => (vue = v as 'questions' | 'eleves' | 'objectifs')}
           >
             {libelleVue}
           </button>
@@ -321,6 +332,22 @@
             {/if}
           </section>
         {/each}
+      {:else if vue === 'objectifs'}
+        <ul class={listeGroupee} aria-label="Objectifs">
+          {#each objectifs as o (o.libelle)}
+            <li class="flex flex-row items-center justify-between gap-3 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+              <span class="min-w-0 flex flex-col">
+                <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{o.libelle}</span>
+                {#if o.premier}
+                  <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+                    Première réponse manquée de {o.premier} élève{o.premier > 1 ? 's' : ''}
+                  </span>
+                {/if}
+              </span>
+              <span class={pastilleScore(o.reussite)}>{o.reussite} % · {o.eleves} élève{o.eleves > 1 ? 's' : ''}</span>
+            </li>
+          {/each}
+        </ul>
       {:else}
         <ul class={listeGroupee} aria-label="Élèves">
           {#each eleves as e (e.d)}

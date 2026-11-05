@@ -148,7 +148,15 @@ export function estReleves(v: unknown): v is Releve[] {
           estChaine(r.calcul.moteur) &&
           estObjet(r.calcul.verdicts) &&
           Object.values(r.calcul.verdicts).every(
-            (q) => estObjet(q) && Object.values(q).every((v) => estObjet(v) && typeof v.juste === 'boolean' && typeof v.score === 'number'),
+            (q) =>
+              estObjet(q) &&
+              Object.values(q).every(
+                (v) =>
+                  estObjet(v) &&
+                  typeof v.juste === 'boolean' &&
+                  typeof v.score === 'number' &&
+                  (v.detail === undefined || (estObjet(v.detail) && Object.values(v.detail).every((x) => typeof x === 'number'))),
+              ),
           ) &&
           estObjet(r.calcul.hors) &&
           Object.values(r.calcul.hors).every((l) => Array.isArray(l) && l.every((e) => typeof e === 'number')))) &&
@@ -248,6 +256,7 @@ export const normaliserReponse = (t: string) => t.replace(/\s+/g, '').replace(/\
 export interface VerdictQuestion {
   juste: boolean
   score: number // entre 0 et 1
+  detail?: Record<string, number> // score de chaque point de réponse, si la question en a plusieurs (objectifs de la session)
 }
 
 export interface Erreur {

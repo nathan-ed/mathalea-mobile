@@ -98,8 +98,8 @@ const vise = (e: Etape, objectif: string) => (e.objectifs ?? []).includes(object
 
 /**
  * Exercices du parcours qui visent l'objectif, autres que l'exercice manqué :
- * ceux des paliers précédents d'abord (plus simples), puis ceux d'avant dans
- * le même palier, puis les suivants. Deux au plus.
+ * ceux des paliers précédents d'abord (plus simples), puis ceux du même
+ * palier. Jamais ceux d'un palier suivant, plus difficiles. Deux au plus.
  */
 function dansLeParcours(p: Parcours, etape: number, objectif: string) {
   const paliers = paliersDe(p)
@@ -108,7 +108,7 @@ function dansLeParcours(p: Parcours, etape: number, objectif: string) {
   const cle = cleExercice(p.etapes[etape])
   return p.etapes
     .map((e, i) => ({ e, i }))
-    .filter(({ e, i }) => i !== etape && cleExercice(e) !== cle && vise(e, objectif))
+    .filter(({ e, i }) => i !== etape && rangPalier(i) <= palier && cleExercice(e) !== cle && vise(e, objectif))
     .sort((a, b) => {
       const avant = (i: number) => (rangPalier(i) < palier ? 0 : i < etape ? 1 : 2)
       return avant(a.i) - avant(b.i) || a.i - b.i
@@ -184,9 +184,11 @@ export function diagnostiquer(s: Seance, autres: Parcours[] = []): Diagnostic {
     const objectif = l.objectifs[0]
     const cle = objectif ?? `#${l.etape}`
     if (vus.has(cle)) continue
-    vus.add(cle)
+    // Rien pour cet exercice : une autre question manquée sur le même objectif en aura peut-être
     const r = remediationPour(p, l.etape, objectif, autres, !l.parPoint)
-    if (r) propositions.push(r)
+    if (!r) continue
+    vus.add(cle)
+    propositions.push(r)
   }
   return { propositions: propositions.slice(0, PROPOSITIONS_MAX), aPreciser: aPreciser.filter((x) => !x.objectifs.every((o) => vus.has(o))) }
 }

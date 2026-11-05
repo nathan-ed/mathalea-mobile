@@ -95,19 +95,21 @@ describe('diagnostic', () => {
     expect(lacunesDe(s)).toEqual([{ etape: 0, question: 1, point: undefined, objectifs: ['Dériver'], parPoint: false }])
   })
 
-  it('remédiation automatique : un autre exercice du parcours sur le même objectif', () => {
-    // Rien de prévu pour « Dériver » : der1 manqué, der2 (sa remédiation propre ne compte pas pour der1)
-    const r = remediationPour(base, 0, 'Dériver')
+  it('remédiation automatique : un autre exercice du parcours sur le même objectif, paliers précédents d’abord', () => {
+    // Rien de prévu pour « Dériver » : var manqué (ceinture jaune), der1 (blanche) puis der2 (même ceinture)
+    const r = remediationPour(base, 3, 'Dériver')
     expect(r?.origine).toBe('parcours')
-    expect(r?.etapes.map((e) => e.uuid)).toEqual(['der2', 'var'])
+    expect(r?.etapes.map((e) => e.uuid)).toEqual(['der1', 'der2'])
     // Questions limitées, sans la remédiation de l'exercice repris
-    expect(r?.etapes[0].nbQuestions).toBe(2)
-    expect(r?.etapes[0].remediation).toBeUndefined()
+    expect(r?.etapes[1].nbQuestions).toBe(2)
+    expect(r?.etapes[1].remediation).toBeUndefined()
   })
 
-  it('paliers précédents d’abord', () => {
-    const r = remediationPour(base, 3, 'Dériver')
-    expect(r?.etapes.map((e) => e.uuid)).toEqual(['der1', 'der2'])
+  it('jamais un exercice d’un palier suivant (plus difficile)', () => {
+    // der1 manqué (blanche) : der2 et var sont plus loin, rien dans le parcours ni le catalogue
+    expect(remediationPour(base, 0, 'Dériver')).toBeNull()
+    // sig1 manqué : la remédiation prévue pour l'objectif
+    expect(remediationPour(base, 1, 'Signe de la dérivée')?.origine).toBe('objectif')
   })
 
   it('remédiation propre à l’exercice avant l’automatique', () => {
@@ -134,7 +136,9 @@ describe('diagnostic', () => {
   it('un objectif une seule fois, dans l’ordre des questions', () => {
     const s = seance(base, [0, 1, 2], [[0, 0, 0], [1, 0, 0], [2, 0, 0], [0, 1, 0]])
     const d = diagnostiquer(s)
-    expect(d.propositions.map((x) => x.objectif)).toEqual(['Dériver', 'Signe de la dérivée'])
+    // der1 (blanche) n'a rien pour « Dériver » ; der2, manqué plus loin, a sa remédiation
+    expect(d.propositions.map((x) => x.objectif)).toEqual(['Signe de la dérivée', 'Dériver'])
+    expect(d.propositions[1]).toMatchObject({ etape: 2, origine: 'exercice' })
   })
 
   it('tout réussi : rien à retravailler', () => {
@@ -248,7 +252,7 @@ describe('maîtrise par objectif', () => {
   })
 
   it('une remédiation ne compte pas', () => {
-    const prop = remediationPour(base, 0, 'Dériver')!
+    const prop = remediationPour(base, 3, 'Dériver')!
     const p = parcoursDeRemediation(base, prop)
     const s = seance(p, [0], [[0, 0, 1], [0, 1, 1]])
     expect(objectifsTravailles([s])).toEqual([])

@@ -12,12 +12,14 @@
   import LectureReponses from './LectureReponses.svelte'
   import QrSession from './QrSession.svelte'
   import ReponsesClasse from './ReponsesClasse.svelte'
+  import type { Parcours } from '$lib/catalogue'
 
   let {
     releve,
     releves,
     moteur,
     niveau = '',
+    parcours = undefined,
     onsauver,
     onretour,
   }: {
@@ -25,6 +27,7 @@
     releves: Releve[]
     moteur: Moteur
     niveau?: string
+    parcours?: Parcours // version de la session dans la bibliothèque : ses objectifs
     onsauver: (r: Releve[]) => Promise<void>
     onretour: () => void
   } = $props()
@@ -59,6 +62,7 @@
       {releve}
       {moteur}
       {niveau}
+      {parcours}
       onmaj={(x) => onsauver(releves.map((y) => (y.cle === x.cle ? x : y)))}
       {onretour}
     >
