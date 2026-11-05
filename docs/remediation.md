@@ -30,8 +30,12 @@ site, le serveur et la suite.
   positionnement pour commencer à la bonne ceinture.
 - **Le format est rétrocompatible** : des champs facultatifs, ignorés par les
   apps déjà installées.
-- **Reste à faire** : l'éditeur du site (`?v=parcours`), où se pose tout ce qui
-  précède ; l'éditeur de l'app ; la vue par objectif d'une session de classe.
+- **Pour l'enseignant** : vue « Objectifs » d'une session de classe
+  (réussite par objectif, réponse par réponse, et par où reprendre), sans rien
+  envoyer à un serveur ; test de positionnement dans l'éditeur de l'app.
+- **Reste à faire** : appliquer à MathALÉA le correctif de l'éditeur du site
+  (`?v=parcours`, préparé : `a-reporter-site-remediation.md`), où se posent
+  objectifs par réponse et remédiations.
 
 ## 2. Ce que dit la recherche, et ce qu'on en garde
 
@@ -159,8 +163,9 @@ C'est la question de Nathan, posée seulement quand l'app ne peut pas savoir.
 2. celle de l'exercice (`remediation`) ; elle passe en premier quand le
    diagnostic vient de l'exercice et non d'un point ;
 3. automatique : les autres exercices du parcours qui visent l'objectif,
-   ceux des paliers précédents d'abord (plus simples), deux au plus, trois
-   questions chacun ;
+   ceux des paliers précédents d'abord (plus simples), puis ceux du même
+   palier, jamais ceux d'un palier suivant ; deux au plus, trois questions
+   chacun ;
 4. automatique : les exercices d'autres parcours du même niveau (classes,
    Explorer) qui visent le même objectif, des moins difficiles aux plus
    difficiles.
@@ -208,14 +213,13 @@ faux donne 100 % à « Dériver » et 0 % à « Tableau de variations », au lie
 questions sur une page, des objectifs par réponse, le Suivi dit lesquels sont
 acquis.
 
-## 7. Éditeur du site (`?v=parcours`), à faire
+## 7. Éditeur du site (`?v=parcours`)
 
 Les parcours se créent surtout sur le site (`src/components/setup/parcours/`
-de MathALÉA, même format que l'app). Rien n'y est encore fait : la règle
-« toujours reporter sur la page du site » s'applique (types
-`parcoursTypes.ts`, contrôle `parcoursFile.ts`, éditeur `ParcoursEditor.svelte`,
-test `tests/unit/parcours.test.ts`). Proposition d'ergonomie, sans nouvel
-écran :
+de MathALÉA, même format que l'app). Les points 1, 2, 3 et 5 ci-dessous sont
+écrits dans un correctif à appliquer à MathALÉA
+(`a-reporter-site-remediation.md`) ; 4 et 6 restent à faire. Proposition
+d'ergonomie, sans nouvel écran :
 
 1. **Objectifs par réponse, dans l'aperçu élève de l'exercice**
    (`ExercisePreview.svelte`, déjà rendu par le même moteur). Un interrupteur
@@ -264,10 +268,11 @@ le parcours.
   charges de MathALÉA). Le diagnostic se fait sur l'appareil de l'élève.
 - **Pour l'enseignant**, sans rien envoyer : le relevé des sessions par QR
   code recalcule déjà chaque réponse avec le moteur sur l'appareil de
-  l'enseignant (`ReponsesClasse`). Ce recalcul donne désormais `detail` :
-  une vue « Objectifs » de la session (part de la classe qui manque chaque
-  objectif, premier point manqué le plus fréquent) est possible sans changer
-  le QR code. C'est le « diagnostic rapide » d'une classe.
+  l'enseignant (`ReponsesClasse`). Ce recalcul garde désormais `detail` :
+  la vue « Objectifs » de la session (`objectifsSession.ts`) donne la
+  réussite de la classe par objectif et le nombre d'élèves dont la première
+  réponse manquée le vise, sans changer le QR code. C'est le « diagnostic
+  rapide » d'une classe.
 
 ## 9. Remédiation automatisée et montée en puissance : la suite
 
@@ -308,15 +313,17 @@ ceinture), jamais de statistiques collectées.
 - QCM, figures, exercices à vérification propre : un point par réponse.
 - Une remédiation automatique dépend des objectifs posés : sans objectifs,
   seule la remédiation propre à l'exercice existe.
-- Un élève qui échoue trois fois est renvoyé à l'enseignant ; l'app ne le
-  signale pas encore à l'enseignant (relevé de session à venir, section 8).
+- Un élève qui échoue trois fois est renvoyé à l'enseignant ; l'enseignant
+  le voit seulement dans une session relevée (vue Objectifs), pas hors
+  session.
 - Le test de positionnement est fixe (une question par palier, toutes
   posées) ; un arrêt après deux échecs d'affilée serait plus court pour un
   élève en difficulté.
 
 ## 11. Vérifications
 
-- `pnpm check`, `pnpm test` (dont `tests/remediation.test.ts`) ;
+- `pnpm check`, `pnpm test` (dont `tests/remediation.test.ts`,
+  `tests/objectifs-session.test.ts`) ;
 - `node e2e/remediation.mjs` : téléphone (clair) et bureau (sombre), parcours
   « Variations d'une fonction composée » (TSA3-30, TSA3-32 ; remédiations
   1AN14-7 et 1AN14-3) : test de positionnement, étude manquée sur la dérivée
