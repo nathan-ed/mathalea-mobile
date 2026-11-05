@@ -128,6 +128,15 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>` (pnpm
   dev), mêmes écrans que pour Google Play. Captures du 31 octobre 2026
   (version 0.4.10) : `docs/app-store/`.
+- **Captures habillées** (à envoyer à Apple, qui n'a pas d'image de
+  présentation : les trois premières captures iPhone s'affichent dans les
+  résultats de recherche) : `node e2e/captures-app-store.mjs` (pnpm dev, ou
+  `BASE=…`) lit les captures brutes de `docs/app-store/` et écrit
+  `docs/app-store/habillees/` : une phrase au-dessus de chaque écran, et sur la
+  première le logo et les niveaux de la France et de la Suisse romande avec
+  leurs drapeaux, comme l'image de présentation de Google Play. Tailles
+  exactes : `iphone-6-9-*` (1320 × 2868), `iphone-6-3-*` (1206 × 2622) et
+  `ipad-13-*` (2064 × 2752), PNG sans transparence.
 
 ### Informations pour la vérification d'Apple
 
