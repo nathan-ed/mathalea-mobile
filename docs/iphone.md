@@ -42,6 +42,41 @@ gratuit pour un dépôt public.
    | `APPLE_API_ISSUER` | l'ID de l'émetteur |
    | `APPLE_DEVELOPMENT_TEAM` | le Team ID |
 
+### Sans clé d'API : certificat et profil (signature manuelle)
+
+Seul le titulaire du compte peut ouvrir l'accès à l'API App Store Connect
+(un Admin voit « Demander l'accès » grisé). Un Admin peut signer sans lui ;
+l'app obtenue est la même, mais le profil est à refaire chaque année et
+l'envoi se fait avec son identifiant Apple. `ios.yml` prend la clé d'API si
+elle existe, sinon cette voie.
+
+1. Clé privée et demande de certificat, hors du dépôt :
+   `openssl req -new -newkey rsa:2048 -nodes -keyout distribution.key -out distribution.csr -subj "/CN=CoopMaths/C=FR"`
+   (dans `~/.local/share/mathalea-mobile/apple/` chez Nathan).
+2. developer.apple.com, « Certificats », « + », **Apple Distribution** :
+   envoyer `distribution.csr`, télécharger `distribution.cer`.
+3. « Profils », « + », **App Store Connect**, identifiant
+   `fr.coopmaths.mathalea`, ce certificat : télécharger le `.mobileprovision`.
+   Valable un an : en refaire un (même certificat) et remplacer le secret.
+4. Certificat en `.p12` (`-legacy` : le trousseau de macOS refuse le format
+   par défaut d'OpenSSL 3) :
+   ```
+   openssl x509 -inform DER -in distribution.cer -out distribution.pem
+   openssl pkcs12 -export -legacy -inkey distribution.key -in distribution.pem -out distribution.p12
+   ```
+5. account.apple.com, « Connexion et sécurité », « Mots de passe pour les
+   apps » : en créer un pour la CI.
+6. Secrets GitHub :
+
+   | Secret | Valeur |
+   | --- | --- |
+   | `IOS_CERTIFICATE` | `base64 -w0 distribution.p12` |
+   | `IOS_CERTIFICATE_PASSWORD` | le mot de passe du `.p12` |
+   | `IOS_MOBILE_PROVISION` | `base64 -w0 <profil>.mobileprovision` |
+   | `APPLE_ID` | l'identifiant Apple de l'Admin |
+   | `APPLE_APP_PASSWORD` | le mot de passe pour app |
+   | `APPLE_DEVELOPMENT_TEAM` | le Team ID (`U2463X724U`) |
+
 ## À chaque version : envoi à TestFlight
 
 1. GitHub, onglet « Actions », workflow **ios**, « Run workflow » : choisir le
