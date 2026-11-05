@@ -8,6 +8,8 @@
 #                                         #  sur le commit du tag, lancé avec ipa=true)
 #   APK_LOCALES=1 scripts/release.sh v0.2.0   # + les APK construites ici (prioritaires)
 #   IPA_RUN=<id> scripts/release.sh v0.2.0    # .ipa d'un run ios.yml précis
+#   BUREAU_SEUL=1 scripts/release.sh v0.5.1   # Windows, macOS, Linux seulement
+#                                         # (version sans changement sur téléphone)
 #
 # Peut être relancé : les fichiers déjà présents sont remplacés, les liens
 # manquants ajoutés à la release de la forge. Pousser le commit qui contient
@@ -49,6 +51,7 @@ uniforme() {
 ranger() {
   for f in "$1"/*; do
     nom="$(uniforme "$(basename "$f")")"
+    if [ -n "${BUREAU_SEUL:-}" ]; then case "$nom" in *.apk | *.ipa) nom="" ;; esac; fi
     # Archive de mise à jour du Mac : seulement signée (sinon elle ne sert à rien)
     case "$f" in *.app.tar.gz) [ -s "$f.sig" ] || nom="" ;; esac
     if [ -n "$nom" ]; then
@@ -108,6 +111,7 @@ fi
 # IPA_RUN=<id> : celle d'un run précis (par exemple sur main, même code de l'app
 # que le tag, après un correctif du seul workflow)
 commit="$(git -C "$racine" rev-parse "$version^{commit}")"
+[ -z "${BUREAU_SEUL:-}" ] || commit="aucun"  # pas d'.ipa
 for run in ${IPA_RUN:-$(gh run list --repo "$depot_github" --workflow ios.yml --status success --limit 30 \
   --json databaseId,headSha --jq ".[] | select(.headSha == \"$commit\") | .databaseId")}; do
   if gh run download "$run" --repo "$depot_github" --name ipa-non-signee --dir "$brut/ios" > /dev/null 2>&1; then
@@ -116,7 +120,7 @@ for run in ${IPA_RUN:-$(gh run list --repo "$depot_github" --workflow ios.yml --
     break
   fi
 done
-[ -d "$brut/ios" ] || echo "Pas d'.ipa : lancer ios.yml avec ipa=true sur $version, puis relancer ce script."
+[ -d "$brut/ios" ] || [ -n "${BUREAU_SEUL:-}" ] || echo "Pas d'.ipa : lancer ios.yml avec ipa=true sur $version, puis relancer ce script."
 if [ -n "${APK_LOCALES:-}" ]; then
   echo "APK construites ici :"
   mkdir -p "$brut/local"
