@@ -41,6 +41,24 @@ export interface ResultatVerification {
   total: number
   retour: string
   reponses: Record<string, string>
+  /** Score (0 à 1) de chaque point de réponse, dans l'ordre de l'énoncé (absent des moteurs antérieurs au 2026-11-06) */
+  detail?: ResultatPoint[]
+}
+
+/**
+ * Point de réponse d'une question : un champ seul (clé « 0 », « 1 »… : rang
+ * de la réponse dans la question) ou une case d'une réponse qui en a
+ * plusieurs (« 0:champ1 », « 0:field2 » : trous, sous-questions a), b)…).
+ */
+export interface PointDeReponse {
+  cle: string
+  rang: number
+  nom?: string
+}
+
+export interface ResultatPoint {
+  cle: string
+  score: number
 }
 
 export interface Moteur {
@@ -61,6 +79,8 @@ export interface Moteur {
   definirLangue(langue: 'fr-FR' | 'fr-CH'): void
   /** Source Typst d'une fiche à imprimer (absent des moteurs antérieurs au 2026-11-02) */
   sourceTypst?(exercices: ParamsExercice[], options: OptionsImpression): Promise<string>
+  /** Points de réponse d'une question (absent des moteurs antérieurs au 2026-11-06) */
+  decrirePoints?(exercice: ExercicePrepare, question: number): PointDeReponse[]
 }
 
 /** Bloc d'une fiche de cours, en HTML (formules LaTeX entre $) */

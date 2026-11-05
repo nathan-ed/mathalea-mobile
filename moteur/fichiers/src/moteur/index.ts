@@ -25,6 +25,10 @@ import {
   uniformiseResults,
 } from '../lib/interactif/gestionInteractif'
 import {
+  toutAUnPoint,
+  toutPourUnPoint,
+} from '../lib/interactif/fonctionsBaremes'
+import {
   mathaleaFormatExercice,
   mathaleaGenerateSeed,
   mathaleaHandleExerciceSimple,
@@ -110,6 +114,30 @@ export interface ResultatVerification {
   total: number
   retour: string // message de MathALÉA (HTML), vide le plus souvent
   reponses: Record<string, string>
+  /**
+   * Résultat de chaque point de réponse de la question, dans l'ordre de
+   * l'énoncé (voir `decrirePoints`) : score entre 0 et 1. Sert au diagnostic
+   * de l'hôte (remédiation) ; le score de la question reste `points`/`total`.
+   */
+  detail: ResultatPoint[]
+}
+
+/**
+ * Point de réponse : ce que MathALÉA vérifie à part dans une question. Un
+ * champ seul pour un rang de `autoCorrection` (clé « 0 », « 1 »… : rang dans
+ * la question), ou chaque case d'un rang qui en a plusieurs (clé
+ * « 0:champ1 », « 0:field2 », « 0:L1C2 »…) : trous d'un champ à compléter,
+ * sous-questions a), b) de `createSubQuestions`, cellules d'un tableau.
+ */
+export interface PointDeReponse {
+  cle: string
+  rang: number // rang dans autoCorrection
+  nom?: string // case dans ce rang
+}
+
+export interface ResultatPoint {
+  cle: string
+  score: number
 }
 
 let initialise = false
@@ -428,6 +456,38 @@ type Verification = {
   score: { nbBonnesReponses: number; nbReponses: number }
 }
 
+/** Cases d'un rang vérifiées une à une (au moins deux), dans l'ordre de leurs réponses */
+function casesDuRang(exercice: IExercice, k: number): string[] {
+  const valeur = exercice.autoCorrection?.[k]?.valeur as
+    | Record<string, unknown>
+    | undefined
+  if (valeur == null || typeof valeur !== 'object') return []
+  const noms = Object.keys(valeur).filter(
+    (cle) => cle !== 'bareme' && cle !== 'feedback' && cle !== 'callback',
+  )
+  return noms.length > 1 ? noms : []
+}
+
+/** Points de réponse de la question i (rang dans listeQuestions), dans l'ordre de l'énoncé */
+export function decrirePoints(
+  prepare: ExercicePrepare,
+  i: number,
+): PointDeReponse[] {
+  const exercice = prepare.interne
+  const enonces = prepare.questions.map((q) => q.enonce)
+  const indices = indicesDeLaQuestion(exercice, i, enonces)
+  return pointsDesRangs(exercice, indices.length ? indices : [i])
+}
+
+function pointsDesRangs(exercice: IExercice, rangs: number[]) {
+  return rangs.flatMap((k, o) => {
+    const cases = casesDuRang(exercice, k)
+    return cases.length
+      ? cases.map((nom) => ({ cle: `${o}:${nom}`, rang: k, nom }))
+      : [{ cle: String(o), rang: k }]
+  })
+}
+
 /** Vérifie le rang k de autoCorrection, selon son type d'interactivité */
 function verifierRang(exercice: IExercice, k: number): Verification {
   const type = exercice.autoCorrection[k]?.formatInteractif
@@ -455,6 +515,49 @@ function verifierRang(exercice: IExercice, k: number): Verification {
 }
 
 /**
+ * Vérifie le rang k et relève le score de chacune de ses cases. MathALÉA les
+ * calcule une à une puis les passe au barème de la question (`bareme(points)`,
+ * dans l'ordre des réponses) : le barème est enveloppé le temps de la
+ * vérification, sans rien changer au score. Barème absent : celui que
+ * MathALÉA prend par défaut pour ce format.
+ */
+function verifierAvecCases(
+  exercice: IExercice,
+  k: number,
+): { verification: Verification; cases: number[] | null } {
+  const valeur = exercice.autoCorrection?.[k]?.valeur as
+    | Record<string, unknown>
+    | undefined
+  if (!casesDuRang(exercice, k).length || valeur == null) {
+    return { verification: verifierRang(exercice, k), cases: null }
+  }
+  const avait = Object.prototype.hasOwnProperty.call(valeur, 'bareme')
+  const propre = valeur.bareme as
+    | ((p: number[]) => [number, number])
+    | undefined
+  const parDefaut =
+    exercice.autoCorrection[k]?.formatInteractif === 'multi-mathfield'
+      ? toutAUnPoint
+      : toutPourUnPoint
+  let cases: number[] | null = null
+  Object.defineProperty(valeur, 'bareme', {
+    configurable: true,
+    enumerable: false,
+    writable: true,
+    value: (points: number[]) => {
+      cases = [...points]
+      return (propre ?? parDefaut)(points)
+    },
+  })
+  try {
+    return { verification: verifierRang(exercice, k), cases }
+  } finally {
+    delete valeur.bareme
+    if (avait) valeur.bareme = propre
+  }
+}
+
+/**
  * Vérifie la question i d'un exercice affiché. Même logique que la vue
  * « une question par page » de MathALÉA (QuestionParPage.svelte), pour chacun
  * des rangs de réponse de la question : juste si tous le sont.
@@ -467,9 +570,36 @@ export function verifier(
   exercice.answers ??= {}
   const enonces = prepare.questions.map((q) => q.enonce)
   const indices = indicesDeLaQuestion(exercice, i, enonces)
-  const resultats = (indices.length ? indices : [i]).map((k) =>
-    verifierRang(exercice, k),
-  )
+  const rangs = indices.length ? indices : [i]
+  const verifies = rangs.map((k) => verifierAvecCases(exercice, k))
+  const resultats = verifies.map((v) => v.verification)
+  const detail: ResultatPoint[] = []
+  verifies.forEach(({ verification, cases }, o) => {
+    const k = rangs[o]
+    const noms = casesDuRang(exercice, k)
+    if (cases && noms.length && (cases as number[]).length === noms.length) {
+      noms.forEach((nom, j) =>
+        detail.push({
+          cle: `${o}:${nom}`,
+          score: Math.max(0, Math.min(1, Number((cases as number[])[j]) || 0)),
+        }),
+      )
+    } else if (noms.length) {
+      // Barème non appelé (fonction de rappel propre à l'exercice) : chaque case prend le résultat du rang
+      for (const nom of noms)
+        detail.push({ cle: `${o}:${nom}`, score: verification.isOk ? 1 : 0 })
+    } else {
+      const { nbBonnesReponses, nbReponses } = verification.score
+      detail.push({
+        cle: String(o),
+        score: verification.isOk
+          ? 1
+          : nbReponses > 0
+            ? Math.max(0, Math.min(1, nbBonnesReponses / nbReponses))
+            : 0,
+      })
+    }
+  })
   return {
     juste: resultats.every((r) => r.isOk),
     points: resultats.reduce((s, r) => s + r.score.nbBonnesReponses, 0),
@@ -478,7 +608,8 @@ export function verifier(
       .map((r) => r.feedback ?? '')
       .filter((f) => f.trim() !== '')
       .join('<br>'),
-    reponses: reponsesDeLaQuestion(exercice, indices.length ? indices : [i]),
+    reponses: reponsesDeLaQuestion(exercice, rangs),
+    detail,
   }
 }
 
