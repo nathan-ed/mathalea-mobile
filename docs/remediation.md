@@ -303,7 +303,13 @@ Pour aller plus loin, dans l'ordre :
    d'affilée, remédiation après un échec ; objectif acquis après une
    réussite au plus haut niveau confirmée un autre jour (révisions). Le
    positionnement et la remédiation construits ici en sont les deux
-   premières briques ; les ceintures restent l'affichage.
+   premières briques ; les ceintures restent l'affichage. La logique est
+   écrite et testée, sans écran (`progressionAdaptee.ts`,
+   `tests/progression-adaptee.test.ts`) : `banqueDuParcours` tire la banque
+   d'un parcours à ceintures existant, `choisir` donne l'exercice suivant et
+   sa raison (commencer, monter, continuer, consolider, remédier, confirmer).
+   Reste l'écran : un bouton « Exercice suivant » sur la page du parcours, une
+   question à la fois, la ceinture obtenue quand ses objectifs sont acquis.
 
 Toujours sur l'appareil : la difficulté vient de l'enseignant (rang de la
 ceinture), jamais de statistiques collectées.
