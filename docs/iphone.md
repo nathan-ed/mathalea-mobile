@@ -149,10 +149,10 @@ notarisation par Apple (faisable avec l'identifiant Apple d'un Admin).
    `APPLE_DEVID_CERTIFICATE` (`base64 -w0`) et
    `APPLE_DEVID_CERTIFICATE_PASSWORD`. La notarisation reprend `APPLE_ID`,
    `APPLE_APP_PASSWORD` et `APPLE_DEVELOPMENT_TEAM`.
-4. Après une release : workflow **macos** (`gh workflow run macos.yml -f
-   version=v<x>`). Il construit le code du tag, signe l'app (runtime renforcé,
-   droit caméra pour les QR codes), la fait notariser, signe et notarise le
-   `.dmg`, puis remplace les `.dmg` de la release GitHub (même nom). Ensuite
-   `scripts/release.sh v<x>` pour la forge.
+4. Chaque release : `release.yml` signe l'app (runtime renforcé, droit
+   caméra pour les QR codes), la fait notariser, puis signe et notarise le
+   `.dmg`. Pour une version publiée avant (0.5.0) : workflow **macos**
+   (`gh workflow run macos.yml -f version=v<x>`), qui remplace les `.dmg` de
+   la release GitHub (même nom), puis `scripts/release.sh v<x>` pour la forge.
 
 Certificat valable cinq ans.
