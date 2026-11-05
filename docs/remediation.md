@@ -347,16 +347,31 @@ ceinture), jamais de statistiques collectées.
 
 ## 11. Vérifications
 
-- `pnpm check`, `pnpm test` (dont `tests/remediation.test.ts`,
-  `tests/objectifs-session.test.ts`) ;
-- `node e2e/remediation.mjs` : téléphone (clair) et bureau (sombre), parcours
-  « Variations d'une fonction composée » (TSA3-30, TSA3-32 ; remédiations
-  1AN14-7 et 1AN14-3) : test de positionnement, étude manquée sur la dérivée
-  seulement, remédiation réussie, retour à la ceinture, remédiation manquée et
-  prérequis, reprise après le bouton retour, Suivi ;
+- `pnpm check` (0 erreur), `pnpm test` (380 tests, dont
+  `tests/remediation.test.ts`, `tests/objectifs-session.test.ts`,
+  `tests/progression-adaptee.test.ts`) ;
+- `node e2e/remediation.mjs` (94 vérifications) : téléphone (clair) et bureau
+  (sombre), réponses saisies au toucher et au clavier :
+  1. test de positionnement : la ceinture jaune s'ouvre sans être obtenue ;
+  2. étude de fonction manquée sur la dérivée seulement : « À retravailler »
+     la dérivée, « Par objectif » 0 % et 100 %, résultat par point enregistré ;
+     remédiation (exemple corrigé, 1AN14-7, l'étude reprise), reprise après
+     le bouton retour et après un relancement de l'app, retour à la ceinture ;
+  3. remédiation manquée : le prérequis prévu (1AN14-3), profondeur 2 ;
+  4. Suivi : les deux objectifs de l'étude, sans ceux des remédiations ;
+  5. « Qu'est-ce qui t'a bloqué ? » : panneau, bouton retour, choix ;
+  6. entraînement adapté : commencer, continuer, monter, consolider ;
+  7. remédiation automatique par le référentiel (5N2G : 5N2G-1 et 5N2G-2) ;
+- `node e2e/reponses-session.mjs` : vue Objectifs de la session (cinq élèves) ;
+- `bash scripts/verifier-release.sh` complet, deux fois vert sur les états
+  intermédiaires (toutes les suites, tous les formats, tous les parcours de
+  l'Explorer et de la démonstration de A à Z), relancé sur l'état final ;
 - sondes `e2e/sonde-points.mjs FR` et `CH` ;
-- réponses de l'élève partagées avec `parcours-az.mjs` (`e2e/eleve-repond.mjs`) :
-  `formats`, `formats-fin` et `parcours-az` rejoués.
+- site : `tests/unit/parcours.test.ts`, contrôle de types des fichiers
+  touchés et de leurs 92 dépendants, éditeur ouvert dans Chromium.
+
+Pas fait ici : Android 11 et les vrais appareils (aucun émulateur dans cette
+session), la release.
 
 ## 12. Questions pour Nathan
 
