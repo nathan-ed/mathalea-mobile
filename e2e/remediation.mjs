@@ -12,6 +12,8 @@
 //   3. Remédiation encore manquée : le prérequis prévu par l'enseignant.
 //   4. Reprise d'une remédiation quittée depuis la page du parcours ; bouton
 //      retour ; maîtrise de l'objectif dans le suivi point par point.
+//   5. Exercice qui vise deux objectifs, une seule réponse : « Qu'est-ce qui
+//      t'a bloqué ? » (panneau du bas), le choix de l'élève lance sa remédiation.
 // Téléphone (390 px, clair) et bureau (1280 px, sombre) ; réponses saisies
 // au toucher et au clavier (e2e/eleve-repond.mjs).
 // App construite servie sur 1420 :
@@ -51,7 +53,7 @@ export const PARCOURS = {
     { titre: 'Étudier les variations', nb: 1, acces: 'seuil', seuil: 80 },
   ],
   etapes: [
-    { uuid: '5fe20', id: 'TSA3-30', titre: 'Dériver une fonction du type $u^n$, $\\mathrm{e}^u$ ou $\\sqrt{u}$', nbQuestions: 2, objectifs: [DERIVER] },
+    { uuid: '5fe20', id: 'TSA3-30', titre: 'Dériver une fonction du type $u^n$, $\\mathrm{e}^u$ ou $\\sqrt{u}$', nbQuestions: 2, objectifs: [DERIVER, USUELLE] },
     {
       uuid: '4336f',
       id: 'TSA3-32',
@@ -275,8 +277,38 @@ async function scenario(bureau) {
   await e.ctx.close()
 }
 
+/** 5. Deux objectifs, une seule réponse par question : l'élève dit ce qui l'a bloqué */
+async function preciser(bureau) {
+  const e = await eleve(bureau ? 'bureau (préciser)' : 'téléphone (préciser)', bureau)
+  const ecran = bureau ? 'bureau' : 'téléphone'
+  const page = e.page
+  await ouvrirParcours(e)
+  // Sans le test : la ceinture blanche, réponses incorrectes
+  await appuyer(e, page.getByRole('region', { name: /^Ceinture blanche/ }).getByRole('button', { name: /^Commencer/ }))
+  await jouer(e, PARCOURS.id, toutFaux([0]))
+  let t = await texte(e)
+  const ligne = bouton(e, /Qu’est-ce qui t’a bloqué \?/)
+  ok((await ligne.count()) === 1 && !t.includes(`Retravailler : ${DERIVER}`), `${ecran} : deux objectifs sans résultat par réponse, l'élève précise`, t.slice(0, 400))
+  await capture(e, 'preciser-bilan')
+  await appuyer(e, ligne)
+  const feuille = page.getByRole('dialog')
+  ok((await feuille.getByRole('button', { name: DERIVER }).count()) === 1 && (await feuille.getByRole('button', { name: USUELLE }).count()) === 1, `${ecran} : panneau avec les deux objectifs`)
+  await capture(e, 'preciser-panneau')
+  // Bouton retour : le panneau se ferme, le bilan reste
+  await page.goBack()
+  await pagePrete(page)
+  ok(!(await page.getByRole('dialog').count()) && (await ligne.count()) === 1, `${ecran} : bouton retour, panneau fermé, bilan gardé`)
+  await appuyer(e, ligne)
+  await appuyer(e, page.getByRole('dialog').getByRole('button', { name: USUELLE }))
+  const s = await lireSeance(page, 'remediation-variations-composees-t')
+  ok(s?.remediation?.objectif === USUELLE && s.contenu.etapes.map((x) => x.id).join() === 'TSA3-30,1AN14-3,TSA3-30', `${ecran} : remédiation de l'objectif choisi`, JSON.stringify([s?.remediation, s?.contenu.etapes.map((x) => x.id)]))
+  await e.ctx.close()
+}
+
 await scenario(false)
 await scenario(true)
+await preciser(false)
+await preciser(true)
 ok(erreurs.length === 0, 'aucune erreur de page', erreurs.slice(0, 5).join('\n'))
 await nav.close()
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')
