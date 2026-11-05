@@ -1,21 +1,28 @@
 mod impression;
+#[cfg(desktop)]
+mod maj;
 mod moteur;
 mod partage;
 mod telechargement;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let constructeur = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
-        .plugin(partage::init())
+        .plugin(partage::init());
+    #[cfg(desktop)]
+    let constructeur = constructeur.plugin(tauri_plugin_updater::Builder::new().build());
+    constructeur
         .setup(|app| {
             #[cfg(target_os = "linux")]
             camera_linux(app);
-            #[cfg(not(target_os = "linux"))]
+            #[cfg(desktop)]
+            maj::lancer(app.handle());
+            #[cfg(not(any(target_os = "linux", desktop)))]
             let _ = app;
             Ok(())
         })
@@ -32,8 +39,15 @@ pub fn run() {
             partage::marges,
             impression::compiler_pdf
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while running tauri application")
+        .run(|_app, _evenement| {
+            // Bureau : la mise à jour téléchargée s'installe à la fermeture
+            #[cfg(desktop)]
+            if let tauri::RunEvent::Exit = _evenement {
+                maj::installer(_app);
+            }
+        });
 }
 
 /// WebKitGTK n'ouvre pas la caméra par défaut : flux média activé, et la

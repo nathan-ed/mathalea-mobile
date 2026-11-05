@@ -20,12 +20,18 @@ depot_github="${GITHUB_DEPOT:-nathan-ed/mathalea-mobile}"
 projet="coopmaths/mathalea-mobile"
 dossier="$racine/releases/$version"
 brut="$(mktemp -d)"
+signatures="$brut/signatures"
+mkdir -p "$signatures"
+lien_brut="https://forge.apps.education.fr/$projet/-/raw/main/releases/$version"
 trap 'rm -rf "$brut"' EXIT
 mkdir -p "$dossier"
 
 # Nom uniforme d'après le nom produit par tauri-action ou Gradle
 uniforme() {
   case "$1" in
+    *.sig) echo "" ;;
+    *aarch64.app.tar.gz) echo "MathALEA-$v-macos-apple-silicon.app.tar.gz" ;;
+    *x64.app.tar.gz) echo "MathALEA-$v-macos-intel.app.tar.gz" ;;
     *.AppImage) echo "MathALEA-$v-linux-amd64.AppImage" ;;
     *.deb) echo "MathALEA-$v-linux-amd64.deb" ;;
     *.rpm) echo "MathALEA-$v-linux-x86_64.rpm" ;;
@@ -43,8 +49,54 @@ uniforme() {
 ranger() {
   for f in "$1"/*; do
     nom="$(uniforme "$(basename "$f")")"
-    if [ -n "$nom" ]; then cp "$f" "$dossier/$nom" && echo "  $nom"; fi
+    # Archive de mise à jour du Mac : seulement signée (sinon elle ne sert à rien)
+    case "$f" in *.app.tar.gz) [ -s "$f.sig" ] || nom="" ;; esac
+    if [ -n "$nom" ]; then
+      cp "$f" "$dossier/$nom" && echo "  $nom"
+      # Signature de mise à jour gardée à côté, pour latest.json
+      if [ -s "$f.sig" ]; then cp "$f.sig" "$signatures/$nom.sig"; fi
+    fi
   done
+}
+
+# releases/latest.json : ce que lisent les apps de bureau pour se mettre à jour
+# (src-tauri/src/maj.rs). Écrit seulement si la version est la plus récente et
+# si chaque système a sa signature (Windows, macOS, AppImage Linux).
+ecrire_latest() {
+  local latest="$racine/releases/latest.json" actuelle
+  actuelle="$(jq -r '.version // empty' "$latest" 2> /dev/null || true)"
+  if [ -n "$actuelle" ] && [ "$(printf '%s\n%s\n' "$actuelle" "$v" | sort -V | tail -1)" != "$v" ]; then
+    echo "latest.json garde la $actuelle (plus récente que $v)."
+    return
+  fi
+  local manquants=""
+  for nom in windows-setup.exe windows.msi macos-apple-silicon.app.tar.gz macos-intel.app.tar.gz linux-amd64.AppImage; do
+    [ -s "$signatures/MathALEA-$v-$nom.sig" ] || manquants="$manquants $nom"
+  done
+  if [ -n "$manquants" ]; then
+    echo "Pas de latest.json : signature de mise à jour manquante pour$manquants."
+    return
+  fi
+  local notes="$racine/docs/notes-de-version/$version.md"
+  jq -n --arg v "$v" --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --arg lien "$lien_brut" \
+    --arg sig "$signatures" --rawfile notes "$notes" '
+    def entree(nom): {signature: ($sig + "/MathALEA-" + $v + "-" + nom + ".sig"), url: ($lien + "/MathALEA-" + $v + "-" + nom)};
+    {version: $v, notes: $notes, pub_date: $date, platforms: {
+      "windows-x86_64-nsis": entree("windows-setup.exe"),
+      "windows-x86_64-msi": entree("windows.msi"),
+      "darwin-aarch64-app": entree("macos-apple-silicon.app.tar.gz"),
+      "darwin-x86_64-app": entree("macos-intel.app.tar.gz"),
+      "linux-x86_64-appimage": entree("linux-amd64.AppImage")
+    }}' > "$latest.tmp"
+  # Chemins des signatures remplacés par leur contenu
+  local entree fichier
+  for entree in $(jq -r '.platforms | keys[]' "$latest.tmp"); do
+    fichier="$(jq -r --arg e "$entree" '.platforms[$e].signature' "$latest.tmp")"
+    jq --arg e "$entree" --rawfile s "$fichier" '.platforms[$e].signature = ($s | rtrimstr("\n"))' \
+      "$latest.tmp" > "$latest.tmp2" && mv "$latest.tmp2" "$latest.tmp"
+  done
+  mv "$latest.tmp" "$latest"
+  echo "latest.json : $v (mise à jour des apps de bureau au prochain push sur main)"
 }
 
 if gh release view "$version" --repo "$depot_github" > /dev/null 2>&1; then
@@ -73,6 +125,7 @@ if [ -n "${APK_LOCALES:-}" ]; then
 fi
 
 (cd "$dossier" && sha256sum -- MathALEA-* > SHA256SUMS)
+ecrire_latest
 
 {
   echo "# Versions de MathALÉA"
@@ -88,8 +141,7 @@ fi
 # Release de la forge : créée au besoin, puis un lien par fichier manquant
 cd "$racine"  # glab prend la forge dans le remote origin
 api="projects/${projet//\//%2F}/releases"
-# Liens sur main : une version peut être complétée après coup (APK d'abord, puis le reste)
-lien_brut="https://forge.apps.education.fr/$projet/-/raw/main/releases/$version"
+# Liens sur main (lien_brut) : une version peut être complétée après coup (APK d'abord, puis le reste)
 if ! glab api "$api/$version" > /dev/null 2>&1; then
   glab api -X POST "$api" -f tag_name="$version" -f ref=main -f name="MathALÉA $v" \
     -f description="Installateurs : voir releases/$version et le README (installation)." > /dev/null
