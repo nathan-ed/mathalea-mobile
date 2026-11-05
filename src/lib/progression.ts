@@ -39,6 +39,7 @@ export interface Seance {
   soumise?: boolean // validation à la fin du parcours : tentative soumise
   code?: string // session partagée : même code, mêmes exercices
   remediation?: OrigineRemediation
+  adapte?: { parcours: string; objectif: string; niveau: number; raison: string } // exercice choisi par la progression adaptée
   ordre?: string[] // questions mélangées (clés « étape-question »), tirées une fois
   // Questions sans réponse à saisir (exercice non interactif), à faire sur
   // papier : hors du score ; vrai quand l'élève a ouvert la correction
@@ -202,6 +203,8 @@ export const ID_REVISIONS = 'revisions'
 /** Séances de remédiation et tests de positionnement (remediation.ts) : parcours générés, hors score et hors ceintures */
 export const PREFIXE_REMEDIATION = 'remediation-'
 export const PREFIXE_POSITIONNEMENT = 'positionnement-'
+export const PREFIXE_ADAPTE = 'adapte-'
+export const estAdapte = (id?: string) => !!id?.startsWith(PREFIXE_ADAPTE)
 export const estRemediation = (id?: string) => !!id?.startsWith(PREFIXE_REMEDIATION)
 export const estPositionnement = (id?: string) => !!id?.startsWith(PREFIXE_POSITIONNEMENT)
 

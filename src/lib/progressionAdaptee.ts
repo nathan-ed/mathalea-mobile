@@ -14,7 +14,9 @@
 //   3. objectif acquis : le plus haut niveau réussi deux fois d'affilée, puis
 //      confirmé un autre jour (pratique espacée) ;
 //   4. exercice : à cet objectif et ce niveau, le moins récemment fait.
-import { paliersDe, type Etape, type Parcours } from './catalogue'
+import { jourLocal, paliersDe, type Etape, type Parcours } from './catalogue'
+import { cleExercice, scoresParObjectif } from './objectifs'
+import { PREFIXE_ADAPTE, type Seance } from './progression'
 
 export interface ExerciceBanque {
   etape: Etape
@@ -78,7 +80,7 @@ function exercicePour(b: Banque, t: Tentative[], o: string, niveau: number) {
   const dernier = (e: ExerciceBanque) => t.map((x) => x.cle).lastIndexOf(cleDe(e))
   return [...liste].sort((a, c) => dernier(a) - dernier(c))[0]
 }
-export const cleDe = (e: ExerciceBanque) => [e.etape.uuid, e.etape.sup, e.etape.sup2, e.etape.sup3, e.etape.sup4].map((x) => x ?? '').join('|')
+export const cleDe = (e: ExerciceBanque) => cleExercice(e.etape)
 
 /** Exercice suivant, ou null quand tout est acquis */
 export function choisir(b: Banque, t: Tentative[], aujourdhui: string): Choix | null {
@@ -140,4 +142,59 @@ export function banqueDuParcours(p: Parcours): Banque {
   })
   const prerequis = (o: string) => p.remediations?.find((r) => r.objectif === o)?.prerequis?.filter((x) => ordre.includes(x)) ?? []
   return { objectifs: ordre.map((libelle) => ({ libelle, prerequis: prerequis(libelle) })), exercices }
+}
+
+/** Questions d'un exercice proposé par la progression adaptée */
+export const QUESTIONS_ADAPTE = 2
+
+/**
+ * Tentatives d'un élève sur les objectifs d'un parcours : chaque exercice
+ * d'un passage terminé (séance d'un palier, ou exercice proposé par la
+ * progression adaptée), pour chacun de ses objectifs, réussi si toutes ses
+ * réponses qui le visent sont correctes. Dans l'ordre des passages.
+ */
+export function tentativesDe(p: Parcours, passages: Seance[]): Tentative[] {
+  const paliers = paliersDe(p)
+  const t: Tentative[] = []
+  const termines = passages.filter((s) => s.fin && (s.contenu.id === p.id || s.adapte?.parcours === p.id)).sort((a, b) => a.fin!.localeCompare(b.fin!))
+  for (const s of termines) {
+    const jour = jourLocal(new Date(s.fin!))
+    for (const etape of s.etapes) {
+      const e = s.contenu.etapes[etape]
+      if (!e) continue
+      const niveau = s.adapte ? s.adapte.niveau : Math.max(0, paliersDe(s.contenu).findIndex((x) => x.etapes.includes(etape)))
+      for (const [objectif, x] of scoresParObjectif(s, etape)) {
+        if (!x.sur || (s.adapte && objectif !== s.adapte.objectif)) continue
+        t.push({ objectif, niveau: Math.min(niveau, Math.max(0, paliers.length - 1)), cle: cleExercice(e), reussi: x.points >= x.sur, jour })
+      }
+    }
+  }
+  return t
+}
+
+/** Séance d'un exercice choisi : quelques questions, correction à chaque question */
+export function parcoursAdapte(p: Parcours, c: Choix): Parcours {
+  return {
+    id: `${PREFIXE_ADAPTE}${p.id}`,
+    version: p.version,
+    titre: p.titre,
+    objectif: c.exercice.objectif,
+    niveau: p.niveau,
+    theme: p.theme,
+    difficulte: p.difficulte,
+    icone: p.icone,
+    presentation: 'une_question_par_page',
+    correction: 'question',
+    etapes: [{ ...c.exercice.etape, nbQuestions: Math.min(c.exercice.etape.nbQuestions ?? QUESTIONS_ADAPTE, QUESTIONS_ADAPTE), remediation: undefined }],
+  }
+}
+
+/** Ce que l'élève lit avant l'exercice suivant */
+export const RAISONS: Record<Raison, string> = {
+  commencer: 'Pour commencer',
+  monter: 'Un cran plus difficile',
+  continuer: 'Encore une fois à ce niveau',
+  consolider: 'Un cran plus simple',
+  remedier: 'Retour à ce qu’il faut savoir avant',
+  confirmer: 'Pour confirmer, un autre jour',
 }

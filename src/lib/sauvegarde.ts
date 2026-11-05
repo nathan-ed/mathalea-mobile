@@ -98,6 +98,7 @@ const estSeance = (id: string) => (v: unknown) => {
     optionnel(s.empreintes, (x) => dictionnaireDe(x, estTexte)) &&
     optionnel(s.qrMontre, (b) => typeof b === 'boolean') &&
     optionnel(s.remediation, estOrigineRemediation) &&
+    optionnel(s.adapte, (a) => estObjet(a) && estTexte(a.parcours) && estTexte(a.objectif) && estEntier(a.niveau) && estTexte(a.raison)) &&
     dictionnaireDe(s.graines, estTexte) &&
     dictionnaireDe(s.nbQuestions, (q) => estEntier(q) && q >= 0) &&
     dictionnaireDe(s.brouillons, (b) => dictionnaireDe(b, estTexte)) &&

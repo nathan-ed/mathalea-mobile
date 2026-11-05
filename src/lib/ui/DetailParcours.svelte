@@ -46,6 +46,7 @@
     ouvertsParTest = [],
     positionnement = null,
     remediation = null,
+    adapte = null,
   }: {
     parcours: Parcours
     resultats: Record<number, ResultatEtape>
@@ -73,6 +74,8 @@
     positionnement?: { enCours: boolean; onlancer: () => void } | null
     /** Remédiation commencée depuis ce parcours */
     remediation?: { titre: string; onreprendre: () => void } | null
+    /** Progression adaptée : ce que l'app propose ensuite (sans `onlancer` : tout est acquis) */
+    adapte?: { texte: string; enCours: boolean; onlancer?: () => void } | null
   } = $props()
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
@@ -244,6 +247,17 @@
         <button type="button" class="{boutonAction} w-full" onclick={positionnement.onlancer}>{positionnement.enCours ? 'Continuer le test' : 'Faire le test'}</button>
       </section>
     {/if}
+    {#if adapte && !positionnement && !remediation}
+      <section class="flex flex-col gap-3 rounded-2xl p-4 border-2 border-coopmaths-action dark:border-coopmathsdark-action" aria-label="Entraînement adapté">
+        <p class="flex flex-row items-center gap-2 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <i aria-hidden="true" class="bx bx-trending-up text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>Entraînement adapté
+        </p>
+        <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{adapte.texte}</p>
+        {#if adapte.onlancer}
+          <button type="button" class="{boutonAction} w-full" onclick={adapte.onlancer}>{adapte.enCours ? 'Continuer' : 'Exercice suivant'}</button>
+        {/if}
+      </section>
+    {/if}
 
     {#if avecPaliers}
       <ol class="flex flex-col" aria-label="Paliers">
@@ -298,7 +312,7 @@
                   </button>
                 {/if}
                 {#if k === courant}
-                  <button type="button" class="{remediation || positionnement ? boutonInverse : boutonAction} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
+                  <button type="button" class="{remediation || positionnement || adapte?.onlancer ? boutonInverse : boutonAction} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
                 {:else if !enCours}
                   <button type="button" class="{boutonLien} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
                 {/if}

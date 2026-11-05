@@ -14,6 +14,9 @@
 //      retour ; maîtrise de l'objectif dans le suivi point par point.
 //   5. Exercice qui vise deux objectifs, une seule réponse : « Qu'est-ce qui
 //      t'a bloqué ? » (panneau du bas), le choix de l'élève lance sa remédiation.
+//   6. Progression adaptée (`adaptatif`) : « Exercice suivant » commence au plus
+//      simple, reste au niveau jusqu'à deux réussites, monte, redescend après
+//      un échec (progressionAdaptee.ts).
 // Téléphone (390 px, clair) et bureau (1280 px, sombre) ; réponses saisies
 // au toucher et au clavier (e2e/eleve-repond.mjs).
 // App construite servie sur 1420 :
@@ -72,14 +75,14 @@ export const PARCOURS = {
 
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
-async function eleve(nom, bureau) {
+async function eleve(nom, bureau, parcours = PARCOURS) {
   // TELEPHONE_SOMBRE=1 : téléphone en sombre aussi (captures des deux thèmes à 390 px)
   const telephone = process.env.TELEPHONE_SOMBRE ? 'dark' : 'light'
   const options = bureau ? { viewport: { width: 1280, height: 800 }, colorScheme: 'dark' } : { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, colorScheme: telephone }
   const ctx = await nav.newContext({ locale: 'fr-FR', ...options })
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
   // État de départ : un élève dont la classe a ce parcours (jamais une réponse)
-  const donnees = { profil: 'eleve', pays: 'FR', classes: [{ lien: 'http://127.0.0.1:9/remediation/', nom: 'TS1', disponibles: ['TS1'], parcours: [PARCOURS] }] }
+  const donnees = { profil: 'eleve', pays: 'FR', classes: [{ lien: 'http://127.0.0.1:9/remediation/', nom: 'TS1', disponibles: ['TS1'], parcours: [parcours] }] }
   await ctx.addInitScript((d) => {
     if (sessionStorage.getItem('pret')) return
     sessionStorage.setItem('pret', '1')
@@ -308,10 +311,48 @@ async function preciser(bureau) {
   await e.ctx.close()
 }
 
+/** 6. Progression adaptée : l'app choisit l'exercice suivant */
+const ADAPTE = {
+  ...PARCOURS,
+  id: 'variations-adapte-t',
+  titre: 'Variations, entraînement adapté',
+  positionnement: undefined,
+  adaptatif: true,
+  etapes: [{ ...PARCOURS.etapes[0], objectifs: [DERIVER] }, PARCOURS.etapes[1]],
+  remediations: undefined,
+}
+async function adapte(bureau) {
+  const e = await eleve(bureau ? 'bureau (adapté)' : 'téléphone (adapté)', bureau, ADAPTE)
+  const ecran = bureau ? 'bureau' : 'téléphone'
+  const page = e.page
+  await appuyer(e, bouton(e, /^\s*Variations, entraînement adapté/))
+  const section = page.getByRole('region', { name: 'Entraînement adapté' })
+  ok((await section.innerText()).includes(`Pour commencer : ${DERIVER}`), `${ecran} : entraînement adapté, le plus simple d'abord`, await section.innerText().catch(() => ''))
+  await capture(e, 'adapte-parcours')
+  const attendu = [
+    ['commencer', 0, null],
+    ['continuer', 0, null],
+    ['monter', 1, dériveeFausse(0)],
+    ['consolider', 0, null],
+  ]
+  for (const [k, [raison, niveau, fausser]] of attendu.entries()) {
+    await appuyer(e, k === 0 ? section.getByRole('button', { name: 'Exercice suivant' }) : bouton(e, 'Exercice suivant'))
+    const s = await lireSeance(page, 'adapte-variations-adapte-t')
+    ok(s?.adapte?.raison === raison && s.adapte.niveau === niveau, `${ecran} : exercice ${k + 1}, ${raison} au niveau ${niveau}`, JSON.stringify(s?.adapte))
+    await jouer(e, 'adapte-variations-adapte-t', fausser)
+    const t = await texte(e)
+    ok(t.includes(fausser ? 'Exercice manqué : le suivant reprend plus simplement.' : 'Exercice réussi.'), `${ecran} : bilan de l'exercice ${k + 1}`, t.slice(0, 200))
+    if (k === 2) await capture(e, 'adapte-bilan-manque')
+  }
+  await e.ctx.close()
+}
+
 await scenario(false)
 await scenario(true)
 await preciser(false)
 await preciser(true)
+await adapte(false)
+await adapte(true)
 ok(erreurs.length === 0, 'aucune erreur de page', erreurs.slice(0, 5).join('\n'))
 await nav.close()
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')

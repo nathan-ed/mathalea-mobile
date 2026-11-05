@@ -209,6 +209,7 @@ export interface Parcours {
   fiche?: Fiche // cours du parcours entier (parcours sans paliers, ou fiche générale)
   remediations?: Remediation[] // par objectif (un objectif au plus une fois)
   positionnement?: boolean // paliers : un test d'une question par palier est proposé avant le premier
+  adaptatif?: boolean // paliers : « Exercice suivant », choisi par l'app selon ce que l'élève réussit (progressionAdaptee.ts)
 }
 
 /** Auteurs en une phrase : « Ana », « Ana et Ben », « Ana, Ben et Chloé » */

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { ficheDe, nomPalier, paliersDe, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { ficheDe, jourLocal, nomPalier, paliersDe, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { RAISONS, banqueDuParcours, choisir as choisirAdapte, parcoursAdapte, tentativesDe, type Raison } from '$lib/progressionAdaptee'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
   import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
   import Fiches from '$lib/ui/Fiches.svelte'
@@ -48,6 +49,8 @@
     lireHistorique,
     lireResultats,
     lireSeance,
+    PREFIXE_ADAPTE,
+    estAdapte,
     modeQr,
     nouvelleSeance,
     premiersEssais,
@@ -369,9 +372,13 @@
     positionnements = (await stockage.lire<Record<string, Positionnement>>('positionnement')) ?? {}
     // Remédiations et tests de positionnement commencés : repris depuis la page de leur parcours
     for (const cle of await stockage.cles())
-      if (cle.startsWith(`seance:${PREFIXE_REMEDIATION}`) || cle.startsWith(`seance:${PREFIXE_POSITIONNEMENT}`)) {
+      if (cle.startsWith(`seance:${PREFIXE_REMEDIATION}`) || cle.startsWith(`seance:${PREFIXE_POSITIONNEMENT}`) || cle.startsWith(`seance:${PREFIXE_ADAPTE}`)) {
         const id = cle.slice('seance:'.length)
         seances[id] = await lireSeance(stockage, id)
+      } else if (cle.startsWith(`historique:${PREFIXE_ADAPTE}`)) {
+        // Progression adaptée : ses exercices font les tentatives de l'élève
+        const id = cle.slice('historique:'.length)
+        historiques[id] = await lireHistorique(stockage, id)
       }
     for (const e of Object.values(etatTest)) if (e.tirage) e.tirage = presenterTest(e.tirage)
     for (const e of Object.values(etatTest)) if (e.tirage) await chargerParcours(e.tirage)
@@ -839,6 +846,7 @@
   function origineDe(s: TSeance): Parcours | undefined {
     if (s.remediation) return trouverParcours(s.remediation.parcours)
     if (estPositionnement(s.parcours)) return trouverParcours(s.parcours.slice(PREFIXE_POSITIONNEMENT.length))
+    if (s.adapte) return trouverParcours(s.adapte.parcours)
     return undefined
   }
 
@@ -870,7 +878,8 @@
   const aRetravaillerDuBilan = $derived.by(() => {
     if (!seance || !seance.fin || !actif || seance.contenu.id !== actif.id) return null
     const s = seance
-    if (estTest(s.parcours) || estRevision(s.parcours) || estRemediation(s.parcours) || estPositionnement(s.parcours)) return null
+    // Progression adaptée : c'est elle qui choisit la suite (plus simple, prérequis)
+    if (estTest(s.parcours) || estRevision(s.parcours) || estRemediation(s.parcours) || estPositionnement(s.parcours) || estAdapte(s.parcours)) return null
     const p = s.contenu
     const d = diagnostiquer(s, autresParcours)
     const origine = (etape: number) => ({ parcours: p.id, version: p.version, etape })
@@ -907,6 +916,14 @@
         actions: [{ libelle: `Commencer : ${nom}`, fn: () => commencer(o, paliers[Math.min(rang, paliers.length - 1)].etapes) }, retour],
       }
     }
+    if (s.adapte) {
+      const reussi = tentativesDe(s.contenu, [{ ...s, adapte: { ...s.adapte, parcours: s.contenu.id } }]).every((x) => x.reussi)
+      const suivant = o ? choixAdapte(o) : null
+      return {
+        message: reussi ? 'Exercice réussi.' : 'Exercice manqué : le suivant reprend plus simplement.',
+        actions: [...(o && suivant ? [{ libelle: 'Exercice suivant', fn: () => void exerciceSuivant(o) }] : []), retour],
+      }
+    }
     if (!s.remediation) return null
     const r = s.remediation
     const recommencer = { libelle: 'Recommencer avec de nouvelles valeurs', fn: () => recommencerRemediation(s) }
@@ -933,6 +950,42 @@
       }
     return { message: 'L’exercice n’est pas encore réussi : demande de l’aide à ton enseignant.', actions: [recommencer, retour] }
   })
+
+  // ---------- Progression adaptée (progressionAdaptee.ts) ----------
+  /** Exercice que l'app propose ensuite pour ce parcours, d'après les passages et les exercices déjà faits */
+  function choixAdapte(p: Parcours) {
+    const passages = [...(historiques[p.id] ?? []), ...(historiques[`${PREFIXE_ADAPTE}${p.id}`] ?? [])]
+    return choisirAdapte(banqueDuParcours(p), tentativesDe(p, passages), jourLocal())
+  }
+  /** Exercice suivant : celui commencé, sinon un nouveau choix */
+  async function exerciceSuivant(p: Parcours) {
+    if (!moteur) return
+    const commence = seances[`${PREFIXE_ADAPTE}${p.id}`]
+    if (commence && !commence.fin && commence.adapte?.parcours === p.id) {
+      actif = commence.contenu
+      return void lancer(commence)
+    }
+    const c = choixAdapte(p)
+    if (!c) return
+    const q = parcoursAdapte(p, c)
+    const s = nouvelleSeance(q, moteur.VERSION_MOTEUR, 'complet')
+    s.adapte = { parcours: p.id, objectif: c.exercice.objectif, niveau: c.exercice.niveau, raison: c.raison }
+    actif = q
+    await lancer(s)
+  }
+  /** Page du parcours : ce que propose la progression adaptée */
+  function adapteDe(p: Parcours) {
+    if (!p.adaptatif || paliersDe(p).length < 2) return null
+    const commence = seances[`${PREFIXE_ADAPTE}${p.id}`]
+    const enCours = !!commence && !commence.fin && commence.adapte?.parcours === p.id
+    const c = enCours ? null : choixAdapte(p)
+    const a = enCours ? commence!.adapte! : c ? { objectif: c.exercice.objectif, raison: c.raison } : null
+    return {
+      texte: a ? `${RAISONS[a.raison as Raison]} : ${a.objectif}` : 'Tous les objectifs sont acquis.',
+      enCours,
+      onlancer: a ? () => void exerciceSuivant(p) : undefined,
+    }
+  }
 
   /** Test de positionnement d'un parcours à paliers : repris s'il est commencé */
   async function lancerPositionnement(p: Parcours) {
@@ -1703,6 +1756,7 @@
         ? { enCours: !!seances[`${PREFIXE_POSITIONNEMENT}${actif.id}`] && !seances[`${PREFIXE_POSITIONNEMENT}${actif.id}`]!.fin, onlancer: () => void lancerPositionnement(actif!) }
         : null}
       remediation={remediationEnCours(actif) ? { titre: remediationEnCours(actif)!.contenu.titre, onreprendre: () => reprendreRemediation(remediationEnCours(actif!)!) } : null}
+      adapte={adapteDe(actif)}
     />
   {:else if vue === 'revisions'}
     <EcranRevisions {revisions} enCours={revisionEnCours} onlancer={lancerRevision} onchapitres={choisirChapitres} ontaille={choisirTaille} onretour={accueil} />

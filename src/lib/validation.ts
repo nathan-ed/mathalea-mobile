@@ -162,7 +162,8 @@ export function estParcours(v: unknown): v is Parcours {
     optionnel(p.melanger, (b) => typeof b === 'boolean') &&
     optionnel(p.fiche, estFiche) &&
     optionnel(p.remediations, (l) => listeDe(l, estRemediation) && sansDoublon((l as { objectif: string }[]).map((r) => r.objectif))) &&
-    optionnel(p.positionnement, (b) => typeof b === 'boolean')
+    optionnel(p.positionnement, (b) => typeof b === 'boolean') &&
+    optionnel(p.adaptatif, (b) => typeof b === 'boolean')
   )
 }
 
