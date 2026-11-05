@@ -17,7 +17,7 @@
 // Téléphone (390 px, clair) et bureau (1280 px, sombre) ; réponses saisies
 // au toucher et au clavier (e2e/eleve-repond.mjs).
 // App construite servie sur 1420 :
-//   CAPTURES=<dossier> node e2e/remediation.mjs
+//   CAPTURES=<dossier> node e2e/remediation.mjs   (TELEPHONE_SOMBRE=1 : téléphone en sombre)
 import { chromium } from 'playwright'
 import { jusqua, pagePrete, pointStable, SANS_BRIDAGE } from './attente.mjs'
 import { jouerSeance, lireSeance, toucher } from './eleve-repond.mjs'
@@ -73,7 +73,9 @@ export const PARCOURS = {
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 async function eleve(nom, bureau) {
-  const options = bureau ? { viewport: { width: 1280, height: 800 }, colorScheme: 'dark' } : { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, colorScheme: 'light' }
+  // TELEPHONE_SOMBRE=1 : téléphone en sombre aussi (captures des deux thèmes à 390 px)
+  const telephone = process.env.TELEPHONE_SOMBRE ? 'dark' : 'light'
+  const options = bureau ? { viewport: { width: 1280, height: 800 }, colorScheme: 'dark' } : { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, colorScheme: telephone }
   const ctx = await nav.newContext({ locale: 'fr-FR', ...options })
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
   // État de départ : un élève dont la classe a ce parcours (jamais une réponse)
@@ -108,7 +110,8 @@ let n = 0
 const capture = async (e, ecran) => {
   if (!CAPTURES) return
   await pagePrete(e.page)
-  await e.page.screenshot({ path: `${CAPTURES}/remediation-${String(++n).padStart(2, '0')}-${ecran}-${e.touche ? 'clair' : 'sombre'}.png`, fullPage: true })
+  const theme = !e.touche || process.env.TELEPHONE_SOMBRE ? 'sombre' : 'clair'
+  await e.page.screenshot({ path: `${CAPTURES}/remediation-${String(++n).padStart(2, '0')}-${ecran}-${e.touche ? 'telephone' : 'bureau'}-${theme}.png`, fullPage: true })
 }
 const texte = async (e) => (await e.page.locator('body').innerText()).replace(/\s+/g, ' ')
 /** Touche un bouton immobile et visible, puis attend que l'écran soit prêt */
