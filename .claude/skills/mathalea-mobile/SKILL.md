@@ -778,6 +778,22 @@ Environnement (machine de Nathan)
   commit) **avant** `scripts/release.sh`, qui la range avec le reste ;
   installation par Sideloadly (7 jours) décrite dans le guide. Non essayée
   sur un vrai iPhone. TestFlight attend le compte Apple Developer.
+- Pièges vus à la 0.5.0 (2026-11-05) :
+  - `tauri ios init --ci` (ios.yml) laisse les icônes de Tauri : ios.yml
+    copie `src-tauri/icons/ios/*.png` dans `AppIcon.appiconset` ; ces icônes
+    sont en RGB sans alpha (l'App Store refuse l'alpha en 1024 px). Les .ipa
+    d'avant la 0.5.0 avaient l'icône de Tauri.
+  - `scripts/e2e-ci.sh` construit avec la même `VITE_URL_EXPLORER` que
+    `verifier-release.sh` : sans elle, l'app lit le vrai kDrive de
+    l'Explorer (joignable en CI) et écrase le catalogue des suites.
+  - Correctif de CI après le tag : relancer `release.yml` par
+    `workflow_dispatch` sur main (`-f version=v<x>`), le tag ne bouge pas
+    (code de l'app identique) ; `.ipa` d'un run sur main :
+    `IPA_RUN=<id> scripts/release.sh v<x>`.
+  - `emulateurs.yml` (iPhone, Android 11 et 15) : à lancer sur la branche de
+    release avant `publier.sh` ; un contrôle géométrique « au-dessus du
+    clavier » ne vaut plus (clavier derrière la barre) : vérifier qu'un
+    bouton est touchable (`elementFromPoint`).
 - Clavier d'Android et double toucher : vérifier sur l'émulateur avec
   `adb shell settings put secure show_ime_with_hard_keyboard 1` et le
   débogage du WebView (`adb forward tcp:9222
