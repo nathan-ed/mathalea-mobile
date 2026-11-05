@@ -3,7 +3,7 @@
 // Quatre élèves rejoignent la même session et répondent pour de vrai (bonnes et
 // mauvaises réponses), puis montrent leur QR code ; l'enseignant les lit à la
 // caméra (fausse caméra de Chromium qui filme les QR codes), revoit les
-// réponses de la classe revérifiées par son app (résumé, questions, élèves),
+// réponses de la classe revérifiées par son app (résumé, questions, élèves, objectifs),
 // importe une photo de quatre téléphones et le fichier d'un cinquième élève.
 //   CAPTURES=<dossier> node e2e/reponses-session.mjs
 // Moteur WebKit (Safari, iPhone, Mac, WebView de Linux) : NAVIGATEUR=webkit.
@@ -299,12 +299,18 @@ const camera = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-devic
 const ctxT = await camera.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: !avecWebkit, hasTouch: true })
 await ctxT.grantPermissions(avecWebkit ? [] : ['camera', 'clipboard-read', 'clipboard-write'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin }).catch(() => {})
 await ctxT.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
-await ctxT.addInitScript(() => {
+// Bibliothèque de l'enseignant : le parcours de la session avec ses objectifs (vue Objectifs)
+const bibliotheque = {
+  classes: [],
+  parcours: [{ parcours: { ...parcours, etapes: parcours.etapes.map((e, i) => ({ ...e, objectifs: [i ? 'Soustraire des relatifs' : 'Additionner des relatifs'] })) }, classes: [], exportee: {} }],
+}
+await ctxT.addInitScript((b) => {
   if (sessionStorage.getItem('pret')) return
   sessionStorage.setItem('pret', '1')
   localStorage.setItem('copie:profil', JSON.stringify('enseignant'))
   localStorage.setItem('copie:pays', JSON.stringify('FR'))
-})
+  localStorage.setItem('copie:bibliotheque', JSON.stringify(b))
+}, bibliotheque)
 const t = await ctxT.newPage()
 t.on('pageerror', (e) => erreurs.push(`enseignant : ${e.message}`))
 await t.goto(base)
@@ -415,6 +421,17 @@ await t.locator('ul[aria-label="Élèves"] > li > button', { hasText: 'Tom' }).c
 const tom = (await t.locator('ul[aria-label="Élèves"] > li', { hasText: 'Tom' }).innerText()).replace(/\s+/g, ' ')
 ok(/Q1 (999 )+Incorrecte/.test(tom) && /Q2 (999 )+Incorrecte/.test(tom) && (tom.match(/\bCorrecte/g) ?? []).length === 4, `élève Tom : ses six réponses, correctes et incorrectes (${tom.slice(0, 160)})`)
 await guide(t, 'sessions-9c-eleves', t.locator('ul[aria-label="Élèves"] > li', { hasText: 'Tom' }))
+
+// Vue par objectif (parcours de la bibliothèque, même version) : les moins réussis d'abord
+await t.getByRole('tab', { name: 'Objectifs' }).click()
+const objectifs = (await t.locator('ul[aria-label="Objectifs"] > li').allInnerTexts()).map((l) => l.replace(/\s+/g, ' ').trim())
+const pourcents = objectifs.map((l) => Number(/(\d+) % · 5 élèves/.exec(l)?.[1] ?? -1))
+ok(
+  objectifs.length === 2 && objectifs.some((l) => l.startsWith('Additionner des relatifs')) && objectifs.some((l) => l.startsWith('Soustraire des relatifs')) && pourcents.every((x) => x >= 0) && pourcents[0] <= pourcents[1],
+  `objectifs : réussite de la classe, le moins réussi d'abord (${objectifs.join(' | ')})`,
+)
+ok(objectifs.some((l) => /Première réponse manquée de \d+ élèves?/.test(l)), 'objectifs : par où reprendre (première réponse manquée)')
+await t.screenshot({ path: `${captures}/${nom}-reponses-4-objectifs.png` })
 await t.getByRole('tab', { name: 'Questions' }).click()
 
 // Correction affichée à la demande
