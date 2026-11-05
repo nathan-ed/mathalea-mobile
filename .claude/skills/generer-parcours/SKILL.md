@@ -48,7 +48,32 @@ change, mettre à jour la page, le schéma et l'exemple (un test les compare,
 - Étiqueter chaque **exercice** avec l'objectif qu'il travaille réellement. Une révision espacée garde l'objectif du prérequis ; elle ne compte pas comme preuve de maîtrise de l'objectif nouveau. Vérifier les résultats par objectif en plus du seuil de la ceinture.
 - Distinguer les deux suivis dans la présentation au professeur : le seuil de la ceinture commande l'accès à la suivante ; les objectifs étiquetés donnent un pourcentage de réussite distinct. Le format actuel ne définit pas de seuil de validation autonome pour chaque objectif. Ne pas annoncer qu'un objectif est « validé » automatiquement par le JSON.
 - Pour les fiches, appliquer `fiches-cours`. Dans « À retenir », écrire une règle utilisable, jamais le libellé de l'objectif. L'exemple résolu et, s'il y en a une, la petite question portent sur cette ceinture. Le retour explique le raisonnement en français naturel. Éviter les longues réponses en toutes lettres si elles n'apportent rien à l'apprentissage mathématique sur mobile.
-- Livrer avec le JSON une courte liste des savoir-faire non couverts par le moteur actuel et une idée précise d'exercice à créer. Augmenter la version des parcours déjà importés avant de rediffuser, sinon l'app peut garder l'ancienne copie.
+- Augmenter la version des parcours déjà importés avant de rediffuser, sinon l'app peut garder l'ancienne copie.
+
+## Exercices manquants : toujours les écrire (Nathan, 2026-11-05)
+
+À **chaque** travail sur un parcours (création, réglage, fiches seules,
+relecture des tirages), noter ce qui manque pour que les exercices
+couvrent vraiment le savoir-faire, afin de développer ces exercices dans
+MathALÉA. Ne pas se contenter de le dire dans le chat.
+
+- Où : `explorer/<catalogue>-manques.md`, tableau « Exercices à créer ou à
+  étendre » (le créer s'il n'existe pas, sur le modèle de
+  `explorer/prequalifiant-manques.md`). Une ligne par savoir-faire :
+  savoir-faire et ceinture ; couverture actuelle (exercices, uuid, ce qui
+  manque dans les tirages) ; proposition.
+- Quand l'écrire : savoir-faire sans exercice interactif ; ceinture qui
+  repose les questions d'une autre ceinture ; réglage qui ne produit pas
+  ce que le titre annonce (une partie seulement des cas, unité absente des
+  tirages) ; QCM gardé faute d'exercice à réponse tapée ; exercice non
+  interactif ou mal corrigé sur téléphone.
+- Proposition : d'abord les exercices **référencés** du référentiel du
+  pays à essayer (id, uuid, réglage `sup` utile), puis, s'il n'y en a pas,
+  un exercice à créer ou une famille à ajouter, avec un exemple de question
+  et ses paramètres. Assez précis pour qu'on puisse l'écrire sans relire le
+  parcours (skill `mathalea-exercice` dans le dépôt MathALÉA).
+- Tenir le tableau à jour : retirer la ligne quand le parcours est
+  complété, et signaler les lignes ajoutées dans le compte rendu à Nathan.
 
 ## Retours de la première séance en classe (Préqualifiant, octobre 2026)
 

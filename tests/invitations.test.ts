@@ -64,8 +64,11 @@ describe('invitation de session', () => {
   })
 
   it('garde les fiches quand elles tiennent, les retire sinon', () => {
-    // Préqualifiant : fiches en texte seul, le parcours entier tient
-    const petit = livres.find((p) => p.id === 'prq-grandeurs-conversions')!
+    // Fiches en texte seul sur deux paliers : le parcours entier tient. Avec ses
+    // sept fiches, un parcours Préqualifiant ne tient plus : l'élève reprend
+    // alors la copie de son appareil (rejoindreSession)
+    const prq = livres.find((p) => p.id === 'prq-grandeurs-conversions')!
+    const petit = { ...prq, paliers: prq.paliers!.map((x, k) => (k < 2 ? x : { titre: x.titre, nb: x.nb, acces: x.acces, seuil: x.seuil })) } as typeof prq
     expect(decoderInvitation(encoderInvitation({ c: 'k3lr2', p: petit, m: MOTEUR }))!.p.paliers!.some((x) => x.fiche)).toBe(true)
     // Octets pseudo-aléatoires, peu compressibles comme une vraie image
     let graine = 7

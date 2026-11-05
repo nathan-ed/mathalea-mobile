@@ -166,6 +166,11 @@ Pour les parcours 4M1 d'intégration et d'exp-log, lire aussi
   une sélection vide peut réactiver des valeurs par défaut. Vérifier aussi
   les compléments automatiques et les paramètres sans effet sur certaines
   familles.
+- Si les exercices d'une ceinture n'interrogent pas tout ce que dit sa
+  fiche (ou son titre), ne pas réduire la fiche pour masquer le manque :
+  l'écrire dans le tableau « Exercices à créer ou à étendre » de
+  `explorer/<catalogue>-manques.md` (règle et format : skill
+  `generer-parcours`, « Exercices manquants »).
 - Identifier le moteur réellement servi pendant les essais, par son
   `manifest.json`. Un serveur déjà lancé peut venir d'un autre worktree.
   Comparer ses familles à celles du moteur destiné aux élèves ; consigner

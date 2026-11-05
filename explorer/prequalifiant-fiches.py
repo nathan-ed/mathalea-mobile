@@ -1,0 +1,792 @@
+#!/usr/bin/env python3
+"""Fiches de cours des parcours Préqualifiant (explorer/prequalifiant.json).
+
+Réécrit seulement le bloc `fiche` de chaque palier ; étapes, seuils et
+métadonnées ne bougent pas. Les fiches restent courtes (une règle, un exemple
+pris dans les exercices de la ceinture, une question), mais chacune porte sur
+ce que les exercices de sa ceinture demandent réellement (énoncés relus avec le
+moteur de l'app, novembre 2026). Les mauvaises réponses des questions à choix
+sont des erreurs réelles ; la bonne réponse change de place (l'app ne mélange
+pas les choix).
+
+    python3 explorer/prequalifiant-fiches.py          # écrit le fichier
+    python3 explorer/prequalifiant-fiches.py --version 14
+
+La version des neuf parcours passe à la valeur donnée (13 par défaut) pour
+que l'app remplace les copies déjà importées.
+"""
+import argparse
+import json
+from pathlib import Path
+
+FICHIER = Path(__file__).with_name("prequalifiant.json")
+
+
+def R(texte, titre=None):
+    b = {"type": "retenir", "texte": texte}
+    if titre:
+        b["titre"] = titre
+    return b
+
+
+def E(enonce, etapes, titre=None):
+    b = {"type": "exemple", "enonce": enonce, "etapes": etapes}
+    if titre:
+        b["titre"] = titre
+    return b
+
+
+def Q(enonce, choix, bonne, explication):
+    return {"type": "question", "enonce": enonce, "choix": choix, "bonne": bonne, "explication": explication}
+
+
+def N(enonce, reponse, explication):
+    return {"type": "question", "enonce": enonce, "reponse": reponse, "explication": explication}
+
+
+def L(*items):
+    return "\n".join("- " + i for i in items)
+
+
+def P(*parts):
+    return "\n\n".join(parts)
+
+
+FICHES = {
+    # ------------------------------------------------------------------
+    "prq-nombres-ecritures-reperage": [
+        [  # Comparer et ranger les entiers
+            R(P("Pour comparer deux entiers :",
+                L("celui qui a le plus de chiffres est le plus grand ;",
+                  "s’ils ont autant de chiffres, on compare les chiffres de gauche à droite jusqu’au premier qui diffère."))),
+            R(r"Ordre **croissant** : du plus petit au plus grand, avec $<$. Ordre **décroissant** : du plus grand au plus petit, avec $>$.",
+              "Croissant ou décroissant"),
+            E(r"Ranger dans l’ordre décroissant : $57\,384$ ; $5\,440$ ; $111\,955$ ; $57\,483$.",
+              [r"$111\,955$ a six chiffres : c’est le plus grand. $5\,440$ n’en a que quatre : c’est le plus petit.",
+               r"$57\,384$ et $57\,483$ commencent tous deux par $57$ ; aux centaines, $4>3$.",
+               r"$111\,955>57\,483>57\,384>5\,440$."]),
+            Q("Quel est le plus grand nombre ?",
+              [r"$9\,872$", r"$10\,045$", r"$9\,978$"], 1,
+              r"$10\,045$ a cinq chiffres, les deux autres seulement quatre. On ne compare les premiers chiffres qu’entre nombres de même longueur."),
+        ],
+        [  # Comprendre les rangs
+            R(r"Une dizaine vaut $10$, une centaine $100$, un millier $1\,000$. Pour écrire « $45$ centaines et $82$ dizaines » en chiffres, on convertit chaque partie, puis on additionne."),
+            E(r"Écrire en chiffres : $45$ centaines et $82$ dizaines.",
+              [r"$45$ centaines $=45\cdot100=4\,500$.",
+               r"$82$ dizaines $=82\cdot10=820$.",
+               r"$4\,500+820=5\,320$."]),
+            E(r"Décomposer $72\,104$ avec $\cdot1$, $\cdot10$, $\cdot100$…",
+              [r"$7$ dizaines de milliers, $2$ milliers, $1$ centaine, $0$ dizaine, $4$ unités.",
+               r"$72\,104=(7\cdot10\,000)+(2\cdot1\,000)+(1\cdot100)+(4\cdot1)$ ; le $0$ des dizaines n’ajoute rien."],
+              "Décomposer"),
+            N(r"Écris en chiffres : $3$ centaines et $25$ dizaines.", 550,
+              r"$300+250=550$. Coller les nombres ($325$) oublie que $25$ dizaines valent $250$."),
+        ],
+        [  # Lire les décimaux
+            R(r"Dans $5{,}281$, la **partie entière** est $5$ et la **partie décimale** est $0{,}281$. Après la virgule viennent les dixièmes ($2$), les centièmes ($8$), puis les millièmes ($1$)."),
+            E(r"Un ensemble contient $1$ cube unité, $2$ barres de $\dfrac{1}{100}$ et $2$ petits cubes de $\dfrac{1}{1\,000}$. Quel nombre représente-t-il ?",
+              [r"$1$ unité, $0$ dixième (aucune plaque), $2$ centièmes, $2$ millièmes.",
+               r"On écrit chaque chiffre à son rang : $1{,}022$."]),
+            Q(r"Quelle est la partie décimale de $7{,}184$ ?",
+              [r"$184$", r"$0{,}184$", r"$7$"], 1,
+              r"$7{,}184=7+0{,}184$. La partie décimale garde sa virgule : c’est $0{,}184$, pas $184$."),
+        ],
+        [  # Décomposer un nombre (nombre de dixièmes, centièmes, millièmes)
+            R(P(r"Dans $83{,}621$ :",
+                L(r"le **chiffre** des dixièmes est $6$ ;",
+                  r"le **nombre** de dixièmes est $836$ : on garde tout ce qui est écrit jusqu’au chiffre des dixièmes, sans la virgule.")),
+              "Chiffre des… ou nombre de…"),
+            R(r"$1$ dixième $=0{,}1$, $1$ centième $=0{,}01$, $1$ millième $=0{,}001$. Ainsi $710$ millièmes $=710\cdot0{,}001=0{,}71$.",
+              "Des dixièmes au nombre"),
+            E(r"Quel est le nombre de centièmes de $85{,}261$ ?",
+              [r"Le chiffre des centièmes est $6$.",
+               r"On garde tout jusqu’à ce chiffre : $85{,}26$, sans la virgule.",
+               r"$85{,}261$ contient $8\,526$ centièmes."]),
+            N(r"Écris en nombre décimal : $45$ dixièmes.", 4.5,
+              r"$45\cdot0{,}1=4{,}5$ : $45$ dixièmes font $4$ unités et $5$ dixièmes."),
+        ],
+        [  # Se repérer sur une droite
+            R("Sur une droite graduée, on calcule d’abord la valeur d’un intervalle : l’écart entre deux nombres écrits, divisé par le nombre d’intervalles qui les séparent."),
+            E(r"Entre $2$ et $3$, l’unité est partagée en $10$ intervalles. Où se trouve $2{,}6$ ?",
+              [r"Un intervalle vaut $1\div10=0{,}1$.",
+               r"$2{,}6=2+6\cdot0{,}1$ : on compte $6$ intervalles à partir de $2$."]),
+            E(r"Les nombres écrits sont $-0{,}05$ et $-0{,}04$, avec $10$ intervalles entre eux. Où placer $-0{,}048$ ?",
+              [r"Un intervalle vaut $0{,}01\div10=0{,}001$.",
+               r"$-0{,}05+0{,}002=-0{,}048$ : on compte $2$ intervalles à droite de $-0{,}05$."],
+              "Avec des négatifs"),
+            Q(r"Entre $0$ et $1$, il y a $5$ intervalles. Que vaut la deuxième graduation après $0$ ?",
+              [r"$0{,}2$", r"$0{,}4$", r"$0{,}5$"], 1,
+              r"Un intervalle vaut $1\div5=0{,}2$ ; deux intervalles font $0{,}4$. Répondre $0{,}2$, c’est compter des dixièmes sans regarder le partage."),
+        ],
+        [  # Comparer et ranger (décimaux)
+            R("Pour comparer deux décimaux, on compare d’abord les parties entières. Si elles sont égales, on compare les chiffres après la virgule rang par rang, en complétant par des zéros si besoin."),
+            E(r"Comparer $43{,}493$ et $43{,}86$.",
+              [r"Même partie entière : $43$.",
+               r"On écrit $43{,}860$ pour avoir autant de décimales.",
+               r"Aux dixièmes, $4<8$ : $43{,}493<43{,}86$."]),
+            Q(r"Quel signe convient : $2{,}8\ \ldots\ 2{,}15$ ?",
+              [r"$<$", r"$=$", r"$>$"], 2,
+              r"$2{,}8=2{,}80$ et, aux dixièmes, $8>1$ : $2{,}8>2{,}15$. Comparer $8$ et $15$ comme des entiers donne la mauvaise réponse."),
+        ],
+        [  # Encadrer et intercaler
+            R(r"Encadrer au dixième : on coupe le nombre après le chiffre des dixièmes, puis on ajoute $0{,}1$. Au centième : on coupe après les centièmes et on ajoute $0{,}01$.",
+              "Encadrer"),
+            E(r"Encadrer $9\,348{,}838$ au dixième.",
+              [r"On coupe après le chiffre des dixièmes : $9\,348{,}8$.",
+               r"On ajoute un dixième : $9\,348{,}9$.",
+               r"$9\,348{,}8<9\,348{,}838<9\,348{,}9$."]),
+            R(r"Pour intercaler un nombre, on ajoute une décimale : entre $13{,}6$ et $13{,}8$, il y a $13{,}7$ ; entre $34$ et $35$, il y a $34{,}1$, $34{,}5$…",
+              "Intercaler"),
+            Q(r"Encadrer $5{,}996$ au centième : $5{,}99<5{,}996<\ldots$",
+              [r"$5{,}100$", r"$6$", r"$5{,}991$"], 1,
+              r"$5{,}99+0{,}01=6$ : le chiffre des centièmes passe de $9$ à $10$, la retenue va jusqu’aux unités."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-calculs-decimaux-relatifs": [
+        [  # Choisir une opération
+            R(L("**somme** : résultat d’une addition ;",
+                "**différence** : résultat d’une soustraction ;",
+                "**produit** : résultat d’une multiplication ;",
+                "**quotient** : résultat d’une division."), "Vocabulaire"),
+            R(r"« La différence entre $9$ et $3$ » s’écrit $9-3$ : on garde l’ordre de la phrase. Quand un terme est lui-même un calcul, on le met entre parenthèses."),
+            E(r"Traduire : le quotient de $30$ par la différence entre $9$ et $3$.",
+              [r"C’est un quotient : $30\div\ldots$",
+               r"On divise par la différence $9-3$, mise entre parenthèses.",
+               r"$30\div(9-3)=30\div6=5$."]),
+            Q(r"« Le produit de $4$ par la somme de $2$ et $5$ » s’écrit :",
+              [r"$4\cdot2+5$", r"$4+2\cdot5$", r"$4\cdot(2+5)$"], 2,
+              r"On multiplie $4$ par toute la somme : les parenthèses sont nécessaires. $4\cdot2+5$ ne multiplie que le $2$."),
+        ],
+        [  # Additionner et soustraire des décimaux
+            R("Pour poser une addition ou une soustraction, on aligne les virgules, donc les chiffres de même rang. On complète par des zéros pour avoir autant de décimales."),
+            E(r"Calculer $321-97{,}87$.",
+              [r"On écrit $321{,}00-97{,}87$.",
+               "On soustrait rang par rang à partir des centièmes, avec les retenues.",
+               r"$321-97{,}87=223{,}13$."]),
+            N(r"Calcule $0{,}84+8{,}7$.", 9.54,
+              r"$0{,}84+8{,}70=9{,}54$. Sans aligner les virgules, on trouverait $1{,}71$."),
+        ],
+        [  # Multiplier des décimaux
+            R("Pour multiplier des décimaux, on multiplie les nombres sans virgule, puis on place la virgule : le résultat a autant de décimales que les deux facteurs réunis."),
+            E(r"Calculer $353\cdot5{,}3$.",
+              [r"Sans virgule : $353\cdot53=18\,709$.",
+               r"$5{,}3$ a une décimale, $353$ aucune : une décimale en tout.",
+               r"$353\cdot5{,}3=1\,870{,}9$."]),
+            R(r"Un ordre de grandeur repère une virgule mal placée : $353\cdot5{,}3\approx350\cdot5=1\,750$.", "Contrôler"),
+            Q(r"$1{,}2\cdot0{,}3=$",
+              [r"$3{,}6$", r"$0{,}36$", r"$0{,}036$"], 1,
+              r"$12\cdot3=36$ ; $1{,}2$ et $0{,}3$ ont chacun une décimale, donc deux en tout : $0{,}36$."),
+        ],
+        [  # Multiplier et diviser par 10, 100, 1 000
+            R(r"Multiplier par $10$, $100$ ou $1\,000$ décale chaque chiffre de $1$, $2$ ou $3$ rangs vers la gauche : le nombre grandit. Diviser les décale vers la droite : le nombre diminue. On complète par des zéros si besoin."),
+            E(r"Compléter : $\ldots\div100=0{,}84$.",
+              [r"On cherche le nombre qui, divisé par $100$, donne $0{,}84$ : on fait l’opération inverse.",
+               r"$0{,}84\cdot100=84$.",
+               r"$84\div100=0{,}84$."]),
+            Q(r"$3{,}2\cdot100=$",
+              [r"$3{,}200$", r"$32$", r"$320$"], 2,
+              r"Chaque chiffre avance de deux rangs : $3$ unités deviennent $3$ centaines. Écrire des zéros après la virgule ($3{,}200$) ne change pas le nombre."),
+        ],
+        [  # Additionner et soustraire des relatifs
+            R(L(r"Même signe : on additionne les distances à zéro et on garde le signe : $(-6)+(-9)=-15$.",
+                r"Signes contraires : on soustrait les distances à zéro et on prend le signe du nombre le plus loin de zéro : $(-7)+(+2)=-5$."),
+              "Additionner"),
+            R(r"Soustraire un nombre revient à ajouter son opposé : $(+5)-(-4)=(+5)+(+4)=+9$.", "Soustraire"),
+            E(r"Calculer $(-2)+(-5)-(-1)+(+3)-(-5)$.",
+              [r"On remplace les soustractions : $(-2)+(-5)+(+1)+(+3)+(+5)$.",
+               r"Positifs : $1+3+5=9$. Négatifs : $(-2)+(-5)=-7$.",
+               r"$9+(-7)=2$."]),
+            Q(r"$(-8)-(+3)=$",
+              [r"$-11$", r"$-5$", r"$+11$"], 0,
+              r"Soustraire $+3$, c’est ajouter $-3$ : $(-8)+(-3)=-11$."),
+        ],
+        [  # Multiplier et diviser des relatifs
+            R(P("Pour un produit ou un quotient de deux nombres :",
+                L("de même signe, le résultat est positif ;", "de signes contraires, il est négatif."),
+                "On calcule ensuite avec les distances à zéro.")),
+            E(r"Calculer $(+20)\div(-4)$.",
+              ["Signes contraires : le quotient est négatif.",
+               r"$20\div4=5$.",
+               r"$(+20)\div(-4)=-5$."]),
+            Q(r"$\dfrac{-28}{-7}=$",
+              [r"$-4$", r"$4$", r"$-21$"], 1,
+              r"Deux nombres négatifs : le quotient est positif, et $28\div7=4$."),
+            R(r"La règle des signes vaut pour $\cdot$ et $\div$, pas pour $+$ : $(-6)+(-9)=-15$, mais $(-6)\cdot(-9)=+54$.", "Piège"),
+        ],
+        [  # Enchaîner les calculs
+            R(P("Ordre des calculs :",
+                L("les parenthèses ;",
+                  "les multiplications et les divisions, de gauche à droite ;",
+                  "les additions et les soustractions, de gauche à droite."))),
+            E(r"Calculer $A=2\cdot5+8\cdot(-4)$.",
+              [r"Les produits d’abord : $2\cdot5=10$ et $8\cdot(-4)=-32$.",
+               r"$A=10-32$.",
+               r"$A=-22$."]),
+            N(r"Calcule $B=-2\cdot(-3)-2$.", 4,
+              r"Le produit d’abord : $-2\cdot(-3)=6$, puis $6-2=4$."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-puissances-carres-racines": [
+        [  # Calculer un carré
+            R(r"Le **carré** d’un nombre est ce nombre multiplié par lui-même : $a^2=a\cdot a$. Carrés à connaître : $1$, $4$, $9$, $16$, $25$, $36$, $49$, $64$, $81$, $100$, $121$, $144$."),
+            E(r"Calculer $15^2$.", [r"$15^2=15\cdot15$.", r"$15\cdot15=225$."]),
+            R(r"$6^2=36$ et $(-6)^2=(-6)\cdot(-6)=36$ : pour compléter $(\ldots)^2=36$, les réponses $6$ et $-6$ conviennent toutes les deux.",
+              "Deux nombres, un carré"),
+            Q(r"$7^2=$", [r"$14$", r"$49$", r"$77$"], 1,
+              r"$7^2=7\cdot7=49$. $14$ vient de $7\cdot2$ : l’exposant n’est pas un facteur."),
+        ],
+        [  # Écrire une puissance
+            R(r"$a^n$ est le produit de $n$ facteurs égaux à $a$. $a$ est la **base**, $n$ l’**exposant**."),
+            E(r"Écrire $5\cdot5\cdot5\cdot5\cdot5\cdot5\cdot5$ avec une puissance.",
+              [r"On compte les facteurs : il y en a $7$.", r"$5^7$."]),
+            E(r"Calculer $2^6$.",
+              [r"$2^6=2\cdot2\cdot2\cdot2\cdot2\cdot2$.",
+               r"On multiplie de proche en proche : $4$, $8$, $16$, $32$, $64$.",
+               r"$2^6=64$."],
+              "Dans l’autre sens"),
+            Q(r"$3^4=$", [r"$12$", r"$81$", r"$64$"], 1,
+              r"$3^4=3\cdot3\cdot3\cdot3=81$. $12$ est $3\cdot4$ ; $64$ est $4^3$, base et exposant échangés."),
+        ],
+        [  # Calculer des puissances
+            R(r"Pour calculer une puissance, on écrit le produit puis on multiplie de proche en proche. Cas particuliers : $a^1=a$ et, pour $a\neq0$, $a^0=1$."),
+            E(r"Calculer $4^3$.", [r"$4^3=4\cdot4\cdot4$.", r"$4\cdot4=16$, puis $16\cdot4=64$."]),
+            N(r"Calcule $2^5$.", 32,
+              r"$2\cdot2\cdot2\cdot2\cdot2=32$. Ce n’est pas $2\cdot5=10$."),
+        ],
+        [  # Utiliser les règles des puissances (de 10)
+            R(L(r"Produit : on additionne les exposants, $10^m\cdot10^n=10^{m+n}$.",
+                r"Quotient : on soustrait l’exposant du dénominateur, $\dfrac{10^m}{10^n}=10^{m-n}$.",
+                r"Puissance de puissance : on multiplie les exposants, $(10^m)^n=10^{m\cdot n}$."),
+              "Puissances de 10"),
+            E(r"Écrire $10^3\cdot10^4$ et $(10^2)^3$ sous la forme $10^n$.",
+              [r"$10^3\cdot10^4=10^{3+4}=10^7$.",
+               r"$(10^2)^3=10^2\cdot10^2\cdot10^2=10^{2\cdot3}=10^6$."]),
+            Q(r"Écrire $\dfrac{10^{3}}{10^{5}}$ sous la forme $10^n$.",
+              [r"$10^{2}$", r"$10^{8}$", r"$10^{-2}$"], 2,
+              r"Quotient : $3-5=-2$, donc $10^{-2}$. Le plus grand exposant est au dénominateur : le résultat est plus petit que $1$."),
+        ],
+        [  # Reconnaître les carrés parfaits
+            R(r"$\sqrt{a}$ est le nombre positif dont le carré vaut $a$. Pour un **carré parfait** ($1$, $4$, $9$, $16$, $25$…), la racine est un entier : $\sqrt{49}=7$ car $7^2=49$."),
+            E(r"Calculer $\sqrt{144}$.",
+              [r"On cherche un nombre positif dont le carré vaut $144$.", r"$12^2=144$, donc $\sqrt{144}=12$."]),
+            Q(r"$\sqrt{100}=$", [r"$10$", r"$50$", r"$-10$"], 0,
+              r"$10^2=100$ et une racine carrée est positive : $\sqrt{100}=10$. Diviser par $2$ ($50$) ne donne pas la racine."),
+        ],
+        [  # Encadrer une racine
+            R(r"Pour encadrer $\sqrt{a}$ entre deux entiers consécutifs, on cherche les deux carrés parfaits qui entourent $a$."),
+            E(r"Encadrer $\sqrt{70}$.",
+              [r"$8^2=64$ et $9^2=81$.", r"$64<70<81$, donc $8<\sqrt{70}<9$."]),
+            R(r"On regarde le chiffre qui suit le rang demandé : de $0$ à $4$, on coupe ; de $5$ à $9$, on augmente le dernier chiffre gardé. $\sqrt{204}\approx14{,}2828$ s’arrondit au centième à $14{,}28$.",
+              "Arrondir"),
+            Q(r"Entre quels entiers se trouve $\sqrt{30}$ ?",
+              [r"$15$ et $16$", r"$5$ et $6$", r"$29$ et $31$"], 1,
+              r"$5^2=25<30<36=6^2$. $15$ vient de $30\div2$ : une racine n’est pas une moitié."),
+        ],
+        [  # Notation scientifique
+            R(r"La notation scientifique d’un nombre est $a\cdot10^n$ avec $1\leqslant a<10$ : un seul chiffre non nul avant la virgule."),
+            E(r"Écrire $910\,000$ en notation scientifique.",
+              [r"$a=9{,}1$ : un seul chiffre avant la virgule.",
+               r"De $9{,}1$ à $910\,000$, la virgule avance de $5$ rangs.",
+               r"$910\,000=9{,}1\cdot10^5$."]),
+            E(r"Écrire $3{,}09\cdot10^3$ en écriture décimale.",
+              [r"Multiplier par $10^3$ décale la virgule de $3$ rangs vers la droite.", r"$3{,}09\cdot10^3=3\,090$."],
+              "Dans l’autre sens"),
+            Q(r"Quelle est la notation scientifique de $42\,000$ ?",
+              [r"$42\cdot10^3$", r"$4{,}2\cdot10^4$", r"$0{,}42\cdot10^5$"], 1,
+              r"$42\cdot10^3$ vaut bien $42\,000$, mais $42$ dépasse $10$. On écrit $4{,}2\cdot10^4$."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-donnees-raisonnement": [
+        [  # Lire un diagramme
+            R("Avant de lire les barres : le titre dit ce qui est compté, l’axe vertical donne les effectifs. Comme sur une droite graduée, on calcule la valeur d’un intervalle entre deux graduations."),
+            E(r"L’axe est gradué de $100$ en $100$. La barre des phacochères s’arrête entre les graduations $500$ et $600$. Que peut-on dire ?",
+              [r"On repère les deux graduations qui encadrent le haut de la barre : $500$ et $600$.",
+               r"Il y a entre $500$ et $600$ phacochères ; on ne peut pas donner le nombre exact."]),
+            Q(r"Un diagramme montre $45$ zèbres, $20$ girafes et $15$ gazelles. Les zèbres représentent :",
+              ["moins de la moitié des animaux", "plus de la moitié des animaux", "exactement la moitié des animaux"], 1,
+              r"Total : $45+20+15=80$ ; la moitié vaut $40$ et $45>40$. On compare au total, pas à chaque autre barre."),
+        ],
+        [  # Prélever les données utiles
+            R(L("L’**effectif total** est la somme des effectifs de toutes les barres.",
+                r"« Au plus $4$ » signifie $4$ ou moins ; « au moins $4$ » signifie $4$ ou plus. On additionne les barres concernées, et seulement elles.")),
+            E(r"Exercices faits en une semaine : $3$ exercices pour $5$ élèves, $4$ pour $4$ élèves, $5$ pour $2$ élèves, $6$ pour $3$ élèves. Combien d’élèves ont fait au plus $4$ exercices ?",
+              [r"« Au plus $4$ » : $3$ ou $4$ exercices.",
+               r"On additionne ces deux barres : $5+4=9$ élèves."]),
+            N(r"Notes d’une classe : $2$ élèves ont $3$, $8$ ont $4$ et $6$ ont $5$. Quel est l’effectif total ?", 16,
+              r"On additionne les effectifs, pas les notes : $2+8+6=16$ élèves."),
+        ],
+        [  # Traduire en calcul
+            R("On traduit chaque étape du problème par une opération, puis on regroupe tout en une ligne ; les parenthèses gardent l’ordre des étapes."),
+            E(r"Quatre amis achètent $2$ sandwichs à $4$ francs et une bouteille à $4$ francs, puis partagent la note. Écrire le calcul en une ligne.",
+              [r"Prix des sandwichs : $2\cdot4$.",
+               r"Total : $2\cdot4+4=12$.",
+               r"Part de chacun : $(2\cdot4+4)\div4=3$ francs."]),
+            Q(r"On paie $10{,}50$ francs pour $3$ pains à $1{,}50$ franc et $4$ tartelettes. Quel calcul donne le prix d’une tartelette ?",
+              [r"$10{,}50-3\cdot1{,}50\div4$", r"$(10{,}50-3\cdot1{,}50)\div4$", r"$10{,}50\div4-3\cdot1{,}50$"], 1,
+              r"On retire d’abord le prix des pains, puis on partage le reste entre les $4$ tartelettes : $(10{,}50-4{,}50)\div4=1{,}50$ franc."),
+        ],
+        [  # Organiser plusieurs calculs
+            R("Pour écrire deux calculs en une seule ligne, on remplace le résultat intermédiaire par le calcul qui l’a donné, entre parenthèses."),
+            E(r"Marina calcule $8+10=18$, puis $18\cdot2=36$. Écrire en une ligne.",
+              [r"$18$ est le résultat de $8+10$.",
+               r"On remplace $18$ par $(8+10)$ : $(8+10)\cdot2=36$.",
+               r"Sans parenthèses, $8+10\cdot2$ vaudrait $28$."]),
+            Q(r"Christophe calcule $2\cdot3=6$, puis $6+8=14$. Quelle ligne convient ?",
+              [r"$2\cdot(3+8)$", r"$2\cdot3+8$", r"$(2+3)\cdot8$"], 1,
+              r"Le produit est prioritaire : $2\cdot3+8=6+8=14$. On peut écrire $(2\cdot3)+8$, mais les parenthèses sont inutiles."),
+        ],
+        [  # Estimer un résultat
+            R("Pour un ordre de grandeur, on remplace chaque nombre par une valeur proche et simple, puis on calcule de tête."),
+            E(r"Donner un ordre de grandeur de $309\cdot20\,425$.",
+              [r"$309\approx300$ et $20\,425\approx20\,000$.", r"$300\cdot20\,000=6\,000\,000$."]),
+            Q(r"Un ordre de grandeur de $999\cdot101$ est :",
+              [r"$100\,000$", r"$10\,000$", r"$1\,000\,000$"], 0,
+              r"$999\approx1\,000$ et $101\approx100$ : $1\,000\cdot100=100\,000$ ($3+2=5$ zéros)."),
+        ],
+        [  # Vérifier une égalité
+            R(r"Pour tester une égalité avec une valeur de $x$, on remplace $x$ par cette valeur dans chaque membre et on calcule chaque membre à part. L’égalité est vraie pour cette valeur si les deux résultats sont égaux."),
+            E(r"Tester $21-2x=9+2x$ pour $x=3$.",
+              [r"Membre de gauche : $21-2\cdot3=21-6=15$.",
+               r"Membre de droite : $9+2\cdot3=9+6=15$.",
+               r"Mêmes résultats : l’égalité est vraie pour $x=3$."]),
+            N(r"Pour $x=-2$, que vaut $-5-2x$ ?", -1,
+              r"$-5-2\cdot(-2)=-5+4=-1$. Avec un nombre négatif, on écrit les parenthèses."),
+            R(r"$2x$ signifie $2\cdot x$ : pour $x=3$, $2x=6$, pas $23$.", "Piège"),
+        ],
+        [  # Résoudre et contrôler un problème
+            R("Dans un problème en plusieurs étapes, on écrit ce que donne chaque calcul (dépense totale, reste à payer…). À la fin, on relit la question et on répond avec l’unité."),
+            E(r"Un spectacle coûte $65$ francs par artiste pour $8$ artistes, plus $350$ francs de déplacement. La commune verse $360$ francs. Combien l’école paie-t-elle ?",
+              [r"Cachets : $8\cdot65=520$ francs.",
+               r"Dépense totale : $520+350=870$ francs.",
+               r"L’école paie $870-360=510$ francs."]),
+            Q(r"Xavier achète $3$ kg de courgettes à $3$ francs le kilo et une cagette d’abricots à $10$ francs. Il paie :",
+              [r"$16$ francs", r"$19$ francs", r"$13$ francs"], 1,
+              r"Courgettes : $3\cdot3=9$ francs, puis $9+10=19$ francs. $16=3+3+10$ oublie que le prix est donné par kilo."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-grandeurs-conversions": [
+        [  # Comprendre les préfixes usuels
+            R(L(r"kilo (k) : $\cdot1\,000$", r"hecto (h) : $\cdot100$", r"déca (da) : $\cdot10$",
+                r"déci (d) : $\div10$", r"centi (c) : $\div100$", r"milli (m) : $\div1\,000$"), "Préfixes"),
+            E(r"Compléter : $1\text{ cm}=\ldots\text{ m}$.",
+              [r"Centi signifie « divisé par $100$ » : un centimètre est un centième de mètre.",
+               r"$1\text{ cm}=1\div100\text{ m}=0{,}01\text{ m}$."]),
+            Q("Le préfixe déca correspond à :",
+              [r"$\div10$", r"$\cdot10$", r"$\cdot100$"], 1,
+              r"Déca (da) multiplie par $10$ : $1\text{ dam}=10\text{ m}$. C’est déci (d) qui divise par $10$."),
+        ],
+        [  # Utiliser les préfixes
+            R(r"Pour convertir, on cherche combien d’unités de départ fait une unité d’arrivée : $1\text{ km}=1\,000\text{ m}$, donc des mètres aux kilomètres, on divise par $1\,000$. Vers une unité plus grande, le nombre diminue."),
+            E(r"Compléter : $87\text{ m}=\ldots\text{ hm}$.",
+              [r"$1\text{ hm}=100\text{ m}$.", r"$87\div100=0{,}87$.", r"$87\text{ m}=0{,}87\text{ hm}$."]),
+            Q(r"$5\text{ m}=\ldots\text{ km}$",
+              [r"$5\,000$", r"$0{,}05$", r"$0{,}005$"], 2,
+              r"Le kilomètre est plus grand que le mètre : le nombre diminue. $5\div1\,000=0{,}005$."),
+        ],
+        [  # Convertir longueurs et masses
+            R(r"Unités de la plus grande à la plus petite : k, h, da, unité, d, c, m. Chaque unité vaut $10$ fois la suivante : on multiplie par $10$ à chaque pas vers la droite, on divise par $10$ à chaque pas vers la gauche."),
+            E(r"Convertir $200\text{ dag}$ en grammes.",
+              [r"De dag à g : un pas vers la droite.", r"$200\cdot10=2\,000$ : $200\text{ dag}=2\,000\text{ g}$."]),
+            N(r"Combien de grammes font $1{,}5\text{ kg}$ ?", 1500,
+              r"De kg à g : trois pas, donc $\cdot1\,000$. $1{,}5\cdot1\,000=1\,500\text{ g}$."),
+        ],
+        [  # Convertir capacités et prix
+            R(r"Les capacités utilisent les mêmes préfixes avec le litre : $1\text{ L}=10\text{ dL}=100\text{ cL}=1\,000\text{ mL}$ et $1\text{ hL}=100\text{ L}$."),
+            E(r"Convertir $53\text{ hL}$ en litres.",
+              [r"$1\text{ hL}=100\text{ L}$.", r"$53\cdot100=5\,300$ : $53\text{ hL}=5\,300\text{ L}$."]),
+            Q(r"$75\text{ cL}=$",
+              [r"$7{,}5\text{ L}$", r"$0{,}75\text{ L}$", r"$750\text{ L}$"], 1,
+              r"$100\text{ cL}=1\text{ L}$ : $75\div100=0{,}75\text{ L}$."),
+        ],
+        [  # Convertir les durées
+            R(r"$1\text{ h}=60\text{ min}$ et $1\text{ min}=60\text{ s}$. Les durées ne comptent pas en base $10$ : $0{,}5\text{ h}=30\text{ min}$, $0{,}25\text{ h}=15\text{ min}$, $0{,}75\text{ h}=45\text{ min}$."),
+            E(r"Convertir $276$ minutes en heures et minutes.",
+              [r"On cherche combien de fois $60$ dans $276$ : $4\cdot60=240$.",
+               r"Il reste $276-240=36$ minutes.",
+               r"$276\text{ min}=4\text{ h }36\text{ min}$."]),
+            E(r"Convertir $4\text{ h }15\text{ min}$ en heures.",
+              [r"$15\text{ min}=\dfrac{15}{60}\text{ h}=\dfrac14\text{ h}=0{,}25\text{ h}$.",
+               r"$4\text{ h }15\text{ min}=4{,}25\text{ h}$."],
+              "En heures décimales"),
+            Q(r"$1\text{ h }30\text{ min}$ en heures, c’est :",
+              [r"$1{,}3\text{ h}$", r"$1{,}5\text{ h}$", r"$1{,}30\text{ h}$"], 1,
+              r"$30\text{ min}$ est une demi-heure : $\dfrac{30}{60}=0{,}5$. Écrire $1{,}3$ confond minutes et dixièmes d’heure."),
+        ],
+        [  # Convertir aires et volumes
+            R(L(r"Aires : $\cdot100$ à chaque pas entre unités voisines, $1\text{ m}^2=100\text{ dm}^2$.",
+                r"Volumes : $\cdot1\,000$ à chaque pas, $1\text{ m}^3=1\,000\text{ dm}^3$.",
+                r"$1\text{ dm}^3=1\text{ L}$.")),
+            E(r"Convertir $3\text{ hm}^2$ en $\text{m}^2$.",
+              [r"De $\text{hm}^2$ à $\text{m}^2$ : deux pas ($\text{hm}^2$, $\text{dam}^2$, $\text{m}^2$).",
+               r"$3\cdot100\cdot100=30\,000$ : $3\text{ hm}^2=30\,000\text{ m}^2$."]),
+            E(r"Convertir $80\text{ m}^3$ en litres.",
+              [r"$80\text{ m}^3=80\cdot1\,000\text{ dm}^3=80\,000\text{ dm}^3$.",
+               r"$1\text{ dm}^3=1\text{ L}$ : $80\text{ m}^3=80\,000\text{ L}$."],
+              "Volume et capacité"),
+            Q(r"$1\text{ m}^2=$",
+              [r"$100\text{ cm}^2$", r"$1\,000\text{ cm}^2$", r"$10\,000\text{ cm}^2$"], 2,
+              r"Un carré de $1\text{ m}$ de côté mesure $100\text{ cm}$ sur $100\text{ cm}$ : $100\cdot100=10\,000\text{ cm}^2$."),
+        ],
+        [  # Convertir vitesses et grandeurs composées
+            R(r"Une vitesse ou un débit est un quotient d’unités. On convertit séparément le numérateur et le dénominateur, puis on divise. Rappels : $1\text{ h}=3\,600\text{ s}$, $1\text{ min}=60\text{ s}$."),
+            E(r"Convertir $15\text{ m/s}$ en km/h.",
+              [r"En $1\text{ h}=3\,600\text{ s}$, on parcourt $15\cdot3\,600=54\,000\text{ m}$.",
+               r"$54\,000\text{ m}=54\text{ km}$.",
+               r"$15\text{ m/s}=54\text{ km/h}$."]),
+            E(r"Convertir $387\text{ L/h}$ en cL/s.",
+              [r"$387\text{ L}=38\,700\text{ cL}$ et $1\text{ h}=3\,600\text{ s}$.",
+               r"$38\,700\div3\,600=10{,}75$ : $387\text{ L/h}=10{,}75\text{ cL/s}$."],
+              "Débit"),
+            Q(r"$72\text{ km/h}$ valent :",
+              [r"$259{,}2\text{ m/s}$", r"$20\text{ m/s}$", r"$2\text{ m/s}$"], 1,
+              r"$72\,000\text{ m}$ en $3\,600\text{ s}$ : $72\,000\div3\,600=20\text{ m/s}$. Multiplier par $3{,}6$ ($259{,}2$) convertit dans le mauvais sens."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-figures-angles-solides": [
+        [  # Nommer les figures (angles et quadrilatères)
+            R(r"On écrit trois points sous un chapeau : $\widehat{ABC}$. La lettre du **milieu** est le sommet ; les deux autres sont des points pris sur chacun des côtés. $\widehat{ABC}$ et $\widehat{CBA}$ désignent le même angle.",
+              "Nommer un angle"),
+            E(r"Un angle a pour sommet $N$ ; ses côtés passent par $Z$ et par $I$. Comment le nommer ?",
+              [r"Le sommet $N$ va au milieu : $\widehat{ZNI}$ ou $\widehat{INZ}$.",
+               r"Tout autre point d’un côté convient : si $J$ est sur $[NI)$, $\widehat{ZNJ}$ est le même angle."]),
+            R(L(r"**Rectangle** : quatre angles droits ; diagonales de même longueur qui se coupent en leur milieu.",
+                r"**Losange** : quatre côtés de même longueur ; diagonales perpendiculaires qui se coupent en leur milieu.",
+                r"**Carré** : à la fois rectangle et losange."),
+              "Quadrilatères particuliers"),
+            Q("Un quadrilatère a quatre côtés de même longueur et un angle droit. C’est :",
+              ["un carré", "un losange", "un rectangle"], 0,
+              "Quatre côtés égaux : c’est un losange. Avec un angle droit, ses quatre angles sont droits : c’est un carré, la réponse la plus précise."),
+        ],
+        [  # Repérer droites et angles
+            R(r"Le **sommet** est le point commun aux deux côtés ; les **côtés** sont des demi-droites, comme $[XY)$ ; $\widehat{NXY}$ est le **nom** de l’angle.",
+              "Un angle"),
+            R(L("**Adjacents** : même sommet, un côté commun, situés de part et d’autre de ce côté.",
+                "**Opposés par le sommet** : même sommet, côtés dans le prolongement l’un de l’autre.",
+                "Deux droites coupées par une sécante : **alternes-internes** entre les deux droites et de part et d’autre de la sécante ; **correspondants** à la même place à chacune des deux intersections.",
+                r"**Complémentaires** : somme $90^\circ$ ; **supplémentaires** : somme $180^\circ$."),
+              "Deux angles"),
+            E(r"Les angles $\widehat{AOB}$ et $\widehat{BOC}$ ont le sommet $O$ et le côté $[OB)$ en commun ; $A$ et $C$ sont de part et d’autre de $[OB)$. Comment les qualifier ?",
+              [r"Même sommet et un côté commun.",
+               r"Les deux angles sont de chaque côté de ce côté commun : ils sont **adjacents**."]),
+            Q(r"Pour l’angle $\widehat{AWJ}$, le point $W$ est :",
+              ["un côté", "le sommet", "le nom de l’angle"], 1,
+              r"La lettre du milieu est le sommet. Les côtés sont les demi-droites $[WA)$ et $[WJ)$."),
+        ],
+        [  # Mesurer un angle
+            R(r"On place le centre du rapporteur sur le sommet et la graduation $0$ sur un côté. On lit la mesure là où passe l’autre côté, **sur la graduation qui part de ce $0$**.",
+              "Rapporteur"),
+            R(L(r"aigu : entre $0^\circ$ et $90^\circ$ ;", r"droit : $90^\circ$ ;", r"obtus : entre $90^\circ$ et $180^\circ$ ;",
+                r"plat : $180^\circ$ ;", r"plein : $360^\circ$."),
+              "Angles particuliers"),
+            E(r"Un côté passe par le $0$ de la graduation intérieure ; l’autre passe par $124$ sur cette graduation et par $56$ sur l’autre. Quelle est la mesure ?",
+              [r"On lit sur la graduation qui part de $0$ : l’intérieure.",
+               r"L’angle mesure $124^\circ$.",
+               r"Contrôle : l’angle est plus ouvert qu’un angle droit, il est obtus ; $124^\circ$ convient."]),
+            Q(r"Un côté passe par le $0$ de la graduation intérieure. L’autre côté passe par $41$ sur cette graduation et par $139$ sur l’autre. L’angle mesure :",
+              [r"$139^\circ$", r"$41^\circ$", r"$180^\circ$"], 1,
+              r"On lit sur la graduation qui part de $0$ : $41^\circ$. Contrôle : l’angle est aigu, il mesure moins de $90^\circ$."),
+        ],
+        [  # Reconnaître les quadrilatères
+            R("Sur une figure à main levée, on ne mesure pas : on lit les **codages**. Mêmes traits : longueurs égales ; petit carré : angle droit."),
+            R(L("**Parallélogramme** : côtés opposés parallèles ; diagonales qui se coupent en leur milieu.",
+                "**Rectangle** : parallélogramme avec un angle droit.",
+                "**Losange** : parallélogramme avec deux côtés consécutifs de même longueur.",
+                "**Carré** : rectangle et losange à la fois."),
+              "Du plus général au plus précis"),
+            E(r"$ABCD$ a ses quatre côtés codés égaux et un angle droit codé en $A$. Quelle est sa nature la plus précise ?",
+              [r"Quatre côtés égaux : $ABCD$ est un losange.",
+               "Un losange qui a un angle droit est aussi un rectangle.",
+               r"$ABCD$ est un carré."]),
+            Q("Un quadrilatère a des diagonales de même longueur qui se coupent en leur milieu. C’est :",
+              ["un losange", "un rectangle", "un carré"], 1,
+              "Diagonales qui se coupent en leur milieu : parallélogramme ; de même longueur : rectangle. Rien ne dit qu’elles sont perpendiculaires : on ne peut pas conclure au carré."),
+        ],
+        [  # Décrire les solides et patrons
+            R(L("**Prisme droit** : deux bases superposables et parallèles, faces latérales rectangulaires. Le **pavé droit** est un prisme dont toutes les faces sont des rectangles.",
+                "**Pyramide** : une base polygonale et des faces triangulaires qui se rejoignent en un sommet.",
+                "**Cylindre** : deux disques parallèles. **Cône** : un disque et un sommet. **Boule** : aucune face plane.")),
+            E("Un solide a une face de plus que le nombre de côtés de sa base. Lequel ?",
+              [r"Pyramide à base de $n$ côtés : $n$ faces triangulaires et la base, soit $n+1$ faces.",
+               r"Prisme à base de $n$ côtés : $n$ faces latérales et deux bases, soit $n+2$ faces.",
+               "C’est une pyramide."]),
+            Q("Combien de faces a un prisme droit à base triangulaire ?",
+              [r"$3$", r"$5$", r"$6$"], 1,
+              r"$3$ faces latérales rectangulaires et $2$ bases triangulaires : $5$ faces."),
+        ],
+        [  # Reconnaître les symétries
+            R(r"Une droite est un **axe de symétrie** d’une figure si, en pliant le long de cette droite, les deux parties se superposent. Une figure peut en avoir $0$, $1$, $2$ ou plus.",
+              "Axe de symétrie"),
+            R(r"Un point $O$ est un **centre de symétrie** si la figure se superpose à elle-même après un demi-tour autour de $O$. Le parallélogramme en a un ; un triangle n’en a jamais.",
+              "Centre de symétrie"),
+            E("Combien d’axes de symétrie a un rectangle qui n’est pas un carré ? A-t-il un centre de symétrie ?",
+              ["Les deux droites qui passent par les milieux de côtés opposés sont des axes ; les diagonales n’en sont pas.",
+               r"Il a donc $2$ axes de symétrie.",
+               "Le point d’intersection des diagonales est son centre de symétrie."]),
+            Q("Combien d’axes de symétrie a un losange qui n’est pas un carré ?",
+              [r"$4$", r"$2$", r"$0$"], 1,
+              "Ses deux diagonales sont des axes. Les droites qui joignent les milieux des côtés opposés n’en sont pas : le pliage ne superpose pas les deux parties."),
+        ],
+        [  # Utiliser les transformations
+            R(r"La translation qui transforme $D$ en $B$ fait glisser **chaque** point comme $D$ : même direction, même sens, même longueur. La figure n’est ni tournée ni retournée.",
+              "Translation"),
+            R(r"La symétrie de centre $A$ est un demi-tour autour de $A$ : l’image d’un point $M$ est le point $M'$ tel que $A$ est le milieu de $[MM']$.",
+              "Symétrie centrale"),
+            E(r"Trouver l’image du triangle $RLK$ par la translation qui transforme $D$ en $B$.",
+              [r"On repère le déplacement de $D$ à $B$ sur le quadrillage ou le pavage.",
+               r"On applique ce même déplacement à $R$, à $L$ et à $K$.",
+               "Le triangle obtenu a la même forme et la même orientation : c’est l’image."]),
+            Q("Par une symétrie centrale, une figure est :",
+              ["retournée comme dans un miroir", "tournée d’un demi-tour", "agrandie"], 1,
+              "Une symétrie centrale est un demi-tour : la figure garde ses dimensions et se retrouve « tête en bas ». Le retournement en miroir est celui d’une symétrie axiale."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-perimetres-aires-volumes": [
+        [  # Compter sur un quadrillage
+            R(r"Sur un quadrillage de $1\text{ cm}$ : l’**aire** est le nombre de carreaux couverts, en $\text{cm}^2$ (deux demi-carreaux font un carreau) ; le **périmètre** est la longueur du contour, en $\text{cm}$."),
+            E(r"Une figure couvre $9$ carreaux entiers et $4$ demi-carreaux. Quelle est son aire ?",
+              [r"$4$ demi-carreaux font $2$ carreaux.", r"$9+2=11$ carreaux : l’aire est $11\text{ cm}^2$."]),
+            N(r"Un rectangle mesure $11\text{ cm}$ sur $6\text{ cm}$. Calcule son périmètre, en cm.", 34,
+              r"$(11+6)\cdot2=34\text{ cm}$. $66$ serait son aire, en $\text{cm}^2$."),
+        ],
+        [  # Calculer un périmètre
+            R(L("Périmètre : somme des longueurs de tous les côtés, dans la même unité.",
+                r"Rectangle : $(L+\ell)\cdot2$ ; carré : $4\cdot c$.")),
+            R(r"Un triangle rectangle est un demi-rectangle : son aire vaut $\dfrac{a\cdot b}{2}$, où $a$ et $b$ sont les côtés de l’angle droit.",
+              "Aire du triangle rectangle"),
+            E(r"Triangle rectangle $MNO$ : côtés de l’angle droit $4\text{ cm}$ et $2\text{ cm}$, troisième côté $4{,}5\text{ cm}$. Périmètre et aire ?",
+              [r"Périmètre : $4+2+4{,}5=10{,}5\text{ cm}$.",
+               r"Aire : $\dfrac{4\cdot2}{2}=4\text{ cm}^2$ ; le côté de $4{,}5\text{ cm}$ ne sert pas."]),
+            Q(r"Périmètre d’un carré de côté $2{,}5\text{ cm}$ :",
+              [r"$6{,}25\text{ cm}$", r"$10\text{ cm}$", r"$5\text{ cm}$"], 1,
+              r"$4\cdot2{,}5=10\text{ cm}$. $6{,}25$ est l’aire $2{,}5\cdot2{,}5$, en $\text{cm}^2$."),
+        ],
+        [  # Calculer une aire simple
+            R(L(r"Carré : $c\cdot c$ ; rectangle : $L\cdot\ell$.",
+                r"Triangle : $\dfrac{b\cdot h}{2}$, où $h$ est la hauteur relative à la base $b$.",
+                r"Une aire s’exprime en unités carrées : $\text{cm}^2$, $\text{m}^2$…")),
+            E(r"Un triangle rectangle a pour côtés $15\text{ cm}$, $8\text{ cm}$ et $17\text{ cm}$ ; l’angle droit est entre les côtés de $15$ et de $8\text{ cm}$. Aire ?",
+              [r"Les côtés de l’angle droit servent de base et de hauteur : $15$ et $8$.",
+               r"$\dfrac{15\cdot8}{2}=60\text{ cm}^2$. Le côté de $17\text{ cm}$ ne sert pas."]),
+            Q(r"Aire d’un triangle de base $6\text{ cm}$ et de hauteur $4\text{ cm}$ :",
+              [r"$24\text{ cm}^2$", r"$12\text{ cm}^2$", r"$10\text{ cm}^2$"], 1,
+              r"$\dfrac{6\cdot4}{2}=12\text{ cm}^2$. $24$ oublie la division par $2$."),
+        ],
+        [  # Choisir les dimensions utiles
+            R("Pour l’aire d’un triangle, il faut une base et **la hauteur perpendiculaire à cette base**. Les autres longueurs de la figure servent au périmètre, pas à l’aire."),
+            E(r"Triangle $BCD$ : $BC=8\text{ cm}$, $BD=5\text{ cm}$, $CD=11{,}7\text{ cm}$. La hauteur issue de $D$ coupe la droite $(BC)$ en $E$, et $DE=4\text{ cm}$. Aire ?",
+              [r"$[DE]$ est perpendiculaire à $(BC)$ : base $BC=8\text{ cm}$, hauteur $4\text{ cm}$.",
+               r"$\dfrac{8\cdot4}{2}=16\text{ cm}^2$.",
+               r"$5\text{ cm}$ et $11{,}7\text{ cm}$ ne servent pas."]),
+            Q(r"Un triangle a une base de $12\text{ cm}$, une hauteur de $5\text{ cm}$ relative à cette base, et deux autres côtés de $10{,}3\text{ cm}$ et $5{,}8\text{ cm}$. Son aire est :",
+              [r"$60\text{ cm}^2$", r"$61{,}8\text{ cm}^2$", r"$30\text{ cm}^2$"], 2,
+              r"$\dfrac{12\cdot5}{2}=30\text{ cm}^2$. $61{,}8=\dfrac{12\cdot10{,}3}{2}$ prend un côté oblique pour une hauteur."),
+        ],
+        [  # Calculer avec les disques
+            R(P(r"Pour un cercle de rayon $r$ (diamètre $d=2r$) :",
+                L(r"périmètre : $2\pi r$, c’est-à-dire $\pi d$ ;", r"aire du disque : $\pi r^2$."),
+                r"Valeur exacte : on garde $\pi$, par exemple $8\pi\text{ cm}$. Valeur approchée : on calcule, $8\pi\approx25{,}1\text{ cm}$.")),
+            E(r"Périmètre et aire d’un demi-disque de diamètre $6\text{ cm}$.",
+              [r"Rayon : $3\text{ cm}$.",
+               r"Périmètre : demi-cercle $\dfrac{\pi\cdot6}{2}=3\pi$, plus le diamètre qui ferme la figure : $3\pi+6\approx15{,}4\text{ cm}$.",
+               r"Aire : $\dfrac{\pi\cdot3^2}{2}=4{,}5\pi\approx14{,}1\text{ cm}^2$."]),
+            Q(r"Aire d’un disque de rayon $4\text{ cm}$ :",
+              [r"$8\pi\text{ cm}^2$", r"$16\pi\text{ cm}^2$", r"$64\pi\text{ cm}^2$"], 1,
+              r"$\pi\cdot4^2=16\pi\text{ cm}^2$. $8\pi$ est le périmètre ; $64\pi$ élève le diamètre au carré."),
+        ],
+        [  # Calculer les volumes usuels
+            R(L(r"Prisme droit (et pavé droit) : $V=\mathcal{A}_{\text{base}}\cdot h$.",
+                r"Cylindre : $V=\pi r^2\cdot h$.",
+                r"Toutes les longueurs dans la même unité ; le volume s’exprime en unités cubes ($\text{cm}^3$).")),
+            E(r"Un prisme droit a une base de $42\text{ cm}^2$ et une hauteur de $4\text{ dm}$. Volume ?",
+              [r"On convertit : $4\text{ dm}=40\text{ cm}$.", r"$V=42\cdot40=1\,680\text{ cm}^3$."]),
+            Q(r"Volume exact d’un cylindre de rayon $3\text{ cm}$ et de hauteur $12\text{ cm}$ :",
+              [r"$36\pi\text{ cm}^3$", r"$108\pi\text{ cm}^3$", r"$72\pi\text{ cm}^3$"], 1,
+              r"$\pi\cdot3^2\cdot12=108\pi\text{ cm}^3$. $36\pi$ oublie le carré ; $72\pi$ prend le diamètre sans le carré."),
+        ],
+        [  # Décomposer des figures et calculer des aires
+            R("On découpe la figure en formes connues. On **ajoute** les aires des morceaux, ou on **retire** l’aire d’une partie enlevée. Le périmètre ne suit que le contour extérieur."),
+            E(r"Un carré de côté $8{,}4\text{ cm}$ dont on a retiré un triangle de base $8{,}4\text{ cm}$ et de hauteur $4{,}8\text{ cm}$. Aire ?",
+              [r"Carré : $8{,}4\cdot8{,}4=70{,}56\text{ cm}^2$.",
+               r"Triangle : $\dfrac{8{,}4\cdot4{,}8}{2}=20{,}16\text{ cm}^2$.",
+               r"Aire : $70{,}56-20{,}16=50{,}4\text{ cm}^2$."]),
+            Q(r"Un rectangle de $6\text{ cm}$ sur $4\text{ cm}$ porte un demi-disque de diamètre $4\text{ cm}$ collé sur un petit côté. Aire exacte :",
+              [r"$24+4\pi\text{ cm}^2$", r"$24+2\pi\text{ cm}^2$", r"$24+8\pi\text{ cm}^2$"], 1,
+              r"Rayon $2\text{ cm}$ : demi-disque $\dfrac{\pi\cdot2^2}{2}=2\pi$. Aire : $24+2\pi\text{ cm}^2$. $4\pi$ compte le disque entier."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-divisibilite-decomposition": [
+        [  # Reconnaître diviseurs et multiples
+            R(r"Si $b=a\cdot k$ avec $k$ entier, alors $b$ est un **multiple** de $a$, $a$ est un **diviseur** de $b$, et $b$ est **divisible** par $a$ : la division de $b$ par $a$ tombe juste."),
+            E(r"Quel est le plus petit multiple de $6$ supérieur à $82$ ?",
+              [r"$82\div6\approx13{,}7$ : on essaie $6\cdot13$ et $6\cdot14$.",
+               r"$6\cdot13=78<82$ et $6\cdot14=84>82$.",
+               r"Le multiple cherché est $84$."]),
+            Q("Quelle phrase est vraie ?",
+              [r"$4$ est un multiple de $20$", r"$20$ est un diviseur de $4$", r"$4$ est un diviseur de $20$"], 2,
+              r"$20=4\cdot5$ : $20$ est un multiple de $4$, et $4$ est un diviseur de $20$."),
+        ],
+        [  # Critères de 2, 5 et 10
+            R(P("On regarde seulement le chiffre des unités :",
+                L(r"divisible par $2$ : $0$, $2$, $4$, $6$ ou $8$ ;", r"divisible par $5$ : $0$ ou $5$ ;", r"divisible par $10$ : $0$."))),
+            E(r"Quels chiffres mettre à la place de $?$ pour que $8?5$ soit divisible par $2$ ? par $5$ ?",
+              [r"Le chiffre des unités est $5$, quel que soit $?$.",
+               r"Par $2$ : jamais, car $5$ est impair ; on répond $\emptyset$.",
+               r"Par $5$ : toujours ; tous les chiffres de $0$ à $9$ conviennent."]),
+            Q(r"Quel nombre est divisible à la fois par $2$ et par $5$ ?",
+              [r"$250$", r"$125$", r"$252$"], 0,
+              r"Divisible par $2$ et par $5$ : chiffre des unités $0$. $125$ est impair ; $252$ ne finit ni par $0$ ni par $5$."),
+        ],
+        [  # Critères de 3 et 9
+            R(P("On additionne les chiffres du nombre :",
+                L(r"divisible par $3$ si cette somme est un multiple de $3$ ;", r"divisible par $9$ si cette somme est un multiple de $9$."))),
+            E(r"Quels chiffres mettre à la place de $?$ pour que $8?5$ soit un multiple de $3$ ?",
+              [r"Somme des chiffres connus : $8+5=13$.",
+               r"Multiples de $3$ atteignables en ajoutant un chiffre : $15$, $18$, $21$.",
+               r"$?$ vaut $2$, $5$ ou $8$."]),
+            N(r"Quel nombre entre $10$ et $100$, divisible par $9$, a $7$ pour chiffre des unités ?", 27,
+              r"La somme $?+7$ doit être un multiple de $9$ : $?=2$. $27=9\cdot3$."),
+        ],
+        [  # Lister diviseurs et multiples
+            R(r"Pour lister les diviseurs de $n$, on cherche les produits $a\cdot b=n$ en essayant $a=1$, $2$, $3$… On s’arrête quand $a$ dépasse $b$ : chaque produit donne deux diviseurs."),
+            E(r"Lister les diviseurs de $28$.",
+              [r"$1\cdot28$, $2\cdot14$, $4\cdot7$ ; $3$, $5$ et $6$ ne divisent pas $28$.",
+               r"Après $4\cdot7$, on retomberait sur $7\cdot4$ : on s’arrête.",
+               r"Diviseurs de $28$ : $1$ ; $2$ ; $4$ ; $7$ ; $14$ ; $28$."]),
+            R(r"Les premiers multiples non nuls de $75$ sont $75\cdot1$, $75\cdot2$, $75\cdot3$… : $75$ ; $150$ ; $225$ ; $300$ ; $375$.",
+              "Premiers multiples"),
+            N(r"Combien de diviseurs a $12$ ?", 6,
+              r"$1\cdot12$, $2\cdot6$, $3\cdot4$ : $1$, $2$, $3$, $4$, $6$ et $12$. Ne pas oublier $1$ et $12$ lui-même."),
+        ],
+        [  # Décomposer en facteurs premiers
+            R(r"Un nombre **premier** a exactement deux diviseurs, $1$ et lui-même : $2$, $3$, $5$, $7$, $11$, $13$… Pour décomposer un nombre, on le divise par le plus petit nombre premier possible, puis on recommence avec le quotient jusqu’à obtenir un nombre premier."),
+            E(r"Décomposer $420$ en produit de facteurs premiers.",
+              [r"$420=2\cdot210=2\cdot2\cdot105$.",
+               r"$105$ est impair et $1+0+5=6$ : il est divisible par $3$, $105=3\cdot35$.",
+               r"$35=5\cdot7$, donc $420=2\cdot2\cdot3\cdot5\cdot7=2^2\cdot3\cdot5\cdot7$."]),
+            Q(r"La décomposition en facteurs premiers de $60$ est :",
+              [r"$4\cdot15$", r"$2\cdot30$", r"$2^2\cdot3\cdot5$"], 2,
+              r"$4$, $15$ et $30$ ne sont pas premiers. $60=2\cdot2\cdot3\cdot5=2^2\cdot3\cdot5$."),
+        ],
+        [  # Trouver PGDC et PPMC
+            R("Le **PGDC** est le plus grand diviseur commun, noté PGCD dans les exercices. Le **PPMC** est le plus petit multiple commun non nul, noté PPCM."),
+            R(L("PGDC : produit des facteurs **communs** aux deux décompositions.",
+                "PPMC : on recopie la décomposition du premier nombre et on ajoute les facteurs du second qui **manquent**."),
+              "Avec les décompositions"),
+            E(r"$12=2\cdot2\cdot3$ et $18=2\cdot3\cdot3$. Trouver le PGDC et le PPMC.",
+              [r"Facteurs communs : un $2$ et un $3$. PGDC $=2\cdot3=6$.",
+               r"On recopie $2\cdot2\cdot3$ et on ajoute le $3$ qui manque : PPMC $=2\cdot2\cdot3\cdot3=36$."]),
+            N(r"$10=2\cdot5$ et $12=2\cdot2\cdot3$. Quel est leur PPMC ?", 60,
+              r"On recopie $2\cdot2\cdot3$ et on ajoute le $5$ : $60$. Le produit $10\cdot12=120$ est un multiple commun, mais pas le plus petit."),
+        ],
+        [  # Résoudre un problème de divisibilité
+            R(L("« Le plus grand nombre de groupes identiques » en utilisant tout : on cherche le **PGDC** des quantités.",
+                "« La prochaine fois que deux événements se produisent ensemble » : on cherche le **PPMC** des durées.")),
+            E(r"Avec $160$ iris et $64$ roses, combien de bouquets identiques peut-on faire au maximum ?",
+              [r"Le nombre de bouquets divise $160$ et $64$ : on cherche le PGDC.",
+               r"$160=2^5\cdot5$ et $64=2^6$ : PGDC $=2^5=32$.",
+               r"$32$ bouquets, avec $160\div32=5$ iris et $64\div32=2$ roses chacun."]),
+            Q(r"Deux bus partent ensemble ; l’un repasse toutes les $12$ minutes, l’autre toutes les $10$ minutes. Dans combien de minutes repartent-ils ensemble ?",
+              [r"$2$", r"$120$", r"$60$"], 2,
+              r"On cherche le PPMC de $12$ et $10$ : $60$ minutes. $2$ est leur PGDC ; $120=12\cdot10$ est un multiple commun, pas le plus petit."),
+        ],
+    ],
+    # ------------------------------------------------------------------
+    "prq-fractions-representer-calculer": [
+        [  # Représenter une fraction
+            R(r"Dans $\dfrac{a}{b}$, le dénominateur $b$ dit en combien de parts égales on partage l’unité ; le numérateur $a$ dit combien de parts on prend."),
+            E(r"Prendre $\dfrac46$ d’une plaque de $12$ carrés.",
+              [r"$12$ carrés partagés en $6$ parts égales : $2$ carrés par part.",
+               r"On prend $4$ parts : $4\cdot2=8$ carrés."]),
+            R(r"Une **fraction** a un numérateur et un dénominateur entiers. Si l’un des deux est décimal, on les multiplie tous les deux par $10$ (ou $100$) : $\dfrac{7}{3{,}2}=\dfrac{70}{32}$.",
+              "Écriture fractionnaire"),
+            Q(r"Écrire $\dfrac{9{,}1}{9{,}4}$ sous forme de fraction :",
+              [r"$\dfrac{91}{9{,}4}$", r"$\dfrac{91}{94}$", r"$\dfrac{9}{9}$"], 1,
+              r"On multiplie le numérateur **et** le dénominateur par $10$ : $\dfrac{91}{94}$."),
+        ],
+        [  # Placer et comparer les fractions
+            R(r"Sur une droite graduée, si l’unité est partagée en $b$ parts égales, une petite graduation vaut $\dfrac1b$. Un point situé à $a$ graduations de $0$ a pour abscisse $\dfrac ab$, avec un signe $-$ à gauche de $0$."),
+            E(r"L’unité est partagée en $5$ ; le point $A$ est à la $6^{\text{e}}$ graduation à gauche de $0$. Quelle est son abscisse ?",
+              [r"Une graduation vaut $\dfrac15$.", r"$6$ graduations à gauche de $0$ : $-\dfrac65$."]),
+            R(r"Pour comparer deux fractions dont un dénominateur est multiple de l’autre, on les écrit avec le même dénominateur, puis on compare les numérateurs : $\dfrac67=\dfrac{24}{28}<\dfrac{28}{28}$.",
+              "Comparer"),
+            Q(r"Comparer $\dfrac34$ et $\dfrac58$ :",
+              [r"$\dfrac34<\dfrac58$", r"$\dfrac34>\dfrac58$", r"$\dfrac34=\dfrac58$"], 1,
+              r"$\dfrac34=\dfrac68$ et $6>5$. Comparer seulement les numérateurs ($3<5$) donne la mauvaise conclusion."),
+        ],
+        [  # Trouver des fractions équivalentes
+            R(r"On obtient une fraction égale en multipliant (**amplifier**) ou en divisant (**simplifier**) le numérateur et le dénominateur par le même nombre non nul."),
+            E(r"Simplifier $\dfrac{28}{35}$.",
+              [r"$28$ et $35$ sont tous deux dans la table de $7$.",
+               r"$\dfrac{28}{35}=\dfrac{7\cdot4}{7\cdot5}=\dfrac45$."]),
+            Q(r"Amplifier $\dfrac93$ par $12$ donne :",
+              [r"$\dfrac{21}{15}$", r"$\dfrac{108}{36}$", r"$\dfrac{108}{3}$"], 1,
+              r"On multiplie les deux termes par $12$ : $\dfrac{9\cdot12}{3\cdot12}=\dfrac{108}{36}$. Ajouter $12$ ($\dfrac{21}{15}$) ne donne pas une fraction égale."),
+        ],
+        [  # Relier fraction, décimal et pourcentage
+            R(L(r"$\dfrac{7}{100}=0{,}07$ : le dénominateur $100$ donne deux chiffres après la virgule.",
+                r"$p\,\%=\dfrac{p}{100}$ : $45\,\%=\dfrac{45}{100}=0{,}45$.")),
+            E(r"Écrire $2{,}75$ sous forme de fraction.",
+              [r"Deux chiffres après la virgule : $2{,}75=\dfrac{275}{100}$.",
+               r"On simplifie par $25$ : $\dfrac{275}{100}=\dfrac{11}{4}$."]),
+            Q(r"$\dfrac{7}{100}$ s’écrit :",
+              [r"$0{,}07$", r"$0{,}7$", r"$0{,}007$"], 0,
+              r"Sept centièmes : $0{,}07$, soit $7\,\%$. $0{,}7$ vaut $\dfrac{7}{10}$."),
+        ],
+        [  # Additionner et soustraire
+            R(r"Pour additionner ou soustraire, les fractions doivent avoir le même dénominateur. On amplifie celle dont le dénominateur divise l’autre, on additionne les numérateurs **et on garde le dénominateur**, puis on simplifie."),
+            E(r"Calculer $\dfrac89-\dfrac{4}{45}$.",
+              [r"$45=9\cdot5$ : on amplifie $\dfrac89$ par $5$, ce qui donne $\dfrac{40}{45}$.",
+               r"$\dfrac{40}{45}-\dfrac{4}{45}=\dfrac{36}{45}$.",
+               r"On simplifie par $9$ : $\dfrac45$."]),
+            Q(r"$\dfrac13+\dfrac16=$",
+              [r"$\dfrac29$", r"$\dfrac12$", r"$\dfrac26$"], 1,
+              r"$\dfrac13=\dfrac26$, donc $\dfrac26+\dfrac16=\dfrac36=\dfrac12$. Additionner les dénominateurs ($\dfrac29$) est faux."),
+        ],
+        [  # Multiplier, diviser et prendre une fraction
+            R(L(r"Produit : $\dfrac ab\cdot\dfrac cd=\dfrac{a\cdot c}{b\cdot d}$ ; on simplifie avant de multiplier quand c’est possible.",
+                r"Quotient : diviser par $\dfrac cd$, c’est multiplier par son inverse $\dfrac dc$.",
+                r"Prendre $\dfrac34$ de $20$, c’est calculer $\dfrac34\cdot20=15$.")),
+            E(r"Calculer $\dfrac{9}{10}\div\dfrac67$.",
+              [r"$\dfrac{9}{10}\cdot\dfrac76=\dfrac{63}{60}$.", r"On simplifie par $3$ : $\dfrac{21}{20}$."]),
+            Q(r"$\dfrac23\cdot\dfrac34=$",
+              [r"$\dfrac89$", r"$\dfrac57$", r"$\dfrac12$"], 2,
+              r"$\dfrac{2\cdot3}{3\cdot4}=\dfrac{6}{12}=\dfrac12$. $\dfrac89$ multiplie en croix, comme pour une division ; $\dfrac57$ additionne."),
+        ],
+        [  # Enchaîner les calculs fractionnaires
+            R(r"Mêmes priorités qu’avec les entiers : parenthèses, puis multiplications et divisions, puis additions et soustractions. Un entier s’écrit comme une fraction : $3=\dfrac{27}{9}$."),
+            E(r"Calculer $\dfrac25-\dfrac67\cdot\dfrac25$.",
+              [r"Le produit d’abord : $\dfrac67\cdot\dfrac25=\dfrac{12}{35}$.",
+               r"$\dfrac25=\dfrac{14}{35}$, donc $\dfrac{14}{35}-\dfrac{12}{35}=\dfrac{2}{35}$."]),
+            Q(r"$\dfrac12+\dfrac12\cdot\dfrac12=$",
+              [r"$\dfrac12$", r"$\dfrac34$", r"$1$"], 1,
+              r"La multiplication passe avant l’addition : $\dfrac12\cdot\dfrac12=\dfrac14$, puis $\dfrac12+\dfrac14=\dfrac34$. Calculer de gauche à droite donne $\dfrac12$."),
+        ],
+    ],
+}
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--version", type=int, default=13)
+    args = parser.parse_args()
+    d = json.loads(FICHIER.read_text(encoding="utf-8"))
+    parcours = d["classes"][0]["parcours"]
+    assert {p["id"] for p in parcours} == set(FICHES), "parcours inattendus"
+    for p in parcours:
+        fiches = FICHES[p["id"]]
+        assert len(fiches) == len(p["paliers"]), p["id"]
+        for palier, blocs in zip(p["paliers"], fiches):
+            palier["fiche"] = {"titre": palier["titre"], "avant": True, "blocs": blocs}
+        p["version"] = args.version
+    FICHIER.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()

@@ -7,7 +7,7 @@
       "parcours": [
         {
           "id": "prq-nombres-ecritures-reperage",
-          "version": 12,
+          "version": 13,
           "titre": "Situer et comparer les nombres",
           "objectif": "Lire les rangs, placer, comparer et encadrer des nombres entiers et décimaux.",
           "auteurs": [
@@ -37,26 +37,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour comparer deux entiers, on regarde les chiffres de gauche à droite jusqu’au premier qui diffère."
+                    "texte": "Pour comparer deux entiers :\n\n- celui qui a le plus de chiffres est le plus grand ;\n- s’ils ont autant de chiffres, on compare les chiffres de gauche à droite jusqu’au premier qui diffère."
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "Ordre **croissant** : du plus petit au plus grand, avec $<$. Ordre **décroissant** : du plus grand au plus petit, avec $>$.",
+                    "titre": "Croissant ou décroissant"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Comparer 4 305 et 4 350.",
+                    "enonce": "Ranger dans l’ordre décroissant : $57\\,384$ ; $5\\,440$ ; $111\\,955$ ; $57\\,483$.",
                     "etapes": [
-                      "Les milliers et les centaines sont identiques.",
-                      "Aux dizaines, 0 est inférieur à 5 : 4 305 < 4 350."
+                      "$111\\,955$ a six chiffres : c’est le plus grand. $5\\,440$ n’en a que quatre : c’est le plus petit.",
+                      "$57\\,384$ et $57\\,483$ commencent tous deux par $57$ ; aux centaines, $4>3$.",
+                      "$111\\,955>57\\,483>57\\,384>5\\,440$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quel nombre est le plus grand ?",
+                    "enonce": "Quel est le plus grand nombre ?",
                     "choix": [
-                      "4 350",
-                      "4 305",
-                      "Ils sont égaux"
+                      "$9\\,872$",
+                      "$10\\,045$",
+                      "$9\\,978$"
                     ],
-                    "bonne": 0,
-                    "explication": "Les milliers et les centaines sont identiques. On compare donc les dizaines : 5 dizaines dépassent 0 dizaine."
+                    "bonne": 1,
+                    "explication": "$10\\,045$ a cinq chiffres, les deux autres seulement quatre. On ne compare les premiers chiffres qu’entre nombres de même longueur."
                   }
                 ]
               }
@@ -70,26 +76,31 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le chiffre des centaines est au troisième rang depuis la droite. Le nombre de centaines compte les centaines entières."
+                    "texte": "Une dizaine vaut $10$, une centaine $100$, un millier $1\\,000$. Pour écrire « $45$ centaines et $82$ dizaines » en chiffres, on convertit chaque partie, puis on additionne."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Dans 4 305, distinguer le chiffre des centaines et le nombre de centaines entières.",
+                    "enonce": "Écrire en chiffres : $45$ centaines et $82$ dizaines.",
                     "etapes": [
-                      "Le chiffre des centaines est le chiffre au troisième rang depuis la droite : 3.",
-                      "4 305 contient 43 centaines entières et 5 unités : le nombre de centaines est 43."
+                      "$45$ centaines $=45\\cdot100=4\\,500$.",
+                      "$82$ dizaines $=82\\cdot10=820$.",
+                      "$4\\,500+820=5\\,320$."
                     ]
                   },
                   {
-                    "type": "question",
-                    "enonce": "Dans 5 207, combien y a-t-il de centaines entières ?",
-                    "choix": [
-                      "52",
-                      "2",
-                      "5"
+                    "type": "exemple",
+                    "enonce": "Décomposer $72\\,104$ avec $\\cdot1$, $\\cdot10$, $\\cdot100$…",
+                    "etapes": [
+                      "$7$ dizaines de milliers, $2$ milliers, $1$ centaine, $0$ dizaine, $4$ unités.",
+                      "$72\\,104=(7\\cdot10\\,000)+(2\\cdot1\\,000)+(1\\cdot100)+(4\\cdot1)$ ; le $0$ des dizaines n’ajoute rien."
                     ],
-                    "bonne": 0,
-                    "explication": "Dans 5 207, on peut faire 52 paquets de 100 et il reste 7 unités. Le chiffre au rang des centaines est pourtant 2."
+                    "titre": "Décomposer"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Écris en chiffres : $3$ centaines et $25$ dizaines.",
+                    "reponse": 550,
+                    "explication": "$300+250=550$. Coller les nombres ($325$) oublie que $25$ dizaines valent $250$."
                   }
                 ]
               },
@@ -105,15 +116,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Après la virgule viennent les dixièmes, les centièmes, puis les millièmes."
+                    "texte": "Dans $5{,}281$, la **partie entière** est $5$ et la **partie décimale** est $0{,}281$. Après la virgule viennent les dixièmes ($2$), les centièmes ($8$), puis les millièmes ($1$)."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Décomposer 4,27.",
+                    "enonce": "Un ensemble contient $1$ cube unité, $2$ barres de $\\dfrac{1}{100}$ et $2$ petits cubes de $\\dfrac{1}{1\\,000}$. Quel nombre représente-t-il ?",
                     "etapes": [
-                      "4,27 contient 4 unités, 2 dixièmes et 7 centièmes.",
-                      "$4,27=4+\\dfrac{2}{10}+\\dfrac{7}{100}$."
+                      "$1$ unité, $0$ dixième (aucune plaque), $2$ centièmes, $2$ millièmes.",
+                      "On écrit chaque chiffre à son rang : $1{,}022$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la partie décimale de $7{,}184$ ?",
+                    "choix": [
+                      "$184$",
+                      "$0{,}184$",
+                      "$7$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$7{,}184=7+0{,}184$. La partie décimale garde sa virgule : c’est $0{,}184$, pas $184$."
                   }
                 ]
               },
@@ -129,26 +151,28 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour décomposer un nombre, on additionne la valeur de chacun de ses chiffres."
+                    "texte": "Dans $83{,}621$ :\n\n- le **chiffre** des dixièmes est $6$ ;\n- le **nombre** de dixièmes est $836$ : on garde tout ce qui est écrit jusqu’au chiffre des dixièmes, sans la virgule.",
+                    "titre": "Chiffre des… ou nombre de…"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "$1$ dixième $=0{,}1$, $1$ centième $=0{,}01$, $1$ millième $=0{,}001$. Ainsi $710$ millièmes $=710\\cdot0{,}001=0{,}71$.",
+                    "titre": "Des dixièmes au nombre"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Décomposer 4 305.",
+                    "enonce": "Quel est le nombre de centièmes de $85{,}261$ ?",
                     "etapes": [
-                      "4 305 = 4 000 + 300 + 5.",
-                      "Le chiffre des dizaines est 0 : il n’ajoute rien à la somme."
+                      "Le chiffre des centièmes est $6$.",
+                      "On garde tout jusqu’à ce chiffre : $85{,}26$, sans la virgule.",
+                      "$85{,}261$ contient $8\\,526$ centièmes."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle est la décomposition de 5 207 ?",
-                    "choix": [
-                      "5 000 + 200 + 7",
-                      "5 000 + 20 + 7",
-                      "500 + 200 + 7"
-                    ],
-                    "bonne": 0,
-                    "explication": "Dans 5 207, le 5 vaut 5 000, le 2 vaut 200 et le 7 vaut 7. Le chiffre des dizaines vaut 0."
+                    "enonce": "Écris en nombre décimal : $45$ dixièmes.",
+                    "reponse": 4.5,
+                    "explication": "$45\\cdot0{,}1=4{,}5$ : $45$ dixièmes font $4$ unités et $5$ dixièmes."
                   }
                 ]
               },
@@ -164,15 +188,35 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Sur une droite graduée, on commence par trouver l’écart entre deux graduations voisines."
+                    "texte": "Sur une droite graduée, on calcule d’abord la valeur d’un intervalle : l’écart entre deux nombres écrits, divisé par le nombre d’intervalles qui les séparent."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une unité est partagée en dix parts égales. Quelle est la troisième graduation après 0 ?",
+                    "enonce": "Entre $2$ et $3$, l’unité est partagée en $10$ intervalles. Où se trouve $2{,}6$ ?",
                     "etapes": [
-                      "Chaque graduation vaut un dixième.",
-                      "La troisième graduation correspond à $\\dfrac{3}{10}=0,3$."
+                      "Un intervalle vaut $1\\div10=0{,}1$.",
+                      "$2{,}6=2+6\\cdot0{,}1$ : on compte $6$ intervalles à partir de $2$."
                     ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Les nombres écrits sont $-0{,}05$ et $-0{,}04$, avec $10$ intervalles entre eux. Où placer $-0{,}048$ ?",
+                    "etapes": [
+                      "Un intervalle vaut $0{,}01\\div10=0{,}001$.",
+                      "$-0{,}05+0{,}002=-0{,}048$ : on compte $2$ intervalles à droite de $-0{,}05$."
+                    ],
+                    "titre": "Avec des négatifs"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Entre $0$ et $1$, il y a $5$ intervalles. Que vaut la deuxième graduation après $0$ ?",
+                    "choix": [
+                      "$0{,}2$",
+                      "$0{,}4$",
+                      "$0{,}5$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Un intervalle vaut $1\\div5=0{,}2$ ; deux intervalles font $0{,}4$. Répondre $0{,}2$, c’est compter des dixièmes sans regarder le partage."
                   }
                 ]
               },
@@ -188,15 +232,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour comparer des décimaux, on aligne les virgules."
+                    "texte": "Pour comparer deux décimaux, on compare d’abord les parties entières. Si elles sont égales, on compare les chiffres après la virgule rang par rang, en complétant par des zéros si besoin."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Comparer 2,08 et 2,1.",
+                    "enonce": "Comparer $43{,}493$ et $43{,}86$.",
                     "etapes": [
-                      "On écrit 2,1 sous la forme 2,10.",
-                      "Comme 8 centièmes sont inférieurs à 10 centièmes, $2,08<2,10$."
+                      "Même partie entière : $43$.",
+                      "On écrit $43{,}860$ pour avoir autant de décimales.",
+                      "Aux dixièmes, $4<8$ : $43{,}493<43{,}86$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel signe convient : $2{,}8\\ \\ldots\\ 2{,}15$ ?",
+                    "choix": [
+                      "$<$",
+                      "$=$",
+                      "$>$"
+                    ],
+                    "bonne": 2,
+                    "explication": "$2{,}8=2{,}80$ et, aux dixièmes, $8>1$ : $2{,}8>2{,}15$. Comparer $8$ et $15$ comme des entiers donne la mauvaise réponse."
                   }
                 ]
               },
@@ -212,26 +268,33 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour intercaler un nombre, on en cherche un strictement compris entre les deux nombres donnés."
+                    "texte": "Encadrer au dixième : on coupe le nombre après le chiffre des dixièmes, puis on ajoute $0{,}1$. Au centième : on coupe après les centièmes et on ajoute $0{,}01$.",
+                    "titre": "Encadrer"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Quel nombre est compris entre 2,4 et 2,5 ?",
+                    "enonce": "Encadrer $9\\,348{,}838$ au dixième.",
                     "etapes": [
-                      "On peut écrire 2,40 < 2,45 < 2,50.",
-                      "Donc 2,45 est compris entre les deux bornes."
+                      "On coupe après le chiffre des dixièmes : $9\\,348{,}8$.",
+                      "On ajoute un dixième : $9\\,348{,}9$.",
+                      "$9\\,348{,}8<9\\,348{,}838<9\\,348{,}9$."
                     ]
                   },
                   {
+                    "type": "retenir",
+                    "texte": "Pour intercaler un nombre, on ajoute une décimale : entre $13{,}6$ et $13{,}8$, il y a $13{,}7$ ; entre $34$ et $35$, il y a $34{,}1$, $34{,}5$…",
+                    "titre": "Intercaler"
+                  },
+                  {
                     "type": "question",
-                    "enonce": "Quel nombre est entre 2,4 et 2,5 ?",
+                    "enonce": "Encadrer $5{,}996$ au centième : $5{,}99<5{,}996<\\ldots$",
                     "choix": [
-                      "2,45",
-                      "2,6",
-                      "2,3"
+                      "$5{,}100$",
+                      "$6$",
+                      "$5{,}991$"
                     ],
-                    "bonne": 0,
-                    "explication": "En écrivant 2,4 sous la forme 2,40 et 2,5 sous la forme 2,50, on voit que 2,45 se trouve entre les deux."
+                    "bonne": 1,
+                    "explication": "$5{,}99+0{,}01=6$ : le chiffre des centièmes passe de $9$ à $10$, la retenue va jusqu’aux unités."
                   }
                 ]
               },
@@ -378,7 +441,7 @@
         },
         {
           "id": "prq-calculs-decimaux-relatifs",
-          "version": 12,
+          "version": 13,
           "titre": "Calculer avec les décimaux et les relatifs",
           "objectif": "Calculer avec les décimaux et les relatifs en respectant les priorités.",
           "auteurs": [
@@ -408,26 +471,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On choisit l’opération d’après ce que demande l’énoncé."
+                    "texte": "- **somme** : résultat d’une addition ;\n- **différence** : résultat d’une soustraction ;\n- **produit** : résultat d’une multiplication ;\n- **quotient** : résultat d’une division.",
+                    "titre": "Vocabulaire"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "« La différence entre $9$ et $3$ » s’écrit $9-3$ : on garde l’ordre de la phrase. Quand un terme est lui-même un calcul, on le met entre parenthèses."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Trois billets coûtent 4 francs chacun. Quel calcul donne le prix total ?",
+                    "enonce": "Traduire : le quotient de $30$ par la différence entre $9$ et $3$.",
                     "etapes": [
-                      "Le même prix de 4 francs est répété trois fois.",
-                      "On calcule 3 multiplié par 4."
+                      "C’est un quotient : $30\\div\\ldots$",
+                      "On divise par la différence $9-3$, mise entre parenthèses.",
+                      "$30\\div(9-3)=30\\div6=5$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quatre cahiers à 2 francs coûtent :",
+                    "enonce": "« Le produit de $4$ par la somme de $2$ et $5$ » s’écrit :",
                     "choix": [
-                      "4 multiplié par 2",
-                      "4 + 2",
-                      "4 - 2"
+                      "$4\\cdot2+5$",
+                      "$4+2\\cdot5$",
+                      "$4\\cdot(2+5)$"
                     ],
-                    "bonne": 0,
-                    "explication": "Chaque cahier coûte 2 francs. Pour quatre cahiers, on prend quatre fois ce prix : 4 multiplié par 2."
+                    "bonne": 2,
+                    "explication": "On multiplie $4$ par toute la somme : les parenthèses sont nécessaires. $4\\cdot2+5$ ne multiplie que le $2$."
                   }
                 ]
               }
@@ -441,15 +510,22 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Dans une opération posée, les virgules s’alignent."
+                    "texte": "Pour poser une addition ou une soustraction, on aligne les virgules, donc les chiffres de même rang. On complète par des zéros pour avoir autant de décimales."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 3,4 + 1,28.",
+                    "enonce": "Calculer $321-97{,}87$.",
                     "etapes": [
-                      "On aligne les virgules : 3,40 + 1,28.",
-                      "On obtient 4,68."
+                      "On écrit $321{,}00-97{,}87$.",
+                      "On soustrait rang par rang à partir des centièmes, avec les retenues.",
+                      "$321-97{,}87=223{,}13$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Calcule $0{,}84+8{,}7$.",
+                    "reponse": 9.54,
+                    "explication": "$0{,}84+8{,}70=9{,}54$. Sans aligner les virgules, on trouverait $1{,}71$."
                   }
                 ]
               },
@@ -465,15 +541,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Dans une multiplication, on additionne le nombre de décimales des deux facteurs."
+                    "texte": "Pour multiplier des décimaux, on multiplie les nombres sans virgule, puis on place la virgule : le résultat a autant de décimales que les deux facteurs réunis."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 1,2 multiplié par 0,3.",
+                    "enonce": "Calculer $353\\cdot5{,}3$.",
                     "etapes": [
-                      "On calcule d’abord 12 multiplié par 3 : on obtient 36.",
-                      "Les deux facteurs comptent deux chiffres après la virgule au total. Le résultat est 0,36."
+                      "Sans virgule : $353\\cdot53=18\\,709$.",
+                      "$5{,}3$ a une décimale, $353$ aucune : une décimale en tout.",
+                      "$353\\cdot5{,}3=1\\,870{,}9$."
                     ]
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "Un ordre de grandeur repère une virgule mal placée : $353\\cdot5{,}3\\approx350\\cdot5=1\\,750$.",
+                    "titre": "Contrôler"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$1{,}2\\cdot0{,}3=$",
+                    "choix": [
+                      "$3{,}6$",
+                      "$0{,}36$",
+                      "$0{,}036$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$12\\cdot3=36$ ; $1{,}2$ et $0{,}3$ ont chacun une décimale, donc deux en tout : $0{,}36$."
                   }
                 ]
               },
@@ -489,25 +582,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Multiplier par 10 décale chaque chiffre d’un rang vers la gauche."
+                    "texte": "Multiplier par $10$, $100$ ou $1\\,000$ décale chaque chiffre de $1$, $2$ ou $3$ rangs vers la gauche : le nombre grandit. Diviser les décale vers la droite : le nombre diminue. On complète par des zéros si besoin."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 2,5 multiplié par 10.",
+                    "enonce": "Compléter : $\\ldots\\div100=0{,}84$.",
                     "etapes": [
-                      "Chaque chiffre avance d’un rang : 2,5 devient 25."
+                      "On cherche le nombre qui, divisé par $100$, donne $0{,}84$ : on fait l’opération inverse.",
+                      "$0{,}84\\cdot100=84$.",
+                      "$84\\div100=0{,}84$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien vaut 3,2 multiplié par 10 ?",
+                    "enonce": "$3{,}2\\cdot100=$",
                     "choix": [
-                      "32",
-                      "3,20",
-                      "320"
+                      "$3{,}200$",
+                      "$32$",
+                      "$320$"
                     ],
-                    "bonne": 0,
-                    "explication": "Multiplier 3,2 par 10 décale chaque chiffre d’un rang vers la gauche : 3 unités deviennent 3 dizaines et 2 dixièmes deviennent 2 unités."
+                    "bonne": 2,
+                    "explication": "Chaque chiffre avance de deux rangs : $3$ unités deviennent $3$ centaines. Écrire des zéros après la virgule ($3{,}200$) ne change pas le nombre."
                   }
                 ]
               },
@@ -523,15 +618,33 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Soustraire un relatif revient à ajouter son opposé."
+                    "texte": "- Même signe : on additionne les distances à zéro et on garde le signe : $(-6)+(-9)=-15$.\n- Signes contraires : on soustrait les distances à zéro et on prend le signe du nombre le plus loin de zéro : $(-7)+(+2)=-5$.",
+                    "titre": "Additionner"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "Soustraire un nombre revient à ajouter son opposé : $(+5)-(-4)=(+5)+(+4)=+9$.",
+                    "titre": "Soustraire"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $(-7)-(-2)$.",
+                    "enonce": "Calculer $(-2)+(-5)-(-1)+(+3)-(-5)$.",
                     "etapes": [
-                      "Soustraire $-2$ revient à ajouter $+2$.",
-                      "$(-7)+2=-5$."
+                      "On remplace les soustractions : $(-2)+(-5)+(+1)+(+3)+(+5)$.",
+                      "Positifs : $1+3+5=9$. Négatifs : $(-2)+(-5)=-7$.",
+                      "$9+(-7)=2$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$(-8)-(+3)=$",
+                    "choix": [
+                      "$-11$",
+                      "$-5$",
+                      "$+11$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Soustraire $+3$, c’est ajouter $-3$ : $(-8)+(-3)=-11$."
                   }
                 ]
               },
@@ -547,15 +660,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le produit de deux nombres de même signe est positif. Sinon, il est négatif."
+                    "texte": "Pour un produit ou un quotient de deux nombres :\n\n- de même signe, le résultat est positif ;\n- de signes contraires, il est négatif.\n\nOn calcule ensuite avec les distances à zéro."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $(-3)\\cdot4$.",
+                    "enonce": "Calculer $(+20)\\div(-4)$.",
                     "etapes": [
-                      "Les signes sont différents : le produit est négatif.",
-                      "$3\\cdot4=12$, donc $(-3)\\cdot4=-12$."
+                      "Signes contraires : le quotient est négatif.",
+                      "$20\\div4=5$.",
+                      "$(+20)\\div(-4)=-5$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\dfrac{-28}{-7}=$",
+                    "choix": [
+                      "$-4$",
+                      "$4$",
+                      "$-21$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Deux nombres négatifs : le quotient est positif, et $28\\div7=4$."
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "La règle des signes vaut pour $\\cdot$ et $\\div$, pas pour $+$ : $(-6)+(-9)=-15$, mais $(-6)\\cdot(-9)=+54$.",
+                    "titre": "Piège"
                   }
                 ]
               },
@@ -571,26 +701,22 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On calcule d’abord les parenthèses, puis les puissances, les produits et les sommes."
+                    "texte": "Ordre des calculs :\n\n- les parenthèses ;\n- les multiplications et les divisions, de gauche à droite ;\n- les additions et les soustractions, de gauche à droite."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 2 + 3 multiplié par 4.",
+                    "enonce": "Calculer $A=2\\cdot5+8\\cdot(-4)$.",
                     "etapes": [
-                      "Le produit se calcule d’abord : 3 multiplié par 4 vaut 12.",
-                      "Puis 2 + 12 = 14."
+                      "Les produits d’abord : $2\\cdot5=10$ et $8\\cdot(-4)=-32$.",
+                      "$A=10-32$.",
+                      "$A=-22$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien vaut 5 + 2 multiplié par 3 ?",
-                    "choix": [
-                      "11",
-                      "21",
-                      "15"
-                    ],
-                    "bonne": 0,
-                    "explication": "On calcule d’abord 2 multiplié par 3, ce qui donne 6, puis on ajoute 5 : le résultat est 11."
+                    "enonce": "Calcule $B=-2\\cdot(-3)-2$.",
+                    "reponse": 4,
+                    "explication": "Le produit d’abord : $-2\\cdot(-3)=6$, puis $6-2=4$."
                   }
                 ]
               },
@@ -743,7 +869,7 @@
         },
         {
           "id": "prq-puissances-carres-racines",
-          "version": 12,
+          "version": 13,
           "titre": "Puissances, carrés et racines",
           "objectif": "Calculer des puissances et des racines, puis utiliser la notation scientifique.",
           "auteurs": [
@@ -773,26 +899,31 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le carré d’un nombre est le produit de ce nombre par lui-même."
+                    "texte": "Le **carré** d’un nombre est ce nombre multiplié par lui-même : $a^2=a\\cdot a$. Carrés à connaître : $1$, $4$, $9$, $16$, $25$, $36$, $49$, $64$, $81$, $100$, $121$, $144$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 4 au carré.",
+                    "enonce": "Calculer $15^2$.",
                     "etapes": [
-                      "4 au carré signifie 4 multiplié par 4.",
-                      "On obtient 16."
+                      "$15^2=15\\cdot15$.",
+                      "$15\\cdot15=225$."
                     ]
                   },
                   {
+                    "type": "retenir",
+                    "texte": "$6^2=36$ et $(-6)^2=(-6)\\cdot(-6)=36$ : pour compléter $(\\ldots)^2=36$, les réponses $6$ et $-6$ conviennent toutes les deux.",
+                    "titre": "Deux nombres, un carré"
+                  },
+                  {
                     "type": "question",
-                    "enonce": "Combien vaut 5 au carré ?",
+                    "enonce": "$7^2=$",
                     "choix": [
-                      "25",
-                      "10",
-                      "125"
+                      "$14$",
+                      "$49$",
+                      "$77$"
                     ],
-                    "bonne": 0,
-                    "explication": "Le carré de 5 signifie 5 multiplié par 5, soit 25."
+                    "bonne": 1,
+                    "explication": "$7^2=7\\cdot7=49$. $14$ vient de $7\\cdot2$ : l’exposant n’est pas un facteur."
                   }
                 ]
               }
@@ -806,15 +937,36 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "L’exposant indique combien de fois on multiplie la base par elle-même."
+                    "texte": "$a^n$ est le produit de $n$ facteurs égaux à $a$. $a$ est la **base**, $n$ l’**exposant**."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Écrire 3 multiplié par 3 multiplié par 3 sous forme de puissance.",
+                    "enonce": "Écrire $5\\cdot5\\cdot5\\cdot5\\cdot5\\cdot5\\cdot5$ avec une puissance.",
                     "etapes": [
-                      "Le facteur 3 apparaît trois fois.",
-                      "On écrit $3^3$."
+                      "On compte les facteurs : il y en a $7$.",
+                      "$5^7$."
                     ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Calculer $2^6$.",
+                    "etapes": [
+                      "$2^6=2\\cdot2\\cdot2\\cdot2\\cdot2\\cdot2$.",
+                      "On multiplie de proche en proche : $4$, $8$, $16$, $32$, $64$.",
+                      "$2^6=64$."
+                    ],
+                    "titre": "Dans l’autre sens"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$3^4=$",
+                    "choix": [
+                      "$12$",
+                      "$81$",
+                      "$64$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$3^4=3\\cdot3\\cdot3\\cdot3=81$. $12$ est $3\\cdot4$ ; $64$ est $4^3$, base et exposant échangés."
                   }
                 ]
               },
@@ -830,15 +982,21 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Une puissance se calcule avant une somme."
+                    "texte": "Pour calculer une puissance, on écrit le produit puis on multiplie de proche en proche. Cas particuliers : $a^1=a$ et, pour $a\\neq0$, $a^0=1$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $2^3$.",
+                    "enonce": "Calculer $4^3$.",
                     "etapes": [
-                      "$2^3=2\\cdot2\\cdot2$.",
-                      "Le résultat est 8."
+                      "$4^3=4\\cdot4\\cdot4$.",
+                      "$4\\cdot4=16$, puis $16\\cdot4=64$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Calcule $2^5$.",
+                    "reponse": 32,
+                    "explication": "$2\\cdot2\\cdot2\\cdot2\\cdot2=32$. Ce n’est pas $2\\cdot5=10$."
                   }
                 ]
               },
@@ -854,26 +1012,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour des puissances de 10 : dans un produit, on additionne les exposants ; dans un quotient, on soustrait l’exposant du dénominateur à celui du numérateur ; pour une puissance de puissance, on multiplie les exposants."
+                    "texte": "- Produit : on additionne les exposants, $10^m\\cdot10^n=10^{m+n}$.\n- Quotient : on soustrait l’exposant du dénominateur, $\\dfrac{10^m}{10^n}=10^{m-n}$.\n- Puissance de puissance : on multiplie les exposants, $(10^m)^n=10^{m\\cdot n}$.",
+                    "titre": "Puissances de 10"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Écrire $10^3\\cdot 10^4$ et $(10^2)^3$ sous la forme $10^n$.",
+                    "enonce": "Écrire $10^3\\cdot10^4$ et $(10^2)^3$ sous la forme $10^n$.",
                     "etapes": [
-                      "Dans $10^3\\cdot 10^4$, on additionne les exposants : $3+4=7$, donc $10^3\\cdot 10^4=10^7$.",
-                      "$(10^2)^3=10^2\\cdot 10^2\\cdot 10^2$ : on multiplie les exposants, $2\\cdot 3=6$, donc $(10^2)^3=10^6$."
+                      "$10^3\\cdot10^4=10^{3+4}=10^7$.",
+                      "$(10^2)^3=10^2\\cdot10^2\\cdot10^2=10^{2\\cdot3}=10^6$."
                     ]
                   },
                   {
                     "type": "question",
                     "enonce": "Écrire $\\dfrac{10^{3}}{10^{5}}$ sous la forme $10^n$.",
                     "choix": [
-                      "$10^{-2}$",
                       "$10^{2}$",
-                      "$10^{8}$"
+                      "$10^{8}$",
+                      "$10^{-2}$"
                     ],
-                    "bonne": 0,
-                    "explication": "C’est un quotient de puissances de 10 : on soustrait les exposants, $3-5=-2$. On obtient $10^{-2}$, et non $10^{2}$ : le plus grand exposant est au dénominateur."
+                    "bonne": 2,
+                    "explication": "Quotient : $3-5=-2$, donc $10^{-2}$. Le plus grand exposant est au dénominateur : le résultat est plus petit que $1$."
                   }
                 ]
               },
@@ -889,15 +1048,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "La racine carrée d’un carré parfait est le nombre positif ou nul dont on a calculé le carré."
+                    "texte": "$\\sqrt{a}$ est le nombre positif dont le carré vaut $a$. Pour un **carré parfait** ($1$, $4$, $9$, $16$, $25$…), la racine est un entier : $\\sqrt{49}=7$ car $7^2=49$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $\\sqrt{49}$.",
+                    "enonce": "Calculer $\\sqrt{144}$.",
                     "etapes": [
-                      "On cherche le nombre positif dont le carré vaut 49.",
-                      "Comme $7^2=49$, on a $\\sqrt{49}=7$."
+                      "On cherche un nombre positif dont le carré vaut $144$.",
+                      "$12^2=144$, donc $\\sqrt{144}=12$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\sqrt{100}=$",
+                    "choix": [
+                      "$10$",
+                      "$50$",
+                      "$-10$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$10^2=100$ et une racine carrée est positive : $\\sqrt{100}=10$. Diviser par $2$ ($50$) ne donne pas la racine."
                   }
                 ]
               },
@@ -913,15 +1083,31 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour encadrer une racine carrée, on cherche deux carrés parfaits qui encadrent le nombre."
+                    "texte": "Pour encadrer $\\sqrt{a}$ entre deux entiers consécutifs, on cherche les deux carrés parfaits qui entourent $a$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Encadrer $\\sqrt{20}$ entre deux entiers.",
+                    "enonce": "Encadrer $\\sqrt{70}$.",
                     "etapes": [
-                      "$4^2=16$ et $5^2=25$.",
-                      "Donc $4<\\sqrt{20}<5$."
+                      "$8^2=64$ et $9^2=81$.",
+                      "$64<70<81$, donc $8<\\sqrt{70}<9$."
                     ]
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "On regarde le chiffre qui suit le rang demandé : de $0$ à $4$, on coupe ; de $5$ à $9$, on augmente le dernier chiffre gardé. $\\sqrt{204}\\approx14{,}2828$ s’arrondit au centième à $14{,}28$.",
+                    "titre": "Arrondir"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Entre quels entiers se trouve $\\sqrt{30}$ ?",
+                    "choix": [
+                      "$15$ et $16$",
+                      "$5$ et $6$",
+                      "$29$ et $31$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$5^2=25<30<36=6^2$. $15$ vient de $30\\div2$ : une racine n’est pas une moitié."
                   }
                 ]
               },
@@ -937,26 +1123,36 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "En notation scientifique, on écrit un nombre sous la forme $a\\cdot10^n$, avec $1\\leq a<10$."
+                    "texte": "La notation scientifique d’un nombre est $a\\cdot10^n$ avec $1\\leqslant a<10$ : un seul chiffre non nul avant la virgule."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Écrire 3 500 en notation scientifique.",
+                    "enonce": "Écrire $910\\,000$ en notation scientifique.",
                     "etapes": [
-                      "On écrit 3 500 = 3,5 multiplié par 1 000.",
-                      "Donc $3\\,500=3,5\\cdot 10^3$."
+                      "$a=9{,}1$ : un seul chiffre avant la virgule.",
+                      "De $9{,}1$ à $910\\,000$, la virgule avance de $5$ rangs.",
+                      "$910\\,000=9{,}1\\cdot10^5$."
                     ]
                   },
                   {
-                    "type": "question",
-                    "enonce": "Quelle est la notation scientifique de 42 000 ?",
-                    "choix": [
-                      "$4,2\\cdot 10^4$",
-                      "$42\\cdot 10^3$",
-                      "$0,42\\cdot 10^5$"
+                    "type": "exemple",
+                    "enonce": "Écrire $3{,}09\\cdot10^3$ en écriture décimale.",
+                    "etapes": [
+                      "Multiplier par $10^3$ décale la virgule de $3$ rangs vers la droite.",
+                      "$3{,}09\\cdot10^3=3\\,090$."
                     ],
-                    "bonne": 0,
-                    "explication": "$42\\cdot10^3$ représente bien 42 000, mais 42 est trop grand pour une écriture scientifique. On écrit $4,2\\cdot10^4$."
+                    "titre": "Dans l’autre sens"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quelle est la notation scientifique de $42\\,000$ ?",
+                    "choix": [
+                      "$42\\cdot10^3$",
+                      "$4{,}2\\cdot10^4$",
+                      "$0{,}42\\cdot10^5$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$42\\cdot10^3$ vaut bien $42\\,000$, mais $42$ dépasse $10$. On écrit $4{,}2\\cdot10^4$."
                   }
                 ]
               },
@@ -1112,7 +1308,7 @@
         },
         {
           "id": "prq-donnees-raisonnement",
-          "version": 12,
+          "version": 13,
           "titre": "Lire une situation, traduire et vérifier",
           "objectif": "Lire des données, choisir les calculs utiles et contrôler ses résultats.",
           "auteurs": [
@@ -1142,26 +1338,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour lire un diagramme, on vérifie le nom des axes et leurs unités."
+                    "texte": "Avant de lire les barres : le titre dit ce qui est compté, l’axe vertical donne les effectifs. Comme sur une droite graduée, on calcule la valeur d’un intervalle entre deux graduations."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une barre atteint 12 sur un diagramme. Que lit-on ?",
+                    "enonce": "L’axe est gradué de $100$ en $100$. La barre des phacochères s’arrête entre les graduations $500$ et $600$. Que peut-on dire ?",
                     "etapes": [
-                      "On lit la valeur sur l’axe gradué : 12.",
-                      "On vérifie l’unité indiquée par le diagramme."
+                      "On repère les deux graduations qui encadrent le haut de la barre : $500$ et $600$.",
+                      "Il y a entre $500$ et $600$ phacochères ; on ne peut pas donner le nombre exact."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que faut-il lire avant les barres ?",
+                    "enonce": "Un diagramme montre $45$ zèbres, $20$ girafes et $15$ gazelles. Les zèbres représentent :",
                     "choix": [
-                      "Le titre et les axes",
-                      "Le nom de l’auteur",
-                      "La couleur du fond"
+                      "moins de la moitié des animaux",
+                      "plus de la moitié des animaux",
+                      "exactement la moitié des animaux"
                     ],
-                    "bonne": 0,
-                    "explication": "Le titre et les axes indiquent ce que représente chaque barre. Sans eux, le nombre lu n’a pas de sens."
+                    "bonne": 1,
+                    "explication": "Total : $45+20+15=80$ ; la moitié vaut $40$ et $45>40$. On compare au total, pas à chaque autre barre."
                   }
                 ]
               }
@@ -1175,15 +1371,21 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On relève les données qui servent à répondre à la question."
+                    "texte": "- L’**effectif total** est la somme des effectifs de toutes les barres.\n- « Au plus $4$ » signifie $4$ ou moins ; « au moins $4$ » signifie $4$ ou plus. On additionne les barres concernées, et seulement elles."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Un diagramme donne 4 vélos et 6 trottinettes. Combien y a-t-il de trottinettes ?",
+                    "enonce": "Exercices faits en une semaine : $3$ exercices pour $5$ élèves, $4$ pour $4$ élèves, $5$ pour $2$ élèves, $6$ pour $3$ élèves. Combien d’élèves ont fait au plus $4$ exercices ?",
                     "etapes": [
-                      "La question porte seulement sur les trottinettes.",
-                      "On lit 6 sur la barre correspondante."
+                      "« Au plus $4$ » : $3$ ou $4$ exercices.",
+                      "On additionne ces deux barres : $5+4=9$ élèves."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Notes d’une classe : $2$ élèves ont $3$, $8$ ont $4$ et $6$ ont $5$. Quel est l’effectif total ?",
+                    "reponse": 16,
+                    "explication": "On additionne les effectifs, pas les notes : $2+8+6=16$ élèves."
                   }
                 ]
               },
@@ -1199,15 +1401,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Avant de calculer, on indique ce que représente chaque nombre."
+                    "texte": "On traduit chaque étape du problème par une opération, puis on regroupe tout en une ligne ; les parenthèses gardent l’ordre des étapes."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Cinq sacs pèsent chacun 3 kg. Quel calcul donne leur masse totale ?",
+                    "enonce": "Quatre amis achètent $2$ sandwichs à $4$ francs et une bouteille à $4$ francs, puis partagent la note. Écrire le calcul en une ligne.",
                     "etapes": [
-                      "La masse de 3 kg est répétée cinq fois.",
-                      "On écrit 5 multiplié par 3, soit 15 kg."
+                      "Prix des sandwichs : $2\\cdot4$.",
+                      "Total : $2\\cdot4+4=12$.",
+                      "Part de chacun : $(2\\cdot4+4)\\div4=3$ francs."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "On paie $10{,}50$ francs pour $3$ pains à $1{,}50$ franc et $4$ tartelettes. Quel calcul donne le prix d’une tartelette ?",
+                    "choix": [
+                      "$10{,}50-3\\cdot1{,}50\\div4$",
+                      "$(10{,}50-3\\cdot1{,}50)\\div4$",
+                      "$10{,}50\\div4-3\\cdot1{,}50$"
+                    ],
+                    "bonne": 1,
+                    "explication": "On retire d’abord le prix des pains, puis on partage le reste entre les $4$ tartelettes : $(10{,}50-4{,}50)\\div4=1{,}50$ franc."
                   }
                 ]
               },
@@ -1223,27 +1437,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Quand un problème comporte plusieurs étapes, on écrit un calcul pour chacune."
+                    "texte": "Pour écrire deux calculs en une seule ligne, on remplace le résultat intermédiaire par le calcul qui l’a donné, entre parenthèses."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Trois cahiers coûtent 4 francs chacun et deux stylos coûtent 2 francs chacun. Quel est le prix total ?",
+                    "enonce": "Marina calcule $8+10=18$, puis $18\\cdot2=36$. Écrire en une ligne.",
                     "etapes": [
-                      "Les cahiers coûtent 3 multiplié par 4, soit 12 francs.",
-                      "Les stylos coûtent 2 multiplié par 2, soit 4 francs.",
-                      "Le total est 12 + 4 = 16 francs."
+                      "$18$ est le résultat de $8+10$.",
+                      "On remplace $18$ par $(8+10)$ : $(8+10)\\cdot2=36$.",
+                      "Sans parenthèses, $8+10\\cdot2$ vaudrait $28$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Deux cahiers à 5 francs et trois stylos à 1 franc coûtent :",
+                    "enonce": "Christophe calcule $2\\cdot3=6$, puis $6+8=14$. Quelle ligne convient ?",
                     "choix": [
-                      "13 francs",
-                      "11 francs",
-                      "16 francs"
+                      "$2\\cdot(3+8)$",
+                      "$2\\cdot3+8$",
+                      "$(2+3)\\cdot8$"
                     ],
-                    "bonne": 0,
-                    "explication": "Les cahiers coûtent 2 multiplié par 5, soit 10 francs. Les stylos coûtent 3 multiplié par 1, soit 3 francs. On paie 13 francs."
+                    "bonne": 1,
+                    "explication": "Le produit est prioritaire : $2\\cdot3+8=6+8=14$. On peut écrire $(2\\cdot3)+8$, mais les parenthèses sont inutiles."
                   }
                 ]
               },
@@ -1259,15 +1473,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On estime le résultat pour repérer une erreur de calcul."
+                    "texte": "Pour un ordre de grandeur, on remplace chaque nombre par une valeur proche et simple, puis on calcule de tête."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Estimer 49 multiplié par 21.",
+                    "enonce": "Donner un ordre de grandeur de $309\\cdot20\\,425$.",
                     "etapes": [
-                      "49 est proche de 50 et 21 de 20.",
-                      "50 multiplié par 20 vaut 1 000 : le produit cherché est proche de 1 000."
+                      "$309\\approx300$ et $20\\,425\\approx20\\,000$.",
+                      "$300\\cdot20\\,000=6\\,000\\,000$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Un ordre de grandeur de $999\\cdot101$ est :",
+                    "choix": [
+                      "$100\\,000$",
+                      "$10\\,000$",
+                      "$1\\,000\\,000$"
+                    ],
+                    "bonne": 0,
+                    "explication": "$999\\approx1\\,000$ et $101\\approx100$ : $1\\,000\\cdot100=100\\,000$ ($3+2=5$ zéros)."
                   }
                 ]
               },
@@ -1283,15 +1508,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Une égalité est vraie si ses deux membres ont la même valeur."
+                    "texte": "Pour tester une égalité avec une valeur de $x$, on remplace $x$ par cette valeur dans chaque membre et on calcule chaque membre à part. L’égalité est vraie pour cette valeur si les deux résultats sont égaux."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Vérifier l’égalité $2+3=6$.",
+                    "enonce": "Tester $21-2x=9+2x$ pour $x=3$.",
                     "etapes": [
-                      "Le membre de gauche vaut 5.",
-                      "Le membre de droite vaut 6 : l’égalité est fausse."
+                      "Membre de gauche : $21-2\\cdot3=21-6=15$.",
+                      "Membre de droite : $9+2\\cdot3=9+6=15$.",
+                      "Mêmes résultats : l’égalité est vraie pour $x=3$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Pour $x=-2$, que vaut $-5-2x$ ?",
+                    "reponse": -1,
+                    "explication": "$-5-2\\cdot(-2)=-5+4=-1$. Avec un nombre négatif, on écrit les parenthèses."
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "$2x$ signifie $2\\cdot x$ : pour $x=3$, $2x=6$, pas $23$.",
+                    "titre": "Piège"
                   }
                 ]
               },
@@ -1307,26 +1544,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Dans la réponse, on indique le résultat et son unité."
+                    "texte": "Dans un problème en plusieurs étapes, on écrit ce que donne chaque calcul (dépense totale, reste à payer…). À la fin, on relit la question et on répond avec l’unité."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une place coûte 8 francs. Combien coûtent trois places si l’on paie aussi 2 francs de frais ?",
+                    "enonce": "Un spectacle coûte $65$ francs par artiste pour $8$ artistes, plus $350$ francs de déplacement. La commune verse $360$ francs. Combien l’école paie-t-elle ?",
                     "etapes": [
-                      "Trois places coûtent 3 multiplié par 8, soit 24 francs.",
-                      "Avec les frais, on paie 24 + 2 = 26 francs."
+                      "Cachets : $8\\cdot65=520$ francs.",
+                      "Dépense totale : $520+350=870$ francs.",
+                      "L’école paie $870-360=510$ francs."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Deux places à 8 francs et 2 francs de frais coûtent :",
+                    "enonce": "Xavier achète $3$ kg de courgettes à $3$ francs le kilo et une cagette d’abricots à $10$ francs. Il paie :",
                     "choix": [
-                      "18 francs",
-                      "20 francs",
-                      "16 francs"
+                      "$16$ francs",
+                      "$19$ francs",
+                      "$13$ francs"
                     ],
-                    "bonne": 0,
-                    "explication": "Les deux places coûtent 2 multiplié par 8, soit 16 francs. On ajoute ensuite les 2 francs de frais : 18 francs."
+                    "bonne": 1,
+                    "explication": "Courgettes : $3\\cdot3=9$ francs, puis $9+10=19$ francs. $16=3+3+10$ oublie que le prix est donné par kilo."
                   }
                 ]
               },
@@ -1477,7 +1715,7 @@
         },
         {
           "id": "prq-grandeurs-conversions",
-          "version": 12,
+          "version": 13,
           "titre": "Grandeurs, unités et conversions",
           "objectif": "Comprendre les préfixes et convertir des grandeurs simples ou composées.",
           "auteurs": [
@@ -1507,26 +1745,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le préfixe kilo multiplie l’unité par 1 000 ; milli la divise par 1 000."
+                    "texte": "- kilo (k) : $\\cdot1\\,000$\n- hecto (h) : $\\cdot100$\n- déca (da) : $\\cdot10$\n- déci (d) : $\\div10$\n- centi (c) : $\\div100$\n- milli (m) : $\\div1\\,000$",
+                    "titre": "Préfixes"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Que signifie le préfixe kilo dans kilomètre ?",
+                    "enonce": "Compléter : $1\\text{ cm}=\\ldots\\text{ m}$.",
                     "etapes": [
-                      "Kilo signifie mille.",
-                      "Un kilomètre correspond donc à mille mètres."
+                      "Centi signifie « divisé par $100$ » : un centimètre est un centième de mètre.",
+                      "$1\\text{ cm}=1\\div100\\text{ m}=0{,}01\\text{ m}$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien de mètres y a-t-il dans un kilomètre ?",
+                    "enonce": "Le préfixe déca correspond à :",
                     "choix": [
-                      "1 000",
-                      "100",
-                      "10"
+                      "$\\div10$",
+                      "$\\cdot10$",
+                      "$\\cdot100$"
                     ],
-                    "bonne": 0,
-                    "explication": "Le préfixe kilo signifie mille. On multiplie donc le nombre d’unités par 1 000."
+                    "bonne": 1,
+                    "explication": "Déca (da) multiplie par $10$ : $1\\text{ dam}=10\\text{ m}$. C’est déci (d) qui divise par $10$."
                   }
                 ]
               }
@@ -1540,15 +1779,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour convertir une unité avec un préfixe, on utilise le rapport indiqué par ce préfixe."
+                    "texte": "Pour convertir, on cherche combien d’unités de départ fait une unité d’arrivée : $1\\text{ km}=1\\,000\\text{ m}$, donc des mètres aux kilomètres, on divise par $1\\,000$. Vers une unité plus grande, le nombre diminue."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Combien de mètres y a-t-il dans 2 km ?",
+                    "enonce": "Compléter : $87\\text{ m}=\\ldots\\text{ hm}$.",
                     "etapes": [
-                      "Le préfixe kilo signifie mille.",
-                      "2 km correspondent à 2 000 m."
+                      "$1\\text{ hm}=100\\text{ m}$.",
+                      "$87\\div100=0{,}87$.",
+                      "$87\\text{ m}=0{,}87\\text{ hm}$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$5\\text{ m}=\\ldots\\text{ km}$",
+                    "choix": [
+                      "$5\\,000$",
+                      "$0{,}05$",
+                      "$0{,}005$"
+                    ],
+                    "bonne": 2,
+                    "explication": "Le kilomètre est plus grand que le mètre : le nombre diminue. $5\\div1\\,000=0{,}005$."
                   }
                 ]
               },
@@ -1564,15 +1815,21 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Une conversion change l’unité, mais pas la quantité mesurée."
+                    "texte": "Unités de la plus grande à la plus petite : k, h, da, unité, d, c, m. Chaque unité vaut $10$ fois la suivante : on multiplie par $10$ à chaque pas vers la droite, on divise par $10$ à chaque pas vers la gauche."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Convertir 1,5 kg en grammes.",
+                    "enonce": "Convertir $200\\text{ dag}$ en grammes.",
                     "etapes": [
-                      "1 kg vaut 1 000 g.",
-                      "1,5 kg valent 1 500 g."
+                      "De dag à g : un pas vers la droite.",
+                      "$200\\cdot10=2\\,000$ : $200\\text{ dag}=2\\,000\\text{ g}$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien de grammes font $1{,}5\\text{ kg}$ ?",
+                    "reponse": 1500,
+                    "explication": "De kg à g : trois pas, donc $\\cdot1\\,000$. $1{,}5\\cdot1\\,000=1\\,500\\text{ g}$."
                   }
                 ]
               },
@@ -1588,26 +1845,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le résultat doit être écrit dans l’unité demandée."
+                    "texte": "Les capacités utilisent les mêmes préfixes avec le litre : $1\\text{ L}=10\\text{ dL}=100\\text{ cL}=1\\,000\\text{ mL}$ et $1\\text{ hL}=100\\text{ L}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Convertir 2 L en mL.",
+                    "enonce": "Convertir $53\\text{ hL}$ en litres.",
                     "etapes": [
-                      "1 L = 1 000 mL.",
-                      "2 L = 2 000 mL."
+                      "$1\\text{ hL}=100\\text{ L}$.",
+                      "$53\\cdot100=5\\,300$ : $53\\text{ hL}=5\\,300\\text{ L}$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "3 L valent :",
+                    "enonce": "$75\\text{ cL}=$",
                     "choix": [
-                      "3 000 mL",
-                      "300 mL",
-                      "30 mL"
+                      "$7{,}5\\text{ L}$",
+                      "$0{,}75\\text{ L}$",
+                      "$750\\text{ L}$"
                     ],
-                    "bonne": 0,
-                    "explication": "Le préfixe milli signifie un millième. Un litre contient donc 1 000 millilitres ; 3 litres en contiennent 3 000."
+                    "bonne": 1,
+                    "explication": "$100\\text{ cL}=1\\text{ L}$ : $75\\div100=0{,}75\\text{ L}$."
                   }
                 ]
               },
@@ -1623,15 +1880,36 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Une heure vaut 60 minutes."
+                    "texte": "$1\\text{ h}=60\\text{ min}$ et $1\\text{ min}=60\\text{ s}$. Les durées ne comptent pas en base $10$ : $0{,}5\\text{ h}=30\\text{ min}$, $0{,}25\\text{ h}=15\\text{ min}$, $0{,}75\\text{ h}=45\\text{ min}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Convertir 1 h 25 min en minutes.",
+                    "enonce": "Convertir $276$ minutes en heures et minutes.",
                     "etapes": [
-                      "Une heure vaut 60 minutes.",
-                      "60 + 25 = 85 : cela fait 85 minutes."
+                      "On cherche combien de fois $60$ dans $276$ : $4\\cdot60=240$.",
+                      "Il reste $276-240=36$ minutes.",
+                      "$276\\text{ min}=4\\text{ h }36\\text{ min}$."
                     ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir $4\\text{ h }15\\text{ min}$ en heures.",
+                    "etapes": [
+                      "$15\\text{ min}=\\dfrac{15}{60}\\text{ h}=\\dfrac14\\text{ h}=0{,}25\\text{ h}$.",
+                      "$4\\text{ h }15\\text{ min}=4{,}25\\text{ h}$."
+                    ],
+                    "titre": "En heures décimales"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$1\\text{ h }30\\text{ min}$ en heures, c’est :",
+                    "choix": [
+                      "$1{,}3\\text{ h}$",
+                      "$1{,}5\\text{ h}$",
+                      "$1{,}30\\text{ h}$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$30\\text{ min}$ est une demi-heure : $\\dfrac{30}{60}=0{,}5$. Écrire $1{,}3$ confond minutes et dixièmes d’heure."
                   }
                 ]
               },
@@ -1647,15 +1925,35 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Entre deux unités voisines, le facteur est 100 pour une aire et 1 000 pour un volume."
+                    "texte": "- Aires : $\\cdot100$ à chaque pas entre unités voisines, $1\\text{ m}^2=100\\text{ dm}^2$.\n- Volumes : $\\cdot1\\,000$ à chaque pas, $1\\text{ m}^3=1\\,000\\text{ dm}^3$.\n- $1\\text{ dm}^3=1\\text{ L}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Convertir 2 m² en cm².",
+                    "enonce": "Convertir $3\\text{ hm}^2$ en $\\text{m}^2$.",
                     "etapes": [
-                      "1 m vaut 100 cm, donc 1 m² vaut 10 000 cm².",
-                      "2 m² valent 20 000 cm²."
+                      "De $\\text{hm}^2$ à $\\text{m}^2$ : deux pas ($\\text{hm}^2$, $\\text{dam}^2$, $\\text{m}^2$).",
+                      "$3\\cdot100\\cdot100=30\\,000$ : $3\\text{ hm}^2=30\\,000\\text{ m}^2$."
                     ]
+                  },
+                  {
+                    "type": "exemple",
+                    "enonce": "Convertir $80\\text{ m}^3$ en litres.",
+                    "etapes": [
+                      "$80\\text{ m}^3=80\\cdot1\\,000\\text{ dm}^3=80\\,000\\text{ dm}^3$.",
+                      "$1\\text{ dm}^3=1\\text{ L}$ : $80\\text{ m}^3=80\\,000\\text{ L}$."
+                    ],
+                    "titre": "Volume et capacité"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$1\\text{ m}^2=$",
+                    "choix": [
+                      "$100\\text{ cm}^2$",
+                      "$1\\,000\\text{ cm}^2$",
+                      "$10\\,000\\text{ cm}^2$"
+                    ],
+                    "bonne": 2,
+                    "explication": "Un carré de $1\\text{ m}$ de côté mesure $100\\text{ cm}$ sur $100\\text{ cm}$ : $100\\cdot100=10\\,000\\text{ cm}^2$."
                   }
                 ]
               },
@@ -1671,26 +1969,36 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour convertir une vitesse, on convertit séparément la distance et le temps."
+                    "texte": "Une vitesse ou un débit est un quotient d’unités. On convertit séparément le numérateur et le dénominateur, puis on divise. Rappels : $1\\text{ h}=3\\,600\\text{ s}$, $1\\text{ min}=60\\text{ s}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Convertir 36 km/h en m/s.",
+                    "enonce": "Convertir $15\\text{ m/s}$ en km/h.",
                     "etapes": [
-                      "36 km = 36 000 m et 1 h = 3 600 s.",
-                      "36 000 divisé par 3 600 vaut 10 : la vitesse est 10 m/s."
+                      "En $1\\text{ h}=3\\,600\\text{ s}$, on parcourt $15\\cdot3\\,600=54\\,000\\text{ m}$.",
+                      "$54\\,000\\text{ m}=54\\text{ km}$.",
+                      "$15\\text{ m/s}=54\\text{ km/h}$."
                     ]
                   },
                   {
-                    "type": "question",
-                    "enonce": "72 km/h valent :",
-                    "choix": [
-                      "20 m/s",
-                      "2 m/s",
-                      "200 m/s"
+                    "type": "exemple",
+                    "enonce": "Convertir $387\\text{ L/h}$ en cL/s.",
+                    "etapes": [
+                      "$387\\text{ L}=38\\,700\\text{ cL}$ et $1\\text{ h}=3\\,600\\text{ s}$.",
+                      "$38\\,700\\div3\\,600=10{,}75$ : $387\\text{ L/h}=10{,}75\\text{ cL/s}$."
                     ],
-                    "bonne": 0,
-                    "explication": "Pour passer de km/h à m/s, on divise par 3,6. Ainsi, 72 km/h correspondent à 20 m/s."
+                    "titre": "Débit"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$72\\text{ km/h}$ valent :",
+                    "choix": [
+                      "$259{,}2\\text{ m/s}$",
+                      "$20\\text{ m/s}$",
+                      "$2\\text{ m/s}$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$72\\,000\\text{ m}$ en $3\\,600\\text{ s}$ : $72\\,000\\div3\\,600=20\\text{ m/s}$. Multiplier par $3{,}6$ ($259{,}2$) convertit dans le mauvais sens."
                   }
                 ]
               },
@@ -1832,7 +2140,7 @@
         },
         {
           "id": "prq-figures-angles-solides",
-          "version": 12,
+          "version": 13,
           "titre": "Figures, angles et solides",
           "objectif": "Reconnaître les figures et les solides, mesurer les angles et utiliser les transformations.",
           "auteurs": [
@@ -1862,25 +2170,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On nomme une figure d’après ses côtés et ses angles."
+                    "texte": "On écrit trois points sous un chapeau : $\\widehat{ABC}$. La lettre du **milieu** est le sommet ; les deux autres sont des points pris sur chacun des côtés. $\\widehat{ABC}$ et $\\widehat{CBA}$ désignent le même angle.",
+                    "titre": "Nommer un angle"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Dans le triangle ABC, l’angle en A mesure 90°. Comment nomme-t-on ce triangle ?",
+                    "enonce": "Un angle a pour sommet $N$ ; ses côtés passent par $Z$ et par $I$. Comment le nommer ?",
                     "etapes": [
-                      "Un angle de 90° est droit. ABC est donc un triangle rectangle en A."
+                      "Le sommet $N$ va au milieu : $\\widehat{ZNI}$ ou $\\widehat{INZ}$.",
+                      "Tout autre point d’un côté convient : si $J$ est sur $[NI)$, $\\widehat{ZNJ}$ est le même angle."
                     ]
                   },
                   {
+                    "type": "retenir",
+                    "texte": "- **Rectangle** : quatre angles droits ; diagonales de même longueur qui se coupent en leur milieu.\n- **Losange** : quatre côtés de même longueur ; diagonales perpendiculaires qui se coupent en leur milieu.\n- **Carré** : à la fois rectangle et losange.",
+                    "titre": "Quadrilatères particuliers"
+                  },
+                  {
                     "type": "question",
-                    "enonce": "Dans le triangle DEF, l’angle en E mesure 90°. Où est-il rectangle ?",
+                    "enonce": "Un quadrilatère a quatre côtés de même longueur et un angle droit. C’est :",
                     "choix": [
-                      "En E",
-                      "En D",
-                      "En F"
+                      "un carré",
+                      "un losange",
+                      "un rectangle"
                     ],
                     "bonne": 0,
-                    "explication": "Dans DEF, c’est l’angle en E qui mesure 90°. Le triangle est donc rectangle en E."
+                    "explication": "Quatre côtés égaux : c’est un losange. Avec un angle droit, ses quatre angles sont droits : c’est un carré, la réponse la plus précise."
                   }
                 ]
               }
@@ -1894,15 +2209,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour nommer un angle, on indique son sommet et ses deux côtés."
+                    "texte": "Le **sommet** est le point commun aux deux côtés ; les **côtés** sont des demi-droites, comme $[XY)$ ; $\\widehat{NXY}$ est le **nom** de l’angle.",
+                    "titre": "Un angle"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "- **Adjacents** : même sommet, un côté commun, situés de part et d’autre de ce côté.\n- **Opposés par le sommet** : même sommet, côtés dans le prolongement l’un de l’autre.\n- Deux droites coupées par une sécante : **alternes-internes** entre les deux droites et de part et d’autre de la sécante ; **correspondants** à la même place à chacune des deux intersections.\n- **Complémentaires** : somme $90^\\circ$ ; **supplémentaires** : somme $180^\\circ$.",
+                    "titre": "Deux angles"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Dans l’angle ABC, quel est le sommet ?",
+                    "enonce": "Les angles $\\widehat{AOB}$ et $\\widehat{BOC}$ ont le sommet $O$ et le côté $[OB)$ en commun ; $A$ et $C$ sont de part et d’autre de $[OB)$. Comment les qualifier ?",
                     "etapes": [
-                      "Le sommet d’un angle est indiqué par la lettre du milieu.",
-                      "Le sommet est B."
+                      "Même sommet et un côté commun.",
+                      "Les deux angles sont de chaque côté de ce côté commun : ils sont **adjacents**."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Pour l’angle $\\widehat{AWJ}$, le point $W$ est :",
+                    "choix": [
+                      "un côté",
+                      "le sommet",
+                      "le nom de l’angle"
+                    ],
+                    "bonne": 1,
+                    "explication": "La lettre du milieu est le sommet. Les côtés sont les demi-droites $[WA)$ et $[WJ)$."
                   }
                 ]
               },
@@ -1918,15 +2250,33 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On place le centre du rapporteur sur le sommet de l’angle."
+                    "texte": "On place le centre du rapporteur sur le sommet et la graduation $0$ sur un côté. On lit la mesure là où passe l’autre côté, **sur la graduation qui part de ce $0$**.",
+                    "titre": "Rapporteur"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "- aigu : entre $0^\\circ$ et $90^\\circ$ ;\n- droit : $90^\\circ$ ;\n- obtus : entre $90^\\circ$ et $180^\\circ$ ;\n- plat : $180^\\circ$ ;\n- plein : $360^\\circ$.",
+                    "titre": "Angles particuliers"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Comment placer le rapporteur pour mesurer un angle ?",
+                    "enonce": "Un côté passe par le $0$ de la graduation intérieure ; l’autre passe par $124$ sur cette graduation et par $56$ sur l’autre. Quelle est la mesure ?",
                     "etapes": [
-                      "On place son centre sur le sommet de l’angle.",
-                      "On aligne le zéro sur un côté, puis on lit la graduation où passe l’autre côté."
+                      "On lit sur la graduation qui part de $0$ : l’intérieure.",
+                      "L’angle mesure $124^\\circ$.",
+                      "Contrôle : l’angle est plus ouvert qu’un angle droit, il est obtus ; $124^\\circ$ convient."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Un côté passe par le $0$ de la graduation intérieure. L’autre côté passe par $41$ sur cette graduation et par $139$ sur l’autre. L’angle mesure :",
+                    "choix": [
+                      "$139^\\circ$",
+                      "$41^\\circ$",
+                      "$180^\\circ$"
+                    ],
+                    "bonne": 1,
+                    "explication": "On lit sur la graduation qui part de $0$ : $41^\\circ$. Contrôle : l’angle est aigu, il mesure moins de $90^\\circ$."
                   }
                 ]
               },
@@ -1942,26 +2292,32 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Un carré a quatre côtés égaux et quatre angles droits."
+                    "texte": "Sur une figure à main levée, on ne mesure pas : on lit les **codages**. Mêmes traits : longueurs égales ; petit carré : angle droit."
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "- **Parallélogramme** : côtés opposés parallèles ; diagonales qui se coupent en leur milieu.\n- **Rectangle** : parallélogramme avec un angle droit.\n- **Losange** : parallélogramme avec deux côtés consécutifs de même longueur.\n- **Carré** : rectangle et losange à la fois.",
+                    "titre": "Du plus général au plus précis"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Un carré possède quatre côtés égaux.",
+                    "enonce": "$ABCD$ a ses quatre côtés codés égaux et un angle droit codé en $A$. Quelle est sa nature la plus précise ?",
                     "etapes": [
-                      "Ses côtés sont égaux et ses quatre angles sont droits.",
-                      "Ces propriétés permettent de le reconnaître, même tourné."
+                      "Quatre côtés égaux : $ABCD$ est un losange.",
+                      "Un losange qui a un angle droit est aussi un rectangle.",
+                      "$ABCD$ est un carré."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien d’angles droits possède un carré ?",
+                    "enonce": "Un quadrilatère a des diagonales de même longueur qui se coupent en leur milieu. C’est :",
                     "choix": [
-                      "4",
-                      "2",
-                      "0"
+                      "un losange",
+                      "un rectangle",
+                      "un carré"
                     ],
-                    "bonne": 0,
-                    "explication": "Un carré a quatre angles droits. Ses quatre côtés sont aussi de même longueur."
+                    "bonne": 1,
+                    "explication": "Diagonales qui se coupent en leur milieu : parallélogramme ; de même longueur : rectangle. Rien ne dit qu’elles sont perpendiculaires : on ne peut pas conclure au carré."
                   }
                 ]
               },
@@ -1977,15 +2333,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Sur un solide, une arête sépare deux faces."
+                    "texte": "- **Prisme droit** : deux bases superposables et parallèles, faces latérales rectangulaires. Le **pavé droit** est un prisme dont toutes les faces sont des rectangles.\n- **Pyramide** : une base polygonale et des faces triangulaires qui se rejoignent en un sommet.\n- **Cylindre** : deux disques parallèles. **Cône** : un disque et un sommet. **Boule** : aucune face plane."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Combien de faces possède un cube ?",
+                    "enonce": "Un solide a une face de plus que le nombre de côtés de sa base. Lequel ?",
                     "etapes": [
-                      "On repère les faces opposées deux à deux.",
-                      "Le cube possède six faces."
+                      "Pyramide à base de $n$ côtés : $n$ faces triangulaires et la base, soit $n+1$ faces.",
+                      "Prisme à base de $n$ côtés : $n$ faces latérales et deux bases, soit $n+2$ faces.",
+                      "C’est une pyramide."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien de faces a un prisme droit à base triangulaire ?",
+                    "choix": [
+                      "$3$",
+                      "$5$",
+                      "$6$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$3$ faces latérales rectangulaires et $2$ bases triangulaires : $5$ faces."
                   }
                 ]
               },
@@ -2001,15 +2369,33 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Une symétrie centrale correspond à un demi-tour."
+                    "texte": "Une droite est un **axe de symétrie** d’une figure si, en pliant le long de cette droite, les deux parties se superposent. Une figure peut en avoir $0$, $1$, $2$ ou plus.",
+                    "titre": "Axe de symétrie"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "Un point $O$ est un **centre de symétrie** si la figure se superpose à elle-même après un demi-tour autour de $O$. Le parallélogramme en a un ; un triangle n’en a jamais.",
+                    "titre": "Centre de symétrie"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une figure subit une symétrie centrale de centre O. Comment trouver l’image d’un point A ?",
+                    "enonce": "Combien d’axes de symétrie a un rectangle qui n’est pas un carré ? A-t-il un centre de symétrie ?",
                     "etapes": [
-                      "On trace la droite AO.",
-                      "On place l’image de l’autre côté de O, à la même distance."
+                      "Les deux droites qui passent par les milieux de côtés opposés sont des axes ; les diagonales n’en sont pas.",
+                      "Il a donc $2$ axes de symétrie.",
+                      "Le point d’intersection des diagonales est son centre de symétrie."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Combien d’axes de symétrie a un losange qui n’est pas un carré ?",
+                    "choix": [
+                      "$4$",
+                      "$2$",
+                      "$0$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Ses deux diagonales sont des axes. Les droites qui joignent les milieux des côtés opposés n’en sont pas : le pliage ne superpose pas les deux parties."
                   }
                 ]
               },
@@ -2025,26 +2411,33 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Une translation conserve les longueurs, les angles et le parallélisme."
+                    "texte": "La translation qui transforme $D$ en $B$ fait glisser **chaque** point comme $D$ : même direction, même sens, même longueur. La figure n’est ni tournée ni retournée.",
+                    "titre": "Translation"
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "La symétrie de centre $A$ est un demi-tour autour de $A$ : l’image d’un point $M$ est le point $M'$ tel que $A$ est le milieu de $[MM']$.",
+                    "titre": "Symétrie centrale"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une figure est déplacée de 3 carreaux vers la droite.",
+                    "enonce": "Trouver l’image du triangle $RLK$ par la translation qui transforme $D$ en $B$.",
                     "etapes": [
-                      "Tous ses points se déplacent de la même façon.",
-                      "Les longueurs et les angles restent les mêmes."
+                      "On repère le déplacement de $D$ à $B$ sur le quadrillage ou le pavage.",
+                      "On applique ce même déplacement à $R$, à $L$ et à $K$.",
+                      "Le triangle obtenu a la même forme et la même orientation : c’est l’image."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Une translation conserve-t-elle les longueurs ?",
+                    "enonce": "Par une symétrie centrale, une figure est :",
                     "choix": [
-                      "Oui",
-                      "Non",
-                      "Seulement pour les carrés"
+                      "retournée comme dans un miroir",
+                      "tournée d’un demi-tour",
+                      "agrandie"
                     ],
-                    "bonne": 0,
-                    "explication": "Une translation déplace tous les points de la même façon : elle ne modifie pas la longueur des segments."
+                    "bonne": 1,
+                    "explication": "Une symétrie centrale est un demi-tour : la figure garde ses dimensions et se retrouve « tête en bas ». Le retournement en miroir est celui d’une symétrie axiale."
                   }
                 ]
               },
@@ -2185,7 +2578,7 @@
         },
         {
           "id": "prq-perimetres-aires-volumes",
-          "version": 12,
+          "version": 13,
           "titre": "Périmètres, aires et volumes",
           "objectif": "Calculer des périmètres, des aires et des volumes, y compris sur des figures composées.",
           "auteurs": [
@@ -2215,26 +2608,21 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le périmètre mesure le tour d’une figure. L’aire mesure sa surface."
+                    "texte": "Sur un quadrillage de $1\\text{ cm}$ : l’**aire** est le nombre de carreaux couverts, en $\\text{cm}^2$ (deux demi-carreaux font un carreau) ; le **périmètre** est la longueur du contour, en $\\text{cm}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une figure couvre 4 carreaux entiers et 2 demi-carreaux. Quelle est son aire ?",
+                    "enonce": "Une figure couvre $9$ carreaux entiers et $4$ demi-carreaux. Quelle est son aire ?",
                     "etapes": [
-                      "Deux demi-carreaux forment un carreau entier.",
-                      "La figure couvre donc 5 carreaux entiers."
+                      "$4$ demi-carreaux font $2$ carreaux.",
+                      "$9+2=11$ carreaux : l’aire est $11\\text{ cm}^2$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Une figure couvre 3 carreaux et 2 demi-carreaux. Combien de carreaux couvre-t-elle ?",
-                    "choix": [
-                      "4",
-                      "5",
-                      "3"
-                    ],
-                    "bonne": 0,
-                    "explication": "Deux demi-carreaux forment un carreau entier. On ajoute ce carreau aux trois carreaux entiers : cela fait quatre."
+                    "enonce": "Un rectangle mesure $11\\text{ cm}$ sur $6\\text{ cm}$. Calcule son périmètre, en cm.",
+                    "reponse": 34,
+                    "explication": "$(11+6)\\cdot2=34\\text{ cm}$. $66$ serait son aire, en $\\text{cm}^2$."
                   }
                 ]
               }
@@ -2248,15 +2636,31 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour calculer un périmètre, on additionne les longueurs du contour."
+                    "texte": "- Périmètre : somme des longueurs de tous les côtés, dans la même unité.\n- Rectangle : $(L+\\ell)\\cdot2$ ; carré : $4\\cdot c$."
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "Un triangle rectangle est un demi-rectangle : son aire vaut $\\dfrac{a\\cdot b}{2}$, où $a$ et $b$ sont les côtés de l’angle droit.",
+                    "titre": "Aire du triangle rectangle"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer le périmètre d’un rectangle de côtés 4 cm et 3 cm.",
+                    "enonce": "Triangle rectangle $MNO$ : côtés de l’angle droit $4\\text{ cm}$ et $2\\text{ cm}$, troisième côté $4{,}5\\text{ cm}$. Périmètre et aire ?",
                     "etapes": [
-                      "On additionne les quatre côtés.",
-                      "4 + 3 + 4 + 3 = 14 : le périmètre vaut 14 cm."
+                      "Périmètre : $4+2+4{,}5=10{,}5\\text{ cm}$.",
+                      "Aire : $\\dfrac{4\\cdot2}{2}=4\\text{ cm}^2$ ; le côté de $4{,}5\\text{ cm}$ ne sert pas."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Périmètre d’un carré de côté $2{,}5\\text{ cm}$ :",
+                    "choix": [
+                      "$6{,}25\\text{ cm}$",
+                      "$10\\text{ cm}$",
+                      "$5\\text{ cm}$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$4\\cdot2{,}5=10\\text{ cm}$. $6{,}25$ est l’aire $2{,}5\\cdot2{,}5$, en $\\text{cm}^2$."
                   }
                 ]
               },
@@ -2272,15 +2676,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "L’aire d’un rectangle est sa longueur multipliée par sa largeur."
+                    "texte": "- Carré : $c\\cdot c$ ; rectangle : $L\\cdot\\ell$.\n- Triangle : $\\dfrac{b\\cdot h}{2}$, où $h$ est la hauteur relative à la base $b$.\n- Une aire s’exprime en unités carrées : $\\text{cm}^2$, $\\text{m}^2$…"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer l’aire d’un triangle de base 6 cm et de hauteur 4 cm.",
+                    "enonce": "Un triangle rectangle a pour côtés $15\\text{ cm}$, $8\\text{ cm}$ et $17\\text{ cm}$ ; l’angle droit est entre les côtés de $15$ et de $8\\text{ cm}$. Aire ?",
                     "etapes": [
-                      "L’aire vaut base multipliée par hauteur, puis divisée par 2.",
-                      "6 multiplié par 4 puis divisé par 2 donne 12 cm²."
+                      "Les côtés de l’angle droit servent de base et de hauteur : $15$ et $8$.",
+                      "$\\dfrac{15\\cdot8}{2}=60\\text{ cm}^2$. Le côté de $17\\text{ cm}$ ne sert pas."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Aire d’un triangle de base $6\\text{ cm}$ et de hauteur $4\\text{ cm}$ :",
+                    "choix": [
+                      "$24\\text{ cm}^2$",
+                      "$12\\text{ cm}^2$",
+                      "$10\\text{ cm}^2$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$\\dfrac{6\\cdot4}{2}=12\\text{ cm}^2$. $24$ oublie la division par $2$."
                   }
                 ]
               },
@@ -2296,26 +2711,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "La hauteur est perpendiculaire à la base choisie."
+                    "texte": "Pour l’aire d’un triangle, il faut une base et **la hauteur perpendiculaire à cette base**. Les autres longueurs de la figure servent au périmètre, pas à l’aire."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Aire d’un rectangle de 6 cm sur 2 cm.",
+                    "enonce": "Triangle $BCD$ : $BC=8\\text{ cm}$, $BD=5\\text{ cm}$, $CD=11{,}7\\text{ cm}$. La hauteur issue de $D$ coupe la droite $(BC)$ en $E$, et $DE=4\\text{ cm}$. Aire ?",
                     "etapes": [
-                      "Aire = longueur multipliée par largeur.",
-                      "6 multiplié par 2 = 12 cm²."
+                      "$[DE]$ est perpendiculaire à $(BC)$ : base $BC=8\\text{ cm}$, hauteur $4\\text{ cm}$.",
+                      "$\\dfrac{8\\cdot4}{2}=16\\text{ cm}^2$.",
+                      "$5\\text{ cm}$ et $11{,}7\\text{ cm}$ ne servent pas."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Aire d’un rectangle de 4 cm sur 3 cm ?",
+                    "enonce": "Un triangle a une base de $12\\text{ cm}$, une hauteur de $5\\text{ cm}$ relative à cette base, et deux autres côtés de $10{,}3\\text{ cm}$ et $5{,}8\\text{ cm}$. Son aire est :",
                     "choix": [
-                      "12 cm²",
-                      "7 cm²",
-                      "14 cm²"
+                      "$60\\text{ cm}^2$",
+                      "$61{,}8\\text{ cm}^2$",
+                      "$30\\text{ cm}^2$"
                     ],
-                    "bonne": 0,
-                    "explication": "Pour un rectangle, on multiplie la longueur par la largeur. Ici, 4 multiplié par 3 donne 12 cm²."
+                    "bonne": 2,
+                    "explication": "$\\dfrac{12\\cdot5}{2}=30\\text{ cm}^2$. $61{,}8=\\dfrac{12\\cdot10{,}3}{2}$ prend un côté oblique pour une hauteur."
                   }
                 ]
               },
@@ -2331,15 +2747,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le diamètre est le double du rayon."
+                    "texte": "Pour un cercle de rayon $r$ (diamètre $d=2r$) :\n\n- périmètre : $2\\pi r$, c’est-à-dire $\\pi d$ ;\n- aire du disque : $\\pi r^2$.\n\nValeur exacte : on garde $\\pi$, par exemple $8\\pi\\text{ cm}$. Valeur approchée : on calcule, $8\\pi\\approx25{,}1\\text{ cm}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Un disque a un rayon de 3 cm. Calculer son aire.",
+                    "enonce": "Périmètre et aire d’un demi-disque de diamètre $6\\text{ cm}$.",
                     "etapes": [
-                      "L’aire d’un disque vaut $\\pi r^2$.",
-                      "Avec $r=3$, elle vaut $9\\pi$ cm²."
+                      "Rayon : $3\\text{ cm}$.",
+                      "Périmètre : demi-cercle $\\dfrac{\\pi\\cdot6}{2}=3\\pi$, plus le diamètre qui ferme la figure : $3\\pi+6\\approx15{,}4\\text{ cm}$.",
+                      "Aire : $\\dfrac{\\pi\\cdot3^2}{2}=4{,}5\\pi\\approx14{,}1\\text{ cm}^2$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Aire d’un disque de rayon $4\\text{ cm}$ :",
+                    "choix": [
+                      "$8\\pi\\text{ cm}^2$",
+                      "$16\\pi\\text{ cm}^2$",
+                      "$64\\pi\\text{ cm}^2$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$\\pi\\cdot4^2=16\\pi\\text{ cm}^2$. $8\\pi$ est le périmètre ; $64\\pi$ élève le diamètre au carré."
                   }
                 ]
               },
@@ -2355,15 +2783,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Un volume se mesure en unités cubes."
+                    "texte": "- Prisme droit (et pavé droit) : $V=\\mathcal{A}_{\\text{base}}\\cdot h$.\n- Cylindre : $V=\\pi r^2\\cdot h$.\n- Toutes les longueurs dans la même unité ; le volume s’exprime en unités cubes ($\\text{cm}^3$)."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Un prisme a une base de 6 cm² et une hauteur de 4 cm. Calculer son volume.",
+                    "enonce": "Un prisme droit a une base de $42\\text{ cm}^2$ et une hauteur de $4\\text{ dm}$. Volume ?",
                     "etapes": [
-                      "Le volume d’un prisme vaut aire de la base multipliée par hauteur.",
-                      "6 multiplié par 4 donne 24 cm³."
+                      "On convertit : $4\\text{ dm}=40\\text{ cm}$.",
+                      "$V=42\\cdot40=1\\,680\\text{ cm}^3$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Volume exact d’un cylindre de rayon $3\\text{ cm}$ et de hauteur $12\\text{ cm}$ :",
+                    "choix": [
+                      "$36\\pi\\text{ cm}^3$",
+                      "$108\\pi\\text{ cm}^3$",
+                      "$72\\pi\\text{ cm}^3$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$\\pi\\cdot3^2\\cdot12=108\\pi\\text{ cm}^3$. $36\\pi$ oublie le carré ; $72\\pi$ prend le diamètre sans le carré."
                   }
                 ]
               },
@@ -2379,26 +2818,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On découpe la figure en formes connues, puis on additionne leurs aires."
+                    "texte": "On découpe la figure en formes connues. On **ajoute** les aires des morceaux, ou on **retire** l’aire d’une partie enlevée. Le périmètre ne suit que le contour extérieur."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Une figure contient deux rectangles de 4 cm² et 6 cm², sans chevauchement.",
+                    "enonce": "Un carré de côté $8{,}4\\text{ cm}$ dont on a retiré un triangle de base $8{,}4\\text{ cm}$ et de hauteur $4{,}8\\text{ cm}$. Aire ?",
                     "etapes": [
-                      "On additionne leurs aires.",
-                      "L’aire totale vaut 4 + 6 = 10 cm²."
+                      "Carré : $8{,}4\\cdot8{,}4=70{,}56\\text{ cm}^2$.",
+                      "Triangle : $\\dfrac{8{,}4\\cdot4{,}8}{2}=20{,}16\\text{ cm}^2$.",
+                      "Aire : $70{,}56-20{,}16=50{,}4\\text{ cm}^2$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Deux parties de 5 cm² et 3 cm², sans chevauchement, ont une aire totale de :",
+                    "enonce": "Un rectangle de $6\\text{ cm}$ sur $4\\text{ cm}$ porte un demi-disque de diamètre $4\\text{ cm}$ collé sur un petit côté. Aire exacte :",
                     "choix": [
-                      "8 cm²",
-                      "15 cm²",
-                      "2 cm²"
+                      "$24+4\\pi\\text{ cm}^2$",
+                      "$24+2\\pi\\text{ cm}^2$",
+                      "$24+8\\pi\\text{ cm}^2$"
                     ],
-                    "bonne": 0,
-                    "explication": "Les deux parties ne se chevauchent pas : on peut additionner directement leurs aires, 5 cm² et 3 cm²."
+                    "bonne": 1,
+                    "explication": "Rayon $2\\text{ cm}$ : demi-disque $\\dfrac{\\pi\\cdot2^2}{2}=2\\pi$. Aire : $24+2\\pi\\text{ cm}^2$. $4\\pi$ compte le disque entier."
                   }
                 ]
               },
@@ -2537,7 +2977,7 @@
         },
         {
           "id": "prq-divisibilite-decomposition",
-          "version": 12,
+          "version": 13,
           "titre": "Divisibilité et décomposition",
           "objectif": "Utiliser les critères de divisibilité, les facteurs premiers, le PGDC et le PPMC.",
           "auteurs": [
@@ -2567,26 +3007,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Si $a$ divise $b$, alors $b$ est un multiple de $a$."
+                    "texte": "Si $b=a\\cdot k$ avec $k$ entier, alors $b$ est un **multiple** de $a$, $a$ est un **diviseur** de $b$, et $b$ est **divisible** par $a$ : la division de $b$ par $a$ tombe juste."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "24 est-il un multiple de 3 ?",
+                    "enonce": "Quel est le plus petit multiple de $6$ supérieur à $82$ ?",
                     "etapes": [
-                      "24 = 3 multiplié par 8.",
-                      "Donc 24 est un multiple de 3, et 3 est un diviseur de 24."
+                      "$82\\div6\\approx13{,}7$ : on essaie $6\\cdot13$ et $6\\cdot14$.",
+                      "$6\\cdot13=78<82$ et $6\\cdot14=84>82$.",
+                      "Le multiple cherché est $84$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quel nombre est un multiple de 4 ?",
+                    "enonce": "Quelle phrase est vraie ?",
                     "choix": [
-                      "20",
-                      "18",
-                      "22"
+                      "$4$ est un multiple de $20$",
+                      "$20$ est un diviseur de $4$",
+                      "$4$ est un diviseur de $20$"
                     ],
-                    "bonne": 0,
-                    "explication": "20 est un multiple de 4 parce qu’on peut écrire 20 comme 4 multiplié par un entier : 5."
+                    "bonne": 2,
+                    "explication": "$20=4\\cdot5$ : $20$ est un multiple de $4$, et $4$ est un diviseur de $20$."
                   }
                 ]
               }
@@ -2600,15 +3041,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour 2, 5 et 10, on regarde le chiffre des unités."
+                    "texte": "On regarde seulement le chiffre des unités :\n\n- divisible par $2$ : $0$, $2$, $4$, $6$ ou $8$ ;\n- divisible par $5$ : $0$ ou $5$ ;\n- divisible par $10$ : $0$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "135 est-il divisible par 5 ?",
+                    "enonce": "Quels chiffres mettre à la place de $?$ pour que $8?5$ soit divisible par $2$ ? par $5$ ?",
                     "etapes": [
-                      "Le chiffre des unités est 5.",
-                      "135 est donc divisible par 5."
+                      "Le chiffre des unités est $5$, quel que soit $?$.",
+                      "Par $2$ : jamais, car $5$ est impair ; on répond $\\emptyset$.",
+                      "Par $5$ : toujours ; tous les chiffres de $0$ à $9$ conviennent."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel nombre est divisible à la fois par $2$ et par $5$ ?",
+                    "choix": [
+                      "$250$",
+                      "$125$",
+                      "$252$"
+                    ],
+                    "bonne": 0,
+                    "explication": "Divisible par $2$ et par $5$ : chiffre des unités $0$. $125$ est impair ; $252$ ne finit ni par $0$ ni par $5$."
                   }
                 ]
               },
@@ -2624,15 +3077,22 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour 3 et 9, on additionne les chiffres du nombre."
+                    "texte": "On additionne les chiffres du nombre :\n\n- divisible par $3$ si cette somme est un multiple de $3$ ;\n- divisible par $9$ si cette somme est un multiple de $9$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "234 est-il divisible par 3 ?",
+                    "enonce": "Quels chiffres mettre à la place de $?$ pour que $8?5$ soit un multiple de $3$ ?",
                     "etapes": [
-                      "On additionne les chiffres : 2 + 3 + 4 = 9.",
-                      "9 est divisible par 3, donc 234 aussi."
+                      "Somme des chiffres connus : $8+5=13$.",
+                      "Multiples de $3$ atteignables en ajoutant un chiffre : $15$, $18$, $21$.",
+                      "$?$ vaut $2$, $5$ ou $8$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Quel nombre entre $10$ et $100$, divisible par $9$, a $7$ pour chiffre des unités ?",
+                    "reponse": 27,
+                    "explication": "La somme $?+7$ doit être un multiple de $9$ : $?=2$. $27=9\\cdot3$."
                   }
                 ]
               },
@@ -2648,26 +3108,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Si un nombre est divisible par $a$, il s’écrit $a\\cdot b$ : $a$ et $b$ forment une paire de diviseurs."
+                    "texte": "Pour lister les diviseurs de $n$, on cherche les produits $a\\cdot b=n$ en essayant $a=1$, $2$, $3$… On s’arrête quand $a$ dépasse $b$ : chaque produit donne deux diviseurs."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Lister les diviseurs de 12.",
+                    "enonce": "Lister les diviseurs de $28$.",
                     "etapes": [
-                      "On cherche les produits qui donnent 12 : 1 multiplié par 12, 2 multiplié par 6 et 3 multiplié par 4.",
-                      "Les diviseurs sont 1, 2, 3, 4, 6 et 12."
+                      "$1\\cdot28$, $2\\cdot14$, $4\\cdot7$ ; $3$, $5$ et $6$ ne divisent pas $28$.",
+                      "Après $4\\cdot7$, on retomberait sur $7\\cdot4$ : on s’arrête.",
+                      "Diviseurs de $28$ : $1$ ; $2$ ; $4$ ; $7$ ; $14$ ; $28$."
                     ]
                   },
                   {
+                    "type": "retenir",
+                    "texte": "Les premiers multiples non nuls de $75$ sont $75\\cdot1$, $75\\cdot2$, $75\\cdot3$… : $75$ ; $150$ ; $225$ ; $300$ ; $375$.",
+                    "titre": "Premiers multiples"
+                  },
+                  {
                     "type": "question",
-                    "enonce": "Lequel est un diviseur de 12 ?",
-                    "choix": [
-                      "3",
-                      "5",
-                      "7"
-                    ],
-                    "bonne": 0,
-                    "explication": "Un diviseur donne un quotient entier. Comme 12 divisé par 3 vaut 4, 3 est un diviseur de 12."
+                    "enonce": "Combien de diviseurs a $12$ ?",
+                    "reponse": 6,
+                    "explication": "$1\\cdot12$, $2\\cdot6$, $3\\cdot4$ : $1$, $2$, $3$, $4$, $6$ et $12$. Ne pas oublier $1$ et $12$ lui-même."
                   }
                 ]
               },
@@ -2683,15 +3144,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Un nombre premier a exactement deux diviseurs : 1 et lui-même."
+                    "texte": "Un nombre **premier** a exactement deux diviseurs, $1$ et lui-même : $2$, $3$, $5$, $7$, $11$, $13$… Pour décomposer un nombre, on le divise par le plus petit nombre premier possible, puis on recommence avec le quotient jusqu’à obtenir un nombre premier."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Décomposer 60 en facteurs premiers.",
+                    "enonce": "Décomposer $420$ en produit de facteurs premiers.",
                     "etapes": [
-                      "60 = 2 multiplié par 30 = 2 multiplié par 2 multiplié par 15.",
-                      "Comme 15 = 3 multiplié par 5, $60=2^2\\cdot3\\cdot5$."
+                      "$420=2\\cdot210=2\\cdot2\\cdot105$.",
+                      "$105$ est impair et $1+0+5=6$ : il est divisible par $3$, $105=3\\cdot35$.",
+                      "$35=5\\cdot7$, donc $420=2\\cdot2\\cdot3\\cdot5\\cdot7=2^2\\cdot3\\cdot5\\cdot7$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "La décomposition en facteurs premiers de $60$ est :",
+                    "choix": [
+                      "$4\\cdot15$",
+                      "$2\\cdot30$",
+                      "$2^2\\cdot3\\cdot5$"
+                    ],
+                    "bonne": 2,
+                    "explication": "$4$, $15$ et $30$ ne sont pas premiers. $60=2\\cdot2\\cdot3\\cdot5=2^2\\cdot3\\cdot5$."
                   }
                 ]
               },
@@ -2707,15 +3180,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le PGDC utilise les facteurs communs ; le PPMC prend tous les facteurs nécessaires."
+                    "texte": "Le **PGDC** est le plus grand diviseur commun, noté PGCD dans les exercices. Le **PPMC** est le plus petit multiple commun non nul, noté PPCM."
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "- PGDC : produit des facteurs **communs** aux deux décompositions.\n- PPMC : on recopie la décomposition du premier nombre et on ajoute les facteurs du second qui **manquent**.",
+                    "titre": "Avec les décompositions"
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Trouver le PGDC et le PPMC de 12 et 18.",
+                    "enonce": "$12=2\\cdot2\\cdot3$ et $18=2\\cdot3\\cdot3$. Trouver le PGDC et le PPMC.",
                     "etapes": [
-                      "$12=2^2\\cdot3$ et $18=2\\cdot3^2$.",
-                      "Le PGDC vaut $2\\cdot3=6$ ; le PPMC vaut $2^2\\cdot3^2=36$."
+                      "Facteurs communs : un $2$ et un $3$. PGDC $=2\\cdot3=6$.",
+                      "On recopie $2\\cdot2\\cdot3$ et on ajoute le $3$ qui manque : PPMC $=2\\cdot2\\cdot3\\cdot3=36$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$10=2\\cdot5$ et $12=2\\cdot2\\cdot3$. Quel est leur PPMC ?",
+                    "reponse": 60,
+                    "explication": "On recopie $2\\cdot2\\cdot3$ et on ajoute le $5$ : $60$. Le produit $10\\cdot12=120$ est un multiple commun, mais pas le plus petit."
                   }
                 ]
               },
@@ -2731,26 +3215,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour former le plus grand nombre de groupes identiques, on cherche un PGDC. Pour retrouver une coïncidence périodique, on cherche un PPMC."
+                    "texte": "- « Le plus grand nombre de groupes identiques » en utilisant tout : on cherche le **PGDC** des quantités.\n- « La prochaine fois que deux événements se produisent ensemble » : on cherche le **PPMC** des durées."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "On veut faire le plus grand nombre de groupes identiques avec 12 jetons rouges et 18 jetons bleus.",
+                    "enonce": "Avec $160$ iris et $64$ roses, combien de bouquets identiques peut-on faire au maximum ?",
                     "etapes": [
-                      "Le nombre de groupes doit diviser 12 et 18.",
-                      "Le PGDC de 12 et 18 est 6 : on peut faire 6 groupes."
+                      "Le nombre de bouquets divise $160$ et $64$ : on cherche le PGDC.",
+                      "$160=2^5\\cdot5$ et $64=2^6$ : PGDC $=2^5=32$.",
+                      "$32$ bouquets, avec $160\\div32=5$ iris et $64\\div32=2$ roses chacun."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien de groupes au maximum avec 8 jetons rouges et 12 bleus ?",
+                    "enonce": "Deux bus partent ensemble ; l’un repasse toutes les $12$ minutes, l’autre toutes les $10$ minutes. Dans combien de minutes repartent-ils ensemble ?",
                     "choix": [
-                      "4",
-                      "8",
-                      "12"
+                      "$2$",
+                      "$120$",
+                      "$60$"
                     ],
-                    "bonne": 0,
-                    "explication": "Le nombre de groupes doit diviser 8 et 12. Le plus grand diviseur commun est 4 : on peut former quatre groupes identiques."
+                    "bonne": 2,
+                    "explication": "On cherche le PPMC de $12$ et $10$ : $60$ minutes. $2$ est leur PGDC ; $120=12\\cdot10$ est un multiple commun, pas le plus petit."
                   }
                 ]
               },
@@ -2895,7 +3380,7 @@
         },
         {
           "id": "prq-fractions-representer-calculer",
-          "version": 12,
+          "version": 13,
           "titre": "Fractions : représenter, comparer, calculer",
           "objectif": "Représenter, comparer et calculer avec des fractions.",
           "auteurs": [
@@ -2925,26 +3410,31 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le dénominateur donne le nombre de parts égales ; le numérateur donne le nombre de parts prises."
+                    "texte": "Dans $\\dfrac{a}{b}$, le dénominateur $b$ dit en combien de parts égales on partage l’unité ; le numérateur $a$ dit combien de parts on prend."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Représenter 3/4 d’une unité.",
+                    "enonce": "Prendre $\\dfrac46$ d’une plaque de $12$ carrés.",
                     "etapes": [
-                      "Partage l’unité en 4 parts égales.",
-                      "Prends-en 3 : cela représente 3/4."
+                      "$12$ carrés partagés en $6$ parts égales : $2$ carrés par part.",
+                      "On prend $4$ parts : $4\\cdot2=8$ carrés."
                     ]
                   },
                   {
+                    "type": "retenir",
+                    "texte": "Une **fraction** a un numérateur et un dénominateur entiers. Si l’un des deux est décimal, on les multiplie tous les deux par $10$ (ou $100$) : $\\dfrac{7}{3{,}2}=\\dfrac{70}{32}$.",
+                    "titre": "Écriture fractionnaire"
+                  },
+                  {
                     "type": "question",
-                    "enonce": "Dans 3/4, que signifie 4 ?",
+                    "enonce": "Écrire $\\dfrac{9{,}1}{9{,}4}$ sous forme de fraction :",
                     "choix": [
-                      "Le nombre de parts égales",
-                      "Le nombre de parts prises",
-                      "Le nombre d’unités"
+                      "$\\dfrac{91}{9{,}4}$",
+                      "$\\dfrac{91}{94}$",
+                      "$\\dfrac{9}{9}$"
                     ],
-                    "bonne": 0,
-                    "explication": "Dans $\\dfrac34$, le 4 partage chaque unité en quatre parts égales. Le 3 indique qu’on en prend trois."
+                    "bonne": 1,
+                    "explication": "On multiplie le numérateur **et** le dénominateur par $10$ : $\\dfrac{91}{94}$."
                   }
                 ]
               }
@@ -2958,15 +3448,31 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour placer une fraction, on partage chaque unité en parts égales."
+                    "texte": "Sur une droite graduée, si l’unité est partagée en $b$ parts égales, une petite graduation vaut $\\dfrac1b$. Un point situé à $a$ graduations de $0$ a pour abscisse $\\dfrac ab$, avec un signe $-$ à gauche de $0$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Comparer $\\dfrac{3}{4}$ et $\\dfrac{2}{4}$.",
+                    "enonce": "L’unité est partagée en $5$ ; le point $A$ est à la $6^{\\text{e}}$ graduation à gauche de $0$. Quelle est son abscisse ?",
                     "etapes": [
-                      "Les deux fractions ont le même dénominateur.",
-                      "Comme 3 est supérieur à 2, $\\dfrac{3}{4}>\\dfrac{2}{4}$."
+                      "Une graduation vaut $\\dfrac15$.",
+                      "$6$ graduations à gauche de $0$ : $-\\dfrac65$."
                     ]
+                  },
+                  {
+                    "type": "retenir",
+                    "texte": "Pour comparer deux fractions dont un dénominateur est multiple de l’autre, on les écrit avec le même dénominateur, puis on compare les numérateurs : $\\dfrac67=\\dfrac{24}{28}<\\dfrac{28}{28}$.",
+                    "titre": "Comparer"
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Comparer $\\dfrac34$ et $\\dfrac58$ :",
+                    "choix": [
+                      "$\\dfrac34<\\dfrac58$",
+                      "$\\dfrac34>\\dfrac58$",
+                      "$\\dfrac34=\\dfrac58$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$\\dfrac34=\\dfrac68$ et $6>5$. Comparer seulement les numérateurs ($3<5$) donne la mauvaise conclusion."
                   }
                 ]
               },
@@ -2982,15 +3488,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On obtient une fraction équivalente en multipliant ou en divisant ses deux termes par le même nombre non nul."
+                    "texte": "On obtient une fraction égale en multipliant (**amplifier**) ou en divisant (**simplifier**) le numérateur et le dénominateur par le même nombre non nul."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Simplifier $\\dfrac{6}{8}$.",
+                    "enonce": "Simplifier $\\dfrac{28}{35}$.",
                     "etapes": [
-                      "6 et 8 sont divisibles par 2.",
-                      "En divisant les deux termes par 2, on obtient $\\dfrac{3}{4}$."
+                      "$28$ et $35$ sont tous deux dans la table de $7$.",
+                      "$\\dfrac{28}{35}=\\dfrac{7\\cdot4}{7\\cdot5}=\\dfrac45$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Amplifier $\\dfrac93$ par $12$ donne :",
+                    "choix": [
+                      "$\\dfrac{21}{15}$",
+                      "$\\dfrac{108}{36}$",
+                      "$\\dfrac{108}{3}$"
+                    ],
+                    "bonne": 1,
+                    "explication": "On multiplie les deux termes par $12$ : $\\dfrac{9\\cdot12}{3\\cdot12}=\\dfrac{108}{36}$. Ajouter $12$ ($\\dfrac{21}{15}$) ne donne pas une fraction égale."
                   }
                 ]
               },
@@ -3006,26 +3523,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Un pourcentage est une fraction de dénominateur 100."
+                    "texte": "- $\\dfrac{7}{100}=0{,}07$ : le dénominateur $100$ donne deux chiffres après la virgule.\n- $p\\,\\%=\\dfrac{p}{100}$ : $45\\,\\%=\\dfrac{45}{100}=0{,}45$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Écrire $\\dfrac14$ en décimal et en pourcentage.",
+                    "enonce": "Écrire $2{,}75$ sous forme de fraction.",
                     "etapes": [
-                      "$\\dfrac14=0,25$.",
-                      "$0,25=25\\%$."
+                      "Deux chiffres après la virgule : $2{,}75=\\dfrac{275}{100}$.",
+                      "On simplifie par $25$ : $\\dfrac{275}{100}=\\dfrac{11}{4}$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien vaut $\\dfrac12$ en pourcentage ?",
+                    "enonce": "$\\dfrac{7}{100}$ s’écrit :",
                     "choix": [
-                      "50 %",
-                      "25 %",
-                      "20 %"
+                      "$0{,}07$",
+                      "$0{,}7$",
+                      "$0{,}007$"
                     ],
                     "bonne": 0,
-                    "explication": "La moitié d’une unité vaut 0,5. Sur 100 parts, cela représente 50 parts : $\\dfrac12=50\\%$."
+                    "explication": "Sept centièmes : $0{,}07$, soit $7\\,\\%$. $0{,}7$ vaut $\\dfrac{7}{10}$."
                   }
                 ]
               },
@@ -3041,15 +3558,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Pour additionner des fractions, on les met d’abord au même dénominateur."
+                    "texte": "Pour additionner ou soustraire, les fractions doivent avoir le même dénominateur. On amplifie celle dont le dénominateur divise l’autre, on additionne les numérateurs **et on garde le dénominateur**, puis on simplifie."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $\\dfrac{1}{3}+\\dfrac{1}{6}$.",
+                    "enonce": "Calculer $\\dfrac89-\\dfrac{4}{45}$.",
                     "etapes": [
-                      "$\\dfrac{1}{3}=\\dfrac{2}{6}$.",
-                      "$\\dfrac{2}{6}+\\dfrac{1}{6}=\\dfrac{3}{6}=\\dfrac{1}{2}$."
+                      "$45=9\\cdot5$ : on amplifie $\\dfrac89$ par $5$, ce qui donne $\\dfrac{40}{45}$.",
+                      "$\\dfrac{40}{45}-\\dfrac{4}{45}=\\dfrac{36}{45}$.",
+                      "On simplifie par $9$ : $\\dfrac45$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\dfrac13+\\dfrac16=$",
+                    "choix": [
+                      "$\\dfrac29$",
+                      "$\\dfrac12$",
+                      "$\\dfrac26$"
+                    ],
+                    "bonne": 1,
+                    "explication": "$\\dfrac13=\\dfrac26$, donc $\\dfrac26+\\dfrac16=\\dfrac36=\\dfrac12$. Additionner les dénominateurs ($\\dfrac29$) est faux."
                   }
                 ]
               },
@@ -3065,15 +3594,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Diviser par une fraction revient à multiplier par son inverse."
+                    "texte": "- Produit : $\\dfrac ab\\cdot\\dfrac cd=\\dfrac{a\\cdot c}{b\\cdot d}$ ; on simplifie avant de multiplier quand c’est possible.\n- Quotient : diviser par $\\dfrac cd$, c’est multiplier par son inverse $\\dfrac dc$.\n- Prendre $\\dfrac34$ de $20$, c’est calculer $\\dfrac34\\cdot20=15$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $\\dfrac{2}{3}\\cdot\\dfrac{3}{4}$.",
+                    "enonce": "Calculer $\\dfrac{9}{10}\\div\\dfrac67$.",
                     "etapes": [
-                      "On multiplie les numérateurs et les dénominateurs : $\\dfrac{6}{12}$.",
-                      "On simplifie : $\\dfrac{6}{12}=\\dfrac{1}{2}$."
+                      "$\\dfrac{9}{10}\\cdot\\dfrac76=\\dfrac{63}{60}$.",
+                      "On simplifie par $3$ : $\\dfrac{21}{20}$."
                     ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "$\\dfrac23\\cdot\\dfrac34=$",
+                    "choix": [
+                      "$\\dfrac89$",
+                      "$\\dfrac57$",
+                      "$\\dfrac12$"
+                    ],
+                    "bonne": 2,
+                    "explication": "$\\dfrac{2\\cdot3}{3\\cdot4}=\\dfrac{6}{12}=\\dfrac12$. $\\dfrac89$ multiplie en croix, comme pour une division ; $\\dfrac57$ additionne."
                   }
                 ]
               },
@@ -3089,26 +3629,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "On calcule d’abord les parenthèses et on simplifie le résultat à la fin."
+                    "texte": "Mêmes priorités qu’avec les entiers : parenthèses, puis multiplications et divisions, puis additions et soustractions. Un entier s’écrit comme une fraction : $3=\\dfrac{27}{9}$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer $\\dfrac12+\\dfrac13\\cdot\\dfrac34$.",
+                    "enonce": "Calculer $\\dfrac25-\\dfrac67\\cdot\\dfrac25$.",
                     "etapes": [
-                      "On commence par le produit : $\\dfrac13\\cdot\\dfrac34=\\dfrac14$.",
-                      "Puis $\\dfrac12+\\dfrac14=\\dfrac34$."
+                      "Le produit d’abord : $\\dfrac67\\cdot\\dfrac25=\\dfrac{12}{35}$.",
+                      "$\\dfrac25=\\dfrac{14}{35}$, donc $\\dfrac{14}{35}-\\dfrac{12}{35}=\\dfrac{2}{35}$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien vaut $\\dfrac12+\\dfrac12\\cdot\\dfrac12$ ?",
+                    "enonce": "$\\dfrac12+\\dfrac12\\cdot\\dfrac12=$",
                     "choix": [
+                      "$\\dfrac12$",
                       "$\\dfrac34$",
-                      "$1$",
-                      "$\\dfrac12$"
+                      "$1$"
                     ],
-                    "bonne": 0,
-                    "explication": "La multiplication passe avant l’addition : $\\dfrac12\\cdot\\dfrac12=\\dfrac14$, puis $\\dfrac12+\\dfrac14=\\dfrac34$."
+                    "bonne": 1,
+                    "explication": "La multiplication passe avant l’addition : $\\dfrac12\\cdot\\dfrac12=\\dfrac14$, puis $\\dfrac12+\\dfrac14=\\dfrac34$. Calculer de gauche à droite donne $\\dfrac12$."
                   }
                 ]
               },
