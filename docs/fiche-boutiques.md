@@ -140,7 +140,8 @@ How to test without a class:
 1. Open the app and choose a curriculum ("France" or "Suisse").
 2. Open Settings ("Réglages"), turn on "Je suis enseignant" (I am a teacher), then tap "Charger les parcours de démonstration" (load the demonstration paths). A class "Démonstration" appears.
 3. In the teacher space, tap "Vue élève" (student view) and open a path, for example "Relatifs en ceintures". Answer the questions with the maths keyboard: each answer is corrected immediately and the progress is saved on the device.
-4. The teacher tab "Explorer" lists all MathALÉA exercises by grade and chapter; "Teste ton niveau" gives a 15-question test with a report.
+4. The "Explorer" tab lists the paths proposed by the MathALÉA team for the chosen curriculum, by grade and chapter (downloaded from CoopMaths' public kDrive folder, so the first opening needs an internet connection; afterwards the copy works offline). "Ajouter à l'accueil" adds a path to the student's home screen. With the "France" curriculum, "Teste ton niveau" gives a 15-question test with a report.
+5. A student without a class link taps "Je n'ai pas de lien" on the home screen and works with the Explorer paths. The "Fiches" tab gathers the lesson sheets of all the student's paths (search, bookmarks).
 
 Camera: used only to read QR codes (a student scans the code projected by the teacher to join a class session; the teacher scans the QR codes of students' answers). Images stay on the device.
 

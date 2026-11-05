@@ -73,19 +73,24 @@ describe('catalogue de l’Explorer en ligne', () => {
     const { lireExplorer } = await import('../src/lib/partage')
     const p = catalogue[0]
     const fichier = { format: 'classes-mathalea/1', classes: [{ nom: 'A', parcours: [{ ...p, version: 3 }] }, { nom: 'B', parcours: [{ ...p, version: 1 }] }] }
-    const recu = await lireExplorer(async () => new Response(JSON.stringify(fichier)))
+    const recu = await lireExplorer([{ lien: 'https://exemple.fr/explorer.json' }], async () => new Response(JSON.stringify(fichier)))
     expect(recu.parcours.map((x) => [x.id, x.version])).toEqual([[p.id, 3]])
     expect(recu.complet).toBe(true)
   })
 
-  it('sans adresse d’essai, les sous-dossiers FR et CH du dossier kDrive de l’Explorer', async () => {
+  it('sans adresse d’essai, le sous-dossier du pays choisi, seul (le dossier décide du pays)', async () => {
     vi.stubEnv('VITE_URL_EXPLORER', '')
     vi.resetModules()
-    const { DOSSIER_EXPLORER, SOURCES_EXPLORER } = await import('../src/lib/partage')
-    expect(SOURCES_EXPLORER).toEqual([
-      { lien: DOSSIER_EXPLORER, sousDossier: 'FR' },
-      { lien: DOSSIER_EXPLORER, sousDossier: 'CH' },
-    ])
+    const { DOSSIER_EXPLORER, sourcesExplorer } = await import('../src/lib/partage')
+    expect(sourcesExplorer('CH')).toEqual([{ lien: DOSSIER_EXPLORER, sousDossier: 'CH' }])
+    expect(sourcesExplorer('FR')).toEqual([{ lien: DOSSIER_EXPLORER, sousDossier: 'FR' }])
+  })
+
+  it('avec une adresse d’essai, elle seule, quel que soit le pays', async () => {
+    vi.stubEnv('VITE_URL_EXPLORER', 'https://exemple.fr/explorer.json')
+    vi.resetModules()
+    const { sourcesExplorer } = await import('../src/lib/partage')
+    expect(sourcesExplorer('CH')).toEqual([{ lien: 'https://exemple.fr/explorer.json' }])
   })
 })
 

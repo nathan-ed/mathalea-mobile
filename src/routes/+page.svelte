@@ -39,7 +39,7 @@
   import { rappelExport } from '$lib/rappelExport.svelte'
   import { heure, suivreHeure } from '$lib/heure.svelte'
   import { acquisDe, ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
-  import { LIEN_DEMONSTRATION, SOURCES_EXPLORER, ecrireClasses, fusionnerCatalogues, lireClasses, lireExplorer, lireFichier, lireFichierDistant, nomHorodate, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
+  import { LIEN_DEMONSTRATION, ecrireClasses, fusionnerCatalogues, lireClasses, lireExplorer, sourcesExplorer, lireFichier, lireFichierDistant, nomHorodate, memeClasse, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
     bilan,
@@ -332,6 +332,9 @@
     organisations = (await stockage.lire<Record<string, Organisation>>('chapitres')) ?? {}
     // Copie du catalogue reçue la dernière fois : l'Explorer s'affiche aussitôt, même hors connexion
     catalogue = await stockage.lire<Parcours[]>('explorer')
+    // Copie reçue pour l'autre pays : pas montrée (le dossier décide du pays)
+    const paysCopie = await stockage.lire<Pays>('explorer-pays')
+    if (paysCopie && paysCopie !== pays) catalogue = null
     // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau.
     // Un parcours de l'Explorer ajouté à l'accueil suit sa nouvelle version (mise à jour de l'app)
     ajoutes = ((await stockage.lire<Parcours[]>('ajoutes')) ?? []).filter((p) => !estTest(p.id)).map((a) => plusRecent(a))
@@ -411,25 +414,25 @@
     return lectureExplorer
   }
   async function lireCatalogue() {
-    if (!SOURCES_EXPLORER.length) {
-      etatExplorer = 'lu'
-      return
-    }
+    const lu = pays
     etatExplorer = 'lecture'
     try {
-      const recu = await lireExplorer()
+      const recu = await lireExplorer(sourcesExplorer(lu))
+      // Pays changé pendant la lecture : changerPays relit le bon dossier
+      if (pays !== lu) return
       // Un dossier illisible : ses parcours restent ceux de la copie
       const liste = recu.complet ? recu.parcours : fusionnerCatalogues(catalogue ?? [], recu.parcours)
       catalogue = liste
       etatExplorer = recu.complet ? 'lu' : 'injoignable'
       await stockage!.ecrire('explorer', $state.snapshot(liste))
+      await stockage!.ecrire('explorer-pays', lu)
       ajoutes = ajoutes.map((a) => plusRecent(a))
       await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
       for (const p of [...ajoutes, ...liste]) await chargerParcours(p)
     } catch (e) {
       // Hors connexion ou dossier indisponible : la copie de l'appareil reste affichée
       console.warn('Explorer', e)
-      etatExplorer = 'injoignable'
+      if (pays === lu) etatExplorer = 'injoignable'
     }
   }
 
@@ -465,12 +468,20 @@
   }
 
   async function changerPays(p: Pays) {
+    const autre = p !== pays
     pays = p
     moteur?.definirLangue(p === 'CH' ? 'fr-CH' : 'fr-FR')
     reperes = null
     explorerNiveau = null
     void lireReperes()
     await stockage!.ecrire('pays', p)
+    if (!autre) return
+    // L'Explorer de l'autre pays : son dossier, relu après une lecture en cours
+    catalogue = null
+    void (async () => {
+      await lectureExplorer
+      await synchroniserExplorer()
+    })()
   }
 
   async function changerProfil(p: Profil) {
@@ -969,7 +980,9 @@
     const { lien, classe } = separerClasse(saisi)
     if (classe) {
       const r = await rejoindreClasse(lien, classe)
-      return r === 'nouveau' ? null : r.erreur
+      if (r !== 'nouveau') return r.erreur
+      await reprendrePremier()
+      return null
     }
     if (classes.some((c) => c.lien === lien)) return 'Cette classe est déjà ajoutée.'
     const c = await synchroniserClasse({ lien, nom: '', disponibles: [], parcours: [] })
@@ -999,7 +1012,7 @@
     const deja = classes.find((c) => c.lien === lien)
     const c = await synchroniserClasse({ ...(deja ? ($state.snapshot(deja) as Classe) : { lien, nom: '', disponibles: [], parcours: [] }), ...(nom ? { nom } : {}) })
     if (c.erreur) return { erreur: c.erreur }
-    if (nom && c.nom !== nom) return { erreur: `La classe ${nom} n’est pas encore sur le drive de l’enseignant.` }
+    if (nom && !memeClasse(c.nom, nom)) return { erreur: `La classe ${nom} n’est pas encore sur le drive de l’enseignant.` }
     classes = deja ? classes.map((x) => (x.lien === lien ? c : x)) : [...classes, c]
     await ecrireClasses(stockage!, classes)
     for (const p of parcoursDuDossier(c)) await chargerParcours(p)

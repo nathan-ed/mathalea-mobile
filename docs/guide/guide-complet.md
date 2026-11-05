@@ -18,8 +18,8 @@ Illustré pas à pas : [Côté élève](eleves.md).
 
 ### L'accueil
 
-- **Le dossier de la classe** : l'élève colle le lien donné par l'enseignant, puis « Ajouter le dossier ». Si le dossier contient plusieurs classes, il choisit la sienne une fois. Il peut suivre d'autres dossiers (changement d'enseignant, ressources d'un collègue) dans les Réglages, « Dossiers partagés ».
-- **Ses parcours**, rangés par chapitre. Il peut replier et réordonner les chapitres. Le bouton « ⋯ » d'une tuile épingle le parcours en haut de l'accueil, l'imprime, ou le retire de l'accueil s'il vient de l'Explorer (ses ceintures sont gardées).
+- **Le dossier de la classe** : l'élève colle le lien donné par l'enseignant, puis « Ajouter le dossier ». Si le dossier contient plusieurs classes, il choisit la sienne une fois ; un lien terminé par `?classe=3A` la choisit d'office. Sans lien, « Je n'ai pas de lien » : il travaille avec l'Explorer et ajoute le lien plus tard. Il peut suivre d'autres dossiers (changement d'enseignant, ressources d'un collègue) dans les Réglages, « Dossiers partagés ».
+- **Ses parcours**, rangés par chapitre, avec ceux qu'il a ajoutés depuis l'Explorer (boussole). Il peut replier et réordonner les chapitres. L'épingle d'une tuile met le parcours en haut de l'accueil ; l'œil le cache (« Parcours cachés », en bas, le remet ; ses ceintures sont gardées). L'imprimante est dans la barre du haut d'un parcours.
 - **En cours** : un parcours commencé se reprend exactement là où il en était, même après avoir fermé l'application.
 - **Rechercher** : par titre, chapitre, niveau ou exercice.
 - **Le QR code de session**, en haut : l'élève vise le QR code projeté par l'enseignant et arrive directement dans la session.
@@ -47,11 +47,15 @@ Illustré pas à pas : [Côté élève](eleves.md).
 - Avec des paliers : la pause, puis « Continuer » vers le palier suivant, ou ce qu'il manque pour l'ouvrir.
 - Chaque passage reste dans la page du parcours et se relit tel qu'il a été fait.
 
+### Les fiches
+
+L'onglet **Fiches** rassemble les fiches de cours de tous ses parcours, par chapitre ; chapitres et parcours se replient. Recherche par le début d'un mot ; le signet enregistre une fiche dans « Mes fiches », que l'élève ordonne.
+
 ### Le Suivi
 
 - L'activité et les passages successifs de chaque parcours.
 - **Les objectifs** travaillés : meilleur niveau atteint, de « Insuffisante » à « Très bonne maîtrise », et la dernière fois travaillé.
-- **Les ceintures** obtenues, celles des parcours et celles de « Teste ton niveau ».
+- **Les ceintures**, par chapitre, pour les parcours commencés : une ceinture obtenue prend sa couleur, les autres n'ont que leur contour ; aussi celles de « Teste ton niveau ».
 
 ### Les révisions (répétition espacée)
 
@@ -66,7 +70,7 @@ Détails : [Révisions](revisions.md).
 
 ### Explorer et Teste ton niveau
 
-- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ». « Ajouter plusieurs parcours » (page d'un degré) en ajoute plusieurs d'un coup, tout le degré si l'on veut : à l'accueil de l'élève, ou à la bibliothèque de l'enseignant. L'élève y retire aussi des parcours : ceux de son accueil sont cochés, il décoche ceux qu'il ne veut plus.
+- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ». Sur la page d'un degré, le « + » d'un parcours le met à l'accueil de l'élève (ou dans la bibliothèque de l'enseignant), la coche l'en retire ; « Tout ajouter » prend le reste du degré. Ces parcours sont lus sur un dossier kDrive de CoopMaths, celui du programme choisi : la première ouverture demande une connexion, l'app garde ensuite sa copie.
 - **Teste ton niveau** (programme France seulement ; absent en Suisse) : 15 questions de tous les domaines, du CM1 à la Terminale, corrigées à la fin. 80 % donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange, 5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire de nouvelles questions.
 
 ## Côté enseignant

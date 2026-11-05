@@ -38,6 +38,7 @@
   let exercices: Record<number, ExercicePrepare> = $state({})
   let pret = $state(false)
   let erreur = $state('')
+  let inconnus = false // aucun exercice connu de ce moteur (parcours plus récent que l'app)
   let hoteClavier: HTMLDivElement
   let hauteurClavier = $state(0)
   // Barre d'actions fixe en bas : le clavier de MathALÉA s'ouvre juste au-dessus
@@ -212,6 +213,8 @@
   // tout de suite ou supprimer la tentative
   let sortie: 'choix' | 'suppression' | null = $state(null)
   function demanderSortie() {
+    // Exercices inconnus de ce moteur : rien à reprendre, la tentative vide ne reste pas « en cours »
+    if (inconnus) return onsupprimer ? supprimerTentative() : onquitter()
     garderBrouillons()
     if (onsupprimer) sortie = 'choix'
     else onquitter()
@@ -369,6 +372,14 @@
           if (!q.interactive) seance.papier = { ...seance.papier, [cle]: seance.papier?.[cle] ?? false }
         })
       }
+      // Exercice que ce moteur ne connaît pas (parcours écrit avec un MathALÉA
+      // plus récent que l'app) : MathALÉA le rend vide, sans question. Aucune
+      // question du tout : l'élève le sait, au lieu d'un écran vide
+      if (seance.etapes.every((etape) => exercices[etape].questions.length === 0)) {
+        erreur = 'Ces exercices demandent une version plus récente de MathALÉA : mets l’application à jour, puis reviens.'
+        inconnus = true
+        return
+      }
       seance.moteur = moteur.VERSION_MOTEUR
       fixerOrdre(seance)
       if (seance.position >= questionsDe(seance).length) seance.position = 0
@@ -440,7 +451,7 @@
         <button
           role="tab"
           aria-selected={i === page}
-          aria-label={unique ? `Question ${i + 1}` : sansEnTete ? `Page ${i + 1}` : `Exercice ${i + 1}`}
+          aria-label={unique ? `Question ${i + 1}${smiley(p[0].etape, p[0].question) ? `, ${smiley(p[0].etape, p[0].question)}` : ''}` : sansEnTete ? `Page ${i + 1}` : `Exercice ${i + 1}`}
           class="relative group flex-1 {i === page ? 'border-b-4' : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action dark:text-coopmathsdark-action"
           style="min-width: 2.75rem"
           onclick={() => allerPage(i)}

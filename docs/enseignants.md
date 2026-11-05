@@ -289,7 +289,9 @@ fait pour vous : onglet Classes, QR code de la classe, « Copier le lien ».
 - L'onglet Explorer propose les parcours de l'équipe MathALÉA du programme
   choisi (France ou Suisse), par degré puis par chapitre, avec les noms du
   référentiel de MathALÉA ; seuls les degrés qui ont des parcours apparaissent.
-  Un parcours commencé rejoint Mes parcours. L'enseignant le reprend avec
+  Ces parcours sont lus sur un dossier kDrive de CoopMaths (sous-dossier du
+  programme choisi) : la première ouverture demande une connexion, l'app
+  garde ensuite sa copie. Un parcours commencé rejoint Mes parcours. L'enseignant le reprend avec
   « Donner à des classes » : il entre dans sa bibliothèque, puis il choisit
   les classes sur sa page.
 - Un palier peut avoir sa fiche de cours (formules, graphiques à manipuler,
@@ -297,6 +299,14 @@ fait pour vous : onglet Classes, QR code de la classe, « Copier le lien ».
   avant la première séance si elle est prévue ainsi, puis reste sur la page
   du parcours et revient au bilan quand le palier n'est pas réussi. Format :
   guide, « Format des parcours ».
+- L'onglet **Fiches** rassemble les fiches de cours de tous les parcours de
+  l'élève, par chapitre (chapitres et parcours dépliables), avec une
+  recherche ; l'élève enregistre les siennes dans « Mes fiches », dans
+  l'ordre qu'il choisit.
+- Un parcours qui utilise un exercice plus récent que le moteur de l'app
+  (exercice ajouté à MathALÉA après la version installée) : ses autres
+  exercices se font ; si aucun n'est connu, l'élève lit qu'il faut mettre
+  l'application à jour.
 - « Teste ton niveau », en tête de l'Explorer, est ouvert à tous avec le
   programme France (absent en Suisse : ses niveaux sont ceux de la France) : questions
   des sujets de la Course aux nombres, du CM1 à la Terminale. Par niveau,

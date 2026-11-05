@@ -15,7 +15,9 @@ source : on modifie ici, on teste, puis on remplace le fichier sur le drive.
   par degré.
 - `niveau` et `theme` : noms du référentiel de MathALÉA (« 4e Collège »,
   « Intégration »). L'app range l'Explorer par degré puis par chapitre dans
-  l'ordre du référentiel et en déduit le pays (un degré suisse, sinon France).
+  l'ordre du référentiel. Le dossier décide du pays : l'app suisse ne lit
+  que `CH`, la française que `FR`. Un fichier relève d'un seul pays (vérifié
+  par `pnpm test`) ; un fichier suisse déposé dans `FR` n'apparaît nulle part.
 - Exercices interactifs, `uuid` lus sur le site ou dans le moteur. Un
   parcours suisse peut prendre un exercice que le référentiel suisse range
   dans « Non classés » (exercice français) : le moteur le prépare de même.

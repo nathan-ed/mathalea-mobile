@@ -355,13 +355,16 @@ export function creerFichier(classes: ClasseDuFichier[], banque = false, bibliot
 /** Classe des parcours de démonstration (Réglages, enseignant) : rien à télécharger */
 export const LIEN_DEMONSTRATION = 'demonstration'
 
+/** Même nom de classe, aux majuscules et espaces près (« 3a » tapé dans un lien pour « 3A ») */
+export const memeClasse = (a: string, b: string) => a.trim().replace(/\s+/g, ' ').toLocaleLowerCase('fr') === b.trim().replace(/\s+/g, ' ').toLocaleLowerCase('fr')
+
 export async function synchroniserClasse(classe: Classe, req: Requete = requete): Promise<Classe> {
   if (classe.lien === LIEN_DEMONSTRATION) return classe
   try {
     const f = await lireFichierDistant(classe.lien, req)
     const disponibles = f.classes.map((c) => c.nom)
     // Une seule classe dans le fichier : c'est celle de l'élève
-    const nom = disponibles.length === 1 ? disponibles[0] : disponibles.includes(classe.nom) ? classe.nom : ''
+    const nom = disponibles.length === 1 ? disponibles[0] : (disponibles.find((d) => d === classe.nom) ?? (classe.nom ? disponibles.find((d) => memeClasse(d, classe.nom)) : undefined) ?? '')
     const source = f.classes.find((c) => c.nom === nom)?.parcours ?? []
     const parcours = source.map((p) => {
       const actuel = classe.parcours.find((a) => a.id === p.id)
@@ -388,19 +391,19 @@ export async function ecrireClasses(st: Stockage, classes: Classe[]) {
  * Explorer : parcours de l'équipe MathALÉA, déposés dans un dossier kDrive
  * partagé, sous-dossiers FR et CH, lus comme ceux des enseignants. On les
  * modifie sans mettre l'app à jour ; l'app garde la dernière copie reçue pour
- * le hors ligne. VITE_URL_EXPLORER (essais) remplace le dossier par une seule adresse.
+ * le hors ligne. Le dossier décide du pays (Nathan, 2026-11-04 : un fichier
+ * déplacé dans FR restait dans l'Explorer suisse) : seul celui du pays choisi
+ * est lu. VITE_URL_EXPLORER (essais) remplace le dossier par une seule adresse.
  */
 export const DOSSIER_EXPLORER = 'https://kdrive.infomaniak.com/app/share/120240/9635c7c9-5984-4278-a739-d9f8c7d69f50'
-// Un sous-dossier par pays, nommé comme lui ; seuls ses .json sont lus
-const PAYS_EXPLORER: Pays[] = ['FR', 'CH']
 export interface SourceExplorer {
   lien: string
   sousDossier?: string
 }
 const URL_EXPLORER_ESSAI: string = import.meta.env?.VITE_URL_EXPLORER ?? ''
-export const SOURCES_EXPLORER: SourceExplorer[] = URL_EXPLORER_ESSAI
-  ? [{ lien: URL_EXPLORER_ESSAI }]
-  : PAYS_EXPLORER.map((pays) => ({ lien: DOSSIER_EXPLORER, sousDossier: pays }))
+/** Dossier de l'Explorer d'un pays : son sous-dossier, nommé comme lui (FR, CH) ; seuls ses .json sont lus */
+export const sourcesExplorer = (pays: Pays): SourceExplorer[] =>
+  URL_EXPLORER_ESSAI ? [{ lien: URL_EXPLORER_ESSAI }] : [{ lien: DOSSIER_EXPLORER, sousDossier: pays }]
 
 /** Un parcours par identifiant, à sa version la plus haute, à la place du premier vu */
 export function fusionnerCatalogues(...listes: Parcours[][]): Parcours[] {
@@ -417,7 +420,7 @@ export function fusionnerCatalogues(...listes: Parcours[][]): Parcours[] {
  * (faux si un dossier n'a pas pu être lu : l'app garde alors aussi sa copie).
  * Un dossier encore vide n'est pas une erreur. Aucun dossier lu : erreur.
  */
-export async function lireExplorer(req: Requete = requete, sources = SOURCES_EXPLORER): Promise<{ parcours: Parcours[]; complet: boolean }> {
+export async function lireExplorer(sources: SourceExplorer[], req: Requete = requete): Promise<{ parcours: Parcours[]; complet: boolean }> {
   const lus = await Promise.allSettled(sources.map((s) => lireFichierDistant(s.lien, req, s.sousDossier)))
   const listes: Parcours[][] = []
   let echec: unknown = null

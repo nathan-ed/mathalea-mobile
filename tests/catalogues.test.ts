@@ -34,6 +34,13 @@ describe('fichiers de parcours livrés', () => {
     }
   })
 
+  it.each(FICHIERS)('%s : prime de dérivée en exposant (f^{\\prime}), jamais \\prime seul', (chemin) => {
+    // KaTeX dessine \prime seul comme un grand symbole posé sur la ligne : « (u+v)ı »
+    // (Calcul intégral et Exp-log, novembre 2026). $f'$ ou $f^{\prime}$
+    const seuls = JSON.stringify(parcoursDe(chemin)).match(/[^^{\\]\\\\prime/g) ?? []
+    expect(seuls, chemin).toEqual([])
+  })
+
   it.each(FICHIERS)('%s : chaque exercice a un uuid, un titre et des questions', (chemin) => {
     for (const p of parcoursDe(chemin))
       for (const e of p.etapes) {
@@ -64,6 +71,13 @@ describe('catalogue de l’Explorer', () => {
     expect(ch.filter((id) => fr.includes(id))).toEqual([])
     const niveau = (id: string) => catalogue.find((p) => p.id === id)!.niveau
     for (const id of ch) expect(['9e', '10e', '11e', 'Préqualifiant', '1re Collège', '2e Collège', '3e Collège', '4e Collège']).toContain(niveau(id))
+  })
+
+  it.each(EXPLORER)('%s relève d’un seul pays (il va dans le sous-dossier FR ou CH)', (chemin) => {
+    const ids = parcoursDe(chemin).map((p) => p.id)
+    const vus = (pays: 'FR' | 'CH') => arborescence(parcoursDe(chemin), pays, reperesParDefaut(pays)).flatMap((n) => n.chapitres.flatMap((c) => c.parcours.map((p) => p.id)))
+    const [fr, ch] = [vus('FR'), vus('CH')]
+    expect(fr.length === ids.length || ch.length === ids.length, `${chemin} : France ${fr.length}, Suisse ${ch.length} sur ${ids.length}`).toBe(true)
   })
 
   it('degrés suisses dans l’ordre : 11e, Préqualifiant, puis le Collège', () => {
@@ -111,20 +125,20 @@ describe('catalogue de l’Explorer lu sur les dossiers', () => {
   }
   const [a, b] = catalogue
 
-  it('réunit les dossiers France et Suisse', async () => {
-    const r = await lireExplorer(servi({ 'https://x.test/fr.json': fichier([a]), 'https://x.test/ch.json': fichier([b]) }), [{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }])
+  it('réunit plusieurs dossiers', async () => {
+    const r = await lireExplorer([{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }], servi({ 'https://x.test/fr.json': fichier([a]), 'https://x.test/ch.json': fichier([b]) }))
     expect(r.complet).toBe(true)
     expect(r.parcours.map((p) => p.id)).toEqual([a.id, b.id])
   })
 
   it('un dossier injoignable : catalogue incomplet, l’app garde sa copie', async () => {
-    const r = await lireExplorer(servi({ 'https://x.test/ch.json': fichier([b]) }), [{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }])
+    const r = await lireExplorer([{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }], servi({ 'https://x.test/ch.json': fichier([b]) }))
     expect(r.complet).toBe(false)
     expect(r.parcours.map((p) => p.id)).toEqual([b.id])
   })
 
   it('hors connexion : erreur, rien n’est remplacé', async () => {
-    await expect(lireExplorer(servi({}), [{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }])).rejects.toThrow()
+    await expect(lireExplorer([{ lien: 'https://x.test/fr.json' }, { lien: 'https://x.test/ch.json' }], servi({}))).rejects.toThrow()
   })
 
   it('une version plus récente remplace l’ancienne, pas une plus ancienne', () => {

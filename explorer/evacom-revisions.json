@@ -7,7 +7,7 @@
       "parcours": [
         {
           "id": "evacom-11lc-revision",
-          "version": 4,
+          "version": 5,
           "titre": "Réviser l’EVACOM 11LC",
           "objectif": "Réviser l’EVACOM 11LC, sujet par sujet.",
           "auteurs": [
@@ -40,22 +40,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 2/3 + 1/6.",
+                    "enonce": "Calculer $\\dfrac23+\\dfrac16$.",
                     "etapes": [
-                      "2/3 = 4/6.",
-                      "4/6 + 1/6 = 5/6."
+                      "$\\dfrac23=\\dfrac46$.",
+                      "$\\dfrac46+\\dfrac16=\\dfrac56$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que vaut 2/3 + 1/6 ?",
+                    "enonce": "Que vaut $\\dfrac23+\\dfrac16$ ?",
                     "choix": [
-                      "5/6",
-                      "3/9",
-                      "3/6"
+                      "$\\dfrac56$",
+                      "$\\dfrac39$",
+                      "$\\dfrac36$"
                     ],
                     "bonne": 0,
-                    "explication": "On convertit 2/3 en 4/6 avant d’additionner."
+                    "explication": "On convertit $\\dfrac23$ en $\\dfrac46$ avant d’additionner."
                   }
                 ]
               }
@@ -73,22 +73,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Écrire 32 000 en notation scientifique.",
+                    "enonce": "Écrire $32\\,000$ en notation scientifique.",
                     "etapes": [
-                      "32 000 = 3,2 × 10 000.",
-                      "Donc 32 000 = 3,2 × 10⁴."
+                      "$32\\,000=3{,}2\\times10\\,000$.",
+                      "Donc $32\\,000=3{,}2\\times10^4$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle écriture est scientifique pour 32 000 ?",
+                    "enonce": "Quelle écriture est scientifique pour $32\\,000$ ?",
                     "choix": [
-                      "3,2 × 10⁴",
-                      "32 × 10³",
-                      "0,32 × 10⁵"
+                      "$3{,}2\\times10^4$",
+                      "$32\\times10^3$",
+                      "$0{,}32\\times10^5$"
                     ],
                     "bonne": 0,
-                    "explication": "Le nombre placé devant 10⁴ doit être compris entre 1 et 10."
+                    "explication": "Le nombre placé devant $10^4$ doit être au moins $1$ et inférieur à $10$."
                   }
                 ]
               },
@@ -107,22 +107,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 2x + 3 pour x = −4.",
+                    "enonce": "Calculer $2x+3$ pour $x=-4$.",
                     "etapes": [
-                      "On remplace x : 2 × (−4) + 3.",
-                      "Le résultat est −8 + 3 = −5."
+                      "On remplace $x$ : $2\\times(-4)+3$.",
+                      "Le résultat est $-8+3=-5$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Combien vaut 2x + 3 pour x = −4 ?",
+                    "enonce": "Combien vaut $2x+3$ pour $x=-4$ ?",
                     "choix": [
-                      "−5",
-                      "−11",
+                      "$-5$",
+                      "$-11$",
                       "5"
                     ],
                     "bonne": 0,
-                    "explication": "2 × (−4) + 3 = −8 + 3 = −5."
+                    "explication": "$2\\times(-4)+3=-8+3=-5$."
                   }
                 ]
               },
@@ -141,22 +141,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Développer 3(x + 2).",
+                    "enonce": "Développer $3(x+2)$.",
                     "etapes": [
-                      "3 multiplie x et 2.",
-                      "On obtient 3x + 6."
+                      "$3$ multiplie $x$ et $2$.",
+                      "On obtient $3x+6$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que vaut 3(x + 2) ?",
+                    "enonce": "Que vaut $3(x+2)$ ?",
                     "choix": [
-                      "3x + 6",
-                      "3x + 2",
-                      "x + 6"
+                      "$3x+6$",
+                      "$3x+2$",
+                      "$x+6$"
                     ],
                     "bonne": 0,
-                    "explication": "La distributivité donne 3 × x + 3 × 2."
+                    "explication": "La distributivité donne $3\\times x+3\\times2$."
                   }
                 ]
               },
@@ -175,22 +175,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Résoudre 3x + 2 = 14.",
+                    "enonce": "Résoudre $3x+2=14$.",
                     "etapes": [
-                      "On soustrait 2 : 3x = 12.",
-                      "On divise par 3 : x = 4."
+                      "On soustrait $2$ : $3x=12$.",
+                      "On divise par $3$ : $x=4$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle valeur résout 3x + 2 = 14 ?",
+                    "enonce": "Quelle valeur résout $3x+2=14$ ?",
                     "choix": [
                       "4",
                       "6",
                       "12"
                     ],
                     "bonne": 0,
-                    "explication": "3 × 4 + 2 = 14."
+                    "explication": "$3\\times4+2=14$."
                   }
                 ]
               },
@@ -205,13 +205,13 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Avant Pythagore, on repère le plus grand côté. Pour une aire de disque, on élève le rayon au carré avant de multiplier par π."
+                    "texte": "Avant Pythagore, on repère le plus grand côté. Pour une aire de disque, on élève le rayon au carré avant de multiplier par $\\pi$."
                   },
                   {
                     "type": "exemple",
                     "enonce": "Un triangle rectangle a pour côtés de l’angle droit 6 cm et 8 cm. Trouver l’hypoténuse.",
                     "etapes": [
-                      "Son carré vaut 6² + 8² = 100.",
+                      "Son carré vaut $6^2+8^2=100$.",
                       "L’hypoténuse mesure 10 cm."
                     ]
                   },
@@ -224,7 +224,7 @@
                       "100 cm"
                     ],
                     "bonne": 0,
-                    "explication": "√(6² + 8²) = √100 = 10 cm."
+                    "explication": "$\\sqrt{6^2+8^2}=\\sqrt{100}=10$ cm."
                   }
                 ]
               },
@@ -243,10 +243,10 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Un rectangle a une aire de 24 cm² et une longueur de 6 cm. Trouver sa largeur.",
+                    "enonce": "Un rectangle a une aire de $24$ cm² et une longueur de $6$ cm. Trouver sa largeur.",
                     "etapes": [
-                      "Aire = longueur × largeur.",
-                      "La largeur vaut 24 ÷ 6 = 4 cm."
+                      "Aire $=$ longueur $\\times$ largeur.",
+                      "La largeur vaut $24\\div6=4$ cm."
                     ]
                   },
                   {
@@ -258,7 +258,7 @@
                       "144 cm"
                     ],
                     "bonne": 0,
-                    "explication": "La grandeur manquante est 24 ÷ 6 = 4 cm."
+                    "explication": "La grandeur manquante est $24\\div6=4$ cm."
                   }
                 ]
               },
@@ -574,7 +574,7 @@
       "parcours": [
         {
           "id": "evacom-11ls-revision",
-          "version": 4,
+          "version": 5,
           "titre": "Réviser l’EVACOM 11LS",
           "objectif": "Réviser l’EVACOM 11LS, sujet par sujet.",
           "auteurs": [
@@ -607,22 +607,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 1/2 + 1/3.",
+                    "enonce": "Calculer $\\dfrac12+\\dfrac13$.",
                     "etapes": [
-                      "On choisit le dénominateur 6 : 1/2 = 3/6 et 1/3 = 2/6.",
-                      "La somme vaut 5/6."
+                      "On choisit le dénominateur $6$ : $\\dfrac12=\\dfrac36$ et $\\dfrac13=\\dfrac26$.",
+                      "La somme vaut $\\dfrac56$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que vaut 1/2 + 1/3 ?",
+                    "enonce": "Que vaut $\\dfrac12+\\dfrac13$ ?",
                     "choix": [
-                      "5/6",
-                      "2/5",
-                      "1/6"
+                      "$\\dfrac56$",
+                      "$\\dfrac25$",
+                      "$\\dfrac16$"
                     ],
                     "bonne": 0,
-                    "explication": "3/6 + 2/6 = 5/6."
+                    "explication": "$\\dfrac36+\\dfrac26=\\dfrac56$."
                   }
                 ]
               }
@@ -640,22 +640,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Simplifier √75.",
+                    "enonce": "Simplifier $\\sqrt{75}$.",
                     "etapes": [
-                      "75 = 25 × 3.",
-                      "√75 = √25 × √3 = 5√3."
+                      "$75=25\\times3$.",
+                      "$\\sqrt{75}=\\sqrt{25}\\times\\sqrt3=5\\sqrt3$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle est la forme simplifiée de √75 ?",
+                    "enonce": "Quelle est la forme simplifiée de $\\sqrt{75}$ ?",
                     "choix": [
-                      "5√3",
-                      "25√3",
-                      "3√5"
+                      "$5\\sqrt3$",
+                      "$25\\sqrt3$",
+                      "$3\\sqrt5$"
                     ],
                     "bonne": 0,
-                    "explication": "On extrait le carré parfait 25."
+                    "explication": "On extrait le carré parfait $25$."
                   }
                 ]
               },
@@ -670,26 +670,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "La notation scientifique écrit un nombre sous la forme a × 10ⁿ avec 1 ≤ a < 10. En calcul littéral, on ne regroupe que les termes de même nature."
+                    "texte": "La notation scientifique écrit un nombre sous la forme $a\\times10^n$ avec $1\\leqslant a<10$. En calcul littéral, on ne regroupe que les termes de même nature."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Réduire 3x + 2x − 4.",
+                    "enonce": "Réduire $3x+2x-4$.",
                     "etapes": [
-                      "3x et 2x sont des termes de même nature.",
-                      "L’expression devient 5x − 4."
+                      "$3x$ et $2x$ sont des termes de même nature.",
+                      "L’expression devient $5x-4$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que vaut 3x + 2x − 4 ?",
+                    "enonce": "Que vaut $3x+2x-4$ ?",
                     "choix": [
-                      "5x − 4",
-                      "5x",
-                      "x − 4"
+                      "$5x-4$",
+                      "$5x$",
+                      "$x-4$"
                     ],
                     "bonne": 0,
-                    "explication": "On ajoute 3x et 2x ; le terme constant reste −4."
+                    "explication": "On ajoute $3x$ et $2x$ ; le terme constant reste $-4$."
                   }
                 ]
               },
@@ -704,26 +704,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le carré d’une somme contient trois termes : a² + 2ab + b². Le terme du milieu apparaît deux fois dans le produit."
+                    "texte": "Le carré d’une somme contient trois termes : $(a+b)^2=a^2+2ab+b^2$. Le terme du milieu vient des deux produits $a\\times b$ et $b\\times a$."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Développer (x + 3)².",
+                    "enonce": "Développer $(x+3)^2$.",
                     "etapes": [
-                      "(x + 3)² = (x + 3)(x + 3).",
-                      "On obtient x² + 6x + 9."
+                      "$(x+3)^2=(x+3)(x+3)$.",
+                      "On obtient $x^2+6x+9$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quel est le terme du milieu de (x + 3)² ?",
+                    "enonce": "Quel est le terme du milieu de $(x+3)^2$ ?",
                     "choix": [
-                      "6x",
-                      "3x",
-                      "9x"
+                      "$6x$",
+                      "$3x$",
+                      "$9x$"
                     ],
                     "bonne": 0,
-                    "explication": "Le terme du milieu vaut 2 × x × 3 = 6x."
+                    "explication": "Le terme du milieu vaut $2\\times x\\times3=6x$."
                   }
                 ]
               },
@@ -738,27 +738,27 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Factoriser, c’est écrire une somme sous forme de produit. Pour x² + bx + c, on cherche deux nombres dont la somme vaut b et le produit vaut c : si ce sont p et q, alors x² + bx + c = (x + p)(x + q). Une équation du premier degré se résout en conservant l’égalité à chaque étape."
+                    "texte": "Factoriser, c’est écrire une somme sous forme de produit. Pour $x^2+bx+c$, on cherche deux nombres dont la somme vaut $b$ et le produit vaut $c$ : si ce sont $p$ et $q$, alors $x^2+bx+c=(x+p)(x+q)$. Une équation du premier degré se résout en conservant l’égalité à chaque étape."
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Factoriser x² + 13x + 40.",
+                    "enonce": "Factoriser $x^2+13x+40$.",
                     "etapes": [
-                      "On cherche deux nombres de somme 13 et de produit 40.",
-                      "5 + 8 = 13 et 5 × 8 = 40.",
-                      "Donc x² + 13x + 40 = (x + 5)(x + 8)."
+                      "On cherche deux nombres de somme $13$ et de produit $40$.",
+                      "$5+8=13$ et $5\\times8=40$.",
+                      "Donc $x^2+13x+40=(x+5)(x+8)$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Quelle factorisation de x² + 2x − 15 convient ?",
+                    "enonce": "Quelle factorisation de $x^2+2x-15$ convient ?",
                     "choix": [
-                      "(x + 5)(x − 3)",
-                      "(x − 5)(x + 3)",
-                      "(x + 5)(x + 3)"
+                      "$(x+5)(x-3)$",
+                      "$(x-5)(x+3)$",
+                      "$(x+5)(x+3)$"
                     ],
                     "bonne": 0,
-                    "explication": "On cherche deux nombres de somme 2 et de produit −15 : 5 et −3, car 5 + (−3) = 2 et 5 × (−3) = −15."
+                    "explication": "On cherche deux nombres de somme $2$ et de produit $-15$ : $5$ et $-3$, car $5+(-3)=2$ et $5\\times(-3)=-15$."
                   }
                 ]
               },
@@ -779,8 +779,8 @@
                     "type": "exemple",
                     "enonce": "Un triangle a des côtés de 5 cm, 12 cm et 13 cm. Est-il rectangle ?",
                     "etapes": [
-                      "13² = 169.",
-                      "5² + 12² = 25 + 144 = 169 : il est rectangle."
+                      "$13^2=169$.",
+                      "$5^2+12^2=25+144=169$ : il est rectangle."
                     ]
                   },
                   {
@@ -807,23 +807,23 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le volume d’un prisme ou d’un cylindre vaut aire de la base × hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise 4πr³/3. Pour un solide composé, on calcule le volume de chaque partie puis on les additionne, ou on retranche le volume du trou."
+                    "texte": "Le volume d’un prisme ou d’un cylindre vaut aire de la base $\\times$ hauteur. Pour une pyramide ou un cône, on divise encore par 3. Pour une boule, on utilise $\\dfrac43\\pi r^3$. Pour un solide composé, on calcule le volume de chaque partie puis on les additionne, ou on retranche le volume du trou."
                   },
                   {
                     "type": "exemple",
                     "enonce": "Calculer le volume d’un cône de rayon 3 cm et de hauteur 4 cm.",
                     "etapes": [
-                      "Aire de la base : π × 3² = 9π cm².",
-                      "Volume : 9π × 4 ÷ 3 = 12π cm³."
+                      "Aire de la base : $\\pi\\times3^2=9\\pi$ cm².",
+                      "Volume : $9\\pi\\times4\\div3=12\\pi$ cm³."
                     ]
                   },
                   {
                     "type": "question",
                     "enonce": "Quel est le volume de ce cône ?",
                     "choix": [
-                      "12π cm³",
-                      "36π cm³",
-                      "9π cm³"
+                      "$12\\pi$ cm³",
+                      "$36\\pi$ cm³",
+                      "$9\\pi$ cm³"
                     ],
                     "bonne": 0,
                     "explication": "On multiplie l’aire de la base par la hauteur, puis on divise par 3."
@@ -1171,7 +1171,7 @@
       "parcours": [
         {
           "id": "evacom-taf-revision",
-          "version": 4,
+          "version": 5,
           "titre": "Réviser l’EVACOM TAF",
           "objectif": "Réviser l’EVACOM TAF, sujet par sujet.",
           "auteurs": [
@@ -1204,9 +1204,9 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Placer 0,5 sur une droite graduée de 0 à 1.",
+                    "enonce": "Placer $0{,}5$ sur une droite graduée de $0$ à $1$.",
                     "etapes": [
-                      "0,5 est la moitié de 1.",
+                      "$0{,}5$ est la moitié de $1$.",
                       "On place donc le point au milieu entre 0 et 1."
                     ]
                   },
@@ -1214,12 +1214,12 @@
                     "type": "question",
                     "enonce": "Quelle écriture vaut 50 % ?",
                     "choix": [
-                      "0,5",
-                      "0,05",
+                      "$0{,}5$",
+                      "$0{,}05$",
                       "5"
                     ],
                     "bonne": 0,
-                    "explication": "50 % = 50/100 = 0,5."
+                    "explication": "$50~\\% = \\dfrac{50}{100} = 0{,}5$."
                   }
                 ]
               }
@@ -1237,22 +1237,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 4 + 3 × 2.",
+                    "enonce": "Calculer $4+3\\times2$.",
                     "etapes": [
-                      "On calcule le produit : 3 × 2 = 6.",
+                      "On calcule le produit : $3\\times2=6$.",
                       "On ajoute 4 : le résultat est 10."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que vaut 4 + 3 × 2 ?",
+                    "enonce": "Que vaut $4+3\\times2$ ?",
                     "choix": [
                       "10",
                       "14",
                       "18"
                     ],
                     "bonne": 0,
-                    "explication": "La multiplication précède l’addition : 4 + 6 = 10."
+                    "explication": "La multiplication précède l’addition : $4+6=10$."
                   }
                 ]
               },
@@ -1271,22 +1271,22 @@
                   },
                   {
                     "type": "exemple",
-                    "enonce": "Calculer 1/2 + 1/4.",
+                    "enonce": "Calculer $\\dfrac12+\\dfrac14$.",
                     "etapes": [
-                      "1/2 = 2/4.",
-                      "2/4 + 1/4 = 3/4."
+                      "$\\dfrac12=\\dfrac24$.",
+                      "$\\dfrac24+\\dfrac14=\\dfrac34$."
                     ]
                   },
                   {
                     "type": "question",
-                    "enonce": "Que vaut 1/2 + 1/4 ?",
+                    "enonce": "Que vaut $\\dfrac12+\\dfrac14$ ?",
                     "choix": [
-                      "3/4",
-                      "2/6",
-                      "1/6"
+                      "$\\dfrac34$",
+                      "$\\dfrac26$",
+                      "$\\dfrac16$"
                     ],
                     "bonne": 0,
-                    "explication": "On garde le dénominateur commun : 2/4 + 1/4 = 3/4."
+                    "explication": "On garde le dénominateur commun : $\\dfrac24+\\dfrac14=\\dfrac34$."
                   }
                 ]
               },
@@ -1308,7 +1308,7 @@
                     "enonce": "Calculer les trois quarts de 20.",
                     "etapes": [
                       "Un quart de 20 vaut 5.",
-                      "Trois quarts valent 3 × 5 = 15."
+                      "Trois quarts valent $3\\times5=15$."
                     ]
                   },
                   {
@@ -1369,26 +1369,26 @@
                 "blocs": [
                   {
                     "type": "retenir",
-                    "texte": "Le périmètre mesure le contour ; l’aire mesure la surface. Pour un cercle de rayon r, le périmètre vaut 2πr et l’aire vaut πr²."
+                    "texte": "Le périmètre mesure le contour ; l’aire mesure la surface. Pour un cercle de rayon $r$, le périmètre vaut $2\\pi r$ et l’aire vaut $\\pi r^2$."
                   },
                   {
                     "type": "exemple",
                     "enonce": "Calculer le périmètre d’un cercle de rayon 3 cm.",
                     "etapes": [
-                      "La formule est 2πr.",
-                      "Avec r = 3 cm, on obtient 6π cm."
+                      "La formule est $2\\pi r$.",
+                      "Avec $r=3$ cm, on obtient $6\\pi$ cm."
                     ]
                   },
                   {
                     "type": "question",
                     "enonce": "Quel est le périmètre d’un cercle de rayon 3 cm ?",
                     "choix": [
-                      "6π cm",
-                      "9π cm",
-                      "3π cm"
+                      "$6\\pi$ cm",
+                      "$9\\pi$ cm",
+                      "$3\\pi$ cm"
                     ],
                     "bonne": 0,
-                    "explication": "On utilise 2πr, soit 2 × π × 3 = 6π cm."
+                    "explication": "On utilise $2\\pi r$, soit $2\\times\\pi\\times3=6\\pi$ cm."
                   }
                 ]
               },
@@ -1409,7 +1409,7 @@
                     "type": "exemple",
                     "enonce": "Trouver l’hypoténuse d’un triangle rectangle de côtés 3 cm et 4 cm.",
                     "etapes": [
-                      "Son carré vaut 3² + 4² = 25.",
+                      "Son carré vaut $3^2+4^2=25$.",
                       "L’hypoténuse mesure donc 5 cm."
                     ]
                   },
@@ -1422,7 +1422,7 @@
                       "25 cm"
                     ],
                     "bonne": 0,
-                    "explication": "On calcule √(3² + 4²) = √25 = 5 cm."
+                    "explication": "On calcule $\\sqrt{3^2+4^2}=\\sqrt{25}=5$ cm."
                   }
                 ]
               },

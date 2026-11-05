@@ -1,0 +1,948 @@
+{
+ "version": "0.4.7",
+ "qui": "eleve",
+ "cree": "2026-11-04",
+ "donnees": {
+  "resultats:relatifs-ceintures-5e@1": {
+   "0": {
+    "points": 2,
+    "sur": 2,
+    "complet": true,
+    "le": "2026-11-04T22:46:42.220Z",
+    "version": 1
+   }
+  },
+  "resultats:relatifs-5e@1": {
+   "0": {
+    "points": 3,
+    "sur": 3,
+    "complet": true,
+    "le": "2026-11-04T22:45:36.303Z",
+    "version": 1
+   },
+   "1": {
+    "points": 3,
+    "sur": 3,
+    "complet": true,
+    "le": "2026-11-04T22:45:36.303Z",
+    "version": 1
+   },
+   "2": {
+    "points": 3,
+    "sur": 3,
+    "complet": true,
+    "le": "2026-11-04T22:45:36.303Z",
+    "version": 1
+   }
+  },
+  "seance:relatifs-ceintures-5e": {
+   "parcours": "relatifs-ceintures-5e",
+   "contenu": {
+    "id": "relatifs-ceintures-5e",
+    "version": 1,
+    "presentation": "un_exo_par_page",
+    "correction": "parcours",
+    "titre": "Relatifs en ceintures",
+    "objectif": "Obtenir les ceintures orange, verte et bleue des nombres relatifs.",
+    "niveau": "5e",
+    "theme": "Nombres et calculs",
+    "difficulte": 2,
+    "icone": "bx-medal",
+    "style": "ceintures",
+    "premiereCeinture": 2,
+    "etapes": [
+     {
+      "uuid": "cbc26",
+      "id": "5N2G",
+      "nbQuestions": 2,
+      "titre": "Additionner deux nombres relatifs",
+      "objectifs": [
+       "Additionner deux nombres décimaux relatifs"
+      ]
+     },
+     {
+      "uuid": "b6982",
+      "id": "5N2I",
+      "nbQuestions": 2,
+      "titre": "Soustraire deux nombres relatifs",
+      "objectifs": [
+       "Soustraire deux nombres décimaux relatifs"
+      ]
+     },
+     {
+      "uuid": "36e2a",
+      "id": "5N2H",
+      "nbQuestions": 2,
+      "titre": "Additionner 5 nombres relatifs",
+      "objectifs": [
+       "Additionner plusieurs nombres décimaux relatifs"
+      ]
+     }
+    ],
+    "paliers": [
+     {
+      "titre": "Additionner",
+      "nb": 1,
+      "pause": {
+       "texte": "Ceinture orange obtenue ? Bravo ! Prochaine étape : la soustraction."
+      }
+     },
+     {
+      "titre": "Soustraire",
+      "nb": 1,
+      "acces": "seuil",
+      "seuil": 80,
+      "ressource": {
+       "titre": "Revoir la soustraction",
+       "lien": "https://coopmaths.fr/alea/?uuid=b6982&id=5N2I&n=4&v=eleve"
+      }
+     },
+     {
+      "titre": "Enchaîner",
+      "nb": 1,
+      "acces": "seuil",
+      "seuil": 80
+     }
+    ]
+   },
+   "type": "complet",
+   "etapes": [
+    0
+   ],
+   "moteur": "2026-10-28+8757328d2.cefb7c4",
+   "graines": {
+    "0": "aDfC"
+   },
+   "nbQuestions": {
+    "0": 2
+   },
+   "position": 0,
+   "brouillons": {},
+   "essais": [
+    {
+     "etape": 0,
+     "question": 0,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex0Q0": "-18"
+     },
+     "le": "2026-11-04T22:46:41.342Z"
+    },
+    {
+     "etape": 0,
+     "question": 1,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex0Q1": "-2"
+     },
+     "le": "2026-11-04T22:46:41.344Z"
+    }
+   ],
+   "debut": "2026-11-04T22:46:37.354Z",
+   "soumise": true,
+   "fin": "2026-11-04T22:46:42.220Z"
+  },
+  "revisions": {
+   "elements": {
+    "cbc26||||": {
+     "etape": {
+      "uuid": "cbc26",
+      "id": "5N2G",
+      "nbQuestions": 2,
+      "titre": "Additionner deux nombres relatifs",
+      "objectifs": [
+       "Additionner deux nombres décimaux relatifs"
+      ]
+     },
+     "niveau": "5e",
+     "theme": "Nombres et calculs",
+     "parcours": "Relatifs en ceintures",
+     "boite": 3,
+     "prochaine": "2026-11-11",
+     "historique": []
+    },
+    "b6982||||": {
+     "etape": {
+      "uuid": "b6982",
+      "id": "5R21",
+      "nbQuestions": 3,
+      "titre": "Soustraire deux relatifs"
+     },
+     "niveau": "5e",
+     "theme": "Nombres et calculs",
+     "parcours": "Nombres relatifs",
+     "boite": 3,
+     "prochaine": "2026-11-11",
+     "historique": []
+    },
+    "f6ea7||||": {
+     "etape": {
+      "uuid": "f6ea7",
+      "id": "5R22",
+      "nbQuestions": 3,
+      "titre": "Enchaîner additions et soustractions"
+     },
+     "niveau": "5e",
+     "theme": "Nombres et calculs",
+     "parcours": "Nombres relatifs",
+     "boite": 3,
+     "prochaine": "2026-11-11",
+     "historique": []
+    }
+   },
+   "traites": [
+    "relatifs-5e@2026-11-04T22:45:17.040Z#0",
+    "relatifs-5e@2026-11-04T22:45:17.040Z#1",
+    "relatifs-5e@2026-11-04T22:45:17.040Z#2",
+    "relatifs-ceintures-5e@2026-11-04T22:46:37.354Z#0"
+   ]
+  },
+  "historique:relatifs-5e": [
+   {
+    "parcours": "relatifs-5e",
+    "contenu": {
+     "id": "relatifs-5e",
+     "version": 1,
+     "presentation": "une_question_par_page",
+     "correction": "question",
+     "titre": "Nombres relatifs",
+     "objectif": "Additionner et soustraire des nombres relatifs sans hésiter.",
+     "niveau": "5e",
+     "theme": "Nombres et calculs",
+     "difficulte": 1,
+     "icone": "bx-calculator",
+     "etapes": [
+      {
+       "uuid": "cbc26",
+       "id": "5R20",
+       "nbQuestions": 3,
+       "titre": "Additionner deux relatifs"
+      },
+      {
+       "uuid": "b6982",
+       "id": "5R21",
+       "nbQuestions": 3,
+       "titre": "Soustraire deux relatifs"
+      },
+      {
+       "uuid": "f6ea7",
+       "id": "5R22",
+       "nbQuestions": 3,
+       "titre": "Enchaîner additions et soustractions"
+      }
+     ]
+    },
+    "type": "complet",
+    "etapes": [
+     0,
+     1,
+     2
+    ],
+    "moteur": "2026-10-28+8757328d2.cefb7c4",
+    "graines": {
+     "0": "WCog",
+     "1": "ZMZM",
+     "2": "5KIs"
+    },
+    "nbQuestions": {
+     "0": 3,
+     "1": 3,
+     "2": 3
+    },
+    "position": 8,
+    "brouillons": {},
+    "essais": [
+     {
+      "etape": 0,
+      "question": 0,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex0Q0": "-3"
+      },
+      "le": "2026-11-04T22:45:21.072Z"
+     },
+     {
+      "etape": 0,
+      "question": 1,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex0Q1": "-4"
+      },
+      "le": "2026-11-04T22:45:22.874Z"
+     },
+     {
+      "etape": 0,
+      "question": 2,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex0Q2": "19"
+      },
+      "le": "2026-11-04T22:45:24.678Z"
+     },
+     {
+      "etape": 1,
+      "question": 0,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex1Q0": "1"
+      },
+      "le": "2026-11-04T22:45:26.476Z"
+     },
+     {
+      "etape": 1,
+      "question": 1,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex1Q1": "16"
+      },
+      "le": "2026-11-04T22:45:28.258Z"
+     },
+     {
+      "etape": 1,
+      "question": 2,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex1Q2": "-36"
+      },
+      "le": "2026-11-04T22:45:30.060Z"
+     },
+     {
+      "etape": 2,
+      "question": 0,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex2Q0": "-6"
+      },
+      "le": "2026-11-04T22:45:31.841Z"
+     },
+     {
+      "etape": 2,
+      "question": 1,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex2Q1": "-12"
+      },
+      "le": "2026-11-04T22:45:33.623Z"
+     },
+     {
+      "etape": 2,
+      "question": 2,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex2Q2": "1"
+      },
+      "le": "2026-11-04T22:45:35.423Z"
+     }
+    ],
+    "debut": "2026-11-04T22:45:17.040Z",
+    "fin": "2026-11-04T22:45:36.303Z"
+   }
+  ],
+  "profil": "eleve",
+  "seance:fractions-4e": {
+   "parcours": "fractions-4e",
+   "contenu": {
+    "id": "fractions-4e",
+    "version": 1,
+    "presentation": "un_exo_par_page",
+    "correction": "page",
+    "titre": "Fractions",
+    "objectif": "Simplifier, additionner et multiplier des fractions.",
+    "niveau": "4e",
+    "theme": "Nombres et calculs",
+    "difficulte": 2,
+    "icone": "bx-calculator",
+    "etapes": [
+     {
+      "uuid": "f8f4e",
+      "id": "5N13",
+      "nbQuestions": 3,
+      "titre": "Simplifier une fraction"
+     },
+     {
+      "uuid": "5f429",
+      "id": "4C21",
+      "nbQuestions": 3,
+      "titre": "Additionner des fractions"
+     },
+     {
+      "uuid": "72ce7",
+      "id": "4C22",
+      "nbQuestions": 3,
+      "titre": "Multiplier et diviser"
+     }
+    ]
+   },
+   "type": "complet",
+   "etapes": [
+    0,
+    1,
+    2
+   ],
+   "moteur": "2026-10-28+8757328d2.cefb7c4",
+   "graines": {
+    "0": "1znL",
+    "1": "lrXv",
+    "2": "lPhD"
+   },
+   "nbQuestions": {
+    "0": 3,
+    "1": 3,
+    "2": 3
+   },
+   "position": 3,
+   "brouillons": {},
+   "essais": [
+    {
+     "etape": 0,
+     "question": 0,
+     "juste": false,
+     "points": 0,
+     "total": 1,
+     "reponses": {
+      "Ex0Q0": "\\dfrac{18}{45}"
+     },
+     "le": "2026-11-04T22:46:48.775Z"
+    },
+    {
+     "etape": 0,
+     "question": 1,
+     "juste": false,
+     "points": 0,
+     "total": 1,
+     "reponses": {
+      "Ex0Q1": "\\dfrac{45}{81}"
+     },
+     "le": "2026-11-04T22:46:48.787Z"
+    },
+    {
+     "etape": 0,
+     "question": 2,
+     "juste": false,
+     "points": 0,
+     "total": 1,
+     "reponses": {
+      "Ex0Q2": "\\dfrac{6}{60}"
+     },
+     "le": "2026-11-04T22:46:48.797Z"
+    }
+   ],
+   "debut": "2026-11-04T22:46:44.818Z"
+  },
+  "pays": "FR",
+  "seance:relatifs-5e": {
+   "parcours": "relatifs-5e",
+   "contenu": {
+    "id": "relatifs-5e",
+    "version": 1,
+    "presentation": "une_question_par_page",
+    "correction": "question",
+    "titre": "Nombres relatifs",
+    "objectif": "Additionner et soustraire des nombres relatifs sans hésiter.",
+    "niveau": "5e",
+    "theme": "Nombres et calculs",
+    "difficulte": 1,
+    "icone": "bx-calculator",
+    "etapes": [
+     {
+      "uuid": "cbc26",
+      "id": "5R20",
+      "nbQuestions": 3,
+      "titre": "Additionner deux relatifs"
+     },
+     {
+      "uuid": "b6982",
+      "id": "5R21",
+      "nbQuestions": 3,
+      "titre": "Soustraire deux relatifs"
+     },
+     {
+      "uuid": "f6ea7",
+      "id": "5R22",
+      "nbQuestions": 3,
+      "titre": "Enchaîner additions et soustractions"
+     }
+    ]
+   },
+   "type": "complet",
+   "etapes": [
+    0,
+    1,
+    2
+   ],
+   "moteur": "2026-10-28+8757328d2.cefb7c4",
+   "graines": {
+    "0": "WCog",
+    "1": "ZMZM",
+    "2": "5KIs"
+   },
+   "nbQuestions": {
+    "0": 3,
+    "1": 3,
+    "2": 3
+   },
+   "position": 8,
+   "brouillons": {},
+   "essais": [
+    {
+     "etape": 0,
+     "question": 0,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex0Q0": "-3"
+     },
+     "le": "2026-11-04T22:45:21.072Z"
+    },
+    {
+     "etape": 0,
+     "question": 1,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex0Q1": "-4"
+     },
+     "le": "2026-11-04T22:45:22.874Z"
+    },
+    {
+     "etape": 0,
+     "question": 2,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex0Q2": "19"
+     },
+     "le": "2026-11-04T22:45:24.678Z"
+    },
+    {
+     "etape": 1,
+     "question": 0,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex1Q0": "1"
+     },
+     "le": "2026-11-04T22:45:26.476Z"
+    },
+    {
+     "etape": 1,
+     "question": 1,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex1Q1": "16"
+     },
+     "le": "2026-11-04T22:45:28.258Z"
+    },
+    {
+     "etape": 1,
+     "question": 2,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex1Q2": "-36"
+     },
+     "le": "2026-11-04T22:45:30.060Z"
+    },
+    {
+     "etape": 2,
+     "question": 0,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex2Q0": "-6"
+     },
+     "le": "2026-11-04T22:45:31.841Z"
+    },
+    {
+     "etape": 2,
+     "question": 1,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex2Q1": "-12"
+     },
+     "le": "2026-11-04T22:45:33.623Z"
+    },
+    {
+     "etape": 2,
+     "question": 2,
+     "juste": true,
+     "points": 1,
+     "total": 1,
+     "reponses": {
+      "Ex2Q2": "1"
+     },
+     "le": "2026-11-04T22:45:35.423Z"
+    }
+   ],
+   "debut": "2026-11-04T22:45:17.040Z",
+   "fin": "2026-11-04T22:45:36.303Z"
+  },
+  "historique:relatifs-ceintures-5e": [
+   {
+    "parcours": "relatifs-ceintures-5e",
+    "contenu": {
+     "id": "relatifs-ceintures-5e",
+     "version": 1,
+     "presentation": "un_exo_par_page",
+     "correction": "parcours",
+     "titre": "Relatifs en ceintures",
+     "objectif": "Obtenir les ceintures orange, verte et bleue des nombres relatifs.",
+     "niveau": "5e",
+     "theme": "Nombres et calculs",
+     "difficulte": 2,
+     "icone": "bx-medal",
+     "style": "ceintures",
+     "premiereCeinture": 2,
+     "etapes": [
+      {
+       "uuid": "cbc26",
+       "id": "5N2G",
+       "nbQuestions": 2,
+       "titre": "Additionner deux nombres relatifs",
+       "objectifs": [
+        "Additionner deux nombres décimaux relatifs"
+       ]
+      },
+      {
+       "uuid": "b6982",
+       "id": "5N2I",
+       "nbQuestions": 2,
+       "titre": "Soustraire deux nombres relatifs",
+       "objectifs": [
+        "Soustraire deux nombres décimaux relatifs"
+       ]
+      },
+      {
+       "uuid": "36e2a",
+       "id": "5N2H",
+       "nbQuestions": 2,
+       "titre": "Additionner 5 nombres relatifs",
+       "objectifs": [
+        "Additionner plusieurs nombres décimaux relatifs"
+       ]
+      }
+     ],
+     "paliers": [
+      {
+       "titre": "Additionner",
+       "nb": 1,
+       "pause": {
+        "texte": "Ceinture orange obtenue ? Bravo ! Prochaine étape : la soustraction."
+       }
+      },
+      {
+       "titre": "Soustraire",
+       "nb": 1,
+       "acces": "seuil",
+       "seuil": 80,
+       "ressource": {
+        "titre": "Revoir la soustraction",
+        "lien": "https://coopmaths.fr/alea/?uuid=b6982&id=5N2I&n=4&v=eleve"
+       }
+      },
+      {
+       "titre": "Enchaîner",
+       "nb": 1,
+       "acces": "seuil",
+       "seuil": 80
+      }
+     ]
+    },
+    "type": "complet",
+    "etapes": [
+     0
+    ],
+    "moteur": "2026-10-28+8757328d2.cefb7c4",
+    "graines": {
+     "0": "aDfC"
+    },
+    "nbQuestions": {
+     "0": 2
+    },
+    "position": 0,
+    "brouillons": {},
+    "essais": [
+     {
+      "etape": 0,
+      "question": 0,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex0Q0": "-18"
+      },
+      "le": "2026-11-04T22:46:41.342Z"
+     },
+     {
+      "etape": 0,
+      "question": 1,
+      "juste": true,
+      "points": 1,
+      "total": 1,
+      "reponses": {
+       "Ex0Q1": "-2"
+      },
+      "le": "2026-11-04T22:46:41.344Z"
+     }
+    ],
+    "debut": "2026-11-04T22:46:37.354Z",
+    "soumise": true,
+    "fin": "2026-11-04T22:46:42.220Z"
+   }
+  ],
+  "classes": [
+   {
+    "lien": "https://kdrive.infomaniak.com/app/share/1/demo",
+    "nom": "5e A",
+    "disponibles": [
+     "5e A"
+    ],
+    "parcours": [
+     {
+      "id": "relatifs-5e",
+      "version": 1,
+      "presentation": "une_question_par_page",
+      "correction": "question",
+      "titre": "Nombres relatifs",
+      "objectif": "Additionner et soustraire des nombres relatifs sans hésiter.",
+      "niveau": "5e",
+      "theme": "Nombres et calculs",
+      "difficulte": 1,
+      "icone": "bx-calculator",
+      "etapes": [
+       {
+        "uuid": "cbc26",
+        "id": "5R20",
+        "nbQuestions": 3,
+        "titre": "Additionner deux relatifs"
+       },
+       {
+        "uuid": "b6982",
+        "id": "5R21",
+        "nbQuestions": 3,
+        "titre": "Soustraire deux relatifs"
+       },
+       {
+        "uuid": "f6ea7",
+        "id": "5R22",
+        "nbQuestions": 3,
+        "titre": "Enchaîner additions et soustractions"
+       }
+      ]
+     },
+     {
+      "id": "relatifs-paliers-5e",
+      "version": 1,
+      "presentation": "un_exo_par_page",
+      "correction": "page",
+      "titre": "Relatifs par paliers",
+      "objectif": "Additionner, puis soustraire des nombres relatifs, un palier après l’autre.",
+      "niveau": "5e",
+      "theme": "Nombres et calculs",
+      "difficulte": 2,
+      "icone": "bx-layer",
+      "etapes": [
+       {
+        "uuid": "cbc26",
+        "id": "5N2G",
+        "nbQuestions": 2,
+        "titre": "Additionner deux nombres relatifs",
+        "objectifs": [
+         "Additionner deux nombres décimaux relatifs"
+        ]
+       },
+       {
+        "uuid": "61b4a",
+        "id": "5N2G-1",
+        "nbQuestions": 2,
+        "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
+        "objectifs": [
+         "Additionner deux nombres décimaux relatifs"
+        ]
+       },
+       {
+        "uuid": "b6982",
+        "id": "5N2I",
+        "nbQuestions": 2,
+        "titre": "Soustraire deux nombres relatifs",
+        "objectifs": [
+         "Soustraire deux nombres décimaux relatifs"
+        ]
+       },
+       {
+        "uuid": "36e2a",
+        "id": "5N2H",
+        "nbQuestions": 2,
+        "titre": "Additionner 5 nombres relatifs",
+        "objectifs": [
+         "Additionner plusieurs nombres décimaux relatifs"
+        ]
+       }
+      ],
+      "paliers": [
+       {
+        "titre": "Additionner",
+        "nb": 2,
+        "ressource": {
+         "titre": "Revoir l’addition sur MathALÉA",
+         "lien": "https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=4&v=eleve&es=0111"
+        },
+        "pause": {
+         "texte": "Bravo ! Avant de soustraire, on met en commun en classe : comment additionner deux nombres de signes contraires ?"
+        }
+       },
+       {
+        "titre": "Soustraire",
+        "nb": 1,
+        "acces": "seuil",
+        "seuil": 80
+       },
+       {
+        "titre": "Pour aller plus loin",
+        "nb": 1,
+        "acces": "libre",
+        "pause": {
+         "texte": "Parcours terminé : tu sais additionner et soustraire des relatifs."
+        }
+       }
+      ]
+     },
+     {
+      "id": "relatifs-ceintures-5e",
+      "version": 1,
+      "presentation": "un_exo_par_page",
+      "correction": "parcours",
+      "titre": "Relatifs en ceintures",
+      "objectif": "Obtenir les ceintures orange, verte et bleue des nombres relatifs.",
+      "niveau": "5e",
+      "theme": "Nombres et calculs",
+      "difficulte": 2,
+      "icone": "bx-medal",
+      "style": "ceintures",
+      "premiereCeinture": 2,
+      "etapes": [
+       {
+        "uuid": "cbc26",
+        "id": "5N2G",
+        "nbQuestions": 2,
+        "titre": "Additionner deux nombres relatifs",
+        "objectifs": [
+         "Additionner deux nombres décimaux relatifs"
+        ]
+       },
+       {
+        "uuid": "b6982",
+        "id": "5N2I",
+        "nbQuestions": 2,
+        "titre": "Soustraire deux nombres relatifs",
+        "objectifs": [
+         "Soustraire deux nombres décimaux relatifs"
+        ]
+       },
+       {
+        "uuid": "36e2a",
+        "id": "5N2H",
+        "nbQuestions": 2,
+        "titre": "Additionner 5 nombres relatifs",
+        "objectifs": [
+         "Additionner plusieurs nombres décimaux relatifs"
+        ]
+       }
+      ],
+      "paliers": [
+       {
+        "titre": "Additionner",
+        "nb": 1,
+        "pause": {
+         "texte": "Ceinture orange obtenue ? Bravo ! Prochaine étape : la soustraction."
+        }
+       },
+       {
+        "titre": "Soustraire",
+        "nb": 1,
+        "acces": "seuil",
+        "seuil": 80,
+        "ressource": {
+         "titre": "Revoir la soustraction",
+         "lien": "https://coopmaths.fr/alea/?uuid=b6982&id=5N2I&n=4&v=eleve"
+        }
+       },
+       {
+        "titre": "Enchaîner",
+        "nb": 1,
+        "acces": "seuil",
+        "seuil": 80
+       }
+      ]
+     },
+     {
+      "id": "fractions-4e",
+      "version": 1,
+      "presentation": "un_exo_par_page",
+      "correction": "page",
+      "titre": "Fractions",
+      "objectif": "Simplifier, additionner et multiplier des fractions.",
+      "niveau": "4e",
+      "theme": "Nombres et calculs",
+      "difficulte": 2,
+      "icone": "bx-calculator",
+      "etapes": [
+       {
+        "uuid": "f8f4e",
+        "id": "5N13",
+        "nbQuestions": 3,
+        "titre": "Simplifier une fraction"
+       },
+       {
+        "uuid": "5f429",
+        "id": "4C21",
+        "nbQuestions": 3,
+        "titre": "Additionner des fractions"
+       },
+       {
+        "uuid": "72ce7",
+        "id": "4C22",
+        "nbQuestions": 3,
+        "titre": "Multiplier et diviser"
+       }
+      ]
+     }
+    ],
+    "erreur": "Lien kDrive non reconnu : copiez le lien de partage du dossier."
+   }
+  ],
+  "complet:relatifs-5e": 100
+ }
+}

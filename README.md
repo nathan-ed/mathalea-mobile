@@ -26,7 +26,7 @@ Dans [releases/](releases/), choisir la dernière version.
 | Windows | `.msi` ou `-setup.exe` | Double-clic. Windows peut avertir (application non signée) : « Informations complémentaires », « Exécuter quand même ». |
 | macOS | `.dmg` (`aarch64` pour Apple Silicon, `x64` pour Intel) | Glisser l'application dans Applications, puis `xattr -cr /Applications/MathALEA.app` dans le Terminal (application non notariée : sans cela, macOS la dit « endommagée »). |
 | Linux | `.AppImage`, `.deb` ou `.rpm` | AppImage : `chmod +x` puis lancer. Debian/Ubuntu : `sudo apt install ./fichier.deb`. Fedora : `sudo dnf install ./fichier.rpm`. |
-| iOS | aucun pour l'instant | Voir « iPhone et iPad » ci-dessous. |
+| iOS | `-ios-non-signee.ipa` | Non signée : à installer avec Sideloadly (sept jours, puis réinstaller), voir le guide « iPhone ». En attendant l'App Store (TestFlight attend le compte Apple Developer). |
 
 Vérifier un fichier : `sha256sum -c SHA256SUMS` dans le dossier de la version.
 
@@ -200,9 +200,14 @@ Détails : [docs/developpement.md](docs/developpement.md#moteur-servi-par-coopma
 ## Releases
 
 Outils : `gh` (GitHub) et `glab` (forge) connectés, Git LFS, `jq`. Le dépôt de
-référence est sur la forge ; un miroir **privé** sur GitHub (`github`) sert à
-construire Linux, Windows, macOS (ARM et Intel) et Android
-(`.github/workflows/release.yml`).
+référence est sur la forge ; un miroir public sur GitHub (`github`) sert à
+construire Linux, Windows, macOS (ARM et Intel), Android
+(`.github/workflows/release.yml`) et iOS (`ios.yml`).
+
+Une release part **seulement** par `bash scripts/publier.sh vX.Y.Z` : il
+lance la vérification complète (`scripts/verifier-release.sh`) et ne pose le
+tag que si tout est vert. Jamais de tag `v*` posé à la main. Note de version
+obligatoire avant : `docs/notes-de-version/vX.Y.Z.md` et `.play.txt`.
 
 1. Monter la version dans `package.json`, `src-tauri/tauri.conf.json` et
    `src-tauri/Cargo.toml`. Lancer tous les tests (voir ci-dessus), commiter,

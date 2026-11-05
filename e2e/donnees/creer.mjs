@@ -60,13 +60,20 @@ const VALIDER = /^(Vérifier|Soumettre l’exercice|Soumettre)$/
 /** Répond juste à `combien` écrans de questions (tous si absent) ; s'arrête au bilan */
 async function repondre(page, id, combien = Infinity) {
   for (let ecran = 0; ecran < combien; ecran++) {
-    await page.waitForTimeout(800)
     const champs = page.locator('main math-field[id^="champTexteEx"]')
+    // Champs de la question, ou bilan : une ceinture passe d'abord par sa fiche,
+    // la question met plus de 800 ms à venir (réponses vides, 0/2, avant le 2026-11-05)
+    const bilan = page.getByText(/^Bilan/).first()
+    await champs.first().or(bilan).waitFor({ timeout: 60_000 }).catch(() => {})
+    await page.waitForTimeout(800)
     if (!(await champs.first().isVisible().catch(() => false))) return
     const suite = page.locator('footer').getByRole('button', { name: SUITE }).first()
     const valider = page.locator('footer').getByRole('button', { name: VALIDER }).first()
-    // Écran déjà vérifié (dernière question, « Soumettre la tentative ») : on passe
-    if (await valider.isVisible().catch(() => false)) {
+    // Champs encore modifiables : réponses posées. Correction à la fin (ceinture
+    // de la démonstration) : pas de « Vérifier », seulement « Soumettre la
+    // tentative » ; les réponses doivent être posées quand même (0/2 avant)
+    const libres = await champs.evaluateAll((cs) => cs.some((c) => !c.readOnly && !c.hasAttribute('read-only') && !c.disabled))
+    if (libres) {
       const rep = await attendues(page, id)
       if (process.env.TRACE) console.log(id, JSON.stringify(rep), await champs.evaluateAll((cs) => cs.map((c) => c.id)))
       for (const champ of await champs.all()) {
@@ -79,6 +86,8 @@ async function repondre(page, id, combien = Infinity) {
           c.dispatchEvent(new Event('input', { bubbles: true }))
         }, rep[ex]?.[q] ?? '')
       }
+    }
+    if (libres && (await valider.isVisible().catch(() => false))) {
       await valider.click()
       await page.waitForTimeout(800)
     }
@@ -95,10 +104,14 @@ async function ouvrir(page, titre) {
   await page.getByRole('button', { name: new RegExp(`^\\s*${titre}`) }).first().click()
   await page.getByRole('button', { name: /^(Commencer|Continuer|Reprendre)/ }).first().click()
   const entrainement = page.getByRole('button', { name: /Entraînement|Tout le parcours|Commencer la ceinture/ }).first()
-  if (await entrainement.isVisible({ timeout: 3000 }).catch(() => false)) await entrainement.click()
+  await entrainement.waitFor({ timeout: 3000 }).catch(() => {})
+  if (await entrainement.isVisible().catch(() => false)) await entrainement.click()
   // Fiche de cours montrée d'office avant une ceinture
-  const fiche = page.getByRole('button', { name: /^(J’ai compris|Commencer les exercices|Passer la fiche|C’est parti)/ }).first()
-  if (await fiche.isVisible({ timeout: 3000 }).catch(() => false)) await fiche.click()
+  const fiche = page.getByRole('button', { name: /^(J’ai compris|Commencer l’entraînement|Commencer les exercices|Passer la fiche|C’est parti)/ }).first()
+  const question = page.locator('main .contenu-mathalea').first()
+  // isVisible n'attend pas : la fiche ou la question, la première qui vient
+  await fiche.or(question).waitFor({ timeout: 90_000 }).catch(() => {})
+  if (await fiche.isVisible().catch(() => false)) await fiche.click()
   await page.locator('main .contenu-mathalea').first().waitFor({ timeout: 90_000 })
 }
 

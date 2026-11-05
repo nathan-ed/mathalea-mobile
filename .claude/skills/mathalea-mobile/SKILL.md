@@ -449,8 +449,9 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   fichier du drive est signalée et rien n'est ajouté.
   Tests : `node e2e/session-qr.mjs`, `node e2e/en-classe.mjs`,
   `node e2e/classe-qr.mjs` (serveur de dossier local sur 8713).
-  Politique de confidentialité : nouveau texte en attente dans
-  `docs/confidentialite-brouillon.html`. Ne jamais modifier
+  Politique de confidentialité : `static/confidentialite.html` fait foi,
+  `docs/confidentialite.md` en est la copie (brouillon retiré le
+  2026-11-05, déjà publié). Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
   un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
   Depuis le 2 novembre 2026 : **plus aucun envoi à la Play Console** par la
@@ -517,15 +518,19 @@ seulement avec `MATHALEA_MOTEUR_MAJ=1`. Publication, format et clés :
   copie (`fusionnerCatalogues`). Hors connexion, l'Explorer le dit
   (« Connecte-toi à internet pour télécharger les parcours » sans copie,
   « … recevoir les nouvelles versions » avec), bouton « Réessayer ».
-  **À reprendre (Nathan, 2026-11-04, « on note cela pour demain »)** :
-  aujourd'hui l'app lit FR et CH et tire le pays du niveau, si bien qu'un
-  fichier déplacé dans FR reste dans l'Explorer suisse (Nathan l'a vu sur
-  l'APK 5685170). Proposé : le dossier décide du pays (Suisse : seulement CH,
-  France : seulement FR ; relire au changement de pays), un parcours de
-  niveau suisse dans FR signalé par les tests du catalogue. Le drive n'avait
+  **Le dossier décide du pays** (fait le 2026-11-04 au soir ; avant, l'app
+  lisait FR et CH et tirait le pays du niveau, si bien qu'un fichier déplacé
+  dans FR restait dans l'Explorer suisse, vu par Nathan sur l'APK 5685170) :
+  `sourcesExplorer(pays)` ne lit que le sous-dossier du pays, relu au
+  changement de pays (`changerPays`) ; la copie est marquée `explorer-pays`
+  et celle de l'autre pays n'est jamais montrée (hors connexion : invitation
+  à se connecter). Le filtre par niveau d'`arborescence` reste. `pnpm test`
+  vérifie que chaque `explorer/*.json` relève d'un seul pays ;
+  `e2e/explorer-pays.mjs` (kDrive simulé, app construite sans
+  `VITE_URL_EXPLORER`) joue Suisse, France, hors connexion. Le drive n'avait
   alors que 6 parcours sur 30 à la version du dépôt (`ch-1re-college.json`
   absent, `ch-4e-college.json` dans FR) : rien ne le met à jour tout seul.
-  Essais : `VITE_URL_EXPLORER` remplace les deux dossiers
+  Essais : `VITE_URL_EXPLORER` remplace le dossier du pays (les deux pays)
   (`.env.development.local`, ignoré par Git ; `scripts/e2e-ci.sh` le fixe à
   `http://127.0.0.1:8702/explorer.json`, servi par les suites).
 - Sans adresse servie : moteur livré, Explorer vide (« Aucun parcours proposé »).
@@ -789,6 +794,20 @@ Environnement (machine de Nathan)
   serveurs de dev après usage).
 
 ## 8. Tests
+
+- Suites ajoutées le 2026-11-05 (dans verifier-release.sh) : `fiches`
+  (onglet Fiches), `explorer-pays` (kDrive simulé, app construite sans
+  `VITE_URL_EXPLORER`), `exercice-inconnu` (parcours plus récent que le
+  moteur, accueil sans classe tout caché), `mise-a-jour` (données des
+  versions publiées, `e2e/donnees/<v>-<qui>.json`, créées par
+  `e2e/donnees/creer.mjs` dans un worktree de la version ; moteur d'une
+  version sans archive : `scripts/moteur-depuis-app.py` sur le `.deb`).
+  Nouvelle version publiée : y ajouter ses données.
+- Session cloud sans forge de Sésamath : le moteur courant ne se construit
+  pas (`instrumenpoche`, `sesajstools`) ; prendre l'archive de la dernière
+  release et rejouer chez Nathan ce qui dépend du moteur. Typst :
+  `cargo install --locked typst-cli --version <celle de Cargo.toml>` ;
+  `cargo test` demande `libgtk-3-dev` et `libwebkit2gtk-4.1-dev`.
 
 - `pnpm check` (svelte-check, 0 erreur et 0 avertissement),
   `pnpm test` (vitest : partage, drives simulés, fusion, versions, sessions,
