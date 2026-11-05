@@ -1,0 +1,937 @@
+// Élève qui répond juste, partagé par les suites e2e (parcours-az.mjs,
+// remediation.mjs) : la réponse attendue vient du moteur, régénérée à part
+// avec la graine de la séance, et se saisit comme un élève (toucher, clavier,
+// glisser), quel que soit le format de MathALÉA. `jouerSeance` joue la séance
+// ouverte jusqu'au bilan ; `fausser` y remplace une réponse attendue par une
+// autre (réponse incorrecte voulue, remédiation).
+import { champsCoupes } from './champs-visibles.mjs'
+import { incoherencesVert } from './couleurs-verdict.mjs'
+import { jusqua, pagePrete, pointStable } from './attente.mjs'
+
+// Après une action : on attend que la page soit prête (e2e/attente.mjs), jamais une durée
+const pause = (page) => pagePrete(page)
+/** Formats saisis pendant la suite (bilan des formats de parcours-az.mjs) */
+export const bilanFormats = {}
+const capture = async (page, nom) => process.env.CAPTURES && page.screenshot({ path: `${process.env.CAPTURES}/${nom}.png` })
+
+export const toucher = (e, loc) => (e.touche ? loc.tap() : loc.click())
+export const lireSeance = (page, id) => page.evaluate((c) => JSON.parse(localStorage.getItem(`copie:seance:${c}`)), id)
+
+/** autoCorrection de l'étape régénérée (même graine, même numéro que dans la séance) */
+export async function attendues(e, etape, graine, numero) {
+  return e.calcul.evaluate(
+    async ({ etape, graine, numero }) => {
+      const ex = await window.__moteur.preparerExercice({ ...etape, alea: graine }, numero)
+      // Construction apigeom : la figure de la correction (même tirage), au
+      // format que MathALÉA réécrit dans la figure de l'élève
+      const correction = (ex.interne.figuresApiGeom ?? []).find((f) => /Correction$/.test(f.id ?? ''))
+      let figureCorrection = null
+      if (correction) {
+        const { options: _options, ...json } = JSON.parse(correction.json)
+        figureCorrection = JSON.stringify(json)
+      }
+      return ex.interne.autoCorrection.map((a) =>
+        a == null
+          ? null
+          : {
+              format: a.formatInteractif ?? null,
+              valeur: JSON.parse(JSON.stringify(a.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
+              statuts: a.propositions?.map((p) => !!p.statut) ?? null,
+              figureCorrection,
+              // Traceur de courbe : la fonction attendue n'est pas transmissible,
+              // ses valeurs le sont (pas de 0,25 entre −20 et 20)
+              valeurs:
+                typeof a.valeur?.reponse?.value === 'function'
+                  ? Object.fromEntries(Array.from({ length: 161 }, (_, i) => -20 + i / 4).map((x) => [x, a.valeur.reponse.value(x)]))
+                  : null,
+              // Couteau suisse : ses éléments, chacun avec sa propre réponse attendue
+              elements: Array.isArray(a.elements)
+                ? a.elements.map((x) => ({
+                    format: x.formatInteractif,
+                    k: Number.isInteger(x.questionIndex) ? x.questionIndex : null,
+                    valeur: JSON.parse(JSON.stringify(x.autoCorrection?.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
+                    statuts: x.autoCorrection?.propositions?.map((p) => !!p.statut) ?? null,
+                  }))
+                : null,
+              // QCM à branches : bonne proposition et sa justification ; un
+              // contre-exemple (vérifié par l'exercice lui-même) est cherché parmi
+              // les entiers, comme l'essaierait un élève
+              branches: a.branchingQcm?.choices.map((c) => {
+                const f = c.followup
+                let justification = f?.expected ? String(Array.isArray(f.expected.value) ? f.expected.value[0] : f.expected.value) : null
+                if (f?.callback) for (let x = -5; x <= 10 && justification == null; x++) if (f.callback(String(x), c)?.isOk) justification = String(x)
+                return { statut: c.statut === true, justification }
+              }) ?? null,
+            },
+      )
+    },
+    { etape, graine, numero },
+  )
+}
+
+/** Réponse texte d'une valeur attendue (nombre, chaîne, liste de réponses acceptées) */
+export function texteDe(v) {
+  if (v == null) return ''
+  if (Array.isArray(v)) return texteDe(v[0])
+  if (typeof v === 'object' && 'value' in v) return texteDe(v.value)
+  // Écriture scientifique : MathALÉA garde « 5,1e1 », l'élève tape 5,1 · 10¹
+  const sci = /^(-?[\d,.]+)e(-?\d+)$/.exec(String(v))
+  if (sci) return `${sci[1]}\\cdot 10^{${sci[2]}}`
+  return String(v)
+}
+/** LaTeX → ce qu'un élève tape au clavier, si c'est un nombre simple */
+const tapable = (latex) => {
+  const t = latex.replace(/\\[,;!]|\{,\}|~/g, (m) => (m === '{,}' ? ',' : '')).replace(/\s+/g, '').replace('.', ',')
+  return /^-?\d+(,\d+)?$/.test(t) ? t : null
+}
+
+/** Réponse attendue selon les options : une fraction à simplifier attend sa forme réduite */
+export function reponseDe(rep) {
+  const t = texteDe(rep)
+  const o = rep?.options ?? {}
+  // Un nombre dans un intervalle (« intercaler ») : le milieu
+  const intervalle = /^[\]\[]\s*(-?[\d.,]+)\s*;\s*(-?[\d.,]+)\s*[\]\[]$/.exec(t)
+  if (intervalle && (o.estDansIntervalle || o.estDecimalDansIntervalle)) {
+    const [a, b] = [intervalle[1], intervalle[2]].map((x) => Number(x.replace(',', '.')))
+    const decimales = Math.max(...[intervalle[1], intervalle[2]].map((x) => (x.split(/[.,]/)[1] ?? '').length)) + 1
+    return String(Number(((a + b) / 2).toFixed(decimales))).replace('.', ',')
+  }
+  const f = /^\\[dt]?frac\{(-?\d+)\}\{(\d+)\}$/.exec(t)
+  if (f && (o.fractionReduite || o.fractionIrreductible || o.fractionSimplifiee)) {
+    const pgcd = (a, b) => (b ? pgcd(b, a % b) : Math.abs(a))
+    const g = pgcd(Number(f[1]), Number(f[2]))
+    return Number(f[2]) / g === 1 ? String(Number(f[1]) / g) : `\\dfrac{${Number(f[1]) / g}}{${Number(f[2]) / g}}`
+  }
+  return t
+}
+
+/**
+ * Touche un champ et attend qu'il ait le focus avant de taper : MathLive le
+ * donne un peu après le toucher, et ce qui était tapé avant partait dans le
+ * champ précédent (« 10-38 » dans la question 1, novembre 2026)
+ */
+export async function focaliser(e, champ) {
+  await toucher(e, champ)
+  await jusqua(() => champ.evaluate((el) => el.getRootNode().activeElement === el || document.activeElement === el), { timeout: 10_000, quoi: 'focus du champ' })
+}
+
+/** Saisit une valeur dans un math-field : au clavier si c'est un nombre, sinon comme le clavier de MathALÉA (setValue) */
+export async function remplirChamp(e, champ, latex) {
+  // Champ de texte (réponse en mots) : au clavier
+  if ((await champ.evaluate((el) => el.tagName)) === 'INPUT') {
+    await focaliser(e, champ)
+    return e.page.keyboard.type(latex)
+  }
+  // Nombre suivi d'une unité (« 24cm », « 12cm^2 ») : chiffres au clavier, unité par sa touche du clavier de MathALÉA
+  const unite = /^(-?[\d,.]+)\s*(?:\\,)?\s*(?:\\(?:text|mathrm|operatorname)\{)?([a-zA-Zµμ]+)\}?(\^\{?([23])\}?)?$/.exec(latex)
+  if (unite) {
+    await focaliser(e, champ)
+    await e.page.keyboard.type(unite[1].replace('.', ','))
+    // Texte d'une touche du clavier de MathALÉA : « cm », « cm² », ou « cm⁡3cm3 » pour cm³ (rendu MathLive doublé)
+    const touche = unite[2] + (unite[4] ?? '')
+    const chercher = () =>
+      e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll(
+        (bs, t) => bs.findIndex((b) => [t, t + t].includes(b.innerText.replace(/[\s\u2061]/g, '').replace('²', '2').replace('³', '3'))),
+        touche
+      )
+    let rang = await chercher()
+    // Unité rangée dans un autre onglet du clavier (« Volumes » quand il s'ouvre sur « Capacités ») : l'élève change d'onglet
+    if (rang < 0) {
+      const onglets = await e.page.locator('#mathalea-virtual-keyboard button:visible').evaluateAll((bs) => bs.map((b) => b.innerText.trim()))
+      for (const [k, nom] of onglets.entries()) {
+        if (!/^[A-ZÉ][a-zéè]+s$/.test(nom)) continue
+        await toucher(e, e.page.locator('#mathalea-virtual-keyboard button:visible').nth(k))
+        await pause(e.page, 200)
+        if ((rang = await chercher()) >= 0) break
+      }
+    }
+    const bouton = e.page.locator('#mathalea-virtual-keyboard button:visible').nth(Math.max(rang, 0))
+    if (rang >= 0) {
+      await toucher(e, bouton)
+      await pause(e.page, 200)
+      return
+    }
+    await champ.evaluate((el) => el.setValue(''))
+  }
+  const t = tapable(latex)
+  // Champ à trous dont la réponse n'est pas un nombre (vecteur, matrice) : l'élève remplit le premier trou
+  if (t == null && (await champ.evaluate((el) => el.getPrompts?.().length ?? 0))) {
+    await focaliser(e, champ)
+    return e.page.keyboard.type('1')
+  }
+  if (t != null) {
+    for (let i = 0; i < 10; i++) {
+      // Focus pas venu : on retouche le champ plutôt que de taper ailleurs
+      if (!(await focaliser(e, champ).then(() => true, () => false))) continue
+      await e.page.keyboard.type(t)
+      const lu = await champ.evaluate((el) => el.value)
+      if (lu.replace(/\{,\}/g, ',') === t) return
+      await champ.evaluate((el) => el.setValue(''))
+      await pause(e.page, 250)
+    }
+  }
+  await champ.evaluate((el, v) => {
+    el.setValue(v)
+    el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }))
+  }, latex)
+}
+
+/** Glisse une étiquette vers une case : au doigt (événements tactiles) ou à la souris */
+/** Message d'erreur de Playwright réduit à l'essentiel : la cause et les dernières lignes du journal (attente, élément qui intercepte…) */
+export function raisonDe(err) {
+  const lignes = err.message.replace(/\x1b\[\d+m/g, '').split('\n').map((l) => l.trim()).filter(Boolean)
+  const journal = lignes.filter((l) => /waiting for|intercepts|not stable|not visible|outside of the viewport|retrying/.test(l))
+  return [lignes[0], ...[...new Set(journal)].slice(-3)].join(' ; ')
+}
+
+export async function glisser(e, de, vers, auBout = false) {
+  // auBout : lâchée après la dernière étiquette déjà posée (réponse ordonnée), pas au centre
+  const bout = auBout
+    ? await vers.evaluate((r) => {
+        const c = r.getBoundingClientRect()
+        const d = [...r.children].at(-1)?.getBoundingClientRect()
+        if (d && d.right + 12 < c.right) return { x: d.right + 8 - c.left, y: d.top + d.height / 2 - c.top }
+        return { x: c.width - 6, y: c.height - 6 }
+      })
+    : null
+  if (!e.touche) return de.dragTo(vers, bout ? { targetPosition: bout } : {})
+  // Comme un élève : on fait défiler pour voir l'étiquette et la zone en même
+  // temps, entre la barre du haut et celle du bas. Un geste vers une zone sous
+  // le bas de l'écran n'était pas pris (dnd, 1er novembre 2026)
+  const [hautDe, basDe] = await de.evaluate((x) => [x.getBoundingClientRect().top + scrollY, x.getBoundingClientRect().bottom + scrollY])
+  await vers.evaluate(
+    (zone, [hautDe, basDe]) => {
+      const r = zone.getBoundingClientRect()
+      const haut = Math.min(hautDe, r.top + scrollY)
+      const bas = Math.max(basDe, r.bottom + scrollY)
+      const enHaut = document.querySelector('header')?.getBoundingClientRect().bottom ?? 0
+      const enBas = [...document.querySelectorAll('footer')].reduce((m, f) => Math.min(m, f.getBoundingClientRect().top), innerHeight)
+      scrollTo({ top: (haut + bas) / 2 - (enHaut + enBas) / 2, behavior: 'instant' })
+    },
+    [hautDe, basDe],
+  )
+  await pause(e.page)
+  const cdp = (e.cdp ??= await e.ctx.newCDPSession(e.page))
+  const centre = async (loc) => {
+    const b = await loc.boundingBox()
+    return { x: b.x + b.width / 2, y: b.y + b.height / 2 }
+  }
+  const a = await centre(de)
+  const b = bout ? await vers.boundingBox().then((r) => ({ x: r.x + bout.x, y: r.y + bout.y })) : await centre(vers)
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [a] })
+  for (let k = 1; k <= 8; k++) {
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: a.x + ((b.x - a.x) * k) / 8, y: a.y + ((b.y - a.y) * k) / 8 }] })
+    await e.page.waitForTimeout(25) // geste du doigt, pas une attente
+  }
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+  await pause(e.page, 250)
+}
+
+/** Donne la bonne réponse au rang k (format de autoCorrection[k]) de l'exercice numéro n affiché */
+/** Réponse posée dans un élément comme MathALÉA la restaure, puis signalée comme une vraie saisie (l'app relit son brouillon) */
+function ecrireEtSignaler(x, val) {
+  x.value = val
+  x.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
+}
+
+export async function repondre(e, n, k, a) {
+  const page = e.page
+  const q = `Ex${n}Q${k}`
+  const main = page.locator('main')
+  const v = a.valeur ?? {}
+  switch (a.format) {
+    case 'qcm':
+    case 'mathalea-qcm': {
+      const cases = main.locator(`input[id^="check${q}R"]`)
+      for (let j = 0; j < (await cases.count()); j++) {
+        const r = Number(/R(\d+)$/.exec(await cases.nth(j).getAttribute('id'))[1])
+        if (a.statuts?.[r]) await toucher(e, cases.nth(j))
+      }
+      return
+    }
+    case 'liste-deroulante': {
+      const liste = main.locator(`#liste-deroulante${q}`)
+      const choix = JSON.parse(decodeURIComponent(await liste.getAttribute('choices'))).filter((c) => (typeof c === 'string' ? c : c.value) !== '')
+      const voulu = texteDe(v.reponse)
+      const option = liste.locator('[role=option]').nth(choix.findIndex((c) => (typeof c === 'string' ? c : c.value) === voulu))
+      // Un toucher ouvre ou referme la liste (toggle) : on touche jusqu'à la voir ouverte
+      for (let essai = 0; !(await option.isVisible()); essai++) {
+        if (essai >= 5) throw new Error('liste déroulante restée fermée')
+        await toucher(e, liste.locator('.currentChoice'))
+        await option.waitFor({ state: 'visible', timeout: 2_000 }).catch(() => {})
+      }
+      // Le choix doit recevoir le toucher : la liste s'arrête au-dessus de la
+      // barre du bas (src/lib/listeDeroulante.ts), sinon « Passer » le recouvre
+      await toucher(e, option)
+      return
+    }
+    case 'multi-mathfield': {
+      const hote = main.locator(`#multi-mathfield${q}`)
+      for (const [nom, rep] of Object.entries(v)) {
+        if (!rep || typeof rep !== 'object' || !('value' in rep)) continue
+        const liste = hote.locator(`liste-deroulante[data-name="${nom}"]`)
+        if (await liste.count()) {
+          await liste.evaluate((l, val) => (l.value = val), texteDe(rep))
+          continue
+        }
+        const qcm = hote.locator(`[data-type="qcm"][data-name="${nom}"] input[value="${texteDe(rep)}"]`)
+        if (await qcm.count()) {
+          await toucher(e, qcm.first())
+          continue
+        }
+        await remplirChamp(e, hote.locator(`math-field[data-name="${nom}"]`), reponseDe(rep))
+      }
+      return
+    }
+    case 'dnd':
+    case 'drag-and-drop': {
+      for (const [cle, rep] of Object.entries(v)) {
+        if (!cle.startsWith('rectangle')) continue
+        const zone = main.locator(`#rectangle${q}R${cle.slice(9)}`)
+        for (const id of texteDe(rep).split(/[|;]/).filter(Boolean)) {
+          // Chaque dépôt vérifié : sous charge, un geste n'était pas pris et
+          // l'étiquette manquait (formats, 1er novembre 2026) ; l'élève refait le geste
+          const posees = () => zone.evaluate((r) => r.querySelectorAll('[id^="etiquette"]').length)
+          const avant = await posees()
+          for (let essai = 0; ; essai++) {
+            await glisser(e, main.locator(`#etiquettes${q} #etiquette${q}I${id}`).first(), zone, true)
+            if (await jusqua(async () => (await posees()) > avant, { timeout: 3_000, quoi: 'étiquette posée' }).then(() => true, () => false)) break
+            if (process.env.DEBUG) console.log('dnd', id, await zone.evaluate((r) => ({ zone: JSON.stringify(r.getBoundingClientRect()), enfants: [...r.children].map((c) => `${c.id}:${Math.round(c.getBoundingClientRect().left)},${Math.round(c.getBoundingClientRect().top)},${Math.round(c.getBoundingClientRect().right)}`) })))
+            if (essai >= 2) throw new Error(`étiquette ${id} jamais posée`)
+          }
+        }
+      }
+      return
+    }
+    case 'traceur-de-courbe': {
+      // Tableau de valeurs rempli avec des abscisses régulières de l'intervalle
+      // et leurs images, posé comme MathALÉA recharge une réponse ; un toucher d'abord
+      const el = main.locator(`#traceur-de-courbe${q}`)
+      const b = await el.boundingBox()
+      if (b) await (e.touche ? page.touchscreen.tap(b.x + 20, b.y + 20) : page.mouse.click(b.x + 20, b.y + 20))
+      if (!a.valeurs) throw new Error('traceur de courbe sans fonction attendue')
+      const { xMin, xMax } = await el.evaluate((x) => ({ xMin: x.xMin, xMax: x.xMax }))
+      // Deux colonnes par unité (l'élève ajoute des colonnes) : MathALÉA ne
+      // compte correcte qu'une courbe « très précise »
+      const pas = xMax - xMin > 4 ? 0.5 : 0.25
+      const points = []
+      for (let x = xMin; x <= xMax + 1e-9; x += pas) points.push({ x, y: a.valeurs[x] ?? a.valeurs[String(x)] })
+      if (points.some((p) => p.y == null)) throw new Error(`traceur de courbe : abscisse hors des valeurs (${xMin} ; ${xMax})`)
+      await el.evaluate(ecrireEtSignaler, JSON.stringify({ version: 1, points }))
+      e.restaurees = (e.restaurees ?? 0) + 1
+      return
+    }
+    case 'scratch-editor': {
+      // Programme attendu posé dans l'éditeur comme MathALÉA recharge un
+      // programme enregistré (blocs de la solution) ; un toucher d'abord
+      const el = main.locator(`#scratch-editor${q}`)
+      const b = await el.boundingBox()
+      if (b) await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + 30) : page.mouse.click(b.x + b.width / 2, b.y + 30))
+      const { solutionBlocks, solutionScratchXml } = JSON.parse(v.reponse.value)
+      await el.evaluate(ecrireEtSignaler, JSON.stringify(solutionScratchXml ? { version: 1, workspaceXml: solutionScratchXml } : { version: 1, workspaceJson: solutionBlocks }))
+      e.restaurees = (e.restaurees ?? 0) + 1
+      return
+    }
+    case 'my-spreadsheet': {
+      // L'élève touche chaque cellule puis écrit sa formule dans la barre de
+      // formule, validée par Entrée
+      const el = main.locator(`#my-spreadsheet${q}`)
+      const attendu = v.sheetAnswer ?? JSON.parse(v.reponse?.value ?? '{}').sheetAnswer ?? {}
+      for (const { ref, formula, value } of attendu.goodAnswerFormulas ?? []) {
+        const col = ref.charCodeAt(0) - 65
+        const row = Number(ref.slice(1)) - 1
+        // Toucher à l'écran, la cellule amenée au centre de la zone qui défile
+        const cellule = el.locator(`td[data-x="${col}"][data-y="${row}"]`).first()
+        await cellule.evaluate((x) => x.scrollIntoView({ block: 'center', inline: 'center' }))
+        await pause(page, 200)
+        const b = await cellule.boundingBox()
+        await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2) : page.mouse.click(b.x + b.width / 2, b.y + b.height / 2))
+        // Barre de formule si le tableur en a une, sinon saisie directe dans la cellule
+        const barre = el.locator('.barre-formule-saisie')
+        if (await barre.count()) {
+          await toucher(e, barre)
+          await barre.fill(String(formula ?? value))
+          await barre.press('Enter')
+        } else {
+          await page.keyboard.type(String(formula ?? value))
+          await page.keyboard.press('Enter')
+        }
+        await pause(page, 200)
+      }
+      return
+    }
+    case 'echiquier-probleme': {
+      // Échiquier construit comme l'attend l'exercice (grandeurs, objets,
+      // données, grisés, structure et opération), écrit dans l'élément comme
+      // MathALÉA réécrit une réponse enregistrée ; un toucher d'abord
+      const el = main.locator(`#echiquier-probleme${q}`)
+      const b = await el.boundingBox()
+      if (b) await (e.touche ? page.touchscreen.tap(b.x + 20, b.y + 20) : page.mouse.click(b.x + 20, b.y + 20))
+      const att = JSON.parse(v.reponse.value)
+      const cellValues = {}
+      att.expectedRows.forEach((r, i) => att.expectedColumns.forEach((c, j) => (cellValues[`${i}:${j}`] = att.cells.find((x) => x.row === r && x.column === c)?.value ?? '')))
+      const valeur = {
+        rowHeaders: att.expectedRows,
+        columnHeaders: att.expectedColumns,
+        cellValues,
+        greyedRows: att.expectedGreyedRows ?? [],
+        greyedColumns: att.expectedGreyedColumns ?? [],
+        structure: att.expectedStructure ?? '',
+        operation: att.expectedOperation ?? '',
+      }
+      await el.evaluate(ecrireEtSignaler, JSON.stringify(valeur))
+      e.restaurees = (e.restaurees ?? 0) + 1
+      return
+    }
+    case 'mathalea-couteau-suisse': {
+      // Chaque élément du couteau suisse reçoit sa propre bonne réponse
+      if (!a.elements?.length) throw new Error('couteau suisse sans éléments')
+      for (const x of a.elements) await repondre(e, n, x.k ?? k, { format: x.format, valeur: x.valeur, statuts: x.statuts })
+      return
+    }
+    case 'juniper-green': {
+      // Partie jouée jusqu'au bout : chaque nombre est un multiple ou un
+      // diviseur du précédent, jamais repris ; elle s'arrête quand plus aucun
+      // coup n'est possible (score maximal)
+      const el = main.locator(`#juniper-green${q}`)
+      const max = Number(await el.getAttribute('max')) || 100
+      for (let coup = 0; coup < max; coup++) {
+        const suite = await el.evaluate((x) => x.value)
+        const dernier = suite.at(-1)
+        const libres = Array.from({ length: max }, (_, i) => i + 1).filter((x) => !suite.includes(x))
+        const possibles = dernier == null ? [4] : libres.filter((x) => x % dernier === 0 || dernier % x === 0)
+        if (!possibles.length) break
+        await toucher(e, el.locator(`[data-nombre="${possibles[0]}"]`))
+        await pause(page, 100)
+      }
+      return
+    }
+    case 'mathalea-labyrinthe': {
+      // L'élève touche les cases dont le contenu est une bonne réponse
+      // (départ et arrivée exclus), le chemin se trace
+      const el = main.locator(`#labyrinthe${q}`)
+      const norme = (t) => t.replace(/[−–]/g, '-').replace(/\s+/g, '')
+      const bonnes = JSON.parse(v.reponse.value).goodAnswers.map(norme)
+      // Grille dans une racine fermée (shadow « closed ») : position de chaque
+      // case lue par l'élément, puis toucher à l'écran
+      const cases = () =>
+        el.evaluate((x) =>
+          [...x.root.querySelectorAll('.grid-cell:not(.start):not(.end)')].map((c) => {
+            const r = c.getBoundingClientRect()
+            return { id: `${c.dataset.row}-${c.dataset.col}`, x: r.x + r.width / 2, y: r.y + r.height / 2, t: c.querySelector('annotation')?.textContent ?? c.textContent }
+          }),
+        )
+      for (const { id } of (await cases()).filter((c) => bonnes.some((b) => norme(c.t).includes(b)))) {
+        await el.evaluate((x, id) => x.root.querySelector(`.grid-cell[data-row="${id.split('-')[0]}"][data-col="${id.split('-')[1]}"]`).scrollIntoView({ block: 'center' }), id)
+        const c = (await cases()).find((c) => c.id === id)
+        await (e.touche ? page.touchscreen.tap(c.x, c.y) : page.mouse.click(c.x, c.y))
+        await pause(page, 150)
+      }
+      return
+    }
+    case 'mathalea-compte-est-bon': {
+      // Suite de calculs qui atteint le meilleur écart (recherche exhaustive),
+      // jouée au doigt : deux cartes, puis l'opération
+      const el = main.locator(`#mathalea-compte-est-bon${q}`)
+      const cible = Number(await el.getAttribute('cible'))
+      const tirage = JSON.parse(await el.getAttribute('tirage'))
+      const ecart = Number(await el.getAttribute('meilleur-ecart')) || 0
+      const division = (await el.getAttribute('avec-division')) === 'true'
+      const calcul = (g, d, o) => (o === '+' ? g + d : o === '*' ? g * d : o === '-' ? (g > d ? g - d : null) : division && d && g % d === 0 ? g / d : null)
+      const chercher = (cartes, etapes) => {
+        for (const c of cartes) if (Math.abs(c - cible) === ecart) return { etapes, finale: c }
+        if (etapes.length >= tirage.length - 1) return null
+        for (let i = 0; i < cartes.length; i++)
+          for (let j = 0; j < cartes.length; j++) {
+            if (i === j) continue
+            for (const o of ['+', '-', '*', '/']) {
+              if ((o === '+' || o === '*') && i > j) continue
+              const r = calcul(cartes[i], cartes[j], o)
+              if (r == null || r === cartes[i] || r === cartes[j]) continue
+              const reste = cartes.filter((_, k) => k !== i && k !== j)
+              const t = chercher([...reste, r], [...etapes, [cartes[i], cartes[j], o]])
+              if (t) return t
+            }
+          }
+        return null
+      }
+      const solution = chercher(tirage, [])
+      if (!solution) throw new Error(`compte est bon sans solution trouvée (cible ${cible})`)
+      if (process.env.DEBUG) console.log('compte est bon', cible, tirage, ecart, JSON.stringify(solution))
+      const carte = (valeur) => el.locator('.carte[aria-pressed="false"]', { hasText: new RegExp(`^${valeur}$`) }).first()
+      const SIGNES = { '+': '+', '-': '−', '*': '×', '/': '÷' }
+      for (const [g, d, o] of solution.etapes) {
+        // Le résultat d'un calcul reste sélectionné : on le désélectionne d'abord
+        for (let k = await el.locator('.carte[aria-pressed="true"]').count(); k > 0; k--) await toucher(e, el.locator('.carte[aria-pressed="true"]').first())
+        await toucher(e, carte(g))
+        await toucher(e, carte(d))
+        await toucher(e, el.locator('.operation', { hasText: SIGNES[o] }).first())
+        await pause(page, 200)
+      }
+      // Nombre du tirage déjà au meilleur écart : il est proposé tel quel
+      if (!solution.etapes.length) {
+        await toucher(e, carte(solution.finale))
+        await toucher(e, el.locator('.proposer'))
+      }
+      return
+    }
+    case 'mathalea-branching-qcm': {
+      const k = a.branches?.findIndex((b) => b.statut) ?? -1
+      if (k === -1) throw new Error('QCM à branches sans bonne proposition')
+      await toucher(e, main.locator(`#branchingQcm${q}R${k}`))
+      await pause(page, 300)
+      const justification = a.branches[k].justification
+      if (justification != null) await remplirChamp(e, main.locator(`#mathalea-branching-qcm${q}-followup`), justification)
+      return
+    }
+    case 'meta-custom':
+    case 'fillInTheBlank':
+    case 'fill-in-the-blank': {
+      const champ = main.locator(`#champTexte${q}`)
+      // meta-custom sans réponse rangée (l'exercice vérifie lui-même) : vecteur
+      // orthogonal à u et v (3G95-17), le produit vectoriel de u et v
+      if (a.format === 'meta-custom' && !Object.keys(v).some((k) => /^champ\d+$/.test(k))) {
+        const tex = await main.locator('.contenu-mathalea').first().evaluate((z) => [...z.querySelectorAll('annotation')].map((x) => x.textContent).join(' '))
+        const vecteur = (nom) => (new RegExp(`\\\\vec ${nom}\\s*\\\\begin\\{pmatrix\\}([^\\\\]+)\\\\\\\\([^\\\\]+)\\\\\\\\([^\\\\]+)\\\\end`).exec(tex) ?? []).slice(1).map(Number)
+        const [u, w] = [vecteur('u'), vecteur('v')]
+        if (u.length !== 3 || w.length !== 3) throw new Error(`format sans saisie connue : meta-custom (${tex.slice(0, 80)})`)
+        const n = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]]
+        for (let j = 0; j < 3; j++) await champ.evaluate((el, [p, val]) => el.setPromptValue(p, val, { mode: 'math' }), [`champ${j + 1}`, String(n[j])])
+        await champ.evaluate((el) => el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true })))
+        return
+      }
+      for (const [nom, rep] of Object.entries(v)) {
+        if (!/^champ\d+$/.test(nom)) continue
+        await champ.evaluate((el, [p, val]) => el.setPromptValue(p, val, { mode: 'math' }), [nom, texteDe(rep)])
+      }
+      await champ.evaluate((el) => el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true })))
+      return
+    }
+    case 'tableauMathlive':
+    case 'tableau-mathlive': {
+      const cellules = Object.entries(v).filter(([cellule]) => /^L\d+C\d+$/.test(cellule))
+      // Bonne réponse « tableau vide » (2mTrigoTri-6, aucun triangle) : rien à
+      // écrire, Vérifier est actif sans saisie ; avec la correction à la fin, la
+      // question reste « sans réponse » pour l'app, comme pour l'élève
+      if (cellules.every(([, rep]) => reponseDe(rep) === '')) (e.videsAttendus ??= new Set()).add(`${n}-${k}`)
+      for (const [cellule, rep] of cellules) if (reponseDe(rep) !== '') await remplirChamp(e, main.locator(`#champTexte${q}${cellule}`), reponseDe(rep))
+      return
+    }
+    case 'MetaInteractif2d':
+    case 'meta-interactif-2d': {
+      for (const [nom, rep] of Object.entries(v)) {
+        if (!/^field\d+$/.test(nom)) continue
+        const liste = main.locator(`#liste-deroulante${q}${nom}`)
+        if (await liste.count()) {
+          const choix = JSON.parse(decodeURIComponent(await liste.getAttribute('choices'))).filter((c) => (typeof c === 'string' ? c : c.value) !== '')
+          await toucher(e, liste)
+          await toucher(e, liste.locator('[role=option]').nth(choix.findIndex((c) => (typeof c === 'string' ? c : c.value) === texteDe(rep))))
+          continue
+        }
+        // 845fa reprend dans la question 2 les id de la question 1 (défaut de MathALÉA) : le champ affiché
+        let champ = main.locator(`#MetaInteractif2d${q}${nom}`)
+        if (!(await champ.count())) champ = main.locator(`math-field[id^="MetaInteractif2dEx${n}Q"][id$="${nom}"]`).last()
+        await champ.evaluate((el, val) => el.setPromptValue('champ1', val, { mode: 'math' }), texteDe(rep))
+        await champ.evaluate((el) => el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true })))
+      }
+      return
+    }
+    case 'clique-figure':
+    case 'cliqueFigure': {
+      for (let j = 0; j < (a.statuts?.length ?? 0); j++) if (a.statuts[j]) await toucher(e, main.locator(`#cliquefigure${j}${q}`))
+      return
+    }
+    case 'svg-selection': {
+      // « Sélectionner a/b de la plaque » : a cases parmi b (la réponse attendue est un rapport)
+      const texte = await main.locator('.contenu-mathalea').evaluate((z) => z.querySelector('annotation')?.textContent ?? '')
+      const [, num] = /\\[dt]?frac\{(\d+)\}\{(\d+)\}/.exec(texte) ?? /(\d+)\s*\/\s*(\d+)/.exec(texte) ?? []
+      const boutons = main.locator(`#svg-selection${q}`).locator('button')
+      const total = await boutons.count()
+      if (num === undefined) {
+        // Valeurs des images (pièces de monnaie…) : une sélection dont la somme est la réponse
+        const valeurs = await main.locator(`#svg-selection${q}`).evaluate((x) => JSON.parse(decodeURIComponent(x.getAttribute('svgs'))).flat().map((o) => o.value))
+        const cible = Number(texteDe(v.reponse).replace(',', '.'))
+        for (let m = 1; m < 1 << valeurs.length; m++) {
+          const choisis = valeurs.map((_, j) => j).filter((j) => m & (1 << j))
+          if (Math.abs(choisis.reduce((t, j) => t + valeurs[j], 0) - cible) > 1e-9) continue
+          for (const j of choisis) await toucher(e, boutons.nth(j))
+          return
+        }
+      }
+      const den = Number((/\\[dt]?frac\{\d+\}\{(\d+)\}/.exec(texte) ?? /\d+\s*\/\s*(\d+)/.exec(texte))?.[1] ?? total)
+      for (let j = 0; j < Math.round((Number(num) * total) / den); j++) await toucher(e, boutons.nth(j))
+      return
+    }
+    case 'decomposition-facteurs-premiers': {
+      // L'élève écrit chaque division (diviseur premier, puis quotient) jusqu'au
+      // quotient 1, puis la décomposition : MathALÉA exige tout l'algorithme
+      const el = main.locator(`#decomposition-facteurs-premiers${q}`)
+      let reste = Number(await el.getAttribute('nombre'))
+      const ecrire = async (texte) => {
+        const champ = el.locator('.dfp-champ').last()
+        await remplirChamp(e, champ, texte)
+        await toucher(e, el.locator('.dfp-valide').last())
+        await pause(page, 300)
+      }
+      for (let d = 2; reste > 1 && d <= reste; ) {
+        if (reste % d) {
+          d++
+          continue
+        }
+        await ecrire(String(d))
+        reste /= d
+        await ecrire(String(reste))
+      }
+      await remplirChamp(e, el.locator('[data-dfp-final] math-field').first(), reponseDe(v.reponse))
+      return
+    }
+    case 'mathalea-textfield': {
+      const champ = main.locator(`#champTexte${q}`)
+      await focaliser(e, champ)
+      await page.keyboard.type(texteDe(v.reponse))
+      return
+    }
+    case 'mathalea-solveur': {
+      const solveur = main.locator(`#mathalea-solveur${q}`)
+      const attendu = reponseDe(v.reponse)
+      // Conclusion « S= » (1mCL4-0) : l'élève résout pas à pas, puis donne
+      // l'ensemble. Une ligne n'est acceptée que si elle a les mêmes solutions
+      // que l'équation : avec S = {a ; b}, il écrit (x−a)(x−b) = 0, touche
+      // « Équation produit », résout chaque colonne, puis conclut.
+      const ensemble = /^\\left\\\{(.*)\\right\\\}$/.exec(attendu) ?? /^\\\{(.*)\\\}$/.exec(attendu)
+      const variable = (await solveur.getAttribute('variable')) ?? 'x'
+      const produit = (await solveur.getAttribute('equation-produit')) === 'true'
+      const solutions = ensemble?.[1].split(';').map((s) => s.trim()).filter(Boolean) ?? []
+      if ((await solveur.getAttribute('conclusion')) === 'S=' && solutions.length && (solutions.length === 1 || produit)) {
+        const valider = async (latex) => {
+          await remplirChamp(e, solveur.locator('math-field:not(.solver-readonly)').first(), latex)
+          await toucher(e, solveur.getByRole('button', { name: 'Valider cette ligne' }).first())
+          await pause(page, 400)
+        }
+        if (solutions.length === 1) await valider(`${variable}=${solutions[0]}`)
+        else {
+          const facteur = (s) => (s.startsWith('-') ? `(${variable}+${s.slice(1)})` : `(${variable}-${s})`)
+          await valider(`${solutions.map(facteur).join('')}=0`)
+          await toucher(e, solveur.getByRole('button', { name: /produit/i }).first())
+          await pause(page, 400)
+          for (const s of solutions) await valider(`${variable}=${s}`)
+        }
+        await valider(attendu)
+        return
+      }
+      const lignes = solveur.locator('math-field')
+      await remplirChamp(e, lignes.last(), attendu)
+      return
+    }
+    case 'apigeom-figure': {
+      // Placer un point d'abscisse donnée sur une droite graduée : position
+      // calculée d'après deux graduations affichées, puis un toucher sur l'axe
+      const lire = () => main.locator(`[id^="apigeomEx${n}F"]`).first().evaluate((fig) => {
+        const z = fig.closest('.contenu-mathalea')
+        if (!z.innerText.includes('abscisse')) return null
+        const nombre = (t) => Number(t.replace(/\\,/g, '').replace(/[{}\s]/g, '').replace(',', '.').replace('−', '-'))
+        // Abscisse demandée : premier nombre de l'énoncé, hors de la figure
+        const tex = [...z.querySelectorAll('annotation')].filter((a) => !fig.contains(a)).map((a) => a.textContent)
+        const x = nombre(tex.find((t) => /^[-\d{},.\s\\]+$/.test(t) && /\d/.test(t)) ?? '')
+        const graduations = [...fig.querySelectorAll('div')]
+          .filter((d) => d.querySelectorAll('annotation').length === 1 && d.getBoundingClientRect().width < 100)
+          .map((d) => ({ d, a: d.querySelector('annotation')?.textContent }))
+          .filter(({ a }) => a && /^[-\d{},.\s]+$/.test(a))
+          .map(({ d, a }) => { const r = d.getBoundingClientRect(); return { v: nombre(a), cx: r.x + r.width / 2 } })
+        const axe = [...fig.querySelectorAll('svg line')].map((l) => l.getBoundingClientRect()).sort((p, q) => q.width - p.width)[0]
+        if (graduations.length < 2 || !axe || !Number.isFinite(x)) return null
+        const [g1, g2] = [graduations[0], graduations[graduations.length - 1]]
+        return { x: g1.cx + ((x - g1.v) * (g2.cx - g1.cx)) / (g2.v - g1.v), y: axe.y + axe.height / 2, abscisse: x }
+      })
+      // Figure montée puis réduite à la largeur de l'écran : attendre une position stable
+      let cible = null
+      for (let i = 0, avant = null; i < 20; i++) {
+        await pause(page, 300)
+        const c = await lire()
+        if (c && avant && Math.abs(c.x - avant.x) < 1) {
+          cible = c
+          break
+        }
+        avant = c
+      }
+      if (!cible) {
+        // « Trace un segment de longueur a/b u.l » : l'unité est le segment de
+        // référence (le plus long de la figure) ; deux touchers avec l'outil
+        // segment, sous la référence, à la longueur demandée
+        const trace = await main.locator(`[id^="apigeomEx${n}F"]`).first().evaluate((fig) => {
+          const z = fig.closest('.contenu-mathalea')
+          const tex = [...z.querySelectorAll('annotation')].filter((a) => !fig.contains(a)).map((a) => a.textContent).join(' ')
+          if (!/segment de longueur/i.test(z.innerText)) return null
+          const f = /\\[dt]?frac\{(\d+)\}\{(\d+)\}/.exec(tex)
+          const d = /(\d+(?:[.,]\d+)?)\s*~?\s*\\text\{\s*u\.l/.exec(tex)
+          const longueur = f ? Number(f[1]) / Number(f[2]) : d ? Number(d[1].replace(',', '.')) : NaN
+          // Horizontales plus courtes que la grille (qui occupe toute la largeur)
+          const horizontales = [...fig.querySelectorAll('svg line, svg path')].map((l) => l.getBoundingClientRect()).filter((r) => r.height < 4 && r.width > 10)
+          const pleine = Math.max(...horizontales.map((r) => r.width))
+          const ref = horizontales.filter((r) => r.width < pleine - 2).sort((p, q) => q.width - p.width)[0]
+          const grille = [...fig.querySelectorAll('svg line')].map((l) => l.getBoundingClientRect()).filter((r) => r.width < 2 && r.height > 20)
+          if (!ref || !Number.isFinite(longueur) || !grille.length) return null
+          // Pas de la grille : écart entre deux verticales voisines
+          const xs = [...new Set(grille.map((r) => Math.round(r.x)))].sort((a, b) => a - b)
+          const pas = Math.min(...xs.slice(1).map((x, j) => x - xs[j]).filter((x) => x > 3))
+          const y = ref.y + ref.height / 2 + 2 * pas
+          return { x1: ref.x, x2: ref.x + longueur * ref.width, y }
+        })
+        if (trace) {
+          for (const x of [trace.x1, trace.x2]) {
+            await (e.touche ? page.touchscreen.tap(x, trace.y) : page.mouse.click(x, trace.y))
+            await pause(page, 300)
+          }
+          return
+        }
+        // Autre figure (construction) : un toucher sur la figure
+        const fig = main.locator(`[id^="apigeomEx${n}F"] svg`).last()
+        const b = await fig.boundingBox()
+        if (b) await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2) : page.mouse.click(b.x + b.width / 2, b.y + b.height / 2))
+        // puis la construction de la correction, réécrite dans la figure comme
+        // MathALÉA restaure une figure enregistrée (évènement au nom de la figure)
+        if (a.figureCorrection) {
+          const id = await main.locator(`div[id^="apigeomEx${n}F"]`).first().getAttribute('id')
+          await page.evaluate(([id, json]) => document.dispatchEvent(new CustomEvent(id, { detail: json })), [id, a.figureCorrection])
+          await main.locator(`#${id}`).evaluate((x) => x.dispatchEvent(new Event('input', { bubbles: true, composed: true })))
+          await pause(page, 300)
+          e.restaurees = (e.restaurees ?? 0) + 1
+          return
+        }
+        throw new Error('touché seulement : apigeom-figure (construction)')
+      }
+      await (e.touche ? page.touchscreen.tap(cible.x, cible.y) : page.mouse.click(cible.x, cible.y))
+      return
+    }
+    default: {
+      // mathlive, mathalea-mathfield, possible-multi-lines-answer : un champ
+      // Champ visible seulement : la calculatrice (my-calculator) range sa réponse dans un champ caché
+      const champ = main.locator(`#champTexte${q}:visible`)
+      if (await champ.count()) return remplirChamp(e, champ, reponseDe(v.reponse ?? Object.values(v).find((x) => x && typeof x === 'object' && 'value' in x)))
+      // Autre élément de MathALÉA (horloge, grille, tableau de signes…) : un toucher au centre
+      const el = main.locator(`[id*="${q}"]:not([id^="resultatCheck"]):not([id^="feedback"])`).first()
+      // Élément centré à l'écran, et un toucher seulement là où il est visible :
+      // un grand tableau passe sous la barre du bas, le toucher tomberait sur « Passer »
+      const centrer = () => el.evaluate((x) => x.scrollIntoView({ block: 'center' })).catch(() => {})
+      const surElement = (px, py) => el.evaluate((x, [u, v]) => x.contains(document.elementFromPoint(u, v)), [px, py])
+      if (await el.count()) await centrer()
+      const b = (await el.count()) ? await el.boundingBox() : null
+      if (!b) throw new Error(`format sans saisie connue : ${a.format}`)
+      const x = Math.min(b.x + b.width / 2, b.x + (await page.evaluate(() => innerWidth)) / 3)
+      if (await surElement(x, b.y + Math.min(b.height / 2, 40)))
+        await (e.touche ? page.touchscreen.tap(x, b.y + Math.min(b.height / 2, 40)) : page.mouse.click(x, b.y + Math.min(b.height / 2, 40)))
+      // Une case de grille a pris le focus : l'élève y tape un chiffre
+      await pause(page, 300)
+      if (await page.evaluate(() => /^(INPUT|MATH-FIELD)$/.test(document.activeElement?.tagName ?? ''))) await page.keyboard.type('1')
+      const verifier = page.getByRole('button', { name: 'Vérifier', exact: true }).last()
+      const actif = async () => (await verifier.count()) && (await verifier.isEnabled())
+      // Sinon un champ dans l'élément (tableau de valeurs d'un traceur) : l'élève y tape un nombre
+      const dedans = el.locator('math-field:visible, input:visible').first()
+      if (!(await actif()) && (await dedans.count())) {
+        await toucher(e, dedans)
+        await pause(page)
+        // Seulement si le champ a pris le focus : sinon la frappe irait ailleurs
+        if (await dedans.evaluate((el) => el.getRootNode().activeElement === el || document.activeElement === el)) await page.keyboard.type('1')
+        await pause(page, 300)
+      }
+      // Ou une case qui ouvre un pavé de chiffres propre à l'élément (pyramide de nombres)
+      for (const f of [0.1, 0.3, 0.5]) {
+        if (await actif()) break
+        await centrer()
+        const r = await el.boundingBox()
+        if (!r) break
+        const y = r.y + r.height * f
+        if (!(await surElement(r.x + r.width / 2, y))) continue
+        await (e.touche ? page.touchscreen.tap(r.x + r.width / 2, y) : page.mouse.click(r.x + r.width / 2, y))
+        await pause(page, 400)
+        const chiffre = page.locator('main button:visible:enabled', { hasText: /^\s*1\s*$/ }).last()
+        if (await chiffre.count()) await toucher(e, chiffre)
+        await pause(page, 300)
+      }
+      // Puis la réponse attendue, écrite dans l'élément comme MathALÉA réécrit une réponse enregistrée
+      const heure = /^(\d+) h (\d+) min$/.exec(texteDe(v.reponse))
+      let attendu = heure ? JSON.stringify({ hour: Number(heure[1]), minute: Number(heure[2]), second: 0 }) : typeof v.reponse?.value === 'string' ? v.reponse.value : JSON.stringify(Object.fromEntries(Object.entries(v).filter(([, x]) => x && typeof x === 'object' && 'value' in x).map(([k, x]) => [k, texteDe(x)])))
+      // Tableau de signes : une double barre se pose à part (case <clé>B), le
+      // signe ou le zéro reste dans la case, comme le fait l'élève
+      if (a.format === 'tableau-signes-variations') {
+        const cases = JSON.parse(attendu)
+        for (const [k, x] of Object.entries(cases))
+          if (!k.startsWith('L0C') && typeof x === 'string' && /^\|+0?$/.test(x)) {
+            cases[k] = x.replace(/\|+/, '')
+            cases[`${k}B`] = /\|+/.exec(x)[0]
+          }
+        attendu = JSON.stringify(cases)
+      }
+      const ecrit = await main.locator(`#${a.format}${q}`).evaluate((el, val) => {
+        try {
+          // Réponse attendue partielle (guide-âne : n et p seulement) : complétée
+          // par l'état de l'élément, comme une réponse enregistrée complète
+          let complet = val
+          try {
+            const actuel = typeof el.value === 'string' ? JSON.parse(el.value) : null
+            const voulu = JSON.parse(val)
+            if (actuel && typeof actuel === 'object' && !Array.isArray(actuel) && voulu && typeof voulu === 'object' && !Array.isArray(voulu)) complet = JSON.stringify({ ...actuel, ...voulu })
+          } catch {
+            /* valeur simple */
+          }
+          el.value = complet
+          // Comme après une vraie saisie : l'app relit la réponse (brouillon)
+          el.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
+          return true
+        } catch {
+          return false
+        }
+      }, attendu).catch(() => false)
+      e.restaurees = (e.restaurees ?? 0) + 1
+      if (!ecrit) throw new Error(`touché seulement : ${a.format}`)
+    }
+  }
+}
+
+/** Joue la séance ouverte : chaque question avec la bonne réponse ; renvoie le détail de ce qui n'a pas été compté correct */
+export async function jouerSeance(e, p, nomCeinture, { fausser = null } = {}) {
+  const page = e.page
+  await page.locator('main .contenu-mathalea').first().waitFor({ timeout: 30000 })
+  await pause(page, 800)
+  const s0 = await lireSeance(page, p.id)
+  const cache = {}
+  const problemes = []
+  for (let tour = 0; tour < 60; tour++) {
+    await page.locator('main .contenu-mathalea').first().waitFor({ timeout: 30000 })
+    await pause(page, 600)
+    // Étape et rangs affichés, lus dans les identifiants des éléments de réponse
+    // Toutes les questions de la page (plusieurs par page selon la présentation), sans les corrections
+    const ids = await page.locator('main').evaluate((m) =>
+      [...m.querySelectorAll('.question-eleve')].flatMap((z) => [...z.querySelectorAll('[id]')].map((x) => x.id).concat([...z.querySelectorAll('*')].flatMap((x) => (x.shadowRoot ? [...x.shadowRoot.querySelectorAll('[id]')].map((y) => y.id) : [])))),
+    )
+    const rangs = new Map()
+    for (const id of ids) {
+      const m = /Ex(\d+)[QF](\d+)/.exec(id)
+      if (m && !/^(resultatCheck|feedback)/.test(id)) rangs.set(`${m[1]}-${m[2]}`, [Number(m[1]), Number(m[2]), /F\d/.test(id.slice(m.index))])
+    }
+    // Champs de réponse entièrement visibles (aucun bord coupé)
+    for (const c of await champsCoupes(page)) problemes.push(`${[...rangs.values()].map(([n]) => s0.contenu.etapes[n]?.id).join(' ')} : champ coupé (${c})`)
+    const papier = await page.getByRole('button', { name: 'Voir la correction' }).count()
+    if (papier) {
+      await toucher(e, page.getByRole('button', { name: 'Voir la correction' }))
+    } else {
+      let etiquette = ''
+      for (const [n, k, figure] of rangs.values()) {
+        if (figure) continue
+        cache[n] ??= await attendues(e, { ...s0.contenu.etapes[n] }, s0.graines[n], n)
+        const a = cache[n][k]
+        if (!a) continue
+        // Figure apigeom : traitée une fois, par l'id de la figure (plus bas)
+        if (a.format === 'apigeom-figure') continue
+        bilanFormats[a.format] = (bilanFormats[a.format] ?? 0) + 1
+        etiquette += `${s0.contenu.etapes[n].id} Q${k} ${a.format} `
+        try {
+          await repondre(e, n, k, fausser ? (fausser(n, k, structuredClone(a)) ?? a) : a)
+        } catch (err) {
+          if (process.env.DEBUG) console.log(err.message)
+          problemes.push(`${etiquette}: saisie impossible (${raisonDe(err)})`)
+        }
+      }
+      // Figure apigeom seule (rang porté par l'exercice) : format apigeom-figure
+      if ([...rangs.values()].some(([, , f]) => f)) {
+        const [n] = [...rangs.values()].find(([, , f]) => f)
+        try {
+          cache[n] ??= await attendues(e, { ...s0.contenu.etapes[n] }, s0.graines[n], n)
+          await repondre(e, n, 0, { format: 'apigeom-figure', figureCorrection: cache[n].find((x) => x?.figureCorrection)?.figureCorrection })
+        } catch (err) {
+          problemes.push(`${s0.contenu.etapes[n].id} apigeom-figure : saisie impossible (${err.message.split('\n')[0]})`)
+        }
+        bilanFormats['apigeom-figure'] = (bilanFormats['apigeom-figure'] ?? 0) + 1
+        etiquette += `${s0.contenu.etapes[n].id} apigeom-figure `
+      }
+      await pause(page, 500)
+      // Lien « Vérifier » sous chaque question (plusieurs questions par page, correction à la question)
+      for (const lien of await page.locator('main').getByRole('button', { name: 'Vérifier', exact: true }).all()) {
+        if (await lien.isEnabled()) await toucher(e, lien)
+        else problemes.push(`${etiquette}: Vérifier reste inactif après la réponse`)
+        await pause(page, 500)
+      }
+      if (process.env.DEBUG) console.log('retours', await page.locator('main').evaluate((m) => [...m.querySelectorAll('[id^="feedbackEx"]')].map((x) => x.id + ' : ' + x.textContent.trim()).join(' | ')))
+      // Bouton du bas : vérifier la question ou soumettre la page
+      const bas = page.locator('footer').getByRole('button', { name: /^(Vérifier|Soumettre l’exercice|Soumettre)$/ })
+      if (await bas.count()) {
+        if (await bas.first().isDisabled()) {
+          problemes.push(`${etiquette}: Vérifier reste inactif après la réponse`)
+          await capture(page, `az-${p.id}-inactif-${tour}`)
+          await toucher(e, page.getByRole('button', { name: /^(Passer|Terminer)$/ }))
+        } else await toucher(e, bas.first())
+        await pause(page, 900)
+        if (process.env.DEBUG) console.log("retours", await page.locator("main").evaluate((m) => [...m.querySelectorAll("[id^=feedbackEx]")].map((x) => x.id + " : " + x.textContent.trim()).join(" | ")))
+        const garde = page.getByRole('button', { name: /quand même$/ })
+        if (await garde.count()) {
+          problemes.push(`${etiquette}: garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
+          await toucher(e, garde)
+          await pause(page, 900)
+        }
+      }
+    }
+    // Réponse mise en évidence dans la correction : verte si MathALÉA juge la question correcte
+    for (const c of await incoherencesVert(page)) problemes.push(`couleur de la correction (${c})`)
+    await pause(page, 300)
+    // Suite : question ou exercice suivant, soumission de la tentative (correction à la fin), bilan
+    const suivant = page.locator('footer').getByRole('button', { name: /^(Question suivante|Exercice suivant|Soumettre la tentative|Voir le bilan)$/ })
+    if (!(await suivant.count())) {
+      // Question passée : on est déjà sur la suivante, ou au garde-fou, ou au bilan
+      const garde = page.getByRole('button', { name: /quand même$/ })
+      if (await garde.count()) await toucher(e, garde)
+      await pause(page, 800)
+      if (!(await page.locator('main .contenu-mathalea').count())) break
+      continue
+    }
+    const libelle = (await suivant.first().innerText()).trim()
+    // La barre du bas suit le clavier qui se referme après « Vérifier » : un
+    // toucher pendant ce mouvement tombait à côté (az-2 sous charge, 1er
+    // novembre 2026). Bouton immobile d'abord, puis on contrôle l'arrivée.
+    await pointStable(suivant.first())
+    await toucher(e, suivant.first())
+    await pause(page, 900)
+    if (libelle === 'Voir le bilan') {
+      await jusqua(
+        async () => {
+          if (!(await page.locator('main .contenu-mathalea').count())) return true
+          const encore = page.locator('footer').getByRole('button', { name: 'Voir le bilan' })
+          if (await encore.count()) {
+            await pointStable(encore.first())
+            await toucher(e, encore.first())
+            await pause(page)
+          }
+          return !(await page.locator('main .contenu-mathalea').count())
+        },
+        { timeout: 30_000, quoi: 'arrivée au bilan' },
+      ).catch(() => problemes.push('« Voir le bilan » ne mène pas au bilan'))
+    }
+    if (libelle === 'Soumettre la tentative') {
+      const garde = page.getByRole('button', { name: /quand même$/ })
+      if (await garde.count()) {
+        if (!e.videsAttendus?.size) problemes.push(`garde-fou « ${(await garde.innerText()).trim()} » alors que tout est répondu`)
+        await toucher(e, garde)
+      }
+      // Relecture corrigée (« Correction… » le temps de corriger), puis le bilan
+      const bilan = page.locator('footer').getByRole('button', { name: 'Voir le bilan' })
+      await bilan.or(page.getByRole('button', { name: /^Continuer|^Tout refaire|^Recommencer/ })).first().waitFor({ timeout: 60_000 }).catch(() => {})
+      await pause(page)
+      if (await bilan.count()) await toucher(e, bilan)
+      break
+    }
+    if (libelle === 'Voir le bilan') break
+  }
+  // Chaque vérification enregistrée : une bonne réponse doit être comptée correcte
+  const fin = await lireSeance(page, p.id).catch((err) => {
+    problemes.push(`séance illisible à la fin (${err.message.split('\n')[0]})`)
+    return null
+  })
+  for (const essai of fin?.essais ?? []) {
+    if (essai.juste || fausser) continue
+    const etape = s0.contenu.etapes[essai.etape]
+    cache[essai.etape] ??= await attendues(e, { ...etape }, s0.graines[essai.etape], essai.etape)
+    const att = cache[essai.etape][essai.question]
+    problemes.push(`${etape.id} Q${essai.question} ${att?.format ?? ''} : bonne réponse comptée incorrecte. Attendu ${JSON.stringify(att?.valeur ?? att?.statuts).slice(0, 300)} ; enregistré ${JSON.stringify(essai.reponses).slice(0, 300)}`)
+  }
+  await pause(page, 1200)
+  return problemes
+}

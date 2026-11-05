@@ -15,7 +15,7 @@
 // Positionnement (paliers) : une question par palier, dans l'ordre ; les
 // paliers réussis d'affilée depuis le premier s'ouvrent sans être obtenus.
 import { paliersDe, titreEleve, type Etape, type Fiche, type Parcours } from './catalogue'
-import { cleExercice, objectifsDuPoint } from './objectifs'
+import { acquisDe, cleExercice, objectifsDuPoint } from './objectifs'
 import {
   PREFIXE_POSITIONNEMENT,
   PREFIXE_REMEDIATION,
@@ -203,7 +203,8 @@ export const libelleProposition = (p: Parcours, x: Proposition) => x.objectif ??
 export function parcoursDeRemediation(p: Parcours, x: Proposition): Parcours {
   const manque = p.etapes[x.etape]
   return {
-    id: `${PREFIXE_REMEDIATION}${p.id}`,
+    // Remédiation qui en suit une autre : même identifiant
+    id: estRemediation(p.id) ? p.id : `${PREFIXE_REMEDIATION}${p.id}`,
     version: p.version,
     titre: `Retravailler : ${libelleProposition(p, x)}`,
     objectif: x.objectif ?? '',
@@ -253,6 +254,12 @@ export function suiteDeRemediation(s: Seance, autres: Parcours[] = []): Proposit
     if (r && r.etapes.length) return { ...r, etape: k }
   }
   return null
+}
+
+/** Ouverture des paliers : ceinture obtenue, ou palier ouvert par le test de positionnement */
+export function ouverturesDe(p: Parcours, passages: Seance[], x: Positionnement | undefined) {
+  const test = ouvertsParPositionnement(p, x)
+  return acquisDe(p, passages).map((obtenue, k) => obtenue || test[k])
 }
 
 // ---------- Positionnement (paliers) ----------

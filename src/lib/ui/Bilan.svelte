@@ -7,8 +7,9 @@
   import MesReponses from './MesReponses.svelte'
   import { reponsesDeSeance } from '$lib/releve'
   import { modeQr } from '$lib/progression'
-  import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
+  import Feuille from './Feuille.svelte'
   import { navigation } from '$lib/navigation.svelte'
 
   let {
@@ -28,6 +29,8 @@
     prenom = '',
     onprenom,
     revision = null,
+    aRetravailler = null,
+    suite = null,
   }: {
     parcours: Parcours
     seance: Seance
@@ -55,7 +58,22 @@
     onprenom?: (p: string) => void
     /** Séance de révision : pour chaque exercice, réussi ou non et quand il reviendra */
     revision?: Record<number, { reussi: boolean; quand: string }> | null
+    /**
+     * Remédiation : ce qui a été manqué (objectif, exercice) et de quoi le
+     * retravailler ; un exercice qui vise plusieurs objectifs, sans résultat
+     * par point, demande à l'élève ce qui l'a bloqué
+     */
+    aRetravailler?: {
+      propositions: { libelle: string; exercice: string; fn: () => void }[]
+      aPreciser: { exercice: string; choix: { libelle: string; fn: () => void }[] }[]
+    } | null
+    /** Séance de remédiation ou test de positionnement : verdict et suites, à la place des actions d'un parcours */
+    suite?: { message: string; actions: { libelle: string; fn: () => void }[] } | null
   } = $props()
+
+  // Exercice dont l'élève dit ce qui l'a bloqué
+  let precision: { exercice: string; choix: { libelle: string; fn: () => void }[] } | null = $state(null)
+  const remediationPrete = $derived(!!aRetravailler?.propositions.length)
 
   const b = $derived(bilan(seance))
   let ouvertes: Record<number, boolean> = $state({})
@@ -63,7 +81,8 @@
   const premiers = $derived(premiersEssais(seance))
   const questions = $derived(questionsOrdonnees(seance))
   let questionsOuvertes: Record<string, boolean> = $state({})
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 0,5 » comme partout en français
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
   const papier = $derived(b.parEtape.reduce((a, e) => a + e.papier, 0))
   const vues = $derived(b.parEtape.reduce((a, e) => a + e.vues, 0))
   // Session partagée : réponses à montrer à l'enseignant (QR code)
@@ -104,6 +123,7 @@
         </div>
       {/if}
       {#if test}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{test.message}</p>
+      {:else if suite}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{suite.message}</p>
       {:else if palier}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Bilan : {palier.nom.toLowerCase()}</p>{/if}
     </div>
 
@@ -124,6 +144,44 @@
             <i aria-hidden="true" class="bx bx-link-external text-xl"></i> {palier.pause.ressource.titre}
           </button>
         {/if}
+      </section>
+    {/if}
+
+    {#if aRetravailler && (aRetravailler.propositions.length || aRetravailler.aPreciser.length)}
+      <section class="flex flex-col gap-2" aria-label="À retravailler">
+        <h2 class="pl-2 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">À retravailler</h2>
+        <ul class={listeGroupee}>
+          {#each aRetravailler.propositions as x, i (i)}
+            <li>
+              <button type="button" class={elementListe} onclick={x.fn}>
+                <span class="min-w-0 flex flex-row items-center gap-3">
+                  <i aria-hidden="true" class="bx bx-target-lock text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                  <span class="min-w-0 flex flex-col">
+                    <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{x.libelle}</span>
+                    {#if x.exercice !== x.libelle}
+                      <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Manqué dans : {x.exercice}</span>
+                    {/if}
+                  </span>
+                </span>
+                <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+              </button>
+            </li>
+          {/each}
+          {#each aRetravailler.aPreciser as x, i (i)}
+            <li>
+              <button type="button" class={elementListe} onclick={() => (precision = x)}>
+                <span class="min-w-0 flex flex-row items-center gap-3">
+                  <i aria-hidden="true" class="bx bx-help-circle text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                  <span class="min-w-0 flex flex-col">
+                    <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Qu’est-ce qui t’a bloqué ?</span>
+                    <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{x.exercice}</span>
+                  </span>
+                </span>
+                <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+              </button>
+            </li>
+          {/each}
+        </ul>
       </section>
     {/if}
 
@@ -208,10 +266,15 @@
         {/if}
         <button type="button" class="{b.passees.length ? boutonInverse : boutonAction} w-full" style="min-height: 44px" onclick={onfermer}>Terminer</button>
       </div>
-    {:else if test}
+    {:else if test || suite}
       <div class="flex flex-col gap-3">
-        {#each test.actions as a, i (a.libelle)}
-          <button type="button" class="{i === 0 ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={a.fn}>{a.libelle}</button>
+        {#if b.passees.length > 0 && suite}
+          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onpassees}>
+            Répondre aux questions passées ({b.passees.length})
+          </button>
+        {/if}
+        {#each (test ?? suite)!.actions as a, i (a.libelle)}
+          <button type="button" class="{i === 0 && !(suite && b.passees.length) ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={a.fn}>{a.libelle}</button>
         {/each}
       </div>
     {:else}
@@ -222,6 +285,10 @@
         </button>
       {:else if palier?.suite?.ouvert && oncontinuer}
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={oncontinuer}>Continuer : {palier.suite.nom.toLowerCase()}</button>
+      {:else if remediationPrete}
+        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={aRetravailler!.propositions[0].fn}>
+          Retravailler : {aRetravailler!.propositions[0].libelle}
+        </button>
       {:else if nbAAmeliorer > 0 && !palier}
         <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onameliorer}>
           Reprendre les exercices à améliorer ({nbAAmeliorer})
@@ -245,7 +312,7 @@
       {/if}
       <button
         type="button"
-        class="{b.passees.length === 0 && !(palier?.suite?.ouvert && oncontinuer) && !palier?.suite?.attendDate && (palier || nbAAmeliorer === 0) ? boutonAction : boutonInverse} w-full"
+        class="{b.passees.length === 0 && !remediationPrete && !(palier?.suite?.ouvert && oncontinuer) && !palier?.suite?.attendDate && (palier || nbAAmeliorer === 0) ? boutonAction : boutonInverse} w-full"
         style="min-height: 44px"
         onclick={onrefaire}
       >
@@ -262,4 +329,29 @@
     {/if}
   </main>
 </div>
+{/if}
+
+{#if precision}
+  {@const x = precision}
+  <Feuille onfermer={() => (precision = null)}>
+    <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Qu’est-ce qui t’a bloqué ?</p>
+    <p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">{x.exercice}</p>
+    <ul class={listeGroupee}>
+      {#each x.choix as c (c.libelle)}
+        <li>
+          <button
+            type="button"
+            class={elementListe}
+            onclick={() => {
+              precision = null
+              c.fn()
+            }}
+          >
+            <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{c.libelle}</span>
+            <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </Feuille>
 {/if}

@@ -153,6 +153,8 @@ describe('séance de remédiation', () => {
     expect(p.titre).toBe('Retravailler : Signe de la dérivée')
     expect(p.etapes.map((e) => e.uuid)).toEqual(['trinome', 'etu'])
     expect(p.correction).toBe('question')
+    // Remédiation qui suit une remédiation : même identifiant
+    expect(parcoursDeRemediation(p, { ...prop, etape: 1 }).id).toBe(p.id)
   })
 
   function remediation(essais: [number, number, number][], profondeur = 1) {

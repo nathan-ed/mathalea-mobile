@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
+  import { ficheDe, nomPalier, paliersDe, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
   import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
   import Fiches from '$lib/ui/Fiches.svelte'
@@ -38,7 +38,7 @@
   } from '$lib/bibliotheque'
   import { rappelExport } from '$lib/rappelExport.svelte'
   import { heure, suivreHeure } from '$lib/heure.svelte'
-  import { acquisDe, ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
+  import { ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
   import { LIEN_DEMONSTRATION, ecrireClasses, fusionnerCatalogues, lireClasses, lireExplorer, sourcesExplorer, lireFichier, lireFichierDistant, nomHorodate, memeClasse, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
@@ -87,6 +87,24 @@
     type Revisions,
   } from '$lib/revisions'
   import Feuille from '$lib/ui/Feuille.svelte'
+  import {
+    PREFIXE_POSITIONNEMENT,
+    PREFIXE_REMEDIATION,
+    diagnostiquer,
+    estPositionnement,
+    estRemediation,
+    libelleProposition,
+    ouverturesDe,
+    ouvertsParPositionnement,
+    parcoursDePositionnement,
+    parcoursDeRemediation,
+    rangDePositionnement,
+    remediationPour,
+    repriseReussie,
+    suiteDeRemediation,
+    type Positionnement,
+    type Proposition,
+  } from '$lib/remediation'
   import { boutonAction, boutonInverse } from '$lib/ui/classes'
   import { cleReleve, noterSession, type Releve as TReleve } from '$lib/releve'
   import { decoderClasse, decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
@@ -348,6 +366,13 @@
     etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
     preferences = (await stockage.lire<Preferences>('preferences-creation')) ?? {}
     etatTest = (await stockage.lire<EtatTest>('test-niveau')) ?? {}
+    positionnements = (await stockage.lire<Record<string, Positionnement>>('positionnement')) ?? {}
+    // Remédiations et tests de positionnement commencés : repris depuis la page de leur parcours
+    for (const cle of await stockage.cles())
+      if (cle.startsWith(`seance:${PREFIXE_REMEDIATION}`) || cle.startsWith(`seance:${PREFIXE_POSITIONNEMENT}`)) {
+        const id = cle.slice('seance:'.length)
+        seances[id] = await lireSeance(stockage, id)
+      }
     for (const e of Object.values(etatTest)) if (e.tirage) e.tirage = presenterTest(e.tirage)
     for (const e of Object.values(etatTest)) if (e.tirage) await chargerParcours(e.tirage)
     for (const p of catalogue ?? []) await chargerParcours(p)
@@ -748,6 +773,12 @@
 
   /** Fermer le bilan : la carte du parcours ; le test revient à ses niveaux */
   function quitterSeance() {
+    // Remédiation, test de positionnement : retour à la page du parcours d'origine
+    const o = seance && origineDe(seance)
+    if (o) {
+      actif = o
+      return aller('parcours')
+    }
     aller(estTest(seance?.parcours) ? 'test' : estRevision(seance?.parcours) ? 'revisions' : 'parcours')
   }
   /** Quitter une séance en cours (« Reprendre plus tard ») : l'accueil (Nathan, après la première séance en classe) */
@@ -757,13 +788,15 @@
   }
 
   // ---------- Révisions espacées (sur l'appareil, d'après les passages terminés) ----------
+  // Ni les tests, ni les remédiations (exercices plus simples), ni les tests de positionnement
+  const horsRevisions = (id: string) => estTest(id) || estRemediation(id) || estPositionnement(id)
   let revisions: Revisions = $state(revisionsVides())
   let issuesRevision: Record<number, { reussi: boolean; quand: string }> | null = $state(null)
   async function chargerRevisions() {
     const avant = (await stockage!.lire<Revisions>('revisions')) ?? revisionsVides()
     const cles = (await stockage!.cles()).filter((c) => c.startsWith('historique:'))
     const passages = (await Promise.all(cles.map((c) => stockage!.lire<TSeance[]>(c)))).flatMap((h) => h ?? [])
-    revisions = integrerPassages(avant, passages, estTest)
+    revisions = integrerPassages(avant, passages, horsRevisions)
     if (revisions !== avant) await stockage!.ecrire('revisions', $state.snapshot(revisions))
     seances[ID_REVISIONS] = await lireSeance(stockage!, ID_REVISIONS)
     historiques[ID_REVISIONS] = await lireHistorique(stockage!, ID_REVISIONS)
@@ -794,6 +827,132 @@
     await stockage!.ecrire('revisions', $state.snapshot(revisions))
   }
 
+  // ---------- Remédiation et positionnement (remediation.ts) ----------
+  let positionnements: Record<string, Positionnement> = $state({})
+  // Remédiation automatique : exercices d'autres parcours connus (classes, Explorer) qui visent le même objectif
+  const autresParcours: Parcours[] = $derived.by(() => {
+    const liste: Parcours[] = catalogue ?? []
+    return [...tous, ...liste.filter((c) => !tous.some((p) => p.id === c.id))]
+  })
+  const trouverParcours = (id: string) => tous.find((p) => p.id === id) ?? (catalogue as Parcours[] | null)?.find((p) => p.id === id)
+  /** Parcours d'origine d'une remédiation ou d'un test de positionnement (version courante) */
+  function origineDe(s: TSeance): Parcours | undefined {
+    if (s.remediation) return trouverParcours(s.remediation.parcours)
+    if (estPositionnement(s.parcours)) return trouverParcours(s.parcours.slice(PREFIXE_POSITIONNEMENT.length))
+    return undefined
+  }
+
+  /**
+   * Séance de remédiation (exercices proposés, puis l'exercice manqué), après
+   * la fiche de la remédiation si l'enseignant en a donné une. `depuis` :
+   * contenu figé de la séance diagnostiquée ; `etape` : exercice manqué dans
+   * le parcours d'origine.
+   */
+  function lancerRemediation(depuis: Parcours, x: Proposition, origine: { parcours: string; version: number; etape: number }, profondeur: number) {
+    if (!moteur) return
+    const p = parcoursDeRemediation(depuis, x)
+    const s = nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet')
+    s.remediation = { ...origine, objectif: x.objectif, profondeur }
+    actif = p
+    if (x.fiche) return ouvrirCours(x.fiche, () => void lancer(s))
+    void lancer(s)
+  }
+  /** Même remédiation, nouvelles valeurs */
+  function recommencerRemediation(s: TSeance) {
+    if (!moteur || !s.remediation) return
+    const n = nouvelleSeance(s.contenu, moteur.VERSION_MOTEUR, 'complet')
+    n.remediation = { ...s.remediation }
+    actif = s.contenu
+    void lancer(n)
+  }
+
+  /** Bilan d'une séance d'un parcours : ce qui a été manqué et de quoi le retravailler */
+  const aRetravaillerDuBilan = $derived.by(() => {
+    if (!seance || !seance.fin || !actif || seance.contenu.id !== actif.id) return null
+    const s = seance
+    if (estTest(s.parcours) || estRevision(s.parcours) || estRemediation(s.parcours) || estPositionnement(s.parcours)) return null
+    const p = s.contenu
+    const d = diagnostiquer(s, autresParcours)
+    const origine = (etape: number) => ({ parcours: p.id, version: p.version, etape })
+    const propositions = d.propositions.map((x) => ({
+      libelle: libelleProposition(p, x),
+      exercice: titreEleve(p.etapes[x.etape], x.etape),
+      fn: () => lancerRemediation(p, x, origine(x.etape), 1),
+    }))
+    const aPreciser = d.aPreciser
+      .map((a) => ({
+        exercice: titreEleve(p.etapes[a.etape], a.etape),
+        choix: a.objectifs
+          .map((o) => ({ o, r: remediationPour(p, a.etape, o, autresParcours) }))
+          .filter((c) => c.r)
+          .map(({ o, r }) => ({ libelle: o, fn: () => lancerRemediation(p, r!, origine(a.etape), 1) })),
+      }))
+      .filter((a) => a.choix.length)
+    return propositions.length || aPreciser.length ? { propositions, aPreciser } : null
+  })
+
+  /** Bilan d'une remédiation ou d'un test de positionnement : verdict et suite */
+  const suiteDuBilan = $derived.by(() => {
+    if (!seance || !seance.fin) return null
+    const s = seance
+    const o = origineDe(s)
+    const retour = { libelle: 'Revenir au parcours', fn: () => (o ? ouvrir(o) : aller('accueil')) }
+    if (estPositionnement(s.parcours)) {
+      if (!o) return { message: 'Test terminé.', actions: [retour] }
+      const rang = rangDePositionnement(s)
+      const paliers = paliersDe(o)
+      const nom = nomPalier(o, Math.min(rang, paliers.length - 1)).toLowerCase()
+      return {
+        message: `Tu commences à : ${nom}.`,
+        actions: [{ libelle: `Commencer : ${nom}`, fn: () => commencer(o, paliers[Math.min(rang, paliers.length - 1)].etapes) }, retour],
+      }
+    }
+    if (!s.remediation) return null
+    const r = s.remediation
+    const recommencer = { libelle: 'Recommencer avec de nouvelles valeurs', fn: () => recommencerRemediation(s) }
+    if (repriseReussie(s)) {
+      const paliers = o ? paliersDe(o) : []
+      const k = paliers.findIndex((x) => x.etapes.includes(r.etape))
+      const continuer =
+        o && paliers.length > 1 && k !== -1
+          ? { libelle: `Continuer : ${nomPalier(o, k).toLowerCase()}`, fn: () => commencer(o, paliers[k].etapes) }
+          : o
+            ? { libelle: 'Continuer le parcours', fn: () => commencer(o) }
+            : null
+      return { message: 'Exercice réussi : tu peux reprendre le parcours.', actions: [...(continuer ? [continuer] : []), retour] }
+    }
+    const suite = suiteDeRemediation(s, autresParcours)
+    if (suite)
+      return {
+        message: `L’exercice n’est pas encore réussi. Prochaine étape : ${libelleProposition(s.contenu, suite)}.`,
+        actions: [
+          { libelle: `Retravailler : ${libelleProposition(s.contenu, suite)}`, fn: () => lancerRemediation(s.contenu, suite, r, r.profondeur + 1) },
+          recommencer,
+          retour,
+        ],
+      }
+    return { message: 'L’exercice n’est pas encore réussi : demande de l’aide à ton enseignant.', actions: [recommencer, retour] }
+  })
+
+  /** Test de positionnement d'un parcours à paliers : repris s'il est commencé */
+  async function lancerPositionnement(p: Parcours) {
+    const t = parcoursDePositionnement(p)
+    if (!t || !moteur) return
+    const commence = seances[t.id]
+    actif = t
+    if (commence && !commence.fin && commence.contenu.version === p.version) return void lancer(commence)
+    await lancer(nouvelleSeance(t, moteur.VERSION_MOTEUR, 'complet'))
+  }
+  /** Remédiation commencée depuis ce parcours, à reprendre */
+  function remediationEnCours(p: Parcours) {
+    const s = seances[`${PREFIXE_REMEDIATION}${p.id}`]
+    return s && !s.fin && s.remediation?.parcours === p.id ? s : null
+  }
+  function reprendreRemediation(s: TSeance) {
+    actif = s.contenu
+    void lancer(s)
+  }
+
   // ---------- Élève ----------
 
   async function sauverSeance(s: TSeance) {
@@ -822,7 +981,7 @@
     const memes = !etapes || (existante && existante.etapes.join() === etapes.join())
     if (existante && !existante.fin && memes) return void lancer(existante)
     // Palier fermé (seuil pas atteint, date d'ouverture pas arrivée) : rien ne se lance
-    const palier = etapes && etatsPaliers(p, resultats[p.id] ?? {}, heure.maintenant, Date.now(), acquisDe(p, historiques[p.id] ?? [])).find((x) => x.etapes.join() === etapes.join())
+    const palier = etapes && etatsPaliers(p, resultats[p.id] ?? {}, heure.maintenant, Date.now(), ouverturesDe(p, historiques[p.id] ?? [], positionnements[p.id])).find((x) => x.etapes.join() === etapes.join())
     if (palier && !palier.ouvert) return
     const nouvelle = () => void lancer(nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', etapes))
     // Fiche de cours à lire d'abord, la première fois seulement
@@ -840,7 +999,7 @@
   /** Bilan d'une séance de palier : nom, pause, et palier suivant avec son état d'après les nouveaux résultats */
   const palierDuBilan = $derived.by(() => {
     if (!seance || !actif || seance.contenu.id !== actif.id) return null
-    const etats = etatsPaliers(actif, resultats[actif.id] ?? {}, heure.maintenant, Date.now(), acquisDe(actif, historiques[actif.id] ?? []))
+    const etats = etatsPaliers(actif, resultats[actif.id] ?? {}, heure.maintenant, Date.now(), ouverturesDe(actif, historiques[actif.id] ?? [], positionnements[actif.id]))
     if (etats.length < 2) return null
     const k = etats.findIndex((x) => x.etapes.join() === seance!.etapes.join())
     if (k === -1) return null
@@ -917,13 +1076,19 @@
     seances[s.parcours] = s
     historiques[s.parcours] = await lireHistorique(stockage!, s.parcours)
     if (estTest(s.parcours)) await noterTest(s)
+    // Test de positionnement : les paliers réussis d'affilée s'ouvrent
+    if (estPositionnement(s.parcours)) {
+      const id = s.parcours.slice(PREFIXE_POSITIONNEMENT.length)
+      positionnements = { ...positionnements, [id]: { version: s.contenu.version, rang: rangDePositionnement(s), le: s.fin! } }
+      await stockage!.ecrire('positionnement', $state.snapshot(positionnements))
+    }
     // Révisions : une séance de révision fait avancer ou reculer ses exercices ;
     // un autre passage terminé fait entrer les siens
     if (estRevision(s.parcours)) {
       const { revisions: suite, issues } = resultatsRevision(revisions, s)
       revisions = suite
       issuesRevision = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, { reussi: v.reussi, quand: quandRevision(v.apres.prochaine) }]))
-    } else revisions = integrerPassages(revisions, [s], estTest)
+    } else revisions = integrerPassages(revisions, [s], horsRevisions)
     await stockage!.ecrire('revisions', $state.snapshot(revisions))
     // Pourcentage du parcours : seulement pour un passage sur tous ses exercices (pas un palier seul)
     if (s.type === 'complet' && s.etapes.length === s.contenu.etapes.length) {
@@ -1533,6 +1698,11 @@
       ondonner={profil === 'enseignant' && !vueEleve && catalogue?.some((c) => c.id === actif!.id) ? () => void donnerAuxClasses(actif!) : undefined}
       classesEnseignant={nomsClasses}
       versionMoteur={moteur?.VERSION_MOTEUR}
+      ouvertsParTest={ouvertsParPositionnement(actif, positionnements[actif.id])}
+      positionnement={actif.positionnement && paliersDe(actif).length > 1 && !positionnements[actif.id] && !(historiques[actif.id] ?? []).length
+        ? { enCours: !!seances[`${PREFIXE_POSITIONNEMENT}${actif.id}`] && !seances[`${PREFIXE_POSITIONNEMENT}${actif.id}`]!.fin, onlancer: () => void lancerPositionnement(actif!) }
+        : null}
+      remediation={remediationEnCours(actif) ? { titre: remediationEnCours(actif)!.contenu.titre, onreprendre: () => reprendreRemediation(remediationEnCours(actif!)!) } : null}
     />
   {:else if vue === 'revisions'}
     <EcranRevisions {revisions} enCours={revisionEnCours} onlancer={lancerRevision} onchapitres={choisirChapitres} ontaille={choisirTaille} onretour={accueil} />
@@ -1604,6 +1774,8 @@
       palier={palierDuBilan}
       test={testDuBilan}
       revision={estRevision(seance.parcours) ? (issuesRevision ?? {}) : null}
+      aRetravailler={aRetravaillerDuBilan}
+      suite={suiteDuBilan}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
       onfiche={(f) => ouvrirCours(f)}
       onqrmontre={() => marquerQrMontre(seance!)}

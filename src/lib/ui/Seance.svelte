@@ -6,6 +6,7 @@
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import { empreinteEnonces } from '$lib/releve'
+  import { detailDeVerification } from '$lib/remediation'
   import BlocQuestion from './BlocQuestion.svelte'
   import { boutonAction, boutonInverse, boutonLien, pastille } from './classes'
   import EnTete from './EnTete.svelte'
@@ -101,7 +102,8 @@
     return { nom: titre ? `${nomPalier(parcours, k)} · ${titre}` : nomPalier(parcours, k), couleur: parcours.style === 'ceintures' ? couleurCeinture(parcours, k) : null }
   })
 
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
+  // Virgule décimale : « 0,5 » comme partout en français
+  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
 
   // Bilan direct : la relecture corrige toutes les questions sans être montrée,
   // puis le bilan s'ouvre (au plus tard après 10 s si une question échoue)
@@ -168,6 +170,8 @@
       total: r.total,
       reponses: r.reponses,
       le: new Date().toISOString(),
+      // Résultat de chaque point d'une question à plusieurs : diagnostic de la remédiation
+      ...(detailDeVerification(r.detail) ? { detail: detailDeVerification(r.detail) } : {}),
     })
     delete seance.brouillons[cleQuestion(ref.etape, ref.question)]
     sauver()

@@ -43,6 +43,9 @@
     onfiche,
     classesEnseignant = [],
     versionMoteur,
+    ouvertsParTest = [],
+    positionnement = null,
+    remediation = null,
   }: {
     parcours: Parcours
     resultats: Record<number, ResultatEtape>
@@ -65,6 +68,11 @@
     ondonner?: () => void // enseignant, parcours de l'Explorer : le reprend dans sa bibliothèque pour ses classes
     classesEnseignant?: string[] // enseignant : ses classes, au choix pour la session
     versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
+    ouvertsParTest?: boolean[] // paliers ouverts par le test de positionnement (sans ceinture obtenue)
+    /** Test de positionnement proposé avant le premier palier (parcours pas encore commencé) */
+    positionnement?: { enCours: boolean; onlancer: () => void } | null
+    /** Remédiation commencée depuis ce parcours */
+    remediation?: { titre: string; onreprendre: () => void } | null
   } = $props()
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
@@ -86,7 +94,11 @@
   const dejaFait = $derived(Object.keys(resultats).length > 0)
   const nbQuestions = $derived(parcours.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0))
 
-  const paliers = $derived(etatsPaliers(parcours, resultats, heure.maintenant, Date.now(), acquisDe(parcours, passages)))
+  const paliers = $derived(
+    etatsPaliers(parcours, resultats, heure.maintenant, Date.now(), acquisDe(parcours, passages).map((x, k) => x || !!ouvertsParTest[k])),
+  )
+  // Paliers ouverts par le test de positionnement, pas encore faits : l'élève commence après eux
+  const passeParTest = (k: number) => !!ouvertsParTest[k] && !paliers[k]?.faits
   // Dates d'ouverture : l'heure des serveurs fait foi
   $effect(() => {
     if (parcours.paliers?.some((x) => x.ouverture)) exigerHeure()
@@ -109,7 +121,7 @@
       const k = paliers.findIndex((x) => memes(x.etapes, etapesEnCours!))
       if (k !== -1) return k
     }
-    const k = paliers.findIndex((x) => x.ouvert && !x.fini)
+    const k = paliers.findIndex((x, i) => x.ouvert && !x.fini && !passeParTest(i))
     return k !== -1 ? k : paliers.findIndex((x) => x.ouvert && x.aRevoir)
   })
   const objectifsSuivis = $derived(resultatsParObjectif(parcours, resultats))
@@ -128,6 +140,7 @@
     }
     if (!x.ouvert && k > 0) return { icone: 'bx-lock-alt', texte: `Au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}` }
     if (enCours && courant === k) return { icone: 'bx-play-circle', texte: 'En cours' }
+    if (passeParTest(k)) return { icone: 'bx-lock-open-alt', texte: 'Ouvert par le test de positionnement' }
     if (x.fini && x.aRevoir) return { icone: 'bx-revision', texte: `À revoir · ${x.pourcentage} %` }
     if (x.fini) return { icone: 'bx-check-circle', texte: `Réussi · ${x.pourcentage} %` }
     if (x.faits) return { icone: 'bx-adjust', texte: `${x.faits} exercice${x.faits > 1 ? 's' : ''} sur ${x.etapes.length}` }
@@ -213,6 +226,25 @@
       {/if}
     </div>
 
+    {#if remediation}
+      <section class="flex flex-col gap-3 rounded-2xl p-4 border-2 border-coopmaths-action dark:border-coopmathsdark-action" aria-label="Remédiation en cours">
+        <p class="flex flex-row items-center gap-2 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <i aria-hidden="true" class="bx bx-target-lock text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>{remediation.titre}
+        </p>
+        <button type="button" class="{boutonAction} w-full" onclick={remediation.onreprendre}>Continuer</button>
+      </section>
+    {:else if positionnement && avecPaliers}
+      <section class="flex flex-col gap-3 rounded-2xl p-4 border-2 border-coopmaths-action dark:border-coopmathsdark-action" aria-label="Test de positionnement">
+        <p class="flex flex-row items-center gap-2 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <i aria-hidden="true" class="bx bx-target-lock text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>Test de positionnement
+        </p>
+        <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          Une question par {parcours.style === 'ceintures' ? 'ceinture' : 'palier'}, corrigées à la fin. Tu commences {parcours.style === 'ceintures' ? 'à la première ceinture manquée' : 'au premier palier manqué'}.
+        </p>
+        <button type="button" class="{boutonAction} w-full" onclick={positionnement.onlancer}>{positionnement.enCours ? 'Continuer le test' : 'Faire le test'}</button>
+      </section>
+    {/if}
+
     {#if avecPaliers}
       <ol class="flex flex-col" aria-label="Paliers">
         {#each paliers as x, k (k)}
@@ -266,7 +298,7 @@
                   </button>
                 {/if}
                 {#if k === courant}
-                  <button type="button" class="{boutonAction} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
+                  <button type="button" class="{remediation || positionnement ? boutonInverse : boutonAction} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
                 {:else if !enCours}
                   <button type="button" class="{boutonLien} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
                 {/if}

@@ -58,7 +58,9 @@ describe('ceintures et paliers', () => {
 describe('titres vus par l’élève', () => {
   const e = { uuid: 'abcde', nbQuestions: 1, titre: 'Calculer $\\frac{a}{b}$ et $x^2$' }
   it('enlève les dollars, garde la formule', () => {
-    expect(titreEleve(e, 0)).toBe('Calculer \\frac{a}{b} et x^2')
+    expect(titreEleve(e, 0)).toBe('Calculer a/b et x²')
+    expect(titreEleve({ ...e, titre: 'Dériver $u^n$, $\\mathrm{e}^u$ ou $\\sqrt{u}$' }, 0)).toBe('Dériver uⁿ, eᵘ ou √u')
+    expect(titreEleve({ ...e, titre: 'Type $\\dfrac{a}{u}$, $u(ax + b)$, $x^{10}$, $a_{n+1}$, $3\\times 4$' }, 0)).toBe('Type a/u, u(ax + b), x¹⁰, aₙ₊₁, 3 × 4')
   })
   it('titre masqué : « Exercice n »', () => {
     expect(titreEleve({ ...e, titreMasque: true }, 2)).toBe('Exercice 3')

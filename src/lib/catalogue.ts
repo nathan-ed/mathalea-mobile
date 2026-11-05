@@ -32,8 +32,51 @@ export interface Remediation {
   prerequis?: string[]
 }
 
-/** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ */
-export const titreEleve = (e: Etape, i: number) => (e.titreMasque ? `Exercice ${i + 1}` : e.titre.replace(/\$([^$]*)\$/g, '$1'))
+const EXPOSANTS: Record<string, string> = Object.fromEntries(
+  [...'0123456789+-=()abcdeiklmnoprstuvx'].map((c, k) => [c, '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉⁱᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛˣ'[k]]),
+)
+const INDICES: Record<string, string> = Object.fromEntries([...'0123456789+-=()aehijklmnoprstuvx'].map((c, k) => [c, '₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ'[k]]))
+// Opérateurs entre deux espaces : « 3 × 4 », « x ≤ 2 »
+const OPERATEURS = new Set(['times', 'cdot', 'div', 'pm', 'le', 'leq', 'ge', 'geq', 'neq', 'approx', 'in', 'mapsto', 'to'])
+const SYMBOLES: Record<string, string> = {
+  times: '×', cdot: '·', div: '÷', pm: '±', le: '≤', leq: '≤', ge: '≥', geq: '≥', neq: '≠', approx: '≈',
+  infty: '∞', in: '∈', mapsto: '↦', to: '→', pi: 'π', lambda: 'λ', alpha: 'α', beta: 'β', theta: 'θ', Delta: 'Δ', ln: 'ln', log: 'log',
+  exp: 'exp', cos: 'cos', sin: 'sin', tan: 'tan', ldots: '…', dots: '…', degree: '°', circ: '°', mathbb: '',
+}
+/** Exposant ou indice en caractères Unicode quand chacun existe, sinon « ^(…) » */
+const enPetit = (t: string, table: Record<string, string>, signe: string) =>
+  [...t].every((c) => table[c]) ? [...t].map((c) => table[c]).join('') : `${signe}(${t})`
+
+/**
+ * Formule d'un titre en texte simple (listes, bilan, suivi) : « u^n », « \\mathrm{e}^u »,
+ * « \\sqrt{u} » deviennent « uⁿ », « eᵘ », « √u ». Les en-têtes, eux, rendent la formule (KaTeX).
+ */
+export function latexEnTexte(latex: string) {
+  let t = latex
+  // Commandes à argument, de l'intérieur vers l'extérieur
+  for (let tour = 0; tour < 5; tour++) {
+    const avant = t
+    t = t
+      .replace(/\\(?:mathrm|text|textbf|mathbf|operatorname|mathit|boldsymbol)\{([^{}]*)\}/g, '$1')
+      .replace(/\\(?:d|t)?frac\{([^{}]*)\}\{([^{}]*)\}/g, (_, a, b) => `${a.length > 1 ? `(${a})` : a}/${b.length > 1 ? `(${b})` : b}`)
+      .replace(/\\sqrt\{([^{}]*)\}/g, (_, a) => `√${a.length > 1 ? `(${a})` : a}`)
+      .replace(/\\(?:vec|overrightarrow)\{([^{}]*)\}/g, '$1\u20d7')
+      .replace(/\^\{([^{}]*)\}/g, (_, a) => enPetit(a, EXPOSANTS, '^'))
+      .replace(/_\{([^{}]*)\}/g, (_, a) => enPetit(a, INDICES, '_'))
+    if (t === avant) break
+  }
+  return t
+    .replace(/\^([\w+-])/g, (_, a) => enPetit(a, EXPOSANTS, '^'))
+    .replace(/_(\w)/g, (_, a) => enPetit(a, INDICES, '_'))
+    .replace(/\\[,;:! ]|~/g, ' ')
+    .replace(/\\([a-zA-Z]+)/g, (m, nom) => (OPERATEURS.has(nom) ? ` ${SYMBOLES[nom]} ` : (SYMBOLES[nom] ?? nom)))
+    .replace(/[{}]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+/** Titre d'un exercice tel que l'élève le voit : sans la référence MathALÉA, formules en texte simple */
+export const titreEleve = (e: Etape, i: number) => (e.titreMasque ? `Exercice ${i + 1}` : e.titre.replace(/\$([^$]*)\$/g, (_, f) => latexEnTexte(f)))
 
 /** Mêmes valeurs que le presMode de MathALÉA */
 export type Presentation = 'une_question_par_page' | 'un_exo_par_page' | 'liste_exos'
