@@ -2,7 +2,7 @@
 
 Conception : `remediation.md`. Côté app, fait sur la branche
 `ccr-72fe30a6-9ez07r`. Côté site, une branche `parcours-remediation` a été
-préparée depuis `main` de MathALÉA (commit 01451063f) dans une session cloud
+préparée depuis `main` de MathALÉA (commit 01451063f, 5 novembre 2026) dans une session cloud
 qui ne peut pas pousser sur la forge : le correctif est dans
 `docs/patchs/site-remediation.patch`, à appliquer dans
 `~/Documents/projets/mathalea` :
@@ -39,6 +39,12 @@ Ce que fait le correctif :
   - « Pour les élèves » : case « Test de positionnement » (parcours à paliers).
 - **Tests** (`tests/unit/parcours.test.ts`) : format accepté et refusé,
   publication.
+
+Vérifié dans la session : `tests/unit/parcours.test.ts` (25 tests verts),
+`node tasks/check-changed.js` (0 erreur sur 6 fichiers et 92 dépendants),
+éditeur ouvert dans Chromium sur le site local : objectifs par réponse de
+TSA3-32 (« Réponse 1 », « Réponse 2 », champ encadré au survol), choix
+enregistré dans `points`, remédiations et prérequis, case du test.
 
 Pas encore dans le correctif : fiche d'une remédiation d'objectif (l'éditeur
 de fiches existe, il suffit de le brancher comme pour un palier), plan du

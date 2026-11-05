@@ -1,0 +1,937 @@
+From 7185750cbd027fe6a95d87f50301f9d743bc8628 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 5 Nov 2026 22:32:29 +0000
+Subject: [PATCH] =?UTF-8?q?feat(parcours):=20rem=C3=A9diation=20pour=20l'a?=
+ =?UTF-8?q?pplication=20(objectifs=20par=20r=C3=A9ponse,=20rem=C3=A9diatio?=
+ =?UTF-8?q?ns,=20test=20de=20positionnement)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- format : Step.points (objectifs de chaque point de réponse), Step.remediation,
+  Parcours.remediations (par objectif : exercices, fiche, prérequis),
+  Parcours.positionnement ; contrôlés comme dans l'application ;
+- publication : identifiants de salon et listes vides retirés ;
+- moteur : decrirePoints (points de réponse d'une question) ;
+- éditeur : « Si l'élève n'y arrive pas » sous chaque exercice, objectifs par
+  réponse dans l'aperçu élève (grisé si les réponses changent avec la
+  graine), section « Remédiation par objectif », case « Test de
+  positionnement ».
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../setup/parcours/ExercisePreview.svelte     | 154 +++++++++-
+ .../setup/parcours/ParcoursEditor.svelte      | 288 +++++++++++++++++-
+ src/lib/parcours/parcoursFile.ts              |  38 ++-
+ src/lib/parcours/parcoursLibrary.ts           |  32 +-
+ src/lib/parcours/parcoursTypes.ts             |  24 ++
+ src/moteur/index.ts                           |  97 ++++++
+ tests/unit/parcours.test.ts                   |  68 +++++
+ 7 files changed, 686 insertions(+), 15 deletions(-)
+
+diff --git a/src/components/setup/parcours/ExercisePreview.svelte b/src/components/setup/parcours/ExercisePreview.svelte
+index 74ce572d2..5dd53b153 100644
+--- a/src/components/setup/parcours/ExercisePreview.svelte
++++ b/src/components/setup/parcours/ExercisePreview.svelte
+@@ -1,18 +1,46 @@
+ <script lang="ts">
+-  import { afficher, initialiser, preparerExercice } from '../../../moteur'
++  import {
++    afficher,
++    decrirePoints,
++    initialiser,
++    preparerExercice,
++    type PointDeReponse,
++  } from '../../../moteur'
+   import type { Step } from '../../../lib/parcours/parcoursTypes'
+ 
+   /**
+    * Aperçu d'un exercice avec ses réglages : les questions telles que l'élève
+    * les verra dans l'application (même moteur), et une autre série au besoin.
++   * Avec `onpoints` : objectifs par réponse (points de réponse du moteur),
++   * proposés seulement si les réponses restent les mêmes d'une série à l'autre.
+    */
+-  let { step }: { step: Step } = $props()
++  let {
++    step,
++    objectives = [],
++    onpoints,
++  }: {
++    step: Step
++    objectives?: string[] // objectifs proposés pour chaque réponse
++    onpoints?: (points: Record<string, string[]> | undefined) => void
++  } = $props()
+ 
+   let box: HTMLDivElement | undefined = $state()
+   let error = $state('')
+   let draw = $state(0)
+   // Numéro de champs propre à l'aperçu : il ne gêne aucun exercice affiché ailleurs
+   const NUMBER = 950
++  // Points de réponse des questions (clés du moteur), et s'ils changent avec la graine
++  let pointKeys: PointDeReponse[] = $state([])
++  let unstable = $state(false)
++
++  const signature = (e: Awaited<ReturnType<typeof preparerExercice>>) =>
++    e.questions
++      .map((_, i) =>
++        decrirePoints(e, i)
++          .map((p) => p.cle)
++          .join(','),
++      )
++      .join('|')
+ 
+   $effect(() => {
+     const params = {
+@@ -43,6 +71,21 @@
+           .map((q) => `<li>${q.enonce}</li>`)
+           .join('')}</${tag}>`
+         await afficher(target)
++        if (!onpoints) return
++        // Réponses de toutes les questions ; mêmes sous deux autres graines ?
++        const seen = new Map<string, PointDeReponse>()
++        e.questions.forEach((_, i) => {
++          for (const p of decrirePoints(e, i))
++            if (!seen.has(p.cle)) seen.set(p.cle, p)
++        })
++        const others = await Promise.all(
++          ['p1', 'q2'].map((alea, k) =>
++            preparerExercice({ ...params, alea }, NUMBER + 1 + k),
++          ),
++        )
++        if (cancelled) return
++        unstable = others.some((o) => signature(o) !== signature(e))
++        pointKeys = [...seen.values()]
+       } catch (err) {
+         if (!cancelled) error = `Aperçu impossible : ${(err as Error).message}`
+       }
+@@ -51,6 +94,66 @@
+       cancelled = true
+     }
+   })
++
++  const LETTERS = 'abcdefghij'
++  const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
++  /** Réponse lisible : « Réponse 2 », « Case 1 », « Sous-question b) », « Ligne 2, colonne 3 » */
++  function pointLabel(p: PointDeReponse) {
++    const n = Number(p.cle.split(':')[0])
++    if (!p.nom) return `Réponse ${n + 1}`
++    const prefix = n > 0 ? `réponse ${n + 1}, ` : ''
++    const blank = /^champ(\d+)$/.exec(p.nom)
++    const sub = /^field(\d+)$/.exec(p.nom)
++    const cell = /^L(\d+)C(\d+)$/.exec(p.nom)
++    const part = blank
++      ? `case ${blank[1]}`
++      : sub
++        ? `sous-question ${LETTERS[Number(sub[1])] ?? Number(sub[1]) + 1})`
++        : cell
++          ? `ligne ${cell[1]}, colonne ${cell[2]}`
++          : p.nom
++    return cap(prefix + part)
++  }
++
++  /** Champ de la réponse dans l'aperçu, mis en évidence au survol de sa ligne */
++  function fieldOf(p: PointDeReponse): HTMLElement | null {
++    if (!box) return null
++    const q = `Ex${NUMBER}Q${p.rang}`
++    if (p.nom && /^field\d+$/.test(p.nom)) {
++      const multi = box.querySelector<HTMLElement>(`[id$="${q}"]`)
++      return (
++        multi?.shadowRoot?.querySelector<HTMLElement>(
++          `[data-name="${p.nom}"]`,
++        ) ?? multi
++      )
++    }
++    if (p.nom && /^L\d+C\d+$/.test(p.nom))
++      return box.querySelector<HTMLElement>(`#champTexte${q}${p.nom}`)
++    return (
++      box.querySelector<HTMLElement>(`#champTexte${q}`) ??
++      box.querySelector<HTMLElement>(`[id$="${q}"]`)
++    )
++  }
++  let highlighted: HTMLElement | null = null
++  function highlight(p: PointDeReponse | null) {
++    if (highlighted) highlighted.style.outline = ''
++    highlighted = p ? fieldOf(p) : null
++    if (highlighted) {
++      highlighted.style.outline = '2px dashed currentColor'
++      highlighted.style.outlineOffset = '2px'
++    }
++  }
++
++  function setPoint(cle: string, objective: string) {
++    const next = { ...(step.points ?? {}) }
++    if (objective) next[cle] = [objective]
++    else delete next[cle]
++    onpoints?.(Object.keys(next).length ? next : undefined)
++  }
++  const field =
++    'rounded-md border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-2 py-1 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus'
++  const quiet =
++    'text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light'
+ </script>
+ 
+ <div class="flex flex-col gap-2">
+@@ -76,4 +179,51 @@
+     bind:this={box}
+     class="rounded-lg p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus overflow-x-auto"
+   ></div>
++  {#if onpoints && pointKeys.length > 1}
++    <section class="flex flex-col gap-2" aria-label="Objectifs par réponse">
++      <span
++        class="text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
++        >Objectifs par réponse</span
++      >
++      {#if unstable}
++        <p class={quiet}>
++          Les réponses changent d’une série à l’autre : objectifs de l’exercice
++          seulement.
++        </p>
++      {:else if !objectives.length}
++        <p class={quiet}>
++          Ajoutez d’abord des objectifs à l’exercice : chaque réponse en reçoit
++          un, l’application propose de retravailler celui de la première réponse
++          manquée.
++        </p>
++      {:else}
++        <ul class="flex flex-col gap-1">
++          {#each pointKeys as p (p.cle)}
++            <li
++              class="flex flex-row flex-wrap items-center justify-between gap-2"
++              onmouseenter={() => highlight(p)}
++              onmouseleave={() => highlight(null)}
++            >
++              <span
++                class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
++                >{pointLabel(p)}</span
++              >
++              <select
++                class={field}
++                aria-label="Objectif de : {pointLabel(p)}"
++                value={step.points?.[p.cle]?.[0] ?? ''}
++                onfocus={() => highlight(p)}
++                onblur={() => highlight(null)}
++                onchange={(e) =>
++                  setPoint(p.cle, (e.currentTarget as HTMLSelectElement).value)}
++              >
++                <option value="">Objectifs de l’exercice</option>
++                {#each objectives as o (o)}<option value={o}>{o}</option>{/each}
++              </select>
++            </li>
++          {/each}
++        </ul>
++      {/if}
++    </section>
++  {/if}
+ </div>
+diff --git a/src/components/setup/parcours/ParcoursEditor.svelte b/src/components/setup/parcours/ParcoursEditor.svelte
+index c292aa3ad..46a56c511 100644
+--- a/src/components/setup/parcours/ParcoursEditor.svelte
++++ b/src/components/setup/parcours/ParcoursEditor.svelte
+@@ -216,6 +216,9 @@
+ 
+   // ---------- Exercices : navigateur (niveau, chapitre, réglages, aperçu) ----------
+   let pickerLevel: number | null = $state(null)
++  // Fenêtre d'ajout ouverte pour une remédiation : celle d'un exercice, ou d'un objectif
++  let remediationFor: { step: number } | { objective: string } | null =
++    $state(null)
+   let refused = $state('')
+ 
+   // Chapitres du site pour le niveau : proposés en pastilles, et chemin d'arrivée de la fenêtre d'ajout
+@@ -263,9 +266,101 @@
+       return
+     }
+     refused = ''
++    const target = remediationFor
++    if (target) {
++      const { cle: _cle, ...added } = step
++      update((p) => {
++        if ('step' in target) {
++          const s = p.etapes[target.step]
++          s.remediation = [...(s.remediation ?? []), added]
++        } else {
++          p.remediations ??= []
++          const r = p.remediations.find((x) => x.objectif === target.objective)
++          if (r) r.etapes.push(added)
++          else
++            p.remediations.push({ objectif: target.objective, etapes: [added] })
++        }
++      })
++      return
++    }
+     set(addSteps(parcours, [step], pickerLevel ?? 0))
+   }
+ 
++  // ---------- Remédiation (application : « À retravailler » au bilan) ----------
++  /**
++   * Objectifs visés par le parcours (exercices et réponses), dans l'ordre des
++   * exercices, puis les prérequis choisis : chacun peut recevoir sa remédiation
++   */
++  const usedObjectives = $derived([
++    ...new Set([
++      ...parcours.etapes.flatMap((s) => [
++        ...(s.objectifs ?? []),
++        ...Object.values(s.points ?? {}).flat(),
++      ]),
++      ...(parcours.remediations ?? []).flatMap((r) => [
++        r.objectif,
++        ...(r.prerequis ?? []),
++      ]),
++    ]),
++  ])
++  const remediationOf = (o: string) =>
++    parcours.remediations?.find((r) => r.objectif === o)
++  function removeRemediationStep(
++    target: { step: number } | { objective: string },
++    j: number,
++  ) {
++    update((p) => {
++      if ('step' in target) {
++        const s = p.etapes[target.step]
++        s.remediation = (s.remediation ?? []).filter((_, k) => k !== j)
++        if (!s.remediation.length) delete s.remediation
++      } else {
++        const r = p.remediations?.find((x) => x.objectif === target.objective)
++        if (r) r.etapes = r.etapes.filter((_, k) => k !== j)
++        p.remediations = p.remediations?.filter(
++          (x) => x.etapes.length || x.prerequis?.length || x.fiche,
++        )
++        if (!p.remediations?.length) delete p.remediations
++      }
++    })
++  }
++  function setRemediationQuestions(
++    target: { step: number } | { objective: string },
++    j: number,
++    n: number,
++  ) {
++    update((p) => {
++      const list =
++        'step' in target
++          ? p.etapes[target.step].remediation
++          : p.remediations?.find((x) => x.objectif === target.objective)?.etapes
++      if (list?.[j]) list[j].nbQuestions = n
++    })
++  }
++  function setPrerequisites(objective: string, list: string[]) {
++    update((p) => {
++      p.remediations ??= []
++      let r = p.remediations.find((x) => x.objectif === objective)
++      if (!r) p.remediations.push((r = { objectif: objective, etapes: [] }))
++      if (list.length) r.prerequis = list
++      else delete r.prerequis
++      p.remediations = p.remediations.filter(
++        (x) => x.etapes.length || x.prerequis?.length || x.fiche,
++      )
++      if (!p.remediations.length) delete p.remediations
++    })
++  }
++  const pickerOpen = $derived(pickerLevel !== null || remediationFor !== null)
++  const pickerTarget = $derived.by(() => {
++    const t = remediationFor
++    if (t && 'step' in t)
++      return `la remédiation de ${parcours.etapes[t.step]?.id ?? 'l’exercice'}`
++    if (t) return `la remédiation de « ${t.objective} »`
++    return withLevels && pickerLevel !== null
++      ? `${parcours.style === 'ceintures' ? 'la' : 'le'} ${levelName(parcours, pickerLevel).toLowerCase()}`
++      : 'ce parcours'
++  })
++
+   // Réglages d'un exercice du parcours : description lue par le moteur à l'ouverture
+   const descriptions: Record<string, DescriptionExercice | null> = $state({})
+   async function describe(uuid: string) {
+@@ -579,19 +674,100 @@
+           </div>
+           {@render objectivePicker(i)}
+         </div>
++        <div>
++          <span class={label}>Si l’élève n’y arrive pas</span>
++          {@render remediationList({ step: i }, s.remediation ?? [])}
++        </div>
+         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+           <ExerciseSettings
+             step={s}
+             description={descriptions[s.uuid] ?? null}
+             onchange={(next) => update((p) => (p.etapes[i] = next))}
+           />
+-          <ExercisePreview step={s} />
++          <ExercisePreview
++            step={s}
++            objectives={s.objectifs ?? []}
++            onpoints={(points) =>
++              update((p) => {
++                if (points) p.etapes[i].points = points
++                else delete p.etapes[i].points
++              })}
++          />
+         </div>
+       </div>
+     {/if}
+   </li>
+ {/snippet}
+ 
++{#snippet remediationList(
++  target: { step: number } | { objective: string },
++  list: Step[],
++)}
++  {#if list.length}
++    <ul class="flex flex-col gap-1 mt-1">
++      {#each list as r, j (j)}
++        <li class="flex flex-row items-center gap-2">
++          <span
++            class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
++            >{r.id ?? r.uuid}</span
++          >
++          <span
++            class="min-w-0 flex-1 truncate text-coopmaths-corpus dark:text-coopmathsdark-corpus"
++            use:latexTitle={r.titre}
++          ></span>
++          <input
++            type="number"
++            min="1"
++            max="50"
++            class="w-16 rounded-md border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-2 py-1 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
++            value={r.nbQuestions ?? 3}
++            aria-label="Nombre de questions de l’exercice de remédiation {r.id}"
++            onchange={(e) =>
++              setRemediationQuestions(
++                target,
++                j,
++                Math.max(
++                  1,
++                  Math.min(
++                    50,
++                    Number((e.currentTarget as HTMLInputElement).value) || 1,
++                  ),
++                ),
++              )}
++          />
++          <button
++            type="button"
++            class={iconButton}
++            title="Essayer comme un élève"
++            aria-label="Essayer l’exercice de remédiation {r.id} comme un élève"
++            onclick={() => preview([r])}
++          >
++            <i class="bx bx-show text-xl" aria-hidden="true"></i>
++          </button>
++          <button
++            type="button"
++            class={iconButton}
++            aria-label="Retirer l’exercice de remédiation {r.id}"
++            onclick={() => removeRemediationStep(target, j)}
++          >
++            <i class="bx bx-x text-2xl" aria-hidden="true"></i>
++          </button>
++        </li>
++      {/each}
++    </ul>
++  {/if}
++  <button
++    type="button"
++    class="{link} mt-1"
++    onclick={() => (remediationFor = target)}
++  >
++    <i class="bx bx-plus text-lg" aria-hidden="true"></i>
++    {list.length
++      ? 'Ajouter un autre exercice'
++      : 'Ajouter un exercice plus simple ou plus ciblé'}
++  </button>
++{/snippet}
++
+ {#snippet objectivePicker(i: number)}
+   {@const s = parcours.etapes[i]}
+   {@const known = index?.get(s.uuid)}
+@@ -1310,6 +1486,87 @@
+     {/if}
+   </section>
+ 
++  <!-- Remédiation par objectif : ce que l'application propose après un point manqué -->
++  {#if usedObjectives.length}
++    <section
++      data-element={mark('remediations')}
++      class="group/collab relative flex flex-col gap-3"
++      aria-label="Remédiation par objectif"
++    >
++      {@render collabMark('remediations')}
++      <h3
++        class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
++      >
++        Remédiation par objectif
++      </h3>
++      <p class={quiet}>
++        Après une question manquée, l’application propose de retravailler
++        l’objectif de la première réponse manquée : ces exercices, puis
++        l’exercice manqué avec de nouvelles valeurs. Sans exercice ici, elle
++        reprend ceux du parcours qui visent le même objectif.
++      </p>
++      <ul class="flex flex-col gap-3">
++        {#each usedObjectives as o (o)}
++          {@const r = remediationOf(o)}
++          {@const others = usedObjectives
++            .concat(levelObjectives.map((x) => x.libelle))
++            .filter(
++              (x, k, l) =>
++                x !== o &&
++                l.indexOf(x) === k &&
++                !(r?.prerequis ?? []).includes(x),
++            )}
++          <li
++            class="flex flex-col gap-2 rounded-lg p-3 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
++          >
++            <span
++              class="font-semibold text-coopmaths-corpus dark:text-coopmathsdark-corpus"
++              >{o}</span
++            >
++            {@render remediationList({ objective: o }, r?.etapes ?? [])}
++            <div class="flex flex-row flex-wrap items-center gap-2">
++              <span class={quiet}>Ensuite, si l’élève échoue encore :</span>
++              {#each r?.prerequis ?? [] as x (x)}
++                <span
++                  class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus"
++                >
++                  {x}
++                  <button
++                    type="button"
++                    class="text-coopmaths-action dark:text-coopmathsdark-action"
++                    aria-label="Retirer le prérequis {x}"
++                    onclick={() =>
++                      setPrerequisites(
++                        o,
++                        (r?.prerequis ?? []).filter((y) => y !== x),
++                      )}
++                  >
++                    <i class="bx bx-x" aria-hidden="true"></i>
++                  </button>
++                </span>
++              {/each}
++              {#if others.length}
++                <select
++                  class="rounded-md border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-2 py-1 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
++                  value=""
++                  aria-label="Ajouter un prérequis à {o}"
++                  onchange={(e) => {
++                    const v = (e.currentTarget as HTMLSelectElement).value
++                    ;(e.currentTarget as HTMLSelectElement).value = ''
++                    if (v) setPrerequisites(o, [...(r?.prerequis ?? []), v])
++                  }}
++                >
++                  <option value="" disabled>Objectif prérequis…</option>
++                  {#each others as x (x)}<option value={x}>{x}</option>{/each}
++                </select>
++              {/if}
++            </div>
++          </li>
++        {/each}
++      </ul>
++    </section>
++  {/if}
++
+   <!-- Pour les élèves : présentation des paliers, pages et validation -->
+   <section
+     data-element={mark('eleves')}
+@@ -1376,6 +1633,24 @@
+           </span>
+         {/if}
+       </div>
++      <label class="md:col-span-2 flex items-center gap-2 {quiet}">
++        <input
++          type="checkbox"
++          checked={!!parcours.positionnement}
++          onchange={(e) =>
++            update((p) => {
++              if ((e.currentTarget as HTMLInputElement).checked)
++                p.positionnement = true
++              else delete p.positionnement
++            })}
++        />
++        Test de positionnement : une question par {parcours.style ===
++        'ceintures'
++          ? 'ceinture'
++          : 'palier'}, l’élève commence {parcours.style === 'ceintures'
++          ? 'à la première ceinture manquée'
++          : 'au premier palier manqué'}
++      </label>
+     {/if}
+     <label>
+       <span class={label}>Pages</span>
+@@ -1469,16 +1744,17 @@
+   </footer>
+ </div>
+ 
+-{#if pickerLevel !== null}
++{#if pickerOpen}
+   <TypstAddExerciseModal
+     onAdd={addFromSite}
+-    onClose={() => (pickerLevel = null)}
++    onClose={() => {
++      pickerLevel = null
++      remediationFor = null
++    }}
+     initialPath={menuPathFor(parcours.niveau, chapterCode)}
+     fullScreen
+     settingsOpen
+-    target={withLevels
+-      ? `${parcours.style === 'ceintures' ? 'la' : 'le'} ${levelName(parcours, pickerLevel).toLowerCase()}`
+-      : 'ce parcours'}
++    target={pickerTarget}
+     {selection}
+   />
+ {/if}
+diff --git a/src/lib/parcours/parcoursFile.ts b/src/lib/parcours/parcoursFile.ts
+index a95e9f8be..bda6ce281 100644
+--- a/src/lib/parcours/parcoursFile.ts
++++ b/src/lib/parcours/parcoursFile.ts
+@@ -45,7 +45,13 @@ const isParam = (v: unknown) =>
+ const isResource = (r: unknown) =>
+   isObject(r) && isString(r.titre) && isString(r.lien)
+ 
+-export function isStep(v: unknown): v is Step {
++/** Clé d'un point de réponse (moteur) : « 0 », « 1 »… ou « 0:champ1 », « 0:field2 »… */
++const isPointKey = (k: string) => /^\d+(:[\w-]+)?$/.test(k)
++const uniqueStrings = (o: unknown) =>
++  listOf(o, isString) && noDuplicate(o as unknown[])
++
++/** Exercice ; ceux de sa remédiation n'en ont pas eux-mêmes */
++export function isStep(v: unknown, withRemediation = true): v is Step {
+   if (!isObject(v)) return false
+   return (
+     isString(v.uuid) &&
+@@ -53,14 +59,29 @@ export function isStep(v: unknown): v is Step {
+     optional(v.id, isString) &&
+     optional(v.nbQuestions, (n) => isInteger(n) && (n as number) > 0) &&
+     optional(v.titreMasque, (b) => typeof b === 'boolean') &&
++    optional(v.objectifs, uniqueStrings) &&
++    optional(
++      v.points,
++      (x) =>
++        isObject(x) &&
++        Object.keys(x).every(isPointKey) &&
++        Object.values(x).every(uniqueStrings),
++    ) &&
+     optional(
+-      v.objectifs,
+-      (o) => listOf(o, isString) && noDuplicate(o as unknown[]),
++      v.remediation,
++      (l) => withRemediation && listOf(l, (x) => isStep(x, false)),
+     ) &&
+     [v.sup, v.sup2, v.sup3, v.sup4].every((s) => optional(s, isParam))
+   )
+ }
+ 
++const isRemediation = (v: unknown) =>
++  isObject(v) &&
++  isString(v.objectif) &&
++  listOf(v.etapes, (x) => isStep(x, false)) &&
++  optional(v.fiche, isLesson) &&
++  optional(v.prerequis, uniqueStrings)
++
+ function isLevel(v: unknown): v is Level {
+   if (!isObject(v)) return false
+   return (
+@@ -100,7 +121,7 @@ export function isParcours(v: unknown): v is Parcours {
+       v.presentation as string,
+     ) &&
+     ['question', 'page', 'parcours'].includes(v.correction as string) &&
+-    listOf(v.etapes, isStep) &&
++    listOf(v.etapes, (s) => isStep(s)) &&
+     optional(v.paliers, (l) => listOf(l, isLevel)) &&
+     optional(v.style, (x) => x === 'paliers' || x === 'ceintures') &&
+     optional(
+@@ -109,7 +130,14 @@ export function isParcours(v: unknown): v is Parcours {
+     ) &&
+     optional(v.enTetesMasques, (b) => typeof b === 'boolean') &&
+     optional(v.melanger, (b) => typeof b === 'boolean') &&
+-    optional(v.fiche, isLesson)
++    optional(v.fiche, isLesson) &&
++    optional(
++      v.remediations,
++      (l) =>
++        listOf(l, isRemediation) &&
++        noDuplicate((l as { objectif: string }[]).map((r) => r.objectif)),
++    ) &&
++    optional(v.positionnement, (b) => typeof b === 'boolean')
+   )
+ }
+ 
+diff --git a/src/lib/parcours/parcoursLibrary.ts b/src/lib/parcours/parcoursLibrary.ts
+index 0e15aa8be..65be65ff5 100644
+--- a/src/lib/parcours/parcoursLibrary.ts
++++ b/src/lib/parcours/parcoursLibrary.ts
+@@ -12,6 +12,7 @@ import {
+   type Objective,
+   type Parcours,
+   type Presentation,
++  type Step,
+   type Validation,
+ } from './parcoursTypes'
+ 
+@@ -241,11 +242,38 @@ export function knownChapters(lib: TeacherLibrary, level: string) {
+ const validLink = (r?: { titre: string; lien: string }) =>
+   !!r && r.titre.trim() !== '' && /^https?:\/\/\S+$/.test(r.lien.trim())
+ 
++/**
++ * Exercice tel qu'il part aux élèves : sans identifiant de salon, sans liste
++ * vide (objectifs par point, remédiation)
++ */
++function cleanedStep(step: Step): Step {
++  const { cle: _cle, points, remediation, ...s } = step
++  const tagged = Object.entries(points ?? {}).filter(([, l]) => l.length)
++  return {
++    ...s,
++    ...(tagged.length ? { points: Object.fromEntries(tagged) } : {}),
++    ...(remediation?.length
++      ? { remediation: remediation.map(cleanedStep) }
++      : {}),
++  }
++}
++
+ /** Parcours tel qu'il part aux élèves : ressources et pauses incomplètes retirées */
+ export function cleaned(p: Parcours): Parcours {
+   // Identifiants d'exercices propres aux salons : ils ne partent pas aux élèves
+-  if (p.etapes.some((s) => s.cle !== undefined))
+-    p = { ...p, etapes: p.etapes.map(({ cle: _cle, ...s }) => s) }
++  p = { ...p, etapes: p.etapes.map(cleanedStep) }
++  // Remédiations : sans exercice, rien à proposer à l'élève
++  if (p.remediations) {
++    const remediations = p.remediations
++      .filter((r) => r.etapes.length)
++      .map((r) => ({
++        ...r,
++        etapes: r.etapes.map(cleanedStep),
++        ...(r.fiche ? { fiche: withoutKeys(r.fiche) } : {}),
++        ...(r.prerequis?.length ? {} : { prerequis: undefined }),
++      }))
++    p = { ...p, remediations: remediations.length ? remediations : undefined }
++  }
+   if (p.fiche) p = { ...p, fiche: withoutKeys(p.fiche) }
+   if (!p.paliers) return p
+   return {
+diff --git a/src/lib/parcours/parcoursTypes.ts b/src/lib/parcours/parcoursTypes.ts
+index 1444c2087..307b17446 100644
+--- a/src/lib/parcours/parcoursTypes.ts
++++ b/src/lib/parcours/parcoursTypes.ts
+@@ -24,9 +24,31 @@ export interface Step {
+   sup4?: string
+   sup5?: string
+   objectifs?: string[] // libellés des objectifs visés
++  /**
++   * Objectifs de chaque point de réponse (clé du moteur : « 0 », « 1 »,
++   * « 0:field2 »… ; voir `decrirePoints`). Un point absent garde les objectifs
++   * de l'exercice. L'application en tire son diagnostic : le premier point
++   * manqué dit quoi retravailler.
++   */
++  points?: Record<string, string[]>
++  /** Exercices plus simples ou plus ciblés, proposés à l'élève qui manque celui-ci (sans remédiation propre) */
++  remediation?: Step[]
+   cle?: string // identifiant stable dans un salon (retiré à la publication)
+ }
+ 
++/**
++ * Remédiation d'un objectif : exercices et fiche proposés à l'élève qui manque
++ * un point de réponse visant cet objectif ; `prerequis` : objectifs à
++ * retravailler ensuite s'il échoue encore. Hors du parcours suivi : ni score
++ * ni ceinture (application MathALÉA, `remediation.ts`).
++ */
++export interface Remediation {
++  objectif: string
++  etapes: Step[]
++  fiche?: Lesson
++  prerequis?: string[]
++}
++
+ /** Accès à un palier : toujours ouvert, ou à partir d'une réussite au palier précédent */
+ export type Access = 'libre' | 'seuil'
+ 
+@@ -164,6 +186,8 @@ export interface Parcours {
+   enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
+   melanger?: boolean // questions des exercices mélangées (sans effet avec un exercice par page)
+   fiche?: Lesson // cours d'un parcours sans paliers (sinon compte pour le premier palier)
++  remediations?: Remediation[] // par objectif, un objectif au plus une fois
++  positionnement?: boolean // paliers : test d'une question par palier proposé avant le premier
+ }
+ 
+ /** Paliers numérotés, ou ceintures comme au judo (blanche, jaune…) */
+diff --git a/src/moteur/index.ts b/src/moteur/index.ts
+index ab7547cda..79f879030 100644
+--- a/src/moteur/index.ts
++++ b/src/moteur/index.ts
+@@ -420,3 +420,100 @@ export async function listerExercices(
+   parcourir(referentiel, [])
+   return liste
+ }
++
++// ---------- Points de réponse (remédiation de l'application MathALÉA) ----------
++
++/**
++ * Point de réponse : ce que MathALÉA vérifie à part dans une question. Un
++ * champ seul pour un rang de `autoCorrection` (clé « 0 », « 1 »… : rang dans
++ * la question), ou chaque case d'un rang qui en a plusieurs (clé
++ * « 0:champ1 », « 0:field2 », « 0:L1C2 »…) : trous d'un champ à compléter,
++ * sous-questions a), b) de `createSubQuestions`, cellules d'un tableau.
++ */
++export interface PointDeReponse {
++  cle: string
++  rang: number // rang dans autoCorrection
++  nom?: string // case dans ce rang
++}
++
++/**
++ * Rangs de autoCorrection repérés dans un énoncé : id …Ex<n>Q<k>… d'un
++ * élément de réponse (champTexteEx<n>Q<k>, MetaInteractif2dEx<n>Q<k>field<j>…),
++ * question-index des éléments de MathALÉA, index d'apigeom-figure.
++ */
++function rangsDansEnonce(exercice: IExercice, html: string): Set<number> {
++  const n = exercice.numeroExercice
++  const trouves = new Set<number>()
++  for (const m of html.matchAll(
++    new RegExp(`\\bid=["']([\\w-]*?)Ex${n}Q(\\d+)(?!\\d)`, 'g'),
++  ))
++    // Le smiley et le message de retour ne sont pas des réponses : une question
++    // peut porter celui de son propre rang sans en avoir la réponse (6AutoA2-2)
++    if (!/^(resultatCheck|feedback)/.test(m[1])) trouves.add(Number(m[2]))
++  // Éléments de MathALÉA : question-index, ou index pour apigeom-figure (sans guillemets)
++  for (const balise of html.match(/<[a-z][\w-]*\s[^>]*>/gi) ?? []) {
++    if (!new RegExp(`\\snumero-exercice=["']?${n}(?![\\d])`).test(balise))
++      continue
++    const rang = /\s(?:question-)?index=["']?(\d+)/.exec(balise)
++    if (rang) trouves.add(Number(rang[1]))
++  }
++  return trouves
++}
++
++/**
++ * Rangs de autoCorrection vérifiés par la question i (rang dans listeQuestions).
++ * Ils diffèrent quand une question porte plusieurs réponses à part : Thales2D
++ * (3G20) range les deux longueurs de la question e aux rangs 2e et 2e+1.
++ * Chaque rang appartient à une seule question : la sienne si elle le contient,
++ * sinon la première qui le contient. Un énoncé qui reprend par erreur l'id
++ * d'une autre question (845fa : meta-interactif-2dEx0Q0field0 dans la
++ * question 2) ne lui fait pas vérifier la réponse de celle-ci, absente de la
++ * page. Sans rang repéré, le rang de la question.
++ */
++function indicesDeLaQuestion(
++  exercice: IExercice,
++  i: number,
++  enonces: string[],
++): number[] {
++  const rangs = enonces.map((html) => rangsDansEnonce(exercice, html))
++  const proprietaire = (k: number) =>
++    rangs[k]?.has(k) ? k : rangs.findIndex((r) => r.has(k))
++  const avecReponse = [...(rangs[i] ?? [])]
++    .filter(
++      (k) => exercice.autoCorrection?.[k] != null && proprietaire(k) === i,
++    )
++    .sort((a, b) => a - b)
++  if (avecReponse.length) return avecReponse
++  return exercice.autoCorrection?.[i] != null ? [i] : []
++}
++
++/** Cases d'un rang vérifiées une à une (au moins deux), dans l'ordre de leurs réponses */
++function casesDuRang(exercice: IExercice, k: number): string[] {
++  const valeur = exercice.autoCorrection?.[k]?.valeur as
++    Record<string, unknown> | undefined
++  if (valeur == null || typeof valeur !== 'object') return []
++  const noms = Object.keys(valeur).filter(
++    (cle) => cle !== 'bareme' && cle !== 'feedback' && cle !== 'callback',
++  )
++  return noms.length > 1 ? noms : []
++}
++
++/** Points de réponse de la question i (rang dans listeQuestions), dans l'ordre de l'énoncé */
++export function decrirePoints(
++  prepare: ExercicePrepare,
++  i: number,
++): PointDeReponse[] {
++  const exercice = prepare.interne
++  const enonces = prepare.questions.map((q) => q.enonce)
++  const indices = indicesDeLaQuestion(exercice, i, enonces)
++  return pointsDesRangs(exercice, indices.length ? indices : [i])
++}
++
++function pointsDesRangs(exercice: IExercice, rangs: number[]) {
++  return rangs.flatMap((k, o) => {
++    const cases = casesDuRang(exercice, k)
++    return cases.length
++      ? cases.map((nom) => ({ cle: `${o}:${nom}`, rang: k, nom }))
++      : [{ cle: String(o), rang: k }]
++  })
++}
+diff --git a/tests/unit/parcours.test.ts b/tests/unit/parcours.test.ts
+index 4abc4f4db..1ae29bc1b 100644
+--- a/tests/unit/parcours.test.ts
++++ b/tests/unit/parcours.test.ts
+@@ -603,3 +603,71 @@ describe('date d’ouverture d’un palier', () => {
+     expect(p.paliers?.[0].ouverture).toBe(openingOfDay('2026-11-19'))
+   })
+ })
++
++describe('remédiation (application MathALÉA)', () => {
++  const avecRemediation = (): Parcours => ({
++    ...parcours(),
++    id: 'relatifs',
++    positionnement: true,
++    etapes: [
++      {
++        ...step('a', ['Additionner', 'Soustraire']),
++        points: { '0:champ1': ['Additionner'], '0:champ2': [] },
++        remediation: [{ ...step('r'), cle: 'k1' }],
++        cle: 'k0',
++      },
++      step('b', ['Soustraire']),
++    ],
++    remediations: [
++      {
++        objectif: 'Soustraire',
++        etapes: [step('s')],
++        prerequis: ['Additionner'],
++      },
++      { objectif: 'Additionner', etapes: [] },
++    ],
++  })
++
++  it('accepte points de réponse, remédiations et test de positionnement', () => {
++    expect(isParcours(avecRemediation())).toBe(true)
++  })
++
++  it('refuse une clé de point inconnue, une remédiation imbriquée, un objectif en double', () => {
++    const p = avecRemediation()
++    expect(
++      isParcours({
++        ...p,
++        etapes: [{ ...p.etapes[0], points: { 'a b': ['x'] } }],
++      }),
++    ).toBe(false)
++    expect(
++      isParcours({
++        ...p,
++        etapes: [
++          {
++            ...p.etapes[0],
++            remediation: [{ ...step('r'), remediation: [step('t')] }],
++          },
++        ],
++      }),
++    ).toBe(false)
++    expect(
++      isParcours({
++        ...p,
++        remediations: [p.remediations![0], p.remediations![0]],
++      }),
++    ).toBe(false)
++    expect(isParcours({ ...p, positionnement: 'oui' })).toBe(false)
++  })
++
++  it('part aux élèves sans identifiant de salon ni liste vide', () => {
++    const c = cleaned(avecRemediation())
++    expect(c.etapes[0].cle).toBeUndefined()
++    expect(c.etapes[0].remediation?.[0].cle).toBeUndefined()
++    expect(c.etapes[0].points).toEqual({ '0:champ1': ['Additionner'] })
++    // Une remédiation sans exercice ne part pas
++    expect(c.remediations?.map((r) => r.objectif)).toEqual(['Soustraire'])
++    expect(c.positionnement).toBe(true)
++    expect(isParcours(c)).toBe(true)
++  })
++})
+-- 
+2.43.0
+
