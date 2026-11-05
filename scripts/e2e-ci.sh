@@ -34,7 +34,10 @@ fi
 journal="${RUNNER_TEMP:-/tmp}/preview.log"
 # Version construite (comme chez les élèves), servie avec les relais de
 # vite.config.js ; NODE_ENV=development garde le relais de téléchargement
-NODE_ENV=development npx vite build > "$journal" 2>&1 || { cat "$journal"; exit 1; }
+# Même adresse d'Explorer que scripts/verifier-release.sh : sans elle, l'app lit
+# le vrai dossier kDrive de l'Explorer (joignable depuis la CI) et son catalogue
+# remplace celui que les suites déposent (release.yml de la 0.5.0)
+NODE_ENV=development VITE_URL_EXPLORER="https://coopmaths.fr/alea/parcours/" npx vite build > "$journal" 2>&1 || { cat "$journal"; exit 1; }
 # Groupe de processus à part : arrêté d'un coup à la fin
 setsid npx vite preview --port 1420 --strictPort >> "$journal" 2>&1 &
 serveur=$!
