@@ -172,7 +172,12 @@ C'est la question de Nathan, posée seulement quand l'app ne peut pas savoir.
    chacun ;
 4. automatique : les exercices d'autres parcours du même niveau (classes,
    Explorer) qui visent le même objectif, des moins difficiles aux plus
-   difficiles.
+   difficiles ;
+5. automatique, pour un objectif du programme (posé d'office, libellé du
+   référentiel) : deux exercices interactifs du référentiel de MathALÉA rangés
+   sous ce même objectif, dans l'ordre du menu du site. Ainsi un parcours sans
+   aucune remédiation prévue en a une pour chaque objectif du programme
+   (sonde : 2 642 exercices préparés sans erreur sous trois graines).
 
 Rien trouvé : pas de proposition, le bilan reste celui d'avant (« Refaire »).
 
@@ -291,11 +296,11 @@ Pour aller plus loin, dans l'ordre :
    Le même type d'étape (`interactif: false`) pourrait servir en tête d'une
    ceinture de découverte, posé par l'enseignant, puis retiré dans les
    ceintures suivantes (estompage).
-2. **Objectifs du programme** : relier un objectif de l'enseignant à son code
-   (`Objectif.code`, déjà dans le format) et chercher la remédiation parmi
-   les exercices du référentiel rangés sous ce code, en commençant par les
-   niveaux inférieurs. À réserver aux exercices éprouvés (sonde
-   `catalogue-moteur`), le référentiel n'étant pas trié par difficulté.
+2. **Objectifs du programme** : fait pour les objectifs posés d'office
+   (source 5 ci-dessus). Reste : un objectif propre à l'enseignant relié à
+   un code (`Objectif.code`) en profiterait aussi ; chercher aussi aux
+   niveaux inférieurs (prérequis du programme), le référentiel n'étant pas
+   trié par difficulté.
 3. **Graphe des prérequis** : `prerequis` est posé par remédiation ; le
    ranger dans la liste d'objectifs en ferait un graphe commun à tous les
    parcours d'un enseignant ou d'une équipe.
