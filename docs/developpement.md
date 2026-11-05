@@ -231,6 +231,36 @@ En local : `src-tauri/gen/android/keystore.properties` (ignoré par Git) avec
 Toutes les versions doivent être signées avec la même clé, sinon Android
 refuse la mise à jour.
 
+## Mise à jour des apps de bureau
+
+Windows, macOS et AppImage Linux se mettent à jour seuls
+(`src-tauri/src/maj.rs`, plugin `tauri-plugin-updater`) : au démarrage, l'app
+lit `releases/latest.json` sur la forge (`-/raw/main/`), télécharge la
+nouvelle version sans rien afficher et l'installe à la fermeture (Windows :
+petite barre de progression, sans question ; l'app n'est pas relancée). Rien
+n'interrompt une séance. Pas de mise à jour pour un `.deb` ou un `.rpm`
+(mot de passe administrateur), en développement, ni avec
+`MATHALEA_SANS_MAJ=1`.
+
+- Clé de signature des mises à jour (minisign, propre à Tauri) :
+  `~/.local/share/mathalea-mobile/maj-bureau/` chez Nathan (`cle`,
+  `cle.motdepasse`), secrets GitHub `TAURI_SIGNING_PRIVATE_KEY` et
+  `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`. Clé publique dans
+  `src-tauri/tauri.conf.json` (`plugins.updater.pubkey`). **Ne jamais la
+  perdre ni la changer** : les apps installées refuseraient toute mise à jour
+  signée par une autre clé (il faudrait réinstaller à la main).
+- `release.yml` construit le bureau avec la CLI de Tauri (plus de
+  `tauri-action` : aucun secret ne va à une action tierce), pose les `.sig`
+  à côté des installateurs et, sur Mac, signe (Developer ID) et notarise
+  l'app et le `.dmg`.
+- `scripts/release.sh` range aussi les archives de mise à jour du Mac
+  (`MathALEA-<v>-macos-*.app.tar.gz`) et écrit `releases/latest.json` (URL
+  des fichiers de la forge et signatures) quand toutes les signatures sont
+  là et que la version est la plus récente. Les apps la voient au push de
+  `main` : c'est ce push qui publie la mise à jour.
+- Les versions 0.5.0 et avant n'ont pas cette fonction : installer une fois
+  la version suivante à la main.
+
 ## Google Play et App Store
 
 Les deux boutiques interdisent de télécharger du code qui change l'app

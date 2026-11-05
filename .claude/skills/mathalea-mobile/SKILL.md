@@ -695,8 +695,18 @@ Environnement (machine de Nathan)
   construit les binaires (`.github/workflows/release.yml`). Lancer :
   `gh workflow run release.yml --repo nathan-ed/mathalea-mobile -f version=v0.1.1 -f cibles=tout|bureau|android`
   (ou un tag `v*`). Jobs : `moteur` (`scripts/moteur.sh`, cache du clone),
-  `bureau` (ubuntu-22.04, windows, macos-latest ARM, macos-15-intel ; via
-  tauri-action, release GitHub brouillon), `android` (NDK 27.2.12479018).
+  `bureau` (ubuntu-22.04, windows, macos-latest ARM, macos-15-intel ; CLI
+  de Tauri, plus de tauri-action depuis la 0.5.1 : aucun secret à une action
+  tierce ; Mac signé Developer ID et notarisé ; `.sig` de mise à jour),
+  `publier` (release GitHub brouillon), `android` (NDK 27.2.12479018).
+- Mise à jour des apps de bureau (Nathan, 2026-11-05 : « une maj en arrière
+  plan pour les app de bureau ») : `src-tauri/src/maj.rs`, téléchargée au
+  démarrage, installée à la fermeture (jamais pendant une séance), lue dans
+  `releases/latest.json` de la forge, écrit par `scripts/release.sh` : le push
+  de `main` qui l'apporte publie la mise à jour. Clé minisign dans
+  `~/.local/share/mathalea-mobile/maj-bureau/` et secrets
+  `TAURI_SIGNING_PRIVATE_KEY*` : ne jamais la perdre ni la changer. Pas de
+  mise à jour pour `.deb`/`.rpm`. Détails : `docs/developpement.md`.
   Cache Rust `Swatinem/rust-cache`. Suivi : `gh run watch <id> --exit-status`.
 - `.gitlab-ci.yml` (forge) : `pnpm check` et `pnpm test` à chaque push, dans
   `node:22` avec corepack. pnpm est fixé par `packageManager` (`package.json`) :
