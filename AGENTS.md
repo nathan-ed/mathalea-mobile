@@ -36,7 +36,9 @@ toute modification.
   (`DOSSIER_EXPLORER` dans `src/lib/partage.ts`), lus comme ceux des enseignants ; l'app garde la
   dernière copie reçue et, hors connexion, invite à se connecter. Les parcours de démonstration
   (`static/demo`, `scripts/demonstration.mts`) sont chargés et retirés par
-  l'enseignant dans les Réglages, jamais d'office.
+  l'enseignant dans sa bibliothèque (onglet Parcours), jamais d'office. Les
+  Réglages ne gardent que les réglages de l'app (programme, apparence,
+  dossiers, sauvegarde, profil, à propos).
 - Une séance garde une copie figée de son parcours (`contenu`) : ne jamais lire
   la version courante pour rejouer, relire ou reprendre.
 - Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source

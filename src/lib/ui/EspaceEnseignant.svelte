@@ -53,6 +53,9 @@
     onsession,
     onvueEleve,
     onclasses,
+    demonstration = false,
+    onchargerDemonstration,
+    onretirerDemonstration,
   }: {
     bibliotheque: Bibliotheque
     dossiersSuivis?: { lien: string }[] // dossiers suivis, sauf celui de l'enseignant (reprise : Réglages)
@@ -83,6 +86,9 @@
     onsession?: (cle: string) => void
     onvueEleve?: () => void // Mes parcours et Suivi, comme les élèves
     onclasses?: () => void // onglet Classes
+    demonstration?: boolean // parcours de démonstration chargés
+    onchargerDemonstration?: () => Promise<string>
+    onretirerDemonstration?: () => Promise<string>
   } = $props()
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
@@ -107,6 +113,15 @@
   let lien = $state('')
   let modifierLien = $state(false)
   let feuilleDossier = $state(false)
+  // Parcours de démonstration : chargés ou retirés depuis la bibliothèque
+  let feuilleDemonstration = $state(false)
+  let messageDemonstration = $state('')
+  let demonstrationEnCours = $state(false)
+  async function basculerDemonstration() {
+    demonstrationEnCours = true
+    messageDemonstration = await (demonstration ? onretirerDemonstration! : onchargerDemonstration!)()
+    demonstrationEnCours = false
+  }
   // Reprendre sa bibliothèque (autre appareil, page du site)
   let feuilleReprendre = $state(false)
   let lienReprise = $state('')
@@ -467,6 +482,12 @@
           {#if onvueEleve}
             {@render ligne('bx-mobile', 'Vue élève', 'Mes parcours et Suivi, comme vos élèves', onvueEleve)}
           {/if}
+          {#if onchargerDemonstration}
+            {@render ligne('bx-book-open', 'Parcours de démonstration', demonstration ? 'Chargés' : 'Une classe et des parcours d’exemple', () => {
+              messageDemonstration = ''
+              feuilleDemonstration = true
+            })}
+          {/if}
           {#if bibliotheque.parcours.length}
             {@render ligne('bx-export', 'Exporter des parcours', 'Tous, ou ceux choisis pour un collègue', () => choisirExport())}
           {/if}
@@ -686,6 +707,18 @@
       {#if choixExport.length < bibliotheque.parcours.length}
         <button type="button" class={boutonLien} onclick={() => (choixExport = bibliotheque.parcours.map((pe) => pe.parcours.id))}>Tout cocher</button>
       {/if}
+    </Feuille>
+  {:else if feuilleDemonstration}
+    <Feuille onfermer={() => (feuilleDemonstration = false)}>
+      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Parcours de démonstration</p>
+      <p class="text-sm">
+        Une liste simple, des paliers et des ceintures, avec objectifs et pauses : une classe « Démonstration » pour essayer comme un élève, et les mêmes parcours
+        dans votre bibliothèque pour voir comment ils sont faits.
+      </p>
+      {#if messageDemonstration}<p class={discret} role="status">{messageDemonstration}</p>{/if}
+      <button type="button" class="{boutonInverse} w-full disabled:opacity-40" style="min-height: 44px" disabled={demonstrationEnCours} aria-busy={demonstrationEnCours} onclick={basculerDemonstration}>
+        {demonstration ? 'Retirer les parcours de démonstration' : 'Charger les parcours de démonstration'}
+      </button>
     </Feuille>
   {:else if feuilleDossier}
     <Feuille

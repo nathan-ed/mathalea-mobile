@@ -174,9 +174,10 @@ Illustré pas à pas : [Sessions et réponses de la classe](sessions.md).
 - **Apparence** : clair, sombre, ou comme le téléphone.
 - **Dossiers partagés** : ajouter, retirer, actualiser. Enseignant : chaque ligne montre toutes les classes du dossier ; « Votre drive » pour le vôtre, « Classes et parcours » ou « Seulement les parcours » pour reprendre les autres.
 - **Sauvegarde** : « Exporter une sauvegarde » enregistre tout (réglages, dossiers, parcours, suivi) dans un fichier. « Restaurer une sauvegarde » montre d'abord ce qu'elle contient ; « Annuler la dernière restauration » revient en arrière. Pratique pour changer de téléphone.
-- **Enseignant** : « Je suis enseignant », valeurs de départ d'un nouveau parcours, parcours de démonstration.
-- **Moteur MathALÉA** : les exercices se mettent à jour avec le site, sans mettre à jour l'application (versions installées hors boutique). « Rechercher une mise à jour ».
-- **À propos** : guide d'utilisation, politique de confidentialité, licence.
+- **Enseignant** : « Je suis enseignant ».
+- **À propos** : version de l'application et du moteur MathALÉA, guide d'utilisation, politique de confidentialité, licence.
+
+Les parcours de démonstration se chargent dans l'onglet Parcours (bibliothèque, « Parcours de démonstration ») ; un nouveau parcours reprend les choix du dernier parcours enregistré.
 
 ## Vie privée
 

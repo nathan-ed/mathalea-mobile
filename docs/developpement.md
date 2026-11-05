@@ -418,8 +418,8 @@ plateformes) et un audit d'ergonomie :
 - Publication : le fichier porte toute la bibliothèque ; état « prêt à
   déposer » puis « Vérifier le dossier partagé » ; reprise sur un autre
   appareil ou depuis la page du site.
-- Icône proposée d'après le chapitre ; parcours de démonstration (Réglages,
-  enseignant) ; restauration avec aperçu, confirmation et annulation ;
+- Icône proposée d'après le chapitre ; parcours de démonstration (bibliothèque
+  de l'onglet Parcours) ; restauration avec aperçu, confirmation et annulation ;
   panneaux accessibles et limités à la zone visible.
 - Page du site `?v=parcours` (MR sur MathALÉA) : même format et même
   bibliothèque, fenêtre d'ajout d'exercices du site, schéma du parcours.

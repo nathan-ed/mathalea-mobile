@@ -128,19 +128,28 @@ ok(
 );
 await capture("reglages-defiles");
 await toucher(page.getByRole("switch", { name: /Je suis enseignant/ }));
+const quitterReglages = async () => {
+  const quitter = page.getByRole("button", { name: "Enregistrer et quitter" });
+  if (await quitter.isVisible().catch(() => false)) await toucher(quitter);
+  else await page.goBack();
+};
+await quitterReglages();
+// Démonstration : depuis la bibliothèque de l'onglet Créer
+await toucher(
+  page.getByRole("button", { name: /^\s*Parcours de démonstration/ }),
+);
 await toucher(
   page.getByRole("button", { name: "Charger les parcours de démonstration" }),
 );
 await page
   .getByRole("status")
-  .filter({ hasText: /démonstration/i })
-  .waitFor({ timeout: 60_000 })
-  .catch(() => {});
+  .filter({ hasText: /parcours chargés/ })
+  .waitFor({ timeout: 60_000 });
 await capture("demonstration-chargee");
+await page.goBack(); // ferme le panneau
+await toucher(page.getByRole("button", { name: "Réglages" }).first());
 await toucher(page.getByRole("switch", { name: /Je suis enseignant/ }));
-const quitter = page.getByRole("button", { name: "Enregistrer et quitter" });
-if (await quitter.isVisible().catch(() => false)) await toucher(quitter);
-else await page.goBack();
+await quitterReglages();
 await pause(800);
 const classe = page.getByRole("button", { name: /^\s*Démonstration/ });
 if (

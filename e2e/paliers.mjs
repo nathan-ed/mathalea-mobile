@@ -273,12 +273,19 @@ for (const theme of ['clair', 'sombre']) {
   ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
   await e.context().close()
 
-  // ---------- Démonstration : chargée depuis les Réglages de l'enseignant ----------
+  // ---------- Démonstration : chargée depuis la bibliothèque (onglet Créer) ----------
   const d = await appareil('démonstration', theme, { profil: 'enseignant', pays: 'FR' })
   await d.getByRole('button', { name: 'Réglages' }).click()
+  await d.getByRole('switch', { name: /Je suis enseignant/ }).waitFor()
+  ok(!/Nouveau parcours|Parcours de démonstration|Charger les parcours/.test(await texte(d)), 'réglages enseignant : ni « Nouveau parcours » ni démonstration')
+  await cap(d, '13-reglages-enseignant', theme)
+  await d.getByRole('button', { name: 'Revenir en arrière' }).click()
+  await d.getByRole('button', { name: /^\s*Parcours de démonstration/ }).click()
   await d.getByRole('button', { name: 'Charger les parcours de démonstration' }).click()
   await d.getByText(/parcours chargés/).waitFor()
-  await d.getByRole('button', { name: 'Revenir en arrière' }).click()
+  await cap(d, '13b-demo-chargee', theme)
+  await d.goBack() // ferme le panneau
+  await d.getByRole('dialog').waitFor({ state: 'detached' })
   // L'enseignant essaie comme un élève : vue élève
   await d.getByRole('button', { name: /^\s*Vue élève/ }).click()
   const accueilDemo = await texte(d)
@@ -291,9 +298,11 @@ for (const theme of ['clair', 'sombre']) {
   await d.getByRole('button', { name: 'Revenir en arrière' }).click()
   await d.getByRole('button', { name: 'Quitter', exact: true }).click()
   ok((await texte(d)).includes('Relatifs en ceintures'), 'démonstration : parcours dans la bibliothèque')
-  await d.getByRole('button', { name: 'Réglages' }).click()
+  await d.getByRole('button', { name: /^\s*Parcours de démonstration/ }).click()
   await d.getByRole('button', { name: 'Retirer les parcours de démonstration' }).click()
   await d.getByText(/retirés/).waitFor()
+  await d.goBack()
+  ok(!(await texte(d)).includes('Relatifs en ceintures'), 'démonstration : retirée de la bibliothèque')
   await d.context().close()
 }
 

@@ -68,7 +68,7 @@ jobs:
           path: static/moteur
       # Notre moteur : commit de MathALÉA et empreinte de moteur/ (comme scripts/moteur.sh)
       - name: Moteur
-        run: echo "MOTEUR=$(cut -c1-9 moteur/COMMIT).$(cd moteur && find . -type f -print0 | sort -z | xargs -0 shasum -a 256 | shasum -a 256 | cut -c1-7)" >> "$GITHUB_ENV"
+        run: echo "MOTEUR=$(cut -c1-9 moteur/COMMIT).$(cd moteur && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 shasum -a 256 | shasum -a 256 | cut -c1-7)" >> "$GITHUB_ENV"
       # Projet Xcode : généré s'il n'est pas encore dans le dépôt (src-tauri/gen/apple)
       - name: Projet Xcode
         run: |

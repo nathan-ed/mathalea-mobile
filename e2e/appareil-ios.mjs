@@ -143,17 +143,30 @@ ok(
 );
 await capture("reglages-defiles");
 await toucher(interrupteur);
+const quitterReglages = async () => {
+  const enregistrer = await exact("Enregistrer et quitter");
+  if (await enregistrer.isDisplayed().catch(() => false))
+    await toucher(enregistrer);
+  else await nav.back();
+  await pause(1000);
+};
+await quitterReglages();
+// Démonstration : depuis la bibliothèque de l'onglet Créer
+await toucher(await attendre(await bouton("Parcours de démonstration")));
 await toucher(
   await attendre(await exact("Charger les parcours de démonstration")),
 );
 await pause(3000);
 await capture("demonstration-chargee");
-await toucher(await affiche('//*[@role="switch"]'));
-const enregistrer = await exact("Enregistrer et quitter");
-if (await enregistrer.isDisplayed().catch(() => false))
-  await toucher(enregistrer);
-else await nav.back();
-await pause(1000);
+await nav.execute(() => history.back()); // ferme le panneau, comme le geste de retour
+await pause(800);
+await toucher(
+  await affiche(
+    '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
+  ),
+);
+await toucher(await attendre(await affiche('//*[@role="switch"]')));
+await quitterReglages();
 const classe = await bouton("Démonstration");
 if (await classe.isDisplayed().catch(() => false)) await toucher(classe);
 await attendre(await bouton("Nombres relatifs"));

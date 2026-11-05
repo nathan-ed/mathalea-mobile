@@ -61,7 +61,7 @@ jobs:
           node-version: 22
       # Notre moteur : commit de MathALÉA et empreinte de moteur/ (comme scripts/moteur.sh)
       - name: Moteur de l'app
-        run: echo "MOTEUR=$(cut -c1-9 moteur/COMMIT).$(cd moteur && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)" >> "$GITHUB_ENV"
+        run: echo "MOTEUR=$(cut -c1-9 moteur/COMMIT).$(cd moteur && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)" >> "$GITHUB_ENV"
       # Moteur déjà envoyé à Google Play : rien à faire
       - name: Déjà envoyé ?
         id: deja
