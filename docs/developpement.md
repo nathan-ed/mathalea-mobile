@@ -586,6 +586,17 @@ puis corrections et vérification du 4 au 5 novembre (rapport :
 - Grande fenêtre d'ordinateur : colonne de 64rem.
 - Puissances (11e) : bases négatives garanties dans la ceinture blanche.
 
+## Remédiation (branche, novembre 2026)
+
+Conception et mesures : `docs/remediation.md`. Moteur : `decrirePoints`,
+`detail` de `verifier` (score de chaque point de réponse, barème de MathALÉA
+enveloppé). App : `remediation.ts` (diagnostic, choix, séance, positionnement),
+`objectifsSession.ts` (vue Objectifs d'une session), `Bilan.svelte`
+(« À retravailler »), `DetailParcours.svelte` (test de positionnement,
+remédiation en cours). Tests : `tests/remediation.test.ts`,
+`tests/objectifs-session.test.ts`, `node e2e/remediation.mjs`, sondes
+`node e2e/sonde-points.mjs FR|CH`. Site : `docs/a-reporter-site-remediation.md`.
+
 ## À faire (sans version fixée)
 
 - Après la 0.4.12 (2026-11-03) ; tickets forge #2 à #6 pour le reste :

@@ -154,6 +154,32 @@ tableau CSV (colonnes code ; libellé ; niveau ; chapitre, en-tête facultatif),
 un texte collé (un objectif par ligne) ou le fichier d'un collègue, à répéter
 au fil de l'année sans doublon. « Exporter la liste » produit un CSV.
 
+### Remédiation (en préparation)
+
+Quand un élève manque une question, le bilan dit quoi retravailler : l'objectif
+de la **première réponse manquée**. Dans une étude de fonction où la dérivée
+est fausse et le tableau de variations juste, c'est la dérivée. « Retravailler »
+lance des exercices plus simples ou plus ciblés, puis l'exercice manqué avec de
+nouvelles valeurs ; réussi, l'élève reprend sa ceinture. Encore manqué :
+l'objectif prérequis que vous avez prévu, au plus trois fois, puis « demande de
+l'aide à ton enseignant ». Ces exercices ne comptent ni dans le score, ni dans
+les ceintures, ni dans le suivi des objectifs.
+
+Ce que vous pouvez prévoir (format décrit dans `remediation.md`) :
+
+- les **objectifs par réponse** d'un exercice qui en demande plusieurs
+  (trous, sous-questions a), b), tableau) ; sans eux, l'exercice garde ses
+  objectifs, et l'élève dit lui-même ce qui l'a bloqué quand il y en a
+  plusieurs ;
+- des exercices **« Si l'élève n'y arrive pas »** pour un exercice ;
+- une **remédiation par objectif** (exercices, fiche, prérequis) ;
+- un **test de positionnement** (parcours à paliers, interrupteur dans
+  l'éditeur) : une question par palier avant de commencer, les paliers
+  réussis d'affilée s'ouvrent.
+
+Sans rien prévoir, l'app reprend les exercices des paliers précédents, puis
+ceux des autres parcours du même niveau qui visent le même objectif.
+
 ### Bibliothèque et classes
 
 - **Onglet Parcours**, vue Bibliothèque : vos parcours, par niveau puis
@@ -372,7 +398,11 @@ réponse : un QR code modifié ne fausse rien. En tête, un résumé (réussite
 moyenne, répartition des élèves, questions à reprendre). Vue Questions : des
 moins réussies aux plus réussies, taux de réussite et mauvaises réponses
 regroupées (« 999 : 2 élèves »), ou toutes les réponses avec qui a donné
-quoi. Vue Élèves : score de chacun, toutes ses réponses au toucher.
+quoi. Vue Élèves : score de chacun, toutes ses réponses au toucher. Vue
+Objectifs (parcours de votre bibliothèque, même version que la session) :
+réussite de la classe pour chaque objectif, réponse par réponse quand
+l'exercice en a plusieurs, et le nombre d'élèves dont la première réponse
+manquée le vise : par où reprendre en classe.
 
 Pas à pas avec images : guide en ligne,
 « Sessions partagées et réponses de la classe ».
