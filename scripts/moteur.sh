@@ -20,7 +20,7 @@ git clean -q -fd -e node_modules
 cp -r "$racine/moteur/fichiers/." .
 
 # Version : date, commit de MathALÉA, empreinte des fichiers de moteur/
-empreinte="$(cd "$racine/moteur" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)"
+empreinte="$(cd "$racine/moteur" && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -c1-7)"
 export MOTEUR_VERSION="$(date -u +%F)+${commit:0:9}.$empreinte"
 
 pnpm install --frozen-lockfile

@@ -10,7 +10,7 @@ Android, iPhone, iPad, Windows, Mac ou Linux : voir [Installer l'application](in
 
 ## 2. Essayer en cinq minutes
 
-Choisissez France ou Suisse. Dans les Réglages (roue dentée), activez **Je suis enseignant**, puis touchez **Charger les parcours de démonstration**. Touchez « Vue élève » et faites un parcours comme un élève : correction immédiate, clavier mathématique, paliers et ceintures.
+Choisissez France ou Suisse. Dans les Réglages (roue dentée), activez **Je suis enseignant** ; dans l'onglet Parcours, touchez **Parcours de démonstration**, puis **Charger les parcours de démonstration**. Touchez « Vue élève » et faites un parcours comme un élève : correction immédiate, clavier mathématique, paliers et ceintures.
 
 Détails : [Découvrir en cinq minutes](decouvrir.md).
 

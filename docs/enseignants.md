@@ -72,7 +72,7 @@ suisse de MathALÉA ; les exercices utilisent les notations suisses.
 On crée un parcours pour un **niveau** ; on le donne ensuite à des classes,
 dans la vue Classes. « Créer un parcours » ouvre un seul écran, à remplir dans
 l'ordre que vous voulez ; niveau, type, pages et correction reprennent vos
-derniers choix (modifiables dans les Réglages, « Nouveau parcours »). Toucher
+derniers choix (ceux du dernier parcours enregistré). Toucher
 un parcours de la bibliothèque ouvre sa page : état chez les élèves, classes
 (pastilles), « Lancer une session », « Essayer », « Modifier » (tout est déjà
 rempli), ses sessions, l'imprimante dans la barre du haut, et dans
@@ -167,7 +167,7 @@ au fil de l'année sans doublon. « Exporter la liste » produit un CSV.
 
 ### Démonstration
 
-Réglages, « Parcours de démonstration » (enseignant seulement) : une liste
+Onglet Parcours, « Parcours de démonstration » dans la bibliothèque : une liste
 simple, des paliers et des ceintures, avec objectifs et pauses. Une classe
 « Démonstration » apparaît dans Mes parcours (Vue élève) pour essayer comme un élève, et
 les mêmes parcours entrent dans votre bibliothèque. Un bouton les retire.

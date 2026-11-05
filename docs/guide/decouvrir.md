@@ -26,7 +26,7 @@ Si vous aviez déjà ajouté le dossier de vos classes comme un élève, il devi
 
 ## 4. La démonstration
 
-Juste en dessous, touchez « Charger les parcours de démonstration ». Revenez ensuite avec la flèche en haut à gauche.
+Revenez avec la flèche en haut à gauche. Dans l'onglet Parcours, touchez « Parcours de démonstration », puis « Charger les parcours de démonstration ». Refermez le panneau.
 
 ![Parcours de démonstration](images/decouvrir-4-demonstration.png)
 
@@ -76,6 +76,6 @@ Chaque palier a son titre et ses exercices. On peut y ajouter une ressource pour
 
 ![Paliers dans l'éditeur](images/decouvrir-10-paliers-editeur.png)
 
-Pour enlever la démonstration, ouvrez les Réglages et touchez « Retirer les parcours de démonstration ».
+Pour enlever la démonstration, touchez « Parcours de démonstration » dans l'onglet Parcours, puis « Retirer les parcours de démonstration ».
 
 Vous pouvez maintenant [créer votre premier parcours](creer.md).

@@ -1211,7 +1211,7 @@
       // Parcours d'essai : ils ne rendent pas le drive « différent »
       await sauverBibliotheque(sansEcartDrive(avant, objectifsAvant, reprendre(avant, f), liste))
       await sauverObjectifs(liste)
-      return `${c.parcours.length} parcours chargés : classe « ${c.nom} » dans Mes parcours, et votre bibliothèque dans Créer.`
+      return `${c.parcours.length} parcours chargés : la classe « ${c.nom} » (Vue élève) et votre bibliothèque.`
     } catch (e) {
       return `Chargement impossible : ${(e as Error).message}`
     }
@@ -1333,6 +1333,9 @@
         onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
         onexporter={exporterClasse}
         onreglages={() => aller('reglages')}
+        {demonstration}
+        onchargerDemonstration={chargerDemonstration}
+        onretirerDemonstration={retirerDemonstration}
       />
 {/snippet}
 
@@ -1377,11 +1380,6 @@
       moteur={moteur ? infoMoteur() : null}
       {miseAJourMoteur}
       onchercherMoteur={moteurMisAJour ? chercherMoteur : null}
-      {preferences}
-      onpreferences={sauverPreferences}
-      {demonstration}
-      onchargerDemonstration={chargerDemonstration}
-      onretirerDemonstration={retirerDemonstration}
     />
   {:else if vue === 'creation' || vue === 'apercu'}
     {#if creation}

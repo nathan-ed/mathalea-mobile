@@ -3,8 +3,7 @@
 </script>
 
 <script lang="ts">
-  import { NIVEAUX, type InfoMoteur, type Pays } from '$lib/moteur'
-  import type { Preferences } from '$lib/bibliotheque'
+  import type { InfoMoteur, Pays } from '$lib/moteur'
   import type { Classe } from '$lib/partage'
   import ChampTexte from './ChampTexte.svelte'
   import ChoixRadio from './ChoixRadio.svelte'
@@ -40,11 +39,6 @@
     moteur,
     miseAJourMoteur,
     onchercherMoteur,
-    preferences,
-    onpreferences,
-    demonstration,
-    onchargerDemonstration,
-    onretirerDemonstration,
   }: {
     profil: Profil
     pays: Pays
@@ -66,14 +60,8 @@
     moteur: InfoMoteur | null
     miseAJourMoteur: string | null // version installée, active au prochain lancement
     onchercherMoteur: (() => Promise<string>) | null // null hors de l'application
-    preferences: Partial<Preferences> // valeurs de départ d'un nouveau parcours (derniers choix)
-    onpreferences: (p: Preferences) => void
-    demonstration: boolean // parcours de démonstration chargés
-    onchargerDemonstration: () => Promise<string>
-    onretirerDemonstration: () => Promise<string>
   } = $props()
 
-  let messageDemonstration = $state('')
   // Retrait d'un dossier suivi : confirmé, les résultats restent
   let aRetirer: Classe | null = $state(null)
   // Enseignant : reprise d'un dossier suivi (message par lien)
@@ -85,18 +73,8 @@
     reprise = false
   }
 
-  // Création de parcours : mêmes valeurs par défaut que parcoursVide()
-  const pref = $derived<Preferences>({ niveau: '', difficulte: 1, presentation: 'une_question_par_page', correction: 'question', enTetesMasques: true, melanger: true, ...preferences })
-  const changer = (modif: Partial<Preferences>) => onpreferences({ ...pref, ...modif })
-  const puce = (actif: boolean) =>
-    `rounded-full px-3 py-1.5 text-sm border border-coopmaths-action dark:border-coopmathsdark-action ${
-      actif
-        ? 'bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas'
-        : 'text-coopmaths-action dark:text-coopmathsdark-action'
-    }`
-
   // Chaque réglage est enregistré aussitôt ; après un changement, un bouton ramène à l'accueil
-  const etat = () => JSON.stringify([profil, pays, theme.preference, classes.map((c) => [c.lien, c.nom]), preferences])
+  const etat = () => JSON.stringify([profil, pays, theme.preference, classes.map((c) => [c.lien, c.nom])])
   const depart = etat()
   const modifie = $derived(etat() !== depart)
 
@@ -292,35 +270,6 @@
       </button>
     </section>
 
-    {#if moteur}
-      <section class="flex flex-col gap-3">
-        <h2 class={titreSection}>Moteur MathALÉA</h2>
-        <p class="pl-2 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          Version {moteur.version} ({moteur.source === 'livré' ? 'livrée avec l’application' : 'mise à jour téléchargée'})
-        </p>
-        {#if miseAJourMoteur}
-          <p class="pl-2 text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">
-            Version {miseAJourMoteur} installée : elle sera utilisée au prochain lancement.
-          </p>
-        {/if}
-        {#if onchercherMoteur}
-          <button
-            type="button"
-            class="{boutonInverse} w-full disabled:opacity-40"
-            style="min-height: 44px"
-            disabled={rechercheMoteur}
-            onclick={async () => {
-              rechercheMoteur = true
-              messageMoteur = await onchercherMoteur!()
-              rechercheMoteur = false
-            }}
-          >
-            Rechercher une mise à jour
-          </button>
-          {#if messageMoteur}<p class="pl-2 {texteDiscret}" role="status">{messageMoteur}</p>{/if}
-        {/if}
-      </section>
-    {/if}
 
     <section class="flex flex-col gap-3">
       <h2 class={titreSection}>Sauvegarde</h2>
@@ -362,71 +311,36 @@
       </label>
     </section>
 
-    {#if profil === 'enseignant'}
-      <section class="flex flex-col gap-2">
-        <h2 class={titreSection}>Parcours de démonstration</h2>
-        <p class="pl-2 {texteDiscret}">
-          Une liste simple, des paliers et des ceintures, avec objectifs et pauses : une classe « Démonstration » pour essayer comme un élève, et les mêmes parcours
-          dans votre bibliothèque pour voir comment ils sont faits.
-        </p>
-        {#if demonstration}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageDemonstration = await onretirerDemonstration())}>
-            Retirer les parcours de démonstration
-          </button>
-        {:else}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageDemonstration = await onchargerDemonstration())}>
-            Charger les parcours de démonstration
-          </button>
-        {/if}
-        {#if messageDemonstration}<p class="pl-2 {texteDiscret}" role="status">{messageDemonstration}</p>{/if}
-      </section>
-
-      <section class="flex flex-col gap-2">
-        <h2 class={titreSection}>Nouveau parcours</h2>
-        <p class="pl-2 {texteDiscret}">Valeurs de départ, reprises de votre dernier parcours enregistré.</p>
-        <p class="pl-2 text-sm font-light text-coopmaths-struct dark:text-coopmathsdark-struct">Niveau</p>
-        <div class="flex flex-row flex-wrap gap-2 pl-2" role="radiogroup" aria-label="Niveau d’un nouveau parcours">
-          {#each NIVEAUX[pays] as n (n)}
-            <button type="button" role="radio" aria-checked={pref.niveau === n} class={puce(pref.niveau === n)} onclick={() => changer({ niveau: n })}>{n}</button>
-          {/each}
-        </div>
-        <p class="pl-2 pt-2 text-sm font-light text-coopmaths-struct dark:text-coopmathsdark-struct">Pages</p>
-        <ChoixRadio
-          nom="pref-presentation"
-          valeur={pref.presentation}
-          onchange={(v) => changer({ presentation: v })}
-          options={[
-            { libelle: 'Tous les exercices sur une page', valeur: 'liste_exos' as const },
-            { libelle: 'Une page par exercice', valeur: 'un_exo_par_page' as const },
-            { libelle: 'Une page par question', valeur: 'une_question_par_page' as const },
-          ]}
-        />
-        {#each [{ cle: 'enTetes', libelle: 'Afficher les exercices (numéro et titre)', actif: !pref.enTetesMasques, changer: (v: boolean) => changer({ enTetesMasques: !v }) }, { cle: 'melanger', libelle: 'Mélanger les questions', actif: !!pref.melanger, changer: (v: boolean) => changer({ melanger: v }) }] as o (o.cle)}
-          <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
-            <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{o.libelle}</span>
-            <input type="checkbox" role="switch" class="interrupteur shrink-0" checked={o.actif} onchange={(e) => o.changer(e.currentTarget.checked)} />
-          </label>
-        {/each}
-        <p class="pl-2 pt-2 text-sm font-light text-coopmaths-struct dark:text-coopmathsdark-struct">Validation et correction</p>
-        <ChoixRadio
-          nom="pref-validation"
-          valeur={pref.correction}
-          onchange={(v) => changer({ correction: v })}
-          options={[
-            { libelle: 'Après chaque question', valeur: 'question' as const },
-            { libelle: 'À la fin de chaque page', valeur: 'page' as const },
-            { libelle: 'À la fin du parcours', valeur: 'parcours' as const },
-          ]}
-        />
-      </section>
-    {/if}
-
     <section class="flex flex-col gap-1">
       <h2 class={titreSection}>À propos</h2>
       <p class="pl-2 {texteDiscret}">
         MathALÉA {version} · licence AGPL-3.0 ·
         <a href="https://coopmaths.fr" class="text-coopmaths-action dark:text-coopmathsdark-action" onclick={ouvrirCoopmaths}>coopmaths.fr</a>
       </p>
+      {#if moteur}
+        <p class="pl-2 {texteDiscret}">
+          Moteur MathALÉA {moteur.version} ({moteur.source === 'livré' ? 'livré avec l’application' : 'mise à jour téléchargée'})
+        </p>
+        {#if miseAJourMoteur}
+          <p class="pl-2 text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">
+            Moteur {miseAJourMoteur} installé : il sera utilisé au prochain lancement.
+          </p>
+        {/if}
+        {#if onchercherMoteur}
+          <button
+            type="button"
+            class="self-start pl-2 text-sm text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-40"
+            style="min-height: 44px"
+            disabled={rechercheMoteur}
+            onclick={async () => {
+              rechercheMoteur = true
+              messageMoteur = await onchercherMoteur!()
+              rechercheMoteur = false
+            }}>Rechercher une mise à jour du moteur</button
+          >
+          {#if messageMoteur}<p class="pl-2 {texteDiscret}" role="status">{messageMoteur}</p>{/if}
+        {/if}
+      {/if}
       <!-- Guide en ligne (Pages de la forge), dans le navigateur -->
       <button type="button" class="self-start pl-2 text-sm text-coopmaths-action dark:text-coopmathsdark-action" style="min-height: 44px" onclick={() => void ouvrirLien(URL_GUIDE)}
         >Guide d’utilisation</button

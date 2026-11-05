@@ -143,17 +143,30 @@ ok(
 );
 await capture("reglages-defiles");
 await toucher(interrupteur);
+const quitterReglages = async () => {
+  const enregistrer = await exact("Enregistrer et quitter");
+  if (await enregistrer.isDisplayed().catch(() => false))
+    await toucher(enregistrer);
+  else await nav.back();
+  await pause(1000);
+};
+await quitterReglages();
+// Démonstration : depuis la bibliothèque de l'onglet Créer
+await toucher(await attendre(await bouton("Parcours de démonstration")));
 await toucher(
   await attendre(await exact("Charger les parcours de démonstration")),
 );
 await pause(3000);
 await capture("demonstration-chargee");
-await toucher(await affiche('//*[@role="switch"]'));
-const enregistrer = await exact("Enregistrer et quitter");
-if (await enregistrer.isDisplayed().catch(() => false))
-  await toucher(enregistrer);
-else await nav.back();
-await pause(1000);
+await nav.execute(() => history.back()); // ferme le panneau, comme le geste de retour
+await pause(800);
+await toucher(
+  await affiche(
+    '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
+  ),
+);
+await toucher(await attendre(await affiche('//*[@role="switch"]')));
+await quitterReglages();
 const classe = await bouton("Démonstration");
 if (await classe.isDisplayed().catch(() => false)) await toucher(classe);
 await attendre(await bouton("Nombres relatifs"));
@@ -244,21 +257,18 @@ for (let tour = 0; tour < 20; tour++) {
   const verifier = await nav.$(
     '(//button[normalize-space(.)="Vérifier"])[last()]',
   );
-  const position = await nav.execute(() => {
+  // Le clavier passe derrière la barre d'actions (56d36cf) : « Vérifier »
+  // reste touchable sans fermer le clavier (rien par-dessus son centre)
+  const touchable = await nav.execute(() => {
     const v = [...document.querySelectorAll("button")]
       .filter((b) => b.innerText.trim() === "Vérifier")
-      .at(-1)
-      ?.getBoundingClientRect();
-    const k = document
-      .getElementById("mathalea-virtual-keyboard")
-      ?.getBoundingClientRect();
-    return { bas: v ? v.bottom : null, clavier: k && k.height ? k.top : null };
+      .at(-1);
+    if (!v) return false;
+    const r = v.getBoundingClientRect();
+    const x = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return !!x && (x === v || v.contains(x));
   });
-  ok(
-    position.bas != null &&
-      (position.clavier == null || position.bas <= position.clavier + 2),
-    `question ${tour + 1} : « Vérifier » au-dessus du clavier`,
-  );
+  ok(touchable, `question ${tour + 1} : « Vérifier » touchable, clavier ouvert`);
   ok(
     await verifier.isEnabled(),
     `question ${tour + 1} : « Vérifier » actif après « ${reponse} »`,

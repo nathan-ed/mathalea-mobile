@@ -78,9 +78,24 @@ async function glisser(x, y1, y2) {
   });
   await pause(700);
 }
+/** Le centre de l'élément est bien à lui (rien par-dessus), shadow DOM compris */
+const auPremierPlan = (loc) =>
+  loc.evaluate((e) => {
+    const r = e.getBoundingClientRect();
+    const racine = e.getRootNode();
+    const x = (racine.elementFromPoint ? racine : document).elementFromPoint(
+      r.x + r.width / 2,
+      r.y + r.height / 2,
+    );
+    return !!x && (x === e || e.contains(x));
+  });
 /** Toucher du doigt au centre d'un élément (vrais événements tactiles de la WebView) */
 async function tapLoc(loc) {
   await loc.scrollIntoViewIfNeeded();
+  // Un bouton flottant ou une barre peut recouvrir l'élément au bord de
+  // l'écran : le doigt toucherait autre chose. On le ramène alors au milieu.
+  if (!(await auPremierPlan(loc)))
+    await loc.evaluate((e) => e.scrollIntoView({ block: "center" }));
   const b = await loc.boundingBox();
   if (!b) throw new Error("élément invisible");
   const point = { x: b.x + b.width / 2, y: b.y + b.height / 2 };
@@ -128,19 +143,28 @@ ok(
 );
 await capture("reglages-defiles");
 await toucher(page.getByRole("switch", { name: /Je suis enseignant/ }));
+const quitterReglages = async () => {
+  const quitter = page.getByRole("button", { name: "Enregistrer et quitter" });
+  if (await quitter.isVisible().catch(() => false)) await toucher(quitter);
+  else await page.goBack();
+};
+await quitterReglages();
+// Démonstration : depuis la bibliothèque de l'onglet Créer
+await toucher(
+  page.getByRole("button", { name: /^\s*Parcours de démonstration/ }),
+);
 await toucher(
   page.getByRole("button", { name: "Charger les parcours de démonstration" }),
 );
 await page
   .getByRole("status")
-  .filter({ hasText: /démonstration/i })
-  .waitFor({ timeout: 60_000 })
-  .catch(() => {});
+  .filter({ hasText: /parcours chargés/ })
+  .waitFor({ timeout: 60_000 });
 await capture("demonstration-chargee");
+await page.goBack(); // ferme le panneau
+await toucher(page.getByRole("button", { name: "Réglages" }).first());
 await toucher(page.getByRole("switch", { name: /Je suis enseignant/ }));
-const quitter = page.getByRole("button", { name: "Enregistrer et quitter" });
-if (await quitter.isVisible().catch(() => false)) await toucher(quitter);
-else await page.goBack();
+await quitterReglages();
 await pause(800);
 const classe = page.getByRole("button", { name: /^\s*Démonstration/ });
 if (
@@ -230,15 +254,11 @@ for (let tour = 0; tour < 20; tour++) {
   const verifier = page
     .getByRole("button", { name: "Vérifier", exact: true })
     .last();
-  // La barre d'actions reste au-dessus du clavier : touchable sans le fermer
-  const b = await verifier.boundingBox();
-  const k = await page
-    .locator("#mathalea-virtual-keyboard")
-    .boundingBox()
-    .catch(() => null);
+  // Le clavier passe derrière la barre d'actions (56d36cf) : « Vérifier »
+  // reste touchable sans fermer le clavier
   ok(
-    !!b && (!k || b.y + b.height <= k.y + 2),
-    `question ${tour + 1} : « Vérifier » au-dessus du clavier`,
+    await auPremierPlan(verifier),
+    `question ${tour + 1} : « Vérifier » touchable, clavier ouvert`,
   );
   ok(
     await verifier.isEnabled(),
