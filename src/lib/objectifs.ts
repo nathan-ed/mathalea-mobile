@@ -4,7 +4,7 @@
 import type { Etape, Parcours } from './catalogue'
 import { couleurCeinture, couleurDuRang, momentOuverture, nomCeinture, nomPalier, paliersDe, rangCeinture } from './catalogue'
 import { cleChapitre } from './explorer'
-import { bilan, type ResultatEtape, type Seance } from './progression'
+import { bilan, cleQuestion, estPositionnement, estRemediation, premiersEssais, surPapier, valeur, type ResultatEtape, type Seance } from './progression'
 import { estObjet, estTexte, listeDe, optionnel } from './validation'
 
 export interface Objectif {
@@ -249,19 +249,24 @@ export interface ObjectifTravaille {
 
 /**
  * Objectifs travaillés dans tous les passages terminés (copies figées des
- * parcours) : meilleure réussite et dernière fois travaillé.
+ * parcours) : meilleure réussite et dernière fois travaillé. Une remédiation
+ * ou un test de positionnement ne compte pas : ses exercices, plus simples,
+ * ne disent rien de la maîtrise de l'objectif.
  */
 export function objectifsTravailles(passages: Seance[]): ObjectifTravaille[] {
   const parObjectif = new Map<string, ObjectifTravaille>()
-  const termines = passages.filter((s) => s.fin).sort((a, b) => a.fin!.localeCompare(b.fin!))
+  const termines = passages
+    .filter((s) => s.fin && !estRemediation(s.contenu.id) && !estPositionnement(s.contenu.id))
+    .sort((a, b) => a.fin!.localeCompare(b.fin!))
   for (const s of termines) {
     // Séance de révision : plusieurs chapitres mélangés, sans niveau ni chapitre ;
     // l'objectif garde ceux du parcours où il a été travaillé
     const melange = !s.contenu.niveau && !s.contenu.theme
     for (const e of bilan(s).parEtape) {
       if (!e.faites || !e.sur) continue
-      const pourcentage = Math.round((100 * e.points) / e.sur)
-      for (const libelle of s.contenu.etapes[e.etape]?.objectifs ?? []) {
+      for (const [libelle, x] of scoresParObjectif(s, e.etape)) {
+        if (!x.sur) continue
+        const pourcentage = Math.round((100 * x.points) / x.sur)
         const avant = parObjectif.get(libelle)
         const source = !melange || !avant
         parObjectif.set(libelle, {
@@ -277,6 +282,57 @@ export function objectifsTravailles(passages: Seance[]): ObjectifTravaille[] {
     }
   }
   return [...parObjectif.values()]
+}
+
+/** Objectifs d'un point de réponse : les siens, sinon ceux de l'exercice */
+export function objectifsDuPoint(e: Etape, cle: string | undefined) {
+  const propres = cle !== undefined ? e.points?.[cle] : undefined
+  return propres?.length ? { objectifs: propres, parPoint: true } : { objectifs: e.objectifs ?? [], parPoint: false }
+}
+
+
+/**
+ * Réussite de chaque objectif d'un exercice dans une séance : avec un résultat
+ * par point, chaque point compte pour ses objectifs (un point de révision ne
+ * gonfle pas l'objectif nouveau) ; sinon la question compte pour les objectifs
+ * de l'exercice.
+ */
+export function scoresParObjectif(s: Seance, etape: number) {
+  const e = s.contenu.etapes[etape]
+  const parObjectif = new Map<string, { points: number; sur: number }>()
+  if (!e) return parObjectif
+  const ajouter = (objectifs: string[], score: number) => {
+    for (const o of objectifs) {
+      const x = parObjectif.get(o) ?? { points: 0, sur: 0 }
+      x.points += score
+      x.sur += 1
+      parObjectif.set(o, x)
+    }
+  }
+  const premiers = premiersEssais(s)
+  const n = s.nbQuestions[etape] ?? 0
+  for (let q = 0; q < n; q++) {
+    if (surPapier(s, etape, q)) continue
+    const essai = premiers.get(cleQuestion(etape, q))
+    // Question passée : comptée manquée pour tous les objectifs de l'exercice, comme dans le bilan
+    if (!essai) {
+      ajouter([...new Set([...(e.objectifs ?? []), ...Object.values(e.points ?? {}).flat()])], 0)
+      continue
+    }
+    if (essai.detail && e.points && Object.keys(e.points).length) {
+      // Chaque objectif prend la moyenne de ses points dans la question
+      const parQuestion = new Map<string, { points: number; sur: number }>()
+      for (const [cle, score] of Object.entries(essai.detail))
+        for (const o of objectifsDuPoint(e, cle).objectifs) {
+          const x = parQuestion.get(o) ?? { points: 0, sur: 0 }
+          x.points += score
+          x.sur += 1
+          parQuestion.set(o, x)
+        }
+      for (const [o, x] of parQuestion) ajouter([o], x.points / x.sur)
+    } else ajouter(e.objectifs ?? [], valeur(essai))
+  }
+  return parObjectif
 }
 
 /** Ceintures déjà obtenues, dans l'ordre des paliers (pour `etatsPaliers`) */

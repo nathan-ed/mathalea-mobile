@@ -61,9 +61,20 @@ const estEssai = (v: unknown) => {
     estNombre(e.points) &&
     estNombre(e.total) &&
     dictionnaireDe(e.reponses, estTexte) &&
-    estTexte(e.le)
+    estTexte(e.le) &&
+    optionnel(e.detail, (d) => dictionnaireDe(d, estNombre))
   )
 }
+
+const estOrigineRemediation = (v: unknown) =>
+  estObjet(v) &&
+  estTexte(v.parcours) &&
+  estEntier(v.version) &&
+  estEntier(v.etape) &&
+  (v.etape as number) >= 0 &&
+  optionnel(v.objectif, estTexte) &&
+  estEntier(v.profondeur) &&
+  (v.profondeur as number) >= 1
 
 /** Séance d'un parcours (identifiant attendu : celui de la clé de stockage) */
 const estSeance = (id: string) => (v: unknown) => {
@@ -86,6 +97,7 @@ const estSeance = (id: string) => (v: unknown) => {
     optionnel(s.papier, (x) => dictionnaireDe(x, (vue) => typeof vue === 'boolean')) &&
     optionnel(s.empreintes, (x) => dictionnaireDe(x, estTexte)) &&
     optionnel(s.qrMontre, (b) => typeof b === 'boolean') &&
+    optionnel(s.remediation, estOrigineRemediation) &&
     dictionnaireDe(s.graines, estTexte) &&
     dictionnaireDe(s.nbQuestions, (q) => estEntier(q) && q >= 0) &&
     dictionnaireDe(s.brouillons, (b) => dictionnaireDe(b, estTexte)) &&
@@ -137,6 +149,9 @@ const valeurs: Record<string, (v: unknown) => boolean> = {
   etiquettes: (v) => dictionnaireDe(v, textesUniques),
   releves: estReleves,
   revisions: estRevisions,
+  // Tests de positionnement passés, par parcours : paliers ouverts par le test (remediation.ts)
+  positionnement: (v) =>
+    dictionnaireDe(v, (x) => estObjet(x) && estEntier(x.version) && estEntier(x.rang) && (x.rang as number) >= 0 && estTexte(x.le)),
   prenom: estTexte,
   'test-niveau': (v) =>
     dictionnaireDe(

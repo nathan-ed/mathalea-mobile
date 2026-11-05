@@ -24,7 +24,11 @@ const estParametre = (v: unknown) => estTexte(v) || estNombre(v) || typeof v ===
 /** Au-delà, la préparation de l'exercice fige le téléphone */
 export const NB_QUESTIONS_MAX = 100
 
-export function estEtape(v: unknown): v is Etape {
+/** Clé d'un point de réponse (moteur) : « 0 », « 1 »… ou « 0:champ1 », « 0:field2 »… */
+const estClePoint = (cle: string) => /^\d+(:[\w-]+)?$/.test(cle)
+
+/** Exercice ; ceux de sa remédiation n'en ont pas eux-mêmes */
+export function estEtape(v: unknown, remediation = true): v is Etape {
   const e = v as Etape
   return (
     estObjet(e) &&
@@ -35,9 +39,18 @@ export function estEtape(v: unknown): v is Etape {
     optionnel(e.titreMasque, (b) => typeof b === 'boolean') &&
     optionnel(e.remiseAZero, (r) => typeof r === 'boolean' || estEntier(r)) &&
     optionnel(e.objectifs, textesUniques) &&
+    optionnel(e.points, (x) => dictionnaireDe(x, textesUniques) && Object.keys(x as object).every(estClePoint)) &&
+    optionnel(e.remediation, (l) => remediation && listeDe(l, (x) => estEtape(x, false))) &&
     [e.sup, e.sup2, e.sup3, e.sup4].every((s) => optionnel(s, estParametre))
   )
 }
+
+const estRemediation = (v: unknown) =>
+  estObjet(v) &&
+  estTexte(v.objectif) &&
+  listeDe(v.etapes, (x) => estEtape(x, false)) &&
+  optionnel(v.fiche, estFiche) &&
+  optionnel(v.prerequis, textesUniques)
 
 // Fiches de cours : chaque bloc selon son type ; graphiques dont les
 // expressions se calculent, images intégrées au fichier (SVG ou PNG)
@@ -140,13 +153,15 @@ export function estParcours(v: unknown): v is Parcours {
     optionnel(p.icone, estTexte) &&
     PRESENTATIONS.includes(p.presentation) &&
     VALIDATIONS.includes(p.correction) &&
-    listeDe(p.etapes, estEtape) &&
+    listeDe(p.etapes, (e) => estEtape(e)) &&
     optionnel(p.paliers, (l) => listeDe(l, estPalier)) &&
     optionnel(p.style, (x) => x === 'paliers' || x === 'ceintures') &&
     optionnel(p.premiereCeinture, (n) => estEntier(n) && (n as number) >= 0 && (n as number) < 7) &&
     optionnel(p.enTetesMasques, (b) => typeof b === 'boolean') &&
     optionnel(p.melanger, (b) => typeof b === 'boolean') &&
-    optionnel(p.fiche, estFiche)
+    optionnel(p.fiche, estFiche) &&
+    optionnel(p.remediations, (l) => listeDe(l, estRemediation) && sansDoublon((l as { objectif: string }[]).map((r) => r.objectif))) &&
+    optionnel(p.positionnement, (b) => typeof b === 'boolean')
   )
 }
 

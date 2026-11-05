@@ -10,6 +10,17 @@ export interface Essai {
   total: number
   reponses: Record<string, string>
   le: string
+  // Score de chaque point de réponse (clé du moteur), seulement pour une question qui en a plusieurs
+  detail?: Record<string, number>
+}
+
+/** Séance de remédiation : d'où elle vient. Son dernier exercice est l'exercice manqué, avec de nouvelles valeurs */
+export interface OrigineRemediation {
+  parcours: string // identifiant du parcours d'origine
+  version: number
+  etape: number // exercice manqué, rang dans le parcours d'origine
+  objectif?: string // objectif retravaillé (absent : remédiation de l'exercice)
+  profondeur: number // 1 pour la première, 2 pour celle qui la suit…
 }
 
 export interface Seance {
@@ -27,6 +38,7 @@ export interface Seance {
   fin?: string
   soumise?: boolean // validation à la fin du parcours : tentative soumise
   code?: string // session partagée : même code, mêmes exercices
+  remediation?: OrigineRemediation
   ordre?: string[] // questions mélangées (clés « étape-question »), tirées une fois
   // Questions sans réponse à saisir (exercice non interactif), à faire sur
   // papier : hors du score ; vrai quand l'élève a ouvert la correction
@@ -186,6 +198,12 @@ export function fixerOrdre(s: Seance) {
 
 /** Séance de révision espacée (revisions.ts) : parcours généré sur l'appareil */
 export const ID_REVISIONS = 'revisions'
+
+/** Séances de remédiation et tests de positionnement (remediation.ts) : parcours générés, hors score et hors ceintures */
+export const PREFIXE_REMEDIATION = 'remediation-'
+export const PREFIXE_POSITIONNEMENT = 'positionnement-'
+export const estRemediation = (id?: string) => !!id?.startsWith(PREFIXE_REMEDIATION)
+export const estPositionnement = (id?: string) => !!id?.startsWith(PREFIXE_POSITIONNEMENT)
 
 /**
  * Pratique mélangée : exercices dans un ordre tiré, puis une question de

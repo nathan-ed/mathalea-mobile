@@ -9,6 +9,27 @@ export interface Etape extends ParamsExercice {
   // Exercice transformé en profondeur : l'élève repart de zéro pour cet exercice dans la version qui
   // le porte. `true` dans l'éditeur, remplacé à l'enregistrement par le numéro de cette version.
   remiseAZero?: boolean | number
+  /**
+   * Objectifs de chaque point de réponse (clé du moteur : « 0 », « 1 », « 0:field2 »… ; voir
+   * `decrirePoints`). Un point absent garde les objectifs de l'exercice. Sert au diagnostic :
+   * le premier point manqué dit quoi retravailler.
+   */
+  points?: Record<string, string[]>
+  /** Exercices plus simples ou plus ciblés, proposés à l'élève qui manque celui-ci (sans remédiation propre) */
+  remediation?: Etape[]
+}
+
+/**
+ * Remédiation d'un objectif : exercices plus simples ou plus ciblés, et une
+ * fiche, proposés à l'élève qui manque un point de réponse visant cet
+ * objectif. Ils restent hors du parcours : ni score, ni ceinture.
+ * `prerequis` : objectifs à retravailler ensuite si l'élève échoue encore.
+ */
+export interface Remediation {
+  objectif: string
+  etapes: Etape[]
+  fiche?: Fiche
+  prerequis?: string[]
 }
 
 /** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ */
@@ -142,6 +163,8 @@ export interface Parcours {
   enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
   melanger?: boolean // questions de plusieurs exercices dans un ordre mélangé (sauf un exercice par page)
   fiche?: Fiche // cours du parcours entier (parcours sans paliers, ou fiche générale)
+  remediations?: Remediation[] // par objectif (un objectif au plus une fois)
+  positionnement?: boolean // paliers : un test d'une question par palier est proposé avant le premier
 }
 
 /** Auteurs en une phrase : « Ana », « Ana et Ben », « Ana, Ben et Chloé » */
