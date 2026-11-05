@@ -1,1 +1,1 @@
-- Ordinateurs Windows : les exercices à glisser-déposer fonctionnent de nouveau à la souris.
+- Ordinateurs : le glisser-déposer à la souris fonctionne de nouveau dans les exercices.

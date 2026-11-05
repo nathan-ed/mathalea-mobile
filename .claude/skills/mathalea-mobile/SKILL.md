@@ -921,8 +921,11 @@ Environnement (machine de Nathan)
 
 - Glisser-déposer dans l'app de bureau (5 novembre 2026, signalé en classe
   sur la 0.5.0) : Tauri 2 capte par défaut le glisser de la fenêtre pour le
-  dépôt de fichiers (`dragDropEnabled` vrai), ce qui bloque sous Windows le
-  glisser-déposer HTML des exercices de MathALÉA (étiquettes immobiles).
+  dépôt de fichiers (`dragDropEnabled` vrai), ce qui bloque sous Windows et
+  macOS le glisser-déposer HTML des exercices de MathALÉA : étiquettes
+  (`dnd`, immobiles), opérandes du Compte est bon (le clic restait). Les
+  autres formats (relier, figures, Scratch) passent par les
+  événements de pointeur et n'étaient pas touchés.
   `"dragDropEnabled": false` dans `tauri.conf.json`, gardé par
   `tests/fenetre-tauri.test.ts`. Les suites e2e jouent dans Chromium, hors
   de la fenêtre Tauri : elles ne voient pas ce qui dépend de la config des
