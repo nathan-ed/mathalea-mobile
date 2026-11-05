@@ -366,6 +366,8 @@
     try {
       for (const etape of seance.etapes) {
         const ex = await moteur.preparerExercice({ ...parcours.etapes[etape], alea: seance.graines[etape] }, etape)
+        // Exemple corrigé (remédiation) : à lire, hors score, comme un exercice sur papier
+        if (parcours.etapes[etape].interactif === false) ex.questions = ex.questions.map((q) => ({ ...q, interactive: false }))
         exercices[etape] = ex
         seance.graines[etape] = ex.graine
         seance.nbQuestions[etape] = ex.questions.length
@@ -536,6 +538,7 @@
             onsaisie={() => (avertissement = null)}
             correctionVue={seance.papier?.[cleQuestion(ref.etape, ref.question)] === true}
             onvoircorrection={() => enregistrerCorrectionVue(ref)}
+            exemple={parcours.etapes[ref.etape]?.interactif === false}
           />
         {/each}
       {/key}

@@ -24,6 +24,7 @@
     correctionVue = false,
     onvoircorrection,
     aSaisi = $bindable(false),
+    exemple = false,
   }: {
     moteur: Moteur
     exercice: ExercicePrepare
@@ -41,6 +42,7 @@
     correctionVue?: boolean // question sans réponse à saisir : correction déjà ouverte
     onvoircorrection?: () => void
     aSaisi?: boolean
+    exemple?: boolean // exemple corrigé : énoncé à lire, champs inertes, correction au toucher
   } = $props()
 
   let zone: HTMLDivElement
@@ -393,8 +395,8 @@
     bind:this={zone}
     class="contenu-mathalea question-eleve text-coopmaths-corpus dark:text-coopmathsdark-corpus"
     aria-busy={rendus > 0}
-    style={lectureSeule ? 'pointer-events: none' : undefined}
-    inert={lectureSeule}
+    style={lectureSeule || exemple ? 'pointer-events: none' : undefined}
+    inert={lectureSeule || exemple}
     oninput={surSaisie}
     onchange={surSaisie}
     onbeforeinput={surSaisieTrou}

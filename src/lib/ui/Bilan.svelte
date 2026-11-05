@@ -240,7 +240,7 @@
               {#if e.sur > 0}
                 <span class={pastilleScore((100 * e.points) / e.sur)}>{arrondi(e.points)}/{e.sur}</span>
               {:else}
-                <span class="shrink-0 whitespace-nowrap text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{e.vues === e.papier ? 'Correction vue' : 'Sur papier'}</span>
+                <span class="shrink-0 whitespace-nowrap text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{e.vues === e.papier ? 'Correction vue' : parcours.etapes[e.etape]?.interactif === false ? 'Exemple corrigé' : 'Sur papier'}</span>
               {/if}
               <i aria-hidden="true"
                 class="bx {ouvertes[e.etape] ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"

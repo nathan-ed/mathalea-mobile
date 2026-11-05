@@ -197,10 +197,12 @@ export function diagnostiquer(s: Seance, autres: Parcours[] = []): Diagnostic {
 export const libelleProposition = (p: Parcours, x: Proposition) => x.objectif ?? titreEleve(p.etapes[x.etape], x.etape)
 
 /**
- * Parcours de la séance de remédiation : les exercices proposés, puis
- * l'exercice manqué avec de nouvelles valeurs. Correction à chaque question,
- * une question par page. L'identifiant ne dépend que du parcours d'origine :
- * une remédiation commencée se reprend, une nouvelle la remplace.
+ * Parcours de la séance de remédiation : un exemple corrigé de l'exercice
+ * manqué (une question, énoncé et correction, hors score), les exercices
+ * proposés, puis l'exercice manqué avec de nouvelles valeurs. Correction à
+ * chaque question, une question par page. L'identifiant ne dépend que du
+ * parcours d'origine : une remédiation commencée se reprend, une nouvelle la
+ * remplace.
  */
 export function parcoursDeRemediation(p: Parcours, x: Proposition): Parcours {
   const manque = p.etapes[x.etape]
@@ -216,7 +218,12 @@ export function parcoursDeRemediation(p: Parcours, x: Proposition): Parcours {
     icone: p.icone,
     presentation: 'une_question_par_page',
     correction: 'question',
-    etapes: [...x.etapes, { ...reprise(manque), objectifs: manque.objectifs, points: manque.points }],
+    etapes: [
+      // Exemple corrigé d'abord (la méthode), sauf si l'exercice manqué en est déjà un
+      ...(manque.interactif === false ? [] : [{ ...reprise(manque), titre: `Exemple corrigé · ${manque.titre}`, nbQuestions: 1, interactif: false }]),
+      ...x.etapes,
+      { ...reprise(manque), objectifs: manque.objectifs, points: manque.points, interactif: undefined, titre: manque.titre.replace(/^Exemple corrigé · /, '') },
+    ],
     ...(x.fiche ? { fiche: { ...x.fiche, avant: false } } : {}),
     remediations: p.remediations,
   }

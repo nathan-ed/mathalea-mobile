@@ -6,8 +6,9 @@
 //      sans être obtenue, l'élève commence à la jaune.
 //   2. Étude de fonction manquée sur la dérivée seulement (premier point) :
 //      le bilan propose « Dériver une fonction composée », pas le tableau de
-//      variations réussi ; la remédiation (exercice plus simple, puis l'étude
-//      avec de nouvelles valeurs) réussie ramène à la ceinture.
+//      variations réussi ; la remédiation (exemple corrigé de l'étude, exercice
+//      plus simple, puis l'étude avec de nouvelles valeurs) réussie ramène à la
+//      ceinture.
 //   3. Remédiation encore manquée : le prérequis prévu par l'enseignant.
 //   4. Reprise d'une remédiation quittée depuis la page du parcours ; bouton
 //      retour ; maîtrise de l'objectif dans le suivi point par point.
@@ -204,7 +205,9 @@ async function scenario(bureau) {
   ok(t.includes(`Retravailler : ${DERIVER}`), `${ecran} : séance de remédiation ouverte`, t.slice(0, 200))
   await capture(e, 'remediation-seance')
   const s0 = await lireSeance(page, 'remediation-variations-composees-t')
-  ok(s0?.contenu.etapes.map((x) => x.id).join() === '1AN14-7,TSA3-32', `${ecran} : exercice de remédiation puis exercice manqué`, JSON.stringify(s0?.contenu.etapes.map((x) => x.id)))
+  ok(s0?.contenu.etapes.map((x) => x.id).join() === 'TSA3-32,1AN14-7,TSA3-32' && s0.contenu.etapes[0].interactif === false, `${ecran} : exemple corrigé, exercice de remédiation, puis exercice manqué`, JSON.stringify(s0?.contenu.etapes.map((x) => x.id)))
+  // Exemple corrigé : rien à saisir, la correction au toucher
+  ok((await bouton(e, 'Voir la correction').count()) > 0 && !(await page.locator('footer').getByRole('button', { name: 'Vérifier' }).isEnabled().catch(() => false)), `${ecran} : exemple corrigé, « Voir la correction » et rien à vérifier`)
   ok(s0?.remediation?.objectif === DERIVER && s0.remediation.etape === 1, `${ecran} : la séance garde son origine`)
   // Bouton retour pendant la séance : la séance se quitte, la page du parcours propose de continuer
   if (!bureau) {
@@ -241,13 +244,13 @@ async function scenario(bureau) {
   await appuyer(e, bouton(e, /^Refaire : ceinture jaune$/))
   await jouer(e, PARCOURS.id, dériveeFausse(1))
   await appuyer(e, bouton(e, `Retravailler : ${DERIVER}`))
-  await jouer(e, 'remediation-variations-composees-t', toutFaux([0, 1]))
+  await jouer(e, 'remediation-variations-composees-t', toutFaux([1, 2]))
   t = await texte(e)
   ok(t.includes(`Prochaine étape : ${USUELLE}`), `${ecran} : remédiation manquée, le prérequis prévu est proposé`, t.slice(0, 300))
   await capture(e, 'remediation-manquee')
   await appuyer(e, bouton(e, `Retravailler : ${USUELLE}`))
   const s2 = await lireSeance(page, 'remediation-variations-composees-t')
-  ok(s2?.remediation?.profondeur === 2 && s2.contenu.etapes.map((x) => x.id).join() === '1AN14-3,TSA3-32', `${ecran} : deuxième remédiation, puis encore l'exercice manqué`, JSON.stringify([s2?.remediation, s2?.contenu.etapes.map((x) => x.id)]))
+  ok(s2?.remediation?.profondeur === 2 && s2.contenu.etapes.map((x) => x.id).join() === 'TSA3-32,1AN14-3,TSA3-32', `${ecran} : deuxième remédiation (exemple, prérequis), puis encore l'exercice manqué`, JSON.stringify([s2?.remediation, s2?.contenu.etapes.map((x) => x.id)]))
   // Quitter le bilan par le bouton retour : la page du parcours d'origine
   await jouer(e, 'remediation-variations-composees-t')
   await page.goBack()

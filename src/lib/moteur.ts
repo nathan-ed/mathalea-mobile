@@ -15,6 +15,8 @@ export interface ParamsExercice {
   sup3?: string
   sup4?: string
   alea?: string
+  /** false : énoncé sans champs de réponse (exemple corrigé, impression) */
+  interactif?: boolean
 }
 
 export interface QuestionPreparee {

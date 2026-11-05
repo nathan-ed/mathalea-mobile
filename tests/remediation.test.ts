@@ -151,42 +151,48 @@ describe('séance de remédiation', () => {
   const prop = diagnostiquer(seance(base, [4], [[4, 0, 0, { '0:field0': 1, '0:field1': 0, '0:field2': 1 }]])).propositions[0]
   const p = parcoursDeRemediation(base, prop)
 
-  it('les exercices proposés, puis l’exercice manqué', () => {
+  it('un exemple corrigé, les exercices proposés, puis l’exercice manqué', () => {
     expect(p.id).toBe('remediation-derivation-1re')
     expect(estParcours(p)).toBe(true)
     expect(p.titre).toBe('Retravailler : Signe de la dérivée')
-    expect(p.etapes.map((e) => e.uuid)).toEqual(['trinome', 'etu'])
+    expect(p.etapes.map((e) => e.uuid)).toEqual(['etu', 'trinome', 'etu'])
+    // Exemple corrigé : une question, sans réponse à saisir ; la reprise, elle, se vérifie
+    expect(p.etapes[0]).toMatchObject({ interactif: false, nbQuestions: 1, titre: 'Exemple corrigé · Exercice etu' })
+    expect(p.etapes[2].interactif).toBeUndefined()
+    expect(p.etapes[2].titre).toBe('Exercice etu')
     expect(p.correction).toBe('question')
     // Remédiation qui suit une remédiation : même identifiant
     expect(parcoursDeRemediation(p, { ...prop, etape: 1 }).id).toBe(p.id)
   })
 
+  // Étape 0 : exemple corrigé (correction vue) ; 1 : trinôme ; 2 : l'étude reprise
   function remediation(essais: [number, number, number][], profondeur = 1) {
     const s = seance(p, p.etapes.map((_, i) => i), essais)
+    s.papier = { '0-0': true }
     s.remediation = { parcours: base.id, version: base.version, etape: 4, objectif: 'Signe de la dérivée', profondeur }
     return s
   }
 
   it('reprise réussie : rien ne suit', () => {
-    const s = remediation([[0, 0, 1], [0, 1, 1], [1, 0, 1]])
-    expect(rangReprise(s)).toBe(1)
+    const s = remediation([[1, 0, 1], [1, 1, 1], [2, 0, 1]])
+    expect(rangReprise(s)).toBe(2)
     expect(repriseReussie(s)).toBe(true)
     expect(suiteDeRemediation(s)).toBeNull()
   })
 
   it('reprise manquée : le prérequis prévu par l’enseignant', () => {
-    const s = remediation([[0, 0, 1], [0, 1, 0], [1, 0, 0]])
+    const s = remediation([[1, 0, 1], [1, 1, 0], [2, 0, 0]])
     expect(repriseReussie(s)).toBe(false)
     expect(suiteDeRemediation(s)).toMatchObject({ objectif: 'Signe d’un trinôme', origine: 'objectif' })
   })
 
   it('au plus PROFONDEUR_MAX remédiations', () => {
-    const s = remediation([[0, 0, 0], [1, 0, 0]], PROFONDEUR_MAX)
+    const s = remediation([[1, 0, 0], [2, 0, 0]], PROFONDEUR_MAX)
     expect(suiteDeRemediation(s)).toBeNull()
   })
 
   it('la séance se sauvegarde', () => {
-    const s = remediation([[0, 0, 1], [1, 0, 1]])
+    const s = remediation([[1, 0, 1], [2, 0, 1]])
     const essai = { ...s.essais[0], detail: { '0:field0': 1 } }
     expect(cleInvalide({ [`seance:${p.id}`]: { ...s, essais: [essai] } })).toBeUndefined()
     expect(cleInvalide({ [`seance:${p.id}`]: { ...s, remediation: { ...s.remediation, profondeur: 0 } } })).toBe(`seance:${p.id}`)

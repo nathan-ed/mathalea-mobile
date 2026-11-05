@@ -17,6 +17,7 @@ export interface Etape extends ParamsExercice {
   points?: Record<string, string[]>
   /** Exercices plus simples ou plus ciblés, proposés à l'élève qui manque celui-ci (sans remédiation propre) */
   remediation?: Etape[]
+  // `interactif: false` (ParamsExercice) : exemple corrigé, énoncé sans champ et sa correction, hors score
 }
 
 /**

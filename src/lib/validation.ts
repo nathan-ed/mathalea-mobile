@@ -41,6 +41,7 @@ export function estEtape(v: unknown, remediation = true): v is Etape {
     optionnel(e.objectifs, textesUniques) &&
     optionnel(e.points, (x) => dictionnaireDe(x, textesUniques) && Object.keys(x as object).every(estClePoint)) &&
     optionnel(e.remediation, (l) => remediation && listeDe(l, (x) => estEtape(x, false))) &&
+    optionnel(e.interactif, (b) => b === false) &&
     [e.sup, e.sup2, e.sup3, e.sup4].every((s) => optionnel(s, estParametre))
   )
 }

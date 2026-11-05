@@ -20,7 +20,10 @@
 
   onMount(async () => {
     try {
-      exercice = await moteur.preparerExercice({ ...parcours.etapes[etape], alea: seance.graines[etape] }, etape)
+      const ex = await moteur.preparerExercice({ ...parcours.etapes[etape], alea: seance.graines[etape] }, etape)
+      // Exemple corrigé : sans réponse, comme dans la séance
+      if (parcours.etapes[etape].interactif === false) ex.questions = ex.questions.map((q) => ({ ...q, interactive: false }))
+      exercice = ex
     } catch (e) {
       erreur = (e as Error).message
     }
