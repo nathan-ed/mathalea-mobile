@@ -39,7 +39,7 @@
   } from '$lib/bibliotheque'
   import { rappelExport } from '$lib/rappelExport.svelte'
   import { heure, suivreHeure } from '$lib/heure.svelte'
-  import { ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
+  import { ceinturesObtenues, objectifsDeLaSeance, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
   import { LIEN_DEMONSTRATION, ecrireClasses, fusionnerCatalogues, lireClasses, lireExplorer, sourcesExplorer, lireFichier, lireFichierDistant, nomHorodate, memeClasse, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
@@ -902,6 +902,14 @@
       }))
       .filter((a) => a.choix.length)
     return propositions.length || aPreciser.length ? { propositions, aPreciser } : null
+  })
+
+  /** Bilan d'une séance d'un parcours : réussite par objectif (diagnostic), pas pour un test, une révision ni une remédiation */
+  const objectifsDuBilan = $derived.by(() => {
+    if (!seance || !seance.fin) return []
+    const id = seance.parcours
+    if (estTest(id) || estRevision(id) || estRemediation(id) || estPositionnement(id) || estAdapte(id)) return []
+    return objectifsDeLaSeance(seance)
   })
 
   /** Bilan d'une remédiation ou d'un test de positionnement : verdict et suite */
@@ -1834,6 +1842,7 @@
       test={testDuBilan}
       revision={estRevision(seance.parcours) ? (issuesRevision ?? {}) : null}
       aRetravailler={aRetravaillerDuBilan}
+      objectifs={objectifsDuBilan}
       suite={suiteDuBilan}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
       onfiche={(f) => ouvrirCours(f)}

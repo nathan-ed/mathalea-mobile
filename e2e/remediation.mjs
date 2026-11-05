@@ -204,6 +204,8 @@ async function scenario(bureau) {
   t = await texte(e)
   ok(t.includes('À retravailler'), `${ecran} : le bilan dit quoi retravailler`, t.slice(0, 400))
   ok(t.includes(DERIVER) && !t.includes(`${TABLEAU} Manqué`), `${ecran} : objectif du premier point manqué (la dérivée), pas celui du tableau réussi`)
+  const parObjectif = (await page.getByRole('region', { name: 'Par objectif' }).innerText().catch(() => '')).replace(/\s+/g, ' ')
+  ok(parObjectif.includes(`${DERIVER} 0 %`) && parObjectif.includes(`${TABLEAU} 100 %`), `${ecran} : bilan par objectif, réponse par réponse (dérivée 0 %, tableau 100 %)`, parObjectif)
   const retravailler = bouton(e, `Retravailler : ${DERIVER}`)
   ok(await touchable(e, retravailler), `${ecran} : « Retravailler : ${DERIVER} » touchable`)
   await capture(e, 'bilan-a-retravailler')

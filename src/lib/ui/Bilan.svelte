@@ -31,6 +31,7 @@
     revision = null,
     aRetravailler = null,
     suite = null,
+    objectifs = [],
   }: {
     parcours: Parcours
     seance: Seance
@@ -69,6 +70,8 @@
     } | null
     /** Séance de remédiation ou test de positionnement : verdict et suites, à la place des actions d'un parcours */
     suite?: { message: string; actions: { libelle: string; fn: () => void }[] } | null
+    /** Réussite par objectif de la séance (diagnostic), affichée à partir de deux objectifs */
+    objectifs?: { libelle: string; pourcentage: number }[]
   } = $props()
 
   // Exercice dont l'élève dit ce qui l'a bloqué
@@ -255,6 +258,20 @@
         </li>
       {/each}
     </ul>
+    {/if}
+
+    {#if objectifs.length > 1}
+      <section class="flex flex-col gap-2" aria-label="Par objectif">
+        <h2 class="pl-2 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Par objectif</h2>
+        <ul class={listeGroupee}>
+          {#each objectifs as o (o.libelle)}
+            <li class="flex flex-row items-center justify-between gap-3 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+              <span class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">{o.libelle}</span>
+              <span class={pastilleScore(o.pourcentage)}>{o.pourcentage} %</span>
+            </li>
+          {/each}
+        </ul>
+      </section>
     {/if}
 
     {#if revision}

@@ -421,3 +421,20 @@ export function ceinturesParChapitre(parcours: Parcours[], historiques: Record<s
     ceintures: [...rangs.entries()].sort(([a], [b]) => a - b).map(([, x]) => x),
   }))
 }
+
+/**
+ * Réussite de chaque objectif sur toute une séance (diagnostic au bilan),
+ * point par point quand les réponses ont leurs objectifs, dans l'ordre où les
+ * objectifs apparaissent.
+ */
+export function objectifsDeLaSeance(s: Seance) {
+  const total = new Map<string, { points: number; sur: number }>()
+  for (const etape of s.etapes)
+    for (const [o, x] of scoresParObjectif(s, etape)) {
+      const t = total.get(o) ?? { points: 0, sur: 0 }
+      t.points += x.points
+      t.sur += x.sur
+      total.set(o, t)
+    }
+  return [...total.entries()].filter(([, x]) => x.sur > 0).map(([libelle, x]) => ({ libelle, pourcentage: Math.round((100 * x.points) / x.sur) }))
+}

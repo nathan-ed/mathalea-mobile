@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Etape, Parcours } from '../src/lib/catalogue'
-import { etatsPaliers, objectifsTravailles, scoresParObjectif } from '../src/lib/objectifs'
+import { etatsPaliers, objectifsDeLaSeance, objectifsTravailles, scoresParObjectif } from '../src/lib/objectifs'
 import { nouvelleSeance, type Essai, type Seance } from '../src/lib/progression'
 import {
   PROFONDEUR_MAX,
@@ -268,6 +268,16 @@ describe('maîtrise par objectif', () => {
       ['Dériver', 100],
       ['Signe de la dérivée', 0],
       ['Variations', 50],
+    ])
+  })
+
+  it('diagnostic d’une séance : chaque objectif sur toutes ses questions', () => {
+    const s = seance(base, [0, 4], [[0, 0, 1], [0, 1, 0], [4, 0, 0, { '0:field0': 1, '0:field1': 0, '0:field2': 1 }]])
+    // Dériver : 1, 0 (exercice 1), 1 (point a) de l'étude) ; signe : 0 ; variations : 1
+    expect(objectifsDeLaSeance(s)).toEqual([
+      { libelle: 'Dériver', pourcentage: 67 },
+      { libelle: 'Signe de la dérivée', pourcentage: 0 },
+      { libelle: 'Variations', pourcentage: 100 },
     ])
   })
 
