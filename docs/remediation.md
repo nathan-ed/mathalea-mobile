@@ -48,7 +48,7 @@ Slavin, 1987). La remédiation construite ici est cette boucle :
 | --- | --- |
 | Évaluation formative | La séance d'une ceinture |
 | Diagnostic | Premier point de réponse manqué, son objectif |
-| Correction ciblée | Fiche de la remédiation, exercices plus simples ou plus ciblés |
+| Correction ciblée | Fiche de la remédiation, exemple corrigé de l'exercice manqué, exercices plus simples ou plus ciblés |
 | Évaluation parallèle | L'exercice manqué, mêmes réglages, nouvelles valeurs |
 | Correction suivante | Objectif prérequis, au plus trois tours, puis l'enseignant |
 
@@ -174,7 +174,9 @@ Rien trouvé : pas de proposition, le bilan reste celui d'avant (« Refaire »).
 
 **Séance de remédiation.** Parcours généré sur l'appareil
 (`remediation-<id>`), comme les révisions : la fiche de la remédiation s'il y
-en a une, ses exercices, puis l'exercice manqué (mêmes réglages, nouvelles
+en a une, un **exemple corrigé** de l'exercice manqué (une question à lire,
+champs inertes, « Voir la correction », hors score : `interactif: false` sur
+l'étape), ses exercices, puis l'exercice manqué (mêmes réglages, nouvelles
 valeurs, trois questions au plus), correction à chaque question. Elle garde
 son origine (`Seance.remediation` : parcours, version, exercice, objectif,
 profondeur). Quittée, elle se reprend depuis la page du parcours
@@ -281,10 +283,10 @@ catalogue qui visent l'objectif, l'enchaînement des prérequis prévus.
 
 Pour aller plus loin, dans l'ordre :
 
-1. **Exemple corrigé en tête de remédiation** (`revue-pistes`, 3.3) : la
-   question manquée et sa correction, puis la même avec d'autres valeurs. Le
-   moteur sait le faire ; c'est le plus utile pour un élève qui ne sait pas
-   par où commencer.
+1. **Exemple corrigé** (`revue-pistes`, 3.3) : fait en tête de remédiation.
+   Le même type d'étape (`interactif: false`) pourrait servir en tête d'une
+   ceinture de découverte, posé par l'enseignant, puis retiré dans les
+   ceintures suivantes (estompage).
 2. **Objectifs du programme** : relier un objectif de l'enseignant à son code
    (`Objectif.code`, déjà dans le format) et chercher la remédiation parmi
    les exercices du référentiel rangés sous ce code, en commençant par les
