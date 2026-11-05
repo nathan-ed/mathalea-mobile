@@ -72,11 +72,9 @@ L'application se connecte à Internet seulement pour :
 
 Toutes ces connexions sont chiffrées (HTTPS).
 
-Les versions de Google Play et de l'App Store ne téléchargent jamais de code :
-le moteur d'exercices est livré avec l'application et mis à jour avec elle,
-par la boutique. Seule la version installée hors des boutiques (fichier
-d'installation de la forge de CoopMaths) peut recevoir un nouveau moteur
-depuis mathalea.fr, signé et vérifié avant d'être utilisé.
+L'application ne télécharge jamais de code : le moteur d'exercices est livré
+avec elle et mis à jour avec elle, par la boutique ou par un nouveau fichier
+d'installation de la forge de CoopMaths.
 
 ## Partage de fichiers
 
