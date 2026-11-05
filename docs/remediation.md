@@ -33,6 +33,10 @@ site, le serveur et la suite.
 - **Pour l'enseignant** : vue « Objectifs » d'une session de classe
   (réussite par objectif, réponse par réponse, et par où reprendre), sans rien
   envoyer à un serveur ; test de positionnement dans l'éditeur de l'app.
+- **Montée en puissance sans parcours tout fait** : « Entraînement adapté »
+  sur un parcours à paliers (`adaptatif`) ; l'app choisit l'exercice suivant
+  (plus difficile après deux réussites, plus simple après un échec,
+  prérequis après deux échecs, confirmation un autre jour).
 - **Reste à faire** : appliquer à MathALÉA le correctif de l'éditeur du site
   (`?v=parcours`, préparé : `a-reporter-site-remediation.md`), où se posent
   objectifs par réponse et remédiations.
@@ -308,8 +312,13 @@ Pour aller plus loin, dans l'ordre :
    `tests/progression-adaptee.test.ts`) : `banqueDuParcours` tire la banque
    d'un parcours à ceintures existant, `choisir` donne l'exercice suivant et
    sa raison (commencer, monter, continuer, consolider, remédier, confirmer).
-   Reste l'écran : un bouton « Exercice suivant » sur la page du parcours, une
-   question à la fois, la ceinture obtenue quand ses objectifs sont acquis.
+   Écran fait pour un parcours à paliers marqué `adaptatif` : section
+   « Entraînement adapté » sur sa page (« Un cran plus difficile : Dériver une
+   fonction composée »), « Exercice suivant » (un exercice, deux questions au
+   plus, `adapte-<id>`), bilan « Exercice réussi » ou « le suivant reprend
+   plus simplement ». Les tentatives viennent des passages des paliers et de
+   ces exercices ; les ceintures restent données par les paliers. À décider :
+   faire de l'objectif final acquis une ceinture.
 
 Toujours sur l'appareil : la difficulté vient de l'enseignant (rang de la
 ceinture), jamais de statistiques collectées.

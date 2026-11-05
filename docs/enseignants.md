@@ -176,6 +176,12 @@ Ce que vous pouvez prévoir (format décrit dans `remediation.md`) :
 - un **test de positionnement** (parcours à paliers, interrupteur dans
   l'éditeur) : une question par palier avant de commencer, les paliers
   réussis d'affilée s'ouvrent.
+- un **entraînement adapté** (parcours à paliers, interrupteur dans
+  l'éditeur) : « Exercice suivant » sur la page du parcours ; l'app choisit
+  parmi ses exercices d'après les objectifs, plus difficile après deux
+  réussites, plus simple après un échec, un prérequis après deux échecs, et
+  confirme un objectif un autre jour. Les ceintures se gagnent toujours par
+  les paliers.
 
 Sans rien prévoir, l'app reprend les exercices des paliers précédents, puis
 ceux des autres parcours du même niveau qui visent le même objectif.
