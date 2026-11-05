@@ -89,6 +89,9 @@ jobs:
             brew install xcodegen
             pnpm tauri ios init --ci
           fi
+          # Icônes de MathALÉA (src-tauri/icons/ios, en RGB sans alpha comme le
+          # veut l'App Store) à la place de celles de Tauri laissées par ios init
+          cp src-tauri/icons/ios/*.png src-tauri/gen/apple/Assets.xcassets/AppIcon.appiconset/
       # Manifeste de confidentialité exigé par Apple : dans le dossier de
       # l'app (source du projet), projet régénéré pour l'embarquer
       - name: Manifeste de confidentialité
