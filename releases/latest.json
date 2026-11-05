@@ -1,0 +1,27 @@
+{
+  "version": "0.5.1",
+  "notes": "## MathALÉA 0.5.1\n\n### Nouveautés\n\n- Ordinateurs (Windows, Mac, Linux en AppImage) : l'application se met à jour\n  toute seule. Elle télécharge la nouvelle version au démarrage et\n  l'installe quand on la ferme, sans jamais interrompre une séance. Cette\n  version-ci s'installe encore à la main, les suivantes arriveront seules.\n- Mac : l'application est signée et vérifiée par Apple ; elle s'ouvre sans\n  l'alerte « développeur non identifié ».\n\n### Correction\n\n- Ordinateurs (Windows, Mac, Linux) : le glisser-déposer à la souris\n  fonctionne de nouveau dans les exercices. Les étiquettes (par exemple\n  « ·1 000 », « ·100 » pour décomposer un nombre) ne se déplaçaient plus vers\n  les cases, ce qui bloquait la question. Les opérandes du « Compte est bon »\n  se glissent aussi de nouveau (le clic marchait déjà). Sur téléphone et\n  tablette, rien ne change.\n",
+  "pub_date": "2026-11-05T19:54:35Z",
+  "platforms": {
+    "windows-x86_64-nsis": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEJ0UXljbEc4TlRYcXZzRFoxaytqMGNOWmF4TzJYQ2FNai9XVHlHVlg1a09LeXhxZjliRTJDckxoMXowcnJKVTBaaTREN2xrMUlrNzR6UHNKbEtXUGd3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTA3MTY3CWZpbGU6TWF0aEFMRUFfMC41LjFfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuNS4xCjFRaCtJZ0cyRG5KaUNZaGY1U2JnY1RrRWFLV0lISWNRQitQUEJMT1lYUEQ4MWthUUtPbTdHdUs3THlRV0d5RUI5QjlLTUVzRWpaTXJnVkVwYm1DNkJ3PT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.5.1/MathALEA-0.5.1-windows-setup.exe"
+    },
+    "windows-x86_64-msi": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDME03QVFZZXVIUjlBU3BXWlZucHdPVzJIclpFeWVYaFdCSEE4SitLVjZrQXI0amw1MmlnZ1N1WnJCQzFrSkRuV2tTRS81L1lqdmVNaG41azJySTJnUUE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTA3MTY3CWZpbGU6TWF0aEFMRUFfMC41LjFfeDY0X2VuLVVTLm1zaQl2ZXJzaW9uOjAuNS4xCkdHZ24wNUt4MzZVNCt1NmdaNmRGMXV5QWJMYzk4dk9UTi9VeXU0NHBaRVBjakxVaUpWYmpIVVlGdXMyQTFtRlBBQ09mdkpoS2lFT1F6ak1OTXBhM0N3PT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.5.1/MathALEA-0.5.1-windows.msi"
+    },
+    "darwin-aarch64-app": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEVXbnQxZ0c2c2VhZ200VHFIb0M1S3ZHYWVBNVZDZHBIVW85RXRTRUV6S0R1SE8weUV5TEF6UXRXMlI1ZklobXBiSWc4T0VTZktQbDRIejZkMnpITUFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTA2ODY3CWZpbGU6TWF0aEFMRUEuYXBwLnRhci5negl2ZXJzaW9uOjAuNS4xCk5xK1BBbkQybkdUbDVEMkI0ZVZTRTdRVVRvM0NVYXV3R0YvVDhyWjJrcGVSN2lXYU1tdEtjRTA0aUdPbHBweFRKMTg2UkUxWmNaVisxTXpvRjZreERRPT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.5.1/MathALEA-0.5.1-macos-apple-silicon.app.tar.gz"
+    },
+    "darwin-x86_64-app": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMERIQ0VqaGhyVE9KZFQvMHovSUJYU2V1RjBUbWtMb2QvTmgvQmMzUzZtSUkyNDZmeG5neXpCeENKSHJub09waHVKODNOR2toTVBmdEdjR3dscnlWQndnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTA4MDYyCWZpbGU6TWF0aEFMRUEuYXBwLnRhci5negl2ZXJzaW9uOjAuNS4xCmx5d0VjYm8zZ3FrRzR6dkpMRzJzek5OaHdYbjZld25TWHN6SVY5VVVjK3FFbG1aSnlva0d6WEh0c1NRU0xxQlBiR3M2VXdkeWNheENtQWFaMVUzV0R3PT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.5.1/MathALEA-0.5.1-macos-intel.app.tar.gz"
+    },
+    "linux-x86_64-appimage": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDME9XSERQd1BBQ05WNVNrd1h6aHpSdndpLzlvSEswVldaVkdkRUhpQlJnSzBkRXlJcHk0ejlWd2ZCYUpGKzZHTHlPYTRsQWlWRGxGb0ljZHNEN3o0M3djPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTA2ODg0CWZpbGU6TWF0aEFMRUFfMC41LjFfYW1kNjQuQXBwSW1hZ2UJdmVyc2lvbjowLjUuMQpsd0JzSWV1aHhRbnFDWkN1TC9ScGR5d28zSGFHTEYzNko0Rmpyc0p2SkVHVEJsMUxrcGxySUJTR3A5TURwdHZxcFc5bFJxYnpsYldRL1A5djBQOHlCQT09Cg==",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.5.1/MathALEA-0.5.1-linux-amd64.AppImage"
+    }
+  }
+}
