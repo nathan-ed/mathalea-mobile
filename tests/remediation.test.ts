@@ -194,7 +194,8 @@ describe('positionnement', () => {
 
   it('une question du premier exercice de chaque palier, sans titre', () => {
     expect(t.etapes.map((e) => e.uuid)).toEqual(['der1', 'der2', 'etu'])
-    expect(t.etapes.every((e) => e.nbQuestions === 1 && e.titreMasque)).toBe(true)
+    expect(t.etapes.every((e) => e.nbQuestions === 1)).toBe(true)
+    expect(t.etapes.map((e) => e.titre)).toEqual(['Ceinture blanche', 'Ceinture jaune', 'Ceinture orange'])
     expect(t.correction).toBe('parcours')
     expect(estParcours(t)).toBe(true)
   })

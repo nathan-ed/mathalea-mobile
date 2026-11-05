@@ -14,7 +14,7 @@
 //      au plus PROFONDEUR_MAX fois, puis l'élève est invité à demander de l'aide.
 // Positionnement (paliers) : une question par palier, dans l'ordre ; les
 // paliers réussis d'affilée depuis le premier s'ouvrent sans être obtenus.
-import { paliersDe, titreEleve, type Etape, type Fiche, type Parcours } from './catalogue'
+import { nomPalier, paliersDe, titreEleve, type Etape, type Fiche, type Parcours } from './catalogue'
 import { acquisDe, cleExercice, objectifsDuPoint } from './objectifs'
 import {
   PREFIXE_POSITIONNEMENT,
@@ -287,8 +287,8 @@ export function parcoursDePositionnement(p: Parcours): Parcours | null {
     icone: p.icone,
     presentation: 'une_question_par_page',
     correction: 'parcours',
-    // Sans titre : le nom d'un exercice donnerait la méthode
-    etapes: etapes.map((e) => ({ ...e, nbQuestions: 1, titreMasque: true, remediation: undefined })),
+    // Titre : le palier (le nom de l'exercice donnerait la méthode)
+    etapes: etapes.map((e, k) => ({ ...e, titre: nomPalier(p, k), nbQuestions: 1, titreMasque: false, remediation: undefined })),
     enTetesMasques: true,
   }
 }

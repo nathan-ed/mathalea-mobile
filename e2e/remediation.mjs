@@ -36,7 +36,7 @@ export const PARCOURS = {
   id: 'variations-composees-t',
   version: 1,
   titre: 'Variations d’une fonction composée',
-  objectif: 'Étudier les variations de u^n, e^u et √u',
+  objectif: 'Étudier les variations de uⁿ, eᵘ et √u',
   niveau: 'Terminale',
   theme: 'Dérivation',
   difficulte: 2,
