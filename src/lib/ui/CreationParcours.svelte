@@ -172,6 +172,7 @@
       p.style = undefined
       p.premiereCeinture = undefined
       p.positionnement = undefined
+      p.adaptatif = undefined
       return
     }
     if (!avecPaliers) {
@@ -609,6 +610,15 @@
             </span>
           </span>
           <input type="checkbox" role="switch" class="interrupteur shrink-0" checked={!!p.positionnement} onchange={(e) => (p.positionnement = e.currentTarget.checked || undefined)} />
+        </label>
+        <label class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+          <span class="flex flex-col gap-1 min-w-0">
+            <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Entraînement adapté</span>
+            <span class={discret}>
+              « Exercice suivant » : l’app choisit dans ces exercices, plus difficile après deux réussites, plus simple après un échec, d’après les objectifs.
+            </span>
+          </span>
+          <input type="checkbox" role="switch" class="interrupteur shrink-0" checked={!!p.adaptatif} onchange={(e) => (p.adaptatif = e.currentTarget.checked || undefined)} />
         </label>
       {/if}
       {#if !avecPaliers}

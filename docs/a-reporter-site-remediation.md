@@ -17,7 +17,7 @@ Ce que fait le correctif :
 
 - **Format** (`parcoursTypes.ts`, `parcoursFile.ts`) : `Step.points`,
   `Step.remediation`, `Remediation` (objectif, exercices, fiche, prérequis),
-  `Parcours.remediations`, `Parcours.positionnement`, contrôlés comme dans
+  `Parcours.remediations`, `Parcours.positionnement`, `Parcours.adaptatif`, contrôlés comme dans
   l'app (`validation.ts`). Correction au passage : `listOf(v.etapes, isStep)`
   passait le rang de l'exercice en second argument.
 - **Publication** (`parcoursLibrary.ts`, `cleaned`) : identifiants de salon
@@ -36,7 +36,8 @@ Ce que fait le correctif :
     préparées en arrière-plan) ;
   - section « Remédiation par objectif » (objectifs du parcours et prérequis
     choisis) : exercices, puis « Ensuite, si l'élève échoue encore » (prérequis) ;
-  - « Pour les élèves » : case « Test de positionnement » (parcours à paliers).
+  - « Pour les élèves » : cases « Test de positionnement » et « Entraînement
+    adapté » (parcours à paliers, `adaptatif`).
 - **Tests** (`tests/unit/parcours.test.ts`) : format accepté et refusé,
   publication.
 

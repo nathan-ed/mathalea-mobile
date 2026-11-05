@@ -1,4 +1,4 @@
-From 7185750cbd027fe6a95d87f50301f9d743bc8628 Mon Sep 17 00:00:00 2001
+From d60267551d7ab9b0bab68e7c966e4e469b3e2843 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 5 Nov 2026 22:32:29 +0000
 Subject: [PATCH] =?UTF-8?q?feat(parcours):=20rem=C3=A9diation=20pour=20l'a?=
@@ -20,14 +20,14 @@ Content-Transfer-Encoding: 8bit
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 ---
- .../setup/parcours/ExercisePreview.svelte     | 154 +++++++++-
- .../setup/parcours/ParcoursEditor.svelte      | 288 +++++++++++++++++-
- src/lib/parcours/parcoursFile.ts              |  38 ++-
+ .../setup/parcours/ExercisePreview.svelte     | 154 ++++++++-
+ .../setup/parcours/ParcoursEditor.svelte      | 302 +++++++++++++++++-
+ src/lib/parcours/parcoursFile.ts              |  39 ++-
  src/lib/parcours/parcoursLibrary.ts           |  32 +-
- src/lib/parcours/parcoursTypes.ts             |  24 ++
+ src/lib/parcours/parcoursTypes.ts             |  25 ++
  src/moteur/index.ts                           |  97 ++++++
- tests/unit/parcours.test.ts                   |  68 +++++
- 7 files changed, 686 insertions(+), 15 deletions(-)
+ tests/unit/parcours.test.ts                   |  70 ++++
+ 7 files changed, 704 insertions(+), 15 deletions(-)
 
 diff --git a/src/components/setup/parcours/ExercisePreview.svelte b/src/components/setup/parcours/ExercisePreview.svelte
 index 74ce572d2..5dd53b153 100644
@@ -224,7 +224,7 @@ index 74ce572d2..5dd53b153 100644
 +  {/if}
  </div>
 diff --git a/src/components/setup/parcours/ParcoursEditor.svelte b/src/components/setup/parcours/ParcoursEditor.svelte
-index c292aa3ad..46a56c511 100644
+index c292aa3ad..0b2c4e432 100644
 --- a/src/components/setup/parcours/ParcoursEditor.svelte
 +++ b/src/components/setup/parcours/ParcoursEditor.svelte
 @@ -216,6 +216,9 @@
@@ -529,7 +529,7 @@ index c292aa3ad..46a56c511 100644
    <!-- Pour les élèves : présentation des paliers, pages et validation -->
    <section
      data-element={mark('eleves')}
-@@ -1376,6 +1633,24 @@
+@@ -1376,6 +1633,38 @@
            </span>
          {/if}
        </div>
@@ -551,10 +551,24 @@ index c292aa3ad..46a56c511 100644
 +          ? 'à la première ceinture manquée'
 +          : 'au premier palier manqué'}
 +      </label>
++      <label class="md:col-span-2 flex items-center gap-2 {quiet}">
++        <input
++          type="checkbox"
++          checked={!!parcours.adaptatif}
++          onchange={(e) =>
++            update((p) => {
++              if ((e.currentTarget as HTMLInputElement).checked)
++                p.adaptatif = true
++              else delete p.adaptatif
++            })}
++        />
++        Entraînement adapté : « Exercice suivant », plus difficile après deux réussites,
++        plus simple après un échec
++      </label>
      {/if}
      <label>
        <span class={label}>Pages</span>
-@@ -1469,16 +1744,17 @@
+@@ -1469,16 +1758,17 @@
    </footer>
  </div>
  
@@ -578,7 +592,7 @@ index c292aa3ad..46a56c511 100644
    />
  {/if}
 diff --git a/src/lib/parcours/parcoursFile.ts b/src/lib/parcours/parcoursFile.ts
-index a95e9f8be..bda6ce281 100644
+index a95e9f8be..d9a2c2942 100644
 --- a/src/lib/parcours/parcoursFile.ts
 +++ b/src/lib/parcours/parcoursFile.ts
 @@ -45,7 +45,13 @@ const isParam = (v: unknown) =>
@@ -637,7 +651,7 @@ index a95e9f8be..bda6ce281 100644
      optional(v.paliers, (l) => listOf(l, isLevel)) &&
      optional(v.style, (x) => x === 'paliers' || x === 'ceintures') &&
      optional(
-@@ -109,7 +130,14 @@ export function isParcours(v: unknown): v is Parcours {
+@@ -109,7 +130,15 @@ export function isParcours(v: unknown): v is Parcours {
      ) &&
      optional(v.enTetesMasques, (b) => typeof b === 'boolean') &&
      optional(v.melanger, (b) => typeof b === 'boolean') &&
@@ -649,7 +663,8 @@ index a95e9f8be..bda6ce281 100644
 +        listOf(l, isRemediation) &&
 +        noDuplicate((l as { objectif: string }[]).map((r) => r.objectif)),
 +    ) &&
-+    optional(v.positionnement, (b) => typeof b === 'boolean')
++    optional(v.positionnement, (b) => typeof b === 'boolean') &&
++    optional(v.adaptatif, (b) => typeof b === 'boolean')
    )
  }
  
@@ -707,7 +722,7 @@ index 0e15aa8be..65be65ff5 100644
    if (!p.paliers) return p
    return {
 diff --git a/src/lib/parcours/parcoursTypes.ts b/src/lib/parcours/parcoursTypes.ts
-index 1444c2087..307b17446 100644
+index 1444c2087..ba3a85c44 100644
 --- a/src/lib/parcours/parcoursTypes.ts
 +++ b/src/lib/parcours/parcoursTypes.ts
 @@ -24,9 +24,31 @@ export interface Step {
@@ -742,12 +757,13 @@ index 1444c2087..307b17446 100644
  /** Accès à un palier : toujours ouvert, ou à partir d'une réussite au palier précédent */
  export type Access = 'libre' | 'seuil'
  
-@@ -164,6 +186,8 @@ export interface Parcours {
+@@ -164,6 +186,9 @@ export interface Parcours {
    enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
    melanger?: boolean // questions des exercices mélangées (sans effet avec un exercice par page)
    fiche?: Lesson // cours d'un parcours sans paliers (sinon compte pour le premier palier)
 +  remediations?: Remediation[] // par objectif, un objectif au plus une fois
 +  positionnement?: boolean // paliers : test d'une question par palier proposé avant le premier
++  adaptatif?: boolean // paliers : « Exercice suivant » choisi par l'application selon ce que l'élève réussit
  }
  
  /** Paliers numérotés, ou ceintures comme au judo (blanche, jaune…) */
@@ -857,10 +873,10 @@ index ab7547cda..79f879030 100644
 +  })
 +}
 diff --git a/tests/unit/parcours.test.ts b/tests/unit/parcours.test.ts
-index 4abc4f4db..1ae29bc1b 100644
+index 4abc4f4db..0b682aa5f 100644
 --- a/tests/unit/parcours.test.ts
 +++ b/tests/unit/parcours.test.ts
-@@ -603,3 +603,71 @@ describe('date d’ouverture d’un palier', () => {
+@@ -603,3 +603,73 @@ describe('date d’ouverture d’un palier', () => {
      expect(p.paliers?.[0].ouverture).toBe(openingOfDay('2026-11-19'))
    })
  })
@@ -919,6 +935,8 @@ index 4abc4f4db..1ae29bc1b 100644
 +      }),
 +    ).toBe(false)
 +    expect(isParcours({ ...p, positionnement: 'oui' })).toBe(false)
++    expect(isParcours({ ...p, adaptatif: true })).toBe(true)
++    expect(isParcours({ ...p, adaptatif: 1 })).toBe(false)
 +  })
 +
 +  it('part aux élèves sans identifiant de salon ni liste vide', () => {
