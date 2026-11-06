@@ -4,28 +4,14 @@
 
 ## Android
 
-### Par le Play Store
+L'application n'est pas encore sur le Play Store. Elle s'installe dès maintenant avec son fichier APK.
 
-L'application arrive bientôt sur le Play Store. En attendant, elle est en test. Pour faire partie des bêta-testeurs, écrivez sur Mattermost à Nathan Scheinmann avec l'adresse mail de votre compte Google. Vous recevrez un lien d'inscription.
+1. Sur le téléphone, touchez ce lien : [MathALÉA 0.6.0 pour Android](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-android-arm64.apk). C'est le bon fichier pour presque tous les téléphones récents. Sur un vieux téléphone, prenez `MathALEA-…-android-armv7.apk` sur la [page des versions](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest).
+2. Ouvrez le fichier téléchargé. Android demande d'autoriser l'installation depuis votre navigateur. Acceptez, puis touchez « Installer ».
 
-Une fois inscrit, ou une fois l'application publiée :
+Les versions suivantes sont toujours sur la [page des versions](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest) : installez la nouvelle par-dessus l'ancienne, vos résultats sont gardés.
 
-1. Ouvrez le Play Store et cherchez « MathALÉA », ou suivez [ce lien](https://play.google.com/store/apps/details?id=fr.coopmaths.mathalea).
-2. Touchez « Installer ».
-
-Elle se met ensuite à jour comme les autres applications. Chaque semaine, une nouvelle version apporte les derniers exercices du site.
-
-En attendant, tout se fait aussi sur ordinateur (voir plus bas).
-
-### Sans le Play Store (fichier APK)
-
-Cette solution sert pour un appareil sans Play Store, ou pour essayer une version avant sa sortie.
-
-1. Sur le téléphone, ouvrez la [dernière version](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest).
-2. Touchez `MathALEA-…-android-arm64.apk`. C'est le bon fichier pour presque tous les téléphones récents. Sur un vieux téléphone, prenez `…-android-armv7.apk`.
-3. Ouvrez le fichier téléchargé. Android demande d'autoriser l'installation depuis votre navigateur. Acceptez, puis touchez « Installer ».
-
-Une application installée de cette façon ne se met pas à jour par le Play Store. Pour passer à la version du Play Store, faites d'abord une sauvegarde dans les Réglages (« Exporter une sauvegarde »), désinstallez, installez l'autre version, puis « Restaurer une sauvegarde ».
+Quand l'application sera sur le Play Store, une application installée par APK ne se mettra pas à jour par le Play Store. Pour passer à la version du Play Store : faites d'abord une sauvegarde dans les Réglages (« Exporter une sauvegarde »), désinstallez, installez l'autre version, puis « Restaurer une sauvegarde ».
 
 ## Ordinateur
 

@@ -6,7 +6,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 ## Installer
 
-- Android : en attendant le Play Store, écrivez sur Mattermost à Nathan Scheinmann avec l'adresse mail de votre compte Google pour recevoir le lien de test, ou installez le fichier APK. Tout est expliqué dans [Installer l'application](installer.md).
+- Android : installez le fichier APK, [MathALÉA 0.6.0 pour Android](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-android-arm64.apk). Marche à suivre : [Installer l'application](installer.md).
 - Ordinateur (Windows, Mac ou Linux) : la marche à suivre est dans [Installer l'application](installer.md).
 - iPhone et iPad : la version de test s'installe avec un ordinateur, pas à pas : [Installer sur iPhone ou iPad](iphone.md).
 
@@ -22,7 +22,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 ## Nous dire ce qui ne va pas
 
-Pour chaque remarque, écrivez à hello@naths.ch en précisant :
+Pour chaque remarque, écrivez à contact@coopmaths.fr en précisant :
 
 - le téléphone ou l'ordinateur, et sa version d'Android, de Windows… ;
 - la version de l'application (Réglages, en bas, « À propos ») ;
