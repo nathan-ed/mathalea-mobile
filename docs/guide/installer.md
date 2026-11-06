@@ -6,7 +6,7 @@
 
 L'application n'est pas encore sur le Play Store. Elle s'installe dès maintenant avec son fichier APK.
 
-1. Sur le téléphone, touchez ce lien : [MathALÉA 0.6.0 pour Android](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-android-arm64.apk). C'est le bon fichier pour presque tous les téléphones récents. Sur un vieux téléphone, prenez `MathALEA-…-android-armv7.apk` sur la [page des versions](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest).
+1. Sur le téléphone, touchez ce lien : [MathALÉA 0.6.1 pour Android](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-android-arm64.apk). C'est le bon fichier pour presque tous les téléphones récents. Sur un vieux téléphone, prenez `MathALEA-…-android-armv7.apk` sur la [page des versions](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest).
 2. Ouvrez le fichier téléchargé. Android demande d'autoriser l'installation depuis votre navigateur. Acceptez, puis touchez « Installer ».
 
 Les versions suivantes sont toujours sur la [page des versions](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest) : installez la nouvelle par-dessus l'ancienne, vos résultats sont gardés.

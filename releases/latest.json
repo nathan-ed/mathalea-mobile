@@ -1,27 +1,27 @@
 {
-  "version": "0.6.0",
-  "notes": "## MathALÉA 0.6.0\n\nL'application devient celle des élèves. Les enseignants préparent leurs\nparcours sur le site MathALÉA (page « Parcours pour l'application ») et les\ndéposent dans un dossier de leur drive, comme avant.\n\n### Nouveautés\n\n- Scanner, en haut de l'accueil : le QR code d'une classe (le lien du\n  dossier de l'enseignant, avec `?classe=`) ajoute le dossier et choisit la\n  classe ; le QR code d'une session partagée ouvre directement la session.\n  Ces QR codes sont maintenant courts et se lisent bien à la caméra.\n- Session partagée créée par n'importe qui, depuis la page d'un parcours\n  (« Autres actions », « Session partagée ») : un code et son QR code. Un\n  élève qui scanne le QR code sans avoir la classe la reçoit en même temps.\n- Signaler un problème dans un parcours (bug, erreur, contenu inapproprié) :\n  un mail à l'équipe MathALÉA s'ouvre avec le parcours dedans ; le parcours\n  peut aussi être caché. Contact dans les Réglages.\n- Explorer France : deux premiers parcours à ceintures (additionner et\n  soustraire des relatifs en 5e, fractions en 4e).\n- Accueil sans dossier : bouton « Scanner le QR code de ma classe ».\n\n### Retiré\n\n- Le mode enseignant de l'application (bibliothèque, éditeur, classes,\n  sessions de classe, QR codes des réponses). Une bibliothèque préparée dans\n  l'application reste sur l'appareil : Réglages, « Exporter ma\n  bibliothèque », puis reprise sur le site MathALÉA. Les QR codes de classe\n  déjà imprimés restent lisibles.\n",
-  "pub_date": "2026-11-06T11:22:09Z",
+  "version": "0.6.1",
+  "notes": "## MathALÉA 0.6.1\n\n### Corrigé\n\n- iPhone : la feuille de partage (PDF d'un parcours, fichiers exportés)\n  s'ouvrait en toute petite bulle en bas à droite de l'écran depuis iOS 26.\n  Elle remonte de nouveau du bas de l'écran. Sur iPad, elle s'ouvre au\n  centre.\n",
+  "pub_date": "2026-11-06T19:35:29Z",
   "platforms": {
     "windows-x86_64-nsis": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDME02VVJCMTEvdTBJL1NHVllkY0tVNEZZL1ZBRCt1UThDSVhCbDloRXc2K3NUY2xCcFRYTUZDaXdvTExxV0V6c0RXellZRDlXazIrTTRKWHF5QTNlUnd3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTYyNTA4CWZpbGU6TWF0aEFMRUFfMC42LjBfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuNi4wCkZMcVlyeENoY3VucUJwaWtFUm93RTdpUVNBbVVDK1Yva1BKbUtrUFBsekRhanhMSnlJQUdpNGZVYnk0TWJoMG52V0tUWVV0RzBVb1hSd2I4Sm5tekNRPT0K",
-      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-windows-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEZTdlFrbEkvc29nYnJsRnVsVGEydjgwQzlkQXRvMVRtOGRackxNOFRqeUhNcWl0bGdQa09pWWozOU1KS3NDVUNPVkoyUk9uZWN3b3V3VDdSZEJXNWcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTgzMjQ5CWZpbGU6TWF0aEFMRUFfMC42LjFfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuNi4xCktDMkFjS1B5dktacjJCTTVhWjJxSllPMldYemVmZit4aWMzS1V1eElVMk1pSlEyNmFvZXAwUEVucVN2RlJ1U1dPQUpRa3cvMENwWDFCQVg3TnYycURBPT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-windows-setup.exe"
     },
     "windows-x86_64-msi": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEdEK2VSb0plZEx3ZW52Z21YV0ZnbDkwU0ZXUlUxUzhYRkZGWndUVUsvb0RXSWpkTk1tVzFSelliUGlkVmVPVTlCRFkyM2dLcm1GYUlJdjdHT09mL3dZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTYyNTA4CWZpbGU6TWF0aEFMRUFfMC42LjBfeDY0X2VuLVVTLm1zaQl2ZXJzaW9uOjAuNi4wClRGUi9RRFI4SGRLRlcySmF3YnNJcEFxOVNSQnNobDNZZFpCcGtjSWJXZlZ0UXA0azR6dEsvOVJHaVV1S25naUY2YW8zMzBOWDltQWl2S1h1T1hJdEJnPT0K",
-      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-windows.msi"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMElvbW1EYjN3TmdETWVONC9zR21id0M3cDdnTlR1WkZPcUhGQ3g3eTg5b2lXVXoyYVJFeFVEQU9yV0w4RG9XQVdhRHlpVVZMSnZZRlNya2dDb2trREE4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTgzMjQ5CWZpbGU6TWF0aEFMRUFfMC42LjFfeDY0X2VuLVVTLm1zaQl2ZXJzaW9uOjAuNi4xCnNnYVpLNmVQY1ZNV2lubXlFSzJkdWFRWjUxV2xWVVJ6dXJtY2FGWmxjR2xqSnpMakwza3l6bGNvbUtNVmFaL1gxdjNyUDRRbEw3VFZmZDc1Si8rSUNBPT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-windows.msi"
     },
     "darwin-aarch64-app": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMENCNVpKNHU3b1RIUjVkaDV0enVtWUhUZkFFZWRtc3V6OWtmN0RzdjZRb3oveFQ0dkFkQzRIRDJPQXlOblpGcXRzQnBXWEFDSmpIWTM2NlVuWGl0Y2djPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTYyMjkxCWZpbGU6TWF0aEFMRUEuYXBwLnRhci5negl2ZXJzaW9uOjAuNi4wCjA5U0g0YTE4TjVEaUVQMUVaeE1DUHZaU2JPOGp2NythNEJzVE9Db2VvY3IyaFVsQWFpNGdrN3AwNENOSVZBM3RDdlpSZDVSNDJmNzZkNVY5SkFDY0JnPT0K",
-      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-macos-apple-silicon.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEJDTEZYYnRGMjc1Q0xQRllWVVVTLytPenhER3ZMSXA0Rm04TURQMitRTUVrR0JnN3l5RVJ5VmxzODJ5akJ0c251clRzVmVmSEorNTViUDhTQU50S2djPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTgyNTgzCWZpbGU6TWF0aEFMRUEuYXBwLnRhci5negl2ZXJzaW9uOjAuNi4xCktFWFpKU2tCRU0rbzRNeitOV05LNE9tRlU5eWZEeHNyZ050SW1wNXBydVhUaWVLTlFreGRZdGRSUHhsUnBJUWxwckx2cllXcHZCM2VHencvc0xGdkJRPT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-macos-apple-silicon.app.tar.gz"
     },
     "darwin-x86_64-app": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEZiQVlsOTZ1NXNhaG9Sd25EaVQ0ODhMVHkyNzhXTGQ0QXRHL2Y4S2E4RUFCQ2lLckpqQVYrQjFXNjVBTDUrejNUdGVEMXNhQm50b3o4Y29ubklyYUFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTYzNTYzCWZpbGU6TWF0aEFMRUEuYXBwLnRhci5negl2ZXJzaW9uOjAuNi4wCkY3T282QUhxclF6QUdpOTNOZEdsMWZGVCtUR3VpT1gwb2Q1blpERkwwamRDQ2RUbWVFdXJjWDhiWkhMTWNRT3ZKczc4YkJCak5DbGxpc3hHQlVFVERnPT0K",
-      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-macos-intel.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMENsTDlWVzJMaTFJM3E2c0ZIb011RUt6OTdHbTNaTG5sK1VwTmRUMXpyZDZUQzgxZVFta20rYUJLVGtrWEhoUE1WbmtXbHhQMUYrOWtqdWxMRzdEQUFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTgzODM0CWZpbGU6TWF0aEFMRUEuYXBwLnRhci5negl2ZXJzaW9uOjAuNi4xCkg5dmFmbmFEVjNia0JYQUFEUWlYYk1qN3BuV3RLS253SmhLbnIxR3N5aDBHVXVmaVBTK1lMYWc3RUh0eWxPZS9xK3pRNTM0eFl4Ykc5bE9SWFlETEFRPT0K",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-macos-intel.app.tar.gz"
     },
     "linux-x86_64-appimage": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEhVT2xmWFVSeGI4c2hSZkJEZ2lTWWJwUldwVnZ3Rm9xTkprb0REcjlEN0pEOUExOHBVdkdZNmNLNVhqdUM2K3BuUy96VWdnQUxjZHBGbjdEVSsxalFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTYzOTAzCWZpbGU6TWF0aEFMRUFfMC42LjBfYW1kNjQuQXBwSW1hZ2UJdmVyc2lvbjowLjYuMAppYVYvYmtmWGtzck8zaEl5cTJnYWJkcTJvS25YMExYYTRncU5ZNEE1M3VjVmhaaEt5N000NVBHckVjRWdMb1M1ZWp2TUsxL201VkVJVEExSCsxWVdDdz09Cg==",
-      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-linux-amd64.AppImage"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTck5obWE3WDlDMEt0Q2tjODhkWVdjQkpOanp5aTBvN2dudEJEWXJzc1grOFFjL05jNjJsaVBwYldqWFlmSmRWWGc0Y3ZYRFAwYXdpNGVWZDVLMS9OTCsrb2M2QkxqY3djPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzOTgyODc3CWZpbGU6TWF0aEFMRUFfMC42LjFfYW1kNjQuQXBwSW1hZ2UJdmVyc2lvbjowLjYuMQo1SHA2cDdRYWIwQ2hNRGFFeCtrL0Z6R3NiRERjVTNKeEcxNm5YRjA5K2hJK053ZnRYcWFzWmNnRjRuOUorZVAwejljTUVTSld4Qk1lRlkrWisybUtBQT09Cg==",
+      "url": "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-linux-amd64.AppImage"
     }
   }
 }

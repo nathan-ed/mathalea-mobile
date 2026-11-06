@@ -6,7 +6,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 ## Installer
 
-- Android : installez le fichier APK, [MathALÉA 0.6.0 pour Android](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.0/MathALEA-0.6.0-android-arm64.apk). Marche à suivre : [Installer l'application](installer.md).
+- Android : installez le fichier APK, [MathALÉA 0.6.1 pour Android](https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/v0.6.1/MathALEA-0.6.1-android-arm64.apk). Marche à suivre : [Installer l'application](installer.md).
 - Ordinateur (Windows, Mac ou Linux) : la marche à suivre est dans [Installer l'application](installer.md).
 - iPhone et iPad : la version de test s'installe avec un ordinateur, pas à pas : [Installer sur iPhone ou iPad](iphone.md).
 
