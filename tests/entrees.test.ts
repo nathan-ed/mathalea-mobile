@@ -1,7 +1,7 @@
 // Ce qui arrive de l'extérieur : sauvegardes, catalogue en ligne, heure des
 // serveurs. Un contenu abîmé ou piégé est refusé sans
 // planter, un serveur qui ment ou ne répond pas n'ouvre jamais un palier trop tôt.
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { estReleves, type ReponsesSession } from '../src/lib/releve'
 import { catalogue } from './parcours-de-test'
 
@@ -60,6 +60,13 @@ describe('catalogue de l’Explorer en ligne', () => {
 })
 
 describe('heure qui fait foi pour l’ouverture des paliers', () => {
+  // Première compilation du module (Svelte) faite ici, avec du temps : dans
+  // le premier test, elle dépassait les 5 s sur le serveur chargé de la forge
+  // (pipeline 617828, 6 novembre 2026). Ensuite, chaque test la réutilise.
+  beforeAll(async () => {
+    await import('../src/lib/heure.svelte')
+  }, 60_000)
+
   afterEach(() => {
     vi.unstubAllGlobals()
     vi.resetModules()
