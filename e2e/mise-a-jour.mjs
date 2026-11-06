@@ -3,7 +3,8 @@
 // cette version) sont ouvertes par la version courante. Rien de perdu, comme
 // un élève le verrait : parcours du dossier, séance quittée en cours reprise
 // à sa question, parcours terminé et ceinture obtenue dans le suivi ;
-// enseignant : démonstration et bibliothèque. La sauvegarde exportée garde
+// ancien enseignant : ouverte en élève, bibliothèque exportable depuis les
+// Réglages. La sauvegarde exportée garde
 // toutes les clés. Aucune erreur de page. Téléphone (clair), bureau (sombre).
 // Le stockage sert seulement à poser l'état de départ (règle des suites).
 //   CAPTURES=<dossier> node e2e/mise-a-jour.mjs [fichiers…]
@@ -126,16 +127,21 @@ for (const f of fichiers) {
         if (obtenue) ok(/Ceinture la plus haute : \S+/.test(await texte(page)), `${nom} : ceinture obtenue gardée (${/Ceinture la plus haute : (\S+)/.exec(await texte(page))?.[1]})`)
       }
     } else {
-      // Enseignant : bibliothèque (démonstration comprise)
-      const t = await texte(page)
+      // Ancien enseignant (mode retiré en 0.6) : l'app s'ouvre en élève et sa
+      // bibliothèque s'exporte depuis les Réglages, pour le site MathALÉA
       const bib = (donnees.bibliotheque?.parcours ?? []).map((pe) => pe.parcours.titre)
-      const absents = bib.filter((x) => !t.includes(x))
-      ok(bib.length > 0 && !absents.length, `${nom} : bibliothèque intacte (${bib.length} parcours)`, absents.join(', '))
-      await page.screenshot({ path: `${captures}/mise-a-jour-${s}-parcours.png` })
-      await toucher(page, onglet(page, 'Classes'))
-      const classes = (donnees.bibliotheque?.classes ?? []).map((c) => c.nom)
-      const tc = await texte(page)
-      ok(classes.every((c) => tc.includes(c)), `${nom} : classes (${classes.join(', ')})`)
+      ok(await onglet(page, 'Mes parcours').isVisible(), `${nom} : ouverte en élève`)
+      await page.screenshot({ path: `${captures}/mise-a-jour-${s}-accueil.png` })
+      await toucher(page, page.getByRole('button', { name: 'Réglages' }).first())
+      const bouton = page.getByRole('button', { name: 'Exporter ma bibliothèque' })
+      const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 30_000 }), toucher(page, bouton)])
+      const fichier = readFileSync(await dl.path(), 'utf8')
+      const exportes = (JSON.parse(fichier).bibliotheque?.parcours ?? []).map((pe) => pe.parcours?.titre ?? pe.titre)
+      const absents = bib.filter((x) => !exportes.includes(x))
+      ok(bib.length > 0 && !absents.length, `${nom} : bibliothèque exportée entière (${bib.length} parcours, ${dl.suggestedFilename()})`, absents.join(', '))
+      await page.screenshot({ path: `${captures}/mise-a-jour-${s}-reglages.png` })
+      await page.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})
+      await pagePrete(page)
     }
 
     // Sauvegarde exportée : toutes les clés d'origine y sont

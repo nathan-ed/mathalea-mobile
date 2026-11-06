@@ -1,105 +1,86 @@
-// QR code de session affiché par l'enseignant (au tableau) : l'élève le scanne
-// et arrive directement dans la session, sur le bon parcours. Le code porte
-// une copie du parcours (version figée) : rien d'autre à installer ni à
-// chercher. Il porte aussi la version des exercices de l'enseignant, pour
-// prévenir un élève dont l'app est plus ancienne.
-import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
-import type { Parcours } from './catalogue'
+// QR codes que l'app lit : session partagée et classe. Des textes courts, pour
+// une lecture facile à la caméra (un QR code qui portait tout le parcours ne se
+// lisait pas, novembre 2026).
+//
+// Session : `MATHALEA-SESSION?c=<code>&p=<parcours>&v=<version>[&e=<étapes>][&m=<moteur>][&l=<lien>]`.
+// Le parcours n'y est pas : chacun le prend dans ses classes ou dans l'Explorer
+// (le lien de dossier, s'il y est, ajoute d'abord la classe). Même code, même
+// parcours, même version : mêmes questions (graineDeSession).
+// Classe : le lien du dossier partagé (avec `?classe=…`), ou l'ancien format
+// `MACLA1.` des QR codes déjà affichés par l'app enseignant (0.5 et avant).
+import { strFromU8 } from 'fflate'
 import { normaliserCode } from './progression'
-import { depuisBase64, versBase64 } from './releve'
-import { estParcours } from './validation'
 
-export const PREFIXE_SESSION = 'MASES1.'
+export const PREFIXE_SESSION = 'MATHALEA-SESSION?'
 
 export interface InvitationSession {
   c: string // code de session
-  p: Parcours
-  e?: number[] // palier ouvert : ses exercices
-  m: string // version du moteur de l'enseignant
+  p: string // identifiant du parcours
+  v: number // sa version
+  e?: number[] // palier de la session : ses exercices
+  m?: string // date du moteur de qui a créé la session (« 2026-11-05 »)
+  l?: string // lien du dossier partagé du parcours (avec sa classe)
 }
 
-/** Le parcours sans ce qui ne sert pas à la séance (pauses, ressources), pour un QR code plus petit */
-function allege(p: Parcours): Parcours {
-  const { paliers, ...reste } = p
-  return paliers ? { ...reste, paliers: paliers.map(({ pause: _p, ressource: _r, ...x }) => x) } : reste
-}
+/** Date d'une version du moteur (« 2026-10-17+… ») */
+export const dateMoteur = (v: string) => /^\d{4}-\d{2}-\d{2}/.exec(v)?.[0] ?? ''
 
-/** Sans les fiches de cours (souvent des images) : l'élève qui a le parcours garde les siennes (rejoindreSession) */
-function sansFiches(p: Parcours): Parcours {
-  const { fiche: _f, paliers, ...reste } = p
-  return paliers ? { ...reste, paliers: paliers.map(({ fiche: _x, ...x }) => x) } : reste
-}
-const sansObjectifs = (p: Parcours): Parcours => ({ ...p, etapes: p.etapes.map(({ objectifs: _o, ...e }) => e) })
-function sansPresentation(p: Parcours): Parcours {
-  const { auteurs: _a, descriptionEleves: _e, descriptionEnseignant: _d, ...reste } = p
-  return reste
-}
-
-/** Octets d'un QR code au plus (version 40, correction L, mode octet) */
-export const TAILLE_QR = 2953
-
-/**
- * Texte du QR code de session. Le parcours entier s'il tient dans un QR code,
- * sinon allégé dans l'ordre : fiches de cours, objectifs, auteurs et
- * descriptions. Les exercices et leurs réglages restent toujours.
- */
+/** Texte du QR code de session */
 export function encoderInvitation(i: InvitationSession) {
-  const texte = (p: Parcours) => PREFIXE_SESSION + versBase64(deflateSync(strToU8(JSON.stringify({ ...i, p })), { level: 9 }))
-  let p = allege(i.p)
-  let t = texte(p)
-  for (const reduire of [sansFiches, sansObjectifs, sansPresentation]) {
-    if (t.length <= TAILLE_QR) break
-    p = reduire(p)
-    t = texte(p)
-  }
-  return t
+  const q = new URLSearchParams({ c: i.c, p: i.p, v: String(i.v) })
+  if (i.e) q.set('e', i.e.join('-'))
+  const m = i.m ? dateMoteur(i.m) : ''
+  if (m) q.set('m', m)
+  if (i.l) q.set('l', i.l)
+  return PREFIXE_SESSION + q.toString()
 }
 
 export function decoderInvitation(texte: string): InvitationSession | null {
   const t = texte.trim()
   if (!t.startsWith(PREFIXE_SESSION)) return null
-  try {
-    const o = JSON.parse(strFromU8(inflateSync(depuisBase64(t.slice(PREFIXE_SESSION.length)))))
-    if (!o || typeof o !== 'object' || typeof o.c !== 'string' || typeof o.m !== 'string' || !estParcours(o.p)) return null
-    const c = normaliserCode(o.c)
-    if (c.length !== 5) return null
-    const n = o.p.etapes.length
-    if (o.e !== undefined && !(Array.isArray(o.e) && o.e.length && o.e.every((k: unknown) => Number.isInteger(k) && (k as number) >= 0 && (k as number) < n))) return null
-    return { c, p: o.p, m: o.m, ...(o.e ? { e: o.e } : {}) }
-  } catch {
-    return null
+  const q = new URLSearchParams(t.slice(PREFIXE_SESSION.length))
+  const c = normaliserCode(q.get('c') ?? '')
+  const p = q.get('p') ?? ''
+  const v = Number(q.get('v'))
+  if (c.length !== 5 || !/^[a-z0-9-]+$/.test(p) || !Number.isInteger(v) || v < 1) return null
+  const i: InvitationSession = { c, p, v }
+  const e = q.get('e')
+  if (e !== null) {
+    if (!/^\d+(-\d+)*$/.test(e)) return null
+    i.e = e.split('-').map(Number)
   }
+  const m = dateMoteur(q.get('m') ?? '')
+  if (m) i.m = m
+  const l = q.get('l')?.trim()
+  if (l) {
+    if (!/^https?:\/\/\S+$/.test(l)) return null
+    i.l = l
+  }
+  return i
 }
 
-/** Date d'une version du moteur (« 2026-10-17+… ») */
-const dateMoteur = (v: string) => /^\d{4}-\d{2}-\d{2}/.exec(v)?.[0] ?? ''
-
-/** L'app de l'élève a-t-elle des exercices plus anciens que ceux de l'enseignant ? */
-export function moteurPlusAncien(eleve: string, enseignant: string) {
+/** L'app de l'élève a-t-elle des exercices plus anciens que ceux de qui a créé la session ? */
+export function moteurPlusAncien(eleve: string, createur: string | undefined) {
   const a = dateMoteur(eleve)
-  const b = dateMoteur(enseignant)
+  const b = dateMoteur(createur ?? '')
   return !!a && !!b && a < b
 }
 
-// QR code d'une classe ou du dossier entier, affiché par l'enseignant : l'élève
-// le scanne et l'app ajoute le dossier partagé de l'enseignant, avec sa classe
-// déjà choisie s'il y en a une, sans lien à saisir.
-export const PREFIXE_CLASSE = 'MACLA1.'
+// Ancien QR code de classe (app enseignant jusqu'à la 0.5) : lu pour les codes
+// déjà imprimés ou projetés
+const PREFIXE_CLASSE = 'MACLA1.'
 
 export interface InvitationClasse {
   l: string // lien du dossier partagé
   c: string // nom de la classe ; vide : tout le dossier, l'élève choisit sa classe
 }
 
-export function encoderClasse(i: InvitationClasse) {
-  return PREFIXE_CLASSE + versBase64(strToU8(JSON.stringify({ l: i.l, c: i.c })))
-}
-
 export function decoderClasse(texte: string): InvitationClasse | null {
   const t = texte.trim()
   if (!t.startsWith(PREFIXE_CLASSE)) return null
   try {
-    const o = JSON.parse(strFromU8(depuisBase64(t.slice(PREFIXE_CLASSE.length))))
+    const b = atob(t.slice(PREFIXE_CLASSE.length).replace(/-/g, '+').replace(/_/g, '/'))
+    const o = JSON.parse(strFromU8(Uint8Array.from(b, (x) => x.charCodeAt(0))))
     if (!o || typeof o.l !== 'string' || typeof o.c !== 'string' || !/^https?:\/\//.test(o.l.trim())) return null
     return { l: o.l.trim(), c: o.c.trim() }
   } catch {

@@ -5,7 +5,6 @@
   import { NIVEAUX_TEST, ceintureDu, couleurDu, niveauDuTest } from '$lib/testNiveau'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
-  import { empreinteEnonces } from '$lib/releve'
   import BlocQuestion from './BlocQuestion.svelte'
   import { boutonAction, boutonInverse, boutonLien, pastille } from './classes'
   import EnTete from './EnTete.svelte'
@@ -365,7 +364,6 @@
         exercices[etape] = ex
         seance.graines[etape] = ex.graine
         seance.nbQuestions[etape] = ex.questions.length
-        if (seance.code) seance.empreintes = { ...seance.empreintes, [etape]: empreinteEnonces(ex.questions) }
         // Questions sans réponse à saisir : sur papier, hors du score
         ex.questions.forEach((q, i) => {
           const cle = cleQuestion(etape, i)

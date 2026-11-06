@@ -1,8 +1,6 @@
-// Paliers ouverts à une date (pnpm dev seulement). L'heure des serveurs fait
-// foi (relais /__heure du serveur de dev, simulé ici), pas celle du téléphone. Enseignant : date posée
-// dans l'éditeur, « À compléter » tant qu'elle manque, retirée puis remise,
-// gardée à la modification, affichée sur la page du parcours ; version
-// suivante si le parcours était publié. Élève (horloge de Playwright) : palier
+// Paliers ouverts à une date (posée sur le site MathALÉA). L'heure des
+// serveurs fait foi (relais /__heure de l'app construite, simulé ici), pas
+// celle du téléphone. Élève (horloge de Playwright) : palier
 // fermé avant le jour, même seuil atteint ; ouvert le jour même ; ouverture au
 // passage de minuit sans relancer l'app et au retour dans l'app ; bilan qui dit
 // la date ; palier 1 joué au toucher. Clair et sombre, 390 px.
@@ -66,56 +64,14 @@ const cap = async (page, n, theme, fullPage = true) => (await pagePrete(page), p
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 const carte = (page, nom) => page.getByRole('region', { name: new RegExp(`^${nom}`) })
 
-let enregistre
+// Version 2 publiée sur le site : la jaune ouvre le jeudi 12 novembre, l'orange
+// le vendredi 20, à 8 h chez l'enseignant
+const enregistre = {
+  ...parcours,
+  version: 2,
+  paliers: parcours.paliers.map((p, k) => ({ ...p, ...(k ? { ouverture: ['', '2026-11-12T08:00:00+01:00', '2026-11-20T08:00:00+01:00'][k] } : {}) })),
+}
 for (const theme of ['clair', 'sombre']) {
-  // ---------- Enseignant : poser les dates ----------
-  const bibliotheque = { lien: 'https://kdrive.infomaniak.com/app/share/1/essai', classes: [{ nom: '5e A' }], parcours: [{ parcours, classes: ['5e A'], exportee: { '5e A': 1 } }] }
-  const t = await appareil('enseignant', theme, { profil: 'enseignant', pays: 'FR', bibliotheque }, '2026-11-10T10:00:00+01:00')
-  await t.getByRole('button', { name: /^\s*Relatifs au fil des semaines/ }).first().click({ timeout: 60_000 })
-  await t.getByRole('button', { name: 'Modifier' }).click()
-  await t.getByRole('heading', { name: 'Modifier le parcours' }).waitFor()
-  const p2 = carte(t, 'Ceinture jaune')
-  const p3 = carte(t, 'Ceinture orange')
-  await p2.getByRole('button', { name: 'À partir d’une date' }).click()
-  ok(await t.getByText('À compléter : une date d’ouverture').isVisible(), 'date demandée mais vide : à compléter, Valider grisé')
-  ok(await t.getByRole('button', { name: 'Enregistrer et quitter' }).isDisabled(), 'Enregistrer grisé sans date')
-  await t.getByLabel('Ceinture jaune : date d’ouverture').fill('2026-11-12')
-  ok(!(await t.getByText(/À compléter/).isVisible()), 'date choisie : rien à compléter')
-  ok(!(await texte(t)).includes('Accessible'), 'éditeur : la date seule, sans texte en dessous')
-  // Date retirée puis remise : rien ne reste
-  await p3.getByRole('button', { name: 'À partir d’une date' }).click()
-  await t.getByLabel('Ceinture orange : date d’ouverture').fill('2026-11-01')
-  await p3.getByRole('button', { name: 'À partir d’une date' }).click()
-  ok(!(await t.getByLabel('Ceinture orange : date d’ouverture').count()), 'date retirée : champ fermé')
-  await p3.getByRole('button', { name: 'À partir d’une date' }).click()
-  ok((await t.getByLabel('Ceinture orange : date d’ouverture').inputValue()) === '', 'date remise : champ vide, pas l’ancienne date')
-  await t.getByLabel('Ceinture orange : date d’ouverture').fill('2026-11-20')
-  // Premier palier : la date est proposée aussi, puis retirée
-  await carte(t, 'Ceinture blanche').getByRole('button', { name: 'À partir d’une date' }).click()
-  await carte(t, 'Ceinture blanche').getByRole('button', { name: 'À partir d’une date' }).click()
-  await p2.scrollIntoViewIfNeeded()
-  await cap(t, '1-editeur', theme, false)
-  ok(!(await debordement(t)), 'éditeur : aucun débordement horizontal')
-  await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
-  await pagePrete(t)
-  enregistre = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours[0].parcours)
-  ok(JSON.stringify(enregistre.paliers.map((x) => x.ouverture ?? null)) === '[null,"2026-11-12T08:00:00+01:00","2026-11-20T08:00:00+01:00"]', `bibliothèque : dates enregistrées (${enregistre.paliers.map((x) => x.ouverture)})`)
-  ok(!('ouverture' in enregistre.paliers[0]), 'premier palier : aucune date vide gardée')
-  ok(t.demandesHeure === 0, 'enseignant : aucune demande d’heure (pas de palier fermé à afficher)')
-  ok(enregistre.version === 2, 'parcours publié modifié : version suivante (V2)')
-  // Panneau d'après l'enregistrement, puis la page du parcours
-  await t.goBack({ waitUntil: 'commit' }).catch(() => {})
-  await pagePrete(t)
-  if (!(await t.getByRole('button', { name: 'Modifier' }).isVisible())) await t.getByRole('button', { name: /^\s*Relatifs au fil des semaines/ }).first().click()
-  await t.getByRole('button', { name: 'Modifier' }).waitFor()
-  const fiche = await texte(t)
-  ok(fiche.includes('Ceinture jaune : à partir du jeudi 12 novembre à 8 h') && fiche.includes('Ceinture orange : à partir du vendredi 20 novembre à 8 h'), 'page du parcours : dates d’ouverture')
-  await cap(t, '2-page-parcours', theme)
-  await t.getByRole('button', { name: 'Modifier' }).click()
-  await t.getByRole('heading', { name: 'Modifier le parcours' }).waitFor()
-  ok((await t.getByLabel('Ceinture jaune : date d’ouverture').inputValue()) === '2026-11-12', 'modification : date préremplie')
-  await t.context().close()
-
   // ---------- Élève ----------
   const classe = { lien: 'http://127.0.0.1:9/indisponible/', nom: '5e A', disponibles: ['5e A'], parcours: [enregistre] }
   const id = enregistre.id

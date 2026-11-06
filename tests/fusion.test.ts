@@ -4,7 +4,7 @@
 // restent ceux de l'appareil.
 import { describe, expect, it } from 'vitest'
 import { type Parcours } from '../src/lib/catalogue'
-import { parcoursVide } from '../src/lib/bibliotheque'
+import { parcoursVide } from './parcours-de-test'
 import { fusionnerDonnees, rejouerRevisions } from '../src/lib/fusion'
 import { bilan, nouvelleSeance, type Seance } from '../src/lib/progression'
 import { ID_REVISIONS, integrerPassages, jour, resultatsRevision, revisionsVides, tirerRevision } from '../src/lib/revisions'

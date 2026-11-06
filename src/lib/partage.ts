@@ -49,13 +49,13 @@ export interface BibliothequeDuFichier {
   objectifs?: Objectif[]
 }
 
-/** Dossier partagé suivi par l'élève (ou par l'enseignant : collègues, ressources) */
+/** Dossier partagé suivi par l'élève */
 export interface Classe {
   lien: string
   nom: string // classe retenue dans le fichier ('' tant que l'élève n'a pas choisi)
   disponibles: string[] // classes présentes dans le fichier
   parcours: Parcours[]
-  fichier?: ClasseDuFichier[] // tout le fichier : l'enseignant reprend les parcours de toutes les classes
+  fichier?: ClasseDuFichier[] // tout le fichier : parcours des autres classes (session créée dans une autre classe)
   maj?: string
   erreur?: string
 }
@@ -352,7 +352,7 @@ export function creerFichier(classes: ClasseDuFichier[], banque = false, bibliot
  * Met à jour une classe. Les parcours dont la version n'a pas augmenté sont
  * gardés tels quels ; en cas d'échec, la classe garde ce qu'elle avait.
  */
-/** Classe des parcours de démonstration (Réglages, enseignant) : rien à télécharger */
+/** Classe des parcours de démonstration (chargée par l'espace enseignant d'avant la 0.6) : rien à télécharger */
 export const LIEN_DEMONSTRATION = 'demonstration'
 
 /** Même nom de classe, aux majuscules et espaces près (« 3a » tapé dans un lien pour « 3A ») */

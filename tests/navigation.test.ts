@@ -77,21 +77,12 @@ describe('retour à l’accueil', () => {
   beforeEach(async () => {
     retourAccueil = (await import('../src/lib/navigation.svelte')).retourAccueil
   })
-  const eleve = { niveau: null, onglet: 'mes', depart: 'mes', enseignant: false, vueEleve: false }
-  const prof = { ...eleve, onglet: 'creer', depart: 'creer', enseignant: true }
+  const eleve = { niveau: null, onglet: 'mes', depart: 'mes' }
 
   it('élève : degré de l’Explorer, puis onglet de départ, puis quitter l’app', () => {
     expect(retourAccueil({ ...eleve, onglet: 'explorer', niveau: '5e' })).toBe('niveau')
     expect(retourAccueil({ ...eleve, onglet: 'explorer' })).toBe('depart')
     expect(retourAccueil({ ...eleve, onglet: 'suivi' })).toBe('depart')
     expect(retourAccueil(eleve)).toBeNull()
-  })
-
-  it('enseignant : tout onglet ramène à Parcours ; en vue élève, Mes parcours ramène à l’espace enseignant', () => {
-    expect(retourAccueil({ ...prof, onglet: 'classes' })).toBe('depart')
-    expect(retourAccueil({ ...prof, onglet: 'en-classe' })).toBe('depart')
-    expect(retourAccueil(prof)).toBeNull()
-    expect(retourAccueil({ ...prof, vueEleve: true, onglet: 'mes', depart: 'mes' })).toBe('quitterVueEleve')
-    expect(retourAccueil({ ...prof, vueEleve: true, onglet: 'suivi', depart: 'mes' })).toBe('depart')
   })
 })

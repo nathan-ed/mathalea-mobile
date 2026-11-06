@@ -55,7 +55,7 @@ describe('Texte des fiches', () => {
 describe('Fiches dans les fichiers', async () => {
   const { estFiche } = await import('../src/lib/validation')
   const { ficheDe } = await import('../src/lib/catalogue')
-  const { parcoursVide } = await import('../src/lib/bibliotheque')
+  const { parcoursVide } = await import('./parcours-de-test')
   const graphique = { type: 'graphique', fonctions: ['a*x^2'], x: [0, 4], y: [0, 5], aire: { de: 0, a: 'b' }, curseurs: { a: [0, 2, 1], b: [0, 4, 3, 0.5] } }
   const fiche = (...blocs: unknown[]) => ({ titre: 'Fiche', avant: true, blocs })
 

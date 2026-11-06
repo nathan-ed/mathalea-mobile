@@ -54,12 +54,6 @@ const resultats = {
   'resultats:relatifs-paliers-5e@1': { 0: r(2), 1: r(2), 2: r(1) },
   'resultats:relatifs-5e@1': { 0: r(3, 3), 1: r(2, 3), 2: r(3, 3) },
 }
-const bibliotheque = {
-  lien: classe.lien,
-  classes: [{ nom: '5e A' }, { nom: '4e B' }],
-  parcours: parcours.map((p) => ({ parcours: p, classes: [p.niveau === '4e' ? '4e B' : '5e A'], exportee: { '5e A': 1, '4e B': 1 } })),
-}
-
 for (format of choisis) {
   // Élève : accueil, ceintures en cours, une question
   const e = await appareil({ profil: 'eleve', pays: 'FR', classes: [classe], ...resultats })
@@ -79,20 +73,15 @@ for (format of choisis) {
   await cap(e, '4-question')
   await e.context().close()
 
-  // Enseignant : bibliothèque, éditeur d'un parcours en paliers
-  const t = await appareil({ profil: 'enseignant', pays: 'FR', bibliotheque })
-  await t.getByRole('button', { name: /^Relatifs par paliers/ }).waitFor()
-  // Rappel « Version différente de celle du drive » (données de la fiche) : fermé
-  const rappel = t.getByRole('button', { name: 'Fermer le rappel' })
-  if (await rappel.isVisible()) await rappel.click()
-  await cap(t, '5-bibliotheque')
-  await t.getByRole('button', { name: /^Relatifs par paliers/ }).click()
-  // Page du parcours (depuis la 0.4.4), puis son éditeur
-  await t.getByRole('button', { name: 'Modifier', exact: true }).click()
-  await t.waitForTimeout(800)
-  // Les paliers en haut de l'écran
-  await t.getByLabel('Palier 1 : titre vu par les élèves').evaluate((el) => (el.closest('section')?.scrollIntoView({ block: 'start' }), scrollBy(0, -90)))
-  await cap(t, '6-editeur')
-  await t.context().close()
+  // Session partagée : code et QR code, à montrer à la classe
+  const s = await appareil({ profil: 'eleve', pays: 'FR', classes: [classe], ...resultats })
+  await s.getByRole('button', { name: /^\s*Nombres relatifs/ }).first().click({ timeout: 60_000 })
+  await s.getByRole('button', { name: 'Autres actions' }).click()
+  await s.getByRole('button', { name: 'Session partagée' }).click()
+  await cap(s, '5-session')
+  await s.getByRole('button', { name: 'Afficher le QR code de la session' }).click()
+  await s.locator('.qr-session').waitFor()
+  await cap(s, '6-qr-session')
+  await s.context().close()
 }
 await nav.close()

@@ -1,17 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { estJour, estOuverture, jourEnLettres, jourLocal, jourOuverture, momentOuverture, ouvertureDuJour, paliersDe, type Parcours } from '../src/lib/catalogue'
-import {
-  ajouterClasse,
-  attribuer,
-  chapitres,
-  enregistrer,
-  parcoursPourClasse,
-  parcoursVide,
-  preferencesDe,
-  renommerClasse,
-  retirerClasse,
-} from '../src/lib/bibliotheque'
-import { ceinturesObtenues, cleExercice, completerListe, conditionPalier, etatsPaliers, maitrise, objectifsTravailles, fusionnerObjectifs, lireObjectifs, memoriser, objectifsEnCsv, resultatsParObjectif } from '../src/lib/objectifs'
+import { parcoursVide } from './parcours-de-test'
+import { ceinturesObtenues, cleExercice, conditionPalier, etatsPaliers, maitrise, objectifsTravailles, resultatsParObjectif } from '../src/lib/objectifs'
 import { lireFichier, creerFichier } from '../src/lib/partage'
 import { estParcours } from '../src/lib/validation'
 import { cleInvalide } from '../src/lib/sauvegarde'
@@ -163,102 +153,10 @@ describe('paliers', () => {
 })
 
 describe('objectifs', () => {
-  it('retient les objectifs par exercice et réglages, pas par nombre de questions', () => {
-    const e1 = { ...etape('a', ['Additionner']), sup: '2' }
-    const memo = memoriser({}, [e1])
-    expect(memo[cleExercice({ uuid: 'a', sup: '2' })]).toEqual(['Additionner'])
-    expect(memo[cleExercice({ uuid: 'a', sup: '3' })]).toBeUndefined()
-    expect(cleExercice({ ...e1, nbQuestions: 9 } as never)).toBe(cleExercice(e1))
-    // Un exercice jamais étiqueté ne change rien ; des objectifs retirés effacent la mémoire
-    expect(memoriser(memo, [{ ...e1, objectifs: undefined }])).toEqual(memo)
-    expect(memoriser(memo, [{ ...e1, objectifs: [] }])).toEqual({})
-  })
-
-  it('lit une liste collée ou un fichier objectifs-mathalea/1, sans doublon', () => {
-    const colles = lireObjectifs('- Additionner\n\n• Soustraire  \n', '5e', 'Relatifs')
-    expect(colles).toEqual([
-      { libelle: 'Additionner', niveau: '5e', theme: 'Relatifs' },
-      { libelle: 'Soustraire', niveau: '5e', theme: 'Relatifs' },
-    ])
-    const fichier = lireObjectifs(JSON.stringify({ format: 'objectifs-mathalea/1', objectifs: [{ libelle: 'Additionner deux nombres décimaux relatifs', code: '5N2G' }] }), '5e', 'Relatifs')
-    expect(fichier[0].code).toBe('5N2G')
-    expect(() => lireObjectifs('{"format":"autre"}', '5e', 'x')).toThrow()
-    expect(fusionnerObjectifs(colles, [...colles, ...fichier])).toHaveLength(3)
-    expect(completerListe(colles, ['Additionner', ' Multiplier '], '5e', 'Relatifs').map((o) => o.libelle)).toEqual(['Additionner', 'Soustraire', 'Multiplier'])
-  })
-
-  it('lit un tableau CSV (en-tête, point-virgule, tabulation, guillemets) et le relit après export', () => {
-    const csv = 'Code;Libellé;Niveau;Chapitre\n5N2G;Additionner deux nombres décimaux relatifs;5e;Nombres relatifs\n;"Lire ; écrire";;\n'
-    expect(lireObjectifs(csv, '4e', 'Fractions')).toEqual([
-      { libelle: 'Additionner deux nombres décimaux relatifs', code: '5N2G', niveau: '5e', theme: 'Nombres relatifs' },
-      { libelle: 'Lire ; écrire', niveau: '4e', theme: 'Fractions' },
-    ])
-    // Sans en-tête : code ; libellé ; niveau ; chapitre, ou une colonne de libellés
-    expect(lireObjectifs('5N2G\tAdditionner\t5e\tRelatifs', '', '')[0]).toEqual({ libelle: 'Additionner', code: '5N2G', niveau: '5e', theme: 'Relatifs' })
-    // Virgule seulement avec un en-tête : une phrase avec une virgule reste un libellé
-    expect(lireObjectifs('Additionner, soustraire', '5e', 'R')[0].libelle).toBe('Additionner, soustraire')
-    expect(lireObjectifs('libelle,niveau\nMultiplier,4e', '5e', 'R')[0]).toEqual({ libelle: 'Multiplier', niveau: '4e', theme: 'R' })
-    const liste = lireObjectifs(csv, '4e', 'Fractions')
-    expect(lireObjectifs('\uFEFF' + objectifsEnCsv(liste), '', '')).toEqual(liste)
-  })
-
   it('donne la réussite par objectif d’après les derniers résultats', () => {
     const o = resultatsParObjectif(parcoursAPaliers(), { 0: r(2), 1: r(1) })
     expect(o.find((x) => x.libelle === 'Additionner')?.pourcentage).toBe(75)
     expect(o.find((x) => x.libelle === 'Soustraire')?.pourcentage).toBeNull()
-  })
-})
-
-describe('bibliothèque par niveau, classes à part', () => {
-  it('propose d’abord les chapitres du niveau', () => {
-    const c = chapitres(
-      [
-        { niveau: '5e', theme: 'Relatifs' },
-        { niveau: '4e', theme: 'Fractions' },
-      ],
-      '5e',
-    )
-    expect(c).toEqual({ duNiveau: ['Relatifs'], autres: ['Fractions'] })
-  })
-
-  it('crée sans classe, puis attribue, choisit par classe, renomme et retire', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, [], parcoursAPaliers())
-    expect(b.parcours[0].classes).toEqual([])
-    b = attribuer(b, 'relatifs', ['5e A'])
-    expect(b.classes.map((c) => c.nom)).toEqual(['5e A'])
-    b = ajouterClasse(b, '5e B')
-    b = parcoursPourClasse(b, '5e B', ['relatifs'])
-    expect(b.parcours[0].classes).toEqual(['5e A', '5e B'])
-    b = { ...b, parcours: [{ ...b.parcours[0], exportee: { '5e A': 1 } }] }
-    b = renommerClasse(b, '5e A', '5e C')
-    expect(b.parcours[0].classes).toEqual(['5e C', '5e B'])
-    expect(b.parcours[0].exportee).toEqual({ '5e C': 1 })
-    expect(renommerClasse(b, '5e C', '5e B')).toBe(b)
-    b = retirerClasse(b, '5e B')
-    expect(b.classes.map((c) => c.nom)).toEqual(['5e C'])
-    expect(b.parcours).toHaveLength(1)
-    b = parcoursPourClasse(b, '5e C', [])
-    expect(b.parcours[0].classes).toEqual([])
-  })
-
-  it('reprend les derniers choix pour un nouveau parcours', () => {
-    const pref = preferencesDe({ ...parcoursAPaliers(), presentation: 'liste_exos', correction: 'parcours', difficulte: 2 })
-    const p = parcoursVide(pref)
-    expect([p.niveau, p.presentation, p.correction, p.difficulte]).toEqual(['5e', 'liste_exos', 'parcours', 2])
-    expect(p.titre).toBe('')
-  })
-
-  it('accepte les nouvelles clés dans une sauvegarde et refuse une forme inattendue', () => {
-    const pref = preferencesDe(parcoursAPaliers())
-    expect(
-      cleInvalide({
-        objectifs: [{ libelle: 'Additionner', code: '5N2G', niveau: '5e', theme: 'Relatifs' }],
-        etiquettes: { 'a||||': ['Additionner'] },
-        'preferences-creation': pref,
-      }),
-    ).toBeUndefined()
-    expect(cleInvalide({ objectifs: [{ libelle: 'x', niveau: '5e', theme: 't' }, { libelle: 'x', niveau: '5e', theme: 't' }] })).toBe('objectifs')
-    expect(cleInvalide({ 'preferences-creation': { ...pref, correction: 'jamais' } })).toBe('preferences-creation')
   })
 })
 

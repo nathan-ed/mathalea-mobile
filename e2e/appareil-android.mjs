@@ -1,6 +1,6 @@
 // L'app installée sur un émulateur Android (APK de débogage, notre moteur),
 // pilotée comme un élève dans sa vraie WebView : premier lancement, Réglages,
-// parcours de démonstration, défilement au doigt, un parcours répondu juste
+// dossier de démonstration ajouté par son lien, défilement au doigt, un parcours répondu juste
 // au clavier de MathALÉA jusqu'au bilan, Quitter vers l'accueil, thème sombre.
 // Lancé par .github/workflows/emulateurs.yml (Android 11 et Android récent).
 // Il faut adb, un émulateur démarré et l'app installée.
@@ -132,9 +132,9 @@ await toucher(page.getByRole("button", { name: /^\s*France/ }).first());
 await page.getByRole("button", { name: "Réglages" }).first().waitFor();
 ok(true, "premier lancement : France choisie, accueil de l’élève");
 
-// 2. Réglages : défilement au doigt, puis démonstration chargée par l'enseignant
+// 2. Réglages : défilement au doigt
 await toucher(page.getByRole("button", { name: "Réglages" }).first());
-await page.getByRole("switch", { name: /Je suis enseignant/ }).waitFor();
+await page.getByRole("button", { name: "Guide d’utilisation" }).waitFor();
 const hauteur = await page.evaluate(() => innerHeight);
 await glisser(180, hauteur - 120, 120);
 ok(
@@ -142,38 +142,13 @@ ok(
   `Réglages : le doigt fait descendre la page (${await scrollY()})`,
 );
 await capture("reglages-defiles");
-await toucher(page.getByRole("switch", { name: /Je suis enseignant/ }));
-const quitterReglages = async () => {
-  const quitter = page.getByRole("button", { name: "Enregistrer et quitter" });
-  if (await quitter.isVisible().catch(() => false)) await toucher(quitter);
-  else await page.goBack();
-};
-await quitterReglages();
-// Démonstration : depuis la bibliothèque de l'onglet Créer
-await toucher(
-  page.getByRole("button", { name: /^\s*Parcours de démonstration/ }),
-);
-await toucher(
-  page.getByRole("button", { name: "Charger les parcours de démonstration" }),
-);
-await page
-  .getByRole("status")
-  .filter({ hasText: /parcours chargés/ })
-  .waitFor({ timeout: 60_000 });
-await capture("demonstration-chargee");
-await page.goBack(); // ferme le panneau
-await toucher(page.getByRole("button", { name: "Réglages" }).first());
-await toucher(page.getByRole("switch", { name: /Je suis enseignant/ }));
-await quitterReglages();
-await pause(800);
-const classe = page.getByRole("button", { name: /^\s*Démonstration/ });
-if (
-  await classe
-    .first()
-    .isVisible()
-    .catch(() => false)
-)
-  await toucher(classe.first());
+await page.goBack();
+// Dossier de démonstration (fichier public de la forge, lu comme le dossier
+// partagé d'un enseignant) : collé dans le champ de l'accueil, comme un élève
+const DEMO = "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json";
+await toucher(page.locator("#lien-accueil"));
+await page.locator("#lien-accueil").fill(DEMO);
+await toucher(page.getByRole("button", { name: "Ajouter le dossier" }));
 await page
   .getByRole("button", { name: /^\s*Nombres relatifs/ })
   .first()

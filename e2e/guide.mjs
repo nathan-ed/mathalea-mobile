@@ -1,9 +1,8 @@
-// Captures du guide (docs/guide/images) : chaque étape telle que l'enseignant
-// ou l'élève la voit, à 390 px, thème clair (pnpm dev). Sur chaque capture,
-// un anneau entoure ce qu'on touche ensuite.
+// Captures du guide (docs/guide/images) : chaque étape telle que l'élève la
+// voit, à 390 px, thème clair (app construite, port 1420). Sur chaque
+// capture, un anneau entoure ce qu'on touche ensuite.
 //   node e2e/guide.mjs [dossier]
-//   SEULEMENT=decouvrir|creer|eleve node e2e/guide.mjs
-//   FICHIER=<publié sur le site> SEULEMENT=importer node e2e/guide.mjs
+//   SEULEMENT=decouvrir|sessions|eleve node e2e/guide.mjs
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { SANS_BRIDAGE } from './attente.mjs'
@@ -13,11 +12,18 @@ const SEULEMENT = process.env.SEULEMENT
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const LIEN = 'https://kdrive.infomaniak.com/app/share/123456/7e1c0f4a-5b2d-4c1e-9f3a-2d6b8e0c4a17'
+const DEMO = 'https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json'
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
 
 async function appareil(stockage = {}) {
   const ctx = await nav.newContext({ viewport: { width: 390, height: 780 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, acceptDownloads: true })
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
+  // Dossier de démonstration (fichier de la forge) : servi depuis le dépôt, sans réseau
+  await ctx.route('**/__telecharger?**', (r) =>
+    new URL(r.request().url()).searchParams.get('url') === DEMO
+      ? r.fulfill({ status: 200, contentType: 'application/json', body: readFileSync('static/demo/parcours-demonstration.json', 'utf8') })
+      : r.fulfill({ status: 404, body: '' }),
+  )
   await ctx.addInitScript((stockage) => {
     if (sessionStorage.getItem('pret')) return
     sessionStorage.setItem('pret', '1')
@@ -64,7 +70,7 @@ async function cap(page, nom, cible) {
 const etape = (nom) => console.log('·', nom)
 const parNom = (p, nom, exact = true) => p.getByRole('button', { name: nom, exact })
 
-// ---------- Découvrir : premier lancement, mode enseignant, démonstration ----------
+// ---------- Découvrir : premier lancement, dossier de démonstration ----------
 if (!SEULEMENT || SEULEMENT === 'decouvrir') {
   etape('découvrir')
   const p = await appareil()
@@ -72,146 +78,52 @@ if (!SEULEMENT || SEULEMENT === 'decouvrir') {
   await france.waitFor()
   await cap(p, 'decouvrir-1-programme', france)
   await france.click()
-  await cap(p, 'decouvrir-2-accueil', parNom(p, 'Réglages'))
-  await parNom(p, 'Réglages').click()
-  const interrupteur = p.getByRole('switch', { name: /Je suis enseignant/ }).or(p.getByRole('checkbox', { name: /Je suis enseignant/ }))
-  await interrupteur.first().scrollIntoViewIfNeeded()
-  await p.evaluate(() => scrollBy(0, 120))
-  await cap(p, 'decouvrir-3-enseignant', interrupteur)
-  await interrupteur.first().click()
-  await parNom(p, 'Revenir en arrière').click()
-  // Démonstration : dans la bibliothèque de l'onglet Créer
-  const ligneDemo = p.getByRole('button', { name: /^\s*Parcours de démonstration/ })
-  await ligneDemo.waitFor()
-  await cap(p, 'decouvrir-4a-ligne-demonstration', ligneDemo)
-  await ligneDemo.click()
-  const charger = parNom(p, 'Charger les parcours de démonstration')
-  await charger.waitFor()
-  await cap(p, 'decouvrir-4-demonstration', charger)
-  await charger.click()
-  await p.getByText(/parcours chargés/).waitFor()
-  await p.goBack() // ferme le panneau
-  await p.getByRole('dialog').waitFor({ state: 'detached' })
-  const vueEleve = p.getByRole('button', { name: /^\s*Vue élève/ })
-  await vueEleve.waitFor()
-  await cap(p, 'decouvrir-5a-vue-eleve', vueEleve)
-  await vueEleve.click()
+  const champ = p.getByLabel('Lien de partage donné par ton enseignant')
+  await champ.waitFor()
+  await cap(p, 'decouvrir-2-accueil', champ)
+  await champ.fill(DEMO)
+  const ajouter = parNom(p, 'Ajouter le dossier')
+  await cap(p, 'decouvrir-3-lien-demonstration', ajouter)
+  await ajouter.click()
   const ceintures = p.getByRole('button', { name: /^Relatifs en ceintures/ })
   await ceintures.first().waitFor()
-  await cap(p, 'decouvrir-5-mes-parcours', ceintures)
+  await cap(p, 'decouvrir-4-mes-parcours', ceintures)
   await ceintures.first().click()
   await p.waitForTimeout(800)
   const commencer = parNom(p, 'Commencer')
-  await cap(p, 'decouvrir-6-ceintures', commencer)
+  await cap(p, 'decouvrir-5-ceintures', commencer)
   await commencer.first().click()
   await p.locator('main math-field').first().waitFor({ timeout: 20000 })
-  await cap(p, 'decouvrir-7-question', p.locator('main math-field'))
-  // Retour à l'espace enseignant par les boutons : quitter la séance (confirmée
-  // si elle le demande), puis la vue élève par son bandeau
-  await parNom(p, 'Quitter').first().click()
-  await parNom(p, 'Reprendre plus tard').click()
-  const bandeau = p.getByRole('status').filter({ hasText: 'Vue élève' }).getByRole('button', { name: 'Quitter' })
-  const retourPage = parNom(p, 'Revenir en arrière')
-  await bandeau.or(retourPage).first().waitFor()
-  if (!(await bandeau.isVisible())) await retourPage.click()
-  await bandeau.click()
-  await p.getByRole('tab', { name: 'Parcours' }).waitFor()
-  await cap(p, 'decouvrir-8-onglet-creer', p.getByRole('tab', { name: 'Parcours' }))
-  const paliers = p.getByRole('button', { name: /^Relatifs par paliers/ })
-  await paliers.first().waitFor()
-  await cap(p, 'decouvrir-9-bibliotheque', paliers)
-  await paliers.first().click()
-  const modifier = p.getByRole('button', { name: 'Modifier' })
-  await modifier.waitFor()
-  await cap(p, 'decouvrir-10a-page', modifier)
-  await modifier.click()
-  await p.getByLabel('Palier 1 : titre vu par les élèves').evaluate((el) => (el.closest('section')?.scrollIntoView({ block: 'start' }), scrollBy(0, -90)))
-  await cap(p, 'decouvrir-10-paliers-editeur')
+  await cap(p, 'decouvrir-6-question', p.locator('main math-field'))
   await p.context().close()
 }
 
-// ---------- Créer un parcours dans l'app, le donner à une classe, publier ----------
-if (!SEULEMENT || SEULEMENT === 'creer') {
-  etape('créer dans l’app')
-  const p = await appareil({ profil: 'enseignant', pays: 'FR' })
-  await p.getByRole('tab', { name: 'Parcours' }).click()
-  const creer = parNom(p, 'Créer un parcours')
-  await creer.waitFor()
-  await cap(p, 'creer-1-espace', creer)
+// ---------- Sessions : créer, montrer le QR code, scanner ----------
+if (!SEULEMENT || SEULEMENT === 'sessions') {
+  etape('sessions')
+  const classe = { lien: LIEN, nom: '5e A', disponibles: ['5e A'], parcours: demo.classes.flatMap((c) => c.parcours) }
+  const p = await appareil({ profil: 'eleve', pays: 'FR', classes: [classe] })
+  const relatifs = p.getByRole('button', { name: /^\s*Nombres relatifs/ })
+  await relatifs.first().waitFor()
+  await relatifs.first().click()
+  const autres = parNom(p, 'Autres actions')
+  await autres.waitFor()
+  await cap(p, 'sessions-1-page', autres)
+  await autres.click()
+  const creer = parNom(p, 'Session partagée')
+  await cap(p, 'sessions-2-actions', creer)
   await creer.click()
-  await p.getByRole('radio', { name: '5e' }).waitFor()
-  await cap(p, 'creer-2-editeur', p.getByRole('radio', { name: '5e' }))
-  await p.getByRole('radio', { name: '5e' }).click()
-  await p.waitForTimeout(400)
-  await p.getByLabel('Nom du chapitre').fill('Nombres rationnels')
-  await p.getByLabel('Titre', { exact: true }).fill('Fractions et écritures décimales')
-  await p.getByLabel('But du parcours (vu par les élèves)').fill('Passer d’une fraction à son écriture décimale.')
-  await p.evaluate(() => scrollTo(0, 0))
-  await cap(p, 'creer-3-infos')
-  const ajouter = parNom(p, 'Ajouter des exercices')
-  await cap(p, 'creer-4-ajouter', ajouter)
-  await ajouter.click()
-  // Le niveau du parcours est déjà choisi : on arrive sur ses chapitres
-  const chapitre = p.getByRole('button', { name: /Nombres rationnels/ })
-  await chapitre.first().waitFor({ timeout: 20000 })
-  await p.evaluate(() => scrollTo(0, 0))
-  await cap(p, 'creer-5-chapitres', chapitre)
-  await chapitre.first().click()
-  await p.waitForTimeout(500)
-  const lignes = p.locator('main li > button[aria-expanded]').filter({ hasText: /fraction/i })
-  await lignes.first().evaluate((el) => (el.scrollIntoView({ block: 'start' }), scrollBy(0, -140)))
-  await cap(p, 'creer-6-exercices', lignes.nth(1))
-  await lignes.nth(1).click()
-  const ajouterAuParcours = parNom(p, 'Ajouter au parcours')
-  await ajouterAuParcours.waitFor({ timeout: 20000 })
-  await p.waitForTimeout(1500)
-  await cap(p, 'creer-7-reglages', ajouterAuParcours)
-  await ajouterAuParcours.click()
-  await p.waitForTimeout(400)
-  await lignes.nth(4).click()
-  await ajouterAuParcours.waitFor({ timeout: 20000 })
-  await ajouterAuParcours.click()
-  await p.waitForTimeout(400)
-  const revenir = p.getByRole('button', { name: /^Revenir au parcours/ })
-  await cap(p, 'creer-8-revenir', revenir)
-  await revenir.click()
-  await p.waitForTimeout(500)
-  await p.getByRole('heading', { name: 'Exercices' }).evaluate((el) => (el.scrollIntoView({ block: 'start' }), scrollBy(0, -80)))
-  const valider = parNom(p, 'Valider le parcours')
-  await cap(p, 'creer-9-exercices', valider)
-  await valider.click()
-  await p.getByRole('dialog').waitFor()
-  const donner = parNom(p, 'Donner à des classes')
-  await cap(p, 'creer-10-valide', donner)
-  await donner.click()
-  await p.waitForTimeout(400)
-  await p.getByLabel(/Nouvelle classe/).first().fill('5e A')
-  const ajouterClasse = parNom(p, 'Ajouter')
-  await cap(p, 'creer-11-classe', ajouterClasse)
-  await ajouterClasse.click()
-  const choisir = parNom(p, 'Choisir les parcours de 5e A')
-  await cap(p, 'creer-12-choisir', choisir)
-  await choisir.click()
-  await p.getByRole('checkbox', { name: /Fractions et écritures/ }).click()
-  const enregistrer = p.getByRole('button', { name: /^Enregistrer \(1 parcours\)/ })
-  await cap(p, 'creer-13-cocher', enregistrer)
-  await enregistrer.click()
-  await p.waitForTimeout(400)
-  await p.evaluate(() => scrollTo(0, 0))
-  await cap(p, 'creer-14-classe', p.getByRole('tab', { name: 'Parcours', exact: true }))
-  await p.getByRole('tab', { name: 'Parcours', exact: true }).click()
-  await p.evaluate(() => scrollTo(0, 0))
-  await p.getByLabel('Lien du dossier partagé').fill(LIEN)
-  const lien = parNom(p, 'Enregistrer le lien')
-  await cap(p, 'creer-15-lien', lien)
-  await lien.click()
-  await p.waitForTimeout(400)
-  await p.evaluate(() => scrollTo(0, 0))
-  const publier = p.getByRole('button', { name: 'Mettre à jour', exact: true })
-  await cap(p, 'creer-16-publier', publier)
-  await publier.first().click()
-  await p.waitForTimeout(600)
-  await cap(p, 'creer-17-publie')
+  const qr = parNom(p, 'Afficher le QR code de la session')
+  await cap(p, 'sessions-3-code', qr)
+  await qr.click()
+  await p.locator('.qr-session').waitFor()
+  await cap(p, 'sessions-4-qr', parNom(p, 'Exporter l’image'))
+  await p.goBack()
+  await p.locator('.qr-session').waitFor({ state: 'detached' })
+  await parNom(p, 'Revenir en arrière').click()
+  const scanner = p.getByRole('button', { name: 'Scanner le QR code d’une session ou d’une classe' })
+  await scanner.waitFor()
+  await cap(p, 'sessions-5-scanner', scanner)
   await p.context().close()
 }
 
@@ -262,33 +174,15 @@ if (!SEULEMENT || SEULEMENT === 'eleve') {
   await suite.first().click()
   await p.waitForTimeout(1200)
   await cap(p, 'eleve-5-bilan')
-  await p.goto(base)
+  // Retour à l'accueil par le bouton retour (le relancement rouvrirait la page du parcours)
+  for (let i = 0; i < 4 && !(await p.getByRole('tab', { name: 'Suivi' }).isVisible()); i++) {
+    await p.goBack({ waitUntil: 'commit' }).catch(() => {})
+    await p.waitForTimeout(500)
+  }
   await cap(p, 'eleve-6-onglet-suivi', p.getByRole('tab', { name: 'Suivi' }))
   await p.getByRole('tab', { name: 'Suivi' }).click()
   await p.waitForTimeout(800)
   await cap(p, 'eleve-7-suivi')
-  await p.context().close()
-}
-
-// ---------- Reprendre dans l'app un fichier publié sur le site ----------
-if ((!SEULEMENT || SEULEMENT === 'importer') && process.env.FICHIER) {
-  etape('reprendre un fichier')
-  const p = await appareil({ profil: 'enseignant', pays: 'FR' })
-  await p.getByRole('tab', { name: 'Parcours' }).click()
-  const reprendre = parNom(p, 'Reprendre ma bibliothèque publiée')
-  await reprendre.waitFor()
-  await cap(p, 'importer-1-reprendre', reprendre)
-  await reprendre.click()
-  await p.waitForTimeout(500)
-  const choisirFichier = p.locator('label', { hasText: 'Choisir le fichier publié' })
-  await cap(p, 'importer-2-fichier', choisirFichier)
-  await p.locator('input[type=file]').last().setInputFiles(process.env.FICHIER)
-  await p.getByText(/parcours repris/).waitFor()
-  await cap(p, 'importer-3-repris')
-  await p.goBack({ waitUntil: 'commit' })
-  await p.waitForTimeout(600)
-  await p.evaluate(() => scrollTo(0, 0))
-  await cap(p, 'importer-4-bibliotheque')
   await p.context().close()
 }
 

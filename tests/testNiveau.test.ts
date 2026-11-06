@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { melange, paliersDe } from '../src/lib/catalogue'
-import { parcoursVide } from '../src/lib/bibliotheque'
+import { parcoursVide } from './parcours-de-test'
 import type { ExerciceDuReferentiel } from '../src/lib/moteur'
 import { cleQuestion, fixerOrdre, melanger, nouvelleSeance, questionsDe, questionsOrdonnees } from '../src/lib/progression'
 import { cleInvalide } from '../src/lib/sauvegarde'

@@ -2,7 +2,7 @@
 // et les siennes, enregistrées dans l'ordre qu'il choisit.
 import { describe, expect, it } from 'vitest'
 import { type Fiche, type Parcours } from '../src/lib/catalogue'
-import { parcoursVide } from '../src/lib/bibliotheque'
+import { parcoursVide } from './parcours-de-test'
 import { basculer, deplacer, estFichesEnregistrees, fichesDes, parChapitre } from '../src/lib/fiches'
 import { fusionnerDonnees } from '../src/lib/fusion'
 import { cleInvalide } from '../src/lib/sauvegarde'

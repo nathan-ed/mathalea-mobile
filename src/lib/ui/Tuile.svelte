@@ -20,7 +20,7 @@
     /** Explorer : « + » à côté de la tuile, ajoute le parcours sans l'ouvrir ; « ✓ » une fois ajouté, qui le retire */
     onajouter?: () => void
     ajoute?: boolean
-    /** Ajouté mais impossible à retirer d'ici (bibliothèque de l'enseignant) : la coche n'est plus un bouton actif */
+    /** Ajouté mais impossible à retirer d'ici (parcours de la classe) : la coche n'est plus un bouton actif */
     ajoutFige?: boolean
     /** Où va le parcours, pour le lecteur d'écran : « ton accueil », « votre bibliothèque » */
     cible?: string

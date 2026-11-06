@@ -48,14 +48,8 @@
     oncacher,
     onglet = $bindable('mes'),
     niveau = $bindable(null),
-    enseignant = false,
     suivi,
     fiches,
-    espaceEnseignant,
-    classesEnseignant,
-    enClasse,
-    vueEleve = false,
-    onquitterVueEleve,
     onouvrir,
     oncontinuer,
     onreglages,
@@ -88,20 +82,14 @@
     /** Accueil : parcours cachés par l'élève (rangés en bas, à remettre d'un toucher) */
     caches?: string[]
     oncacher?: (p: Parcours) => void
-    onglet?: 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
+    onglet?: 'mes' | 'explorer' | 'suivi' | 'fiches'
     niveau?: string | null // Explorer : degré ouvert (gardé au retour d'un parcours)
-    enseignant?: boolean // réglage Enseignant : onglets Parcours, Classes, En classe et Explorer
     suivi: Snippet
     fiches?: Snippet // fiches de cours de l'élève (fiches.ts)
-    espaceEnseignant?: Snippet // bibliothèque (onglet Parcours, clé « creer »)
-    classesEnseignant?: Snippet
-    enClasse?: Snippet // sessions de l'enseignant
-    vueEleve?: boolean // enseignant : Mes parcours et Suivi, comme les élèves
-    onquitterVueEleve?: () => void
     onouvrir: (p: Parcours) => void
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
-    onscanner?: () => void // QR code de session affiché par l'enseignant
+    onscanner?: () => void // QR code d'une session partagée ou d'une classe
     revisions?: { dus: number; prochaine: string | null; enCours: boolean } | null // révisions espacées (null : rien de terminé)
     onrevisions?: () => void
     ontest?: () => void // Teste ton niveau (moteur prêt)
@@ -110,10 +98,10 @@
     onchoisirClasse: (lien: string, classe: string) => void
     onorganiser: (source: string, o: Organisation) => void
     onepingler: (p: Parcours) => void
-    dejaAjoute: (p: Parcours) => boolean // Explorer : déjà à l'accueil (élève) ou dans la bibliothèque (enseignant)
-    retirable?: (p: Parcours) => boolean // Explorer, élève : ajouté depuis l'Explorer, il peut être retiré de l'accueil
+    dejaAjoute: (p: Parcours) => boolean // Explorer : déjà à l'accueil
+    retirable?: (p: Parcours) => boolean // Explorer : ajouté depuis l'Explorer, il peut être retiré de l'accueil
     onajouterPlusieurs: (liste: Parcours[]) => Promise<void> // Explorer : ajout de plusieurs parcours d'un coup
-    onretirerPlusieurs?: (liste: Parcours[]) => Promise<void> // Explorer, élève : parcours retirés de l'accueil
+    onretirerPlusieurs?: (liste: Parcours[]) => Promise<void> // Explorer : parcours retirés de l'accueil
     sansLien?: boolean // l'élève a dit ne pas avoir de lien : le formulaire n'est plus proposé d'office
     onsansLien?: (v: boolean) => void
   } = $props()
@@ -189,19 +177,13 @@
   const nbParcours = (n: NiveauExplorer) => n.chapitres.reduce((a, c) => a + c.parcours.length, 0)
   const termines = (s: Source) => s.parcours.filter((p) => resumes[p.id]?.pourcentage != null).length
 
-  // Onglets de l'enseignant ; en vue élève, ceux des élèves
-  const espaceProf = $derived(enseignant && !vueEleve)
   // Onglet d'accueil, où l'app s'ouvre : « retour » y ramène avant de quitter l'app
-  // (en vue élève : Mes parcours, puis l'espace enseignant)
-  const depart = $derived(espaceProf ? 'creer' : 'mes')
-  const aRefermer = () => retourAccueil({ niveau, onglet, depart, enseignant: !!enseignant, vueEleve: !!vueEleve })
+  const aRefermer = () => retourAccueil({ niveau, onglet, depart: 'mes' })
   retourSi(
     () => aRefermer() !== null,
     () => {
-      const r = aRefermer()
-      if (r === 'niveau') niveau = null
-      else if (r === 'depart') changerOnglet(depart)
-      else if (r === 'quitterVueEleve') onquitterVueEleve?.()
+      if (aRefermer() === 'niveau') niveau = null
+      else changerOnglet('mes')
     },
   )
 
@@ -225,8 +207,7 @@
   })
 
   // Explorer : chaque tuile du degré a son « + » (ajouter d'un toucher, « ✓ » pour retirer) ;
-  // « Tout ajouter » met d'un coup le reste du degré sur l'accueil (élève) ou dans la bibliothèque (enseignant)
-  const espaceAjout = $derived(espaceProf ? 'à votre bibliothèque' : 'à ton accueil')
+  // « Tout ajouter » met d'un coup le reste du degré sur l'accueil
   let messageAjout = $state('')
   const peutRetirer = (p: Parcours) => !!onretirerPlusieurs && !!retirable?.(p)
   const restantsDegre = $derived(niveauOuvert ? niveauOuvert.chapitres.flatMap((c) => c.parcours).filter((p) => !dejaAjoute(p)) : [])
@@ -234,7 +215,7 @@
   async function toutAjouter() {
     const ajout = restantsDegre
     await onajouterPlusieurs(ajout)
-    messageAjout = `${pluriel(ajout.length, 'ajouté')} ${espaceAjout}.`
+    messageAjout = `${pluriel(ajout.length, 'ajouté')} à ton accueil.`
   }
   async function basculerUn(p: Parcours) {
     messageAjout = ''
@@ -249,13 +230,6 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  {#if onglet === 'creer' && espaceProf && espaceEnseignant}
-    {@render espaceEnseignant()}
-  {:else if onglet === 'classes' && espaceProf && classesEnseignant}
-    {@render classesEnseignant()}
-  {:else if onglet === 'classe' && espaceProf && enClasse}
-    {@render enClasse()}
-  {:else}
   {#if onglet === 'explorer' && niveauOuvert}
     <EnTete titre={niveauOuvert.niveau} onretour={() => (niveau = null)} />
   {:else}
@@ -273,13 +247,6 @@
     </EnTete>
   {/if}
 
-  {#if enseignant && vueEleve}
-    <div class="flex flex-row items-center gap-2 pl-4 pr-1 text-xs bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light" role="status">
-      <i aria-hidden="true" class="bx bx-mobile text-base text-coopmaths-action dark:text-coopmathsdark-action"></i>
-      <span class="min-w-0 flex-1 truncate py-2">Vue élève : l’app comme vos élèves la voient</span>
-      <button type="button" class="presse shrink-0 px-2 py-1.5 font-semibold text-coopmaths-action dark:text-coopmathsdark-action" onclick={() => onquitterVueEleve?.()}>Quitter</button>
-    </div>
-  {/if}
   <main class="flex-1 avec-onglets">
     {#if onglet === 'mes'}
       <div class="liste-tuiles flex flex-col gap-3 p-4">
@@ -431,8 +398,13 @@
               <button type="submit" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim() || ajoutEnCours} aria-busy={ajoutEnCours}>
                 {ajoutEnCours ? 'Ajout du dossier…' : 'Ajouter le dossier'}
               </button>
+              {#if onscanner}
+                <button type="button" class="{boutonLien} w-full" onclick={onscanner}>
+                  <i aria-hidden="true" class="bx bx-qr-scan text-xl"></i> Scanner le QR code de ma classe
+                </button>
+              {/if}
               {#if onsansLien}
-                <!-- Pas de lien : l'élève travaille avec l'Explorer ; le QR code de l'enseignant suffit aussi -->
+                <!-- Pas de lien : l'élève travaille avec l'Explorer ; un QR code de classe suffit aussi -->
                 <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien(true)}>Je n’ai pas de lien</button>
               {/if}
             </form>
@@ -460,13 +432,8 @@
       <!-- Tous les parcours du degré, rangés sous leur chapitre -->
       <div class="liste-tuiles flex flex-col gap-3 p-4">
         <p class="pl-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          {#if espaceProf}
-            Touchez <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
-            pour mettre un parcours dans votre bibliothèque.
-          {:else}
-            Touche <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
-            pour mettre un parcours sur ton accueil, à nouveau pour l’en retirer.
-          {/if}
+          Touche <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
+          pour mettre un parcours sur ton accueil, à nouveau pour l’en retirer.
         </p>
         {#if restantsDegre.length > 1}
           <button type="button" class="{boutonLien} self-start" onclick={toutAjouter}>
@@ -488,7 +455,6 @@
               onajouter={() => basculerUn(p)}
               ajoute={dejaAjoute(p)}
               ajoutFige={!peutRetirer(p)}
-              cible={espaceProf ? 'votre bibliothèque' : 'ton accueil'}
             />
           {/each}
         {/each}
@@ -540,22 +506,14 @@
       {@render suivi()}
     {/if}
   </main>
-  {/if}
 
   <BarreOnglets
-    onglets={espaceProf
-      ? [
-          { cle: 'creer' as const, libelle: 'Parcours', icone: 'bx-book-content', iconeActive: 'bxs-book-content' },
-          { cle: 'classes' as const, libelle: 'Classes', icone: 'bx-group', iconeActive: 'bxs-group' },
-          { cle: 'classe' as const, libelle: 'En classe', icone: 'bx-chalkboard', iconeActive: 'bxs-chalkboard' },
-          { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
-        ]
-      : [
-          { cle: 'mes' as const, libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
-          { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
-          { cle: 'suivi' as const, libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
-          ...(fiches ? [{ cle: 'fiches' as const, libelle: 'Fiches', icone: 'bx-bookmark', iconeActive: 'bxs-bookmark' }] : []),
-        ]}
+    onglets={[
+      { cle: 'mes' as const, libelle: 'Mes parcours', icone: 'bx-book-open', iconeActive: 'bxs-book-open' },
+      { cle: 'explorer' as const, libelle: 'Explorer', icone: 'bx-compass', iconeActive: 'bxs-compass' },
+      { cle: 'suivi' as const, libelle: 'Suivi', icone: 'bx-bar-chart-alt-2', iconeActive: 'bxs-bar-chart-alt-2' },
+      ...(fiches ? [{ cle: 'fiches' as const, libelle: 'Fiches', icone: 'bx-bookmark', iconeActive: 'bxs-bookmark' }] : []),
+    ]}
     actif={onglet}
     onchoisir={(o) => {
       changerOnglet(o)

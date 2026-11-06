@@ -7,12 +7,11 @@
   import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
-  import { modeQr, nouveauCode, normaliserCode } from '$lib/progression'
-  import { reponsesDeSeance } from '$lib/releve'
+  import { nouveauCode, normaliserCode } from '$lib/progression'
   import { encoderInvitation } from '$lib/invitation'
   import QrSession from './QrSession.svelte'
-  import ReglageSession from './ReglageSession.svelte'
   import { ouvrirLien } from '$lib/fichiers'
+  import { CONTACT, mailSignalement } from '$lib/signalement'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
@@ -38,11 +37,11 @@
     onameliorer,
     onsession,
     onsupprimer,
-    onsessionClasse,
-    ondonner,
     onfiche,
-    classesEnseignant = [],
+    lienSession,
     versionMoteur,
+    source,
+    oncacher,
   }: {
     parcours: Parcours
     resultats: Record<number, ResultatEtape>
@@ -60,20 +59,19 @@
     onameliorer: () => void
     onsession: (code: string, etapes?: number[]) => void // avec des paliers : ceux d'un palier ouvert
     onsupprimer: () => void // tentative en cours
-    onsessionClasse?: (code: string, etapes?: number[], classe?: string) => void // enseignant : lance la session et ouvre sa page (En classe)
     onfiche?: (f: Fiche) => void // ouvre une fiche de cours
-    ondonner?: () => void // enseignant, parcours de l'Explorer : le reprend dans sa bibliothèque pour ses classes
-    classesEnseignant?: string[] // enseignant : ses classes, au choix pour la session
+    lienSession?: string // dossier de la classe du parcours : le QR code de la session l'ajoute à qui ne l'a pas
     versionMoteur?: string // pour le QR code de la session (élèves dont l'app est plus ancienne)
+    source: string // provenance du parcours, écrite dans un signalement (lien du dossier, Explorer)
+    oncacher?: () => void // parcours d'un dossier : le cacher de l'accueil (blocage après un signalement)
   } = $props()
 
   let session: 'aucune' | 'creer' | 'rejoindre' = $state('aucune')
   // Session partagée d'un parcours à paliers : un palier ouvert, le même pour tous
   let palierSession = $state(0)
   let code = $state('')
-  // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton ;
-  // « session » : réglages de la session pour la classe (enseignant)
-  let feuille: 'actions' | 'suppression' | 'session' | 'impression' | null = $state(null)
+  // Actions secondaires dans un panneau du bas : l'écran garde un seul bouton
+  let feuille: 'actions' | 'suppression' | 'impression' | 'signaler' | null = $state(null)
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
@@ -99,9 +97,9 @@
     session = 'creer'
     feuille = null
   }
-  // QR code de la session, à projeter : les élèves le scannent depuis l'accueil
+  // QR code de la session, à montrer ou projeter : les autres le scannent depuis leur accueil
   let qrSession = $state(false)
-  const invitation = $derived(versionMoteur && code ? encoderInvitation({ c: code, p: parcours, m: versionMoteur, ...(etapesSession ? { e: etapesSession } : {}) }) : '')
+  const invitation = $derived(code ? encoderInvitation({ c: code, p: parcours.id, v: parcours.version, e: etapesSession, m: versionMoteur, l: lienSession }) : '')
   const memes = (a: number[], b: number[]) => a.length === b.length && a.every((x, i) => x === b[i])
   // Palier à faire : celui de la tentative en cours, sinon le premier ouvert pas terminé, sinon le premier à revoir
   const courant = $derived.by(() => {
@@ -334,16 +332,7 @@
           {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
         </button>
       {/if}
-      {#if onsessionClasse && session === 'aucune'}
-        <button type="button" class="{boutonInverse} w-full" onclick={() => (feuille = 'session')}>
-          <i aria-hidden="true" class="bx bx-group mr-1"></i> Session pour la classe
-        </button>
-      {/if}
-      {#if explorer && ondonner}
-        <button type="button" class="{boutonInverse} w-full" onclick={ondonner}>
-          <i aria-hidden="true" class="bx bx-group mr-1"></i> Donner à des classes
-        </button>
-      {:else if explorer}
+      {#if explorer}
         <button type="button" class="{boutonInverse} w-full" aria-pressed={epingle} onclick={onepingler}>
           <i aria-hidden="true" class="bx {epingle ? 'bx-check' : 'bx-plus'} mr-1"></i>
           {epingle ? 'Ajouté à l’accueil' : 'Ajouter à l’accueil'}
@@ -376,7 +365,7 @@
         <div class="text-center py-2">
           <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2.5rem; letter-spacing: 0.15em">{code}</div>
           <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            Donne ce code à tes camarades{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », ils auront les mêmes exercices.
+            Montre le QR code de la session, ou donne ce code{avecPaliers ? ` et le palier (${nomPalier(parcours, palierSession).toLowerCase()})` : ''} : avec « Rejoindre une session », tout le monde aura les mêmes exercices.
           </p>
         </div>
         {#if invitation}
@@ -437,12 +426,7 @@
                 {date(s)}{s.type === 'ciblee' ? ' · reprise' : ''}{avecPaliers && paliers.findIndex((x) => memes(x.etapes, s.etapes)) !== -1 ? ` · ${nomPalier(parcours, paliers.findIndex((x) => memes(x.etapes, s.etapes))).toLowerCase()}` : ''}
               </div>
               <div class="flex flex-row items-center gap-2">
-                {#if modeQr(s.code) === 'avant' && !s.qrMontre && reponsesDeSeance(s)}
-                  <!-- QR code avant la correction, pas encore montré : pas de résultat -->
-                  <span class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">QR code à montrer</span>
-                {:else}
-                  <span class={pastilleScore(b.pourcentage)}>{b.pourcentage} %</span>
-                {/if}
+                <span class={pastilleScore(b.pourcentage)}>{b.pourcentage} %</span>
                 <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
               </div>
             </button>
@@ -457,14 +441,14 @@
       ...(enCours
         ? [action('bx-revision', avecPaliers ? `Refaire ${parcours.style === 'ceintures' ? 'cette ceinture' : 'ce palier'} depuis le début` : 'Tout refaire', onrefaire), action('bx-trash', 'Supprimer la tentative en cours', () => (feuille = 'suppression'))]
         : []),
-      // L'enseignant a son bouton sur la page (« Session pour la classe »)
-      ...(onsessionClasse ? [] : [action('bx-group', 'Session partagée', creerSession)]),
+      action('bx-group', 'Session partagée', creerSession),
       action('bx-log-in', 'Rejoindre une session', () => {
         code = ''
         palierSession = Math.max(0, courant)
         session = 'rejoindre'
         feuille = null
       }),
+      action('bx-flag', 'Signaler un problème', () => (feuille = 'signaler')),
     ]}
     <Feuille onfermer={() => (feuille = null)}>
       <ul class={listeGroupee}>
@@ -498,20 +482,32 @@
       </div>
     </Feuille>
   {/if}
-  {#if feuille === 'impression'}
-    <Impression {parcours} enseignant={!!onsessionClasse} onfermer={() => (feuille = null)} />
+  {#if feuille === 'signaler'}
+    <!-- Bug, erreur ou contenu inapproprié : un mail à l'équipe avec le contenu du parcours ; le cacher -->
+    <Feuille onfermer={() => (feuille = null)}>
+      <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Signaler un problème</p>
+      <p class="text-sm">
+        Un bug, une erreur dans un exercice, un contenu inapproprié ? Écris à l’équipe MathALÉA ({CONTACT}) : le mail contient déjà ce parcours, ajoute ce qui ne va pas.
+        {#if oncacher}Tu peux aussi le cacher : il ne s’affichera plus sur ton accueil. Pour ne plus rien recevoir de ce dossier, retire-le dans les Réglages.{/if}
+      </p>
+      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => void ouvrirLien(mailSignalement(parcours, source, versionMoteur))}>
+        <i aria-hidden="true" class="bx bx-envelope text-xl"></i> Écrire le signalement
+      </button>
+      {#if oncacher}
+        <button
+          type="button"
+          class="{boutonInverse} w-full"
+          style="min-height: 44px"
+          onclick={() => {
+            feuille = null
+            oncacher()
+          }}>Cacher ce parcours</button
+        >
+      {/if}
+    </Feuille>
   {/if}
-  {#if feuille === 'session' && onsessionClasse}
-    <ReglageSession
-      {parcours}
-      palier={Math.max(0, courant)}
-      classes={classesEnseignant}
-      onfermer={() => (feuille = null)}
-      onlancer={(c, etapes, classe) => {
-        feuille = null
-        onsessionClasse(c, etapes, classe)
-      }}
-    />
+  {#if feuille === 'impression'}
+    <Impression {parcours} onfermer={() => (feuille = null)} />
   {/if}
   {#if qrSession && invitation}
     <QrSession {invitation} {code} titre={parcours.titre} onfermer={() => (qrSession = false)} />

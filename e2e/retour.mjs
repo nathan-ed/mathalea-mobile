@@ -3,7 +3,7 @@
 // d'un parcours, fiche de cours, panneau du bas, onglets, Réglages ; la séance
 // demande confirmation. Nathan (2026-10-20) : on repasse toujours par
 // l'accueil, d'où seul le retour quitte l'app (aucune entrée en attente).
-// L'enseignant : e2e/en-classe.mjs.
+// (Plus d'onglets enseignant depuis la 0.6.)
 import { readFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 import { pagePrete, SANS_BRIDAGE } from './attente.mjs'

@@ -3,7 +3,7 @@
 // qu'un de ses parcours l'a donnée.
 import { describe, expect, it } from 'vitest'
 import { type Parcours } from '../src/lib/catalogue'
-import { parcoursVide } from '../src/lib/bibliotheque'
+import { parcoursVide } from './parcours-de-test'
 import { ceinturesParChapitre } from '../src/lib/objectifs'
 import { nouvelleSeance, type Seance } from '../src/lib/progression'
 

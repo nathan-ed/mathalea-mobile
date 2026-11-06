@@ -1,11 +1,9 @@
-// Objectifs de l'enseignant (compétences) et étiquettes des exercices.
-// La liste est rangée par niveau et chapitre ; un fichier au format
-// objectifs-mathalea/1 (le sien, celui d'un collègue ou de Coopmaths) la complète.
+// Objectifs (compétences) posés sur les exercices des parcours, paliers et
+// ceintures : réussite par objectif, paliers ouverts, ceintures obtenues.
 import type { Etape, Parcours } from './catalogue'
 import { couleurCeinture, couleurDuRang, momentOuverture, nomCeinture, nomPalier, paliersDe, rangCeinture } from './catalogue'
 import { cleChapitre } from './explorer'
 import { bilan, type ResultatEtape, type Seance } from './progression'
-import { estObjet, estTexte, listeDe, optionnel } from './validation'
 
 export interface Objectif {
   libelle: string // sert d'identifiant : unique dans la liste
@@ -14,139 +12,12 @@ export interface Objectif {
   theme: string
 }
 
-export const FORMAT_OBJECTIFS = 'objectifs-mathalea/1'
-
 /**
  * Un exercice et ses réglages : des paramètres différents peuvent viser un
  * autre objectif, le nombre de questions non.
  */
 export const cleExercice = (e: Pick<Etape, 'uuid' | 'sup' | 'sup2' | 'sup3' | 'sup4'>) =>
   [e.uuid, e.sup, e.sup2, e.sup3, e.sup4].map((x) => (x === undefined ? '' : String(x))).join('|')
-
-/** Retient les objectifs posés sur chaque exercice (un exercice jamais étiqueté ne change rien) */
-export function memoriser(etiquettes: Record<string, string[]>, etapes: Etape[]) {
-  const r = { ...etiquettes }
-  for (const e of etapes) {
-    if (e.objectifs === undefined) continue
-    const cle = cleExercice(e)
-    if (e.objectifs.length) r[cle] = [...e.objectifs]
-    else delete r[cle]
-  }
-  return r
-}
-
-/** Ajoute à la liste les libellés absents, rangés au niveau et au chapitre donnés */
-export function completerListe(liste: Objectif[], libelles: string[], niveau: string, theme: string) {
-  const r = [...liste]
-  for (const l of libelles) {
-    const libelle = l.trim()
-    if (libelle && !r.some((o) => o.libelle === libelle)) r.push({ libelle, niveau, theme })
-  }
-  return r
-}
-
-/** Cellules d'une ligne CSV (guillemets doublés compris) */
-function cellules(ligne: string, sep: string) {
-  const r: string[] = []
-  let cel = ''
-  let entre = false
-  for (let k = 0; k < ligne.length; k++) {
-    const c = ligne[k]
-    if (entre) {
-      if (c === '"' && ligne[k + 1] === '"') (cel += '"'), k++
-      else if (c === '"') entre = false
-      else cel += c
-    } else if (c === '"') entre = true
-    else if (c === sep) r.push(cel.trim()), (cel = '')
-    else cel += c
-  }
-  r.push(cel.trim())
-  return r
-}
-
-const sansAccent = (t: string) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-
-/**
- * Objectifs d'un fichier objectifs-mathalea/1, d'un tableau CSV (colonnes code,
- * libellé, niveau, chapitre ; en-tête facultatif ; séparateur point-virgule,
- * tabulation ou virgule avec en-tête) ou d'un texte collé (un par ligne).
- * Niveau et chapitre absents : ceux donnés.
- */
-export function lireObjectifs(texte: string, niveau: string, theme: string): Objectif[] {
-  const t = texte.replace(/^\uFEFF/, '').trim()
-  if (t.startsWith('{')) {
-    let brut: unknown
-    try {
-      brut = JSON.parse(t)
-    } catch {
-      throw new Error('Ce fichier n’est pas une liste d’objectifs.')
-    }
-    const ok =
-      estObjet(brut) &&
-      brut.format === FORMAT_OBJECTIFS &&
-      listeDe(
-        brut.objectifs,
-        (o) => estObjet(o) && estTexte(o.libelle) && optionnel(o.code, estTexte) && optionnel(o.niveau, estTexte) && optionnel(o.theme, estTexte),
-      )
-    if (!ok) throw new Error('Ce fichier n’est pas une liste d’objectifs.')
-    return (brut as { objectifs: Partial<Objectif>[] }).objectifs.map((o) => ({
-      libelle: o.libelle!.trim(),
-      ...(o.code ? { code: o.code } : {}),
-      niveau: o.niveau ?? niveau,
-      theme: o.theme ?? theme,
-    }))
-  }
-  const lignes = t.split(/\r?\n/).filter((l) => l.trim())
-  if (!lignes.length) return []
-  const premiere = sansAccent(lignes[0])
-  const entete = /libelle|objectif/.test(premiere) && /code|niveau|chapitre|theme/.test(premiere)
-  const sep = lignes[0].includes(';') ? ';' : lignes[0].includes('\t') ? '\t' : entete && lignes[0].includes(',') ? ',' : ''
-  if (!sep) {
-    // Texte collé : un objectif par ligne, puces retirées
-    return lignes.map((l) => l.replace(/^\s*[-•*]\s*/, '').trim()).map((libelle) => ({ libelle, niveau, theme }))
-  }
-  // Colonnes : d'après l'en-tête, sinon code ; libellé ; niveau ; chapitre (une seule colonne : libellé)
-  let col = { code: 0, libelle: 1, niveau: 2, theme: 3 }
-  let donnees = lignes
-  if (entete) {
-    const noms = cellules(premiere, sep)
-    const trouver = (re: RegExp) => noms.findIndex((n) => re.test(n))
-    col = { code: trouver(/^code/), libelle: trouver(/libelle|objectif/), niveau: trouver(/niveau|classe/), theme: trouver(/chapitre|theme/) }
-    donnees = lignes.slice(1)
-  }
-  return donnees.flatMap((l) => {
-    const c = cellules(l, sep)
-    const lire = (i: number) => (i >= 0 ? (c[i] ?? '').trim() : '')
-    const unique = c.length === 1
-    const libelle = unique ? c[0] : lire(col.libelle)
-    if (!libelle) return []
-    const code = unique ? '' : lire(col.code)
-    return [{ libelle, ...(code ? { code } : {}), niveau: lire(col.niveau) || niveau, theme: lire(col.theme) || theme }]
-  })
-}
-
-/** Liste au format CSV (point-virgule, comme les tableurs français) */
-export function objectifsEnCsv(liste: Objectif[]) {
-  const cel = (t: string) => (/[;"\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t)
-  return ['code;libellé;niveau;chapitre', ...liste.map((o) => [o.code ?? '', o.libelle, o.niveau, o.theme].map(cel).join(';'))].join('\n') + '\n'
-}
-
-export function fusionnerObjectifs(liste: Objectif[], ajouts: Objectif[]) {
-  const r = [...liste]
-  for (const o of ajouts) if (o.libelle && !r.some((x) => x.libelle === o.libelle)) r.push(o)
-  return r
-}
-
-
-/** Remplace un libellé partout (liste, mémoire des exercices) */
-export function renommerObjectif(liste: Objectif[], etiquettes: Record<string, string[]>, avant: string, apres: string) {
-  const n = apres.trim()
-  if (!n || n === avant || liste.some((o) => o.libelle === n)) return { liste, etiquettes }
-  return {
-    liste: liste.map((o) => (o.libelle === avant ? { ...o, libelle: n } : o)),
-    etiquettes: Object.fromEntries(Object.entries(etiquettes).map(([k, v]) => [k, v.map((l) => (l === avant ? n : l))])),
-  }
-}
 
 /** Réussite par objectif d'après le dernier résultat de chaque exercice */
 export function resultatsParObjectif(p: Parcours, resultats: Record<number, ResultatEtape>) {

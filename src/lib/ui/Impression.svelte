@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Imprimer un parcours (élève et enseignant) : exercices choisis, fiches de
+  // Imprimer un parcours : exercices choisis, fiches de
   // cours, corrections, nombre de versions, puis un PDF compilé dans l'app,
   // sans connexion. Chaque impression tire de nouvelles valeurs.
   import { titreEleve, type Parcours } from '$lib/catalogue'
@@ -9,7 +9,7 @@
   import Feuille from './Feuille.svelte'
   import { boutonAction, desactive } from './classes'
 
-  let { parcours, enseignant = false, onfermer }: { parcours: Parcours; enseignant?: boolean; onfermer: () => void } = $props()
+  let { parcours, onfermer }: { parcours: Parcours; onfermer: () => void } = $props()
 
   // svelte-ignore state_referenced_locally
   let coches: boolean[] = $state(parcours.etapes.map(() => true))
@@ -21,7 +21,7 @@
   const choisies = $derived(coches.flatMap((c, i) => (c ? [i] : [])))
   const avecCours = $derived(fichesDe(parcours, choisies).length > 0)
   // L'élève ne voit pas le titre d'un exercice masqué par l'enseignant
-  const titre = (i: number) => (enseignant ? parcours.etapes[i].titre.replace(/\$([^$]*)\$/g, '$1') : titreEleve(parcours.etapes[i], i))
+  const titre = (i: number) => titreEleve(parcours.etapes[i], i)
   const titreGroupe = 'text-sm font-semibold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const ligne = 'flex flex-row items-center justify-between gap-4 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'

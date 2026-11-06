@@ -62,9 +62,9 @@ jobs:
       matrix:
         suites:
           - defilement un-toucher regressions changer-appareil reponses-elements retour
-          - classe-qr en-classe fiche-parcours session-qr session-qr-long auteurs
-          - ouverture-paliers paliers papier recherche correction-parcours catalogue-moteur
-          - reponses-session revisions test-niveau test-niveau-reel impression
+          - classe-qr session-qr auteurs signalement
+          - ouverture-paliers paliers papier correction-parcours catalogue-moteur
+          - revisions test-niveau test-niveau-reel impression
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8

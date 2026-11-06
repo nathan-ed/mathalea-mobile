@@ -178,3 +178,22 @@ export const catalogue: Parcours[] = [
     ],
   },
 ]
+
+/** Parcours vide aux réglages d'un nouveau parcours de la page du site, base des parcours écrits par les tests */
+export function parcoursVide(): Parcours {
+  return {
+    id: '',
+    version: 1,
+    titre: '',
+    objectif: '',
+    niveau: '',
+    theme: '',
+    difficulte: 1,
+    icone: 'bx-book-content',
+    presentation: 'une_question_par_page',
+    correction: 'question',
+    enTetesMasques: true,
+    melanger: true,
+    etapes: [],
+  }
+}

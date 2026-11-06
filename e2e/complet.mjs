@@ -1,8 +1,9 @@
-// Parcours complet de l'app sur trois appareils simulés (format téléphone).
+// Parcours complet de l'app sur trois appareils d'élèves simulés (format
+// téléphone) ; le fichier de l'enseignant est celui que prépare le site.
 // Prérequis : serveur de dev (pnpm dev) et dossier partagé local
 // (cd ../spike-sync && pnpm server <DOSSIER>), DOSSIER étant passé en variable.
 import { chromium } from 'playwright'
-import { copyFileSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 import { pagePrete, SANS_BRIDAGE, jusqua } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
@@ -331,122 +332,38 @@ const ajout = a.getByRole('button', { name: /^\s*Fractions : les bases/ }).first
 ok(await ajout.isVisible(), 'explorer : parcours à l’accueil')
 ok((await ajout.innerText()).length > 0 && (await ajout.locator('.bx-compass').count()) === 1, 'explorer : boussole sur la tuile du parcours ajouté')
 
-// ---------- Enseignant ----------
-const t = await appareil('enseignant')
-await t.getByRole('button', { name: /France/ }).click()
-ok(!(await t.getByRole('tab', { name: 'Parcours', exact: true }).isVisible()), 'premier lancement : pas d’onglet Parcours (enseignant) sans le réglage Enseignant')
-await t.getByRole('button', { name: 'Réglages' }).click()
-await t.getByRole('switch', { name: /Je suis enseignant/ }).check()
-await cap(t, '8b-reglage-enseignant')
-await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
-ok((await t.getByRole('tab', { name: 'Parcours', exact: true }).getAttribute('aria-selected')) === 'true', 'réglage Enseignant : onglet Parcours ouvert')
-ok((await t.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',') === 'Parcours,Classes,En classe,Explorer', 'enseignant : onglets Parcours, Classes, En classe, Explorer')
-await t.getByRole('button', { name: 'Créer un parcours' }).click()
-// Un seul écran : niveau, chapitre, parcours, exercices, pages et validation ; les classes viennent après
-ok(await t.getByText('À compléter : un niveau, un chapitre, un titre, un exercice').isVisible(), 'création : ce qui manque est indiqué')
-ok((await t.getByLabel(/Nouvelle classe/).count()) === 0, 'création : pas de classes dans l’éditeur (on crée pour un niveau)')
-await t.getByRole('radio', { name: '4e' }).click()
-await t.getByLabel('Nom du chapitre').fill('Fractions')
-await t.getByLabel('Nom du chapitre').press('Enter')
-ok(await t.getByLabel('Titre', { exact: true }).evaluate((el) => el === document.activeElement), 'Entrée : passage au champ suivant')
-await t.getByLabel('Titre', { exact: true }).fill('Fractions express')
-await t.getByRole('radio', { name: 'Entraînement' }).click()
-await cap(t, '7-editeur')
-// Navigateur d'exercices : niveau puis chapitre, comme sur le site
-await t.getByRole('button', { name: 'Ajouter des exercices' }).click()
-ok(await t.getByRole('heading', { name: 'Quatrième' }).isVisible(), 'navigateur : ouvert au niveau du parcours')
-await t.locator('main').getByRole('button').nth(1).click()
-ok((await t.locator('main li').count()) > 0, 'navigateur : exercices du chapitre')
-await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-ok(await t.getByRole('heading', { name: 'Ajouter des exercices' }).isVisible(), 'navigateur : retour aux niveaux')
-await t.getByLabel(/Rechercher un exercice/).fill('4C21')
-await pagePrete(t)
-const premier = t.locator('main li').first()
-ok((await premier.innerText()).startsWith('4C21'), 'recherche : identifiant exact en premier')
-await premier.getByRole('button').first().click()
-await t.getByLabel('Nombre de questions').waitFor()
-await t.locator('main ol li').first().waitFor({ timeout: 15000 })
-await t.getByLabel('Nombre de questions').fill('2')
-await t.locator('main ol li').nth(1).waitFor({ timeout: 15000 })
-await pagePrete(t)
-ok((await t.locator('main ol > li').count()) === 2, 'aperçu : 2 questions, selon le réglage')
-await cap(t, '8-navigateur')
-await t.getByRole('button', { name: 'Ajouter au parcours' }).click()
-await t.getByRole('button', { name: /Revenir au parcours \(1 exercice\)/ }).click()
-ok(/4C21/.test(await texte(t)) && (await texte(t)).includes('2 questions'), 'exercice ajouté avec ses réglages')
-await t.getByRole('button', { name: /Icône, pages et correction/ }).click()
-await t.getByLabel('Une page par exercice').check()
-await t.getByLabel('À la fin de chaque page').check()
-await cap(t, '9-editeur-complet')
-await t.getByRole('button', { name: 'Aperçu élève' }).click()
-await t.locator('main math-field').first().waitFor()
-ok(await t.getByRole('button', { name: 'Soumettre l’exercice' }).isVisible(), 'aperçu élève du parcours en cours de création')
-await t.getByRole('button', { name: 'Quitter', exact: true }).click()
-ok(!(await t.getByRole('button', { name: 'Reprendre plus tard' }).isVisible()), 'aperçu : la croix quitte directement')
-await t.getByRole('button', { name: 'Valider le parcours' }).click()
-ok(await t.getByText('« Fractions express » enregistré (V1)').isVisible(), 'après validation : panneau enregistré')
-ok((await t.getByLabel(/Nouvelle classe/).count()) === 0, 'après validation : aucune classe à choisir (attribution à part)')
-await cap(t, '9c-enregistre')
-ok(await t.getByRole('button', { name: 'Exporter tous les parcours', exact: true }).isVisible(), 'après validation : export complet proposé')
-await t.getByRole('button', { name: 'Choisir les parcours à exporter' }).click()
-ok(await t.getByRole('checkbox', { name: /Fractions express/, checked: true }).isVisible(), 'choix des parcours : celui enregistré coché')
-// Un seul parcours dans la bibliothèque : le choix revient au fichier complet
-const [complet] = await Promise.all([t.waitForEvent('download'), t.getByRole('dialog').getByRole('button', { name: 'Exporter tous les parcours', exact: true }).click()])
-ok(/^parcours-mathalea-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/.test(complet.suggestedFilename()), 'export complet, nom horodaté : ' + complet.suggestedFilename())
-ok(!(await t.getByText('Version différente de celle du drive').isVisible()), 'rappel : disparu après l’export complet')
-ok(await t.getByText('Drive pas encore configuré').isVisible(), 'rappel : drive à configurer (pas de lien)')
-await t.getByRole('button', { name: 'Configurer', exact: true }).click()
-await pagePrete(t)
-ok(await jusqua(() => t.evaluate(() => document.activeElement?.id === 'lien-dossier'), { timeout: 5_000 }).then(() => true, () => false), 'rappel : « Configurer » ouvre le champ du lien')
-// Attribution dans l'onglet Classes (clavier refermé : la barre d'onglets revient)
-await t.evaluate(() => (document.activeElement)?.blur())
-await t.getByRole('tab', { name: 'Classes', exact: true }).click()
-await t.getByLabel(/Nouvelle classe/).fill('3e A')
-await t.getByRole('button', { name: 'Ajouter', exact: true }).click()
-await t.getByRole('button', { name: 'Nouvelle classe' }).click()
-await t.getByLabel('Nom affiché aux élèves').fill('3e B')
-await t.getByRole('button', { name: 'Ajouter la classe' }).click()
-for (const c of ['3e B', '3e A']) {
-  await t.getByRole('tab', { name: c, exact: true }).click()
-  await t.getByRole('button', { name: `Choisir les parcours de ${c}` }).click()
-  await t.getByRole('checkbox', { name: /Fractions express/ }).click()
-  await t.getByRole('button', { name: /^Enregistrer \(1 parcours\)/ }).click()
-}
-ok((await texte(t)).includes('3e A · 1 parcours'), 'classes : parcours donné à la classe')
-await t.getByRole('tab', { name: 'Parcours', exact: true }).click()
-ok((await texte(t)).includes('3e A, 3e B') || (await texte(t)).includes('3e B, 3e A'), 'bibliothèque : parcours donné à 3e A et 3e B')
-ok(await t.getByText('Mise en route').isVisible(), 'sans dossier partagé : mise en route proposée')
-await t.getByLabel('Lien du dossier partagé', { exact: true }).fill(lienClasse)
-await t.getByRole('button', { name: 'Enregistrer le lien' }).click()
-ok(await t.getByRole('button', { name: /Dossier partagé/ }).isVisible(), 'lien du dossier enregistré pour la classe')
-await t.getByRole('button', { name: /Dossier partagé/ }).click()
-ok(await t.getByRole('button', { name: 'Ouvrir le dossier' }).isVisible(), 'dossier partagé : ouvrir ou changer le lien')
-await t.goBack({ waitUntil: 'commit' })
-await pagePrete(t)
-ok(await t.getByText('Version différente de celle du drive').isVisible(), 'rappel : modifications pas encore exportées')
-
-async function exporterVersDossier() {
-  // Juste après un enregistrement, le panneau du bas propose l'export complet ; sinon le rappel sous la barre
-  const panneau = t.getByRole('button', { name: 'Exporter tous les parcours', exact: true })
-  const bouton = (await panneau.isVisible()) ? panneau : t.getByRole('button', { name: 'Mettre à jour', exact: true })
-  const [dl] = await Promise.all([t.waitForEvent('download'), bouton.click()])
-  ok(/^parcours-mathalea-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/.test(dl.suggestedFilename()), 'publication horodatée : ' + dl.suggestedFilename())
-  // Serveur local de test : il ne sait pas lister un dossier, nom fixe
-  const chemin = `${dossierPartage}/classe-3a/parcours-mathalea.json`
-  await dl.saveAs(chemin)
-  return chemin
-}
-await exporterVersDossier()
-ok(await t.getByText('Fichier exporté : déposez-le sur le drive').isVisible(), 'rappel : fichier à déposer sur le drive')
-await t.getByRole('button', { name: 'Vérifier le dossier partagé' }).click()
-await t.getByText('Fichier exporté : déposez-le sur le drive').waitFor({ state: 'hidden', timeout: 10000 })
-ok(!(await t.getByText('Fichier exporté : déposez-le sur le drive').isVisible()), 'rappel : disparu quand le drive a le fichier')
-await cap(t, '10-enseignant')
+// ---------- Fichier de l'enseignant, préparé sur le site MathALÉA ----------
+// Le site exporte parcours-mathalea.json, que l'enseignant dépose sur son drive :
+// écrit ici tel quel dans le dossier partagé de test (classes 3e A et 3e B)
+const fractionsExpress = (titre, version) => ({
+  id: 'fractions-express',
+  version,
+  titre,
+  objectif: '',
+  niveau: '4e',
+  theme: 'Fractions',
+  difficulte: 2,
+  icone: 'bx-math',
+  presentation: 'une_page_par_exercice',
+  correction: 'page',
+  etapes: [{ uuid: '5f429', id: '4C21', titre: 'Additionner des fractions', nbQuestions: 2 }],
+})
+const deposer = (titre, version) =>
+  writeFileSync(
+    `${dossierPartage}/classe-3a/parcours-mathalea.json`,
+    JSON.stringify({
+      format: 'classes-mathalea/1',
+      exporteLe: new Date().toISOString(),
+      classes: ['3e A', '3e B'].map((nom) => ({ nom, parcours: [fractionsExpress(titre, version)] })),
+    }),
+  )
+deposer('Fractions express', 1)
 
 // L'élève ajoute la classe par le lien du dossier partagé
+await accueil(a)
 await a.getByRole('button', { name: 'Réglages' }).click()
 ok((await texte(a)).includes('licence AGPL-3.0') && (await a.getByRole('link', { name: 'coopmaths.fr' }).isVisible()), 'réglages : licence et coopmaths.fr')
+ok(!(await a.getByRole('switch', { name: /enseignant/i }).count()), 'réglages : plus de mode enseignant')
 await a.getByLabel('Sombre').check()
 ok(await a.evaluate(() => document.documentElement.classList.contains('dark')), 'réglages : thème sombre appliqué aussitôt')
 await a.getByLabel('Comme le téléphone').check()
@@ -455,34 +372,13 @@ await a.getByRole('button', { name: 'Ajouter le dossier' }).click()
 await a.getByLabel('3e A').check({ timeout: 10000 })
 await pagePrete(a)
 await a.getByRole('button', { name: 'Revenir en arrière' }).click()
-ok(!(await a.getByRole('tab', { name: 'Parcours', exact: true }).isVisible()) && !(await a.getByRole('tab', { name: 'En classe' }).isVisible()), 'élève : jamais d’onglet enseignant')
+ok((await a.locator('nav [role=tab]').allInnerTexts()).map((x) => x.trim()).join(',') === 'Mes parcours,Explorer,Suivi,Fiches', 'élève : onglets Mes parcours, Explorer, Suivi, Fiches')
 await a.getByRole('tab', { name: '3e A' }).click()
 ok((await texte(a)).includes('Fractions express'), 'élève : parcours de la classe reçu (pastilles de classes)')
 await cap(a, '6e-classes')
 
-// L'enseignant modifie : V2 ; l'élève la reçoit
-await t.getByRole('button', { name: /Fractions express/ }).first().click()
-// La tuile ouvre la page du parcours ; « Modifier » ouvre l'éditeur
-await t.getByRole('button', { name: 'Modifier' }).click()
-ok((await t.getByLabel('Titre', { exact: true }).inputValue()) === 'Fractions express', 'modification : tout est déjà rempli')
-await t.getByLabel('Titre', { exact: true }).fill('Fractions express (corrigé)')
-// Réglages de l'exercice repris tels qu'ils ont été choisis, modifiables sur place
-await t.getByRole('button', { name: /^4C21/ }).click()
-ok((await t.getByLabel('Nombre de questions').inputValue()) === '2', 'modification : réglages de l’exercice repris')
-await t.getByLabel('Nombre de questions').fill('3')
-await t.getByRole('button', { name: 'Autres actions' }).click()
-ok(await t.getByRole('button', { name: 'Dupliquer' }).isDisabled(), 'modification en cours : dupliquer attend l’enregistrement')
-await t.goBack({ waitUntil: 'commit' })
-await pagePrete(t)
-await cap(t, '9b-modification')
-await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
-await pagePrete(t)
-{ const f = await texte(t); ok(/V2 à publier pour/.test(f), `modification enregistrée : retour à la page du parcours, V2 à publier (${f.replace(/\s+/g, ' ').slice(0, 160)})`) }
-await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-await pagePrete(t)
-ok((await texte(t)).includes('V2'), 'modification après export : V2')
-ok(await t.getByText('Version différente de celle du drive').isVisible(), 'rappel : V2 pas encore exportée')
-await exporterVersDossier()
+// L'enseignant corrige le parcours sur le site et dépose la V2 ; l'élève la reçoit
+deposer('Fractions express (corrigé)', 2)
 await a.getByRole('button', { name: 'Réglages' }).click()
 await a.getByRole('button', { name: 'Mettre à jour les parcours' }).click()
 await pagePrete(a)
@@ -490,63 +386,14 @@ await a.getByRole('button', { name: 'Revenir en arrière' }).click()
 await a.getByRole('tab', { name: '3e A' }).click()
 ok((await texte(a)).includes('Fractions express (corrigé)'), 'élève : V2 reçue après mise à jour')
 
-// Suisse : niveaux et référentiel suisses, notations fr-CH
-await t.getByRole('button', { name: 'Réglages' }).click()
-ok((await t.getByRole('button', { name: 'Enregistrer et quitter' }).count()) === 0, 'réglages : pas de bouton sans changement')
-await t.getByLabel('Suisse').check()
-await t.getByRole('button', { name: 'Enregistrer et quitter' }).click()
-ok(await t.getByRole('button', { name: 'Créer un parcours' }).isVisible(), 'réglages : enregistrer et quitter ramène à l’accueil')
-await t.getByRole('button', { name: 'Créer un parcours' }).click()
-ok(await t.getByRole('radio', { name: 'Fractions' }).isVisible(), 'création : chapitre existant proposé')
-await t.getByRole('radio', { name: 'Fractions' }).click()
-ok((await t.getByLabel('Nom du chapitre').inputValue()) === 'Fractions', 'création : chapitre choisi d’un geste')
-ok((await t.getByRole('radio', { name: '9e' }).count()) === 1 && (await t.getByRole('radio', { name: '6e' }).count()) === 0, 'Suisse : niveaux 9e à 4e Collège')
-await t.getByRole('radio', { name: '9e' }).click()
-await t.getByRole('button', { name: 'Ajouter des exercices' }).click()
-await t.getByLabel(/Rechercher un exercice/).fill('9NO1A')
-await pagePrete(t)
-ok((await texte(t)).includes('9NO1A'), 'Suisse : exercices du référentiel suisse')
-const notation = await t.evaluate(async () => {
+// Suisse : notations fr-CH du moteur
+const notation = await a.evaluate(async () => {
   const man = await (await fetch('/moteur/manifest.json')).json()
   const m = await import('/moteur/' + man.entree)
   const ex = await m.preparerExercice({ uuid: '72ce7', nbQuestions: 4, alea: 'ch' }, 80)
   return ex.questions.map((q) => q.enonce + q.correction).join(' ')
 })
 ok(notation.includes('\\cdot') && !notation.includes('\\times'), 'Suisse : \\cdot à la place de \\times (fr-CH)')
-
-// Édition d'un parcours d'un dossier partagé : classes, chapitre, tout est repris
-for (let i = 0; i < 6 && !(await t.getByRole('button', { name: 'Réglages' }).isVisible()); i++) {
-  // Éditeur modifié : le panneau de confirmation s'ouvre
-  if (await t.getByRole('button', { name: 'Quitter sans enregistrer' }).isVisible()) await t.getByRole('button', { name: 'Quitter sans enregistrer' }).click()
-  else await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await pagePrete(t)
-}
-await t.getByRole('button', { name: 'Réglages' }).click()
-await t.getByLabel('Lien de partage du dossier').fill(lienTest)
-await t.getByRole('button', { name: 'Ajouter le dossier' }).click()
-await pagePrete(t)
-await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-// L'enseignant voit toutes les classes du dossier, sans choisir (vue élève)
-await t.getByRole('tab', { name: 'Parcours', exact: true }).click()
-await t.getByRole('button', { name: /^\s*Vue élève/ }).click()
-ok(
-  (await t.getByRole('tab', { name: 'Classe test' }).isVisible()) && (await t.getByRole('tab', { name: 'Autre classe' }).isVisible()),
-  'enseignant : toutes les classes du dossier en pastilles',
-)
-await t.getByRole('tab', { name: 'Autre classe' }).click()
-await pagePrete(t)
-await cap(t, '10c-enseignant-classes')
-await t.getByRole('button', { name: 'Quitter', exact: true }).click()
-await t.getByRole('button', { name: /Éditer un parcours existant/ }).click()
-await t.getByRole('button', { name: /Nombres relatifs/ }).first().click()
-ok(
-  (await t.getByLabel('Nom du chapitre').inputValue()) === 'Nombres et calculs' && (await t.getByRole('radio', { name: '5e', checked: true }).count()) === 1,
-  'édition : chapitre et niveau repris',
-)
-ok(await t.getByRole('button', { name: 'Enregistrer et quitter' }).isEnabled(), 'édition : enregistrable sans rien ressaisir')
-await cap(t, '10b-edition-dossier')
-await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-ok((await texte(t)).includes('Classe test'), 'édition : classes d’origine reprises dans la bibliothèque')
 
 // Sauvegarde complète, restaurée sur un nouvel appareil
 await accueil(a)

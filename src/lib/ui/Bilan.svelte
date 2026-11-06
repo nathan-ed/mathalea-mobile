@@ -4,9 +4,6 @@
   import type { Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
-  import MesReponses from './MesReponses.svelte'
-  import { reponsesDeSeance } from '$lib/releve'
-  import { modeQr } from '$lib/progression'
   import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import { navigation } from '$lib/navigation.svelte'
@@ -24,9 +21,6 @@
     oncontinuer,
     onfiche,
     test = null,
-    onqrmontre,
-    prenom = '',
-    onprenom,
     revision = null,
   }: {
     parcours: Parcours
@@ -49,10 +43,6 @@
     onfiche?: (f: Fiche) => void // revoir la fiche de cours du palier
     /** Teste ton niveau : verdict et suites proposées, à la place des actions d'un parcours */
     test?: { message: string; actions: { libelle: string; fn: () => void }[] } | null
-    /** Session « QR code avant la correction » : le QR code a été montré */
-    onqrmontre?: () => void
-    prenom?: string // prénom de l'élève, si la session le demande
-    onprenom?: (p: string) => void
     /** Séance de révision : pour chaque exercice, réussi ou non et quand il reviendra */
     revision?: Record<number, { reussi: boolean; quand: string }> | null
   } = $props()
@@ -66,20 +56,7 @@
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
   const papier = $derived(b.parEtape.reduce((a, e) => a + e.papier, 0))
   const vues = $derived(b.parEtape.reduce((a, e) => a + e.vues, 0))
-  // Session partagée : réponses à montrer à l'enseignant (QR code)
-  const pourEnseignant = $derived(test ? null : reponsesDeSeance(seance))
-  let montrer = $state(false)
-  // QR code avant la correction : rien des résultats tant qu'il n'a pas été montré
-  const avant = $derived(!!pourEnseignant && modeQr(seance.code) === 'avant' && !seance.qrMontre)
 </script>
-
-{#if avant && pourEnseignant}
-  <MesReponses {prenom} {onprenom} reponses={pourEnseignant} avant passees={b.passees.length} {onpassees} onresultats={() => onqrmontre?.()} {onfermer} />
-{:else if montrer && pourEnseignant}
-  <MesReponses {prenom} {onprenom} reponses={pourEnseignant} onfermer={() => (montrer = false)} />
-{/if}
-
-{#if !avant}
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre={seance.type === 'ciblee' ? `${parcours.titre} · reprise` : parcours.titre} onretour={onfermer} />
@@ -106,12 +83,6 @@
       {#if test}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{test.message}</p>
       {:else if palier}<p class="mt-1 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Bilan : {palier.nom.toLowerCase()}</p>{/if}
     </div>
-
-    {#if pourEnseignant}
-      <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (montrer = true)}>
-        <i aria-hidden="true" class="bx bx-qr text-xl"></i> Montrer mes réponses à l’enseignant
-      </button>
-    {/if}
 
     {#if palier?.pause && b.passees.length === 0}
       <section class="flex flex-col gap-2 rounded-2xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" aria-label="Pause">
@@ -262,4 +233,3 @@
     {/if}
   </main>
 </div>
-{/if}

@@ -1,93 +1,49 @@
+// Bibliothèque d'un enseignant d'avant la 0.6 (export pour le site), sessions
+// partagées, sauvegarde, fichiers partagés mal formés, parcours corrigé après coup.
 import { describe, expect, it } from 'vitest'
-import { aJour, completerEmpreinte, sansEcartDrive, adopter, definirLien, enregistrer, exporter, exporterChoix, exporterUn, aExporter, reprendre, attribuer, nbAExporter, parcoursVide, parcoursDeClasse } from '../src/lib/bibliotheque'
+import { exporter } from '../src/lib/bibliotheque'
+import type { Parcours } from '../src/lib/catalogue'
 import { lireFichier } from '../src/lib/partage'
 import { graineDeSession, nouveauCode, nouvelleSeance } from '../src/lib/progression'
 
-const brouillon = (titre: string) => ({
-  ...parcoursVide(),
+const brouillon = (titre: string): Parcours => ({
+  id: '',
+  version: 1,
   titre,
+  objectif: '',
   niveau: '4e',
   theme: 'Fractions',
+  difficulte: 1,
+  icone: 'bx-book-content',
+  presentation: 'une_question_par_page',
+  correction: 'question',
   etapes: [{ uuid: '5f429', id: '4C21', titre: 'Additionner', nbQuestions: 3 }],
 })
 
-describe('bibliothèque de l’enseignant', () => {
-  it('donne un même parcours à deux classes ; un seul fichier contient les deux classes', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('Fractions'))
-    expect(b.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
-    expect(parcoursDeClasse(b, '3e B')).toHaveLength(1)
-    expect(nbAExporter(b)).toBe(1)
-    const { texte, bibliotheque } = exporter(b)
-    b = bibliotheque
-    expect(lireFichier(texte).classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
-    expect(aExporter(b.parcours[0], '3e A') || aExporter(b.parcours[0], '3e B')).toBe(false)
-    expect(nbAExporter(b)).toBe(0)
-  })
-
-  it('ouvre la version suivante seulement si un parcours exporté est modifié', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
-    const p1 = b.parcours[0].parcours
-    b = enregistrer(b, ['3e A'], { ...p1, titre: 'Fractions !' })
-    expect(b.parcours[0].parcours.version).toBe(1) // jamais exporté : pas de nouvelle version
-    b = exporter(b).bibliotheque
-    b = enregistrer(b, ['3e A'], b.parcours[0].parcours) // ouvert puis validé sans changement
-    expect(b.parcours[0].parcours.version).toBe(1)
-    b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours, objectif: 'Additionner' })
-    expect(b.parcours[0].parcours.version).toBe(2)
-    expect(lireFichier(exporter(b).texte).classes[0].parcours[0].version).toBe(2)
-  })
-
-  it('retrouve ses classes depuis un fichier exporté (nouvel appareil)', () => {
-    const f = lireFichier(exporter(enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('F'))).texte)
-    const b = reprendre({ classes: [], parcours: [] }, f)
-    expect(b.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
-    expect(b.parcours).toHaveLength(1)
-    expect(b.parcours[0].classes).toEqual(['3e A', '3e B'])
-    expect(nbAExporter(b)).toBe(0)
-  })
-
-  it('dossier d’un collègue : seulement les parcours, ni classe ni attribution', () => {
-    const f = lireFichier(exporter(enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('F'))).texte)
-    const local = enregistrer({ classes: [{ nom: '9A' }], parcours: [] }, ['9A'], brouillon('À moi'))
-    const b = reprendre(local, f, { classes: false })
-    expect(b.classes.map((c) => c.nom)).toEqual(['9A'])
-    expect(b.parcours.map((pe) => [pe.parcours.titre, pe.classes])).toEqual([
-      ['À moi', ['9A']],
-      ['F', []],
-    ])
-    // Reprendre ensuite tout le dossier n'ajoute aucun doublon
-    expect(reprendre(b, f).parcours).toHaveLength(2)
-  })
-
-  it('reprend toute la bibliothèque : parcours sans classe et objectifs compris, sans rien perdre localement', () => {
-    let source = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
-    source = enregistrer(source, [], { ...brouillon('Brouillon sans classe'), id: '' })
+describe('bibliothèque d’un enseignant d’avant la 0.6', () => {
+  it('exportée dans un fichier que le site ouvre : classes, parcours sans classe et objectifs', () => {
+    const a = { ...brouillon('Fractions'), id: 'fractions-x' }
+    const b = { ...brouillon('Relatifs'), id: 'relatifs-x' }
+    const vide = { ...brouillon(''), id: 'vide-x' }
     const objectifs = [{ libelle: 'Additionner des fractions', niveau: '4e', theme: 'Fractions' }]
-    const f = lireFichier(exporter(source, objectifs).texte)
-    expect(f.classes.map((c) => c.parcours.length)).toEqual([1])
-    expect(f.bibliotheque?.parcours).toHaveLength(2)
+    const texte = exporter(
+      {
+        classes: [{ nom: '3A' }, { nom: '3B' }],
+        parcours: [
+          { parcours: a, classes: ['3A', '3B'], exportee: {} },
+          { parcours: b, classes: [], exportee: {} },
+          { parcours: vide, classes: ['3B'], exportee: {} },
+        ],
+      },
+      objectifs,
+    )
+    const f = lireFichier(texte)
+    expect(f.classes.map((c) => [c.nom, c.parcours.map((p) => p.id)])).toEqual([
+      ['3A', ['fractions-x']],
+      ['3B', ['fractions-x']],
+    ])
+    expect(f.bibliotheque?.parcours.map((p) => p.id)).toEqual(['fractions-x', 'relatifs-x', 'vide-x'])
     expect(f.bibliotheque?.objectifs).toEqual(objectifs)
-    // Appareil qui a déjà un parcours à lui : il le garde
-    const local = enregistrer({ classes: [], parcours: [] }, [], { ...brouillon('À moi'), id: '' })
-    const b = reprendre(local, f)
-    expect(b.parcours.map((pe) => pe.parcours.titre)).toEqual(['À moi', 'Fractions', 'Brouillon sans classe'])
-    expect(b.parcours.find((pe) => pe.parcours.titre === 'Brouillon sans classe')?.classes).toEqual([])
-    // Reprendre deux fois ne crée aucun doublon ; une version locale plus récente est gardée
-    const plusRecent = attribuer(enregistrer(b, ['3e A'], { ...b.parcours[1].parcours, version: 5 }), b.parcours[1].parcours.id, ['3e A'])
-    const encore = reprendre(plusRecent, f)
-    expect(encore.parcours).toHaveLength(3)
-    expect(encore.parcours[1].parcours.version).toBe(5)
-  })
-})
-
-describe('édition d’un parcours existant', () => {
-  it('garde l’identifiant et passe à la version suivante si on le modifie', () => {
-    const existant = { ...brouillon('Relatifs'), id: 'relatifs-5e', version: 3 }
-    let b = adopter({ classes: [], parcours: [] }, existant)
-    b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours })
-    expect(b.parcours[0].parcours).toMatchObject({ id: 'relatifs-5e', version: 3 })
-    b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours, titre: 'Relatifs (révisé)' })
-    expect(b.parcours[0].parcours).toMatchObject({ id: 'relatifs-5e', version: 4 })
   })
 })
 
@@ -204,144 +160,6 @@ describe('fichiers partagés mal formés', () => {
   })
 })
 
-describe('téléchargements après la création', () => {
-  it('enregistrer garde le lien du dossier partagé', () => {
-    const b = enregistrer(definirLien({ classes: [], parcours: [] }, 'https://exemple.ch/s/x'), ['3e A'], brouillon('Fractions'))
-    expect(b.lien).toBe('https://exemple.ch/s/x')
-  })
-
-  it('un parcours seul, dans ses classes et à sa version, sans compter comme exporté dans la banque', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['3e A', '3e B'], brouillon('Fractions'))
-    b = exporter(b).bibliotheque
-    const id = b.parcours[0].parcours.id
-    b = enregistrer(b, ['3e A', '3e B'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
-    const f = exporterUn(b, id)!
-    const lu = lireFichier(f.texte)
-    expect(f.nom).toMatch(/^parcours-fractions-corrige-\d{4}-\d{2}-\d{2}-\d{2}h\d{2}-\d{2}\.json$/)
-    expect(lu.classes.map((c) => c.nom)).toEqual(['3e A', '3e B'])
-    expect(lu.classes[0].parcours[0].version).toBe(2)
-    expect(nbAExporter(b)).toBe(1)
-  })
-
-  it('un parcours seul déposé aux élèves : la modification suivante ouvre une nouvelle version', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
-    const id = b.parcours[0].parcours.id
-    b = exporterUn(b, id)!.bibliotheque
-    b = enregistrer(b, ['3e A'], { ...b.parcours[0].parcours, titre: 'Fractions (corrigé)' })
-    expect(b.parcours[0].parcours.version).toBe(2)
-    expect(exporterUn(b, id)!.nom).toMatch(/^parcours-fractions-corrige-/)
-  })
-
-  it('un parcours repris d’un dossier garde ses classes et passe à la version suivante si modifié', () => {
-    const p = { ...brouillon('Relatifs'), id: 'relatifs-5e', version: 3 }
-    let b = adopter({ classes: [], parcours: [] }, p, ['Classe test'])
-    expect(b.parcours[0].classes).toEqual(['Classe test'])
-    b = enregistrer(b, ['Classe test'], { ...p, titre: 'Relatifs (repris)' })
-    expect(b.parcours[0].parcours.version).toBe(4)
-  })
-
-  it('signale toute modification absente du dernier fichier complet, parcours sans classe compris', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, [], brouillon('Sans classe'))
-    expect(aJour(b)).toBe(false)
-    b = exporter(b).bibliotheque
-    expect(aJour(b)).toBe(true)
-    b = enregistrer(b, [], { ...b.parcours[0].parcours, objectif: 'Additionner' })
-    expect(aJour(b)).toBe(false)
-    b = exporter(b).bibliotheque
-    b = attribuer(b, b.parcours[0].parcours.id, ['3e A'])
-    expect(aJour(b)).toBe(false)
-    b = exporter(b).bibliotheque
-    const objectifs = [{ libelle: 'Additionner des fractions', niveau: '4e', theme: 'Fractions' }]
-    expect(aJour(b, objectifs)).toBe(false)
-    // Un export de quelques parcours ne remplace pas le fichier complet
-    b = exporterChoix(exporter(b, objectifs).bibliotheque, [b.parcours[0].parcours.id])!.bibliotheque
-    expect(aJour(b, objectifs)).toBe(true)
-  })
-
-  it('bibliothèque d’une version précédente : pas de fausse alerte si elle a déjà été exportée', () => {
-    let b = exporter(enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))).bibliotheque
-    const ancienne = { ...b, empreinte: undefined }
-    expect(aJour(ancienne)).toBe(false)
-    expect(aJour(completerEmpreinte(ancienne))).toBe(true)
-    // Jamais exportée, ou un parcours en attente : l'alerte reste
-    const jamais = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
-    expect(completerEmpreinte(jamais)).toBe(jamais)
-    b = enregistrer(ancienne, ['3e A'], { ...b.parcours[0].parcours, objectif: 'Additionner' })
-    expect(aJour(completerEmpreinte(b))).toBe(false)
-  })
-
-  it('la démonstration ne rend pas le drive différent, sauf s’il l’était déjà', () => {
-    const avant = exporter(enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))).bibliotheque
-    const demo = enregistrer(avant, ['Démonstration'], { ...brouillon('Essai'), id: '' })
-    expect(aJour(sansEcartDrive(avant, [], demo, []))).toBe(true)
-    const modifiee = enregistrer(avant, [], { ...brouillon('Nouveau'), id: '' })
-    expect(aJour(sansEcartDrive(modifiee, [], enregistrer(modifiee, [], { ...brouillon('Essai'), id: '' }), []))).toBe(false)
-  })
-
-  it('exporte plusieurs parcours choisis dans un fichier, chacun dans ses classes', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['3e A'], brouillon('Fractions'))
-    b = enregistrer(b, [], { ...brouillon('Brouillon'), id: '' })
-    b = enregistrer(b, ['3e B'], { ...brouillon('Autre'), id: '' })
-    const ids = b.parcours.map((pe) => pe.parcours.id)
-    const f = exporterChoix(b, [ids[0], ids[1]])!
-    expect(f.nom).toMatch(/^parcours-choisis-2-/)
-    const lu = lireFichier(f.texte)
-    expect(lu.banque).toBeUndefined()
-    expect(lu.classes.map((c) => [c.nom, c.parcours.map((p) => p.titre)])).toEqual([
-      ['3e A', ['Fractions']],
-      ['Parcours', ['Brouillon']],
-    ])
-    expect(exporterChoix(b, [])).toBeNull()
-  })
-})
-
-describe('ordre et copie', async () => {
-  const { deplacer, copie } = await import('../src/lib/bibliotheque')
-  it('déplace un parcours dans sa classe sans toucher aux autres classes', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['A'], brouillon('Un'))
-    b = enregistrer(b, ['B'], brouillon('Autre'))
-    b = enregistrer(b, ['A'], brouillon('Deux'))
-    const id = b.parcours[2].parcours.id
-    b = deplacer(b, id, 'A', -1)
-    expect(parcoursDeClasse(b, 'A').map((pe) => pe.parcours.titre)).toEqual(['Deux', 'Un'])
-    expect(parcoursDeClasse(b, 'B').map((pe) => pe.parcours.titre)).toEqual(['Autre'])
-    expect(deplacer(b, id, 'A', -1)).toBe(b) // déjà en tête
-  })
-  it('une copie devient un nouveau parcours en V1', () => {
-    let b = enregistrer({ classes: [], parcours: [] }, ['A'], brouillon('Un'))
-    b = exporter(b).bibliotheque
-    b = enregistrer(b, ['A'], { ...b.parcours[0].parcours, objectif: 'x' })
-    b = enregistrer(b, ['B'], copie(b.parcours[0].parcours))
-    expect(b.parcours).toHaveLength(2)
-    expect(b.parcours[1].parcours).toMatchObject({ titre: 'Un (copie)', version: 1 })
-    expect(b.parcours[1].parcours.id).not.toBe(b.parcours[0].parcours.id)
-  })
-})
-
-describe('doublons et versions à la reprise', () => {
-  const p = { ...brouillon('Relatifs'), id: 'relatifs-5e', version: 2 }
-  it('reprendre deux fois le même parcours ne crée pas de doublon', () => {
-    let b = adopter({ classes: [], parcours: [] }, p, ['Classe test'])
-    b = adopter(b, p, ['Classe test'])
-    expect(b.parcours).toHaveLength(1)
-  })
-  it('une version plus récente reçue pour une autre classe ajoute cette classe à la bibliothèque', () => {
-    let b = adopter({ classes: [], parcours: [] }, p, ['A'])
-    b = adopter(b, { ...p, version: 3 }, ['B'])
-    expect(b.classes.map((c) => c.nom)).toEqual(['A', 'B'])
-    expect(lireFichier(exporter(b).texte).classes.map((c) => c.nom)).toEqual(['A', 'B'])
-  })
-  it('une version plus récente du dossier remplace la copie locale, une plus ancienne non', () => {
-    let b = adopter({ classes: [], parcours: [] }, p, ['Classe test'])
-    b = adopter(b, { ...p, version: 1, titre: 'Ancienne' }, ['Classe test'])
-    expect(b.parcours[0].parcours.version).toBe(2)
-    b = adopter(b, { ...p, version: 3, titre: 'Nouvelle' }, ['Autre classe'])
-    expect(b.parcours).toHaveLength(1)
-    expect(b.parcours[0].parcours.titre).toBe('Nouvelle')
-    expect(b.parcours[0].classes).toEqual(['Classe test', 'Autre classe'])
-  })
-})
-
 describe('correction d’un parcours déjà travaillé', async () => {
   const { lireResultats, terminerSeance } = await import('../src/lib/progression')
   const d = new Map<string, unknown>()
@@ -388,20 +206,6 @@ describe('correction d’un parcours déjà travaillé', async () => {
     expect(r[1]).toMatchObject({ points: 0, sur: 1 })
     // Le marqueur ne vaut que pour la version qui le porte : la V3 reprend à nouveau
     expect((await lireResultats(st, { ...v2, version: 3 }))[0]).toMatchObject({ points: 1 })
-  })
-
-  it('l’enregistrement date le marqueur de la version ouverte et efface celui d’une version antérieure', () => {
-    const b = { ...enregistrer({ classes: [], parcours: [] } as never, [], v1) }
-    const exporte = { ...b, parcours: [{ ...b.parcours[0], exportee: { '': 1 } }] }
-    const modif = { ...v1, etapes: [{ ...v1.etapes[0], remiseAZero: true as const }, v1.etapes[1]] }
-    const v2 = enregistrer(exporte as never, [], modif).parcours[0].parcours
-    expect(v2.version).toBe(2)
-    expect(v2.etapes[0].remiseAZero).toBe(2)
-    expect(v2.etapes[1].remiseAZero).toBeUndefined()
-    // Nouvelle modification après un export de la V2 : la V3 ne remet rien à zéro
-    const v3 = enregistrer({ ...exporte, parcours: [{ parcours: v2, classes: [], exportee: { '': 2 } }] } as never, [], { ...v2, titre: 'Autre' }).parcours[0].parcours
-    expect(v3.version).toBe(3)
-    expect(v3.etapes[0].remiseAZero).toBeUndefined()
   })
 
   it('la relecture d’un passage V1 rejoue la V1 (copie figée, nombre de questions d’alors)', async () => {

@@ -1,7 +1,7 @@
 // Défilement au doigt sur chaque écran de l'app (pnpm dev seulement). En 0.4.6
 // et 0.4.7, plus aucun écran ne défilait au doigt ; defilement.mjs ne contrôle
-// que les Réglages et l'accueil. Ici : chaque écran de l'élève, de l'Explorer
-// et de l'enseignant, et les panneaux du bas qui défilent à l'intérieur.
+// que les Réglages et l'accueil. Ici : chaque écran de l'élève et de
+// l'Explorer, et les panneaux du bas qui défilent à l'intérieur.
 // À chaque écran, vrais événements tactiles :
 //   - le doigt descend jusqu'en bas de la page, puis remonte tout en haut ;
 //   - en bas, le dernier bouton de la page est visible et touchable (pas caché
@@ -38,14 +38,6 @@ const serveur = createServer((req, res) => {
 const demo = JSON.parse(readFileSync('static/demo/parcours-demonstration.json', 'utf8'))
 const parcoursDemo = demo.classes.flatMap((c) => c.parcours)
 const classeEleve = { lien: 'https://kdrive.infomaniak.com/app/share/1/demo', nom: '5e A', disponibles: ['5e A'], parcours: parcoursDemo }
-// Bibliothèque assez longue pour défiler d'elle-même : démonstration et catalogue
-const tous = [...parcoursDemo, ...catalogue.classes.flatMap((c) => c.parcours)]
-const bibliotheque = {
-  lien: 'https://kdrive.infomaniak.com/app/share/1/essai',
-  classes: [{ nom: '5e A' }, { nom: '5e B' }, { nom: '11LC' }],
-  parcours: tous.map((p, i) => ({ parcours: p, classes: [['5e A', '5e B', '11LC'][i % 3]], exportee: {} })),
-}
-
 const appareils = {
   grand: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, colorScheme: 'dark' },
   petit: { viewport: { width: 360, height: 640 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, colorScheme: 'light' },
@@ -269,46 +261,6 @@ for (const appareil of Object.keys(appareils)) {
     await page.getByRole('button', { name: /Parcours cachés/ }).click()
     await pagePrete(page)
     await verifier(o, a('accueil, parcours cachés dépliés'))
-    await o.ctx.close()
-  }
-
-  // ---------- Enseignant : Parcours, page, éditeur, Classes, En classe, panneaux ----------
-  {
-    const o = await ouvrir(appareil, { profil: 'enseignant', pays: 'FR', bibliotheque })
-    const { page } = o
-    await page.getByRole('button', { name: /^\s*Relatifs en ceintures/ }).first().waitFor({ timeout: 60_000 })
-    await verifier(o, a('enseignant, Parcours'))
-    await page.getByRole('button', { name: /Exporter des parcours/ }).click()
-    await verifierPanneau(o, a('enseignant, panneau « Exporter »'), true)
-    await retour(page)
-    await page.getByRole('button', { name: /^\s*Relatifs en ceintures/ }).first().click()
-    await page.getByRole('button', { name: 'Lancer une session' }).waitFor()
-    await verifier(o, a('enseignant, page du parcours'))
-    await page.getByRole('button', { name: 'Autres actions' }).click()
-    await verifierPanneau(o, a('enseignant, panneau « Autres actions »'))
-    await retour(page)
-    await page.getByRole('button', { name: 'Modifier' }).click()
-    await page.getByRole('heading', { name: 'Modifier le parcours' }).waitFor()
-    await verifier(o, a('enseignant, éditeur'))
-    await o.ctx.close()
-  }
-  {
-    const o = await ouvrir(appareil, { profil: 'enseignant', pays: 'FR', bibliotheque })
-    const { page } = o
-    await onglet(page, 'Classes')
-    await pagePrete(page)
-    await verifier(o, a('enseignant, Classes'))
-    const choisir = page.getByRole('button', { name: /Choisir les parcours de/ }).first()
-    if (await choisir.count()) {
-      await choisir.click()
-      await verifierPanneau(o, a('enseignant, panneau « Choisir les parcours »'))
-      await retour(page)
-    }
-    await onglet(page, 'En classe')
-    await verifier(o, a('enseignant, En classe'))
-    await onglet(page, 'Explorer')
-    await page.getByRole('button', { name: /^\s*4e Collège|^\s*5e|^\s*Teste ton niveau/ }).first().waitFor({ timeout: 60_000 })
-    await verifier(o, a('enseignant, Explorer'))
     await o.ctx.close()
   }
 }

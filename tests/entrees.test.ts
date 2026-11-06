@@ -1,48 +1,13 @@
-// Ce qui arrive de l'extérieur : QR codes scannés, sauvegardes, catalogue en
-// ligne, heure des serveurs. Un contenu abîmé ou piégé est refusé sans
+// Ce qui arrive de l'extérieur : sauvegardes, catalogue en ligne, heure des
+// serveurs. Un contenu abîmé ou piégé est refusé sans
 // planter, un serveur qui ment ou ne répond pas n'ouvre jamais un palier trop tôt.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { deflateSync, strToU8 } from 'fflate'
-import { decoderReponses, encoderReponses, estReleves, estReponsesSession, PREFIXE_REPONSES, versBase64, type ReponsesSession } from '../src/lib/releve'
+import { estReleves, type ReponsesSession } from '../src/lib/releve'
 import { catalogue } from './parcours-de-test'
 
 const bonnes: ReponsesSession = { c: 'k3lr2', p: 'fractions', v: 2, d: '2026-10-30T08:00:00Z', t: 'Fractions', x: { 0: { u: 'abc' } }, r: { 0: { 0: '3' } } }
-const qr = (o: unknown) => PREFIXE_REPONSES + versBase64(deflateSync(strToU8(JSON.stringify(o))))
 
-describe('réponses d’élève reçues par QR code', () => {
-  it('accepte des réponses bien formées, prénom compris', () => {
-    expect(decoderReponses(encoderReponses({ ...bonnes, n: 'Léa' }))).toEqual({ ...bonnes, n: 'Léa' })
-  })
-
-  it.each([
-    ['version en texte', { ...bonnes, v: '2' }],
-    ['réponse qui n’est pas du texte', { ...bonnes, r: { 0: { 0: 3 } } }],
-    ['réponses en liste', { ...bonnes, r: [['3']] }],
-    ['exercice sans uuid', { ...bonnes, x: { 0: {} } }],
-    ['prénom trop long', { ...bonnes, n: 'x'.repeat(61) }],
-    ['prénom qui n’est pas du texte', { ...bonnes, n: { toString: 'Léa' } }],
-    ['étapes en nombres', { ...bonnes, e: { 0: 1 } }],
-    ['code absent', { ...bonnes, c: undefined }],
-    ['liste au lieu d’un objet', [bonnes]],
-    ['null', null],
-  ])('refuse : %s', (_, o) => {
-    expect(estReponsesSession(o)).toBe(false)
-    expect(decoderReponses(qr(o))).toBeNull()
-  })
-
-  it('refuse un contenu compressé qui n’est pas du JSON, ou pas compressé du tout', () => {
-    expect(decoderReponses(PREFIXE_REPONSES + versBase64(deflateSync(strToU8('pas du json'))))).toBeNull()
-    expect(decoderReponses(PREFIXE_REPONSES + versBase64(strToU8(JSON.stringify(bonnes))))).toBeNull()
-    expect(decoderReponses(PREFIXE_REPONSES)).toBeNull()
-  })
-
-  it('un titre absent devient vide (QR code d’une app plus ancienne)', () => {
-    const { t: _, ...sansTitre } = bonnes
-    expect(decoderReponses(qr(sansTitre))!.t).toBe('')
-  })
-})
-
-describe('relevés de l’enseignant dans une sauvegarde', () => {
+describe('relevés de l’enseignant (avant la 0.6) dans une sauvegarde', () => {
   const releve = { cle: 'k3lr2|fractions|2', code: 'k3lr2', parcours: 'fractions', version: 2, titre: 'Fractions', le: '2026-10-30T08:00:00Z', recues: [bonnes] }
 
   it('accepte un relevé complet, avec ses verdicts recalculés', () => {

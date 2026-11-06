@@ -1,7 +1,7 @@
 // L'app installée sur le simulateur iPhone (build de débogage, WebView
 // inspectable, notre moteur), pilotée comme un élève par Appium (XCUITest) :
-// premier lancement, Réglages défilés au doigt (vrai glissé iOS), parcours de
-// démonstration, un parcours répondu juste au clavier de MathALÉA jusqu'au
+// premier lancement, Réglages défilés au doigt (vrai glissé iOS), dossier de
+// démonstration ajouté par son lien, un parcours répondu juste au clavier de MathALÉA jusqu'au
 // bilan, Quitter vers l'accueil, thème sombre. Captures du vrai écran.
 // Lancé par .github/workflows/emulateurs.yml (Appium et webdriverio installés
 // à part, hors de package.json).
@@ -126,13 +126,13 @@ await attendre(
 );
 ok(true, "premier lancement : France choisie, accueil de l’élève");
 
-// 2. Réglages : défilement au doigt, puis démonstration chargée par l'enseignant
+// 2. Réglages : défilement au doigt
 await toucher(
   await affiche(
     '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
   ),
 );
-const interrupteur = await attendre(await affiche('//*[@role="switch"]'));
+await attendre(await exact("Guide d’utilisation"));
 const { height } = await nav.getWindowSize();
 await glisser(height * 0.8, height * 0.2);
 // Un second geste si le premier n'a pas pris (simulateur encore occupé)
@@ -142,33 +142,15 @@ ok(
   `Réglages : le doigt fait descendre la page (${await scrollY()})`,
 );
 await capture("reglages-defiles");
-await toucher(interrupteur);
-const quitterReglages = async () => {
-  const enregistrer = await exact("Enregistrer et quitter");
-  if (await enregistrer.isDisplayed().catch(() => false))
-    await toucher(enregistrer);
-  else await nav.back();
-  await pause(1000);
-};
-await quitterReglages();
-// Démonstration : depuis la bibliothèque de l'onglet Créer
-await toucher(await attendre(await bouton("Parcours de démonstration")));
-await toucher(
-  await attendre(await exact("Charger les parcours de démonstration")),
-);
-await pause(3000);
-await capture("demonstration-chargee");
-await nav.execute(() => history.back()); // ferme le panneau, comme le geste de retour
-await pause(800);
-await toucher(
-  await affiche(
-    '//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]',
-  ),
-);
-await toucher(await attendre(await affiche('//*[@role="switch"]')));
-await quitterReglages();
-const classe = await bouton("Démonstration");
-if (await classe.isDisplayed().catch(() => false)) await toucher(classe);
+await nav.execute(() => history.back()); // comme le geste de retour
+await pause(1000);
+// Dossier de démonstration (fichier public de la forge, lu comme le dossier
+// partagé d'un enseignant) : collé dans le champ de l'accueil, comme un élève
+const DEMO = "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json";
+const champ = await attendre(await nav.$("#lien-accueil"));
+await toucher(champ);
+await champ.setValue(DEMO);
+await toucher(await attendre(await exact("Ajouter le dossier")));
 await attendre(await bouton("Nombres relatifs"));
 ok(true, "démonstration : la classe et ses parcours sur l’accueil");
 await capture("accueil-demonstration");

@@ -91,18 +91,10 @@ export function retourSi(actif: () => boolean, fn: Retour, priorite = 0) {
 
 /**
  * Accueil : ce que referme « retour », du plus profond au plus large. L'onglet
- * de départ (Parcours pour l'enseignant, Mes parcours pour l'élève) est le seul
- * d'où « retour » quitte l'app ; en vue élève, il ramène à l'espace enseignant.
+ * de départ (Mes parcours) est le seul d'où « retour » quitte l'app.
  */
-export function retourAccueil(e: {
-  niveau: unknown
-  onglet: string
-  depart: string
-  enseignant: boolean
-  vueEleve: boolean
-}): 'niveau' | 'depart' | 'quitterVueEleve' | null {
+export function retourAccueil(e: { niveau: unknown; onglet: string; depart: string }): 'niveau' | 'depart' | null {
   if (e.niveau) return 'niveau'
   if (e.onglet !== e.depart) return 'depart'
-  if (e.enseignant && e.vueEleve) return 'quitterVueEleve'
   return null
 }

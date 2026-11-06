@@ -1,6 +1,7 @@
-// Paliers, pauses, ressources, classes et objectifs (pnpm dev seulement).
-// Côté enseignant : un parcours de 5e créé pour un niveau, découpé en paliers,
-// puis donné à une classe. Côté élève : la carte des paliers selon ses résultats.
+// Paliers, pauses, ressources et objectifs, côté élève : un parcours de 5e en
+// trois paliers (fichier du site MathALÉA, dans le dossier de sa classe). La
+// carte des paliers selon ses résultats, le palier 1 fait pour de vrai jusqu'au
+// bilan, la session d'un palier, le suivi des objectifs, l'accueil.
 // Captures à 390 px, en clair et en sombre.
 //   CAPTURES=<dossier> node e2e/paliers.mjs
 import { chromium } from 'playwright'
@@ -8,7 +9,6 @@ import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
-const lien = 'https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=2&uuid=61b4a&id=5N2G-1&n=2&uuid=36e2a&id=5N2H&n=2&uuid=b6982&id=5N2I&n=2'
 let echecs = 0
 const erreurs = []
 const ok = (cond, msg) => {
@@ -56,98 +56,35 @@ const saisir = (page, i, latex) =>
   }, latex)
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 
-let parcoursCree
+// Parcours en trois paliers tel que le site MathALÉA l'exporte : pause après le
+// palier 1, palier 2 ouvert à 50 % du palier 1 avec une ressource pour revoir,
+// palier 3 en accès libre ; objectifs du programme sur les exercices
+const objectif = (o) => ({ objectifs: [o] })
+const parcoursCree = {
+  id: 'relatifs-trois-paliers',
+  version: 1,
+  titre: 'Relatifs en trois paliers',
+  objectif: 'Additionner et soustraire des nombres relatifs',
+  niveau: '5e',
+  theme: 'Nombres relatifs',
+  difficulte: 1,
+  icone: 'bx-math',
+  presentation: 'une_question_par_page',
+  correction: 'question',
+  melanger: true,
+  etapes: [
+    { uuid: 'cbc26', id: '5N2G', titre: 'Additionner deux nombres relatifs', nbQuestions: 2, ...objectif('Additionner deux nombres décimaux relatifs') },
+    { uuid: '61b4a', id: '5N2G-1', titre: 'Compléter une addition de relatifs', nbQuestions: 2, ...objectif('Additionner deux nombres décimaux relatifs') },
+    { uuid: '36e2a', id: '5N2H', titre: 'Soustraire deux nombres relatifs', nbQuestions: 2, ...objectif('Soustraire deux nombres décimaux relatifs') },
+    { uuid: 'b6982', id: '5N2I', titre: 'Additions et soustractions de relatifs', nbQuestions: 2, ...objectif('Calculer une somme algébrique') },
+  ],
+  paliers: [
+    { titre: 'Additionner', nb: 2, pause: { texte: 'Bravo ! On met en commun en classe : comment additionner deux nombres de signes contraires ?' } },
+    { titre: 'Soustraire', nb: 1, acces: 'seuil', seuil: 50, ressource: { titre: 'Fiche : soustraire un relatif', lien: 'https://kdrive.infomaniak.com/app/share/1/fiche.pdf' } },
+    { titre: 'Pour aller plus loin', nb: 1, acces: 'libre' },
+  ],
+}
 for (const theme of ['clair', 'sombre']) {
-  // ---------- Enseignant ----------
-  const t = await appareil('enseignant', theme, { profil: 'enseignant', pays: 'FR' })
-  await t.getByRole('button', { name: 'Créer un parcours' }).click()
-  ok(!(await t.getByLabel(/Nouvelle classe/).count()), 'éditeur : pas de classes, on crée pour un niveau')
-  await t.getByRole('radio', { name: '5e' }).click()
-  await t.getByLabel('Nom du chapitre').fill('Nombres relatifs')
-  await t.getByLabel('Titre', { exact: true }).fill('Relatifs en trois paliers')
-  await t.getByLabel('But du parcours (vu par les élèves)').fill('Additionner et soustraire des nombres relatifs')
-  await t.getByRole('button', { name: 'Importer depuis un lien MathALÉA' }).click()
-  await t.getByLabel(/Lien MathALÉA/).fill(lien)
-  await t.getByRole('button', { name: 'Importer', exact: true }).click()
-  await t.getByText('5N2I').first().waitFor()
-  ok((await texte(t)).includes('Additionner deux nombres décimaux relatifs'), 'objectif du programme posé automatiquement (5N2G)')
-  await t.getByRole('radio', { name: /Paliers/ }).click()
-  // Un palier par objectif : 5N2G (deux exercices), 5N2H, 5N2I
-  ok((await t.getByLabel(/^Palier \d : titre/).count()) === 3, 'découpage proposé : un palier par objectif')
-  ok((await t.getByLabel('Palier 1 : titre vu par les élèves').inputValue()) === 'Additionner deux nombres décimaux relatifs', 'palier titré par son objectif')
-  ok(!(await t.getByText(/À compléter/).isVisible()), 'trois paliers remplis : rien à compléter')
-  // Le dernier exercice monte au palier 2 (le palier 3 se vide), puis redescend
-  await t.getByRole('button', { name: 'Monter' }).nth(3).click()
-  ok(await t.getByText('À compléter : un exercice dans chaque palier').isVisible(), 'palier vide signalé')
-  await t.getByRole('button', { name: 'Descendre' }).nth(3).click()
-  ok(!(await t.getByText(/À compléter/).isVisible()), 'exercice revenu au palier 3')
-  await t.getByLabel('Palier 1 : titre vu par les élèves').fill('Additionner')
-  await t.getByLabel('Palier 2 : titre vu par les élèves').fill('Soustraire')
-  await t.getByLabel('Palier 3 : titre vu par les élèves').fill('Pour aller plus loin')
-  await t.getByRole('region', { name: /^Palier 2/ }).getByRole('radio', { name: '50 %' }).click()
-  await t.getByRole('region', { name: /^Palier 3/ }).getByRole('radio', { name: 'Ouvert' }).click()
-  // Pause après le palier 1, ressource pour revoir le palier 2
-  await t.getByRole('button', { name: 'Pause après : palier 1' }).click()
-  await t.getByLabel(/Texte vu par les élèves/).fill('Bravo ! On met en commun en classe : comment additionner deux nombres de signes contraires ?')
-  await cap(t, '1-pause', theme)
-  await t.getByRole('button', { name: 'Enregistrer la pause' }).click()
-  await t.getByRole('button', { name: 'Ressource pour revoir' }).nth(1).click()
-  await t.getByLabel('Titre vu par les élèves', { exact: true }).fill('Fiche : soustraire un relatif')
-  await t.getByLabel('Lien', { exact: true }).fill('https://kdrive.infomaniak.com/app/share/1/fiche.pdf')
-  await t.getByRole('button', { name: 'Enregistrer la ressource' }).click()
-  await t.getByRole('heading', { name: 'Exercices' }).scrollIntoViewIfNeeded()
-  await cap(t, '2-editeur-paliers', theme)
-  await capTout(t, '2b-editeur-entier', theme)
-  ok(!(await debordement(t)), 'éditeur : aucun débordement horizontal')
-  await t.getByRole('button', { name: 'Valider le parcours' }).click()
-  ok(await t.getByText('Il n’est donné à aucune classe pour l’instant.').isVisible(), 'après validation : pas de classes dans la création')
-  await cap(t, '3-apres-validation', theme)
-  // Attribution dans la vue Classes
-  await t.getByRole('button', { name: 'Donner à des classes' }).click()
-  await t.getByLabel(/Nouvelle classe/).fill('5e A')
-  await t.getByRole('button', { name: 'Ajouter', exact: true }).click()
-  await t.getByRole('button', { name: 'Choisir les parcours de 5e A' }).click()
-  await t.getByRole('checkbox', { name: /Relatifs en trois paliers/ }).click()
-  await cap(t, '4-choisir-parcours-classe', theme)
-  await t.getByRole('button', { name: /^Enregistrer \(1 parcours\)/ }).click()
-  await cap(t, '5-classes', theme)
-  ok((await texte(t)).includes('5e A · 1 parcours'), 'classe : parcours donné à 5e A')
-  await t.getByRole('tab', { name: 'Parcours', exact: true }).click()
-  ok((await texte(t)).includes('5e A · 3 paliers'), 'bibliothèque : classe et paliers dans la tuile')
-  await cap(t, '4b-bibliotheque', theme)
-  await t.getByRole('tab', { name: 'Objectifs' }).click()
-  ok((await texte(t)).includes('5N2G') && (await texte(t)).includes('2 exercices'), 'objectifs : code du programme et exercices qui le travaillent')
-  await t.getByRole('button', { name: /^Additionner deux nombres décimaux relatifs 5N2G/ }).click()
-  await cap(t, '6-objectifs', theme)
-  // Nouveau parcours : derniers choix repris
-  await t.getByRole('tab', { name: 'Bibliothèque', exact: true }).click()
-  await t.getByRole('button', { name: 'Créer un parcours' }).click()
-  ok((await t.getByRole('radio', { name: '5e', checked: true }).count()) === 1, 'nouveau parcours : niveau repris du dernier')
-  ok((await t.getByRole('radio', { name: 'Nombres relatifs' }).count()) === 1, 'nouveau parcours : chapitres du niveau proposés')
-  parcoursCree = await t.evaluate(() => JSON.parse(localStorage.getItem('copie:bibliotheque')).parcours[0].parcours)
-  // Publier : le fichier porte toute la bibliothèque ; un autre appareil la reprend
-  await t.getByRole('button', { name: 'Revenir en arrière' }).click()
-  // Sans drive, le rappel invite à le configurer (jamais « Version différente
-  // de celle du drive ») ; l'export complet passe par « Exporter des parcours »
-  await pagePrete(t)
-  ok((await t.getByText('Drive pas encore configuré').isVisible()) && !(await t.getByText('Version différente de celle du drive').count()), 'sans drive : rappel « Drive pas encore configuré »')
-  await t.getByRole('button', { name: /^Exporter des parcours/ }).click()
-  const [publie] = await Promise.all([t.waitForEvent('download'), t.getByRole('dialog').getByRole('button', { name: 'Exporter tous les parcours', exact: true }).click()])
-  const fichier = `${captures}/publie-${theme}.json`
-  await publie.saveAs(fichier)
-  await t.context().close()
-  const t2 = await appareil('autre appareil', theme, { profil: 'enseignant', pays: 'FR' })
-  await t2.getByRole('button', { name: 'Reprendre ma bibliothèque publiée' }).click()
-  await cap(t2, '6b-reprendre', theme)
-  await t2.locator('input[type=file]').last().setInputFiles(fichier)
-  await t2.getByText('1 parcours repris, 1 classe.').waitFor()
-  await t2.goBack({ waitUntil: 'commit' })
-  await pagePrete(t2)
-  ok((await texte(t2)).includes('5e A · 3 paliers'), 'autre appareil : bibliothèque reprise (classe, paliers)')
-  await t2.getByRole('tab', { name: 'Objectifs' }).click()
-  ok((await texte(t2)).includes('5N2G'), 'autre appareil : objectifs repris')
-  await t2.context().close()
-
   // ---------- Élève ----------
   const classe = { lien: 'http://127.0.0.1:9/indisponible/', nom: '5e A', disponibles: ['5e A'], parcours: [parcoursCree] }
   const r = (points) => ({ points, sur: 2, complet: true, le: '2026-10-15T08:00:00Z', version: 1 })
@@ -211,7 +148,7 @@ for (const theme of ['clair', 'sombre']) {
   }
   const bilanTexte = await texte(e)
   ok(bilanTexte.includes('2 / 4') && bilanTexte.includes('Bilan : palier 1'), 'bilan : score du palier, titré par le palier')
-  ok(bilanTexte.includes('Bravo !'), 'bilan : la pause de l’enseignant à la fin du palier')
+  ok(bilanTexte.includes('Bravo !'), 'bilan : la pause prévue par l’enseignant à la fin du palier')
   ok(await e.getByRole('button', { name: 'Continuer : palier 2' }).isVisible(), 'bilan : continuer au palier suivant')
   await capTout(e, '10-bilan-palier', theme)
   await e.getByRole('button', { name: 'Continuer : palier 2' }).click()
@@ -272,38 +209,6 @@ for (const theme of ['clair', 'sombre']) {
   ok(/1\/3/.test(progression), 'accueil : remis, progression intacte')
   ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
   await e.context().close()
-
-  // ---------- Démonstration : chargée depuis la bibliothèque (onglet Créer) ----------
-  const d = await appareil('démonstration', theme, { profil: 'enseignant', pays: 'FR' })
-  await d.getByRole('button', { name: 'Réglages' }).click()
-  await d.getByRole('switch', { name: /Je suis enseignant/ }).waitFor()
-  ok(!/Nouveau parcours|Parcours de démonstration|Charger les parcours/.test(await texte(d)), 'réglages enseignant : ni « Nouveau parcours » ni démonstration')
-  await cap(d, '13-reglages-enseignant', theme)
-  await d.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await d.getByRole('button', { name: /^\s*Parcours de démonstration/ }).click()
-  await d.getByRole('button', { name: 'Charger les parcours de démonstration' }).click()
-  await d.getByText(/parcours chargés/).waitFor()
-  await cap(d, '13b-demo-chargee', theme)
-  await d.goBack() // ferme le panneau
-  await d.getByRole('dialog').waitFor({ state: 'detached' })
-  // L'enseignant essaie comme un élève : vue élève
-  await d.getByRole('button', { name: /^\s*Vue élève/ }).click()
-  const accueilDemo = await texte(d)
-  ok(accueilDemo.includes('Relatifs en ceintures') && accueilDemo.includes('Ceintures orange à bleue'), 'démonstration : ceintures visibles à l’accueil')
-  await cap(d, '14-demo-accueil', theme)
-  await d.getByRole('button', { name: /^Relatifs en ceintures/ }).click()
-  await pagePrete(d)
-  ok((await texte(d)).includes('Ceinture orange') && (await texte(d)).includes('Au moins 80 % à : ceinture orange'), 'démonstration : ceintures à partir de l’orange')
-  await capTout(d, '15-demo-ceintures', theme)
-  await d.getByRole('button', { name: 'Revenir en arrière' }).click()
-  await d.getByRole('button', { name: 'Quitter', exact: true }).click()
-  ok((await texte(d)).includes('Relatifs en ceintures'), 'démonstration : parcours dans la bibliothèque')
-  await d.getByRole('button', { name: /^\s*Parcours de démonstration/ }).click()
-  await d.getByRole('button', { name: 'Retirer les parcours de démonstration' }).click()
-  await d.getByText(/retirés/).waitFor()
-  await d.goBack()
-  ok(!(await texte(d)).includes('Relatifs en ceintures'), 'démonstration : retirée de la bibliothèque')
-  await d.context().close()
 }
 
 console.log(erreurs.length ? `✘ erreurs JS : ${erreurs.join(' | ')}` : '✔ aucune erreur JS')

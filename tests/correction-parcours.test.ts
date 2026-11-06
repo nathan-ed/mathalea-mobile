@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { paliersDe, type Parcours } from '../src/lib/catalogue'
-import { enregistrer, exporter, parcoursVide, reprendre } from '../src/lib/bibliotheque'
+import { parcoursVide } from './parcours-de-test'
 import { acquisDe, ceinturesObtenues, etatsPaliers } from '../src/lib/objectifs'
 import { creerFichier, lireFichier } from '../src/lib/partage'
 import { lireHistorique, lireResultats, nouvelleSeance, terminerSeance, type Seance } from '../src/lib/progression'
@@ -229,35 +229,14 @@ describe('parcours corrigé, puis données récupérées après une sauvegarde',
     expect(reprise.position).toBe(2)
   })
 
-  it('le marqueur « repartir de zéro » survit à la sauvegarde de la bibliothèque, au fichier exporté et à sa relecture', async () => {
-    const vide = { classes: [{ nom: '5A' }], parcours: [] as never[], objectifs: [] }
-    let bib = enregistrer(vide as never, ['5A'], v1())
-    // Export : la V1 est diffusée, la correction ouvre la V2 avec le marqueur
-    bib = exporter(bib).bibliotheque
-    const corrige = { ...bib.parcours[0].parcours, etapes: bib.parcours[0].parcours.etapes.map((e, i) => (i === 1 ? { ...e, remiseAZero: true as const } : e)) }
-    bib = enregistrer(bib, ['5A'], corrige)
-    const p2 = bib.parcours[0].parcours
-    expect(p2.version).toBe(2)
-    expect(p2.etapes[1].remiseAZero).toBe(2)
-
-    // Sauvegarde et restauration de la bibliothèque de l'enseignant
-    const a = stockage({ bibliotheque: bib })
-    const b = stockage()
-    await restaurerSauvegarde(b.st, await exporterSauvegarde(a.st))
-    expect(((await b.st.lire('bibliotheque')) as typeof bib).parcours[0].parcours.etapes[1].remiseAZero).toBe(2)
-
-    // Fichier déposé sur le drive, relu par l'élève
-    const { texte } = exporter(bib)
-    const lu = lireFichier(texte)
+  it('le marqueur « repartir de zéro » d’un fichier du site arrive à l’élève', () => {
+    const p2 = { ...v1(), version: 2, etapes: v1().etapes.map((e, i) => (i === 1 ? { ...e, remiseAZero: 2 } : e)) }
+    const lu = lireFichier(creerFichier([{ nom: '5A', parcours: [p2] }]))
     expect(lu.classes[0].parcours[0].etapes[1].remiseAZero).toBe(2)
-    expect(lu.bibliotheque?.parcours?.[0].etapes[1].remiseAZero).toBe(2)
-    // Fichier d'une seule classe, valeur booléenne d'un éditeur qui n'a pas encore enregistré
+    // Valeur booléenne d'un éditeur qui n'a pas encore enregistré
     expect(() => lireFichier(creerFichier([{ nom: '5A', parcours: [{ ...p2, etapes: [{ ...p2.etapes[0], remiseAZero: true }, ...p2.etapes.slice(1)] }] }]))).not.toThrow()
     // Valeur absurde refusée
     const mauvais = { ...p2, etapes: [{ ...p2.etapes[0], remiseAZero: 'oui' }, ...p2.etapes.slice(1)] }
     expect(() => lireFichier(creerFichier([{ nom: '5A', parcours: [mauvais as never] }]))).toThrow()
-    // La reprise par un collègue garde le marqueur
-    const repris = reprendre({ classes: [], parcours: [] } as never, lu as never)
-    expect(JSON.stringify(repris)).toContain('"remiseAZero":2')
   })
 })

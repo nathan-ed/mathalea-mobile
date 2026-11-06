@@ -1,29 +1,26 @@
 <script lang="ts">
-  // Lecture de QR codes à la caméra, en continu : l'enseignant passe d'un
-  // téléphone à l'autre, chaque code lu s'ajoute. Même code sur toutes les
-  // plateformes (flux vidéo de la page) ; sans caméra, l'import de photos reste.
-  import { onDestroy, onMount, untrack } from 'svelte'
+  // Lecture à la caméra du QR code d'une session partagée ou d'une classe,
+  // depuis l'accueil. Même code sur toutes les plateformes (flux vidéo de la
+  // page, lecture par jsQR) ; un QR code court se lit bien (invitation.ts).
+  import { onDestroy, onMount } from 'svelte'
   import { retourSi } from '$lib/navigation.svelte'
   import { lireImageVideo } from '$lib/qr'
   import { boutonAction } from './classes'
 
   let {
-    nb,
     onlu,
     onfermer,
-    session = false,
   }: {
-    nb: number // réponses déjà reçues
-    onlu: (texte: string) => Promise<'nouveau' | 'deja' | 'autre' | { erreur: string }>
+    onlu: (texte: string) => Promise<'nouveau' | 'autre' | { erreur: string }>
     onfermer: () => void
-    session?: boolean // élève : un seul QR code, celui de la session ou de la classe affiché par l'enseignant
   } = $props()
 
   let video: HTMLVideoElement
   let flux: MediaStream | null = null
   let erreur = $state('')
-  let message = $state(untrack(() => (session ? 'Vise le QR code de la session ou de la classe.' : 'Vise un QR code de réponses.')))
-  let signal = $state(false)
+  let message = $state('Vise le QR code de la session ou de la classe.')
+  // Un QR code lu : son dossier ou son parcours se télécharge
+  let lecture = $state(false)
   let fini = false
   const vus = new Set<string>()
 
@@ -31,16 +28,14 @@
 
   function messageErreur(e: unknown) {
     const nom = (e as { name?: string })?.name
-    if (nom === 'NotAllowedError' || nom === 'SecurityError')
-      return `Accès à la caméra refusé. Autorise-le dans les réglages de l’appareil${session ? '.' : ', ou importe des photos des QR codes.'}`
-    const repli = session ? '' : ' Importe des photos des QR codes à la place.'
-    if (nom === 'NotFoundError' || nom === 'OverconstrainedError' || nom === 'NotReadableError') return `Aucune caméra disponible.${repli}`
-    return `La caméra ne peut pas s’ouvrir ici.${repli}`
+    if (nom === 'NotAllowedError' || nom === 'SecurityError') return 'Accès à la caméra refusé. Autorise-le dans les réglages de l’appareil.'
+    if (nom === 'NotFoundError' || nom === 'OverconstrainedError' || nom === 'NotReadableError') return 'Aucune caméra disponible.'
+    return 'La caméra ne peut pas s’ouvrir ici.'
   }
 
   onMount(async () => {
     if (!navigator.mediaDevices?.getUserMedia) {
-      erreur = `La caméra n’est pas disponible ici.${session ? '' : ' Importe des photos des QR codes à la place.'}`
+      erreur = 'La caméra n’est pas disponible ici.'
       return
     }
     try {
@@ -69,66 +64,55 @@
     const c = canvas.getContext('2d', { willReadFrequently: true })!
     let centre = false
     while (!fini) {
-      if (video.readyState >= 2 && video.videoWidth) {
-        const [l, h] = [video.videoWidth, video.videoHeight]
-        if (centre) {
-          // Centre de l'image en pleine résolution, là où l'on vise : un QR code
-          // dense (long parcours) garde assez de pixels par module pour être lu
-          const cote = Math.min(l, h, 1080)
-          canvas.width = canvas.height = cote
-          c.drawImage(video, (l - cote) / 2, (h - cote) / 2, cote, cote, 0, 0, cote, cote)
-        } else {
-          // Image entière réduite : lecture rapide, QR code tenu près de l'objectif ou décentré
-          const echelle = Math.min(1, 960 / l)
-          canvas.width = Math.round(l * echelle)
-          canvas.height = Math.round(h * echelle)
-          c.drawImage(video, 0, 0, canvas.width, canvas.height)
-        }
-        centre = !centre
-        for (const texte of await lireImageVideo(canvas)) {
-          if (vus.has(texte)) continue
-          vus.add(texte)
-          const r = await onlu(texte)
-          if (typeof r === 'object') {
-            // Relu un peu plus tard : un drive injoignable peut répondre au second essai
-            message = r.erreur
-            setTimeout(() => vus.delete(texte), 4000)
-            continue
+      // Une image illisible ou une lecture qui échoue ne doit jamais arrêter la boucle sans rien dire
+      try {
+        if (video.readyState >= 2 && video.videoWidth) {
+          const [l, h] = [video.videoWidth, video.videoHeight]
+          if (centre) {
+            // Centre de l'image en pleine résolution, là où l'on vise
+            const cote = Math.min(l, h, 1080)
+            canvas.width = canvas.height = cote
+            c.drawImage(video, (l - cote) / 2, (h - cote) / 2, cote, cote, 0, 0, cote, cote)
+          } else {
+            // Image entière réduite : lecture rapide, QR code tenu près de l'objectif ou décentré
+            const echelle = Math.min(1, 960 / l)
+            canvas.width = Math.round(l * echelle)
+            canvas.height = Math.round(h * echelle)
+            c.drawImage(video, 0, 0, canvas.width, canvas.height)
           }
-          if (session) {
+          centre = !centre
+          for (const texte of await lireImageVideo(canvas)) {
+            if (vus.has(texte)) continue
+            vus.add(texte)
+            lecture = true
+            message = 'QR code lu : chargement…'
+            const r = await onlu(texte).finally(() => (lecture = false))
             if (r === 'nouveau') return arreter()
-            message = 'Ce n’est pas un QR code de session ou de classe MathALÉA.'
-            continue
-          }
-          message = r === 'nouveau' ? 'Réponses ajoutées.' : r === 'deja' ? 'Déjà reçues.' : 'Ce n’est pas un QR code de réponses MathALÉA.'
-          if (r === 'nouveau') {
-            navigator.vibrate?.(60)
-            signal = true
-            setTimeout(() => (signal = false), 400)
+            // Relu un peu plus tard : un drive injoignable peut répondre au second essai
+            setTimeout(() => vus.delete(texte), 4000)
+            message = typeof r === 'object' ? r.erreur : 'Ce n’est pas un QR code de session ou de classe MathALÉA.'
           }
         }
+      } catch (e) {
+        console.warn('Lecture du QR code', e)
+        message = `Lecture impossible : ${(e as Error)?.message ?? e}`
       }
       await new Promise((r) => setTimeout(r, 120))
     }
   }
 </script>
 
-<div class="fixed inset-0 z-50 flex flex-col bg-black text-white" role="dialog" aria-label={session ? 'Lecture du QR code de la session ou de la classe' : 'Lecture des QR codes'}>
+<div class="fixed inset-0 z-50 flex flex-col bg-black text-white" role="dialog" aria-label="Lecture du QR code de la session ou de la classe">
   <div class="relative flex-1 overflow-hidden">
     <!-- svelte-ignore a11y_media_has_caption -->
     <video bind:this={video} class="absolute inset-0 w-full h-full object-cover" playsinline muted></video>
     {#if !erreur}
-      <div class="cadre absolute rounded-2xl {signal ? 'cadre-lu' : ''}" aria-hidden="true"></div>
-    {/if}
-    {#if !session}
-      <p class="absolute top-0 left-0 right-0 p-4 zone-sure-haut text-center text-xl font-bold" role="status">
-        {nb} réponse{nb > 1 ? 's' : ''} reçue{nb > 1 ? 's' : ''}
-      </p>
+      <div class="cadre absolute rounded-2xl" aria-hidden="true"></div>
     {/if}
   </div>
   <div class="flex flex-col gap-3 p-4 zone-sure-bas">
-    <p class="text-center" role="status" aria-live="polite">{erreur || message}</p>
-    <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onfermer()}>{session ? 'Annuler' : 'Terminer'}</button>
+    <p class="text-center" role="status" aria-live="polite" aria-busy={lecture}>{erreur || message}</p>
+    <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => onfermer()}>Annuler</button>
   </div>
 </div>
 
@@ -141,9 +125,5 @@
     transform: translate(-50%, -50%);
     border: 3px solid rgba(255, 255, 255, 0.85);
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.35);
-    transition: border-color 0.15s;
-  }
-  .cadre-lu {
-    border-color: var(--app-action);
   }
 </style>

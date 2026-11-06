@@ -1,20 +1,16 @@
-// QR code de session (pnpm dev seulement, sans le serveur de dossier qui
-// remplace l'Explorer). L'enseignant crée une session, affiche son QR code, la
-// retrouve dans l'onglet En classe ; un élève qui n'a pas le parcours
-// scanne le QR code (fausse caméra de Chromium) et arrive dans la session ; un
-// élève dont l'app est plus ancienne est prévenu.
+// Session partagée par QR code court (MATHALEA-SESSION?…). Un élève de la 5A
+// crée la session depuis la page du parcours et exporte l'image de son QR
+// code ; un camarade de la même classe la scanne depuis l'accueil (fausse
+// caméra de Chromium) et a les mêmes questions ; un élève sans classe la
+// scanne : la classe du QR code est ajoutée, puis la session commence. Une
+// version différente du parcours est refusée, une app plus ancienne prévient.
 //   CAPTURES=<dossier> node e2e/session-qr.mjs
-// Captures du guide (docs/guide/images/sessions-*.png) : GUIDE=docs/guide/images.
-import { chromium } from 'playwright'
-import { execFileSync } from 'node:child_process'
-import { rmSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
-import qrcode from 'qrcode-generator'
-import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, pointStable } from './attente.mjs'
+import { appareil, imageQr, lienKdrive, lireStockage, SCANNER, videoDe } from './camera-qr.mjs'
 
-const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
 const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'session-qr-'))
 let echecs = 0
@@ -40,184 +36,118 @@ const parcours = {
     { uuid: '36e2a', id: '5N2H', titre: 'Soustraire des relatifs', nbQuestions: 2 },
   ],
 }
-
-const lancer = (args = []) => chromium.launch({ executablePath: '/usr/bin/chromium', args: [...SANS_BRIDAGE, ...args] })
-const filtrer = (ctx) => ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
-
-async function contexte(nav, profil, explorer) {
-  const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, acceptDownloads: true })
-  await filtrer(ctx)
-  await ctx.addInitScript(
-    ([profil, explorer]) => {
-      if (sessionStorage.getItem('pret')) return
-      sessionStorage.setItem('pret', '1')
-      localStorage.setItem('copie:profil', JSON.stringify(profil))
-      localStorage.setItem('copie:pays', JSON.stringify('FR'))
-      localStorage.setItem('copie:explorer', JSON.stringify(explorer))
-    },
-    [profil, explorer],
-  )
-  const page = await ctx.newPage()
-  page.on('pageerror', (e) => erreurs.push(`${profil} : ${e.message}`))
-  await page.goto(base)
-  return page
+const UUID = '7f3a9c2e-1b4d-4e8f-a6c5-0d2e9b8a7c61'
+const lien = lienKdrive(UUID)
+const contenus = {
+  [UUID]: () =>
+    JSON.stringify({ format: 'classes-mathalea/1', exporteLe: new Date().toISOString(), classes: [{ nom: '5A', parcours: [parcours] }, { nom: '5B', parcours: [] }] }),
 }
-
-/** Capture du guide avec un anneau autour de ce qu'on touche ensuite (comme reponses-session.mjs) */
-async function guide(page, nomCapture, cible) {
-  if (!process.env.GUIDE) return
+const classe5A = [{ lien, nom: '5A', disponibles: [], parcours: [] }]
+const navs = []
+async function eleve(nom, options) {
+  const r = await appareil({ nom, contenus, erreurs, ...options })
+  navs.push(r.nav)
+  return r.page
+}
+const seance = (page) => lireStockage(page, `seance:${parcours.id}`)
+const premiereQuestion = async (page) => {
+  const q = page.locator('main .question-eleve').first()
+  await q.waitFor({ timeout: 60_000 })
   await pagePrete(page)
-  if (cible) {
-    const b = await cible.first().boundingBox()
-    await page.evaluate((b) => {
-      const marge = 5
-      const anneau = document.createElement('div')
-      anneau.id = 'repere-guide'
-      Object.assign(anneau.style, {
-        position: 'fixed', left: `${b.x - marge}px`, top: `${b.y - marge}px`, width: `${b.width + 2 * marge}px`, height: `${b.height + 2 * marge}px`,
-        border: '3px solid var(--color-coopmaths-struct)', borderRadius: '14px', zIndex: 2147483647, pointerEvents: 'none',
-      })
-      const point = document.createElement('div')
-      Object.assign(point.style, {
-        position: 'absolute', left: '50%', top: '50%', width: '18px', height: '18px', margin: '-9px 0 0 -9px', borderRadius: '50%',
-        background: 'color-mix(in srgb, var(--color-coopmaths-struct) 30%, transparent)', border: '2px solid var(--color-coopmaths-struct)',
-      })
-      anneau.append(point)
-      document.body.append(anneau)
-    }, b)
-  }
-  await page.screenshot({ path: join(process.env.GUIDE, `${nomCapture}.png`) })
-  await page.evaluate(() => document.getElementById('repere-guide')?.remove())
+  return (await q.innerText()).replace(/\s+/g, ' ').trim()
+}
+const toucher = async (page, cible) => {
+  await pagePrete(page)
+  await pointStable(cible.first())
+  await cible.first().click()
+  await pagePrete(page)
 }
 
-/** Vidéo de la fausse caméra : une image de QR code, filmée en continu */
-function videoDe(image, nom) {
-  const fond = join(dossier, `${nom}.png`)
-  execFileSync('python3', [
-    '-I', '-c',
-    `
-import sys
-from PIL import Image
-fond = Image.new('RGB', (1280, 720), (90, 90, 95))
-qr = Image.open(sys.argv[1]).convert('RGB')
-qr.thumbnail((640, 640))
-fond.paste(qr, ((1280 - qr.width) // 2, (720 - qr.height) // 2))
-fond.save(sys.argv[2])
-`,
-    image, fond,
-  ])
-  const video = join(dossier, `${nom}.y4m`)
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-loop', '1', '-t', '4', '-i', fond, '-vf', 'fps=15,format=yuv420p', video])
-  return video
-}
-
-// ---------- Enseignant : créer la session, afficher son QR code ----------
-const navE = await lancer()
-const prof = await contexte(navE, 'enseignant', [parcours])
-await prof.getByRole('tab', { name: 'Explorer' }).or(prof.getByRole('button', { name: 'Explorer' })).first().click({ timeout: 60_000 })
-await prof.getByText('5e').first().click().catch(() => {})
-await prof.getByRole('button', { name: /^Relatifs au tableau/ }).first().click({ timeout: 30_000 })
-// Enseignant : un bouton visible sur la page du parcours, pas dans « Autres actions »
-const boutonSession = prof.getByRole('button', { name: 'Session pour la classe' })
-ok(await boutonSession.isVisible(), 'enseignant : « Session pour la classe » visible sur le parcours')
-await guide(prof, 'sessions-1a-bouton', boutonSession)
-await boutonSession.click()
-ok(!(await prof.getByRole('button', { name: 'Commencer la session' }).count()), 'enseignant : pas de « Commencer la session », il ne fait pas la session')
-await prof.getByRole('switch', { name: 'QR code des réponses pour l’enseignant' }).check()
-const lancerSession = prof.getByRole('button', { name: 'Lancer la session' })
-await lancerSession.click()
-// Lancer mène directement à la page de la session : QR code et code
-const qrPage = prof.locator('.qr-page')
-await qrPage.waitFor()
-const code = (await prof.locator('main .font-light').filter({ hasText: /^[2-9a-z]{5}$/ }).first().innerText()).trim()
-ok(/^[2-9a-z]{5}$/.test(code) && (await prof.getByRole('heading', { name: 'Relatifs au tableau' }).isVisible()), `Lancer la session : page de la session, QR code et code ${code}`)
-ok((await qrPage.boundingBox()).width > 250, 'QR code affiché sur la page de la session')
-await guide(prof, 'sessions-2e-page')
-await prof.screenshot({ path: `${captures}/session-qr-0-page.png` })
-await prof.getByRole('button', { name: 'Plein écran', exact: true }).click()
-const qr = prof.locator('.qr-session')
+// ---------- Élève A (5A) : crée la session, montre et exporte son QR code ----------
+const a = await eleve('a', { stockage: { classes: classe5A } })
+await toucher(a, a.getByRole('button', { name: /Relatifs au tableau/ }))
+await toucher(a, a.getByRole('button', { name: 'Autres actions' }))
+await toucher(a, a.getByRole('button', { name: 'Session partagée' }))
+const code = (await a.locator('main').innerText()).match(/\b[a-z0-9]{5}\b(?=\s*Montre le QR code)/)?.[0]
+ok(!!code, `session créée : code ${code}`)
+await a.screenshot({ path: `${captures}/session-qr-1-creee.png` })
+await toucher(a, a.getByRole('button', { name: 'Afficher le QR code de la session' }))
+const qr = a.locator('.qr-session')
 await qr.waitFor()
-ok((await prof.locator('main', { has: qr }).innerText()).includes(code), 'QR code de la session en plein écran, avec son code')
-ok((await qr.boundingBox()).width > 300, 'QR code assez grand pour être projeté')
-await prof.screenshot({ path: `${captures}/session-qr-1-enseignant.png` })
-// Image exportée (mail, drive) : c'est elle que l'élève scannera plus bas
-const [telechargement] = await Promise.all([prof.waitForEvent('download'), prof.getByRole('button', { name: 'Exporter l’image' }).click()])
-const imageQr = join(dossier, 'qr-session.png')
-await telechargement.saveAs(imageQr)
-await telechargement.saveAs(join(captures, 'session-qr-image.png'))
-ok(telechargement.suggestedFilename() === `session-${code}.png` && readFileSync(imageQr).subarray(1, 4).toString() === 'PNG', `image exportée : ${telechargement.suggestedFilename()}`)
-await prof.getByText('Image enregistrée.').waitFor()
-await prof.goBack()
-await pagePrete(prof)
-ok(!(await qr.count()) && (await qrPage.isVisible()), 'retour : le plein écran se referme, la page de la session reste')
-// Retour : onglet En classe, la session y est
-await prof.goBack()
-await pagePrete(prof)
-ok((await prof.getByRole('tab', { name: 'En classe' }).getAttribute('aria-selected')) === 'true' && (await prof.getByRole('button', { name: /Relatifs au tableau/ }).isVisible()), 'retour : onglet En classe, avec la session')
-await prof.reload()
-await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
-await prof.getByRole('button', { name: /Relatifs au tableau/ }).click()
-await qrPage.waitFor()
-ok((await prof.locator('main').innerText()).includes(code), 'En classe : la session et son QR code se réaffichent plus tard')
-const invitation = await prof.evaluate(() => JSON.parse(localStorage.getItem('copie:releves'))[0].invitation)
-ok(invitation?.startsWith('MASES1.'), 'session gardée avec son QR code')
+ok((await qr.boundingBox()).width > 300, 'QR code de la session en grand, avec son code')
+await a.screenshot({ path: `${captures}/session-qr-2-qr.png` })
+const [telechargement] = await Promise.all([a.waitForEvent('download'), a.getByRole('button', { name: 'Exporter l’image' }).click()])
+const image = join(dossier, 'session.png')
+await telechargement.saveAs(image)
+ok(telechargement.suggestedFilename() === `session-${code}.png` && readFileSync(image).subarray(1, 4).toString() === 'PNG', `image exportée : ${telechargement.suggestedFilename()}`)
+await a.goBack()
+await qr.waitFor({ state: 'detached' })
+ok(await a.getByRole('button', { name: 'Commencer la session' }).isVisible(), 'retour : le QR code se referme, la session reste prête')
+await toucher(a, a.getByRole('button', { name: 'Commencer la session' }))
+const questionA = await premiereQuestion(a)
+const seanceA = await seance(a)
+ok(seanceA?.code === code, 'élève A : dans sa session')
 
-// Même session, mais une app d'enseignant plus récente que celle de l'élève
-const versB64 = (o) => Buffer.from(o).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
-const depuisB64 = (t) => new Uint8Array(Buffer.from(t.replace(/-/g, '+').replace(/_/g, '/'), 'base64'))
-const contenu = JSON.parse(strFromU8(inflateSync(depuisB64(invitation.slice(7)))))
-ok(contenu.c === code && contenu.p.id === parcours.id && contenu.p.version === 2 && /^\d{4}-\d{2}-\d{2}/.test(contenu.m), `QR code : code, parcours en version 2, version des exercices (${contenu.m})`)
-const recente = 'MASES1.' + versB64(deflateSync(strToU8(JSON.stringify({ ...contenu, m: '2099-01-01+essai' })), { level: 9 }))
-const q = qrcode(0, 'L')
-q.addData(recente, 'Byte')
-q.make()
-const imageRecente = join(dossier, 'qr-recente.gif')
-writeFileSync(imageRecente, Buffer.from(q.createDataURL(8, 16).split(',')[1], 'base64'))
+// ---------- Élève B (même classe) : scanne l'image exportée ----------
+const b = await eleve('b', { stockage: { classes: classe5A }, video: videoDe(image, dossier, 'b') })
+await b.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
+await toucher(b, b.getByRole('button', { name: SCANNER }))
+const questionB = await premiereQuestion(b)
+const seanceB = await seance(b)
+ok(seanceB?.code === code && JSON.stringify(seanceB.graines) === JSON.stringify(seanceA.graines), 'élève B : même code, mêmes graines que A')
+ok(questionB === questionA, `élève B : même première question que A (« ${questionB.slice(0, 40)}… »)`)
+await b.screenshot({ path: `${captures}/session-qr-3-camarade.png` })
 
-// ---------- Élève qui n'a pas le parcours : scan, puis directement la session ----------
-const navA = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageQr, 'a')}`])
-const a = await contexte(navA, 'eleve', [])
-await a.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
-const scan = a.getByRole('button', { name: 'Scanner le QR code d’une session' })
-await scan.waitFor({ timeout: 60_000 })
-ok(!(await a.getByText('Relatifs au tableau').count()), 'élève : le parcours n’est pas dans son app')
-await guide(a, 'sessions-2f-scanner', scan)
-await a.screenshot({ path: `${captures}/session-qr-2-accueil-eleve.png` })
-await scan.click()
-await a.locator('main math-field').first().waitFor({ timeout: 60_000 })
-const seance = await a.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}`)), parcours.id)
-ok(seance?.code === code && seance.contenu.version === 2 && seance.contenu.etapes.length === 2, `élève : image exportée scannée, dans la session ${seance?.code}, parcours en version 2`)
-await a.screenshot({ path: `${captures}/session-qr-3-eleve-session.png` })
-await a.getByRole('button', { name: /Quitter|Revenir en arrière/ }).first().click()
-await pagePrete(a)
-const ajoutes = await a.evaluate(() => JSON.parse(localStorage.getItem('copie:ajoutes') ?? '[]'))
-ok(ajoutes.some((p) => p.id === parcours.id), 'élève : le parcours est ajouté à son accueil (bilan, QR code des réponses)')
+// ---------- Élève C (aucune classe, bureau sombre) : la classe du QR code est ajoutée ----------
+const c = await eleve('c', { video: videoDe(image, dossier, 'c'), bureau: true })
+ok(!(await c.getByText('Relatifs au tableau').count()), 'élève C : ni classe ni parcours au départ')
+await toucher(c, c.getByRole('button', { name: SCANNER }))
+const questionC = await premiereQuestion(c)
+const cc = await lireStockage(c, 'classes', [])
+ok(cc.length === 1 && cc[0].lien === lien && cc[0].nom === '5A', `élève C : classe ${cc[0]?.nom} ajoutée par le QR code de la session`)
+ok((await seance(c))?.code === code && questionC === questionA, 'élève C : dans la session, même première question')
+await c.screenshot({ path: `${captures}/session-qr-4-sans-classe-bureau-sombre.png` })
+await toucher(c, c.getByRole('button', { name: 'Quitter' }))
+if (await c.getByRole('button', { name: 'Reprendre plus tard' }).count()) await toucher(c, c.getByRole('button', { name: 'Reprendre plus tard' }))
+if (await c.getByRole('button', { name: 'Revenir en arrière' }).count()) await toucher(c, c.getByRole('button', { name: 'Revenir en arrière' }))
+await c.getByRole('button', { name: /Relatifs au tableau/ }).first().waitFor({ timeout: 30_000 })
+ok(await c.getByRole('button', { name: SCANNER }).isVisible(), 'élève C : de retour à l’accueil, le parcours y est, avec sa classe')
 
-// ---------- Élève dont l'app est plus ancienne que celle de l'enseignant ----------
-const navB = await lancer(['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${videoDe(imageRecente, 'b')}`])
-const b = await contexte(navB, 'eleve', [])
-await b.context().grantPermissions(['camera'], { origin: new URL(process.env.BASE ?? 'http://localhost:1420').origin })
-await b.getByRole('button', { name: 'Scanner le QR code d’une session' }).click({ timeout: 60_000 })
-await b.getByText('Mets l’application à jour').waitFor({ timeout: 30_000 })
+// QR codes écrits ici, indépendamment de l'app : même format que le site et les autres apps
+const texteSession = (o) => 'MATHALEA-SESSION?' + new URLSearchParams({ c: code, p: parcours.id, v: '2', l: `${lien}?classe=5A`, ...o }).toString()
+
+// ---------- Élève D : QR code d'une autre version du parcours ----------
+const d = await eleve('d', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ v: '1' }), join(dossier, 'v1.gif')), dossier, 'd') })
+await d.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
+await toucher(d, d.getByRole('button', { name: SCANNER }))
+await d.getByText(/n’est pas à la même version que dans la session/).waitFor({ timeout: 30_000 })
+ok(!(await seance(d)), 'autre version : l’élève est prévenu, aucune séance')
+await d.screenshot({ path: `${captures}/session-qr-5-version.png` })
+await d.getByRole('button', { name: 'Annuler' }).click()
+
+// ---------- Élève E : app plus ancienne que celle de qui a créé la session ----------
+const e = await eleve('e', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ m: '2099-01-01' }), join(dossier, 'recente.gif')), dossier, 'e') })
+await e.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
+await toucher(e, e.getByRole('button', { name: SCANNER }))
+await e.getByText('Mets l’application à jour').waitFor({ timeout: 30_000 })
 ok(true, 'app plus ancienne : l’élève est prévenu')
-await guide(b, 'sessions-2g-ancienne', b.getByRole('button', { name: 'Continuer quand même' }))
-await b.screenshot({ path: `${captures}/session-qr-4-ancienne.png` })
-await b.getByRole('button', { name: 'Continuer quand même' }).click()
-await b.locator('main math-field').first().waitFor({ timeout: 60_000 })
-ok((await b.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}`))?.code, parcours.id)) === code, 'Continuer quand même : dans la session')
+await pagePrete(e)
+await e.screenshot({ path: `${captures}/session-qr-6-ancienne.png` })
+await toucher(e, e.getByRole('button', { name: 'Continuer quand même' }))
+await premiereQuestion(e)
+ok((await seance(e))?.code === code, 'Continuer quand même : dans la session')
 
-// Thème sombre : accueil de l'élève et QR code de l'enseignant
-await prof.evaluate(() => localStorage.setItem('theme', 'sombre'))
-await prof.reload()
-await prof.getByRole('tab', { name: 'En classe' }).click({ timeout: 60_000 })
-await prof.screenshot({ path: `${captures}/session-qr-5-en-classe-sombre.png` })
-await prof.getByRole('button', { name: /Relatifs au tableau/ }).click()
-await qrPage.waitFor()
-await pagePrete(prof)
-await prof.screenshot({ path: `${captures}/session-qr-6-page-sombre.png` })
+// ---------- Élève F (aucune classe) : session sur un parcours de l'Explorer, sans lien de dossier ----------
+const explorer = { ...parcours, id: 'session-qr-explorer', version: 1, titre: 'Relatifs de l’Explorer' }
+const texteExplorer = 'MATHALEA-SESSION?' + new URLSearchParams({ c: 'k3lr2', p: explorer.id, v: '1' }).toString()
+const f = await eleve('f', { stockage: { explorer: [explorer] }, video: videoDe(imageQr(texteExplorer, join(dossier, 'explorer.gif')), dossier, 'f') })
+await toucher(f, f.getByRole('button', { name: SCANNER }))
+await premiereQuestion(f)
+ok((await lireStockage(f, `seance:${explorer.id}`))?.code === 'k3lr2' && !(await lireStockage(f, 'classes', [])).length, 'Explorer : session commencée sans classe')
+await f.screenshot({ path: `${captures}/session-qr-7-explorer.png` })
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)
-await Promise.all([navE.close(), navA.close(), navB.close()])
+await Promise.all(navs.map((n) => n.close()))
 // Vidéos et images de la fausse caméra : environ 200 Mo par passage
 rmSync(dossier, { recursive: true, force: true })
 console.log(echecs ? `${echecs} ÉCHEC(S)` : 'TOUT VERT')

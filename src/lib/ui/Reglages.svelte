@@ -1,7 +1,3 @@
-<script lang="ts" module>
-  export type Profil = 'eleve' | 'enseignant'
-</script>
-
 <script lang="ts">
   import type { InfoMoteur, Pays } from '$lib/moteur'
   import type { Classe } from '$lib/partage'
@@ -14,12 +10,12 @@
   import { choisirTheme, theme, type PreferenceTheme } from '$lib/theme.svelte'
   import { version } from '../../../package.json'
   import { ouvrirLien } from '$lib/fichiers'
+  import { CONTACT } from '$lib/signalement'
   import type { BilanFusion } from '$lib/fusion'
   import type { resumerSauvegarde } from '$lib/sauvegarde'
   const URL_GUIDE = 'https://coopmaths.forge.apps.education.fr/mathalea-mobile/'
 
   let {
-    profil = $bindable(),
     pays = $bindable(),
     classes,
     onretour,
@@ -27,9 +23,7 @@
     onsynchroniser,
     onretirer,
     onchoisirClasse,
-    lienDrive,
-    dossiersAReprendre = [],
-    onreprendreDossier,
+    onexporterBibliotheque,
     onexporterSauvegarde,
     onrestaurer,
     onresumer,
@@ -40,7 +34,6 @@
     miseAJourMoteur,
     onchercherMoteur,
   }: {
-    profil: Profil
     pays: Pays
     classes: Classe[]
     onretour: () => void
@@ -48,9 +41,7 @@
     onsynchroniser: () => Promise<void>
     onretirer: (lien: string) => void
     onchoisirClasse: (lien: string, classe: string) => void
-    lienDrive?: string // enseignant : lien de son drive
-    dossiersAReprendre?: string[] // enseignant : dossiers dont un parcours manque à sa bibliothèque
-    onreprendreDossier?: (lien: string, parcoursSeuls: boolean) => Promise<string>
+    onexporterBibliotheque: (() => Promise<string>) | null // bibliothèque d'un enseignant d'avant la 0.6
     onexporterSauvegarde: () => Promise<string>
     onrestaurer: (texte: string) => Promise<string>
     onresumer: typeof resumerSauvegarde
@@ -64,17 +55,10 @@
 
   // Retrait d'un dossier suivi : confirmé, les résultats restent
   let aRetirer: Classe | null = $state(null)
-  // Enseignant : reprise d'un dossier suivi (message par lien)
-  let reprise = $state(false)
-  let messagesReprise: Record<string, string> = $state({})
-  async function reprendreDossier(lien: string, parcoursSeuls: boolean) {
-    reprise = true
-    messagesReprise[lien] = await onreprendreDossier!(lien, parcoursSeuls)
-    reprise = false
-  }
+  let messageBibliotheque = $state('')
 
   // Chaque réglage est enregistré aussitôt ; après un changement, un bouton ramène à l'accueil
-  const etat = () => JSON.stringify([profil, pays, theme.preference, classes.map((c) => [c.lien, c.nom])])
+  const etat = () => JSON.stringify([pays, theme.preference, classes.map((c) => [c.lien, c.nom])])
   const depart = etat()
   const modifie = $derived(etat() !== depart)
 
@@ -196,11 +180,8 @@
           {#each classes as c (c.lien)}
             <li class="flex flex-row items-center justify-between gap-3 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
               <div class="min-w-0">
-                <!-- L'enseignant voit tout le dossier (toutes ses classes) ; l'élève choisit la sienne -->
-                <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
-                  {profil === 'enseignant' ? c.disponibles.join(', ') || c.nom : c.nom || 'Classe à choisir'}
-                </div>
-                {#if c.disponibles.length > 1 && profil !== 'enseignant'}
+                <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.nom || 'Classe à choisir'}</div>
+                {#if c.disponibles.length > 1}
                   <ChoixRadio
                     nom="classe-{c.lien}"
                     valeur={c.nom}
@@ -209,28 +190,12 @@
                   />
                 {/if}
                 <div class={texteDiscret}>
-                  {profil === 'enseignant' ? new Set([...c.parcours, ...(c.fichier ?? []).flatMap((f) => f.parcours)].map((p) => p.id)).size : c.parcours.length} parcours{c.maj
+                  {c.parcours.length} parcours{c.maj
                     ? ` · mis à jour le ${date(c.maj)}`
                     : ''}
                 </div>
                 {#if c.erreur}
                   <div class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action">{c.erreur}</div>
-                {/if}
-                {#if profil === 'enseignant'}
-                  {#if c.lien === lienDrive}
-                    <div class={texteDiscret}>Votre drive</div>
-                  {:else if dossiersAReprendre.includes(c.lien) && onreprendreDossier}
-                    <!-- Dossier suivi : le reprendre comme le sien, ou seulement ses parcours (collègue) -->
-                    <div class="flex flex-row flex-wrap gap-2 pt-2">
-                      <button type="button" class="{boutonInverse} disabled:opacity-40" style="min-height: 40px" disabled={reprise} onclick={() => reprendreDossier(c.lien, false)}>
-                        Classes et parcours
-                      </button>
-                      <button type="button" class="{boutonInverse} disabled:opacity-40" style="min-height: 40px" disabled={reprise} onclick={() => reprendreDossier(c.lien, true)}>
-                        Seulement les parcours
-                      </button>
-                    </div>
-                  {/if}
-                  {#if messagesReprise[c.lien]}<div class={texteDiscret} role="status">{messagesReprise[c.lien]}</div>{/if}
                 {/if}
               </div>
               <button
@@ -289,33 +254,28 @@
       {#if messageSauvegarde}<p class={texteDiscret} role="status">{messageSauvegarde}</p>{/if}
     </section>
 
-    <section>
-      <h2 class={titreSection}>Enseignant</h2>
-      <label
-        class="flex flex-row items-center justify-between gap-4 rounded-xl px-4 py-3
-        bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-      >
-        <span class="flex flex-col gap-1 min-w-0">
-          <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Je suis enseignant</span>
-          <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-            Ajoute l’onglet Créer pour préparer des parcours et les publier à vos classes.
-          </span>
-        </span>
-        <input
-          type="checkbox"
-          role="switch"
-          class="interrupteur shrink-0"
-          checked={profil === 'enseignant'}
-          onchange={(e) => (profil = e.currentTarget.checked ? 'enseignant' : 'eleve')}
-        />
-      </label>
-    </section>
+    {#if onexporterBibliotheque}
+      <!-- Enseignant d'avant la 0.6 : ses parcours vont sur la page Parcours du site -->
+      <section class="flex flex-col gap-3">
+        <h2 class={titreSection}>Bibliothèque d’enseignant</h2>
+        <p class="pl-2 {texteDiscret}">Les parcours se préparent maintenant sur le site MathALÉA, page « Parcours pour l’application ». Exportez votre bibliothèque, puis ouvrez le fichier sur cette page.</p>
+        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={async () => (messageBibliotheque = await onexporterBibliotheque!())}>
+          Exporter ma bibliothèque
+        </button>
+        {#if messageBibliotheque}<p class={texteDiscret} role="status">{messageBibliotheque}</p>{/if}
+      </section>
+    {/if}
 
     <section class="flex flex-col gap-1">
       <h2 class={titreSection}>À propos</h2>
       <p class="pl-2 {texteDiscret}">
         MathALÉA {version} · licence AGPL-3.0 ·
         <a href="https://coopmaths.fr" class="text-coopmaths-action dark:text-coopmathsdark-action" onclick={ouvrirCoopmaths}>coopmaths.fr</a>
+      </p>
+      <!-- Contact publié (App Store, règle 1.2) : un parcours se signale depuis sa page, « Autres actions » -->
+      <p class="pl-2 {texteDiscret}">
+        Contact, bug ou contenu à signaler :
+        <a href="mailto:{CONTACT}" class="text-coopmaths-action dark:text-coopmathsdark-action" onclick={(e) => (e.preventDefault(), void ouvrirLien(`mailto:${CONTACT}`))}>{CONTACT}</a>
       </p>
       {#if moteur}
         <p class="pl-2 {texteDiscret}">

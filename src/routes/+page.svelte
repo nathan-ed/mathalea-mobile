@@ -8,38 +8,10 @@
   import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier } from '$lib/fichiers'
-  import {
-    adopter,
-    attribuer,
-    ajouterClasse as ajouterClasseBibliotheque,
-    definirLien,
-    parcoursPourClasse,
-    preferencesDe,
-    publicationPresente,
-    reprendre,
-    renommerClasse,
-    retirerClasse as retirerClasseBibliotheque,
-    type Preferences,
-    ecrireBibliotheque,
-    enregistrer,
-    exporter,
-    exporterChoix,
-    empreinte,
-    aJour,
-    completerEmpreinte,
-    sansEcartDrive,
-    deplacer,
-    copie,
-    CLASSE_SANS_NOM,
-    lireBibliotheque,
-    parcoursVide,
-    supprimer,
-    type Bibliotheque,
-  } from '$lib/bibliotheque'
-  import { rappelExport } from '$lib/rappelExport.svelte'
+  import { exporter, lireBibliotheque } from '$lib/bibliotheque'
   import { heure, suivreHeure } from '$lib/heure.svelte'
-  import { acquisDe, ceinturesObtenues, completerListe, conditionPalier, etatsPaliers, fusionnerObjectifs, memoriser, objectifsEnCsv, type Objectif } from '$lib/objectifs'
-  import { LIEN_DEMONSTRATION, ecrireClasses, fusionnerCatalogues, lireClasses, lireExplorer, sourcesExplorer, lireFichier, lireFichierDistant, nomHorodate, memeClasse, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
+  import { acquisDe, ceinturesObtenues, conditionPalier, etatsPaliers, type Objectif } from '$lib/objectifs'
+  import { ecrireClasses, fusionnerCatalogues, lienDeClasse, lireClasses, lireExplorer, sourcesExplorer, nomHorodate, memeClasse, separerClasse, synchroniserClasse, type Classe } from '$lib/partage'
   import { arborescence, reperesDu, reperesParDefaut, type Repere } from '$lib/explorer'
   import {
     bilan,
@@ -48,7 +20,6 @@
     lireHistorique,
     lireResultats,
     lireSeance,
-    modeQr,
     nouvelleSeance,
     premiersEssais,
     questionsDe,
@@ -64,14 +35,9 @@
   import Bilan from '$lib/ui/Bilan.svelte'
   import Cours from '$lib/ui/Cours.svelte'
   import ChoixProfil from '$lib/ui/ChoixProfil.svelte'
-  import CreationParcours from '$lib/ui/CreationParcours.svelte'
   import DetailParcours from '$lib/ui/DetailParcours.svelte'
-  import EspaceEnseignant from '$lib/ui/EspaceEnseignant.svelte'
-  import Reglages, { type Profil } from '$lib/ui/Reglages.svelte'
+  import Reglages from '$lib/ui/Reglages.svelte'
   import Relecture from '$lib/ui/Relecture.svelte'
-  import Releve from '$lib/ui/Releve.svelte'
-  import SessionClasse from '$lib/ui/SessionClasse.svelte'
-  import FicheParcours from '$lib/ui/FicheParcours.svelte'
   import Scanner from '$lib/ui/Scanner.svelte'
   import EcranRevisions from '$lib/ui/Revisions.svelte'
   import {
@@ -88,8 +54,7 @@
   } from '$lib/revisions'
   import Feuille from '$lib/ui/Feuille.svelte'
   import { boutonAction, boutonInverse } from '$lib/ui/classes'
-  import { cleReleve, noterSession, type Releve as TReleve } from '$lib/releve'
-  import { decoderClasse, decoderInvitation, encoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
+  import { decoderClasse, decoderInvitation, moteurPlusAncien, type InvitationSession } from '$lib/invitation'
   import Seance from '$lib/ui/Seance.svelte'
   import Suivi from '$lib/ui/Suivi.svelte'
   import TestNiveau from '$lib/ui/TestNiveau.svelte'
@@ -98,22 +63,18 @@
   import type { ExerciceDuReferentiel } from '$lib/moteur'
   import { navigation, retourDeBase } from '$lib/navigation.svelte'
 
-  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'creation' | 'apercu' | 'test' | 'session' | 'revisions' | 'fiche' | 'cours'
+  type Vue = 'accueil' | 'parcours' | 'seance' | 'bilan' | 'reglages' | 'relecture' | 'test' | 'revisions' | 'cours'
 
   let stockage: Stockage | undefined
   let pret = $state(false)
   let moteur: Moteur | undefined = $state()
   let erreurMoteur = $state('')
-  let profil: Profil | null = $state(null)
-  // Prénom que l'élève ajoute à son QR code quand la session le demande (sur l'appareil seulement)
-  let prenom = $state('')
+  // Premier lancement passé (programme choisi) ; « enseignant » d'avant la 0.6 vaut élève
+  let profil: string | null = $state(null)
   let pays: Pays = $state('FR')
   let vue: Vue = $state('accueil')
-  // « creer » (Parcours), « classes » et « classe » (En classe) : seulement avec le
-  // réglage Enseignant ; « mes » et « suivi » pour lui seulement en vue élève
-  type Onglet = 'mes' | 'explorer' | 'suivi' | 'fiches' | 'creer' | 'classes' | 'classe'
+  type Onglet = 'mes' | 'explorer' | 'suivi' | 'fiches'
   let onglet: Onglet = $state('mes')
-  let vueEleve = $state(false)
   let actif: Parcours | undefined = $state()
   // Fiche de cours ouverte, l'écran d'où elle vient et, avant une séance, de quoi la lancer
   let cours: { fiche: Fiche; depuis: Vue; ensuite?: () => void } | null = $state(null)
@@ -129,8 +90,6 @@
   }
   let seance: TSeance | undefined = $state()
   let relue: TSeance | undefined = $state()
-  // Réponses de sessions partagées relevées par l'enseignant (QR codes)
-  let releves: TReleve[] = $state([])
   let seances: Record<string, TSeance | null> = $state({})
   let resultats: Record<string, Record<number, ResultatEtape>> = $state({})
   let historiques: Record<string, TSeance[]> = $state({})
@@ -163,33 +122,12 @@
       return 'Mise à jour impossible pour le moment (connexion ou serveur indisponible).'
     }
   }
-  // L'élève choisit sa classe dans un dossier qui en a plusieurs ; l'enseignant les voit toutes
-  const aChoisir = $derived(
-    profil === 'enseignant' ? [] : classes.filter((c) => !c.nom && c.disponibles.length > 1).map((c) => ({ lien: c.lien, disponibles: c.disponibles })),
-  )
-  // Enseignant
-  let bibliotheque: Bibliotheque = $state({ classes: [], parcours: [] })
-  let creation: { parcours: Parcours; cle: number } | null = $state(null)
-  // Liste d'objectifs de l'enseignant, objectifs retenus par exercice, derniers choix de création
-  let objectifs: Objectif[] = $state([])
-  let etiquettes: Record<string, string[]> = $state({})
-  let preferences: Partial<Preferences> = $state({})
-  let apercu: TSeance | undefined = $state()
-
+  // L'élève choisit sa classe dans un dossier qui en a plusieurs
+  const aChoisir = $derived(classes.filter((c) => !c.nom && c.disponibles.length > 1).map((c) => ({ lien: c.lien, disponibles: c.disponibles })))
+  // Bibliothèque d'un enseignant d'avant la 0.6 : exportable pour la page Parcours du site
+  let bibliothequeExportable = $state(false)
   // Aucun parcours intégré : tout vient des dossiers partagés
-  const sources: Source[] = $derived(
-    profil === 'enseignant'
-      ? classes.flatMap((c) =>
-          c.fichier
-            ? c.fichier.map((f) => ({ id: f.nom === c.nom ? c.lien : `${c.lien}#${f.nom}`, nom: f.nom, parcours: f.parcours }))
-            : c.nom
-              ? [{ id: c.lien, nom: c.nom, parcours: c.parcours }]
-              : [],
-        )
-      : classes.filter((c) => c.nom).map((c) => ({ id: c.lien, nom: c.nom, parcours: c.parcours })),
-  )
-  // Parcours d'un dossier suivi : sa classe, et toutes celles du fichier pour l'enseignant
-  const parcoursDuDossier = (c: Classe) => [...c.parcours, ...(profil === 'enseignant' ? (c.fichier ?? []).flatMap((f) => f.parcours) : [])]
+  const sources: Source[] = $derived(classes.filter((c) => c.nom).map((c) => ({ id: c.lien, nom: c.nom, parcours: c.parcours })))
   // Explorer : catalogue de l'équipe MathALÉA (dernière copie reçue des dossiers kDrive) et parcours ajoutés à l'accueil
   let catalogue: Parcours[] | null = $state(null)
   // Dernière lecture des dossiers de l'Explorer : en cours, réussie, ou impossible (hors connexion)
@@ -223,53 +161,6 @@
   let fichesOuvertes: string[] = $state([])
   let rechercheFiches = $state('')
   const dansSources = (id: string) => sources.some((s) => s.parcours.some((p) => p.id === id))
-  // Enseignant : parcours éditables venant des dossiers partagés et des parcours de test
-  // Toutes les classes des fichiers suivis (l'enseignant voit tout, pas seulement « sa » classe)
-  const classesDesDossiers = $derived(classes.flatMap((c) => c.fichier ?? (c.nom ? [{ nom: c.nom, parcours: c.parcours }] : [])))
-  const parcoursDesDossiers: Parcours[] = $derived.by(() => {
-    const vus = new Map<string, Parcours>()
-    for (const c of classesDesDossiers) for (const p of c.parcours) if (!vus.has(p.id) || vus.get(p.id)!.version < p.version) vus.set(p.id, p)
-    return [...vus.values()]
-  })
-  // Repris sans classe puis abandonné : reste proposé
-  // Un parcours par identifiant, à sa version la plus récente ; masqué si l'enseignant l'a déjà (même version ou plus récente)
-  const modeles: Parcours[] = $derived.by(() => {
-    const vus = new Map<string, Parcours>()
-    for (const p of [...parcoursDesDossiers, ...importes]) if (!vus.has(p.id) || vus.get(p.id)!.version < p.version) vus.set(p.id, p)
-    return [...vus.values()].filter((p) => {
-      const local = bibliotheque.parcours.find((pe) => pe.parcours.id === p.id)
-      return !local || local.classes.length === 0 || local.parcours.version < p.version
-    })
-  })
-  // Dossiers suivis qui ne sont pas le drive de l'enseignant (Nathan, 1er
-  // novembre 2026 : en passant enseignant, « je voyais plus les classes ») : le
-  // premier est repris d'office (reprendrePremier), les suivants au choix dans
-  // les Réglages, classes et parcours ou seulement les parcours
-  const dossiersSuivis = $derived.by(() => {
-    const parLien = new Map<string, { lien: string; classes: string[]; parcours: Set<string> }>()
-    for (const c of classes) {
-      if (c.lien === LIEN_DEMONSTRATION || c.lien === bibliotheque.lien) continue
-      const d = parLien.get(c.lien) ?? { lien: c.lien, classes: [], parcours: new Set<string>() }
-      for (const k of c.fichier ?? [{ nom: c.nom, parcours: c.parcours }]) {
-        if (k.nom && !d.classes.includes(k.nom)) d.classes.push(k.nom)
-        for (const p of k.parcours) d.parcours.add(p.id)
-      }
-      parLien.set(c.lien, d)
-    }
-    return [...parLien.values()].filter((d) => d.parcours.size).map((d) => ({ lien: d.lien, classes: d.classes, parcours: d.parcours.size, ids: [...d.parcours] }))
-  })
-  // Réglages : dossiers dont un parcours manque encore à la bibliothèque
-  const dossiersAReprendre = $derived(
-    dossiersSuivis.filter((d) => d.ids.some((id) => !bibliotheque.parcours.some((pe) => pe.parcours.id === id))).map((d) => d.lien),
-  )
-  /** Enseignant sans bibliothèque ni drive qui suit un dossier : le premier est le sien, tout est repris */
-  async function reprendrePremier() {
-    if (profil !== 'enseignant' || bibliotheque.lien || bibliotheque.parcours.length || bibliotheque.classes.length || !dossiersSuivis.length) return
-    await suivre(reprendreBibliotheque({ lien: dossiersSuivis[0].lien }))
-  }
-  const classesDuModele = (id: string) => [
-    ...new Set([...classesDesDossiers.filter((c) => c.parcours.some((p) => p.id === id)).map((c) => c.nom), ...(classesImportees[id] ?? [])]),
-  ]
   const totalQuestions = (p: Parcours) => p.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0)
 
   const resumes = $derived.by(() => {
@@ -313,16 +204,14 @@
   onMount(async () => {
     try {
       await demarrer()
-      await reprendrePremier()
     } finally {
       travaux--
     }
   })
   async function demarrer() {
     stockage = await ouvrirStockage()
-    profil = await stockage.lire<Profil>('profil')
+    profil = await stockage.lire<string>('profil')
     pays = (await stockage.lire<Pays>('pays')) ?? 'FR'
-    prenom = (await stockage.lire<string>('prenom')) ?? ''
     classes = await lireClasses(stockage)
     epingles = (await stockage.lire<string[]>('epingles')) ?? []
     caches = (await stockage.lire<string[]>('caches')) ?? []
@@ -338,15 +227,7 @@
     // Un test ajouté à l'accueil par une version précédente : il vit dans Teste ton niveau.
     // Un parcours de l'Explorer ajouté à l'accueil suit sa nouvelle version (mise à jour de l'app)
     ajoutes = ((await stockage.lire<Parcours[]>('ajoutes')) ?? []).filter((p) => !estTest(p.id)).map((a) => plusRecent(a))
-    bibliotheque = await lireBibliotheque(stockage)
-    importes = (await stockage.lire<Parcours[]>('importes')) ?? []
-    classesImportees = (await stockage.lire<Record<string, string[]>>('importes-classes')) ?? {}
-    objectifs = (await stockage.lire<Objectif[]>('objectifs')) ?? []
-    releves = (await stockage.lire<TReleve[]>('releves')) ?? []
-    const complete = completerEmpreinte(bibliotheque, objectifs)
-    if (complete !== bibliotheque) await sauverBibliotheque(complete)
-    etiquettes = (await stockage.lire<Record<string, string[]>>('etiquettes')) ?? {}
-    preferences = (await stockage.lire<Preferences>('preferences-creation')) ?? {}
+    bibliothequeExportable = (await lireBibliotheque(stockage)).parcours.length > 0
     etatTest = (await stockage.lire<EtatTest>('test-niveau')) ?? {}
     for (const e of Object.values(etatTest)) if (e.tirage) e.tirage = presenterTest(e.tirage)
     for (const e of Object.values(etatTest)) if (e.tirage) await chargerParcours(e.tirage)
@@ -357,8 +238,6 @@
     // Écran où l'on était à la dernière fermeture, lu avant que l'accueil ne l'écrase
     const ecranAvant = await stockage.lire<Ecran>('ecran')
     vue = 'accueil'
-    // Réglage Enseignant : l'app s'ouvre sur l'onglet Créer
-    if (profil === 'enseignant') onglet = 'creer'
     pret = true
     try {
       moteurMisAJour = await misesAJourMoteur()
@@ -380,13 +259,10 @@
   function actualiser() {
     if (!pret || actualisation || Date.now() - actualiseLe < ECART_MINIMUM) return
     actualiseLe = Date.now()
-    // Fichier exporté pas encore vu sur le drive : il y est peut-être maintenant
-    const aVerifier = profil === 'enseignant' && bibliotheque.lien && bibliotheque.publieLe && !bibliotheque.verifieLe
     actualisation = suivre(Promise.all([
       classes.length ? synchroniserClasses() : null,
       synchroniserExplorer(),
       moteur && moteurMisAJour ? chercherMoteur() : null,
-      aVerifier ? verifierDossier() : null,
     ])).finally(
       () => (actualisation = null),
     )
@@ -484,20 +360,9 @@
     })()
   }
 
-  async function changerProfil(p: Profil) {
-    profil = p
-    // Réglage Enseignant coché : l'onglet Créer s'ouvre au retour des réglages
-    vueEleve = false
-    onglet = p === 'enseignant' ? 'creer' : ['creer', 'classes', 'classe'].includes(onglet) ? 'mes' : onglet
-    await stockage!.ecrire('profil', p)
-    await reprendrePremier()
-  }
-
   // Profondeur de chaque écran : un écran plus profond arrive par la droite, un retour par la gauche
-  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, creation: 1, session: 1, revisions: 1, fiche: 1, seance: 2, relecture: 2, bilan: 2, apercu: 2, cours: 2 }
+  const PROFONDEUR: Record<Vue, number> = { accueil: 0, reglages: 1, parcours: 1, test: 1, revisions: 1, seance: 2, relecture: 2, bilan: 2, cours: 2 }
   let sens: 'avant' | 'arriere' = $state('avant')
-  // L'aperçu garde l'éditeur monté : même écran pour l'animation
-  const ecran = $derived.by((): Vue => (vue === ('apercu' as Vue) ? 'creation' : vue))
 
   function aller(v: Vue) {
     sens = PROFONDEUR[v] < PROFONDEUR[vue] ? 'arriere' : 'avant'
@@ -516,9 +381,8 @@
   })
   async function reprendreEcran(e: Ecran) {
     if (profil === null) return
-    // Onglets de l'élève ou de l'enseignant, selon le profil d'aujourd'hui
-    const ONGLETS_ELEVE = ['mes', 'explorer', 'suivi']
-    if (ONGLETS_ELEVE.includes(e.onglet) === (profil !== 'enseignant') || vueEleve) onglet = e.onglet
+    // Onglets d'avant la 0.6 (enseignant) : l'accueil
+    if (['mes', 'explorer', 'suivi', 'fiches'].includes(e.onglet)) onglet = e.onglet
     const tests = NIVEAUX_TEST.flatMap((n) => etatTest[n.cle]?.tirage ?? [])
     const p = e.parcours ? [...tous, ...(catalogue ?? []), ...tests].find((x) => x.id === e.parcours) : undefined
     if (e.vue === 'test') return testPropose ? ouvrirTest() : undefined
@@ -531,88 +395,8 @@
     if (estTest(p.id)) return ouvrirTest()
     ouvrir(p)
   }
-  // Sessions de l'enseignant (onglet En classe) et celle ouverte sur sa page
-  let sessionOuverte: string | null = $state(null)
-  const releveOuvert = $derived(releves.find((r) => r.cle === sessionOuverte) ?? null)
-  async function sauverReleves(r: TReleve[]) {
-    releves = r
-    await stockage!.ecrire('releves', $state.snapshot(r))
-  }
-  /** Session lancée par l'enseignant : gardée pour la relever plus tard, puis sa page */
-  async function lancerSession(p: Parcours, code: string, etapes?: number[], classe?: string) {
-    const invitation = moteur ? encoderInvitation({ c: code, p, m: moteur.VERSION_MOTEUR, ...(etapes ? { e: etapes } : {}) }) : undefined
-    await sauverReleves(noterSession($state.snapshot(releves) as TReleve[], { code, parcours: p.id, version: p.version, titre: p.titre, invitation, classe }, null))
-    ouvrirSession(cleReleve({ c: code, p: p.id, v: p.version }))
-  }
-  // Page d'où la session a été ouverte : la page d'un parcours, l'onglet Classes, sinon l'onglet En classe
-  let sessionDepuis: 'classe' | 'classes' | 'fiche' = 'classe'
-  function ouvrirSession(cle: string) {
-    sessionDepuis = vue === 'fiche' ? 'fiche' : vue === 'accueil' && onglet === 'classes' ? 'classes' : 'classe'
-    sessionOuverte = cle
-    aller('session')
-  }
-  function retourSession() {
-    if (sessionDepuis === 'fiche' && ficheOuverte) return aller('fiche')
-    if (sessionDepuis === 'classes') {
-      vueEleve = false
-      onglet = 'classes'
-      return aller('accueil')
-    }
-    versClasse()
-  }
-
-  // Page d'un parcours de la bibliothèque (enseignant) ; l'éditeur et l'essai y reviennent
-  let ficheId: string | null = $state(null)
-  const ficheOuverte = $derived(bibliotheque.parcours.find((pe) => pe.parcours.id === ficheId))
-  let creationDepuis: 'creer' | 'fiche' = 'creer'
-  function ouvrirFiche(id: string) {
-    ficheId = id
-    creation = null
-    aller('fiche')
-  }
-  const retourEditeur = () => {
-    if (creationDepuis === 'fiche' && ficheOuverte) {
-      creation = null
-      aller('fiche')
-    } else versCreer()
-  }
-  /** Explorer, enseignant : plusieurs parcours repris dans sa bibliothèque d'un coup, sans classe ; on reste dans l'Explorer */
-  async function adopterPlusieurs(liste: Parcours[]) {
-    let b = $state.snapshot(bibliotheque) as Bibliotheque
-    for (const p of liste) b = adopter(b, $state.snapshot(p) as Parcours)
-    await sauverBibliotheque(b)
-  }
-  /** Parcours de l'Explorer repris par l'enseignant : dans sa bibliothèque, puis sa page (choix des classes) */
-  async function donnerAuxClasses(p: Parcours) {
-    await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, $state.snapshot(p) as Parcours))
-    ouvrirFiche(p.id)
-  }
-  // Parcours qu'on peut lancer en session : bibliothèque et dossiers suivis, à leur version la plus récente
-  const parcoursSession: Parcours[] = $derived.by(() => {
-    const vus = new Map<string, Parcours>()
-    for (const p of [...bibliotheque.parcours.map((pe) => pe.parcours), ...tous]) if (p.id && (!vus.has(p.id) || vus.get(p.id)!.version < p.version)) vus.set(p.id, p)
-    return [...vus.values()]
-  })
-  const nomsClasses = $derived(bibliotheque.classes.map((c) => c.nom))
-  const classesDe = (id: string) => bibliotheque.parcours.find((pe) => pe.parcours.id === id)?.classes ?? []
-  // Un onglet de l'enseignant : la vue élève se referme
-  function versClasse() {
-    vueEleve = false
-    onglet = 'classe'
-    aller('accueil')
-  }
-  // Espace enseignant : onglet « Créer » de l'accueil
-  function versCreer() {
-    creation = null
-    vueEleve = false
-    onglet = 'creer'
-    aller('accueil')
-  }
   navigation.versAccueil = () => {
-    // Aperçu : retour à l'éditeur, qui protège lui-même le brouillon
-    if (vue === 'apercu') return aller('creation')
-    creation = null
-    onglet = profil === 'enseignant' && !vueEleve ? 'creer' : 'mes'
+    onglet = 'mes'
     accueil()
   }
 
@@ -633,10 +417,6 @@
       seance: quitterSeance,
       bilan: quitterSeance,
       test: accueil,
-      creation: retourEditeur,
-      apercu: () => aller(apercuDepuis),
-      session: retourSession,
-      fiche: versCreer,
     }
     retourDeBase(profil !== null ? (precedent[vue] ?? null) : null)
   })
@@ -863,32 +643,59 @@
     }
   })
 
-  // QR code de session affiché par l'enseignant : l'élève arrive directement
-  // dans la session, sur la copie du parcours portée par le QR code
+  // QR code scanné depuis l'accueil : une session partagée (créée par un
+  // camarade ou par l'enseignant) ou une classe (lien du dossier partagé)
   let scanSession = $state(false)
-  let invitationAncienne: InvitationSession | null = $state(null)
+  let invitationAncienne: { inv: InvitationSession; p: Parcours } | null = $state(null)
   async function lireInvitation(texte: string): Promise<'nouveau' | 'autre' | { erreur: string }> {
     const cl = decoderClasse(texte)
-    if (cl) return rejoindreClasse(cl.l, cl.c)
-    // QR code d'un simple lien de dossier (avec ou sans « classe=… »)
-    if (/^https?:\/\/\S+$/.test(texte.trim())) {
-      const { lien, classe } = separerClasse(texte)
-      return rejoindreClasse(lien, classe)
+    const lienSeul = /^https?:\/\/\S+$/.test(texte.trim()) ? separerClasse(texte) : null
+    if (cl || lienSeul) {
+      const r = cl ? await rejoindreClasse(cl.l, cl.c) : await rejoindreClasse(lienSeul!.lien, lienSeul!.classe)
+      if (r === 'nouveau') scanSession = false
+      return r
     }
     const inv = decoderInvitation(texte)
     if (!inv) return 'autre'
+    const p = await parcoursDeSession(inv)
+    if ('erreur' in p) return p
+    if (inv.e && !inv.e.every((k) => k < p.etapes.length)) return { erreur: 'Ce QR code de session est abîmé : demande-le à nouveau.' }
     scanSession = false
-    if (moteurPlusAncien(moteur!.VERSION_MOTEUR, inv.m)) invitationAncienne = inv
-    else await rejoindreSession(inv)
+    if (moteurPlusAncien(moteur!.VERSION_MOTEUR, inv.m)) invitationAncienne = { inv, p }
+    else await rejoindreSession(inv, p)
     return 'nouveau'
   }
-  async function rejoindreSession(inv: InvitationSession) {
+
+  /**
+   * Parcours d'une session, à sa version : classes suivies (tout le fichier de
+   * chaque dossier), accueil, Explorer. Introuvable : le dossier du QR code est
+   * ajouté s'il ne l'est pas, puis dossiers et Explorer sont relus.
+   */
+  async function parcoursDeSession(inv: InvitationSession): Promise<Parcours | { erreur: string }> {
+    const connus = () => [...tous, ...classes.flatMap((c) => (c.fichier ?? []).flatMap((f) => f.parcours)), ...(catalogue ?? [])]
+    const trouve = () => connus().find((x) => x.id === inv.p && x.version === inv.v)
+    if (trouve()) return trouve()!
+    if (inv.l) {
+      const { lien, classe } = separerClasse(inv.l)
+      // Dossier déjà suivi : l'élève garde sa classe
+      if (!classes.some((c) => c.lien === lien)) {
+        const r = await rejoindreClasse(lien, classe)
+        if (r !== 'nouveau') return r
+      }
+    }
+    await Promise.all([classes.length ? synchroniserClasses() : null, synchroniserExplorer()])
+    if (trouve()) return trouve()!
+    const autre = connus().find((x) => x.id === inv.p)
+    if (autre)
+      return {
+        erreur: `« ${autre.titre} » n’est pas à la même version que dans la session (${autre.version} sur ton appareil, ${inv.v} dans la session). Vérifie ta connexion, puis demande une nouvelle session.`,
+      }
+    return { erreur: 'Ce parcours n’est pas sur ton appareil : ajoute d’abord la classe de ton enseignant, puis scanne à nouveau.' }
+  }
+
+  async function rejoindreSession(inv: InvitationSession, p: Parcours) {
     invitationAncienne = null
-    // Copie de l'appareil si elle est de la même version (le QR code d'un long
-    // parcours n'emporte pas ses fiches de cours) : classes, accueil, Explorer
-    const memeVersion = (x: Parcours) => x.id === inv.p.id && x.version === inv.p.version
-    const p = tous.find(memeVersion) ?? catalogue?.find(memeVersion) ?? inv.p
-    // Ajouté à l'accueil s'il n'y est pas : l'élève y retrouve son bilan et son QR code
+    // Ajouté à l'accueil s'il n'y est pas : l'élève y retrouve son bilan
     if (!dansSources(p.id) && !estTest(p.id)) {
       const deja = ajoutes.find((a) => a.id === p.id)
       if (!deja || deja.version < p.version) {
@@ -899,6 +706,19 @@
     await chargerParcours(p)
     actif = p
     await lancer(nouvelleSeance(p, moteur!.VERSION_MOTEUR, 'complet', inv.e, inv.c))
+  }
+
+  /** Lien du dossier d'un parcours de classe, avec la classe : porté par le QR code de session */
+  /** Provenance écrite dans un signalement : dossier de la classe, ou Explorer */
+  function sourceDuParcours(id: string): string {
+    const c = classes.find((x) => x.parcours.some((p) => p.id === id))
+    if (c) return `dossier ${c.lien}${c.nom ? ` (classe ${c.nom})` : ''}`
+    return catalogue?.some((p) => p.id === id) ? 'Explorer de l’équipe MathALÉA' : 'appareil de l’élève'
+  }
+
+  function lienDuParcours(id: string): string | undefined {
+    const c = classes.find((x) => x.nom && x.parcours.some((p) => p.id === id))
+    return c && /^https?:\/\//.test(c.lien) ? lienDeClasse(c.lien, c.nom) : undefined
   }
 
   // Avec des paliers : la session porte sur un palier ouvert, choisi au lancement
@@ -931,21 +751,6 @@
       await stockage!.ecrire(`complet:${s.parcours}`, derniersComplets[s.parcours])
     }
     aller('bilan')
-  }
-
-  async function changerPrenom(p: string) {
-    prenom = p
-    await stockage!.ecrire('prenom', p)
-  }
-
-  /** Session « QR code avant la correction » : QR code montré, les résultats se voient */
-  async function marquerQrMontre(s: TSeance) {
-    s.qrMontre = true
-    const enCours = await lireSeance(stockage!, s.parcours)
-    if (enCours?.debut === s.debut) await ecrireSeance(stockage!, { ...enCours, qrMontre: true })
-    const h = (await lireHistorique(stockage!, s.parcours)).map((x) => (x.debut === s.debut ? { ...x, qrMontre: true } : x))
-    await stockage!.ecrire(`historique:${s.parcours}`, h)
-    historiques[s.parcours] = h
   }
 
   async function supprimerTentative(id: string) {
@@ -981,7 +786,6 @@
     if (classe) {
       const r = await rejoindreClasse(lien, classe)
       if (r !== 'nouveau') return r.erreur
-      await reprendrePremier()
       return null
     }
     if (classes.some((c) => c.lien === lien)) return 'Cette classe est déjà ajoutée.'
@@ -989,8 +793,7 @@
     if (c.erreur) return c.erreur
     classes = [...classes, c]
     await ecrireClasses(stockage!, classes)
-    for (const p of parcoursDuDossier(c)) await chargerParcours(p)
-    await reprendrePremier()
+    for (const p of c.parcours) await chargerParcours(p)
     return null
   }
 
@@ -1003,11 +806,11 @@
       return i < 0 ? c : recues[i]
     })
     await ecrireClasses(stockage!, classes)
-    for (const c of classes) for (const p of parcoursDuDossier(c)) await chargerParcours(p)
+    for (const c of classes) for (const p of c.parcours) await chargerParcours(p)
   }
 
-  // QR code de l'enseignant : son dossier, avec la classe déjà choisie ; sans
-  // classe (tout le dossier), l'élève garde la sienne ou la choisit ensuite
+  // Lien ou QR code de classe : le dossier de l'enseignant, avec la classe déjà
+  // choisie ; sans classe (tout le dossier), l'élève garde la sienne ou la choisit ensuite
   async function rejoindreClasse(lien: string, nom: string): Promise<'nouveau' | { erreur: string }> {
     const deja = classes.find((c) => c.lien === lien)
     const c = await synchroniserClasse({ ...(deja ? ($state.snapshot(deja) as Classe) : { lien, nom: '', disponibles: [], parcours: [] }), ...(nom ? { nom } : {}) })
@@ -1015,8 +818,7 @@
     if (nom && !memeClasse(c.nom, nom)) return { erreur: `La classe ${nom} n’est pas encore sur le drive de l’enseignant.` }
     classes = deja ? classes.map((x) => (x.lien === lien ? c : x)) : [...classes, c]
     await ecrireClasses(stockage!, classes)
-    for (const p of parcoursDuDossier(c)) await chargerParcours(p)
-    scanSession = false
+    for (const p of c.parcours) await chargerParcours(p)
     return 'nouveau'
   }
 
@@ -1026,7 +828,7 @@
     const maj = await synchroniserClasse({ ...($state.snapshot(c) as Classe), nom, parcours: [] })
     classes = classes.map((x) => (x.lien === lien ? maj : x))
     await ecrireClasses(stockage!, classes)
-    for (const p of parcoursDuDossier(maj)) await chargerParcours(p)
+    for (const p of maj.parcours) await chargerParcours(p)
   }
 
   async function sauvegarder() {
@@ -1070,281 +872,26 @@
     await ecrireClasses(stockage!, classes)
   }
 
-  // ---------- Enseignant ----------
-
-  async function sauverBibliotheque(b: Bibliotheque) {
-    bibliotheque = b
-    await ecrireBibliotheque(stockage!, $state.snapshot(b) as Bibliotheque)
+  /** Bibliothèque d'un enseignant d'avant la 0.6 : le fichier que la page Parcours du site sait ouvrir */
+  async function exporterBibliotheque(): Promise<string> {
+    const b = await lireBibliotheque(stockage!)
+    const objectifs = (await stockage!.lire<Objectif[]>('objectifs')) ?? []
+    const nom = nomHorodate('bibliotheque-mathalea')
+    const envoi = await enregistrerFichier(nom, exporter(b, objectifs))
+    return !envoi ? 'Export annulé.' : envoi === 'partage' ? 'Bibliothèque envoyée.' : `${nom} enregistré.`
   }
-
-  function creer(p: Parcours = parcoursVide(preferences), depuis: 'creer' | 'fiche' = 'creer') {
-    creationDepuis = depuis
-    creation = { parcours: p, cle: Date.now() }
-    aller('creation')
-  }
-
-  async function sauverObjectifs(liste: Objectif[]) {
-    objectifs = liste
-    await stockage!.ecrire('objectifs', $state.snapshot(liste))
-  }
-
-  async function exporterListeObjectifs() {
-    const nom = nomHorodate('objectifs-mathalea').replace(/\.json$/, '.csv')
-    return (await enregistrerFichier(nom, objectifsEnCsv($state.snapshot(objectifs) as Objectif[]))) ? `${nom} enregistré.` : 'Export annulé.'
-  }
-
-  async function sauverPreferences(pref: Preferences) {
-    preferences = pref
-    await stockage!.ecrire('preferences-creation', pref)
-  }
-
-  // Parcours qui vient d'être enregistré : l'espace enseignant propose de le télécharger
-  let dernier: string | null = $state(null)
-
-  async function valider(p: Parcours, nouveaux: Objectif[]) {
-    // On crée pour un niveau : un parcours existant garde ses classes, un nouveau n'en a pas encore
-    const classesParcours = bibliotheque.parcours.find((pe) => pe.parcours.id === p.id)?.classes ?? []
-    const b = enregistrer($state.snapshot(bibliotheque) as Bibliotheque, [...classesParcours], p)
-    await sauverBibliotheque(b)
-    await sauverPreferences(preferencesDe(p))
-    etiquettes = memoriser($state.snapshot(etiquettes), p.etapes)
-    await stockage!.ecrire('etiquettes', $state.snapshot(etiquettes))
-    if (nouveaux.length) await sauverObjectifs(fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], nouveaux))
-    // Modification depuis la page du parcours : retour à cette page (l'état de
-    // publication y est, et la bannière propose de mettre le drive à jour)
-    if (creationDepuis === 'fiche' && p.id) return ouvrirFiche(p.id)
-    // Création : l'identifiant est attribué par enregistrer(), c'est le dernier ajouté
-    dernier = p.id || b.parcours.at(-1)!.parcours.id
-    versCreer()
-  }
-
-  async function exporterParcoursChoisis(ids: string[]) {
-    const f = exporterChoix($state.snapshot(bibliotheque) as Bibliotheque, ids)
-    if (!f) return ''
-    const envoi = await enregistrerFichier(f.nom, f.texte)
-    if (!envoi) return 'Téléchargement annulé.'
-    await sauverBibliotheque(f.bibliotheque)
-    return envoi === 'partage' ? 'Fichier envoyé.' : 'Fichier exporté.'
-  }
-
-  // Parcours importés d'un fichier (collègue) : proposés dans « Éditer un parcours existant »
-  let importes: Parcours[] = $state([])
-  // Classes de chaque parcours importé : reprises quand l'enseignant l'édite
-  let classesImportees: Record<string, string[]> = $state({})
-  async function importerFichier(texte: string): Promise<{ message: string; parcours: Parcours[] }> {
-    try {
-      const f = lireFichier(texte)
-      const recus = f.classes.flatMap((c) => c.parcours)
-      const classes = { ...classesImportees }
-      for (const c of f.classes) {
-        if (c.nom === CLASSE_SANS_NOM) continue
-        for (const p of c.parcours) classes[p.id] = [...new Set([...(classes[p.id] ?? []), c.nom])]
-      }
-      classesImportees = classes
-      await stockage!.ecrire('importes-classes', classes)
-      const vus = new Map(importes.map((p) => [p.id, p]))
-      let nouveaux = 0
-      for (const p of recus) {
-        const avant = vus.get(p.id)
-        if (!avant) nouveaux++
-        if (!avant || avant.version < p.version) vus.set(p.id, p)
-      }
-      importes = [...vus.values()]
-      await stockage!.ecrire('importes', $state.snapshot(importes))
-      return {
-        message: `${recus.length} parcours importé${recus.length > 1 ? 's' : ''}${nouveaux < recus.length ? ' (déjà présents : version la plus récente gardée)' : ''}.`,
-        parcours: recus,
-      }
-    } catch (e) {
-      return { message: (e as Error).message, parcours: [] }
-    }
-  }
-
-  /**
-   * Reprend la bibliothèque publiée (lien du dossier partagé ou fichier) :
-   * autre appareil, ou modifications faites sur la page du site. Rien n'est effacé.
-   * `parcoursSeuls` : dossier d'un collègue, ni ses classes ni son lien.
-   */
-  async function reprendreBibliotheque(source: { lien?: string; texte?: string; parcoursSeuls?: boolean }): Promise<string> {
-    try {
-      const f = source.lien ? await lireFichierDistant(source.lien) : lireFichier(source.texte ?? '')
-      if (source.parcoursSeuls) {
-        const avant = bibliotheque.parcours.length
-        await sauverBibliotheque(reprendre($state.snapshot(bibliotheque) as Bibliotheque, f, { classes: false }))
-        const n = bibliotheque.parcours.length - avant
-        return `${n} parcours repris.`
-      }
-      let b = reprendre($state.snapshot(bibliotheque) as Bibliotheque, f)
-      if (source.lien && !b.lien) b = definirLien(b, source.lien)
-      const liste = fusionnerObjectifs($state.snapshot(objectifs) as Objectif[], f.bibliotheque?.objectifs ?? [])
-      // Rien de plus ici que dans le fichier complet repris : l'app est à jour avec lui
-      const duFichier = empreinte(reprendre({ classes: [], parcours: [] }, f), f.bibliotheque?.objectifs ?? [])
-      // Lu sur le drive : il y est déjà, rien à déposer
-      if (f.banque && duFichier === empreinte(b, liste))
-        b = { ...b, empreinte: duFichier, publieLe: f.exporteLe, ...(source.lien ? { verifieLe: new Date().toISOString() } : {}) }
-      await sauverBibliotheque(b)
-      if (f.bibliotheque?.objectifs?.length) await sauverObjectifs(liste)
-      const ids = new Set([...f.classes.flatMap((c) => c.parcours), ...(f.bibliotheque?.parcours ?? [])].map((p) => p.id))
-      const n = f.classes.length
-      return `${ids.size} parcours repris${n ? `, ${n} classe${n > 1 ? 's' : ''}` : ''}.`
-    } catch (e) {
-      return (e as Error).message
-    }
-  }
-
-  // ---------- Démonstration (Réglages, enseignant) ----------
-  // Exception voulue à « aucun parcours dans l'app » : chargés seulement sur
-  // demande de l'enseignant, et retirés d'un geste
-  const demonstration = $derived(classes.some((c) => c.lien === LIEN_DEMONSTRATION))
-
-  async function chargerDemonstration(): Promise<string> {
-    try {
-      const f = lireFichier(await (await fetch('/demo/parcours-demonstration.json')).text())
-      const c = f.classes[0]
-      classes = [...classes.filter((x) => x.lien !== LIEN_DEMONSTRATION), { lien: LIEN_DEMONSTRATION, nom: c.nom, disponibles: [c.nom], parcours: c.parcours, fichier: f.classes }]
-      await ecrireClasses(stockage!, $state.snapshot(classes) as Classe[])
-      for (const p of c.parcours) await chargerParcours(p)
-      const avant = $state.snapshot(bibliotheque) as Bibliotheque
-      const objectifsAvant = $state.snapshot(objectifs) as Objectif[]
-      let liste = objectifsAvant
-      for (const p of c.parcours) liste = completerListe(liste, p.etapes.flatMap((e) => e.objectifs ?? []), p.niveau, p.theme)
-      // Parcours d'essai : ils ne rendent pas le drive « différent »
-      await sauverBibliotheque(sansEcartDrive(avant, objectifsAvant, reprendre(avant, f), liste))
-      await sauverObjectifs(liste)
-      return `${c.parcours.length} parcours chargés : la classe « ${c.nom} » (Vue élève) et votre bibliothèque.`
-    } catch (e) {
-      return `Chargement impossible : ${(e as Error).message}`
-    }
-  }
-
-  async function retirerDemonstration(): Promise<string> {
-    const c = classes.find((x) => x.lien === LIEN_DEMONSTRATION)
-    if (!c) return ''
-    const ids = new Set(c.parcours.map((p) => p.id))
-    classes = classes.filter((x) => x.lien !== LIEN_DEMONSTRATION)
-    await ecrireClasses(stockage!, $state.snapshot(classes) as Classe[])
-    const b = $state.snapshot(bibliotheque) as Bibliotheque
-    const o = $state.snapshot(objectifs) as Objectif[]
-    await sauverBibliotheque(sansEcartDrive(b, o, { ...b, classes: b.classes.filter((x) => x.nom !== c.nom), parcours: b.parcours.filter((pe) => !ids.has(pe.parcours.id)) }, o))
-    return 'Parcours de démonstration retirés. Vos résultats d’essai restent dans le Suivi.'
-  }
-
-  // L'aperçu revient à l'éditeur, ou à la page du parcours (« Essayer »)
-  let apercuDepuis: Vue = 'creation'
-  function voirApercu(p: Parcours, depuis: Vue = 'creation') {
-    apercuDepuis = depuis
-    apercu = nouvelleSeance({ ...p, id: p.id || 'apercu' }, moteur!.VERSION_MOTEUR)
-    aller('apercu')
-  }
-
-  /** Le dossier partagé contient-il le dernier fichier publié ? */
-  async function verifierDossier(): Promise<string> {
-    if (!bibliotheque.lien) return ''
-    try {
-      const dossier = await lireFichierDistant(bibliotheque.lien)
-      if (!publicationPresente(bibliotheque, dossier)) {
-        return 'Le fichier n’est pas encore sur le drive.'
-      }
-      // La bannière « déposez-le sur le drive » disparaît : rien d'autre à dire
-      await sauverBibliotheque({ ...($state.snapshot(bibliotheque) as Bibliotheque), verifieLe: new Date().toISOString() })
-      return ''
-    } catch (e) {
-      return (e as Error).message
-    }
-  }
-
-  // Rappel sous la barre de chaque écran (hors séance) : l'app a des modifications que le fichier complet n'a pas
-  // puis, une fois exporté, tant que le drive n'a pas ce fichier (relu au retour dans l'app)
-  // Sans dossier partagé : rappel de le configurer (champ de la mise en route, onglet Créer)
-  rappelExport.exporter = () => exporterClasse()
-  rappelExport.configurer = () => {
-    rappelExport.demandeLien = true
-    versCreer()
-    setTimeout(() => document.getElementById('lien-dossier')?.focus(), 400)
-  }
-  $effect(() => {
-    rappelExport.etat =
-      profil !== 'enseignant' || ['seance', 'test', 'bilan', 'relecture'].includes(vue) || !bibliotheque.parcours.length
-        ? null
-        : // Sans drive, « Version différente de celle du drive » n'aurait pas de sens
-          !bibliotheque.lien
-          ? 'configurer'
-          : !aJour(bibliotheque, objectifs)
-            ? 'differente'
-            : bibliotheque.publieLe && !bibliotheque.verifieLe
-              ? 'deposer'
-              : null
-  })
-
-  async function exporterClasse() {
-    const { texte, bibliotheque: b } = exporter($state.snapshot(bibliotheque) as Bibliotheque, $state.snapshot(objectifs) as Objectif[])
-    const nom = nomHorodate('parcours-mathalea')
-    const envoi = await enregistrerFichier(nom, texte)
-    if (!envoi) return 'Export annulé.'
-    await sauverBibliotheque(b)
-    return envoi === 'partage' ? 'Déposez le fichier sur le drive.' : 'Fichier exporté : déposez-le sur le drive.'
-  }
-
 </script>
 
 <svelte:head>
   <title>MathALÉA</title>
 </svelte:head>
 
-{#snippet espace(section: 'parcours' | 'classes')}
-      <EspaceEnseignant
-        {section}
-        sessions={releves}
-        onsession={ouvrirSession}
-        onclasses={() => {
-          onglet = 'classes'
-          scrollTo(0, 0)
-        }}
-        onvueEleve={() => {
-          vueEleve = true
-          onglet = 'mes'
-          aller('accueil')
-        }}
-        {bibliotheque}
-        {dossiersSuivis}
-        modeles={modeles}
-        {objectifs}
-        {pays}
-        onouvrir={(pe) => ouvrirFiche(pe.parcours.id)}
-        oncreer={() => creer()}
-        {dernier}
-        onfermerDernier={() => (dernier = null)}
-        onexporterChoix={exporterParcoursChoisis}
-        onimporter={importerFichier}
-        onreprendre={reprendreBibliotheque}
-        onverifier={verifierDossier}
-        ondeplacer={(id, classe, sens) => sauverBibliotheque(deplacer($state.snapshot(bibliotheque) as Bibliotheque, id, classe, sens))}
-        onediter={async (p) => {
-          await sauverBibliotheque(adopter($state.snapshot(bibliotheque) as Bibliotheque, p, classesDuModele(p.id)))
-          const pe = bibliotheque.parcours.find((x) => x.parcours.id === p.id)!
-          creer(pe.parcours)
-        }}
-        onparcoursDeClasse={(classe, ids) => sauverBibliotheque(parcoursPourClasse($state.snapshot(bibliotheque) as Bibliotheque, classe, ids))}
-        onajouterClasse={(nom) => sauverBibliotheque(ajouterClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
-        onrenommerClasse={(avant, apres) => sauverBibliotheque(renommerClasse($state.snapshot(bibliotheque) as Bibliotheque, avant, apres))}
-        onretirerClasse={(nom) => sauverBibliotheque(retirerClasseBibliotheque($state.snapshot(bibliotheque) as Bibliotheque, nom))}
-        onobjectifs={sauverObjectifs}
-        onexporterObjectifs={exporterListeObjectifs}
-        onlien={(lien) => sauverBibliotheque(definirLien($state.snapshot(bibliotheque) as Bibliotheque, lien))}
-        onexporter={exporterClasse}
-        onreglages={() => aller('reglages')}
-        {demonstration}
-        onchargerDemonstration={chargerDemonstration}
-        onretirerDemonstration={retirerDemonstration}
-      />
-{/snippet}
-
 <div class="colonne" aria-busy={travaux > 0}>
   {#if erreurMoteur}
     <p class="p-4 font-bold text-coopmaths-action" role="alert">Moteur MathALÉA indisponible : {erreurMoteur}</p>
   {/if}
 
-  {#key ecran}
+  {#key vue}
   <div class="ecran ecran-{sens}">
   {#if !moteur || !pret}
     <!-- rien tant que le moteur (et sa feuille de style) n'est pas chargé -->
@@ -1352,7 +899,8 @@
     <ChoixProfil
       onchoisir={async (pa) => {
         await changerPays(pa)
-        await changerProfil('eleve')
+        profil = 'eleve'
+        await stockage!.ecrire('profil', 'eleve')
         accueil()
       }}
       onresumer={resumerSauvegarde}
@@ -1360,7 +908,6 @@
     />
   {:else if vue === 'reglages'}
     <Reglages
-      bind:profil={() => profil!, (p) => void changerProfil(p)}
       bind:pays={() => pays, (p) => void changerPays(p)}
       {classes}
       onretour={accueil}
@@ -1368,9 +915,7 @@
       onsynchroniser={synchroniserClasses}
       onretirer={retirerClasse}
       onchoisirClasse={choisirClasse}
-      lienDrive={bibliotheque.lien}
-      {dossiersAReprendre}
-      onreprendreDossier={(lien, parcoursSeuls) => reprendreBibliotheque({ lien, parcoursSeuls })}
+      onexporterBibliotheque={bibliothequeExportable ? exporterBibliotheque : null}
       onexporterSauvegarde={sauvegarder}
       onrestaurer={restaurer}
       onresumer={resumerSauvegarde}
@@ -1381,39 +926,6 @@
       {miseAJourMoteur}
       onchercherMoteur={moteurMisAJour ? chercherMoteur : null}
     />
-  {:else if vue === 'creation' || vue === 'apercu'}
-    {#if creation}
-      <!-- Gardé monté pendant l'aperçu : la saisie n'est pas perdue -->
-      <div hidden={vue === 'apercu'}>
-        {#key creation.cle}
-          <CreationParcours
-            {bibliotheque}
-            chapitresDossiers={classesDesDossiers.flatMap((c) => c.parcours.map((p) => ({ niveau: p.niveau, theme: p.theme })))}
-            {objectifs}
-            {etiquettes}
-            parcours={creation.parcours}
-            {moteur}
-            {pays}
-            onvalider={valider}
-            onapercu={voirApercu}
-            ondupliquer={creation.parcours.id ? (p) => creer(copie(p)) : undefined}
-            onexporter={creation.parcours.id ? () => exporterParcoursChoisis([creation!.parcours.id]) : undefined}
-            onsupprimer={creation.parcours.id
-              ? async () => {
-                  await sauverBibliotheque(supprimer($state.snapshot(bibliotheque) as Bibliotheque, creation!.parcours.id))
-                  versCreer()
-                }
-              : undefined}
-            onretour={retourEditeur}
-          />
-        {/key}
-      </div>
-    {/if}
-    {#if vue === 'apercu' && apercu}
-      {#key apercu.debut}
-        <Seance parcours={apercu.contenu} bind:seance={apercu} {moteur} onsauver={() => {}} onquitter={() => aller(apercuDepuis)} onterminer={() => aller(apercuDepuis)} />
-      {/key}
-    {/if}
   {:else if vue === 'accueil'}
     <Accueil
       {sources}
@@ -1427,13 +939,6 @@
       {organisations}
       {resumes}
       {epingles}
-      enseignant={profil === 'enseignant'}
-      {vueEleve}
-      onquitterVueEleve={() => {
-        vueEleve = false
-        onglet = 'creer'
-        scrollTo(0, 0)
-      }}
       bind:onglet
       onouvrir={ouvrir}
       oncontinuer={commencer}
@@ -1448,11 +953,10 @@
       onepingler={basculerEpingle}
       {caches}
       oncacher={basculerCache}
-      dejaAjoute={(p) =>
-        profil === 'enseignant' && !vueEleve ? bibliotheque.parcours.some((pe) => pe.parcours.id === p.id) : dansSources(p.id) || ajoutes.some((a) => a.id === p.id)}
-      onajouterPlusieurs={(liste) => (profil === 'enseignant' && !vueEleve ? adopterPlusieurs(liste) : ajouterPlusieurs(liste))}
+      dejaAjoute={(p) => dansSources(p.id) || ajoutes.some((a) => a.id === p.id)}
+      onajouterPlusieurs={ajouterPlusieurs}
       retirable={(p) => !dansSources(p.id) && ajoutes.some((a) => a.id === p.id)}
-      onretirerPlusieurs={profil === 'enseignant' && !vueEleve ? undefined : retirerPlusieurs}
+      onretirerPlusieurs={retirerPlusieurs}
       {sansLien}
       onsansLien={async (v) => {
         sansLien = v
@@ -1488,24 +992,6 @@
           bind:recherche={rechercheFiches}
         />
       {/snippet}
-      {#snippet espaceEnseignant()}
-        {@render espace('parcours')}
-      {/snippet}
-      {#snippet classesEnseignant()}
-        {@render espace('classes')}
-      {/snippet}
-      {#snippet enClasse()}
-        <Releve
-          {releves}
-          parcours={parcoursSession}
-          classes={nomsClasses}
-          {classesDe}
-          onsauver={sauverReleves}
-          onouvrir={ouvrirSession}
-          onlancer={(p, code, etapes, classe) => void lancerSession(p, code, etapes, classe)}
-          onreglages={() => aller('reglages')}
-        />
-      {/snippet}
     </Accueil>
   {:else if vue === 'parcours' && actif}
     <DetailParcours
@@ -1528,11 +1014,16 @@
       onameliorer={ameliorer}
       onsession={session}
       onsupprimer={() => supprimerTentative(actif!.id)}
-      onsessionClasse={profil === 'enseignant' ? (code, etapes, classe) => void lancerSession(actif!, code, etapes, classe) : undefined}
       onfiche={(f) => ouvrirCours(f)}
-      ondonner={profil === 'enseignant' && !vueEleve && catalogue?.some((c) => c.id === actif!.id) ? () => void donnerAuxClasses(actif!) : undefined}
-      classesEnseignant={nomsClasses}
+      lienSession={lienDuParcours(actif.id)}
       versionMoteur={moteur?.VERSION_MOTEUR}
+      source={sourceDuParcours(actif.id)}
+      oncacher={dansSources(actif.id) && !caches.includes(actif.id)
+        ? () => {
+            void basculerCache(actif!)
+            aller('accueil')
+          }
+        : undefined}
     />
   {:else if vue === 'revisions'}
     <EcranRevisions {revisions} enCours={revisionEnCours} onlancer={lancerRevision} onchapitres={choisirChapitres} ontaille={choisirTaille} onretour={accueil} />
@@ -1545,37 +1036,8 @@
       onreprendre={reprendreTest}
       onretour={accueil}
     />
-  {:else if vue === 'session' && releveOuvert}
-    <SessionClasse
-      releve={releveOuvert}
-      {releves}
-      {moteur}
-      niveau={bibliotheque.parcours.find((pe) => pe.parcours.id === releveOuvert.parcours)?.parcours.niveau ?? ''}
-      onsauver={sauverReleves}
-      onretour={retourSession}
-    />
-  {:else if vue === 'fiche' && ficheOuverte}
-    {@const pe = ficheOuverte}
-    <FicheParcours
-      {pe}
-      classes={nomsClasses}
-      drive={!!bibliotheque.lien}
-      sessions={releves.filter((r) => r.parcours === pe.parcours.id).sort((a, b) => b.le.localeCompare(a.le))}
-      onretour={versCreer}
-      onmodifier={() => creer(pe.parcours, 'fiche')}
-      onessayer={() => voirApercu(pe.parcours, 'fiche')}
-      onlancer={(code, etapes, classe) => void lancerSession(pe.parcours, code, etapes, classe)}
-      onclasses={(c) => sauverBibliotheque(attribuer($state.snapshot(bibliotheque) as Bibliotheque, pe.parcours.id, c))}
-      onexporter={() => exporterParcoursChoisis([pe.parcours.id])}
-      ondupliquer={() => creer(copie(pe.parcours))}
-      onsupprimer={async () => {
-        await sauverBibliotheque(supprimer($state.snapshot(bibliotheque) as Bibliotheque, pe.parcours.id))
-        versCreer()
-      }}
-      onsession={ouvrirSession}
-    />
   {:else if vue === 'relecture' && relue}
-    <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} onqrmontre={() => marquerQrMontre(relue!)} {prenom} onprenom={changerPrenom} />
+    <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} />
   {:else if vue === 'seance' && seance}
     {#key seance.debut}
       <Seance
@@ -1583,7 +1045,7 @@
         bind:seance
         {moteur}
         onsauver={sauverSeance}
-        bilanDirect={estTest(seance.parcours) || (modeQr(seance.code) === 'avant' && !seance.qrMontre)}
+        bilanDirect={estTest(seance.parcours)}
         onquitter={quitterVersAccueil}
         onterminer={terminer}
         onsupprimer={() => supprimerTentative(seance!.parcours)}
@@ -1606,24 +1068,21 @@
       revision={estRevision(seance.parcours) ? (issuesRevision ?? {}) : null}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
       onfiche={(f) => ouvrirCours(f)}
-      onqrmontre={() => marquerQrMontre(seance!)}
-      {prenom}
-      onprenom={changerPrenom}
     />
   {/if}
   </div>
   {/key}
   {#if scanSession}
-    <Scanner session nb={0} onlu={lireInvitation} onfermer={() => (scanSession = false)} />
+    <Scanner onlu={lireInvitation} onfermer={() => (scanSession = false)} />
   {/if}
   {#if invitationAncienne}
-    {@const inv = invitationAncienne}
+    {@const { inv, p } = invitationAncienne}
     <Feuille onfermer={() => (invitationAncienne = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Mets l’application à jour</p>
-      <p class="text-sm">Ton application a des exercices plus anciens que ceux de ton enseignant : certaines questions seront différentes.</p>
+      <p class="text-sm">Ton application a des exercices plus anciens que ceux de la personne qui a créé la session : certaines questions seront différentes.</p>
       <div class="flex flex-row gap-3">
         <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (invitationAncienne = null)}>Annuler</button>
-        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => rejoindreSession(inv)}>Continuer quand même</button>
+        <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => rejoindreSession(inv, p)}>Continuer quand même</button>
       </div>
     </Feuille>
   {/if}
