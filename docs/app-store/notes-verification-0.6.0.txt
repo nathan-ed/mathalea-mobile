@@ -1,0 +1,31 @@
+1. SCREEN RECORDING
+Recorded on a physical iPhone running iOS [VERSION], build 0.6.0: [LINK]. It starts at app launch and shows the typical student flow: choosing a curriculum, the Explorer, answering exercises, adding a class with its link and with a QR code (camera), a shared session, and the reporting and blocking of a path (user-generated content, see below). No account, login or paid content exists.
+
+2. PURPOSE AND AUDIENCE
+MathALÉA is a free, open-source maths practice app by CoopMaths, a non-profit association of maths teachers in France and French-speaking Switzerland. Audience: secondary school students (about 11 to 18). Problem solved: the MathALÉA website generates exercises but keeps no progress. The app organises exercises into paths (levels and belts), corrects each answer immediately, keeps each student's progress on the device (results per learning objective, spaced revision) and works offline once a path has been received. Since 0.6 the app is for students only: teachers prepare paths on the MathALÉA website. Interface in French.
+
+3. HOW TO TEST (no credentials needed)
+a. Launch the app, choose "France".
+b. Tap "Je n'ai pas de lien" (I have no link). Explorer tab: paths of the MathALÉA team by grade and chapter (first opening needs internet). Open "Additionner et soustraire des relatifs" (5e), tap "Commencer", answer with the maths keyboard: each answer is corrected and progress is saved. "Teste ton niveau" gives a 15-question test.
+c. Class of a teacher (sample file): on the home screen ("Mes parcours"), paste this link in "Lien de partage donné par ton enseignant", then "Ajouter le dossier":
+https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json
+A class "Démonstration" with four paths appears. The QR code icon at the top of the home screen does the same by scanning a QR code of such a link.
+d. Shared session: on a path page, "Autres actions" > "Session partagée" shows a code and its QR code; another device scans it (QR code icon) and gets the same questions.
+e. Reporting and blocking (Guideline 1.2): on any path page, "Autres actions" > "Signaler un problème" opens an email to contact@coopmaths.fr that already contains the path and the link of the folder it comes from (bug, error or inappropriate content). "Cacher ce parcours" hides it at once. Settings ("Réglages" > "Dossiers partagés"): removing a folder blocks everything from that teacher.
+
+4. EXTERNAL SERVICES
+No authentication, payment, analytics, advertising or AI service. No server of ours receives user data.
+- Infomaniak kDrive (public folder of CoopMaths): read-only download of the Explorer paths (JSON).
+- Teachers' shared folder links (kDrive, Dropbox, Google Drive, Nextcloud, or any https file): read-only download of the teacher's paths (JSON) when a student adds the class link.
+- mathalea.fr and forge.apps.education.fr: HTTP date header read to check the device clock for paths that open on a date. Nothing is sent.
+- Mail app of the device, only when the student taps "Écrire le signalement".
+Exercises come from the MathALÉA engine bundled in the app; no executable code is downloaded. Camera: only to read QR codes, images stay on the device.
+
+5. REGIONS
+The app works the same in all regions. The only difference is the curriculum chosen at first launch (France: 6e to Terminale; Switzerland: 9e to 4e Collège), which selects grade names and Explorer paths. Content in French.
+
+6. REGULATED INDUSTRY / THIRD-PARTY MATERIAL
+Not applicable: not a regulated industry. Exercises and Explorer paths are CoopMaths' own content (MathALÉA, AGPL licence). Teachers' paths only reference MathALÉA exercises. No personal data collected (privacy label: Data Not Collected).
+
+Privacy policy: https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html
+Contact: contact@coopmaths.fr

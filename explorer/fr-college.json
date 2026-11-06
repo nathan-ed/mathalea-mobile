@@ -15,7 +15,7 @@
             "Nathan Scheinmann"
           ],
           "descriptionEleves": "Trois ceintures : additionner, soustraire, puis enchaîner les deux. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Trois ceintures de quatre questions (blanche, jaune, orange) : 5R20, 5R21, 5R22. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.",
+          "descriptionEnseignant": "Trois ceintures de quatre questions (blanche, jaune, orange) : 5N2G, 5N2I, 5N2L. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.",
           "niveau": "5e",
           "theme": "Nombres et calculs",
           "difficulte": 1,
@@ -26,19 +26,19 @@
           "etapes": [
             {
               "uuid": "cbc26",
-              "id": "5R20",
+              "id": "5N2G",
               "titre": "Additionner deux relatifs",
               "nbQuestions": 4
             },
             {
               "uuid": "b6982",
-              "id": "5R21",
+              "id": "5N2I",
               "titre": "Soustraire deux relatifs",
               "nbQuestions": 4
             },
             {
               "uuid": "f6ea7",
-              "id": "5R22",
+              "id": "5N2L",
               "titre": "Enchaîner additions et soustractions",
               "nbQuestions": 4
             }
@@ -161,14 +161,14 @@
         {
           "id": "fr-4e-fractions",
           "version": 1,
-          "titre": "Fractions : simplifier, additionner, multiplier",
+          "titre": "Calculer avec des fractions",
           "objectif": "Simplifier une fraction, additionner des fractions, multiplier et diviser des fractions.",
           "auteurs": [
             "Claude Opus 5.5",
             "Nathan Scheinmann"
           ],
-          "descriptionEleves": "Trois ceintures : simplifier, additionner, puis multiplier et diviser. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "Trois ceintures de quatre questions (blanche, jaune, orange) : 5N13, 4C21, 4C22. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.",
+          "descriptionEleves": "Trois ceintures : simplifier, additionner et soustraire, puis multiplier et diviser. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.",
+          "descriptionEnseignant": "Trois ceintures de quatre questions (blanche, jaune, orange) : 5N3autoE-1, 4C21, 4C22. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.",
           "niveau": "4e",
           "theme": "Nombres et calculs",
           "difficulte": 1,
@@ -179,21 +179,22 @@
           "etapes": [
             {
               "uuid": "f8f4e",
-              "id": "5N13",
+              "id": "5N3autoE-1",
               "titre": "Simplifier une fraction",
               "nbQuestions": 4
             },
             {
               "uuid": "5f429",
               "id": "4C21",
-              "titre": "Additionner des fractions",
+              "titre": "Additionner ou soustraire des fractions",
               "nbQuestions": 4
             },
             {
-              "uuid": "72ce7",
+              "uuid": "3ee4e",
               "id": "4C22",
               "titre": "Multiplier et diviser des fractions",
-              "nbQuestions": 4
+              "nbQuestions": 4,
+              "sup5": "3"
             }
           ],
           "paliers": [
@@ -234,16 +235,16 @@
               }
             },
             {
-              "titre": "Additionner des fractions",
+              "titre": "Additionner et soustraire des fractions",
               "nb": 1,
               "fiche": {
-                "titre": "Additionner des fractions",
+                "titre": "Additionner et soustraire des fractions",
                 "avant": true,
                 "blocs": [
                   {
                     "type": "retenir",
                     "titre": "À retenir",
-                    "texte": "Pour additionner deux fractions, on les écrit d’abord avec le même dénominateur. On additionne ensuite les numérateurs et on garde ce dénominateur."
+                    "texte": "Pour additionner ou soustraire deux fractions, on les écrit d’abord avec le même dénominateur. On additionne (ou on soustrait) ensuite les numérateurs et on garde ce dénominateur."
                   },
                   {
                     "type": "exemple",
@@ -280,7 +281,7 @@
                   {
                     "type": "retenir",
                     "titre": "À retenir",
-                    "texte": "Pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux. Diviser par une fraction, c’est multiplier par son inverse."
+                    "texte": "Pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux. Diviser par une fraction, c’est multiplier par son inverse. Une division peut aussi s’écrire avec une grande barre de fraction : $\\dfrac{\\frac{2}{3}}{5}=\\dfrac{2}{3}\\div5=\\dfrac{2}{3}\\times\\dfrac{1}{5}$."
                   },
                   {
                     "type": "exemple",

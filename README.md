@@ -1,7 +1,9 @@
 # MathALÉA mobile
 
-Application de parcours MathALÉA pour élèves et enseignants : Android, iOS,
-Linux, macOS, Windows. Les exercices sont générés, affichés et corrigés par le
+Application de parcours MathALÉA pour les élèves : Android, iOS, Linux,
+macOS, Windows. Les enseignants préparent les parcours sur le site MathALÉA
+(page « Parcours pour l'application ») ; le mode enseignant de l'application
+(jusqu'à la 0.5.1) est gardé sur la branche `mode-enseignant`. Les exercices sont générés, affichés et corrigés par le
 moteur de MathALÉA, embarqué dans l'application : tout fonctionne hors
 connexion. Réponses et scores restent sur l'appareil ; l'application ne
 connaît aucun compte ni mot de passe.
@@ -12,7 +14,10 @@ connaît aucun compte ni mot de passe.
 - À reporter sur la page `?v=parcours` du site (fiches de cours) : [docs/a-reporter-site-parcours.md](docs/a-reporter-site-parcours.md)
 - Installateurs : [releases/](releases/)
 
-Dossiers de démonstration (sept parcours) à coller dans l'application :
+Dossier de démonstration (quatre parcours, `static/demo`) à coller dans
+l'application :
+https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json.
+Anciens dossiers de démonstration (sept parcours) :
 [kDrive](https://kdrive.infomaniak.com/app/share/120240/ba6c0e4d-4386-4789-80f5-8d824146b723),
 [Dropbox](https://www.dropbox.com/scl/fo/61ukfii2ul7wygvtn480a/AMdjmMSWDB0y5U5-HVi2oCU?rlkey=japzwkf6z8n5ocnc0ovxi4lrj&dl=0).
 
@@ -154,12 +159,12 @@ Une suite seule, toujours sur l'app construite (jamais sur `pnpm dev`) :
 
 ```bash
 NODE_ENV=development npx vite build && npx vite preview --port 1420 --strictPort   # terminal 1
-CAPTURES=/tmp/captures node e2e/eleve-puis-enseignant.mjs                          # par exemple
+CAPTURES=/tmp/captures node e2e/session-qr.mjs                                     # par exemple
 PARCOURS=<id> node e2e/parcours-az.mjs explorer/<fichier>.json                     # un parcours de A à Z
 FORMATS=1 FORMAT=dnd node e2e/parcours-az.mjs e2e/formats-reponse.json             # un format de réponse
 ```
 
-Test de bout en bout avec un dossier partagé local (trois appareils simulés) :
+Test de bout en bout avec un dossier partagé local (trois appareils d'élèves simulés) :
 
 ```bash
 cd ../parcours-spikes/spike-sync && pnpm run server /tmp/drive # terminal 2 : dossier partagé local
@@ -169,7 +174,7 @@ DOSSIER=/tmp/drive pnpm e2e
 
 Écrire une nouvelle suite : règles dans `AGENTS.md` (« Suites e2e ») et dans
 le skill `mathalea-mobile` (« Écrire une suite e2e ») ; modèle
-`e2e/eleve-puis-enseignant.mjs`.
+`e2e/session-qr.mjs` (aides de `e2e/camera-qr.mjs`).
 
 ## Clés et secrets
 

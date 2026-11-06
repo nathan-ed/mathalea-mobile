@@ -2,13 +2,13 @@
 
 [Retour aux guides](index.md)
 
-Toutes les fonctions de MathALÉA, l'application, côté élève, côté enseignant et en classe. Pour démarrer vite : [Prise en main](prise-en-main.md). Les guides illustrés pas à pas sont indiqués au fil des sections.
+Toutes les fonctions de MathALÉA, l'application des élèves, et ce que prépare l'enseignant sur le site. Pour démarrer vite : [Prise en main](prise-en-main.md). Les guides illustrés pas à pas sont indiqués au fil des sections.
 
 ## Avant de commencer
 
 - **Installer** : [Android, ordinateur](installer.md), [iPhone et iPad en test](iphone.md).
-- **Découvrir** : [en cinq minutes, avec les parcours de démonstration](decouvrir.md).
-- **Le principe** : l'enseignant prépare des parcours d'exercices MathALÉA et les dépose, en un fichier, dans un dossier de son drive partagé par lien. Les élèves ajoutent ce lien une fois ; leur application récupère ensuite chaque nouvelle publication. Ni compte, ni mot de passe, ni serveur : les réponses et les résultats des élèves restent sur leur appareil.
+- **Découvrir** : [en cinq minutes, avec le dossier de démonstration](decouvrir.md).
+- **Le principe** : l'enseignant prépare des parcours d'exercices MathALÉA sur le site MathALÉA et les dépose, en un fichier, dans un dossier de son drive partagé par lien. Les élèves ajoutent ce lien une fois ; leur application récupère ensuite chaque nouvelle publication. Ni compte, ni mot de passe, ni serveur : les réponses et les résultats des élèves restent sur leur appareil.
 - **Hors connexion** : une fois les parcours reçus, tout fonctionne sans réseau, exercices et corrections compris.
 - **France ou Suisse** : au premier lancement, choisissez le programme. En Suisse, niveaux 9e à 4e Collège, référentiel suisse de MathALÉA et notations suisses.
 
@@ -22,7 +22,7 @@ Illustré pas à pas : [Côté élève](eleves.md).
 - **Ses parcours**, rangés par chapitre, avec ceux qu'il a ajoutés depuis l'Explorer (boussole). Il peut replier et réordonner les chapitres. L'épingle d'une tuile met le parcours en haut de l'accueil ; l'œil le cache (« Parcours cachés », en bas, le remet ; ses ceintures sont gardées). L'imprimante est dans la barre du haut d'un parcours.
 - **En cours** : un parcours commencé se reprend exactement là où il en était, même après avoir fermé l'application.
 - **Rechercher** : par titre, chapitre, niveau ou exercice.
-- **Le QR code de session**, en haut : l'élève vise le QR code projeté par l'enseignant et arrive directement dans la session.
+- **Le scanner**, en haut : l'élève vise le QR code d'une session (il arrive directement dans la session) ou celui de sa classe (le dossier est ajouté, sa classe choisie).
 
 ### Un parcours
 
@@ -70,122 +70,53 @@ Détails : [Révisions](revisions.md).
 
 ### Explorer et Teste ton niveau
 
-- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. L'enseignant le donne à ses classes avec « Donner à des classes ». Sur la page d'un degré, le « + » d'un parcours le met à l'accueil de l'élève (ou dans la bibliothèque de l'enseignant), la coche l'en retire ; « Tout ajouter » prend le reste du degré. Ces parcours sont lus sur un dossier kDrive de CoopMaths, celui du programme choisi : la première ouverture demande une connexion, l'app garde ensuite sa copie.
+- **Explorer** : des parcours proposés par l'équipe MathALÉA pour le programme choisi (France ou Suisse), par degré, les parcours d'un degré rangés sous le titre de leur chapitre. Un parcours commencé s'ajoute à Mes parcours. Sur la page d'un degré, le « + » d'un parcours le met à l'accueil, la coche l'en retire ; « Tout ajouter » prend le reste du degré. Ces parcours sont lus sur un dossier kDrive de CoopMaths, celui du programme choisi : la première ouverture demande une connexion, l'app garde ensuite sa copie.
 - **Teste ton niveau** (programme France seulement ; absent en Suisse) : 15 questions de tous les domaines, du CM1 à la Terminale, corrigées à la fin. 80 % donnent la ceinture du niveau (CM1 blanche, CM2 jaune, 6e orange, 5e verte, 4e bleue, 3e marron, 2de noire, puis les dan). Chaque essai tire de nouvelles questions.
 
-## Côté enseignant
+## Côté enseignant : préparer sur le site
 
-Activez **Je suis enseignant** en bas des Réglages. L'application s'ouvre alors sur vos quatre onglets :
+L'application est celle des élèves. L'enseignant prépare ses parcours sur le site MathALÉA, page « Parcours pour l'application » : [Créer sur le site](creer-sur-le-site.md).
 
-- **Parcours** : votre bibliothèque et vos objectifs ;
-- **Classes** : ce que reçoit chaque classe, et ses sessions ;
-- **En classe** : vos sessions ;
-- **Explorer** : les parcours de l'équipe MathALÉA, et Teste ton niveau en France.
-
-Pour voir l'application comme vos élèves (Mes parcours, Suivi), touchez « Vue élève » dans l'onglet Parcours ; « Quitter », dans le bandeau, ou le bouton retour vous ramène. Les élèves ne voient jamais vos onglets.
-
-### Créer un parcours
-
-Illustré pas à pas : [Créer un parcours](creer.md).
-
-« Créer un parcours » ouvre un seul écran, à remplir dans l'ordre que vous voulez. Niveau, type, pages et correction reprennent vos derniers choix.
-
-- **Niveau et chapitre** : vos chapitres déjà utilisés viennent en premier.
-- **Titre et but** : une phrase que les élèves voient.
-- **Type** : Découverte, Entraînement ou Approfondissement.
-- **Exercices** : « Ajouter des exercices » ouvre tous les exercices de MathALÉA, rangés exactement comme sur le site (niveaux, chapitres, sous-chapitres), avec la recherche, les réglages de chaque exercice (les mêmes que sur le site) et un aperçu. « Importer depuis un lien MathALÉA » reprend une feuille préparée sur le site.
-- **Un exercice** : touchez-le pour ses réglages, le nombre de questions, le titre vu par les élèves (ou le masquer), ses objectifs. Les flèches changent l'ordre.
-- **Pages** : une question par page, un exercice par page, ou tout sur une page.
-- **Correction** : après chaque question, à la fin de chaque page, ou à la fin du parcours (ou du palier).
-- **Afficher les exercices** : numéro et titre de chaque exercice ; sinon, les questions s'enchaînent, numérotées 1, 2, 3…
-- **Mélanger les questions** : un ordre propre à chaque élève (le même pour toute une session).
-- **Aperçu élève** : essayer le parcours avant de le valider.
-- Tant qu'il manque une information, la ligne « À compléter » dit laquelle.
-
-« Autres actions », en bas d'un parcours enregistré : Dupliquer, Exporter ce parcours seul, Supprimer.
-
-Un parcours peut aussi se préparer sur ordinateur, sur le site MathALÉA : [Créer sur le site](creer-sur-le-site.md).
-
-### Paliers, ceintures et pauses
-
-- **Paliers** : le parcours se découpe en étapes, une par objectif au départ ; vous ajustez.
-- **Ceintures** : la même chose avec des ceintures de couleur. La première ceinture se choisit (une 5e peut commencer à l'orange).
-- **Pour accéder à un palier** : réussir le précédent au seuil choisi (50 à 100 %, 80 % par défaut), ou « Ouvert à tout moment ».
-- **À partir d'une date** : le palier reste fermé avant ce jour, même seuil atteint, et s'ouvre ce jour-là à 8 h, à l'heure de l'enseignant. L'app de l'élève vérifie l'heure sur internet (changer l'heure du téléphone n'ouvre rien).
-- **Ressource pour revoir** et **pause après le palier** : voir côté élève.
-
-### Objectifs
-
-Chaque exercice reçoit l'objectif du programme sous lequel MathALÉA le range. Vous en retirez, en ajoutez, en créez. La vue **Objectifs** de l'onglet Parcours les liste par niveau et chapitre, avec les exercices qui les travaillent. « Importer des objectifs » accepte un tableau CSV, un texte collé ou le fichier d'un collègue ; « Exporter la liste » produit un CSV.
-
-### La page d'un parcours
-
-Dans la bibliothèque, touchez un parcours : sa page réunit tout ce qu'on fait avec lui.
-
-- Où il en est chez les élèves : « V2 publiée pour 5e A », « V3 à publier pour 5e B », ou donné à aucune classe.
-- **Lancer une session** pour la classe.
-- **Essayer** comme un élève, **Modifier** dans l'éditeur.
-- **Classes** : touchez une classe pour lui donner le parcours ou le lui retirer ; « + » en crée une.
-- Ses exercices, et ses sessions déjà lancées.
-- « Autres actions » : exporter ce parcours seul, dupliquer, supprimer.
-
-### Bibliothèque et classes
-
-- **Onglet Parcours** : votre bibliothèque, par niveau puis chapitre (vue **Bibliothèque**), et vos objectifs (vue **Objectifs**).
-- **Onglet Classes** : ce que reçoit chaque classe, dans l'ordre vu par les élèves, et les sessions de la classe. « + » ajoute une classe, « … » la renomme ou la retire.
-
-On crée pour un niveau, on donne à des classes : un même parcours sert à toutes vos 5e.
-
-### Publier
-
-- **Une fois** : un dossier sur votre drive, partagé par lien en lecture. Collez son lien dans la Mise en route de l'onglet Parcours. Ce lien ne change plus : c'est celui de vos élèves, toute l'année.
-- **Déjà un dossier dans l'application** (ajouté avant de passer enseignant, ou dans les Réglages) : le premier est votre drive. Ses classes, ses parcours et son lien sont repris d'office, il n'y a pas de Mise en route. Sans drive, la bannière dit « Drive pas encore configuré » ; **Configurer** demande le lien.
-- **À chaque changement** : une petite bannière en haut de l'écran rappelle ce qui reste à faire. « Version différente de celle du drive » : **Mettre à jour** enregistre le fichier de toute votre bibliothèque. « Fichier exporté : déposez-le sur le drive » : déposez-le dans le dossier, sans supprimer les anciens. La bannière disparaît quand l'application voit le fichier dans le dossier.
-- **Versions** : un parcours modifié après publication passe en V2, V3… Les élèves la reçoivent au prochain lancement ; leurs résultats sont gardés, une séance commencée se termine dans sa version.
+- **Un parcours** : niveau, chapitre, titre, but vu par les élèves, exercices de MathALÉA avec leurs réglages, pages et moment de la correction, mélange des questions.
+- **Paliers ou ceintures** : un seuil pour accéder au palier suivant (80 % par défaut) ou « Ouvert à tout moment », une date d'ouverture (8 h ce jour-là, l'heure étant vérifiée sur internet), une ressource pour revoir, une pause après le palier, une fiche de cours.
+- **Classes** : on crée pour un niveau et on donne à autant de classes qu'on veut.
+- **Publier** : le site télécharge un fichier ; déposez-le dans un dossier de votre drive partagé par lien. Ce lien ne change plus : c'est celui de vos élèves, toute l'année.
+- **Versions** : un parcours modifié passe en V2, V3… Les élèves la reçoivent au prochain lancement ; leurs résultats sont gardés, une séance commencée se termine dans sa version.
+- **QR code de la classe** : le lien du dossier suivi de `?classe=5A`, mis en QR code par n'importe quel générateur.
 
 | Drive | Lien à donner |
 | --- | --- |
 | kDrive, Dropbox, Nextcloud (dont le Nuage d'apps.education.fr) | lien de partage du dossier |
 | Google Drive | lien de partage du fichier (« Gérer les versions » pour le remplacer, le lien reste le même) |
 
-### Avec les collègues
-
-- **Reprendre leurs parcours** : ajoutez leur dossier (Réglages, « Dossiers partagés »), puis choisissez sur sa ligne **Seulement les parcours** (sans leurs classes) ou **Classes et parcours** (un autre dossier à vous, un autre établissement par exemple). Leurs parcours apparaissent aussi un par un dans « Éditer un parcours existant ». Ou importez un fichier qu'ils vous ont envoyé.
-- **Leur envoyer des parcours** : « Exporter des parcours », décochez ceux qui ne les concernent pas.
-- **Votre bibliothèque sur un autre appareil** : « Reprendre ma bibliothèque publiée », avec le lien de votre dossier. Rien n'est jamais effacé par une reprise.
+Une bibliothèque préparée dans l'application jusqu'à la 0.5 (mode enseignant, retiré depuis) s'exporte depuis les Réglages, « Exporter ma bibliothèque », puis se reprend sur le site.
 
 Le format des fichiers est documenté pour générer des parcours par un script ou avec un assistant : [Format des parcours](format-parcours.md).
 
-## En classe
+## En classe : sessions partagées
 
-Illustré pas à pas : [Sessions et réponses de la classe](sessions.md).
+Illustré pas à pas : [Sessions partagées](sessions.md).
 
-- **Une session** : toute la classe a exactement les mêmes questions. Onglet **En classe**, « Nouvelle session » (ou « Lancer une session » sur la page d'un parcours). Choisissez la classe (facultatif), puis « Lancer la session ».
-- **Rangées par classe** : dans En classe, vos sessions sont groupées par classe ; dans l'onglet Classes, chaque classe montre les siennes.
-- **La page de la session** affiche son QR code et son code. Projetez-la : les élèves scannent le QR code depuis leur accueil, même s'ils n'ont pas le parcours, ou tapent le code.
-- **Les réponses de la classe** (si vous l'avez demandé au lancement) : chaque élève vous montre un QR code de ses réponses, après la correction ou avant (il voit alors ses résultats une fois le QR code lu). « Lire les QR codes » : passez dans les rangs, la caméra les lit un par un. Ou importez une photo de plusieurs téléphones, ou les fichiers des élèves.
-- **Ce que vous obtenez** : la réussite moyenne, les questions à reprendre, les mauvaises réponses regroupées (« 999 : 2 élèves »), le détail par élève. L'application revérifie elle-même chaque réponse : un QR code modifié ne fausse rien.
-- **Prénoms** : facultatifs. Sans eux, « Élève 1, 2, 3… ».
-- Toutes vos sessions restent dans l'onglet En classe : préparez-les avant le cours, relevez les réponses plus tard.
+- **Une session** : tout le monde a exactement les mêmes questions. Sur la page d'un parcours, « Autres actions », « Session partagée » ; avec des paliers, on choisit le palier de la session.
+- **Le QR code de la session** s'affiche en grand, avec son code ; « Exporter l'image » pour le projeter. Les élèves le scannent depuis leur accueil, même s'ils n'ont pas encore le parcours (le lien du dossier de la classe est dans le QR code), ou tapent le code avec « Rejoindre une session ».
+- **Qui la crée** : l'enseignant au tableau, ou un élève pour travailler avec ses camarades.
 
 ## Réglages
 
 - **Programme** : France ou Suisse.
 - **Apparence** : clair, sombre, ou comme le téléphone.
-- **Dossiers partagés** : ajouter, retirer, actualiser. Enseignant : chaque ligne montre toutes les classes du dossier ; « Votre drive » pour le vôtre, « Classes et parcours » ou « Seulement les parcours » pour reprendre les autres.
+- **Dossiers partagés** : ajouter, retirer, actualiser.
 - **Sauvegarde** : « Exporter une sauvegarde » enregistre tout (réglages, dossiers, parcours, suivi) dans un fichier. « Restaurer une sauvegarde » montre d'abord ce qu'elle contient ; « Annuler la dernière restauration » revient en arrière. Pratique pour changer de téléphone.
-- **Enseignant** : « Je suis enseignant ».
-- **À propos** : version de l'application et du moteur MathALÉA, guide d'utilisation, politique de confidentialité, licence.
-
-Les parcours de démonstration se chargent dans l'onglet Parcours (bibliothèque, « Parcours de démonstration ») ; un nouveau parcours reprend les choix du dernier parcours enregistré.
+- **Bibliothèque d'enseignant** (seulement sur un appareil qui en avait une avant la 0.6) : « Exporter ma bibliothèque ».
+- **À propos** : version de l'application et du moteur MathALÉA, contact (contact@coopmaths.fr), guide d'utilisation, politique de confidentialité, licence.
 
 ## Vie privée
 
-Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil. L'application télécharge des parcours (vos dossiers partagés, l'Explorer) et les mises à jour des exercices ; elle n'envoie rien sur l'élève. Les réponses d'une session passent d'un téléphone à l'autre, par QR code. [Politique de confidentialité](../confidentialite.md).
+Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil. L'application télécharge des parcours (les dossiers partagés, l'Explorer) ; elle n'envoie rien sur l'élève. Les QR codes de session et de classe ne contiennent aucune donnée d'élève. [Politique de confidentialité](../confidentialite.md).
 
 ## Questions fréquentes
 
-**Un élève n'a pas reçu le nouveau parcours.** Vérifiez que la bannière a disparu (le fichier est bien dans le dossier). L'application de l'élève relit le dossier au lancement et au retour dans l'application : qu'il la ferme et la rouvre, connecté.
+**Un élève n'a pas reçu le nouveau parcours.** Vérifiez que le fichier est bien dans le dossier. L'application de l'élève relit le dossier au lancement et au retour dans l'application : qu'il la ferme et la rouvre, connecté.
 
 **Un élève change de téléphone.** Réglages, « Exporter une sauvegarde » sur l'ancien, « Restaurer une sauvegarde » sur le nouveau.
 
@@ -195,4 +126,6 @@ Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les rés
 
 **L'application coûte-t-elle quelque chose ?** Non. C'est un logiciel libre (licence AGPL), fait par des enseignants de l'association CoopMaths.
 
-**Un problème, une idée ?** Écrivez à contact@coopmaths.fr, ou voir [Tester avec des collègues](tester.md).
+**Un problème dans un parcours ?** Sur sa page, « Autres actions », « Signaler un problème » : un mail à l'équipe s'ouvre, avec le parcours dedans.
+
+**Une idée ?** Écrivez à contact@coopmaths.fr, ou voir [Tester avec des collègues](tester.md).

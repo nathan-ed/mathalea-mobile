@@ -28,6 +28,13 @@ source : on modifie ici, on teste, puis on remplace le fichier sur le drive.
 
 Fichiers :
 
+- `fr-college.json` : France, premiers parcours de l'Explorer français
+  (`fr-college-gen.py`, novembre 2026), simples, pour que l'Explorer ne soit
+  pas vide : « Additionner et soustraire des relatifs » (5e, 5N2G, 5N2I, 5N2L) et
+  « Calculer avec des fractions » (4e, 5N3autoE-1, 4C21,
+  4C22). Trois ceintures chacun, un exercice de quatre questions par
+  ceinture, fiche courte (règle, exemple résolu, question). À enrichir :
+  plusieurs exercices par ceinture.
 - `ch-4e-college.json` : Suisse, 4e Collège, trois parcours à ceintures
   suivant le cours de 4M1, une fiche par ceinture, montrée d'office.
   - « Prérequis pour l'analyse » (chapitre 4mAna), entrée des deux parcours

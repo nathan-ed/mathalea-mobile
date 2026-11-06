@@ -4,7 +4,7 @@ Textes et réponses à reprendre dans la Play Console (et plus tard dans App
 Store Connect). Captures : `node e2e/fiche-play.mjs <dossier>` (pnpm dev,
 parcours de démonstration ; téléphone 1620 × 2880, tablette 7 pouces
 1440 × 2304, tablette 10 pouces 1600 × 2560 : accueil, paliers, ceintures,
-question, bibliothèque, éditeur) ; image de présentation 1024 × 500 :
+question, session partagée, QR code de la session) ; image de présentation 1024 × 500 :
 `node e2e/image-presentation.mjs docs/play-store` (en-tête de l'app agrandi,
 niveaux de la France et de la Suisse romande, deux écrans) ; icône 512 × 512 :
 `src-tauri/icons/icon.png`.
@@ -24,21 +24,16 @@ d'Explorer ; image de présentation).
 ```
 MathALÉA, par CoopMaths, propose des parcours d’exercices de mathématiques corrigés aussitôt : de la 6e à la Terminale (programmes de France) et de la 9e à la 4e du Collège (programmes de Suisse romande). Chaque exercice est généré au hasard : on peut le refaire autant de fois qu’on veut, avec de nouvelles questions.
 
-Pour les élèves
-- Les parcours de la classe arrivent du dossier partagé de l’enseignant (kDrive, Dropbox, Nextcloud…).
-- Paliers et ceintures : on avance à son rythme, avec le seuil de réussite fixé par l’enseignant, des pauses et des ressources pour revoir.
+- Explorer : des parcours proposés par l’équipe MathALÉA, rangés par niveau et par chapitre, utilisables par tous, sans enseignant.
+- Les parcours de la classe arrivent du dossier partagé de l’enseignant (kDrive, Dropbox, Nextcloud…) : il suffit de scanner le QR code de la classe ou de coller son lien.
+- Paliers et ceintures : on avance à son rythme, avec des fiches de cours, des pauses et des ressources pour revoir.
 - Correction immédiate, clavier mathématique, figures.
 - Suivi par objectif : ce qui est réussi, ce qui reste à revoir.
 - Révisions espacées : les exercices déjà faits reviennent au bon moment, mélangés, en séances courtes de 3, 6 ou 10 questions.
-- Sessions de classe : l’enseignant projette un QR code, l’élève le scanne avec la caméra, et toute la classe a les mêmes questions.
+- Sessions partagées : un code ou un QR code, et tout le groupe a les mêmes questions.
 - Fonctionne hors ligne une fois les parcours reçus.
 
-Pour les enseignants
-- Créer un parcours en quelques minutes à partir des exercices de MathALÉA, ou d’un lien du site.
-- Bibliothèque rangée par niveau et chapitre, parcours donnés aux classes.
-- Objectifs du programme posés automatiquement, liste d’objectifs importable (CSV).
-- Publication en un fichier dans un dossier partagé : aucun compte, aucune inscription.
-- Réponses de la classe relevées par QR code (l’élève le montre, l’enseignant le scanne avec la caméra), revérifiées par l’application : réussite, erreurs fréquentes, détail par élève.
+Pour les enseignants : les parcours se préparent sur le site MathALÉA (page « Parcours pour l’application ») et se publient en un fichier dans un dossier partagé. Aucun compte, aucune inscription.
 
 Respect de la vie privée
 Aucun compte, aucune publicité, aucun outil de suivi. Les réponses et les résultats des élèves restent sur leur appareil.
@@ -62,7 +57,7 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
   actualités ou éducation » ; aucune violence, sexualité, langage grossier,
   substance, jeu d'argent ; pas d'échange entre utilisateurs ; pas d'achat.
 - **Public cible** : 9 à 12 ans, 13 à 15 ans, 16 à 17 ans, 18 ans et plus
-  (élèves de 6e à la Terminale, enseignants). Moins de 13 ans : règlement
+  (élèves de 6e à la Terminale). Moins de 13 ans : règlement
   Familles de Google Play (aucune publicité, aucune donnée collectée, aucun
   SDK tiers).
 - **Sécurité des données** : aucune donnée collectée, aucune donnée partagée.
@@ -76,7 +71,7 @@ Logiciel libre (licence AGPL), développé par des enseignants de l’associatio
   données » d'Android) et donner le lien
   https://coopmaths.forge.apps.education.fr/mathalea-mobile/confidentialite.html#supprimer
   (section « Supprimer vos données » de la politique).
-  Caméra (QR codes de session scannés par l'élève, QR codes de réponses scannés par l'enseignant) : image lue sur l'appareil, rien n'est envoyé, aucune
+  Caméra (QR codes de classe et de session, scannés par l'élève) : image lue sur l'appareil, rien n'est envoyé, aucune
   déclaration. L'analyse des réponses par une IA est mise de côté (branche
   locale `analyse-ia`, avec ce qu'il faudrait alors déclarer à Google) :
   « aucune donnée collectée » reste exact.
@@ -105,15 +100,19 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
   https://coopmaths.fr. **Politique de confidentialité** : la même adresse
   que pour Google Play.
 - **Catégorie** : Éducation (principale), aucune secondaire. Pas la catégorie
-  « Pour les enfants » (Made for Kids) : l'app sert aussi aux enseignants et
-  aux lycéens, et cette catégorie impose des règles propres à Apple.
+  « Pour les enfants » (Made for Kids) : l'app sert aussi aux lycéens, et
+  cette catégorie impose des règles propres à Apple.
 - **Copyright** : 2026 CoopMaths (nom du compte Apple : COOPMATHS).
 - **Droits sur le contenu** : l'app ne contient que du contenu de CoopMaths
   (exercices MathALÉA, licence AGPL) : « Non » à la question sur le contenu
   de tiers.
 - **Classification par âge** (questionnaire d'Apple) : « Aucun » partout,
-  pas d'accès libre au Web, pas de contenu généré par les utilisateurs, pas
-  de jeux d'argent : 4+.
+  pas d'accès libre au Web, pas de jeux d'argent : 4+. Contenu généré par les
+  utilisateurs : oui, depuis la 0.6 (parcours des dossiers partagés des
+  enseignants), avec les moyens exigés par la règle 1.2 : « Signaler un
+  problème » sur chaque parcours (mail à contact@coopmaths.fr avec son
+  contenu), cacher le parcours, retirer le dossier, contact dans les Réglages.
+  Limite et piste : `docs/avenir-espace-enseignant.md`.
 - **Confidentialité de l'app** (étiquettes) : « Données non collectées ».
   Le manifeste `src-tauri/PrivacyInfo.xcprivacy` dit la même chose (aucun
   suivi, aucune donnée collectée), avec les API système déclarées.
@@ -126,8 +125,11 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
   `magick <f> -resize '1206x2622!'`, mêmes proportions) et iPad 13 pouces
   (2064 × 2752). Captures 6,9 pouces :
   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>` (pnpm
-  dev), mêmes écrans que pour Google Play. Captures du 31 octobre 2026
-  (version 0.4.10) : `docs/app-store/`.
+  dev), mêmes écrans que pour Google Play. Captures du 6 novembre 2026
+  (version 0.6.0, élève seul) : `docs/app-store/` (`iphone-6-9-*`,
+  `iphone-6-3-*` réduites à 1206 × 2622, `ipad-13-*`). Notes pour la
+  vérification et déroulé de la vidéo : `docs/app-store/notes-verification-0.6.0.txt`,
+  `docs/app-store/video-verification-0.6.0.md`.
 
 ### Informations pour la vérification d'Apple
 
@@ -135,18 +137,23 @@ Aucun compte de démonstration : l'app n'a pas de compte. Notes, en anglais
 (langue des vérificateurs) :
 
 ```
-MathALÉA is a free, open-source maths practice app made by CoopMaths, a non-profit association of maths teachers (France and French-speaking Switzerland). No account, no login, no ads, no tracking, no in-app purchase.
+MathALÉA is a free, open-source maths practice app for students, made by CoopMaths, a non-profit association of maths teachers (France and French-speaking Switzerland). No account, no login, no ads, no tracking, no in-app purchase.
 
 What the app does beyond the MathALÉA website: it stores each student's progress on the device (paths, levels and belts, results per learning objective, spaced revision) and works fully offline once a path has been received. The website only generates exercises; it keeps no progress over time.
 
+Since version 0.6 the app is for students only. Teachers prepare paths on the MathALÉA website and publish them as a file in a shared folder of their own cloud drive; students add that folder with its link or by scanning a QR code.
+
 How to test without a class:
 1. Open the app and choose a curriculum ("France" or "Suisse").
-2. Open Settings ("Réglages"), turn on "Je suis enseignant" (I am a teacher) and go back. In the "Parcours" tab, tap "Parcours de démonstration", then "Charger les parcours de démonstration" (load the demonstration paths). A class "Démonstration" appears.
-3. In the teacher space, tap "Vue élève" (student view) and open a path, for example "Relatifs en ceintures". Answer the questions with the maths keyboard: each answer is corrected immediately and the progress is saved on the device.
-4. The "Explorer" tab lists the paths proposed by the MathALÉA team for the chosen curriculum, by grade and chapter (downloaded from CoopMaths' public kDrive folder, so the first opening needs an internet connection; afterwards the copy works offline). The ⊕ button next to a path adds it to the student's home screen; "Tout ajouter" (add all) adds every path of the grade. With the "France" curriculum, "Teste ton niveau" gives a 15-question test with a report.
-5. A student without a class link taps "Je n'ai pas de lien" on the home screen and works with the Explorer paths. The "Fiches" tab gathers the lesson sheets of all the student's paths (search, bookmarks).
+2. Explorer tab: paths proposed by the MathALÉA team, by grade and chapter (downloaded from CoopMaths' public kDrive folder, so the first opening needs an internet connection; afterwards the copy works offline). Open a path, for example "Additionner et soustraire des relatifs" (5e, France), tap "Commencer" and answer with the maths keyboard: each answer is corrected immediately and the progress is saved on the device. With "France", "Teste ton niveau" gives a 15-question test.
+3. To see a teacher's class, paste this demonstration folder link in the field "Lien de partage donné par ton enseignant" on the home screen ("Mes parcours"), then tap "Ajouter le dossier":
+https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json
+A class "Démonstration" with four paths appears. The QR code icon at the top of the home screen does the same by scanning the QR code of such a link.
+4. Shared session: on a path page, "Autres actions" > "Session partagée" shows a 5-character code and its QR code. Another device scans it from its home screen (QR code icon) and gets exactly the same questions.
 
-Camera: used only to read QR codes (a student scans the code projected by the teacher to join a class session; the teacher scans the QR codes of students' answers). Images stay on the device.
+User-generated content (Guideline 1.2): paths from a teacher's folder are shown to students. Every path page has "Autres actions" > "Signaler un problème" (report a problem): it opens an email to contact@coopmaths.fr containing the path and the link of the folder it comes from, for any bug, error or inappropriate content. The same sheet lets the student hide the path ("Cacher ce parcours"); a folder can be removed in Settings ("Réglages" > "Dossiers partagés"), which blocks everything from that teacher. The contact address is also shown in Settings ("À propos").
+
+Camera: used only to read QR codes (the link of a class folder, or a shared session code). Images stay on the device and are never stored or sent.
 
 Exercises are generated by the MathALÉA engine bundled in the app; the app never downloads executable code.
 Contact: contact@coopmaths.fr

@@ -12,12 +12,12 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 
 ## Ce qu'on peut essayer
 
-1. Charger les parcours de démonstration et en faire un comme un élève ([Découvrir](decouvrir.md)).
-2. Créer un parcours de votre niveau, le donner à une classe et publier ([Créer un parcours](creer.md)).
+1. Ajouter le dossier de démonstration et faire un parcours ([Découvrir](decouvrir.md)).
+2. Créer un parcours de votre niveau sur le site MathALÉA, le donner à une classe et publier ([Créer sur le site](creer-sur-le-site.md)).
 3. Déposer le fichier dans un dossier partagé de votre drive, puis ajouter ce dossier sur un autre téléphone ou avec un élève ([Côté élève](eleves.md)).
 4. Essayer les paliers ou les ceintures : un seuil de réussite, une pause, une ressource pour revoir.
 5. Modifier le parcours, republier, et vérifier que la nouvelle version arrive chez l'élève.
-6. Lancer une session pour la classe (onglet En classe) : afficher ou exporter son QR code, le scanner depuis un autre téléphone, puis relever les réponses ([Sessions](sessions.md)).
+6. Créer une session partagée depuis la page d'un parcours, afficher son QR code et le scanner depuis un autre téléphone ([Sessions](sessions.md)).
 7. Terminer deux parcours, puis revenir le lendemain : la tuile « Révisions » propose une courte séance ([Révisions](revisions.md)).
 
 ## Nous dire ce qui ne va pas

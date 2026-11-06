@@ -19,7 +19,7 @@ function clesDuCode() {
   for (const f of sources('src')) {
     const code = readFileSync(f, 'utf8') as string
     for (const m of code.matchAll(/\.(?:ecrire|lire|effacer)(?:<[^>]*>)?\(\s*'([^']+)'/g)) cles.add(m[1])
-    for (const m of code.matchAll(/`([a-z-]+:)\$\{/g)) if (m[1] !== 'copie:' && m[1] !== 'titre:') cles.add(m[1] + 'x')
+    for (const m of code.matchAll(/`([a-z-]+:)\$\{/g)) if (!['copie:', 'titre:', 'mailto:'].includes(m[1])) cles.add(m[1] + 'x')
     const constante = /const CLE = '([^']+)'/.exec(code)
     if (constante && /\.ecrire\(CLE\b/.test(code)) cles.add(constante[1])
   }

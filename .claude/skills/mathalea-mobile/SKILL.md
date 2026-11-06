@@ -90,7 +90,7 @@ Ergonomie décidée
   « C'est là où c'est le plus pratique » : pas de panneau ni de bloc ailleurs.
   Mise en route seulement si l'app ne connaît aucun lien ; sans drive, le
   rappel dit « Drive pas encore configuré » (jamais « Version différente »).
-  Test : `node e2e/eleve-puis-enseignant.mjs`.
+  (Mode enseignant, retiré à la 0.6 : branche `mode-enseignant`.)
 - Rien de chargé (« c'est hyper chargé », « pas joli ») : un seul bouton plein
   par écran ; actions secondaires en lien (`boutonLien`) ou dans « Autres
   actions » (panneau du bas en liste avec icônes) ; confirmations et
@@ -114,7 +114,7 @@ Ergonomie décidée
 - Bouton retour (Nathan, 2026-10-20 : « on devrait toujours repasser par
   l'écran d'accueil ») : l'onglet de départ (Parcours pour l'enseignant, Mes
   parcours pour l'élève) est le seul d'où « retour » quitte l'app ; tout
-  autre onglet y ramène. Vérifier par `node e2e/en-classe.mjs`.
+  autre onglet y ramène. Vérifier par `node e2e/retour.mjs`.
 - Sessions de l'enseignant (2026-10-20) : tout au même endroit, l'onglet En
   classe ; « Lancer la session » mène directement à la page de la session
   (QR code et code affichés), jamais un détour par plusieurs onglets.
@@ -276,7 +276,8 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   fait sur papier : « Voir la correction », hors score, passées et seuils
   (`Seance.papier`), bilan « Correction vue » (choix de Nathan). Le
   référentiel a des doublons d'uuid dans un même chapitre : dédoublonner
-  toute liste à clé (`e2e/recherche.mjs` ouvre tous les chapitres).
+  toute liste à clé (l'ancienne suite `recherche.mjs`, branche
+  `mode-enseignant`, ouvrait tous les chapitres).
 - Teste ton niveau (Explorer, programme France seulement depuis la 0.4.12 :
   Nathan, 2026-11-01, « si on est en mode Suisse on voit pas ce test » ;
   `testPropose` dans `+page.svelte` ; « on prend les annales », Nathan) :
@@ -447,8 +448,8 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   L'élève le lit avec le même scanner que la session (`rejoindreClasse`) :
   dossier ajouté ou mis à jour, classe choisie ; une classe absente du
   fichier du drive est signalée et rien n'est ajouté.
-  Tests : `node e2e/session-qr.mjs`, `node e2e/en-classe.mjs`,
-  `node e2e/classe-qr.mjs` (serveur de dossier local sur 8713).
+  Tests : `node e2e/session-qr.mjs`, `node e2e/classe-qr.mjs` (fausse
+  caméra et drive simulé, aides de `e2e/camera-qr.mjs`).
   Politique de confidentialité : `static/confidentialite.html` fait foi,
   `docs/confidentialite.md` en est la copie (brouillon retiré le
   2026-11-05, déjà publié). Ne jamais modifier
@@ -474,7 +475,7 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   les services Google Play et tue l'app (`FATAL EXCEPTION:
   Chrome_InProcGpuThread`, `GooglePlayServicesMissingManifestValueException`,
   vu dans l'émulateur Android 16) ; KaTeX écrit « − » (U+2212) pour un moins. Tests :
-  `node e2e/reponses-session.mjs` (Chromium, fausse caméra qui filme les QR
+  `node e2e/session-qr.mjs` (Chromium, fausse caméra qui filme les QR
   codes) et `NAVIGATEUR=webkit` (WebKit de Playwright : bibliothèques flite
   manquantes remplacées par des bibliothèques vides dans
   `~/.cache/ms-playwright/webkit-*/minibrowser-wpe/lib`, avec
@@ -861,18 +862,14 @@ Environnement (machine de Nathan)
   MathLive n'est pas prêt (sinon résultats aléatoires).
 - Les deux scripts sortent avec le code 1 en cas d'échec. `spike-sync` se lance
   par `pnpm run server <dossier>` (`pnpm server` est une commande de pnpm).
-- `node e2e/papier.mjs` et `node e2e/recherche.mjs` (seulement l'app servie sur 1420,
-  sans le serveur de dossier qui remplace l'Explorer) : exercice papier,
-  tous les chapitres.
+- `node e2e/papier.mjs` (seulement l'app servie sur 1420, sans le serveur
+  de dossier qui remplace l'Explorer) : exercice papier.
 - `node e2e/retour.mjs` (seulement l'app servie sur 1420 et le dossier « test ») :
   bouton retour (`page.goBack()`) à chaque niveau.
-- `node e2e/captures-enseignant.mjs <dossier>` : captures enseignant en clair
-  et en sombre.
 - `node e2e/drives.mjs` : vrais kDrive et Dropbox dans le navigateur (relais).
-- `node e2e/eleve-puis-enseignant.mjs` : élève qui passe enseignant (premier
-  dossier repris d'office, au passage et au lancement), dossiers suivants
-  dans les Réglages (« Classes et parcours », « Seulement les parcours »),
-  ligne vue par l'enseignant, pas de Mise en route avec un lien connu.
+- `node e2e/signalement.mjs` : « Signaler un problème » (mailto vers
+  contact@coopmaths.fr avec le parcours), « Cacher ce parcours », contact
+  dans les Réglages.
 - Vérification complète : `bash scripts/verifier-release.sh` (environ
   30 min ; `SORTIE=<dossier>` pour les journaux et captures). Elle construit
   et sert l'app elle-même sur 1420 : arrêter son propre `vite preview`
@@ -884,7 +881,7 @@ Environnement (machine de Nathan)
   `CORRECTION=parcours` pour la correction à la fin), plusieurs fois, puis
   les groupes `az` ensemble.
 - Écrire une suite e2e (leçons de la vérification du 1er novembre 2026 ;
-  modèle `e2e/eleve-puis-enseignant.mjs`) :
+  modèle `e2e/session-qr.mjs`, aides de `e2e/camera-qr.mjs`) :
   - en-tête : ce qui est vérifié, pourquoi (phrase de Nathan), comment
     lancer ; `ok(cond, message)` qui compte les échecs, `TOUT VERT` et code
     de sortie 1 ; `page.on('pageerror')` et « aucune erreur de page » ;
@@ -919,7 +916,7 @@ Environnement (machine de Nathan)
 - Migration des données entre versions : **à faire en priorité** dès que
   l'app est de nouveau fonctionnelle (méthode et état dans
   `docs/developpement.md`, « À faire » ; amorce `e2e/donnees/creer.mjs`).
-- Captures pour la doc (hors vérification) : `captures-enseignant`, `guide`,
+- Captures pour la doc (hors vérification) : `guide`,
   `fiche-play`, `apercu-parcours` ; vrais drives : `drives`.
 - Pièges Playwright : sélecteurs ambigus (`Enregistrer et quitter`,
   `Ouvrir le dossier`, boutons « Retirer l'exercice 4C21 » vs l'exercice) →

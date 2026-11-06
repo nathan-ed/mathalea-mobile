@@ -177,9 +177,6 @@ Rust `telecharger`.
   390 × 844, 360 × 640 et bureau à la molette.
 - `node e2e/auteurs.mjs` : auteurs et descriptions saisis dans l'éditeur,
   page de l'enseignant, vue de l'élève (jamais la description des enseignants).
-- `node e2e/session-qr-long.mjs` : session d'un long parcours (fiches
-  illustrées, 36 exercices) lancée, QR code exporté puis lu à la fausse
-  caméra ; l'élève qui a déjà le parcours garde ses fiches.
 - `node e2e/catalogue-moteur.mjs` : chaque exercice des parcours livrés
   préparé par le moteur sous trois graines, interactif.
 - `tests/catalogues.test.ts`, `tests/invitations.test.ts` : fichiers du dépôt
@@ -516,7 +513,7 @@ ancienne app.
   interactifs ou non, sauf « Égalité filles-garçons » que le site range à
   part. Un exercice rangé deux fois dans un chapitre du référentiel (même
   uuid, ex. « Fonctions » de Seconde) empêchait d'ouvrir le chapitre : une
-  ligne par exercice. `e2e/recherche.mjs` ouvre tous les chapitres.
+  ligne par exercice. `e2e/recherche.mjs` ouvre tous les chapitres (suite retirée à la 0.6, gardée sur la branche `mode-enseignant`).
 - Exercice non interactif : à faire sur papier, « Voir la correction » sous
   la question ; hors du score, des questions passées et des seuils
   (`Seance.papier`, clé de question → correction vue) ; bilan « Correction
@@ -902,7 +899,7 @@ Reste à faire :
   ouvre le panneau du lien (`rappelExport.demandeLien`) ; un lien suivi
   collé comme drive reprend ses classes. Reprise par le lien : `verifieLe`
   posé (le fichier vient du drive, plus de « déposez-le »). Test :
-  `node e2e/eleve-puis-enseignant.mjs`.
+  `node e2e/eleve-puis-enseignant.mjs` (suite retirée à la 0.6, gardée sur la branche `mode-enseignant`).
 - Suites rendues fiables (vérification complète du 1er novembre 2026) :
   `parcours-az` attend que « Voir le bilan » soit immobile (la barre du bas
   suit le clavier qui se referme) et vérifie l'arrivée au bilan ; avant un
@@ -1080,7 +1077,7 @@ Reste à faire :
   `anthropic-beta: server-side-fallback-2026-07-01`) et lit le flux
   (`content_block_delta`, `stop_reason: "refusal"`, événement `error`) avec
   le même lecteur que le format OpenAI (`lireFlux`). `@anthropic-ai/sdk`
-  retiré. Test : `node e2e/reponses-session.mjs` (API simulée).
+  retiré. Test : `node e2e/reponses-session.mjs` (API simulée) (suite retirée à la 0.6, gardée sur la branche `mode-enseignant`).
 
 ## 0.4.4 : page d'un parcours, onglets de l'enseignant, sessions par classe (fait)
 
@@ -1093,7 +1090,7 @@ Reste à faire :
   seul, dupliquer, supprimer avec confirmation). L'éditeur, l'aperçu et une
   session ouverts depuis la page y reviennent (`creationDepuis`,
   `sessionDepuis`) ; « Valider » d'une modification aussi (une création garde
-  le panneau d'après-enregistrement). Test : `node e2e/fiche-parcours.mjs`.
+  le panneau d'après-enregistrement). Test : `node e2e/fiche-parcours.mjs` (suite retirée à la 0.6, gardée sur la branche `mode-enseignant`).
 - Onglets de l'enseignant (Nathan, 2026-10-20 : « oui ») : Parcours (clé
   `creer` : bibliothèque et objectifs, `EspaceEnseignant` section
   `parcours`), Classes (section `classes` : classes et leurs sessions), En
@@ -1134,7 +1131,7 @@ Reste à faire :
   que l'app se ferme. Page de session → En classe → Créer. Avant, un
   enseignant revenu sur Mes parcours quittait l'app au retour suivant.
 - Test : `node e2e/en-classe.mjs` (clair et sombre, retours, double retour
-  rapide, élève sans l'onglet).
+  rapide, élève sans l'onglet) (suite retirée à la 0.6, gardée sur la branche `mode-enseignant`).
 
 ## 0.4.2 : révisions espacées, QR code de session exportable (fait)
 
@@ -1252,4 +1249,5 @@ Reste à faire :
   (fausse caméra de Chromium qui filme les QR codes des élèves, photo de
   quatre téléphones, réglages de session, aucune IA proposée) et
   `NAVIGATEUR=webkit` (WebKit de Playwright). Captures du guide
-  (`docs/guide/sessions.md`) : `GUIDE=docs/guide/images node e2e/reponses-session.mjs`.
+  (`docs/guide/sessions.md`) : `GUIDE=docs/guide/images node e2e/reponses-session.mjs` (suite retirée à la 0.6, gardée sur la branche `mode-enseignant`) ;
+  depuis la 0.6, `GUIDE=docs/guide/images node e2e/guide.mjs`.

@@ -1,6 +1,9 @@
 # MathALÉA mobile : consignes
 
-Application Tauri 2 (Svelte 5, SvelteKit statique) de parcours MathALÉA.
+Application Tauri 2 (Svelte 5, SvelteKit statique) de parcours MathALÉA,
+pour les élèves seulement depuis la 0.6 (Nathan, 6 novembre 2026 : les
+enseignants préparent leurs parcours sur le site MathALÉA ; le mode
+enseignant de la 0.5.1 est gardé sur la branche `mode-enseignant`).
 Détails : `docs/developpement.md` ; guide enseignant : `docs/enseignants.md`.
 Savoir-faire complet (exigences, moteur, drives, Android, CI, releases,
 pièges) : skill `.claude/skills/mathalea-mobile/SKILL.md`, à charger avant
@@ -35,10 +38,20 @@ toute modification.
   le dossier kDrive partagé de l'Explorer, sous-dossier `FR` ou `CH`
   (`DOSSIER_EXPLORER` dans `src/lib/partage.ts`), lus comme ceux des enseignants ; l'app garde la
   dernière copie reçue et, hors connexion, invite à se connecter. Les parcours de démonstration
-  (`static/demo`, `scripts/demonstration.mts`) sont chargés et retirés par
-  l'enseignant dans sa bibliothèque (onglet Parcours), jamais d'office. Les
-  Réglages ne gardent que les réglages de l'app (programme, apparence,
-  dossiers, sauvegarde, profil, à propos).
+  (`static/demo`, `scripts/demonstration.mts`) ne sont jamais chargés
+  d'office : c'est un dossier comme un autre, ajouté par son lien public sur
+  la forge (guide « Découvrir », notes pour Apple). Les Réglages ne gardent
+  que les réglages de l'app (programme, apparence, dossiers, sauvegarde,
+  ancienne bibliothèque à exporter, à propos).
+- Parcours venus des drives : contenu publié par des utilisateurs (App
+  Store, règle 1.2). Chaque parcours garde « Signaler un problème » (mail à
+  contact@coopmaths.fr avec son contenu, `src/lib/signalement.ts`) et
+  « Cacher ce parcours » ; le contact reste dans les Réglages. Piste d'un
+  espace enseignant validé : `docs/avenir-espace-enseignant.md`.
+- QR codes lus par l'app : courts (un QR code dense ne se lisait pas à la
+  caméra, novembre 2026). Session : `MATHALEA-SESSION?c=…&p=…&v=…`
+  (`src/lib/invitation.ts`), jamais le parcours entier ; classe : le lien du
+  dossier avec `?classe=`.
 - Une séance garde une copie figée de son parcours (`contenu`) : ne jamais lire
   la version courante pour rejouer, relire ou reprendre.
 - Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source
@@ -90,7 +103,8 @@ complète (détails dans le skill, « Vérification »).
     fois, avant de relancer toute la vérification. Vert seul mais rouge sous
     charge : la cause est dans la suite (geste fait trop tôt ou hors écran),
     on la trouve, on ne relance pas en espérant ;
-  - écrire une suite (modèle : `e2e/eleve-puis-enseignant.mjs`) : toucher
+  - écrire une suite (modèle : `e2e/session-qr.mjs`, aides de
+    `e2e/camera-qr.mjs`) : toucher
     seulement un bouton immobile et visible (`pointStable`, `touchable` : la
     barre du bas suit le clavier), vérifier que chaque geste a eu son effet
     (arrivée au bilan, étiquette posée) et le refaire au plus deux fois comme

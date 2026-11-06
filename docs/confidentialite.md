@@ -3,7 +3,7 @@
 # MathALÉA : politique de confidentialité
 
 Application MathALÉA (`fr.coopmaths.mathalea`), par CoopMaths. En vigueur le
-1er novembre 2026.
+6 novembre 2026 (version 0.6).
 
 ## En bref
 
@@ -16,13 +16,11 @@ réponses et les résultats des élèves restent sur leur appareil.
 L'application enregistre, sur l'appareil seulement :
 
 - les réponses, les séances et les résultats de l'élève ;
-- les réglages (programme, apparence, profil élève ou enseignant) ;
+- les réglages (programme, apparence) ;
 - les liens des dossiers partagés suivis et les parcours qu'ils contiennent ;
-- pour un enseignant : sa bibliothèque de parcours, ses classes (noms choisis
-  par lui), ses objectifs, les réponses de sessions partagées qu'il a relevées
-  ;
-- pour un élève, si son enseignant l'a demandé : son prénom, pour ses réponses
-  de session.
+- sur un appareil qui a servi à un enseignant avec une version antérieure à
+  la 0.6 : sa bibliothèque de parcours, gardée telle quelle pour qu'il puisse
+  l'exporter (Réglages).
 
 Ces données ne sont envoyées nulle part. Elles disparaissent quand
 l'application est désinstallée. L'utilisateur peut en exporter une sauvegarde
@@ -41,16 +39,17 @@ n'y a rien à demander à personne. Pour les supprimer :
 Une sauvegarde exportée (Réglages) est un fichier rangé par l'utilisateur, là
 où il l'a choisi : il la supprime comme n'importe quel fichier.
 
-## Réponses de session montrées à l'enseignant
+## QR codes de classe et de session
 
-Dans une session partagée, si l'enseignant l'a demandé, l'élève lui montre ses
-réponses par un QR code (ou lui envoie un fichier, par l'application de son
-choix). Le code contient ses réponses aux questions de la session et,
-seulement si l'enseignant l'a demandé, le prénom qu'il a tapé. Le QR code
-d'une session, projeté par l'enseignant, est lu de la même façon par l'élève
-pour rejoindre la session. Ces codes passent d'un appareil à l'autre par la
-caméra, sans serveur. L'enseignant le lit avec la caméra de son appareil ou
-importe une photo.
+L'application lit deux sortes de QR codes, par la caméra :
+
+- le QR code d'une classe : le lien du dossier partagé de l'enseignant ;
+- le QR code d'une session partagée, montré par un camarade ou par
+  l'enseignant : un code de session, l'identifiant et la version du parcours
+  et, le cas échéant, le lien du dossier de la classe.
+
+Ces QR codes ne contiennent aucune donnée de l'élève (ni nom, ni réponse, ni
+résultat). Ils passent d'un appareil à l'autre par la caméra, sans serveur.
 
 ## Connexions à Internet
 
@@ -70,6 +69,12 @@ L'application se connecte à Internet seulement pour :
 - **ouvrir un lien** choisi par l'utilisateur (ressource d'un parcours,
   dossier partagé) dans le navigateur de l'appareil.
 
+L'application n'envoie rien d'elle-même. Pour signaler un problème dans un
+parcours (bug, erreur, contenu inapproprié), elle ouvre un mail prêt à
+envoyer dans l'application de messagerie de l'appareil, adressé à
+contact@coopmaths.fr et contenant le parcours : l'utilisateur le relit et
+décide de l'envoyer.
+
 Toutes ces connexions sont chiffrées (HTTPS).
 
 L'application ne télécharge jamais de code : le moteur d'exercices est livré
@@ -78,29 +83,28 @@ d'installation de la forge de CoopMaths.
 
 ## Partage de fichiers
 
-Quand un enseignant publie ses parcours, ou quand quelqu'un exporte une
-sauvegarde, le fichier est remis à l'application qu'il choisit (drive,
+Quand quelqu'un exporte une sauvegarde (ou une ancienne bibliothèque
+d'enseignant), le fichier est remis à l'application qu'il choisit (drive,
 messagerie) par le partage du téléphone. MathALÉA ne l'envoie à personne
 d'autre.
 
 ## Enfants
 
 MathALÉA est conçue pour des élèves, y compris de moins de 13 ans. Elle ne
-leur demande aucune donnée personnelle (le prénom, seulement si l'enseignant
-le demande, ne va que sur l'appareil de l'enseignant), n'affiche aucune
-publicité et ne contient aucun outil tiers de collecte de données.
+leur demande aucune donnée personnelle, n'affiche aucune publicité et ne
+contient aucun outil tiers de collecte de données.
 
 ## Autorisations
 
 L'application demande l'accès à Internet, pour les usages ci-dessus, et
-l'accès à la caméra, seulement pour lire des QR codes : l'élève scanne le QR
-code d'une session de classe projeté par l'enseignant, et l'enseignant scanne
-les QR codes de réponses des élèves. Les images de la caméra sont lues sur
+l'accès à la caméra, seulement pour lire le QR code d'une classe ou d'une
+session partagée (voir plus haut). Les images de la caméra sont lues sur
 l'appareil et ne sont ni enregistrées ni envoyées.
 
 ## Contact
 
-Pour toute question sur cette politique : contact@coopmaths.fr.
+Pour toute question sur cette politique, ou pour signaler un contenu :
+contact@coopmaths.fr.
 
 ## Modifications
 

@@ -339,12 +339,12 @@ const fractionsExpress = (titre, version) => ({
   id: 'fractions-express',
   version,
   titre,
-  objectif: '',
+  objectif: 'Additionner des fractions',
   niveau: '4e',
   theme: 'Fractions',
   difficulte: 2,
   icone: 'bx-math',
-  presentation: 'une_page_par_exercice',
+  presentation: 'un_exo_par_page',
   correction: 'page',
   etapes: [{ uuid: '5f429', id: '4C21', titre: 'Additionner des fractions', nbQuestions: 2 }],
 })
@@ -362,7 +362,7 @@ deposer('Fractions express', 1)
 // L'élève ajoute la classe par le lien du dossier partagé
 await accueil(a)
 await a.getByRole('button', { name: 'Réglages' }).click()
-ok((await texte(a)).includes('licence AGPL-3.0') && (await a.getByRole('link', { name: 'coopmaths.fr' }).isVisible()), 'réglages : licence et coopmaths.fr')
+ok((await texte(a)).includes('licence AGPL-3.0') && (await a.getByRole('link', { name: 'coopmaths.fr', exact: true }).isVisible()), 'réglages : licence et coopmaths.fr')
 ok(!(await a.getByRole('switch', { name: /enseignant/i }).count()), 'réglages : plus de mode enseignant')
 await a.getByLabel('Sombre').check()
 ok(await a.evaluate(() => document.documentElement.classList.contains('dark')), 'réglages : thème sombre appliqué aussitôt')
@@ -386,7 +386,10 @@ await a.getByRole('button', { name: 'Revenir en arrière' }).click()
 await a.getByRole('tab', { name: '3e A' }).click()
 ok((await texte(a)).includes('Fractions express (corrigé)'), 'élève : V2 reçue après mise à jour')
 
-// Suisse : notations fr-CH du moteur
+// Suisse : notations fr-CH du moteur (le programme choisi règle le moteur)
+await a.getByRole('button', { name: 'Réglages' }).click()
+await a.getByLabel('Suisse').check()
+await pagePrete(a)
 const notation = await a.evaluate(async () => {
   const man = await (await fetch('/moteur/manifest.json')).json()
   const m = await import('/moteur/' + man.entree)
@@ -394,6 +397,8 @@ const notation = await a.evaluate(async () => {
   return ex.questions.map((q) => q.enonce + q.correction).join(' ')
 })
 ok(notation.includes('\\cdot') && !notation.includes('\\times'), 'Suisse : \\cdot à la place de \\times (fr-CH)')
+await a.getByLabel('France').check()
+await pagePrete(a)
 
 // Sauvegarde complète, restaurée sur un nouvel appareil
 await accueil(a)

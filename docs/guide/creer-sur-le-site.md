@@ -2,13 +2,13 @@
 
 [Retour aux guides](index.md)
 
-Sur un ordinateur, on a plus de place. La page « Parcours pour l'application » du site MathALÉA reprend la même bibliothèque que l'application. On crée les parcours, on les donne aux classes et on publie le même fichier.
+Les parcours de l'application se préparent sur le site MathALÉA, page « Parcours pour l'application ». On crée les parcours, on les donne aux classes et on publie un fichier, à déposer dans un dossier partagé de son drive.
 
-Adresse de la page : [https://coopmaths.fr/alea/?v=parcours](https://coopmaths.fr/alea/?v=parcours). Elle sera sur le site dès sa prochaine mise en ligne. En attendant, tout se fait aussi dans l'application, y compris sur ordinateur.
+Adresse de la page : [https://coopmaths.fr/alea/?v=parcours](https://coopmaths.fr/alea/?v=parcours). Elle sera sur le site dès sa prochaine mise en ligne.
 
 ## 1. Créer un parcours
 
-Cliquez sur « Créer un parcours ». Si vous avez déjà publié depuis l'application, vous pouvez aussi déposer ici votre fichier publié pour reprendre votre bibliothèque.
+Cliquez sur « Créer un parcours ». Si vous avez déjà publié un fichier, vous pouvez aussi le déposer ici pour reprendre votre bibliothèque.
 
 ![Page Parcours pour l'application](images/site-1-accueil.png)
 
@@ -72,26 +72,12 @@ Le fichier `parcours-mathalea-….json` est téléchargé. Déposez-le dans le d
 
 ![Fichier publié](images/site-11-publie.png)
 
-## Reprendre ce travail dans l'application
+## 12. Le QR code de la classe
 
-Le même fichier se reprend dans l'application du téléphone.
+Le lien à donner aux élèves est celui du dossier partagé, suivi de `?classe=` et du nom de la classe : par exemple `https://kdrive.infomaniak.com/app/share/…/…?classe=5A`. Avec ce lien, l'élève arrive directement dans sa classe ; sans `?classe=`, il choisit sa classe parmi celles du fichier.
 
-### 1. Reprendre ma bibliothèque publiée
+Faites un QR code de ce lien avec n'importe quel générateur (Chrome et Edge le proposent : ouvrez le lien, puis « Créer un code QR pour cette page »), et projetez-le ou affichez-le. Les élèves le scannent avec l'icône QR code en haut de leur accueil : le dossier est ajouté, leur classe choisie, sans rien saisir. Vous pouvez aussi donner le lien (sur l'ENT par exemple) : ils le collent une fois sur leur accueil.
 
-Dans l'onglet Parcours, touchez « Reprendre ma bibliothèque publiée ».
+## Une bibliothèque faite dans l'application
 
-![Reprendre ma bibliothèque](images/importer-1-reprendre.png)
-
-### 2. Le fichier ou le dossier
-
-Collez le lien de votre dossier partagé, ou touchez « Choisir le fichier publié ».
-
-![Choisir le fichier publié](images/importer-2-fichier.png)
-
-### 3. C'est repris
-
-Les classes, les parcours et les objectifs sont repris. Rien n'est effacé sur le téléphone.
-
-![Bibliothèque reprise](images/importer-3-repris.png)
-
-![Bibliothèque dans l'application](images/importer-4-bibliotheque.png)
+Jusqu'à la version 0.5, l'application avait un mode enseignant. Si vous y aviez préparé des parcours, ils sont toujours sur votre téléphone : Réglages, « Exporter ma bibliothèque », puis déposez ce fichier sur la page « Parcours pour l'application » pour continuer sur le site.

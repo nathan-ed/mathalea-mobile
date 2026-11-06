@@ -2,7 +2,7 @@
 
 [Retour aux guides](index.md)
 
-En une demi-heure, vous préparez un parcours, vos élèves le reçoivent sur leur téléphone, et vous lancez une session en classe. Chaque étape renvoie à son guide détaillé, avec des images.
+En une demi-heure, vous préparez un parcours sur le site MathALÉA, vos élèves le reçoivent sur leur téléphone, et vous lancez une session en classe. Chaque étape renvoie à son guide détaillé, avec des images.
 
 ## 1. Installer
 
@@ -10,43 +10,33 @@ Android, iPhone, iPad, Windows, Mac ou Linux : voir [Installer l'application](in
 
 ## 2. Essayer en cinq minutes
 
-Choisissez France ou Suisse. Dans les Réglages (roue dentée), activez **Je suis enseignant** ; dans l'onglet Parcours, touchez **Parcours de démonstration**, puis **Charger les parcours de démonstration**. Touchez « Vue élève » et faites un parcours comme un élève : correction immédiate, clavier mathématique, paliers et ceintures.
+Choisissez France ou Suisse, puis ajoutez le dossier de démonstration avec son lien (dans [Découvrir en cinq minutes](decouvrir.md)). Faites un parcours comme un élève : correction immédiate, clavier mathématique, paliers et ceintures.
 
-Détails : [Découvrir en cinq minutes](decouvrir.md).
+![Ajouter le dossier de démonstration](images/decouvrir-3-lien-demonstration.png)
 
-![Je suis enseignant](images/decouvrir-3-enseignant.png)
+## 3. Créer un parcours et le donner à une classe
 
-## 3. Créer un parcours
+Sur le site MathALÉA, page « Parcours pour l'application » : niveau, chapitre, titre, exercices (rangés comme sur le site, avec leurs réglages), paliers ou ceintures. Puis l'onglet Classes : créez la classe (5e B, par exemple) et cochez ses parcours. « Publier » télécharge le fichier.
 
-Onglet **Parcours**, « Créer un parcours ». Un seul écran : niveau, chapitre, titre, puis « Ajouter des exercices » ouvre les exercices de MathALÉA, rangés comme sur le site, avec leurs réglages et un aperçu. « Valider le parcours ».
+Détails : [Créer un parcours sur le site](creer-sur-le-site.md).
 
-Détails : [Créer un parcours](creer.md).
+## 4. Publier pour les élèves
 
-![Ajouter des exercices](images/creer-6-exercices.png)
+Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien. Puis, à chaque changement, déposez le nouveau fichier dans ce dossier. C'est tout : les élèves reçoivent la nouvelle version au prochain lancement.
 
-## 4. Le donner à une classe
+## 5. Côté élèves
 
-Onglet **Classes** : « + » crée la classe (5e B, par exemple), puis cochez ses parcours. Ou, sur la page d'un parcours, touchez la classe. On crée pour un niveau ; on donne à autant de classes qu'on veut.
-
-## 5. Publier pour les élèves
-
-Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien, et collez ce lien dans la Mise en route de l'onglet Parcours. Si l'application suit déjà votre dossier (ajouté dans les Réglages), il est repris d'office : classes, parcours et lien.
-
-Puis, à chaque changement : la bannière en haut propose **Mettre à jour**. L'application enregistre un fichier ; déposez-le dans ce dossier. C'est tout.
-
-## 6. Côté élèves
-
-Le plus simple : dans l'onglet Classes, touchez l'icône QR code à côté du nom de la classe et projetez ce QR code. Les élèves le scannent avec l'icône en haut de leur accueil : le dossier est ajouté et leur classe choisie, sans rien saisir. Pour tout le dossier, le même QR code est dans « Dossier partagé » (onglet Parcours) : chaque élève choisit ensuite sa classe. Sinon, donnez-leur le lien du dossier (sur l'ENT par exemple) : ils le collent une fois sur leur accueil. Ensuite, chaque publication leur arrive toute seule, et ils travaillent même sans connexion.
+Le plus simple : un QR code du lien du dossier suivi de `?classe=5B`. Projetez-le : les élèves le scannent depuis leur accueil, le dossier est ajouté et leur classe choisie, sans rien saisir. Sinon, donnez-leur le lien (sur l'ENT par exemple) : ils le collent une fois sur leur accueil. Ensuite, chaque publication leur arrive toute seule, et ils travaillent même sans connexion.
 
 Détails : [Côté élève](eleves.md).
 
 ![L'élève ajoute le dossier](images/eleve-1-lien.png)
 
-## 7. En classe
+## 6. En classe
 
-Onglet **En classe**, « Nouvelle session » : choisissez un parcours et la classe, puis « Lancer la session ». Projetez le QR code : les élèves le scannent depuis leur accueil et ont tous les mêmes questions. À la fin, lisez leurs QR codes de réponses : l'application vous montre ce que la classe a réussi et les erreurs fréquentes.
+Sur la page d'un parcours, « Autres actions », « Session partagée » : un code et son QR code. Projetez le QR code : les élèves le scannent depuis leur accueil et ont tous les mêmes questions. Un élève peut aussi créer une session pour travailler avec ses camarades.
 
-Détails : [Sessions et réponses de la classe](sessions.md).
+Détails : [Sessions partagées](sessions.md).
 
 ## Et ensuite
 

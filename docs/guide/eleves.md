@@ -10,11 +10,11 @@ Au premier lancement, l'élève choisit son programme, puis colle le lien donné
 
 ![Ajouter le dossier de la classe](images/eleve-1-lien.png)
 
-Si le dossier contient plusieurs classes, l'élève choisit la sienne. Un lien qui se termine par `?classe=3A` (ou `&CLASSE=3A`) choisit la classe d'office : c'est le lien que l'app donne sous le QR code de chaque classe (« Copier le lien »).
+Si le dossier contient plusieurs classes, l'élève choisit la sienne. Un lien qui se termine par `?classe=3A` (ou `&CLASSE=3A`) choisit la classe d'office : c'est le lien que l'enseignant met dans le QR code de la classe ([Créer sur le site](creer-sur-le-site.md)).
 
 Sans lien, l'élève touche « Je n'ai pas de lien » : l'accueil ne le lui demande plus, il travaille avec l'Explorer et ajoute le lien plus tard (« Ajouter le lien de ma classe », ou les Réglages).
 
-Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche l'icône QR code en haut de l'accueil et le vise. Le dossier est ajouté avec sa classe, sans lien à coller. Avec le QR code du dossier entier, l'élève choisit ensuite sa classe.
+Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche « Scanner le QR code de ma classe » (ou l'icône QR code en haut de l'accueil) et le vise. Le dossier est ajouté avec sa classe, sans lien à coller. Avec le QR code du dossier entier, l'élève choisit ensuite sa classe.
 
 ## 2. Ses parcours
 
@@ -65,9 +65,13 @@ L'élève y voit le nombre de questions faites, de réponses correctes et de jou
 - Certains parcours ont des fiches de cours : formules, graphiques à manipuler, exemples pas à pas et petites questions qui ne comptent pas. La fiche s'ouvre la première fois avant l'entraînement, puis reste sur la page du parcours.
 - En haut de l'Explorer (programme France seulement), « Teste ton niveau » : 15 questions de Course aux nombres ; avec 12 bonnes réponses, l'élève gagne la ceinture du niveau. On commence au niveau que l'on veut.
 
-## Session partagée avec l'enseignant
+## Session partagée
 
-L'enseignant affiche un QR code : touchez l'icône QR code en haut de l'accueil et visez-le, la session s'ouvre. Ou bien il donne un code : dans le parcours, « Autres actions », « Rejoindre une session », puis le code. Toute la classe a les mêmes questions. Si l'enseignant l'a demandé, l'élève lui montre ses réponses par un QR code (avec son prénom seulement si l'enseignant l'a demandé) : depuis son bilan, ou, dans certaines sessions, avant de voir ses résultats. Voir [Sessions et réponses de la classe](sessions.md).
+L'enseignant ou un camarade affiche le QR code d'une session : touchez l'icône QR code en haut de l'accueil et visez-le, la session s'ouvre. Ou bien on vous donne un code : dans le parcours, « Autres actions », « Rejoindre une session », puis le code. Tout le monde a les mêmes questions. Chacun peut créer une session depuis la page d'un parcours. Voir [Sessions partagées](sessions.md).
+
+## Signaler un problème
+
+Un bug, une erreur dans un exercice, un contenu inapproprié : sur la page du parcours, « Autres actions », « Signaler un problème ». Un mail à l'équipe MathALÉA s'ouvre, avec le parcours déjà dedans. Le même panneau permet de cacher le parcours ; pour ne plus rien recevoir d'un dossier, retirez-le dans les Réglages.
 
 ## Révisions
 

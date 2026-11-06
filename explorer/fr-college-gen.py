@@ -23,8 +23,8 @@ def ceinture(titre, retenir, exemple, question):
 def parcours(id, titre, niveau, objectif, eleves, enseignant, ceintures):
     etapes, paliers = [], []
     for k, (titre_c, exercice, fiche) in enumerate(ceintures):
-        uuid, ref, titre_e = exercice
-        etapes.append({'uuid': uuid, 'id': ref, 'titre': titre_e, 'nbQuestions': 4})
+        uuid, ref, titre_e, *reglages = exercice
+        etapes.append({'uuid': uuid, 'id': ref, 'titre': titre_e, 'nbQuestions': 4, **(reglages[0] if reglages else {})})
         palier = {'titre': titre_c, 'nb': 1, 'fiche': fiche}
         if k:
             palier |= {'acces': 'seuil', 'seuil': 80}
@@ -55,11 +55,11 @@ relatifs = parcours(
     '5e',
     'Additionner et soustraire des nombres relatifs, puis enchaîner les calculs.',
     'Trois ceintures : additionner, soustraire, puis enchaîner les deux. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.',
-    'Trois ceintures de quatre questions (blanche, jaune, orange) : 5R20, 5R21, 5R22. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.',
+    'Trois ceintures de quatre questions (blanche, jaune, orange) : 5N2G, 5N2I, 5N2L. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.',
     [
         (
             'Additionner deux relatifs',
-            ('cbc26', '5R20', 'Additionner deux relatifs'),
+            ('cbc26', '5N2G', 'Additionner deux relatifs'),
             ceinture(
                 'Additionner deux relatifs',
                 'Deux nombres de même signe : on additionne leurs distances à zéro et on garde ce signe. Deux nombres de signes contraires : on soustrait la plus petite distance à zéro de la plus grande, et on prend le signe du nombre le plus éloigné de zéro.',
@@ -74,7 +74,7 @@ relatifs = parcours(
         ),
         (
             'Soustraire deux relatifs',
-            ('b6982', '5R21', 'Soustraire deux relatifs'),
+            ('b6982', '5N2I', 'Soustraire deux relatifs'),
             ceinture(
                 'Soustraire deux relatifs',
                 'Soustraire un nombre, c’est ajouter son opposé : $a-b=a+(-b)$. On transforme d’abord la soustraction en addition, puis on applique la règle de l’addition.',
@@ -89,7 +89,7 @@ relatifs = parcours(
         ),
         (
             'Enchaîner additions et soustractions',
-            ('f6ea7', '5R22', 'Enchaîner additions et soustractions'),
+            ('f6ea7', '5N2L', 'Enchaîner additions et soustractions'),
             ceinture(
                 'Enchaîner additions et soustractions',
                 'Dans une suite d’additions et de soustractions, on remplace chaque soustraction par l’addition de l’opposé. On peut alors regrouper les nombres positifs d’un côté et les négatifs de l’autre.',
@@ -107,15 +107,15 @@ relatifs = parcours(
 
 fractions = parcours(
     'fr-4e-fractions',
-    'Fractions : simplifier, additionner, multiplier',
+    'Calculer avec des fractions',
     '4e',
     'Simplifier une fraction, additionner des fractions, multiplier et diviser des fractions.',
-    'Trois ceintures : simplifier, additionner, puis multiplier et diviser. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.',
-    'Trois ceintures de quatre questions (blanche, jaune, orange) : 5N13, 4C21, 4C22. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.',
+    'Trois ceintures : simplifier, additionner et soustraire, puis multiplier et diviser. Chaque ceinture s’ouvre sur une fiche de cours ; tu passes à la suivante à partir de 80 % de réponses correctes.',
+    'Trois ceintures de quatre questions (blanche, jaune, orange) : 5N3autoE-1, 4C21, 4C22. Fiche courte avant chaque ceinture : règle, exemple résolu, question non notée.',
     [
         (
             'Simplifier une fraction',
-            ('f8f4e', '5N13', 'Simplifier une fraction'),
+            ('f8f4e', '5N3autoE-1', 'Simplifier une fraction'),
             ceinture(
                 'Simplifier une fraction',
                 'On simplifie une fraction en divisant son numérateur et son dénominateur par un même nombre, un diviseur commun aux deux. La fraction est irréductible quand leur seul diviseur commun est $1$.',
@@ -129,11 +129,11 @@ fractions = parcours(
             ),
         ),
         (
-            'Additionner des fractions',
-            ('5f429', '4C21', 'Additionner des fractions'),
+            'Additionner et soustraire des fractions',
+            ('5f429', '4C21', 'Additionner ou soustraire des fractions'),
             ceinture(
-                'Additionner des fractions',
-                'Pour additionner deux fractions, on les écrit d’abord avec le même dénominateur. On additionne ensuite les numérateurs et on garde ce dénominateur.',
+                'Additionner et soustraire des fractions',
+                'Pour additionner ou soustraire deux fractions, on les écrit d’abord avec le même dénominateur. On additionne (ou on soustrait) ensuite les numérateurs et on garde ce dénominateur.',
                 ('Calculer $\\dfrac{2}{3}+\\dfrac{1}{6}$.', [
                     '$6$ est un multiple de $3$ : $\\dfrac{2}{3}=\\dfrac{2\\times2}{3\\times2}=\\dfrac{4}{6}$.',
                     '$\\dfrac{4}{6}+\\dfrac{1}{6}=\\dfrac{5}{6}$.',
@@ -144,10 +144,11 @@ fractions = parcours(
         ),
         (
             'Multiplier et diviser des fractions',
-            ('72ce7', '4C22', 'Multiplier et diviser des fractions'),
+            # sup5 = 3 : multiplications et divisions mélangées (multiplications seules par défaut)
+            ('3ee4e', '4C22', 'Multiplier et diviser des fractions', {'sup5': '3'}),
             ceinture(
                 'Multiplier et diviser des fractions',
-                'Pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux. Diviser par une fraction, c’est multiplier par son inverse.',
+                'Pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux. Diviser par une fraction, c’est multiplier par son inverse. Une division peut aussi s’écrire avec une grande barre de fraction : $\\dfrac{\\frac{2}{3}}{5}=\\dfrac{2}{3}\\div5=\\dfrac{2}{3}\\times\\dfrac{1}{5}$.',
                 ('Calculer $\\dfrac{3}{5}\\div\\dfrac{9}{10}$.', [
                     'L’inverse de $\\dfrac{9}{10}$ est $\\dfrac{10}{9}$ : $\\dfrac{3}{5}\\div\\dfrac{9}{10}=\\dfrac{3}{5}\\times\\dfrac{10}{9}$.',
                     '$=\\dfrac{3\\times10}{5\\times9}=\\dfrac{30}{45}$.',

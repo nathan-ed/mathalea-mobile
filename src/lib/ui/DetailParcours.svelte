@@ -487,7 +487,7 @@
     <Feuille onfermer={() => (feuille = null)}>
       <p class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Signaler un problème</p>
       <p class="text-sm">
-        Un bug, une erreur dans un exercice, un contenu inapproprié ? Écris à l’équipe MathALÉA ({CONTACT}) : le mail contient déjà ce parcours, ajoute ce qui ne va pas.
+        Un bug, une erreur dans un exercice, un contenu inapproprié&nbsp;? Écris à l’équipe MathALÉA ({CONTACT}) : le mail contient déjà ce parcours, ajoute ce qui ne va pas.
         {#if oncacher}Tu peux aussi le cacher : il ne s’affichera plus sur ton accueil. Pour ne plus rien recevoir de ce dossier, retire-le dans les Réglages.{/if}
       </p>
       <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={() => void ouvrirLien(mailSignalement(parcours, source, versionMoteur))}>
