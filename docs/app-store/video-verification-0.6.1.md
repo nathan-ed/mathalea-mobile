@@ -15,8 +15,6 @@ des utilisateurs. Durée visée : 2 à 3 minutes, sans son.
   n'ouvre rien d'utile.
 - Sur l'ordinateur, ouvrir en grand `docs/app-store/qr-classe-demonstration.png`
   (QR code de la classe « Démonstration » du dossier de démonstration).
-- Optionnel, pour la session : le téléphone Android avec l'APK d'essai,
-  dossier de démonstration ajouté.
 - Centre de contrôle : ajouter « Enregistrement de l'écran ».
 
 ## Déroulé
@@ -47,8 +45,8 @@ des utilisateurs. Durée visée : 2 à 3 minutes, sans son.
     (le bouton qui retire le dossier, sans le toucher), puis jusqu'à
     « À propos » (contact@coopmaths.fr).
 11. Retour. Ouvrir « Nombres relatifs », « Autres actions », « Session
-    partagée » : le code et le QR code s'affichent. Si le téléphone Android
-    est là, le scanner avec lui (hors champ, ce n'est pas obligatoire).
+    partagée » : le code et le QR code s’affichent ; les laisser à l’écran
+    deux secondes (pas de scan : il se ferait sur un autre appareil, hors champ).
 12. Arrêter l'enregistrement.
 
 ## Ensuite
