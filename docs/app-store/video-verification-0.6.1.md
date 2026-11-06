@@ -1,4 +1,4 @@
-# Vidéo pour la vérification d'Apple (0.6.0)
+# Vidéo pour la vérification d'Apple (0.6.1)
 
 Apple demande (refus 2.1 du 0.5.0) un enregistrement d'écran fait sur un
 vrai iPhone à jour, qui commence au lancement de l'app et montre le
@@ -9,7 +9,7 @@ des utilisateurs. Durée visée : 2 à 3 minutes, sans son.
 
 - iPhone sur la dernière version d'iOS (noter le numéro pour les notes :
   Réglages, Général, Informations).
-- Build 0.6.0 installé depuis TestFlight. Supprimer puis réinstaller l'app
+- Build 0.6.1 installé depuis TestFlight. Supprimer puis réinstaller l'app
   pour partir d'un premier lancement.
 - App Mail configurée avec un compte : sinon « Écrire le signalement »
   n'ouvre rien d'utile.
@@ -58,5 +58,5 @@ des utilisateurs. Durée visée : 2 à 3 minutes, sans son.
 - Envoyer la vidéo dans App Store Connect (pièce jointe de la section
   « Informations pour la vérification ») ou la mettre en ligne (lien non
   répertorié) et coller le lien à la place de `[LINK]` dans
-  `docs/app-store/notes-verification-0.6.0.txt`, avec la version d'iOS à la
+  `docs/app-store/notes-verification-0.6.1.txt`, avec la version d'iOS à la
   place de `[VERSION]`.

@@ -127,8 +127,8 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>` (pnpm
   dev), mêmes écrans que pour Google Play. Captures brutes du 6 novembre
   2026 (version 0.6.0, élève seul) : `docs/app-store/`. Notes pour la
-  vérification et déroulé de la vidéo : `docs/app-store/notes-verification-0.6.0.txt`,
-  `docs/app-store/video-verification-0.6.0.md`.
+  vérification et déroulé de la vidéo : `docs/app-store/notes-verification-0.6.1.txt`,
+  `docs/app-store/video-verification-0.6.1.md`.
 - **Captures habillées** (à envoyer à Apple, qui n'a pas d'image de
   présentation : les trois premières captures iPhone s'affichent dans les
   résultats de recherche) : `node e2e/captures-app-store.mjs` (pnpm dev, ou

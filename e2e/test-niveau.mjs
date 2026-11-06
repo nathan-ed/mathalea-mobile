@@ -84,8 +84,12 @@ for (const theme of ['clair', 'sombre']) {
   await page.getByRole('button', { name: /^6e · ceinture orange/ }).click()
   await cap(page, '3-feuille', theme)
   await page.getByRole('dialog').getByRole('button', { name: 'Commencer' }).click()
-  // Première question affichée, quel que soit son type de réponse (tirage au hasard)
-  await page.locator('main math-field, main .bx, main input, main select').first().waitFor({ timeout: 120_000 })
+  // Première question affichée, quel que soit son type de réponse (tirage au
+  // hasard, questions mélangées) : champ, case, liste ou figure apigeom
+  // (« Placer un point sur une droite graduée », « Tracer un segment » de la
+  // CAN 6e, sans champ : l'attente échouait quand l'une d'elles venait en
+  // premier, vérification de la 0.6.1)
+  await page.locator('main math-field, main input, main select, main [id^="apigeomEx"]').first().waitFor({ timeout: 120_000 })
   await page.getByRole('tablist', { name: 'Questions' }).waitFor({ timeout: 120_000 })
   const onglets = await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').count()
   ok(onglets === 15, `${theme} : 15 questions (${onglets})`)
@@ -124,7 +128,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(fc === 'rgb(77, 134, 19)', `${theme} : pastille Correcte verte (${fc})`)
   ok(fi === 'rgb(241, 89, 41)', `${theme} : pastille Incorrecte à l'orange de MathALÉA (${fi})`)
   await page.getByRole('button', { name: /^Question 1 / }).click()
-  await page.locator('main math-field, main .mathalea2d, main .katex').first().waitFor({ timeout: 60_000 })
+  await page.locator('main math-field, main .mathalea2d, main .katex, main [id^="apigeomEx"]').first().waitFor({ timeout: 60_000 })
   await cap(page, '5-bilan', theme)
 
   await page.getByRole('button', { name: 'Retour aux niveaux' }).click()
