@@ -42,8 +42,15 @@ class PartagePlugin: Plugin {
         return
       }
       let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
-      // Sur iPad, la feuille s'ouvre dans une bulle qui doit être ancrée
-      UIUtils.centerPopover(rootViewController: vue, popoverController: feuille)
+      // Sur iPad, la feuille s'ouvre dans une bulle qui doit être ancrée : au
+      // centre, sans flèche. Sur iPhone, on n'ancre rien : depuis iOS 26, une
+      // feuille ancrée s'y ouvre aussi en petite bulle, coincée près du point
+      // d'ancrage, au lieu de monter du bas de l'écran
+      if UIDevice.current.userInterfaceIdiom == .pad, let bulle = feuille.popoverPresentationController {
+        bulle.sourceView = vue.view
+        bulle.sourceRect = CGRect(x: vue.view.bounds.midX, y: vue.view.bounds.midY, width: 0, height: 0)
+        bulle.permittedArrowDirections = []
+      }
       vue.present(feuille, animated: true)
       invoke.resolve()
     }

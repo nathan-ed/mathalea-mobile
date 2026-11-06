@@ -1,0 +1,1 @@
+iPhone : la feuille de partage (PDF d'un parcours, fichiers exportés) s'ouvrait en toute petite bulle en bas à droite de l'écran depuis iOS 26 ; elle remonte de nouveau du bas de l'écran.
