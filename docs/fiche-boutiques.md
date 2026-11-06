@@ -125,11 +125,29 @@ Ce que le site ne fait pas : l’application garde la progression de chaque él�
   `magick <f> -resize '1206x2622!'`, mêmes proportions) et iPad 13 pouces
   (2064 × 2752). Captures 6,9 pouces :
   `APPAREILS=iphone-6-9,ipad-13 node e2e/fiche-play.mjs <dossier>` (pnpm
-  dev), mêmes écrans que pour Google Play. Captures du 6 novembre 2026
-  (version 0.6.0, élève seul) : `docs/app-store/` (`iphone-6-9-*`,
-  `iphone-6-3-*` réduites à 1206 × 2622, `ipad-13-*`). Notes pour la
+  dev), mêmes écrans que pour Google Play. Captures brutes du 6 novembre
+  2026 (version 0.6.0, élève seul) : `docs/app-store/`. Notes pour la
   vérification et déroulé de la vidéo : `docs/app-store/notes-verification-0.6.0.txt`,
   `docs/app-store/video-verification-0.6.0.md`.
+- **Captures habillées** (à envoyer à Apple, qui n'a pas d'image de
+  présentation : les trois premières captures iPhone s'affichent dans les
+  résultats de recherche) : `node e2e/captures-app-store.mjs` (pnpm dev, ou
+  `BASE=…`) lit les captures brutes de `docs/app-store/` et écrit
+  `docs/app-store/habillees/` : une phrase au-dessus de chaque écran, et sur la
+  première le logo et les niveaux de la France et de la Suisse romande avec
+  leurs drapeaux, comme l'image de présentation de Google Play. Tailles
+  exactes : `iphone-6-9-*` (1320 × 2868), `iphone-6-3-*` (1206 × 2622) et
+  `ipad-13-*` (2064 × 2752), PNG sans transparence.
+- **En-tête et résultats de recherche** (Creative assets, iOS 27, section
+  « En-tête et résultats de recherche » de la page produit) :
+  `node e2e/visuels-app-store.mjs` (pnpm dev, ou `BASE=…`) écrit
+  `docs/app-store/visuels/en-tete.png` (21:9, 3840 × 1646) et
+  `resultats-recherche.png` (3:2, 3840 × 2560). Au centre, dans la zone
+  qu'Apple ne rogne jamais (1646 × 661 pour l'en-tête, 2168 × 1030 pour la
+  recherche) : logo, phrase, niveaux de la France et de la Suisse romande avec
+  leurs drapeaux. Sur les côtés, des écrans de l'app, qui peuvent être coupés.
+  `ZONE=1` trace la zone sûre pour vérifier. Pas de prix, d'adresse web ni de
+  symbole de copyright dans ces images (règles d'Apple).
 
 ### Informations pour la vérification d'Apple
 
