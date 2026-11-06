@@ -297,6 +297,19 @@ export function objectifsDuPoint(e: Etape, cle: string | undefined) {
  * gonfle pas l'objectif nouveau) ; sinon la question compte pour les objectifs
  * de l'exercice.
  */
+/**
+ * Points de réponse d'une question qui comptent pour la maîtrise, dans l'ordre
+ * de l'énoncé. Réponses enchaînées (`Etape.enchainees`) : après le premier
+ * point manqué, un point suivant manqué ne compte pas (conséquence possible de
+ * l'erreur) ; réussi, il compte.
+ */
+export function pointsComptes(e: Etape, detail: Record<string, number>): [string, number][] {
+  const points = Object.entries(detail)
+  if (!e.enchainees) return points
+  const premier = points.findIndex(([, score]) => score < 1)
+  return points.filter(([, score], k) => premier === -1 || k <= premier || score >= 1)
+}
+
 export function scoresParObjectif(s: Seance, etape: number) {
   const e = s.contenu.etapes[etape]
   const parObjectif = new Map<string, { points: number; sur: number }>()
@@ -322,7 +335,7 @@ export function scoresParObjectif(s: Seance, etape: number) {
     if (essai.detail && e.points && Object.keys(e.points).length) {
       // Chaque objectif prend la moyenne de ses points dans la question
       const parQuestion = new Map<string, { points: number; sur: number }>()
-      for (const [cle, score] of Object.entries(essai.detail))
+      for (const [cle, score] of pointsComptes(e, essai.detail))
         for (const o of objectifsDuPoint(e, cle).objectifs) {
           const x = parQuestion.get(o) ?? { points: 0, sur: 0 }
           x.points += score

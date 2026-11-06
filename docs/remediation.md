@@ -227,6 +227,30 @@ exercice en vise plusieurs ou a des objectifs par réponse, sinon il
 répéterait la liste des exercices), le Suivi dit lesquels sont acquis, et la
 vue Objectifs d'une session le dit pour la classe.
 
+**Réponses enchaînées** (`Etape.enchainees`, Nathan, 6 novembre 2026 :
+« comment le tableau de variations peut-il être correct si la dérivée ne
+l'est pas ? »). MathALÉA corrige chaque réponse contre la réponse attendue,
+sans tenir compte de la réponse précédente de l'élève : dans TSA3-32, le
+tableau est comparé à des valeurs fixes (x₀, signes de f′, f(x₀), flèches)
+tirées de la vraie dérivée. Un élève dont la dérivée est fausse a donc en
+général le tableau faux aussi, par conséquence et non par une seconde
+lacune. Sur un exercice marqué « réponses enchaînées », après le premier
+point manqué d'une question, un point suivant manqué ne compte pas contre
+ses objectifs (bilan, Suivi, vue Objectifs de la session, progression
+adaptée) ; réussi, il compte. Le diagnostic ne change pas : la remédiation
+porte toujours sur le premier point manqué. Une dérivée fausse et un tableau
+juste restent possibles (facteur constant oublié, sommet du trinôme connu) :
+le tableau compte alors comme réussi.
+
+**Réponses cohérentes dans MathALÉA** (chantier mis de côté, Nathan : « un
+des gros chantiers que je veux faire sur MathALÉA ») : juger le tableau
+correct s'il est cohérent avec la dérivée saisie par l'élève (erreur
+reportée). Il faut une vérification propre à chaque exercice (signe de la
+dérivée de l'élève, ses racines), donc un travail dans les exercices de
+MathALÉA eux-mêmes, avec une forme commune à définir (par exemple une
+fonction de rappel qui reçoit les réponses précédentes de la question).
+L'app en profitera sans changement : elle reprend le verdict de chaque case.
+
 ## 7. Éditeur du site (`?v=parcours`)
 
 Les parcours se créent surtout sur le site (`src/components/setup/parcours/`
@@ -333,6 +357,9 @@ ceinture), jamais de statistiques collectées.
 
 ## 10. Limites connues
 
+- MathALÉA corrige chaque réponse sans tenir compte des précédentes (pas
+  d'erreur reportée) : « réponses enchaînées » évite de compter deux fois la
+  même erreur, sans juger la cohérence (chantier MathALÉA, section 6).
 - Points qui changent avec la graine (environ 2 % des exercices) : objectifs
   de l'exercice seulement.
 - QCM, figures, exercices à vérification propre : un point par réponse.

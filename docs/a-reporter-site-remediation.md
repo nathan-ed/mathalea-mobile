@@ -37,7 +37,8 @@ Ce que fait le correctif :
   - section « Remédiation par objectif » (objectifs du parcours et prérequis
     choisis) : exercices, puis « Ensuite, si l'élève échoue encore » (prérequis) ;
   - « Pour les élèves » : cases « Test de positionnement » et « Entraînement
-    adapté » (parcours à paliers, `adaptatif`).
+    adapté » (parcours à paliers, `adaptatif`) ;
+  - sur chaque exercice, case « Réponses enchaînées » (`Step.enchainees`).
 - **Tests** (`tests/unit/parcours.test.ts`) : format accepté et refusé,
   publication.
 

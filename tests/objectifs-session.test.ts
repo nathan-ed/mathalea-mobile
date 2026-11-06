@@ -47,6 +47,12 @@ describe('objectifs d’une session', () => {
     ])
   })
 
+  it('réponses enchaînées : le tableau manqué après la dérivée manquée ne compte pas', () => {
+    const q: Parcours = { ...p, etapes: p.etapes.map((e, i) => (i === 1 ? { ...e, enchainees: true } : e)) }
+    const verdicts = { B: { '0-0': { juste: true, score: 1 }, '1-0': { juste: false, score: 0, detail: { '0': 0, '1': 0 } } } }
+    expect(objectifsDeLaSession(q, ordre, [eleve('B')], verdicts)).toEqual([{ libelle: 'Dériver', reussite: 50, eleves: 1, premier: 1 }])
+  })
+
   it('les verdicts avec détail se sauvegardent', () => {
     const releve = {
       cle: 'code|etude|1',

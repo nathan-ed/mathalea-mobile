@@ -4,11 +4,12 @@
 // « ensuite, une fois qu'ils réussissent, ils font la suite ».
 //   1. Test de positionnement : première ceinture réussie, la jaune s'ouvre
 //      sans être obtenue, l'élève commence à la jaune.
-//   2. Étude de fonction manquée sur la dérivée seulement (premier point) :
-//      le bilan propose « Dériver une fonction composée », pas le tableau de
-//      variations réussi ; la remédiation (exemple corrigé de l'étude, exercice
-//      plus simple, puis l'étude avec de nouvelles valeurs) réussie ramène à la
-//      ceinture.
+//   2. Étude de fonction manquée, comme un élève dont la dérivée est fausse et
+//      le tableau de variations qui en découle aussi : le bilan propose
+//      « Dériver une fonction composée » (premier point manqué) ; réponses
+//      enchaînées, le tableau manqué ne compte pas contre son objectif ; la
+//      remédiation (exemple corrigé de l'étude, exercice plus simple, puis
+//      l'étude avec de nouvelles valeurs) réussie ramène à la ceinture.
 //   3. Remédiation encore manquée : le prérequis prévu par l'enseignant.
 //   4. Reprise d'une remédiation quittée depuis la page du parcours ; bouton
 //      retour ; maîtrise de l'objectif dans le suivi point par point.
@@ -66,8 +67,9 @@ export const PARCOURS = {
       titre: 'Étudier les variations d’une fonction du type $u^n$, $\\mathrm{e}^u$ ou $\\sqrt{u}$',
       nbQuestions: 1,
       objectifs: [DERIVER, TABLEAU],
-      // Point 0 : la dérivée ; point 1 : le tableau de variations
+      // Point 0 : la dérivée ; point 1 : le tableau de variations, qui en découle
       points: { 0: [DERIVER], 1: [TABLEAU] },
+      enchainees: true,
     },
   ],
   remediations: [
@@ -156,10 +158,17 @@ async function jouer(e, id, fausser = null) {
   return problemes
 }
 
-// Réponse incorrecte à la dérivée (premier point de l'étude de fonction)
-const dériveeFausse = (etapeEtude) => (etape, rang, a) => {
-  if (etape !== etapeEtude || rang % 2 !== 0) return a
-  a.valeur = { ...a.valeur, reponse: { ...a.valeur.reponse, value: '7' } }
+// Étude de fonction manquée comme le ferait un élève : dérivée fausse, et le
+// tableau de variations qui en découle faux aussi (signes et flèches inversés)
+const etudeFausse = (etapeEtude) => (etape, rang, a) => {
+  if (etape !== etapeEtude || !a.valeur?.reponse) return a
+  if (rang % 2 === 0) a.valeur = { ...a.valeur, reponse: { ...a.valeur.reponse, value: '7' } }
+  else if (typeof a.valeur.reponse.value === 'string') {
+    const inverse = { '+': '-', '-': '+', haut: 'bas', bas: 'haut' }
+    const cases = JSON.parse(a.valeur.reponse.value)
+    for (const [k, x] of Object.entries(cases)) if (inverse[x]) cases[k] = inverse[x]
+    a.valeur = { ...a.valeur, reponse: { ...a.valeur.reponse, value: JSON.stringify(cases) } }
+  }
   return a
 }
 // Toutes les réponses incorrectes d'un exercice (remédiation manquée)
@@ -181,7 +190,7 @@ async function scenario(bureau) {
   await capture(e, 'positionnement-propose')
   await appuyer(e, bouton(e, 'Faire le test'))
   // Ceinture blanche réussie, étude de fonction manquée : la jaune s'ouvre, la seule à faire
-  let problemes = await jouer(e, 'positionnement-variations-composees-t', dériveeFausse(1))
+  let problemes = await jouer(e, 'positionnement-variations-composees-t', etudeFausse(1))
   ok(problemes.length === 0, `${ecran} : test joué`, problemes.join(' | '))
   let t = await texte(e)
   ok(t.includes('Tu commences à : ceinture jaune.'), `${ecran} : le test place à la ceinture jaune`, t.slice(0, 300))
@@ -200,18 +209,18 @@ async function scenario(bureau) {
   const commencer = jaune.getByRole('button', { name: /^Commencer/ })
   ok((await commencer.getAttribute('class'))?.includes('bg-coopmaths-action'), `${ecran} : la ceinture à faire est la jaune (bouton plein)`)
   await appuyer(e, commencer)
-  problemes = await jouer(e, PARCOURS.id, dériveeFausse(1))
+  problemes = await jouer(e, PARCOURS.id, etudeFausse(1))
   t = await texte(e)
   ok(t.includes('À retravailler'), `${ecran} : le bilan dit quoi retravailler`, t.slice(0, 400))
-  ok(t.includes(DERIVER) && !t.includes(`${TABLEAU} Manqué`), `${ecran} : objectif du premier point manqué (la dérivée), pas celui du tableau réussi`)
-  const parObjectif = (await page.getByRole('region', { name: 'Par objectif' }).innerText().catch(() => '')).replace(/\s+/g, ' ')
-  ok(parObjectif.includes(`${DERIVER} 0 %`) && parObjectif.includes(`${TABLEAU} 100 %`), `${ecran} : bilan par objectif, réponse par réponse (dérivée 0 %, tableau 100 %)`, parObjectif)
+  ok(t.includes(`Retravailler : ${DERIVER}`) && !t.includes(`Retravailler : ${TABLEAU}`), `${ecran} : objectif du premier point manqué (la dérivée), pas celui du tableau qui en découle`)
+  // Réponses enchaînées : le tableau manqué après la dérivée manquée ne compte pas, seul « Dériver » est évalué
+  ok(!(await page.getByRole('region', { name: 'Par objectif' }).count()), `${ecran} : le tableau manqué ne compte pas contre son objectif (réponses enchaînées)`)
   const retravailler = bouton(e, `Retravailler : ${DERIVER}`)
   ok(await touchable(e, retravailler), `${ecran} : « Retravailler : ${DERIVER} » touchable`)
   await capture(e, 'bilan-a-retravailler')
   const seanceBilan = await lireSeance(page, PARCOURS.id)
   const essai = seanceBilan.essais.find((x) => x.etape === 1)
-  ok(essai?.detail && essai.detail['0'] < 1 && essai.detail['1'] === 1, `${ecran} : résultat par point enregistré (dérivée manquée, tableau correct)`, JSON.stringify(essai?.detail))
+  ok(essai?.detail && essai.detail['0'] < 1 && essai.detail['1'] < 1, `${ecran} : résultat par point enregistré (dérivée et tableau manqués)`, JSON.stringify(essai?.detail))
   await appuyer(e, retravailler)
   // Remédiation : exercice plus simple, puis l'étude avec de nouvelles valeurs
   t = await texte(e)
@@ -262,7 +271,7 @@ async function scenario(bureau) {
 
   // ---------- 3. Remédiation encore manquée : le prérequis ----------
   await appuyer(e, bouton(e, /^Refaire : ceinture jaune$/))
-  await jouer(e, PARCOURS.id, dériveeFausse(1))
+  await jouer(e, PARCOURS.id, etudeFausse(1))
   await appuyer(e, bouton(e, `Retravailler : ${DERIVER}`))
   await jouer(e, 'remediation-variations-composees-t', toutFaux([1, 2]))
   t = await texte(e)
@@ -344,7 +353,7 @@ async function adapte(bureau) {
   const attendu = [
     ['commencer', 0, null],
     ['continuer', 0, null],
-    ['monter', 1, dériveeFausse(0)],
+    ['monter', 1, etudeFausse(0)],
     ['consolider', 0, null],
   ]
   for (const [k, [raison, niveau, fausser]] of attendu.entries()) {

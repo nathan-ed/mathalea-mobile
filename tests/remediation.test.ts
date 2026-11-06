@@ -281,6 +281,22 @@ describe('maîtrise par objectif', () => {
     ])
   })
 
+  it('réponses enchaînées : une réponse manquée après la première manquée ne compte pas', () => {
+    const p = { ...base, etapes: base.etapes.map((e) => (e.uuid === 'etu' ? { ...e, enchainees: true } : e)) }
+    expect(estParcours(p)).toBe(true)
+    // Dérivée manquée, signe et variations manqués : seule la dérivée compte
+    const tout = seance(p, [4], [[4, 0, 0, { '0:field0': 0, '0:field1': 0, '0:field2': 0 }]])
+    expect(Object.fromEntries(scoresParObjectif(tout, 4))).toEqual({ Dériver: { points: 0, sur: 1 } })
+    // Une réponse juste après l'erreur compte toujours
+    const reprise = seance(p, [4], [[4, 0, 0, { '0:field0': 0, '0:field1': 0, '0:field2': 1 }]])
+    expect(Object.fromEntries(scoresParObjectif(reprise, 4))).toEqual({ Dériver: { points: 0, sur: 1 }, Variations: { points: 1, sur: 1 } })
+    // Dérivée juste, signe manqué : le signe compte (c'est la première erreur)
+    const signe = seance(p, [4], [[4, 0, 0, { '0:field0': 1, '0:field1': 0, '0:field2': 0 }]])
+    expect(Object.fromEntries(scoresParObjectif(signe, 4))).toEqual({ Dériver: { points: 1, sur: 1 }, 'Signe de la dérivée': { points: 0, sur: 1 } })
+    // Le diagnostic, lui, ne change pas : le premier point manqué
+    expect(lacunesDe(tout)[0]).toMatchObject({ point: '0:field0', objectifs: ['Dériver'] })
+  })
+
   it('sans résultat par point : la question pour les objectifs de l’exercice', () => {
     const s = seance(base, [3], [[3, 0, 1]])
     expect(Object.fromEntries(scoresParObjectif(s, 3))).toEqual({ Variations: { points: 1, sur: 2 }, Dériver: { points: 1, sur: 2 } })

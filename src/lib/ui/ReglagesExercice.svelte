@@ -1,7 +1,7 @@
 <script lang="ts">
   // Réglages d'un exercice : nombre de questions et paramètres, comme le
   // formulaire du site (Settings.svelte). Les valeurs sont celles de l'URL MathALÉA.
-  import type { Etape } from '$lib/catalogue'
+  import { latexEnTexte, type Etape } from '$lib/catalogue'
   import type { DescriptionExercice, ParametreExercice } from '$lib/moteur'
 
   let { etape = $bindable(), description }: { etape: Etape; description: DescriptionExercice | null } = $props()
@@ -9,6 +9,8 @@
   const champ = `text-sm border h-9 border-coopmaths-action dark:border-coopmathsdark-action
     focus:outline-0 focus:ring-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
     text-coopmaths-corpus dark:text-coopmathsdark-corpus`
+  // Libellés de MathALÉA avec des formules ($u^n$) : en texte simple (uⁿ), une option de liste ne rend pas de formule
+  const enTexte = (t: string) => t.replace(/\$([^$]*)\$/g, (_, f: string) => latexEnTexte(f))
   const libelle = 'text-sm text-coopmaths-struct dark:text-coopmathsdark-struct'
   const aide = 'text-xs font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
 
@@ -35,7 +37,7 @@
   {#each description?.parametres ?? [] as p (p.cle)}
     {#if p.type === 'case'}
       <label class="flex flex-row items-center justify-between gap-3 {libelle}">
-        {p.titre}
+        {enTexte(p.titre)}
         <input
           type="checkbox"
           checked={valeur(p) === 'true'}
@@ -45,24 +47,24 @@
       </label>
     {:else if p.type === 'liste'}
       <label class="flex flex-col gap-1 {libelle}">
-        {p.titre}
+        {enTexte(p.titre)}
         <select value={valeur(p)} onchange={(e) => ecrire(p, e.currentTarget.value)} class="w-full {champ}">
           {#each p.options ?? [] as o (o.valeur)}
-            <option value={o.valeur}>{o.libelle}</option>
+            <option value={o.valeur}>{enTexte(o.libelle)}</option>
           {/each}
         </select>
       </label>
     {:else if p.type === 'nombre'}
       <label class="flex flex-col gap-1 {libelle}">
         <span class="flex flex-row items-center justify-between gap-3">
-          {p.titre}
+          {enTexte(p.titre)}
           <input type="number" min="1" max={p.max} value={valeur(p)} oninput={(e) => ecrire(p, e.currentTarget.value)} class="w-20 {champ}" />
         </span>
         {#if p.aide}<span class={aide}>{p.aide}</span>{/if}
       </label>
     {:else if p.options?.length}
       <fieldset class="flex flex-col gap-1">
-        <legend class={libelle}>{p.titre}</legend>
+        <legend class={libelle}>{enTexte(p.titre)}</legend>
         <div class="flex flex-row flex-wrap gap-2 pt-1">
           {#each p.options as o (o.valeur)}
             {@const actif = choisis(p).includes(o.valeur)}
@@ -76,14 +78,14 @@
                 : 'text-coopmaths-action dark:text-coopmathsdark-action'}"
               onclick={() => basculer(p, o.valeur)}
             >
-              {o.libelle}
+              {enTexte(o.libelle)}
             </button>
           {/each}
         </div>
       </fieldset>
     {:else}
       <label class="flex flex-col gap-1 {libelle}">
-        {p.titre}
+        {enTexte(p.titre)}
         <input type="text" value={valeur(p)} oninput={(e) => ecrire(p, e.currentTarget.value)} class="w-full {champ}" />
         {#if p.aide}<span class={aide}>{p.aide}</span>{/if}
       </label>

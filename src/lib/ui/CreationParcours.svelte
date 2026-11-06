@@ -451,6 +451,19 @@
           <p class={discret}>Absent de la liste vue par les élèves, sans titre pendant l’activité.</p>
         {/if}
         <ReglagesExercice bind:etape={p.etapes[i]} description={descriptions[e.uuid] ?? null} />
+        <div class="flex flex-col gap-2">
+          <button
+            type="button"
+            role="checkbox"
+            aria-checked={e.enchainees === true}
+            class="{puce(e.enchainees === true)} self-start"
+            onclick={() => (e.enchainees = e.enchainees ? undefined : true)}
+          >
+            {#if e.enchainees}<i aria-hidden="true" class="bx bx-check"></i>{/if}
+            Réponses enchaînées
+          </button>
+          <p class={discret}>Chaque réponse découle de la précédente (une dérivée, puis le tableau de variations) : après la première erreur, les suivantes ne comptent pas contre leurs objectifs.</p>
+        </div>
         {#if p.version > 1 || p.id}
           {@const zero = e.remiseAZero === true || e.remiseAZero === p.version}
           <div class="flex flex-col gap-2">

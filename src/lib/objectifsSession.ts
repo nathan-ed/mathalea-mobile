@@ -3,7 +3,7 @@
 // (ReponsesClasse). Rien ne vient d'un serveur : chaque réponse est revérifiée
 // par le moteur, qui donne aussi le résultat de chaque point de réponse.
 import type { Parcours } from './catalogue'
-import { objectifsDuPoint } from './objectifs'
+import { objectifsDuPoint, pointsComptes } from './objectifs'
 import type { ReponsesSession, VerdictQuestion } from './releve'
 
 export interface ObjectifDeSession {
@@ -38,7 +38,8 @@ export function objectifsDeLaSession(
       if (!v || !r.r[cle] || hors(r, cle)) continue
       const e = p.etapes[Number(cle.split('-')[0])]
       if (!e) continue
-      const points = v.detail ? Object.entries(v.detail) : [[undefined, v.score] as const]
+      // Réponses enchaînées : une réponse manquée après la première manquée ne compte pas
+      const points: (readonly [string | undefined, number])[] = v.detail ? pointsComptes(e, v.detail) : [[undefined, v.score]]
       for (const [point, score] of points) {
         const { objectifs } = objectifsDuPoint(e, point)
         for (const o of objectifs) {

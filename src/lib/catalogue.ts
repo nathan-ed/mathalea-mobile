@@ -17,6 +17,14 @@ export interface Etape extends ParamsExercice {
   points?: Record<string, string[]>
   /** Exercices plus simples ou plus ciblés, proposés à l'élève qui manque celui-ci (sans remédiation propre) */
   remediation?: Etape[]
+  /**
+   * Réponses enchaînées (une étude de fonction : la dérivée, puis le tableau
+   * qui en découle) : après la première réponse manquée d'une question, les
+   * suivantes manquées ne comptent pas contre leurs objectifs, elles en sont
+   * peut-être la conséquence. MathALÉA les corrige chacune contre la réponse
+   * attendue, sans tenir compte de la réponse précédente de l'élève.
+   */
+  enchainees?: boolean
   // `interactif: false` (ParamsExercice) : exemple corrigé, énoncé sans champ et sa correction, hors score
 }
 

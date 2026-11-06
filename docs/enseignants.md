@@ -171,6 +171,11 @@ Ce que vous pouvez prévoir (format décrit dans `remediation.md`) :
   (trous, sous-questions a), b), tableau) ; sans eux, l'exercice garde ses
   objectifs, et l'élève dit lui-même ce qui l'a bloqué quand il y en a
   plusieurs ;
+- **« Réponses enchaînées »** sur un exercice dont chaque réponse découle de
+  la précédente (une dérivée, puis le tableau de variations) : MathALÉA
+  corrige chaque réponse contre la réponse attendue, sans tenir compte de la
+  précédente ; après la première erreur, les suivantes ne comptent donc pas
+  contre leurs objectifs ;
 - des exercices **« Si l'élève n'y arrive pas »** pour un exercice ;
 - une **remédiation par objectif** (exercices, fiche, prérequis) ;
 - un **test de positionnement** (parcours à paliers, interrupteur dans
