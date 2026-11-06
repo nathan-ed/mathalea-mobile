@@ -1,13 +1,13 @@
 # Vidéo pour la vérification d'Apple (0.6.1)
 
 Apple demande (refus 2.1 du 0.5.0) un enregistrement d'écran fait sur un
-vrai iPhone à jour, qui commence au lancement de l'app et montre le
+vrai appareil à jour (iPad : Nathan n'a pas d'iPhone), qui commence au lancement de l'app et montre le
 parcours habituel, avec le signalement et le blocage du contenu publié par
 des utilisateurs. Durée visée : 2 à 3 minutes, sans son.
 
 ## Avant d'enregistrer
 
-- iPhone sur la dernière version d'iOS (noter le numéro pour les notes :
+- iPad sur la dernière version d'iPadOS (noter le numéro pour les notes :
   Réglages, Général, Informations).
 - Build 0.6.1 installé depuis TestFlight. Supprimer puis réinstaller l'app
   pour partir d'un premier lancement.
