@@ -331,6 +331,12 @@ ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
   (`listerExercices(pays)`), seuls ceux qui ont des parcours apparaissent. Le
   pays d'un parcours se déduit de son niveau (un degré suisse, sinon France) :
   aucun champ de plus dans le fichier. Sans moteur, niveaux de l'éditeur.
+  Suisse : depuis le référentiel du 5 novembre 2026, les degrés sont ceux de
+  la vue Parcours du site, dans son ordre (9R3 … 11CT, Préqualifiant, 1re à
+  4e Collège, Primaire, `NIVEAUX.CH`) ; `degreSuisse` ramène « Cycle
+  d'orientation › 9R1 › axe » et « Collège › 1re année › chapitre » à ces
+  degrés. Les anciens 9e, 10e, 11e restent suisses, rangés avant leurs
+  sections (fichiers d'avant, moteur antérieur à ce référentiel).
   « Commencer » ajoute le parcours à Mes parcours ; l'enseignant le reprend par
   « Donner à des classes » (`adopter`, puis sa page). La page d'un degré montre
   tous ses parcours sous le titre de leur chapitre (plus d'écran par chapitre,

@@ -14,7 +14,8 @@ source : on modifie ici, on teste, puis on remplace le fichier sur le drive.
 - Format `classes-mathalea/1` (`docs/guide/format-parcours.md`), un fichier
   par degré.
 - `niveau` et `theme` : noms du référentiel de MathALÉA (« 4e Collège »,
-  « Intégration »). L'app range l'Explorer par degré puis par chapitre dans
+  « Intégration ») ; au Cycle d'orientation, la section (« 9R1 », « 11LS »)
+  et l'axe (« Nombres et opérations »), comme la vue Parcours du site. L'app range l'Explorer par degré puis par chapitre dans
   l'ordre du référentiel. Le dossier décide du pays : l'app suisse ne lit
   que `CH`, la française que `FR`. Un fichier relève d'un seul pays (vérifié
   par `pnpm test`) ; un fichier suisse déposé dans `FR` n'apparaît nulle part.

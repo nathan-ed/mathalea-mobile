@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { parcoursVide } from './parcours-de-test'
 import type { Parcours } from '../src/lib/catalogue'
-import { arborescence, reperesDu, reperesParDefaut } from '../src/lib/explorer'
+import { arborescence, degreSuisse, reperesDu, reperesParDefaut } from '../src/lib/explorer'
 import type { ExerciceDuReferentiel } from '../src/lib/moteur'
 
 const ex = (niveau: string, libelle: string, theme: string): ExerciceDuReferentiel => ({
@@ -78,5 +78,66 @@ describe('Explorer : degrés et chapitres du référentiel', () => {
   it('fonctionne sans moteur avec les niveaux de l’éditeur', () => {
     const a = arborescence([parcours('t', 'Terminale', 'Intégration'), parcours('s', '6e', 'Fractions')], 'FR', reperesParDefaut('FR'))
     expect(a.map((n) => n.niveau)).toEqual(['6e', 'Terminale'])
+  })
+})
+
+// Référentiel suisse du 5 novembre 2026, tel que le moteur le donne
+const noeud = (code: string, titre = code) => ({ code, titre, sousTheme: false })
+const co = (section: string, axe: string, titre: string): ExerciceDuReferentiel => ({
+  uuid: `${section}-${axe}`,
+  id: '',
+  titre: '',
+  niveau: "Cycle d'orientation",
+  theme: section,
+  interactif: true,
+  chemin: [noeud("Cycle d'orientation"), noeud(section), noeud(axe, `${axe} : ${titre}`), noeud(`${axe}1`)],
+})
+const college = (annee: string, chapitre: string, titre: string): ExerciceDuReferentiel => ({
+  uuid: `${annee}-${chapitre}`,
+  id: '',
+  titre: '',
+  niveau: 'Collège',
+  theme: annee,
+  interactif: true,
+  chemin: [noeud('Collège'), noeud(annee), noeud(chapitre, `${chapitre} : ${titre}`)],
+})
+
+describe('Explorer : niveaux suisses du référentiel de novembre 2026', () => {
+  const NOUVEAU = reperesDu([
+    co('9R3', '9R3NO', 'Nombres et opérations'),
+    co('9R1', '9R1NO', 'Nombres et opérations'),
+    co('9R1', '9R1FA', 'Fonctions et algèbre'),
+    co('11LS', '11LSNO', 'Nombres et opérations'),
+    college('1re année', '1mCN', 'Rappels de calcul numérique'),
+    ex('Préqualifiant', 'Préqualifiant', 'Nombres'),
+  ])
+
+  it('ramène le degré à la section et le chapitre à l’axe, comme le site', () => {
+    expect(degreSuisse(co('9R1', '9R1NO', 'Nombres et opérations'))).toMatchObject({ niveau: '9R1', theme: 'Nombres et opérations' })
+    expect(degreSuisse(college('1re année', '1mCN', 'Rappels'))).toMatchObject({ niveau: '1re Collège', theme: 'Rappels' })
+    expect(NOUVEAU.map((r) => r.noms[0])).toEqual(['9R3', '9R1', '11LS', '1re Collège', 'Préqualifiant'])
+    expect(NOUVEAU[1].chapitres).toEqual(['Nombres et opérations', 'Fonctions et algèbre'])
+  })
+
+  it('range en Suisse les parcours du site (9R1, 11LS…), dans l’ordre du site', () => {
+    const tous = [
+      parcours('college', '1re Collège', 'Rappels de calcul numérique'),
+      parcours('prq', 'Préqualifiant', 'Nombres'),
+      parcours('fa', '9R1', 'Fonctions et algèbre'),
+      parcours('ls', '11LS', 'Nombres et opérations'),
+      parcours('no', '9R1', 'Nombres et opérations'),
+      parcours('fr', '6e', 'Fractions'),
+    ]
+    const a = arborescence(tous, 'CH', NOUVEAU)
+    expect(a.map((n) => n.niveau)).toEqual(['9R1', '11LS', 'Préqualifiant', '1re Collège'])
+    expect(a[0].chapitres.map((c) => c.theme)).toEqual(['Nombres et opérations', 'Fonctions et algèbre'])
+    expect(arborescence(tous, 'FR', FR).map((n) => n.niveau)).toEqual(['6e'])
+  })
+
+  it('garde les anciens 9e, 10e, 11e en Suisse, avant leurs sections', () => {
+    const tous = [parcours('ls', '11LS', 'X'), parcours('ancien', '11e', 'EVACOM TAF'), parcours('r1', '9R1', 'Y')]
+    expect(arborescence(tous, 'CH', NOUVEAU).map((n) => n.niveau)).toEqual(['9R1', '11e', '11LS'])
+    expect(arborescence(tous, 'CH', reperesParDefaut('CH')).map((n) => n.niveau)).toEqual(['9R1', '11e', '11LS'])
+    expect(arborescence(tous, 'FR', FR)).toEqual([])
   })
 })

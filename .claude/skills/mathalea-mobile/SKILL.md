@@ -499,7 +499,9 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   un moteur ancien n'a pas les réglages.
 - Valeur par défaut d'un paramètre : non stockée dans l'étape (l'exercice suit
   les évolutions du site).
-- Suisse : niveaux 9e, 10e, 11e, 1re à 4e Collège, référentiel CH. Le niveau
+- Suisse : niveaux du site depuis le référentiel du 5 novembre 2026 (9R3 …
+  11CT, Préqualifiant, 1re à 4e Collège, Primaire) ; 9e, 10e, 11e encore lus
+  (`degreSuisse`, `ANCIENS_DEGRES` dans `explorer.ts`). Le niveau
   d'un parcours d'un autre pays reste affiché dans l'éditeur.
 
 Mises à jour du moteur téléchargées (`src-tauri/src/moteur.rs`) : **désactivées**

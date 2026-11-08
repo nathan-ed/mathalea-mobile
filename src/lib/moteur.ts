@@ -104,10 +104,30 @@ export interface DescriptionExercice {
   parametres: ParametreExercice[]
 }
 
-/** Niveaux proposés dans l'éditeur, selon les référentiels de MathALÉA */
+/**
+ * Niveaux des parcours, comme les écrit la vue Parcours du site. En Suisse,
+ * les sections du Cycle d'orientation depuis le référentiel du 5 novembre 2026
+ * (avant : 9e, 10e, 11e, encore lus, voir `explorer.ts`).
+ */
 export const NIVEAUX: Record<Pays, string[]> = {
   FR: ['6e', '5e', '4e', '3e', '2e', '1re', 'Terminale'],
-  CH: ['9e', '10e', '11e', '1re Collège', '2e Collège', '3e Collège', '4e Collège'],
+  CH: [
+    '9R3',
+    '9R2',
+    '9R1',
+    '10LS',
+    '10LC',
+    '10CT',
+    '11LS',
+    '11LC',
+    '11CT',
+    'Préqualifiant',
+    '1re Collège',
+    '2e Collège',
+    '3e Collège',
+    '4e Collège',
+    'Primaire',
+  ],
 }
 
 export interface ExerciceDuReferentiel {
