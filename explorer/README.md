@@ -15,7 +15,11 @@ source : on modifie ici, on teste, puis on remplace le fichier sur le drive.
   par degré.
 - `niveau` et `theme` : noms du référentiel de MathALÉA (« 4e Collège »,
   « Intégration ») ; au Cycle d'orientation, la section (« 9R1 », « 11LS »)
-  et l'axe (« Nombres et opérations »), comme la vue Parcours du site. L'app range l'Explorer par degré puis par chapitre dans
+  et l'axe (« Nombres et opérations »), comme la vue Parcours du site.
+  Ne passer `ch-11e-ls.json` (11e → 11LS) et EVACOM (11e → 11LC, 11LS) aux
+  nouveaux noms qu'une fois publiée une version de l'app qui les connaît
+  (commit 85dc922, novembre 2026) : les versions d'avant rangent « 11LS »
+  en France et le parcours disparaîtrait de l'Explorer suisse. L'app range l'Explorer par degré puis par chapitre dans
   l'ordre du référentiel. Le dossier décide du pays : l'app suisse ne lit
   que `CH`, la française que `FR`. Un fichier relève d'un seul pays (vérifié
   par `pnpm test`) ; un fichier suisse déposé dans `FR` n'apparaît nulle part.
