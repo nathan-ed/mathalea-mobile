@@ -43,13 +43,23 @@ class PartagePlugin: Plugin {
       }
       let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
       // Sur iPad, la feuille s'ouvre dans une bulle qui doit être ancrée : au
-      // centre, sans flèche. Sur iPhone, on n'ancre rien : depuis iOS 26, une
-      // feuille ancrée s'y ouvre aussi en petite bulle, coincée près du point
-      // d'ancrage, au lieu de monter du bas de l'écran
-      if UIDevice.current.userInterfaceIdiom == .pad, let bulle = feuille.popoverPresentationController {
-        bulle.sourceView = vue.view
-        bulle.sourceRect = CGRect(x: vue.view.bounds.midX, y: vue.view.bounds.midY, width: 0, height: 0)
-        bulle.permittedArrowDirections = []
+      // centre, sans flèche. Sur iPhone, depuis iOS 26, la feuille garde sa
+      // présentation en bulle (.popover par défaut) même sans ancrage : petite
+      // bulle étroite en bas à droite, noms coupés (vu en 0.6.1 sur
+      // l'impression d'un parcours). On impose donc une vraie feuille qui monte
+      // du bas de l'écran, à mi-hauteur, agrandissable.
+      if UIDevice.current.userInterfaceIdiom == .pad {
+        if let bulle = feuille.popoverPresentationController {
+          bulle.sourceView = vue.view
+          bulle.sourceRect = CGRect(x: vue.view.bounds.midX, y: vue.view.bounds.midY, width: 0, height: 0)
+          bulle.permittedArrowDirections = []
+        }
+      } else {
+        feuille.modalPresentationStyle = .pageSheet
+        if let bas = feuille.sheetPresentationController {
+          bas.detents = [.medium(), .large()]
+          bas.prefersGrabberVisible = true
+        }
       }
       vue.present(feuille, animated: true)
       invoke.resolve()
