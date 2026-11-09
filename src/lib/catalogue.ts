@@ -114,6 +114,7 @@ export interface Palier {
   nb: number // nombre d'exercices, pris dans l'ordre des étapes
   acces?: Acces // ignoré pour le premier palier
   seuil?: number // pourcentage à atteindre au palier précédent (accès « seuil »)
+  melanger?: boolean // ordre des questions du palier ; absent : réglage du parcours
   ouverture?: string // instant d'ouverture, 8 h du jour choisi chez l'enseignant (« 2026-11-12T08:00:00+01:00 ») ; fermé avant, en plus de l'accès
   ressource?: Ressource // pour revoir la notion, mise en avant tant que le palier n'est pas réussi
   pause?: Pause // affichée après le palier
@@ -153,8 +154,15 @@ export function auteursTexte(p: Pick<Parcours, 'auteurs'>) {
 /** Noms saisis séparés par des virgules ou des points-virgules, sans vides ni doublons */
 export const decouperAuteurs = (saisie: string) => [...new Set(saisie.split(/[,;]/).map((x) => x.trim()).filter(Boolean))]
 
-/** Ordre mélangé : seulement si une page ou le parcours mêle plusieurs exercices */
-export const melange = (p: Pick<Parcours, 'melanger' | 'presentation'>) => !!p.melanger && p.presentation !== 'un_exo_par_page'
+/**
+ * Ordre mélangé : seulement si une page ou le parcours mêle plusieurs exercices.
+ * Réglage du palier de ces étapes, sinon celui du parcours (les anciennes versions ne lisent que celui du parcours).
+ */
+export function melange(p: Pick<Parcours, 'melanger' | 'presentation'> & Partial<Parcours>, etapes: number[] = []) {
+  if (p.presentation === 'un_exo_par_page') return false
+  const palier = p.paliers && etapes.length ? paliersDe(p as Parcours).find((x) => etapes.every((e) => x.etapes.includes(e))) : undefined
+  return palier?.melanger ?? !!p.melanger
+}
 
 /** Paliers numérotés, ou ceintures comme au judo (blanche, jaune…) */
 export type StylePaliers = 'paliers' | 'ceintures'
@@ -248,6 +256,7 @@ export function paliersDe(p: Parcours) {
         etapes: p.etapes.map((_, i) => i),
         acces: 'libre' as Acces,
         seuil: 0,
+        melanger: undefined as boolean | undefined,
         ouverture: undefined as string | undefined,
         ressource: undefined as Ressource | undefined,
         pause: undefined as Pause | undefined,
@@ -263,6 +272,7 @@ export function paliersDe(p: Parcours) {
       etapes,
       acces: k === 0 ? ('libre' as Acces) : (x.acces ?? 'libre'),
       seuil: x.seuil ?? 80,
+      melanger: x.melanger,
       ouverture: x.ouverture,
       ressource: x.ressource,
       pause: x.pause,

@@ -116,6 +116,7 @@ const estPalier = (v: unknown) =>
   (v.nb as number) >= 0 &&
   optionnel(v.acces, (a) => ACCES.includes(a as string)) &&
   optionnel(v.seuil, (n) => estNombre(n) && (n as number) >= 0 && (n as number) <= 100) &&
+  optionnel(v.melanger, (b) => typeof b === 'boolean') &&
   optionnel(v.ouverture, estOuverture) &&
   optionnel(v.ressource, estRessource) &&
   optionnel(v.pause, (x) => estObjet(x) && estTexte(x.texte) && optionnel(x.ressource, estRessource)) &&

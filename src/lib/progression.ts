@@ -123,7 +123,7 @@ export function melanger<T>(liste: T[], graine: string): T[] {
  * ordre déjà tiré qui correspond toujours aux questions est gardé.
  */
 export function fixerOrdre(s: Seance) {
-  if (!melange(s.contenu)) {
+  if (!melange(s.contenu, s.etapes)) {
     s.ordre = undefined
     return
   }

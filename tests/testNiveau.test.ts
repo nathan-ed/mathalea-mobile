@@ -214,3 +214,23 @@ describe('format des parcours (guide)', async () => {
     expect(() => lireFichier(JSON.stringify(f))).toThrow('relatifs-5e')
   })
 })
+
+describe('ordre des questions par palier', () => {
+  const p = {
+    melanger: true,
+    presentation: 'une_question_par_page',
+    etapes: [{}, {}, {}],
+    paliers: [{ titre: 'Un', nb: 2 }, { titre: 'Deux', nb: 1, melanger: false }],
+  } as unknown as Parameters<typeof melange>[0]
+
+  it('suit le palier de la séance, sinon le parcours', () => {
+    expect(melange(p, [2])).toBe(false)
+    expect(melange(p, [0, 1])).toBe(true)
+    expect(melange(p, [0, 1, 2])).toBe(true)
+    expect(melange(p)).toBe(true)
+  })
+
+  it('ne mélange jamais avec une page par exercice', () => {
+    expect(melange({ ...p, presentation: 'un_exo_par_page' }, [0])).toBe(false)
+  })
+})
