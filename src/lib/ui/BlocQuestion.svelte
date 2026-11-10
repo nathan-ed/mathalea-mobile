@@ -155,9 +155,17 @@
     // Figure apigeom (tracer un segment, placer un point) : son état, au format
     // que MathALÉA réécrit (clé apigeomEx<n>F<k>, JSON sans options). Seulement
     // après un toucher : la figure de départ n'est pas une réponse.
+    // La figure est lue par le moteur : celle d'une question de test de CAN
+    // n'est pas dans figuresApiGeom de l'exercice (tracé perdu au brouillon,
+    // novembre 2026). Moteur antérieur au 10 novembre 2026 : figuresApiGeom.
     if (interagi) {
       const apigeom = (exercice.interne as { figuresApiGeom?: { id: string; json: string }[] }).figuresApiGeom ?? []
       for (const element of zone.querySelectorAll<HTMLElement>('[id^="apigeomEx"]')) {
+        if (moteur.etatFigure) {
+          const etat = moteur.etatFigure(element)
+          if (etat) saisies[element.id] = etat
+          continue
+        }
         const figure = apigeom.find((f) => f.id === element.id)
         if (!figure) continue
         const { options: _options, ...sansOptions } = JSON.parse(figure.json) as Record<string, unknown>

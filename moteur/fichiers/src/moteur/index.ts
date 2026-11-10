@@ -3,6 +3,7 @@
 // (`pnpm build:moteur`) et chargé à l'exécution par une application hôte, qui
 // peut ainsi recevoir les nouveaux exercices sans être mise à jour.
 // L'API est versionnée par API_MOTEUR : l'hôte refuse un moteur incompatible.
+import Figure from 'apigeom'
 import 'boxicons/css/boxicons.min.css'
 import 'katex/dist/katex.min.css'
 import seedrandom from 'seedrandom'
@@ -268,6 +269,14 @@ export function ajusterFigures(element: HTMLElement) {
     for (const etiquette of figure.parentElement?.querySelectorAll<HTMLElement>(
       'div.divLatex',
     ) ?? []) {
+      // Figure apigeom statique (correction de canc3a-2026-Q26) : ses
+      // étiquettes n'ont que leur position dans le style, sans data-top ni
+      // data-left. Sans ces lignes, elles partaient toutes en haut à gauche
+      // (même relevé que adjustMathalea2dFiguresWidth, sizeTools.ts)
+      if (!etiquette.dataset.top)
+        etiquette.dataset.top = etiquette.style.top.replace('px', '')
+      if (!etiquette.dataset.left)
+        etiquette.dataset.left = etiquette.style.left.replace('px', '')
       etiquette.style.setProperty(
         'top',
         `${Number(etiquette.dataset.top ?? 0) * coef}px`,
@@ -331,6 +340,34 @@ function ajusterApigeom(element: HTMLElement, largeur: number) {
 /** Réinjecte des réponses enregistrées dans les champs affichés */
 export async function ecrireReponses(reponses: Record<string, string>) {
   await Promise.all(mathaleaWriteStudentPreviousAnswers(reponses))
+}
+
+// Figures apigeom affichées, par élément qui les contient (apigeomEx<n>F<k>).
+// La question d'un test de CAN (MetaExerciceCan) garde sa figure dans son
+// sous-exercice, absent de l'exercice préparé : l'hôte ne la trouvait pas
+// dans figuresApiGeom et le brouillon perdait le tracé (novembre 2026).
+const figuresAffichees = new WeakMap<Element, Figure>()
+const setContainer = Figure.prototype.setContainer
+Figure.prototype.setContainer = function (
+  this: Figure,
+  conteneur: HTMLElement,
+) {
+  setContainer.call(this, conteneur)
+  figuresAffichees.set(conteneur, this)
+}
+
+/**
+ * État d'une figure apigeom affichée dans `element` (div apigeomEx<n>F<k>),
+ * au format que ecrireReponses() réécrit (JSON sans les options). Null si
+ * l'élément ne contient pas de figure.
+ */
+export function etatFigure(element: HTMLElement): string | null {
+  const figure = figuresAffichees.get(element)
+  if (figure == null) return null
+  const { options: _options, ...sansOptions } = JSON.parse(
+    figure.json,
+  ) as Record<string, unknown>
+  return JSON.stringify(sansOptions)
 }
 
 /**

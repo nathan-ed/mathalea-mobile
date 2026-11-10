@@ -996,6 +996,14 @@ Environnement (machine de Nathan)
   des choses que le moteur doit refaire (prepareExerciceCliqueFigure,
   zoom des figures apigeom) : relire QuestionParPage.svelte et
   ExerciceMathaleaVueEleve.svelte à chaque mise à jour de COMMIT.
+- Figures apigeom d'un test de CAN (`MetaExerciceCan`, Teste ton niveau) :
+  la figure reste dans le sous-exercice, absente de `interne.figuresApiGeom`.
+  Le brouillon la lit par `moteur.etatFigure(element)` (figures retenues à
+  `setContainer`), sinon le tracé était perdu à la reprise (novembre 2026).
+  Figure apigeom statique (correction) : étiquettes `div.divLatex` sans
+  `data-top`/`data-left`, relevés depuis le style dans `ajusterFigures`
+  (sinon toutes en haut à gauche). Un segment juste compté faux après un
+  toucher de trop sur la figure est un bug de l'exercice (MathALÉA #10108).
 - Plusieurs rangs par question : un rang n'appartient qu'à une question
   (`indicesDeLaQuestion`) ; vérifier l'effet sur tout le référentiel avant
   de toucher à la règle (107 exercices cassés par la première version).

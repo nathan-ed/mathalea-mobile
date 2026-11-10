@@ -51,6 +51,8 @@ export interface Moteur {
   afficher(element: HTMLElement): Promise<void>
   ajusterFigures(element: HTMLElement): void
   ecrireReponses(reponses: Record<string, string>): Promise<void>
+  /** État d'une figure apigeom affichée, pour le brouillon (absent des moteurs antérieurs au 2026-11-10) */
+  etatFigure?(element: HTMLElement): string | null
   verifier(exercice: ExercicePrepare, question: number): ResultatVerification
   monterClavier(cible: HTMLElement): () => void
   listerExercices(pays?: Pays): Promise<ExerciceDuReferentiel[]>
