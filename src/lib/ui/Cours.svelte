@@ -3,7 +3,7 @@
   // bas) ou reprise comme ressource depuis la page du parcours et le bilan.
   // Les questions « À toi » donnent un retour immédiat et ne comptent pas.
   import type { Fiche } from '$lib/catalogue'
-  import { ouvrirLien } from '$lib/fichiers'
+  import { lienSur, ouvrirLien } from '$lib/fichiers'
   import { retourSi } from '$lib/navigation.svelte'
   import { texteRiche, titreRiche, type RenduFormule } from '$lib/texteRiche'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
@@ -118,7 +118,7 @@
             <figcaption class="texte-cours text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{@html riche(bloc.legende)}</figcaption>
           {/if}
         </figure>
-      {:else if bloc.type === 'lien'}
+      {:else if bloc.type === 'lien' && lienSur(bloc.lien)}
         <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => ouvrirLien(bloc.lien)}>
           <i aria-hidden="true" class="bx bx-link-external"></i>
           {bloc.titre}

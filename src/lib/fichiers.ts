@@ -75,8 +75,23 @@ export const enregistrerImage = (nom: string, base64: string) => enregistrerOcte
 /** Document PDF (octets en base64) */
 export const enregistrerPdf = (nom: string, base64: string) => enregistrerOctets(nom, base64, 'application/pdf', { name: 'PDF', extensions: ['pdf'] })
 
+/**
+ * Lien que l'app accepte d'ouvrir : `https:`, ou `mailto:` (contact,
+ * signalement). Un parcours vient d'un dossier partagé ou d'une publication :
+ * un lien `javascript:`, `data:`, `file:` ou `http:` saisi dedans n'est jamais ouvert.
+ */
+export function lienSur(adresse: string): boolean {
+  try {
+    return ['https:', 'mailto:'].includes(new URL(adresse.trim()).protocol)
+  } catch {
+    return false
+  }
+}
+
 /** Ouvre un lien (ressource d'un palier, dossier partagé) dans le navigateur du téléphone */
 export async function ouvrirLien(adresse: string) {
+  if (!lienSur(adresse)) return
+  adresse = adresse.trim()
   try {
     const { openUrl } = await import('@tauri-apps/plugin-opener')
     await openUrl(adresse)

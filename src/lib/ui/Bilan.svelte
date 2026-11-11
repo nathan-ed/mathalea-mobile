@@ -1,6 +1,6 @@
 <script lang="ts">
   import { titreEleve, type Parcours, type Fiche, type Pause, type Ressource } from '$lib/catalogue'
-  import { ouvrirLien } from '$lib/fichiers'
+  import { lienSur, ouvrirLien } from '$lib/fichiers'
   import type { Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
@@ -90,7 +90,7 @@
           <i aria-hidden="true" class="bx bx-pause-circle text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i> Pause
         </p>
         <p class="whitespace-pre-line text-coopmaths-corpus dark:text-coopmathsdark-corpus">{palier.pause.texte}</p>
-        {#if palier.pause.ressource}
+        {#if palier.pause.ressource && lienSur(palier.pause.ressource.lien)}
           <button type="button" class="{boutonLien} w-full" onclick={() => ouvrirLien(palier!.pause!.ressource!.lien)}>
             <i aria-hidden="true" class="bx bx-link-external text-xl"></i> {palier.pause.ressource.titre}
           </button>
@@ -208,7 +208,7 @@
             <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Revoir la fiche : {palier.fiche.titre}
           </button>
         {/if}
-        {#if palier.ressource}
+        {#if palier.ressource && lienSur(palier.ressource.lien)}
           <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => ouvrirLien(palier!.ressource!.lien)}>
             <i aria-hidden="true" class="bx bx-book-open text-xl"></i> Pour revoir : {palier.ressource.titre}
           </button>

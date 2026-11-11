@@ -10,7 +10,7 @@
   import { nouveauCode, normaliserCode } from '$lib/progression'
   import { encoderInvitation } from '$lib/invitation'
   import QrSession from './QrSession.svelte'
-  import { ouvrirLien } from '$lib/fichiers'
+  import { lienSur, ouvrirLien } from '$lib/fichiers'
   import { CONTACT, mailSignalement } from '$lib/signalement'
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
@@ -258,7 +258,7 @@
                     <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Fiche : {x.fiche.titre}
                   </button>
                 {/if}
-                {#if x.ressource}
+                {#if x.ressource && lienSur(x.ressource.lien)}
                   <button type="button" class="{x.aRevoir ? boutonInverse : boutonLien} w-full" onclick={() => ouvrirLien(x.ressource!.lien)}>
                     <i aria-hidden="true" class="bx bx-book-open text-xl"></i> Pour revoir : {x.ressource.titre}
                   </button>
@@ -286,7 +286,7 @@
                 </p>
                 {#if x.fini}
                   <p class="whitespace-pre-line text-coopmaths-corpus dark:text-coopmathsdark-corpus">{x.pause.texte}</p>
-                  {#if x.pause.ressource}
+                  {#if x.pause.ressource && lienSur(x.pause.ressource.lien)}
                     <button type="button" class="{boutonLien} w-full" onclick={() => ouvrirLien(x.pause!.ressource!.lien)}>
                       <i aria-hidden="true" class="bx bx-link-external text-xl"></i>
                       {x.pause.ressource.titre}
