@@ -1,7 +1,7 @@
 <script lang="ts">
   // Relecture d'un passage terminé : réponses de l'élève et corrections, sans modification
   import { onMount } from 'svelte'
-  import type { Parcours } from '$lib/catalogue'
+  import { titreVisible, type Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
@@ -75,7 +75,7 @@
                 </div>
               {/if}
               <div class="font-light {seance.etapes.length > 1 ? 'ml-2' : ''}" style="font-size: 1.25rem; line-height: 1.3;">
-                {#if !parcours.etapes[ref.etape].titreMasque}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
+                {#if titreVisible(parcours, parcours.etapes[ref.etape])}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
               </div>
             </div>
           </h1>

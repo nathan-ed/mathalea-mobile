@@ -39,7 +39,7 @@ export function contenuSignale(p: Parcours, source: string, moteur?: string): st
   if (p.auteurs?.length) lignes.push(`Auteurs : ${p.auteurs.join(', ')}`)
   if (p.objectif) lignes.push(`Objectif : ${p.objectif}`)
   if (p.descriptionEleves) lignes.push(`Description : ${p.descriptionEleves}`)
-  lignes.push('', 'Exercices :', ...p.etapes.map((e, i) => `- ${titreEleve(e, i)} (${e.id ?? e.uuid})`))
+  lignes.push('', 'Exercices :', ...p.etapes.map((e, i) => `- ${titreEleve({ titresVisibles: true }, e, i)} (${e.id ?? e.uuid})`))
   for (const x of p.paliers ?? []) {
     if (x.pause?.texte) lignes.push('', `Pause après « ${x.titre} » : ${x.pause.texte}`)
     for (const r of [x.ressource, x.pause?.ressource]) if (r) lignes.push(`Ressource « ${r.titre} » : ${r.lien}`)

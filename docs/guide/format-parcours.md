@@ -69,6 +69,7 @@ Une classe, un parcours, un exercice :
 | `presentation` | **obligatoire** ; `une_question_par_page`, `un_exo_par_page` ou `liste_exos` (tout sur une page) |
 | `correction` | **obligatoire** ; `question`, `page` ou `parcours` (à la fin, ou à la fin du palier) |
 | `enTetesMasques` | facultatif ; `true` : ni numéro ni titre d'exercice, les questions s'enchaînent |
+| `titresVisibles` | facultatif ; `true` : l'élève voit le titre des exercices (liste des paliers, en-têtes, bilan). Absent : « Exercice 1 », « Exercice 2 »…, car le titre donne souvent la méthode |
 | `melanger` | facultatif ; `true` : questions des exercices mélangées (sans effet avec `un_exo_par_page`) |
 | `fiche` | facultatif ; fiche de cours d'un parcours sans paliers, voir « Fiches de cours » |
 | `etapes` | **obligatoire** ; liste d'exercices, dans l'ordre |

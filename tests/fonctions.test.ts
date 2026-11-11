@@ -55,10 +55,13 @@ describe('ceintures et paliers', () => {
 describe('titres vus par l’élève', () => {
   const e = { uuid: 'abcde', nbQuestions: 1, titre: 'Calculer $\\frac{a}{b}$ et $x^2$' }
   it('enlève les dollars, garde la formule', () => {
-    expect(titreEleve(e, 0)).toBe('Calculer \\frac{a}{b} et x^2')
+    expect(titreEleve({ titresVisibles: true }, e, 0)).toBe('Calculer \\frac{a}{b} et x^2')
   })
   it('titre masqué : « Exercice n »', () => {
-    expect(titreEleve({ ...e, titreMasque: true }, 2)).toBe('Exercice 3')
+    expect(titreEleve({ titresVisibles: true }, { ...e, titreMasque: true }, 2)).toBe('Exercice 3')
+  })
+  it('titres masqués par défaut : « Exercice n »', () => {
+    expect(titreEleve({}, e, 0)).toBe('Exercice 1')
   })
 })
 

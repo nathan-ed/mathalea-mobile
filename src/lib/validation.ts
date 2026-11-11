@@ -146,6 +146,7 @@ export function estParcours(v: unknown): v is Parcours {
     optionnel(p.style, (x) => x === 'paliers' || x === 'ceintures') &&
     optionnel(p.premiereCeinture, (n) => estEntier(n) && (n as number) >= 0 && (n as number) < 7) &&
     optionnel(p.enTetesMasques, (b) => typeof b === 'boolean') &&
+    optionnel(p.titresVisibles, (b) => typeof b === 'boolean') &&
     optionnel(p.melanger, (b) => typeof b === 'boolean') &&
     optionnel(p.fiche, estFiche)
   )

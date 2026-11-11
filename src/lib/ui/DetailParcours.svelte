@@ -159,7 +159,7 @@
         >
           {#if reussi}<i class="bx bx-check text-base"></i>{:else}{i + 1}{/if}
         </span>
-        <span class="min-w-0 flex-1 text-coopmaths-corpus dark:text-coopmathsdark-corpus">{titreEleve(parcours.etapes[i], i)}</span>
+        <span class="min-w-0 flex-1 text-coopmaths-corpus dark:text-coopmathsdark-corpus">{titreEleve(parcours, parcours.etapes[i], i)}</span>
         {#if r && r.sur > 0}<span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>{/if}
       </li>
     {/each}
@@ -310,7 +310,7 @@
             bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           >
             <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-              {titreEleve(etape, i)}
+              {titreEleve(parcours, etape, i)}
             </div>
             {#if r && r.sur > 0}
               <span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>

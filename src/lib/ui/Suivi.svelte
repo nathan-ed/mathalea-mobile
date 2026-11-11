@@ -412,7 +412,7 @@
               onclick={() => onouvrir(r.p)}
             >
               <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                {titreEleve(r.etape, r.rang)}
+                {titreEleve(r.p, r.etape, r.rang)}
                 <div class={discret}>{r.p.titre}</div>
               </div>
               <span class={pastille}>{arrondi(r.points)}/{r.sur}</span>

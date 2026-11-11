@@ -1,7 +1,7 @@
 <script lang="ts">
   import { garderSaisie } from './barreDuBas'
   import { onDestroy, onMount, tick } from 'svelte'
-  import { couleurCeinture, nomPalier, paliersDe, type Parcours } from '$lib/catalogue'
+  import { couleurCeinture, nomPalier, paliersDe, titreVisible, type Parcours } from '$lib/catalogue'
   import { NIVEAUX_TEST, ceintureDu, couleurDu, niveauDuTest } from '$lib/testNiveau'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
@@ -508,7 +508,7 @@
                   </div>
                 {/if}
                 <div class="font-light {seance.etapes.length > 1 ? 'ml-2' : ''}" style="font-size: 1.25rem; line-height: 1.3;">
-                  {#if !parcours.etapes[ref.etape].titreMasque}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
+                  {#if titreVisible(parcours, parcours.etapes[ref.etape])}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
                 </div>
               </div>
             </h1>

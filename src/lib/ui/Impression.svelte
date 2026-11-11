@@ -20,8 +20,8 @@
   let message = $state('')
   const choisies = $derived(coches.flatMap((c, i) => (c ? [i] : [])))
   const avecCours = $derived(fichesDe(parcours, choisies).length > 0)
-  // L'élève ne voit pas le titre d'un exercice masqué par l'enseignant
-  const titre = (i: number) => titreEleve(parcours.etapes[i], i)
+  // L'élève ne voit pas les titres masqués par l'enseignant (tous, par défaut)
+  const titre = (i: number) => titreEleve(parcours, parcours.etapes[i], i)
   const titreGroupe = 'text-sm font-semibold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const ligne = 'flex flex-row items-center justify-between gap-4 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'

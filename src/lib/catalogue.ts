@@ -11,8 +11,15 @@ export interface Etape extends ParamsExercice {
   remiseAZero?: boolean | number
 }
 
-/** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ */
-export const titreEleve = (e: Etape, i: number) => (e.titreMasque ? `Exercice ${i + 1}` : e.titre.replace(/\$([^$]*)\$/g, '$1'))
+/**
+ * L'élève voit le titre d'un exercice seulement si l'enseignant affiche les titres du parcours
+ * (masqués par défaut : ils donnent souvent la méthode) et ne l'a pas masqué pour cet exercice.
+ */
+export const titreVisible = (p: Pick<Parcours, 'titresVisibles'>, e: Etape) => !!p.titresVisibles && !e.titreMasque
+
+/** Titre d'un exercice tel que l'élève le voit, sans la référence MathALÉA ni les $ (sinon « Exercice n ») */
+export const titreEleve = (p: Pick<Parcours, 'titresVisibles'>, e: Etape, i: number) =>
+  titreVisible(p, e) ? e.titre.replace(/\$([^$]*)\$/g, '$1') : `Exercice ${i + 1}`
 
 /** Mêmes valeurs que le presMode de MathALÉA */
 export type Presentation = 'une_question_par_page' | 'un_exo_par_page' | 'liste_exos'
@@ -141,6 +148,7 @@ export interface Parcours {
   style?: StylePaliers // présentation des paliers aux élèves
   premiereCeinture?: number // rang dans CEINTURES de la première ceinture (0 : blanche)
   enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
+  titresVisibles?: boolean // titres des exercices montrés aux élèves (absent : « Exercice n »)
   melanger?: boolean // questions de plusieurs exercices dans un ordre mélangé (sauf un exercice par page)
   fiche?: Fiche // cours du parcours entier (parcours sans paliers, ou fiche générale)
 }

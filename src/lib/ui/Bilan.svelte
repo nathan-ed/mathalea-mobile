@@ -141,12 +141,12 @@
             <div class="min-w-0 flex flex-col text-coopmaths-corpus dark:text-coopmathsdark-corpus">
               {#if revision}
                 <!-- Révision : le titre, caché pendant la séance, est dévoilé -->
-                <span>{titreEleve({ ...parcours.etapes[e.etape], titreMasque: false }, e.etape)}</span>
+                <span>{titreEleve({ titresVisibles: true }, { ...parcours.etapes[e.etape], titreMasque: false }, e.etape)}</span>
                 {#if revision[e.etape]}
                   <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Revient {revision[e.etape].quand}</span>
                 {/if}
               {:else}
-                {titreEleve(parcours.etapes[e.etape], e.etape)}
+                {titreEleve(parcours, parcours.etapes[e.etape], e.etape)}
               {/if}
             </div>
             <div class="flex flex-row items-center gap-2">
