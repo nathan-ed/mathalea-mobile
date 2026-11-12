@@ -1,8 +1,8 @@
 # Version Google Play du dernier tag v*, si elle n'a pas encore été envoyée.
-# Les boutiques interdisent de télécharger du code qui change l'app : la version
-# embarque le moteur (MATHALEA_MOTEUR_FIGE=1). C'est notre moteur, construit
-# depuis moteur/ du tag (scripts/moteur.sh), jamais celui publié par
-# mathalea.fr, qui n'a pas les corrections de l'app (Nathan, octobre 2026).
+# La version embarque notre moteur, construit depuis moteur/ du tag
+# (scripts/moteur.sh), et télécharge ensuite celui publié sur la forge
+# (scripts/publier-moteur.sh) : Google Play l'admet pour du JavaScript dans une
+# WebView (support Google Play, 12 novembre 2026).
 # Numéro de version interne daté (toujours croissant).
 # Envoi à la Play Console si le secret GOOGLE_PLAY_SERVICE_ACCOUNT existe ;
 # sinon, le .aab reste un artefact du job.
@@ -124,7 +124,6 @@ jobs:
         if: steps.suite.outputs.ok
         env:
           NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
-          MATHALEA_MOTEUR_FIGE: '1'
         run: |
           code=$(date -u +%y%m%d%H)
           pnpm tauri android build --aab --target aarch64 --target armv7 --target x86_64 \

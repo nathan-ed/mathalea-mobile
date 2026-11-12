@@ -364,8 +364,6 @@ jobs:
       - name: AAB (Google Play)
         env:
           NDK_HOME: /usr/local/lib/android/sdk/ndk/27.2.12479018
-          # Règles de Google Play : pas de moteur téléchargé, celui de l'app seulement
-          MATHALEA_MOTEUR_FIGE: '1'
         run: |
           # Numéro de version interne daté, comme la version hebdomadaire (google-play.yml)
           code=$(date -u +%y%m%d%H)

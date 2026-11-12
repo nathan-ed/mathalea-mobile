@@ -504,11 +504,14 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   (`degreSuisse`, `ANCIENS_DEGRES` dans `explorer.ts`). Le niveau
   d'un parcours d'un autre pays reste affiché dans l'éditeur.
 
-Mises à jour du moteur téléchargées (`src-tauri/src/moteur.rs`) : **désactivées**
-(Nathan, 2026-10-29 : « les apps doivent toutes utiliser notre moteur »). Le
-code reste (signature Ed25519, `moteur://`, repli sur le moteur livré), actif
-seulement avec `MATHALEA_MOTEUR_MAJ=1`. Publication, format et clés :
-`docs/historique.md`.
+Mises à jour du moteur téléchargées (`src-tauri/src/moteur.rs`) : notre
+moteur, publié sur la forge dans `releases/moteur/` par
+`bash scripts/publier-moteur.sh <commit>` (Nathan, 2026-11-12 : il choisit le
+commit de MathALÉA), signé par la clé
+`~/.local/share/mathalea-mobile/moteur-forge-ed25519.pem`. Actives sur Android
+(forge et Google Play) et ordinateurs, jamais sur iOS tant qu'Apple n'a pas
+répondu ni avec `MATHALEA_MOTEUR_FIGE=1`. Jamais le moteur de mathalea.fr.
+Détails : `docs/developpement.md`, « Moteur publié sur la forge ».
 - Catalogue de l'Explorer (Nathan, 2026-11-04 : « ne pas les avoir hardcoded
   dans l'app », « un dossier FR et un dossier CH ») : **pas dans l'app**. Un
   dossier kDrive partagé de Nathan (`DOSSIER_EXPLORER` dans `partage.ts`,
@@ -1011,10 +1014,10 @@ Environnement (machine de Nathan)
   avec `npx vite dev --port 1431 --strictPort`.
 - Ne pas modifier `src/` pendant une suite e2e : le rechargement de Vite
   recharge la page et fait échouer la suite au hasard.
-- Moteur : toutes les apps utilisent le nôtre, livré avec l'app (Nathan,
-  2026-10-29 : « les apps doivent toutes utiliser notre moteur »). Plus de
-  mise à jour téléchargée depuis mathalea.fr (`MISES_A_JOUR`, sauf
-  `MATHALEA_MOTEUR_MAJ=1`). Jamais modifier le code de MathALÉA : corrections
+- Moteur : toutes les apps utilisent le nôtre (Nathan, 2026-10-29 : « les
+  apps doivent toutes utiliser notre moteur »), livré avec l'app et, sauf sur
+  iOS, mis à jour par `scripts/publier-moteur.sh` (forge). Jamais celui de
+  mathalea.fr. Jamais modifier le code de MathALÉA : corrections
   dans `moteur/fichiers/`, style dans `src/app.css`.
 - Tests de release sur l'ordinateur de Nathan (« je serai le seul à faire des
   releases ») : `bash scripts/publier.sh v<x>` lance `verifier-release.sh`

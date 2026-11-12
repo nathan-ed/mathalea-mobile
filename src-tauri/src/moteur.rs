@@ -1,6 +1,6 @@
 //! Mises à jour du moteur MathALÉA sans mise à jour de l'app.
 //!
-//! Une publication (tasks/publier_moteur.mjs de MathALÉA, voir moteur/) contient `mise-a-jour.json`,
+//! Une publication (scripts/publier-moteur.sh, dans releases/moteur/ de la forge) contient `mise-a-jour.json`,
 //! sa signature Ed25519 `mise-a-jour.json.sig` et l'archive du moteur. L'app
 //! vérifie la signature avec CLE_PUBLIQUE, la version d'API, la taille et le
 //! SHA-256 de l'archive, l'extrait à part, puis l'active au lancement suivant :
@@ -18,14 +18,17 @@ use sha2::{Digest, Sha256};
 use tauri::Manager;
 use tauri_plugin_http::reqwest;
 
-/// Publiée à chaque mise en ligne du site (tasks/deploy_moteur.sh de MathALÉA,
-/// voir moteur/). Variable d'environnement MATHALEA_MOTEUR_URL pour les essais.
-pub const URL_MISES_A_JOUR: &str = "https://mathalea.fr/releases/";
+/// Notre moteur (moteur/ de ce dépôt), publié sur la forge par
+/// scripts/publier-moteur.sh au commit de MathALÉA choisi par Nathan, jamais
+/// celui de mathalea.fr, qui n'a pas les ajouts de l'app. Variable
+/// d'environnement MATHALEA_MOTEUR_URL pour les essais.
+pub const URL_MISES_A_JOUR: &str = "https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/moteur/";
 
-/// Clé publique Ed25519 (32 octets, base64) qui signe les publications.
-/// Clé de qui publie mathalea.fr (tasks/cles_moteur.mjs de MathALÉA, voir
-/// publication-moteur.md) ; une nouvelle clé demande une nouvelle version de l'app.
-pub const CLE_PUBLIQUE: &str = "WYpFYjbzARZSNnH0wPsmc2NOqr7AL/m4Mq9AYT4PtjI=";
+/// Clé publique Ed25519 (32 octets, base64) qui signe les publications. Clé
+/// privée chez Nathan (~/.local/share/mathalea-mobile/moteur-forge-ed25519.pem,
+/// novembre 2026), jamais dans le dépôt ; une nouvelle clé demande une nouvelle
+/// version de l'app.
+pub const CLE_PUBLIQUE: &str = "wyCd9Vf9ALk4FDwQ8/+ddr7aELkASDGYol42L3+LiSM=";
 
 const FORMAT: &str = "moteur-mathalea/1";
 
@@ -177,15 +180,12 @@ fn session(app: &tauri::AppHandle) -> &'static Option<(Actif, PathBuf)> {
     })
 }
 
-/// Moteur livré avec l'app, mis à jour avec elle : toutes les apps utilisent le
-/// moteur construit depuis moteur/ de ce dépôt (corrections de l'app comprises),
-/// jamais celui publié par mathalea.fr, qui n'a pas ces corrections (Nathan,
-/// octobre 2026). Les règles des boutiques l'imposent aussi (Play : « Device and
-/// Network Abuse » ; Apple : 2.5.2). Mises à jour téléchargées seulement pour une
-/// construction avec MATHALEA_MOTEUR_MAJ=1, jamais sur iOS ni avec
-/// MATHALEA_MOTEUR_FIGE=1.
-pub const MISES_A_JOUR: bool =
-    !cfg!(target_os = "ios") && option_env!("MATHALEA_MOTEUR_MAJ").is_some() && option_env!("MATHALEA_MOTEUR_FIGE").is_none();
+/// Android et ordinateurs téléchargent notre moteur publié sur la forge (Nathan,
+/// 12 novembre 2026 ; Google Play l'admet pour du JavaScript dans une WebView,
+/// réponse du support du même jour). iOS garde le moteur livré tant qu'Apple n'a
+/// pas répondu (règles 2.5.2 et 4.7) ; MATHALEA_MOTEUR_FIGE=1 le fige aussi
+/// ailleurs.
+pub const MISES_A_JOUR: bool = !cfg!(target_os = "ios") && option_env!("MATHALEA_MOTEUR_FIGE").is_none();
 
 /// Le moteur peut-il être mis à jour sans mettre à jour l'app ?
 #[tauri::command]
@@ -474,10 +474,10 @@ mod tests {
         assert!(donnees.path().join(&actif.dossier).join("moteur.css").is_file());
     }
 
-    /// Moteur de l'app seulement, sauf construction avec MATHALEA_MOTEUR_MAJ=1
+    /// Mises à jour partout sauf sur iOS et avec MATHALEA_MOTEUR_FIGE=1
     #[test]
-    fn moteur_de_l_app_par_defaut() {
-        let maj = option_env!("MATHALEA_MOTEUR_MAJ").is_some() && option_env!("MATHALEA_MOTEUR_FIGE").is_none() && !cfg!(target_os = "ios");
+    fn mises_a_jour_sauf_ios_et_moteur_fige() {
+        let maj = option_env!("MATHALEA_MOTEUR_FIGE").is_none() && !cfg!(target_os = "ios");
         assert_eq!(MISES_A_JOUR, maj);
         assert_eq!(mises_a_jour_moteur(), maj);
     }

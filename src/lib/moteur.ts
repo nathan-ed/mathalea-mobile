@@ -244,9 +244,9 @@ export function chargerMoteur(): Promise<Moteur> {
 }
 
 /**
- * Le moteur se met-il à jour sans l'app ? Non dans les versions des boutiques
- * (Google Play, App Store), dont les règles l'interdisent : elles gardent le
- * moteur livré, mis à jour avec l'app.
+ * Le moteur se met-il à jour sans l'app ? Oui sur Android et les ordinateurs
+ * (notre moteur publié sur la forge) ; non sur iOS, qui garde le moteur livré
+ * tant qu'Apple n'a pas répondu (src-tauri/src/moteur.rs, MISES_A_JOUR).
  */
 export async function misesAJourMoteur(): Promise<boolean> {
   if (!dansTauri) return false

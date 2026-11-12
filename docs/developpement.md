@@ -260,14 +260,17 @@ n'interrompt une séance. Pas de mise à jour pour un `.deb` ou un `.rpm`
 
 ## Google Play et App Store
 
-Les deux boutiques interdisent de télécharger du code qui change l'app
-(Google Play : « Device and Network Abuse », exception floue pour le
-JavaScript d'une WebView ; Apple : règle 2.5.2, et 4.7.2 pour l'accès aux
-fonctions natives). Leurs versions ne téléchargent donc pas le moteur :
-`MISES_A_JOUR` (`src-tauri/src/moteur.rs`) est faux sur iOS et quand l'app est
-construite avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré
-et masque « Rechercher une mise à jour ». Les versions de la forge (APK,
-ordinateurs) gardent les mises à jour signées depuis mathalea.fr.
+Google Play admet le téléchargement de JavaScript et de CSS exécutés dans une
+WebView (« Device and Network Abuse » ; réponse du support Google Play du
+12 novembre 2026, à condition de ne pas exposer d'API natives sensibles au code
+téléchargé et de le servir en HTTPS depuis nos serveurs ; expliquer le
+mécanisme dans « Review instructions », rubrique App Access, à chaque envoi).
+Android (forge et Google Play) et les ordinateurs téléchargent donc notre
+moteur publié sur la forge (voir « Moteur publié sur la forge »). Apple
+(règles 2.5.2 et 4.7.2) n'a pas encore répondu : `MISES_A_JOUR`
+(`src-tauri/src/moteur.rs`) est faux sur iOS et quand l'app est construite
+avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré et masque
+« Rechercher une mise à jour ».
 
 - Fichier Google Play : `.aab` (Android App Bundle, arm64, armv7, x86_64),
   construit par `release.yml` (artefact `google-play`, pas dans `releases/`),
@@ -713,11 +716,32 @@ puis corrections et vérification du 4 au 5 novembre (rapport :
     exercices les moins réussis en tête, réponses d'un élève sur une
     question, export CSV.
 
-### Moteur servi par Coopmaths
+### Moteur publié sur la forge
 
-Le mécanisme est en place (0.1.1) ; le moteur est publié avec le site sur
-`https://mathalea.fr/releases/` (`URL_MISES_A_JOUR`, `src-tauri/src/moteur.rs` ;
-`MATHALEA_MOTEUR_URL` pour les essais).
+Depuis le 12 novembre 2026, l'app télécharge notre moteur (celui de
+`moteur/`, avec les ajouts de l'app) dans `releases/moteur/` de la forge
+(`URL_MISES_A_JOUR`, `src-tauri/src/moteur.rs` ; `MATHALEA_MOTEUR_URL` pour
+les essais), jamais celui de mathalea.fr.
+
+- Publier : `bash scripts/publier-moteur.sh <commit de MathALÉA>` (Nathan
+  choisit le commit). Le script met le commit dans `moteur/COMMIT`, construit
+  le moteur, lance `scripts/verifier-release.sh` et, si tout est vert, signe
+  (`moteur/fichiers/tasks/publier_moteur.mjs`), range l'archive,
+  `mise-a-jour.json` et `.sig` dans `releases/moteur/` (trois archives
+  gardées), commite et pousse sur main. Les apps le prennent au lancement
+  suivant.
+- Revenir en arrière : relancer avec le commit précédent ; la nouvelle date
+  de publication le fait reprendre par toutes les apps.
+- Clé : privée chez Nathan, `~/.local/share/mathalea-mobile/moteur-forge-ed25519.pem`
+  (créée le 12 novembre 2026, à sauvegarder hors de l'ordinateur ; `MOTEUR_CLE`
+  pour un autre chemin), publique dans `CLE_PUBLIQUE`. Les versions 0.7.0 et
+  avant ne téléchargent pas de moteur.
+- Contrat : une app ne prend qu'un moteur de même API (`API_ATTENDUE`).
+  Changer le contrat de `moteur/fichiers/src/moteur/index.ts` demande de
+  monter l'API, sinon les apps installées recevraient un moteur incompatible.
+
+Ancien fonctionnement (moteur publié par mathalea.fr, désactivé le
+29 octobre 2026) :
 
 - Publication : à chaque mise en ligne du site, `pnpm build:deploy` de
   MathALÉA enchaîne `build:moteur` et `tasks/deploy_moteur.sh`, qui signe
