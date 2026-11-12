@@ -389,6 +389,35 @@ mod tests {
         m
     }
 
+    /// Une publication par jour pendant des semaines, puis un retour en arrière :
+    /// l'app ne garde jamais plus de deux moteurs (l'actif et celui de la session)
+    #[tokio::test]
+    async fn garde_au_plus_deux_moteurs_et_reprend_un_ancien() {
+        let serveur = tempfile::tempdir().unwrap();
+        let donnees = tempfile::tempdir().unwrap();
+        let base = servir_dossier(serveur.path().into());
+        let mut session = String::new();
+        for jour in 1..=15 {
+            let version = format!("2026-11-{jour:02}+v{jour}");
+            publier(serveur.path(), &version, 1, &format!("2026-11-{jour:02}T10:00:00Z"), &cle());
+            let m = chercher(&base, &cle_publique(&cle()), 1, "2026-10-13").await.unwrap().expect("plus récente");
+            let actif = installer(&base, &m, donnees.path()).await.unwrap();
+            let mut garder = vec![actif.dossier.as_str()];
+            if !session.is_empty() {
+                garder.push(session.as_str());
+            }
+            nettoyer(donnees.path(), &garder);
+            let moteurs = fs::read_dir(donnees.path()).unwrap().flatten().filter(|e| e.path().is_dir()).count();
+            assert!(moteurs <= 2, "{moteurs} moteurs gardés au jour {jour}");
+            session = actif.dossier;
+        }
+        // Retour au moteur du 3 : republié avec une date plus récente, il est repris
+        publier(serveur.path(), "2026-11-03+v3", 1, "2026-11-16T10:00:00Z", &cle());
+        let m = chercher(&base, &cle_publique(&cle()), 1, "2026-11-15T10:00:00Z").await.unwrap().expect("republication reprise");
+        installer(&base, &m, donnees.path()).await.unwrap();
+        assert_eq!(lire_actif(donnees.path()).unwrap().version, "2026-11-03+v3");
+    }
+
     #[tokio::test]
     async fn installe_une_publication_valide_et_l_active() {
         let serveur = tempfile::tempdir().unwrap();
