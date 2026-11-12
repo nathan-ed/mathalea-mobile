@@ -1,9 +1,9 @@
 {
   "format": "moteur-mathalea/1",
-  "version": "2026-11-12+8b992ee24.9766768",
+  "version": "2026-11-12+f4735cb77.5a3a58e",
   "api": 1,
-  "publieLe": "2026-11-12T19:50:51.906Z",
-  "archive": "moteur-2026-11-12_8b992ee24.9766768.tar.gz",
-  "taille": 20089119,
-  "sha256": "c0a1a35ec808fb282dff62d80f28337aff141baab84b71be62b2af86d39cb9c0"
+  "publieLe": "2026-11-12T22:37:30.818Z",
+  "archive": "moteur-2026-11-12_f4735cb77.5a3a58e.tar.gz",
+  "taille": 21160400,
+  "sha256": "6a48e9f730b80de2ee912960ff8fd23f2e0da90ac215a4187b9641b0b6a18ba4"
 }
