@@ -1,13 +1,13 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-10-28T14:05:50.747Z",
+  "exporteLe": "2026-11-12T19:17:26.737Z",
   "classes": [
     {
       "nom": "Préqualifiant",
       "parcours": [
         {
           "id": "prq-nombres-ecritures-reperage",
-          "version": 13,
+          "version": 2,
           "titre": "Situer et comparer les nombres",
           "objectif": "Lire les rangs, placer, comparer et encadrer des nombres entiers et décimaux.",
           "auteurs": [
@@ -70,6 +70,8 @@
             {
               "titre": "Comprendre les rangs",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Comprendre les rangs",
                 "avant": true,
@@ -103,13 +105,13 @@
                     "explication": "$300+250=550$. Coller les nombres ($325$) oublie que $25$ dizaines valent $250$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Lire les décimaux",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Lire les décimaux",
                 "avant": true,
@@ -138,13 +140,13 @@
                     "explication": "$7{,}184=7+0{,}184$. La partie décimale garde sa virgule : c’est $0{,}184$, pas $184$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Décomposer un nombre",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Décomposer un nombre",
                 "avant": true,
@@ -175,13 +177,13 @@
                     "explication": "$45\\cdot0{,}1=4{,}5$ : $45$ dixièmes font $4$ unités et $5$ dixièmes."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Se repérer sur une droite",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Se repérer sur une droite",
                 "avant": true,
@@ -219,13 +221,13 @@
                     "explication": "Un intervalle vaut $1\\div5=0{,}2$ ; deux intervalles font $0{,}4$. Répondre $0{,}2$, c’est compter des dixièmes sans regarder le partage."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Comparer et ranger",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Comparer et ranger",
                 "avant": true,
@@ -255,13 +257,13 @@
                     "explication": "$2{,}8=2{,}80$ et, aux dixièmes, $8>1$ : $2{,}8>2{,}15$. Comparer $8$ et $15$ comme des entiers donne la mauvaise réponse."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Encadrer et intercaler",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Encadrer et intercaler",
                 "avant": true,
@@ -297,9 +299,7 @@
                     "explication": "$5{,}99+0{,}01=6$ : le chiffre des centièmes passe de $9$ à $10$, la retenue va jusqu’aux unités."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -441,7 +441,7 @@
         },
         {
           "id": "prq-calculs-decimaux-relatifs",
-          "version": 13,
+          "version": 3,
           "titre": "Calculer avec les décimaux et les relatifs",
           "objectif": "Calculer avec les décimaux et les relatifs en respectant les priorités.",
           "auteurs": [
@@ -504,6 +504,8 @@
             {
               "titre": "Additionner et soustraire des décimaux",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Additionner et soustraire des décimaux",
                 "avant": true,
@@ -528,13 +530,13 @@
                     "explication": "$0{,}84+8{,}70=9{,}54$. Sans aligner les virgules, on trouverait $1{,}71$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Multiplier des décimaux",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Multiplier des décimaux",
                 "avant": true,
@@ -569,13 +571,13 @@
                     "explication": "$12\\cdot3=36$ ; $1{,}2$ et $0{,}3$ ont chacun une décimale, donc deux en tout : $0{,}36$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Multiplier et diviser par 10, 100, 1 000",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Multiplier et diviser par 10, 100, 1 000",
                 "avant": true,
@@ -605,13 +607,13 @@
                     "explication": "Chaque chiffre avance de deux rangs : $3$ unités deviennent $3$ centaines. Écrire des zéros après la virgule ($3{,}200$) ne change pas le nombre."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Additionner et soustraire des relatifs",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Additionner et soustraire des relatifs",
                 "avant": true,
@@ -647,13 +649,13 @@
                     "explication": "Soustraire $+3$, c’est ajouter $-3$ : $(-8)+(-3)=-11$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Multiplier et diviser des relatifs",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Multiplier et diviser des relatifs",
                 "avant": true,
@@ -688,13 +690,13 @@
                     "titre": "Piège"
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Enchaîner les calculs",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Enchaîner les calculs",
                 "avant": true,
@@ -719,9 +721,7 @@
                     "explication": "Le produit d’abord : $-2\\cdot(-3)=6$, puis $6-2=4$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -869,7 +869,7 @@
         },
         {
           "id": "prq-puissances-carres-racines",
-          "version": 13,
+          "version": 2,
           "titre": "Puissances, carrés et racines",
           "objectif": "Calculer des puissances et des racines, puis utiliser la notation scientifique.",
           "auteurs": [
@@ -931,6 +931,8 @@
             {
               "titre": "Écrire une puissance",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Écrire une puissance",
                 "avant": true,
@@ -969,13 +971,13 @@
                     "explication": "$3^4=3\\cdot3\\cdot3\\cdot3=81$. $12$ est $3\\cdot4$ ; $64$ est $4^3$, base et exposant échangés."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Calculer des puissances",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Calculer des puissances",
                 "avant": true,
@@ -999,13 +1001,13 @@
                     "explication": "$2\\cdot2\\cdot2\\cdot2\\cdot2=32$. Ce n’est pas $2\\cdot5=10$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Utiliser les règles des puissances",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Utiliser les règles des puissances",
                 "avant": true,
@@ -1035,13 +1037,13 @@
                     "explication": "Quotient : $3-5=-2$, donc $10^{-2}$. Le plus grand exposant est au dénominateur : le résultat est plus petit que $1$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Reconnaître les carrés parfaits",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Reconnaître les carrés parfaits",
                 "avant": true,
@@ -1070,13 +1072,13 @@
                     "explication": "$10^2=100$ et une racine carrée est positive : $\\sqrt{100}=10$. Diviser par $2$ ($50$) ne donne pas la racine."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Encadrer une racine",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Encadrer une racine",
                 "avant": true,
@@ -1110,13 +1112,13 @@
                     "explication": "$5^2=25<30<36=6^2$. $15$ vient de $30\\div2$ : une racine n’est pas une moitié."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Notation scientifique",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Notation scientifique",
                 "avant": true,
@@ -1155,9 +1157,7 @@
                     "explication": "$42\\cdot10^3$ vaut bien $42\\,000$, mais $42$ dépasse $10$. On écrit $4{,}2\\cdot10^4$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -1308,7 +1308,7 @@
         },
         {
           "id": "prq-donnees-raisonnement",
-          "version": 13,
+          "version": 2,
           "titre": "Lire une situation, traduire et vérifier",
           "objectif": "Lire des données, choisir les calculs utiles et contrôler ses résultats.",
           "auteurs": [
@@ -1365,6 +1365,8 @@
             {
               "titre": "Prélever les données utiles",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Prélever les données utiles",
                 "avant": true,
@@ -1388,13 +1390,13 @@
                     "explication": "On additionne les effectifs, pas les notes : $2+8+6=16$ élèves."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Traduire en calcul",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Traduire en calcul",
                 "avant": true,
@@ -1424,13 +1426,13 @@
                     "explication": "On retire d’abord le prix des pains, puis on partage le reste entre les $4$ tartelettes : $(10{,}50-4{,}50)\\div4=1{,}50$ franc."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Organiser plusieurs calculs",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Organiser plusieurs calculs",
                 "avant": true,
@@ -1460,13 +1462,13 @@
                     "explication": "Le produit est prioritaire : $2\\cdot3+8=6+8=14$. On peut écrire $(2\\cdot3)+8$, mais les parenthèses sont inutiles."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Estimer un résultat",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Estimer un résultat",
                 "avant": true,
@@ -1495,13 +1497,13 @@
                     "explication": "$999\\approx1\\,000$ et $101\\approx100$ : $1\\,000\\cdot100=100\\,000$ ($3+2=5$ zéros)."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Vérifier une égalité",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Vérifier une égalité",
                 "avant": true,
@@ -1531,13 +1533,13 @@
                     "titre": "Piège"
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Résoudre et contrôler un problème",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Résoudre et contrôler un problème",
                 "avant": true,
@@ -1567,9 +1569,7 @@
                     "explication": "Courgettes : $3\\cdot3=9$ francs, puis $9+10=19$ francs. $16=3+3+10$ oublie que le prix est donné par kilo."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -1715,7 +1715,7 @@
         },
         {
           "id": "prq-grandeurs-conversions",
-          "version": 13,
+          "version": 2,
           "titre": "Grandeurs, unités et conversions",
           "objectif": "Comprendre les préfixes et convertir des grandeurs simples ou composées.",
           "auteurs": [
@@ -1773,6 +1773,8 @@
             {
               "titre": "Utiliser les préfixes",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Utiliser les préfixes",
                 "avant": true,
@@ -1802,13 +1804,13 @@
                     "explication": "Le kilomètre est plus grand que le mètre : le nombre diminue. $5\\div1\\,000=0{,}005$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Convertir longueurs et masses",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Convertir longueurs et masses",
                 "avant": true,
@@ -1832,13 +1834,13 @@
                     "explication": "De kg à g : trois pas, donc $\\cdot1\\,000$. $1{,}5\\cdot1\\,000=1\\,500\\text{ g}$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Convertir capacités et prix",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Convertir capacités et prix",
                 "avant": true,
@@ -1867,13 +1869,13 @@
                     "explication": "$100\\text{ cL}=1\\text{ L}$ : $75\\div100=0{,}75\\text{ L}$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Convertir les durées",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Convertir les durées",
                 "avant": true,
@@ -1912,13 +1914,13 @@
                     "explication": "$30\\text{ min}$ est une demi-heure : $\\dfrac{30}{60}=0{,}5$. Écrire $1{,}3$ confond minutes et dixièmes d’heure."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Convertir aires et volumes",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Convertir aires et volumes",
                 "avant": true,
@@ -1956,13 +1958,13 @@
                     "explication": "Un carré de $1\\text{ m}$ de côté mesure $100\\text{ cm}$ sur $100\\text{ cm}$ : $100\\cdot100=10\\,000\\text{ cm}^2$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Convertir vitesses et grandeurs composées",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Convertir vitesses et grandeurs composées",
                 "avant": true,
@@ -2001,9 +2003,7 @@
                     "explication": "$72\\,000\\text{ m}$ en $3\\,600\\text{ s}$ : $72\\,000\\div3\\,600=20\\text{ m/s}$. Multiplier par $3{,}6$ ($259{,}2$) convertit dans le mauvais sens."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -2140,7 +2140,7 @@
         },
         {
           "id": "prq-figures-angles-solides",
-          "version": 13,
+          "version": 2,
           "titre": "Figures, angles et solides",
           "objectif": "Reconnaître les figures et les solides, mesurer les angles et utiliser les transformations.",
           "auteurs": [
@@ -2203,6 +2203,8 @@
             {
               "titre": "Repérer droites et angles",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Repérer droites et angles",
                 "avant": true,
@@ -2237,13 +2239,13 @@
                     "explication": "La lettre du milieu est le sommet. Les côtés sont les demi-droites $[WA)$ et $[WJ)$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Mesurer un angle",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Mesurer un angle",
                 "avant": true,
@@ -2279,13 +2281,13 @@
                     "explication": "On lit sur la graduation qui part de $0$ : $41^\\circ$. Contrôle : l’angle est aigu, il mesure moins de $90^\\circ$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Reconnaître les quadrilatères",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Reconnaître les quadrilatères",
                 "avant": true,
@@ -2320,13 +2322,13 @@
                     "explication": "Diagonales qui se coupent en leur milieu : parallélogramme ; de même longueur : rectangle. Rien ne dit qu’elles sont perpendiculaires : on ne peut pas conclure au carré."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Décrire les solides et patrons",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Décrire les solides et patrons",
                 "avant": true,
@@ -2356,13 +2358,13 @@
                     "explication": "$3$ faces latérales rectangulaires et $2$ bases triangulaires : $5$ faces."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Reconnaître les symétries",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Reconnaître les symétries",
                 "avant": true,
@@ -2398,13 +2400,13 @@
                     "explication": "Ses deux diagonales sont des axes. Les droites qui joignent les milieux des côtés opposés n’en sont pas : le pliage ne superpose pas les deux parties."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Utiliser les transformations",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Utiliser les transformations",
                 "avant": true,
@@ -2440,9 +2442,7 @@
                     "explication": "Une symétrie centrale est un demi-tour : la figure garde ses dimensions et se retrouve « tête en bas ». Le retournement en miroir est celui d’une symétrie axiale."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -2578,7 +2578,7 @@
         },
         {
           "id": "prq-perimetres-aires-volumes",
-          "version": 13,
+          "version": 2,
           "titre": "Périmètres, aires et volumes",
           "objectif": "Calculer des périmètres, des aires et des volumes, y compris sur des figures composées.",
           "auteurs": [
@@ -2630,6 +2630,8 @@
             {
               "titre": "Calculer un périmètre",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Calculer un périmètre",
                 "avant": true,
@@ -2663,13 +2665,13 @@
                     "explication": "$4\\cdot2{,}5=10\\text{ cm}$. $6{,}25$ est l’aire $2{,}5\\cdot2{,}5$, en $\\text{cm}^2$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Calculer une aire simple",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Calculer une aire simple",
                 "avant": true,
@@ -2698,13 +2700,13 @@
                     "explication": "$\\dfrac{6\\cdot4}{2}=12\\text{ cm}^2$. $24$ oublie la division par $2$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Choisir les dimensions utiles",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Choisir les dimensions utiles",
                 "avant": true,
@@ -2734,13 +2736,13 @@
                     "explication": "$\\dfrac{12\\cdot5}{2}=30\\text{ cm}^2$. $61{,}8=\\dfrac{12\\cdot10{,}3}{2}$ prend un côté oblique pour une hauteur."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Calculer avec les disques",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Calculer avec les disques",
                 "avant": true,
@@ -2770,13 +2772,13 @@
                     "explication": "$\\pi\\cdot4^2=16\\pi\\text{ cm}^2$. $8\\pi$ est le périmètre ; $64\\pi$ élève le diamètre au carré."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Calculer les volumes usuels",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Calculer les volumes usuels",
                 "avant": true,
@@ -2805,13 +2807,13 @@
                     "explication": "$\\pi\\cdot3^2\\cdot12=108\\pi\\text{ cm}^3$. $36\\pi$ oublie le carré ; $72\\pi$ prend le diamètre sans le carré."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Décomposer des figures et calculer des aires",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Décomposer des figures et calculer des aires",
                 "avant": true,
@@ -2841,9 +2843,7 @@
                     "explication": "Rayon $2\\text{ cm}$ : demi-disque $\\dfrac{\\pi\\cdot2^2}{2}=2\\pi$. Aire : $24+2\\pi\\text{ cm}^2$. $4\\pi$ compte le disque entier."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -2977,7 +2977,7 @@
         },
         {
           "id": "prq-divisibilite-decomposition",
-          "version": 13,
+          "version": 2,
           "titre": "Divisibilité et décomposition",
           "objectif": "Utiliser les critères de divisibilité, les facteurs premiers, le PGDC et le PPMC.",
           "auteurs": [
@@ -3035,6 +3035,8 @@
             {
               "titre": "Critères de 2, 5 et 10",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Critères de 2, 5 et 10",
                 "avant": true,
@@ -3064,13 +3066,13 @@
                     "explication": "Divisible par $2$ et par $5$ : chiffre des unités $0$. $125$ est impair ; $252$ ne finit ni par $0$ ni par $5$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Critères de 3 et 9",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Critères de 3 et 9",
                 "avant": true,
@@ -3095,13 +3097,13 @@
                     "explication": "La somme $?+7$ doit être un multiple de $9$ : $?=2$. $27=9\\cdot3$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Lister diviseurs et multiples",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Lister diviseurs et multiples",
                 "avant": true,
@@ -3131,13 +3133,13 @@
                     "explication": "$1\\cdot12$, $2\\cdot6$, $3\\cdot4$ : $1$, $2$, $3$, $4$, $6$ et $12$. Ne pas oublier $1$ et $12$ lui-même."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Décomposer en facteurs premiers",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Décomposer en facteurs premiers",
                 "avant": true,
@@ -3167,13 +3169,13 @@
                     "explication": "$4$, $15$ et $30$ ne sont pas premiers. $60=2\\cdot2\\cdot3\\cdot5=2^2\\cdot3\\cdot5$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Trouver PGDC et PPMC",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Trouver PGDC et PPMC",
                 "avant": true,
@@ -3202,13 +3204,13 @@
                     "explication": "On recopie $2\\cdot2\\cdot3$ et on ajoute le $5$ : $60$. Le produit $10\\cdot12=120$ est un multiple commun, mais pas le plus petit."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Résoudre un problème de divisibilité",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Résoudre un problème de divisibilité",
                 "avant": true,
@@ -3238,9 +3240,7 @@
                     "explication": "On cherche le PPMC de $12$ et $10$ : $60$ minutes. $2$ est leur PGDC ; $120=12\\cdot10$ est un multiple commun, pas le plus petit."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [
@@ -3380,7 +3380,7 @@
         },
         {
           "id": "prq-fractions-representer-calculer",
-          "version": 13,
+          "version": 2,
           "titre": "Fractions : représenter, comparer, calculer",
           "objectif": "Représenter, comparer et calculer avec des fractions.",
           "auteurs": [
@@ -3442,6 +3442,8 @@
             {
               "titre": "Placer et comparer les fractions",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Placer et comparer les fractions",
                 "avant": true,
@@ -3475,13 +3477,13 @@
                     "explication": "$\\dfrac34=\\dfrac68$ et $6>5$. Comparer seulement les numérateurs ($3<5$) donne la mauvaise conclusion."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Trouver des fractions équivalentes",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Trouver des fractions équivalentes",
                 "avant": true,
@@ -3510,13 +3512,13 @@
                     "explication": "On multiplie les deux termes par $12$ : $\\dfrac{9\\cdot12}{3\\cdot12}=\\dfrac{108}{36}$. Ajouter $12$ ($\\dfrac{21}{15}$) ne donne pas une fraction égale."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Relier fraction, décimal et pourcentage",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Relier fraction, décimal et pourcentage",
                 "avant": true,
@@ -3545,13 +3547,13 @@
                     "explication": "Sept centièmes : $0{,}07$, soit $7\\,\\%$. $0{,}7$ vaut $\\dfrac{7}{10}$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Additionner et soustraire",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Additionner et soustraire",
                 "avant": true,
@@ -3581,13 +3583,13 @@
                     "explication": "$\\dfrac13=\\dfrac26$, donc $\\dfrac26+\\dfrac16=\\dfrac36=\\dfrac12$. Additionner les dénominateurs ($\\dfrac29$) est faux."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Multiplier, diviser et prendre une fraction",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Multiplier, diviser et prendre une fraction",
                 "avant": true,
@@ -3616,13 +3618,13 @@
                     "explication": "$\\dfrac{2\\cdot3}{3\\cdot4}=\\dfrac{6}{12}=\\dfrac12$. $\\dfrac89$ multiplie en croix, comme pour une division ; $\\dfrac57$ additionne."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             },
             {
               "titre": "Enchaîner les calculs fractionnaires",
               "nb": 2,
+              "acces": "seuil",
+              "seuil": 80,
               "fiche": {
                 "titre": "Enchaîner les calculs fractionnaires",
                 "avant": true,
@@ -3651,9 +3653,7 @@
                     "explication": "La multiplication passe avant l’addition : $\\dfrac12\\cdot\\dfrac12=\\dfrac14$, puis $\\dfrac12+\\dfrac14=\\dfrac34$. Calculer de gauche à droite donne $\\dfrac12$."
                   }
                 ]
-              },
-              "acces": "seuil",
-              "seuil": 80
+              }
             }
           ],
           "etapes": [

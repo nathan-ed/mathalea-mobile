@@ -1,493 +1,72 @@
 {
   "format": "classes-mathalea/1",
-  "exporteLe": "2026-11-04T15:23:22.000Z",
+  "exporteLe": "2026-11-12T19:17:26.737Z",
   "classes": [
     {
       "nom": "1re Collège",
       "parcours": [
         {
           "id": "ch-1c-calcul-litteral",
-          "version": 1,
+          "version": 5,
           "titre": "Calcul littéral et factorisation",
           "objectif": "Développer, puis factoriser par mise en évidence, identités, somme et produit, et groupements.",
           "auteurs": [
-            "Claude Opus 5.5",
             "Nathan Scheinmann"
           ],
-          "descriptionEleves": "Sept ceintures, du développement aux fractions rationnelles. Chaque ceinture s’ouvre sur des exemples résolus ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "7 ceintures, de la blanche à la noire : Développer et réduire ; Identités remarquables ; Mise en évidence ; Factoriser avec les identités ; Somme et produit ; Groupements ; Fractions rationnelles. Dans chaque ceinture, les exercices vont du cas le plus simple au plus difficile, sans mélange des questions. Des exemples résolus précèdent chaque ceinture ; la suivante se débloque à 80 %.",
+          "descriptionEleves": "Sept ceintures, du développement aux fractions rationnelles.",
           "niveau": "1re Collège",
-          "theme": "Factorisation",
+          "theme": "ER décembre",
           "difficulte": 2,
-          "icone": "bx-math",
+          "icone": "bx-book-content",
           "presentation": "une_question_par_page",
           "correction": "question",
           "enTetesMasques": true,
-          "melanger": false,
+          "melanger": true,
           "style": "ceintures",
           "premiereCeinture": 0,
           "paliers": [
             {
               "titre": "Développer et réduire",
-              "nb": 5,
-              "fiche": {
-                "titre": "Développer et réduire",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Une différence de polynômes",
-                    "enonce": "Réduire $(3x^2-2x+5)-(x^2-4x+1)$.",
-                    "etapes": [
-                      "Le signe « $-$ » devant la parenthèse change le signe de chaque terme : $3x^2-2x+5-x^2+4x-1$.",
-                      "On regroupe les termes semblables : $(3x^2-x^2)+(-2x+4x)+(5-1)$.",
-                      "$=2x^2+2x+4$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Devant une parenthèse précédée de « $-$ », on change le signe de **tous** les termes, pas seulement du premier."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Distributivité double",
-                    "enonce": "Développer et réduire $(2x-3)(x+4)$.",
-                    "etapes": [
-                      "Chaque terme du premier facteur multiplie chaque terme du second : $2x\\cdot x+2x\\cdot4-3\\cdot x-3\\cdot4$.",
-                      "$=2x^2+8x-3x-12$.",
-                      "$=2x^2+5x-12$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Quatre produits, chacun avec son signe : $-3\\cdot4=-12$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un signe devant le produit",
-                    "enonce": "Développer et réduire $5-(x-2)(x+3)$.",
-                    "etapes": [
-                      "On développe d’abord le produit, en le gardant entre parenthèses : $5-(x^2+3x-2x-6)$.",
-                      "$=5-(x^2+x-6)$.",
-                      "$=5-x^2-x+6=-x^2-x+11$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Le produit développé reste entre parenthèses tant que le « $-$ » qui le précède n’est pas distribué."
-                  }
-                ]
-              }
+              "nb": 5
             },
             {
               "titre": "Identités remarquables",
               "nb": 5,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Identités remarquables",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Carré d’une somme",
-                    "enonce": "Développer $(x+5)^2$.",
-                    "etapes": [
-                      "On reconnaît $(a+b)^2=a^2+2ab+b^2$ avec $a=x$ et $b=5$.",
-                      "$(x+5)^2=x^2+2\\cdot x\\cdot5+5^2$.",
-                      "$=x^2+10x+25$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Le double produit $2ab$ ne s’oublie pas : $(x+5)^2\\neq x^2+25$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un coefficient devant $x$",
-                    "enonce": "Développer $(3x-2)^2$.",
-                    "etapes": [
-                      "On reconnaît $(a-b)^2=a^2-2ab+b^2$ avec $a=3x$ et $b=2$.",
-                      "$(3x-2)^2=(3x)^2-2\\cdot3x\\cdot2+2^2$.",
-                      "$=9x^2-12x+4$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Le coefficient est aussi élevé au carré : $(3x)^2=9x^2$, et non $3x^2$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Une identité dans une expression",
-                    "enonce": "Développer et réduire $3-(2x+1)(2x-1)$.",
-                    "etapes": [
-                      "$(2x+1)(2x-1)=(2x)^2-1^2=4x^2-1$.",
-                      "$3-(4x^2-1)=3-4x^2+1$.",
-                      "$=-4x^2+4$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Développer l’identité entre parenthèses avant de distribuer le « $-$ »."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Deux identités",
-                    "enonce": "Développer et réduire $(x+3)^2-(x-1)^2$.",
-                    "etapes": [
-                      "$(x+3)^2=x^2+6x+9$ et $(x-1)^2=x^2-2x+1$.",
-                      "$x^2+6x+9-(x^2-2x+1)=x^2+6x+9-x^2+2x-1$.",
-                      "$=8x+8$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Développer chaque identité entre parenthèses, puis distribuer le « $-$ » devant la seconde."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Mise en évidence",
               "nb": 4,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Mise en évidence",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Le plus grand facteur commun",
-                    "enonce": "Factoriser $6x^2-15x$.",
-                    "etapes": [
-                      "Plus grand diviseur commun aux coefficients $6$ et $15$ : $3$.",
-                      "Les deux termes contiennent $x$ : le facteur commun est $3x$.",
-                      "$6x^2-15x=3x\\cdot2x-3x\\cdot5=3x(2x-5)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Mettre en évidence le plus grand facteur commun : $3x$, pas seulement $3$ ou $x$. On vérifie en développant."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un terme égal au facteur commun",
-                    "enonce": "Factoriser $4ab+4a$.",
-                    "etapes": [
-                      "Facteur commun : $4a$.",
-                      "$4ab+4a=4a\\cdot b+4a\\cdot1$.",
-                      "$=4a(b+1)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Quand un terme est entièrement mis en évidence, il reste $1$ dans la parenthèse, pas $0$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un facteur négatif",
-                    "enonce": "Factoriser $-2x-8$ en mettant $-2$ en évidence.",
-                    "etapes": [
-                      "$-2x-8=-2\\cdot x+(-2)\\cdot4$.",
-                      "$=-2(x+4)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "En mettant un nombre négatif en évidence, les signes changent dans la parenthèse."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Factoriser avec les identités",
-              "nb": 5,
+              "nb": 4,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Factoriser avec les identités",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Compléter une identité",
-                    "enonce": "Compléter : $x^2-\\ldots+49=(x-\\ldots)^2$.",
-                    "etapes": [
-                      "$49=7^2$, donc le second terme du carré est $7$.",
-                      "Le double produit vaut $2\\cdot x\\cdot7=14x$.",
-                      "$x^2-14x+49=(x-7)^2$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Repérer d’abord les deux carrés, puis calculer le double produit."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Différence de deux carrés",
-                    "enonce": "Factoriser $x^2-36$.",
-                    "etapes": [
-                      "$x^2-36=x^2-6^2$ : une différence de deux carrés.",
-                      "$a^2-b^2=(a-b)(a+b)$, donc $x^2-36=(x-6)(x+6)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Une **somme** de deux carrés, comme $x^2+36$, ne se factorise pas ainsi."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Trinôme carré parfait",
-                    "enonce": "Factoriser $4x^2+12x+9$.",
-                    "etapes": [
-                      "$4x^2=(2x)^2$ et $9=3^2$.",
-                      "Double produit : $2\\cdot2x\\cdot3=12x$, c’est bien le terme du milieu.",
-                      "$4x^2+12x+9=(2x+3)^2$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Vérifier le double produit avant de conclure : $4x^2+10x+9$ n’est pas un carré."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Mise en évidence, puis identité",
-                    "enonce": "Factoriser $3x^3-12x$.",
-                    "etapes": [
-                      "Facteur commun $3x$ : $3x^3-12x=3x(x^2-4)$.",
-                      "$x^2-4=(x-2)(x+2)$.",
-                      "$3x^3-12x=3x(x-2)(x+2)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Commencer par la mise en évidence, puis regarder si la parenthèse se factorise encore."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Somme et produit",
               "nb": 4,
               "acces": "seuil",
               "seuil": 80,
-              "fiche": {
-                "titre": "Somme et produit",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Somme et produit",
-                    "enonce": "Factoriser $x^2+7x+12$.",
-                    "etapes": [
-                      "On cherche deux nombres de somme $7$ et de produit $12$.",
-                      "$3+4=7$ et $3\\cdot4=12$.",
-                      "$x^2+7x+12=(x+3)(x+4)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Parcourir les paires de diviseurs du produit, puis garder celle qui donne la somme."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Avec des signes",
-                    "enonce": "Factoriser $x^2-2x-15$.",
-                    "etapes": [
-                      "Somme $-2$, produit $-15$ : le produit est négatif, les deux nombres sont de signes contraires.",
-                      "$-5+3=-2$ et $-5\\cdot3=-15$.",
-                      "$x^2-2x-15=(x-5)(x+3)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Produit négatif : signes contraires, et le nombre de plus grande valeur absolue porte le signe de la somme."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Une puissance de $x$ en évidence",
-                    "enonce": "Factoriser $x^4+5x^3+6x^2$.",
-                    "etapes": [
-                      "Mise en évidence de $x^2$ : $x^2(x^2+5x+6)$.",
-                      "Somme $5$, produit $6$ : $2$ et $3$.",
-                      "$x^4+5x^3+6x^2=x^2(x+2)(x+3)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "La méthode somme et produit s’applique à $x^2+bx+c$ : mettre d’abord en évidence ce qui est commun."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un coefficient devant $x$",
-                    "enonce": "Factoriser $4x^2+4x-3$ en posant $u=2x$.",
-                    "etapes": [
-                      "$4x^2=(2x)^2=u^2$ et $4x=2u$ : $u^2+2u-3$.",
-                      "Somme $2$, produit $-3$ : $3$ et $-1$, donc $u^2+2u-3=(u+3)(u-1)$.",
-                      "$4x^2+4x-3=(2x+3)(2x-1)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Repérer le carré $(2x)^2$ et écrire le terme du milieu avec $2x$ : on retrouve un trinôme en $u=2x$."
-                  }
-                ]
-              }
+              "melanger": true
             },
             {
               "titre": "Groupements",
               "nb": 5,
               "acces": "seuil",
               "seuil": 80,
-              "fiche": {
-                "titre": "Groupements",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Facteur commun visible",
-                    "enonce": "Factoriser $(x+1)(2x-3)+(x+1)(x+5)$.",
-                    "etapes": [
-                      "Facteur commun : $(x+1)$.",
-                      "$(x+1)\\big[(2x-3)+(x+5)\\big]$.",
-                      "$=(x+1)(3x+2)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Après la mise en évidence, réduire le contenu du crochet."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un changement de signe",
-                    "enonce": "Factoriser $(x-4)(x+2)-3(4-x)$.",
-                    "etapes": [
-                      "$4-x=-(x-4)$, donc $-3(4-x)=3(x-4)$.",
-                      "$(x-4)(x+2)+3(x-4)=(x-4)\\big[(x+2)+3\\big]$.",
-                      "$=(x-4)(x+5)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "$4-x$ et $x-4$ sont opposés : changer le signe devant pour faire apparaître le facteur commun."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Une expression développée",
-                    "enonce": "Factoriser $x^3+2x^2-3x-6$.",
-                    "etapes": [
-                      "On groupe les termes deux par deux : $(x^3+2x^2)+(-3x-6)$.",
-                      "$=x^2(x+2)-3(x+2)$.",
-                      "$=(x+2)(x^2-3)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Faire apparaître le **même** facteur dans chaque groupe : ici, mettre $-3$ (et non $3$) en évidence dans le second."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Fractions rationnelles",
-              "nb": 6,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Fractions rationnelles",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Simplifier",
-                    "enonce": "Simplifier $\\dfrac{x^2-9}{x^2+3x}$ ($x\\neq0$ et $x\\neq-3$).",
-                    "etapes": [
-                      "On factorise : $x^2-9=(x-3)(x+3)$ et $x^2+3x=x(x+3)$.",
-                      "$\\dfrac{(x-3)(x+3)}{x(x+3)}$ : le facteur $(x+3)$ est commun.",
-                      "$=\\dfrac{x-3}{x}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "On ne simplifie que par un **facteur** commun : factoriser d’abord le numérateur et le dénominateur."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Diviser",
-                    "enonce": "Calculer $\\dfrac{x}{3}:\\dfrac{x^2}{6}$ ($x\\neq0$).",
-                    "etapes": [
-                      "Diviser, c’est multiplier par l’inverse : $\\dfrac{x}{3}\\cdot\\dfrac{6}{x^2}$.",
-                      "$=\\dfrac{6x}{3x^2}$.",
-                      "$=\\dfrac{2}{x}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Inverser la seconde fraction seulement, puis simplifier."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Additionner",
-                    "enonce": "Écrire $\\dfrac{2}{x}+\\dfrac{3}{x+1}$ en une seule fraction.",
-                    "etapes": [
-                      "Dénominateur commun : $x(x+1)$.",
-                      "$\\dfrac{2(x+1)}{x(x+1)}+\\dfrac{3x}{x(x+1)}$.",
-                      "$=\\dfrac{2x+2+3x}{x(x+1)}=\\dfrac{5x+2}{x(x+1)}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Chaque numérateur est multiplié par le facteur qui manque à son dénominateur."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Soustraire",
-                    "enonce": "Écrire $\\dfrac{1}{4}-\\dfrac{2x+1}{x}$ en une seule fraction ($x\\neq0$).",
-                    "etapes": [
-                      "Dénominateur commun : $4x$.",
-                      "$\\dfrac{x}{4x}-\\dfrac{4(2x+1)}{4x}=\\dfrac{x-(8x+4)}{4x}$.",
-                      "$=\\dfrac{x-8x-4}{4x}=\\dfrac{-7x-4}{4x}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Le signe $-$ porte sur tout le numérateur : le garder entre parenthèses avant de réduire."
-                  }
-                ]
-              }
+              "melanger": true
             }
           ],
           "etapes": [
             {
               "uuid": "4b495",
               "id": "1mCL1-12",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Additionner des polynômes",
               "sup": "1",
               "sup2": "1",
@@ -501,7 +80,7 @@
             {
               "uuid": "4b495",
               "id": "1mCL1-12",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Soustraire des polynômes",
               "sup": "3",
               "sup2": "1",
@@ -678,15 +257,6 @@
               ]
             },
             {
-              "uuid": "a1cb3",
-              "id": "1mCL2-3",
-              "nbQuestions": 2,
-              "titre": "Reconnaître une identité remarquable",
-              "objectifs": [
-                "Factoriser avec les identités remarquables"
-              ]
-            },
-            {
               "uuid": "7f0cf",
               "id": "1mCL1-8",
               "nbQuestions": 2,
@@ -755,7 +325,7 @@
               "uuid": "c4b73",
               "id": "1mCL2-1",
               "nbQuestions": 2,
-              "titre": "Somme et produit avec une puissance de $x$ en évidence",
+              "titre": "Somme produit",
               "sup": "6-7",
               "sup2": "2",
               "sup3": "1",
@@ -846,80 +416,162 @@
               "objectifs": [
                 "Factoriser par groupements"
               ]
+            }
+          ]
+        },
+        {
+          "id": "ch-1c-preuves",
+          "version": 5,
+          "titre": "Preuves en arithmétique",
+          "objectif": "Démontrer ou réfuter une égalité, puis écrire des entiers avec des lettres pour démontrer un résultat sur la parité.",
+          "auteurs": [
+            "Nathan Scheinmann"
+          ],
+          "descriptionEleves": "Cinq ceintures : vrai ou faux, diviseurs et multiples, traduire une phrase avec un nombre pair, impair ou multiple, déterminer la parité d’une expression, puis traduire une phrase avec plusieurs nombres.",
+          "niveau": "1re Collège",
+          "theme": "ER décembre",
+          "difficulte": 2,
+          "icone": "bx-hash",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "enTetesMasques": true,
+          "melanger": false,
+          "style": "ceintures",
+          "premiereCeinture": 0,
+          "paliers": [
+            {
+              "titre": "Vrai ou faux",
+              "nb": 2
             },
             {
-              "uuid": "2cb9a",
-              "id": "1mCN-13",
-              "nbQuestions": 2,
-              "titre": "Multiplier des fractions rationnelles",
-              "sup": "3",
+              "titre": "Traduire : pair, impair, multiple",
+              "nb": 3,
+              "acces": "libre"
+            },
+            {
+              "titre": "Parité",
+              "nb": 1,
+              "acces": "libre"
+            },
+            {
+              "titre": "Traduire : plusieurs nombres",
+              "nb": 4,
+              "acces": "libre"
+            }
+          ],
+          "etapes": [
+            {
+              "uuid": "8d4f2",
+              "id": "4L23",
+              "nbQuestions": 3,
+              "titre": "Démontrer ou réfuter une égalité littérale",
               "objectifs": [
-                "Calculer avec des fractions rationnelles"
+                "Démontrer ou réfuter une égalité littérale"
               ]
             },
             {
-              "uuid": "2cb9a",
-              "id": "1mCN-13",
-              "nbQuestions": 2,
-              "titre": "Diviser des fractions rationnelles",
-              "sup": "4",
-              "objectifs": [
-                "Calculer avec des fractions rationnelles"
-              ]
-            },
-            {
-              "uuid": "0af93",
-              "id": "1A-C03-11",
+              "uuid": "42d20",
+              "id": "9NO1A-14",
               "nbQuestions": 1,
-              "titre": "Écrire sans trait de fraction un quotient de fractions",
-              "objectifs": [
-                "Calculer avec des fractions rationnelles"
-              ]
-            },
-            {
-              "uuid": "2cb9a",
-              "id": "1mCN-13",
-              "nbQuestions": 2,
-              "titre": "Additionner des fractions rationnelles",
+              "titre": "Vocabulaire de la division euclidienne",
               "sup": "1",
+              "sup2": "5",
               "objectifs": [
-                "Calculer avec des fractions rationnelles"
+                "Utiliser le vocabulaire de la divisibilité"
               ]
             },
             {
-              "uuid": "2cb9a",
-              "id": "1mCN-13",
-              "nbQuestions": 2,
-              "titre": "Additionner avec une lettre au dénominateur",
-              "sup": "2",
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
+              "nbQuestions": 3,
+              "titre": "Un entier, un nombre pair ou impair : une opération",
+              "sup": "1-0-0-0-0*libre*1*hasard*nm",
               "objectifs": [
-                "Calculer avec des fractions rationnelles"
+                "Traduire une phrase par une expression littérale"
               ]
             },
             {
-              "uuid": "78fde",
-              "id": "1A-C02-3",
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
               "nbQuestions": 2,
-              "titre": "Soustraire une fraction rationnelle",
+              "titre": "Un multiple : une opération",
+              "sup": "0-1-0-0-0*libre*1*hasard*nm",
               "objectifs": [
-                "Calculer avec des fractions rationnelles"
+                "Traduire une phrase par une expression littérale"
+              ]
+            },
+            {
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
+              "nbQuestions": 3,
+              "titre": "Un nombre : deux opérations",
+              "sup": "1-1-0-0-0*libre*2*hasard*nm",
+              "objectifs": [
+                "Traduire une phrase par une expression littérale"
+              ]
+            },
+            {
+              "uuid": "3ec5c",
+              "id": "11FA4D-3",
+              "nbQuestions": 6,
+              "titre": "Déterminer la parité d’une expression",
+              "objectifs": [
+                "Déterminer la parité d’une expression"
+              ]
+            },
+            {
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
+              "nbQuestions": 2,
+              "titre": "Deux nombres : une opération",
+              "sup": "0-0-1-0-0*libre*1*hasard*nm",
+              "objectifs": [
+                "Traduire une phrase par une expression littérale"
+              ]
+            },
+            {
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
+              "nbQuestions": 2,
+              "titre": "Nombres consécutifs : une opération",
+              "sup": "0-0-0-1-1*libre*1*hasard*nm",
+              "objectifs": [
+                "Traduire une phrase par une expression littérale"
+              ]
+            },
+            {
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
+              "nbQuestions": 2,
+              "titre": "Plusieurs nombres : deux opérations",
+              "sup": "0-1-1-1-1*melange*2*hasard*nm",
+              "objectifs": [
+                "Traduire une phrase par une expression littérale"
+              ]
+            },
+            {
+              "uuid": "e5cd3",
+              "id": "1mCL1-16",
+              "nbQuestions": 2,
+              "titre": "Plusieurs nombres : trois opérations",
+              "sup": "0-1-1-1-1*melange*3*hasard*nm",
+              "objectifs": [
+                "Traduire une phrase par une expression littérale"
               ]
             }
           ]
         },
         {
           "id": "ch-1c-equations",
-          "version": 1,
+          "version": 5,
           "titre": "Résolution d’équations",
           "objectif": "Résoudre des équations du premier et du second degré, puis de degré 3 et 4, et des problèmes.",
           "auteurs": [
-            "Claude Opus 5.5",
             "Nathan Scheinmann"
           ],
-          "descriptionEleves": "Sept ceintures, du premier degré aux problèmes. Chaque ceinture s’ouvre sur des exemples résolus ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "7 ceintures, de la blanche à la noire : Équations du premier degré ; Produit nul ; Racine carrée ; Complétion du carré ; Discriminant ; Degré 3 et 4, équations irrationnelles ; Problèmes. Dans chaque ceinture, les exercices vont du cas le plus simple au plus difficile, sans mélange des questions. Des exemples résolus précèdent chaque ceinture ; la suivante se débloque à 80 %.",
+          "descriptionEleves": "Sept ceintures pour travailler la résolution d'équations.",
           "niveau": "1re Collège",
-          "theme": "Équations du second degré",
+          "theme": "ER décembre",
           "difficulte": 2,
           "icone": "bx-calculator",
           "presentation": "une_question_par_page",
@@ -931,383 +583,43 @@
           "paliers": [
             {
               "titre": "Équations du premier degré",
-              "nb": 4,
-              "fiche": {
-                "titre": "Équations du premier degré",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Regrouper les termes",
-                    "enonce": "Résoudre $5x-3=2x+9$.",
-                    "etapes": [
-                      "$5x-2x=9+3$.",
-                      "$3x=12$.",
-                      "$x=4$, donc $S=\\{4\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Un terme qui change de membre change de signe ; on divise ensuite par le coefficient de $x$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Avec des parenthèses",
-                    "enonce": "Résoudre $7-(2x+3)=x$.",
-                    "etapes": [
-                      "$7-2x-3=x$.",
-                      "$4=3x$.",
-                      "$x=\\dfrac43$, donc $S=\\left\\{\\dfrac43\\right\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "La solution peut être une fraction : on l’écrit sous forme irréductible."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Les carrés s’éliminent",
-                    "enonce": "Résoudre $(x+2)^2=x^2+16$.",
-                    "etapes": [
-                      "$x^2+4x+4=x^2+16$.",
-                      "$4x=12$.",
-                      "$x=3$, donc $S=\\{3\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Après développement, les termes en $x^2$ s’annulent : l’équation est du premier degré."
-                  }
-                ]
-              }
+              "nb": 4
             },
             {
               "titre": "Produit nul",
               "nb": 6,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Produit nul",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Mettre $x$ en évidence",
-                    "enonce": "Résoudre $x^2-5x=0$.",
-                    "etapes": [
-                      "$x(x-5)=0$.",
-                      "Un produit est nul si et seulement si l’un des facteurs est nul : $x=0$ ou $x-5=0$.",
-                      "$S=\\{0;5\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Ne pas diviser par $x$ : on perdrait la solution $x=0$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Avec une identité",
-                    "enonce": "Résoudre $4x^2-9=0$.",
-                    "etapes": [
-                      "$(2x-3)(2x+3)=0$.",
-                      "$2x-3=0$ ou $2x+3=0$.",
-                      "$S=\\left\\{-\\dfrac32;\\dfrac32\\right\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Reconnaître $a^2-b^2=(a-b)(a+b)$, puis appliquer le produit nul."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Tout dans un membre",
-                    "enonce": "Résoudre $x^2+x=6$.",
-                    "etapes": [
-                      "$x^2+x-6=0$.",
-                      "Somme $1$, produit $-6$ : $3$ et $-2$, donc $(x+3)(x-2)=0$.",
-                      "$S=\\{-3;2\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Le produit nul ne s’applique que s’il y a $0$ dans l’autre membre."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Racine carrée",
               "nb": 4,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Racine carrée",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Deux solutions",
-                    "enonce": "Résoudre $x^2=49$.",
-                    "etapes": [
-                      "Deux nombres ont pour carré $49$ : $7$ et $-7$.",
-                      "$S=\\{-7;7\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "$x^2=a$ a deux solutions $-\\sqrt a$ et $\\sqrt a$ si $a>0$, une seule ($0$) si $a=0$, aucune si $a<0$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Isoler le carré",
-                    "enonce": "Résoudre $3x^2-15=0$.",
-                    "etapes": [
-                      "$3x^2=15$.",
-                      "$x^2=5$.",
-                      "$S=\\left\\{-\\sqrt5;\\sqrt5\\right\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Isoler $x^2$ avant de prendre la racine."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Le carré d’une parenthèse",
-                    "enonce": "Résoudre $(x-2)^2=9$.",
-                    "etapes": [
-                      "$x-2=3$ ou $x-2=-3$.",
-                      "$x=5$ ou $x=-1$.",
-                      "$S=\\{-1;5\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Ne pas développer : on prend la racine du carré, sans oublier la solution négative."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Complétion du carré",
               "nb": 3,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Complétion du carré",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Coefficient de $x^2$ égal à 1",
-                    "enonce": "Résoudre $x^2+6x-7=0$.",
-                    "etapes": [
-                      "$x^2+6x=(x+3)^2-9$.",
-                      "$(x+3)^2-9-7=0$, soit $(x+3)^2=16$.",
-                      "$x+3=4$ ou $x+3=-4$, donc $S=\\{-7;1\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "La moitié du coefficient de $x$ donne le carré : $x^2+bx=\\left(x+\\dfrac b2\\right)^2-\\left(\\dfrac b2\\right)^2$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Diviser d’abord",
-                    "enonce": "Résoudre $2x^2-4x-3=0$.",
-                    "etapes": [
-                      "On divise par $2$ : $x^2-2x-\\dfrac32=0$.",
-                      "$(x-1)^2-1-\\dfrac32=0$, soit $(x-1)^2=\\dfrac52$.",
-                      "$x-1=-\\sqrt{\\dfrac52}$ ou $x-1=\\sqrt{\\dfrac52}$, donc $S=\\left\\{1-\\dfrac{\\sqrt{10}}{2};1+\\dfrac{\\sqrt{10}}{2}\\right\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Diviser d’abord par le coefficient de $x^2$ pour se ramener à $x^2+bx+c=0$."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Discriminant",
               "nb": 3,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Discriminant",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Calculer $\\Delta$",
-                    "enonce": "Calculer le discriminant de $2x^2-3x-5$.",
-                    "etapes": [
-                      "$a=2$, $b=-3$ et $c=-5$.",
-                      "$\\Delta=b^2-4ac=(-3)^2-4\\cdot2\\cdot(-5)$.",
-                      "$\\Delta=9+40=49$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Mettre $b$ et $c$ entre parenthèses quand ils sont négatifs : $(-3)^2=9$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Nombre de solutions",
-                    "enonce": "Combien de solutions a l’équation $x^2+2x+5=0$ ?",
-                    "etapes": [
-                      "$\\Delta=2^2-4\\cdot1\\cdot5=4-20=-16$.",
-                      "$\\Delta<0$ : l’équation n’a aucune solution réelle."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "$\\Delta>0$ : deux solutions ; $\\Delta=0$ : une solution ; $\\Delta<0$ : aucune solution."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Résoudre",
-                    "enonce": "Résoudre $2x^2-3x-5=0$.",
-                    "etapes": [
-                      "$\\Delta=49$ et $\\sqrt\\Delta=7$.",
-                      "$x_1=\\dfrac{3-7}{4}=-1$ et $x_2=\\dfrac{3+7}{4}=\\dfrac52$.",
-                      "$S=\\left\\{-1;\\dfrac52\\right\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "$x=\\dfrac{-b\\pm\\sqrt\\Delta}{2a}$ : avec $b=-3$, on a $-b=3$."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Degré 3 et 4, équations irrationnelles",
               "nb": 6,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Degré 3 et 4, équations irrationnelles",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Équation bicarrée",
-                    "enonce": "Résoudre $x^4-13x^2+36=0$.",
-                    "etapes": [
-                      "On pose $y=x^2$ : $y^2-13y+36=0$.",
-                      "Somme $13$, produit $36$ : $y=4$ ou $y=9$.",
-                      "$x^2=4$ ou $x^2=9$, donc $S=\\{-3;-2;2;3\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Revenir à $x$ : une valeur positive de $y$ donne deux solutions, une valeur négative aucune."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Grouper, puis le produit nul",
-                    "enonce": "Résoudre $x^3-4x^2-x+4=0$.",
-                    "etapes": [
-                      "$x^2(x-4)-(x-4)=0$.",
-                      "$(x-4)(x^2-1)=(x-4)(x-1)(x+1)=0$.",
-                      "$S=\\{-1;1;4\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Factoriser complètement, puis annuler chaque facteur."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Équation irrationnelle",
-                    "enonce": "Résoudre $\\sqrt{x+6}=x$.",
-                    "etapes": [
-                      "On élève au carré : $x+6=x^2$, soit $x^2-x-6=0$.",
-                      "$(x-3)(x+2)=0$ : $x=3$ ou $x=-2$.",
-                      "Vérification : $\\sqrt9=3$ convient ; $\\sqrt4=2\\neq-2$. Donc $S=\\{3\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Élever au carré peut ajouter des solutions : vérifier chacune dans l’équation de départ."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Problèmes",
-              "nb": 3,
+              "nb": 2,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Problèmes",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Nombres consécutifs",
-                    "enonce": "La somme de trois entiers consécutifs vaut $87$. Quels sont ces entiers ?",
-                    "etapes": [
-                      "Soit $n$ le plus petit : les nombres sont $n$, $n+1$ et $n+2$.",
-                      "$n+(n+1)+(n+2)=87$, soit $3n+3=87$.",
-                      "$n=28$ : les entiers sont $28$, $29$ et $30$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Nommer l’inconnue par une phrase avant d’écrire l’équation, et vérifier la réponse dans l’énoncé."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un rectangle",
-                    "enonce": "Un rectangle a un périmètre de $30$ cm. Sa longueur mesure $3$ cm de plus que sa largeur. Quelles sont ses dimensions ?",
-                    "etapes": [
-                      "Soit $x$ la largeur : la longueur est $x+3$.",
-                      "$2x+2(x+3)=30$, soit $4x+6=30$.",
-                      "$x=6$ : la largeur mesure $6$ cm et la longueur $9$ cm."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Exprimer toutes les longueurs avec la même inconnue."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un problème du second degré",
-                    "enonce": "Le produit de deux entiers consécutifs vaut $132$. Quels sont ces entiers ?",
-                    "etapes": [
-                      "$n(n+1)=132$, soit $n^2+n-132=0$.",
-                      "Somme $1$, produit $-132$ : $12$ et $-11$, donc $(n+12)(n-11)=0$.",
-                      "$n=11$ ou $n=-12$ : les entiers sont $11$ et $12$, ou $-12$ et $-11$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Une équation du second degré peut donner deux réponses : garder celles qui conviennent à l’énoncé."
-                  }
-                ]
-              }
+              "seuil": 80
             }
           ],
           "etapes": [
@@ -1461,7 +773,7 @@
             {
               "uuid": "7f0dd",
               "id": "1mCL4-2",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Compléter le carré, solutions irrationnelles",
               "sup": "2",
               "sup2": "true",
@@ -1472,7 +784,7 @@
             {
               "uuid": "7f0dd",
               "id": "1mCL4-2",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Compléter le carré, coefficients fractionnaires",
               "sup": "1",
               "sup2": "true",
@@ -1542,7 +854,7 @@
             {
               "uuid": "89034",
               "id": "1mCL4-4",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Équation bicarrée, autres cas",
               "sup": "3",
               "sup2": "2-3",
@@ -1563,7 +875,7 @@
             {
               "uuid": "5f5fa",
               "id": "1mCL4-3",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Équation irrationnelle, solutions entières",
               "sup": "1",
               "sup2": "true",
@@ -1575,7 +887,7 @@
             {
               "uuid": "5f5fa",
               "id": "1mCL4-3",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Équation irrationnelle, cas général",
               "sup": "3",
               "sup2": "false",
@@ -1587,7 +899,7 @@
             {
               "uuid": "22412",
               "id": "10FA5D-2",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Mettre un problème en équation",
               "sup": "12-3-7-8",
               "sup2": "true",
@@ -1598,20 +910,9 @@
             {
               "uuid": "cd2f2",
               "id": "10FA5D-3",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Problème de périmètre et d’aire",
               "sup": "1-2",
-              "objectifs": [
-                "Résoudre un problème par une équation"
-              ]
-            },
-            {
-              "uuid": "22412",
-              "id": "10FA5D-2",
-              "nbQuestions": 2,
-              "titre": "Problèmes variés",
-              "sup": "0",
-              "sup2": "false",
               "objectifs": [
                 "Résoudre un problème par une équation"
               ]
@@ -1620,17 +921,15 @@
         },
         {
           "id": "ch-1c-systemes",
-          "version": 1,
+          "version": 5,
           "titre": "Systèmes d’équations",
           "objectif": "Résoudre un système de deux équations à deux inconnues, graphiquement et par le calcul.",
           "auteurs": [
-            "Claude Opus 5.5",
             "Nathan Scheinmann"
           ],
-          "descriptionEleves": "Six ceintures : solution d’un système, comparaison, substitution, combinaison, nombre de solutions et problèmes. Chaque ceinture s’ouvre sur des exemples résolus ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "6 ceintures, de la blanche à la marron : Solution d’un système ; Comparaison ; Substitution ; Combinaison ; Nombre de solutions ; Problèmes. Dans chaque ceinture, les exercices vont du cas le plus simple au plus difficile, sans mélange des questions. Des exemples résolus précèdent chaque ceinture ; la suivante se débloque à 80 %.",
+          "descriptionEleves": "Six ceintures : solution d’un système, comparaison, substitution, combinaison, nombre de solutions et problèmes.",
           "niveau": "1re Collège",
-          "theme": "Systèmes d'équations",
+          "theme": "ER décembre",
           "difficulte": 2,
           "icone": "bx-git-merge",
           "presentation": "une_question_par_page",
@@ -1642,303 +941,38 @@
           "paliers": [
             {
               "titre": "Solution d’un système",
-              "nb": 3,
-              "fiche": {
-                "titre": "Solution d’un système",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Tester un couple",
-                    "enonce": "Le couple $(2;-1)$ est-il solution du système $\\begin{cases}x+3y=-1\\\\2x-y=4\\end{cases}$ ?",
-                    "etapes": [
-                      "On remplace $x$ par $2$ et $y$ par $-1$ dans la première équation : $2+3\\cdot(-1)=-1$. Elle est vérifiée.",
-                      "Dans la seconde : $2\\cdot2-(-1)=5$ et $5\\neq4$. Elle n’est pas vérifiée.",
-                      "Le couple $(2;-1)$ n’est pas solution du système."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Un couple est solution d’un système s’il vérifie **toutes** les équations. Une seule équation fausse suffit pour conclure qu’il n’est pas solution."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Point d’intersection",
-                    "enonce": "Résoudre graphiquement $\\begin{cases}y=x-3\\\\y=-2x+3\\end{cases}$",
-                    "etapes": [
-                      "On trace les deux droites : elles se coupent au point $(2;-1)$.",
-                      "Vérification : $2-3=-1$ et $-2\\cdot2+3=-1$.",
-                      "$S=\\{(2;-1)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "La solution d’un système est un **couple** $(x;y)$ : les coordonnées du point d’intersection des deux droites."
-                  }
-                ]
-              }
+              "nb": 2
             },
             {
               "titre": "Comparaison",
-              "nb": 4,
+              "nb": 2,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Comparaison",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Deux expressions de $y$",
-                    "enonce": "Résoudre $\\begin{cases}y=3x-4\\\\y=-x+8\\end{cases}$",
-                    "etapes": [
-                      "Les deux expressions de $y$ sont égales : $3x-4=-x+8$.",
-                      "$4x=12$, donc $x=3$.",
-                      "$y=3\\cdot3-4=5$, donc $S=\\{(3;5)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Quand les deux équations donnent la même inconnue, on égale les deux expressions."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Deux expressions de $2x$",
-                    "enonce": "Résoudre $\\begin{cases}2x=y+7\\\\2x=-3y+3\\end{cases}$",
-                    "etapes": [
-                      "Les deux expressions de $2x$ sont égales : $y+7=-3y+3$.",
-                      "$4y=-4$, donc $y=-1$.",
-                      "$2x=-1+7=6$, donc $x=3$ et $S=\\{(3;-1)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Il suffit que les deux équations donnent la même expression ($2x$, $4y$, …) : on les égale sans isoler l’inconnue."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Point hors du graphique",
-                    "enonce": "Sur un graphique, $d_1$ passe par $(0;1)$ et $(1;3)$, et $d_2$ par $(0;5)$ et $(1;6)$. Les droites se coupent en dehors du graphique. Déterminer leur point d’intersection.",
-                    "etapes": [
-                      "$d_1$ coupe l’axe des ordonnées en $1$ et monte de $2$ quand $x$ augmente de $1$ : $d_1 : y=2x+1$.",
-                      "De même, $d_2 : y=x+5$.",
-                      "On compare : $2x+1=x+5$, donc $x=4$, puis $y=2\\cdot4+1=9$. Le point d’intersection est $(4;9)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Quand le point ne se lit pas, on lit les équations $y=mx+h$ des deux droites, puis on résout le système."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Substitution",
               "nb": 2,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Substitution",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Une inconnue déjà isolée",
-                    "enonce": "Résoudre $\\begin{cases}y=2x-1\\\\3x+y=9\\end{cases}$",
-                    "etapes": [
-                      "On remplace $y$ par $2x-1$ dans la seconde équation : $3x+2x-1=9$.",
-                      "$5x=10$, donc $x=2$.",
-                      "$y=2\\cdot2-1=3$, donc $S=\\{(2;3)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Remplacer, résoudre, puis revenir à l’équation isolée pour trouver la seconde inconnue."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Isoler une inconnue",
-                    "enonce": "Résoudre $\\begin{cases}x+2y=7\\\\2x-3y=0\\end{cases}$",
-                    "etapes": [
-                      "On isole $x$ dans la première équation : $x=7-2y$.",
-                      "$2(7-2y)-3y=0$, soit $14-7y=0$, donc $y=2$.",
-                      "$x=7-2\\cdot2=3$, donc $S=\\{(3;2)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Isoler une inconnue de coefficient $1$ ou $-1$, et mettre des parenthèses autour de l’expression remplacée."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Combinaison",
               "nb": 3,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Combinaison",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Coefficients opposés",
-                    "enonce": "Résoudre $\\begin{cases}3x+2y=12\\\\5x-2y=4\\end{cases}$",
-                    "etapes": [
-                      "On additionne les deux équations : $8x=16$, donc $x=2$.",
-                      "$3\\cdot2+2y=12$, donc $y=3$.",
-                      "$S=\\{(2;3)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Les coefficients de $y$ sont opposés : l’addition élimine $y$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Multiplier avant de combiner",
-                    "enonce": "Résoudre $\\begin{cases}2x+3y=8\\\\3x+4y=11\\end{cases}$",
-                    "etapes": [
-                      "On multiplie la première équation par $3$ et la seconde par $2$ : $6x+9y=24$ et $6x+8y=22$.",
-                      "On soustrait : $y=2$.",
-                      "$2x+6=8$, donc $x=1$ et $S=\\{(1;2)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Multiplier pour obtenir le même coefficient devant une inconnue, puis soustraire."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Trois équations, trois inconnues",
-                    "enonce": "Résoudre $\\begin{cases}x+y+z=6\\\\x-y+z=2\\\\2x+y-z=1\\end{cases}$",
-                    "etapes": [
-                      "Première moins deuxième : $2y=4$, donc $y=2$.",
-                      "Avec $y=2$ : $x+z=4$ et $2x-z=-1$. On additionne : $3x=3$, donc $x=1$.",
-                      "$z=4-1=3$, donc $S=\\{(1;2;3)\\}$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Éliminer une inconnue pour se ramener à deux équations à deux inconnues."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Nombre de solutions",
-              "nb": 3,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Nombre de solutions",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Droites parallèles",
-                    "enonce": "Combien de solutions a le système $\\begin{cases}y=3x+1\\\\y=3x-2\\end{cases}$ ?",
-                    "etapes": [
-                      "Même pente $3$, ordonnées à l’origine différentes.",
-                      "Les droites sont parallèles et distinctes : aucune solution."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Pentes différentes : une solution ; même pente et ordonnées à l’origine différentes : aucune ; droites confondues : une infinité."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Droites confondues",
-                    "enonce": "Combien de solutions a le système $\\begin{cases}2x-y=3\\\\4x-2y=6\\end{cases}$ ?",
-                    "etapes": [
-                      "La seconde équation est la première multipliée par $2$.",
-                      "Les deux équations décrivent la même droite : une infinité de solutions."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Deux équations proportionnelles décrivent la même droite."
-                  }
-                ]
-              }
+              "seuil": 80
             },
             {
               "titre": "Problèmes",
-              "nb": 3,
+              "nb": 2,
               "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Problèmes",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Droites données par deux points",
-                    "enonce": "Déterminer le point d’intersection des droites $(AB)$ et $(CD)$ avec $A(0;-1)$, $B(1;1)$, $C(0;8)$ et $D(2;6)$.",
-                    "etapes": [
-                      "Pente de $(AB)$ : $\\frac{1-(-1)}{1-0}=2$, ordonnée à l’origine $-1$ : $y=2x-1$.",
-                      "Pente de $(CD)$ : $\\frac{6-8}{2-0}=-1$, ordonnée à l’origine $8$ : $y=-x+8$.",
-                      "$2x-1=-x+8$, donc $3x=9$, $x=3$ et $y=2\\cdot3-1=5$. Le point d’intersection est $(3;5)$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Écrire d’abord l’équation de chaque droite, puis résoudre le système formé par les deux équations."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Deux prix inconnus",
-                    "enonce": "Au cinéma, $3$ billets adulte et $2$ billets enfant coûtent $58$ CHF ; $2$ billets adulte et $3$ billets enfant coûtent $52$ CHF. Quel est le prix de chaque billet ?",
-                    "etapes": [
-                      "Soit $x$ le prix d’un billet adulte et $y$ celui d’un billet enfant : $3x+2y=58$ et $2x+3y=52$.",
-                      "On multiplie par $3$ et par $2$ : $9x+6y=174$ et $4x+6y=104$. On soustrait : $5x=70$, donc $x=14$.",
-                      "$3\\cdot14+2y=58$, donc $y=8$ : $14$ CHF pour un adulte, $8$ CHF pour un enfant."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Deux inconnues, deux informations : une équation par information."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un rectangle",
-                    "enonce": "Un rectangle a un périmètre de $26$ cm. Sa longueur dépasse de $1$ cm le double de sa largeur. Quelles sont ses dimensions ?",
-                    "etapes": [
-                      "Soit $L$ la longueur et $\\ell$ la largeur : $2L+2\\ell=26$ et $L=2\\ell+1$.",
-                      "On remplace : $2(2\\ell+1)+2\\ell=26$, soit $6\\ell=24$, donc $\\ell=4$.",
-                      "$L=2\\cdot4+1=9$ : $9$ cm sur $4$ cm."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Vérifier la réponse dans chaque phrase de l’énoncé."
-                  }
-                ]
-              }
+              "seuil": 80
             }
           ],
           "etapes": [
             {
               "uuid": "ccb71",
               "id": "11FA5A-1",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Tester si un couple est solution d’un système",
               "sup": "1",
               "objectifs": [
@@ -1956,25 +990,6 @@
               ]
             },
             {
-              "uuid": "a1b2c",
-              "id": "1mSE-2",
-              "nbQuestions": 2,
-              "titre": "Lire le point d’intersection de deux droites",
-              "sup": "1",
-              "objectifs": [
-                "Reconnaître la solution d’un système"
-              ]
-            },
-            {
-              "uuid": "1b828",
-              "id": "11FA5A-2",
-              "nbQuestions": 1,
-              "titre": "Point d’intersection de deux droites $y=mx+h$",
-              "objectifs": [
-                "Résoudre un système par comparaison"
-              ]
-            },
-            {
               "uuid": "2991a",
               "id": "11FA5A-4",
               "nbQuestions": 1,
@@ -1989,16 +1004,6 @@
               "id": "11FA5A-4",
               "nbQuestions": 2,
               "titre": "Résoudre par comparaison, niveau 2",
-              "sup": "2",
-              "objectifs": [
-                "Résoudre un système par comparaison"
-              ]
-            },
-            {
-              "uuid": "a1b2c",
-              "id": "1mSE-2",
-              "nbQuestions": 1,
-              "titre": "Point d’intersection en dehors du graphique",
               "sup": "2",
               "objectifs": [
                 "Résoudre un système par comparaison"
@@ -2027,7 +1032,7 @@
             {
               "uuid": "5179b",
               "id": "11FA5A-3",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Combinaison, niveau 1",
               "sup": "1",
               "sup2": "false",
@@ -2038,7 +1043,7 @@
             {
               "uuid": "5179b",
               "id": "11FA5A-3",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Combinaison, niveau 2",
               "sup": "2",
               "sup2": "false",
@@ -2049,7 +1054,7 @@
             {
               "uuid": "5179b",
               "id": "11FA5A-3",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Combinaison, niveau 3",
               "sup": "3",
               "sup2": "false",
@@ -2058,47 +1063,9 @@
               ]
             },
             {
-              "uuid": "2eee3",
-              "id": "11FA5A-9",
-              "nbQuestions": 2,
-              "titre": "Position relative de deux droites et nombre de solutions",
-              "objectifs": [
-                "Déterminer le nombre de solutions d’un système"
-              ]
-            },
-            {
-              "uuid": "fade2",
-              "id": "11FA5A-6",
-              "nbQuestions": 2,
-              "titre": "Nature des solutions, niveau 1",
-              "sup": "1",
-              "objectifs": [
-                "Déterminer le nombre de solutions d’un système"
-              ]
-            },
-            {
-              "uuid": "fade2",
-              "id": "11FA5A-6",
-              "nbQuestions": 1,
-              "titre": "Nature des solutions, niveau 2",
-              "sup": "2",
-              "objectifs": [
-                "Déterminer le nombre de solutions d’un système"
-              ]
-            },
-            {
-              "uuid": "4b211",
-              "id": "11FA5A-11",
-              "nbQuestions": 1,
-              "titre": "Point d’intersection de deux droites données par des points",
-              "objectifs": [
-                "Résoudre un problème par un système"
-              ]
-            },
-            {
               "uuid": "6fbf9",
               "id": "11FA5A-7",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Problème de groupes",
               "sup": "1",
               "objectifs": [
@@ -2108,428 +1075,11 @@
             {
               "uuid": "6fbf9",
               "id": "11FA5A-7",
-              "nbQuestions": 2,
+              "nbQuestions": 1,
               "titre": "Problème de rectangle",
               "sup": "2",
               "objectifs": [
                 "Résoudre un problème par un système"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ch-1c-preuves",
-          "version": 1,
-          "titre": "Preuves en arithmétique",
-          "objectif": "Démontrer ou réfuter une égalité, puis écrire des entiers avec des lettres pour démontrer un résultat sur la parité.",
-          "auteurs": [
-            "Claude Opus 5.5",
-            "Nathan Scheinmann"
-          ],
-          "descriptionEleves": "Cinq ceintures : vrai ou faux, diviseurs et multiples, traduire une phrase avec un nombre pair, impair ou multiple, déterminer la parité d’une expression, puis traduire une phrase avec plusieurs nombres. Chaque ceinture s’ouvre sur des exemples résolus ; tu passes à la suivante à partir de 80 % de réponses correctes.",
-          "descriptionEnseignant": "5 ceintures, de la blanche à la bleue : Vrai ou faux ; Diviseurs et multiples ; Traduire : pair, impair, multiple ; Parité ; Traduire : plusieurs nombres. Dans chaque ceinture, les exercices vont du cas le plus simple au plus difficile, sans mélange des questions. Des exemples résolus précèdent chaque ceinture ; la suivante se débloque à 80 %.",
-          "niveau": "1re Collège",
-          "theme": "Calcul littéral - Généralités",
-          "difficulte": 2,
-          "icone": "bx-hash",
-          "presentation": "une_question_par_page",
-          "correction": "question",
-          "enTetesMasques": true,
-          "melanger": false,
-          "style": "ceintures",
-          "premiereCeinture": 0,
-          "paliers": [
-            {
-              "titre": "Vrai ou faux",
-              "nb": 1,
-              "fiche": {
-                "titre": "Vrai ou faux",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Une égalité vraie",
-                    "enonce": "Pour tous les nombres $x$, a-t-on $3(x+2)-x=2x+6$ ?",
-                    "etapes": [
-                      "On réduit le membre de gauche : $3(x+2)-x=3x+6-x=2x+6$.",
-                      "Les deux membres ont la même expression réduite $2x+6$ : l’égalité est vraie pour tous les nombres $x$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Pour démontrer qu’une égalité est vraie pour **tous** les nombres, on réduit les deux membres : un exemple ne suffit pas."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Une égalité fausse",
-                    "enonce": "Pour tous les nombres $x$, a-t-on $(2x)^2=2x^2$ ?",
-                    "etapes": [
-                      "On essaie $x=1$ : $(2\\cdot1)^2=4$ et $2\\cdot1^2=2$.",
-                      "$4\\neq2$ : $x=1$ est un contre-exemple, l’égalité est fausse.",
-                      "Avec $x=0$, on obtient $0=0$ : cette valeur ne permet pas de conclure."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Pour réfuter une égalité, une seule valeur suffit : un **contre-exemple**, qui donne deux résultats différents."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Diviseurs et multiples",
-              "nb": 4,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Diviseurs et multiples",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Division euclidienne",
-                    "enonce": "Effectuer la division euclidienne de $87$ par $6$.",
-                    "etapes": [
-                      "$6\\cdot14=84$ et $6\\cdot15=90>87$.",
-                      "$87=6\\cdot14+3$ : le quotient est $14$, le reste $3$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Le reste est toujours plus petit que le diviseur : ici $0\\leqslant3<6$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Diviseur ou multiple",
-                    "enonce": "On sait que $52=4\\cdot13$. Compléter : $13$ est … de $52$.",
-                    "etapes": [
-                      "La division de $52$ par $13$ tombe juste : le reste est nul.",
-                      "$13$ est un diviseur de $52$, et $52$ est un multiple de $13$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "« $a$ est un diviseur de $b$ » et « $b$ est un multiple de $a$ » disent la même chose."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Liste des diviseurs",
-                    "enonce": "Donner la liste des diviseurs de $36$.",
-                    "etapes": [
-                      "Produits égaux à $36$ : $1\\cdot36$, $2\\cdot18$, $3\\cdot12$, $4\\cdot9$, $6\\cdot6$.",
-                      "Diviseurs de $36$ : $1$, $2$, $3$, $4$, $6$, $9$, $12$, $18$, $36$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Chercher les diviseurs par paires, jusqu’à ce que les deux facteurs se rejoignent."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Traduire : pair, impair, multiple",
-              "nb": 3,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Traduire : pair, impair, multiple",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Un nombre pair",
-                    "enonce": "Traduire par une expression littérale : « le carré d’un nombre pair ».",
-                    "etapes": [
-                      "Un nombre pair s’écrit $2n$, avec $n$ entier.",
-                      "Son carré : $(2n)^2$.",
-                      "Sous forme réduite : $4n^2$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Les parenthèses comptent : $(2n)^2=4n^2$, alors que $2n^2$ est le double du carré de $n$."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un multiple",
-                    "enonce": "Traduire : « le cube d’un multiple de $3$ ».",
-                    "etapes": [
-                      "Un multiple de $3$ s’écrit $3n$, avec $n$ entier.",
-                      "Son cube : $(3n)^3=27n^3$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Un multiple de $k$ s’écrit $kn$, avec $n$ entier."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Deux opérations",
-                    "enonce": "Traduire : « la somme de $3$ et du double d’un nombre impair ».",
-                    "etapes": [
-                      "Un nombre impair s’écrit $2n+1$, avec $n$ entier.",
-                      "Son double : $2(2n+1)$.",
-                      "$3+2(2n+1)$, soit $4n+5$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Partir du nombre, puis appliquer les opérations de la phrase, de la dernière nommée à la première."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Parité",
-              "nb": 1,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Parité",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Un facteur 2",
-                    "enonce": "$n$ est un entier. Déterminer la parité de $6n+4$.",
-                    "etapes": [
-                      "$6n+4=2(3n+2)$.",
-                      "$3n+2$ est un entier, donc $6n+4$ est pair."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Un nombre pair s’écrit $2k$, un nombre impair $2k+1$, avec $k$ entier."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Un carré",
-                    "enonce": "$n$ est un entier. Comparer la parité de $5n^2$ à celle de $n$.",
-                    "etapes": [
-                      "$5n^2=2\\cdot2n^2+n^2$, et $2\\cdot2n^2$ est pair : $5n^2$ a la même parité que $n^2$.",
-                      "Un carré a la même parité que le nombre : $n^2$ a la même parité que $n$.",
-                      "$5n^2$ a donc la même parité que $n$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Séparer un multiple de $2$, qui est pair, du reste de l’expression : c’est le reste qui décide de la parité."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Une parité qui dépend de $n$",
-                    "enonce": "$n$ est un entier. Comparer la parité de $3n+1$ à celle de $n$.",
-                    "etapes": [
-                      "Si $n$ est pair, $3n$ est pair et $3n+1$ est impair.",
-                      "Si $n$ est impair, $3n$ est impair et $3n+1$ est pair.",
-                      "$3n+1$ est de parité contraire à celle de $n$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Quand la parité dépend de $n$, étudier les deux cas : $n$ pair, puis $n$ impair."
-                  }
-                ]
-              }
-            },
-            {
-              "titre": "Traduire : plusieurs nombres",
-              "nb": 4,
-              "acces": "seuil",
-              "seuil": 80,
-              "fiche": {
-                "titre": "Traduire : plusieurs nombres",
-                "avant": true,
-                "blocs": [
-                  {
-                    "type": "exemple",
-                    "titre": "Deux nombres pairs",
-                    "enonce": "Traduire : « la somme des carrés de deux nombres pairs ».",
-                    "etapes": [
-                      "Les deux nombres sont choisis indépendamment : $2n$ et $2m$, avec $n$ et $m$ entiers.",
-                      "$(2n)^2+(2m)^2$.",
-                      "Sous forme réduite : $4n^2+4m^2$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Deux nombres quelconques : deux lettres différentes. Avec $2n$ et $2n$, ce serait deux fois le même nombre."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Trois entiers consécutifs",
-                    "enonce": "Traduire : « la somme de trois entiers consécutifs ».",
-                    "etapes": [
-                      "Des entiers consécutifs se suivent : $n$, $n+1$ et $n+2$.",
-                      "$n+(n+1)+(n+2)=3n+3$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Des nombres consécutifs s’écrivent avec **une seule** lettre ; $n-1$, $n$ et $n+1$ conviennent aussi."
-                  },
-                  {
-                    "type": "exemple",
-                    "titre": "Notation imposée",
-                    "enonce": "Traduire : « le produit de deux entiers consécutifs, le plus grand étant noté $n$ ».",
-                    "etapes": [
-                      "Le plus grand est $n$, donc le plus petit est $n-1$.",
-                      "$(n-1)n$, soit $n^2-n$."
-                    ]
-                  },
-                  {
-                    "type": "retenir",
-                    "titre": "Point crucial",
-                    "texte": "Respecter le rôle donné à $n$ dans l’énoncé."
-                  }
-                ]
-              }
-            }
-          ],
-          "etapes": [
-            {
-              "uuid": "8d4f2",
-              "id": "4L23",
-              "nbQuestions": 4,
-              "titre": "Démontrer ou réfuter une égalité littérale",
-              "objectifs": [
-                "Démontrer ou réfuter une égalité littérale"
-              ]
-            },
-            {
-              "uuid": "42d20",
-              "id": "9NO1A-14",
-              "nbQuestions": 2,
-              "titre": "Vocabulaire de la division euclidienne",
-              "sup": "1",
-              "sup2": "5",
-              "objectifs": [
-                "Utiliser le vocabulaire de la divisibilité"
-              ]
-            },
-            {
-              "uuid": "42d20",
-              "id": "9NO1A-14",
-              "nbQuestions": 2,
-              "titre": "Quotient et reste",
-              "sup": "2",
-              "objectifs": [
-                "Utiliser le vocabulaire de la divisibilité"
-              ]
-            },
-            {
-              "uuid": "42d20",
-              "id": "9NO1A-14",
-              "nbQuestions": 2,
-              "titre": "Diviseurs et multiples",
-              "sup": "3-4",
-              "objectifs": [
-                "Utiliser le vocabulaire de la divisibilité"
-              ]
-            },
-            {
-              "uuid": "42d20",
-              "id": "9NO1A-14",
-              "nbQuestions": 1,
-              "titre": "Liste des diviseurs",
-              "sup": "5",
-              "sup3": "2",
-              "sup4": "10",
-              "objectifs": [
-                "Utiliser le vocabulaire de la divisibilité"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 3,
-              "titre": "Un entier, un nombre pair ou impair : une opération",
-              "sup": "1-0-0-0-0*libre*1*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 2,
-              "titre": "Un multiple : une opération",
-              "sup": "0-1-0-0-0*libre*1*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 3,
-              "titre": "Un nombre : deux opérations",
-              "sup": "1-1-0-0-0*libre*2*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
-              ]
-            },
-            {
-              "uuid": "3ec5c",
-              "id": "11FA4D-3",
-              "nbQuestions": 6,
-              "titre": "Déterminer la parité d’une expression",
-              "objectifs": [
-                "Déterminer la parité d’une expression"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 2,
-              "titre": "Deux nombres : une opération",
-              "sup": "0-0-1-0-0*libre*1*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 2,
-              "titre": "Nombres consécutifs : une opération",
-              "sup": "0-0-0-1-1*libre*1*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 2,
-              "titre": "Plusieurs nombres : deux opérations",
-              "sup": "0-1-1-1-1*melange*2*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
-              ]
-            },
-            {
-              "uuid": "e5cd3",
-              "id": "1mCL1-16",
-              "nbQuestions": 2,
-              "titre": "Plusieurs nombres : trois opérations",
-              "sup": "0-1-1-1-1*melange*3*hasard*nm",
-              "objectifs": [
-                "Traduire une phrase par une expression littérale"
               ]
             }
           ]
