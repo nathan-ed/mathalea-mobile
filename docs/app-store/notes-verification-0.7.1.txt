@@ -1,0 +1,9 @@
+Quoi de neuf (App Store, version 0.7.1) :
+
+Signaler un problème dans un exercice : pendant l'activité, un drapeau ouvre un mail à l'équipe MathALÉA (clavier, réponse correcte refusée, erreur dans l'énoncé ou la correction). Titres des exercices masqués par défaut. Ordre des questions réglable par palier. Corrigé : clavier du calcul littéral, « S = » sur la même ligne que sa case dans les équations, cadre d'un champ sélectionné, feuille de partage sur iPhone.
+
+Notes pour la vérification (ajout en tête des notes de la 0.6.1) :
+
+Version 0.7.1 is a maintenance update: bug fixes in the exercises (maths keyboard letters, layout of the solution set line on phones, a clipped input border) and two small additions. No new permission, no account, no data collected. The exercise engine is bundled in the app and is only updated with a new App Store version: the iOS app does not download any code.
+
+New since 0.6.1: in an activity, every exercise has a flag button "Signaler un problème dans cet exercice" (Guideline 1.2): it opens an email to contact@coopmaths.fr with the exercise, its settings and the student's answer, for keyboard issues or errors in a question or its correction. Exercise titles are hidden by default (they often give away the method).
