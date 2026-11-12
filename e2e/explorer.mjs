@@ -25,8 +25,11 @@ const ok = (cond, msg, detail = '') => {
 
 // Catalogue servi comme le dossier kDrive de l'Explorer : tous les fichiers du dépôt, plus un parcours de 5e
 const catalogue = { format: 'classes-mathalea/1', exporteLe: '2026-11-04T00:00:00.000Z', classes: [] }
+// 4e Collège : classe figée pour le test (ceintures avec fiches, trois parcours
+// d'un même chapitre), le fichier de l'Explorer changeant avec les parcours de Nathan
+const source = (f) => (f === 'ch-4e-college.json' ? new URL('donnees/explorer-4e-college.json', import.meta.url) : new URL(`../explorer/${f}`, import.meta.url))
 for (const f of readdirSync(new URL('../explorer/', import.meta.url)).filter((x) => x.endsWith('.json')))
-  catalogue.classes.push(...JSON.parse(readFileSync(new URL(`../explorer/${f}`, import.meta.url), 'utf8')).classes)
+  catalogue.classes.push(...JSON.parse(readFileSync(source(f), 'utf8')).classes)
 catalogue.classes.push({
   nom: '5e',
   parcours: [
