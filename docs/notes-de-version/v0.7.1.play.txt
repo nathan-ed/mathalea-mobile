@@ -1,0 +1,1 @@
+Les exercices se mettent à jour sans nouvelle version de l'application : le moteur d'exercices publié par l'équipe est téléchargé, vérifié, puis activé au lancement suivant. Corrigé : clavier du calcul littéral (seulement les lettres de l'expression), « S = » sur la même ligne que sa case, cadre d'un champ sélectionné coupé à gauche.
