@@ -46,7 +46,12 @@ toute modification.
 - Parcours venus des drives : contenu publié par des utilisateurs (App
   Store, règle 1.2). Chaque parcours garde « Signaler un problème » (mail à
   contact@coopmaths.fr avec son contenu, `src/lib/signalement.ts`) et
-  « Cacher ce parcours » ; le contact reste dans les Réglages. Piste d'un
+  « Cacher ce parcours » ; le contact reste dans les Réglages. Dans la
+  séance, chaque exercice a son drapeau « Signaler un problème dans cet
+  exercice » : mail avec uuid, paramètres, version de l'app, moteur,
+  plateforme, navigateur intégré et lien du site sans `alea`. Jamais le titre
+  (masqué aux élèves) ni la graine (l'élève rouvrirait son tirage sur le site
+  et y lirait la correction). Piste d'un
   espace enseignant validé : `docs/avenir-espace-enseignant.md`.
 - QR codes lus par l'app : courts (un QR code dense ne se lisait pas à la
   caméra, novembre 2026). Session : `MATHALEA-SESSION?c=…&p=…&v=…`

@@ -93,7 +93,8 @@ const taper = async (page, texte) => {
 
 // 3. Suivi : séance d'une ancienne version plus longue, et même exercice deux fois
 {
-  const ancienne = parcours('suivi', 'question', [etape('5R20', 'cbc26'), etape('5R21', 'b6982'), etape('5R20', 'cbc26')])
+  // Titres affichés (masqués par défaut depuis titresVisibles) : sinon « Exercice 1, 2, 3 » ne distingue rien
+  const ancienne = { ...parcours('suivi', 'question', [etape('5R20', 'cbc26'), etape('5R21', 'b6982'), etape('5R20', 'cbc26')]), titresVisibles: true }
   const actuelle = { ...ancienne, version: 2, etapes: [ancienne.etapes[0]] }
   const essai = (e, q) => ({ etape: e, question: q, juste: false, points: 0, total: 1, reponses: {}, le: new Date().toISOString() })
   const seance = {

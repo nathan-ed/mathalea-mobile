@@ -1,7 +1,7 @@
 // Signalement d'un parcours (App Store, règle 1.2) : le mail porte de quoi
 // retrouver le parcours et le relire, et reste assez court pour s'ouvrir.
 import { describe, expect, it } from 'vitest'
-import { CONTACT, contenuSignale, mailSignalement } from '../src/lib/signalement'
+import { CONTACT, contenuExerciceSignale, contenuSignale, lienSite, mailSignalement, mailSignalementExercice, plateforme } from '../src/lib/signalement'
 import { lireFichier } from '../src/lib/partage'
 import type { Parcours } from '../src/lib/catalogue'
 
@@ -59,5 +59,47 @@ describe('signalement d’un parcours', () => {
     const m = mailSignalement(p, 'dossier https://kdrive.infomaniak.com/app/share/120240/9635c7c9-5984-4278-a739-d9f8c7d69f50 (classe 11LC 2)')
     expect(m.length).toBeLessThanOrEqual(6000)
     expect(decodeURIComponent(m)).toContain(`Identifiant : ${p.id}, version ${p.version}`)
+  })
+})
+
+describe('signalement d’un exercice', () => {
+  const x = {
+    parcours,
+    etape: { uuid: 'cbc26', id: '5N2G', titre: 'Additionner des relatifs', nbQuestions: 4, sup: '2', sup2: 'true' },
+    rang: 0,
+    question: 2,
+    versionApp: '0.6.3',
+    moteur: '2026-11-10',
+    plateforme: 'Android 11 (application)',
+    navigateur: 'Mozilla/5.0 (Linux; Android 11) Chrome/120',
+  }
+
+  it('porte l’uuid, les paramètres, la graine, la plateforme et le moteur', () => {
+    const c = contenuExerciceSignale(x)
+    for (const t of ['UUID : cbc26', 'Référence : 5N2G', 'nbQuestions = 4, sup = 2, sup2 = true', 'Exercice 1, question 3', 'Application MathALÉA 0.6.3', 'Moteur MathALÉA : 2026-11-10', 'Plateforme : Android 11 (application)', 'Chrome/120'])
+      expect(c).toContain(t)
+    // Titre masqué par défaut aux élèves : il ne figure pas dans le mail
+    expect(c).not.toContain('Additionner des relatifs')
+    // Pas de graine en clair : le lien du site ouvre un autre tirage (sinon la correction est lisible)
+    expect(c).not.toContain('alea=')
+    expect(c).toContain('Sur le site (autre tirage) : https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=4&s=2&s2=true&i=1')
+  })
+
+  it('ouvre un mail à l’équipe qui demande des précisions', () => {
+    const m = mailSignalementExercice(x)
+    expect(m.startsWith(`mailto:${CONTACT}?subject=`)).toBe(true)
+    const corps = decodeURIComponent(m.split('&body=')[1])
+    expect(corps).toContain('Ce qui ne va pas')
+    expect(corps).toContain('La réponse que j’ai donnée')
+    expect(corps).toContain('UUID : cbc26')
+    expect(m.length).toBeLessThan(6000)
+  })
+
+  it('reconnaît la plateforme', () => {
+    expect(plateforme('Mozilla/5.0 (Linux; Android 11; M2010J19SG) AppleWebKit/537.36 Chrome/120 Mobile')).toBe('Android 11 (application)')
+    expect(plateforme('Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15')).toBe('iOS 18.1 (application)')
+    expect(plateforme('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15', 5)).toBe('iPadOS (application)')
+    expect(plateforme('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15', 0)).toBe('macOS (application)')
+    expect(plateforme('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15', 0, false)).toBe('Linux (navigateur)')
   })
 })

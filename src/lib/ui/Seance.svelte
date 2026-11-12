@@ -10,6 +10,10 @@
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
+  import { ouvrirLien } from '$lib/fichiers'
+  import { dansTauri } from '$lib/stockage'
+  import { mailSignalementExercice, plateforme } from '$lib/signalement'
+  import { version } from '../../../package.json'
 
   let {
     parcours,
@@ -218,11 +222,31 @@
     if (onsupprimer) sortie = 'choix'
     else onquitter()
   }
+  // Signaler un problème dans un exercice : mail à l'équipe avec de quoi le rejouer
+  let signale: { etape: number; question?: number } | null = $state(null)
+  function ecrireSignalement() {
+    if (!signale) return
+    const { etape, question } = signale
+    signale = null
+    void ouvrirLien(
+      mailSignalementExercice({
+        parcours,
+        etape: parcours.etapes[etape],
+        rang: etape,
+        question,
+        versionApp: version,
+        moteur: moteur.VERSION_MOTEUR,
+        plateforme: plateforme(navigator.userAgent, navigator.maxTouchPoints, dansTauri),
+        navigateur: navigator.userAgent,
+      }),
+    )
+  }
   // Bouton retour du téléphone : referme ce qui est ouvert, sinon demande quoi faire
   retourSi(
     () => true,
     () => {
-      if (avertissement) avertissement = null
+      if (signale) signale = null
+      else if (avertissement) avertissement = null
       else demanderSortie()
     },
   )
@@ -422,6 +446,18 @@
     {/if}
   {/snippet}
 
+  {#snippet drapeau(etape: number, question?: number)}
+    <!-- Signaler un problème dans cet exercice : discret, au bout de l'en-tête -->
+    <button
+      type="button"
+      class="bouton-icone ml-auto -my-2"
+      aria-label="Signaler un problème dans cet exercice"
+      onclick={() => (signale = { etape, question })}
+    >
+      <i aria-hidden="true" class="bx bx-flag text-xl"></i>
+    </button>
+  {/snippet}
+
   {#if pret && unique && pages.length > 1}
     <!-- Une question par page : barre de progression à segments (un toucher pour aller à une question) -->
     <div class="px-4 pt-2 pb-2">
@@ -487,14 +523,15 @@
           {@const ex = exercices[ref.etape]}
           {@const debutEtape = i === 0 || pages[page][i - 1].etape !== ref.etape}
           {#if sansEnTete}
-            {#if !unique && liste.length > 1}
-              <!-- Numéro de la question, au style de l'en-tête d'exercice (aucun pour une seule question) -->
-              <div class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
+            <div class="flex flex-row items-center text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
+              {#if !unique && liste.length > 1}
+                <!-- Numéro de la question, au style de l'en-tête d'exercice (aucun pour une seule question) -->
                 <div class="inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg">
                   {ref.rang + 1}
                 </div>
-              </div>
-            {/if}
+              {/if}
+              {@render drapeau(ref.etape, ref.question)}
+            </div>
           {:else if debutEtape}
             <!-- En-tête d'exercice de la vue élève (HeaderExerciceVueEleve.svelte) -->
             <h1 class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex flex-row items-center" class:mt-6={i > 0}>
@@ -511,6 +548,7 @@
                   {#if titreVisible(parcours, parcours.etapes[ref.etape])}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
                 </div>
               </div>
+              {@render drapeau(ref.etape, unique ? ref.question : undefined)}
             </h1>
           {/if}
           <BlocQuestion
@@ -579,7 +617,18 @@
   {/if}
 
   <div bind:this={hoteClavier}></div>
-  {#if avertissement}
+  {#if signale}
+    <Feuille onfermer={() => (signale = null)}>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Signaler un problème</p>
+      <p class="text-sm">
+        Un mail s’ouvre pour l’équipe MathALÉA, avec l’exercice tel que tu le vois et la version de l’application. Écris ce qui ne va pas
+        et la réponse que tu as donnée.
+      </p>
+      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={ecrireSignalement}>
+        <i aria-hidden="true" class="bx bx-envelope text-xl"></i> Écrire le signalement
+      </button>
+    </Feuille>
+  {:else if avertissement}
     <!-- Garde-fou : questions sans réponse ou pas encore vérifiées -->
     {@const vides = avertissement.manques.filter((m) => m.raison === 'vide')}
     {@const saisies = avertissement.manques.filter((m) => m.raison === 'saisie')}

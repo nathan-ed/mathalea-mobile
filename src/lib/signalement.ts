@@ -2,7 +2,7 @@
 // contenu inapproprié) : un mail prêt à envoyer, avec le contenu du parcours tel que
 // l'élève le voit. Les parcours des enseignants viennent de leurs drives :
 // c'est du contenu publié par des utilisateurs (App Store, règle 1.2).
-import { titreEleve, type Bloc, type Parcours } from './catalogue'
+import { titreEleve, type Bloc, type Etape, type Parcours } from './catalogue'
 
 export const CONTACT = 'contact@coopmaths.fr'
 // Une adresse mailto trop longue ne s'ouvre pas partout : le contenu est coupé
@@ -61,4 +61,74 @@ export function mailSignalement(p: Parcours, source: string, moteur?: string): s
   while (lignes.length > 4 && adresse(lignes.join('\n') + '\n[…]').length > LONGUEUR_MAX) lignes.pop()
   corps = lignes.join('\n') + '\n[…]'
   return adresse(corps).length <= LONGUEUR_MAX ? adresse(corps) : adresse(corps.slice(0, 1500) + '\n[…]')
+}
+
+/** Système de l'appareil, lu dans l'agent utilisateur du WebView (aucun identifiant) */
+export function plateforme(ua: string, tactile = 0, app = true): string {
+  const version = (re: RegExp) => ua.match(re)?.[1]?.replace(/_/g, '.')
+  let systeme: string
+  if (/Android/i.test(ua)) systeme = `Android ${version(/Android ([\d.]+)/) ?? ''}`.trim()
+  else if (/iPhone|iPad|iPod/.test(ua)) systeme = `${/iPad/.test(ua) ? 'iPadOS' : 'iOS'} ${version(/OS ([\d_]+)/) ?? ''}`.trim()
+  // iPad récent : se présente comme un Mac, mais tactile
+  else if (/Macintosh/.test(ua)) systeme = tactile > 1 ? 'iPadOS' : 'macOS'
+  else if (/Windows/.test(ua)) systeme = 'Windows'
+  else if (/Linux/.test(ua)) systeme = 'Linux'
+  else systeme = 'système inconnu'
+  return `${systeme} (${app ? 'application' : 'navigateur'})`
+}
+
+export interface ExerciceSignale {
+  parcours: Pick<Parcours, 'id' | 'version' | 'titre'>
+  etape: Etape
+  rang: number // place de l'exercice dans le parcours, à partir de 0
+  question?: number // question affichée, à partir de 0
+  versionApp: string
+  moteur?: string
+  plateforme: string
+  navigateur: string // agent utilisateur : moteur du WebView et sa version
+}
+
+/**
+ * Lien de l'exercice sur le site, avec les mêmes paramètres mais sans la graine :
+ * avec elle, l'élève rouvrirait son tirage et y lirait la correction
+ */
+export function lienSite(e: Etape): string {
+  const p = new URLSearchParams({ uuid: e.uuid })
+  if (e.id) p.set('id', e.id)
+  if (e.nbQuestions) p.set('n', String(e.nbQuestions))
+  for (const [cle, url] of [['sup', 's'], ['sup2', 's2'], ['sup3', 's3'], ['sup4', 's4']] as const) if (e[cle] !== undefined && e[cle] !== '') p.set(url, String(e[cle]))
+  p.set('i', '1')
+  return `https://coopmaths.fr/alea/?${p}`
+}
+
+/** Corps du mail : de quoi retrouver l'exercice vu par l'élève (sans la graine) */
+export function contenuExerciceSignale(x: ExerciceSignale): string {
+  const e = x.etape
+  const params = (['nbQuestions', 'sup', 'sup2', 'sup3', 'sup4'] as const).filter((k) => e[k] !== undefined && e[k] !== '').map((k) => `${k} = ${e[k]}`)
+  const lignes = [
+    `Parcours : ${x.parcours.titre} (${x.parcours.id}, version ${x.parcours.version})`,
+    `Exercice ${x.rang + 1}${x.question !== undefined ? `, question ${x.question + 1}` : ''}`,
+    `UUID : ${e.uuid}`,
+  ]
+  if (e.id) lignes.push(`Référence : ${e.id}`)
+  lignes.push(`Paramètres : ${params.join(', ') || 'par défaut'}`)
+  lignes.push(
+    `Sur le site (autre tirage) : ${lienSite(e)}`,
+    '',
+    `Application MathALÉA ${x.versionApp}`,
+    `Moteur MathALÉA : ${x.moteur ?? 'inconnu'}`,
+    `Plateforme : ${x.plateforme}`,
+    `Navigateur intégré : ${x.navigateur}`,
+  )
+  return lignes.join('\n')
+}
+
+/** Adresse mailto du signalement d'un exercice (toujours court : pas de coupure) */
+export function mailSignalementExercice(x: ExerciceSignale): string {
+  const debut =
+    'Bonjour,\n\nJe signale un problème dans cet exercice de l’application MathALÉA.\n\n' +
+    'Ce qui ne va pas (réponse correcte refusée, énoncé faux, affichage, clavier…) :\n\n\n' +
+    'La réponse que j’ai donnée :\n\n\n---\n'
+  const sujet = `Signalement d’un exercice : ${x.etape.id ?? x.etape.uuid}`
+  return `mailto:${CONTACT}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(debut + contenuExerciceSignale(x))}`
 }

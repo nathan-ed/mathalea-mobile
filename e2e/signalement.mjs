@@ -70,6 +70,45 @@ for (const a of appareils) {
   await page.goBack({ waitUntil: 'commit' }).catch(() => {})
   await pagePrete(page)
   ok(!(await page.getByRole('button', { name: 'Écrire le signalement' }).count()) && (await page.getByRole('button', { name: 'Autres actions' }).isVisible()), `${a.nom} : retour referme le panneau`)
+  // Signaler un exercice pendant l'activité : drapeau de l'en-tête, mail avec
+  // l'uuid, les paramètres, la graine, la plateforme et le moteur
+  await toucher(page, page.getByRole('button', { name: 'Commencer', exact: true }))
+  const drapeau = page.getByRole('button', { name: 'Signaler un problème dans cet exercice' })
+  await drapeau.first().waitFor({ timeout: 60_000 })
+  await toucher(page, drapeau)
+  await page.screenshot({ path: `${captures}/signalement-3-exercice-${a.theme}.png` })
+  await page.evaluate(() => (window.__ouverts.length = 0))
+  await toucher(page, page.getByRole('button', { name: 'Écrire le signalement' }))
+  const mailEx = (await page.evaluate(() => window.__ouverts)).find((u) => u.startsWith('mailto:')) ?? ''
+  const corpsEx = new URLSearchParams(mailEx.slice(mailEx.indexOf('?') + 1)).get('body') ?? ''
+  const seanceEx = await page.evaluate(() => JSON.parse(localStorage.getItem('copie:seance:signalement-essai') ?? 'null'))
+  const graineEx = seanceEx?.graines?.[0]
+  ok(
+    mailEx.startsWith('mailto:contact@coopmaths.fr?subject=') &&
+      ['UUID : cbc26', 'Référence : 5N2G', 'nbQuestions = 2', 'Exercice 1, question 1', 'Moteur MathALÉA : ', 'Plateforme : ', 'Navigateur intégré : Mozilla', 'Ce qui ne va pas', 'https://coopmaths.fr/alea/?uuid=cbc26'].every((t) => corpsEx.includes(t)) &&
+      !!graineEx,
+    `${a.nom} : mail d’un exercice avec uuid, paramètres, plateforme et moteur`,
+    corpsEx,
+  )
+  // Graine absente : l'élève ne peut pas rouvrir son tirage sur le site pour y lire la correction
+  ok(!corpsEx.includes(graineEx) && !corpsEx.includes('alea='), `${a.nom} : aucune graine dans le mail`, corpsEx)
+  ok(!(await page.getByRole('button', { name: 'Écrire le signalement' }).count()), `${a.nom} : le panneau se referme après l’envoi`)
+  // Bouton retour : referme le panneau sans quitter l'activité
+  await toucher(page, drapeau)
+  await page.goBack({ waitUntil: 'commit' }).catch(() => {})
+  await pagePrete(page)
+  ok(!(await page.getByRole('button', { name: 'Écrire le signalement' }).count()) && (await drapeau.first().isVisible()), `${a.nom} : retour referme le panneau de l’exercice`)
+  await page.screenshot({ path: `${captures}/signalement-4-seance-${a.theme}.png` })
+  // Quitter en supprimant la tentative (une tentative en cours se reprendrait
+  // d'un toucher sur la tuile), puis rouvrir la page du parcours
+  await toucher(page, page.getByRole('button', { name: 'Quitter' }))
+  await toucher(page, page.getByRole('button', { name: 'Supprimer la tentative' }))
+  await toucher(page, page.getByRole('button', { name: 'Supprimer', exact: true }))
+  // On arrive à la page du parcours ou à l'accueil selon l'origine de l'activité
+  const actions = page.getByRole('button', { name: 'Autres actions' })
+  await actions.or(tuile.first()).first().waitFor({ timeout: 30_000 })
+  if (!(await actions.count())) await toucher(page, tuile)
+  await page.getByRole('button', { name: 'Autres actions' }).waitFor({ timeout: 30_000 })
   // Cacher : retour à l'accueil, rangé dans « Parcours cachés »
   await toucher(page, page.getByRole('button', { name: 'Autres actions' }))
   await toucher(page, page.getByRole('button', { name: 'Signaler un problème' }))
