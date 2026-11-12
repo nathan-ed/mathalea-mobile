@@ -77,6 +77,17 @@ export function plateforme(ua: string, tactile = 0, app = true): string {
   return `${systeme} (${app ? 'application' : 'navigateur'})`
 }
 
+/** Problèmes proposés à l'élève : chacun pose ses propres questions dans le mail */
+export const TYPES_SIGNALEMENT = [
+  { type: 'clavier', libelle: 'Clavier', icone: 'bxs-keyboard', demandes: ['Ce qui manque ou ne marche pas au clavier (touche, symbole, saisie) :'] },
+  { type: 'reponse', libelle: 'Réponse correcte refusée', icone: 'bx-x-circle', demandes: ['La réponse que j’ai donnée :', 'La réponse attendue par la correction :'] },
+  { type: 'enonce', libelle: 'Erreur dans l’énoncé', icone: 'bx-file', demandes: ['Ce qui est faux ou pas clair dans l’énoncé :'] },
+  { type: 'correction', libelle: 'Erreur dans la correction', icone: 'bx-book-open', demandes: ['Ce qui est faux dans la correction :'] },
+  { type: 'autre', libelle: 'Autre', icone: 'bx-message-detail', demandes: ['Ce que je veux signaler :'] },
+] as const
+
+export type TypeSignalement = (typeof TYPES_SIGNALEMENT)[number]['type']
+
 export interface ExerciceSignale {
   parcours: Pick<Parcours, 'id' | 'version' | 'titre'>
   etape: Etape
@@ -124,11 +135,12 @@ export function contenuExerciceSignale(x: ExerciceSignale): string {
 }
 
 /** Adresse mailto du signalement d'un exercice (toujours court : pas de coupure) */
-export function mailSignalementExercice(x: ExerciceSignale): string {
+export function mailSignalementExercice(x: ExerciceSignale, type: TypeSignalement): string {
+  const t = TYPES_SIGNALEMENT.find((y) => y.type === type)!
   const debut =
-    'Bonjour,\n\nJe signale un problème dans cet exercice de l’application MathALÉA.\n\n' +
-    'Ce qui ne va pas (réponse correcte refusée, énoncé faux, affichage, clavier…) :\n\n\n' +
-    'La réponse que j’ai donnée :\n\n\n---\n'
-  const sujet = `Signalement d’un exercice : ${x.etape.id ?? x.etape.uuid}`
+    `Bonjour,\n\n${type === 'autre' ? 'Je vous écris au sujet de cet exercice de l’application MathALÉA.' : `Je signale un problème dans cet exercice de l’application MathALÉA : ${t.libelle.toLowerCase()}.`}\n\n` +
+    t.demandes.map((d) => `${d}\n\n\n`).join('') +
+    '---\n'
+  const sujet = `${t.libelle} : ${x.etape.id ?? x.etape.uuid}`
   return `mailto:${CONTACT}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(debut + contenuExerciceSignale(x))}`
 }

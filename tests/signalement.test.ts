@@ -1,7 +1,7 @@
 // Signalement d'un parcours (App Store, règle 1.2) : le mail porte de quoi
 // retrouver le parcours et le relire, et reste assez court pour s'ouvrir.
 import { describe, expect, it } from 'vitest'
-import { CONTACT, contenuExerciceSignale, contenuSignale, lienSite, mailSignalement, mailSignalementExercice, plateforme } from '../src/lib/signalement'
+import { CONTACT, TYPES_SIGNALEMENT, contenuExerciceSignale, contenuSignale, lienSite, mailSignalement, mailSignalementExercice, plateforme } from '../src/lib/signalement'
 import { lireFichier } from '../src/lib/partage'
 import type { Parcours } from '../src/lib/catalogue'
 
@@ -85,14 +85,27 @@ describe('signalement d’un exercice', () => {
     expect(c).toContain('Sur le site (autre tirage) : https://coopmaths.fr/alea/?uuid=cbc26&id=5N2G&n=4&s=2&s2=true&i=1')
   })
 
-  it('ouvre un mail à l’équipe qui demande des précisions', () => {
-    const m = mailSignalementExercice(x)
+  it('ouvre un mail à l’équipe qui demande les précisions du problème choisi', () => {
+    const m = mailSignalementExercice(x, 'reponse')
     expect(m.startsWith(`mailto:${CONTACT}?subject=`)).toBe(true)
+    expect(decodeURIComponent(m.split('?subject=')[1].split('&')[0])).toBe('Réponse correcte refusée : 5N2G')
     const corps = decodeURIComponent(m.split('&body=')[1])
-    expect(corps).toContain('Ce qui ne va pas')
+    expect(corps).toContain('réponse correcte refusée')
     expect(corps).toContain('La réponse que j’ai donnée')
+    expect(corps).toContain('La réponse attendue par la correction')
     expect(corps).toContain('UUID : cbc26')
     expect(m.length).toBeLessThan(6000)
+  })
+
+  it('chaque type de problème a son sujet et ses questions', () => {
+    for (const t of TYPES_SIGNALEMENT) {
+      const m = mailSignalementExercice(x, t.type)
+      const corps = decodeURIComponent(m.split('&body=')[1])
+      expect(decodeURIComponent(m.split('?subject=')[1].split('&')[0]).startsWith(t.libelle)).toBe(true)
+      for (const d of t.demandes) expect(corps).toContain(d)
+      expect(corps).toContain('UUID : cbc26')
+    }
+    expect(decodeURIComponent(mailSignalementExercice(x, 'autre'))).toContain('Je vous écris au sujet de cet exercice')
   })
 
   it('reconnaît la plateforme', () => {

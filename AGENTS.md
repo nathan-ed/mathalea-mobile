@@ -49,7 +49,9 @@ toute modification.
   « Cacher ce parcours » ; le contact reste dans les Réglages. Dans la
   séance, chaque exercice a son drapeau « Signaler un problème dans cet
   exercice » : mail avec uuid, paramètres, version de l'app, moteur,
-  plateforme, navigateur intégré et lien du site sans `alea`. Jamais le titre
+  plateforme, navigateur intégré et lien du site sans `alea` ; l'élève choisit
+  le problème (clavier, réponse correcte refusée, énoncé, correction, autre),
+  qui fixe le sujet et les questions du mail. Jamais le titre
   (masqué aux élèves) ni la graine (l'élève rouvrirait son tirage sur le site
   et y lirait la correction). Piste d'un
   espace enseignant validé : `docs/avenir-espace-enseignant.md`.

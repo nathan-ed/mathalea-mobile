@@ -78,26 +78,29 @@ for (const a of appareils) {
   await toucher(page, drapeau)
   await page.screenshot({ path: `${captures}/signalement-3-exercice-${a.theme}.png` })
   await page.evaluate(() => (window.__ouverts.length = 0))
-  await toucher(page, page.getByRole('button', { name: 'Écrire le signalement' }))
+  const types = ['Clavier', 'Réponse correcte refusée', 'Erreur dans l’énoncé', 'Erreur dans la correction', 'Autre']
+  for (const t of types) ok(await page.getByRole('button', { name: t, exact: true }).isVisible(), `${a.nom} : problème proposé « ${t} »`)
+  await toucher(page, page.getByRole('button', { name: 'Réponse correcte refusée', exact: true }))
   const mailEx = (await page.evaluate(() => window.__ouverts)).find((u) => u.startsWith('mailto:')) ?? ''
+  ok(new URLSearchParams(mailEx.slice(mailEx.indexOf('?') + 1)).get('subject') === 'Réponse correcte refusée : 5N2G', `${a.nom} : le sujet du mail dit le problème choisi`, mailEx.slice(0, 120))
   const corpsEx = new URLSearchParams(mailEx.slice(mailEx.indexOf('?') + 1)).get('body') ?? ''
   const seanceEx = await page.evaluate(() => JSON.parse(localStorage.getItem('copie:seance:signalement-essai') ?? 'null'))
   const graineEx = seanceEx?.graines?.[0]
   ok(
     mailEx.startsWith('mailto:contact@coopmaths.fr?subject=') &&
-      ['UUID : cbc26', 'Référence : 5N2G', 'nbQuestions = 2', 'Exercice 1, question 1', 'Moteur MathALÉA : ', 'Plateforme : ', 'Navigateur intégré : Mozilla', 'Ce qui ne va pas', 'https://coopmaths.fr/alea/?uuid=cbc26'].every((t) => corpsEx.includes(t)) &&
+      ['UUID : cbc26', 'Référence : 5N2G', 'nbQuestions = 2', 'Exercice 1, question 1', 'Moteur MathALÉA : ', 'Plateforme : ', 'Navigateur intégré : Mozilla', 'réponse correcte refusée', 'La réponse que j’ai donnée', 'La réponse attendue par la correction', 'https://coopmaths.fr/alea/?uuid=cbc26'].every((t) => corpsEx.includes(t)) &&
       !!graineEx,
     `${a.nom} : mail d’un exercice avec uuid, paramètres, plateforme et moteur`,
     corpsEx,
   )
   // Graine absente : l'élève ne peut pas rouvrir son tirage sur le site pour y lire la correction
   ok(!corpsEx.includes(graineEx) && !corpsEx.includes('alea='), `${a.nom} : aucune graine dans le mail`, corpsEx)
-  ok(!(await page.getByRole('button', { name: 'Écrire le signalement' }).count()), `${a.nom} : le panneau se referme après l’envoi`)
+  ok(!(await page.getByRole('button', { name: 'Réponse correcte refusée', exact: true }).count()), `${a.nom} : le panneau se referme après l’envoi`)
   // Bouton retour : referme le panneau sans quitter l'activité
   await toucher(page, drapeau)
   await page.goBack({ waitUntil: 'commit' }).catch(() => {})
   await pagePrete(page)
-  ok(!(await page.getByRole('button', { name: 'Écrire le signalement' }).count()) && (await drapeau.first().isVisible()), `${a.nom} : retour referme le panneau de l’exercice`)
+  ok(!(await page.getByRole('button', { name: 'Réponse correcte refusée', exact: true }).count()) && (await drapeau.first().isVisible()), `${a.nom} : retour referme le panneau de l’exercice`)
   await page.screenshot({ path: `${captures}/signalement-4-seance-${a.theme}.png` })
   // Quitter en supprimant la tentative (une tentative en cours se reprendrait
   // d'un toucher sur la tuile), puis rouvrir la page du parcours

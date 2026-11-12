@@ -6,13 +6,13 @@
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import { boutonAction, boutonInverse, boutonLien, pastille } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
   import { ouvrirLien } from '$lib/fichiers'
   import { dansTauri } from '$lib/stockage'
-  import { mailSignalementExercice, plateforme } from '$lib/signalement'
+  import { TYPES_SIGNALEMENT, mailSignalementExercice, plateforme, type TypeSignalement } from '$lib/signalement'
   import { version } from '../../../package.json'
 
   let {
@@ -224,7 +224,7 @@
   }
   // Signaler un problème dans un exercice : mail à l'équipe avec de quoi le rejouer
   let signale: { etape: number; question?: number } | null = $state(null)
-  function ecrireSignalement() {
+  function ecrireSignalement(type: TypeSignalement) {
     if (!signale) return
     const { etape, question } = signale
     signale = null
@@ -238,7 +238,7 @@
         moteur: moteur.VERSION_MOTEUR,
         plateforme: plateforme(navigator.userAgent, navigator.maxTouchPoints, dansTauri),
         navigateur: navigator.userAgent,
-      }),
+      }, type),
     )
   }
   // Bouton retour du téléphone : referme ce qui est ouvert, sinon demande quoi faire
@@ -620,13 +620,19 @@
   {#if signale}
     <Feuille onfermer={() => (signale = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Signaler un problème</p>
-      <p class="text-sm">
-        Un mail s’ouvre pour l’équipe MathALÉA, avec l’exercice tel que tu le vois et la version de l’application. Écris ce qui ne va pas
-        et la réponse que tu as donnée.
-      </p>
-      <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={ecrireSignalement}>
-        <i aria-hidden="true" class="bx bx-envelope text-xl"></i> Écrire le signalement
-      </button>
+      <p class="text-sm">Un mail s’ouvre pour l’équipe MathALÉA, avec l’exercice et la version de l’application.</p>
+      <ul class={listeGroupee}>
+        {#each TYPES_SIGNALEMENT as t (t.type)}
+          <li>
+            <button type="button" class={elementListe} onclick={() => ecrireSignalement(t.type)}>
+              <span class="flex flex-row items-center gap-3 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                <i aria-hidden="true" class="bx {t.icone} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                {t.libelle}
+              </span>
+            </button>
+          </li>
+        {/each}
+      </ul>
     </Feuille>
   {:else if avertissement}
     <!-- Garde-fou : questions sans réponse ou pas encore vérifiées -->
