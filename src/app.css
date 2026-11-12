@@ -179,6 +179,10 @@ math-field,
   /* Ce cadre coupe aussi en hauteur : sans marge, le bord bas d'un champ de
      la dernière ligne disparaissait (0.4.10, e2e/champs-visibles.mjs) */
   padding-block: 0.25rem;
+  /* Et en largeur : le cadre d'un champ sélectionné (solveur d'équations)
+     était coupé à gauche. La marge négative garde l'alignement du texte */
+  padding-inline: 0.25rem;
+  margin-inline: -0.25rem;
 }
 /* Vert de MathALÉA (vertMathalea de colors.ts, sans classe Tailwind compilée) :
    segments corrects de la barre de progression et pastilles (Nathan,
