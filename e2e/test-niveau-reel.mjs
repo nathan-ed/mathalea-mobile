@@ -137,7 +137,8 @@ for (const a of appareils) {
   const etape = { uuid: '098c5', id: 'can6a-2026', titre: 'CAN 6e sujet 2026', nbQuestions: 1, sup: 'false', sup2: '1', sup3: 'false' }
   const p = {
     id: 'explorer-essai', version: 1, titre: 'Parcours Explorer', objectif: '', niveau: '6e', theme: 'Calcul', difficulte: 1, icone: 'bx-calculator',
-    presentation: 'une_question_par_page', correction: 'parcours', enTetesMasques: true,
+    // Titres affichés (masqués par défaut) : seul l'exercice masqué (titreMasque) doit disparaître
+    presentation: 'une_question_par_page', correction: 'parcours', enTetesMasques: true, titresVisibles: true,
     etapes: [{ ...etape, titre: 'Calcul visible' }, { ...etape, sup2: '2', titreMasque: true }],
   }
   const test = { ...p, id: 'test-niveau-cm2', titre: 'Teste ton niveau : CM2', objectif: '15 questions de la Course aux nombres' }

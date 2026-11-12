@@ -27,7 +27,8 @@ for (const correction of ['question', 'parcours']) {
     const nom = `${a.nom}, correction ${correction === 'question' ? 'à chaque question' : 'à la fin'}`
     const p = {
       id: 'papier-essai', version: 1, titre: 'Parcours papier', objectif: '', niveau: '6e', theme: 'Géométrie', difficulte: 1, icone: 'bx-shape-triangle',
-      presentation: 'une_question_par_page', correction,
+      // Titres affichés : le détail du bilan s'ouvre par le titre de l'exercice (masqués par défaut)
+      presentation: 'une_question_par_page', correction, titresVisibles: true,
       etapes: [
         { uuid: 'e8f0b', id: '6G0-3', titre: 'Utiliser le codage pour décrire ou illustrer une figure', nbQuestions: 2 },
         { uuid: '098c5', id: 'can6a-2026', titre: 'Calcul', nbQuestions: 1, sup: 'false', sup2: '1', sup3: 'false' },

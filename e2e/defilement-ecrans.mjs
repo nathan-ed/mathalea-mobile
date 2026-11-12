@@ -17,7 +17,7 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
-import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
+import { jusqua, pagePrete, SANS_BRIDAGE } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 let echecs = 0
@@ -77,6 +77,21 @@ async function glisser(cdp, page, versLeBas, zone) {
   await page.waitForTimeout(350)
 }
 
+/** Défilement arrêté (fin de l'élan d'un glissement) : même position sur 3 relevés de suite */
+async function arret(page) {
+  let avant = -1
+  let pareil = 0
+  await jusqua(
+    async () => {
+      const y = await page.evaluate(() => scrollY)
+      pareil = y === avant ? pareil + 1 : 0
+      avant = y
+      return pareil >= 3
+    },
+    { timeout: 10_000, quoi: 'défilement arrêté' },
+  )
+}
+
 const mesure = (page) =>
   page.evaluate(() => ({ y: Math.round(scrollY), max: Math.max(0, document.documentElement.scrollHeight - innerHeight), large: document.documentElement.scrollWidth > innerWidth + 1 }))
 
@@ -118,7 +133,9 @@ async function verifier(o, ecran) {
     m = await mesure(page)
   }
   const nom = `${ecran}${allonge ? ' (allongé)' : ''}`
-  for (let i = 0; i < 40 && m.y < m.max - 2; i++) {
+  // Un glissement sans effet (machine chargée, élan du précédent) est refait,
+  // comme le ferait un élève : on n'abandonne qu'après trois glissements immobiles
+  for (let i = 0, immobiles = 0; i < 40 && m.y < m.max - 2 && immobiles < 3; i++) {
     const avant = m.y
     if (cdp) await glisser(cdp, page, true)
     else {
@@ -126,8 +143,9 @@ async function verifier(o, ecran) {
       await page.mouse.wheel(0, 500)
       await page.waitForTimeout(250)
     }
+    await arret(page)
     m = await mesure(page)
-    if (m.y === avant) break
+    immobiles = m.y === avant ? immobiles + 1 : 0
   }
   ok(m.y >= m.max - 2 && m.max > 0, `${nom} : ${cdp ? 'le doigt' : 'la molette'} descend jusqu’en bas`, JSON.stringify(m))
   if (!allonge) {
@@ -135,15 +153,18 @@ async function verifier(o, ecran) {
     ok(d.ok, `${nom} : en bas, « ${d.nom} » est visible, rien ne le recouvre`, JSON.stringify(d))
   }
   ok(!m.large, `${nom} : pas de défilement horizontal`)
-  for (let i = 0; i < 40 && m.y > 0; i++) {
+  await arret(page)
+  m = await mesure(page)
+  for (let i = 0, immobiles = 0; i < 40 && m.y > 0 && immobiles < 3; i++) {
     const avant = m.y
     if (cdp) await glisser(cdp, page, false)
     else {
       await page.mouse.wheel(0, -500)
       await page.waitForTimeout(250)
     }
+    await arret(page)
     m = await mesure(page)
-    if (m.y === avant) break
+    immobiles = m.y === avant ? immobiles + 1 : 0
   }
   ok(m.y === 0, `${nom} : ${cdp ? 'le doigt' : 'la molette'} remonte tout en haut`, JSON.stringify(m))
   await page.evaluate(() => document.querySelectorAll('.essai-defilement').forEach((d) => d.remove()))
