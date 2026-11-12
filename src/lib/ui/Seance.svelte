@@ -12,7 +12,7 @@
   import { retourSi } from '$lib/navigation.svelte'
   import { ouvrirLien } from '$lib/fichiers'
   import { dansTauri } from '$lib/stockage'
-  import { TYPES_SIGNALEMENT, mailSignalementExercice, plateforme, type TypeSignalement } from '$lib/signalement'
+  import { TYPES_SIGNALEMENT, mailSignalementExercice, plateforme, type QuestionSignalee, type TypeSignalement } from '$lib/signalement'
   import { version } from '../../../package.json'
 
   let {
@@ -224,16 +224,40 @@
   }
   // Signaler un problème dans un exercice : mail à l'équipe avec de quoi le rejouer
   let signale: { etape: number; question?: number } | null = $state(null)
+  /** Texte d'une correction HTML (DOMParser : rien n'est chargé ni exécuté), formules gardées entre $ */
+  const texteHtml = (html: string) => (new DOMParser().parseFromString(html, 'text/html').body.textContent ?? '').replace(/\s+/g, ' ').trim()
+
+  /** Réponses de l'élève aux questions signalées ; la correction seulement s'il l'a déjà vue (sinon le mail la lui donnerait) */
+  function questionsSignalees(etape: number, question?: number): QuestionSignalee[] {
+    const numeros = question !== undefined ? [question] : liste.filter((q) => q.etape === etape).map((q) => q.question)
+    return numeros.map((q) => {
+      const cle = cleQuestion(etape, q)
+      const essai = premiers.get(cle)
+      const corrige = !!essai && !(finale && !seance.soumise)
+      const vue = corrige || seance.papier?.[cle] === true
+      const v = essai ? valeur(essai) : 0
+      const correction = exercices[etape]?.questions[q]?.correction
+      return {
+        numero: q,
+        reponses: essai?.reponses ?? seance.brouillons[cle],
+        verdict: corrige ? (v === 1 ? 'correcte' : v > 0 ? 'en partie correcte' : 'incorrecte') : undefined,
+        correction: vue && correction ? texteHtml(correction) : undefined,
+      }
+    })
+  }
+
   function ecrireSignalement(type: TypeSignalement) {
     if (!signale) return
     const { etape, question } = signale
     signale = null
+    garderBrouillons()
     void ouvrirLien(
       mailSignalementExercice({
         parcours,
         etape: parcours.etapes[etape],
         rang: etape,
         question,
+        questions: questionsSignalees(etape, question),
         versionApp: version,
         moteur: moteur.VERSION_MOTEUR,
         plateforme: plateforme(navigator.userAgent, navigator.maxTouchPoints, dansTauri),
@@ -620,7 +644,7 @@
   {#if signale}
     <Feuille onfermer={() => (signale = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Signaler un problème</p>
-      <p class="text-sm">Un mail s’ouvre pour l’équipe MathALÉA, avec l’exercice et la version de l’application.</p>
+      <p class="text-sm">Un mail s’ouvre pour l’équipe MathALÉA, avec l’exercice, ta réponse et la version de l’application.</p>
       <ul class={listeGroupee}>
         {#each TYPES_SIGNALEMENT as t (t.type)}
           <li>

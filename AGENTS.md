@@ -51,7 +51,8 @@ toute modification.
   exercice » : mail avec uuid, paramètres, version de l'app, moteur,
   plateforme, navigateur intégré et lien du site sans `alea` ; l'élève choisit
   le problème (clavier, réponse correcte refusée, énoncé, correction, autre),
-  qui fixe le sujet et les questions du mail. Jamais le titre
+  qui fixe le sujet et les questions du mail. Le mail porte la réponse de
+  l'élève et la correction seulement s'il l'a déjà vue. Jamais le titre
   (masqué aux élèves) ni la graine (l'élève rouvrirait son tirage sur le site
   et y lirait la correction). Piste d'un
   espace enseignant validé : `docs/avenir-espace-enseignant.md`.

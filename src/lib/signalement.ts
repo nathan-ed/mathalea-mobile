@@ -80,7 +80,7 @@ export function plateforme(ua: string, tactile = 0, app = true): string {
 /** Problèmes proposés à l'élève : chacun pose ses propres questions dans le mail */
 export const TYPES_SIGNALEMENT = [
   { type: 'clavier', libelle: 'Clavier', icone: 'bxs-keyboard', demandes: ['Ce qui manque ou ne marche pas au clavier (touche, symbole, saisie) :'] },
-  { type: 'reponse', libelle: 'Réponse correcte refusée', icone: 'bx-x-circle', demandes: ['La réponse que j’ai donnée :', 'La réponse attendue par la correction :'] },
+  { type: 'reponse', libelle: 'Réponse correcte refusée', icone: 'bx-x-circle', demandes: ['Pourquoi ma réponse devrait être acceptée :'] },
   { type: 'enonce', libelle: 'Erreur dans l’énoncé', icone: 'bx-file', demandes: ['Ce qui est faux ou pas clair dans l’énoncé :'] },
   { type: 'correction', libelle: 'Erreur dans la correction', icone: 'bx-book-open', demandes: ['Ce qui est faux dans la correction :'] },
   { type: 'autre', libelle: 'Autre', icone: 'bx-message-detail', demandes: ['Ce que je veux signaler :'] },
@@ -93,6 +93,7 @@ export interface ExerciceSignale {
   etape: Etape
   rang: number // place de l'exercice dans le parcours, à partir de 0
   question?: number // question affichée, à partir de 0
+  questions?: QuestionSignalee[] // réponses de l'élève (et correction s'il l'a déjà vue)
   versionApp: string
   moteur?: string
   plateforme: string
@@ -112,8 +113,49 @@ export function lienSite(e: Etape): string {
   return `https://coopmaths.fr/alea/?${p}`
 }
 
+export interface QuestionSignalee {
+  numero: number // à partir de 0
+  reponses?: Record<string, string> // saisies de l'élève, vérifiées ou au brouillon
+  verdict?: 'correcte' | 'en partie correcte' | 'incorrecte'
+  correction?: string // texte de la correction, seulement si l'élève l'a déjà sous les yeux
+}
+
+/** Réponse lisible : les valeurs des champs ; un état de figure (long, illisible) devient « [figure] » */
+export function texteReponses(r?: Record<string, string>): string {
+  const valeurs = Object.values(r ?? {})
+    .map((v) => String(v).trim())
+    .filter(Boolean)
+    .map((v) => (v.length > 200 ? '[figure]' : v))
+  return valeurs.length ? valeurs.join(' ; ') : 'aucune'
+}
+
+/**
+ * Correction lisible dans un mail : sans les couleurs ni le gras de MathALÉA
+ * ({\color{#216D9A}\boldsymbol{(+16)}} devient (+16)) ; \frac{a}{b}, x^{2}… restent
+ */
+export function correctionLisible(t: string): string {
+  let s = t.replace(/\\(?:color|textcolor)\{[^{}]*\}/g, '').replace(/\\(?:boldsymbol|mathbf|textbf|bm)(?![a-zA-Z])/g, '')
+  // Accolades seules (pas l'argument d'une commande, d'un exposant ou d'un indice)
+  for (let avant = ''; avant !== s; ) {
+    avant = s
+    s = s.replace(/(^|[^\\a-zA-Z^_}])\{([^{}]*)\}/g, '$1$2')
+  }
+  return s.replace(/\$\s+/g, '$').replace(/\s+\$/g, '$').replace(/\s+/g, ' ').trim()
+}
+
+const couper = (t: string, n: number) => (t.length > n ? t.slice(0, n).trimEnd() + ' […]' : t)
+
+function lignesQuestions(qs: QuestionSignalee[], longueurCorrection: number): string[] {
+  return qs.flatMap((q) => [
+    '',
+    `Question ${q.numero + 1}`,
+    `Ma réponse : ${texteReponses(q.reponses)}${q.verdict ? ` (${q.verdict})` : q.reponses && Object.keys(q.reponses).length ? ' (pas encore vérifiée)' : ''}`,
+    ...(q.correction && longueurCorrection > 0 ? [`Correction : ${couper(correctionLisible(q.correction), longueurCorrection)}`] : []),
+  ])
+}
+
 /** Corps du mail : de quoi retrouver l'exercice vu par l'élève (sans la graine) */
-export function contenuExerciceSignale(x: ExerciceSignale): string {
+export function contenuExerciceSignale(x: ExerciceSignale, longueurCorrection = 600): string {
   const e = x.etape
   const params = (['nbQuestions', 'sup', 'sup2', 'sup3', 'sup4'] as const).filter((k) => e[k] !== undefined && e[k] !== '').map((k) => `${k} = ${e[k]}`)
   const lignes = [
@@ -123,6 +165,8 @@ export function contenuExerciceSignale(x: ExerciceSignale): string {
   ]
   if (e.id) lignes.push(`Référence : ${e.id}`)
   lignes.push(`Paramètres : ${params.join(', ') || 'par défaut'}`)
+  lignes.push(...lignesQuestions(x.questions ?? [], longueurCorrection))
+  if (x.questions?.length) lignes.push('')
   lignes.push(
     `Sur le site (autre tirage) : ${lienSite(e)}`,
     '',
@@ -142,5 +186,8 @@ export function mailSignalementExercice(x: ExerciceSignale, type: TypeSignalemen
     t.demandes.map((d) => `${d}\n\n\n`).join('') +
     '---\n'
   const sujet = `${t.libelle} : ${x.etape.id ?? x.etape.uuid}`
-  return `mailto:${CONTACT}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(debut + contenuExerciceSignale(x))}`
+  const adresse = (n: number) => `mailto:${CONTACT}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(debut + contenuExerciceSignale(x, n))}`
+  // Corrections longues : raccourcies, puis retirées, pour que le mail s'ouvre partout
+  for (const n of [600, 250, 0]) if (adresse(n).length <= LONGUEUR_MAX || n === 0) return adresse(n)
+  return adresse(0)
 }

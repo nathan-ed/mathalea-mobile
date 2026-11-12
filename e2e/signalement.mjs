@@ -5,7 +5,7 @@
 // les Réglages. Téléphone (clair) et bureau (sombre), bouton retour.
 //   CAPTURES=<dossier> node e2e/signalement.mjs
 import { chromium } from 'playwright'
-import { pagePrete, pointStable, SANS_BRIDAGE } from './attente.mjs'
+import { jusqua, pagePrete, pointStable, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -71,30 +71,43 @@ for (const a of appareils) {
   await pagePrete(page)
   ok(!(await page.getByRole('button', { name: 'Écrire le signalement' }).count()) && (await page.getByRole('button', { name: 'Autres actions' }).isVisible()), `${a.nom} : retour referme le panneau`)
   // Signaler un exercice pendant l'activité : drapeau de l'en-tête, mail avec
-  // l'uuid, les paramètres, la graine, la plateforme et le moteur
+  // l'uuid, les paramètres, la réponse de l'élève, la plateforme et le moteur
   await toucher(page, page.getByRole('button', { name: 'Commencer', exact: true }))
   const drapeau = page.getByRole('button', { name: 'Signaler un problème dans cet exercice' })
   await drapeau.first().waitFor({ timeout: 60_000 })
+  const corpsDe = (u) => new URLSearchParams(u.slice(u.indexOf('?') + 1)).get('body') ?? ''
+  const dernierMail = async () => (await page.evaluate(() => window.__ouverts)).filter((u) => u.startsWith('mailto:')).at(-1) ?? ''
+  // Réponse saisie, pas encore vérifiée : elle est dans le mail, la correction non (elle donnerait la solution)
+  const toucherChamp = a.options.hasTouch ? (c) => c.tap() : (c) => c.click()
+  await taperDans(page, page.locator('main math-field').first(), '999', toucherChamp)
+  await toucher(page, drapeau)
+  await toucher(page, page.getByRole('button', { name: 'Clavier', exact: true }))
+  const corpsAvant = corpsDe(await dernierMail())
+  ok(corpsAvant.includes('Ma réponse : 999 (pas encore vérifiée)') && !corpsAvant.includes('Correction :'), `${a.nom} : réponse au brouillon dans le mail, sans la correction`, corpsAvant)
+  // Réponse vérifiée (incorrecte) : réponse, verdict et correction, que l'élève voit déjà
+  await toucher(page, page.getByRole('button', { name: 'Vérifier', exact: true }))
+  await jusqua(async () => (await page.evaluate(() => JSON.parse(localStorage.getItem('copie:seance:signalement-essai') ?? '{}').essais?.length ?? 0)) > 0, { quoi: 'question vérifiée' })
   await toucher(page, drapeau)
   await page.screenshot({ path: `${captures}/signalement-3-exercice-${a.theme}.png` })
   await page.evaluate(() => (window.__ouverts.length = 0))
   const types = ['Clavier', 'Réponse correcte refusée', 'Erreur dans l’énoncé', 'Erreur dans la correction', 'Autre']
   for (const t of types) ok(await page.getByRole('button', { name: t, exact: true }).isVisible(), `${a.nom} : problème proposé « ${t} »`)
   await toucher(page, page.getByRole('button', { name: 'Réponse correcte refusée', exact: true }))
-  const mailEx = (await page.evaluate(() => window.__ouverts)).find((u) => u.startsWith('mailto:')) ?? ''
+  const mailEx = await dernierMail()
   ok(new URLSearchParams(mailEx.slice(mailEx.indexOf('?') + 1)).get('subject') === 'Réponse correcte refusée : 5N2G', `${a.nom} : le sujet du mail dit le problème choisi`, mailEx.slice(0, 120))
   const corpsEx = new URLSearchParams(mailEx.slice(mailEx.indexOf('?') + 1)).get('body') ?? ''
   const seanceEx = await page.evaluate(() => JSON.parse(localStorage.getItem('copie:seance:signalement-essai') ?? 'null'))
   const graineEx = seanceEx?.graines?.[0]
   ok(
     mailEx.startsWith('mailto:contact@coopmaths.fr?subject=') &&
-      ['UUID : cbc26', 'Référence : 5N2G', 'nbQuestions = 2', 'Exercice 1, question 1', 'Moteur MathALÉA : ', 'Plateforme : ', 'Navigateur intégré : Mozilla', 'réponse correcte refusée', 'La réponse que j’ai donnée', 'La réponse attendue par la correction', 'https://coopmaths.fr/alea/?uuid=cbc26'].every((t) => corpsEx.includes(t)) &&
+      ['UUID : cbc26', 'Référence : 5N2G', 'nbQuestions = 2', 'Exercice 1, question 1', 'Moteur MathALÉA : ', 'Plateforme : ', 'Navigateur intégré : Mozilla', 'réponse correcte refusée', 'Pourquoi ma réponse devrait être acceptée', 'Question 1', 'Ma réponse : 999 (incorrecte)', 'Correction : ', 'https://coopmaths.fr/alea/?uuid=cbc26'].every((t) => corpsEx.includes(t)) &&
       !!graineEx,
     `${a.nom} : mail d’un exercice avec uuid, paramètres, plateforme et moteur`,
     corpsEx,
   )
   // Graine absente : l'élève ne peut pas rouvrir son tirage sur le site pour y lire la correction
   ok(!corpsEx.includes(graineEx) && !corpsEx.includes('alea='), `${a.nom} : aucune graine dans le mail`, corpsEx)
+  ok(!corpsEx.includes('<') && /Correction : .*\d/.test(corpsEx), `${a.nom} : correction en texte, sans balise`, corpsEx)
   ok(!(await page.getByRole('button', { name: 'Réponse correcte refusée', exact: true }).count()), `${a.nom} : le panneau se referme après l’envoi`)
   // Bouton retour : referme le panneau sans quitter l'activité
   await toucher(page, drapeau)

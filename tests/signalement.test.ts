@@ -1,7 +1,7 @@
 // Signalement d'un parcours (App Store, règle 1.2) : le mail porte de quoi
 // retrouver le parcours et le relire, et reste assez court pour s'ouvrir.
 import { describe, expect, it } from 'vitest'
-import { CONTACT, TYPES_SIGNALEMENT, contenuExerciceSignale, contenuSignale, lienSite, mailSignalement, mailSignalementExercice, plateforme } from '../src/lib/signalement'
+import { CONTACT, TYPES_SIGNALEMENT, contenuExerciceSignale, correctionLisible, texteReponses, contenuSignale, lienSite, mailSignalement, mailSignalementExercice, plateforme } from '../src/lib/signalement'
 import { lireFichier } from '../src/lib/partage'
 import type { Parcours } from '../src/lib/catalogue'
 
@@ -91,8 +91,7 @@ describe('signalement d’un exercice', () => {
     expect(decodeURIComponent(m.split('?subject=')[1].split('&')[0])).toBe('Réponse correcte refusée : 5N2G')
     const corps = decodeURIComponent(m.split('&body=')[1])
     expect(corps).toContain('réponse correcte refusée')
-    expect(corps).toContain('La réponse que j’ai donnée')
-    expect(corps).toContain('La réponse attendue par la correction')
+    expect(corps).toContain('Pourquoi ma réponse devrait être acceptée')
     expect(corps).toContain('UUID : cbc26')
     expect(m.length).toBeLessThan(6000)
   })
@@ -106,6 +105,42 @@ describe('signalement d’un exercice', () => {
       expect(corps).toContain('UUID : cbc26')
     }
     expect(decodeURIComponent(mailSignalementExercice(x, 'autre'))).toContain('Je vous écris au sujet de cet exercice')
+  })
+
+  it('donne la réponse de l’élève, et la correction seulement si elle est fournie', () => {
+    const c = contenuExerciceSignale({
+      ...x,
+      questions: [
+        { numero: 2, reponses: { champTexteEx0Q2: '-9' }, verdict: 'incorrecte', correction: '$(-3)+(-11)=-14$' },
+        { numero: 3, reponses: { champTexteEx0Q3: '12' } },
+        { numero: 4 },
+      ],
+    })
+    expect(c).toContain('Question 3\nMa réponse : -9 (incorrecte)\nCorrection : $(-3)+(-11)=-14$')
+    expect(c).toContain('Question 4\nMa réponse : 12 (pas encore vérifiée)')
+    expect(c).toContain('Question 5\nMa réponse : aucune')
+    expect(c.match(/Correction :/g)).toHaveLength(1)
+  })
+
+  it('rend la correction lisible : sans couleurs ni gras, fractions et exposants gardés', () => {
+    expect(correctionLisible('$ {\\color{#216D9A}\\boldsymbol{(+16)}} + {\\color{#4d8613}\\boldsymbol{(-14)}} = {\\color{#F15929}\\boldsymbol{(+2)}} $')).toBe('$(+16) + (-14) = (+2)$')
+    expect(correctionLisible('$\\dfrac{3}{4}+x^{2}=\\textcolor{red}{5}$')).toBe('$\\dfrac{3}{4}+x^{2}=5$')
+  })
+
+  it('rend les réponses lisibles', () => {
+    expect(texteReponses({ a: ' 3 ', b: '', c: '{"etat":"' + 'x'.repeat(300) + '"}' })).toBe('3 ; [figure]')
+    expect(texteReponses(undefined)).toBe('aucune')
+  })
+
+  it('raccourcit puis retire les corrections trop longues pour que le mail s’ouvre', () => {
+    const longue = 'correction très détaillée '.repeat(100)
+    const qs = Array.from({ length: 10 }, (_, i) => ({ numero: i, reponses: { r: String(i) }, verdict: 'incorrecte' as const, correction: longue }))
+    const m = mailSignalementExercice({ ...x, questions: qs }, 'correction')
+    expect(m.length).toBeLessThanOrEqual(6000)
+    expect(decodeURIComponent(m)).toContain('Question 10\nMa réponse : 9 (incorrecte)')
+    const court = mailSignalementExercice({ ...x, questions: qs.slice(0, 1) }, 'correction')
+    expect(decodeURIComponent(court)).toContain('Correction : correction très détaillée')
+    expect(decodeURIComponent(court)).toContain('[…]')
   })
 
   it('reconnaît la plateforme', () => {
