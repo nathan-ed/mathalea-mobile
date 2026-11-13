@@ -930,6 +930,58 @@ Environnement (machine de Nathan)
   exercice avant de régler le nombre de questions (sinon la valeur par défaut
   écrase la saisie).
 
+## 8 bis. Revue du 13 novembre 2026 : réessayer, bilan, barrettes, action proposée
+
+Décisions de Nathan (« tout cela est super »), détail dans `docs/developpement.md` :
+- Réessayer avec d'autres valeurs : « par défaut on a l'option réessayer », réglage du
+  parcours (`reessayer`, absent = proposé, `false` = jamais), « valable seulement si la
+  validation est faite par question et pas à la fin du parcours ». L'option se règle sur
+  le site (vue Parcours, MR !10194 de MathALÉA). Hors score, rien n'est enregistré.
+- Bilan d'une ceinture : l'état d'abord, le score en petit ; pause de l'enseignant
+  seulement si le palier est réussi ; première erreur dépliée.
+- Barrettes (judo) : la récompense visible est la consolidation en révision, jamais
+  retirée. Pas de points, séries de jours ni classements.
+- Accueil : un seul bouton plein, l'action proposée (reprendre, réviser, ceinture suivante).
+
+Leçons de travail :
+- Avant de pousser, toujours `git fetch` de `origin/main` : le `main` local du dépôt
+  principal peut avoir 30 commits de retard (release faite depuis un autre worktree).
+  Remettre la branche dessus (`git rebase origin/main`), puis revérifier.
+- Moteur après un changement de `moteur/COMMIT` : avant `pnpm moteur`, chercher un
+  worktree qui a déjà le bon (`grep -o '"version":"[^"]*"' ../mathalea-mobile*/static/moteur/manifest.json`)
+  et copier son `static/moteur` ; `bash scripts/moteur-a-jour.sh` confirme.
+- Port 1420 pris par une autre session : jouer une suite seule sur un autre port avec
+  l'app construite (`npx vite preview --port 1431 --strictPort`, `BASE=http://localhost:1431/`),
+  et la vérification complète en réseau isolé
+  (`unshare -rn bash -c 'ip link set lo up; SORTIE=… bash scripts/verifier-release.sh'`).
+  Les suites sans `process.env.BASE` (terminer-passees, reprise-ecran, barre-clavier,
+  az-groupe) ne se jouent que sur 1420.
+- `vite preview` s'arrête quand on reconstruit : le relancer après chaque `vite build`.
+- Suites qui passent par l'Explorer (test-niveau-reel) : construire avec
+  `VITE_URL_EXPLORER="https://coopmaths.fr/alea/parcours/"` comme `verifier-release.sh`,
+  sinon l'app lit le vrai kDrive et le parcours déposé par la suite disparaît.
+- L'app rouvre l'écran quitté après `goto` ou `reload` : dans une suite, un contexte
+  neuf par parcours, ou revenir à l'accueil par les boutons avant de recharger.
+- Une séance quittée rouvre sur la question où l'on était, même déjà vérifiée ; la
+  tuile et l'action proposée annoncent la suivante (« question 2 sur 2 »).
+- Titre d'un parcours de test : jamais un mot que la suite cherche ensuite dans la page
+  (« Barrettes des relatifs » faisait échouer « pas de barrette au bilan »).
+- Réponse attendue d'un nouvel essai (graine inconnue de la suite) : la calculer d'après
+  l'énoncé affiché (`annotation` de KaTeX, exercice cbc26), pas par le moteur.
+- Deux exercices du même uuid affichés ensemble : numéros d'exercice différents
+  (`preparerExercice(params, numero)`), sinon mêmes identifiants de champs. Le nouvel
+  essai prend 500 + rang ; l'aperçu prenait 900+.
+- CSS : `padding` et `gap` en pourcentage se calculent sur la largeur du parent, pas de
+  l'élément (barrettes parties à gauche de la ceinture) : px dans un petit composant.
+  Une mise en page qui doit tenir (flex, alignement) va dans le `<style>` du composant
+  plutôt que dans des classes Tailwind dont on n'a pas vérifié la présence.
+- Texte suivi d'un `{#if}` dans Svelte : l'espace après « · » saute. Composer la phrase
+  dans le script (`$derived`).
+- Un changement de texte du bilan : chercher les suites qui le lisent
+  (`grep -n "Bilan :" e2e/*.mjs`), `parcours-az.mjs` y lit le pourcentage (`\d+ %`).
+- Échec vert seul et rouge sous charge (az-3, point sur une figure apigeom d'EVACOM,
+  13 novembre 2026) : cause non trouvée, à chercher dans la suite.
+
 ## 9. Pièges rencontrés
 
 - Glisser-déposer dans l'app de bureau (5 novembre 2026, signalé en classe

@@ -209,6 +209,18 @@
     return !!e && valeur(e) < 1
   }
 
+  // Le clavier s'ouvre sur le champ du nouvel essai : son bouton « Vérifier », plus bas dans la
+  // page, ne reste pas dessous (bouton caché sur téléphone, novembre 2026)
+  $effect(() => {
+    const h = hauteurClavier
+    if (!h) return
+    const essai = (document.activeElement as HTMLElement | null)?.closest?.('section[aria-label="Nouvel essai"]')
+    const bouton = essai?.querySelector('button')
+    if (!bouton) return
+    const depasse = bouton.getBoundingClientRect().bottom + 12 - (innerHeight - h)
+    if (depasse > 0) scrollBy({ top: depasse })
+  })
+
   async function reessayer(ref: Ref) {
     const cle = cleQuestion(ref.etape, ref.question)
     if (reessaiEnPreparation) return

@@ -7,7 +7,7 @@
 // correction à la fin. Vraie saisie, téléphone (clair) et bureau (sombre).
 //   CAPTURES=<dossier> node e2e/reessayer.mjs   (app construite servie sur 1420, ou BASE)
 import { chromium } from 'playwright'
-import { pagePrete, pointStable, SANS_BRIDAGE, taperDans } from './attente.mjs'
+import { jusqua, pagePrete, pointStable, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -37,7 +37,8 @@ const sommeDe = async (zone) => {
   return { tex, somme: String(Math.round((termes[0] + termes[1]) * 100) / 100).replace('.', ',') }
 }
 const toucher = async (page, bouton) => {
-  await bouton.scrollIntoViewIfNeeded()
+  // Au centre de l'écran : en bas de page, scrollIntoViewIfNeeded le laisse sous la barre fixe
+  await bouton.evaluate((el) => el.scrollIntoView({ block: 'center' }))
   const p = await pointStable(bouton)
   await page.mouse.click(p.x, p.y)
   await pagePrete(page)
@@ -46,6 +47,11 @@ const verifierPrincipale = async (page, saisie) => {
   await taperDans(page, page.locator('main math-field').first(), saisie)
   await pagePrete(page)
   await toucher(page, page.locator('footer').getByRole('button', { name: 'Vérifier', exact: true }))
+}
+/** « Réessayer », puis attente du nouvel essai prêt : l'ancien reste affiché pendant que le moteur prépare le suivant */
+const nouvelEssai = async (page, proposer, essai) => {
+  await toucher(page, proposer)
+  await jusqua(async () => (await proposer.count()) === 0 && (await essai.locator('.pastille-verification').count()) === 0 && (await essai.locator('math-field').count()) > 0, { quoi: 'nouvel essai prêt' })
 }
 const score = (page) => page.locator('header').innerText()
 
@@ -92,7 +98,7 @@ for (const [appareil, theme, ecran] of [
   ok((await proposer.count()) === 1, `${appareil} : « Réessayer avec d’autres valeurs » après une réponse incorrecte`)
   ok(/0\/3/.test(await score(page)), `${appareil} : score 0/3 après l'erreur`)
   await page.screenshot({ path: `${captures}/reessayer-1-propose-${theme}.png` })
-  await toucher(page, proposer)
+  await nouvelEssai(page, proposer, essai)
   ok((await essai.count()) === 1, `${appareil} : le nouvel essai s'affiche sous la correction`)
   ok(/ne compte pas dans le score/.test(await essai.innerText()), `${appareil} : « ne compte pas dans le score » est écrit`)
   ok((await proposer.count()) === 0, `${appareil} : plus de bouton tant que le nouvel essai n'est pas vérifié`)
@@ -105,7 +111,7 @@ for (const [appareil, theme, ecran] of [
   await toucher(page, essai.getByRole('button', { name: 'Vérifier' }))
   ok((await essai.locator('.pastille-verification').innerText()) === 'Incorrecte', `${appareil} : nouvel essai manqué, « Incorrecte »`)
   ok((await proposer.count()) === 1, `${appareil} : proposé de nouveau après un nouvel essai manqué`)
-  await toucher(page, proposer)
+  await nouvelEssai(page, proposer, essai)
   const e2 = await sommeDe(essai)
   ok((await essai.locator('.pastille-verification').count()) === 0, `${appareil} : deuxième nouvel essai, question vierge`)
   // Nouvel essai réussi : plus rien à proposer, le score ne bouge pas
@@ -132,7 +138,7 @@ for (const [appareil, theme, ecran] of [
   await page.getByRole('tablist', { name: 'Questions' }).getByRole('tab').nth(2).click()
   await pagePrete(page)
   await verifierPrincipale(page, '999')
-  await toucher(page, proposer)
+  await nouvelEssai(page, proposer, essai)
   const e3 = await sommeDe(essai)
   await taperDans(page, essai.locator('math-field').first(), e3.somme)
   await pagePrete(page)
