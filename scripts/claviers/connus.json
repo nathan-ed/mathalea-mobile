@@ -1,0 +1,5 @@
+{
+  "_lisezmoi": "Défauts de clavier déjà connus (exercice : uuid ou source CAN). Non bloquants pour la release ; retirer l'entrée quand le moteur est monté à un commit qui les corrige. « faux positif » : réponse saisissable autrement (vérifié dans le code de l'exercice).",
+  "7f50c": { "touches": ["^"], "raison": "faux positif : 2×2×5×11 accepté (isPrimeFactorization), 9NO1B-3" },
+  "1eaf7": { "touches": ["^"], "raison": "faux positif probable : décomposition tapée avec ×, 9NO1B-11" }
+}

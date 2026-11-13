@@ -2,7 +2,8 @@
 # Vérification complète avant une release, sur l'ordinateur de qui publie :
 # pnpm check, pnpm test, cargo test, puis toutes les suites e2e jouées comme
 # un élève (dont tous les formats de réponse et les parcours de l'Explorer de
-# A à Z), sur la version construite de l'app (vite build, comme chez les
+# A à Z) et le contrôle des claviers (scripts/verifier-claviers.sh), sur la
+# version construite de l'app (vite build, comme chez les
 # élèves) servie par vite preview, jamais sur le serveur de développement.
 #   bash scripts/verifier-release.sh   (tout ; tous les parcours de explorer/
 #   et la démonstration sont joués de A à Z, sans exception)
@@ -29,6 +30,9 @@ bash scripts/moteur-a-jour.sh || exit 1
 etape check pnpm check
 etape test pnpm test
 etape cargo bash -c 'cd src-tauri && cargo test'
+# Réponses impossibles à taper au clavier de MathALÉA (parcours du kDrive de
+# l'Explorer, explorer/, démonstration, Teste ton niveau)
+etape claviers env SORTIE="$SORTIE" bash scripts/verifier-claviers.sh
 
 # Dossier partagé local (complet, retour) et catalogue Explorer de test
 dossier="$SORTIE/partage/s/Xk42demo"

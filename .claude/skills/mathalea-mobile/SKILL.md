@@ -886,6 +886,22 @@ Environnement (machine de Nathan)
   `FORMATS=1 FORMAT=dnd node e2e/parcours-az.mjs e2e/formats-reponse.json`,
   `CORRECTION=parcours` pour la correction à la fin), plusieurs fois, puis
   les groupes `az` ensemble.
+- Contrôle des claviers (`scripts/verifier-claviers.sh`, étape `claviers` de
+  `verifier-release.sh`, 3 min) : `scripts/claviers/telecharger-explorer.mjs`
+  lit le vrai kDrive de l'Explorer ; `scripts/claviers/claviers.test.ts` est
+  copié dans le clone du moteur (`~/.cache/mathalea-mobile/mathalea`, au
+  commit `moteur/COMMIT`, d'où `pnpm moteur` d'abord) et lancé par vitest, puis
+  retiré. Pour chaque exercice et chaque champ MathLive (id
+  `champTexteEx0Q<i>`), les atomes LaTeX de la réponse sont comparés aux
+  insertions des touches en ligne (mode téléphone) des blocs `data-keyboard`,
+  des `data-keys` et du clavier alphanumérique. Écartés : intervalles
+  (`estDansIntervalle`), point décimal, fraction décimale finie, `2e4`
+  (écriture scientifique), casse (`texteSansCasse`), parenthèses. Hors
+  contrôle : QCM, listes, tableaux, champs texte, et champs créés après un
+  clic (justification de `MathaleaBranchingQcm` après Vrai/Faux : clavier vide
+  dans 4L23 non vu, corrigé par MathALÉA !10204). Un défaut connu va dans
+  `connus.json` avec sa raison ; l'en retirer quand le moteur monte à un
+  commit qui le corrige (le script le signale).
 - Écrire une suite e2e (leçons de la vérification du 1er novembre 2026 ;
   modèle `e2e/session-qr.mjs`, aides de `e2e/camera-qr.mjs`) :
   - en-tête : ce qui est vérifié, pourquoi (phrase de Nathan), comment

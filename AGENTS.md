@@ -89,8 +89,14 @@ complète (détails dans le skill, « Vérification »).
   de Nathan (seul à publier). Il lance `scripts/verifier-release.sh` (check,
   test, cargo test, toutes les suites e2e, tous les formats de réponse et
   **tous les parcours** de `explorer/` et de la démonstration joués de A à Z
-  par un élève qui répond juste) et ne pose le tag que si tout est vert.
-  Jamais de tag `v*` posé à la main.
+  par un élève qui répond juste, contrôle des claviers) et ne pose le tag que
+  si tout est vert. Jamais de tag `v*` posé à la main.
+- Claviers (Nathan, 12 novembre 2026) : `bash scripts/verifier-claviers.sh`
+  télécharge les parcours officiels du kDrive de l'Explorer (FR, CH) et
+  vérifie, avec `explorer/`, la démonstration et Teste ton niveau, que chaque
+  réponse attendue se tape au clavier de MathALÉA (30 tirages). Défauts déjà
+  signalés : `scripts/claviers/connus.json`, non bloquants ; un nouveau défaut
+  bloque la release.
 - Formats de réponse (Nathan, 31 octobre 2026 : « validables et validés et
   pris en compte ») : chacun est saisi juste et compté correct, correction à
   chaque question et à la fin (`node e2e/formats.mjs`,
