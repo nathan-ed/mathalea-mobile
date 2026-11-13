@@ -65,11 +65,12 @@ toute modification.
 - Moteur : chargé à l'exécution depuis `static/moteur` (`pnpm moteur`, source
   dans `moteur/`), jamais importé dans le code de l'app. Contrat :
   `src/lib/moteur.ts` (`API_ATTENDUE`). Toutes les apps utilisent notre moteur,
-  jamais celui de mathalea.fr. Android et ordinateurs téléchargent aussi notre
-  moteur publié sur la forge (`bash scripts/publier-moteur.sh <commit>`, commit
-  de MathALÉA choisi par Nathan, vérification complète avant publication) ;
-  iOS garde le moteur livré tant qu'Apple n'a pas répondu (`MISES_A_JOUR`,
-  `moteur.rs`). Le code de MathALÉA n'est jamais modifié ;
+  jamais celui de mathalea.fr. Toutes les apps (iOS depuis la 0.7.2, soumise
+  à Apple avec le mécanisme expliqué) téléchargent aussi notre moteur publié
+  sur la forge (`bash scripts/publier-moteur.sh <commit>`, commit de MathALÉA
+  choisi par Nathan, vérification complète avant publication ; `MISES_A_JOUR`,
+  `moteur.rs`). Si Apple refuse (règle 4.7) : isoler le moteur dans une iframe
+  sans accès au pont Tauri. Le code de MathALÉA n'est jamais modifié ;
   les corrections vont dans `moteur/fichiers/src/moteur/index.ts`, le style
   dans `src/app.css`.
 - Moteur de chaque version : toujours commiter le moteur construit avec la

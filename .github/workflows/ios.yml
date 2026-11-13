@@ -7,7 +7,8 @@
 # un Admin sans le titulaire du compte).
 # Comme toutes les apps, elle embarque notre moteur (scripts/moteur.sh),
 # construit sous Linux (sous macOS, pnpm ne passe pas à la version demandée par
-# MathALÉA) ; iOS ne télécharge jamais de moteur (moteur.rs, MISES_A_JOUR).
+# MathALÉA) ; depuis la 0.7.2, iOS télécharge aussi notre moteur publié sur la
+# forge (moteur.rs, MISES_A_JOUR).
 # Pas à pas depuis un ordinateur sans Mac : docs/iphone.md.
 name: ios
 

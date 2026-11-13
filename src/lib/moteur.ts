@@ -244,9 +244,9 @@ export function chargerMoteur(): Promise<Moteur> {
 }
 
 /**
- * Le moteur se met-il à jour sans l'app ? Oui sur Android et les ordinateurs
- * (notre moteur publié sur la forge) ; non sur iOS, qui garde le moteur livré
- * tant qu'Apple n'a pas répondu (src-tauri/src/moteur.rs, MISES_A_JOUR).
+ * Le moteur se met-il à jour sans l'app ? Oui partout, depuis la 0.7.2 sur iOS
+ * (notre moteur publié sur la forge), sauf app construite avec
+ * MATHALEA_MOTEUR_FIGE (src-tauri/src/moteur.rs, MISES_A_JOUR).
  */
 export async function misesAJourMoteur(): Promise<boolean> {
   if (!dansTauri) return false

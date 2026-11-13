@@ -750,10 +750,11 @@ Environnement (machine de Nathan)
 - Lien vers la dernière release :
   `https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/permalink/latest`.
 
-- Boutiques (Google Play, App Store) : moteur figé (`MATHALEA_MOTEUR_FIGE=1`,
-  toujours sur iOS), leurs règles interdisant le code téléchargé qui change
-  l'app (vérifié dans le texte : Play « Device and Network Abuse », Apple
-  2.5.2 et 4.7.2). Nathan accepte des versions hebdomadaires automatiques :
+- Boutiques (Google Play, App Store) : moteur téléchargé depuis la 0.7.1
+  (Google Play, accord du support pour du JavaScript dans une WebView) et la
+  0.7.2 (iOS, soumise avec le mécanisme expliqué dans les notes ; refus pour
+  la règle 4.7 : isoler le moteur dans une iframe). `MATHALEA_MOTEUR_FIGE=1`
+  le fige encore si besoin. Nathan accepte des versions hebdomadaires automatiques :
   `google-play.yml` (lundi, si nouveau moteur publié, dernier tag `v*`,
   `versionCode` daté). `.aab` aussi construit par `release.yml` (artefact).
   Voir `docs/developpement.md`, « Google Play et App Store ».
@@ -1015,8 +1016,8 @@ Environnement (machine de Nathan)
 - Ne pas modifier `src/` pendant une suite e2e : le rechargement de Vite
   recharge la page et fait échouer la suite au hasard.
 - Moteur : toutes les apps utilisent le nôtre (Nathan, 2026-10-29 : « les
-  apps doivent toutes utiliser notre moteur »), livré avec l'app et, sauf sur
-  iOS, mis à jour par `scripts/publier-moteur.sh` (forge). Jamais celui de
+  apps doivent toutes utiliser notre moteur »), livré avec l'app et mis à
+  jour par `scripts/publier-moteur.sh` (forge), iOS compris depuis la 0.7.2. Jamais celui de
   mathalea.fr. Jamais modifier le code de MathALÉA : corrections
   dans `moteur/fichiers/`, style dans `src/app.css`.
 - Tests de release sur l'ordinateur de Nathan (« je serai le seul à faire des

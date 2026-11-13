@@ -265,12 +265,15 @@ WebView (« Device and Network Abuse » ; réponse du support Google Play du
 12 novembre 2026, à condition de ne pas exposer d'API natives sensibles au code
 téléchargé et de le servir en HTTPS depuis nos serveurs ; expliquer le
 mécanisme dans « Review instructions », rubrique App Access, à chaque envoi).
-Android (forge et Google Play) et les ordinateurs téléchargent donc notre
-moteur publié sur la forge (voir « Moteur publié sur la forge »). Apple
-(règles 2.5.2 et 4.7.2) n'a pas encore répondu : `MISES_A_JOUR`
-(`src-tauri/src/moteur.rs`) est faux sur iOS et quand l'app est construite
-avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré et masque
-« Rechercher une mise à jour ».
+Android (forge et Google Play), les ordinateurs et, depuis la 0.7.2, iOS
+téléchargent donc notre moteur publié sur la forge (voir « Moteur publié sur
+la forge »). Pour Apple (contrat 3.3.1(B), règles 2.5.2 et 4.7), la 0.7.2 est
+soumise avec le mécanisme expliqué dans les notes de vérification
+(`docs/app-store/notes-verification-0.7.2.txt`) ; en cas de refus pour la
+règle 4.7, isoler le moteur dans une iframe sans accès au pont Tauri.
+`MISES_A_JOUR` (`src-tauri/src/moteur.rs`) n'est faux que si l'app est
+construite avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré
+et masque « Rechercher une mise à jour ».
 
 - Fichier Google Play : `.aab` (Android App Bundle, arm64, armv7, x86_64),
   construit par `release.yml` (artefact `google-play`, pas dans `releases/`),
@@ -294,7 +297,7 @@ avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré et masque
   Sécurité des données « aucune donnée collectée ni partagée », politique de
   confidentialité `docs/confidentialite.md` (page `static/confidentialite.html`,
   à publier à une adresse publique).
-- App Store : même règle, moteur figé d'office sur iOS. Aucun Mac nécessaire :
+- App Store : moteur téléchargé depuis la 0.7.2 (voir plus haut). Aucun Mac nécessaire :
   `ios.yml` (GitHub, à lancer à la main) tourne sur macOS. Sans secret, il
   compile pour le simulateur, lance l'app et en fait des captures (clair,
   sombre, artefact `captures-ios`), et fournit le projet Xcode généré

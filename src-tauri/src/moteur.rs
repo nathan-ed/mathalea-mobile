@@ -180,12 +180,14 @@ fn session(app: &tauri::AppHandle) -> &'static Option<(Actif, PathBuf)> {
     })
 }
 
-/// Android et ordinateurs téléchargent notre moteur publié sur la forge (Nathan,
-/// 12 novembre 2026 ; Google Play l'admet pour du JavaScript dans une WebView,
-/// réponse du support du même jour). iOS garde le moteur livré tant qu'Apple n'a
-/// pas répondu (règles 2.5.2 et 4.7) ; MATHALEA_MOTEUR_FIGE=1 le fige aussi
-/// ailleurs.
-pub const MISES_A_JOUR: bool = !cfg!(target_os = "ios") && option_env!("MATHALEA_MOTEUR_FIGE").is_none();
+/// Toutes les apps téléchargent notre moteur publié sur la forge : Android et
+/// ordinateurs depuis la 0.7.1 (Nathan, 12 novembre 2026 ; Google Play l'admet
+/// pour du JavaScript dans une WebView, réponse du support du même jour), iOS
+/// depuis la 0.7.2 (Nathan, 13 novembre 2026 : soumis à Apple avec le mécanisme
+/// expliqué, docs/app-store/notes-verification-0.7.2.txt ; en cas de refus pour
+/// la règle 4.7, isoler le moteur dans une iframe sans accès au pont).
+/// MATHALEA_MOTEUR_FIGE=1 le fige à la construction.
+pub const MISES_A_JOUR: bool = option_env!("MATHALEA_MOTEUR_FIGE").is_none();
 
 /// Le moteur peut-il être mis à jour sans mettre à jour l'app ?
 #[tauri::command]
@@ -505,8 +507,8 @@ mod tests {
 
     /// Mises à jour partout sauf sur iOS et avec MATHALEA_MOTEUR_FIGE=1
     #[test]
-    fn mises_a_jour_sauf_ios_et_moteur_fige() {
-        let maj = option_env!("MATHALEA_MOTEUR_FIGE").is_none() && !cfg!(target_os = "ios");
+    fn mises_a_jour_sauf_moteur_fige() {
+        let maj = option_env!("MATHALEA_MOTEUR_FIGE").is_none();
         assert_eq!(MISES_A_JOUR, maj);
         assert_eq!(mises_a_jour_moteur(), maj);
     }
