@@ -34,6 +34,7 @@ export function estEtape(v: unknown): v is Etape {
     optionnel(e.nbQuestions, (n) => estEntier(n) && (n as number) > 0 && (n as number) <= NB_QUESTIONS_MAX) &&
     optionnel(e.titreMasque, (b) => typeof b === 'boolean') &&
     optionnel(e.remiseAZero, (r) => typeof r === 'boolean' || estEntier(r)) &&
+    optionnel(e.melangerAvecSuivant, (b) => typeof b === 'boolean') &&
     optionnel(e.objectifs, textesUniques) &&
     [e.sup, e.sup2, e.sup3, e.sup4].every((s) => optionnel(s, estParametre))
   )

@@ -1,5 +1,5 @@
 // Séances et résultats d'un élève. Tout reste dans le stockage local.
-import { melange, type Parcours } from './catalogue'
+import { groupesLies, melange, type Parcours } from './catalogue'
 import type { Stockage } from './stockage'
 
 export interface Essai {
@@ -123,15 +123,30 @@ export function melanger<T>(liste: T[], graine: string): T[] {
  * ordre déjà tiré qui correspond toujours aux questions est gardé.
  */
 export function fixerOrdre(s: Seance) {
-  if (!melange(s.contenu, s.etapes)) {
+  const tout = melange(s.contenu, s.etapes)
+  // Ordre des exercices gardé, questions mélangées dans chaque groupe d'exercices liés
+  const groupes = tout ? [] : groupesLies(s.contenu, s.etapes)
+  if (!tout && !groupes.length) {
     s.ordre = undefined
     return
   }
-  const cles = questionsDe(s).map((q) => cleQuestion(q.etape, q.question))
+  const questions = questionsDe(s)
+  const cles = questions.map((q) => cleQuestion(q.etape, q.question))
   const valide = s.ordre && s.ordre.length === cles.length && cles.every((c) => s.ordre!.includes(c))
   if (valide) return
   const graine = s.code ? `${s.code}-${s.contenu.id}-v${s.contenu.version}-ordre` : `${Math.random()}`
-  s.ordre = s.contenu.id === ID_REVISIONS ? entrelacer(cles, graine) : melanger(cles, graine)
+  if (tout) {
+    s.ordre = s.contenu.id === ID_REVISIONS ? entrelacer(cles, graine) : melanger(cles, graine)
+    return
+  }
+  const ordre: string[] = []
+  for (const e of s.etapes) {
+    const k = groupes.findIndex((g) => g.includes(e))
+    const deLEtape = (x: number) => questions.filter((q) => q.etape === x).map((q) => cleQuestion(q.etape, q.question))
+    if (k === -1) ordre.push(...deLEtape(e))
+    else if (groupes[k][0] === e) ordre.push(...melanger(groupes[k].flatMap(deLEtape), `${graine}-${k}`))
+  }
+  s.ordre = ordre
 }
 
 /** Séance de révision espacée (revisions.ts) : parcours généré sur l'appareil */

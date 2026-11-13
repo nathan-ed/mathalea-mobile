@@ -9,6 +9,9 @@ export interface Etape extends ParamsExercice {
   // Exercice transformé en profondeur : l'élève repart de zéro pour cet exercice dans la version qui
   // le porte. `true` dans l'éditeur, remplacé à l'enregistrement par le numéro de cette version.
   remiseAZero?: boolean | number
+  // Questions mélangées avec celles de l'exercice suivant du même palier, même si le palier garde l'ordre
+  // des exercices. Plusieurs liens de suite forment un groupe. Ignoré par les anciennes versions (ordre des exercices).
+  melangerAvecSuivant?: boolean
 }
 
 /**
@@ -176,6 +179,29 @@ export function melange(p: Pick<Parcours, 'melanger' | 'presentation'> & Partial
   if (p.presentation === 'un_exo_par_page') return false
   const palier = p.paliers && etapes.length ? paliersDe(p as Parcours).find((x) => etapes.every((e) => x.etapes.includes(e))) : undefined
   return palier?.melanger ?? !!p.melanger
+}
+
+/**
+ * Groupes d'exercices liés par `melangerAvecSuivant` parmi `etapes` (rangs consécutifs, dans le même
+ * palier), seulement quand l'ordre n'est pas déjà tout mélangé et qu'une page mêle plusieurs exercices.
+ * Chaque groupe compte au moins deux exercices.
+ */
+export function groupesLies(p: Pick<Parcours, 'melanger' | 'presentation' | 'etapes'> & Partial<Parcours>, etapes: number[]) {
+  if (p.presentation === 'un_exo_par_page' || melange(p, etapes)) return []
+  const paliers = p.paliers ? paliersDe(p as Parcours) : []
+  const memePalier = (a: number, b: number) => !paliers.length || paliers.some((x) => x.etapes.includes(a) && x.etapes.includes(b))
+  const groupes: number[][] = []
+  let groupe: number[] = []
+  etapes.forEach((e, i) => {
+    groupe.push(e)
+    const suivante = etapes[i + 1]
+    const lie = suivante === e + 1 && !!p.etapes[e]?.melangerAvecSuivant && memePalier(e, suivante)
+    if (!lie) {
+      if (groupe.length > 1) groupes.push(groupe)
+      groupe = []
+    }
+  })
+  return groupes
 }
 
 /** Paliers numérotés, ou ceintures comme au judo (blanche, jaune…) */

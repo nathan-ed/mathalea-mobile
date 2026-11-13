@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { melange, paliersDe } from '../src/lib/catalogue'
+import { groupesLies, melange, paliersDe, type Parcours } from '../src/lib/catalogue'
 import { parcoursVide } from './parcours-de-test'
 import type { ExerciceDuReferentiel } from '../src/lib/moteur'
 import { cleQuestion, fixerOrdre, melanger, nouvelleSeance, questionsDe, questionsOrdonnees } from '../src/lib/progression'
 import { cleInvalide } from '../src/lib/sauvegarde'
 import { NB_QUESTIONS, NIVEAUX_TEST, presenterTest, sujetsDu, tirerTest, type ClassementCan } from '../src/lib/testNiveau'
-import { estParcours } from '../src/lib/validation'
+import { estEtape, estParcours } from '../src/lib/validation'
 
 const sujet = (id: string, titre = id, interactif = true): ExerciceDuReferentiel => ({ uuid: `u-${id}`, id, titre, niveau: 'CAN', theme: '6e', interactif })
 const referentiel = [
@@ -232,5 +232,79 @@ describe('ordre des questions par palier', () => {
 
   it('ne mélange jamais avec une page par exercice', () => {
     expect(melange({ ...p, presentation: 'un_exo_par_page' }, [0])).toBe(false)
+  })
+})
+
+describe('exercices liés : mélangés avec le suivant', () => {
+  const parcours = (presentation = 'une_question_par_page', melangerParcours = false) =>
+    ({
+      id: 'lies',
+      version: 1,
+      melanger: melangerParcours,
+      presentation,
+      etapes: [{}, { melangerAvecSuivant: true }, {}, { melangerAvecSuivant: true }, { melangerAvecSuivant: true }, {}],
+      paliers: [
+        { titre: 'Un', nb: 4 },
+        { titre: 'Deux', nb: 2 },
+      ],
+    }) as unknown as Parcours
+
+  it('groupes dans un palier, jamais d’un palier à l’autre', () => {
+    const p = parcours()
+    expect(groupesLies(p, [0, 1, 2, 3])).toEqual([[1, 2]])
+    // Lien du dernier exercice du palier Un vers le premier du palier Deux : ignoré
+    expect(groupesLies(p, [4, 5])).toEqual([[4, 5]])
+    expect(groupesLies({ ...p, paliers: undefined }, [0, 1, 2, 3, 4, 5])).toEqual([[1, 2], [3, 4, 5]])
+  })
+
+  it('sans effet si tout est déjà mélangé ou avec une page par exercice', () => {
+    expect(groupesLies(parcours('une_question_par_page', true), [0, 1, 2, 3])).toEqual([])
+    expect(groupesLies(parcours('un_exo_par_page'), [0, 1, 2, 3])).toEqual([])
+  })
+
+  const seanceLiee = (code?: string) => {
+    const s = nouvelleSeance(parcours(), 'm', 'complet', [0, 1, 2, 3], code)
+    s.nbQuestions = { 0: 3, 1: 4, 2: 4, 3: 3 }
+    return s
+  }
+  const etapesDe = (s: ReturnType<typeof seanceLiee>) => questionsOrdonnees(s).map((q) => q.etape)
+
+  it('ordre des exercices gardé, questions des exercices liés mélangées entre elles', () => {
+    const vus = new Set<string>()
+    for (let n = 0; n < 20; n++) {
+      const s = seanceLiee()
+      fixerOrdre(s)
+      const e = etapesDe(s)
+      expect(e.slice(0, 3)).toEqual([0, 0, 0])
+      expect(e.slice(11)).toEqual([3, 3, 3])
+      expect([...e.slice(3, 11)].sort()).toEqual([1, 1, 1, 1, 2, 2, 2, 2])
+      // Dans chaque exercice, les questions restent toutes là
+      expect(questionsOrdonnees(s).map((q) => cleQuestion(q.etape, q.question)).sort()).toEqual(questionsDe(s).map((q) => cleQuestion(q.etape, q.question)).sort())
+      vus.add(e.slice(3, 11).join())
+    }
+    expect(vus.size).toBeGreaterThan(1)
+  })
+
+  it('session partagée : le même ordre pour tous, gardé à la reprise', () => {
+    const a = seanceLiee('ab12c')
+    const b = seanceLiee('ab12c')
+    fixerOrdre(a)
+    fixerOrdre(b)
+    expect(a.ordre).toEqual(b.ordre)
+    const reprise = JSON.parse(JSON.stringify(a))
+    fixerOrdre(reprise)
+    expect(reprise.ordre).toEqual(a.ordre)
+  })
+
+  it('sans lien : l’ordre des exercices, sans ordre tiré', () => {
+    const s = nouvelleSeance({ ...parcours(), etapes: [{}, {}, {}, {}, {}, {}] } as unknown as Parcours, 'm', 'complet', [0, 1, 2, 3])
+    s.nbQuestions = { 0: 2, 1: 2, 2: 2, 3: 2 }
+    fixerOrdre(s)
+    expect(s.ordre).toBeUndefined()
+  })
+
+  it('le champ est accepté dans un fichier, refusé s’il n’est pas booléen', () => {
+    expect(estEtape({ uuid: 'a', titre: 'A', melangerAvecSuivant: true })).toBe(true)
+    expect(estEtape({ uuid: 'a', titre: 'A', melangerAvecSuivant: 'oui' })).toBe(false)
   })
 })

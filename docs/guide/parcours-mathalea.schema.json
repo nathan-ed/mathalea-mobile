@@ -87,7 +87,8 @@
         "sup2": { "type": ["string", "number", "boolean"], "description": "s2= de l'URL." },
         "sup3": { "type": ["string", "number", "boolean"], "description": "s3= de l'URL." },
         "sup4": { "type": ["string", "number", "boolean"], "description": "s4= de l'URL." },
-        "objectifs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true, "description": "Libellés d'objectifs (bibliotheque.objectifs)." }
+        "objectifs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true, "description": "Libellés d'objectifs (bibliotheque.objectifs)." },
+        "melangerAvecSuivant": { "type": "boolean", "description": "Questions mélangées avec celles de l'exercice suivant du même palier, quand l'ordre n'est pas déjà mélangé (sans effet avec un_exo_par_page)." }
       }
     },
     "palier": {
