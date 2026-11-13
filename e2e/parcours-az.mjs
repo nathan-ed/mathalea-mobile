@@ -821,6 +821,17 @@ async function repondre(e, n, k, a) {
             cases[`${k}B`] = /\|+/.exec(x)[0]
           }
         attendu = JSON.stringify(cases)
+        // Colonnes ajoutées au bouton + comme le fait l'élève : la correction
+        // compte les colonnes du tableau affiché, pas celles de la réponse
+        if (cases.nbColonnes) {
+          const tableau = main.locator(`#${a.format}${q}`)
+          const colonnes = () => tableau.evaluate((el) => el.config?.colonnes.length ?? 0)
+          for (let essai = 0; (await colonnes()) < Number(cases.nbColonnes); essai++) {
+            if (essai >= 6) throw new Error(`tableau resté à ${await colonnes()} colonnes sur ${cases.nbColonnes}`)
+            await toucher(e, tableau.getByRole('button', { name: 'Ajouter une colonne' }))
+            await pause(page, 300)
+          }
+        }
       }
       const ecrit = await main.locator(`#${a.format}${q}`).evaluate((el, val) => {
         try {
