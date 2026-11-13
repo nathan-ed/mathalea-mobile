@@ -148,6 +148,7 @@ export function estParcours(v: unknown): v is Parcours {
     optionnel(p.enTetesMasques, (b) => typeof b === 'boolean') &&
     optionnel(p.titresVisibles, (b) => typeof b === 'boolean') &&
     optionnel(p.melanger, (b) => typeof b === 'boolean') &&
+    optionnel(p.reessayer, (b) => typeof b === 'boolean') &&
     optionnel(p.fiche, estFiche)
   )
 }

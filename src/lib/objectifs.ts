@@ -194,6 +194,7 @@ export interface CeintureDuChapitre {
   nom: string
   couleur: string
   obtenue: boolean
+  barrettes: number // révisions réussies dans la durée (revisions.ts), 0 sans révisions
   par: string[] // titres des parcours qui l'ont donnée
 }
 
@@ -212,7 +213,11 @@ export interface ChapitreCeintures {
  * chaque parcours garde sa première ceinture, la rangée va de la plus basse à
  * la plus haute de tous.
  */
-export function ceinturesParChapitre(parcours: Parcours[], historiques: Record<string, Seance[]>): ChapitreCeintures[] {
+export function ceinturesParChapitre(
+  parcours: Parcours[],
+  historiques: Record<string, Seance[]>,
+  barrettesDe: (etapes: Etape[]) => number = () => 0, // barrettes des exercices d'une ceinture (revisions.ts)
+): ChapitreCeintures[] {
   const chapitres = new Map<string, ChapitreCeintures & { rangs: Map<number, CeintureDuChapitre> }>()
   for (const p of parcours) {
     if (p.style !== 'ceintures' || paliersDe(p).length < 2) continue
@@ -223,9 +228,11 @@ export function ceinturesParChapitre(parcours: Parcours[], historiques: Record<s
     liste.forEach((x, k) => {
       const r = rangCeinture(p, k)
       let ceinture = c.rangs.get(r)
-      if (!ceinture) c.rangs.set(r, (ceinture = { nom: nomCeinture(r), couleur: couleurDuRang(r), obtenue: false, par: [] }))
+      if (!ceinture) c.rangs.set(r, (ceinture = { nom: nomCeinture(r), couleur: couleurDuRang(r), obtenue: false, barrettes: 0, par: [] }))
       if (x.obtenue) {
         ceinture.obtenue = true
+        // Plusieurs parcours donnent la même ceinture : le plus consolidé fait foi
+        ceinture.barrettes = Math.max(ceinture.barrettes, barrettesDe(paliersDe(p)[k].etapes.map((i) => p.etapes[i])))
         ceinture.par.push(p.titre)
       }
     })

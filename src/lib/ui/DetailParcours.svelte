@@ -15,6 +15,8 @@
   import ChampTexte from './ChampTexte.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
+  import Ceinture from './Ceinture.svelte'
+  import { barrettes, texteBarrettes, type Revisions } from '$lib/revisions'
   import Feuille from './Feuille.svelte'
   import Impression from './Impression.svelte'
   import { impressionPossible } from '$lib/impression'
@@ -29,6 +31,7 @@
     epingle,
     explorer = false,
     passages,
+    revisions = null,
     onepingler,
     onrelire,
     onretour,
@@ -51,6 +54,7 @@
     epingle: boolean
     explorer?: boolean // parcours du catalogue Explorer : l'épingle l'ajoute à l'accueil
     passages: Seance[]
+    revisions?: Revisions | null // révisions espacées : barrettes des ceintures obtenues
     onepingler: () => void
     onrelire: (s: Seance) => void
     onretour: () => void
@@ -84,7 +88,9 @@
   const dejaFait = $derived(Object.keys(resultats).length > 0)
   const nbQuestions = $derived(parcours.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0))
 
-  const paliers = $derived(etatsPaliers(parcours, resultats, heure.maintenant, Date.now(), acquisDe(parcours, passages)))
+  const obtenues = $derived(acquisDe(parcours, passages))
+  const paliers = $derived(etatsPaliers(parcours, resultats, heure.maintenant, Date.now(), obtenues))
+  const barrettesDe = (etapes: number[]) => barrettes(revisions, etapes.map((i) => parcours.etapes[i]))
   // Dates d'ouverture : l'heure des serveurs fait foi
   $effect(() => {
     if (parcours.paliers?.some((x) => x.ouverture)) exigerHeure()
@@ -127,7 +133,10 @@
     if (!x.ouvert && k > 0) return { icone: 'bx-lock-alt', texte: `Au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}` }
     if (enCours && courant === k) return { icone: 'bx-play-circle', texte: 'En cours' }
     if (x.fini && x.aRevoir) return { icone: 'bx-revision', texte: `À revoir · ${x.pourcentage} %` }
-    if (x.fini) return { icone: 'bx-check-circle', texte: `Réussi · ${x.pourcentage} %` }
+    if (x.fini) {
+      const n = parcours.style === 'ceintures' && obtenues[k] ? barrettesDe(x.etapes) : 0
+      return { icone: 'bx-check-circle', texte: `Réussi · ${x.pourcentage} %${n ? ` · ${texteBarrettes(n)}` : ''}` }
+    }
     if (x.faits) return { icone: 'bx-adjust', texte: `${x.faits} exercice${x.faits > 1 ? 's' : ''} sur ${x.etapes.length}` }
     // Palier ouvert d'emblée, après celui à faire : l'élève peut s'y lancer, rien ne l'y oblige
     if (k > 0 && x.acces === 'libre' && courant !== -1 && k > courant) return { icone: 'bx-lock-open-alt', texte: 'Ouvert à tout moment' }
@@ -225,12 +234,8 @@
             >
               <div class="flex flex-row items-center gap-3">
                 {#if parcours.style === 'ceintures'}
-                  <!-- Ceinture : sa couleur, seule teinte hors charte de l'app -->
-                  <span
-                    aria-hidden="true"
-                    class="shrink-0 w-10 h-5 rounded {x.ouvert ? '' : 'opacity-40'} border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-                    style="background-color: {couleurCeinture(parcours, k)}"
-                  ></span>
+                  <!-- Ceinture : sa couleur, seule teinte hors charte de l'app ; obtenue, elle porte ses barrettes -->
+                  <Ceinture couleur={couleurCeinture(parcours, k)} taille="w-10 h-5" classe={x.ouvert ? '' : 'opacity-40'} barrettes={obtenues[k] ? barrettesDe(x.etapes) : 0} />
                 {:else}
                   <span
                     aria-hidden="true"

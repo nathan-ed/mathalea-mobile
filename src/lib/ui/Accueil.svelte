@@ -56,6 +56,7 @@
     onscanner,
     revisions = null,
     onrevisions,
+    action = null,
     ontest,
     resumeTest = '',
     onajouter,
@@ -92,6 +93,8 @@
     onscanner?: () => void // QR code d'une session partagée ou d'une classe
     revisions?: { dus: number; prochaine: string | null; enCours: boolean } | null // révisions espacées (null : rien de terminé)
     onrevisions?: () => void
+    /** Ce que l'app propose de faire maintenant : reprendre la séance, sinon réviser, sinon la ceinture suivante */
+    action?: { libelle: string; detail: string; fn: () => void } | null
     ontest?: () => void // Teste ton niveau (moteur prêt)
     resumeTest?: string
     onajouter: (lien: string) => Promise<string | null>
@@ -276,6 +279,13 @@
             </p>
           {/each}
         {:else}
+          {#if action}
+            <!-- Une seule action proposée : l'élève n'a pas à chercher par où continuer -->
+            <section class="flex flex-col gap-2 pb-2" aria-label="À faire maintenant">
+              <p class="pl-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{action.detail}</p>
+              <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={action.fn}>{action.libelle}</button>
+            </section>
+          {/if}
           {#if revisions && onrevisions}
             <Tuile
               icon="bx-revision"

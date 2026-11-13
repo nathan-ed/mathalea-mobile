@@ -150,8 +150,14 @@ export interface Parcours {
   enTetesMasques?: boolean // ni numéro ni titre d'exercice : les questions s'enchaînent
   titresVisibles?: boolean // titres des exercices montrés aux élèves (absent : « Exercice n »)
   melanger?: boolean // questions de plusieurs exercices dans un ordre mélangé (sauf un exercice par page)
+  // Après une réponse incorrecte, « Réessayer avec d'autres valeurs », hors score. Proposé par défaut ;
+  // `false` : l'enseignant ne le veut pas. Jamais avec la correction à la fin du parcours.
+  reessayer?: boolean
   fiche?: Fiche // cours du parcours entier (parcours sans paliers, ou fiche générale)
 }
+
+/** Nouvel essai proposé après une réponse incorrecte : réglage du parcours, et seulement si la correction suit la réponse */
+export const reessaiPropose = (p: Pick<Parcours, 'correction' | 'reessayer'>) => p.correction !== 'parcours' && p.reessayer !== false
 
 /** Auteurs en une phrase : « Ana », « Ana et Ben », « Ana, Ben et Chloé » */
 export function auteursTexte(p: Pick<Parcours, 'auteurs'>) {

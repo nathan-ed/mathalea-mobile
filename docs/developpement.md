@@ -1174,6 +1174,42 @@ Reste à faire :
 - Sessions partagées : suppression toujours confirmée.
 - Accueil : « MathALÉA par CoopMaths » entier dès 360 px.
 
+## Réessayer, bilan d'une ceinture, barrettes, action proposée (novembre 2026)
+
+Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
+
+- Réessayer (`reessaiPropose` dans `catalogue.ts`, `Seance.svelte`) : après
+  une réponse incorrecte, « Réessayer avec d'autres valeurs » prépare le même
+  exercice avec une nouvelle graine (numéro d'exercice 500 + rang, pour des
+  champs à part) et l'affiche sous la correction, hors score, sans rien
+  enregistrer ; proposé de nouveau si l'essai est manqué. Réglage `reessayer`
+  du parcours (absent : proposé ; `false` : jamais), sans effet avec la
+  correction à la fin (Nathan : « valable seulement si la validation est faite
+  par question »). Case à ajouter sur le site : `docs/a-reporter-site-parcours.md`.
+  Test : `node e2e/reessayer.mjs`.
+- Bilan d'un palier ou d'une ceinture (`Bilan.svelte`, `palierDuBilan`) :
+  l'état d'abord (« Ceinture orange obtenue », sa couleur en grand, ou « Il
+  manquait 1 bonne réponse »), le score en petit ; la pause de l'enseignant
+  seulement si le palier est réussi (ou si le suivant est en accès libre) ;
+  palier manqué : le premier exercice avec une erreur est déplié d'office.
+  Les autres bilans (parcours simple, test, révision) gardent le grand score.
+  Test : `node e2e/bilan-ceinture.mjs`.
+- Barrettes (`barrettes`, `texteBarrettes` dans `revisions.ts`,
+  `Ceinture.svelte`) : une ceinture obtenue gagne une barrette quand tous ses
+  exercices atteignent la boîte 4 (réussis de nouveau après une semaine), une
+  deuxième à la boîte 5 (trois semaines de plus, « ceinture durable »).
+  D'après `sommet`, la boîte la plus haute atteinte : une barrette n'est
+  jamais retirée, comme la ceinture. Affichées dans le Suivi (onglet
+  Ceintures, par chapitre : le parcours le plus consolidé fait foi), sur la
+  carte du parcours et au bilan de la séance qui la fait gagner (« Barrette
+  gagnée », `gainsDeBarrettes`). Test : `node e2e/barrettes.mjs`.
+- Action proposée (`actionProposee` dans `+page.svelte`, haut de « Mes
+  parcours ») : un seul bouton plein. Dans l'ordre : reprendre la séance (ou
+  la révision) commencée ; la révision du jour, à la taille choisie ; la
+  ceinture ou le palier suivant, ouvert et pas encore obtenu, du parcours
+  travaillé en dernier. Rien tant que rien n'est commencé. Les tuiles
+  (Révisions, En cours) restent. Test : `node e2e/accueil-action.mjs`.
+
 ## Révisions espacées
 
 - `revisions.ts`, sur l'appareil, sans réglage de l'enseignant (Nathan,

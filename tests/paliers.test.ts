@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { estJour, estOuverture, jourEnLettres, jourLocal, jourOuverture, momentOuverture, ouvertureDuJour, paliersDe, type Parcours } from '../src/lib/catalogue'
+import { estJour, estOuverture, jourEnLettres, jourLocal, jourOuverture, momentOuverture, ouvertureDuJour, paliersDe, reessaiPropose, type Parcours } from '../src/lib/catalogue'
 import { parcoursVide } from './parcours-de-test'
 import { ceinturesObtenues, cleExercice, conditionPalier, etatsPaliers, maitrise, objectifsTravailles, resultatsParObjectif } from '../src/lib/objectifs'
 import { lireFichier, creerFichier } from '../src/lib/partage'
@@ -135,6 +135,18 @@ describe('paliers', () => {
     expect(estOuverture('2026-11-12T00:00:00-05:00')).toBe(true)
     for (const v of ['2026-11-12', '2026-11-31T00:00:00+01:00', '2026-11-12T00:00:00', '2026-11-12T25:00:00+01:00', '2026-11-12 00:00:00+01:00', ''])
       expect(estOuverture(v)).toBe(false)
+  })
+
+  it('propose un nouvel essai par défaut, sauf refus de l’enseignant ou correction à la fin', () => {
+    expect(reessaiPropose({ correction: 'question' })).toBe(true)
+    expect(reessaiPropose({ correction: 'page' })).toBe(true)
+    expect(reessaiPropose({ correction: 'question', reessayer: true })).toBe(true)
+    expect(reessaiPropose({ correction: 'question', reessayer: false })).toBe(false)
+    expect(reessaiPropose({ correction: 'parcours' })).toBe(false)
+    expect(reessaiPropose({ correction: 'parcours', reessayer: true })).toBe(false)
+    const p = parcoursAPaliers()
+    expect(estParcours({ ...p, reessayer: false })).toBe(true)
+    expect(estParcours({ ...p, reessayer: 'non' })).toBe(false)
   })
 
   it('valide les paliers d’un fichier partagé et garde leurs pauses', () => {

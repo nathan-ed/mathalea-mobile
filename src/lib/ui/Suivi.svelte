@@ -4,7 +4,8 @@
   import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { estTest } from '$lib/testNiveau'
-  import { SOLIDITES, soliditeObjectif, type Revisions } from '$lib/revisions'
+  import { BARRETTES, SOLIDITES, barrettes, soliditeObjectif, texteBarrettes, type Revisions } from '$lib/revisions'
+  import Ceinture from './Ceinture.svelte'
   import { theme } from '$lib/theme.svelte'
   import { listeGroupee, pastille, pastilleScore } from './classes'
 
@@ -127,7 +128,7 @@
   // Par chapitre du référentiel : plusieurs parcours y donnent les mêmes ceintures.
   // Parcours commencés seulement : une rangée de ceintures vides ne dit rien et décourage
   const commence = (p: Parcours) => (historiques[p.id] ?? []).length > 0 || !!enCours[p.id]
-  const ceintures = $derived(ceinturesParChapitre(parcours.filter(commence), historiques))
+  const ceintures = $derived(ceinturesParChapitre(parcours.filter(commence), historiques, (etapes) => barrettes(revisions, etapes)))
   const vues = $derived([
     ['activite', 'Activité'],
     ['objectifs', 'Objectifs'],
@@ -139,15 +140,15 @@
   const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 </script>
 
-{#snippet rangee(liste: { nom: string; couleur: string; obtenue: boolean; niveau?: string }[])}
+{#snippet rangee(liste: { nom: string; couleur: string; obtenue: boolean; niveau?: string; barrettes?: number }[])}
   <ul class="flex flex-row flex-wrap gap-3">
     {#each liste as x (x.nom)}
-      <li class="flex flex-col items-center gap-1" aria-label="{x.nom}{x.niveau ? ` (${x.niveau})` : ''} : {x.obtenue ? 'obtenue' : 'pas encore obtenue'}">
-        <!-- Obtenue : la ceinture prend sa couleur ; sinon seulement son contour -->
-        <span
-          class="inline-block w-14 h-7 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-          style={x.obtenue ? `background-color: ${x.couleur}` : 'border-style: dashed'}
-        ></span>
+      <li
+        class="flex flex-col items-center gap-1"
+        aria-label="{x.nom}{x.niveau ? ` (${x.niveau})` : ''} : {x.obtenue ? `obtenue${x.barrettes ? `, ${texteBarrettes(x.barrettes)}` : ''}` : 'pas encore obtenue'}"
+      >
+        <!-- Obtenue : la ceinture prend sa couleur, avec ses barrettes ; sinon seulement son contour -->
+        <Ceinture couleur={x.couleur} obtenue={x.obtenue} barrettes={x.barrettes ?? 0} />
         <span class="text-xs {x.obtenue ? 'font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct' : discret}">{x.niveau ?? x.nom.replace('Ceinture ', '')}</span>
       </li>
     {/each}
@@ -246,6 +247,9 @@
           </button>
           {@render rangee(ceinturesTest)}
         </section>
+      {/if}
+      {#if ceintures.some((c) => c.ceintures.some((x) => x.obtenue))}
+        <p class="px-2 {discret}">Une ceinture gagne une barrette quand tu réussis encore ses exercices une semaine plus tard, en révision. Avec {BARRETTES} barrettes, elle est durable.</p>
       {/if}
       {#each ceintures as c (`${c.niveau}|${c.theme}`)}
         {@const plusHaute = c.ceintures.filter((x) => x.obtenue).at(-1)}

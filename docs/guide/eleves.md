@@ -18,6 +18,8 @@ Plus rapide : si l'enseignant projette le QR code de la classe, l'élève touche
 
 ## 2. Ses parcours
 
+En haut, un bouton propose quoi faire maintenant : reprendre la séance commencée, sinon faire la révision du jour, sinon passer la ceinture suivante du dernier parcours travaillé. Il n'apparaît qu'après un premier travail.
+
 Les parcours donnés à sa classe s'affichent, rangés par chapitre, avec ceux qu'il a ajoutés depuis l'Explorer (boussole à côté du titre). L'élève touche un parcours pour l'ouvrir. L'épingle d'une tuile la met en haut de la liste ; l'œil la cache (« Parcours cachés », en bas de l'accueil, la remet).
 
 ![Mes parcours](images/eleve-2-parcours.png)
@@ -30,13 +32,13 @@ Dans « Relatifs en ceintures », l'élève touche « Commencer », répond avec
 
 ## 4. La correction
 
-Chaque réponse est corrigée et la correction détaillée s'affiche. L'élève touche ensuite « Voir le bilan ».
+Chaque réponse est corrigée et la correction détaillée s'affiche. Après une réponse incorrecte, « Réessayer avec d'autres valeurs » repose la même question avec d'autres nombres, juste sous la correction : cet essai ne compte pas dans le score. L'enseignant peut retirer ce bouton d'un parcours ; il n'existe pas quand la correction arrive à la fin. L'élève touche ensuite « Voir le bilan ».
 
 ![Correction](images/eleve-4-correction.png)
 
 ## 5. Le bilan
 
-Le bilan donne le score et la suite. Ici la ceinture orange n'est pas encore obtenue : il faut 80 % pour ouvrir la ceinture verte. L'élève peut refaire la ceinture, avec de nouvelles questions.
+Le bilan dit d'abord où en est la ceinture : « Ceinture orange obtenue », avec sa couleur, ou ce qui manquait (« Il manquait 1 bonne réponse »). Le score est écrit en dessous. Ici la ceinture orange n'est pas encore obtenue : il faut 80 % pour ouvrir la ceinture verte. L'exercice où il y a une erreur est déjà ouvert, avec sa correction. L'élève peut refaire la ceinture, avec de nouvelles questions.
 
 ![Bilan](images/eleve-5-bilan.png)
 

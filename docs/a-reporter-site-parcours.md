@@ -52,3 +52,18 @@ sur le site : type `remiseAZero?: boolean | number` (`parcoursTypes.ts`),
 contrôle (`parcoursFile.ts`), conservation par `parcoursEditing.ts`. Côté
 élève, la fiche du parcours affiche « Parcours mis à jour » tant qu'aucun
 passage n'a été terminé dans la nouvelle version.
+
+## Réessayer avec d'autres valeurs (novembre 2026, à reporter)
+
+L'app lit `reessayer` sur un parcours (`catalogue.ts`, `reessaiPropose`) :
+après une réponse incorrecte, « Réessayer avec d'autres valeurs » repose la
+même question avec de nouvelles valeurs, sous la correction, hors score.
+Absent ou `true` : proposé ; `false` : jamais. Sans effet avec la correction
+à la fin du parcours (`correction: "parcours"`).
+
+À faire sur le site : type `reessayer?: boolean` (`parcoursTypes.ts`),
+contrôle (`parcoursFile.ts`), valeur par défaut `true` pour un nouveau
+parcours (`parcoursLibrary.ts`, `Parcours.svelte`), case « Proposer de
+réessayer après une erreur » dans `ParcoursEditor.svelte`, cochée par
+défaut et masquée quand la correction est à la fin du parcours, test
+`tests/unit/parcours.test.ts`.

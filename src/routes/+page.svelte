@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
+  import { couleurCeinture, ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
   import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
   import Fiches from '$lib/ui/Fiches.svelte'
@@ -42,6 +42,8 @@
   import EcranRevisions from '$lib/ui/Revisions.svelte'
   import {
     aRevoir,
+    barrettes,
+    TAILLE_PAR_DEFAUT,
     estRevision,
     ID_REVISIONS,
     integrerPassages,
@@ -539,6 +541,25 @@
   // ---------- Révisions espacées (sur l'appareil, d'après les passages terminés) ----------
   let revisions: Revisions = $state(revisionsVides())
   let issuesRevision: Record<number, { reussi: boolean; quand: string }> | null = $state(null)
+  // Barrettes gagnées par la séance qui vient de finir (bilan) : ceintures obtenues dont les exercices
+  // ont été réussis de nouveau après plusieurs jours. Par chapitre et par ceinture, comme dans le Suivi.
+  let barrettesGagnees: { nom: string; couleur: string; theme: string; barrettes: number }[] = $state([])
+  function gainsDeBarrettes(avant: Revisions, apres: Revisions) {
+    const gains = new Map<string, { nom: string; couleur: string; theme: string; barrettes: number }>()
+    for (const p of parcoursSuivis) {
+      if (p.style !== 'ceintures' || paliersDe(p).length < 2) continue
+      const obtenues = ceinturesObtenues(p, historiques[p.id] ?? [])
+      paliersDe(p).forEach((x, k) => {
+        if (!obtenues[k]?.obtenue) return
+        const etapes = x.etapes.map((i) => p.etapes[i])
+        const n = barrettes(apres, etapes)
+        if (n <= barrettes(avant, etapes)) return
+        const cle = `${p.niveau}|${p.theme}|${obtenues[k].nom}`
+        if (n > (gains.get(cle)?.barrettes ?? 0)) gains.set(cle, { nom: obtenues[k].nom, couleur: obtenues[k].couleur, theme: p.theme, barrettes: n })
+      })
+    }
+    return [...gains.values()]
+  }
   async function chargerRevisions() {
     const avant = (await stockage!.lire<Revisions>('revisions')) ?? revisionsVides()
     const cles = (await stockage!.cles()).filter((c) => c.startsWith('historique:'))
@@ -552,6 +573,40 @@
   const resumeRevisions = $derived(
     Object.keys(revisions.elements).length ? { dus: aRevoir(revisions).length, prochaine: prochaineRevision(revisions), enCours: revisionEnCours } : null,
   )
+  // ---------- Accueil : une seule action proposée ----------
+  // Reprendre la séance commencée ; sinon la révision du jour ; sinon la
+  // ceinture (ou le palier) suivante du parcours travaillé en dernier.
+  const actionProposee = $derived.by((): { libelle: string; detail: string; fn: () => void } | null => {
+    if (!moteur) return null
+    const visibles = tous.filter((p) => !caches.includes(p.id))
+    // 1. Séance commencée, la plus récente
+    const commencees = visibles.filter((p) => resumes[p.id]?.enCours).sort((a, b) => (seances[b.id]?.debut ?? '').localeCompare(seances[a.id]?.debut ?? ''))
+    if (revisionEnCours) return { libelle: 'Reprendre la révision', detail: 'Révision commencée', fn: lancerRevision }
+    if (commencees.length) {
+      const p = commencees[0]
+      const r = resumes[p.id]
+      return { libelle: 'Reprendre', detail: `${p.titre} · question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`, fn: () => commencer(p) }
+    }
+    // 2. Révision du jour, à la taille choisie (jamais un stock)
+    const dus = aRevoir(revisions).length
+    if (dus > 0) {
+      const n = Math.min(dus, revisions.taille ?? TAILLE_PAR_DEFAUT)
+      return { libelle: 'Réviser maintenant', detail: `Révision du jour · ${n} question${n > 1 ? 's' : ''}`, fn: lancerRevision }
+    }
+    // 3. Ceinture ou palier suivant, ouvert et pas encore réussi, du parcours travaillé en dernier
+    const dernierPassage = (p: Parcours) => (historiques[p.id] ?? []).at(-1)?.fin ?? ''
+    const entames = visibles.filter((p) => paliersDe(p).length > 1 && dernierPassage(p)).sort((a, b) => dernierPassage(b).localeCompare(dernierPassage(a)))
+    for (const p of entames) {
+      const acquis = acquisDe(p, historiques[p.id] ?? [])
+      const etats = etatsPaliers(p, resultats[p.id] ?? {}, heure.maintenant, Date.now(), acquis)
+      const k = etats.findIndex((x, i) => x.ouvert && !acquis[i])
+      if (k === -1) continue
+      const nom = nomPalier(p, k).toLowerCase()
+      return { libelle: p.style === 'ceintures' ? `Passer la ${nom}` : `Faire le ${nom}`, detail: [p.titre, etats[k].titre.trim()].filter(Boolean).join(' · '), fn: () => commencer(p, etats[k].etapes) }
+    }
+    return null
+  })
+
   /** Reprend la séance commencée, sinon en tire une nouvelle (exercices à revoir aujourd'hui) */
   function lancerRevision() {
     const commencee = seances[ID_REVISIONS]
@@ -625,8 +680,13 @@
     const k = etats.findIndex((x) => x.etapes.join() === seance!.etapes.join())
     if (k === -1) return null
     const suivant = etats[k + 1]
+    // Ceinture ou palier déjà réussi lors d'un autre passage que celui-ci
+    const autres = (historiques[actif.id] ?? []).filter((s) => s.debut !== seance!.debut)
     return {
       nom: nomPalier(actif, k),
+      couleur: actif.style === 'ceintures' ? couleurCeinture(actif, k) : null,
+      attendu: etats[k].attendu,
+      deja: ceinturesObtenues(actif, autres)[k]?.obtenue === true,
       pause: etats[k].pause,
       ressource: etats[k].ressource,
       fiche: etats[k].fiche,
@@ -634,6 +694,7 @@
         ? {
             nom: nomPalier(actif, k + 1),
             ouvert: suivant.ouvert,
+            libre: suivant.acces !== 'seuil',
             etapes: suivant.etapes,
             condition: conditionPalier(suivant, etats[k]),
             // Réussite suffisante : seule la date d'ouverture manque
@@ -739,11 +800,13 @@
     if (estTest(s.parcours)) await noterTest(s)
     // Révisions : une séance de révision fait avancer ou reculer ses exercices ;
     // un autre passage terminé fait entrer les siens
+    const revisionsAvant = revisions
     if (estRevision(s.parcours)) {
       const { revisions: suite, issues } = resultatsRevision(revisions, s)
       revisions = suite
       issuesRevision = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, { reussi: v.reussi, quand: quandRevision(v.apres.prochaine) }]))
     } else revisions = integrerPassages(revisions, [s], estTest)
+    barrettesGagnees = gainsDeBarrettes(revisionsAvant, revisions)
     await stockage!.ecrire('revisions', $state.snapshot(revisions))
     // Pourcentage du parcours : seulement pour un passage sur tous ses exercices (pas un palier seul)
     if (s.type === 'complet' && s.etapes.length === s.contenu.etapes.length) {
@@ -946,6 +1009,7 @@
       onscanner={moteur ? () => (scanSession = true) : undefined}
       revisions={resumeRevisions}
       onrevisions={() => aller('revisions')}
+      action={actionProposee}
       ontest={moteur && testPropose ? ouvrirTest : undefined}
       {resumeTest}
       onajouter={ajouterClasse}
@@ -1002,6 +1066,7 @@
       aAmeliorer={etapesAAmeliorer(actif, resultats[actif.id] ?? {})}
       epingle={dansSources(actif.id) ? epingles.includes(actif.id) : ajoutes.some((a) => a.id === actif!.id)}
       passages={historiques[actif.id] ?? []}
+      {revisions}
       explorer={!dansSources(actif.id)}
       onepingler={() => (dansSources(actif!.id) ? basculerEpingle(actif!) : basculerAjout(actif!))}
       onrelire={(s) => {
@@ -1066,6 +1131,7 @@
       palier={palierDuBilan}
       test={testDuBilan}
       revision={estRevision(seance.parcours) ? (issuesRevision ?? {}) : null}
+      barrettes={barrettesGagnees}
       oncontinuer={palierDuBilan?.suite?.ouvert ? () => commencer(actif!, palierDuBilan!.suite!.etapes) : undefined}
       onfiche={(f) => ouvrirCours(f)}
     />

@@ -23,6 +23,7 @@ export interface ElementRevision {
   theme: string // chapitre
   parcours: string // titre du dernier parcours où il a été travaillé
   boite: number
+  sommet?: number // boîte la plus haute atteinte : les barrettes d'une ceinture ne se retirent pas (absent : la boîte)
   prochaine: string // jour (AAAA-MM-JJ) de la prochaine révision
   revu?: string // dernier jour de révision
   historique: { le: string; reussi: boolean }[] // dernières révisions (10 au plus)
@@ -55,7 +56,7 @@ const boiteDEntree = (pourcentage: number) => (pourcentage >= 80 ? 3 : pourcenta
 
 function placer(e: ElementRevision, boite: number, aujourdhui: string): ElementRevision {
   const b = Math.min(5, Math.max(1, boite))
-  return { ...e, boite: b, prochaine: plusJours(aujourdhui, INTERVALLES[b]) }
+  return { ...e, boite: b, sommet: Math.max(b, e.sommet ?? e.boite), prochaine: plusJours(aujourdhui, INTERVALLES[b]) }
 }
 
 /** Exercice révisé : réussi, boîte suivante ; manqué, boîte précédente */
@@ -201,6 +202,24 @@ export function soliditeObjectif(r: Revisions, libelle: string) {
   return boites.length ? solidite(Math.min(...boites)) : null
 }
 
+/**
+ * Barrettes d'une ceinture, comme au judo : une quand tous ses exercices ont
+ * été réussis de nouveau après une semaine (boîte 4), deux après trois
+ * semaines de plus (boîte 5, « durable »). D'après la boîte la plus haute
+ * atteinte : une barrette gagnée n'est jamais retirée, comme la ceinture.
+ * Exercices sur papier : hors révisions, ils ne comptent pas.
+ */
+export const BARRETTES = 2
+export function barrettes(r: Revisions | null | undefined, etapes: Etape[]) {
+  const sommets = etapes.flatMap((e) => {
+    const x = r?.elements[cleExercice(e)]
+    return x ? [x.sommet ?? x.boite] : []
+  })
+  return sommets.length ? Math.max(0, Math.min(...sommets) - (5 - BARRETTES)) : 0
+}
+/** « 1 barrette sur 2 », « 2 barrettes sur 2 : ceinture durable » */
+export const texteBarrettes = (n: number) => `${n} barrette${n > 1 ? 's' : ''} sur ${BARRETTES}${n >= BARRETTES ? ' : ceinture durable' : ''}`
+
 /** Quand l'exercice reviendra, en mots simples */
 export function quand(prochaine: string, aujourdhui = jour()) {
   const [a, m, d] = aujourdhui.split('-').map(Number)
@@ -234,6 +253,7 @@ export function estRevisions(v: unknown): v is Revisions {
         Number.isInteger(e.boite) &&
         e.boite >= 1 &&
         e.boite <= 5 &&
+        (e.sommet === undefined || (Number.isInteger(e.sommet) && e.sommet >= 1 && e.sommet <= 5)) &&
         jourValide(e.prochaine) &&
         (e.revu === undefined || jourValide(e.revu)) &&
         Array.isArray(e.historique) &&

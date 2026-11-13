@@ -1,7 +1,7 @@
 <script lang="ts">
   import { garderSaisie } from './barreDuBas'
   import { onDestroy, onMount, tick } from 'svelte'
-  import { couleurCeinture, nomPalier, paliersDe, titreVisible, type Parcours } from '$lib/catalogue'
+  import { couleurCeinture, nomPalier, paliersDe, reessaiPropose, titreVisible, type Parcours } from '$lib/catalogue'
   import { NIVEAUX_TEST, ceintureDu, couleurDu, niveauDuTest } from '$lib/testNiveau'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
@@ -191,9 +191,49 @@
     for (const bloc of blocs) bloc?.envoyerBrouillon()
   }
 
+  // ---------- Nouvel essai après une réponse incorrecte ----------
+  // La même question avec d'autres valeurs, juste sous la correction : hors
+  // score, rien n'est enregistré (réglage `reessayer` du parcours, jamais avec
+  // la correction à la fin). Le score reste celui de la première vérification.
+  const avecReessai = $derived(reessaiPropose(parcours) && !relecture)
+  type Reessai = { exercice: ExercicePrepare; question: number; tour: number; resultat: ResultatVerification | null }
+  let reessais: Record<string, Reessai> = $state({})
+  let blocsReessai: Record<string, BlocQuestion | undefined> = $state({})
+  let reessaiEnPreparation: string | null = $state(null)
+  // Numéros d'exercice à part : les champs du nouvel essai ne portent pas les identifiants de la question d'origine
+  const NUMERO_REESSAI = 500
+
+  const reessaiPossible = (ref: Ref) => {
+    if (!avecReessai || !exercices[ref.etape]?.questions[ref.question]?.interactive) return false
+    const e = premiers.get(cleQuestion(ref.etape, ref.question))
+    return !!e && valeur(e) < 1
+  }
+
+  async function reessayer(ref: Ref) {
+    const cle = cleQuestion(ref.etape, ref.question)
+    if (reessaiEnPreparation) return
+    reessaiEnPreparation = cle
+    try {
+      // Sans graine : le moteur en tire une nouvelle
+      const { alea: _alea, ...params } = parcours.etapes[ref.etape]
+      const exercice = await moteur.preparerExercice(params, NUMERO_REESSAI + ref.rang)
+      // Même rang de question ; à défaut, la première à laquelle on peut répondre
+      const question = exercice.questions[ref.question]?.interactive ? ref.question : exercice.questions.findIndex((x) => x.interactive)
+      if (question === -1) return
+      reessais[cle] = { exercice, question, tour: (reessais[cle]?.tour ?? 0) + 1, resultat: null }
+      await tick()
+      blocsReessai[cle]?.focaliser(true)
+    } catch (e) {
+      erreur = `Impossible de préparer un nouvel essai : ${(e as Error).message}`
+    } finally {
+      reessaiEnPreparation = null
+    }
+  }
+
   async function allerPage(p: number) {
     if (!pages[p]) return
     garderBrouillons()
+    reessais = {}
     seance.position = pages[p][0].rang
     aSaisi = false
     sauver()
@@ -593,6 +633,48 @@
             correctionVue={seance.papier?.[cleQuestion(ref.etape, ref.question)] === true}
             onvoircorrection={() => enregistrerCorrectionVue(ref)}
           />
+          {#if reessaiPossible(ref)}
+            {@const cle = cleQuestion(ref.etape, ref.question)}
+            {@const r = reessais[cle]}
+            {#if r}
+              <section aria-label="Nouvel essai" class="mt-2">
+                <p class="pb-3 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+                  Nouvel essai
+                  <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">· ne compte pas dans le score</span>
+                </p>
+                {#key r.tour}
+                  <BlocQuestion
+                    bind:this={blocsReessai[cle]}
+                    {moteur}
+                    exercice={r.exercice}
+                    question={r.question}
+                    avecContexte
+                    avecBouton
+                    essai={undefined}
+                    brouillon={undefined}
+                    onverifiee={(x) => (r.resultat = x)}
+                    onbrouillon={() => {}}
+                  />
+                {/key}
+              </section>
+            {/if}
+            <!-- Proposé après l'erreur, puis de nouveau si le nouvel essai est manqué -->
+            {#if !r || (r.resultat && r.resultat.points < r.resultat.total)}
+              <div class="mb-4">
+                <button
+                  type="button"
+                  class="{boutonLien} -ml-3"
+                  style="min-height: 44px"
+                  aria-busy={reessaiEnPreparation === cle}
+                  disabled={reessaiEnPreparation !== null}
+                  onclick={() => reessayer(ref)}
+                >
+                  <i aria-hidden="true" class="bx bx-refresh text-xl"></i>
+                  Réessayer avec d’autres valeurs
+                </button>
+              </div>
+            {/if}
+          {/if}
         {/each}
       {/key}
       </div>

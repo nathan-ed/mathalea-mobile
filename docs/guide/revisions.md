@@ -41,3 +41,7 @@ Le bilan dévoile le titre de chaque exercice et dit quand il reviendra.
 ![Le bilan d'une révision](images/revisions-4-bilan.png)
 
 Dans le Suivi, chaque objectif indique aussi sa solidité dans le temps (« révision : en bonne voie »). Une ceinture obtenue n'est jamais retirée : les révisions l'entretiennent.
+
+## 5. Les barrettes
+
+Comme au judo, une ceinture obtenue gagne des barrettes. La première arrive quand tous ses exercices sont réussis de nouveau une semaine plus tard, en révision. La deuxième arrive trois semaines après : la ceinture est alors « durable ». Le bilan de la révision l'annonce (« Barrette gagnée »), et les barrettes se voient sur la ceinture dans le Suivi et sur la page du parcours. Une barrette gagnée n'est jamais retirée.

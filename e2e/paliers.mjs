@@ -147,7 +147,7 @@ for (const theme of ['clair', 'sombre']) {
     await pagePrete(e)
   }
   const bilanTexte = await texte(e)
-  ok(bilanTexte.includes('2 / 4') && bilanTexte.includes('Bilan : palier 1'), 'bilan : score du palier, titré par le palier')
+  ok(bilanTexte.includes('2 / 4') && bilanTexte.includes('Palier 1 réussi'), 'bilan : palier réussi au seuil choisi, avec son score')
   ok(bilanTexte.includes('Bravo !'), 'bilan : la pause prévue par l’enseignant à la fin du palier')
   ok(await e.getByRole('button', { name: 'Continuer : palier 2' }).isVisible(), 'bilan : continuer au palier suivant')
   await capTout(e, '10-bilan-palier', theme)

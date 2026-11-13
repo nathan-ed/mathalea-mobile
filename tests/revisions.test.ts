@@ -3,6 +3,8 @@ import type { Parcours } from '../src/lib/catalogue'
 import { nouvelleSeance, type Seance } from '../src/lib/progression'
 import {
   aRevoir,
+  barrettes,
+  texteBarrettes,
   chapitres,
   estRevisions,
   integrerPassages,
@@ -119,6 +121,40 @@ describe('révisions espacées', () => {
     le = a1(revisions).prochaine
     const s = revision(tirerRevision(revisions, le)!, { a1: false }, le)
     expect(a1(resultatsRevision(revisions, s, le).revisions).boite).toBe(4)
+  })
+
+  it('barrettes d’une ceinture : une par révision réussie dans la durée, jamais retirées', () => {
+    const a1 = (x: Revisions) => Object.values(x.elements).find((e) => e.etape.uuid === 'a1')!
+    // Ceinture obtenue (boîte 3) : pas encore de barrette ; sans révisions : aucune
+    let r = integrerPassages(revisionsVides(), [passage(relatifs, [2, 2], '2026-10-01')])
+    expect(barrettes(r, relatifs.etapes)).toBe(0)
+    expect(barrettes(null, relatifs.etapes)).toBe(0)
+    expect(barrettes(r, aires.etapes)).toBe(0)
+    // Une semaine après, un seul des deux exercices réussi : la ceinture attend l'autre
+    let le = '2026-10-08'
+    r = resultatsRevision(r, revision(tirerRevision(r, le)!, { a2: false }, le), le).revisions
+    expect(barrettes(r, [relatifs.etapes[0]])).toBe(1)
+    expect(barrettes(r, relatifs.etapes)).toBe(0)
+    // Tous réussis dans la durée : une barrette, puis deux (durable)
+    r = integrerPassages(revisionsVides(), [passage(relatifs, [2, 2], '2026-10-01')])
+    r = resultatsRevision(r, revision(tirerRevision(r, le)!, {}, le), le).revisions
+    expect(barrettes(r, relatifs.etapes)).toBe(1)
+    le = a1(r).prochaine
+    r = resultatsRevision(r, revision(tirerRevision(r, le)!, {}, le), le).revisions
+    expect(barrettes(r, relatifs.etapes)).toBe(2)
+    // Révision manquée ensuite : la boîte recule, les barrettes restent
+    le = a1(r).prochaine
+    r = resultatsRevision(r, revision(tirerRevision(r, le)!, { a1: false }, le), le).revisions
+    expect(a1(r).boite).toBe(4)
+    expect(a1(r).sommet).toBe(5)
+    expect(barrettes(r, relatifs.etapes)).toBe(2)
+    expect(estRevisions(r)).toBe(true)
+    expect(estRevisions({ ...r, elements: { x: { ...a1(r), sommet: 9 } } })).toBe(false)
+    // Données d'avant les barrettes (sans sommet) : la boîte fait foi
+    const { sommet: _s, ...ancien } = a1(r)
+    expect(barrettes({ ...r, elements: { [`${ancien.etape.uuid}||||`]: ancien } }, [relatifs.etapes[0]])).toBe(1)
+    expect(texteBarrettes(1)).toBe('1 barrette sur 2')
+    expect(texteBarrettes(2)).toBe('2 barrettes sur 2 : ceinture durable')
   })
 
   it('une séance terminée deux fois (questions passées reprises) ne compte chaque exercice qu’une fois', () => {

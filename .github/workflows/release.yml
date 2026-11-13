@@ -65,6 +65,7 @@ jobs:
           - classe-qr session-qr auteurs signalement
           - ouverture-paliers paliers papier correction-parcours catalogue-moteur
           - revisions test-niveau test-niveau-reel impression
+          - reessayer bilan-ceinture barrettes accueil-action
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8

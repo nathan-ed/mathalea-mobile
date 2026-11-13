@@ -71,6 +71,7 @@ Une classe, un parcours, un exercice :
 | `enTetesMasques` | facultatif ; `true` : ni numéro ni titre d'exercice, les questions s'enchaînent |
 | `titresVisibles` | facultatif ; `true` : l'élève voit le titre des exercices (liste des paliers, en-têtes, bilan). Absent : « Exercice 1 », « Exercice 2 »…, car le titre donne souvent la méthode |
 | `melanger` | facultatif ; `true` : questions des exercices mélangées (sans effet avec `un_exo_par_page`) |
+| `reessayer` | facultatif ; `false` : pas de « Réessayer avec d'autres valeurs » après une réponse incorrecte. Absent ou `true` : proposé, hors score, sauf avec `correction` à `parcours` |
 | `fiche` | facultatif ; fiche de cours d'un parcours sans paliers, voir « Fiches de cours » |
 | `etapes` | **obligatoire** ; liste d'exercices, dans l'ordre |
 | `paliers` | facultatif ; découpe en paliers, voir plus bas |
