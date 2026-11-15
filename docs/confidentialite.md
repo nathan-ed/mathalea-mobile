@@ -3,7 +3,7 @@
 # MathALÉA : politique de confidentialité
 
 Application MathALÉA (`fr.coopmaths.mathalea`), par CoopMaths. En vigueur le
-6 novembre 2026 (version 0.6).
+15 novembre 2026 (version 0.7.2).
 
 ## En bref
 
@@ -66,6 +66,10 @@ L'application se connecte à Internet seulement pour :
   une date d'ouverture : l'application lit l'heure de mathalea.fr et de
   forge.apps.education.fr (requête sans aucun contenu ; le service reçoit
   l'adresse IP de l'appareil) ;
+- **mettre à jour le moteur d'exercices** : l'application vérifie si l'équipe
+  MathALÉA a publié un moteur plus récent sur forge.apps.education.fr et le
+  télécharge le cas échéant (requête sans aucun contenu ; le service reçoit
+  l'adresse IP de l'appareil) ;
 - **ouvrir un lien** choisi par l'utilisateur (ressource d'un parcours,
   dossier partagé) dans le navigateur de l'appareil.
 
@@ -77,9 +81,16 @@ décide de l'envoyer.
 
 Toutes ces connexions sont chiffrées (HTTPS).
 
-L'application ne télécharge jamais de code : le moteur d'exercices est livré
-avec elle et mis à jour avec elle, par la boutique ou par un nouveau fichier
-d'installation de la forge de CoopMaths.
+Le moteur d'exercices (JavaScript et CSS, exécutés dans la vue web de
+l'application) est livré avec elle. Pour corriger un exercice sans attendre
+une nouvelle version, l'application peut le remplacer par un moteur plus
+récent publié par l'équipe MathALÉA dans le dépôt public de l'application. Ce
+moteur n'est utilisé que si sa signature est celle de l'équipe et si son
+empreinte correspond ; sinon l'application garde le moteur livré. Il est
+activé au lancement suivant, jamais pendant une activité, et sa version
+s'affiche dans les Réglages (« À propos »). Il ne change que les exercices :
+il ne collecte aucune donnée, ne demande aucune autorisation et n'envoie
+rien.
 
 ## Partage de fichiers
 
