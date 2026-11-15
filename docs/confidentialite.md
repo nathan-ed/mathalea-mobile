@@ -83,8 +83,10 @@ Toutes ces connexions sont chiffrées (HTTPS).
 
 Le moteur d'exercices (JavaScript et CSS, exécutés dans la vue web de
 l'application) est livré avec elle. Pour corriger un exercice sans attendre
-une nouvelle version, l'application peut le remplacer par un moteur plus
-récent publié par l'équipe MathALÉA dans le dépôt public de l'application. Ce
+une nouvelle version, l'application peut le remplacer, depuis la version 0.7.1
+sur Android, Windows et Linux et depuis la version 0.7.2 sur iPhone, iPad et
+Mac, par un moteur plus récent publié par l'équipe MathALÉA dans le dépôt
+public de l'application. Ce
 moteur n'est utilisé que si sa signature est celle de l'équipe et si son
 empreinte correspond ; sinon l'application garde le moteur livré. Il est
 activé au lancement suivant, jamais pendant une activité, et sa version
