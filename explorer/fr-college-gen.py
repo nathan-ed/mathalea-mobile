@@ -161,9 +161,38 @@ fractions = parcours(
     ],
 )
 
+# 4L23 : exemple de la vidéo pour Apple (0.7.2). Le moteur livré (eb369570d6)
+# donne un clavier vide au champ de justification ; corrigé par 88e9f94e95
+# (MathALÉA, 13 novembre 2026), qui arrive par la mise à jour du moteur.
+egalites = parcours(
+    'fr-4e-egalites-litterales',
+    'Démontrer ou réfuter une égalité',
+    '4e',
+    'Dire si une égalité littérale est toujours vraie, puis le démontrer ou donner un contre-exemple.',
+    'Une ceinture : pour chaque égalité, dis si elle est toujours vraie, puis justifie. La fiche de cours rappelle comment démontrer et comment réfuter.',
+    'Une ceinture de quatre questions : 4L23 (choix vraie ou fausse, puis justification saisie au clavier). Fiche courte : règle, exemple résolu, question non notée.',
+    [
+        (
+            'Démontrer ou réfuter une égalité',
+            ('8d4f2', '4L23', 'Démontrer ou réfuter une égalité littérale'),
+            ceinture(
+                'Démontrer ou réfuter une égalité',
+                'Pour démontrer qu’une égalité est vraie pour toutes les valeurs de la lettre, on développe et on réduit chaque membre jusqu’à obtenir la même expression. Pour montrer qu’elle est fausse, un seul contre-exemple suffit : une valeur de la lettre pour laquelle les deux membres sont différents.',
+                ('L’égalité $(x+1)^2=x^2+1$ est-elle toujours vraie ?', [
+                    'On essaie $x=1$ : à gauche $(1+1)^2=4$, à droite $1^2+1=2$.',
+                    '$4\\neq2$ : $x=1$ est un contre-exemple.',
+                    'L’égalité est fausse. En développant : $(x+1)^2=x^2+2x+1$.',
+                ]),
+                ('Pour démontrer que $2(x+3)=2x+6$ pour tout $x$, que faire ?', ['Tester $x=0$', 'Développer $2(x+3)$', 'Tester trois valeurs de $x$'], 1,
+                 'Des essais ne suffisent pas à démontrer : il faudrait tester toutes les valeurs. On développe : $2(x+3)=2x+6$, pour tout $x$.'),
+            ),
+        ),
+    ],
+)
+
 fichier = {
     'format': 'classes-mathalea/1',
     'exporteLe': '2026-11-06T08:00:00.000Z',
-    'classes': [{'nom': 'Explorer France', 'parcours': [relatifs, fractions]}],
+    'classes': [{'nom': 'Explorer France', 'parcours': [relatifs, fractions, egalites]}],
 }
 Path(__file__).with_name('fr-college.json').write_text(json.dumps(fichier, ensure_ascii=False, indent=2) + '\n')

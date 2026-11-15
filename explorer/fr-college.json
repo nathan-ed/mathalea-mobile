@@ -310,6 +310,71 @@
               "seuil": 80
             }
           ]
+        },
+        {
+          "id": "fr-4e-egalites-litterales",
+          "version": 1,
+          "titre": "Démontrer ou réfuter une égalité",
+          "objectif": "Dire si une égalité littérale est toujours vraie, puis le démontrer ou donner un contre-exemple.",
+          "auteurs": [
+            "Claude Opus 5.5",
+            "Nathan Scheinmann"
+          ],
+          "descriptionEleves": "Une ceinture : pour chaque égalité, dis si elle est toujours vraie, puis justifie. La fiche de cours rappelle comment démontrer et comment réfuter.",
+          "descriptionEnseignant": "Une ceinture de quatre questions : 4L23 (choix vraie ou fausse, puis justification saisie au clavier). Fiche courte : règle, exemple résolu, question non notée.",
+          "niveau": "4e",
+          "theme": "Nombres et calculs",
+          "difficulte": 1,
+          "icone": "bx-medal",
+          "presentation": "une_question_par_page",
+          "correction": "question",
+          "style": "ceintures",
+          "etapes": [
+            {
+              "uuid": "8d4f2",
+              "id": "4L23",
+              "titre": "Démontrer ou réfuter une égalité littérale",
+              "nbQuestions": 4
+            }
+          ],
+          "paliers": [
+            {
+              "titre": "Démontrer ou réfuter une égalité",
+              "nb": 1,
+              "fiche": {
+                "titre": "Démontrer ou réfuter une égalité",
+                "avant": true,
+                "blocs": [
+                  {
+                    "type": "retenir",
+                    "titre": "À retenir",
+                    "texte": "Pour démontrer qu’une égalité est vraie pour toutes les valeurs de la lettre, on développe et on réduit chaque membre jusqu’à obtenir la même expression. Pour montrer qu’elle est fausse, un seul contre-exemple suffit : une valeur de la lettre pour laquelle les deux membres sont différents."
+                  },
+                  {
+                    "type": "exemple",
+                    "titre": "Exemple",
+                    "enonce": "L’égalité $(x+1)^2=x^2+1$ est-elle toujours vraie ?",
+                    "etapes": [
+                      "On essaie $x=1$ : à gauche $(1+1)^2=4$, à droite $1^2+1=2$.",
+                      "$4\\neq2$ : $x=1$ est un contre-exemple.",
+                      "L’égalité est fausse. En développant : $(x+1)^2=x^2+2x+1$."
+                    ]
+                  },
+                  {
+                    "type": "question",
+                    "enonce": "Pour démontrer que $2(x+3)=2x+6$ pour tout $x$, que faire ?",
+                    "choix": [
+                      "Tester $x=0$",
+                      "Développer $2(x+3)$",
+                      "Tester trois valeurs de $x$"
+                    ],
+                    "bonne": 1,
+                    "explication": "Des essais ne suffisent pas à démontrer : il faudrait tester toutes les valeurs. On développe : $2(x+3)=2x+6$, pour tout $x$."
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     }
