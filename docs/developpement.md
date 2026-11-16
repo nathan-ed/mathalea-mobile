@@ -1220,8 +1220,18 @@ Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
   21, 56 jours (`INTERVALLES`). Entrée d'après la réussite au parcours (< 50 %
   : 1, < 80 % : 2, sinon 3) ; révision réussie (toutes les questions) : boîte
   suivante ; manquée : boîte précédente (pas retour au début, moins
-  décourageant). Un nouveau passage d'un exercice à revoir compte comme une
-  révision ; manqué (< 50 %), il revient le lendemain.
+  décourageant) et retour **dès le lendemain** (`rattrapage` ; avant novembre
+  2026 il attendait l'intervalle de sa nouvelle boîte : une erreur en boîte 5
+  ne revenait que 21 jours après). Réussi ce lendemain, il garde sa boîte et
+  repart sur son intervalle, sans remonter aussitôt. Réussi **en avance**
+  (révisions d'une évaluation) : rien ne bouge. Un nouveau passage d'un
+  exercice à revoir compte comme une révision ; manqué (< 50 %), il revient le
+  lendemain.
+- Parcours d'origine : chaque exercice garde les parcours où il a été
+  travaillé (`origines`, titres et chapitres dans `sources`). Son chapitre
+  est celui de ses parcours (`sourcesDe`) : un parcours de révision (« ER
+  décembre ») ne le sort plus de son chapitre. Données d'avant : rattachées
+  au lancement d'après les passages gardés, sans rien recompter.
 - `integrerPassages` au lancement (tous les `historique:*`) et à chaque fin de
   séance : un repère par exercice (`traites`, « parcours@début#étape »), compté
   une seule fois, quand il est complet (questions passées reprises plus tard).
@@ -1234,7 +1244,28 @@ Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
   ordre `entrelacer` (`fixerOrdre`, id `revisions`) : jamais deux questions du
   même exercice à la suite. Résultats (`resultatsRevision`) une fois par
   exercice et par séance ; bilan : titres dévoilés, « Revient dans… ».
-- Chapitres choisis (`chapitres` ; absent : tous, les nouveaux inclus).
+- Chapitres écartés (`sansChapitres`) : un chapitre commencé ensuite est
+  toujours révisé. L'ancienne liste des chapitres choisis (`chapitres`)
+  écartait sans le dire tout nouveau chapitre : convertie au lancement et à la
+  fusion (`migrerChapitres`).
+- Préparer une évaluation (Nathan, 16 novembre 2026 : « students have a test
+  on x y and don't want to include v and w », « a parcours can be excluded
+  even if in a chapter », « easy, not too heavy on students ») :
+  `PreparerEvaluation.svelte`, deux gestes, le jour (quatre semaines à
+  toucher) et les parcours rangés par chapitre (`parcoursParChapitre`, ceux
+  de l'élève pas encore commencés compris). `evaluation` (`parcours`, `date`)
+  dans la clé `revisions`. Jusqu'à ce jour compris (`evaluationEnCours`),
+  `tirerRevision` ne prend que les exercices de ces parcours, sans attendre
+  leur date : pas encore réussis aujourd'hui, puis boîte la plus basse, puis
+  vus depuis le plus longtemps, à tour de rôle par parcours. Tout réussi dans
+  la journée : « Tout est revu pour aujourd'hui », « Refaire une série »,
+  l'accueil ne relance pas. Parcours choisis pas terminés : « À finir avant
+  l'évaluation » (ouvre le parcours). Bilan : « Réussi aujourd'hui » ou « À
+  revoir avant l'évaluation ». Le lendemain, la préparation s'efface au
+  lancement. Jamais de compte de ce qui reste, comme pour les révisions.
+  Pistes non faites : choix par ceinture dans un parcours, évaluation
+  annoncée par l'enseignant dans le fichier de parcours, lien vers la fiche
+  de cours après une erreur.
 - Suivi : les séances de révision comptent pour les objectifs, qui gardent le
   niveau et le chapitre du parcours d'origine (`objectifsTravailles`, passages
   triés par date) ; solidité d'un objectif = boîte la plus basse de ses
@@ -1242,7 +1273,8 @@ Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
   retirées.
 - Vérification : `tests/revisions.test.ts`, `node e2e/revisions.mjs` (deux
   parcours faits au clavier, horloge du navigateur avancée d'un jour puis
-  d'une semaine, séance, bilan, chapitres, suivi, sombre).
+  d'une semaine, séance, bilan, chapitres, suivi, évaluation préparée,
+  modifiée, arrêtée, terminée d'office, sombre, bureau).
 
 ## 0.4.1 : sessions préparées, QR code de session (fait)
 

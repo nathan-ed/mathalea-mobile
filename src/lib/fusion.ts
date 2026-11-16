@@ -9,7 +9,7 @@ import type { Parcours } from './catalogue'
 import { CLE_FICHES, type FicheDuParcours } from './fiches'
 import { bilan, type ResultatEtape, type Seance } from './progression'
 import type { Releve } from './releve'
-import { ID_REVISIONS, integrerPassages, jour, resultatsRevision, revisionsVides, type Revisions } from './revisions'
+import { ID_REVISIONS, integrerPassages, jour, migrerChapitres, resultatsRevision, revisionsVides, type Revisions } from './revisions'
 import { estTest } from './testNiveau'
 
 type Donnees = Record<string, unknown>
@@ -31,8 +31,9 @@ const union = (a: string[] = [], b: string[] = []) => [...new Set([...a, ...b])]
 const activite = (s: Seance) => [s.debut, s.fin ?? '', ...s.essais.map((e) => e.le)].reduce((a, b) => (a > b ? a : b))
 
 /** Révisions recalculées d'après tous les passages, dans l'ordre de leur fin */
-export function rejouerRevisions(historiques: Seance[][], reglages: Pick<Revisions, 'chapitres' | 'taille'> = {}): Revisions {
-  let r: Revisions = { ...revisionsVides(), ...reglages }
+export function rejouerRevisions(historiques: Seance[][], reglages: Pick<Revisions, 'chapitres' | 'sansChapitres' | 'evaluation' | 'taille'> = {}): Revisions {
+  const { chapitres, ...gardes } = reglages
+  let r: Revisions = { ...revisionsVides(), ...gardes }
   const termines = historiques
     .flat()
     .filter((s) => s.fin)
@@ -41,7 +42,8 @@ export function rejouerRevisions(historiques: Seance[][], reglages: Pick<Revisio
     if (s.parcours === ID_REVISIONS) r = resultatsRevision(r, s, jour(new Date(s.fin!))).revisions
     else r = integrerPassages(r, [s], estTest)
   }
-  return r
+  // Chapitres choisis avant la 0.7.3 : convertis une fois les chapitres connus
+  return chapitres ? migrerChapitres({ ...r, chapitres }) : r
 }
 
 /**
@@ -133,6 +135,8 @@ export function fusionnerDonnees(ici: Donnees, la: Donnees): { donnees: Donnees;
     const r = (ici.revisions ?? la.revisions ?? {}) as Partial<Revisions>
     d.revisions = rejouerRevisions(historiques, {
       ...(r.chapitres ? { chapitres: r.chapitres } : {}),
+      ...(r.sansChapitres ? { sansChapitres: r.sansChapitres } : {}),
+      ...(r.evaluation ? { evaluation: r.evaluation } : {}),
       ...(r.taille ? { taille: r.taille } : {}),
     })
   }

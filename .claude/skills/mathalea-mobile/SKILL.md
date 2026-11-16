@@ -302,7 +302,11 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   ses chapitres (Nathan, 2026-10-19). Leitner 1, 3, 7, 21, 56 jours, échec =
   boîte précédente, ceintures jamais retirées, séance de 3, 6 ou 10
   questions au choix (une par exercice), jamais de stock affiché, séance
-  mélangée sans titres (`entrelacer`). Détails : `docs/developpement.md`, test
+  mélangée sans titres (`entrelacer`). Depuis novembre 2026 : un exercice
+  manqué revient le lendemain ; « Préparer une évaluation » (jour et parcours
+  choisis par l'élève, séances sur ces parcours sans attendre les dates,
+  réussite en avance sans effet sur les boîtes, fin d'office le lendemain) ;
+  chapitres écartés (`sansChapitres`) au lieu de chapitres choisis. Détails : `docs/developpement.md`, test
   `node e2e/revisions.mjs` (horloge Playwright `page.clock`).
 - Changer d'appareil (Nathan, 2026-10-27 : « s'ils changent de téléphone,
   qu'ils puissent récupérer leur session ») : sauvegarde complète

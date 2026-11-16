@@ -4,6 +4,9 @@
 // prochaine révision ; il revient avec de nouvelles valeurs. Une séance de
 // révision mélange des exercices de chapitres différents, sans leur titre :
 // l'élève doit reconnaître seul le type de problème (pratique mélangée).
+// Avant une évaluation, l'élève choisit les parcours concernés et sa date :
+// jusqu'à ce jour, les séances ne portent que sur eux, sans attendre les
+// dates de révision (les autres exercices attendent, sans pénalité).
 import type { Etape, Parcours } from './catalogue'
 import { cleExercice } from './objectifs'
 import { bilan, ID_REVISIONS, type Seance } from './progression'
@@ -27,12 +30,31 @@ export interface ElementRevision {
   prochaine: string // jour (AAAA-MM-JJ) de la prochaine révision
   revu?: string // dernier jour de révision
   historique: { le: string; reussi: boolean }[] // dernières révisions (10 au plus)
+  origines?: string[] // parcours (id) où l'exercice a été travaillé : choix des révisions d'une évaluation
+  reussiLe?: string // dernier jour où il a été réussi (parcours ou révision)
+  rattrapage?: boolean // manqué puis rétrogradé : réussi le lendemain, il garde sa boîte au lieu de monter
+}
+
+/** Parcours d'où viennent les exercices (dernière copie vue) : titre et chapitre */
+export interface SourceRevision {
+  titre: string
+  niveau: string
+  theme: string
+}
+
+/** Évaluation préparée par l'élève : parcours concernés, jour de l'évaluation */
+export interface Evaluation {
+  parcours: string[]
+  date: string // AAAA-MM-JJ ; le lendemain, les révisions habituelles reprennent
 }
 
 export interface Revisions {
   elements: Record<string, ElementRevision> // par exercice (cleExercice)
   traites: string[] // passages déjà pris en compte (parcours@début)
-  chapitres?: string[] // chapitres choisis par l'élève (cleChapitre) ; absent : tous
+  chapitres?: string[] // avant la 0.7.3 : chapitres choisis (remplacé par sansChapitres, voir migrerChapitres)
+  sansChapitres?: string[] // chapitres écartés par l'élève (cleChapitre) : un nouveau chapitre est toujours révisé
+  sources?: Record<string, SourceRevision> // par parcours (id)
+  evaluation?: Evaluation
   taille?: number // questions par séance choisies par l'élève (TAILLES)
 }
 
@@ -49,6 +71,16 @@ export function plusJours(j: string, n: number) {
 }
 
 export const cleChapitre = (e: Pick<ElementRevision, 'niveau' | 'theme'>) => `${e.niveau}|${e.theme}`
+
+/**
+ * Parcours d'un exercice, avec leur chapitre. Un exercice d'avant les
+ * origines, dont les passages ne sont plus là, garde le parcours et le
+ * chapitre notés sur lui.
+ */
+export function sourcesDe(r: Revisions, e: ElementRevision): ({ id: string } & SourceRevision)[] {
+  const connues = (e.origines ?? []).flatMap((id) => (r.sources?.[id] ? [{ id, ...r.sources[id] }] : []))
+  return connues.length ? connues : [{ id: `~${cleChapitre(e)}|${e.parcours}`, titre: e.parcours, niveau: e.niveau, theme: e.theme }]
+}
 export const estRevision = (id: string | undefined) => id === ID_REVISIONS
 
 /** Boîte d'entrée d'après la réussite au parcours */
@@ -59,10 +91,22 @@ function placer(e: ElementRevision, boite: number, aujourdhui: string): ElementR
   return { ...e, boite: b, sommet: Math.max(b, e.sommet ?? e.boite), prochaine: plusJours(aujourdhui, INTERVALLES[b]) }
 }
 
-/** Exercice révisé : réussi, boîte suivante ; manqué, boîte précédente */
+/**
+ * Exercice révisé.
+ * - Manqué : boîte précédente, et il revient dès le lendemain (pas après
+ *   l'intervalle de sa nouvelle boîte : trois semaines sans revoir une erreur).
+ * - Réussi le jour prévu ou après : boîte suivante ; s'il venait d'être
+ *   manqué (rattrapage), il garde sa boîte et repart sur son intervalle.
+ * - Réussi en avance (révisions d'une évaluation) : rien ne bouge, réviser
+ *   beaucoup la veille ne rend pas un exercice « durable ».
+ */
 export function apresRevision(e: ElementRevision, reussi: boolean, aujourdhui: string): ElementRevision {
-  const suite = placer(e, e.boite + (reussi ? 1 : -1), aujourdhui)
-  return { ...suite, revu: aujourdhui, historique: [...e.historique, { le: aujourdhui, reussi }].slice(-10) }
+  const { rattrapage, ...sans } = e
+  let suite: ElementRevision
+  if (!reussi) suite = { ...placer(sans, e.boite - 1, aujourdhui), prochaine: plusJours(aujourdhui, 1), ...(e.boite > 1 || rattrapage ? { rattrapage: true } : {}) }
+  else if (e.prochaine > aujourdhui) suite = e
+  else suite = placer(sans, e.boite + (rattrapage ? 0 : 1), aujourdhui)
+  return { ...suite, revu: aujourdhui, ...(reussi ? { reussiLe: aujourdhui } : {}), historique: [...e.historique, { le: aujourdhui, reussi }].slice(-10) }
 }
 
 const clePassage = (s: Seance) => `${s.parcours}@${s.debut}`
@@ -77,36 +121,69 @@ const clePassage = (s: Seance) => `${s.parcours}@${s.debut}`
 export function integrerPassages(r: Revisions, passages: Seance[], exclure: (parcours: string) => boolean = () => false): Revisions {
   const traites = new Set(r.traites)
   const elements = { ...r.elements }
+  const sources = { ...r.sources }
   let change = false
   const termines = passages
     .filter((s) => s.fin && !estRevision(s.parcours) && !exclure(s.parcours))
     .sort((a, b) => a.fin!.localeCompare(b.fin!))
   for (const s of termines) {
     const le = jour(new Date(s.fin!))
+    let rattache = false
     for (const e of bilan(s).parEtape) {
       // Chaque exercice une fois, quand il est complet (questions passées reprises plus tard)
       const fait = `${clePassage(s)}#${e.etape}`
-      if (traites.has(fait) || !e.sur || e.faites < e.sur) continue // déjà compté, sur papier ou pas terminé
+      if (!e.sur || e.faites < e.sur) continue // sur papier ou pas terminé
       const etape = s.contenu.etapes[e.etape]
       if (!etape) continue
       const cle = cleExercice(etape)
-      const pourcentage = (100 * e.points) / e.sur
-      const avant = elements[cle]
-      const base = { etape, niveau: s.contenu.niveau, theme: s.contenu.theme, parcours: s.contenu.titre }
-      if (!avant) elements[cle] = placer({ ...base, boite: 1, prochaine: le, historique: [] }, boiteDEntree(pourcentage), le)
-      else if (avant.prochaine <= le || pourcentage < 50) elements[cle] = { ...apresRevision(avant, pourcentage >= 80, le), ...base, revu: avant.revu }
-      else elements[cle] = { ...avant, ...base }
-      traites.add(fait)
+      if (!traites.has(fait)) {
+        const pourcentage = (100 * e.points) / e.sur
+        const avant = elements[cle]
+        const base = { etape, niveau: s.contenu.niveau, theme: s.contenu.theme, parcours: s.contenu.titre }
+        const acquis = pourcentage >= 80 ? { reussiLe: le } : {}
+        if (!avant) elements[cle] = { ...placer({ ...base, boite: 1, prochaine: le, historique: [] }, boiteDEntree(pourcentage), le), ...acquis }
+        else if (avant.prochaine <= le || pourcentage < 50) elements[cle] = { ...apresRevision(avant, pourcentage >= 80, le), ...base, revu: avant.revu }
+        else elements[cle] = { ...avant, ...base, ...acquis }
+        traites.add(fait)
+        change = true
+      }
+      // Parcours d'origine : aussi pour les passages comptés avant que les origines existent
+      const x = elements[cle]
+      if (x && !x.origines?.includes(s.parcours)) {
+        elements[cle] = { ...x, origines: [...(x.origines ?? []), s.parcours] }
+        change = true
+      }
+      if (x) rattache = true
+    }
+    const avant = sources[s.parcours]
+    const { titre, niveau, theme } = s.contenu
+    if (rattache && (!avant || avant.titre !== titre || avant.niveau !== niveau || avant.theme !== theme)) {
+      sources[s.parcours] = { titre, niveau, theme }
       change = true
     }
   }
-  return change ? { ...r, elements, traites: [...traites] } : r
+  return change ? { ...r, elements, traites: [...traites], sources } : r
 }
 
-/** Exercices dans les chapitres choisis */
+/**
+ * Données d'avant la 0.7.3 : la liste des chapitres choisis écartait sans le
+ * dire tout chapitre commencé ensuite. On garde les chapitres écartés.
+ */
+export function migrerChapitres(r: Revisions): Revisions {
+  if (!r.chapitres) return r
+  const { chapitres: choisisAvant, ...reste } = r
+  const sans = chapitres(r).map((c) => c.cle).filter((c) => !choisisAvant.includes(c))
+  return sans.length ? { ...reste, sansChapitres: sans } : reste
+}
+
+/** Chapitres d'un exercice : ceux de ses parcours */
+const chapitresDe = (r: Revisions, e: ElementRevision) => [...new Set(sourcesDe(r, e).map(cleChapitre))]
+
+/** Exercices dans les chapitres gardés par l'élève */
 export function choisis(r: Revisions) {
-  const filtre = r.chapitres ? new Set(r.chapitres) : null
-  return Object.entries(r.elements).filter(([, e]) => !filtre || filtre.has(cleChapitre(e)))
+  const sans = new Set(r.sansChapitres ?? [])
+  const garde = r.chapitres ? new Set(r.chapitres) : null
+  return Object.entries(r.elements).filter(([, e]) => chapitresDe(r, e).some((c) => !sans.has(c) && (!garde || garde.has(c))))
 }
 
 /** Exercices à revoir aujourd'hui (chapitres choisis) */
@@ -118,18 +195,74 @@ export function prochaineRevision(r: Revisions) {
   return jours.length ? jours.reduce((a, b) => (a < b ? a : b)) : null
 }
 
-/** Chapitres où l'élève a des exercices, avec leur nombre */
+/** Chapitres où l'élève a des exercices, avec leur nombre et leur solidité (boîte la plus basse) */
 export function chapitres(r: Revisions) {
-  const parCle = new Map<string, { cle: string; niveau: string; theme: string; nb: number; aRevoir: number }>()
-  const aujourdhui = jour()
+  const parCle = new Map<string, { cle: string; niveau: string; theme: string; nb: number; boite: number }>()
   for (const e of Object.values(r.elements)) {
-    const cle = cleChapitre(e)
-    const c = parCle.get(cle) ?? { cle, niveau: e.niveau, theme: e.theme, nb: 0, aRevoir: 0 }
-    c.nb++
-    if (e.prochaine <= aujourdhui) c.aRevoir++
-    parCle.set(cle, c)
+    const vus = new Set<string>()
+    for (const s of sourcesDe(r, e)) {
+      const cle = cleChapitre(s)
+      if (vus.has(cle)) continue
+      vus.add(cle)
+      const c = parCle.get(cle) ?? { cle, niveau: s.niveau, theme: s.theme, nb: 0, boite: 5 }
+      c.nb++
+      c.boite = Math.min(c.boite, e.boite)
+      parCle.set(cle, c)
+    }
   }
   return [...parCle.values()].sort((a, b) => a.niveau.localeCompare(b.niveau, 'fr') || a.theme.localeCompare(b.theme, 'fr'))
+}
+
+// ---------- Préparer une évaluation ----------
+
+/** Évaluation en préparation : jusqu'au jour de l'évaluation compris */
+export const evaluationEnCours = (r: Revisions, aujourdhui = jour()) => (r.evaluation && r.evaluation.date >= aujourdhui ? r.evaluation : null)
+
+/** Exercices des parcours de l'évaluation */
+export function dansEvaluation(r: Revisions, ev: Evaluation) {
+  const voulus = new Set(ev.parcours)
+  return Object.entries(r.elements).filter(([, e]) => sourcesDe(r, e).some((s) => voulus.has(s.id)))
+}
+
+/** Exercices de l'évaluation pas encore réussis aujourd'hui */
+export const aReviserPourEvaluation = (r: Revisions, ev: Evaluation, aujourdhui = jour()) => dansEvaluation(r, ev).filter(([, e]) => e.reussiLe !== aujourdhui)
+
+/**
+ * Parcours que l'élève peut cocher pour une évaluation, par chapitre : ceux où
+ * il a des exercices à réviser (`nb`) et, parmi ses parcours (`autres`), ceux
+ * qu'il n'a pas commencés (`nb` = 0 : rien à réviser tant qu'ils ne sont pas faits).
+ */
+export function parcoursParChapitre(r: Revisions, autres: (SourceRevision & { id: string })[] = []) {
+  const parId = new Map<string, { id: string; titre: string; niveau: string; theme: string; nb: number }>()
+  for (const e of Object.values(r.elements))
+    for (const s of sourcesDe(r, e)) {
+      const p = parId.get(s.id) ?? { ...s, nb: 0 }
+      p.nb++
+      parId.set(s.id, p)
+    }
+  for (const p of autres) if (!parId.has(p.id)) parId.set(p.id, { id: p.id, titre: p.titre, niveau: p.niveau, theme: p.theme, nb: 0 })
+  const groupes = new Map<string, { cle: string; niveau: string; theme: string; parcours: { id: string; titre: string; nb: number }[] }>()
+  for (const p of parId.values()) {
+    const cle = cleChapitre(p)
+    const g = groupes.get(cle) ?? { cle, niveau: p.niveau, theme: p.theme, parcours: [] }
+    g.parcours.push({ id: p.id, titre: p.titre, nb: p.nb })
+    groupes.set(cle, g)
+  }
+  for (const g of groupes.values()) g.parcours.sort((a, b) => a.titre.localeCompare(b.titre, 'fr'))
+  return [...groupes.values()].sort((a, b) => a.niveau.localeCompare(b.niveau, 'fr') || a.theme.localeCompare(b.theme, 'fr'))
+}
+
+/** Dernier jour où l'exercice a été vu (révision ou réussite) */
+const dernier = (e: ElementRevision) => ((e.revu ?? '') > (e.reussiLe ?? '') ? e.revu! : (e.reussiLe ?? ''))
+
+/** `nb` exercices pris à tour de rôle dans les groupes (chapitres ou parcours), chacun dans l'ordre donné */
+function aTourDeRole(tries: [string, ElementRevision][], groupe: (e: ElementRevision) => string, nb: number) {
+  const parGroupe = new Map<string, [string, ElementRevision][]>()
+  for (const x of tries) parGroupe.set(groupe(x[1]), [...(parGroupe.get(groupe(x[1])) ?? []), x])
+  const files = [...parGroupe.values()]
+  const pris: [string, ElementRevision][] = []
+  for (let i = 0; pris.length < nb && files.some((f) => f.length > i); i++) for (const f of files) if (f[i] && pris.length < nb) pris.push(f[i])
+  return pris
 }
 
 /**
@@ -137,16 +270,23 @@ export function chapitres(r: Revisions) {
  * d'abord (boîte la plus basse) puis les plus en retard, pris à tour de rôle
  * dans des chapitres différents (mélange). Le reste attend la séance suivante,
  * sans pénalité. Parcours généré sur l'appareil, sans titre d'exercice.
+ * Évaluation en préparation : seulement ses parcours, sans attendre les dates
+ * de révision ; d'abord ce qui n'a pas été réussi aujourd'hui, les plus
+ * fragiles, puis ce qui n'a pas été vu depuis le plus longtemps.
  */
 export function tirerRevision(r: Revisions, aujourdhui = jour(), nb = r.taille ?? TAILLE_PAR_DEFAUT): Parcours | null {
-  const dus = aRevoir(r, aujourdhui).sort(([, a], [, b]) => a.boite - b.boite || a.prochaine.localeCompare(b.prochaine))
-  if (!dus.length) return null
-  // À tour de rôle par chapitre, chacun dans son ordre de retard
-  const parChapitre = new Map<string, [string, ElementRevision][]>()
-  for (const x of dus) parChapitre.set(cleChapitre(x[1]), [...(parChapitre.get(cleChapitre(x[1])) ?? []), x])
-  const files = [...parChapitre.values()]
-  const pris: [string, ElementRevision][] = []
-  for (let i = 0; pris.length < nb && files.some((f) => f.length > i); i++) for (const f of files) if (f[i] && pris.length < nb) pris.push(f[i])
+  const ev = evaluationEnCours(r, aujourdhui)
+  let pris: [string, ElementRevision][]
+  if (ev) {
+    const voulus = new Set(ev.parcours)
+    const fait = (e: ElementRevision) => (e.reussiLe === aujourdhui ? 1 : 0)
+    const tries = dansEvaluation(r, ev).sort(([, a], [, b]) => fait(a) - fait(b) || a.boite - b.boite || dernier(a).localeCompare(dernier(b)))
+    pris = aTourDeRole(tries, (e) => sourcesDe(r, e).find((s) => voulus.has(s.id))!.id, nb)
+  } else {
+    const dus = aRevoir(r, aujourdhui).sort(([, a], [, b]) => a.boite - b.boite || a.prochaine.localeCompare(b.prochaine))
+    pris = aTourDeRole(dus, (e) => chapitresDe(r, e)[0], nb)
+  }
+  if (!pris.length) return null
   return {
     id: ID_REVISIONS,
     version: Number(aujourdhui.replace(/-/g, '')),
@@ -233,11 +373,24 @@ export function quand(prochaine: string, aujourdhui = jour()) {
   return `dans ${Math.round(n / 30)} mois`
 }
 
+/** Jour en mots simples : « aujourd’hui », « demain », « jeudi », « le 28 novembre » */
+export function jourEnMots(j: string, aujourdhui = jour()) {
+  const [a, m, d] = j.split('-').map(Number)
+  const [a2, m2, d2] = aujourdhui.split('-').map(Number)
+  const date = new Date(a, m - 1, d)
+  const n = Math.round((date.getTime() - new Date(a2, m2 - 1, d2).getTime()) / 86400000)
+  if (n === 0) return 'aujourd’hui'
+  if (n === 1) return 'demain'
+  if (n > 1 && n < 7) return date.toLocaleDateString('fr-FR', { weekday: 'long' })
+  return `le ${date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}`
+}
+
 /** Révisions bien formées (sauvegarde) */
 export function estRevisions(v: unknown): v is Revisions {
   if (!v || typeof v !== 'object') return false
   const r = v as Revisions
   const jourValide = (j: unknown) => typeof j === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(j)
+  const listeDeTextes = (l: unknown) => Array.isArray(l) && l.every((c) => typeof c === 'string')
   return (
     !!r.elements &&
     typeof r.elements === 'object' &&
@@ -257,11 +410,20 @@ export function estRevisions(v: unknown): v is Revisions {
         jourValide(e.prochaine) &&
         (e.revu === undefined || jourValide(e.revu)) &&
         Array.isArray(e.historique) &&
-        e.historique.every((h) => jourValide(h.le) && typeof h.reussi === 'boolean'),
+        e.historique.every((h) => jourValide(h.le) && typeof h.reussi === 'boolean') &&
+        (e.origines === undefined || listeDeTextes(e.origines)) &&
+        (e.reussiLe === undefined || jourValide(e.reussiLe)) &&
+        (e.rattrapage === undefined || typeof e.rattrapage === 'boolean'),
     ) &&
     Array.isArray(r.traites) &&
     r.traites.every((t) => typeof t === 'string') &&
-    (r.chapitres === undefined || (Array.isArray(r.chapitres) && r.chapitres.every((c) => typeof c === 'string'))) &&
+    (r.chapitres === undefined || listeDeTextes(r.chapitres)) &&
+    (r.sansChapitres === undefined || listeDeTextes(r.sansChapitres)) &&
+    (r.sources === undefined ||
+      (!!r.sources &&
+        typeof r.sources === 'object' &&
+        Object.values(r.sources).every((s) => !!s && typeof s.titre === 'string' && typeof s.niveau === 'string' && typeof s.theme === 'string'))) &&
+    (r.evaluation === undefined || (!!r.evaluation && typeof r.evaluation === 'object' && listeDeTextes(r.evaluation.parcours) && jourValide(r.evaluation.date))) &&
     (r.taille === undefined || TAILLES.includes(r.taille))
   )
 }

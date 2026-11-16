@@ -44,7 +44,11 @@
     aRevoir,
     barrettes,
     TAILLE_PAR_DEFAUT,
+    aReviserPourEvaluation,
     estRevision,
+    evaluationEnCours,
+    jourEnMots,
+    migrerChapitres,
     ID_REVISIONS,
     integrerPassages,
     prochaineRevision,
@@ -52,6 +56,7 @@
     resultatsRevision,
     revisionsVides,
     tirerRevision,
+    type Evaluation,
     type Revisions,
   } from '$lib/revisions'
   import Feuille from '$lib/ui/Feuille.svelte'
@@ -564,14 +569,37 @@
     const avant = (await stockage!.lire<Revisions>('revisions')) ?? revisionsVides()
     const cles = (await stockage!.cles()).filter((c) => c.startsWith('historique:'))
     const passages = (await Promise.all(cles.map((c) => stockage!.lire<TSeance[]>(c)))).flatMap((h) => h ?? [])
-    revisions = integrerPassages(avant, passages, estTest)
+    revisions = migrerChapitres(integrerPassages(avant, passages, estTest))
+    // Évaluation passée : la préparation s'efface, les révisions habituelles reprennent
+    if (revisions.evaluation && !evaluationEnCours(revisions)) {
+      const { evaluation: _passee, ...reste } = revisions
+      revisions = reste
+    }
     if (revisions !== avant) await stockage!.ecrire('revisions', $state.snapshot(revisions))
     seances[ID_REVISIONS] = await lireSeance(stockage!, ID_REVISIONS)
     historiques[ID_REVISIONS] = await lireHistorique(stockage!, ID_REVISIONS)
   }
   const revisionEnCours = $derived(!!seances[ID_REVISIONS] && !seances[ID_REVISIONS]!.fin)
+  const evaluation = $derived(evaluationEnCours(revisions))
+  // Évaluation en préparation : ce qui n'a pas encore été réussi aujourd'hui dans ses parcours
+  const dusRevision = $derived(evaluation ? aReviserPourEvaluation(revisions, evaluation).length : aRevoir(revisions).length)
   const resumeRevisions = $derived(
-    Object.keys(revisions.elements).length ? { dus: aRevoir(revisions).length, prochaine: prochaineRevision(revisions), enCours: revisionEnCours } : null,
+    Object.keys(revisions.elements).length || evaluation
+      ? { dus: dusRevision, prochaine: prochaineRevision(revisions), enCours: revisionEnCours, evaluation: evaluation ? jourEnMots(evaluation.date) : null }
+      : null,
+  )
+  // Parcours que l'élève peut mettre dans une évaluation, avec ce qu'il lui reste à y obtenir
+  const parcoursPourEvaluation = $derived(
+    tous
+      .filter((p) => !caches.includes(p.id) && !estTest(p.id))
+      .map((p) => {
+        const passages = historiques[p.id] ?? []
+        const total = paliersDe(p).length
+        const obtenus = total > 1 ? acquisDe(p, passages).filter(Boolean).length : 0
+        const nom = p.style === 'ceintures' ? 'ceinture' : 'palier'
+        const reste = !passages.length ? 'Pas encore commencé' : total > 1 && obtenus < total ? `${obtenus} ${nom}${obtenus > 1 ? 's' : ''} sur ${total}` : undefined
+        return { id: p.id, titre: p.titre, niveau: p.niveau, theme: p.theme, reste }
+      }),
   )
   // ---------- Accueil : une seule action proposée ----------
   // Reprendre la séance commencée ; sinon la révision du jour ; sinon la
@@ -588,10 +616,12 @@
       return { libelle: 'Reprendre', detail: `${p.titre} · question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`, fn: () => commencer(p) }
     }
     // 2. Révision du jour, à la taille choisie (jamais un stock)
-    const dus = aRevoir(revisions).length
+    const dus = dusRevision
     if (dus > 0) {
       const n = Math.min(dus, revisions.taille ?? TAILLE_PAR_DEFAUT)
-      return { libelle: 'Réviser maintenant', detail: `Révision du jour · ${n} question${n > 1 ? 's' : ''}`, fn: lancerRevision }
+      const questions = `${n} question${n > 1 ? 's' : ''}`
+      if (evaluation) return { libelle: 'Réviser pour l’évaluation', detail: `Évaluation ${jourEnMots(evaluation.date)} · ${questions}`, fn: lancerRevision }
+      return { libelle: 'Réviser maintenant', detail: `Révision du jour · ${questions}`, fn: lancerRevision }
     }
     // 3. Ceinture ou palier suivant, ouvert et pas encore réussi, du parcours travaillé en dernier
     const dernierPassage = (p: Parcours) => (historiques[p.id] ?? []).at(-1)?.fin ?? ''
@@ -624,9 +654,17 @@
     revisions = { ...revisions, taille: n }
     await stockage!.ecrire('revisions', $state.snapshot(revisions))
   }
-  async function choisirChapitres(c: string[] | undefined) {
-    revisions = { ...revisions, chapitres: c }
+  async function choisirChapitres(sans: string[] | undefined) {
+    revisions = { ...revisions, sansChapitres: sans }
     await stockage!.ecrire('revisions', $state.snapshot(revisions))
+  }
+  async function choisirEvaluation(e: Evaluation | undefined) {
+    revisions = { ...revisions, evaluation: e }
+    await stockage!.ecrire('revisions', $state.snapshot(revisions))
+  }
+  function ouvrirDepuisRevisions(id: string) {
+    const p = tous.find((x) => x.id === id)
+    if (p) ouvrir(p)
   }
 
   // ---------- Élève ----------
@@ -804,7 +842,10 @@
     if (estRevision(s.parcours)) {
       const { revisions: suite, issues } = resultatsRevision(revisions, s)
       revisions = suite
-      issuesRevision = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, { reussi: v.reussi, quand: quandRevision(v.apres.prochaine) }]))
+      // Évaluation en préparation : l'exercice revient dans une prochaine série, pas à sa date de révision
+      const suiteDe = (v: (typeof issues)[number]) =>
+        evaluation ? (v.reussi ? 'Réussi aujourd’hui' : 'À revoir avant l’évaluation') : `Revient ${quandRevision(v.apres.prochaine)}`
+      issuesRevision = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, { reussi: v.reussi, quand: suiteDe(v) }]))
     } else revisions = integrerPassages(revisions, [s], estTest)
     barrettesGagnees = gainsDeBarrettes(revisionsAvant, revisions)
     await stockage!.ecrire('revisions', $state.snapshot(revisions))
@@ -1091,7 +1132,17 @@
         : undefined}
     />
   {:else if vue === 'revisions'}
-    <EcranRevisions {revisions} enCours={revisionEnCours} onlancer={lancerRevision} onchapitres={choisirChapitres} ontaille={choisirTaille} onretour={accueil} />
+    <EcranRevisions
+      {revisions}
+      enCours={revisionEnCours}
+      mesParcours={parcoursPourEvaluation}
+      onlancer={lancerRevision}
+      onchapitres={choisirChapitres}
+      ontaille={choisirTaille}
+      onevaluation={choisirEvaluation}
+      onouvrir={ouvrirDepuisRevisions}
+      onretour={accueil}
+    />
   {:else if vue === 'test'}
     <TestNiveau
       etat={etatTest}

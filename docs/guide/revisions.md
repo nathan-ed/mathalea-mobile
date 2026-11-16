@@ -12,7 +12,7 @@ Chaque exercice d'un parcours terminé entre dans les révisions. Il revient :
 - dans 3 jours entre 50 et 79 % ;
 - dans une semaine à 80 % et plus.
 
-À chaque révision, un exercice réussi revient plus tard (3 semaines, puis 2 mois) ; un exercice manqué revient plus tôt. Un exercice revu tous les deux mois sans erreur est « durable ».
+À chaque révision, un exercice réussi revient plus tard (3 semaines, puis 2 mois). Un exercice manqué revient dès le lendemain ; réussi ce jour-là, il repart d'un cran plus bas qu'avant l'erreur. Un exercice revu tous les deux mois sans erreur est « durable ».
 
 Les exercices sur papier et Teste ton niveau n'entrent pas dans les révisions.
 
@@ -30,11 +30,29 @@ Chaque question vient d'un exercice différent, de chapitres différents, sans l
 
 ## 3. Choisir ses chapitres
 
-Par défaut, tous les chapitres sont révisés. Pour se concentrer sur certains (avant une évaluation, par exemple), décochez les autres. Les nouveaux chapitres sont inclus tant que tous sont cochés.
+Par défaut, tous les chapitres sont révisés. Pour en laisser un de côté, décochez-le. Un chapitre commencé plus tard est toujours révisé. Chaque chapitre indique sa solidité (à consolider, en bonne voie, durable).
 
 ![Choisir les chapitres](images/revisions-3-chapitres.png)
 
-## 4. Après la révision
+## 4. Préparer une évaluation
+
+Une évaluation arrive : touchez « Préparer une évaluation », puis le jour de l'évaluation et les parcours concernés. Les parcours sont rangés par chapitre ; un parcours du chapitre qui n'est pas au programme de l'évaluation reste simplement décoché.
+
+![Choisir le jour et les parcours](images/revisions-5-evaluation.png)
+
+Jusqu'au jour de l'évaluation :
+
+- les séances de révision ne portent que sur ces parcours, sans attendre la date prévue de chaque exercice ; les plus fragiles passent en premier ;
+- un exercice manqué revient dans la série suivante ;
+- quand tout a été réussi dans la journée, l'application le dit ; « Refaire une série » reste possible ;
+- les parcours choisis qui ne sont pas terminés sont rappelés sous « À finir avant l'évaluation » : seuls les exercices déjà faits peuvent être révisés ;
+- l'accueil propose « Réviser pour l'évaluation ».
+
+![La préparation d'une évaluation](images/revisions-6-preparation.png)
+
+Réviser beaucoup la veille ne rend pas un exercice « durable » : réussi avant sa date, il garde sa place dans les révisions. Le lendemain de l'évaluation, les révisions habituelles reprennent toutes seules, sur tous les chapitres. « Modifier » change le jour ou les parcours, « Arrêter la préparation » y met fin plus tôt.
+
+## 5. Après la révision
 
 Le bilan dévoile le titre de chaque exercice et dit quand il reviendra.
 
@@ -42,6 +60,6 @@ Le bilan dévoile le titre de chaque exercice et dit quand il reviendra.
 
 Dans le Suivi, chaque objectif indique aussi sa solidité dans le temps (« révision : en bonne voie »). Une ceinture obtenue n'est jamais retirée : les révisions l'entretiennent.
 
-## 5. Les barrettes
+## 6. Les barrettes
 
 Comme au judo, une ceinture obtenue gagne des barrettes. La première arrive quand tous ses exercices sont réussis de nouveau une semaine plus tard, en révision. La deuxième arrive trois semaines après : la ceinture est alors « durable ». Le bilan de la révision l'annonce (« Barrette gagnée »), et les barrettes se voient sur la ceinture dans le Suivi et sur la page du parcours. Une barrette gagnée n'est jamais retirée.

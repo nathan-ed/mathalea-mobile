@@ -50,7 +50,7 @@
     /** Teste ton niveau : verdict et suites proposées, à la place des actions d'un parcours */
     test?: { message: string; actions: { libelle: string; fn: () => void }[] } | null
     /** Séance de révision : pour chaque exercice, réussi ou non et quand il reviendra */
-    revision?: Record<number, { reussi: boolean; quand: string }> | null
+    revision?: Record<number, { reussi: boolean; quand: string }> | null // `quand` : la suite, en une phrase (« Revient demain »)
     /** Barrettes gagnées par cette séance : ceintures dont les exercices ont été réussis de nouveau après plusieurs jours */
     barrettes?: { nom: string; couleur: string; theme: string; barrettes: number }[]
   } = $props()
@@ -212,7 +212,7 @@
                 <!-- Révision : le titre, caché pendant la séance, est dévoilé -->
                 <span>{titreEleve({ titresVisibles: true }, { ...parcours.etapes[e.etape], titreMasque: false }, e.etape)}</span>
                 {#if revision[e.etape]}
-                  <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Revient {revision[e.etape].quand}</span>
+                  <span class="text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{revision[e.etape].quand}</span>
                 {/if}
               {:else}
                 {titreEleve(parcours, parcours.etapes[e.etape], e.etape)}

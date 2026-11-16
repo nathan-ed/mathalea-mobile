@@ -5,8 +5,15 @@ import {
   aRevoir,
   barrettes,
   texteBarrettes,
+  aReviserPourEvaluation,
   chapitres,
+  dansEvaluation,
   estRevisions,
+  evaluationEnCours,
+  jourEnMots,
+  migrerChapitres,
+  parcoursParChapitre,
+  sourcesDe,
   integrerPassages,
   plusJours,
   prochaineRevision,
@@ -96,7 +103,7 @@ describe('révisions espacées', () => {
     expect(p.etapes.every((e) => e.nbQuestions === 1 && e.titreMasque)).toBe(true)
     expect(p.etapes[0].objectifs).toEqual(['Objectif a1'])
     // Chapitres choisis par l'élève
-    r = { ...r, chapitres: ['5e|Fractions'] }
+    r = { ...r, sansChapitres: ['5e|Aires', '5e|Nombres relatifs'] }
     expect(tirerRevision(r, '2026-10-10')!.etapes.map((e) => e.uuid)).toEqual(['f1', 'f2'])
     expect(chapitres(r).map((c) => `${c.theme} ${c.nb}`)).toEqual(['Aires 1', 'Fractions 2', 'Nombres relatifs 2'])
     expect(tirerRevision(r, '2026-10-01')).toBeNull()
@@ -177,7 +184,37 @@ describe('révisions espacées', () => {
     r = integrerPassages(r, [passage(relatifs, [0, 2], '2026-10-03')])
     const a1 = Object.values(r.elements).find((e) => e.etape.uuid === 'a1')!
     expect(a1.boite).toBe(2)
-    expect(a1.prochaine).toBe('2026-10-06')
+    expect(a1.prochaine).toBe('2026-10-04')
+  })
+
+  it('manqué : boîte précédente, de retour le lendemain, puis sa boîte avant de remonter', () => {
+    const a1 = (x: Revisions) => Object.values(x.elements).find((e) => e.etape.uuid === 'a1')!
+    let r = integrerPassages(revisionsVides(), [passage(relatifs, [2, 2], '2026-10-01')])
+    const reviser = (le: string, reussi: boolean) => {
+      r = resultatsRevision(r, revision(tirerRevision(r, le)!, { a1: reussi }, le), le).revisions
+    }
+    reviser('2026-10-08', true) // boîte 4
+    reviser('2026-10-29', true) // boîte 5
+    expect(a1(r).boite).toBe(5)
+    // Manqué en boîte 5 : avant, il ne revenait que trois semaines plus tard
+    reviser('2026-12-24', false)
+    expect([a1(r).boite, a1(r).prochaine, a1(r).rattrapage]).toEqual([4, '2026-12-25', true])
+    // Réussi le lendemain : il garde la boîte 4 (trois semaines), sans remonter aussitôt à deux mois
+    reviser('2026-12-25', true)
+    expect([a1(r).boite, a1(r).prochaine, a1(r).rattrapage]).toEqual([4, '2027-01-15', undefined])
+    reviser('2027-01-15', true)
+    expect(a1(r).boite).toBe(5)
+    // Manqué deux jours de suite : une boîte de moins à chaque fois, toujours le lendemain
+    reviser('2027-03-12', false)
+    reviser('2027-03-13', false)
+    expect([a1(r).boite, a1(r).prochaine]).toEqual([3, '2027-03-14'])
+    // En boîte 1, rien à rattraper : la première réussite fait monter
+    r = integrerPassages(revisionsVides(), [passage(relatifs, [0, 2], '2026-10-01')])
+    reviser('2026-10-02', false)
+    expect([a1(r).boite, a1(r).rattrapage]).toEqual([1, undefined])
+    reviser('2026-10-03', true)
+    expect(a1(r).boite).toBe(2)
+    expect(estRevisions(r)).toBe(true)
   })
 
   it('jamais de stock : la séance a la taille choisie, les plus fragiles d’abord', () => {
@@ -207,6 +244,120 @@ describe('révisions espacées', () => {
     expect(estRevisions(r)).toBe(true)
     expect(estRevisions({ ...r, chapitres: ['5e|Fractions'] })).toBe(true)
     expect(estRevisions({ elements: { x: { boite: 9 } }, traites: [] })).toBe(false)
+  })
+})
+
+describe('parcours d’origine et chapitres', () => {
+  const er = { ...parcours('er-decembre', 'ER décembre', ['a1', 'f1']), titre: 'Révisions de décembre' }
+
+  it('un exercice garde tous ses parcours ; un parcours de révision ne le change pas de chapitre', () => {
+    let r = integrerPassages(revisionsVides(), [passage(relatifs, [2, 2], '2026-10-01'), passage(fractions, [2, 2], '2026-10-01')])
+    r = integrerPassages(r, [passage(er, [2, 2], '2026-10-02')])
+    const a1 = Object.values(r.elements).find((e) => e.etape.uuid === 'a1')!
+    expect(a1.origines).toEqual(['relatifs', 'er-decembre'])
+    expect(sourcesDe(r, a1).map((s) => s.theme)).toEqual(['Nombres relatifs', 'ER décembre'])
+    expect(r.sources!['er-decembre']).toEqual({ titre: 'Révisions de décembre', niveau: '5e', theme: 'ER décembre' })
+    // Les chapitres d'origine gardent leurs exercices
+    expect(chapitres(r).map((c) => `${c.theme} ${c.nb}`)).toEqual(['ER décembre 2', 'Fractions 2', 'Nombres relatifs 2'])
+    // Chapitre écarté : l'exercice reste révisé par son autre chapitre
+    expect(aRevoir({ ...r, sansChapitres: ['5e|ER décembre'] }, '2026-10-20').length).toBe(4)
+    expect(aRevoir({ ...r, sansChapitres: ['5e|ER décembre', '5e|Fractions'] }, '2026-10-20').length).toBe(2)
+    expect(estRevisions(r)).toBe(true)
+  })
+
+  it('données d’avant les origines : rattachées d’après les passages gardés, sans rien recompter', () => {
+    const passages = [passage(relatifs, [2, 1], '2026-10-01')]
+    const complet = integrerPassages(revisionsVides(), passages)
+    const ancien: Revisions = {
+      elements: Object.fromEntries(Object.entries(complet.elements).map(([c, { origines: _o, reussiLe: _r, ...e }]) => [c, e])),
+      traites: complet.traites,
+    }
+    // Sans les passages : le parcours et le chapitre notés sur l'exercice
+    expect(parcoursParChapitre(ancien).map((g) => `${g.theme} : ${g.parcours.map((p) => `${p.titre} ${p.nb}`).join(', ')}`)).toEqual([
+      'Nombres relatifs : Parcours Nombres relatifs 2',
+    ])
+    const suite = integrerPassages(ancien, passages)
+    expect(Object.values(suite.elements).map((e) => `${e.origines} ${e.boite} ${e.prochaine}`)).toEqual(Object.values(complet.elements).map((e) => `relatifs ${e.boite} ${e.prochaine}`))
+    expect(suite.traites).toEqual(complet.traites)
+    expect(integrerPassages(suite, passages)).toBe(suite)
+  })
+
+  it('chapitres choisis avant la 0.7.3 : devenus chapitres écartés, un nouveau chapitre est révisé', () => {
+    let r: Revisions = integrerPassages(revisionsVides(), [passage(relatifs, [0, 0], '2026-10-01'), passage(fractions, [0, 0], '2026-10-01')])
+    r = migrerChapitres({ ...r, chapitres: ['5e|Fractions'] })
+    expect(r.chapitres).toBeUndefined()
+    expect(r.sansChapitres).toEqual(['5e|Nombres relatifs'])
+    r = integrerPassages(r, [passage(aires, [0], '2026-10-02')])
+    expect(tirerRevision(r, '2026-10-10')!.etapes.map((e) => e.uuid)).toEqual(['f1', 'g1', 'f2'])
+    expect(migrerChapitres(r)).toBe(r)
+  })
+})
+
+describe('préparer une évaluation', () => {
+  const uuids = (p: Parcours | null) => p?.etapes.map((e) => e.uuid)
+  const base = () => integrerPassages(revisionsVides(), [passage(relatifs, [2, 2], '2026-10-01'), passage(fractions, [2, 1], '2026-10-01'), passage(aires, [2], '2026-10-01')])
+
+  it('seulement les parcours choisis, sans attendre les dates de révision, les plus fragiles d’abord', () => {
+    let r = base()
+    // Le lendemain, rien n'est à revoir (tout est en boîte 2 ou 3)
+    expect(tirerRevision(r, '2026-10-02')).toBeNull()
+    r = { ...r, evaluation: { parcours: ['relatifs', 'fractions'], date: '2026-10-05' } }
+    expect(evaluationEnCours(r, '2026-10-02')).toBeTruthy()
+    expect(dansEvaluation(r, r.evaluation!).length).toBe(4)
+    // f2 (boîte 2) d'abord, puis à tour de rôle entre les deux parcours ; jamais les aires
+    expect(uuids(tirerRevision(r, '2026-10-02', 3))).toEqual(['f2', 'a1', 'f1'])
+    expect(uuids(tirerRevision(r, '2026-10-02', 10))).toEqual(['f2', 'a1', 'f1', 'a2'])
+    // Le jour de l'évaluation compte encore ; le lendemain, les révisions habituelles reprennent
+    expect(evaluationEnCours(r, '2026-10-05')).toBeTruthy()
+    expect(evaluationEnCours(r, '2026-10-06')).toBeNull()
+    expect(uuids(tirerRevision(r, '2026-10-08', 10))?.sort()).toEqual(['a1', 'a2', 'f1', 'f2', 'g1'])
+    expect(estRevisions(r)).toBe(true)
+    expect(estRevisions({ ...r, evaluation: { parcours: ['relatifs'], date: 'jeudi' } })).toBe(false)
+  })
+
+  it('réussi en avance : la boîte ne monte pas ; manqué : il recule et revient dans la séance suivante', () => {
+    let r: Revisions = { ...base(), evaluation: { parcours: ['relatifs', 'fractions'], date: '2026-10-05' } }
+    const e = (u: string) => Object.values(r.elements).find((x) => x.etape.uuid === u)!
+    const le = '2026-10-02'
+    const s = revision(tirerRevision(r, le, 3)!, { a1: false }, le)
+    const { revisions, issues } = resultatsRevision(r, s, le)
+    r = revisions
+    expect(Object.values(issues).map((i) => `${i.apres.etape.uuid} ${i.avant}→${i.apres.boite}`).sort()).toEqual(['a1 3→2', 'f1 3→3', 'f2 2→2'])
+    expect([e('f1').prochaine, e('f1').reussiLe, e('f1').historique.length]).toEqual(['2026-10-08', le, 1])
+    expect(e('a1').prochaine).toBe('2026-10-03')
+    // Même jour : ce qui reste (a2, jamais revu) et ce qui a été manqué (a1), avant ce qui est réussi
+    expect(aReviserPourEvaluation(r, r.evaluation!, le).map(([, x]) => x.etape.uuid).sort()).toEqual(['a1', 'a2'])
+    expect(uuids(tirerRevision(r, le, 3))).toEqual(['a1', 'f2', 'a2'])
+    // a1 réussi le même jour : toujours en rattrapage, à revoir le lendemain
+    r = resultatsRevision(r, { ...revision(tirerRevision(r, le, 3)!, {}, le), debut: `${le}T19:00:00` }, le).revisions
+    expect([e('a1').boite, e('a1').prochaine, e('a1').rattrapage]).toEqual([2, '2026-10-03', true])
+    // Tout est réussi aujourd'hui : une autre série reste possible, les moins solides d'abord
+    expect(aReviserPourEvaluation(r, r.evaluation!, le)).toEqual([])
+    expect(uuids(tirerRevision(r, le, 2))).toEqual(['a1', 'f2'])
+    // Après l'évaluation, les dates d'avant tiennent : f1 n'a pas été repoussé
+    expect(aRevoir(r, '2026-10-08').map(([, x]) => x.etape.uuid).sort()).toEqual(['a1', 'a2', 'f1', 'f2', 'g1'])
+  })
+
+  it('parcours à cocher par chapitre, avec ceux qui ne sont pas commencés', () => {
+    const r = base()
+    const autres = [
+      { id: 'relatifs', titre: 'Parcours Nombres relatifs', niveau: '5e', theme: 'Nombres relatifs' },
+      { id: 'relatifs-2', titre: 'Multiplier des relatifs', niveau: '5e', theme: 'Nombres relatifs' },
+    ]
+    expect(parcoursParChapitre(r, autres).map((g) => `${g.theme} : ${g.parcours.map((p) => `${p.id} ${p.nb}`).join(', ')}`)).toEqual([
+      'Aires : aires 1',
+      'Fractions : fractions 2',
+      'Nombres relatifs : relatifs-2 0, relatifs 2',
+    ])
+    // Un parcours pas commencé peut être choisi : rien à réviser tant qu'il n'est pas fait
+    expect(tirerRevision({ ...r, evaluation: { parcours: ['relatifs-2'], date: '2026-10-05' } }, '2026-10-02')).toBeNull()
+  })
+
+  it('jour de l’évaluation en mots simples', () => {
+    expect(jourEnMots('2026-11-16', '2026-11-16')).toBe('aujourd’hui')
+    expect(jourEnMots('2026-11-17', '2026-11-16')).toBe('demain')
+    expect(jourEnMots('2026-11-19', '2026-11-16')).toBe('jeudi')
+    expect(jourEnMots('2026-11-28', '2026-11-16')).toBe('le 28 novembre')
   })
 })
 

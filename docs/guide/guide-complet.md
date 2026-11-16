@@ -64,7 +64,7 @@ On oublie vite ce qu'on n'a fait qu'une fois. Les révisions font revenir les ex
 - le lendemain s'ils ont été réussis à moins de 50 %, dans 3 jours entre 50 et 79 %, dans une semaine au-delà ;
 - puis de plus en plus espacés (3 semaines, 2 mois) tant qu'ils sont réussis ; plus tôt s'ils sont manqués.
 
-La tuile « Révisions », en haut de « Mes parcours », dit s'il y a quelque chose à revoir aujourd'hui. L'élève choisit 3, 6 ou 10 questions, et les chapitres à réviser (avant une évaluation, par exemple). Les questions sont mélangées entre chapitres et sans titre : il faut reconnaître seul le type de problème, c'est ce qui fait retenir. Aucun « retard » n'est jamais affiché. Rien à régler pour l'enseignant.
+La tuile « Révisions », en haut de « Mes parcours », dit s'il y a quelque chose à revoir aujourd'hui. L'élève choisit 3, 6 ou 10 questions, et peut laisser un chapitre de côté. Avant une évaluation, il indique le jour et les parcours concernés : jusqu'à ce jour, les révisions ne portent que sur eux. Les questions sont mélangées entre chapitres et sans titre : il faut reconnaître seul le type de problème, c'est ce qui fait retenir. Aucun « retard » n'est jamais affiché. Rien à régler pour l'enseignant.
 
 Détails : [Révisions](revisions.md).
 
