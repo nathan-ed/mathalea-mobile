@@ -126,6 +126,28 @@ for (const f of fichiers) {
         const obtenue = Object.entries(donnees).some(([k, v]) => k.startsWith('resultats:') && Object.values(v).some((r) => r.complet && r.points / r.sur >= 0.8))
         if (obtenue) ok(/Ceinture la plus haute : \S+/.test(await texte(page)), `${nom} : ceinture obtenue gardée (${/Ceinture la plus haute : (\S+)/.exec(await texte(page))?.[1]})`)
       }
+      // Chapitres choisis dans les révisions (0.7.2 et avant) : devenus chapitres
+      // écartés en 0.7.3, l'élève retrouve les mêmes interrupteurs
+      const choisis = donnees.revisions?.chapitres
+      if (Array.isArray(choisis)) {
+        await toucher(page, onglet(page, 'Mes parcours'))
+        await toucher(page, page.getByRole('button', { name: /Révisions/ }).first())
+        const lignes = page.getByRole('list', { name: 'Chapitres à réviser' }).getByRole('listitem')
+        await lignes.first().waitFor({ timeout: 30_000 })
+        const etats = await lignes.evaluateAll((ls) =>
+          ls.map((l) => {
+            const [theme, detail] = [...l.querySelectorAll('span span')].map((x) => x.textContent.trim())
+            return { cle: `${detail.split(' · ')[0]}|${theme}`, coche: l.querySelector('input').checked }
+          }),
+        )
+        const faux = etats.filter((e) => e.coche !== choisis.includes(e.cle))
+        ok(etats.length > 1 && !faux.length, `${nom} : chapitres écartés gardés (${etats.map((e) => `${e.cle} ${e.coche ? 'révisé' : 'écarté'}`).join(', ')})`, JSON.stringify(faux))
+        await page.screenshot({ path: `${captures}/mise-a-jour-${s}-chapitres.png` })
+        for (let i = 0; i < 3 && !(await onglet(page, 'Suivi').isVisible().catch(() => false)); i++) {
+          await page.goBack({ waitUntil: 'commit', timeout: 3000 }).catch(() => {})
+          await pagePrete(page)
+        }
+      }
     } else {
       // Ancien enseignant (mode retiré en 0.6) : l'app s'ouvre en élève et sa
       // bibliothèque s'exporte depuis les Réglages, pour le site MathALÉA

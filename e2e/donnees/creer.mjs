@@ -132,34 +132,41 @@ async function accueil(page) {
 
 const vider = (page) => page.evaluate(() => Object.fromEntries(Object.keys(localStorage).filter((k) => k.startsWith('copie:')).map((k) => [k.slice(6), JSON.parse(localStorage.getItem(k))])))
 
-// Élève
+// Élève (0.7.2 et suivantes : app élève seule) : « Nombres relatifs » et
+// « Fractions » terminés (deux chapitres dans les révisions), première ceinture
+// de « Relatifs en ceintures », « Relatifs par paliers » quitté en cours, puis
+// le chapitre de 4e écarté des révisions (chapitres choisis, migrés en 0.7.3)
 const eleve = await telephone('eleve')
 await ouvrir(eleve, 'Nombres relatifs')
 await repondre(eleve, 'relatifs-5e')
 await accueil(eleve)
+await ouvrir(eleve, 'Fractions')
+await repondre(eleve, 'fractions-4e')
+await accueil(eleve)
 await ouvrir(eleve, 'Relatifs en ceintures')
 await repondre(eleve, 'relatifs-ceintures-5e')
 await accueil(eleve)
-await ouvrir(eleve, 'Fractions')
-await repondre(eleve, 'fractions-4e', 1)
+await ouvrir(eleve, 'Relatifs par paliers')
+await repondre(eleve, 'relatifs-paliers-5e', 1)
 await eleve.getByRole('button', { name: 'Quitter', exact: true }).click()
 await eleve.getByRole('button', { name: 'Reprendre plus tard' }).click()
 await accueil(eleve)
+// Révisions : décocher le chapitre de 4e
+await eleve.getByRole('tab', { name: /Mes parcours/ }).click().catch(() => {})
+await eleve.getByRole('button', { name: /Révisions/ }).first().click()
+const cases = eleve.locator('[aria-label^="Réviser "]')
+await cases.first().waitFor({ timeout: 30_000 })
+console.log('Chapitres :', await cases.evaluateAll((cs) => cs.map((c) => c.getAttribute('aria-label') + ' ' + (c.checked ?? c.getAttribute('aria-checked')))))
+const n = await cases.count()
+await cases.nth(n - 1).click()
+await eleve.waitForTimeout(800)
 const donneesEleve = await vider(eleve)
-
-// Enseignant : démonstration chargée dans les Réglages
-const prof = await telephone('enseignant')
-await prof.getByRole('button', { name: 'Réglages' }).first().click()
-await prof.getByRole('button', { name: /Charger la démonstration|Charger les parcours de démonstration/ }).click()
-await prof.waitForTimeout(1500)
-const donneesProf = await vider(prof)
+console.log('revisions.chapitres :', JSON.stringify(donneesEleve.revisions?.chapitres))
 
 await nav.close()
 const resume = (d) => Object.keys(d).sort().join(', ')
 console.log(`Élève : ${resume(donneesEleve)}`)
 for (const [cle, r] of Object.entries(donneesEleve)) if (cle.startsWith('resultats:')) console.log(`  ${cle} : ${Object.values(r).map((e) => `${e.points}/${e.sur}`).join(' ')}`)
-console.log(`Enseignant : ${resume(donneesProf)}`)
 if (erreurs.length) console.log(`Erreurs JavaScript : ${erreurs.join(' | ')}`)
 const sortie = (qui, d) => writeFileSync(`e2e/donnees/${version}-${qui}.json`, JSON.stringify({ version, qui, cree: new Date().toISOString().slice(0, 10), donnees: d }, null, 1) + '\n')
 sortie('eleve', donneesEleve)
-sortie('enseignant', donneesProf)

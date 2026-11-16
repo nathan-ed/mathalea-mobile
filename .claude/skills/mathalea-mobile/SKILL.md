@@ -650,6 +650,15 @@ Environnement (machine de Nathan)
   release dans `releases/v<x>/`, essai dans `releases/essai/`
   (`MathALEA-<version>-<commit>-android-<abi>.apk`, ignoré par Git), fait
   par `scripts/apk-essai.sh` lui-même.
+- **Toute APK pour Nathan va dans sa boîte de dépôt kDrive** (demande de
+  Nathan, 16 novembre 2026), pas dans `~/kDrive/MathALEA-apk/` :
+  https://kdrive.infomaniak.com/app/collaborate/120240/f81bd324-02f6-4920-a236-a51bea3b7318
+  (lien de dépôt : on envoie, on ne lit pas ; même boîte que le projet
+  `mynotes`). Envoi : `node scripts/deposer-apk.mjs <apk>…` (Playwright,
+  formulaire rempli avec Nathan Scheinmann et `hello@naths.ch`, adresse
+  choisie par Nathan pour ce formulaire). Succès : « Your file has been
+  imported successfully! » ; le bouton Transfer disparaît dès le début de
+  l'envoi, ne pas s'arrêter là (envoi coupé à 62 % la première fois).
 - Signature : `src-tauri/gen/android/keystore.properties` (ignoré) ; clé de
   **test** `~/.local/share/mathalea-mobile/mathalea-test.jks`, aussi dans les
   secrets GitHub (`ANDROID_KEYSTORE`, `_PASSWORD`, `ANDROID_KEY_ALIAS`,
