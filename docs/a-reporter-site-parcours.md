@@ -67,3 +67,43 @@ parcours (`parcoursLibrary.ts`, `Parcours.svelte`), case « Proposer de
 réessayer après une erreur » dans `ParcoursEditor.svelte`, cochée par
 défaut et masquée quand la correction est à la fin du parcours, test
 `tests/unit/parcours.test.ts`.
+
+## Évaluation annoncée à une classe (novembre 2026, à faire sur le site)
+
+L'app (côté élève, fait) lit dans chaque classe du fichier `classes-mathalea/1`
+un champ facultatif `evaluations` :
+
+```json
+{
+  "format": "classes-mathalea/1",
+  "exporteLe": "2026-11-15T10:00:00.000Z",
+  "classes": [
+    {
+      "nom": "5e A",
+      "parcours": [],
+      "evaluations": [
+        { "id": "eval-relatifs", "date": "2026-11-20", "titre": "Évaluation sur les relatifs", "parcours": ["additions-relatifs", "soustractions-relatifs"] }
+      ]
+    }
+  ]
+}
+```
+
+- `id` : texte non vide, unique dans la classe, **stable** : changer la date ou
+  les parcours garde le même `id` (les élèves qui la préparent suivent le
+  changement ; un nouvel `id` serait proposé comme une nouvelle évaluation).
+- `date` : jour de l'évaluation, `AAAA-MM-JJ`. Le lendemain, la préparation
+  des élèves prend fin toute seule.
+- `parcours` : `id` de parcours de la classe (au moins un pour qu'elle soit
+  proposée ; un `id` inconnu de l'élève est ignoré).
+- `titre` : facultatif, affiché à l'élève.
+- Retirer une évaluation du fichier arrête la préparation des élèves qui ne
+  l'ont pas modifiée.
+- Une app d'avant ignore le champ. Un champ mal formé fait refuser le fichier
+  (`evaluationsAnnoncees` dans `validation.ts`).
+
+À faire sur le site : type `evaluations?` sur une classe (`parcoursTypes.ts`),
+contrôle (`parcoursFile.ts`), écriture à l'export, et dans la vue Classes de
+`?v=parcours` un bloc « Évaluations » par classe : titre, jour, parcours de la
+classe à cocher. Test `tests/unit/parcours.test.ts`. Rien ne revient des
+élèves : l'enseignant ne sait pas qui la prépare.

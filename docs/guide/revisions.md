@@ -50,6 +50,8 @@ Jusqu'au jour de l'évaluation :
 
 ![La préparation d'une évaluation](images/revisions-6-preparation.png)
 
+Si l'enseignant a annoncé une évaluation à la classe, elle apparaît à l'accueil et dans les Révisions (« Annoncée par ton enseignant ») : un toucher sur « Préparer l'évaluation » suffit, le jour et les parcours sont déjà choisis. Si l'enseignant déplace l'évaluation, la préparation suit.
+
 Réviser beaucoup la veille ne rend pas un exercice « durable » : réussi avant sa date, il garde sa place dans les révisions. Le lendemain de l'évaluation, les révisions habituelles reprennent toutes seules, sur tous les chapitres. « Modifier » change le jour ou les parcours, « Arrêter la préparation » y met fin plus tôt.
 
 ## 5. Après la révision

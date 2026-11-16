@@ -1263,9 +1263,24 @@ Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
   l'évaluation » (ouvre le parcours). Bilan : « Réussi aujourd'hui » ou « À
   revoir avant l'évaluation ». Le lendemain, la préparation s'efface au
   lancement. Jamais de compte de ce qui reste, comme pour les révisions.
-  Pistes non faites : choix par ceinture dans un parcours, évaluation
-  annoncée par l'enseignant dans le fichier de parcours, lien vers la fiche
-  de cours après une erreur.
+  Pistes non faites : choix par ceinture dans un parcours, lien vers la
+  fiche de cours après une erreur.
+- Évaluation annoncée par l'enseignant (Nathan, 16 novembre 2026 : « for
+  teacher to be able to prepare an evaluation for the students and then it
+  shows up on the home screen » ; côté élève fait, côté enseignant à faire
+  sur le site, voir `docs/a-reporter-site-parcours.md`). Le fichier
+  `classes-mathalea/1` porte, dans une classe, `evaluations` :
+  `[{ "id", "date": "AAAA-MM-JJ", "parcours": [id…], "titre"? }]`
+  (`EvaluationAnnoncee` dans `partage.ts`, contrôle `evaluationsAnnoncees`,
+  fusion par id, fichier le plus récent). Une app d'avant ignore le champ.
+  L'élève la voit à l'accueil (action proposée « Préparer l'évaluation »,
+  tuile « Évaluation vendredi, à préparer ») et dans les Révisions
+  (« Annoncée par ton enseignant ») : un toucher la prépare, sans rien
+  choisir (`preparerAnnonce`). Jamais d'office : l'élève décide. Elle suit
+  ensuite son annonce (`suivreAnnonces` : jour ou parcours changés, annonce
+  retirée), sauf si l'élève l'a modifiée (`modifiee`). Arrêtée ou passée,
+  elle n'est pas reproposée (`annonces`). Rien ne revient à l'enseignant.
+  Test : `node e2e/evaluation-annoncee.mjs` (dossier simulé).
 - Suivi : les séances de révision comptent pour les objectifs, qui gardent le
   niveau et le chapitre du parcours d'origine (`objectifsTravailles`, passages
   triés par date) ; solidité d'un objectif = boîte la plus basse de ses

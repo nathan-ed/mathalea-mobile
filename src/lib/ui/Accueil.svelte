@@ -91,7 +91,7 @@
     oncontinuer: (p: Parcours) => void
     onreglages: () => void
     onscanner?: () => void // QR code d'une session partagée ou d'une classe
-    revisions?: { dus: number; prochaine: string | null; enCours: boolean; evaluation?: string | null /* jour en mots */ } | null // révisions espacées (null : rien de terminé)
+    revisions?: { dus: number; prochaine: string | null; enCours: boolean; evaluation?: string | null /* jour en mots */; aPreparer?: string | null /* évaluation annoncée, pas encore préparée */ } | null // révisions espacées (null : rien de terminé)
     onrevisions?: () => void
     /** Ce que l'app propose de faire maintenant : reprendre la séance, sinon réviser, sinon la ceinture suivante */
     action?: { libelle: string; detail: string; fn: () => void } | null
@@ -294,6 +294,8 @@
                 ? 'Révision commencée'
                 : revisions.evaluation
                   ? `Évaluation ${revisions.evaluation}`
+                  : revisions.aPreparer
+                    ? `Évaluation ${revisions.aPreparer}, à préparer`
                   : revisions.dus
                   ? 'À revoir aujourd’hui'
                   : revisions.prochaine

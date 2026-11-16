@@ -5,7 +5,10 @@ import {
   aRevoir,
   barrettes,
   texteBarrettes,
+  annonceAProposer,
   aReviserPourEvaluation,
+  preparerAnnonce,
+  suivreAnnonces,
   chapitres,
   dansEvaluation,
   estRevisions,
@@ -351,6 +354,39 @@ describe('préparer une évaluation', () => {
     ])
     // Un parcours pas commencé peut être choisi : rien à réviser tant qu'il n'est pas fait
     expect(tirerRevision({ ...r, evaluation: { parcours: ['relatifs-2'], date: '2026-10-05' } }, '2026-10-02')).toBeNull()
+  })
+
+  it('évaluation annoncée par l’enseignant : proposée, préparée d’un geste, suivie, jamais reproposée', () => {
+    const annonces = [
+      { id: 'eval-2', date: '2026-10-20', parcours: ['aires'] },
+      { id: 'eval-1', date: '2026-10-08', parcours: ['relatifs', 'fractions'], titre: 'Relatifs et fractions' },
+      { id: 'passee', date: '2026-09-30', parcours: ['aires'] },
+      { id: 'vide', date: '2026-10-03', parcours: [] },
+    ]
+    let r = base()
+    // La plus proche à venir ; ni passée ni sans parcours
+    expect(annonceAProposer(r, annonces, '2026-10-02')?.id).toBe('eval-1')
+    r = preparerAnnonce(r, annonces[1])
+    expect(r.evaluation).toEqual({ parcours: ['relatifs', 'fractions'], date: '2026-10-08', annonce: 'eval-1', titre: 'Relatifs et fractions' })
+    expect(estRevisions(r)).toBe(true)
+    // Une préparation en cours : rien d'autre n'est proposé
+    expect(annonceAProposer(r, annonces, '2026-10-02')).toBeNull()
+    expect(uuids(tirerRevision(r, '2026-10-02', 2))).toEqual(['f2', 'a1'])
+    // L'enseignant déplace l'évaluation et retire un parcours : la préparation suit
+    expect(suivreAnnonces(r, annonces)).toBe(r)
+    const deplacee = [{ ...annonces[1], date: '2026-10-09', parcours: ['relatifs'] }, annonces[0]]
+    r = suivreAnnonces(r, deplacee)
+    expect([r.evaluation!.date, r.evaluation!.parcours]).toEqual(['2026-10-09', ['relatifs']])
+    // Modifiée par l'élève : ses choix restent
+    const perso: Revisions = { ...r, evaluation: { ...r.evaluation!, parcours: ['fractions'], modifiee: true } }
+    expect(suivreAnnonces(perso, annonces)).toBe(perso)
+    // Arrêtée par l'élève : pas reproposée ; la suivante l'est, une fois celle-ci passée ou arrêtée
+    const { evaluation: _e, ...arretee } = r
+    expect(annonceAProposer(arretee, annonces, '2026-10-02')?.id).toBe('eval-2')
+    // Annonce retirée par l'enseignant : la préparation s'arrête
+    expect(suivreAnnonces(r, [annonces[0]]).evaluation).toBeUndefined()
+    // Après le jour de l'évaluation, la suivante est proposée
+    expect(annonceAProposer(r, annonces, '2026-10-10')?.id).toBe('eval-2')
   })
 
   it('jour de l’évaluation en mots simples', () => {

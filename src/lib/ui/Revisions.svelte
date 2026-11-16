@@ -19,6 +19,7 @@
     SOLIDITES,
     TAILLE_PAR_DEFAUT,
     TAILLES,
+    type Annonce,
     type Evaluation,
     type Revisions,
     type SourceRevision,
@@ -32,6 +33,8 @@
     revisions,
     enCours = false,
     mesParcours = [],
+    annonce = null,
+    onannonce,
     onlancer,
     onchapitres,
     ontaille,
@@ -42,6 +45,8 @@
     revisions: Revisions
     enCours?: boolean // une séance de révision commencée, à reprendre
     mesParcours?: ({ id: string; reste?: string } & SourceRevision)[] // parcours de l'élève ; `reste` : ce qui n'est pas encore obtenu (« 2 ceintures sur 5 »)
+    annonce?: Annonce | null // évaluation annoncée par l'enseignant, pas encore préparée
+    onannonce?: (a: Annonce) => void // la préparer : le jour et les parcours sont ceux de l'enseignant
     onlancer: () => void
     onchapitres: (sans: string[] | undefined) => void // chapitres écartés ; undefined : aucun
     ontaille: (n: number) => void // questions par séance
@@ -75,8 +80,12 @@
       const t = revisions.sources?.[id]?.titre ?? mesParcours.find((p) => p.id === id)?.titre
       return t ? [t] : []
     })
-    return titres.length > 2 ? `${titres.length} parcours` : titres.join(', ')
+    return evaluation.titre || (titres.length > 2 ? `${titres.length} parcours` : titres.join(', '))
   })
+  const jourComplet = (j: string) => {
+    const [a, m, d] = j.split('-').map(Number)
+    return new Date(a, m - 1, d).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
+  }
 
   function basculer(cle: string, oui: boolean) {
     const suite = new Set(ecartes)
@@ -112,7 +121,8 @@
     {mesParcours}
     {evaluation}
     onvalider={(e) => {
-      onevaluation(e)
+      // Évaluation de l'enseignant modifiée par l'élève : ses choix restent, elle n'est pas reproposée
+      onevaluation(evaluation?.annonce ? { ...e, annonce: evaluation.annonce, modifiee: true, ...(evaluation.titre ? { titre: evaluation.titre } : {}) } : e)
       preparer = false
     }}
     onretour={() => (preparer = false)}
@@ -153,7 +163,8 @@
       <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={onlancer}>Refaire une série</button>
     {/if}
 
-    {#if !evaluation || pourEvaluation.length}
+    <!-- Aucun exercice encore (évaluation annoncée avant le premier parcours) : pas de cases à zéro -->
+    {#if evaluation ? pourEvaluation.length : liste.length}
       <div class="flex flex-row gap-2" aria-label="Tes exercices dans le temps">
         {#each parSolidite as s, k (s.libelle)}
           <div class="flex-1 flex flex-col items-center gap-1 rounded-xl px-2 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
@@ -191,11 +202,26 @@
         <button type="button" class={boutonLien} onclick={() => (terminer = true)}>Arrêter la préparation</button>
       </div>
     {:else}
+      {#if annonce && onannonce}
+        <h2 class={titreSection}>Annoncée par ton enseignant</h2>
+        <ul class={listeGroupee} aria-label="Évaluation annoncée par ton enseignant">
+          <li>
+            <button type="button" class={elementListe} onclick={() => onannonce(annonce)}>
+              <span class="flex flex-col min-w-0">
+                <span class="truncate text-coopmaths-corpus dark:text-coopmathsdark-corpus">{annonce.titre || 'Évaluation'}</span>
+                <span class={discret}>{jourComplet(annonce.date)} · toucher pour la préparer</span>
+              </span>
+              <i aria-hidden="true" class="bx bx-chevron-right shrink-0 text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+            </button>
+          </li>
+        </ul>
+      {/if}
       <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => (preparer = true)}>
         <i aria-hidden="true" class="bx bx-calendar-check text-lg"></i>
         Préparer une évaluation
       </button>
 
+      {#if liste.length}
       <h2 class={titreSection}>Chapitres</h2>
       <ul class={listeGroupee} aria-label="Chapitres à réviser">
         {#each liste as c (c.cle)}
@@ -219,6 +245,7 @@
           </li>
         {/each}
       </ul>
+      {/if}
     {/if}
   </main>
 </div>

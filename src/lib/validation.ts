@@ -158,7 +158,21 @@ export function estParcours(v: unknown): v is Parcours {
 export const parcoursUniques = (v: unknown): v is Parcours[] =>
   listeDe(v, estParcours) && sansDoublon((v as Parcours[]).map((p) => p.id))
 
+/** Évaluations annoncées à une classe : un id chacune, un jour, des parcours */
+export const evaluationsAnnoncees = (v: unknown) =>
+  listeDe(
+    v,
+    (e) =>
+      estObjet(e) &&
+      estTexte(e.id) &&
+      e.id !== '' &&
+      typeof e.date === 'string' &&
+      /^\d{4}-\d{2}-\d{2}$/.test(e.date) &&
+      listeDe(e.parcours, estTexte) &&
+      optionnel(e.titre, estTexte),
+  ) && sansDoublon((v as { id: string }[]).map((e) => e.id))
+
 /** Classes d'un fichier partagé : noms uniques, parcours uniques dans chaque classe */
 export const classesDuFichier = (v: unknown) =>
-  listeDe(v, (c) => estObjet(c) && estTexte(c.nom) && parcoursUniques(c.parcours)) &&
+  listeDe(v, (c) => estObjet(c) && estTexte(c.nom) && parcoursUniques(c.parcours) && optionnel(c.evaluations, evaluationsAnnoncees)) &&
   sansDoublon((v as { nom: string }[]).map((c) => c.nom))

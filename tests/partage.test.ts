@@ -214,6 +214,24 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
     expect(f.classes.map((c) => c.nom)).toEqual(['3e B', '10e A', 'Classe test'])
   })
 
+  it('évaluations annoncées : lues avec la classe, une par id (fichier le plus récent), contrôlées', () => {
+    const avec = (exporteLe: string, evaluations: unknown, banque = false) =>
+      JSON.stringify({ format: 'classes-mathalea/1', exporteLe, ...(banque ? { banque } : {}), classes: [{ nom: '3e A', parcours: [], evaluations }] })
+    const e1 = { id: 'e1', date: '2026-11-20', parcours: ['fractions-4e'], titre: 'Fractions' }
+    const f = lireFichier(avec('2026-11-01T08:00:00Z', [e1]))
+    expect(f.classes[0].evaluations).toEqual([e1])
+    // Date déplacée dans un fichier plus récent, quel que soit l'ordre de lecture ; une autre évaluation s'ajoute
+    const recent = lireFichier(avec('2026-11-05T08:00:00Z', [{ ...e1, date: '2026-11-24' }, { id: 'e2', date: '2026-12-01', parcours: [] }]))
+    for (const ordre of [[f, recent], [recent, f]])
+      expect(fusionner(ordre).classes[0].evaluations!.map((e) => `${e.id} ${e.date}`)).toEqual(['e1 2026-11-24', 'e2 2026-12-01'])
+    // Publication complète plus récente sans évaluation : l'annonce est retirée
+    expect(fusionner([lireFichier(avec('2026-11-01T08:00:00Z', [e1], true)), lireFichier(avec('2026-11-06T08:00:00Z', undefined, true))]).classes[0].evaluations).toBeUndefined()
+    // Fichier sans évaluations (apps et site d'avant) : inchangé
+    expect(lireFichier(avec('2026-11-01T08:00:00Z', undefined)).classes[0].evaluations).toBeUndefined()
+    for (const mauvaise of [[{ ...e1, date: 'vendredi' }], [{ ...e1, id: '' }], [e1, e1], [{ ...e1, parcours: 'fractions-4e' }], 'e1'])
+      expect(() => lireFichier(avec('2026-11-01T08:00:00Z', mauvaise))).toThrow()
+  })
+
   it('une version plus ancienne ne remplace pas une plus récente, quel que soit l’ordre', () => {
     const f = fusionner([lireFichier(seul), lireFichier(banque)])
     expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)

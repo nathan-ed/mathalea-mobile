@@ -30,6 +30,19 @@ const FORMAT_UNE_CLASSE = 'classe-mathalea/1'
 export interface ClasseDuFichier {
   nom: string
   parcours: Parcours[] // dans l'ordre choisi par l'enseignant
+  evaluations?: EvaluationAnnoncee[] // évaluations annoncées à la classe (ignorées par les apps d'avant la 0.7.3)
+}
+
+/**
+ * Évaluation annoncée par l'enseignant à une classe : son jour et les
+ * parcours concernés. L'app la propose à l'élève, qui prépare ses révisions
+ * d'un toucher (revisions.ts). Rien ne revient à l'enseignant.
+ */
+export interface EvaluationAnnoncee {
+  id: string // stable : une date ou des parcours modifiés gardent le même id
+  date: string // AAAA-MM-JJ
+  parcours: string[] // id des parcours de la classe
+  titre?: string // « Évaluation sur les fractions »
 }
 
 export interface FichierClasses {
@@ -216,12 +229,19 @@ async function lireAutre(lien: string, req: Requete): Promise<Uint8Array[]> {
  */
 export function fusionner(fichiers: FichierClasses[]): FichierClasses {
   const banque = fichiers.filter((f) => f.banque).sort((a, b) => a.exporteLe.localeCompare(b.exporteLe)).at(-1)
-  const retenus = fichiers.filter((f) => !f.banque || f === banque)
+  const retenus = fichiers.filter((f) => !f.banque || f === banque).sort((a, b) => a.exporteLe.localeCompare(b.exporteLe))
   const classes: ClasseDuFichier[] = []
   for (const f of retenus) {
     for (const c of f.classes) {
       let cible = classes.find((x) => x.nom === c.nom)
       if (!cible) classes.push((cible = { nom: c.nom, parcours: [] }))
+      // Évaluations annoncées : une par id, celle du fichier le plus récent
+      for (const e of c.evaluations ?? []) {
+        const liste = (cible.evaluations ??= [])
+        const i = liste.findIndex((x) => x.id === e.id)
+        if (i === -1) liste.push(e)
+        else liste[i] = e
+      }
       for (const p of c.parcours) {
         const i = cible.parcours.findIndex((x) => x.id === p.id)
         if (i === -1) cible.parcours.push(p)

@@ -44,11 +44,14 @@
     aRevoir,
     barrettes,
     TAILLE_PAR_DEFAUT,
+    annonceAProposer,
     aReviserPourEvaluation,
     estRevision,
     evaluationEnCours,
     jourEnMots,
     migrerChapitres,
+    preparerAnnonce,
+    suivreAnnonces,
     ID_REVISIONS,
     integrerPassages,
     prochaineRevision,
@@ -56,6 +59,7 @@
     resultatsRevision,
     revisionsVides,
     tirerRevision,
+    type Annonce,
     type Evaluation,
     type Revisions,
   } from '$lib/revisions'
@@ -581,11 +585,28 @@
   }
   const revisionEnCours = $derived(!!seances[ID_REVISIONS] && !seances[ID_REVISIONS]!.fin)
   const evaluation = $derived(evaluationEnCours(revisions))
+  // Évaluations annoncées par l'enseignant à la classe de l'élève (fichier du dossier partagé)
+  const annonces: Annonce[] = $derived(classes.filter((c) => c.nom).flatMap((c) => c.fichier?.find((f) => f.nom === c.nom)?.evaluations ?? []))
+  const annonce = $derived(annonceAProposer(revisions, annonces))
+  // La préparation suit son annonce (jour ou parcours changés par l'enseignant, annonce retirée)
+  $effect(() => {
+    // Fichier d'une classe pas encore relu (données d'une version précédente) : on ne conclut rien
+    if (!pret || !stockage || classes.some((c) => c.nom && !c.fichier)) return
+    const suite = suivreAnnonces(revisions, annonces)
+    if (suite === revisions) return
+    revisions = suite
+    void stockage.ecrire('revisions', $state.snapshot(revisions))
+  })
+  async function preparerEvaluationAnnoncee(a: Annonce) {
+    revisions = preparerAnnonce(revisions, a)
+    await stockage!.ecrire('revisions', $state.snapshot(revisions))
+    aller('revisions')
+  }
   // Évaluation en préparation : ce qui n'a pas encore été réussi aujourd'hui dans ses parcours
   const dusRevision = $derived(evaluation ? aReviserPourEvaluation(revisions, evaluation).length : aRevoir(revisions).length)
   const resumeRevisions = $derived(
-    Object.keys(revisions.elements).length || evaluation
-      ? { dus: dusRevision, prochaine: prochaineRevision(revisions), enCours: revisionEnCours, evaluation: evaluation ? jourEnMots(evaluation.date) : null }
+    Object.keys(revisions.elements).length || evaluation || annonce
+      ? { dus: dusRevision, prochaine: prochaineRevision(revisions), enCours: revisionEnCours, evaluation: evaluation ? jourEnMots(evaluation.date) : null, aPreparer: annonce ? jourEnMots(annonce.date) : null }
       : null,
   )
   // Parcours que l'élève peut mettre dans une évaluation, avec ce qu'il lui reste à y obtenir
@@ -615,7 +636,9 @@
       const r = resumes[p.id]
       return { libelle: 'Reprendre', detail: `${p.titre} · question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`, fn: () => commencer(p) }
     }
-    // 2. Révision du jour, à la taille choisie (jamais un stock)
+    // 2. Évaluation annoncée par l'enseignant : un toucher pour préparer ses révisions
+    if (annonce) return { libelle: 'Préparer l’évaluation', detail: [`Évaluation ${jourEnMots(annonce.date)}`, annonce.titre].filter(Boolean).join(' · '), fn: () => void preparerEvaluationAnnoncee(annonce) }
+    // 3. Révision du jour, à la taille choisie (jamais un stock)
     const dus = dusRevision
     if (dus > 0) {
       const n = Math.min(dus, revisions.taille ?? TAILLE_PAR_DEFAUT)
@@ -623,7 +646,7 @@
       if (evaluation) return { libelle: 'Réviser pour l’évaluation', detail: `Évaluation ${jourEnMots(evaluation.date)} · ${questions}`, fn: lancerRevision }
       return { libelle: 'Réviser maintenant', detail: `Révision du jour · ${questions}`, fn: lancerRevision }
     }
-    // 3. Ceinture ou palier suivant, ouvert et pas encore réussi, du parcours travaillé en dernier
+    // 4. Ceinture ou palier suivant, ouvert et pas encore réussi, du parcours travaillé en dernier
     const dernierPassage = (p: Parcours) => (historiques[p.id] ?? []).at(-1)?.fin ?? ''
     const entames = visibles.filter((p) => paliersDe(p).length > 1 && dernierPassage(p)).sort((a, b) => dernierPassage(b).localeCompare(dernierPassage(a)))
     for (const p of entames) {
@@ -1136,6 +1159,8 @@
       {revisions}
       enCours={revisionEnCours}
       mesParcours={parcoursPourEvaluation}
+      {annonce}
+      onannonce={preparerEvaluationAnnoncee}
       onlancer={lancerRevision}
       onchapitres={choisirChapitres}
       ontaille={choisirTaille}

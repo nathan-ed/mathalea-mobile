@@ -31,7 +31,7 @@ const union = (a: string[] = [], b: string[] = []) => [...new Set([...a, ...b])]
 const activite = (s: Seance) => [s.debut, s.fin ?? '', ...s.essais.map((e) => e.le)].reduce((a, b) => (a > b ? a : b))
 
 /** Révisions recalculées d'après tous les passages, dans l'ordre de leur fin */
-export function rejouerRevisions(historiques: Seance[][], reglages: Pick<Revisions, 'chapitres' | 'sansChapitres' | 'evaluation' | 'taille'> = {}): Revisions {
+export function rejouerRevisions(historiques: Seance[][], reglages: Pick<Revisions, 'chapitres' | 'sansChapitres' | 'evaluation' | 'annonces' | 'taille'> = {}): Revisions {
   const { chapitres, ...gardes } = reglages
   let r: Revisions = { ...revisionsVides(), ...gardes }
   const termines = historiques
@@ -137,6 +137,7 @@ export function fusionnerDonnees(ici: Donnees, la: Donnees): { donnees: Donnees;
       ...(r.chapitres ? { chapitres: r.chapitres } : {}),
       ...(r.sansChapitres ? { sansChapitres: r.sansChapitres } : {}),
       ...(r.evaluation ? { evaluation: r.evaluation } : {}),
+      ...(r.annonces ? { annonces: r.annonces } : {}),
       ...(r.taille ? { taille: r.taille } : {}),
     })
   }

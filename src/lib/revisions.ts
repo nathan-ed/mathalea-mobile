@@ -46,6 +46,17 @@ export interface SourceRevision {
 export interface Evaluation {
   parcours: string[]
   date: string // AAAA-MM-JJ ; le lendemain, les révisions habituelles reprennent
+  titre?: string // donné par l'enseignant
+  annonce?: string // id de l'évaluation annoncée par l'enseignant (partage.ts) : elle suit ses changements
+  modifiee?: boolean // l'élève a changé le jour ou les parcours : ses choix restent
+}
+
+/** Évaluation annoncée par l'enseignant à la classe de l'élève (EvaluationAnnoncee de partage.ts) */
+export interface Annonce {
+  id: string
+  date: string
+  parcours: string[]
+  titre?: string
 }
 
 export interface Revisions {
@@ -55,6 +66,7 @@ export interface Revisions {
   sansChapitres?: string[] // chapitres écartés par l'élève (cleChapitre) : un nouveau chapitre est toujours révisé
   sources?: Record<string, SourceRevision> // par parcours (id)
   evaluation?: Evaluation
+  annonces?: string[] // évaluations annoncées déjà reprises ou arrêtées : jamais reproposées
   taille?: number // questions par séance choisies par l'élève (TAILLES)
 }
 
@@ -217,6 +229,38 @@ export function chapitres(r: Revisions) {
 
 /** Évaluation en préparation : jusqu'au jour de l'évaluation compris */
 export const evaluationEnCours = (r: Revisions, aujourdhui = jour()) => (r.evaluation && r.evaluation.date >= aujourdhui ? r.evaluation : null)
+
+/**
+ * Évaluation annoncée à proposer : la plus proche à venir que l'élève n'a ni
+ * reprise ni arrêtée, quand il n'en prépare pas déjà une.
+ */
+export function annonceAProposer(r: Revisions, annonces: Annonce[], aujourdhui = jour()): Annonce | null {
+  if (evaluationEnCours(r, aujourdhui)) return null
+  const vues = new Set(r.annonces ?? [])
+  return annonces.filter((a) => a.date >= aujourdhui && a.parcours.length && !vues.has(a.id)).sort((a, b) => a.date.localeCompare(b.date))[0] ?? null
+}
+
+const depuisAnnonce = (a: Annonce): Evaluation => ({ parcours: [...a.parcours], date: a.date, annonce: a.id, ...(a.titre ? { titre: a.titre } : {}) })
+
+/** L'élève prépare l'évaluation annoncée : rien à choisir, le jour et les parcours sont ceux de l'enseignant */
+export const preparerAnnonce = (r: Revisions, a: Annonce): Revisions => ({ ...r, evaluation: depuisAnnonce(a), annonces: [...new Set([...(r.annonces ?? []), a.id])] })
+
+/**
+ * L'évaluation en préparation suit son annonce : jour ou parcours changés
+ * par l'enseignant, annonce retirée (la préparation s'arrête). Pas si
+ * l'élève a modifié la sienne.
+ */
+export function suivreAnnonces(r: Revisions, annonces: Annonce[]): Revisions {
+  const e = r.evaluation
+  if (!e?.annonce || e.modifiee) return r
+  const a = annonces.find((x) => x.id === e.annonce)
+  if (!a) {
+    const { evaluation: _retiree, ...reste } = r
+    return reste
+  }
+  if (a.date === e.date && (a.titre ?? '') === (e.titre ?? '') && a.parcours.join('\n') === e.parcours.join('\n')) return r
+  return { ...r, evaluation: depuisAnnonce(a) }
+}
 
 /** Exercices des parcours de l'évaluation */
 export function dansEvaluation(r: Revisions, ev: Evaluation) {
@@ -423,7 +467,15 @@ export function estRevisions(v: unknown): v is Revisions {
       (!!r.sources &&
         typeof r.sources === 'object' &&
         Object.values(r.sources).every((s) => !!s && typeof s.titre === 'string' && typeof s.niveau === 'string' && typeof s.theme === 'string'))) &&
-    (r.evaluation === undefined || (!!r.evaluation && typeof r.evaluation === 'object' && listeDeTextes(r.evaluation.parcours) && jourValide(r.evaluation.date))) &&
+    (r.evaluation === undefined ||
+      (!!r.evaluation &&
+        typeof r.evaluation === 'object' &&
+        listeDeTextes(r.evaluation.parcours) &&
+        jourValide(r.evaluation.date) &&
+        (r.evaluation.titre === undefined || typeof r.evaluation.titre === 'string') &&
+        (r.evaluation.annonce === undefined || typeof r.evaluation.annonce === 'string') &&
+        (r.evaluation.modifiee === undefined || typeof r.evaluation.modifiee === 'boolean'))) &&
+    (r.annonces === undefined || listeDeTextes(r.annonces)) &&
     (r.taille === undefined || TAILLES.includes(r.taille))
   )
 }
