@@ -245,6 +245,17 @@ describe('dossier avec plusieurs fichiers (parcours seuls et banques)', () => {
       expect(() => lireFichier(avec('2026-11-01T08:00:00Z', mauvaise))).toThrow()
   })
 
+  it('fichier sans date d’export : le dossier reste lisible, l’ordre des parcours ne dépend pas des dates', () => {
+    const classe = (ids: string[], exporteLe?: string) =>
+      lireFichier(JSON.stringify({ format: 'classes-mathalea/1', ...(exporteLe ? { exporteLe } : {}), classes: [{ nom: '3e A', parcours: ids.map((id) => ({ ...p(1), id })) }] }))
+    // Écrit à la main, sans exporteLe : pas d'exception
+    expect(fusionner([classe(['a']), classe(['b'], '2026-11-01T08:00:00Z')]).classes[0].parcours.map((x) => x.id)).toEqual(['a', 'b'])
+    // Le premier fichier lu fixe la place des parcours, même s'il est le plus récent
+    const recent = classe(['a', 'b'], '2026-11-05T08:00:00Z')
+    const ancien = classe(['b', 'c'], '2026-11-01T08:00:00Z')
+    expect(fusionner([recent, ancien]).classes[0].parcours.map((x) => x.id)).toEqual(['a', 'b', 'c'])
+  })
+
   it('une version plus ancienne ne remplace pas une plus récente, quel que soit l’ordre', () => {
     const f = fusionner([lireFichier(seul), lireFichier(banque)])
     expect(f.classes.find((c) => c.nom === '3e A')!.parcours.find((x) => x.id === 'fractions-4e')!.version).toBe(2)

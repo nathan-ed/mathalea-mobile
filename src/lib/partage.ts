@@ -228,20 +228,18 @@ async function lireAutre(lien: string, req: Requete): Promise<Uint8Array[]> {
  * anciennes peuvent rester dans le dossier sans rien réintroduire.
  */
 export function fusionner(fichiers: FichierClasses[]): FichierClasses {
-  const banque = fichiers.filter((f) => f.banque).sort((a, b) => a.exporteLe.localeCompare(b.exporteLe)).at(-1)
-  const retenus = fichiers.filter((f) => !f.banque || f === banque).sort((a, b) => a.exporteLe.localeCompare(b.exporteLe))
+  // Un fichier écrit à la main peut ne pas avoir de date d'export
+  const date = (f: FichierClasses) => String(f.exporteLe ?? '')
+  const parDate = (a: FichierClasses, b: FichierClasses) => date(a).localeCompare(date(b))
+  const banque = fichiers.filter((f) => f.banque).sort(parDate).at(-1)
+  const retenus = fichiers.filter((f) => !f.banque || f === banque)
   const classes: ClasseDuFichier[] = []
+  // Parcours : dans l'ordre des fichiers, comme avant (la place d'un parcours
+  // dans sa classe ne dépend pas des dates d'export)
   for (const f of retenus) {
     for (const c of f.classes) {
       let cible = classes.find((x) => x.nom === c.nom)
       if (!cible) classes.push((cible = { nom: c.nom, parcours: [] }))
-      // Évaluations annoncées : une par id, celle du fichier le plus récent
-      for (const e of c.evaluations ?? []) {
-        const liste = (cible.evaluations ??= [])
-        const i = liste.findIndex((x) => x.id === e.id)
-        if (i === -1) liste.push(e)
-        else liste[i] = e
-      }
       for (const p of c.parcours) {
         const i = cible.parcours.findIndex((x) => x.id === p.id)
         if (i === -1) cible.parcours.push(p)
@@ -249,7 +247,19 @@ export function fusionner(fichiers: FichierClasses[]): FichierClasses {
       }
     }
   }
-  const exporteLe = fichiers.map((f) => f.exporteLe).sort().at(-1) ?? ''
+  // Évaluations annoncées : une par id, celle du fichier exporté le plus récemment
+  for (const f of [...retenus].sort(parDate)) {
+    for (const c of f.classes) {
+      const cible = classes.find((x) => x.nom === c.nom)!
+      for (const e of c.evaluations ?? []) {
+        const liste = (cible.evaluations ??= [])
+        const i = liste.findIndex((x) => x.id === e.id)
+        if (i === -1) liste.push(e)
+        else liste[i] = e
+      }
+    }
+  }
+  const exporteLe = fichiers.map(date).sort().at(-1) ?? ''
   // Bibliothèque de l'enseignant : celle de la publication complète la plus récente
   const bibliotheque = banque?.bibliotheque
   // L'ordre des fichiers du drive est arbitraire : classes triées par nom (tri naturel : 3e avant 10e)

@@ -164,6 +164,12 @@ describe('fusion dans le stockage', () => {
     expect(r.evaluation).toEqual(evaluation)
     expect(r.annonces).toEqual(['e1'])
     expect(r.sansChapitres).toEqual(['5e|Aires'])
+    // Pas de préparation ici : celle de l'autre appareil est gardée, les annonces vues sont réunies
+    const sans = appareil({ p: [p1] }, { revisions: { ...integrerPassages(revisionsVides(), [p1]), annonces: ['e2'] } })
+    const avec = appareil({}, { revisions: { ...revisionsVides(), evaluation, annonces: ['e1'] } })
+    const reunies = fusionnerDonnees(sans, avec).donnees.revisions as ReturnType<typeof revisionsVides>
+    expect(reunies.evaluation).toEqual(evaluation)
+    expect([...(reunies.annonces ?? [])].sort()).toEqual(['e1', 'e2'])
     // Les passages des deux appareils sont rattachés à leur parcours
     expect(Object.values(r.elements).map((e) => e.origines?.join()).sort()).toEqual(['p', 'p', 'q', 'q'])
     expect(Object.keys(r.sources ?? {}).sort()).toEqual(['p', 'q'])

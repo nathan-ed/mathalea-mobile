@@ -133,11 +133,16 @@ export function fusionnerDonnees(ici: Donnees, la: Donnees): { donnees: Donnees;
     .map((c) => d[c] as Seance[])
   if (d.revisions || historiques.length) {
     const r = (ici.revisions ?? la.revisions ?? {}) as Partial<Revisions>
+    const autre = (la.revisions ?? {}) as Partial<Revisions>
+    // Préparation d'une évaluation : celle d'ici, sinon celle de l'autre appareil ;
+    // annonces déjà reprises ou arrêtées : réunies, pour ne pas être reproposées
+    const evaluation = r.evaluation ?? autre.evaluation
+    const annonces = [...new Set([...(r.annonces ?? []), ...(autre.annonces ?? [])])]
     d.revisions = rejouerRevisions(historiques, {
       ...(r.chapitres ? { chapitres: r.chapitres } : {}),
       ...(r.sansChapitres ? { sansChapitres: r.sansChapitres } : {}),
-      ...(r.evaluation ? { evaluation: r.evaluation } : {}),
-      ...(r.annonces ? { annonces: r.annonces } : {}),
+      ...(evaluation ? { evaluation } : {}),
+      ...(annonces.length ? { annonces } : {}),
       ...(r.taille ? { taille: r.taille } : {}),
     })
   }

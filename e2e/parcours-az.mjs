@@ -334,7 +334,8 @@ async function repondre(e, n, k, a) {
           await liste.evaluate((l, val) => (l.value = val), texteDe(rep))
           continue
         }
-        const qcm = hote.locator(`[data-type="qcm"][data-name="${nom}"] input[value="${texteDe(rep)}"]`)
+        // Valeur échappée pour le sélecteur : un libellé LaTeX porte des barres obliques inverses (« $1\\,000$ »)
+        const qcm = hote.locator(`[data-type="qcm"][data-name="${nom}"] input[value="${texteDe(rep).replace(/["\\]/g, '\\$&')}"]`)
         if (await qcm.count()) {
           await toucher(e, qcm.first())
           continue
