@@ -3,7 +3,7 @@
 # MathALÉA : politique de confidentialité
 
 Application MathALÉA (`fr.coopmaths.mathalea`), par CoopMaths. En vigueur le
-15 novembre 2026 (version 0.7.2).
+16 novembre 2026 (version 0.7.3).
 
 ## En bref
 
@@ -70,6 +70,11 @@ L'application se connecte à Internet seulement pour :
   MathALÉA a publié un moteur plus récent sur forge.apps.education.fr et le
   télécharge le cas échéant (requête sans aucun contenu ; le service reçoit
   l'adresse IP de l'appareil) ;
+- **se mettre à jour**, sur ordinateur seulement (Windows, macOS, AppImage
+  Linux) : au démarrage, l'application demande à forge.apps.education.fr le
+  numéro de la dernière version, la télécharge s'il y en a une plus récente,
+  vérifie sa signature et l'installe à la fermeture (requête sans aucun
+  contenu ; le service reçoit l'adresse IP de l'appareil) ;
 - **ouvrir un lien** choisi par l'utilisateur (ressource d'un parcours,
   dossier partagé) dans le navigateur de l'appareil.
 
