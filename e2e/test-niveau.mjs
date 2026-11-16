@@ -7,7 +7,7 @@
 //   CAPTURES=<dossier> node e2e/test-niveau.mjs
 import { chromium } from 'playwright'
 import { champsCoupes } from './champs-visibles.mjs'
-import { pagePrete, SANS_BRIDAGE, taperDans } from './attente.mjs'
+import { pagePrete, pointStable, SANS_BRIDAGE, taperDans } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -127,7 +127,19 @@ for (const theme of ['clair', 'sombre']) {
   const fi = await fond('Incorrecte')
   ok(fc === 'rgb(77, 134, 19)', `${theme} : pastille Correcte verte (${fc})`)
   ok(fi === 'rgb(241, 89, 41)', `${theme} : pastille Incorrecte à l'orange de MathALÉA (${fi})`)
-  await page.getByRole('button', { name: /^Question 1 / }).click()
+  // Ouvrir la question 1 du bilan comme un élève : toucher, vérifier qu'elle
+  // s'est ouverte (au plus deux fois), puis attendre que le moteur l'ait
+  // préparée et rendue (aria-busy de QuestionsEtape et BlocQuestion). Sous la
+  // charge de la vérification complète, le contenu n'était pas encore là après
+  // 60 s (16 novembre 2026)
+  const q1 = page.getByRole('button', { name: /^Question 1 / })
+  for (let essai = 0; essai < 2 && (await q1.getAttribute('aria-expanded')) !== 'true'; essai++) {
+    await pointStable(q1)
+    await q1.click()
+    await pagePrete(page)
+  }
+  ok((await q1.getAttribute('aria-expanded')) === 'true', `${theme} : question 1 du bilan ouverte`)
+  await pagePrete(page, 120_000)
   await page.locator('main math-field, main .mathalea2d, main .katex, main [id^="apigeomEx"]').first().waitFor({ timeout: 60_000 })
   await cap(page, '5-bilan', theme)
 

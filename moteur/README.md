@@ -10,6 +10,9 @@ attendant de les y reverser :
 - `fichiers/` : fichiers copiés tels quels par-dessus MathALÉA (`src/moteur/`,
   `vite.moteur.config.ts`, `tasks/` et `documentation/` pour la publication
   sur https://mathalea.fr/releases/ à chaque mise en ligne du site).
+- `fichiers/src/exercices/2e/2L22-3.ts` : correctif de la MR !10302 de
+  MathALÉA (racine double et solution unique comptées fausses), en attendant
+  sa fusion (16 novembre 2026). À supprimer dès que `COMMIT` la contient.
 
 `pnpm moteur` (scripts/moteur.sh) clone MathALÉA à ce commit, y copie ces
 fichiers et construit le moteur dans `static/moteur`.

@@ -27,23 +27,26 @@
   })
 </script>
 
-{#if erreur}
-  <p class="font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
-{/if}
-{#if exercice}
-  {#each exercice.questions as _, q (q)}
-    {#if question === undefined || question === q}
-    <BlocQuestion
-      {moteur}
-      {exercice}
-      question={q}
-      avecContexte={q === 0 || question !== undefined}
-      lectureSeule={true}
-      essai={premiers.get(cleQuestion(etape, q))}
-      brouillon={seance.brouillons[cleQuestion(etape, q)]}
-      onverifiee={() => {}}
-      onbrouillon={() => {}}
-    />
-    {/if}
-  {/each}
-{/if}
+<!-- Préparation de l'exercice par le moteur : aria-busy, comme BlocQuestion (attendu par les suites) -->
+<div class="contents" aria-busy={!exercice && !erreur}>
+  {#if erreur}
+    <p class="font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{erreur}</p>
+  {/if}
+  {#if exercice}
+    {#each exercice.questions as _, q (q)}
+      {#if question === undefined || question === q}
+      <BlocQuestion
+        {moteur}
+        {exercice}
+        question={q}
+        avecContexte={q === 0 || question !== undefined}
+        lectureSeule={true}
+        essai={premiers.get(cleQuestion(etape, q))}
+        brouillon={seance.brouillons[cleQuestion(etape, q)]}
+        onverifiee={() => {}}
+        onbrouillon={() => {}}
+      />
+      {/if}
+    {/each}
+  {/if}
+</div>
