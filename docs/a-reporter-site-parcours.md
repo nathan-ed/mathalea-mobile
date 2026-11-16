@@ -70,6 +70,9 @@ défaut et masquée quand la correction est à la fin du parcours, test
 
 ## Évaluation annoncée à une classe (novembre 2026, à faire sur le site)
 
+Fiche de travail complète à copier dans le dépôt de MathALÉA (types,
+contrôle, export, interface, tests) : `docs/site/vparcours-evaluations.md`.
+
 L'app (côté élève, fait) lit dans chaque classe du fichier `classes-mathalea/1`
 un champ facultatif `evaluations` :
 

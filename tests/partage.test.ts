@@ -140,6 +140,19 @@ describe('dossier commun à plusieurs classes', () => {
     expect(c.nom).toBe('')
     expect(c.parcours).toEqual([])
   })
+  it('les évaluations annoncées arrivent avec le fichier, chacune dans sa classe', async () => {
+    const lienEval = 'https://cloud.exemple.ch/s/evals'
+    const e = { id: 'e1', date: '2026-11-20', parcours: ['fractions-4e'], titre: 'Fractions' }
+    const contenu = JSON.stringify({ ...JSON.parse(deux), classes: JSON.parse(deux).classes.map((c: { nom: string }) => (c.nom === '3e A' ? { ...c, evaluations: [e] } : c)) })
+    const sEval = serveur({ [`${lienEval}/`]: () => reponse(contenu) })
+    const c = await synchroniserClasse({ lien: lienEval, nom: '3e A', disponibles: [], parcours: [] }, sEval.req)
+    expect(c.fichier!.find((f) => f.nom === '3e A')!.evaluations).toEqual([e])
+    expect(c.fichier!.find((f) => f.nom === '3e B')!.evaluations).toBeUndefined()
+    // Dossier injoignable ensuite : l'annonce déjà reçue reste
+    const horsLigne = await synchroniserClasse(c, serveur({}).req)
+    expect(horsLigne.erreur).toBeTruthy()
+    expect(horsLigne.fichier!.find((f) => f.nom === '3e A')!.evaluations).toEqual([e])
+  })
   it('ne garde que les parcours de la classe choisie', async () => {
     const c = await synchroniserClasse({ lien, nom: '3e B', disponibles: [], parcours: [] }, s.req)
     expect(c.parcours.map((x) => x.titre)).toEqual(['B'])

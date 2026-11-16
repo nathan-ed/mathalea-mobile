@@ -153,4 +153,30 @@ describe('fusion dans le stockage', () => {
     await expect(fusionnerSauvegarde(st, abime)).rejects.toThrow('endommagée')
     expect(Object.fromEntries(d)).toEqual(avant)
   })
+
+  it('évaluation en préparation, annonces vues et chapitres écartés : ceux de cet appareil, sauvegarde valide', () => {
+    const p1 = passage(P, 1)
+    const evaluation = { parcours: ['p'], date: '2026-10-20', annonce: 'e1', titre: 'Relatifs' }
+    const ici = appareil({ p: [p1] }, { revisions: { ...integrerPassages(revisionsVides(), [p1]), evaluation, annonces: ['e1'], sansChapitres: ['5e|Aires'] } })
+    const la = appareil({ q: [passage(Q, 2)] }, { revisions: { ...revisionsVides(), evaluation: { parcours: ['q'], date: '2026-10-25' } } })
+    const { donnees } = fusionnerDonnees(ici, la)
+    const r = donnees.revisions as ReturnType<typeof revisionsVides>
+    expect(r.evaluation).toEqual(evaluation)
+    expect(r.annonces).toEqual(['e1'])
+    expect(r.sansChapitres).toEqual(['5e|Aires'])
+    // Les passages des deux appareils sont rattachés à leur parcours
+    expect(Object.values(r.elements).map((e) => e.origines?.join()).sort()).toEqual(['p', 'p', 'q', 'q'])
+    expect(Object.keys(r.sources ?? {}).sort()).toEqual(['p', 'q'])
+    expect(cleInvalide(donnees)).toBeUndefined()
+    // Chapitres choisis d'une version précédente : convertis en chapitres écartés
+    const ancien = appareil({ p: [p1], q: [passage(Q, 2)] }, { revisions: { ...revisionsVides(), chapitres: ['5e|Autre'] } })
+    const suite = fusionnerDonnees(ancien, appareil({})).donnees.revisions as ReturnType<typeof revisionsVides>
+    expect(suite.chapitres).toBeUndefined()
+    expect(suite.sansChapitres).toEqual(['5e|Nombres relatifs'])
+    // Sauvegarde : classe suivie avec ses évaluations annoncées, refusée si l'une est mal formée
+    const classe = (evaluations: unknown) => ({ classes: [{ lien: 'https://exemple.ch/s/x', nom: '5e A', disponibles: ['5e A'], parcours: [], fichier: [{ nom: '5e A', parcours: [], evaluations }] }] })
+    expect(cleInvalide(classe([{ id: 'e1', date: '2026-11-20', parcours: ['p'] }]))).toBeUndefined()
+    expect(cleInvalide(classe([{ id: 'e1', date: '20/11/2026', parcours: ['p'] }]))).toBe('classes')
+    expect(cleInvalide({ revisions: { ...revisionsVides(), evaluation: { parcours: ['p'], date: '2026-11-20', annonce: 3 } } })).toBe('revisions')
+  })
 })
