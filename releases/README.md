@@ -3,6 +3,8 @@
 Chaque dossier contient les installateurs d'une version et leurs sommes
 SHA-256 (`sha256sum -c SHA256SUMS`). Installation : voir ../README.md.
 
+- [v0.7.3](v0.7.3/)
+- [v0.7.2](v0.7.2/)
 - [v0.6.1](v0.6.1/)
 - [v0.6.0](v0.6.0/)
 - [v0.5.1](v0.5.1/)
