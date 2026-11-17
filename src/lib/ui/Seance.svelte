@@ -6,7 +6,8 @@
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille } from './classes'
+  import Ceinture from './Ceinture.svelte'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
@@ -506,7 +507,9 @@
     {#snippet droite()}
       <!-- Correction à la fin : aucun score avant la soumission (il afficherait 0) -->
       {#if pret && !(finale && !seance.soumise)}
-        <span class="px-3"><span class={pastille}>{arrondi(points)}/{liste.filter((q) => !surPapier(seance, q.etape, q.question)).length}</span></span>
+        <!-- Verte à partir de 80 % du total, comme au bilan : « 0/3 » en vert se lisait comme une réussite -->
+        {@const total = liste.filter((q) => !surPapier(seance, q.etape, q.question)).length}
+        <span class="px-3"><span class={pastilleScore(total ? (100 * points) / total : 0)}>{arrondi(points)}/{total}</span></span>
       {/if}
     {/snippet}
   </EnTete>
@@ -515,7 +518,7 @@
     {#if palier}
       <p class="flex flex-row items-center gap-2 text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
         {#if palier.couleur}
-          <span aria-hidden="true" class="shrink-0 w-8 h-4 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" style="background-color: {palier.couleur}"></span>
+          <Ceinture couleur={palier.couleur} taille="w-8 h-4" />
         {/if}
         {palier.nom}
       </p>

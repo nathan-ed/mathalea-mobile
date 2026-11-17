@@ -92,13 +92,13 @@ type EtatPalier = ReturnType<typeof etatsPaliers>[number]
 
 /**
  * Ce qui manque pour ouvrir le palier `x` (fermé), d'après le précédent :
- * « à partir du jeudi 12 novembre », « au moins 80 % (tu as 75 %) », ou les deux.
+ * « à partir du jeudi 12 novembre », « au moins 80 % (obtenu 75 %) », ou les deux.
  */
 export function conditionPalier(x: EtatPalier, precedent: EtatPalier) {
   const date = !x.avantOuverture ? '' : `à partir du ${momentOuverture(x.ouverture!)}${x.heureAVerifier ? ' (connexion à internet nécessaire pour vérifier la date)' : ''}`
   const atteint = precedent.fini && precedent.pourcentage >= x.seuil
   const seuil =
-    x.acces === 'seuil' && !atteint ? `au moins ${x.seuil} % (${precedent.fini ? `tu as ${precedent.pourcentage} %` : 'termine tous ses exercices'})` : ''
+    x.acces === 'seuil' && !atteint ? `au moins ${x.seuil} % (${precedent.fini ? `obtenu ${precedent.pourcentage} %` : 'termine tous ses exercices'})` : ''
   return date && seuil ? `${date}, avec ${seuil}` : date || seuil
 }
 

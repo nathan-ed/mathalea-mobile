@@ -1,6 +1,7 @@
 <script lang="ts">
   // Une question MathALÉA : affichage, brouillon, vérification, correction.
   // Mise en forme reprise de Question.svelte (vue élève de MathALÉA).
+  import { formulesSecables } from '$lib/coupures'
   import { onDestroy, onMount, tick } from 'svelte'
   import { bornerListes } from '$lib/listeDeroulante'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
@@ -250,6 +251,7 @@
     if (zoneCorrection) {
       zoneCorrection.innerHTML = q.correction
       await moteur.afficher(zoneCorrection)
+      formulesSecables(zoneCorrection)
     }
   }
 
@@ -368,6 +370,14 @@
       p.className = `${juste ? pastille : pastilleIncorrecte} pastille-verification`
       p.textContent = juste ? 'Correcte' : 'Incorrecte'
       el.replaceChildren(p)
+    }
+    // Question à un seul champ dans une figure (MetaInteractif2d, CAN) : MathALÉA met
+    // un smiley à côté du champ (…Q0field0) et un autre pour la question (…Q0),
+    // « Correcte » s'affichait deux fois. Le second ne reste qu'avec plusieurs champs.
+    for (const global of racine.querySelectorAll<HTMLElement>('[id^="resultatCheckEx"]')) {
+      if (!/^resultatCheckEx\d+Q\d+$/.test(global.id)) continue
+      const champs = [...racine.querySelectorAll(`[id^="${global.id}field"]`)].filter((c) => c.querySelector('.pastille-verification'))
+      global.hidden = champs.length === 1 && !!global.querySelector('.pastille-verification')
     }
   }
   onMount(() => {

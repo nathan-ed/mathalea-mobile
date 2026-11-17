@@ -209,7 +209,7 @@ export type StylePaliers = 'paliers' | 'ceintures'
 
 /** Ceintures dans l'ordre ; au-delà de la noire, des dan. Seule couleur hors charte : celle de la ceinture elle-même */
 export const CEINTURES = [
-  { nom: 'blanche', couleur: '#f5f5f4' },
+  { nom: 'blanche', couleur: '#ffffff' }, // vraiment blanche : #f5f5f4 se fondait dans le gris des cartes (Nathan, 17 novembre 2026)
   { nom: 'jaune', couleur: '#facc15' },
   { nom: 'orange', couleur: '#f97316' },
   { nom: 'verte', couleur: '#16a34a' },
@@ -231,6 +231,11 @@ export const couleurDuRang = (rang: number) => CEINTURES[Math.min(rang, CEINTURE
 export function nomPalier(p: OptionsCeintures, k: number) {
   return p.style === 'ceintures' ? nomCeinture(rangCeinture(p, k)) : `Palier ${k + 1}`
 }
+
+/** Nom d'un palier avec son article, dans une phrase : « la ceinture jaune », « le palier 2 » */
+export const avecArticle = (nom: string) => `${nom.startsWith('Ceinture') ? 'la' : 'le'} ${nom.toLowerCase()}`
+/** Même chose après « à » : « à la ceinture jaune », « au palier 2 » */
+export const aAvecArticle = (nom: string) => (nom.startsWith('Ceinture') ? `à la ${nom.toLowerCase()}` : `au ${nom.toLowerCase()}`)
 
 export const couleurCeinture = (p: OptionsCeintures, k: number) => couleurDuRang(rangCeinture(p, k))
 

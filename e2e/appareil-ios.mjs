@@ -305,11 +305,12 @@ ok(
   ).isDisplayed(),
   "Quitter : « Reprendre plus tard » ramène à l’accueil",
 );
+// La séance quittée est reprise par l'action proposée (« Reprendre »), plus répétée dans « En cours »
 ok(
-  await (await affiche('//*[normalize-space(.)="En cours"]'))
+  await (await affiche('//button[normalize-space(.)="Reprendre"]'))
     .isDisplayed()
     .catch(() => false),
-  "accueil : la séance quittée est « En cours »",
+  "accueil : la séance quittée se reprend (« Reprendre »)",
 );
 await capture("accueil-en-cours");
 

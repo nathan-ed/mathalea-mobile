@@ -228,7 +228,7 @@ await page.getByRole('tab', { name: 'Suivi' }).click()
 await page.getByRole('tab', { name: /Objectifs/ }).click().catch(() => {})
 await pagePrete(page)
 const suivi = (await main.innerText()).replace(/\s+/g, ' ')
-ok(suivi.includes('révision : à consolider') && !suivi.includes('Sans niveau'), `suivi : solidité affichée, chapitres gardés (${suivi.slice(0, 160)})`)
+ok(suivi.includes('· révisions : 0 / 2') && !suivi.includes('durable') && !suivi.includes('révision : ') && !suivi.includes('Sans niveau'), `suivi : solidité affichée, chapitres gardés (${suivi.slice(0, 160)})`)
 await page.screenshot({ path: `${captures}/revisions-6-suivi.png`, fullPage: true })
 
 // ---------- Préparer une évaluation ----------

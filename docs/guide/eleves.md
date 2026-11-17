@@ -38,7 +38,7 @@ Chaque réponse est corrigée et la correction détaillée s'affiche. Après une
 
 ## 5. Le bilan
 
-Le bilan dit d'abord où en est la ceinture : « Ceinture orange obtenue », avec sa couleur, ou ce qui manquait (« Il manquait 1 bonne réponse »). Le score est écrit en dessous. Ici la ceinture orange n'est pas encore obtenue : il faut 80 % pour ouvrir la ceinture verte. L'exercice où il y a une erreur est déjà ouvert, avec sa correction. L'élève peut refaire la ceinture, avec de nouvelles questions.
+Le bilan dit d'abord où en est la ceinture : « Ceinture orange obtenue », avec sa couleur, ou ce qu'il faut pour l'obtenir (« Ceinture orange : il faut 2 / 2 »). Le score est écrit en dessous. Ici la ceinture orange n'est pas encore obtenue : il faut 80 % pour ouvrir la ceinture verte. L'exercice où il y a une erreur est déjà ouvert, avec sa correction. L'élève peut refaire la ceinture, avec de nouvelles questions.
 
 ![Bilan](images/eleve-5-bilan.png)
 

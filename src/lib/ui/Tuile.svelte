@@ -1,7 +1,7 @@
 <script lang="ts">
   // Tuile de la vue mobile de MathALÉA (MobileTile.svelte), sans cadre (carte
   // pleine, comme les apps), avec une pastille facultative
-  import { pastille as classePastille } from './classes'
+  import { pastille as classePastille, pastilleNeutre } from './classes'
 
   type Props = {
     title: string
@@ -11,6 +11,8 @@
     icon?: string
     size?: 'large' | 'normal'
     badge?: string
+    /** Pastille verte (réussite) ; sinon grise (avancement, score encore bas) */
+    badgeVert?: boolean
     onclick?: () => void
     /** Épingle à l'accueil, à côté de la tuile (sans ouvrir le parcours) */
     epingle?: boolean
@@ -30,7 +32,7 @@
     /** Parcours ajouté depuis l'Explorer : boussole à côté du titre */
     explorer?: boolean
   }
-  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', onclick, epingle = false, onepingler, onactions, onajouter, ajoute = false, ajoutFige = false, cible = 'ton accueil', oncacher, cache = false, explorer = false }: Props = $props()
+  const { title, titleHtml = '', subtitle = '', icon = '', size = 'normal', badge = '', badgeVert = false, onclick, epingle = false, onepingler, onactions, onajouter, ajoute = false, ajoutFige = false, cible = 'ton accueil', oncacher, cache = false, explorer = false }: Props = $props()
   const aCote = $derived(!!(onactions || onepingler || onajouter || oncacher))
 
   // Avec l'épingle, le fond est porté par l'enveloppe : la tuile et l'épingle forment une seule carte
@@ -68,7 +70,7 @@
     </div>
   </div>
   <div class="flex flex-row items-center gap-2">
-    {#if badge}<span class={classePastille}>{badge}</span>{/if}
+    {#if badge}<span class={badgeVert ? classePastille : pastilleNeutre}>{badge}</span>{/if}
     {#if chevron}<i aria-hidden="true"
  class="bx bx-chevron-right shrink-0 text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>{/if}
   </div>

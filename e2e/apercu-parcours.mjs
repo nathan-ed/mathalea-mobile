@@ -22,7 +22,7 @@ const donnees = JSON.parse(readFileSync(fichier, 'utf8'))
 const tous = donnees.classes ? donnees.classes.flatMap((c) => c.parcours) : donnees.parcours ? donnees.parcours : [donnees]
 const choisis = ids.length ? tous.filter((p) => ids.includes(p.id)) : tous
 const CEINTURES = ['blanche', 'jaune', 'orange', 'verte', 'bleue', 'marron', 'noire']
-const COULEURS = ['#f5f5f4', '#facc15', '#f97316', '#16a34a', '#2563eb', '#78350f', '#1c1917']
+const COULEURS = ['#ffffff', '#facc15', '#f97316', '#16a34a', '#2563eb', '#78350f', '#1c1917']
 const nomCeinture = (p, k) => {
   if (p.style !== 'ceintures') return `Palier ${k + 1}`
   const r = (p.premiereCeinture ?? 0) + k

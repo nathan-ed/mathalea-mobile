@@ -1,5 +1,7 @@
 // Bilan d'une ceinture (Nathan, 13 novembre 2026) : l'état d'abord, le score
-// en petit. Ceinture manquée : « Il manquait 1 bonne réponse », pas de pause
+// en petit. Ceinture manquée : « Ceinture orange : il faut 2 / 2 » (Nathan,
+// 17 novembre 2026 : « Il manquait n bonnes réponses » se lisait comme le
+// nombre d'erreurs), « Pour ouvrir la ceinture verte : au moins 80 % », pas de pause
 // de l'enseignant (elle félicite), première erreur dépliée avec sa
 // correction. Ceinture obtenue : sa couleur en grand, « Ceinture orange
 // obtenue », la pause, « Continuer ». Ceinture déjà obtenue puis manquée :
@@ -97,11 +99,11 @@ for (const [appareil, theme, ecran] of [
   // ---------- Ceinture manquée : 1 sur 2 ----------
   await jouer(page, [true, false])
   let t = await texte(page)
-  ok(t.includes('Il manquait 1 bonne réponse'), `${appareil} : ceinture manquée, « Il manquait 1 bonne réponse »`)
-  ok(t.includes('Ceinture orange · 1 / 2 · 50 %'), `${appareil} : ceinture et score en petit`)
+  ok(t.includes('Ceinture orange : il faut 2 / 2'), `${appareil} : ceinture manquée, « Ceinture orange : il faut 2 / 2 »`)
+  ok(t.includes('Obtenu 1 / 2 · 50 %') && !t.includes('Tu as'), `${appareil} : « Obtenu 1 / 2 », en petit`)
   ok(!t.includes('obtenue'), `${appareil} : rien ne dit la ceinture obtenue`)
   ok(!t.includes(PAUSE), `${appareil} : pas de pause de l'enseignant après une ceinture manquée`)
-  ok(t.includes('Pour ouvrir ceinture verte : au moins 80 % (tu as 50 %)'), `${appareil} : ce qu'il faut pour la ceinture suivante`)
+  ok(t.includes('Pour ouvrir la ceinture verte : au moins 80 % (obtenu 50 %)'), `${appareil} : ce qu'il faut pour la ceinture suivante`)
   ok((await page.locator('main button[aria-expanded="true"]').count()) === 1, `${appareil} : l'exercice de l'erreur est déplié d'office`)
   await page.locator('main .pastille-verification').first().waitFor({ timeout: 30_000 })
   await pagePrete(page)
@@ -116,7 +118,7 @@ for (const [appareil, theme, ecran] of [
   await jouer(page, [true, true])
   t = await texte(page)
   ok(t.includes('Ceinture orange obtenue'), `${appareil} : « Ceinture orange obtenue »`)
-  ok(t.includes('2 / 2 · 100 %') && !t.includes('Il manquait'), `${appareil} : score en petit, rien ne manque`)
+  ok(t.includes('2 / 2 · 100 %') && !t.includes('il faut'), `${appareil} : score en petit, rien ne manque`)
   const couleur = await page.locator('main span[aria-hidden="true"][style*="background-color"]').first().evaluate((c) => getComputedStyle(c).backgroundColor)
   ok(couleur === 'rgb(249, 115, 22)', `${appareil} : la ceinture à sa couleur (${couleur})`)
   ok(t.includes(PAUSE), `${appareil} : la pause de l'enseignant suit la ceinture obtenue`)
@@ -128,8 +130,8 @@ for (const [appareil, theme, ecran] of [
   await toucher(page, page.getByRole('button', { name: /^Refaire : ceinture orange/ }))
   await jouer(page, [false, false])
   t = await texte(page)
-  ok(t.includes('Il manquait 2 bonnes réponses'), `${appareil} : accord au pluriel, « Il manquait 2 bonnes réponses »`)
-  ok(t.includes('Ceinture orange déjà obtenue · 0 / 2 · 0 %'), `${appareil} : la ceinture reste obtenue`)
+  ok(t.includes('Ceinture orange : il faut 2 / 2'), `${appareil} : manquée de nouveau, le seuil en titre`)
+  ok(t.includes('Obtenu 0 / 2 · 0 % · déjà obtenue'), `${appareil} : la ceinture reste obtenue`)
   ok(await page.getByRole('button', { name: 'Continuer : ceinture verte' }).isVisible(), `${appareil} : la ceinture suivante reste ouverte`)
   await page.screenshot({ path: `${captures}/bilan-ceinture-3-deja-${theme}.png`, fullPage: true })
   await ctx.close()

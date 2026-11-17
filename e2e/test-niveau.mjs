@@ -75,7 +75,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(['CM1', 'CM2', '6e', '5e', '4e', '3e', '2de', '1re', 'Terminale'].every((n) => niveaux.includes(`${n} · ceinture`)), `${theme} : neuf niveaux`)
   ok(/6e · ceinture orange Commence ici/.test(niveaux), `${theme} : niveau proposé après les ceintures validées`)
   ok(await page.getByRole('button', { name: /^5e · ceinture verte/ }).isDisabled(), `${theme} : 5e fermée tant que la 6e n'est pas validée`)
-  ok(/5e · ceinture verte Au moins 80 % à : ceinture orange/.test(niveaux), `${theme} : condition d'ouverture affichée`)
+  ok(/5e · ceinture verte Au moins 80 % à la ceinture orange/.test(niveaux), `${theme} : condition d'ouverture affichée`)
   ok(await page.getByRole('button', { name: /^CM1 · ceinture blanche/ }).isEnabled(), `${theme} : niveau validé toujours ouvert`)
   ok(!(await debordement(page)), `${theme} : pas de débordement (niveaux)`)
   await cap(page, '2-niveaux', theme)

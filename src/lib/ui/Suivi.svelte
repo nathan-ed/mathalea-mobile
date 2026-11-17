@@ -4,7 +4,7 @@
   import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { estTest } from '$lib/testNiveau'
-  import { BARRETTES, SOLIDITES, barrettes, soliditeObjectif, texteBarrettes, type Revisions } from '$lib/revisions'
+  import { BARRETTES, barrettes, revisionsObjectif, texteBarrettes, type Revisions } from '$lib/revisions'
   import Ceinture from './Ceinture.svelte'
   import { theme } from '$lib/theme.svelte'
   import { listeGroupee, pastille, pastilleScore } from './classes'
@@ -116,7 +116,14 @@
   const passagesTermines = $derived([...parcours.flatMap((p) => historiques[p.id] ?? []), ...passagesRevision])
   const objectifs = $derived(objectifsTravailles(passagesTermines))
   // Solidité dans le temps (révisions espacées) d'un objectif, ou null
-  const sol = (libelle: string) => (revisions ? soliditeObjectif(revisions, libelle) : null)
+  const sol = (libelle: string) => (revisions ? revisionsObjectif(revisions, libelle) : null)
+  /**
+   * La maîtrise dit le meilleur résultat ; les révisions réussies, s'il tient dans le
+   * temps. « Très bonne maîtrise · révision : à consolider » se contredisait (revue du
+   * 17 novembre 2026) : un compte, comme les barrettes (Nathan : « révisions 2/2 »,
+   * « pas durable »).
+   */
+  const dansLeTemps = (n: number) => `révisions : ${n} / ${BARRETTES}`
   const objectifsParNiveau = $derived.by(() => {
     const niveaux = [...new Set(objectifs.map((o) => o.niveau))]
     return niveaux.map((niveau) => {
@@ -223,7 +230,7 @@
                       </span>
                     </span>
                     <span class="text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">
-                      {MAITRISES[m]} · {o.meilleur} %{#if sol(o.libelle) !== null}<span class="font-light">{' · '}révision : {SOLIDITES[sol(o.libelle)!].toLowerCase()}</span>{/if}
+                      {MAITRISES[m]} · {o.meilleur} %{#if sol(o.libelle) !== null}<span class="font-light">{' · '}{dansLeTemps(sol(o.libelle)!)}</span>{/if}
                     </span>
                     {#if objectifOuvert === o.libelle}
                       <span class={discret}>

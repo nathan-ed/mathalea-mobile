@@ -3,7 +3,7 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { aAvecArticle, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
@@ -125,12 +125,12 @@
     const x = paliers[k]
     // Seuil à atteindre (jamais pour le premier palier, sans précédent)
     const seuilManque = k > 0 && x.acces === 'seuil' && !(paliers[k - 1].fini && paliers[k - 1].pourcentage >= x.seuil)
-    const seuil = () => `au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}`
+    const seuil = () => `au moins ${x.seuil} % ${aAvecArticle(nomPalier(parcours, k - 1))}`
     if (x.avantOuverture) {
       const date = `À partir du ${momentOuverture(x.ouverture!)}${x.heureAVerifier ? ' · connexion à internet nécessaire pour vérifier la date' : ''}`
       return { icone: 'bx-calendar', texte: seuilManque ? `${date} · ${seuil()}` : date }
     }
-    if (!x.ouvert && k > 0) return { icone: 'bx-lock-alt', texte: `Au moins ${x.seuil} % à : ${nomPalier(parcours, k - 1).toLowerCase()}` }
+    if (!x.ouvert && k > 0) return { icone: 'bx-lock-alt', texte: `Au moins ${x.seuil} % ${aAvecArticle(nomPalier(parcours, k - 1))}` }
     if (enCours && courant === k) return { icone: 'bx-play-circle', texte: 'En cours' }
     if (x.fini && x.aRevoir) return { icone: 'bx-revision', texte: `À revoir · ${x.pourcentage} %` }
     if (x.fini) {
@@ -139,7 +139,7 @@
     }
     if (x.faits) return { icone: 'bx-adjust', texte: `${x.faits} exercice${x.faits > 1 ? 's' : ''} sur ${x.etapes.length}` }
     // Palier ouvert d'emblée, après celui à faire : l'élève peut s'y lancer, rien ne l'y oblige
-    if (k > 0 && x.acces === 'libre' && courant !== -1 && k > courant) return { icone: 'bx-lock-open-alt', texte: 'Ouvert à tout moment' }
+    if (k > 0 && x.acces === 'libre' && courant !== -1 && k > courant) return { icone: 'bx-circle', texte: 'Ouvert à tout moment' } // le cadenas ouvert se confondait avec le fermé
     return { icone: 'bx-circle', texte: 'À faire' }
   }
 

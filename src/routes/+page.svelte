@@ -625,7 +625,7 @@
   // ---------- Accueil : une seule action proposée ----------
   // Reprendre la séance commencée ; sinon la révision du jour ; sinon la
   // ceinture (ou le palier) suivante du parcours travaillé en dernier.
-  const actionProposee = $derived.by((): { libelle: string; detail: string; fn: () => void } | null => {
+  const actionProposee = $derived.by((): { libelle: string; detail: string; fn: () => void; id?: string } | null => {
     if (!moteur) return null
     const visibles = tous.filter((p) => !caches.includes(p.id))
     // 1. Séance commencée, la plus récente
@@ -634,7 +634,7 @@
     if (commencees.length) {
       const p = commencees[0]
       const r = resumes[p.id]
-      return { libelle: 'Reprendre', detail: `${p.titre} · question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`, fn: () => commencer(p) }
+      return { libelle: 'Reprendre', detail: `${p.titre} · question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`, fn: () => commencer(p), id: p.id }
     }
     // 2. Évaluation annoncée par l'enseignant : un toucher pour préparer ses révisions
     if (annonce) return { libelle: 'Préparer l’évaluation', detail: [`Évaluation ${jourEnMots(annonce.date)}`, annonce.titre].filter(Boolean).join(' · '), fn: () => void preparerEvaluationAnnoncee(annonce) }

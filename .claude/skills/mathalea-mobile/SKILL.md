@@ -1011,6 +1011,43 @@ Leçons de travail :
 - Échec vert seul et rouge sous charge (az-3, point sur une figure apigeom d'EVACOM,
   13 novembre 2026) : cause non trouvée, à chercher dans la suite.
 
+## 8 ter. Revue du 17 novembre 2026 : bilan, pastilles, corrections
+
+Décisions de Nathan (détail dans `docs/developpement.md`) :
+- Bilan d'une ceinture manquée : « Ceinture blanche : il faut 7 / 8 », puis
+  « Obtenu 5 / 8 · 63 % · déjà obtenue », puis « Pour ouvrir la ceinture
+  jaune : au moins 80 % (obtenu 63 %) » (Nathan l'aime bien, à garder ;
+  « obtenu pas tu as »). « Il manquait 2 bonnes
+  réponses » se lisait comme le nombre d'erreurs (3 erreurs, « on a 3 pas
+  2 »). Refusés : « Il manquait n », « deux de trop » (« pas joli »), « Tu as
+  5 / 8 » (« je n'aime pas le tu »).
+- Suivi, objectifs : « révisions : 0 / 2 », « 1 / 2 », « 2 / 2 », comptées
+  comme les barrettes (`revisionsObjectif`) (Nathan : « révisions 2/2 »,
+  « pas durable »). Refusés : « révision : à consolider »
+  (contredit « Très bonne maîtrise »), « révision : prochaine dans 3 jours »,
+  « à revoir pour qu'elle dure » (pas clair).
+- Pastilles de score (en-tête de séance, tuiles) : vertes seulement pour une
+  réussite (80 % ou tous les paliers), grises sinon (« 0/3 » en vert).
+- Accueil : la séance reprise par l'action proposée n'est plus répétée dans
+  « En cours ».
+- Champs de texte : bord gris au repos, orange à la saisie.
+- Articles : « Pour ouvrir la ceinture verte », « Au moins 80 % à la ceinture
+  blanche », « au palier 1 » (`avecArticle`, `aAvecArticle`).
+- Descriptions des parcours de l'Explorer : elles sont sur le kDrive (en
+  ligne), pas forcément dans `explorer/` ; les vérifier sur les fichiers
+  téléchargés (`scripts/claviers/telecharger-explorer.mjs`).
+
+Pièges :
+- MathALÉA entoure chaque formule d'accolades (`preProcess` de
+  `renderKatex.ts`) : une formule n'est jamais coupée en fin de ligne. Une
+  correction longue sortait du cadre sur téléphone. `formulesSecables`
+  (`coupures.ts`, après `moteur.afficher` de la correction) la découpe en
+  morceaux insécables après chaque `=` ou opération du premier niveau. Une
+  fraction trop large défile encore (rien à couper dedans).
+- Question à un seul champ dans une figure (MetaInteractif2d) : smiley du champ
+  (`…Q0field0`) et de la question (`…Q0`), deux « Correcte ». Le second est
+  masqué quand la question n'a qu'un champ.
+
 ## 9. Pièges rencontrés
 
 - Glisser-déposer dans l'app de bureau (5 novembre 2026, signalé en classe

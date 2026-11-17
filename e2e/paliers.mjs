@@ -102,7 +102,7 @@ for (const theme of ['clair', 'sombre']) {
     await capTout(e, nom, theme)
     const t2 = await texte(e)
     if (nom === '7-eleve-debut') {
-      ok(t2.includes('À faire') && t2.includes('Au moins 50 % à : palier 1') && t2.includes('Après : palier 1'), 'élève : palier 2 verrouillé, condition écrite, pause à venir')
+      ok(t2.includes('À faire') && t2.includes('Au moins 50 % au palier 1') && t2.includes('Après : palier 1'), 'élève : palier 2 verrouillé, condition écrite, pause à venir')
       ok((await e.getByRole('button', { name: 'Commencer ce palier' }).count()) === 1, 'élève : palier 3 ouvert d’emblée (accès libre)')
       ok((await e.getByRole('button', { name: 'Commencer', exact: true }).count()) === 1, 'élève : un seul bouton plein, sur le palier à faire')
       ok(t2.includes('Pas encore travaillé'), 'élève : objectifs pas encore travaillés')

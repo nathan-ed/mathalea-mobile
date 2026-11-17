@@ -143,13 +143,13 @@ for (const theme of ['clair', 'sombre']) {
   e = await appareil('élève seuil', theme, { profil: 'eleve', pays: 'FR', classes: [classe], [`resultats:${id}@2`]: { 0: r(0) } }, '2026-11-13T10:00:00+01:00')
   await ouvrir(e)
   tx = await texte(e)
-  ok(tx.includes('Au moins 50 % à : ceinture blanche') && !tx.includes('12 novembre'), 'date passée, seuil manqué : seuil seul')
+  ok(tx.includes('Au moins 50 % à la ceinture blanche') && !tx.includes('12 novembre'), 'date passée, seuil manqué : seuil seul')
   await e.context().close()
 
   // Ni date ni seuil : les deux sont écrits
   e = await appareil('élève début', theme, { profil: 'eleve', pays: 'FR', classes: [classe] }, '2026-11-10T10:00:00+01:00')
   await ouvrir(e)
-  ok((await texte(e)).includes('À partir du jeudi 12 novembre à 8 h · au moins 50 % à : ceinture blanche'), 'avant la date, rien fait : date et seuil')
+  ok((await texte(e)).includes('À partir du jeudi 12 novembre à 8 h · au moins 50 % à la ceinture blanche'), 'avant la date, rien fait : date et seuil')
   // La blanche au toucher : réponse vraie, bilan qui donne la date
   await e.getByRole('button', { name: 'Commencer', exact: true }).click()
   await e.locator('main math-field').first().waitFor({ timeout: 20000 })
@@ -176,7 +176,7 @@ for (const theme of ['clair', 'sombre']) {
   await pagePrete(e)
   tx = await texte(e)
   ok(tx.includes('1 / 1'), `bilan : réponse saisie au clavier comptée correcte (${reponse})`)
-  ok(tx.includes('Pour ouvrir ceinture jaune : à partir du jeudi 12 novembre à 8 h.'), 'bilan : la date, pas de seuil (atteint)')
+  ok(tx.includes('Pour ouvrir la ceinture jaune : à partir du jeudi 12 novembre à 8 h.'), 'bilan : la date, pas de seuil (atteint)')
   ok(!(await e.getByRole('button', { name: /^Continuer/ }).count()), 'bilan : pas de « Continuer » vers une ceinture fermée')
   const classeCarte = await e.getByRole('button', { name: 'Voir la carte du parcours' }).getAttribute('class')
   const classeRefaire = await e.getByRole('button', { name: 'Refaire : ceinture blanche' }).getAttribute('class')

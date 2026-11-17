@@ -15,11 +15,13 @@
     taille?: string // classes de largeur et de hauteur
     classe?: string
   } = $props()
+  // Ceinture blanche : presque la couleur du fond des cartes, il lui faut un bord plus marqué
+  const claire = $derived(couleur.toLowerCase() === '#ffffff')
 </script>
 
 <span
   aria-hidden="true"
-  class="ceinture shrink-0 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest {taille} {classe}"
+  class="ceinture shrink-0 rounded border {obtenue && claire ? 'claire' : ''} border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest {taille} {classe}"
   style={obtenue ? `background-color: ${couleur}` : 'border-style: dashed'}
 >
   {#if obtenue}
@@ -40,6 +42,12 @@
     gap: 3px;
     padding-right: 6px;
     overflow: hidden;
+  }
+  .ceinture.claire {
+    border-color: var(--color-coopmaths-corpus-lightest);
+  }
+  :global(.dark) .ceinture.claire {
+    border-color: var(--color-coopmathsdark-canvas-darkest);
   }
   .barrette {
     flex: none;

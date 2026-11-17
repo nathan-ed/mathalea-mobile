@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { titreEleve, type Parcours, type Fiche, type Pause, type Ressource } from '$lib/catalogue'
+  import { avecArticle, titreEleve, type Parcours, type Fiche, type Pause, type Ressource } from '$lib/catalogue'
   import { lienSur, ouvrirLien } from '$lib/fichiers'
   import type { Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
@@ -69,25 +69,30 @@
   // Jugé quand tout est fait (questions passées : le bilan garde le score seul)
   const juge = $derived(!!palier && b.sur > 0 && b.passees.length === 0)
   const reussi = $derived(juge && b.pourcentage >= palier!.attendu)
-  /** Bonnes réponses qui manquaient pour atteindre la réussite attendue */
-  const manque = $derived.by(() => {
-    if (!juge || reussi) return 0
+  /** Bonnes réponses qu'il faut pour réussir, sur le même compte que le score (« il faut 7 / 8 ») */
+  const requis = $derived.by(() => {
+    if (!juge) return 0
     let n = 1
-    while (n < b.sur && Math.round((100 * (b.points + n)) / b.sur) < palier!.attendu) n++
+    while (n < b.sur && Math.round((100 * n) / b.sur) < palier!.attendu) n++
     return n
   })
+  // Manqué : le but dans l'unité du score, comme au bilan de Teste ton niveau
+  // (Nathan, 17 novembre 2026 : « Il manquait 2 bonnes réponses » se lisait
+  // comme le nombre d'erreurs)
   const etat = $derived.by(() => {
     if (!juge) return ''
     const ceinture = palier!.couleur !== null
     if (reussi) return ceinture ? `${palier!.nom} obtenue` : `${palier!.nom} réussi`
-    return `Il manquait ${manque} bonne${manque > 1 ? 's' : ''} réponse${manque > 1 ? 's' : ''}`
+    return `${palier!.nom} : il faut ${requis} / ${b.sur}`
   })
-  // Sous l'état : le score, précédé du palier quand l'état ne le nomme pas
+  // Sous l'état : le score ; manqué, « Obtenu 1 / 2 » (Nathan, 17 novembre 2026 : « obtenu pas tu as »)
+  // et le palier déjà obtenu s'il l'est
   const sousEtat = $derived.by(() => {
     if (!juge) return ''
     const score = `${arrondi(b.points)} / ${b.sur} · ${b.pourcentage} %`
     if (reussi) return score
-    return `${palier!.nom}${palier!.deja ? (palier!.couleur ? ' déjà obtenue' : ' déjà réussi') : ''} · ${score}`
+    const deja = palier!.deja ? (palier!.couleur ? ' · déjà obtenue' : ' · déjà réussi') : ''
+    return `Obtenu ${score}${deja}`
   })
   // La pause de l'enseignant suit un palier réussi ; sans seuil pour la suite, elle s'affiche toujours
   const pauseMontree = $derived(!!palier?.pause && b.passees.length === 0 && (reussi || !juge || palier.suite?.libre === true))
@@ -107,7 +112,7 @@
       <div class="flex flex-col items-center gap-3 py-4 text-center">
         {#if reussi && palier!.couleur}
           <!-- Ceinture obtenue : sa couleur, en grand -->
-          <span aria-hidden="true" class="block h-12 w-44 rounded-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" style="background-color: {palier!.couleur}"></span>
+          <Ceinture couleur={palier!.couleur} taille="h-12 w-44" classe="rounded-lg" />
         {/if}
         <p class="text-2xl font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{etat}</p>
         <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
@@ -270,7 +275,7 @@
       {#if palier?.suite && !palier.suite.ouvert && b.passees.length === 0}
         <p class="text-sm text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus" role="status">
           <i aria-hidden="true" class="bx {palier.suite.attendDate ? 'bx-calendar' : 'bx-lock-alt'} text-coopmaths-action dark:text-coopmathsdark-action"></i>
-          Pour ouvrir {palier.suite.nom.toLowerCase()} : {palier.suite.condition}.
+          Pour ouvrir {avecArticle(palier.suite.nom)} : {palier.suite.condition}.
         </p>
         {#if palier.fiche && onfiche}
           <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => onfiche(palier!.fiche!)}>

@@ -401,6 +401,17 @@ export function barrettes(r: Revisions | null | undefined, etapes: Etape[]) {
   })
   return sommets.length ? Math.max(0, Math.min(...sommets) - (5 - BARRETTES)) : 0
 }
+/**
+ * Révisions réussies d'un objectif, comptées comme les barrettes (0, 1 ou 2) :
+ * d'après la boîte la plus haute atteinte par chacun de ses exercices, jamais
+ * retirées. Null si l'objectif n'est pas en révision.
+ */
+export function revisionsObjectif(r: Revisions, libelle: string) {
+  const sommets = Object.values(r.elements)
+    .filter((e) => e.etape.objectifs?.includes(libelle))
+    .map((e) => e.sommet ?? e.boite)
+  return sommets.length ? Math.min(BARRETTES, Math.max(0, Math.min(...sommets) - (5 - BARRETTES))) : null
+}
 /** « 1 barrette sur 2 », « 2 barrettes sur 2 : ceinture durable » */
 export const texteBarrettes = (n: number) => `${n} barrette${n > 1 ? 's' : ''} sur ${BARRETTES}${n >= BARRETTES ? ' : ceinture durable' : ''}`
 

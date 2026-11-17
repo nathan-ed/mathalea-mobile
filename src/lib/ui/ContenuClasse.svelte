@@ -20,6 +20,7 @@
     organisation,
     sousTitre,
     badge,
+    badgeVert,
     onouvrir,
     onorganiser,
     epingles = [],
@@ -33,6 +34,7 @@
     organisation: Organisation
     sousTitre: (p: Parcours) => string
     badge: (p: Parcours) => string
+    badgeVert: (p: Parcours) => boolean
     onouvrir: (p: Parcours) => void
     onorganiser: (o: Organisation) => void
     epingles?: string[]
@@ -197,6 +199,7 @@
         title={p.titre}
         subtitle={sousTitre(p)}
         badge={badge(p)}
+        badgeVert={badgeVert(p)}
         onclick={() => onouvrir(p)}
         epingle={epingles.includes(p.id)}
         onepingler={onepingler ? () => onepingler(p) : undefined}

@@ -4,6 +4,8 @@
   // Les ceintures se passent dans l'ordre : un niveau s'ouvre quand le
   // précédent est validé (un niveau déjà validé ou commencé reste ouvert).
   import { NB_QUESTIONS, NIVEAUX_TEST, SEUIL_TEST, ceintureDu, couleurDu, type EtatTest } from '$lib/testNiveau'
+  import { aAvecArticle } from '$lib/catalogue'
+  import Ceinture from './Ceinture.svelte'
   import { boutonAction, boutonInverse } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
@@ -70,17 +72,12 @@
           onclick={() => (choisi = n.rang)}
         >
           <span class="flex flex-row items-center gap-3 min-w-0">
-            <span
-              aria-hidden="true"
-              class="shrink-0 w-10 h-5 rounded border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-              class:opacity-40={!ouvert(n)}
-              style="background-color: {couleurDu(n.rang)}"
-            ></span>
+            <Ceinture couleur={couleurDu(n.rang)} taille="w-10 h-5" classe={ouvert(n) ? '' : 'opacity-40'} />
             <span class="flex flex-col min-w-0">
               <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{n.nom} · {ceintureDu(n.rang).toLowerCase()}</span>
               {#if !ouvert(n)}
                 <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-                  Au moins {SEUIL_TEST} % à : {ceintureDu(avant(n.rang)).toLowerCase()}
+                  Au moins {SEUIL_TEST} % {aAvecArticle(ceintureDu(avant(n.rang)))}
                 </span>
               {:else if etatDu(n.cle)}
                 <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{etatDu(n.cle)}</span>

@@ -258,10 +258,11 @@ for (const appareil of (process.env.APPAREILS ?? 'telephone,bureau').split(','))
   await e.page.getByRole('button', { name: 'Reprendre plus tard' }).tap()
   await pagePrete(e.page)
   ok(await e.page.getByRole('button', { name: 'Réglages' }).isVisible(), 'quitter : « Reprendre plus tard » ramène à l’accueil')
-  await e.page.getByRole('button', { name: /^\s*Réponses quitter/ }).first().tap()
+  // La séance quittée se reprend par l'action proposée de l'accueil (plus de tuile « En cours » en double)
+  await e.page.getByRole('button', { name: 'Reprendre', exact: true }).tap()
   await pagePrete(e.page)
   const boutons = await e.page.getByRole('button').allInnerTexts()
-  ok(boutons.some((b) => b.trim() === 'Vérifier'), 'quitter : la tuile de l’accueil reprend la séance', JSON.stringify(boutons))
+  ok(boutons.some((b) => b.trim() === 'Vérifier'), 'quitter : « Reprendre » sur l’accueil rouvre la séance', JSON.stringify(boutons))
   await e.ctx.close()
 }
 

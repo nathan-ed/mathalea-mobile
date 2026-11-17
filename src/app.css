@@ -257,6 +257,18 @@ math-field,
   overflow-x: auto;
 }
 
+/* Formule longue d'une correction : découpée par formulesSecables (coupures.ts)
+   en morceaux insécables, qui passent à la ligne après un = ou un · quand la
+   formule ne tient pas sur la largeur (MathALÉA les rend insécables) */
+.katex .katex-secable {
+  white-space: normal;
+  width: auto;
+}
+.katex .katex-morceau {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 /* Glisser-déposer : les cases à remplir passent à la ligne au lieu de
    sortir de l'écran (le site les aligne sur une seule ligne) */
 .contenu-mathalea .rectangles {

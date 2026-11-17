@@ -94,7 +94,7 @@
     revisions?: { dus: number; prochaine: string | null; enCours: boolean; evaluation?: string | null /* jour en mots */; aPreparer?: string | null /* évaluation annoncée, pas encore préparée */ } | null // révisions espacées (null : rien de terminé)
     onrevisions?: () => void
     /** Ce que l'app propose de faire maintenant : reprendre la séance, sinon réviser, sinon la ceinture suivante */
-    action?: { libelle: string; detail: string; fn: () => void } | null
+    action?: { libelle: string; detail: string; fn: () => void; id?: string } | null // id : parcours repris par l'action
     ontest?: () => void // Teste ton niveau (moteur prêt)
     resumeTest?: string
     onajouter: (lien: string) => Promise<string | null>
@@ -135,6 +135,13 @@
     if (r?.paliers) return r.paliers.reussis ? `${r.paliers.reussis}/${r.paliers.total}` : ''
     return r?.pourcentage != null ? `${r.pourcentage} %` : ''
   }
+  /** Pastille verte seulement pour une réussite : tous les paliers, ou un score d'au moins 80 % ; une séance en cours dit l'avancement, en gris */
+  const badgeVert = (p: Parcours) => {
+    const r = resumes[p.id]
+    if (!r || r.enCours) return false
+    if (r.paliers) return r.paliers.reussis === r.paliers.total
+    return (r.pourcentage ?? 0) >= 80
+  }
   // La tuile « En cours » reprend la séance ; ailleurs, la page du parcours (Continuer,
   // autres paliers, supprimer la tentative) : quitter une séance ramène ici, pas à cette page
   const ouvrir = (p: Parcours) => onouvrir(p)
@@ -163,6 +170,8 @@
   const depuisExplorer = (parcours: Parcours[]) => idsAjoutes.filter((id) => !parcours.some((p) => p.id === id))
   const niveauOuvert = $derived(explorer.find((n) => n.niveau === niveau) ?? null)
   const enCours = $derived(tous.filter((p) => visible(p) && resumes[p.id]?.enCours))
+  /** Séances commencées, sauf celle que reprend déjà l'action proposée (le même parcours trois fois sur le premier écran) */
+  const autresEnCours = $derived(enCours.filter((p) => p.id !== action?.id))
   const epinglesVisibles = $derived(
     epingles.map((id) => tous.find((p) => p.id === id)).filter((p): p is Parcours => !!p && visible(p) && !resumes[p.id]?.enCours),
   )
@@ -272,7 +281,7 @@
 
         {#if recherche.trim()}
           {#each trouves as p (p.id)}
-            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} />
+            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} onclick={() => ouvrir(p)} />
           {:else}
             <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
               Aucun parcours ne correspond.
@@ -304,16 +313,16 @@
               onclick={onrevisions}
             />
           {/if}
-          {#if enCours.length}
+          {#if autresEnCours.length}
             <h2 class={titreSection}>En cours</h2>
-            {#each enCours as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
+            {#each autresEnCours as p (p.id)}
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#if epinglesVisibles.length}
             <h2 class={titreSection}>Épinglés</h2>
             {#each epinglesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#each aChoisir as d (d.lien)}
@@ -330,6 +339,7 @@
               organisation={organisation(sources[0].id)}
               {sousTitre}
               {badge}
+              {badgeVert}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(sources[0].id, o)}
               {epingles}
@@ -363,6 +373,7 @@
                   organisation={organisation(classeVue.id)}
                   {sousTitre}
                   {badge}
+                  {badgeVert}
                   onouvrir={ouvrir}
                   onorganiser={(o) => onorganiser(classeVue!.id, o)}
                   {epingles}
@@ -380,6 +391,7 @@
               organisation={organisation(SOURCE_EXPLORER)}
               {sousTitre}
               {badge}
+              {badgeVert}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(SOURCE_EXPLORER, o)}
               {epingles}
@@ -464,7 +476,7 @@
               icon={p.icone}
               title={p.titre}
               subtitle={sousTitre(p)}
-              badge={badge(p)}
+              badge={badge(p)} badgeVert={badgeVert(p)}
               onclick={() => ouvrirDepuisNiveau(p)}
               onajouter={() => basculerUn(p)}
               ajoute={dejaAjoute(p)}

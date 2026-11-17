@@ -280,9 +280,10 @@ ok(
   await page.getByRole("button", { name: "Réglages" }).first().isVisible(),
   "Quitter : « Reprendre plus tard » ramène à l’accueil",
 );
+// La séance quittée est reprise par l'action proposée (« Reprendre »), plus répétée dans « En cours »
 ok(
-  await page.getByText("En cours", { exact: true }).isVisible(),
-  "accueil : la séance quittée est « En cours »",
+  await page.getByRole("button", { name: "Reprendre", exact: true }).isVisible(),
+  "accueil : la séance quittée se reprend (« Reprendre »)",
 );
 await capture("accueil-en-cours");
 
