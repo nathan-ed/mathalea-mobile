@@ -213,6 +213,34 @@ const dateDeVersion = (version: string) => `${version.slice(0, 10)}T00:00:00Z`
 let chargement: Promise<Moteur> | null = null
 
 /**
+ * Au lancement, avant de choisir le moteur : s'il y en a un plus récent que
+ * celui livré ou déjà téléchargé, le télécharger pour l'utiliser tout de suite.
+ * N'échoue jamais : sans réseau, l'app s'ouvre avec le moteur qu'elle a.
+ */
+async function mettreAJourAuLancement(
+  invoke: <T>(commande: string, args?: Record<string, unknown>) => Promise<T>,
+  reference: string,
+): Promise<void> {
+  try {
+    const actifs = await invoke<boolean>('mises_a_jour_moteur')
+    if (!actifs) return
+    // Sous le dé qui tourne, seulement si l'attente se prolonge
+    const mention = document.createElement('p')
+    mention.textContent = 'Mise à jour du moteur…'
+    const affichage = setTimeout(() => document.getElementById('lancement')?.appendChild(mention), 1000)
+    // Sans limite de durée : hors connexion, l'échec est immédiat ; un réseau
+    // qui ne répond plus pendant 20 s est abandonné (src-tauri/src/moteur.rs),
+    // un téléchargement qui avance, même lent, va jusqu'au bout.
+    await invoke('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: reference }).finally(() => {
+      clearTimeout(affichage)
+      mention.remove()
+    })
+  } catch (e) {
+    console.warn('Mise à jour du moteur au lancement', e)
+  }
+}
+
+/**
  * Charge le moteur le plus récent entre celui livré avec l'app et celui
  * téléchargé par une mise à jour ; en cas d'échec du second, le premier.
  */
@@ -223,6 +251,9 @@ export function chargerMoteur(): Promise<Moteur> {
     let baseTelechargee = ''
     if (dansTauri) {
       const { invoke, convertFileSrc } = await import('@tauri-apps/api/core')
+      // Avant moteur_telecharge, qui fige le moteur de la session
+      // (Rust compare aussi avec le moteur déjà téléchargé)
+      await mettreAJourAuLancement(invoke, dateDeVersion(livre.version))
       telecharge = await invoke<MoteurTelecharge | null>('moteur_telecharge').catch(() => null)
       baseTelechargee = convertFileSrc('', 'moteur').replace(/\/?$/, '/')
     }

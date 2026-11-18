@@ -267,10 +267,14 @@ téléchargé et de le servir en HTTPS depuis nos serveurs ; expliquer le
 mécanisme dans « Review instructions », rubrique App Access, à chaque envoi).
 Android (forge et Google Play), les ordinateurs et, depuis la 0.7.2, iOS
 téléchargent donc notre moteur publié sur la forge (voir « Moteur publié sur
-la forge »). Pour Apple (contrat 3.3.1(B), règles 2.5.2 et 4.7), la 0.7.2 est
+la forge »). Pour Apple (contrat 3.3.1(B), règles 2.5.2 et 4.7), la 0.7.2,
 soumise avec le mécanisme expliqué dans les notes de vérification
-(`docs/app-store/notes-verification-0.7.2.txt`) ; en cas de refus pour la
-règle 4.7, isoler le moteur dans une iframe sans accès au pont Tauri.
+(`docs/app-store/notes-verification-0.7.2.txt`), a été acceptée. Pour les
+versions suivantes, une note courte suffit (`notes-verification-0.7.3.txt`, 0.7.4 sur le même modèle) :
+nouveautés et étapes de test sans compte, sans reparler du
+téléchargement du moteur (déjà accepté, inutile d'attirer l'attention
+dessus), sans rappeler la 0.7.2 ni joindre de vidéo. En cas de refus futur pour la règle
+4.7, isoler le moteur dans une iframe sans accès au pont Tauri.
 `MISES_A_JOUR` (`src-tauri/src/moteur.rs`) n'est faux que si l'app est
 construite avec `MATHALEA_MOTEUR_FIGE=1` ; l'app garde alors le moteur livré
 et masque « Rechercher une mise à jour ».

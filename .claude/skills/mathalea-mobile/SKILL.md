@@ -515,6 +515,13 @@ commit de MathALÉA), signé par la clé
 `~/.local/share/mathalea-mobile/moteur-forge-ed25519.pem`. Actives sur Android
 (forge et Google Play) et ordinateurs, jamais sur iOS tant qu'Apple n'a pas
 répondu ni avec `MATHALEA_MOTEUR_FIGE=1`. Jamais le moteur de mathalea.fr.
+Au lancement (Nathan, 2026-11-18 : les élèves ne doivent pas avoir à
+rouvrir l'app), `chargerMoteur` cherche et télécharge la nouvelle version
+AVANT de choisir le moteur (`mettreAJourAuLancement`). Pas de plafond de
+durée (Nathan) : 20 s de connexion puis 20 s sans octet reçu (`client()`
+de `moteur.rs`), un téléchargement qui avance va jusqu'au bout ; en cas
+d'échec, l'app s'ouvre avec le moteur qu'elle a. `mettre_a_jour_moteur` ne fige jamais `SESSION`
+(`SESSION.get()`), seul `moteur_telecharge` le fait.
 Détails : `docs/developpement.md`, « Moteur publié sur la forge ».
 - Catalogue de l'Explorer (Nathan, 2026-11-04 : « ne pas les avoir hardcoded
   dans l'app », « un dossier FR et un dossier CH ») : **pas dans l'app**. Un
@@ -765,8 +772,10 @@ Environnement (machine de Nathan)
 
 - Boutiques (Google Play, App Store) : moteur téléchargé depuis la 0.7.1
   (Google Play, accord du support pour du JavaScript dans une WebView) et la
-  0.7.2 (iOS, soumise avec le mécanisme expliqué dans les notes ; refus pour
-  la règle 4.7 : isoler le moteur dans une iframe). `MATHALEA_MOTEUR_FIGE=1`
+  0.7.2 (iOS, mécanisme expliqué dans les notes, acceptée par Apple ; ensuite
+  note courte sur le modèle de `docs/app-store/notes-verification-0.7.3.txt`,
+  sans reparler du téléchargement du moteur ni de la 0.7.2 ; en cas de refus futur pour la règle 4.7, isoler le
+  moteur dans une iframe). `MATHALEA_MOTEUR_FIGE=1`
   le fige encore si besoin. Nathan accepte des versions hebdomadaires automatiques :
   `google-play.yml` (lundi, si nouveau moteur publié, dernier tag `v*`,
   `versionCode` daté). `.aab` aussi construit par `release.yml` (artefact).

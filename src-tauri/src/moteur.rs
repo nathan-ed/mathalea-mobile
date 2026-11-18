@@ -74,6 +74,18 @@ pub fn verifier_signature(texte: &[u8], signature_b64: &str, cle_b64: &str) -> R
         .map_err(|_| "signature incorrecte".to_string())
 }
 
+/// Client réseau : 20 s pour établir la connexion, puis 20 s au plus sans recevoir
+/// le moindre octet. Pas de limite sur la durée totale : un téléchargement qui
+/// avance va jusqu'au bout, même lent.
+fn client() -> Result<reqwest::Client, String> {
+    let delai = std::time::Duration::from_secs(20);
+    reqwest::Client::builder()
+        .connect_timeout(delai)
+        .read_timeout(delai)
+        .build()
+        .map_err(|e| format!("réseau : {e}"))
+}
+
 async fn telecharger(client: &reqwest::Client, url: &str) -> Result<Vec<u8>, String> {
     // Toujours la publication du serveur, jamais une copie gardée en route
     let r = client
@@ -90,7 +102,7 @@ async fn telecharger(client: &reqwest::Client, url: &str) -> Result<Vec<u8>, Str
 
 /// Publication plus récente que `publie_actuel`, signée et compatible, ou None
 pub async fn chercher(base: &str, cle: &str, api: u32, publie_actuel: &str) -> Result<Option<MiseAJour>, String> {
-    let client = reqwest::Client::new();
+    let client = client()?;
     let texte = telecharger(&client, &format!("{base}mise-a-jour.json")).await?;
     let signature = telecharger(&client, &format!("{base}mise-a-jour.json.sig")).await?;
     verifier_signature(&texte, &String::from_utf8_lossy(&signature), cle)?;
@@ -106,7 +118,7 @@ pub async fn chercher(base: &str, cle: &str, api: u32, publie_actuel: &str) -> R
 
 /// Télécharge, vérifie et extrait la publication, puis la marque active pour le prochain lancement
 pub async fn installer(base: &str, m: &MiseAJour, dossier_moteurs: &Path) -> Result<Actif, String> {
-    let client = reqwest::Client::new();
+    let client = client()?;
     let octets = telecharger(&client, &format!("{base}{}", m.archive)).await?;
     let empreinte: String = Sha256::digest(&octets).iter().map(|o| format!("{o:02x}")).collect();
     if octets.len() as u64 != m.taille || empreinte != m.sha256 {
@@ -204,7 +216,10 @@ pub fn moteur_telecharge(app: tauri::AppHandle) -> Option<Actif> {
     session(&app).as_ref().map(|(a, _)| a.clone())
 }
 
-/// Cherche et installe une mise à jour ; elle sera active au prochain lancement
+/// Cherche et installe une mise à jour. Appelée au lancement avant le chargement
+/// du moteur, elle est utilisée dans la foulée (la session n'est choisie qu'au
+/// premier `moteur_telecharge`) ; appelée plus tard, elle sera active au
+/// prochain lancement. Elle ne fige jamais la session elle-même.
 #[tauri::command]
 pub async fn mettre_a_jour_moteur(app: tauri::AppHandle, api: u32, publie_actuel: String) -> Result<Option<String>, String> {
     if !MISES_A_JOUR {
@@ -214,7 +229,7 @@ pub async fn mettre_a_jour_moteur(app: tauri::AppHandle, api: u32, publie_actuel
     fs::create_dir_all(&dossier).map_err(|e| e.to_string())?;
     let base = base_url();
     // Une mise à jour déjà installée (active au prochain lancement) n'est pas retéléchargée
-    let en_attente = lire_actif(&dossier).filter(|a| session(&app).as_ref().map(|(s, _)| s.dossier != a.dossier).unwrap_or(true));
+    let en_attente = lire_actif(&dossier).filter(|a| SESSION.get().and_then(|s| s.as_ref()).map(|(s, _)| s.dossier != a.dossier).unwrap_or(true));
     let reference = match &en_attente {
         Some(a) if a.publie_le > publie_actuel => a.publie_le.clone(),
         _ => publie_actuel,
@@ -223,7 +238,7 @@ pub async fn mettre_a_jour_moteur(app: tauri::AppHandle, api: u32, publie_actuel
         return Ok(en_attente.filter(|a| a.publie_le == reference).map(|a| a.version));
     };
     let actif = installer(&base, &m, &dossier).await?;
-    let en_cours = session(&app).as_ref().map(|(a, _)| a.dossier.clone());
+    let en_cours = SESSION.get().and_then(|s| s.as_ref()).map(|(a, _)| a.dossier.clone());
     let mut garder = vec![actif.dossier.as_str()];
     if let Some(d) = en_cours.as_deref() {
         garder.push(d);
