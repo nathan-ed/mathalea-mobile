@@ -1,1 +1,1 @@
-Le moteur se met à jour à l'ouverture de l'app : plus besoin de la fermer puis de la rouvrir pour avoir les exercices corrigés. Bilan de ceinture plus clair, formules longues coupées à la ligne, petits correctifs d'affichage. Exercices mis à jour.
+Le moteur se met à jour à l'ouverture de l'app : plus besoin de la fermer puis de la rouvrir pour avoir les exercices corrigés. Bilan de ceinture plus clair, formules longues coupées à la ligne, petits correctifs d'affichage. Exercices mis à jour, nouvel exercice sur la factorisation du second degré.

@@ -1,4 +1,4 @@
-VERSION 0.7.4: clearer belt summary, long formulas wrap on small screens, updated exercises, display fixes.
+VERSION 0.7.4: clearer belt summary, long formulas wrap on small screens, updated exercises, new second-degree factoring exercise, display fixes.
 
 HOW TO TEST (no account needed)
 a. Launch, choose "France", tap "Je n'ai pas de lien".
