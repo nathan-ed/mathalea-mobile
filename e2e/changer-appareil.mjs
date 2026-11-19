@@ -239,8 +239,36 @@ for (let i = 0; i < 5 && !(await a.getByRole('tab', { name: 'Explorer' }).isVisi
 await ouvrir(a, additions)
 ok((await texte(a)).includes('50 %') || (await texte(a)).includes('1 / 2'), 'fusion : additions de cet appareil gardées')
 
+// ---------- Accueil sans classe : lien ou sauvegarde, d'emblée ----------
+// Nathan, 19 novembre 2026 : « j'ai un lien ou une sauvegarde, on devrait avoir
+// les deux directement » ; une restauration ne doit pas aller chercher le moteur
+// (le rechargement pose le drapeau lu par chargerMoteur dans l'app Tauri).
+const v = await telephone('accueil-vide', [
+  () => {
+    if (sessionStorage.getItem('pret')) return
+    sessionStorage.setItem('pret', '1')
+    localStorage.setItem('copie:profil', JSON.stringify('eleve'))
+    localStorage.setItem('copie:pays', JSON.stringify('FR'))
+  },
+])
+await v.getByRole('button', { name: 'Ajouter le dossier' }).waitFor({ timeout: 60_000 })
+ok(await v.getByRole('button', { name: 'Récupérer une sauvegarde' }).isVisible(), 'accueil sans classe : « Récupérer une sauvegarde » à côté du lien')
+await v.screenshot({ path: `${captures}/changer-5-accueil-vide.png` })
+;[choix] = await Promise.all([v.waitForEvent('filechooser'), v.getByRole('button', { name: 'Récupérer une sauvegarde' }).click()])
+await choix.setFiles(faux)
+await v.getByRole('alert').waitFor()
+ok((await v.getByRole('alert').innerText()).includes('n’est pas une sauvegarde MathALÉA'), 'accueil : fichier invalide refusé avec un message')
+;[choix] = await Promise.all([v.waitForEvent('filechooser'), v.getByRole('button', { name: 'Récupérer une sauvegarde' }).click()])
+await choix.setFiles(fichier)
+await v.getByText('Récupérer ces données ?').waitFor()
+await v.getByRole('button', { name: 'Récupérer', exact: true }).click()
+await v.getByRole('tab', { name: 'Mes parcours' }).waitFor({ timeout: 60_000 })
+ok(await v.evaluate(() => sessionStorage.getItem('moteur-rechargement') === '1'), 'accueil : la restauration recharge sans chercher de nouveau moteur')
+const vide = await v.evaluate(() => !!localStorage.getItem('copie:seance:ca-soustractions'))
+ok(vide, 'accueil : séance en cours reprise depuis la sauvegarde')
+
 // Sombre : premier écran et aperçu
-const s = await telephone('sombre', null, true)
+const s =await telephone('sombre', null, true)
 await s.getByRole('button', { name: /France/ }).waitFor({ timeout: 60_000 })
 await s.screenshot({ path: `${captures}/changer-2-premier-lancement-sombre.png` })
 ;[choix] = await Promise.all([s.waitForEvent('filechooser'), s.getByRole('button', { name: /Récupérer mes données/ }).click()])
