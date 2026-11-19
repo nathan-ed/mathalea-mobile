@@ -11,11 +11,6 @@ attendant de les y reverser :
   `vite.moteur.config.ts`, `tasks/` et `documentation/` pour la publication
   sur https://mathalea.fr/releases/ à chaque mise en ligne du site).
 
-- `fichiers/src/exercices/ch/1e/1mCL2-5.ts` : nouvel exercice de la MR !10338 de
-  MathALÉA (factoriser un polynôme du second degré avec le discriminant), en
-  attendant sa fusion (18 novembre 2026). À supprimer dès que `COMMIT` la
-  contient.
-
 `pnpm moteur` (scripts/moteur.sh) clone MathALÉA à ce commit, y copie ces
 fichiers et construit le moteur dans `static/moteur`.
 La CI fait de même : chaque commit de l'app porte exactement son moteur.
