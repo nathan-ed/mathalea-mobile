@@ -1,0 +1,1 @@
+Nouveau : « Récupérer une sauvegarde » est proposé directement sur l'accueil, à côté du lien de la classe. Restaurer ou fusionner une sauvegarde ne déclenche plus de mise à jour du moteur : l'app se rouvre aussitôt.
