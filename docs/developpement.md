@@ -601,6 +601,15 @@ puis corrections et vérification du 4 au 5 novembre (rapport :
 
 ## À faire (sans version fixée)
 
+- **iOS : compiler avec Xcode 27 avant avril 2027** (avertissement
+  ITMS-90725 d'Apple sur la 0.7.4, build 0.7.4.26111912, 19 novembre 2026 :
+  compilée avec le SDK d'iOS 26.5 ; à partir d'avril 2027, envoi refusé
+  sans le SDK d'iOS 27). `ios.yml` tourne sur `macos-latest` et prend le
+  Xcode par défaut du Mac de GitHub. Ajouter une étape `xcode-select` vers
+  Xcode 27 (s'il est sur l'image), l'essayer sur une branche par
+  `emulateurs.yml` et un envoi TestFlight de test, puis l'adopter pour une
+  version (Nathan, 19 novembre 2026 : « à noter », pas pour la 0.7.4).
+
 - Après la 0.4.12 (2026-11-03) ; tickets forge #2 à #6 pour le reste :
   - `LC_ALL=C` dans `scripts/moteur.sh` : même empreinte du moteur en local
     et en CI ;
