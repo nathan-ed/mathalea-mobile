@@ -31,6 +31,8 @@
   import EnTete from './EnTete.svelte'
   import BarreOnglets from './BarreOnglets.svelte'
   import Tuile from './Tuile.svelte'
+  import RecupererSauvegarde from './RecupererSauvegarde.svelte'
+  import type { resumerSauvegarde } from '$lib/sauvegarde'
   import { retourAccueil, retourSi } from '$lib/navigation.svelte'
 
   let {
@@ -69,7 +71,11 @@
     onretirerPlusieurs,
     sansLien = false,
     onsansLien,
+    onresumer,
+    onrestaurer,
   }: {
+    onresumer?: typeof resumerSauvegarde // sauvegarde d'un autre appareil : aperçu
+    onrestaurer?: (texte: string) => Promise<string> // puis restauration
     sources: Source[]
     explorer: NiveauExplorer[] // parcours de l'équipe MathALÉA du pays choisi, par degré et chapitre
     etatExplorer?: 'lecture' | 'lu' | 'injoignable' // dernière lecture des dossiers de l'Explorer
@@ -407,8 +413,9 @@
             <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien?.(false)}>
               <i aria-hidden="true" class="bx bx-link text-xl"></i> Ajouter le lien de ma classe
             </button>
+            {#if onrestaurer && onresumer}<RecupererSauvegarde {onresumer} {onrestaurer} />{/if}
           {:else if sources.length === 0 && aChoisir.length === 0}
-            <h2 class={titreSection}>Ajoute le dossier de ta classe</h2>
+            <h2 class={titreSection}>Ajoute le dossier de ta classe ou une sauvegarde</h2>
             <!-- Formulaire : Entrée ajoute le dossier ; le lien reste si l'ajout échoue -->
             <form
               class="flex flex-col gap-3"
@@ -434,6 +441,7 @@
                 <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien(true)}>Je n’ai pas de lien</button>
               {/if}
             </form>
+            {#if onrestaurer && onresumer}<RecupererSauvegarde {onresumer} {onrestaurer} />{/if}
           {/if}
           {#if cachesListe.length && oncacher}
             <!-- Parcours cachés par l'élève : repliés en bas, l'œil ouvert les remet à leur place -->

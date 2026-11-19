@@ -212,6 +212,31 @@ const dateDeVersion = (version: string) => `${version.slice(0, 10)}T00:00:00Z`
 
 let chargement: Promise<Moteur> | null = null
 
+const CLE_RECHARGEMENT = 'moteur-rechargement'
+
+/**
+ * À appeler juste avant de recharger la page pour une raison qui n'est pas un
+ * vrai lancement (restauration d'une sauvegarde) : le rechargement garde le
+ * moteur qu'on avait, sans chercher de mise à jour.
+ */
+export function neChercherPasLeMoteur(): void {
+  try {
+    sessionStorage.setItem(CLE_RECHARGEMENT, '1')
+  } catch {
+    // stockage de session indisponible : l'app cherchera une mise à jour, sans gravité
+  }
+}
+
+function rechargementSansMiseAJour(): boolean {
+  try {
+    const oui = sessionStorage.getItem(CLE_RECHARGEMENT) === '1'
+    sessionStorage.removeItem(CLE_RECHARGEMENT)
+    return oui
+  } catch {
+    return false
+  }
+}
+
 /**
  * Au lancement, avant de choisir le moteur : s'il y en a un plus récent que
  * celui livré ou déjà téléchargé, le télécharger pour l'utiliser tout de suite.
@@ -221,6 +246,7 @@ async function mettreAJourAuLancement(
   invoke: <T>(commande: string, args?: Record<string, unknown>) => Promise<T>,
   reference: string,
 ): Promise<void> {
+  if (rechargementSansMiseAJour()) return
   try {
     const actifs = await invoke<boolean>('mises_a_jour_moteur')
     if (!actifs) return

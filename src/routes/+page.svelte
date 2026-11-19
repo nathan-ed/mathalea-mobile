@@ -5,7 +5,7 @@
   import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
   import Fiches from '$lib/ui/Fiches.svelte'
   import { CLE_AVANT_RESTAURATION, apercuFusion, exporterSauvegarde, fusionnerSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
-  import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, type Moteur, type Pays } from '$lib/moteur'
+  import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, neChercherPasLeMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier } from '$lib/fichiers'
   import { exporter, lireBibliotheque } from '$lib/bibliotheque'
@@ -967,6 +967,7 @@
   async function restaurer(texte: string) {
     try {
       await restaurerSauvegarde(stockage!, texte)
+      neChercherPasLeMoteur()
       location.reload()
       return ''
     } catch (e) {
@@ -978,6 +979,7 @@
   async function fusionner(texte: string) {
     try {
       await fusionnerSauvegarde(stockage!, texte)
+      neChercherPasLeMoteur()
       location.reload()
       return ''
     } catch (e) {
@@ -1086,6 +1088,8 @@
       retirable={(p) => !dansSources(p.id) && ajoutes.some((a) => a.id === p.id)}
       onretirerPlusieurs={retirerPlusieurs}
       {sansLien}
+      onresumer={resumerSauvegarde}
+      onrestaurer={restaurer}
       onsansLien={async (v) => {
         sansLien = v
         await stockage!.ecrire('sans-lien', v)
