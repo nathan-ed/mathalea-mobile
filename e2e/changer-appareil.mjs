@@ -239,6 +239,32 @@ for (let i = 0; i < 5 && !(await a.getByRole('tab', { name: 'Explorer' }).isVisi
 await ouvrir(a, additions)
 ok((await texte(a)).includes('50 %') || (await texte(a)).includes('1 / 2'), 'fusion : additions de cet appareil gardées')
 
+// Accueil sans classe d'un appareil qui a déjà des parcours : « Récupérer une
+// sauvegarde » propose la fusion et avertit avant de tout remplacer, comme les
+// Réglages (Nathan, 19 novembre 2026), jamais un remplacement sans le dire.
+for (let i = 0; i < 5 && !(await a.getByRole('tab', { name: 'Mes parcours' }).isVisible().catch(() => false)); i++) {
+  await a.getByRole('button', { name: 'Revenir en arrière' }).first().click().catch(() => {})
+  await pagePrete(a)
+}
+await a.getByRole('tab', { name: 'Mes parcours' }).click()
+await pagePrete(a)
+const donneesAvant = await a.evaluate(() => JSON.stringify(Object.keys(localStorage).sort().map((k) => [k, localStorage.getItem(k)])))
+const recuperer = a.getByRole('button', { name: 'Récupérer une sauvegarde' })
+await recuperer.scrollIntoViewIfNeeded()
+;[choix] = await Promise.all([a.waitForEvent('filechooser'), recuperer.click()])
+await choix.setFiles(fichierNeuf)
+await a.getByText('Ajouter cette sauvegarde à cet appareil ?').waitFor()
+const dialogueAccueil = await texte(a, '[role=dialog]')
+ok(
+  (await a.getByRole('button', { name: 'Fusionner', exact: true }).isVisible()) && dialogueAccueil.includes('« Tout remplacer » efface ce qui est sur cet appareil'),
+  `accueil avec des parcours : fusion proposée, remplacement annoncé (${dialogueAccueil.slice(0, 160)})`,
+)
+await a.screenshot({ path: `${captures}/changer-7-accueil-fusion.png` })
+await a.getByRole('button', { name: 'Annuler', exact: true }).click()
+await a.getByRole('dialog').waitFor({ state: 'detached' })
+const donneesApres = await a.evaluate(() => JSON.stringify(Object.keys(localStorage).sort().map((k) => [k, localStorage.getItem(k)])))
+ok(donneesAvant === donneesApres, 'accueil : Annuler ne change rien')
+
 // ---------- Accueil sans classe : lien ou sauvegarde, d'emblée ----------
 // Nathan, 19 novembre 2026 : « j'ai un lien ou une sauvegarde, on devrait avoir
 // les deux directement » ; une restauration ne doit pas aller chercher le moteur
@@ -268,7 +294,7 @@ const vide = await v.evaluate(() => !!localStorage.getItem('copie:seance:ca-sous
 ok(vide, 'accueil : séance en cours reprise depuis la sauvegarde')
 
 // Sombre : premier écran et aperçu
-const s =await telephone('sombre', null, true)
+const s = await telephone('sombre', null, true)
 await s.getByRole('button', { name: /France/ }).waitFor({ timeout: 60_000 })
 await s.screenshot({ path: `${captures}/changer-2-premier-lancement-sombre.png` })
 ;[choix] = await Promise.all([s.waitForEvent('filechooser'), s.getByRole('button', { name: /Récupérer mes données/ }).click()])

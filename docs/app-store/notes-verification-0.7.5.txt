@@ -1,0 +1,8 @@
+VERSION 0.7.5: a backup can be restored or merged directly from the home screen, the app restarts at once after a restore.
+
+HOW TO TEST (no account needed)
+a. Launch, choose "France", tap "Je n'ai pas de lien".
+b. Explorer tab: open "Additionner et soustraire des relatifs" (5e), "Commencer", answer with the maths keyboard.
+c. Teacher's class: on "Mes parcours", paste this link in "Lien de partage donné par ton enseignant", then "Ajouter le dossier":
+https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json
+d. Guideline 1.2: path page > "Autres actions" > "Signaler un problème" and "Cacher ce parcours".

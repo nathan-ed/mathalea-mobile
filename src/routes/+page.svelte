@@ -987,6 +987,17 @@
     }
   }
 
+  /**
+   * Sauvegarde choisie depuis l'accueil : appareil vide, on la récupère ;
+   * appareil qui a déjà des passages, séances, dossiers ou parcours, on
+   * propose la fusion puis « Tout remplacer », comme dans les Réglages.
+   */
+  async function apercuSauvegarde(texte: string) {
+    const ici = resumerSauvegarde(await exporterSauvegarde(stockage!))
+    const remplacer = !!(ici.passages || ici.enCours || ici.dossiers || ici.parcoursEnseignant || ajoutes.length)
+    return { remplacer, fusion: remplacer ? await apercuFusion(stockage!, texte).catch(() => null) : null }
+  }
+
   /** Annule la dernière restauration : l'état remplacé revient */
   async function annulerRestauration() {
     const copie = await stockage!.lire<string>(CLE_AVANT_RESTAURATION)
@@ -1089,7 +1100,9 @@
       onretirerPlusieurs={retirerPlusieurs}
       {sansLien}
       onresumer={resumerSauvegarde}
+      onapercuSauvegarde={apercuSauvegarde}
       onrestaurer={restaurer}
+      onfusionner={fusionner}
       onsansLien={async (v) => {
         sansLien = v
         await stockage!.ecrire('sans-lien', v)

@@ -1,17 +1,28 @@
 <script lang="ts">
   // Bouton « Récupérer une sauvegarde » : choix du fichier, aperçu de ce qui
-  // sera repris, puis restauration (même parcours que le premier lancement).
+  // sera repris, puis restauration. Appareil vide : comme au premier
+  // lancement. Appareil qui a déjà des données (parcours de l'Explorer,
+  // ceintures) : comme dans les Réglages, fusion proposée d'abord, puis
+  // « Tout remplacer » avec l'avertissement (Nathan, 19 novembre 2026).
+  import type { BilanFusion } from '$lib/fusion'
   import type { resumerSauvegarde } from '$lib/sauvegarde'
   import { boutonLien } from './classes'
   import ConfirmationRestauration from './ConfirmationRestauration.svelte'
   let {
     onresumer,
+    onapercu,
     onrestaurer,
-  }: { onresumer: typeof resumerSauvegarde; onrestaurer: (texte: string) => Promise<string> } = $props()
+    onfusionner,
+  }: {
+    onresumer: typeof resumerSauvegarde
+    onapercu: (texte: string) => Promise<{ remplacer: boolean; fusion: BilanFusion | null }> // ce que l'appareil a déjà
+    onrestaurer: (texte: string) => Promise<string>
+    onfusionner: (texte: string) => Promise<string>
+  } = $props()
 
   let champ: HTMLInputElement | undefined = $state()
   let message = $state('')
-  let aRecuperer: { texte: string; resume: ReturnType<typeof resumerSauvegarde> } | null = $state(null)
+  let aRecuperer: { texte: string; resume: ReturnType<typeof resumerSauvegarde>; remplacer: boolean; fusion: BilanFusion | null } | null = $state(null)
   async function lire(e: Event) {
     const c = e.currentTarget as HTMLInputElement
     const f = c.files?.[0]
@@ -19,7 +30,8 @@
     if (!f) return
     const texte = await f.text()
     try {
-      aRecuperer = { texte, resume: onresumer(texte) }
+      const resume = onresumer(texte)
+      aRecuperer = { texte, resume, ...(await onapercu(texte)) }
       message = ''
     } catch (err) {
       message = (err as Error).message
@@ -36,7 +48,13 @@
 {#if aRecuperer}
   <ConfirmationRestauration
     resume={aRecuperer.resume}
-    remplacer={false}
+    remplacer={aRecuperer.remplacer}
+    fusion={aRecuperer.fusion}
+    onfusionner={async () => {
+      const texte = aRecuperer!.texte
+      aRecuperer = null
+      message = await onfusionner(texte)
+    }}
     onannuler={() => (aRecuperer = null)}
     onconfirmer={async () => {
       const texte = aRecuperer!.texte

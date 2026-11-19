@@ -1,0 +1,1 @@
+Récupérer une sauvegarde directement depuis l'accueil, à côté du lien de la classe. Si l'appareil a déjà des parcours, la sauvegarde peut s'y ajouter au lieu de tout remplacer. Après une restauration, l'app redémarre aussitôt.

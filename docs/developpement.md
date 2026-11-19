@@ -188,7 +188,11 @@ Rust `telecharger`.
   contrôle échoue (comme `pnpm e2e`).
 - `node e2e/changer-appareil.mjs` : un élève change de téléphone (sauvegarde
   exportée, « Récupérer mes données » au premier lancement, séance en cours
-  reprise et terminée, suivi). Seulement l'app servie sur 1420 (`BASE=` pour un autre port).
+  reprise et terminée, suivi), fusion entre deux appareils, et « Récupérer
+  une sauvegarde » sur l'accueil sans classe (`RecupererSauvegarde`, 0.7.5) :
+  appareil vide, récupération directe ; appareil qui a déjà des données,
+  fusion puis « Tout remplacer » comme dans les Réglages (Nathan, 19 novembre
+  2026). Seulement l'app servie sur 1420 (`BASE=` pour un autre port).
 - Appareils virtuels (`.github/workflows/emulateurs.yml`, GitHub, gratuit pour
   un dépôt public ; lancé à la main ou par un push sur la branche de travail
   de Claude) : notre moteur construit une fois sous Linux, puis l'app
