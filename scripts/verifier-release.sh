@@ -17,11 +17,13 @@ rm -rf "$SORTIE"
 mkdir -p "$SORTIE"
 export CAPTURES="$SORTIE"
 echecs=()
+# Notification du bureau (scripts/prevenir.sh) : un test qui échoue, la fin
+prevenir() { bash scripts/prevenir.sh "$@" || true; }
 etape() {
   local nom="$1"
   shift
   echo "== $nom"
-  if "$@" > "$SORTIE/$nom.log" 2>&1; then echo "   vert"; else echo "   ÉCHEC (voir $SORTIE/$nom.log)"; echecs+=("$nom"); fi
+  if "$@" > "$SORTIE/$nom.log" 2>&1; then echo "   vert"; else echo "   ÉCHEC (voir $SORTIE/$nom.log)"; echecs+=("$nom"); prevenir echec "Test en échec : $nom" "$SORTIE/$nom.log"; fi
 }
 
 test -s static/moteur/manifest.json || { echo "static/moteur manquant : pnpm moteur"; exit 1; }
@@ -70,7 +72,7 @@ for s in "${paralleles[@]}"; do
 done
 wait "${pids[@]}"
 for s in "${paralleles[@]}"; do
-  if [ "$(cat "$SORTIE/$s.code")" = 0 ]; then echo "== $s"; echo "   vert"; else echo "== $s"; echo "   ÉCHEC (voir $SORTIE/$s.log)"; echecs+=("$s"); fi
+  if [ "$(cat "$SORTIE/$s.code")" = 0 ]; then echo "== $s"; echo "   vert"; else echo "== $s"; echo "   ÉCHEC (voir $SORTIE/$s.log)"; echecs+=("$s"); prevenir echec "Test en échec : $s" "$SORTIE/$s.log"; fi
 done
 for s in reponses-elements defilement un-toucher terminer-passees barre-clavier regressions changer-appareil classe-qr \
   fiches exercice-inconnu mise-a-jour session-qr ouverture-paliers paliers papier correction-parcours \
@@ -100,6 +102,8 @@ arreter
 echo
 if [ ${#echecs[@]} -gt 0 ]; then
   echo "À CORRIGER AVANT LA RELEASE : ${echecs[*]}"
+  prevenir echec "Vérification terminée : ${#echecs[@]} échec(s)" "${echecs[*]}"
   exit 1
 fi
 echo "TOUT VERT : la release peut partir ($(git rev-parse --short HEAD))."
+prevenir fin "Vérification terminée : tout est vert" "La release peut partir ($(git rev-parse --short HEAD))."
