@@ -24,7 +24,7 @@ on:
         type: boolean
         default: false
       ref:
-        description: Commit à construire (vide : celui de la branche choisie)
+        description: "Commit à construire (vide : celui de la branche choisie)"
         required: false
         default: ''
   # Appelé par publication.yml : .ipa non signée de la version (et TestFlight
