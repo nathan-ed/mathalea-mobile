@@ -47,8 +47,8 @@ Sans nouvelle version de l'app : les apps téléchargent le moteur au lancement.
 - La branche doit prolonger `main` de la forge, sinon la demande est refusée.
 - La vérification complète (`scripts/verifier-release.sh`) tourne sur le
   commit poussé. Son résumé liste les commits qui arriveront sur `main`.
-- Nathan approuve dans GitHub (Actions, run « publication », « Review
-  deployments »). Alors seulement le commit arrive sur `main` de la forge,
+- Nathan approuve dans GitHub par le navigateur (l'app GitHub ne le permet
+  pas) : lien et commande `gh` dans le résumé du run, « Review deployments ». Alors seulement le commit arrive sur `main` de la forge,
   avec le moteur signé ou le tag de la version.
 - Pour une version : construction (`release.yml`, `ios.yml`), puis seconde
   approbation pour ranger les installateurs dans `releases/`, créer la

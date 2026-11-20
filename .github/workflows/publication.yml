@@ -117,6 +117,12 @@ jobs:
             echo '```'
             git diff --stat FETCH_HEAD HEAD
             echo '```'
+            echo
+            echo "Approuver (l'app GitHub ne le permet pas) : https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID, « Review deployments »,"
+            echo "ou depuis l'ordinateur de Nathan :"
+            echo '```'
+            echo "gh api -X POST repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/pending_deployments -F \"environment_ids[]=\$(gh api repos/$GITHUB_REPOSITORY/environments/publication --jq .id)\" -f state=approved -f comment=ok"
+            echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/setup-node@v7
         with:
@@ -172,6 +178,17 @@ jobs:
         with:
           ref: ${{ needs.verifier.outputs.sha }}
           fetch-depth: 0
+      # Jeton valide, portées et expiration (jamais sa valeur), avant tout
+      - name: Jeton de la forge
+        env:
+          FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
+        run: |
+          test -n "$FORGE_TOKEN" || { echo "::error::Secret FORGE_TOKEN absent de l'environnement publication"; exit 1; }
+          infos="$(curl -sf -H "PRIVATE-TOKEN: $FORGE_TOKEN" https://forge.apps.education.fr/api/v4/personal_access_tokens/self)" \
+            || { echo "::error::FORGE_TOKEN refusé par la forge (jeton invalide ou expiré)"; exit 1; }
+          jq -e '.active and (.scopes | index("write_repository")) and (.scopes | index("api"))' <<< "$infos" > /dev/null \
+            || { echo "::error::FORGE_TOKEN : il faut un jeton actif avec les portées api et write_repository"; exit 1; }
+          echo "Jeton de la forge valide jusqu'au $(jq -r '.expires_at // "sans date"' <<< "$infos")." >> "$GITHUB_STEP_SUMMARY"
       - name: Forge
         run: |
           git config user.name "Publication MathALÉA"
