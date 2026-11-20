@@ -459,9 +459,11 @@ Organisation des parcours (0.2.0, voir `docs/developpement.md`)
   2026-11-05, déjà publié). Ne jamais modifier
   `static/confidentialite.html` (publiée à chaque push par `pages`) pendant
   un examen Google Play (Nathan, 2026-10-19) : attendre son feu vert.
-  Depuis le 2 novembre 2026 : **plus aucun envoi à la Play Console** par la
-  CI ni par Claude ; Nathan crée la version Play avec le `.aab` de
-  `release.yml`. Claude peut publier la release de la forge.
+  Depuis le 20 novembre 2026 (Nathan : « je peux te dire, lance la release,
+  fais tous les checks, et ensuite tu envoies l'AAB à Google, depuis
+  GitHub ») : une release demandée par Nathan finit par l'envoi du `.aab` à
+  la Play Console, par `publication.yml` (production par défaut) ou
+  `google-play.yml` depuis l'ordinateur. Jamais sans sa demande.
   `google-play.yml` reste **désactivé** sur GitHub : l'activer seulement
   le temps d'un envoi demandé par Nathan (`gh workflow enable`, `gh workflow
   run … -f piste=internal`, puis `disable` aussitôt ; un run lancé continue).

@@ -15,7 +15,8 @@
 # 3. Version seulement : release.yml et ios.yml (.ipa non signée, TestFlight si
 #    demandé) sur ce commit, puis ranger (nouvelle approbation) :
 #    releases/<v>, archive du moteur, latest.json et release de la forge
-#    (scripts/release.sh). Le .aab reste un artefact du run (Play Console à la main).
+#    (scripts/release.sh), puis envoi du .aab à la Play Console (production
+#    par défaut, autre piste ou aucun envoi selon la demande).
 #
 # Secrets : jamais dans un `run:` ni dans l'environnement d'une action tierce ;
 # la clé ne passe que par un fichier temporaire effacé à la fin de l'étape.
@@ -48,6 +49,7 @@ jobs:
     outputs:
       publier: ${{ steps.demande.outputs.publier }}
       testflight: ${{ steps.demande.outputs.testflight }}
+      google_play: ${{ steps.demande.outputs.google_play }}
       sha: ${{ steps.demande.outputs.sha }}
     env:
       SHA: ${{ github.event.workflow_run.head_sha }}
@@ -65,6 +67,10 @@ jobs:
           publier="$(jq -er '.publier' "$f")"
           testflight="$(jq -r '.testflight // false' "$f")"
           [ "$testflight" = true ] || testflight=false
+          # Piste de la Play Console (production par défaut, comme les releases
+          # faites depuis l'ordinateur) ; false : pas d'envoi
+          google_play="$(jq -r 'if has("google_play") then .google_play else "production" end' "$f")"
+          case "$google_play" in production|internal|alpha|beta|false) ;; *) echo "::error::google_play : production, internal, alpha, beta ou false"; exit 1 ;; esac
           if [ "$publier" = moteur ]; then
             grep -qxE '[0-9a-f]{40}' moteur/COMMIT || { echo "::error::moteur/COMMIT : commit complet de MathALÉA attendu (40 caractères)"; exit 1; }
           elif [[ "$publier" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
@@ -75,14 +81,14 @@ jobs:
           else
             echo "::error::publier : « moteur » ou « vX.Y.Z », pas « $publier »"; exit 1
           fi
-          { echo "publier=$publier"; echo "testflight=$testflight"; echo "sha=$SHA"; } >> "$GITHUB_OUTPUT"
+          { echo "publier=$publier"; echo "testflight=$testflight"; echo "google_play=$google_play"; echo "sha=$SHA"; } >> "$GITHUB_OUTPUT"
       # Ce qui arrivera sur main de la forge : à relire avant d'approuver
       - name: Prolonge main de la forge
         run: |
           git fetch -q "$FORGE" main
           git merge-base --is-ancestor FETCH_HEAD HEAD || { echo "::error::Le commit ne prolonge pas main de la forge : fusionner main dans la branche d'abord."; exit 1; }
           {
-            echo "## Demande : $(jq -r .publier publication/demande.json) (branche $BRANCHE)"
+            echo "## Demande : $(jq -c . publication/demande.json) (branche $BRANCHE)"
             echo
             echo "Commits qui arriveront sur main de la forge :"
             echo '```'
@@ -269,8 +275,24 @@ jobs:
       - name: Miroir GitHub
         run: |
           git push origin HEAD:main || echo "::warning::Miroir GitHub non mis à jour (git push github main depuis un ordinateur)"
-          {
-            echo "Release $VERSION : https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/$VERSION"
-            echo
-            echo "Google Play : télécharger l'artefact google-play de ce run (.aab) et créer la version dans la Play Console."
-          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Release $VERSION : https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/$VERSION" >> "$GITHUB_STEP_SUMMARY"
+      # .aab de release.yml (clé d'importation CN=CoopMaths), envoyé comme le
+      # fait google-play.yml : scripts/envoyer-google-play.mjs, note .play.txt
+      - uses: actions/download-artifact@v8
+        if: needs.verifier.outputs.google_play != 'false'
+        with:
+          name: google-play
+          path: ${{ runner.temp }}/aab
+      - uses: actions/setup-node@v7
+        if: needs.verifier.outputs.google_play != 'false'
+        with:
+          node-version: 22
+      - name: Envoi à la Play Console
+        if: needs.verifier.outputs.google_play != 'false'
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
+          PISTE: ${{ needs.verifier.outputs.google_play }}
+        run: |
+          test -n "$GOOGLE_PLAY_SERVICE_ACCOUNT" || { echo "::error::Secret GOOGLE_PLAY_SERVICE_ACCOUNT absent"; exit 1; }
+          node scripts/envoyer-google-play.mjs "$RUNNER_TEMP"/aab/*.aab "$PISTE" "docs/notes-de-version/$VERSION.play.txt"
+          echo "Google Play : $VERSION envoyée sur la piste $PISTE." >> "$GITHUB_STEP_SUMMARY"

@@ -932,7 +932,9 @@ Reste à faire :
   push sur main et tag sur la forge, `release.yml` et `ios.yml` appelés sur ce
   commit, seconde approbation, puis `scripts/release.sh` (API de la forge par
   `curl` avec `FORGE_TOKEN`, `.ipa` par `IPA_DOSSIER`) et commit de
-  `releases/<v>` avec l'archive du moteur.
+  `releases/<v>` avec l'archive du moteur, enfin envoi du `.aab` de
+  `release.yml` à la Play Console (`scripts/envoyer-google-play.mjs`, piste
+  `google_play` de la demande, production par défaut, `false` : aucun envoi).
 - Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
 - Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
   attendues régénérées avec la graine de la séance), aussi en CI ;
