@@ -750,6 +750,11 @@ les essais), jamais celui de mathalea.fr.
   `mise-a-jour.json` et `.sig` dans `releases/moteur/` (trois archives
   gardées), commite et pousse sur main. Les apps le prennent au lancement
   suivant.
+- Depuis une session sans l'ordinateur de Nathan : `moteur/COMMIT` et
+  `publication/demande.json` (`{"publier": "moteur"}`) poussés sur la branche ;
+  `publication.yml` vérifie, attend l'approbation de Nathan, puis signe avec
+  `scripts/signer-moteur.sh` (comme `publier-moteur.sh`) et pousse sur main.
+  Voir `publication/LISEZMOI.md`.
 - Revenir en arrière : relancer avec le commit précédent ; la nouvelle date
   de publication le fait reprendre par toutes les apps.
 - Clé : privée chez Nathan, `~/.local/share/mathalea-mobile/moteur-forge-ed25519.pem`
@@ -918,6 +923,16 @@ Reste à faire :
   parallèle ; il refuse un `static/moteur` qui ne correspond pas à `moteur/`,
   `scripts/moteur-a-jour.sh`), puis tag et push seulement si tout est vert. La CI GitHub ne garde
   que les suites rapides.
+- Release depuis une session (cloud comprise) : `publication/demande.json`
+  (`{"publier": "vX.Y.Z"}`) poussé sur la branche, voir
+  `publication/LISEZMOI.md`. `publication.yml` (déclenché par `demande.yml`,
+  toujours dans sa version de main) : `verifier-release.sh` en CI, approbation
+  de Nathan (environnement GitHub `publication` : secrets `MOTEUR_CLE` et
+  `FORGE_TOKEN`, branche main seulement, sans contournement pour les admins),
+  push sur main et tag sur la forge, `release.yml` et `ios.yml` appelés sur ce
+  commit, seconde approbation, puis `scripts/release.sh` (API de la forge par
+  `curl` avec `FORGE_TOKEN`, `.ipa` par `IPA_DOSSIER`) et commit de
+  `releases/<v>` avec l'archive du moteur.
 - Préqualifiant v11 : voir `explorer/prequalifiant-manques.md`.
 - Tests : `node e2e/reponses-elements.mjs` (téléphone et bureau, réponses
   attendues régénérées avec la graine de la séance), aussi en CI ;

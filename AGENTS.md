@@ -85,8 +85,13 @@ toute modification.
 Chaque release touche beaucoup de monde : rien ne passe sans vérification
 complète (détails dans le skill, « Vérification »).
 
-- Release : seulement par `bash scripts/publier.sh vX.Y.Z`, sur l'ordinateur
-  de Nathan (seul à publier). Il lance `scripts/verifier-release.sh` (check,
+- Release : par `bash scripts/publier.sh vX.Y.Z` sur l'ordinateur de Nathan,
+  ou, depuis une session (cloud ou locale), par `publication/demande.json`
+  poussé sur sa branche (`publication/LISEZMOI.md`) : `publication.yml` fait la
+  même vérification puis attend l'approbation de Nathan (environnement GitHub
+  `publication`, seul à détenir la clé du moteur et le jeton de la forge).
+  Jamais de secret en clair ni de contournement de cette approbation. Les deux
+  voies lancent `scripts/verifier-release.sh` (check,
   test, cargo test, toutes les suites e2e, tous les formats de réponse et
   **tous les parcours** de `explorer/` et de la démonstration joués de A à Z
   par un élève qui répond juste, contrôle des claviers) et ne pose le tag que

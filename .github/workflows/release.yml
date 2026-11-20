@@ -20,6 +20,25 @@ on:
         description: Essai (construire et signer, sans rien joindre à la release)
         type: boolean
         default: false
+      ref:
+        description: Commit à construire (vide : celui de la branche choisie)
+        required: false
+        default: ''
+  # Appelé par publication.yml (version demandée par une session, approuvée par Nathan)
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      cibles:
+        type: string
+        default: tout
+      ref:
+        type: string
+        required: true
+      essai:
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -34,6 +53,9 @@ jobs:
       # Moteur construit depuis MathALÉA au commit moteur/COMMIT, plus les
       # fichiers de moteur/ (voir moteur/README.md) : rien n'est déposé à la main
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -68,6 +90,9 @@ jobs:
           - reessayer bilan-ceinture barrettes accueil-action
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       - uses: actions/download-artifact@v8
         with:
           name: moteur
@@ -105,6 +130,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       - name: Notes de version
         shell: bash
         run: |
@@ -267,6 +295,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       - uses: actions/download-artifact@v8
         with:
           pattern: bureau-*
@@ -288,6 +319,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       # Les secrets ne vont qu'aux étapes de ce fichier (jamais à une action tierce)
       - name: Clés fournies
         id: cles

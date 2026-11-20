@@ -762,6 +762,20 @@ Environnement (machine de Nathan)
   `git add releases` (README et `releases/v<x>/`), commit, push sur les deux
   dépôts (300 Mo de LFS). Contrôle : somme SHA-256 d'une APK lue par
   `glab api "projects/coopmaths%2Fmathalea-mobile/repository/files/releases%2Fv<x>%2F<fichier>/raw?ref=main&lfs=true"`.
+- Publication sans l'ordinateur de Nathan (2026-11-20, demandée pour les
+  sessions cloud) : `publication/demande.json` poussé sur la branche de la
+  session, `{"publier": "moteur"}` (avec `moteur/COMMIT`) ou
+  `{"publier": "vX.Y.Z"}` (`"testflight": true` en option) ; mode d'emploi
+  `publication/LISEZMOI.md`. `demande.yml` (sans secret) relaie à
+  `publication.yml` par `workflow_run` : ce dernier tourne toujours dans sa
+  version de main. Vérification complète en CI, puis approbation de Nathan
+  (environnement `publication` : `MOTEUR_CLE`, `FORGE_TOKEN`, main seulement,
+  `can_admins_bypass` faux). Ne jamais chercher à contourner l'approbation ni
+  à lire ces secrets. Scripts partagés avec la voie locale :
+  `scripts/controler-version.sh`, `scripts/signer-moteur.sh`. Le jeton GitHub
+  ne pousse pas un commit qui touche `.github/workflows` : miroir à mettre à
+  jour depuis un ordinateur dans ce cas. Un artefact par nom dans un run :
+  `ios.yml` nomme le sien `moteur-ios`.
 - **Jamais `git push --tags`** : des tags locaux anciens (`v0.1.0`, `v0.1.1`,
   `moteur`) partent avec. Un tag `v*` absent de GitHub relance une release
   (à annuler : `gh run cancel <id>`) ; le tag `moteur` sur la forge lance un

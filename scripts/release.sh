@@ -10,6 +10,9 @@
 #   IPA_RUN=<id> scripts/release.sh v0.2.0    # .ipa d'un run ios.yml précis
 #   BUREAU_SEUL=1 scripts/release.sh v0.5.1   # Windows, macOS, Linux seulement
 #                                         # (version sans changement sur téléphone)
+#   IPA_DOSSIER=<dossier> scripts/release.sh v0.2.0   # .ipa déjà téléchargée
+#                                         # (publication.yml, même run que la CI)
+#   FORGE_TOKEN=<jeton> : API de la forge par curl au lieu de glab (CI)
 #
 # Peut être relancé : les fichiers déjà présents sont remplacés, les liens
 # manquants ajoutés à la release de la forge. Pousser le commit qui contient
@@ -112,6 +115,10 @@ fi
 # que le tag, après un correctif du seul workflow)
 commit="$(git -C "$racine" rev-parse "$version^{commit}")"
 [ -z "${BUREAU_SEUL:-}" ] || commit="aucun"  # pas d'.ipa
+if [ -n "${IPA_DOSSIER:-}" ]; then
+  if ls "$IPA_DOSSIER"/*.ipa > /dev/null 2>&1; then echo "iOS ($IPA_DOSSIER) :"; mkdir -p "$brut/ios"; cp "$IPA_DOSSIER"/*.ipa "$brut/ios/"; ranger "$brut/ios"; fi
+  commit="aucun"
+fi
 for run in ${IPA_RUN:-$(gh run list --repo "$depot_github" --workflow ios.yml --status success --limit 30 \
   --json databaseId,headSha --jq ".[] | select(.headSha == \"$commit\") | .databaseId")}; do
   if gh run download "$run" --repo "$depot_github" --name ipa-non-signee --dir "$brut/ios" > /dev/null 2>&1; then
@@ -144,17 +151,32 @@ ecrire_latest
 
 # Release de la forge : créée au besoin, puis un lien par fichier manquant
 cd "$racine"  # glab prend la forge dans le remote origin
+# API de la forge : glab, ou curl avec FORGE_TOKEN (CI, sans glab). Mêmes
+# arguments que glab api : [-X MÉTHODE] chemin [-f clé=valeur]...
+forge_api() {
+  if [ -z "${FORGE_TOKEN:-}" ]; then glab api "$@"; return; fi
+  local methode=GET chemin="" donnees=()
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -X) methode="$2"; shift 2 ;;
+      -f) donnees+=(--data-urlencode "$2"); shift 2 ;;
+      *) chemin="$1"; shift ;;
+    esac
+  done
+  curl -sfS -X "$methode" -H "PRIVATE-TOKEN: $FORGE_TOKEN" \
+    "https://forge.apps.education.fr/api/v4/$chemin" "${donnees[@]}"
+}
 api="projects/${projet//\//%2F}/releases"
 # Liens sur main (lien_brut) : une version peut être complétée après coup (APK d'abord, puis le reste)
-if ! glab api "$api/$version" > /dev/null 2>&1; then
-  glab api -X POST "$api" -f tag_name="$version" -f ref=main -f name="MathALÉA $v" \
+if ! forge_api "$api/$version" > /dev/null 2>&1; then
+  forge_api -X POST "$api" -f tag_name="$version" -f ref=main -f name="MathALÉA $v" \
     -f description="Installateurs : voir releases/$version et le README (installation)." > /dev/null
   echo "Release $version créée sur la forge."
 fi
-existants="$(glab api "$api/$version/assets/links" | jq -r '.[].name')"
+existants="$(forge_api "$api/$version/assets/links" | jq -r '.[].name')"
 for f in "$dossier"/*; do
   nom="$(basename "$f")"
   grep -qxF "$nom" <<< "$existants" && continue
-  glab api -X POST "$api/$version/assets/links" -f name="$nom" -f url="$lien_brut/$nom" -f link_type=package > /dev/null
+  forge_api -X POST "$api/$version/assets/links" -f name="$nom" -f url="$lien_brut/$nom" -f link_type=package > /dev/null
   echo "  lien ajouté : $nom"
 done

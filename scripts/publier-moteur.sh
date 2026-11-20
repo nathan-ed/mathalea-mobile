@@ -29,16 +29,8 @@ echo "$commit" > moteur/COMMIT
 pnpm moteur
 bash scripts/verifier-release.sh
 
-version="$(node -p "require('./static/moteur/manifest.json').version")"
+version="$(bash scripts/signer-moteur.sh "$cle" | tail -1)"
 sortie=releases/moteur
-node moteur/fichiers/tasks/publier_moteur.mjs static/moteur "$sortie" "$cle"
-# Les trois dernières archives : une app qui a lu l'annonce juste avant la
-# publication suivante trouve encore la sienne
-ls -t "$sortie"/moteur-*.tar.gz | tail -n +4 | xargs -r git rm -q --ignore-unmatch
-ls -t "$sortie"/moteur-*.tar.gz | tail -n +4 | xargs -r rm -f
-
-git add moteur/COMMIT "$sortie"
-git commit -q -m "Moteur $version publié pour Android et ordinateurs (MathALÉA ${commit:0:10})"
 git push origin HEAD:main
 if git remote | grep -qx github; then git push github HEAD:main; fi
 echo "Moteur $version publié : https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/$sortie/mise-a-jour.json"

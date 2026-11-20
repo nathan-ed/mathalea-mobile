@@ -4,9 +4,10 @@
 # des écrans qui ne défilaient plus au doigt). Il faut static/moteur et les
 # dépendances installées (pnpm install).
 #   bash scripts/e2e-ci.sh defilement un-toucher regressions
+#   OUTILS_SEULEMENT=1 bash scripts/e2e-ci.sh   (outils seulement, aucune suite)
 set -euo pipefail
 cd "$(dirname "$0")/.."
-test -s static/moteur/manifest.json || { echo "static/moteur manquant"; exit 1; }
+test -s static/moteur/manifest.json || [ "${OUTILS_SEULEMENT:-}" = 1 ] || { echo "static/moteur manquant"; exit 1; }
 
 # Chromium de Playwright, au chemin attendu par les scripts e2e
 pnpm exec playwright install --with-deps chromium
@@ -29,6 +30,12 @@ if [ "$(typst --version 2>/dev/null | cut -d' ' -f2)" != "$version_typst" ]; the
   curl -sfL "https://github.com/typst/typst/releases/download/v$version_typst/typst-x86_64-unknown-linux-musl.tar.xz" |
     tar -xJ --strip-components=1 -C "$HOME/.local/bin" typst-x86_64-unknown-linux-musl/typst
   export PATH="$HOME/.local/bin:$PATH"
+fi
+# OUTILS_SEULEMENT=1 : seulement les outils ci-dessus (publication.yml, avant
+# scripts/verifier-release.sh) ; Typst reste dans le PATH des étapes suivantes
+if [ "${OUTILS_SEULEMENT:-}" = 1 ]; then
+  if [ -n "${GITHUB_PATH:-}" ]; then echo "$HOME/.local/bin" >> "$GITHUB_PATH"; fi
+  exit 0
 fi
 
 journal="${RUNNER_TEMP:-/tmp}/preview.log"

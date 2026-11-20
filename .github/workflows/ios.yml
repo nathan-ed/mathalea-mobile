@@ -23,6 +23,23 @@ on:
         description: Construire aussi une .ipa non signée (Sideloadly, AltStore)
         type: boolean
         default: false
+      ref:
+        description: Commit à construire (vide : celui de la branche choisie)
+        required: false
+        default: ''
+  # Appelé par publication.yml : .ipa non signée de la version (et TestFlight
+  # si la demande le dit), sur le commit vérifié
+  workflow_call:
+    inputs:
+      envoi:
+        type: boolean
+        default: false
+      ipa:
+        type: boolean
+        default: false
+      ref:
+        type: string
+        required: true
 
 permissions:
   contents: read
@@ -32,6 +49,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -40,7 +60,7 @@ jobs:
         run: bash scripts/moteur.sh
       - uses: actions/upload-artifact@v7
         with:
-          name: moteur
+          name: moteur-ios
           path: static/moteur
 
   ios:
@@ -48,6 +68,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Commit vérifié par publication.yml (vide : celui du déclenchement)
+          ref: ${{ inputs.ref }}
       # Les secrets ne vont qu'aux étapes de ce fichier (jamais à une action tierce)
       # apple : une des deux signatures est possible ; api : clé d'API (préférée) ;
       # manuel : certificat, profil et identifiant Apple
@@ -78,7 +101,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v8
         with:
-          name: moteur
+          name: moteur-ios
           path: static/moteur
       # Notre moteur : commit de MathALÉA et empreinte de moteur/ (comme scripts/moteur.sh)
       - name: Moteur

@@ -1,0 +1,276 @@
+# Publier depuis une session (cloud ou locale), sans l'ordinateur de Nathan :
+# moteur signé ou nouvelle version de l'app. Mode d'emploi :
+# publication/LISEZMOI.md.
+#
+# Déclenché par demande.yml (publication/demande.json poussé sur une branche).
+# Par workflow_run, ce fichier tourne toujours dans sa version de main, jamais
+# dans celle de la branche : une session ne peut pas le modifier pour elle-même.
+#
+# 1. verifier : commit de la branche, vérification complète
+#    (scripts/verifier-release.sh), sans secret ni droit d'écriture.
+# 2. publier : environnement « publication » (approbation de Nathan, main
+#    seulement), seul à recevoir la clé du moteur et le jeton de la forge. Le
+#    commit arrive sur main de la forge et du miroir, avec le moteur signé
+#    (scripts/signer-moteur.sh) ou le tag de la version.
+# 3. Version seulement : release.yml et ios.yml (.ipa non signée, TestFlight si
+#    demandé) sur ce commit, puis ranger (nouvelle approbation) :
+#    releases/<v>, archive du moteur, latest.json et release de la forge
+#    (scripts/release.sh). Le .aab reste un artefact du run (Play Console à la main).
+#
+# Secrets : jamais dans un `run:` ni dans l'environnement d'une action tierce ;
+# la clé ne passe que par un fichier temporaire effacé à la fin de l'étape.
+name: publication
+
+on:
+  workflow_run:
+    workflows: [demande]
+    types: [completed]
+
+permissions: {}
+
+concurrency:
+  group: publication
+  cancel-in-progress: false
+
+env:
+  FORGE: https://forge.apps.education.fr/coopmaths/mathalea-mobile.git
+
+jobs:
+  verifier:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: read
+    outputs:
+      publier: ${{ steps.demande.outputs.publier }}
+      testflight: ${{ steps.demande.outputs.testflight }}
+      sha: ${{ steps.demande.outputs.sha }}
+    env:
+      SHA: ${{ github.event.workflow_run.head_sha }}
+      BRANCHE: ${{ github.event.workflow_run.head_branch }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Demande
+        id: demande
+        run: |
+          f=publication/demande.json
+          publier="$(jq -er '.publier' "$f")"
+          testflight="$(jq -r '.testflight // false' "$f")"
+          [ "$testflight" = true ] || testflight=false
+          if [ "$publier" = moteur ]; then
+            grep -qxE '[0-9a-f]{40}' moteur/COMMIT || { echo "::error::moteur/COMMIT : commit complet de MathALÉA attendu (40 caractères)"; exit 1; }
+          elif [[ "$publier" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            bash scripts/controler-version.sh "$publier"
+            if git ls-remote --exit-code --tags "$FORGE" "refs/tags/$publier" > /dev/null; then
+              echo "::error::Le tag $publier existe déjà sur la forge"; exit 1
+            fi
+          else
+            echo "::error::publier : « moteur » ou « vX.Y.Z », pas « $publier »"; exit 1
+          fi
+          { echo "publier=$publier"; echo "testflight=$testflight"; echo "sha=$SHA"; } >> "$GITHUB_OUTPUT"
+      # Ce qui arrivera sur main de la forge : à relire avant d'approuver
+      - name: Prolonge main de la forge
+        run: |
+          git fetch -q "$FORGE" main
+          git merge-base --is-ancestor FETCH_HEAD HEAD || { echo "::error::Le commit ne prolonge pas main de la forge : fusionner main dans la branche d'abord."; exit 1; }
+          {
+            echo "## Demande : $(jq -r .publier publication/demande.json) (branche $BRANCHE)"
+            echo
+            echo "Commits qui arriveront sur main de la forge :"
+            echo '```'
+            git log --format='%h %an : %s' FETCH_HEAD..HEAD
+            echo '```'
+            echo '```'
+            git diff --stat FETCH_HEAD HEAD
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Version de pnpm : champ packageManager de package.json
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - name: Dépendances
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev librsvg2-dev
+          pnpm install --frozen-lockfile
+          # cargo test (avant vite build) : Tauri veut que frontendDist existe
+          mkdir -p build
+      # Moteur au commit moteur/COMMIT avec les fichiers de moteur/ : c'est
+      # celui-ci, vérifié, qui est signé à l'étape suivante
+      - run: bash scripts/moteur.sh
+      # Chromium, fausse caméra, Typst, pdftotext (comme release.yml)
+      - run: OUTILS_SEULEMENT=1 bash scripts/e2e-ci.sh
+      - name: Vérification complète
+        run: SORTIE="$RUNNER_TEMP/verification" bash scripts/verifier-release.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: verification
+          path: ${{ runner.temp }}/verification
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v7
+        if: steps.demande.outputs.publier == 'moteur'
+        with:
+          name: moteur-verifie
+          path: static/moteur
+
+  publier:
+    needs: verifier
+    runs-on: ubuntu-latest
+    environment: publication
+    permissions:
+      contents: write
+    env:
+      PUBLIER: ${{ needs.verifier.outputs.publier }}
+      SHA: ${{ needs.verifier.outputs.sha }}
+      BRANCHE: ${{ github.event.workflow_run.head_branch }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.verifier.outputs.sha }}
+          fetch-depth: 0
+      - name: Forge
+        run: |
+          git config user.name "Publication MathALÉA"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Jeton lu dans l'environnement de l'étape au moment du push, jamais écrit
+          git config "credential.https://forge.apps.education.fr.helper" '!f() { echo username=oauth2; echo "password=$FORGE_TOKEN"; }; f'
+          git lfs install --local
+          git remote add forge "$FORGE"
+          git fetch -q forge main
+          git merge-base --is-ancestor forge/main HEAD || { echo "::error::main de la forge a bougé depuis la vérification : refaire la demande."; exit 1; }
+      - uses: actions/download-artifact@v8
+        if: env.PUBLIER == 'moteur'
+        with:
+          name: moteur-verifie
+          path: static/moteur
+      - uses: actions/setup-node@v7
+        if: env.PUBLIER == 'moteur'
+        with:
+          node-version: 22
+      - name: Signer le moteur
+        if: env.PUBLIER == 'moteur'
+        env:
+          MOTEUR_CLE: ${{ secrets.MOTEUR_CLE }}
+        run: |
+          test -n "$MOTEUR_CLE" || { echo "::error::Secret MOTEUR_CLE absent de l'environnement publication"; exit 1; }
+          cle="$RUNNER_TEMP/moteur.pem"
+          trap 'rm -f "$cle"' EXIT
+          (umask 077 && printf '%s\n' "$MOTEUR_CLE" > "$cle")
+          version="$(bash scripts/signer-moteur.sh "$cle" "demandé depuis $BRANCHE" | tail -1)"
+          echo "Moteur $version signé." >> "$GITHUB_STEP_SUMMARY"
+      - name: Tag de la version
+        if: env.PUBLIER != 'moteur'
+        run: git tag "$PUBLIER" HEAD
+      - name: Pousser sur la forge
+        env:
+          FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
+        run: |
+          test -n "$FORGE_TOKEN" || { echo "::error::Secret FORGE_TOKEN absent de l'environnement publication"; exit 1; }
+          if [ "$PUBLIER" = moteur ]; then
+            git push forge HEAD:main
+          else
+            git push --atomic forge HEAD:main "refs/tags/$PUBLIER"
+          fi
+      # Miroir : le jeton de GitHub ne peut pas pousser un commit qui touche
+      # .github/workflows ; dans ce cas, git push github main depuis un ordinateur
+      - name: Pousser sur le miroir GitHub
+        run: |
+          refs=(HEAD:main)
+          [ "$PUBLIER" = moteur ] || refs+=("refs/tags/$PUBLIER")
+          git push origin "${refs[@]}" || echo "::warning::Miroir GitHub non mis à jour (git push github main depuis un ordinateur)"
+          if [ "$PUBLIER" = moteur ]; then
+            echo "Moteur publié : https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/releases/moteur/mise-a-jour.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  construire:
+    needs: [verifier, publier]
+    if: needs.verifier.outputs.publier != 'moteur'
+    permissions:
+      contents: write
+    uses: ./.github/workflows/release.yml
+    with:
+      version: ${{ needs.verifier.outputs.publier }}
+      ref: ${{ needs.verifier.outputs.sha }}
+    secrets: inherit
+
+  ios:
+    needs: [verifier, publier]
+    if: needs.verifier.outputs.publier != 'moteur'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ios.yml
+    with:
+      ipa: true
+      envoi: ${{ needs.verifier.outputs.testflight == 'true' }}
+      ref: ${{ needs.verifier.outputs.sha }}
+    secrets: inherit
+
+  # Nouvelle approbation : les installateurs sont construits, ils partent sur la forge
+  ranger:
+    needs: [verifier, construire, ios]
+    if: ${{ !cancelled() && needs.construire.result == 'success' }}
+    runs-on: ubuntu-latest
+    environment: publication
+    permissions:
+      # release GitHub encore brouillon : lisible avec le droit d'écriture seulement
+      contents: write
+    env:
+      VERSION: ${{ needs.verifier.outputs.publier }}
+      SHA: ${{ needs.verifier.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.verifier.outputs.sha }}
+          fetch-depth: 0
+      - name: Forge
+        run: |
+          git config user.name "Publication MathALÉA"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config "credential.https://forge.apps.education.fr.helper" '!f() { echo username=oauth2; echo "password=$FORGE_TOKEN"; }; f'
+          git lfs install --local
+          git remote add forge "$FORGE"
+          git fetch -q forge main
+          git checkout -q -B main forge/main
+          git merge-base --is-ancestor "$SHA" HEAD || { echo "::error::main de la forge ne contient plus $SHA"; exit 1; }
+          git tag -f "$VERSION" "$SHA"
+      - uses: actions/download-artifact@v8
+        with:
+          name: moteur
+          path: ${{ runner.temp }}/moteur/moteur
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: ipa-non-signee
+          path: ${{ runner.temp }}/ios
+      # Moteur de la version, gardé avec elle (AGENTS.md)
+      - name: Archive du moteur
+        run: |
+          mkdir -p "releases/$VERSION"
+          tar -czf "releases/$VERSION/MathALEA-${VERSION#v}-moteur.tar.gz" -C "$RUNNER_TEMP/moteur" moteur
+      - name: Release de la forge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
+        run: |
+          IPA_DOSSIER="$RUNNER_TEMP/ios" bash scripts/release.sh "$VERSION"
+          git add releases
+          git commit -q -m "Release $VERSION : installateurs dans releases/$VERSION"
+          git push forge HEAD:main
+      - name: Miroir GitHub
+        run: |
+          git push origin HEAD:main || echo "::warning::Miroir GitHub non mis à jour (git push github main depuis un ordinateur)"
+          {
+            echo "Release $VERSION : https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/releases/$VERSION"
+            echo
+            echo "Google Play : télécharger l'artefact google-play de ce run (.aab) et créer la version dans la Play Console."
+          } >> "$GITHUB_STEP_SUMMARY"

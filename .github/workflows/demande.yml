@@ -1,0 +1,22 @@
+# Relais d'une demande de publication : une session (cloud ou locale) pousse sur
+# sa branche publication/demande.json (voir publication/LISEZMOI.md). Ce
+# workflow, sans secret ni droit d'écriture, vérifie seulement que le fichier se
+# lit ; publication.yml prend la suite dans sa version de main.
+name: demande
+
+on:
+  push:
+    branches-ignore: [main]
+    paths: [publication/demande.json]
+
+permissions:
+  contents: read
+
+jobs:
+  demande:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - run: jq -e '.publier | type == "string"' publication/demande.json
