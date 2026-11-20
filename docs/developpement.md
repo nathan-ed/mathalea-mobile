@@ -781,9 +781,12 @@ Ancien fonctionnement (moteur publié par mathalea.fr, désactivé le
 - Pourquoi signer : le moteur téléchargé s'exécute avec les droits de l'app.
   HTTPS protège le trajet, pas le serveur : la signature empêche qu'un accès
   au serveur web suffise pour envoyer du code à toutes les apps.
-- App : au lancement, `chargerMoteur()` prend le plus récent entre le moteur
-  livré et le moteur téléchargé (`moteur://`, repli sur le livré en cas
-  d'échec), puis `mettre_a_jour_moteur` cherche une publication plus récente :
+- App : au lancement, `chargerMoteur()` attend au plus 4 s
+  (`ATTENTE_MISE_A_JOUR_MS`) la recherche d'une publication plus récente,
+  puis prend le plus récent entre le moteur livré et le moteur téléchargé
+  (`moteur://`, repli sur le livré en cas d'échec). Une mise à jour plus
+  lente (forge lente, captcha, réseau muet) continue en arrière-plan et sert
+  au lancement suivant. `mettre_a_jour_moteur` vérifie :
   signature, même `API_MOTEUR`, taille et SHA-256, extraction dans
   `<données>/moteurs/`, activation au lancement suivant. Réglages : version du
   moteur et recherche manuelle.

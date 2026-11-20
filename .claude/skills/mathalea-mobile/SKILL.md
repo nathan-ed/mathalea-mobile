@@ -517,10 +517,14 @@ commit de MathALÉA), signé par la clé
 répondu ni avec `MATHALEA_MOTEUR_FIGE=1`. Jamais le moteur de mathalea.fr.
 Au lancement (Nathan, 2026-11-18 : les élèves ne doivent pas avoir à
 rouvrir l'app), `chargerMoteur` cherche et télécharge la nouvelle version
-AVANT de choisir le moteur (`mettreAJourAuLancement`). Pas de plafond de
-durée (Nathan) : 20 s de connexion puis 20 s sans octet reçu (`client()`
-de `moteur.rs`), un téléchargement qui avance va jusqu'au bout ; en cas
-d'échec, l'app s'ouvre avec le moteur qu'elle a. `mettre_a_jour_moteur` ne fige jamais `SESSION`
+AVANT de choisir le moteur (`mettreAJourAuLancement`), mais au plus 4 s
+(`ATTENTE_MISE_A_JOUR_MS`, Nathan, 2026-11-20 : la forge ne répond pas
+toujours depuis l'extérieur, timeouts et captchas). Passé ce délai, l'app
+s'ouvre avec le moteur qu'elle a ; le téléchargement continue en arrière-plan
+(20 s de connexion puis 20 s sans octet reçu, `client()` de `moteur.rs`) et
+sert au lancement suivant. Une seule recherche à la fois (`lancerMiseAJour`) :
+celle des Réglages reprend celle du lancement si elle tourne encore.
+`mettre_a_jour_moteur` ne fige jamais `SESSION`
 (`SESSION.get()`), seul `moteur_telecharge` le fait.
 Détails : `docs/developpement.md`, « Moteur publié sur la forge ».
 - Catalogue de l'Explorer (Nathan, 2026-11-04 : « ne pas les avoir hardcoded

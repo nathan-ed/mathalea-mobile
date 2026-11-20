@@ -238,8 +238,31 @@ function rechargementSansMiseAJour(): boolean {
 }
 
 /**
+ * Attente au plus au lancement pour la mise à jour du moteur (Nathan,
+ * 20 novembre 2026 : la forge ne répond pas toujours depuis l'extérieur, un
+ * élève ne doit pas attendre 20 s). Passé ce délai, l'app s'ouvre avec le
+ * moteur qu'elle a ; la mise à jour continue en arrière-plan et sert au
+ * lancement suivant.
+ */
+export const ATTENTE_MISE_A_JOUR_MS = 4000
+
+/** Recherche de mise à jour en cours (lancement ou réglages) : une seule à la fois */
+let miseAJourEnCours: Promise<string | null> | null = null
+
+function lancerMiseAJour(
+  invoke: <T>(commande: string, args?: Record<string, unknown>) => Promise<T>,
+  publieActuel: string,
+): Promise<string | null> {
+  miseAJourEnCours ??= invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel }).finally(
+    () => (miseAJourEnCours = null),
+  )
+  return miseAJourEnCours
+}
+
+/**
  * Au lancement, avant de choisir le moteur : s'il y en a un plus récent que
- * celui livré ou déjà téléchargé, le télécharger pour l'utiliser tout de suite.
+ * celui livré ou déjà téléchargé, le télécharger pour l'utiliser tout de suite,
+ * s'il arrive en moins de `ATTENTE_MISE_A_JOUR_MS`.
  * N'échoue jamais : sans réseau, l'app s'ouvre avec le moteur qu'elle a.
  */
 async function mettreAJourAuLancement(
@@ -254,10 +277,16 @@ async function mettreAJourAuLancement(
     const mention = document.createElement('p')
     mention.textContent = 'Mise à jour du moteur…'
     const affichage = setTimeout(() => document.getElementById('lancement')?.appendChild(mention), 1000)
-    // Sans limite de durée : hors connexion, l'échec est immédiat ; un réseau
-    // qui ne répond plus pendant 20 s est abandonné (src-tauri/src/moteur.rs),
-    // un téléchargement qui avance, même lent, va jusqu'au bout.
-    await invoke('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: reference }).finally(() => {
+    // Hors connexion, l'échec est immédiat. Après le délai, on n'attend plus :
+    // le téléchargement continue (Rust abandonne un réseau muet 20 s), le
+    // moteur reçu est activé pour le lancement suivant ; la session garde
+    // celui choisi maintenant (moteur_telecharge).
+    const miseAJour = lancerMiseAJour(invoke, reference)
+    miseAJour.catch((e) => console.warn('Mise à jour du moteur en arrière-plan', e))
+    let delai: ReturnType<typeof setTimeout> | undefined
+    const attente = new Promise<void>((fin) => (delai = setTimeout(fin, ATTENTE_MISE_A_JOUR_MS)))
+    await Promise.race([miseAJour, attente]).finally(() => {
+      clearTimeout(delai)
       clearTimeout(affichage)
       mention.remove()
     })
@@ -318,5 +347,7 @@ export async function misesAJourMoteur(): Promise<boolean> {
 export async function chercherMiseAJourMoteur(): Promise<string | null> {
   if (!dansTauri || !info) return null
   const { invoke } = await import('@tauri-apps/api/core')
-  return invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: info.publieLe })
+  // Celle du lancement peut encore tourner : on attend la même (pas deux
+  // téléchargements dans le même dossier)
+  return lancerMiseAJour(invoke, info.publieLe)
 }
