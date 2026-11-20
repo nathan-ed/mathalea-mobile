@@ -50,6 +50,7 @@ jobs:
       publier: ${{ steps.demande.outputs.publier }}
       testflight: ${{ steps.demande.outputs.testflight }}
       google_play: ${{ steps.demande.outputs.google_play }}
+      commit: ${{ steps.demande.outputs.commit }}
       sha: ${{ steps.demande.outputs.sha }}
     env:
       SHA: ${{ github.event.workflow_run.head_sha }}
@@ -72,7 +73,19 @@ jobs:
           google_play="$(jq -r 'if has("google_play") then .google_play else "production" end' "$f")"
           case "$google_play" in production|internal|alpha|beta|false) ;; *) echo "::error::google_play : production, internal, alpha, beta ou false"; exit 1 ;; esac
           if [ "$publier" = moteur ]; then
+            # Commit de MathALÉA : "commit" de la demande (« main » : le dernier
+            # de main, lu ici car une session cloud n'atteint pas la forge),
+            # sinon moteur/COMMIT de la branche
+            commit="$(jq -r '.commit // empty' "$f")"
+            if [ "$commit" = main ]; then
+              commit="$(git ls-remote https://forge.apps.education.fr/coopmaths/mathalea.git refs/heads/main | cut -f1)"
+            fi
+            if [ -n "$commit" ]; then
+              [[ "$commit" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::commit : « main » ou commit complet de MathALÉA (40 caractères)"; exit 1; }
+              echo "$commit" > moteur/COMMIT
+            fi
             grep -qxE '[0-9a-f]{40}' moteur/COMMIT || { echo "::error::moteur/COMMIT : commit complet de MathALÉA attendu (40 caractères)"; exit 1; }
+            echo "commit=$(cat moteur/COMMIT)" >> "$GITHUB_OUTPUT"
           elif [[ "$publier" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             bash scripts/controler-version.sh "$publier"
             if git ls-remote --exit-code --tags "$FORGE" "refs/tags/$publier" > /dev/null; then
@@ -113,6 +126,14 @@ jobs:
       # Moteur au commit moteur/COMMIT avec les fichiers de moteur/ : c'est
       # celui-ci, vérifié, qui est signé à l'étape suivante
       - run: bash scripts/moteur.sh
+      - name: Commit de MathALÉA
+        if: steps.demande.outputs.publier == 'moteur'
+        run: |
+          mathalea="$HOME/.cache/mathalea-mobile/mathalea"
+          {
+            echo "Moteur : MathALÉA $(git -C "$mathalea" log -1 --format='%h du %cd : %s' --date=short)"
+            echo "(précédent : $(git show FETCH_HEAD:moteur/COMMIT 2>/dev/null | cut -c1-10))"
+          } >> "$GITHUB_STEP_SUMMARY"
       # Chromium, fausse caméra, Typst, pdftotext (comme release.yml)
       - run: OUTILS_SEULEMENT=1 bash scripts/e2e-ci.sh
       - name: Vérification complète
@@ -167,7 +188,10 @@ jobs:
         if: env.PUBLIER == 'moteur'
         env:
           MOTEUR_CLE: ${{ secrets.MOTEUR_CLE }}
+          COMMIT_MATHALEA: ${{ needs.verifier.outputs.commit }}
         run: |
+          # Commit vérifié (lu sur main de MathALÉA par verifier si demandé)
+          echo "$COMMIT_MATHALEA" > moteur/COMMIT
           test -n "$MOTEUR_CLE" || { echo "::error::Secret MOTEUR_CLE absent de l'environnement publication"; exit 1; }
           cle="$RUNNER_TEMP/moteur.pem"
           trap 'rm -f "$cle"' EXIT

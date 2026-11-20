@@ -7,15 +7,20 @@ publier quoi que ce soit (`.github/workflows/publication.yml`).
 
 ## Moteur
 
-1. Mettre dans `moteur/COMMIT` le commit complet de MathALÉA choisi par
-   Nathan (40 caractères).
-2. Écrire `publication/demande.json` :
+Sans nouvelle version de l'app : les apps téléchargent le moteur au lancement.
+
+1. Écrire `publication/demande.json` :
 
    ```json
-   { "publier": "moteur" }
+   { "publier": "moteur", "commit": "main" }
    ```
 
-3. Commiter les deux fichiers et pousser la branche.
+   `"main"` : le dernier commit de `main` de MathALÉA, lu par la CI (une
+   session cloud n'a pas besoin d'accès à la forge). Ou un commit complet
+   (40 caractères) choisi par Nathan. Sans `commit` : `moteur/COMMIT` de la
+   branche.
+2. Commiter et pousser la branche. Le résumé du run donne le commit de
+   MathALÉA retenu, sa date et son message.
 
 ## Version de l'app
 

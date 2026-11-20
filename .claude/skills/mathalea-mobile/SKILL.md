@@ -766,7 +766,9 @@ Environnement (machine de Nathan)
   `glab api "projects/coopmaths%2Fmathalea-mobile/repository/files/releases%2Fv<x>%2F<fichier>/raw?ref=main&lfs=true"`.
 - Publication sans l'ordinateur de Nathan (2026-11-20, demandée pour les
   sessions cloud) : `publication/demande.json` poussé sur la branche de la
-  session, `{"publier": "moteur"}` (avec `moteur/COMMIT`) ou
+  session, `{"publier": "moteur", "commit": "main"}` (dernier commit de main
+  de MathALÉA, lu par la CI : la session n'a pas besoin de la forge ; ou un
+  commit complet ; sans `commit`, `moteur/COMMIT` de la branche) ou
   `{"publier": "vX.Y.Z"}` (`"testflight": true` en option) ; mode d'emploi
   `publication/LISEZMOI.md`. `demande.yml` (sans secret) relaie à
   `publication.yml` par `workflow_run` : ce dernier tourne toujours dans sa
