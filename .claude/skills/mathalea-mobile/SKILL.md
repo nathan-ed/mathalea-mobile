@@ -745,6 +745,11 @@ Environnement (machine de Nathan)
   `docker run --rm -v <dossier>:/w -w /w node:22 bash -c "corepack enable && pnpm install --frozen-lockfile && pnpm check && pnpm test"`.
   Une copie propre n'a pas les types de Node : pas de `Buffer` ni de
   `req.url` typé dans `vite.config.js` (JSDoc `any`, `Uint8Array`).
+- Sur l'ordinateur de Nathan, les installateurs v0.1 à v0.6 (11 Go par copie)
+  sont exclus de toutes les copies (`git sparse-checkout`, motif
+  `!/releases/v0.[0-6].*/`) et du stock LFS (`lfs.fetchexclude`) depuis le
+  20 novembre 2026. Un nouveau worktree les récupère : lui appliquer le même
+  `git sparse-checkout set --no-cone '/*' '!/releases/v0.[0-6].*/'`.
 - Release : tout va dans `releases/<v>/` (Git LFS, activé sur la forge) sous
   des noms uniformes `MathALEA-<v>-<système>.<ext>` + `SHA256SUMS`, et dans la
   release de la forge (un lien par fichier, liens sur `-/raw/main/…` pour

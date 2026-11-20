@@ -144,8 +144,11 @@ ecrire_latest
   echo "Chaque dossier contient les installateurs d'une version et leurs sommes"
   echo "SHA-256 (\`sha256sum -c SHA256SUMS\`). Installation : voir ../README.md."
   echo
-  for d in $(ls -1d "$racine"/releases/v* | sort -rV); do
-    echo "- [$(basename "$d")]($(basename "$d")/)"
+  # Versions du dépôt, même absentes du disque (anciennes exclues par
+  # sparse-checkout), et la nouvelle
+  for d in $( { git -C "$racine" ls-tree -d --name-only HEAD releases/; ls -1d "$racine"/releases/v*; } |
+    xargs -n1 basename | grep '^v' | sort -urV); do
+    echo "- [$d]($d/)"
   done
 } > "$racine/releases/README.md"
 
