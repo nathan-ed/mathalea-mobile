@@ -45,6 +45,8 @@ Sans nouvelle version de l'app : les apps téléchargent le moteur au lancement.
 ## Ensuite
 
 - La branche doit prolonger `main` de la forge, sinon la demande est refusée.
+- La publication retire `publication/demande.json` de `main` : la demande
+  suivante s'écrit de nouveau, même identique.
 - La vérification complète (`scripts/verifier-release.sh`) tourne sur le
   commit poussé. Son résumé liste les commits qui arriveront sur `main`.
 - Nathan approuve dans GitHub par le navigateur (l'app GitHub ne le permet

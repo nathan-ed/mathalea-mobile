@@ -65,8 +65,8 @@ jobs:
         id: demande
         run: |
           f=publication/demande.json
-          # Demande identique à celle de main de la forge : déjà publiée, arrivée
-          # par une fusion de main dans la branche. Rien ne part.
+          # main ne garde aucune demande (publier la retire). Garde-fou : demande
+          # identique à une de main, déjà publiée. Rien ne part.
           git fetch -q "$FORGE" main
           if git diff --quiet FETCH_HEAD HEAD -- "$f"; then
             echo "::error::publication/demande.json est celle de main (déjà publiée) : aucune nouvelle demande."
@@ -225,6 +225,12 @@ jobs:
       - name: Tag de la version
         if: env.PUBLIER != 'moteur'
         run: git tag "$PUBLIER" HEAD
+      # main ne garde aucune demande : la suivante, même identique, reste
+      # nouvelle, et une branche qui fusionne main perd la sienne (rien ne part)
+      - name: Retirer la demande de main
+        run: |
+          git rm -q publication/demande.json
+          git commit -q -m "Demande de publication traitée ($PUBLIER, branche $BRANCHE)"
       - name: Pousser sur la forge
         env:
           FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
