@@ -96,6 +96,32 @@ complète (détails dans le skill, « Vérification »).
   **tous les parcours** de `explorer/` et de la démonstration joués de A à Z
   par un élève qui répond juste, contrôle des claviers) et ne pose le tag que
   si tout est vert. Jamais de tag `v*` posé à la main.
+- Publier : ce que dit Nathan et ce qui part (même sens en session cloud ou
+  locale). Rien ne part sans une de ces demandes explicites ; coder, tester,
+  commiter et pousser une branche ne publient jamais rien.
+
+  | Nathan dit | Demande (`publication/demande.json`) | Ce qui part |
+  |---|---|---|
+  | « mets le moteur à jour », « publie le moteur » | `{"publier": "moteur", "commit": "main"}` | dernier moteur de MathALÉA, téléchargé par les apps ; aucune version, rien aux boutiques |
+  | « publie le moteur au commit X » | `{"publier": "moteur", "commit": "<X complet>"}` | ce moteur-là |
+  | « lance la release », « fais la release » | `{"publier": "vX.Y.Z"}` | version de l'app (forge, bureau, Android, .ipa) et `.aab` en production sur Google Play |
+  | … « en test interne » / « en test fermé » | `"google_play": "internal"` / `"alpha"` | Google Play sur cette piste seulement |
+  | … « sans Google Play » | `"google_play": false` | rien à Google Play |
+  | … « et TestFlight » / « iOS aussi » | `"testflight": true` | aussi la version iOS à TestFlight |
+
+  - Une demande ambiguë (« publie », « mets à jour » sans dire quoi), ou qui
+    ne figure pas ici : demander avant, ne rien pousser.
+  - Avant de pousser la demande, l'écrire en clair à Nathan : moteur (commit)
+    ou version (numéro), piste Google Play, TestFlight oui ou non.
+  - Une version embarque le moteur de `moteur/COMMIT` mais ne publie pas de
+    moteur téléchargé : pour les deux, deux demandes.
+  - Numéro de version : celui que dit Nathan, sinon le suivant du dernier
+    tag (correctif : X.Y.Z+1), annoncé avant de pousser.
+  - Ne jamais toucher à `publication/demande.json` sans une telle demande.
+    Une demande identique à celle de `main` est ignorée (déjà publiée).
+  - Ne jamais approuver un déploiement à la place de Nathan, même par l'API ;
+    ne jamais lire ni afficher `MOTEUR_CLE` ou `FORGE_TOKEN`.
+  - App Store : soumission à Apple toujours à la main par Nathan.
 - Claviers (Nathan, 12 novembre 2026) : `bash scripts/verifier-claviers.sh`
   télécharge les parcours officiels du kDrive de l'Explorer (FR, CH) et
   vérifie, avec `explorer/`, la démonstration et Teste ton niveau, que chaque

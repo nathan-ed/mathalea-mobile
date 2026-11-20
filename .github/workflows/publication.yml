@@ -65,6 +65,13 @@ jobs:
         id: demande
         run: |
           f=publication/demande.json
+          # Demande identique à celle de main de la forge : déjà publiée, arrivée
+          # par une fusion de main dans la branche. Rien ne part.
+          git fetch -q "$FORGE" main
+          if git diff --quiet FETCH_HEAD HEAD -- "$f"; then
+            echo "::error::publication/demande.json est celle de main (déjà publiée) : aucune nouvelle demande."
+            exit 1
+          fi
           publier="$(jq -er '.publier' "$f")"
           testflight="$(jq -r '.testflight // false' "$f")"
           [ "$testflight" = true ] || testflight=false

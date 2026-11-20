@@ -5,6 +5,9 @@ pousse sur sa branche GitHub un fichier `publication/demande.json`. La CI
 vérifie tout, puis attend l'approbation de Nathan avant de signer ou de
 publier quoi que ce soit (`.github/workflows/publication.yml`).
 
+Ce que dit Nathan et la demande qui y correspond : tableau « Publier » de
+`AGENTS.md`. Sans une de ces phrases, ne jamais écrire de demande.
+
 ## Moteur
 
 Sans nouvelle version de l'app : les apps téléchargent le moteur au lancement.
