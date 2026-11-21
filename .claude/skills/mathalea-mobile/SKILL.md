@@ -785,6 +785,22 @@ Environnement (machine de Nathan)
   ne pousse pas un commit qui touche `.github/workflows` : miroir à mettre à
   jour depuis un ordinateur dans ce cas. Un artefact par nom dans un run :
   `ios.yml` nomme le sien `moteur-ios`.
+- Liens à donner à Nathan (Nathan, 21 novembre 2026) : à chaque étape qu'il
+  doit valider ou lancer, lui donner le lien direct, cliquable, sans attendre
+  qu'il le demande. Demande poussée : suivre le run (`demande.yml` puis
+  `publication.yml`, `mcp__github__actions_list`) et donner son lien
+  `https://github.com/nathan-ed/mathalea-mobile/actions/runs/<id>` dès qu'il
+  existe, puis de nouveau quand il attend l'approbation (« Review
+  deployments », dans le navigateur). Pareil pour la seconde approbation
+  d'une version et pour un workflow à activer ou à lancer.
+- Version déjà taguée à envoyer à Google Play seulement (0.7.5, 21 novembre
+  2026) : `publication.yml` refuse un tag existant ; c'est `google-play.yml`
+  (`workflow_dispatch`, désactivé hors envoi). Une session ne peut ni
+  l'activer ni le lancer (API : 403 « Resource not accessible by
+  integration ») : donner à Nathan
+  `https://github.com/nathan-ed/mathalea-mobile/actions/workflows/google-play.yml`
+  (Enable workflow, Run workflow, branche `main`, piste), suivre le run, puis
+  lui rappeler « Disable workflow ».
 - **Jamais `git push --tags`** : des tags locaux anciens (`v0.1.0`, `v0.1.1`,
   `moteur`) partent avec. Un tag `v*` absent de GitHub relance une release
   (à annuler : `gh run cancel <id>`) ; le tag `moteur` sur la forge lance un
