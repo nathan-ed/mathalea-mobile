@@ -219,6 +219,33 @@ math-field,
   font-size: 0.8rem;
   line-height: 1;
 }
+/* Réponse en plusieurs étapes (possible-multi-lines-answer, MR !10087 de
+   MathALÉA) : l'élément pose son propre rouge et son propre vert, absents de
+   la charte. Étape juste et résultat au vert de MathALÉA, étape fausse (croix,
+   message, trait qui la barre) à l'orange de la pastille « Incorrecte », dans
+   les deux thèmes comme ces pastilles. Les boutons ⊕ et × (gris pâle de
+   18 px) prennent la couleur des actions et une cible de doigt de 44 px. */
+.contenu-mathalea possible-multi-lines-answer .pmla-ok {
+  color: #4d8613;
+}
+.contenu-mathalea possible-multi-lines-answer :is(.pmla-ko, .pmla-pourquoi) {
+  color: var(--color-coopmaths-action);
+}
+.contenu-mathalea possible-multi-lines-answer .pmla-barre math-field {
+  background-image: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.75px),
+    var(--color-coopmaths-action) calc(50% - 0.75px),
+    var(--color-coopmaths-action) calc(50% + 0.75px),
+    transparent calc(50% + 0.75px)
+  );
+}
+.contenu-mathalea possible-multi-lines-answer :is(.pmla-add, .pmla-remove) {
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--app-action);
+}
 /* Correction : même taille que l'énoncé, sur téléphone comme sur ordinateur */
 .correction-eleve {
   font-size: 1.15rem;

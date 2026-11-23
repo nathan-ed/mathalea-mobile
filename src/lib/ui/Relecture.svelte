@@ -3,7 +3,7 @@
   import { onMount } from 'svelte'
   import { titreVisible, type Parcours } from '$lib/catalogue'
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
-  import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, type Seance } from '$lib/progression'
+  import { bilan, cleQuestion, ecrirePoints, premiersEssais, questionsOrdonnees, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
   import { pastille } from './classes'
   import EnTete from './EnTete.svelte'
@@ -27,7 +27,6 @@
   const premiers = $derived(premiersEssais(seance))
   const b = $derived(bilan(seance))
   const date = $derived(new Date(seance.fin ?? seance.debut).toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' }))
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 
   function latex(noeud: HTMLElement, texte: string) {
     noeud.textContent = texte
@@ -49,7 +48,7 @@
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre="{parcours.titre} · {date}" {onretour}>
     {#snippet droite()}
-      {#if b.sur > 0}<span class="px-3"><span class={pastille}>{arrondi(b.points)}/{b.sur}</span></span>{/if}
+      {#if b.sur > 0}<span class="px-3"><span class={pastille}>{ecrirePoints(b.points)}/{b.sur}</span></span>{/if}
     {/snippet}
   </EnTete>
 

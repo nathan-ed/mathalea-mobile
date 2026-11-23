@@ -2,7 +2,7 @@
   import { avecArticle, titreEleve, type Parcours, type Fiche, type Pause, type Ressource } from '$lib/catalogue'
   import { lienSur, ouvrirLien } from '$lib/fichiers'
   import type { Moteur } from '$lib/moteur'
-  import { bilan, cleQuestion, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
+  import { bilan, cleQuestion, ecrirePoints, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
   import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
@@ -61,7 +61,6 @@
   const premiers = $derived(premiersEssais(seance))
   const questions = $derived(questionsOrdonnees(seance))
   let questionsOuvertes: Record<string, boolean> = $state({})
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
   const papier = $derived(b.parEtape.reduce((a, e) => a + e.papier, 0))
   const vues = $derived(b.parEtape.reduce((a, e) => a + e.vues, 0))
 
@@ -89,7 +88,7 @@
   // et le palier déjà obtenu s'il l'est
   const sousEtat = $derived.by(() => {
     if (!juge) return ''
-    const score = `${arrondi(b.points)} / ${b.sur} · ${b.pourcentage} %`
+    const score = `${ecrirePoints(b.points)} / ${b.sur} · ${b.pourcentage} %`
     if (reussi) return score
     const deja = palier!.deja ? (palier!.couleur ? ' · déjà obtenue' : ' · déjà réussi') : ''
     return `Obtenu ${score}${deja}`
@@ -123,7 +122,7 @@
     <div class="text-center py-4">
       {#if b.sur > 0}
         <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 3.5rem; line-height: 1">
-          {arrondi(b.points)} / {b.sur}
+          {ecrirePoints(b.points)} / {b.sur}
         </div>
         <div class="mt-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
           {b.pourcentage} % · {b.reussies} réponse{b.reussies > 1 ? 's' : ''} correcte{b.reussies > 1 ? 's' : ''}
@@ -225,7 +224,7 @@
             </div>
             <div class="flex flex-row items-center gap-2">
               {#if e.sur > 0}
-                <span class={pastilleScore((100 * e.points) / e.sur)}>{arrondi(e.points)}/{e.sur}</span>
+                <span class={pastilleScore((100 * e.points) / e.sur)}>{ecrirePoints(e.points)}/{e.sur}</span>
               {:else}
                 <span class="shrink-0 whitespace-nowrap text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{e.vues === e.papier ? 'Correction vue' : 'Sur papier'}</span>
               {/if}

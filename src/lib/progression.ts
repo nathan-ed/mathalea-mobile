@@ -188,6 +188,13 @@ export function premiersEssais(s: Seance) {
   return premiers
 }
 
+/**
+ * Points écrits pour l'élève : entiers tels quels, sinon un chiffre après la
+ * virgule (« 2,5 / 3 » : une étape fausse dans une réponse en plusieurs étapes
+ * de MathALÉA vaut un demi-point, novembre 2026)
+ */
+export const ecrirePoints = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1).replace('.', ','))
+
 /** Score d'une question entre 0 et 1 */
 export const valeur = (e: Essai | undefined) => (e && e.total > 0 ? e.points / e.total : e?.juste ? 1 : 0)
 

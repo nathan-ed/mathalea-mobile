@@ -5,7 +5,7 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import { bornerListes } from '$lib/listeDeroulante'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
-  import type { Essai } from '$lib/progression'
+  import { ecrirePoints, type Essai } from '$lib/progression'
   import { boutonInverse, boutonLien, pastille, pastilleIncorrecte } from './classes'
 
   let {
@@ -451,7 +451,7 @@
   {/if}
   {#if resultat && resultat.total > 1}
     <span class="text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
-      Score : {resultat.points} / {resultat.total}
+      Score : {ecrirePoints(resultat.points)} / {resultat.total}
     </span>
   {/if}
 </div>

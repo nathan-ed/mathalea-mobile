@@ -35,7 +35,7 @@ champs `math-field` et `input` qui ont un id, les cases cochées, et la valeur
 | `liste-deroulante` | 58 | 5 | correcte |
 | `apigeom-figure` | 47 | 2 | correcte pour placer un point sur une droite graduée ; prise en compte pour une construction |
 | `meta-custom` | 37 | 0 | prise en compte |
-| `possible-multi-lines-answer` | 28 | 10 | correcte |
+| `possible-multi-lines-answer` | 28 | 10 | correcte (résultat direct ou en plusieurs étapes, voir plus bas) |
 | `tableau-mathlive` | 26 | 2 | correcte |
 | `qcm` | 18 | 0 | correcte |
 | `tableau-signes-variations` | 17 | 0 | prise en compte |
@@ -62,6 +62,25 @@ champs `math-field` et `input` qui ont un id, les cases cochées, et la valeur
 | `mathalea-branching-qcm` | 2 | 0 | prise en compte |
 | `intervalle-droite` | 2 | 0 | prise en compte |
 | `my-calculator`, `decomposition-facteurs-premiers`, `diagram-pie-assessment`, `objets-cliquables`, `guide-ane`, `ensemble-intervalles-droite`, `mathalea-compte-est-bon`, `etoile-calculs`, `grimuku-grille`, `juniper-green`, `kenken-grille`, `killer-sudoku-grille`, `pyramide-nombres`, `tables-effacees-grille`, `trigo-circle-selection` | 1 chacun | 0 | prise en compte |
+
+## Réponse en plusieurs étapes (novembre 2026)
+
+`possible-multi-lines-answer` (MR !10087 de MathALÉA) : l'élève ajoute des
+lignes avec le bouton ⊕. Avec la vérification « À chaque étape » (valeur par
+défaut des exercices de calcul littéral, `bareme="etapes"`), chaque ligne est
+corrigée dès son ajout puis verrouillée ; la question vaut 2 points, 1 si le
+résultat est juste malgré une étape fausse, 0 sinon. Avec « À la fin », tout
+est corrigé à la validation, 1 point seulement si tout est juste.
+
+L'app n'a rien de propre à ce format pour les résultats : le moteur rend
+`points` et `total` de MathALÉA, une question vaut `points / total` (un
+demi-point pour une étape fausse) dans le score, les seuils et le suivi. Le
+brouillon garde toutes les lignes (valeur de l'élément, liste JSON), une
+étape fausse revient donc barrée et verrouillée après un changement de
+question ou un rechargement. Adapté dans l'app : demi-points écrits avec une
+virgule (`ecrirePoints`), ⊕ de 44 px, croix et coches aux couleurs des
+pastilles « Correcte » / « Incorrecte » (`src/app.css`). Vérifié par
+`node e2e/etapes.mjs`.
 
 ## Défauts trouvés et corrigés (octobre 2026)
 

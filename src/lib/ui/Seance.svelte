@@ -4,7 +4,7 @@
   import { couleurCeinture, nomPalier, paliersDe, reessaiPropose, titreVisible, type Parcours } from '$lib/catalogue'
   import { NIVEAUX_TEST, ceintureDu, couleurDu, niveauDuTest } from '$lib/testNiveau'
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
-  import { cleQuestion, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
+  import { cleQuestion, ecrirePoints, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
   import Ceinture from './Ceinture.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleScore } from './classes'
@@ -105,7 +105,6 @@
     return { nom: titre ? `${nomPalier(parcours, k)} · ${titre}` : nomPalier(parcours, k), couleur: parcours.style === 'ceintures' ? couleurCeinture(parcours, k) : null }
   })
 
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 
   // Bilan direct : la relecture corrige toutes les questions sans être montrée,
   // puis le bilan s'ouvre (au plus tard après 10 s si une question échoue)
@@ -153,7 +152,7 @@
     const qs = liste.filter((q) => q.etape === etape)
     const faites = qs.filter((q) => premiers.has(cleQuestion(q.etape, q.question)))
     if (!faites.length) return ''
-    return `${arrondi(faites.reduce((a, q) => a + valeur(premiers.get(cleQuestion(q.etape, q.question))), 0))}/${qs.length}`
+    return `${ecrirePoints(faites.reduce((a, q) => a + valeur(premiers.get(cleQuestion(q.etape, q.question))), 0))}/${qs.length}`
   }
 
   // Tentative supprimée : un brouillon envoyé en partant ne doit pas la recréer
@@ -509,7 +508,7 @@
       {#if pret && !(finale && !seance.soumise)}
         <!-- Verte à partir de 80 % du total, comme au bilan : « 0/3 » en vert se lisait comme une réussite -->
         {@const total = liste.filter((q) => !surPapier(seance, q.etape, q.question)).length}
-        <span class="px-3"><span class={pastilleScore(total ? (100 * points) / total : 0)}>{arrondi(points)}/{total}</span></span>
+        <span class="px-3"><span class={pastilleScore(total ? (100 * points) / total : 0)}>{ecrirePoints(points)}/{total}</span></span>
       {/if}
     {/snippet}
   </EnTete>

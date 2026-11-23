@@ -2,7 +2,7 @@
   // Suivi du travail dans la durée, avec la rampe « struct » de MathALÉA
   import { paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
   import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, maitrise, objectifsTravailles } from '$lib/objectifs'
-  import { bilan, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
+  import { bilan, ecrirePoints, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { estTest } from '$lib/testNiveau'
   import { BARRETTES, barrettes, revisionsObjectif, texteBarrettes, type Revisions } from '$lib/revisions'
   import Ceinture from './Ceinture.svelte'
@@ -144,7 +144,6 @@
   const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
 
   const fmtJour = (d: Date) => d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })
-  const arrondi = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1))
 </script>
 
 {#snippet rangee(liste: { nom: string; couleur: string; obtenue: boolean; niveau?: string; barrettes?: number }[])}
@@ -426,7 +425,7 @@
                 {titreEleve(r.p, r.etape, r.rang)}
                 <div class={discret}>{r.p.titre}</div>
               </div>
-              <span class={pastille}>{arrondi(r.points)}/{r.sur}</span>
+              <span class={pastille}>{ecrirePoints(r.points)}/{r.sur}</span>
             </button>
           </li>
         {/each}

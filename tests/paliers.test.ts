@@ -5,7 +5,7 @@ import { ceinturesObtenues, cleExercice, conditionPalier, etatsPaliers, maitrise
 import { lireFichier, creerFichier } from '../src/lib/partage'
 import { estParcours } from '../src/lib/validation'
 import { cleInvalide } from '../src/lib/sauvegarde'
-import { bilan, nouvelleSeance, type ResultatEtape, type Seance } from '../src/lib/progression'
+import { bilan, ecrirePoints, nouvelleSeance, type ResultatEtape, type Seance } from '../src/lib/progression'
 
 const etape = (uuid: string, objectifs?: string[]) => ({ uuid, id: uuid, titre: uuid, nbQuestions: 2, ...(objectifs ? { objectifs } : {}) })
 
@@ -224,5 +224,18 @@ describe('exercice sans réponse à saisir (sur papier)', () => {
     expect([bilan(t).sur, bilan(t).pourcentage, bilan(t).passees.length]).toEqual([0, 100, 0])
     expect(cleInvalide({ 'seance:relatifs': s })).toBeUndefined()
     expect(cleInvalide({ 'seance:relatifs': { ...s, papier: { '1-0': 'oui' } } })).toBe('seance:relatifs')
+  })
+})
+
+describe('réponse en plusieurs étapes de MathALÉA (barème « etapes »)', () => {
+  it('compte une étape fausse avec un résultat juste comme un demi-point, écrit avec une virgule', () => {
+    const p = parcoursAPaliers()
+    const s = nouvelleSeance(p, 'test', 'complet', [0])
+    s.nbQuestions[0] = 3
+    // 2 points sur 2 : tout juste ; 1 sur 2 : résultat juste malgré une étape fausse ; 0 sur 2 : résultat faux
+    for (const [q, points] of [2, 1, 0].entries()) s.essais.push({ etape: 0, question: q, juste: points === 2, points, total: 2, reponses: {}, le: '2026-11-22T10:00:00Z' })
+    const b = bilan(s)
+    expect([b.points, b.sur, b.pourcentage, b.passees.length]).toEqual([1.5, 3, 50, 0])
+    expect([ecrirePoints(b.points), ecrirePoints(2), ecrirePoints(2 / 3)]).toEqual(['1,5', '2', '0,7'])
   })
 })
