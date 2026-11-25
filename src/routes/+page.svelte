@@ -797,6 +797,9 @@
    * les autres dossiers et l'Explorer ne sont relus qu'en dernier recours
    * (Nathan, 25 novembre 2026 : tout relire laissait « chargement » 5 à 10 s).
    */
+  /** Titre entre guillemets, espaces insécables : le « » » ne part jamais seul à la ligne */
+  const guillemets = (titre: string) => `« ${titre} »`
+
   async function parcoursDeSession(inv: InvitationSession): Promise<Parcours | { erreur: string }> {
     const connus = () => [...tous, ...classes.flatMap((c) => (c.fichier ?? []).flatMap((f) => f.parcours)), ...(catalogue ?? [])]
     const trouve = () => connus().find((x) => x.id === inv.p && x.version === inv.v)
@@ -813,16 +816,19 @@
     const autres = classes.filter((c) => c.lien !== relu)
     await Promise.all([autres.length ? synchroniserClasses(autres) : null, synchroniserExplorer()])
     if (trouve()) return trouve()!
-    // Messages à l'infinitif, sans tutoyer (Nathan, 25 novembre 2026)
+    // Parcours modifié par l'enseignant (version V1, V2…) : dire qui doit faire quoi, à l'infinitif,
+    // sans tutoyer ni parler de version (Nathan, 25 novembre 2026 : « la personne doit faire quoi concrètement ? »)
     const autre = connus().find((x) => x.id === inv.p)
+    // Session faite sur un parcours modifié que le drive de la classe n'a pas encore (il vient d'être relu)
+    if (autre && autre.version < inv.v && relu)
+      return {
+        erreur: `La session utilise une version de ${guillemets(autre.titre)} modifiée par l’enseignant, qui n’est pas encore sur le drive de la classe. Attendre que l’enseignant y dépose le parcours modifié, puis scanner à nouveau.`,
+      }
     if (autre && autre.version < inv.v)
-      return {
-        erreur: `« ${autre.titre} » a été modifié : la session utilise la version ${inv.v}, cet appareil a encore la version ${autre.version}. Vérifier la connexion à internet, puis scanner à nouveau.`,
-      }
+      return { erreur: `La session utilise une version de ${guillemets(autre.titre)} plus récente que celle de cet appareil. Se connecter à internet, puis scanner à nouveau.` }
+    // QR code d'une session lancée avant la modification du parcours
     if (autre)
-      return {
-        erreur: `La session a été créée avec une version plus ancienne de « ${autre.titre} » (version ${inv.v}, cet appareil a la version ${autre.version}). Il faut créer une nouvelle session depuis un appareil qui a la dernière version.`,
-      }
+      return { erreur: `Ce QR code a été créé avant la dernière modification de ${guillemets(autre.titre)}. Demander à la personne qui a créé la session d’en créer une nouvelle.` }
     return { erreur: 'Ce parcours n’est pas sur cet appareil : ajouter d’abord la classe de l’enseignant, puis scanner à nouveau.' }
   }
 
@@ -1257,8 +1263,8 @@
   {#if invitationAncienne}
     {@const { inv, p } = invitationAncienne}
     <Feuille onfermer={() => (invitationAncienne = null)}>
-      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Mets l’application à jour</p>
-      <p class="text-sm">Ton application a des exercices plus anciens que ceux de la personne qui a créé la session : certaines questions seront différentes.</p>
+      <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Exercices à mettre à jour</p>
+      <p class="text-sm">Cet appareil a des exercices plus anciens que ceux de la personne qui a créé la session : certaines questions seront différentes. Pour avoir les mêmes, fermer puis rouvrir MathALÉA avec une connexion à internet : l’application reçoit alors les derniers exercices.</p>
       <div class="flex flex-row gap-3">
         <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (invitationAncienne = null)}>Annuler</button>
         <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => rejoindreSession(inv, p)}>Continuer quand même</button>
