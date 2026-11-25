@@ -83,10 +83,8 @@ type Requete = (url: string, init?: RequestInit) => Promise<Response>
 export const requete: Requete = async (url, init) => {
   if (dansTauri) {
     const { invoke } = await import('@tauri-apps/api/core')
-    // Octets bruts (telechargement.rs) : statut HTTP sur les deux premiers, puis le corps
-    const brut = new Uint8Array(await invoke<ArrayBuffer>('telecharger', { url }))
-    const statut = (brut[0] << 8) | brut[1]
-    return new Response(statut === 204 ? null : brut.subarray(2), { status: statut })
+    const r = await invoke<{ statut: number; corps: number[] }>('telecharger', { url })
+    return new Response(r.statut === 204 ? null : new Uint8Array(r.corps), { status: r.statut })
   }
   // no-store : toujours la version du dossier, jamais celle du cache du navigateur
   if (import.meta.env?.DEV) return fetch(`/__telecharger?url=${encodeURIComponent(url)}`, { cache: 'no-store' })
