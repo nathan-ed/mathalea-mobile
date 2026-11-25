@@ -783,7 +783,7 @@
     if (!inv) return 'autre'
     const p = await parcoursDeSession(inv)
     if ('erreur' in p) return p
-    if (inv.e && !inv.e.every((k) => k < p.etapes.length)) return { erreur: 'Ce QR code de session est abîmé : demande-le à nouveau.' }
+    if (inv.e && !inv.e.every((k) => k < p.etapes.length)) return { erreur: 'Ce QR code de session est abîmé : afficher à nouveau la session, puis scanner son QR code.' }
     scanSession = false
     if (moteurPlusAncien(moteur!.VERSION_MOTEUR, inv.m)) invitationAncienne = { inv, p }
     else await rejoindreSession(inv, p)
@@ -813,12 +813,17 @@
     const autres = classes.filter((c) => c.lien !== relu)
     await Promise.all([autres.length ? synchroniserClasses(autres) : null, synchroniserExplorer()])
     if (trouve()) return trouve()!
+    // Messages à l'infinitif, sans tutoyer (Nathan, 25 novembre 2026)
     const autre = connus().find((x) => x.id === inv.p)
+    if (autre && autre.version < inv.v)
+      return {
+        erreur: `« ${autre.titre} » a été modifié : la session utilise la version ${inv.v}, cet appareil a encore la version ${autre.version}. Vérifier la connexion à internet, puis scanner à nouveau.`,
+      }
     if (autre)
       return {
-        erreur: `« ${autre.titre} » n’est pas à la même version que dans la session (${autre.version} sur ton appareil, ${inv.v} dans la session). Vérifie ta connexion, puis demande une nouvelle session.`,
+        erreur: `La session a été créée avec une version plus ancienne de « ${autre.titre} » (version ${inv.v}, cet appareil a la version ${autre.version}). Il faut créer une nouvelle session depuis un appareil qui a la dernière version.`,
       }
-    return { erreur: 'Ce parcours n’est pas sur ton appareil : ajoute d’abord la classe de ton enseignant, puis scanne à nouveau.' }
+    return { erreur: 'Ce parcours n’est pas sur cet appareil : ajouter d’abord la classe de l’enseignant, puis scanner à nouveau.' }
   }
 
   async function rejoindreSession(inv: InvitationSession, p: Parcours) {

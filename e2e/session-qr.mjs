@@ -146,11 +146,20 @@ const texteSession = (o) => 'MATHALEA-SESSION?' + new URLSearchParams({ c: code,
 const d = await eleve('d', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ v: '1' }), join(dossier, 'v1.gif')), dossier, 'd') })
 await d.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
 await toucher(d, d.getByRole('button', { name: SCANNER }))
-await d.getByText(/n’est pas à la même version que dans la session/).waitFor({ timeout: 30_000 })
+await d.getByText(/La session a été créée avec une version plus ancienne/).waitFor({ timeout: 30_000 })
 ok(!(await seance(d)), 'autre version : l’élève est prévenu, aucune séance')
 ok(!(await d.locator('video').count()) && (await d.getByRole('button', { name: 'Scanner à nouveau' }).isVisible()), 'autre version : caméra fermée, « Scanner à nouveau » proposé')
 await d.screenshot({ path: `${captures}/session-qr-5-version.png` })
 await d.getByRole('button', { name: 'Annuler' }).click()
+
+// ---------- Élève H : session sur une version que le drive n'a pas encore ----------
+const h = await eleve('h', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ v: '3' }), join(dossier, 'v3.gif')), dossier, 'h') })
+await h.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
+await toucher(h, h.getByRole('button', { name: SCANNER }))
+await h.getByText(/a été modifié : la session utilise la version 3, cet appareil a encore la version 2/).waitFor({ timeout: 30_000 })
+ok(!(await seance(h)), 'version plus récente dans la session : l’élève est invité à vérifier sa connexion, aucune séance')
+await h.screenshot({ path: `${captures}/session-qr-5b-version-recente.png` })
+await h.getByRole('button', { name: 'Annuler' }).click()
 
 // ---------- Élève E : app plus ancienne que celle de qui a créé la session ----------
 const e = await eleve('e', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ m: '2099-01-01' }), join(dossier, 'recente.gif')), dossier, 'e') })

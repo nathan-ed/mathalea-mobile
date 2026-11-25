@@ -19,7 +19,7 @@
     onfermer: () => void
   } = $props()
 
-  const VISER = 'Vise le QR code de la session ou de la classe.'
+  const VISER = 'Viser le QR code de la session ou de la classe.'
   const AUTRE = 'Ce n’est pas un QR code de session ou de classe MathALÉA.'
   let video: HTMLVideoElement | undefined = $state()
   let flux: MediaStream | null = null
@@ -35,7 +35,7 @@
 
   function messageErreur(e: unknown) {
     const nom = (e as { name?: string })?.name
-    if (nom === 'NotAllowedError' || nom === 'SecurityError') return 'Accès à la caméra refusé. Autorise-le dans les réglages de l’appareil.'
+    if (nom === 'NotAllowedError' || nom === 'SecurityError') return 'Accès à la caméra refusé : l’autoriser dans les réglages de l’appareil.'
     if (nom === 'NotFoundError' || nom === 'OverconstrainedError' || nom === 'NotReadableError') return 'Aucune caméra disponible.'
     return 'La caméra ne peut pas s’ouvrir ici.'
   }
