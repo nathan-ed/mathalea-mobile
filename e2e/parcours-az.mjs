@@ -77,6 +77,9 @@ async function eleve(nom, classe, parcours) {
 const toucher = (e, loc) => (e.touche ? loc.tap() : loc.click())
 const lireSeance = (page, id) => page.evaluate((c) => JSON.parse(localStorage.getItem(`copie:seance:${c}`)), id)
 
+/** Figure déjà posée par le couteau suisse qui la contient */
+class DejaPosee extends Error {}
+
 /** autoCorrection de l'étape régénérée (même graine, même numéro que dans la séance) */
 async function attendues(e, etape, graine, numero) {
   return e.calcul.evaluate(
@@ -89,6 +92,58 @@ async function attendues(e, etape, graine, numero) {
       if (correction) {
         const { options: _options, ...json } = JSON.parse(correction.json)
         figureCorrection = JSON.stringify(json)
+      }
+      // Esquisse de courbe (élément Sketch d'ApiGeom, 4mExpLog-8…) : l'exercice
+      // ne donne pas de figure de correction. L'esquisse juste se déduit de ce
+      // qu'il attend (morceaux du domaine, bouts, asymptotes, points, signe de
+      // f'), puis la figure est réécrite comme MathALÉA restaure une figure
+      const esquisseDe = (iq) => {
+        const s = ex.interne.esquisses?.[iq]
+        if (!s?.figure?.sketch) return null
+        const att = s.attendu
+        const eps = 1e-6
+        const asymptotes = att.asymptotes.map((x, j) => ({ id: `a${j}`, ...x }))
+        const idAsymptote = (bout) => {
+          if (bout.type === 'infinity') return bout.x == null ? undefined : asymptotes.find((x) => x.kind === 'v' && Math.abs(x.x - bout.x) < eps)?.id
+          return asymptotes.find((x) => (bout.m === 0 && x.kind === 'h' && Math.abs(x.y - bout.p) < eps) || (x.kind === 'o' && Math.abs(x.m - bout.m) < eps && Math.abs(x.p - bout.p) < eps))?.id
+        }
+        const bout = (b) =>
+          b.type === 'stop' ? { type: 'stop' } : b.type === 'infinity' ? { type: 'infinity', sign: b.sign, ...(b.x == null ? {} : { asymptoteId: idAsymptote(b) }) } : { type: 'asymptote', asymptoteId: idAsymptote(b) }
+        const borne = (b, cote) => (b.type === 'stop' || (b.type === 'infinity' && b.x != null) ? b.x : cote * Infinity)
+        const data = { nodes: [], asymptotes, cuts: [], ends: {}, concavity: {} }
+        let numero = 0
+        const noeud = (x, y, role = 'passage', open = false) => ({ id: `n${numero++}`, x, y, role, open })
+        let precedent = null
+        for (const morceau of att.pieces) {
+          const [g, d] = [borne(morceau.left, -1), borne(morceau.right, 1)]
+          const points = att.points
+            .filter((p) => p.x > g - eps && p.x < d + eps)
+            .map((p) => {
+              // « extremum » : maximum si f croît juste avant
+              const role = p.role === 'extremum' ? (att.monotony(p.x - 1e-3) > 0 ? 'max' : 'min') : p.role
+              return noeud(p.x, p.y, role, !!p.open)
+            })
+          for (const b of [morceau.left, morceau.right]) {
+            if (b.type === 'stop' && !points.some((p) => Math.abs(p.x - b.x) < eps)) points.push(noeud(b.x, b.y, 'passage', b.open))
+          }
+          // Morceau sans point imposé : un point de la courbe en son milieu
+          if (!points.length && att.f) {
+            const x = Number.isFinite(g) && Number.isFinite(d) ? (g + d) / 2 : Number.isFinite(g) ? g + 1 : Number.isFinite(d) ? d - 1 : 0
+            points.push(noeud(x, att.f(x)))
+          }
+          points.sort((p, q) => p.x - q.x)
+          if (!points.length) return null
+          data.ends[`${points[0].id}:L`] = bout(morceau.left)
+          data.ends[`${points.at(-1).id}:R`] = bout(morceau.right)
+          if (precedent) data.cuts.push(`${precedent}|${points[0].id}`)
+          precedent = points.at(-1).id
+          data.nodes.push(...points)
+        }
+        s.figure.sketch.data = data
+        const { options: _o, ...json } = JSON.parse(s.figure.json)
+        // Contrôle : l'esquisse construite doit être jugée juste par l'exercice
+        const bilan = s.figure.checkSketch(att)
+        return { json: JSON.stringify(json), juste: bilan.isValid, remarques: bilan.criteria.filter((c) => !c.isValid).map((c) => c.message) }
       }
       return ex.interne.autoCorrection.map((a) =>
         a == null
@@ -111,6 +166,7 @@ async function attendues(e, etape, graine, numero) {
                     k: Number.isInteger(x.questionIndex) ? x.questionIndex : null,
                     valeur: JSON.parse(JSON.stringify(x.autoCorrection?.valeur ?? null, (k, v) => (typeof v === 'function' ? undefined : v))),
                     statuts: x.autoCorrection?.propositions?.map((p) => !!p.statut) ?? null,
+                    esquisse: x.formatInteractif === 'apigeom-figure' && Number.isInteger(x.questionIndex) ? esquisseDe(x.questionIndex) : null,
                   }))
                 : null,
               // QCM à branches : bonne proposition et sa justification ; un
@@ -447,7 +503,7 @@ async function repondre(e, n, k, a) {
     case 'mathalea-couteau-suisse': {
       // Chaque élément du couteau suisse reçoit sa propre bonne réponse
       if (!a.elements?.length) throw new Error('couteau suisse sans éléments')
-      for (const x of a.elements) await repondre(e, n, x.k ?? k, { format: x.format, valeur: x.valeur, statuts: x.statuts })
+      for (const x of a.elements) await repondre(e, n, x.k ?? k, { format: x.format, valeur: x.valeur, statuts: x.statuts, esquisse: x.esquisse })
       return
     }
     case 'juniper-green': {
@@ -745,15 +801,18 @@ async function repondre(e, n, k, a) {
           }
           return
         }
-        // Autre figure (construction) : un toucher sur la figure
+        // Autre figure (construction) : un toucher sur la figure. Pas sur une
+        // esquisse : l'outil « point » y ouvrirait la saisie d'un point
         const fig = main.locator(`[id^="apigeomEx${n}F"] svg`).last()
-        const b = await fig.boundingBox()
+        const b = a.esquisse ? null : await fig.boundingBox()
         if (b) await (e.touche ? page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2) : page.mouse.click(b.x + b.width / 2, b.y + b.height / 2))
         // puis la construction de la correction, réécrite dans la figure comme
         // MathALÉA restaure une figure enregistrée (évènement au nom de la figure)
-        if (a.figureCorrection) {
+        if (a.esquisse && !a.esquisse.juste) throw new Error(`esquisse construite jugée fausse par l'exercice : ${a.esquisse.remarques.join(' ; ')}`)
+        const construction = a.figureCorrection ?? a.esquisse?.json
+        if (construction) {
           const id = await main.locator(`div[id^="apigeomEx${n}F"]`).first().getAttribute('id')
-          await page.evaluate(([id, json]) => document.dispatchEvent(new CustomEvent(id, { detail: json })), [id, a.figureCorrection])
+          await page.evaluate(([id, json]) => document.dispatchEvent(new CustomEvent(id, { detail: json })), [id, construction])
           await main.locator(`#${id}`).evaluate((x) => x.dispatchEvent(new Event('input', { bubbles: true, composed: true })))
           await pause(page, 300)
           e.restaurees = (e.restaurees ?? 0) + 1
@@ -905,13 +964,15 @@ async function jouerSeance(e, p, nomCeinture) {
         }
       }
       // Figure apigeom seule (rang porté par l'exercice) : format apigeom-figure
+      // (une esquisse dans un couteau suisse est déjà posée avec ses autres éléments)
       if ([...rangs.values()].some(([, , f]) => f)) {
         const [n] = [...rangs.values()].find(([, , f]) => f)
         try {
           cache[n] ??= await attendues(e, { ...s0.contenu.etapes[n] }, s0.graines[n], n)
+          if (cache[n].some((x) => x?.elements?.some((y) => y.esquisse))) throw new DejaPosee()
           await repondre(e, n, 0, { format: 'apigeom-figure', figureCorrection: cache[n].find((x) => x?.figureCorrection)?.figureCorrection })
         } catch (err) {
-          problemes.push(`${s0.contenu.etapes[n].id} apigeom-figure : saisie impossible (${err.message.split('\n')[0]})`)
+          if (!(err instanceof DejaPosee)) problemes.push(`${s0.contenu.etapes[n].id} apigeom-figure : saisie impossible (${err.message.split('\n')[0]})`)
         }
         bilanFormats['apigeom-figure'] = (bilanFormats['apigeom-figure'] ?? 0) + 1
         etiquette += `${s0.contenu.etapes[n].id} apigeom-figure `
