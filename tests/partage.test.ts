@@ -1,5 +1,5 @@
 import { strToU8, zipSync } from 'fflate'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Parcours } from '../src/lib/catalogue'
 import { creerFichier, fusionner, lienDeClasse, separerClasse, lireFichier, lireFichierDistant, NOM_FICHIER, nomHorodate, serviceDuLien, synchroniserClasse } from '../src/lib/partage'
 
@@ -78,6 +78,42 @@ describe('kDrive (service de la page de partage)', () => {
     expect(s.demandees).not.toContain(`${api}/files/9/download`)
     await expect(lireFichierDistant(lien, s.req, 'FR')).rejects.toThrow(/ne contient pas encore/)
     await expect(lireFichierDistant(lien, s.req, 'IT')).rejects.toThrow(/ne contient pas encore/)
+  })
+})
+
+describe('kDrive : identifiant du dossier partagé gardé', () => {
+  const api = 'https://kdrive.infomaniak.com/2/app/123/share/0f5c2e9a-1b2c-4d5e-8f90-123456789abc'
+  const lien = 'https://kdrive.infomaniak.com/app/share/123/0f5c2e9a-1b2c-4d5e-8f90-123456789abc'
+  const memoire = () => {
+    const m = new Map<string, string>()
+    vi.stubGlobal('localStorage', { getItem: (k: string) => m.get(k) ?? null, setItem: (k: string, v: string) => void m.set(k, v), removeItem: (k: string) => void m.delete(k) })
+    return m
+  }
+  afterEach(() => vi.unstubAllGlobals())
+  const routes = (dossier: number) => ({
+    [`${api}/init`]: () => reponse(JSON.stringify({ data: { file_id: dossier } })),
+    [`${api}/files/${dossier}/files`]: () => reponse(JSON.stringify({ data: [{ id: 9, name: NOM_FICHIER, type: 'file' }] })),
+    [`${api}/files/9/download`]: () => reponse(fichier(2)),
+  })
+  it('deuxième lecture du même lien : sans /init (QR code de session plus rapide)', async () => {
+    memoire()
+    const s = serveur(routes(7))
+    await lireFichierDistant(lien, s.req)
+    await lireFichierDistant(lien, s.req)
+    expect(s.demandees.filter((u) => u.endsWith('/init'))).toHaveLength(1)
+    expect(s.demandees).toHaveLength(5)
+  })
+  it('identifiant périmé (partage refait) : /init redemandé, lecture réussie', async () => {
+    const m = memoire()
+    m.set('dossiers-kdrive', JSON.stringify({ [api]: 99 }))
+    const s = serveur(routes(7))
+    expect((await lireFichierDistant(lien, s.req)).classes[0].parcours[0].version).toBe(2)
+    expect(s.demandees.filter((u) => u.endsWith('/init'))).toHaveLength(1)
+    expect(JSON.parse(m.get('dossiers-kdrive')!)[api]).toBe(7)
+  })
+  it('lien supprimé malgré un identifiant gardé : même message qu’avant', async () => {
+    memoire().set('dossiers-kdrive', JSON.stringify({ [api]: 7 }))
+    await expect(lireFichierDistant(lien, serveur({}).req)).rejects.toThrow(/introuvable ou expiré/)
   })
 })
 

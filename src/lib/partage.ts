@@ -124,13 +124,43 @@ const absent = () => new DossierVide('Le dossier ne contient pas encore de fichi
  * Tous les fichiers .json du dossier (pas des sous-dossiers) : un parcours seul ou plusieurs par fichier.
  * Avec sousDossier (Explorer : FR, CH), ceux de ce sous-dossier du dossier partagé.
  */
+/**
+ * Identifiant du dossier partagé kDrive (réponse de /init), par adresse de
+ * partage : il ne change pas pour un même lien. Le garder évite une requête à
+ * chaque lecture (QR code de session). Hors du stockage des copies : rien à
+ * sauvegarder ni à restaurer, et une valeur perdue se redemande.
+ */
+const CLE_DOSSIERS_KDRIVE = 'dossiers-kdrive'
+function dossiersKdrive(): Record<string, number> {
+  try {
+    const v = JSON.parse(localStorage.getItem(CLE_DOSSIERS_KDRIVE) ?? '{}')
+    return v && typeof v === 'object' ? v : {}
+  } catch {
+    return {}
+  }
+}
+function garderDossierKdrive(api: string, id: number | null) {
+  try {
+    const tous = dossiersKdrive()
+    if (id == null) delete tous[api]
+    else tous[api] = id
+    localStorage.setItem(CLE_DOSSIERS_KDRIVE, JSON.stringify(tous))
+  } catch {
+    /* pas de stockage : /init à chaque lecture */
+  }
+}
+
 async function lireKdrive(lien: string, req: Requete, sousDossier?: string): Promise<Uint8Array[]> {
   const m = lien.match(/kdrive\.infomaniak\.com\/app\/share\/(\d+)\/([0-9a-f-]{36})/i)
   if (!m) throw new Error('Lien kDrive non reconnu : copiez le lien de partage du dossier.')
   const api = `https://kdrive.infomaniak.com/2/app/${m[1]}/share/${m[2]}`
-  const init = JSON.parse(strFromU8(await octets(await req(`${api}/init`), 'kDrive')))
-  const partage = init?.data?.file_id
-  if (partage == null) throw new Error('kDrive : dossier partagé illisible.')
+  const demanderDossier = async () => {
+    const init = JSON.parse(strFromU8(await octets(await req(`${api}/init`), 'kDrive')))
+    const id = init?.data?.file_id
+    if (typeof id !== 'number') throw new Error('kDrive : dossier partagé illisible.')
+    garderDossierKdrive(api, id)
+    return id
+  }
   const lister = async (dossier: number) => {
     const tout: { id: number; name: string; type: string }[] = []
     for (let page = 1; ; page++) {
@@ -141,14 +171,28 @@ async function lireKdrive(lien: string, req: Requete, sousDossier?: string): Pro
     }
     return tout
   }
-  let racine = partage
-  if (sousDossier) {
+  /** Contenu du dossier partagé (ou de son sous-dossier) à partir de son identifiant */
+  const contenu = async (partage: number) => {
+    if (!sousDossier) return lister(partage)
     const d = (await lister(partage)).find((x) => x.type === 'dir' && x.name.toLowerCase() === sousDossier.toLowerCase())
     if (!d) throw absent()
-    racine = d.id
+    return lister(d.id)
   }
+  const garde = dossiersKdrive()[api]
+  let liste: Awaited<ReturnType<typeof lister>>
+  if (typeof garde === 'number') {
+    try {
+      liste = await contenu(garde)
+    } catch (e) {
+      // Sous-dossier absent : le dossier, lui, a bien été lu
+      if (e instanceof DossierVide) throw e
+      // Partage refait ou supprimé : l'identifiant gardé ne vaut plus
+      garderDossierKdrive(api, null)
+      liste = await contenu(await demanderDossier())
+    }
+  } else liste = await contenu(await demanderDossier())
   // Fichiers du dossier lui-même : ses sous-dossiers ne sont pas lus
-  const fichiers = (await lister(racine)).filter((x) => x.type !== 'dir' && estJson(x.name))
+  const fichiers = liste.filter((x) => x.type !== 'dir' && estJson(x.name))
   if (!fichiers.length) throw absent()
   return Promise.all(fichiers.map(async (f) => octets(await req(`${api}/files/${f.id}/download`), 'kDrive')))
 }
