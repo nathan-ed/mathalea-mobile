@@ -203,7 +203,7 @@
     <div>
       {#if parcours.objectif}<p class="font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{parcours.objectif}</p>{/if}
       <p class="mt-1 {discret}">
-        {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceintures' : 'paliers'}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
+        {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceinture' : 'palier'}${paliers.length > 1 ? 's' : ''}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
       </p>
       {#if parcours.auteurs?.length}
         <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">
