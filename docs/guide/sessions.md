@@ -36,6 +36,6 @@ Le QR code contient le code de la session, le parcours et sa version, et le lien
 
 ## Bon à savoir
 
-- Même code, même parcours, même version : mêmes questions. Si un élève a une autre version du parcours, l'application le lui dit : chacun vérifie sa connexion, puis on crée une nouvelle session.
+- Même code, même parcours, même version : mêmes questions. Si le parcours a été modifié entre-temps, l'application cherche la version de la session sur le drive de la classe ; sinon, chacun garde la version la plus récente qu'il a, et quelques questions peuvent alors différer.
 - Si l'application d'un élève a des exercices plus anciens que ceux de la personne qui a créé la session, elle lui propose de la mettre à jour ; il peut continuer quand même, mais certaines questions peuvent être différentes.
 - Le QR code d'une classe (le lien du dossier, voir [Côté élève](eleves.md)) se scanne avec la même icône.

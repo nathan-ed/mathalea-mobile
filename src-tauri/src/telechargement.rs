@@ -2,7 +2,7 @@
 //! Fait côté Rust : sans en-tête Origin, que kDrive refuse quand il vient
 //! d'une autre origine que la sienne (redirection vers une page d'erreur).
 
-use serde::Serialize;
+use std::sync::OnceLock;
 use std::time::Duration;
 use tauri_plugin_http::reqwest;
 
@@ -10,7 +10,6 @@ use tauri_plugin_http::reqwest;
 /// Dropbox ou Nextcloud contient aussi ses PDF et vidéos : marge large)
 const TAILLE_MAX: usize = 100 * 1024 * 1024;
 
-#[derive(Serialize)]
 pub struct Reponse {
     pub statut: u16,
     pub corps: Vec<u8>,
@@ -27,13 +26,15 @@ fn autorise(url: &reqwest::Url) -> bool {
     }
 }
 
-#[tauri::command]
-pub async fn telecharger(url: String) -> Result<Reponse, String> {
-    let url = reqwest::Url::parse(&url).map_err(|_| "Adresse invalide".to_string())?;
-    if !autorise(&url) {
-        return Err("Adresse non autorisée".into());
+/// Un seul client pour toute l'app : la connexion à un drive reste ouverte
+/// d'une requête à l'autre (un dossier kDrive en demande au moins trois),
+/// sans refaire DNS, TCP et TLS à chaque fois.
+fn client() -> Result<&'static reqwest::Client, String> {
+    static CLIENT: OnceLock<reqwest::Client> = OnceLock::new();
+    if let Some(c) = CLIENT.get() {
+        return Ok(c);
     }
-    let client = reqwest::Client::builder()
+    let c = reqwest::Client::builder()
         .user_agent("MathALEA")
         // Un drive qui ne répond plus ne bloque pas l'actualisation ; un gros
         // zip sur une connexion lente passe tant que les données arrivent
@@ -41,8 +42,32 @@ pub async fn telecharger(url: String) -> Result<Reponse, String> {
         .read_timeout(Duration::from_secs(30))
         .build()
         .map_err(|e| e.to_string())?;
+    Ok(CLIENT.get_or_init(|| c))
+}
+
+/// Réponse envoyée à l'app en octets bruts (ArrayBuffer côté JS, partage.ts) :
+/// statut HTTP sur les deux premiers octets (gros-boutiste), puis le corps.
+/// En JSON, chaque octet devenait un nombre écrit en texte (jusqu'à quatre
+/// caractères), lent à produire et à relire pour une banque de parcours.
+#[tauri::command]
+pub async fn telecharger(url: String) -> Result<tauri::ipc::Response, String> {
+    Ok(tauri::ipc::Response::new(empaqueter(recuperer(url).await?)))
+}
+
+fn empaqueter(r: Reponse) -> Vec<u8> {
+    let mut octets = Vec::with_capacity(2 + r.corps.len());
+    octets.extend_from_slice(&r.statut.to_be_bytes());
+    octets.extend(r.corps);
+    octets
+}
+
+async fn recuperer(url: String) -> Result<Reponse, String> {
+    let url = reqwest::Url::parse(&url).map_err(|_| "Adresse invalide".to_string())?;
+    if !autorise(&url) {
+        return Err("Adresse non autorisée".into());
+    }
     // Toujours la version du drive, jamais une copie gardée en route
-    let mut r = client
+    let mut r = client()?
         .get(url)
         .header(reqwest::header::CACHE_CONTROL, "no-cache")
         .send().await.map_err(|e| format!("Réseau : {e}"))?;
@@ -71,11 +96,11 @@ mod tests {
     #[tokio::test]
     #[ignore = "réseau"]
     async fn lit_le_dossier_kdrive_de_test() {
-        let init = telecharger(format!("{KDRIVE}/init")).await.unwrap();
+        let init = recuperer(format!("{KDRIVE}/init")).await.unwrap();
         assert_eq!(init.statut, 200);
         let v: serde_json::Value = serde_json::from_slice(&init.corps).unwrap();
         let racine = v["data"]["file_id"].as_i64().unwrap();
-        let liste = telecharger(format!("{KDRIVE}/files/{racine}/files?per_page=200&page=1")).await.unwrap();
+        let liste = recuperer(format!("{KDRIVE}/files/{racine}/files?per_page=200&page=1")).await.unwrap();
         let v: serde_json::Value = serde_json::from_slice(&liste.corps).unwrap();
         let fichier = v["data"]
             .as_array()
@@ -83,7 +108,7 @@ mod tests {
             .iter()
             .find(|f| f["name"] == "parcours-mathalea.json")
             .expect("parcours-mathalea.json présent");
-        let contenu = telecharger(format!("{KDRIVE}/files/{}/download", fichier["id"])).await.unwrap();
+        let contenu = recuperer(format!("{KDRIVE}/files/{}/download", fichier["id"])).await.unwrap();
         assert_eq!(contenu.statut, 200);
         let v: serde_json::Value = serde_json::from_slice(&contenu.corps).unwrap();
         assert_eq!(v["format"], "classe-mathalea/1");
@@ -93,7 +118,7 @@ mod tests {
     #[tokio::test]
     #[ignore = "réseau"]
     async fn lit_le_dossier_dropbox_de_test() {
-        let r = telecharger(
+        let r = recuperer(
             "https://www.dropbox.com/scl/fo/61ukfii2ul7wygvtn480a/AMdjmMSWDB0y5U5-HVi2oCU?rlkey=japzwkf6z8n5ocnc0ovxi4lrj&dl=1"
                 .into(),
         )
@@ -101,6 +126,14 @@ mod tests {
         .unwrap();
         assert_eq!(r.statut, 200);
         assert_eq!(&r.corps[..2], b"PK", "un dossier Dropbox arrive en zip");
+    }
+
+    #[test]
+    fn statut_sur_deux_octets_puis_corps() {
+        let octets = empaqueter(Reponse { statut: 404, corps: b"absent".to_vec() });
+        assert_eq!(&octets[..2], &[1, 148]);
+        assert_eq!(&octets[2..], b"absent");
+        assert_eq!(empaqueter(Reponse { statut: 204, corps: vec![] }), vec![0, 204]);
     }
 
     #[test]

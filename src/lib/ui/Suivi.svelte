@@ -1,6 +1,6 @@
 <script lang="ts">
   // Suivi du travail dans la durée, avec la rampe « struct » de MathALÉA
-  import { paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
+  import { aDesPaliers, paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
   import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, ecrirePoints, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
   import { estTest } from '$lib/testNiveau'
@@ -84,7 +84,7 @@
     parcours
       .map((p) => {
         const passages = historiques[p.id] ?? []
-        const paliers = paliersDe(p).length > 1 ? ceinturesObtenues(p, passages) : null
+        const paliers = aDesPaliers(p) ? ceinturesObtenues(p, passages) : null
         const complets = passages.filter((s) => s.etapes.length === s.contenu.etapes.length)
         const pcts = complets.map((s) => bilan(s).pourcentage)
         return {

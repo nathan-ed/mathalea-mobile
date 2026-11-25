@@ -290,11 +290,21 @@ export function jourEnLettres(jour: string, aujourdhui = jourLocal()) {
   return new Date(a, m - 1, j).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', ...(memeAnnee ? {} : { year: 'numeric' }) })
 }
 
+/**
+ * Paliers (ou ceintures) définis par l'enseignant et cohérents avec les exercices.
+ * Un seul suffit (Nathan, 25 novembre 2026 : « on commence avec un parcours à
+ * palier unique et avec le temps on en ajoute ») : ses réglages comptent
+ * (titre, seuil, date d'ouverture, mélange, ressource, pause, fiche).
+ */
+export function aDesPaliers(p: Pick<Parcours, 'paliers' | 'etapes'>) {
+  const paliers = p.paliers ?? []
+  return paliers.length > 0 && paliers.reduce((a, x) => a + x.nb, 0) === p.etapes.length
+}
+
 /** Paliers d'un parcours avec les rangs de leurs étapes ; sans paliers valides, un seul palier */
 export function paliersDe(p: Parcours) {
   const paliers = p.paliers ?? []
-  const valides = paliers.length > 1 && paliers.reduce((a, x) => a + x.nb, 0) === p.etapes.length
-  if (!valides)
+  if (!aDesPaliers(p))
     return [
       {
         titre: '',
@@ -340,9 +350,10 @@ export function ficheDe(p: Parcours, etapes?: number[]): { fiche: Fiche; cle: st
 
 /** Organisation en quelques mots, pour les tuiles : « 3 paliers », « Ceintures orange à bleue » */
 export function organisationDe(p: Parcours) {
+  if (!aDesPaliers(p)) return ''
   const n = paliersDe(p).length
-  if (n < 2) return ''
-  if (p.style !== 'ceintures') return `${n} paliers`
+  if (p.style !== 'ceintures') return n > 1 ? `${n} paliers` : ''
+  if (n === 1) return nomPalier(p, 0)
   const nom = (k: number) => nomPalier(p, k).replace(/^Ceinture /, '')
   return `Ceintures ${nom(0)} à ${nom(n - 1)}`
 }

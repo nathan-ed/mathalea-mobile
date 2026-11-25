@@ -87,3 +87,6 @@ export function decoderClasse(texte: string): InvitationClasse | null {
     return null
   }
 }
+
+/** QR code que l'app sait ouvrir (lireInvitation) : session, ancienne classe ou lien de dossier */
+export const estQrMathalea = (texte: string) => !!decoderInvitation(texte) || !!decoderClasse(texte) || /^https?:\/\/\S+$/.test(texte.trim())
