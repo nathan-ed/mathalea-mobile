@@ -4,7 +4,11 @@
 // caméra de Chromium) et a les mêmes questions ; un élève sans classe la
 // scanne : la classe du QR code est ajoutée, puis la session commence. Une
 // version différente du parcours est refusée, une app plus ancienne prévient.
-//   CAPTURES=<dossier> node e2e/session-qr.mjs
+// Rapidité (Nathan, 25 novembre 2026 : « ça reste chargement des données 5 à
+// 10 secondes », alors qu'ajouter le lien est instantané) : un parcours absent
+// ou plus ancien sur l'appareil fait lire le seul dossier du QR code, jamais
+// tous les dossiers ni l'Explorer.
+//   CAPTURES=<dossier> [LATENCE=300] node e2e/session-qr.mjs
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -44,11 +48,27 @@ const contenus = {
 }
 const classe5A = [{ lien, nom: '5A', disponibles: [], parcours: [] }]
 const navs = []
+const requetes = new Map()
 async function eleve(nom, options) {
   const r = await appareil({ nom, contenus, erreurs, ...options })
   navs.push(r.nav)
+  requetes.set(r.page, r.requetes)
   return r.page
 }
+// Scanne, attend la première question, et rend les adresses lues aux drives pendant ce temps
+async function scanner(page) {
+  const lues = requetes.get(page)
+  await pagePrete(page)
+  const avant = lues.length
+  const debut = Date.now()
+  await toucher(page, page.getByRole('button', { name: SCANNER }))
+  const question = await premiereQuestion(page)
+  const nouvelles = lues.slice(avant)
+  console.log(`  ${((Date.now() - debut) / 1000).toFixed(1)} s du toucher à la première question, ${nouvelles.length} requête(s) aux drives`)
+  return { question, requetes: nouvelles }
+}
+// Lecture d'un seul dossier kDrive : partage, liste, fichier
+const unDossier = (lues, uuid) => lues.length === 3 && lues.every((u) => u.includes(`/share/${uuid}/`))
 const seance = (page) => lireStockage(page, `seance:${parcours.id}`)
 const premiereQuestion = async (page) => {
   const q = page.locator('main .question-eleve').first()
@@ -101,8 +121,9 @@ await b.screenshot({ path: `${captures}/session-qr-3-camarade.png` })
 // ---------- Élève C (aucune classe, bureau sombre) : la classe du QR code est ajoutée ----------
 const c = await eleve('c', { video: videoDe(image, dossier, 'c'), bureau: true })
 ok(!(await c.getByText('Relatifs au tableau').count()), 'élève C : ni classe ni parcours au départ')
-await toucher(c, c.getByRole('button', { name: SCANNER }))
-const questionC = await premiereQuestion(c)
+const scanC = await scanner(c)
+const questionC = scanC.question
+ok(unDossier(scanC.requetes, UUID), `élève C : seul le dossier du QR code est lu (${scanC.requetes.length} requête(s) : ${scanC.requetes.map((u) => u.replace(/^https:\/\/[^/]+/, '')).join(', ')})`)
 const cc = await lireStockage(c, 'classes', [])
 ok(cc.length === 1 && cc[0].lien === lien && cc[0].nom === '5A', `élève C : classe ${cc[0]?.nom} ajoutée par le QR code de la session`)
 ok((await seance(c))?.code === code && questionC === questionA, 'élève C : dans la session, même première question')
@@ -145,6 +166,22 @@ await toucher(f, f.getByRole('button', { name: SCANNER }))
 await premiereQuestion(f)
 ok((await lireStockage(f, `seance:${explorer.id}`))?.code === 'k3lr2' && !(await lireStockage(f, 'classes', [])).length, 'Explorer : session commencée sans classe')
 await f.screenshot({ path: `${captures}/session-qr-7-explorer.png` })
+
+// ---------- Élève G (5A) : le parcours a changé sur le drive depuis le lancement de l'app ----------
+// Sa copie est en V1, la session en V2 : seul le dossier de la classe est relu, puis la session commence
+const UUID_G = '2c9e4b1a-7d3f-4a6e-9b8c-5f1d0e2a3b4c'
+let versionG = 1
+contenus[UUID_G] = () =>
+  JSON.stringify({ format: 'classes-mathalea/1', exporteLe: new Date().toISOString(), classes: [{ nom: '5A', parcours: [{ ...parcours, version: versionG }] }, { nom: '5B', parcours: [] }] })
+const lienG = lienKdrive(UUID_G)
+const texteG = 'MATHALEA-SESSION?' + new URLSearchParams({ c: code, p: parcours.id, v: '2', l: `${lienG}?classe=5A` }).toString()
+const g = await eleve('g', { stockage: { classes: [{ lien: lienG, nom: '5A', disponibles: [], parcours: [] }] }, video: videoDe(imageQr(texteG, join(dossier, 'g.gif')), dossier, 'g') })
+await g.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
+versionG = 2
+const scanG = await scanner(g)
+ok(unDossier(scanG.requetes, UUID_G), `élève G : seul son dossier est relu (${scanG.requetes.length} requête(s))`)
+ok((await seance(g))?.code === code && scanG.question === questionA, 'élève G : dans la session en V2, même première question')
+ok((await lireStockage(g, 'classes', []))[0]?.nom === '5A', 'élève G : garde sa classe')
 
 ok(erreurs.length === 0, `aucune erreur${erreurs.length ? ' : ' + erreurs.join(' | ') : ''}`)
 await Promise.all(navs.map((n) => n.close()))

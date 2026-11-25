@@ -47,12 +47,16 @@ fond.save(sys.argv[2])
 /**
  * Drive kDrive simulé derrière le relais de téléchargement de l'app
  * (/__telecharger) : contenus[uuid] = texte de parcours-mathalea.json. Aucun
- * autre accès réseau.
+ * autre accès réseau. LATENCE=<ms> : délai de chaque réponse, pour mesurer
+ * comme sur un téléphone en 4G (0 par défaut).
  */
-async function drive(ctx, contenus) {
+const LATENCE = Number(process.env.LATENCE ?? 0)
+async function drive(ctx, contenus, requetes) {
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
   await ctx.route('**/__telecharger?**', async (route) => {
     const url = new URL(route.request().url()).searchParams.get('url') ?? ''
+    requetes.push(url)
+    if (LATENCE) await new Promise((r) => setTimeout(r, LATENCE))
     if (!url.startsWith('https://kdrive.infomaniak.com/2/app/481516/share/')) return route.fulfill({ status: 404, body: '' })
     const json = (o) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(o) })
     const contenu = contenus[/\/share\/([^/]+)\//.exec(url)?.[1]]
@@ -67,6 +71,7 @@ async function drive(ctx, contenus) {
 /**
  * Appareil d'élève (téléphone clair, ou bureau sombre) dont la caméra filme
  * `video` (aucune caméra sans vidéo). `stockage` : état de départ (clés copie:…).
+ * `requetes` : adresses demandées aux drives (dossiers et Explorer), dans l'ordre.
  */
 export async function appareil({ nom, video, contenus, stockage = {}, bureau = false, erreurs }) {
   const nav = await chromium.launch({
@@ -78,7 +83,8 @@ export async function appareil({ nom, video, contenus, stockage = {}, bureau = f
     acceptDownloads: true,
     ...(bureau ? { viewport: { width: 1280, height: 800 } } : { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true }),
   })
-  await drive(ctx, contenus)
+  const requetes = []
+  await drive(ctx, contenus, requetes)
   await ctx.grantPermissions(['camera'], { origin: new URL(base).origin })
   await ctx.addInitScript(
     ([stockage, sombre]) => {
@@ -95,7 +101,7 @@ export async function appareil({ nom, video, contenus, stockage = {}, bureau = f
   await page.goto(base)
   await page.getByRole('button', { name: SCANNER }).waitFor({ timeout: 60_000 })
   await pagePrete(page)
-  return { nav, page }
+  return { nav, page, requetes }
 }
 
 export const lireStockage = (page, cle, defaut = null) => page.evaluate(([k, d]) => JSON.parse(localStorage.getItem(`copie:${k}`) ?? JSON.stringify(d)), [cle, defaut])

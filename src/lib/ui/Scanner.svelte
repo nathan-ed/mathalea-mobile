@@ -84,9 +84,18 @@
           for (const texte of await lireImageVideo(canvas)) {
             if (vus.has(texte)) continue
             vus.add(texte)
+            // Image figée pendant le chargement : l'élève voit que le QR code est lu
             lecture = true
+            video.pause()
             message = 'QR code lu : chargement…'
-            const r = await onlu(texte).finally(() => (lecture = false))
+            let r: Awaited<ReturnType<typeof onlu>> | undefined
+            try {
+              r = await onlu(texte)
+            } finally {
+              lecture = false
+              // Pas encore entré : la caméra reprend pour un autre essai
+              if (r !== 'nouveau' && !fini) void video.play().catch(() => {})
+            }
             if (r === 'nouveau') return arreter()
             // Relu un peu plus tard : un drive injoignable peut répondre au second essai
             setTimeout(() => vus.delete(texte), 4000)

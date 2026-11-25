@@ -3,6 +3,7 @@
 //! d'une autre origine que la sienne (redirection vers une page d'erreur).
 
 use serde::Serialize;
+use std::sync::OnceLock;
 use std::time::Duration;
 use tauri_plugin_http::reqwest;
 
@@ -27,13 +28,15 @@ fn autorise(url: &reqwest::Url) -> bool {
     }
 }
 
-#[tauri::command]
-pub async fn telecharger(url: String) -> Result<Reponse, String> {
-    let url = reqwest::Url::parse(&url).map_err(|_| "Adresse invalide".to_string())?;
-    if !autorise(&url) {
-        return Err("Adresse non autorisée".into());
+/// Un seul client pour toute l'app : la connexion à un drive reste ouverte
+/// d'une requête à l'autre (un dossier kDrive en demande au moins trois),
+/// sans refaire DNS, TCP et TLS à chaque fois.
+fn client() -> Result<&'static reqwest::Client, String> {
+    static CLIENT: OnceLock<reqwest::Client> = OnceLock::new();
+    if let Some(c) = CLIENT.get() {
+        return Ok(c);
     }
-    let client = reqwest::Client::builder()
+    let c = reqwest::Client::builder()
         .user_agent("MathALEA")
         // Un drive qui ne répond plus ne bloque pas l'actualisation ; un gros
         // zip sur une connexion lente passe tant que les données arrivent
@@ -41,8 +44,17 @@ pub async fn telecharger(url: String) -> Result<Reponse, String> {
         .read_timeout(Duration::from_secs(30))
         .build()
         .map_err(|e| e.to_string())?;
+    Ok(CLIENT.get_or_init(|| c))
+}
+
+#[tauri::command]
+pub async fn telecharger(url: String) -> Result<Reponse, String> {
+    let url = reqwest::Url::parse(&url).map_err(|_| "Adresse invalide".to_string())?;
+    if !autorise(&url) {
+        return Err("Adresse non autorisée".into());
+    }
     // Toujours la version du drive, jamais une copie gardée en route
-    let mut r = client
+    let mut r = client()?
         .get(url)
         .header(reqwest::header::CACHE_CONTROL, "no-cache")
         .send().await.map_err(|e| format!("Réseau : {e}"))?;

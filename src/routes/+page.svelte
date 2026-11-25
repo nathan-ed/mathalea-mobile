@@ -194,10 +194,12 @@
   })
 
   async function chargerParcours(p: Parcours) {
-    seances[p.id] = await lireSeance(stockage!, p.id)
-    resultats[p.id] = await lireResultats(stockage!, p)
-    historiques[p.id] = await lireHistorique(stockage!, p.id)
-    derniersComplets[p.id] = await stockage!.lire<number>(`complet:${p.id}`)
+    // Quatre lectures en même temps : dans l'app, chacune est un aller-retour vers SQLite
+    const [s, r, h, c] = await Promise.all([lireSeance(stockage!, p.id), lireResultats(stockage!, p), lireHistorique(stockage!, p.id), stockage!.lire<number>(`complet:${p.id}`)])
+    seances[p.id] = s
+    resultats[p.id] = r
+    historiques[p.id] = h
+    derniersComplets[p.id] = c
   }
 
   // Travail en cours (démarrage, référentiel, relecture des dossiers et de
@@ -315,7 +317,7 @@
       await stockage!.ecrire('explorer-pays', lu)
       ajoutes = ajoutes.map((a) => plusRecent(a))
       await stockage!.ecrire('ajoutes', $state.snapshot(ajoutes))
-      for (const p of [...ajoutes, ...liste]) await chargerParcours(p)
+      await Promise.all([...ajoutes, ...liste].map(chargerParcours))
     } catch (e) {
       // Hors connexion ou dossier indisponible : la copie de l'appareil reste affichée
       console.warn('Explorer', e)
@@ -790,22 +792,26 @@
 
   /**
    * Parcours d'une session, à sa version : classes suivies (tout le fichier de
-   * chaque dossier), accueil, Explorer. Introuvable : le dossier du QR code est
-   * ajouté s'il ne l'est pas, puis dossiers et Explorer sont relus.
+   * chaque dossier), accueil, Explorer. Introuvable : seul le dossier du QR
+   * code est lu (ajouté s'il n'est pas suivi), comme un lien ajouté à la main ;
+   * les autres dossiers et l'Explorer ne sont relus qu'en dernier recours
+   * (Nathan, 25 novembre 2026 : tout relire laissait « chargement » 5 à 10 s).
    */
   async function parcoursDeSession(inv: InvitationSession): Promise<Parcours | { erreur: string }> {
     const connus = () => [...tous, ...classes.flatMap((c) => (c.fichier ?? []).flatMap((f) => f.parcours)), ...(catalogue ?? [])]
     const trouve = () => connus().find((x) => x.id === inv.p && x.version === inv.v)
     if (trouve()) return trouve()!
+    let relu = ''
     if (inv.l) {
       const { lien, classe } = separerClasse(inv.l)
-      // Dossier déjà suivi : l'élève garde sa classe
-      if (!classes.some((c) => c.lien === lien)) {
-        const r = await rejoindreClasse(lien, classe)
-        if (r !== 'nouveau') return r
-      }
+      // Dossier déjà suivi : relu, l'élève garde sa classe
+      const r = classes.some((c) => c.lien === lien) ? await relireDossier(lien) : await rejoindreClasse(lien, classe)
+      if (r !== 'nouveau') return r
+      if (trouve()) return trouve()!
+      relu = lien
     }
-    await Promise.all([classes.length ? synchroniserClasses() : null, synchroniserExplorer()])
+    const autres = classes.filter((c) => c.lien !== relu)
+    await Promise.all([autres.length ? synchroniserClasses(autres) : null, synchroniserExplorer()])
     if (trouve()) return trouve()!
     const autre = connus().find((x) => x.id === inv.p)
     if (autre)
@@ -924,8 +930,9 @@
     return null
   }
 
-  async function synchroniserClasses() {
-    const avant = $state.snapshot(classes) as Classe[]
+  /** Relit les dossiers suivis (tous, ou ceux de `quelles`) */
+  async function synchroniserClasses(quelles: Classe[] = classes) {
+    const avant = $state.snapshot(quelles) as Classe[]
     const recues = await Promise.all(avant.map((c) => synchroniserClasse(c)))
     // Une classe ajoutée, choisie ou retirée pendant le téléchargement garde son état
     classes = classes.map((c) => {
@@ -933,7 +940,15 @@
       return i < 0 ? c : recues[i]
     })
     await ecrireClasses(stockage!, classes)
-    for (const c of classes) for (const p of c.parcours) await chargerParcours(p)
+    await Promise.all(recues.flatMap((c) => c.parcours.map(chargerParcours)))
+  }
+
+  /** Relit un dossier suivi (QR code de session) : la classe choisie ne change pas */
+  async function relireDossier(lien: string): Promise<'nouveau' | { erreur: string }> {
+    const avant = classes.filter((c) => c.lien === lien)
+    await synchroniserClasses(avant)
+    const erreur = classes.find((c) => c.lien === lien)?.erreur
+    return erreur ? { erreur } : 'nouveau'
   }
 
   // Lien ou QR code de classe : le dossier de l'enseignant, avec la classe déjà
@@ -945,7 +960,7 @@
     if (nom && !memeClasse(c.nom, nom)) return { erreur: `La classe ${nom} n’est pas encore sur le drive de l’enseignant.` }
     classes = deja ? classes.map((x) => (x.lien === lien ? c : x)) : [...classes, c]
     await ecrireClasses(stockage!, classes)
-    for (const p of c.parcours) await chargerParcours(p)
+    await Promise.all(c.parcours.map(chargerParcours))
     return 'nouveau'
   }
 
