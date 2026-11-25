@@ -13,7 +13,7 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pagePrete, pointStable } from './attente.mjs'
-import { appareil, imageQr, lienKdrive, lireStockage, SCANNER, videoDe } from './camera-qr.mjs'
+import { appareil, ecranChargement, imageQr, lienKdrive, lireStockage, SCANNER, videoDe } from './camera-qr.mjs'
 
 const captures = process.env.CAPTURES ?? '.'
 const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'session-qr-'))
@@ -55,13 +55,18 @@ async function eleve(nom, options) {
   requetes.set(r.page, r.requetes)
   return r.page
 }
-// Scanne, attend la première question, et rend les adresses lues aux drives pendant ce temps
-async function scanner(page) {
+// Scanne, attend la première question, et rend les adresses lues aux drives pendant ce temps.
+// Avec `chargement` (capture) : l'écran de chargement remplace la caméra pendant le téléchargement
+async function scanner(page, chargement) {
   const lues = requetes.get(page)
   await pagePrete(page)
   const avant = lues.length
   const debut = Date.now()
-  await toucher(page, page.getByRole('button', { name: SCANNER }))
+  // Toucher sans attendre la fin du travail de l'app : l'écran de chargement est occupé (aria-busy)
+  const bouton = page.getByRole('button', { name: SCANNER })
+  await pointStable(bouton)
+  await bouton.click()
+  if (chargement) ok(await ecranChargement(page, chargement), 'QR code lu : caméra fermée, « Chargement des données… » avec la roue')
   const question = await premiereQuestion(page)
   const nouvelles = lues.slice(avant)
   console.log(`  ${((Date.now() - debut) / 1000).toFixed(1)} s du toucher à la première question, ${nouvelles.length} requête(s) aux drives`)
@@ -119,9 +124,9 @@ ok(questionB === questionA, `élève B : même première question que A (« ${qu
 await b.screenshot({ path: `${captures}/session-qr-3-camarade.png` })
 
 // ---------- Élève C (aucune classe, bureau sombre) : la classe du QR code est ajoutée ----------
-const c = await eleve('c', { video: videoDe(image, dossier, 'c'), bureau: true })
+const c = await eleve('c', { video: videoDe(image, dossier, 'c'), bureau: true, latence: 1000 })
 ok(!(await c.getByText('Relatifs au tableau').count()), 'élève C : ni classe ni parcours au départ')
-const scanC = await scanner(c)
+const scanC = await scanner(c, `${captures}/session-qr-4a-chargement-bureau-sombre.png`)
 const questionC = scanC.question
 ok(unDossier(scanC.requetes, UUID), `élève C : seul le dossier du QR code est lu (${scanC.requetes.length} requête(s) : ${scanC.requetes.map((u) => u.replace(/^https:\/\/[^/]+/, '')).join(', ')})`)
 const cc = await lireStockage(c, 'classes', [])
@@ -143,6 +148,7 @@ await d.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
 await toucher(d, d.getByRole('button', { name: SCANNER }))
 await d.getByText(/n’est pas à la même version que dans la session/).waitFor({ timeout: 30_000 })
 ok(!(await seance(d)), 'autre version : l’élève est prévenu, aucune séance')
+ok(!(await d.locator('video').count()) && (await d.getByRole('button', { name: 'Scanner à nouveau' }).isVisible()), 'autre version : caméra fermée, « Scanner à nouveau » proposé')
 await d.screenshot({ path: `${captures}/session-qr-5-version.png` })
 await d.getByRole('button', { name: 'Annuler' }).click()
 
@@ -175,10 +181,10 @@ contenus[UUID_G] = () =>
   JSON.stringify({ format: 'classes-mathalea/1', exporteLe: new Date().toISOString(), classes: [{ nom: '5A', parcours: [{ ...parcours, version: versionG }] }, { nom: '5B', parcours: [] }] })
 const lienG = lienKdrive(UUID_G)
 const texteG = 'MATHALEA-SESSION?' + new URLSearchParams({ c: code, p: parcours.id, v: '2', l: `${lienG}?classe=5A` }).toString()
-const g = await eleve('g', { stockage: { classes: [{ lien: lienG, nom: '5A', disponibles: [], parcours: [] }] }, video: videoDe(imageQr(texteG, join(dossier, 'g.gif')), dossier, 'g') })
+const g = await eleve('g', { latence: 1000, stockage: { classes: [{ lien: lienG, nom: '5A', disponibles: [], parcours: [] }] }, video: videoDe(imageQr(texteG, join(dossier, 'g.gif')), dossier, 'g') })
 await g.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
 versionG = 2
-const scanG = await scanner(g)
+const scanG = await scanner(g, `${captures}/session-qr-8-chargement.png`)
 ok(unDossier(scanG.requetes, UUID_G), `élève G : seul son dossier est relu (${scanG.requetes.length} requête(s))`)
 ok((await seance(g))?.code === code && scanG.question === questionA, 'élève G : dans la session en V2, même première question')
 ok((await lireStockage(g, 'classes', []))[0]?.nom === '5A', 'élève G : garde sa classe')

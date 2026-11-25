@@ -51,12 +51,12 @@ fond.save(sys.argv[2])
  * comme sur un téléphone en 4G (0 par défaut).
  */
 const LATENCE = Number(process.env.LATENCE ?? 0)
-async function drive(ctx, contenus, requetes) {
+async function drive(ctx, contenus, requetes, latence) {
   await ctx.route('**/*', (r) => (['localhost', '127.0.0.1'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort()))
   await ctx.route('**/__telecharger?**', async (route) => {
     const url = new URL(route.request().url()).searchParams.get('url') ?? ''
     requetes.push(url)
-    if (LATENCE) await new Promise((r) => setTimeout(r, LATENCE))
+    if (latence) await new Promise((r) => setTimeout(r, latence))
     if (!url.startsWith('https://kdrive.infomaniak.com/2/app/481516/share/')) return route.fulfill({ status: 404, body: '' })
     const json = (o) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(o) })
     const contenu = contenus[/\/share\/([^/]+)\//.exec(url)?.[1]]
@@ -72,8 +72,9 @@ async function drive(ctx, contenus, requetes) {
  * Appareil d'élève (téléphone clair, ou bureau sombre) dont la caméra filme
  * `video` (aucune caméra sans vidéo). `stockage` : état de départ (clés copie:…).
  * `requetes` : adresses demandées aux drives (dossiers et Explorer), dans l'ordre.
+ * `latence` : délai de chaque réponse du drive (LATENCE par défaut).
  */
-export async function appareil({ nom, video, contenus, stockage = {}, bureau = false, erreurs }) {
+export async function appareil({ nom, video, contenus, stockage = {}, bureau = false, erreurs, latence = LATENCE }) {
   const nav = await chromium.launch({
     executablePath: '/usr/bin/chromium',
     args: [...SANS_BRIDAGE, ...(video ? ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${video}`] : [])],
@@ -84,7 +85,7 @@ export async function appareil({ nom, video, contenus, stockage = {}, bureau = f
     ...(bureau ? { viewport: { width: 1280, height: 800 } } : { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true }),
   })
   const requetes = []
-  await drive(ctx, contenus, requetes)
+  await drive(ctx, contenus, requetes, latence)
   await ctx.grantPermissions(['camera'], { origin: new URL(base).origin })
   await ctx.addInitScript(
     ([stockage, sombre]) => {
@@ -102,6 +103,21 @@ export async function appareil({ nom, video, contenus, stockage = {}, bureau = f
   await page.getByRole('button', { name: SCANNER }).waitFor({ timeout: 60_000 })
   await pagePrete(page)
   return { nav, page, requetes }
+}
+
+/**
+ * Écran de chargement du scanner (QR code lu, drive lent) : la caméra est
+ * fermée, la roue tourne avec « Chargement des données… ». Rend vrai s'il est
+ * conforme ; capture dans `capture`.
+ */
+export async function ecranChargement(page, capture) {
+  const statut = page.getByRole('status').filter({ hasText: 'Chargement des données…' })
+  await statut.waitFor({ timeout: 30_000 })
+  if (capture) await page.screenshot({ path: capture })
+  const sansCamera = (await page.locator('video').count()) === 0
+  const roue = await page.locator('.bx-loader-alt.bx-spin').isVisible()
+  const occupe = (await statut.getAttribute('aria-busy')) === 'true'
+  return sansCamera && roue && occupe
 }
 
 export const lireStockage = (page, cle, defaut = null) => page.evaluate(([k, d]) => JSON.parse(localStorage.getItem(`copie:${k}`) ?? JSON.stringify(d)), [cle, defaut])
