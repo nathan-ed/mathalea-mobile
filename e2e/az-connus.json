@@ -1,0 +1,4 @@
+{
+  "_lisezmoi": "Exercices dont les problèmes relevés par parcours-az.mjs ne bloquent pas la release, à la demande de Nathan. Ils restent affichés (« non bloquant »). Retirer l'entrée dès que l'élève simulé sait répondre ou que l'exercice est corrigé.",
+  "4mExpLog-8": { "raison": "esquisse de la courbe (figure apigeom, MathALÉA a4963fcc0 du 24 novembre 2026) que l'élève simulé ne sait pas tracer ; neutralisé par Nathan le 25 novembre 2026 pour publier le moteur" }
+}
