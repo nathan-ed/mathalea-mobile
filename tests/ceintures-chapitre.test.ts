@@ -73,9 +73,14 @@ describe('ceintures par chapitre', () => {
     expect(resume(chapitres[0])).toEqual(['noire', 'noire, 2e dan ✓', 'noire, 3e dan'])
   })
 
-  it('parcours en paliers numérotés ou à un seul palier : pas de ceinture de chapitre', () => {
+  it('parcours en paliers numérotés : pas de ceinture de chapitre', () => {
     const paliers = { ...enCeintures('p', 2), style: 'paliers' as const }
+    expect(ceinturesParChapitre([paliers], {})).toEqual([])
+  })
+
+  it('parcours à une seule ceinture : une ceinture du chapitre comme les autres (Nathan, 25 novembre 2026)', () => {
     const un = enCeintures('u', 1)
-    expect(ceinturesParChapitre([paliers, un], {})).toEqual([])
+    expect(ceinturesParChapitre([un], {}).map(resume)).toEqual([['blanche']])
+    expect(ceinturesParChapitre([un], { u: [passage(un, 0)] }).map(resume)).toEqual([['blanche ✓']])
   })
 })
