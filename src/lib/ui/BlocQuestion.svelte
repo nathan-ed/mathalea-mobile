@@ -371,6 +371,23 @@
       p.textContent = juste ? 'Correcte' : 'Incorrecte'
       el.replaceChildren(p)
     }
+    // Smiley en tête d'un message (bilan de l'esquisse de courbe d'ApiGeom :
+    // « ☹️ 3 critères justes sur 5.<br>… ») : seul le smiley est remplacé
+    const textes = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT)
+    const enTete: Text[] = []
+    for (let t = textes.nextNode() as Text | null; t; t = textes.nextNode() as Text | null) {
+      if (/^\s*(😎|☹️|☹)\s+\S/u.test(t.data)) enTete.push(t)
+    }
+    for (const t of enTete) {
+      const m = t.data.match(/^\s*(😎|☹️|☹)\s+/u)
+      if (!m) continue
+      const juste = SMILEYS[m[1]]
+      const p = document.createElement('span')
+      p.className = `${juste ? pastille : pastilleIncorrecte} pastille-verification`
+      p.textContent = juste ? 'Correcte' : 'Incorrecte'
+      t.data = t.data.slice(m[0].length)
+      t.before(p, ' ')
+    }
     // Question à un seul champ dans une figure (MetaInteractif2d, CAN) : MathALÉA met
     // un smiley à côté du champ (…Q0field0) et un autre pour la question (…Q0),
     // « Correcte » s'affichait deux fois. Le second ne reste qu'avec plusieurs champs.

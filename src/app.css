@@ -337,6 +337,44 @@ body:has(.barre-seance) main .contenu-mathalea .fixed.bottom-0 {
   bottom: var(--barre-seance, 0px) !important;
 }
 
+/* Esquisse de courbe (élément Sketch d'ApiGeom, étude de fonction) : le menu
+   d'un bout ou d'un point s'ouvrait près du doigt, sur l'énoncé, et un toucher
+   à côté pour le fermer tombait sur un autre bouton. Il monte du bas comme un
+   panneau (Feuille), le repère reste visible au-dessus. Les menus qui ont un
+   champ (coordonnées, équation) gardent leur place : le clavier de MathALÉA,
+   en bas, les cacherait. */
+.apigeom-sketch-menu:not(:has(math-field, input)) {
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: var(--largeur-lecture) !important;
+  margin-inline: auto;
+  border-radius: 1rem 1rem 0 0 !important;
+  border-width: 1px 1px 0 !important;
+  padding: 1rem 1rem calc(1rem + var(--bas)) !important;
+  max-height: calc(100dvh - var(--haut) - 0.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .apigeom-sketch-menu:not(:has(math-field, input)) {
+    animation: feuille-monte 200ms ease-out;
+  }
+}
+.dark .apigeom-sketch-menu {
+  background-color: var(--color-coopmathsdark-canvas) !important;
+  color: var(--color-coopmathsdark-corpus) !important;
+}
+/* Intitulés autour du repère (« Point : », « À faire : », « Points : »,
+   « Comportement à gauche et à droite : ») : ApiGeom pose la couleur de texte
+   du thème clair, illisible sur le fond sombre. Les pastilles gardent leur
+   fond clair et leur texte sombre. */
+.dark :is(.apigeom-sketch-summary, .apigeom-sketch-input) {
+  color: var(--color-coopmathsdark-corpus) !important;
+}
+
 /* Panneau du bas ouvert (Feuille) : le clavier, qui peut s'ouvrir juste après
    (focus sur la question suivante), ne le recouvre pas */
 body:has(.feuille) #mathalea-virtual-keyboard {
