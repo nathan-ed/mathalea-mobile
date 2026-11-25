@@ -1,7 +1,7 @@
 // Objectifs (compétences) posés sur les exercices des parcours, paliers et
 // ceintures : réussite par objectif, paliers ouverts, ceintures obtenues.
 import type { Etape, Parcours } from './catalogue'
-import { couleurCeinture, couleurDuRang, momentOuverture, nomCeinture, nomPalier, paliersDe, rangCeinture } from './catalogue'
+import { aDesPaliers, couleurCeinture, couleurDuRang, momentOuverture, nomCeinture, nomPalier, paliersDe, rangCeinture } from './catalogue'
 import { cleChapitre } from './explorer'
 import { bilan, type ResultatEtape, type Seance } from './progression'
 
@@ -220,7 +220,7 @@ export function ceinturesParChapitre(
 ): ChapitreCeintures[] {
   const chapitres = new Map<string, ChapitreCeintures & { rangs: Map<number, CeintureDuChapitre> }>()
   for (const p of parcours) {
-    if (p.style !== 'ceintures' || paliersDe(p).length < 2) continue
+    if (p.style !== 'ceintures' || !aDesPaliers(p)) continue
     const cle = cleChapitre(p)
     let c = chapitres.get(cle)
     if (!c) chapitres.set(cle, (c = { niveau: p.niveau, theme: p.theme, ceintures: [], parcours: [], rangs: new Map() }))

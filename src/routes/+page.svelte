@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { couleurCeinture, ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
+  import { aDesPaliers, couleurCeinture, ficheDe, nomPalier, paliersDe, type Fiche, type Parcours } from '$lib/catalogue'
   import { formuleBrute, type RenduFormule } from '$lib/texteRiche'
   import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
   import Fiches from '$lib/ui/Fiches.svelte'
@@ -185,7 +185,7 @@
         sur: enCours && s ? questionsDe(s).length || totalQuestions(p) : totalQuestions(p),
         enCours,
         pourcentage: derniersComplets[p.id] ?? null,
-        ...(paliersDe(p).length > 1
+        ...(aDesPaliers(p)
           ? { paliers: { reussis: ceinturesObtenues(p, historiques[p.id] ?? []).filter((x) => x.obtenue).length, total: paliersDe(p).length } }
           : {}),
       }
@@ -558,7 +558,7 @@
   function gainsDeBarrettes(avant: Revisions, apres: Revisions) {
     const gains = new Map<string, { nom: string; couleur: string; theme: string; barrettes: number }>()
     for (const p of parcoursSuivis) {
-      if (p.style !== 'ceintures' || paliersDe(p).length < 2) continue
+      if (p.style !== 'ceintures' || !aDesPaliers(p)) continue
       const obtenues = ceinturesObtenues(p, historiques[p.id] ?? [])
       paliersDe(p).forEach((x, k) => {
         if (!obtenues[k]?.obtenue) return
@@ -618,9 +618,10 @@
       .map((p) => {
         const passages = historiques[p.id] ?? []
         const total = paliersDe(p).length
-        const obtenus = total > 1 ? acquisDe(p, passages).filter(Boolean).length : 0
+        const avecPaliers = aDesPaliers(p)
+        const obtenus = avecPaliers ? acquisDe(p, passages).filter(Boolean).length : 0
         const nom = p.style === 'ceintures' ? 'ceinture' : 'palier'
-        const reste = !passages.length ? 'Pas encore commencé' : total > 1 && obtenus < total ? `${obtenus} ${nom}${obtenus > 1 ? 's' : ''} sur ${total}` : undefined
+        const reste = !passages.length ? 'Pas encore commencé' : avecPaliers && obtenus < total ? `${obtenus} ${nom}${obtenus > 1 ? 's' : ''} sur ${total}` : undefined
         return { id: p.id, titre: p.titre, niveau: p.niveau, theme: p.theme, reste }
       }),
   )
@@ -650,7 +651,7 @@
     }
     // 4. Ceinture ou palier suivant, ouvert et pas encore réussi, du parcours travaillé en dernier
     const dernierPassage = (p: Parcours) => (historiques[p.id] ?? []).at(-1)?.fin ?? ''
-    const entames = visibles.filter((p) => paliersDe(p).length > 1 && dernierPassage(p)).sort((a, b) => dernierPassage(b).localeCompare(dernierPassage(a)))
+    const entames = visibles.filter((p) => aDesPaliers(p) && dernierPassage(p)).sort((a, b) => dernierPassage(b).localeCompare(dernierPassage(a)))
     for (const p of entames) {
       const acquis = acquisDe(p, historiques[p.id] ?? [])
       const etats = etatsPaliers(p, resultats[p.id] ?? {}, heure.maintenant, Date.now(), acquis)
@@ -738,8 +739,8 @@
   /** Bilan d'une séance de palier : nom, pause, et palier suivant avec son état d'après les nouveaux résultats */
   const palierDuBilan = $derived.by(() => {
     if (!seance || !actif || seance.contenu.id !== actif.id) return null
+    if (!aDesPaliers(actif)) return null
     const etats = etatsPaliers(actif, resultats[actif.id] ?? {}, heure.maintenant, Date.now(), acquisDe(actif, historiques[actif.id] ?? []))
-    if (etats.length < 2) return null
     const k = etats.findIndex((x) => x.etapes.join() === seance!.etapes.join())
     if (k === -1) return null
     const suivant = etats[k + 1]
@@ -783,53 +784,49 @@
     if (!inv) return 'autre'
     const p = await parcoursDeSession(inv)
     if ('erreur' in p) return p
-    if (inv.e && !inv.e.every((k) => k < p.etapes.length)) return { erreur: 'Ce QR code de session est abîmé : afficher à nouveau la session, puis scanner son QR code.' }
+    // Exercices du palier de la session : dans une autre version du parcours, ils peuvent ne plus exister (tout le parcours alors)
+    const valides = !inv.e || inv.e.every((k) => k < p.etapes.length)
+    if (!valides && p.version === inv.v) return { erreur: 'Ce QR code de session est abîmé : afficher à nouveau la session, puis scanner son QR code.' }
+    const session = valides ? inv : { ...inv, e: undefined }
     scanSession = false
-    if (moteurPlusAncien(moteur!.VERSION_MOTEUR, inv.m)) invitationAncienne = { inv, p }
-    else await rejoindreSession(inv, p)
+    if (moteurPlusAncien(moteur!.VERSION_MOTEUR, inv.m)) invitationAncienne = { inv: session, p }
+    else await rejoindreSession(session, p)
     return 'nouveau'
   }
 
   /**
-   * Parcours d'une session, à sa version : classes suivies (tout le fichier de
-   * chaque dossier), accueil, Explorer. Introuvable : seul le dossier du QR
-   * code est lu (ajouté s'il n'est pas suivi), comme un lien ajouté à la main ;
-   * les autres dossiers et l'Explorer ne sont relus qu'en dernier recours
-   * (Nathan, 25 novembre 2026 : tout relire laissait « chargement » 5 à 10 s).
+   * Parcours d'une session : à la version du QR code, ou plus récente. Celle de
+   * l'appareil est prise aussitôt si elle est la même ou plus récente, sans
+   * rien télécharger (Nathan, 25 novembre 2026 : « si j'avais V3 et maintenant
+   * V2, garder V3 »). Plus ancienne ou absente : seul le dossier du QR code est
+   * lu (ajouté s'il n'est pas suivi), comme un lien ajouté à la main, et sa
+   * version la plus récente est prise, même plus ancienne que la session (sans
+   * bloquer : quelques questions peuvent différer). Les autres dossiers et
+   * l'Explorer ne sont relus que si le parcours reste introuvable, ou pour un
+   * QR code sans dossier (tout relire laissait « chargement » 5 à 10 s).
    */
-  /** Titre entre guillemets, espaces insécables : le « » » ne part jamais seul à la ligne */
-  const guillemets = (titre: string) => `« ${titre} »`
-
   async function parcoursDeSession(inv: InvitationSession): Promise<Parcours | { erreur: string }> {
     const connus = () => [...tous, ...classes.flatMap((c) => (c.fichier ?? []).flatMap((f) => f.parcours)), ...(catalogue ?? [])]
-    const trouve = () => connus().find((x) => x.id === inv.p && x.version === inv.v)
-    if (trouve()) return trouve()!
+    const recent = () => connus().reduce<Parcours | undefined>((a, x) => (x.id === inv.p && (!a || x.version > a.version) ? x : a), undefined)
+    const aJour = () => {
+      const p = recent()
+      return p && p.version >= inv.v ? p : undefined
+    }
+    if (aJour()) return aJour()!
     let relu = ''
     if (inv.l) {
       const { lien, classe } = separerClasse(inv.l)
       // Dossier déjà suivi : relu, l'élève garde sa classe
       const r = classes.some((c) => c.lien === lien) ? await relireDossier(lien) : await rejoindreClasse(lien, classe)
-      if (r !== 'nouveau') return r
-      if (trouve()) return trouve()!
+      // Dossier illisible (hors connexion…) : le parcours de l'appareil suffit
+      if (r !== 'nouveau' && !recent()) return r
+      // Le parcours vient de ce dossier : rien d'autre à relire
+      if (recent()) return recent()!
       relu = lien
     }
     const autres = classes.filter((c) => c.lien !== relu)
     await Promise.all([autres.length ? synchroniserClasses(autres) : null, synchroniserExplorer()])
-    if (trouve()) return trouve()!
-    // Parcours modifié par l'enseignant (version V1, V2…) : dire qui doit faire quoi, à l'infinitif,
-    // sans tutoyer ni parler de version (Nathan, 25 novembre 2026 : « la personne doit faire quoi concrètement ? »)
-    const autre = connus().find((x) => x.id === inv.p)
-    // Session faite sur un parcours modifié que le drive de la classe n'a pas encore (il vient d'être relu)
-    if (autre && autre.version < inv.v && relu)
-      return {
-        erreur: `La session utilise une version de ${guillemets(autre.titre)} modifiée par l’enseignant, qui n’est pas encore sur le drive de la classe. Attendre que l’enseignant y dépose le parcours modifié, puis scanner à nouveau.`,
-      }
-    if (autre && autre.version < inv.v)
-      return { erreur: `La session utilise une version de ${guillemets(autre.titre)} plus récente que celle de cet appareil. Se connecter à internet, puis scanner à nouveau.` }
-    // QR code d'une session lancée avant la modification du parcours
-    if (autre)
-      return { erreur: `Ce QR code a été créé avant la dernière modification de ${guillemets(autre.titre)}. Demander à la personne qui a créé la session d’en créer une nouvelle.` }
-    return { erreur: 'Ce parcours n’est pas sur cet appareil : ajouter d’abord la classe de l’enseignant, puis scanner à nouveau.' }
+    return recent() ?? { erreur: 'Ce parcours n’est pas sur cet appareil : ajouter d’abord la classe de l’enseignant, puis scanner à nouveau.' }
   }
 
   async function rejoindreSession(inv: InvitationSession, p: Parcours) {
@@ -1264,7 +1261,7 @@
     {@const { inv, p } = invitationAncienne}
     <Feuille onfermer={() => (invitationAncienne = null)}>
       <p role="alert" class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Exercices à mettre à jour</p>
-      <p class="text-sm">Cet appareil a des exercices plus anciens que ceux de la personne qui a créé la session : certaines questions seront différentes. Pour avoir les mêmes, fermer puis rouvrir MathALÉA avec une connexion à internet : l’application reçoit alors les derniers exercices.</p>
+      <p class="text-sm">Cet appareil a des exercices plus anciens que ceux de la personne qui a créé la session : certaines questions seront différentes. Pour avoir les mêmes : se connecter à internet, puis fermer et rouvrir MathALÉA (les exercices se mettent à jour à l’ouverture).</p>
       <div class="flex flex-row gap-3">
         <button type="button" class="{boutonInverse} flex-1" style="min-height: 44px" onclick={() => (invitationAncienne = null)}>Annuler</button>
         <button type="button" class="{boutonAction} flex-1" style="min-height: 44px" onclick={() => rejoindreSession(inv, p)}>Continuer quand même</button>

@@ -3,7 +3,8 @@
 // code ; un camarade de la même classe la scanne depuis l'accueil (fausse
 // caméra de Chromium) et a les mêmes questions ; un élève sans classe la
 // scanne : la classe du QR code est ajoutée, puis la session commence. Une
-// version différente du parcours est refusée, une app plus ancienne prévient.
+// version différente du parcours ne bloque pas (la plus récente de
+// l'appareil), une app plus ancienne prévient.
 // Rapidité (Nathan, 25 novembre 2026 : « ça reste chargement des données 5 à
 // 10 secondes », alors qu'ajouter le lien est instantané) : un parcours absent
 // ou plus ancien sur l'appareil fait lire le seul dossier du QR code, jamais
@@ -142,24 +143,30 @@ ok(await c.getByRole('button', { name: SCANNER }).isVisible(), 'élève C : de r
 // QR codes écrits ici, indépendamment de l'app : même format que le site et les autres apps
 const texteSession = (o) => 'MATHALEA-SESSION?' + new URLSearchParams({ c: code, p: parcours.id, v: '2', l: `${lien}?classe=5A`, ...o }).toString()
 
-// ---------- Élève D : QR code d'une autre version du parcours ----------
+// ---------- Élève D : QR code d'une session sur l'ancienne version (V1), l'appareil a la V2 ----------
+// Nathan, 25 novembre 2026 : « si j'avais V3 et maintenant V2, garder V3 » : la session commence aussitôt, en V2, sans téléchargement
 const d = await eleve('d', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ v: '1' }), join(dossier, 'v1.gif')), dossier, 'd') })
 await d.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
-await toucher(d, d.getByRole('button', { name: SCANNER }))
-await d.getByText(/Ce QR code a été créé avant la dernière modification de «\u00a0Relatifs au tableau\u00a0»/).waitFor({ timeout: 30_000 })
-ok(!(await seance(d)), 'autre version : l’élève est prévenu, aucune séance')
-ok(!(await d.locator('video').count()) && (await d.getByRole('button', { name: 'Scanner à nouveau' }).isVisible()), 'autre version : caméra fermée, « Scanner à nouveau » proposé')
-await d.screenshot({ path: `${captures}/session-qr-5-version.png` })
-await d.getByRole('button', { name: 'Annuler' }).click()
+const scanD = await scanner(d)
+const seanceD = await seance(d)
+ok(seanceD?.code === code && seanceD.contenu.version === 2 && scanD.requetes.length === 0, `session sur une version plus ancienne : commencée avec la V2 de l’appareil, sans téléchargement (${scanD.requetes.length} requête(s))`)
 
-// ---------- Élève H : session sur une version que le drive n'a pas encore ----------
+// ---------- Élève H : session en V3, le drive n'a encore que la V2 ----------
+// Le dossier est relu une fois, puis la session commence avec la V2 plutôt que de bloquer
 const h = await eleve('h', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ v: '3' }), join(dossier, 'v3.gif')), dossier, 'h') })
 await h.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
-await toucher(h, h.getByRole('button', { name: SCANNER }))
-await h.getByText(/n’est pas encore sur le drive de la classe. Attendre que l’enseignant y dépose le parcours modifié/).waitFor({ timeout: 30_000 })
-ok(!(await seance(h)), 'parcours modifié pas encore sur le drive : l’élève sait que l’enseignant doit le déposer, aucune séance')
-await h.screenshot({ path: `${captures}/session-qr-5b-version-recente.png` })
-await h.getByRole('button', { name: 'Annuler' }).click()
+const scanH = await scanner(h)
+const seanceH = await seance(h)
+ok(unDossier(scanH.requetes, UUID) && seanceH?.code === code && seanceH.contenu.version === 2, 'session sur une version absente du drive : dossier relu une fois, commencée avec la V2')
+
+// ---------- Élève I : parcours introuvable ----------
+const texteInconnu = 'MATHALEA-SESSION?' + new URLSearchParams({ c: code, p: 'parcours-inconnu', v: '1' }).toString()
+const i = await eleve('i', { video: videoDe(imageQr(texteInconnu, join(dossier, 'inconnu.gif')), dossier, 'i') })
+await toucher(i, i.getByRole('button', { name: SCANNER }))
+await i.getByText('Ce parcours n’est pas sur cet appareil : ajouter d’abord la classe de l’enseignant, puis scanner à nouveau.').waitFor({ timeout: 30_000 })
+ok(!(await i.locator('video').count()) && (await i.getByRole('button', { name: 'Scanner à nouveau' }).isVisible()), 'parcours introuvable : caméra fermée, message, « Scanner à nouveau »')
+await i.screenshot({ path: `${captures}/session-qr-5-introuvable.png` })
+await i.getByRole('button', { name: 'Annuler' }).click()
 
 // ---------- Élève E : app plus ancienne que celle de qui a créé la session ----------
 const e = await eleve('e', { stockage: { classes: classe5A }, video: videoDe(imageQr(texteSession({ m: '2099-01-01' }), join(dossier, 'recente.gif')), dossier, 'e') })

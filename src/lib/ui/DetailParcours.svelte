@@ -3,7 +3,7 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { aAvecArticle, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { aAvecArticle, aDesPaliers, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
@@ -95,7 +95,7 @@
   $effect(() => {
     if (parcours.paliers?.some((x) => x.ouverture)) exigerHeure()
   })
-  const avecPaliers = $derived(paliers.length > 1)
+  const avecPaliers = $derived(aDesPaliers(parcours))
   const etapesSession = $derived(avecPaliers ? paliers[palierSession]?.etapes : undefined)
   function creerSession() {
     code = nouveauCode()
