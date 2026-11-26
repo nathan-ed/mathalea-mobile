@@ -212,6 +212,24 @@
     {/snippet}
   </EnTete>
 
+  {#if barreBas}
+    <!-- L'action principale de la page, toujours sous le pouce. Placée avant le contenu :
+         c'est la première atteinte au clavier et par un lecteur d'écran (sinon le lien
+         « Commencer cette ceinture » d'une ceinture ouverte plus loin passait devant) -->
+    <footer
+      class="barre-bas fixed bottom-0 left-0 right-0 z-20 px-4 py-3 zone-sure-bas
+      border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      {#if avecPaliers}
+        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer(paliers[courant].etapes)}>{libelleBouton(courant)}</button>
+      {:else}
+        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer()}>
+          {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
+        </button>
+      {/if}
+    </footer>
+  {/if}
   <main class="flex-1 flex flex-col gap-4 px-4 pt-1 {barreBas ? 'pb-28' : 'pb-4 zone-sure-bas'}">
     <div>
       <!-- Grand titre en entier (la barre le coupait : « Additionner et soustraire des… ») ;
@@ -448,22 +466,6 @@
       </ul>
     {/if}
   </main>
-  {#if barreBas}
-    <!-- L'action principale de la page, toujours sous le pouce -->
-    <footer
-      class="barre-bas fixed bottom-0 left-0 right-0 z-20 px-4 py-3 zone-sure-bas
-      border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
-      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-    >
-      {#if avecPaliers}
-        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer(paliers[courant].etapes)}>{libelleBouton(courant)}</button>
-      {:else}
-        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer()}>
-          {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
-        </button>
-      {/if}
-    </footer>
-  {/if}
   {#if feuille === 'actions'}
     {@const action = (icone: string, libelle: string, fn: () => void) => ({ icone, libelle, fn })}
     {@const actions = [

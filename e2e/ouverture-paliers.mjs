@@ -63,6 +63,12 @@ const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()
 const cap = async (page, n, theme, fullPage = true) => (await pagePrete(page), page.screenshot({ path: `${captures}/ouverture-${n}-${theme}.png`, fullPage }))
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 const carte = (page, nom) => page.getByRole('region', { name: new RegExp(`^${nom}`) })
+// Bouton pour commencer une ceinture : dans sa ligne, ou dans la barre du bas
+// si c'est la ceinture en cours (page du parcours de la 0.8.0)
+const commencer = (page, nom, libelle = /Commencer/) =>
+  carte(page, nom)
+    .getByRole('button', { name: libelle })
+    .or(page.locator(`body:has(main li.palier-actif section[aria-label^="${nom}"]) footer`).getByRole('button', { name: libelle }))
 
 // Version 2 publiée sur le site : la jaune ouvre le jeudi 12 novembre, l'orange
 // le vendredi 20, à 8 h chez l'enseignant
@@ -97,14 +103,14 @@ for (const theme of ['clair', 'sombre']) {
   let tx = await texte(e)
   ok(tx.includes('À partir du jeudi 12 novembre à 8 h') && !tx.includes('Au moins 50 %'), 'veille : jaune fermée, la date seule manque (seuil atteint)')
   ok(tx.includes('À partir du vendredi 20 novembre à 8 h'), 'veille : orange (accès libre) fermée jusqu’à sa date')
-  ok(!(await carte(e, 'Ceinture jaune').getByRole('button', { name: /Commencer/ }).count()), 'veille : aucun bouton pour commencer la jaune')
+  ok(!(await commencer(e, 'Ceinture jaune').count()), 'veille : aucun bouton pour commencer la jaune')
   ok(!(await carte(e, 'Ceinture jaune').getByText('Soustraire des relatifs').count()), 'veille : exercices de la jaune cachés')
   await cap(e, '3-eleve-veille', theme)
   ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
   // 8 h passe, l'app reste ouverte : la jaune s'ouvre d'elle-même
   await e.clock.runFor(90_000)
   await pagePrete(e)
-  ok(await carte(e, 'Ceinture jaune').getByRole('button', { name: 'Commencer cette ceinture' }).isVisible(), '8 h passée, app ouverte : jaune ouverte sans relancer')
+  ok(await commencer(e, 'Ceinture jaune', 'Commencer cette ceinture').isVisible(), '8 h passée, app ouverte : jaune ouverte sans relancer')
   ok((await texte(e)).includes('À partir du vendredi 20 novembre à 8 h'), '8 h passée : orange toujours fermée')
   await cap(e, '4-eleve-le-jour', theme)
   await e.context().close()
@@ -113,7 +119,7 @@ for (const theme of ['clair', 'sombre']) {
   e = await appareil('élève tricheur', theme, blancheReussie, '2026-12-25T10:00:00+01:00', '2026-11-11T12:00:00+01:00')
   await ouvrir(e)
   tx = await texte(e)
-  ok(tx.includes('À partir du jeudi 12 novembre à 8 h') && !(await carte(e, 'Ceinture jaune').getByRole('button', { name: /Commencer/ }).count()), 'téléphone avancé : jaune toujours fermée')
+  ok(tx.includes('À partir du jeudi 12 novembre à 8 h') && !(await commencer(e, 'Ceinture jaune').count()), 'téléphone avancé : jaune toujours fermée')
   ok(!tx.includes('connexion'), 'téléphone avancé, en ligne : aucune mention de connexion')
   await e.context().close()
 
@@ -121,12 +127,12 @@ for (const theme of ['clair', 'sombre']) {
   e = await appareil('élève hors ligne', theme, blancheReussie, '2026-11-13T10:00:00+01:00', null)
   await ouvrir(e)
   tx = await texte(e)
-  ok(tx.includes('À partir du jeudi 12 novembre à 8 h · connexion à internet nécessaire pour vérifier la date') && !(await carte(e, 'Ceinture jaune').getByRole('button', { name: /Commencer/ }).count()), 'hors ligne : fermé, connexion demandée')
+  ok(tx.includes('À partir du jeudi 12 novembre à 8 h · connexion à internet nécessaire pour vérifier la date') && !(await commencer(e, 'Ceinture jaune').count()), 'hors ligne : fermé, connexion demandée')
   await cap(e, '4b-hors-ligne', theme)
   e.serveur = '2026-11-13T10:00:00+01:00'
   await e.evaluate(() => document.dispatchEvent(new Event('visibilitychange')))
   await pagePrete(e)
-  ok((await carte(e, 'Ceinture jaune').getByRole('button', { name: /Commencer/ }).count()) === 1 && !(await texte(e)).includes('connexion'), 'connexion revenue, retour dans l’app : jaune ouverte')
+  ok((await commencer(e, 'Ceinture jaune').count()) === 1 && !(await texte(e)).includes('connexion'), 'connexion revenue, retour dans l’app : jaune ouverte')
   await e.context().close()
 
   // Retour dans l'app après plusieurs jours (horloge changée, pas de minuteur)
@@ -136,7 +142,7 @@ for (const theme of ['clair', 'sombre']) {
   e.serveur = '2026-11-20T08:30:00+01:00'
   await e.evaluate(() => document.dispatchEvent(new Event('visibilitychange')))
   await pagePrete(e)
-  ok(!(await texte(e)).includes('vendredi 20 novembre') && (await carte(e, 'Ceinture orange').getByRole('button', { name: /Commencer/ }).count()) === 1, 'retour dans l’app le 20 : orange ouverte')
+  ok(!(await texte(e)).includes('vendredi 20 novembre') && (await commencer(e, 'Ceinture orange').count()) === 1, 'retour dans l’app le 20 : orange ouverte')
   await e.context().close()
 
   // Date passée, seuil manqué : le seuil seul est écrit
@@ -175,7 +181,7 @@ for (const theme of ['clair', 'sombre']) {
   await e.getByRole('button', { name: 'Voir le bilan' }).click()
   await pagePrete(e)
   tx = await texte(e)
-  ok(tx.includes('1 / 1'), `bilan : réponse saisie au clavier comptée correcte (${reponse})`)
+  ok(tx.includes('1 bonne réponse sur 1'), `bilan : réponse saisie au clavier comptée correcte (${reponse})`)
   ok(tx.includes('Pour ouvrir la ceinture jaune : à partir du jeudi 12 novembre à 8 h.'), 'bilan : la date, pas de seuil (atteint)')
   ok(!(await e.getByRole('button', { name: /^Continuer/ }).count()), 'bilan : pas de « Continuer » vers une ceinture fermée')
   const classeCarte = await e.getByRole('button', { name: 'Voir la carte du parcours' }).getAttribute('class')

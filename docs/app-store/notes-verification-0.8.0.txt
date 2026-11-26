@@ -1,4 +1,4 @@
-VERSION 0.7.6: new, more compact presentation (lists instead of cards, belts shown everywhere), printing fixed, faster launch, minimum iOS / iPadOS 16.4.
+VERSION 0.8.0: new, more compact presentation (lists instead of cards, belts shown everywhere), printing fixed, faster launch, minimum iOS / iPadOS 16.4.
 
 HOW TO TEST (no account needed)
 a. Launch, choose "France", tap "Je n'ai pas de lien".

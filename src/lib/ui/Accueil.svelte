@@ -449,6 +449,8 @@
               <button type="button" class="ligne-action-accueil" onclick={() => (formulaireOuvert = true)}>
                 <i aria-hidden="true" class="bx bx-plus-circle"></i> Ajouter le dossier de ma classe
               </button>
+              <!-- La sauvegarde reste à portée sur l'accueil (0.7.5) -->
+              {#if onrestaurer && onresumer && onapercuSauvegarde && onfusionner}<RecupererSauvegarde {onresumer} onapercu={onapercuSauvegarde} {onrestaurer} {onfusionner} />{/if}
             </div>
           {:else if sources.length === 0 && aChoisir.length === 0}
             {#if !ajoutesVisibles.length}

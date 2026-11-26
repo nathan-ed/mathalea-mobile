@@ -20,7 +20,7 @@
     droite?: Snippet
     /** Grand titre visible dans la page : celui de la barre s'efface (il revient quand le grand titre passe sous la barre) */
     titreCache?: boolean
-    /** Ceinture travaillée (séance) : dessinée devant le titre */
+    /** Ceinture travaillée (séance) : dessinée devant le titre, hachurée (c'est celle qu'on vise) */
     couleurTitre?: string
   } = $props()
   let defile = $state(false)
@@ -39,7 +39,7 @@
         <i aria-hidden="true" class="bx bx-arrow-back text-2xl"></i>
       </button>
     {/if}
-    {#if couleurTitre}<Ceinture couleur={couleurTitre} taille="w-8 h-4" classe="ml-1" />{/if}
+    {#if couleurTitre}<Ceinture couleur={couleurTitre} obtenue={false} taille="w-8 h-4" classe="ml-1" />{/if}
     {#if titre !== undefined}
       <h1 class="titre-barre min-w-0 flex-1 truncate px-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct" style:opacity={titreCache ? 0 : 1}>{#if titreHtml}{@html titreHtml}{:else}{titre}{/if}</h1>
     {:else}

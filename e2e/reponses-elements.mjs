@@ -93,10 +93,10 @@ const verifier = async (e) => {
 const segment = (page, i) => page.locator('[role=tablist][aria-label=Questions] [role=tab]').nth(i)
 const capture = async (page, nom) => CAPTURES && page.screenshot({ path: `${CAPTURES}/reponses-${nom}.png` })
 
-/** Ceinture en cours en haut de la séance */
+/** Ceinture en cours dans la barre de la séance (0.8.0 : nom et dessin de la ceinture) */
 async function ceintureAffichee(e, id) {
-  const texte = await e.page.locator('main').evaluate((m) => m.parentElement.innerText)
-  ok(texte.includes(`Ceinture blanche · Ceinture ${id}`), `${e.touche ? "telephone" : "bureau"} ${id} : ceinture en cours affichée en haut`, texte.slice(0, 200))
+  const texte = await e.page.locator('header').innerText()
+  ok(texte.includes('Ceinture blanche') && (await e.page.locator('header .ceinture').count()) === 1, `${e.touche ? "telephone" : "bureau"} ${id} : ceinture en cours affichée en haut`, texte.slice(0, 200))
 }
 
 for (const appareil of (process.env.APPAREILS ?? "telephone,bureau").split(",")) {

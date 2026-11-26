@@ -77,7 +77,7 @@ done
 for s in reponses-elements defilement un-toucher terminer-passees barre-clavier regressions changer-appareil classe-qr \
   fiches exercice-inconnu mise-a-jour session-qr ouverture-paliers paliers papier correction-parcours \
   revisions evaluation-annoncee test-niveau test-niveau-reel couleurs-reponse reessayer etapes bilan-ceinture barrettes accueil-action reprise-ecran retour \
-  auteurs signalement catalogue-moteur impression impression-parcours; do
+  auteurs signalement catalogue-moteur impression impression-parcours interface; do
   etape "$s" node "e2e/$s.mjs"
 done
 arreter
