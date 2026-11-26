@@ -122,6 +122,65 @@ await nav.execute(() => {
   addEventListener("error", (e) => window.__erreurs.push(String(e.message)));
 });
 
+/** Manières de présenter la feuille de partage, comparées sur le même écran
+ * (journal : « Partage[…] » donne la géométrie vue par iOS) */
+async function essaisPartage() {
+  await nav.switchContext("NATIVE_APP");
+  const { width: largeurEcran } = await nav.getWindowSize();
+  const fermerFeuille = async () => {
+    const fermer = await nav.$("-ios predicate string:label IN {'Close', 'Fermer'}");
+    if (await fermer.isDisplayed().catch(() => false)) await fermer.click();
+    else await nav.execute("mobile: swipe", { direction: "down" });
+    await pause(1500);
+  };
+  for (const variante of ["centre", "fenetre", "compact", "document"]) {
+    try {
+      await webview();
+      await nav.execute(
+        (v) => window.__TAURI_INTERNALS__.invoke("partager_fichier", { nom: "essai.txt", texte: "essai", variante: v }),
+        variante,
+      );
+      await nav.switchContext("NATIVE_APP");
+      const cible = await nav.$(
+        "-ios predicate string:label IN {'Copy', 'Copier', 'Save to Files', 'Enregistrer dans Fichiers'}",
+      );
+      const vue = await cible.waitForExist({ timeout: 20_000 }).then(() => true).catch(() => false);
+      await pause(2500);
+      await capture(`partage-${variante}`);
+      // Fenêtres et grands cadres vus par XCUITest (où la feuille se trouve vraiment)
+      const source = await nav.getPageSource();
+      let lignes = 0;
+      for (const m of source.matchAll(/<XCUIElementType(Window|Sheet|Other)[^>]*?(?:name="([^"]*)")?[^>]*x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"/g))
+        if ((m[1] !== "Other" || Number(m[5]) > 100) && lignes++ < 25) note(`  ${variante} ${m[1]} ${m[2] ?? ""} x ${m[3]} y ${m[4]} ${m[5]} × ${m[6]}`);
+      if (vue) {
+        const r = await cible.getElementRect(cible.elementId);
+        note(`variante ${variante} : « ${await cible.getAttribute("label")} » x = ${Math.round(r.x)}, y = ${Math.round(r.y)}, largeur ${Math.round(r.width)} (écran ${largeurEcran}) → ${r.x >= 0 && r.x + r.width / 2 < largeurEcran / 2 ? "dans l'écran" : "coupée ou décalée"}`);
+      } else note(`variante ${variante} : feuille introuvable`);
+      await fermerFeuille();
+    } catch (e) {
+      note(`variante ${variante} : erreur ${e?.message ?? e}`);
+    }
+  }
+  try {
+    note(
+      execFileSync("xcrun", ["simctl", "spawn", process.env.APPAREIL, "log", "show", "--last", "5m", "--style", "compact", "--predicate", 'eventMessage CONTAINS "Partage["'], { encoding: "utf8" }),
+    );
+  } catch (e) {
+    note(`journal du partage illisible : ${e?.message ?? e}`);
+  }
+}
+
+// Essais du partage seulement (branche d'essais de Claude, ou PARTAGE_SEUL=1) :
+// pas de parcours d'élève, quelques minutes au lieu d'une demi-heure
+if (process.env.PARTAGE_SEUL || process.env.GITHUB_REF_NAME === "ccr-3626951a-ud6bbr") {
+  await attendre(bouton("France"), 120_000);
+  await capture("premier-lancement");
+  await essaisPartage();
+  await nav.deleteSession();
+  note("ESSAIS DU PARTAGE TERMINÉS");
+  process.exit(0);
+}
+
 // 1. Premier lancement : programme
 await attendre(bouton("France"), 120_000);
 await capture("premier-lancement");
@@ -353,49 +412,7 @@ if (feuilleOuverte) {
   await pause(1000);
 } else ok(false, "feuille de partage ouverte après « Créer le PDF »");
 
-// Manières de présenter la feuille, comparées sur le même écran (journal :
-// « Partage[…] » donne le style et le cadre de la feuille vus par iOS)
-const fermerFeuille = async () => {
-  const fermer = await nav.$("-ios predicate string:label IN {'Close', 'Fermer'}");
-  if (await fermer.isDisplayed().catch(() => false)) await fermer.click();
-  else await nav.execute("mobile: swipe", { direction: "down" });
-  await pause(1500);
-};
-for (const variante of ["centre", "fenetre", "compact", "document"]) {
-  try {
-    await webview();
-    await nav.execute(
-      (v) => window.__TAURI_INTERNALS__.invoke("partager_fichier", { nom: "essai.txt", texte: "essai", variante: v }),
-      variante,
-    );
-    await nav.switchContext("NATIVE_APP");
-    const cible = await nav.$(
-      "-ios predicate string:label IN {'Copy', 'Copier', 'Save to Files', 'Enregistrer dans Fichiers'}",
-    );
-    const vue = await cible.waitForExist({ timeout: 20_000 }).then(() => true).catch(() => false);
-    await pause(2500);
-    await capture(`partage-${variante}`);
-    // Fenêtres et grands cadres vus par XCUITest (où la feuille se trouve vraiment)
-    const source = await nav.getPageSource();
-    let lignes = 0;
-    for (const m of source.matchAll(/<XCUIElementType(Window|Sheet|Other)[^>]*?(?:name="([^"]*)")?[^>]*x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"/g))
-      if ((m[1] !== "Other" || Number(m[5]) > 100) && lignes++ < 25) note(`  ${variante} ${m[1]} ${m[2] ?? ""} x ${m[3]} y ${m[4]} ${m[5]} × ${m[6]}`);
-    if (vue) {
-      const r = await cible.getElementRect(cible.elementId);
-      note(`variante ${variante} : « ${await cible.getAttribute("label")} » x = ${Math.round(r.x)}, y = ${Math.round(r.y)}, largeur ${Math.round(r.width)} (écran ${largeurEcran}) → ${r.x >= 0 && r.x + r.width / 2 < largeurEcran / 2 ? "dans l'écran" : "coupée ou décalée"}`);
-    } else note(`variante ${variante} : feuille introuvable`);
-    await fermerFeuille();
-  } catch (e) {
-    note(`variante ${variante} : erreur ${e?.message ?? e}`);
-  }
-}
-try {
-  note(
-    execFileSync("xcrun", ["simctl", "spawn", process.env.APPAREIL, "log", "show", "--last", "5m", "--style", "compact", "--predicate", 'eventMessage CONTAINS "Partage["'], { encoding: "utf8" }),
-  );
-} catch (e) {
-  note(`journal du partage illisible : ${e?.message ?? e}`);
-}
+await essaisPartage();
 await webview();
 await toucher(await affiche('//button[@aria-label="Revenir en arrière"]'));
 
