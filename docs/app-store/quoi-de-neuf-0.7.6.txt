@@ -1,0 +1,1 @@
+Réponses en plusieurs étapes : les demi-points comptent, boutons plus grands et coches aux couleurs de l'app. Scanner : la caméra se ferme dès la lecture du QR code. Sessions : un parcours modifié ne bloque plus, les messages disent qui doit faire quoi. Parcours d'un seul palier accepté. Exercices mis à jour.
