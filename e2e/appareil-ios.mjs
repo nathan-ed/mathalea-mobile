@@ -334,14 +334,16 @@ const { width: largeurEcran } = await nav.getWindowSize();
 const copier = await nav.$(
   "-ios predicate string:label IN {'Copy', 'Copier', 'Save to Files', 'Enregistrer dans Fichiers'}",
 );
+// « Copier » existe même coupé (isDisplayed faux quand il sort de l'écran)
 const feuilleOuverte = await copier
-  .waitForDisplayed({ timeout: 180_000 })
+  .waitForExist({ timeout: 180_000 })
   .then(() => true)
   .catch(() => false);
 await capture("feuille-de-partage");
 if (feuilleOuverte) {
   const r = await copier.getElementRect(copier.elementId);
   ok(
+    // « Copier » en bas à gauche de la feuille : visible en entier, dans la moitié gauche
     r.x >= 0 && r.x + r.width <= largeurEcran && r.x + r.width / 2 < largeurEcran / 2,
     `feuille de partage dans l'écran (« ${await copier.getAttribute("label")} » à x = ${Math.round(r.x)}, largeur de l'écran ${largeurEcran})`,
   );
@@ -370,12 +372,12 @@ for (const variante of ["centre", "bas", "transition", "feuille", "plein", "sans
     const cible = await nav.$(
       "-ios predicate string:label IN {'Copy', 'Copier', 'Save to Files', 'Enregistrer dans Fichiers'}",
     );
-    const vue = await cible.waitForDisplayed({ timeout: 20_000 }).then(() => true).catch(() => false);
+    const vue = await cible.waitForExist({ timeout: 20_000 }).then(() => true).catch(() => false);
     await pause(2500);
     await capture(`partage-${variante}`);
     if (vue) {
       const r = await cible.getElementRect(cible.elementId);
-      note(`variante ${variante} : « ${await cible.getAttribute("label")} » x = ${Math.round(r.x)}, y = ${Math.round(r.y)}, largeur ${Math.round(r.width)} (écran ${largeurEcran}) → ${r.x + r.width / 2 < largeurEcran / 2 ? "dans l'écran" : "décalée"}`);
+      note(`variante ${variante} : « ${await cible.getAttribute("label")} » x = ${Math.round(r.x)}, y = ${Math.round(r.y)}, largeur ${Math.round(r.width)} (écran ${largeurEcran}) → ${r.x >= 0 && r.x + r.width / 2 < largeurEcran / 2 ? "dans l'écran" : "coupée ou décalée"}`);
     } else note(`variante ${variante} : feuille introuvable`);
     await fermerFeuille();
   } catch (e) {
