@@ -134,9 +134,9 @@ for (const [appareil, theme, ecran] of [
   await cap(page, '3-appui-long')
   await toucher(page, panneau.getByRole('button', { name: `Cacher « ${titre} »` }))
   ok((await texte(page)).includes('1 parcours caché'), `${appareil} : caché, rangé en bas`)
-  await toucher(page, page.getByRole('button', { name: /Parcours cachés/ }))
+  await toucher(page, page.getByRole('button', { name: /parcours cachés?/i }))
   await toucher(page, page.getByRole('button', { name: `Remettre « ${titre} » sur l’accueil` }))
-  ok(!(await texte(page)).includes('Parcours cachés'), `${appareil} : remis sur l'accueil`)
+  ok(!(await texte(page)).includes('parcours caché'), `${appareil} : remis sur l'accueil`)
 
   // ---------- Page du parcours ----------
   await toucher(page, page.locator('.corps-tuile', { hasText: titre }).first())
@@ -195,6 +195,21 @@ for (const [appareil, theme, ecran] of [
   await cap(page, '6-seance')
   ok(!(await debordement(page)), `${appareil} : séance, aucun débordement`)
   await ctx.close()
+
+  // ---------- Parcours sans chapitre : en haut, sans intertitre vide ; « N parcours » en clair ----------
+  {
+    const sans = { ...fr[0], id: 'essai-sans-chapitre', titre: 'Parcours sans chapitre', theme: '' }
+    const { ctx: c2, page: p2 } = await ouvrir(ecran, theme, { profil: 'eleve', pays: 'FR', ajoutes: [sans, fr[1], fr[2]] })
+    await p2.locator('.corps-tuile').first().waitFor({ timeout: 60_000 })
+    await pagePrete(p2)
+    const intertitres = await p2.locator('main .titre-section').allInnerTexts()
+    ok(intertitres.every((t) => t.replace(/[·\d\s]|parcours/g, '').trim().length > 0), `${appareil} : aucun intertitre vide`, intertitres.join(' | '))
+    const premiere = (await p2.locator('main .corps-tuile .titre-ligne').first().innerText()).trim()
+    ok(premiere.startsWith('Parcours sans chapitre'), `${appareil} : le parcours sans chapitre en haut, avant les chapitres`, premiere)
+    ok(intertitres.some((t) => /· 2 parcours/.test(t)), `${appareil} : le chapitre dit « 2 parcours » en clair`, intertitres.join(' | '))
+    await cap(p2, '2b-sans-chapitre')
+    await c2.close()
+  }
 
   // ---------- Onze parcours : la recherche apparaît ----------
   {

@@ -129,7 +129,7 @@ for (const a of appareils) {
   await toucher(page, page.getByRole('button', { name: 'Autres actions' }))
   await toucher(page, page.getByRole('button', { name: 'Signaler un problème' }))
   await toucher(page, page.getByRole('button', { name: 'Cacher ce parcours' }))
-  await page.getByRole('button', { name: /Parcours cachés/ }).waitFor({ timeout: 30_000 })
+  await page.getByRole('button', { name: /parcours cachés?/i }).waitFor({ timeout: 30_000 })
   const caches = await page.evaluate(() => JSON.parse(localStorage.getItem('copie:caches') ?? '[]'))
   ok(caches.includes(parcours.id) && /1 parcours caché/.test(await texte(page)), `${a.nom} : parcours caché, rangé en bas de l’accueil`)
   await page.screenshot({ path: `${captures}/signalement-2-cache-${a.theme}.png` })
