@@ -88,15 +88,15 @@
   let onglet: Onglet = $state('mes')
   let actif: Parcours | undefined = $state()
   // Fiche de cours ouverte, l'écran d'où elle vient et, avant une séance, de quoi la lancer
-  let cours: { fiche: Fiche; depuis: Vue; ensuite?: () => void } | null = $state(null)
+  let cours: { fiche: Fiche; depuis: Vue; ensuite?: () => void; parcours?: Parcours } | null = $state(null)
   let fichesVues: string[] = $state([]) // fiches déjà montrées d'office (« id#palier »)
   let fichesEnregistrees: FicheDuParcours[] = $state([]) // onglet Fiches, dans l'ordre de l'élève
   // Formules des fiches : KaTeX du moteur (centrées : style « display »)
   const formule: RenduFormule = $derived((latex: string, centree: boolean) =>
     moteur?.titreHtml ? moteur.titreHtml(`$${centree ? '\\displaystyle ' : ''}${latex}$`) : formuleBrute(latex, centree),
   )
-  function ouvrirCours(fiche: Fiche, ensuite?: () => void) {
-    cours = { fiche, depuis: vue, ensuite }
+  function ouvrirCours(fiche: Fiche, ensuite?: () => void, parcours?: Parcours) {
+    cours = { fiche, depuis: vue, ensuite, parcours }
     aller('cours')
   }
   let seance: TSeance | undefined = $state()
@@ -1182,7 +1182,11 @@
             fichesEnregistrees = liste
             await stockage!.ecrire(CLE_FICHES, $state.snapshot(liste))
           }}
-          onouvrir={(f) => ouvrirCours(f.fiche)}
+          onouvrir={(f) => {
+            // Le parcours de la fiche, s'il est toujours là : sa page, jamais une séance directe
+            const id = f.cle.slice(0, f.cle.lastIndexOf('#'))
+            ouvrirCours(f.fiche, undefined, tous.find((x) => x.id === id))
+          }}
           bind:ouverts={fichesOuvertes}
           bind:recherche={rechercheFiches}
         />
@@ -1260,7 +1264,13 @@
       />
     {/key}
   {:else if vue === 'cours' && cours}
-    <Cours fiche={cours.fiche} {formule} onretour={() => aller(cours!.depuis)} oncommencer={cours.ensuite} />
+    <Cours
+      fiche={cours.fiche}
+      {formule}
+      onretour={() => aller(cours!.depuis)}
+      oncommencer={cours.ensuite}
+      onparcours={cours.parcours ? () => ouvrir(cours!.parcours!) : undefined}
+    />
   {:else if vue === 'bilan' && seance && actif}
     <Bilan
       parcours={seance.contenu}

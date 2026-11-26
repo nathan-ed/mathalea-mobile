@@ -98,7 +98,7 @@
     {#if trouvees.length}
       <ul class={listeGroupee}>
         {#each trouvees as f (f.cle)}
-          {@render ligne(f, null, `${f.theme} · ${f.parcours}`)}
+          {@render ligne(f, null, [f.theme, f.parcours].filter(Boolean).join(' · '))}
         {/each}
       </ul>
     {:else}
@@ -109,7 +109,7 @@
       <h2 class={titreSection}>Mes fiches</h2>
       <ul class={listeGroupee}>
         {#each enregistrees as f, i (f.cle)}
-          {@render ligne(f, i, `${f.theme} · ${f.parcours}`)}
+          {@render ligne(f, i, [f.theme, f.parcours].filter(Boolean).join(' · '))}
         {/each}
       </ul>
     {/if}
@@ -124,7 +124,7 @@
       >
         <span>
           <!-- Chapitre : petites capitales grises, comme à l'accueil -->
-          <span class="titre-section">{c.theme}</span>
+          <span class="titre-section">{c.theme || 'Sans chapitre'}</span>
           <span class="{discret} whitespace-nowrap">· {c.niveau} · {c.fiches.length} fiche{c.fiches.length > 1 ? 's' : ''}</span>
         </span>
         <i aria-hidden="true" class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'} {chevron}"></i>

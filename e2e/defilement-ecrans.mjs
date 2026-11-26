@@ -281,7 +281,7 @@ for (const appareil of Object.keys(appareils)) {
       const titre = (await page.locator('.corps-tuile .titre-ligne').first().innerText()).replace(/\s*\(ajouté depuis Explorer\)/, '').trim()
       await actionTuile(page, titre, `Cacher « ${titre} »`)
     }
-    await page.getByRole('button', { name: /Parcours cachés/ }).click()
+    await page.getByRole('button', { name: /parcours cachés/i }).click()
     await pagePrete(page)
     await verifier(o, a('accueil, parcours cachés dépliés'))
     await o.ctx.close()

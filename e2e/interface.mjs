@@ -133,7 +133,7 @@ for (const [appareil, theme, ecran] of [
   await pagePrete(page)
   await cap(page, '3-appui-long')
   await toucher(page, panneau.getByRole('button', { name: `Cacher « ${titre} »` }))
-  ok((await texte(page)).includes('Parcours cachés · 1'), `${appareil} : caché, rangé en bas`)
+  ok((await texte(page)).includes('1 parcours caché'), `${appareil} : caché, rangé en bas`)
   await toucher(page, page.getByRole('button', { name: /Parcours cachés/ }))
   await toucher(page, page.getByRole('button', { name: `Remettre « ${titre} » sur l’accueil` }))
   ok(!(await texte(page)).includes('Parcours cachés'), `${appareil} : remis sur l'accueil`)

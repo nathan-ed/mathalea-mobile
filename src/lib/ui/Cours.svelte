@@ -15,11 +15,15 @@
     formule,
     onretour,
     oncommencer,
+    onparcours,
   }: {
     fiche: Fiche
     formule: RenduFormule
     onretour: () => void
     oncommencer?: () => void // avant une séance : « Commencer l'entraînement »
+    /** Fiche ouverte depuis l'onglet Fiches : « Ouvrir le parcours » mène à sa
+     * page, qui seule décide ce qui peut se commencer (jamais un palier fermé) */
+    onparcours?: () => void
   } = $props()
 
   retourSi(() => true, () => onretour())
@@ -143,14 +147,18 @@
       {/if}
     {/each}
   </main>
-  {#if oncommencer}
+  {#if oncommencer || onparcours}
     <footer
       class="barre-bas fixed bottom-0 left-0 right-0 z-20 px-4 py-3 zone-sure-bas
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <div class="colonne lecture">
-        <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={oncommencer}>Commencer l’entraînement</button>
+        {#if oncommencer}
+          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={oncommencer}>Commencer l’entraînement</button>
+        {:else}
+          <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={onparcours}>Ouvrir le parcours</button>
+        {/if}
       </div>
     </footer>
   {/if}

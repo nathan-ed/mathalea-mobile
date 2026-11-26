@@ -99,7 +99,7 @@ for (const a of appareils) {
   for (const titre of [tout.titre, moitie.titre]) await actionTuile(page, titre, `Cacher « ${titre} »`)
   ok(!(await page.getByRole('heading', { name: 'Mes parcours', exact: true }).count()), `${a.nom} : tout caché, pas de titre « Mes parcours » vide`)
   ok(await page.getByRole('button', { name: /^\s*Explorer les parcours/ }).isVisible(), `${a.nom} : tout caché, la tuile de l'Explorer revient`)
-  ok((await texte(page)).includes('Parcours cachés · 2'), `${a.nom} : les deux parcours dans « Parcours cachés »`)
+  ok((await texte(page)).includes('2 parcours cachés'), `${a.nom} : les deux parcours dans « Parcours cachés »`)
   await page.screenshot({ path: `${captures}/inconnu-tout-cache${s}.png` })
   await ctx.close()
 }

@@ -498,7 +498,7 @@
               class="presse flex flex-row items-center justify-between rounded-lg pr-4 text-left"
               onclick={() => (cachesOuverts = !cachesOuverts)}
             >
-              <span class={titreSection}>Parcours cachés · {cachesListe.length}</span>
+              <span class={titreSection}>{cachesListe.length} parcours caché{cachesListe.length > 1 ? 's' : ''}</span>
               <i aria-hidden="true" class="bx {cachesOuverts ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
             </button>
             {#if cachesOuverts}

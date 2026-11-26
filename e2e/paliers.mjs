@@ -198,7 +198,7 @@ for (const theme of ['clair', 'sombre']) {
   ok(/Épinglés Relatifs en trois paliers/.test(await texte(e)), 'accueil : épinglé depuis la tuile')
   await cap(e, '13-accueil-epingle', theme)
   await actionTuile(e, 'Relatifs en trois paliers', 'Cacher « Relatifs en trois paliers »')
-  ok(!/Épinglés/.test(await texte(e)) && /Parcours cachés · 1/.test(await texte(e)), 'accueil : parcours de la classe caché, rangé en bas')
+  ok(!/Épinglés/.test(await texte(e)) && /1 parcours caché/.test(await texte(e)), 'accueil : parcours de la classe caché, rangé en bas')
   await e.getByRole('button', { name: /Parcours cachés/ }).click()
   await e.getByRole('button', { name: 'Remettre « Relatifs en trois paliers » sur l’accueil' }).click()
   await pagePrete(e)

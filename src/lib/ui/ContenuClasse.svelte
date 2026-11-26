@@ -49,20 +49,21 @@
   let organiser = $state(false)
   retourSi(() => organiser, () => (organiser = false))
 
+  // Parcours sans chapitre : en haut, sans intertitre ni section repliable
+  // (Nathan, 26 novembre 2026 : jamais un intertitre vide)
+  const parDifficulte = (liste: Parcours[]) =>
+    liste
+      .map((p, i) => ({ p, i }))
+      .sort((a, b) => a.p.difficulte - b.p.difficulte || a.i - b.i)
+      .map((x) => x.p)
+  const sansChapitre = $derived(parDifficulte(parcours.filter((p) => !p.theme?.trim())))
   const chapitres = $derived.by(() => {
     const groupes = new Map<string, Parcours[]>()
-    for (const p of parcours) groupes.set(p.theme, [...(groupes.get(p.theme) ?? []), p])
+    for (const p of parcours) if (p.theme?.trim()) groupes.set(p.theme, [...(groupes.get(p.theme) ?? []), p])
     const noms = [...groupes.keys()]
     // Ordre de l'élève d'abord, puis les nouveaux chapitres dans l'ordre de l'enseignant
     const ordonnes = [...organisation.ordre.filter((c) => noms.includes(c)), ...noms.filter((c) => !organisation.ordre.includes(c))]
-    return ordonnes.map((c) => ({
-      nom: c,
-      parcours: groupes
-        .get(c)!
-        .map((p, i) => ({ p, i }))
-        .sort((a, b) => a.p.difficulte - b.p.difficulte || a.i - b.i)
-        .map((x) => x.p),
-    }))
+    return ordonnes.map((c) => ({ nom: c, parcours: parDifficulte(groupes.get(c)!) }))
   })
 
   function basculer(chapitre: string) {
@@ -133,6 +134,29 @@
 </div>
 {/if}
 
+{#snippet tuile(p: Parcours)}
+  <Tuile
+    icon={p.icone}
+    title={p.titre}
+    subtitle={sousTitre(p)}
+    badge={badge(p)}
+    badgeVert={badgeVert(p)}
+    ceintures={ceintures(p)}
+    onclick={() => onouvrir(p)}
+    epingle={epingles.includes(p.id)}
+    onepingler={onepingler ? () => onepingler(p) : undefined}
+    onactions={onactions && !oncacher ? () => onactions(p) : undefined}
+    oncacher={oncacher ? () => oncacher(p) : undefined}
+    explorer={explorer.includes(p.id)}
+  />
+{/snippet}
+
+{#if !organiser}
+  {#each sansChapitre as p (p.id)}
+    {@render tuile(p)}
+  {/each}
+{/if}
+
 {#each chapitres as c, i (c.nom)}
   {@const ouvert = !organisation.fermes.includes(c.nom)}
   <div
@@ -165,7 +189,7 @@
       <!-- Intertitre du chapitre : petites capitales grises, comme les sections des réglages -->
       <span class="titre-section">
         {c.nom}
-        <span class="compte"> · {c.parcours.length}</span>
+        <span class="compte"> · {c.parcours.length} parcours</span>
       </span>
       {#if !organiser}
         <i aria-hidden="true"
@@ -197,20 +221,7 @@
   </div>
   {#if ouvert && !organiser}
     {#each c.parcours as p (p.id)}
-      <Tuile
-        icon={p.icone}
-        title={p.titre}
-        subtitle={sousTitre(p)}
-        badge={badge(p)}
-        badgeVert={badgeVert(p)}
-        ceintures={ceintures(p)}
-        onclick={() => onouvrir(p)}
-        epingle={epingles.includes(p.id)}
-        onepingler={onepingler ? () => onepingler(p) : undefined}
-        onactions={onactions && !oncacher ? () => onactions(p) : undefined}
-        oncacher={oncacher ? () => oncacher(p) : undefined}
-        explorer={explorer.includes(p.id)}
-      />
+      {@render tuile(p)}
     {/each}
   {/if}
 {/each}
