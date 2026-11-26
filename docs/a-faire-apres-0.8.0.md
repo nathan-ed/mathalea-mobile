@@ -45,9 +45,20 @@ Autre piste de Nathan, à comparer sur captures : **choisir, puis commencer**.
 Toucher une ceinture la sélectionne (elle passe en avant, comme la ceinture
 blanche aujourd'hui) ; un seul bouton en bas, « Commencer la ceinture
 jaune », lance la ceinture choisie. La ceinture à faire est sélectionnée à
-l'ouverture de la page. Plus de bouton dans les lignes. À vérifier : que
-toucher une ligne pour la choisir se comprenne sans explication, et que le
-lecteur d'écran annonce la ceinture choisie.
+l'ouverture de la page. Plus de bouton dans les lignes.
+
+Exigence de Nathan : l'élève doit comprendre sans aide qu'il choisit une
+ceinture avant de commencer. Moyens à essayer, sans tournure IA :
+- chaque ligne a l'air d'un choix (rond à cocher à gauche, rempli sur la
+  ceinture choisie), comme une liste d'options du téléphone ;
+- le bouton du bas nomme toujours la ceinture choisie et change quand on en
+  touche une autre (« Commencer la ceinture jaune ») ;
+- le titre de la liste dit ce qu'on fait : « Choisis ta ceinture » à la place
+  de « 5 ceintures ».
+Critère vérifié par une suite e2e : toucher une autre ceinture change le
+bouton du bas, puis « Commencer » lance bien cette ceinture ; le lecteur
+d'écran annonce la ceinture choisie (rôle radio, `aria-checked`). Faire
+essayer à un élève sur captures avant de coder la version finale.
 
 À vérifier en le codant : parcours à paliers (même logique, « Palier 1 »),
 parcours dont les ceintures s'ouvrent l'une après l'autre (cadenas, pas de
