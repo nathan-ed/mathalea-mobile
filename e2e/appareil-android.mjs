@@ -317,6 +317,10 @@ if (!sombre.app) {
 }
 await capture("accueil-sombre");
 await toucher(page.getByRole("button", { name: /^\s*Fractions/ }).first());
+// Toucher un parcours ouvre sa page : la séance se reprend par « Continuer »
+await toucher(
+  page.getByRole("button", { name: /^(Commencer|Continuer)/ }).first(),
+);
 await page
   .locator("main .contenu-mathalea")
   .first()
