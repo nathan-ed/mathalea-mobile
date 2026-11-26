@@ -35,20 +35,21 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 }
 
 /// Ouvre la feuille de partage avec le fichier `nom` contenant `texte`, ou
-/// les octets `base64` (image)
+/// les octets `base64` (image). `variante` : manière de présenter la feuille
+/// sur iOS, pour les essais sur le simulateur seulement (e2e/appareil-ios.mjs)
 #[tauri::command]
-pub async fn partager_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String, base64: Option<String>) -> Result<bool, String> {
+pub async fn partager_fichier<R: Runtime>(app: tauri::AppHandle<R>, nom: String, texte: String, base64: Option<String>, variante: Option<String>) -> Result<bool, String> {
     #[cfg(mobile)]
     {
         use tauri::Manager;
         let p = app.state::<Partage<R>>();
-        p.0.run_mobile_plugin::<serde_json::Value>("partager", serde_json::json!({ "nom": nom, "texte": texte, "base64": base64 }))
+        p.0.run_mobile_plugin::<serde_json::Value>("partager", serde_json::json!({ "nom": nom, "texte": texte, "base64": base64, "variante": variante }))
             .map_err(|e| e.to_string())?;
         return Ok(true);
     }
     #[cfg(not(mobile))]
     {
-        let _ = (app, nom, texte, base64);
+        let _ = (app, nom, texte, base64, variante);
         Ok(false)
     }
 }

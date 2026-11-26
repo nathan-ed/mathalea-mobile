@@ -7,6 +7,9 @@ struct PartagerArgs: Decodable {
   let texte: String
   // Fichier binaire (image) : ses octets en base64, à la place du texte
   let base64: String?
+  // Essais sur le simulateur (e2e/appareil-ios.mjs) : manière de présenter la
+  // feuille ; absente dans l'app
+  let variante: String?
 }
 
 struct BarreEtatArgs: Decodable {
@@ -42,19 +45,41 @@ class PartagePlugin: Plugin {
         return
       }
       let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
-      // La feuille s'ouvre dans une bulle qui doit être ancrée, sur iPad comme
-      // sur iPhone : au centre de l'écran, sans flèche. Depuis iOS 26, l'iPhone
-      // aussi présente la feuille de partage en bulle ; sans ancrage, elle part
-      // du coin en bas à droite, à moitié hors de l'écran, icônes coupées (vu
-      // en 0.6.1, puis de nouveau en 0.8.0 sur un iPhone : imposer
-      // .pageSheet ne suffit pas, iOS 26 l'ignore). Avant iOS 26, sur iPhone,
-      // la bulle ancrée devient d'elle-même la feuille qui monte du bas.
-      if let bulle = feuille.popoverPresentationController {
-        bulle.sourceView = vue.view
-        bulle.sourceRect = CGRect(x: vue.view.bounds.midX, y: vue.view.bounds.midY, width: 0, height: 0)
-        bulle.permittedArrowDirections = []
+      let variante = args.variante ?? "centre"
+      let ecran = vue.view.bounds
+      // Sur iPad, la feuille s'ouvre dans une bulle qui doit être ancrée : au
+      // centre, sans flèche. Sur iPhone, depuis iOS 26, la feuille de partage
+      // s'ouvre aussi en bulle ; sans ancrage elle part du coin en bas à
+      // droite, à moitié hors de l'écran, icônes coupées (0.6.1, puis 0.8.0
+      // sur un iPhone ; reproduit sur le simulateur par e2e/appareil-ios.mjs).
+      switch variante {
+      case "feuille":
+        feuille.modalPresentationStyle = .pageSheet
+        if #available(iOS 18.0, *) { feuille.preferredTransition = .coverVertical }
+        if let bas = feuille.sheetPresentationController {
+          bas.detents = [.medium(), .large()]
+          bas.prefersGrabberVisible = true
+        }
+      case "plein":
+        feuille.modalPresentationStyle = .overFullScreen
+        if #available(iOS 18.0, *) { feuille.preferredTransition = .coverVertical }
+      default:
+        if let bulle = feuille.popoverPresentationController {
+          bulle.sourceView = vue.view
+          bulle.sourceRect = variante == "bas"
+            ? CGRect(x: ecran.midX, y: ecran.maxY - vue.view.safeAreaInsets.bottom - 8, width: 1, height: 1)
+            : CGRect(x: ecran.midX, y: ecran.midY, width: 1, height: 1)
+          bulle.permittedArrowDirections = []
+        }
+        if variante == "transition", #available(iOS 18.0, *) { feuille.preferredTransition = .coverVertical }
       }
-      vue.present(feuille, animated: true)
+      let decrire = { (moment: String) in
+        NSLog("Partage[\(variante)] \(moment) : style \(feuille.modalPresentationStyle.rawValue), présentation \(String(describing: feuille.presentationController.map { type(of: $0) })), cadre \(NSCoder.string(for: feuille.view.frame)) dans \(NSCoder.string(for: ecran)), fenêtre \(String(describing: feuille.view.window != nil))")
+      }
+      vue.present(feuille, animated: variante != "sans-animation") {
+        decrire("présentée")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { decrire("après 2 s") }
+      }
       invoke.resolve()
     }
   }

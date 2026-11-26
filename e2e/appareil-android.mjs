@@ -317,6 +317,8 @@ if (!sombre.app) {
 }
 await capture("accueil-sombre");
 await toucher(page.getByRole("button", { name: /^\s*Fractions/ }).first());
+// Depuis la 0.8.0, la ligne ouvre la page du parcours : « Continuer » reprend la séance
+await toucher(page.getByRole("button", { name: /^(Commencer|Continuer)/ }).first());
 await page
   .locator("main .contenu-mathalea")
   .first()

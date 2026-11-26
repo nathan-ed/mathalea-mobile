@@ -6,7 +6,8 @@
 // Lancé par .github/workflows/emulateurs.yml (Appium et webdriverio installés
 // à part, hors de package.json).
 //   APP=<chemin .app> APPAREIL=<udid> CAPTURES=captures node appareil-ios.mjs
-import { mkdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdirSync, writeSync } from "node:fs";
 import { remote } from "webdriverio";
 
 const captures = process.env.CAPTURES ?? "captures";
@@ -14,8 +15,14 @@ mkdirSync(captures, { recursive: true });
 let echecs = 0;
 const ok = (cond, msg) => {
   if (!cond) echecs++;
-  console.log(cond ? "✔" : "✘", msg);
+  // Écriture synchrone : un arrêt brutal de la suite ne perd pas le journal
+  writeSync(1, `${cond ? "✔" : "✘"} ${msg}\n`);
 };
+const note = (msg) => writeSync(1, `${msg}\n`);
+process.on("unhandledRejection", (e) => {
+  writeSync(1, `✘ arrêt : ${e?.stack ?? e}\n`);
+  process.exit(1);
+});
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const nav = await remote({
@@ -343,6 +350,45 @@ if (feuilleOuverte) {
   else await nav.execute("mobile: swipe", { direction: "down" });
   await pause(1000);
 } else ok(false, "feuille de partage ouverte après « Créer le PDF »");
+
+// Manières de présenter la feuille, comparées sur le même écran (journal :
+// « Partage[…] » donne le style et le cadre de la feuille vus par iOS)
+const fermerFeuille = async () => {
+  const fermer = await nav.$("-ios predicate string:label IN {'Close', 'Fermer'}");
+  if (await fermer.isDisplayed().catch(() => false)) await fermer.click();
+  else await nav.execute("mobile: swipe", { direction: "down" });
+  await pause(1500);
+};
+for (const variante of ["centre", "bas", "transition", "feuille", "plein", "sans-animation"]) {
+  try {
+    await webview();
+    await nav.execute(
+      (v) => window.__TAURI_INTERNALS__.invoke("partager_fichier", { nom: "essai.txt", texte: "essai", variante: v }),
+      variante,
+    );
+    await nav.switchContext("NATIVE_APP");
+    const cible = await nav.$(
+      "-ios predicate string:label IN {'Copy', 'Copier', 'Save to Files', 'Enregistrer dans Fichiers'}",
+    );
+    const vue = await cible.waitForDisplayed({ timeout: 20_000 }).then(() => true).catch(() => false);
+    await pause(2500);
+    await capture(`partage-${variante}`);
+    if (vue) {
+      const r = await cible.getElementRect(cible.elementId);
+      note(`variante ${variante} : « ${await cible.getAttribute("label")} » x = ${Math.round(r.x)}, y = ${Math.round(r.y)}, largeur ${Math.round(r.width)} (écran ${largeurEcran}) → ${r.x + r.width / 2 < largeurEcran / 2 ? "dans l'écran" : "décalée"}`);
+    } else note(`variante ${variante} : feuille introuvable`);
+    await fermerFeuille();
+  } catch (e) {
+    note(`variante ${variante} : erreur ${e?.message ?? e}`);
+  }
+}
+try {
+  note(
+    execFileSync("xcrun", ["simctl", "spawn", process.env.APPAREIL, "log", "show", "--last", "5m", "--style", "compact", "--predicate", 'eventMessage CONTAINS "Partage["'], { encoding: "utf8" }),
+  );
+} catch (e) {
+  note(`journal du partage illisible : ${e?.message ?? e}`);
+}
 await webview();
 await toucher(await affiche('//button[@aria-label="Revenir en arrière"]'));
 
@@ -353,6 +399,12 @@ await pause(1500);
 await webview();
 await capture("accueil-sombre");
 await toucher(await bouton("Fractions"));
+// Depuis la 0.8.0, la ligne ouvre la page du parcours : « Continuer » reprend la séance
+await toucher(
+  await affiche(
+    '//button[starts-with(normalize-space(.), "Commencer") or starts-with(normalize-space(.), "Continuer")]',
+  ),
+);
 await attendre(await nav.$("main .contenu-mathalea"), 120_000);
 await pause(1500);
 await capture("seance-sombre");
