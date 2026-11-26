@@ -148,17 +148,35 @@ async function essaisPartage() {
       );
     }
     await capture(`partage-${fois}`);
-    // Fermer comme un élève : bouton de fermeture s'il y en a un, sinon un toucher
-    // au-dessus de la feuille (en haut de l'écran)
+    // Fermer comme un élève : la 1re fois en glissant la feuille vers le bas, la
+    // 2e par un toucher à côté (au-dessus de la feuille)
+    const ouverte = async () => {
+      for (const r of await nav.$$("-ios predicate string:label IN {'Copy', 'Copier'}"))
+        if (await r.isDisplayed().catch(() => false)) return true;
+      return false;
+    };
     const fermer = await nav.$("-ios predicate string:label IN {'Close', 'Fermer'}");
-    if (await fermer.isDisplayed().catch(() => false)) await fermer.click();
-    else await nav.execute("mobile: tap", { x: Math.round(largeurEcran / 2), y: 120 });
-    await pause(2000);
-    const restes = await nav.$$("-ios predicate string:label IN {'Copy', 'Copier'}");
-    const visibles = [];
-    for (const r of restes) if (await r.isDisplayed().catch(() => false)) visibles.push(r);
-    ok(visibles.length === 0, `partage ${fois} : feuille fermée`);
+    let geste;
+    if (await fermer.isDisplayed().catch(() => false)) {
+      geste = "bouton Fermer";
+      await fermer.click();
+    } else if (fois === 1) {
+      geste = "glissée vers le bas";
+      await nav.execute("mobile: dragFromToForDuration", { fromX: Math.round(largeurEcran / 2), fromY: Math.round(hauteurEcran * 0.6), toX: Math.round(largeurEcran / 2), toY: hauteurEcran - 10, duration: 0.3 });
+    } else {
+      geste = "toucher à côté";
+      await nav.execute("mobile: tap", { x: Math.round(largeurEcran / 2), y: 160 });
+    }
+    await pause(2500);
+    const encore = await ouverte();
+    ok(!encore, `partage ${fois} : feuille fermée (${geste})`);
     await capture(`partage-${fois}-fermee`);
+    if (encore) {
+      // Repli pour la suite des essais : glisser vers le bas
+      await nav.execute("mobile: dragFromToForDuration", { fromX: Math.round(largeurEcran / 2), fromY: Math.round(hauteurEcran * 0.6), toX: Math.round(largeurEcran / 2), toY: hauteurEcran - 10, duration: 0.3 });
+      await pause(2500);
+      note(`  partage ${fois} : après un glissement vers le bas, ${(await ouverte()) ? "toujours ouverte" : "fermée"}`);
+    }
   }
   await webview();
 }
@@ -170,10 +188,16 @@ if (process.env.PARTAGE_SEUL || process.env.GITHUB_REF_NAME === "ccr-3626951a-ud
   await capture("premier-lancement");
   await essaisPartage();
   // Après le partage, la fenêtre de la feuille a disparu : l'app répond de nouveau
-  // au toucher (une fenêtre restée par-dessus bloquerait tout l'écran)
-  await toucher(await bouton("France"));
-  const reglages = await affiche('//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]');
-  ok(await reglages.isDisplayed().catch(() => false), "après le partage, l'app répond au toucher (« France » touché, accueil affiché)");
+  // à un vrai toucher (une fenêtre restée par-dessus bloquerait tout l'écran)
+  await nav.switchContext("NATIVE_APP");
+  const france = await nav.$("-ios predicate string:label BEGINSWITH 'France'");
+  await france.waitForExist({ timeout: 20_000 }).catch(() => {});
+  const rf = await france.getElementRect(france.elementId).catch(() => null);
+  if (rf) await nav.execute("mobile: tap", { x: Math.round(rf.x + rf.width / 2), y: Math.round(rf.y + rf.height / 2) });
+  await pause(3000);
+  await webview();
+  const accueil = await nav.execute(() => !!document.querySelector('button[aria-label="Réglages"]'));
+  ok(!!rf && accueil, "après le partage, un vrai toucher sur « France » ouvre l'accueil");
   await capture("apres-partage");
   await nav.deleteSession();
   note(echecs ? `ESSAIS DU PARTAGE : ${echecs} ÉCHEC(S)` : "ESSAIS DU PARTAGE : TOUT VERT");
