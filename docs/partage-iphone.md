@@ -1,7 +1,7 @@
 # Feuille de partage de l'iPhone coupée (0.8.0)
 
-État au 26 novembre 2026 au soir. Pas encore corrigé : la 0.8.1 (numérotée
-sur la branche) attend la correction.
+État au 27 novembre 2026, nuit. **Corrigé dans la 0.8.1** : la feuille part
+d'une fenêtre à part (voir « Correction » en bas).
 
 ## Le défaut
 
@@ -51,31 +51,37 @@ cadre {{0, 0}, {148, 402}} dans {{0, 0}, {402, 874}}, fenêtre true
   notre manière de présenter : la cause est dans la fenêtre ou le contrôleur
   qui présente.
 
-## Piste pour le 27 novembre
+## Deuxième série d'essais (26 novembre, 23 h) : la cause
 
-Suspect principal : la fenêtre et le contrôleur racine créés par Tao (la
-bibliothèque de fenêtres de Tauri, `tao 0.37.1`, `platform_impl/ios/view.rs`).
-Sa vue racine remet son cadre aux dimensions de la fenêtre à chaque
-`layoutSubviews`, y compris pendant les transitions de contrôleurs, et son
-contrôleur redéfinit l'orientation et la barre d'état. Une feuille présentée
-depuis ce contrôleur hérite d'une géométrie faussée.
+Journal détaillé de chaque niveau de vues (classes de taille, orientation,
+cadres, transformations) :
 
-Essais à faire, dans cet ordre, en un passage du simulateur :
+- La fenêtre de l'app (`TaoUIWindow`, créée par Tao, la bibliothèque de
+  fenêtres de Tauri) et son contrôleur (`TaoUIViewController`) ont la taille
+  de l'écran (402 × 874), en portrait, classe de largeur compacte (iPhone) :
+  rien d'anormal à ce niveau, aucune transformation.
+- Pourtant, présentée depuis ce contrôleur, la feuille reçoit un cadre faux,
+  différent d'un essai à l'autre : 148 × 402, puis 320 × 480 (taille par défaut
+  d'une bulle), contenu à moitié dessiné.
+- Présentée depuis une **fenêtre à part** (`UIWindow` sur la même scène,
+  contrôleur `UIViewController` neuf), la même feuille prend 384 × 367 points
+  en bas de l'écran, en entier : c'est la feuille normale d'iOS.
+- `UIDocumentInteractionController` (menu d'options d'un document) s'affiche
+  aussi correctement.
 
-1. Présenter la feuille depuis une fenêtre à part (`UIWindow` sur la même
-   scène, contrôleur `UIViewController` neuf, `windowLevel` au-dessus), puis
-   la fermer à la fin du partage (`completionWithItemsHandler`). C'est
-   indépendant de Tao.
-2. Journaliser la classe du contrôleur qui présente, sa `traitCollection`
-   (classes de taille), l'orientation de la scène et le cadre de la fenêtre,
-   pour confirmer la cause.
-3. En dernier recours : `UIDocumentInteractionController` (aperçu Quick Look
-   avec son propre bouton de partage).
+## Correction (0.8.1)
 
-Critère vérifié par la suite : « Copy » visible en entier, dans la moitié
-gauche de l'écran (x ≥ 0). Corrigé le 26 au soir : la suite comptait x = −29
-comme « dans l'écran ».
+`src-tauri/ios/Sources/PartagePlugin/PartagePlugin.swift` : à chaque partage,
+une fenêtre transparente est posée au-dessus de celle de l'app, avec un
+contrôleur neuf qui présente la feuille. À la fin du partage (envoyé, annulé ou
+fermé par un toucher à côté), `completionWithItemsHandler` retire cette
+fenêtre et rend la main à celle de l'app.
 
-Une fois la bonne manière trouvée : la garder seule dans le plugin (retirer
-`variante` et le journal), relancer `emulateurs`, regarder la capture, puis
-proposer la 0.8.1 (TestFlight, sans Google Play).
+Vérifié sur le simulateur iPhone (`e2e/appareil-ios.mjs`, branche d'essais
+`ccr-3626951a-ud6bbr` : seulement les essais du partage) : feuille ouverte
+deux fois de suite, « Copy » et « Save to Files » en entier dans l'écran,
+feuille fermée, puis l'app répond de nouveau au toucher. Le parcours complet
+de l'élève sur le simulateur garde aussi le contrôle après « Créer le PDF ».
+
+À vérifier sur un vrai iPhone par TestFlight : envoi du PDF vers Fichiers et
+vers Mail.
