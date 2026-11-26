@@ -44,44 +44,78 @@ class PartagePlugin: Plugin {
         invoke.reject("Partage impossible")
         return
       }
-      let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
       let variante = args.variante ?? "centre"
-      let ecran = vue.view.bounds
-      // Sur iPad, la feuille s'ouvre dans une bulle qui doit être ancrée : au
-      // centre, sans flèche. Sur iPhone, depuis iOS 26, la feuille de partage
-      // s'ouvre aussi en bulle ; sans ancrage elle part du coin en bas à
-      // droite, à moitié hors de l'écran, icônes coupées (0.6.1, puis 0.8.0
-      // sur un iPhone ; reproduit sur le simulateur par e2e/appareil-ios.mjs).
-      switch variante {
-      case "feuille":
-        feuille.modalPresentationStyle = .pageSheet
-        if #available(iOS 18.0, *) { feuille.preferredTransition = .coverVertical }
-        if let bas = feuille.sheetPresentationController {
-          bas.detents = [.medium(), .large()]
-          bas.prefersGrabberVisible = true
-        }
-      case "plein":
-        feuille.modalPresentationStyle = .overFullScreen
-        if #available(iOS 18.0, *) { feuille.preferredTransition = .coverVertical }
-      default:
-        if let bulle = feuille.popoverPresentationController {
-          bulle.sourceView = vue.view
-          bulle.sourceRect = variante == "bas"
-            ? CGRect(x: ecran.midX, y: ecran.maxY - vue.view.safeAreaInsets.bottom - 8, width: 1, height: 1)
-            : CGRect(x: ecran.midX, y: ecran.midY, width: 1, height: 1)
-          bulle.permittedArrowDirections = []
-        }
-        if variante == "transition", #available(iOS 18.0, *) { feuille.preferredTransition = .coverVertical }
+      PartagePlugin.diagnostic("avant", vue)
+      if variante == "document" {
+        // Aperçu du fichier (Quick Look) avec son propre bouton de partage
+        let doc = UIDocumentInteractionController(url: fichier)
+        PartagePlugin.documents = doc
+        let ecran = vue.view.bounds
+        doc.presentOptionsMenu(from: CGRect(x: ecran.midX, y: ecran.midY, width: 1, height: 1), in: vue.view, animated: true)
+        invoke.resolve()
+        return
       }
-      let decrire = { (moment: String) in
-        NSLog("Partage[\(variante)] \(moment) : style \(feuille.modalPresentationStyle.rawValue), présentation \(String(describing: feuille.presentationController.map { type(of: $0) })), cadre \(NSCoder.string(for: feuille.view.frame)) dans \(NSCoder.string(for: ecran)), fenêtre \(String(describing: feuille.view.window != nil))")
+      let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
+      var presentateur: UIViewController = vue
+      if variante == "fenetre", let scene = vue.view.window?.windowScene {
+        // Fenêtre à part, au-dessus de celle de l'app, avec un contrôleur neuf
+        // (indépendant du contrôleur et de la vue de Tao) ; retirée à la fin
+        let fenetre = UIWindow(windowScene: scene)
+        fenetre.frame = scene.coordinateSpace.bounds
+        fenetre.windowLevel = .alert
+        fenetre.backgroundColor = .clear
+        let support = UIViewController()
+        support.view.backgroundColor = .clear
+        fenetre.rootViewController = support
+        fenetre.makeKeyAndVisible()
+        PartagePlugin.fenetre = fenetre
+        presentateur = support
+        PartagePlugin.diagnostic("fenêtre à part", support)
+        feuille.completionWithItemsHandler = { _, _, _, _ in
+          PartagePlugin.fenetre?.isHidden = true
+          PartagePlugin.fenetre = nil
+          vue.view.window?.makeKeyAndVisible()
+        }
       }
-      vue.present(feuille, animated: variante != "sans-animation") {
-        decrire("présentée")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { decrire("après 2 s") }
+      if variante == "compact", #available(iOS 17.0, *) {
+        feuille.traitOverrides.horizontalSizeClass = .compact
+      }
+      if let bulle = feuille.popoverPresentationController {
+        let ecran = presentateur.view.bounds
+        bulle.sourceView = presentateur.view
+        bulle.sourceRect = CGRect(x: ecran.midX, y: ecran.midY, width: 1, height: 1)
+        bulle.permittedArrowDirections = []
+      }
+      presentateur.present(feuille, animated: true) {
+        PartagePlugin.diagnostic("présentée [\(variante)]", feuille)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { PartagePlugin.diagnostic("après 2 s [\(variante)]", feuille) }
       }
       invoke.resolve()
     }
+  }
+
+  static var fenetre: UIWindow?
+  static var documents: UIDocumentInteractionController?
+
+  /// Journal des essais sur le simulateur : géométrie et classes de taille du
+  /// contrôleur, de ses vues parentes et de sa fenêtre
+  static func diagnostic(_ moment: String, _ c: UIViewController) {
+    let t = c.traitCollection
+    var lignes = ["Partage[\(moment)] \(type(of: c)) style \(c.modalPresentationStyle.rawValue) présentation \(String(describing: c.presentationController.map { type(of: $0) })) tailles h \(t.horizontalSizeClass.rawValue) v \(t.verticalSizeClass.rawValue) idiome \(t.userInterfaceIdiom.rawValue) échelle \(t.displayScale)"]
+    var v: UIView? = c.view
+    var n = 0
+    while let vue = v, n < 8 {
+      lignes.append("  \(type(of: vue)) cadre \(NSCoder.string(for: vue.frame)) transformation \(NSCoder.string(for: vue.transform))")
+      v = vue.superview
+      n += 1
+    }
+    if let w = c.view.window {
+      lignes.append("  fenêtre \(type(of: w)) \(NSCoder.string(for: w.frame)) niveau \(w.windowLevel.rawValue) écran \(NSCoder.string(for: w.screen.bounds)) scène \(String(describing: w.windowScene?.interfaceOrientation.rawValue)) tailles h \(w.traitCollection.horizontalSizeClass.rawValue) racine \(String(describing: w.rootViewController.map { type(of: $0) }))")
+    }
+    if let conteneur = c.presentationController?.containerView {
+      lignes.append("  conteneur \(NSCoder.string(for: conteneur.frame))")
+    }
+    NSLog("%@", lignes.joined(separator: "\n"))
   }
 
   /// Le texte de la barre d'état suit l'apparence de la fenêtre : on impose

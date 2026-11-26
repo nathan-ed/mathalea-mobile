@@ -361,7 +361,7 @@ const fermerFeuille = async () => {
   else await nav.execute("mobile: swipe", { direction: "down" });
   await pause(1500);
 };
-for (const variante of ["centre", "bas", "transition", "feuille", "plein", "sans-animation"]) {
+for (const variante of ["centre", "fenetre", "compact", "document"]) {
   try {
     await webview();
     await nav.execute(
@@ -375,6 +375,11 @@ for (const variante of ["centre", "bas", "transition", "feuille", "plein", "sans
     const vue = await cible.waitForExist({ timeout: 20_000 }).then(() => true).catch(() => false);
     await pause(2500);
     await capture(`partage-${variante}`);
+    // Fenêtres et grands cadres vus par XCUITest (où la feuille se trouve vraiment)
+    const source = await nav.getPageSource();
+    let lignes = 0;
+    for (const m of source.matchAll(/<XCUIElementType(Window|Sheet|Other)[^>]*?(?:name="([^"]*)")?[^>]*x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"/g))
+      if ((m[1] !== "Other" || Number(m[5]) > 100) && lignes++ < 25) note(`  ${variante} ${m[1]} ${m[2] ?? ""} x ${m[3]} y ${m[4]} ${m[5]} × ${m[6]}`);
     if (vue) {
       const r = await cible.getElementRect(cible.elementId);
       note(`variante ${variante} : « ${await cible.getAttribute("label")} » x = ${Math.round(r.x)}, y = ${Math.round(r.y)}, largeur ${Math.round(r.width)} (écran ${largeurEcran}) → ${r.x >= 0 && r.x + r.width / 2 < largeurEcran / 2 ? "dans l'écran" : "coupée ou décalée"}`);
