@@ -1,0 +1,62 @@
+# Essai sur TestFlight sans approbation (Nathan, 26 novembre 2026 : « la
+# release iPhone envoyée à TestFlight sans besoin de review de ma part, le
+# workflow passe si tout fonctionne et est vert »).
+# Un push sur la branche testflight-essai lance la vérification complète
+# (scripts/verifier-release.sh, la même que publication.yml) ; si tout est
+# vert, la version iOS de ce commit part à TestFlight (testeurs seulement).
+# Rien d'autre : ni tag, ni release, ni forge, ni Google Play, ni App Store.
+# La release reste une demande approuvée par Nathan (publication/LISEZMOI.md).
+name: testflight-essai
+
+on:
+  push:
+    branches: [testflight-essai]
+
+concurrency:
+  group: testflight-essai
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - name: Version
+        run: bash scripts/controler-version.sh "v$(jq -r .version package.json)"
+      - name: Dépendances
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev librsvg2-dev
+          pnpm install --frozen-lockfile
+          mkdir -p build
+      - run: bash scripts/moteur.sh
+      - run: OUTILS_SEULEMENT=1 bash scripts/e2e-ci.sh
+      - name: Vérification complète
+        run: SORTIE="$RUNNER_TEMP/verification" bash scripts/verifier-release.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: verification
+          path: ${{ runner.temp }}/verification
+          if-no-files-found: ignore
+
+  ios:
+    needs: verifier
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ios.yml
+    with:
+      ipa: false
+      envoi: true
+      ref: ${{ github.sha }}
+    secrets: inherit

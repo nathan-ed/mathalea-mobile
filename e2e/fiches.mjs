@@ -81,6 +81,23 @@ for (const a of appareils) {
     ok((await t.locator('i.bx-chevron-down').count()) === 1, `${a.nom} : chevron vers le bas une fois replié`)
     await t.screenshot({ path: `${captures}/fiches-seul-replie${s}.png` })
     ok((await basculer(t, chap)) === true && (await lignes(t).count()) === nbFiches(puissances), `${a.nom} : chapitre seul rouvert`)
+
+    // Fiche d'une ceinture encore fermée (troisième, seuil de 80 %) : « Ouvrir le
+    // parcours » mène à sa page, jamais à une séance (Nathan, 26 novembre 2026 :
+    // « une fiche ne doit pas permettre d'accéder à un parcours verrouillé »)
+    const troisieme = titresFiches(puissances)[2]
+    await toucher(t, t.locator('main li button').filter({ hasText: troisieme }).first())
+    const versParcours = t.getByRole('button', { name: 'Ouvrir le parcours' })
+    ok((await versParcours.isVisible()) && !(await t.getByRole('button', { name: 'Commencer l’entraînement' }).count()), `${a.nom} : fiche depuis l'onglet, « Ouvrir le parcours » et pas « Commencer l'entraînement »`)
+    await t.screenshot({ path: `${captures}/fiches-ouvrir-parcours${s}.png` })
+    await toucher(t, versParcours)
+    await t.locator('main li.palier').first().waitFor()
+    const paliers = t.locator('main li.palier')
+    const sansSeance = (await t.locator('main math-field, main .question-eleve').count()) === 0
+    const troisiemeFermee = (await paliers.nth(2).getByRole('button', { name: /^Commencer/ }).count()) === 0
+    ok(sansSeance && troisiemeFermee && (await t.locator('main').innerText()).includes(puissances.titre), `${a.nom} : page du parcours, aucune séance lancée, troisième ceinture sans « Commencer »`)
+    const seances = await t.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('copie:seance')))
+    ok(seances.length === 0, `${a.nom} : aucune séance enregistrée (${seances.join()})`)
     ok(!erreurs.length, `${a.nom} : aucune erreur de page ${erreurs}`)
     await ctx.close()
   }
