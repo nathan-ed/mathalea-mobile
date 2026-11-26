@@ -122,6 +122,11 @@ complète (détails dans le skill, « Vérification »).
   - Ne jamais approuver un déploiement à la place de Nathan, même par l'API ;
     ne jamais lire ni afficher `MOTEUR_CLE` ou `FORGE_TOKEN`.
   - App Store : soumission à Apple toujours à la main par Nathan.
+  - Essai TestFlight sans approbation (Nathan, 26 novembre 2026 : « vas-y,
+    fais-le ») : pousser un commit sur la branche `testflight-essai`
+    (`.github/workflows/testflight-essai.yml`) ; la vérification complète
+    tourne et, si tout est vert, la version iOS part à TestFlight seulement
+    (ni tag, ni release, ni Google Play, ni App Store).
 - Claviers (Nathan, 12 novembre 2026) : `bash scripts/verifier-claviers.sh`
   télécharge les parcours officiels du kDrive de l'Explorer (FR, CH) et
   vérifie, avec `explorer/`, la démonstration et Teste ton niveau, que chaque
