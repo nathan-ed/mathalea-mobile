@@ -34,13 +34,20 @@ d'action simples :
 1. **La ceinture blanche a aussi son bouton** : « Commencer » sous la
    ceinture mise en avant, comme les autres lignes (éventuellement plus
    petit que le bouton du bas, ou à sa place).
-2. **Les ceintures suivantes disent ce que fait leur bouton** : par exemple
-   « Commencer sans avoir fait la ceinture blanche » à la place de
-   « Commencer cette ceinture » tant que la ceinture d'avant n'est pas
-   obtenue.
-3. **Le bouton du bas** : dire ce qu'il commence (« Commencer la ceinture
-   blanche ») ou disparaître si chaque ligne a son bouton ; à voir sur les
-   captures.
+2. **Les ceintures suivantes disent ce que fait leur bouton** : « Commencer
+   sans avoir fait la ceinture blanche », avec la couleur de la ceinture
+   précédente (blanche, jaune…), tant que celle-ci n'est pas obtenue.
+3. **Le bouton du bas** : il dépend du choix fait en 1 ; il disparaît si
+   chaque ligne a son bouton, sinon il dit ce qu'il commence (« Commencer la
+   ceinture blanche »).
+
+Autre piste de Nathan, à comparer sur captures : **choisir, puis commencer**.
+Toucher une ceinture la sélectionne (elle passe en avant, comme la ceinture
+blanche aujourd'hui) ; un seul bouton en bas, « Commencer la ceinture
+jaune », lance la ceinture choisie. La ceinture à faire est sélectionnée à
+l'ouverture de la page. Plus de bouton dans les lignes. À vérifier : que
+toucher une ligne pour la choisir se comprenne sans explication, et que le
+lecteur d'écran annonce la ceinture choisie.
 
 À vérifier en le codant : parcours à paliers (même logique, « Palier 1 »),
 parcours dont les ceintures s'ouvrent l'une après l'autre (cadenas, pas de
