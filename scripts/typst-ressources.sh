@@ -13,6 +13,11 @@ paquets="$cible/paquets/preview"
 
 versions="$(git -C "$mathalea" show "$commit:src/components/setup/typst/typstPackages.ts" |
   sed -n "/VERSIONS = {/,/}/p" | sed -nE "s/^ *'?([a-z0-9-]+)'?: '([0-9.]+)',?/\1:\2/p")"
+# Versions figées dans le code du moteur, hors de typstPackages.ts : les
+# figures apigeom importent @preview/cetz:0.3.4 (PDF impossible sans lui,
+# 26 novembre 2026). Il faut static/moteur (pnpm moteur).
+test -s "$racine/static/moteur/manifest.json" || { echo "static/moteur manquant : pnpm moteur"; exit 1; }
+versions="$versions $(grep -rhoE '@preview/[a-z0-9-]+:[0-9]+\.[0-9]+\.[0-9]+' "$racine/static/moteur" --include=*.js | sed 's|@preview/||' | sort -u)"
 rm -rf "$cible/paquets"
 mkdir -p "$paquets"
 a_faire="$versions"
