@@ -3,7 +3,7 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { aAvecArticle, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { aAvecArticle, aDesPaliers, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
@@ -95,7 +95,7 @@
   $effect(() => {
     if (parcours.paliers?.some((x) => x.ouverture)) exigerHeure()
   })
-  const avecPaliers = $derived(paliers.length > 1)
+  const avecPaliers = $derived(aDesPaliers(parcours))
   const etapesSession = $derived(avecPaliers ? paliers[palierSession]?.etapes : undefined)
   function creerSession() {
     code = nouveauCode()
@@ -203,7 +203,7 @@
     <div>
       {#if parcours.objectif}<p class="font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{parcours.objectif}</p>{/if}
       <p class="mt-1 {discret}">
-        {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceintures' : 'paliers'}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
+        {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceinture' : 'palier'}${paliers.length > 1 ? 's' : ''}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
       </p>
       {#if parcours.auteurs?.length}
         <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { estJour, estOuverture, jourEnLettres, jourLocal, jourOuverture, momentOuverture, ouvertureDuJour, paliersDe, reessaiPropose, type Parcours } from '../src/lib/catalogue'
+import { aDesPaliers, estJour, estOuverture, jourEnLettres, jourLocal, jourOuverture, momentOuverture, organisationDe, ouvertureDuJour, paliersDe, reessaiPropose, type Parcours } from '../src/lib/catalogue'
 import { parcoursVide } from './parcours-de-test'
 import { ceinturesObtenues, cleExercice, conditionPalier, etatsPaliers, maitrise, objectifsTravailles, resultatsParObjectif } from '../src/lib/objectifs'
 import { lireFichier, creerFichier } from '../src/lib/partage'
@@ -31,6 +31,31 @@ describe('paliers', () => {
     expect(paliersDe(p).map((x) => x.etapes)).toEqual([[0, 1], [2], [3]])
     expect(paliersDe({ ...p, paliers: [{ titre: '', nb: 3 }, { titre: '', nb: 3 }] })).toHaveLength(1)
     expect(paliersDe({ ...p, paliers: undefined })[0].etapes).toEqual([0, 1, 2, 3])
+  })
+
+  it('accepte un palier unique avec ses réglages : on commence par une ceinture, on en ajoute ensuite', () => {
+    const p: Parcours = {
+      ...parcoursAPaliers(),
+      style: 'ceintures',
+      paliers: [{ titre: 'Tout', nb: 4, melanger: true, ouverture: '2026-11-12T08:00:00+01:00', pause: { texte: 'Bravo.' } }],
+    }
+    expect(aDesPaliers(p)).toBe(true)
+    const [seul] = paliersDe(p)
+    expect(seul.etapes).toEqual([0, 1, 2, 3])
+    expect(seul.seuil).toBe(80)
+    expect(seul.melanger).toBe(true)
+    expect(seul.ouverture).toBe('2026-11-12T08:00:00+01:00')
+    expect(seul.pause?.texte).toBe('Bravo.')
+    expect(organisationDe(p)).toBe('Ceinture blanche')
+    // Fermé avant la date, comme une ceinture parmi d'autres
+    expect(etatsPaliers(p, {}, Date.parse('2026-11-12T06:59:00Z'))[0].ouvert).toBe(false)
+    expect(etatsPaliers(p, {}, Date.parse('2026-11-12T07:01:00Z'))[0].ouvert).toBe(true)
+    // Ceinture obtenue à 80 %
+    expect(ceinturesObtenues(p, [passage(p, [0, 1, 2, 3], 2, '2026-11-13T10:00:00Z')])[0].obtenue).toBe(true)
+    expect(ceinturesObtenues(p, [passage(p, [0, 1, 2, 3], 1, '2026-11-13T10:00:00Z')])[0].obtenue).toBe(false)
+    // Nombre d'exercices qui ne tombe pas juste : pas de paliers
+    expect(aDesPaliers({ ...p, paliers: [{ titre: '', nb: 3 }] })).toBe(false)
+    expect(aDesPaliers({ ...p, paliers: [] })).toBe(false)
   })
 
   it('ouvre le palier suivant au seuil choisi, pas avant ; un palier ouvert reste ouvert', () => {
