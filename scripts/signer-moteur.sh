@@ -10,6 +10,21 @@ precision="${2:-}"
 cd "$(dirname "$0")/.."
 commit="$(cat moteur/COMMIT)"
 version="$(node -p "require('./static/moteur/manifest.json').version")"
+# Paquets Typst : ils sont dans l'app, pas dans le moteur téléchargé. Un moteur
+# qui en demande un que la dernière version publiée n'a pas casse l'impression
+# chez tous les élèves (moteur du 25 novembre 2026 : taskize 0.2.12, cetz
+# 0.5.3, simple-plot 1.1.1, breather 0.2.0, absents de la 0.7.5).
+tag="$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)"
+if [ -n "$tag" ]; then
+  manquants="$(node scripts/typst/paquets-moteur.mjs static/moteur 2>/dev/null | while read -r p; do
+    git cat-file -e "$tag:src-tauri/typst/paquets/preview/${p%%:*}/${p##*:}/typst.toml" 2>/dev/null || printf '%s ' "$p"
+  done)"
+  if [ -n "$manquants" ]; then
+    echo "Ce moteur demande des paquets Typst absents de l'app $tag : $manquants"
+    echo "Publier d'abord une version de l'app qui les embarque (bash scripts/typst-ressources.sh), sinon plus aucun PDF."
+    exit 1
+  fi
+fi
 sortie=releases/moteur
 node moteur/fichiers/tasks/publier_moteur.mjs static/moteur "$sortie" "$cle"
 # Les trois dernières archives : une app qui a lu l'annonce juste avant la

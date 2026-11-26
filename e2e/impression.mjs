@@ -6,7 +6,7 @@
 // Sur l'app construite (vite preview, port 1420), téléphone (clair) et bureau (sombre).
 //   CAPTURES=<dossier> node e2e/impression.mjs
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { mkdtempSync, readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -23,6 +23,9 @@ const ok = (cond, msg) => {
   console.log(cond ? '✔' : '✘', msg)
 }
 
+/** Typst sans réseau, comme l'app : aucun mandataire joignable */
+const SANS_RESEAU = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/_proxy$/i.test(k)).concat(['HTTPS_PROXY', 'HTTP_PROXY', 'https_proxy', 'http_proxy', 'ALL_PROXY', 'all_proxy'].map((k) => [k, 'http://127.0.0.1:9'])))
+
 /** Compilation comme dans l'app : seulement les paquets et les polices embarqués */
 function compiler(source, fichiers) {
   const dossier = mkdtempSync(join(process.env.TMPDIR_E2E ?? tmpdir(), 'impression-'))
@@ -36,7 +39,9 @@ function compiler(source, fichiers) {
   execFileSync('typst', ['compile', '--root', dossier, '--ignore-system-fonts', '--ignore-embedded-fonts',
     '--font-path', join(racine, 'src-tauri/typst/polices'),
     '--package-path', join(racine, 'src-tauri/typst/paquets'), '--package-cache-path', vide,
-    join(dossier, 'fiche.typ'), join(dossier, 'fiche.pdf')], { stdio: ['ignore', 'ignore', 'pipe'] })
+    join(dossier, 'fiche.typ'), join(dossier, 'fiche.pdf')], { stdio: ['ignore', 'ignore', 'pipe'], env: SANS_RESEAU })
+  // Typst télécharge en silence un paquet absent : l'app, elle, échoue
+  if (readdirSync(vide).length) throw new Error(`paquet absent de l'app, téléchargé par Typst : ${readdirSync(join(vide, 'preview')).join(', ')}`)
   return readFileSync(join(dossier, 'fiche.pdf')).toString('base64')
 }
 

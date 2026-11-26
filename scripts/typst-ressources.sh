@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Ressources du compilateur Typst embarqué (src-tauri/typst/) : paquets
-# @preview utilisés par les fiches de MathALÉA (versions lues dans
-# typstPackages.ts au commit du moteur, plus leurs dépendances) et polices
+# @preview demandés par le moteur construit (scripts/typst/paquets-moteur.mjs,
+# plus leurs dépendances), ajoutés à ceux déjà embarqués, et polices
 # par défaut des fiches (Libertinus Serif et Libertinus Math).
 # À relancer après un changement de moteur/COMMIT.
 set -euo pipefail
@@ -11,14 +11,15 @@ mathalea="${MATHALEA_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/mathalea-mobile/math
 cible="$racine/src-tauri/typst"
 paquets="$cible/paquets/preview"
 
-versions="$(git -C "$mathalea" show "$commit:src/components/setup/typst/typstPackages.ts" |
-  sed -n "/VERSIONS = {/,/}/p" | sed -nE "s/^ *'?([a-z0-9-]+)'?: '([0-9.]+)',?/\1:\2/p")"
-# Versions figées dans le code du moteur, hors de typstPackages.ts : les
-# figures apigeom importent @preview/cetz:0.3.4 (PDF impossible sans lui,
-# 26 novembre 2026). Il faut static/moteur (pnpm moteur).
+# Paquets demandés par le moteur construit : table des versions de MathALÉA
+# et imports écrits en toutes lettres (figures apigeom : @preview/cetz:0.3.4).
+# Il faut static/moteur (pnpm moteur).
 test -s "$racine/static/moteur/manifest.json" || { echo "static/moteur manquant : pnpm moteur"; exit 1; }
-versions="$versions $(grep -rhoE '@preview/[a-z0-9-]+:[0-9]+\.[0-9]+\.[0-9]+' "$racine/static/moteur" --include=*.js | sed 's|@preview/||' | sort -u)"
-rm -rf "$cible/paquets"
+versions="$(node "$racine/scripts/typst/paquets-moteur.mjs" "$racine/static/moteur" 2>/dev/null)"
+# Les versions déjà embarquées restent (jamais de rm) : une app installée
+# reçoit des moteurs plus anciens ou plus récents que le sien, et le moteur
+# téléchargé du 25 novembre 2026 demandait taskize 0.2.12, cetz 0.5.3,
+# simple-plot 1.1.1 et breather 0.2.0, absents de l'app 0.7.5 : plus de PDF.
 mkdir -p "$paquets"
 a_faire="$versions"
 vus=""
@@ -28,8 +29,10 @@ while [ -n "$a_faire" ]; do
   case " $vus " in *" $p "*) continue ;; esac
   vus="$vus $p"
   nom="${p%%:*}"; version="${p##*:}"
+  if [ -f "$paquets/$nom/$version/typst.toml" ]; then :; else
   mkdir -p "$paquets/$nom/$version"
   curl -sfL "https://packages.typst.org/preview/$nom-$version.tar.gz" | tar -xz -C "$paquets/$nom/$version"
+  fi
   # Dépendances : seulement les #import (pas les exemples des commentaires)
   for dep in $(grep -rhoE '^#import "@preview/[a-z0-9-]+:[0-9.]+' "$paquets/$nom/$version" --include=*.typ | sed 's|.*@preview/||' | sort -u); do
     a_faire="$a_faire $dep"
