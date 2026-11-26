@@ -74,7 +74,14 @@ async function scanner(page, chargement) {
   return { question, requetes: nouvelles }
 }
 // Lecture d'un seul dossier kDrive : partage, liste, fichier
-const unDossier = (lues, uuid) => lues.length === 3 && lues.every((u) => u.includes(`/share/${uuid}/`))
+// Première lecture d'un dossier kDrive : /init, liste, téléchargement. Relecture
+// d'un dossier déjà lu sur l'appareil : son identifiant est gardé (55eac76),
+// liste et téléchargement seulement, sans /init
+const unDossier = (lues, uuid, { relu = false } = {}) =>
+  lues.length === (relu ? 2 : 3) &&
+  lues.every((u) => u.includes(`/share/${uuid}/`)) &&
+  lues.some((u) => u.includes('/init')) === !relu &&
+  lues.some((u) => u.includes('/download'))
 const seance = (page) => lireStockage(page, `seance:${parcours.id}`)
 const premiereQuestion = async (page) => {
   const q = page.locator('main .question-eleve').first()
@@ -157,7 +164,7 @@ const h = await eleve('h', { stockage: { classes: classe5A }, video: videoDe(ima
 await h.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
 const scanH = await scanner(h)
 const seanceH = await seance(h)
-ok(unDossier(scanH.requetes, UUID) && seanceH?.code === code && seanceH.contenu.version === 2, 'session sur une version absente du drive : dossier relu une fois, commencée avec la V2')
+ok(unDossier(scanH.requetes, UUID, { relu: true }) && seanceH?.code === code && seanceH.contenu.version === 2, `session sur une version absente du drive : dossier relu une fois sans /init (${scanH.requetes.length} requête(s)), commencée avec la V2`)
 
 // ---------- Élève I : parcours introuvable ----------
 const texteInconnu = 'MATHALEA-SESSION?' + new URLSearchParams({ c: code, p: 'parcours-inconnu', v: '1' }).toString()
@@ -201,7 +208,7 @@ const g = await eleve('g', { latence: 1000, stockage: { classes: [{ lien: lienG,
 await g.getByText('Relatifs au tableau').first().waitFor({ timeout: 30_000 })
 versionG = 2
 const scanG = await scanner(g, `${captures}/session-qr-8-chargement.png`)
-ok(unDossier(scanG.requetes, UUID_G), `élève G : seul son dossier est relu (${scanG.requetes.length} requête(s))`)
+ok(unDossier(scanG.requetes, UUID_G, { relu: true }), `élève G : seul son dossier est relu, sans /init (${scanG.requetes.length} requête(s))`)
 ok((await seance(g))?.code === code && scanG.question === questionA, 'élève G : dans la session en V2, même première question')
 ok((await lireStockage(g, 'classes', []))[0]?.nom === '5A', 'élève G : garde sa classe')
 
