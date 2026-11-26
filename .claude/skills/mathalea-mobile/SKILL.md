@@ -40,6 +40,11 @@ Design (« les dev MathALÉA en charge du design vont me tomber dessus »)
 - Rien d'« AI-like » : pas de dégradés, pastilles décoratives, slogans, texte
   de remplissage ni placeholder. Chaque texte porte une information ou une
   action (« aucun placeholder ou dead text avec moi »).
+- Aucune tournure IA dans les textes de l'app (Nathan, 26 novembre 2026) :
+  écrire ce qu'un enseignant dirait en classe, avec les mots de l'action.
+  Refusé : « Conseillé après… », « Il faut 4/4 », « en priorité »,
+  formules de conseil ou de mise en valeur. Préféré : « Commencer »,
+  « Commencer sans avoir fait la ceinture blanche », « Obtenue dès 4 sur 5 ».
 - Beau, motivant, « 300 % intuitif », « 100 % fluide » pour les élèves.
 - « L'appli doit être nickel. N'oublie jamais les Android 11 » : chaque
   changement d'interface ou d'Android s'essaie aussi sur Android 11 (des

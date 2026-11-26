@@ -26,27 +26,21 @@ ceinture blanche.
   ou à part.
 - « Ouvert à tout moment » dit qu'on peut, pas ce qui est conseillé.
 
-### Pistes (à choisir ensemble)
+### Pistes retenues par Nathan (à trancher le 27 novembre)
 
-1. **Le bouton du bas dit ce qu'il commence** : « Commencer la ceinture
-   blanche » (« Continuer la ceinture blanche » pour une séance en cours).
-   C'est le changement le plus simple et il lève l'ambiguïté du bouton seul.
-2. **La ceinture mise en avant dit qu'elle vient d'abord** : « À faire en
-   premier » à la place de « À faire ».
-3. **Les ceintures ouvertes à tout moment situent leur place** : sous la
-   ceinture jaune, « Conseillé après la ceinture blanche » à la place de
-   « Ouvert à tout moment », en gardant « Commencer cette ceinture » (on peut
-   toujours la faire tout de suite).
-4. Proposée par Nathan : sur la ceinture mise en avant, un lien « Commencer
-   cette ceinture » comme sur les autres, pour que toutes les lignes se lisent
-   de la même façon. À peser avec le bouton du bas, qui ferait alors doublon
-   (deux boutons pour la même action sur un même écran).
-5. Proposée par Nathan : en commençant une ceinture plus loin que la
-   ceinture conseillée, un court message (« La ceinture blanche est conseillée
-   d'abord »). Plutôt dans la ligne (piste 3) qu'en fenêtre à confirmer, qui
-   ajouterait un toucher à chaque fois.
+Aucune tournure IA (« conseillé », « en priorité » : refusés). Des mots
+d'action simples :
 
-Recommandation pour en discuter : 1 + 2 + 3, sans doublon de bouton.
+1. **La ceinture blanche a aussi son bouton** : « Commencer » sous la
+   ceinture mise en avant, comme les autres lignes (éventuellement plus
+   petit que le bouton du bas, ou à sa place).
+2. **Les ceintures suivantes disent ce que fait leur bouton** : par exemple
+   « Commencer sans avoir fait la ceinture blanche » à la place de
+   « Commencer cette ceinture » tant que la ceinture d'avant n'est pas
+   obtenue.
+3. **Le bouton du bas** : dire ce qu'il commence (« Commencer la ceinture
+   blanche ») ou disparaître si chaque ligne a son bouton ; à voir sur les
+   captures.
 
 À vérifier en le codant : parcours à paliers (même logique, « Palier 1 »),
 parcours dont les ceintures s'ouvrent l'une après l'autre (cadenas, pas de
