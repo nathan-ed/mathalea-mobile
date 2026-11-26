@@ -24,7 +24,7 @@ ceinture blanche.
 - Les ceintures suivantes ont toutes « Commencer cette ceinture » : elles
   ont l'air d'être le chemin normal, la blanche a l'air d'être déjà faite
   ou à part.
-- « Ouvert à tout moment » dit qu'on peut, pas ce qui est conseillé.
+- « Ouvert à tout moment » dit qu'on peut la commencer, pas par où commencer.
 
 ### Pistes retenues par Nathan (à trancher le 27 novembre)
 
