@@ -145,6 +145,44 @@ Git et publication
   (le SSH ne passe pas) ; travailler dans `~/Documents/projets/mathalea`
   (Nathan l'a autorisé) puis le remettre sur sa branche.
 
+## 1 bis. Langage visuel de la 0.8.0 (Nathan, 26 novembre 2026)
+
+Refonte complète après « trop d'espace, ces grosses boîtes », « il faut 4 / 4
+fait très IA », fiches « très IA » ; recherche dans `docs/recherche-ui-mobile.md`.
+- **Des listes, pas des boîtes** : lignes séparées par un trait fin
+  (`.ligne-liste`, `.liste-lignes`, `listeGroupee`/`elementListe` de
+  `classes.ts`), hiérarchie par la typographie. Jamais de carte dans une carte
+  ni de bordure de couleur autour d'une carte (signes d'interface « IA »).
+- **Une seule surface en relief par écran** (`.surface`) : la carte « À faire
+  maintenant » de l'accueil, la ceinture en cours de la page du parcours, la
+  règle « À retenir » d'une fiche.
+- **Intertitres** `.titre-section` : petites capitales de la police
+  (`font-variant-caps`), jamais `text-transform` (le texte lu devenait
+  « ÉPINGLÉS », suites et lecteurs d'écran).
+- **Ceintures** : obtenues pleines, à obtenir hachurées de leur couleur (gris
+  pour la blanche) ; des tirets seuls ne distinguaient pas la blanche obtenue.
+  Petites sur les tuiles (`.ceinture-mini`), en grand au bilan.
+- **Tuile** = ligne : titre en pleine largeur, ligne d'état dessous ; épingler
+  et cacher par l'appui long (ou clic droit), bouton « Actions » invisible mais
+  atteint au clavier et par les lecteurs d'écran. Suites : `actionTuile` de
+  `e2e/attente.mjs`.
+- **Page du parcours** : grand titre en entier (celui de la barre revient au
+  défilement, `titreCache` d'`EnTete`), échelle de ceintures, bouton principal
+  dans la barre du bas, placée avant le contenu dans la page (première action
+  atteinte au clavier ; sinon « Commencer cette ceinture » passait devant).
+- **Bilan** : « Ceinture jaune obtenue » / « pas encore obtenue », une pastille
+  par question, « n bonnes réponses sur N », « Obtenue dès n sur N ».
+- **Séance** : la ceinture visée dans la barre ; drapeau sur la ligne
+  « Question n sur N ». **Fiche** : page de manuel, étapes numérotées.
+- Recherche à partir de 7 parcours (accueil) ou 8 fiches ; ajout de la classe
+  en une ligne quand des parcours sont déjà là, « Récupérer une sauvegarde »
+  toujours sur l'accueil.
+- Suite `e2e/interface.mjs` (dans `verifier-release.sh`) ; captures avant et
+  après une refonte : `e2e/vitrine.mjs`.
+- Compatibilité : iOS / iPadOS 16.4 et macOS 11 minimum (`tauri.conf.json`,
+  lookbehind et color-mix du moteur et de Tailwind 4) ; écran « Appareil trop
+  ancien » / « Mise à jour nécessaire » dans `app.html`.
+
 ## 2. Architecture
 
 - Tauri 2 + SvelteKit statique (Svelte 5, runes). Partie Rust :
