@@ -1,0 +1,1 @@
+iPhone : la feuille de partage (PDF d'un parcours, fichiers exportés) s'ouvre de nouveau en entier, au centre de l'écran. Rien d'autre ne change depuis la 0.8.0.

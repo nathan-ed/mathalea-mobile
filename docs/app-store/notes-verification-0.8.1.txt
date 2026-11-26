@@ -1,0 +1,8 @@
+VERSION 0.8.1: fix only. On iPhone (iOS 26), the share sheet (PDF of a path, exported files) opened half off-screen; it now opens fully, centered. Same app as 0.8.0 otherwise (minimum iOS / iPadOS 16.4).
+
+HOW TO TEST (no account needed)
+a. Launch, choose "France", tap "Je n'ai pas de lien".
+b. Explorer tab: open "Additionner et soustraire des relatifs" (5e), "Commencer", answer with the maths keyboard.
+c. Teacher's class: on "Mes parcours", tap "Ajouter le lien de ma classe", paste this link, then "Ajouter le dossier":
+https://forge.apps.education.fr/coopmaths/mathalea-mobile/-/raw/main/static/demo/parcours-demonstration.json
+d. Guideline 1.2: path page > "Autres actions" > "Signaler un problème" and "Cacher ce parcours".
