@@ -77,11 +77,12 @@ contrôleur neuf qui présente la feuille. À la fin du partage (envoyé, annul�
 fermé par un toucher à côté), `completionWithItemsHandler` retire cette
 fenêtre et rend la main à celle de l'app.
 
-Vérifié sur le simulateur iPhone (`e2e/appareil-ios.mjs`, branche d'essais
+Sur le simulateur iPhone (`e2e/appareil-ios.mjs`, branche d'essais
 `ccr-3626951a-ud6bbr` : seulement les essais du partage) : feuille ouverte
-deux fois de suite, « Copy » et « Save to Files » en entier dans l'écran,
-feuille fermée, puis l'app répond de nouveau au toucher. Le parcours complet
-de l'élève sur le simulateur garde aussi le contrôle après « Créer le PDF ».
+deux fois de suite, « Copy » et « Save to Files » en entier dans l'écran
+(vérifié). Fermeture par les gestes d'un élève (glisser vers le bas, toucher à
+côté) et vrai toucher sur l'app ensuite : en cours de vérification (un toucher
+à côté ne fermait pas la feuille au premier essai).
 
 À vérifier sur un vrai iPhone par TestFlight : envoi du PDF vers Fichiers et
 vers Mail.
