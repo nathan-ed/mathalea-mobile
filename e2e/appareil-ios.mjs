@@ -134,7 +134,8 @@ async function essaisPartage() {
     const boutons = ["'Copy', 'Copier'", "'Save to Files', 'Enregistrer dans Fichiers'"];
     for (const noms of boutons) {
       const b = await nav.$(`-ios predicate string:label IN {${noms}}`);
-      const la = await b.waitForExist({ timeout: 20_000 }).then(() => true).catch(() => false);
+      // La première ouverture charge les applications de partage : plus lente
+      const la = await b.waitForExist({ timeout: 90_000 }).then(() => true).catch(() => false);
       if (!la) {
         ok(false, `partage ${fois} : ${noms} introuvable`);
         continue;
@@ -147,13 +148,17 @@ async function essaisPartage() {
       );
     }
     await capture(`partage-${fois}`);
+    // Fermer comme un élève : bouton de fermeture s'il y en a un, sinon un toucher
+    // au-dessus de la feuille (en haut de l'écran)
     const fermer = await nav.$("-ios predicate string:label IN {'Close', 'Fermer'}");
     if (await fermer.isDisplayed().catch(() => false)) await fermer.click();
-    else await nav.execute("mobile: swipe", { direction: "down" });
-    await pause(1500);
-    // Feuille fermée : plus de « Copy » affiché (la fenêtre de la feuille a disparu)
+    else await nav.execute("mobile: tap", { x: Math.round(largeurEcran / 2), y: 120 });
+    await pause(2000);
     const restes = await nav.$$("-ios predicate string:label IN {'Copy', 'Copier'}");
-    ok(restes.length === 0 || !(await restes[0].isDisplayed().catch(() => false)), `partage ${fois} : feuille fermée`);
+    const visibles = [];
+    for (const r of restes) if (await r.isDisplayed().catch(() => false)) visibles.push(r);
+    ok(visibles.length === 0, `partage ${fois} : feuille fermée`);
+    await capture(`partage-${fois}-fermee`);
   }
   await webview();
 }
@@ -164,9 +169,15 @@ if (process.env.PARTAGE_SEUL || process.env.GITHUB_REF_NAME === "ccr-3626951a-ud
   await attendre(bouton("France"), 120_000);
   await capture("premier-lancement");
   await essaisPartage();
+  // Après le partage, la fenêtre de la feuille a disparu : l'app répond de nouveau
+  // au toucher (une fenêtre restée par-dessus bloquerait tout l'écran)
+  await toucher(await bouton("France"));
+  const reglages = await affiche('//button[@aria-label="Réglages" or normalize-space(.)="Réglages"]');
+  ok(await reglages.isDisplayed().catch(() => false), "après le partage, l'app répond au toucher (« France » touché, accueil affiché)");
+  await capture("apres-partage");
   await nav.deleteSession();
-  note("ESSAIS DU PARTAGE TERMINÉS");
-  process.exit(0);
+  note(echecs ? `ESSAIS DU PARTAGE : ${echecs} ÉCHEC(S)` : "ESSAIS DU PARTAGE : TOUT VERT");
+  process.exit(echecs ? 1 : 0);
 }
 
 // 1. Premier lancement : programme
