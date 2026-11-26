@@ -42,24 +42,17 @@ class PartagePlugin: Plugin {
         return
       }
       let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
-      // Sur iPad, la feuille s'ouvre dans une bulle qui doit être ancrée : au
-      // centre, sans flèche. Sur iPhone, depuis iOS 26, la feuille garde sa
-      // présentation en bulle (.popover par défaut) même sans ancrage : petite
-      // bulle étroite en bas à droite, noms coupés (vu en 0.6.1 sur
-      // l'impression d'un parcours). On impose donc une vraie feuille qui monte
-      // du bas de l'écran, à mi-hauteur, agrandissable.
-      if UIDevice.current.userInterfaceIdiom == .pad {
-        if let bulle = feuille.popoverPresentationController {
-          bulle.sourceView = vue.view
-          bulle.sourceRect = CGRect(x: vue.view.bounds.midX, y: vue.view.bounds.midY, width: 0, height: 0)
-          bulle.permittedArrowDirections = []
-        }
-      } else {
-        feuille.modalPresentationStyle = .pageSheet
-        if let bas = feuille.sheetPresentationController {
-          bas.detents = [.medium(), .large()]
-          bas.prefersGrabberVisible = true
-        }
+      // La feuille s'ouvre dans une bulle qui doit être ancrée, sur iPad comme
+      // sur iPhone : au centre de l'écran, sans flèche. Depuis iOS 26, l'iPhone
+      // aussi présente la feuille de partage en bulle ; sans ancrage, elle part
+      // du coin en bas à droite, à moitié hors de l'écran, icônes coupées (vu
+      // en 0.6.1, puis de nouveau en 0.8.0 sur un iPhone : imposer
+      // .pageSheet ne suffit pas, iOS 26 l'ignore). Avant iOS 26, sur iPhone,
+      // la bulle ancrée devient d'elle-même la feuille qui monte du bas.
+      if let bulle = feuille.popoverPresentationController {
+        bulle.sourceView = vue.view
+        bulle.sourceRect = CGRect(x: vue.view.bounds.midX, y: vue.view.bounds.midY, width: 0, height: 0)
+        bulle.permittedArrowDirections = []
       }
       vue.present(feuille, animated: true)
       invoke.resolve()

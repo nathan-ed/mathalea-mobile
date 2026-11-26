@@ -314,6 +314,38 @@ ok(
 );
 await capture("accueil-en-cours");
 
+// 4 bis. Imprimer : la feuille de partage d'iOS s'ouvre en entier dans l'écran.
+// Sans ancrage, iOS 26 l'ouvrait en bulle partant du coin en bas à droite, à
+// moitié hors de l'écran (0.6.1, puis 0.8.0 sur un iPhone de Nathan).
+await toucher(
+  (await nav.$$('//button[starts-with(normalize-space(.), "Fractions")]')).at(-1),
+);
+await toucher(await attendre(affiche('//button[@aria-label="Imprimer"]')));
+await toucher(await attendre(exact("Créer le PDF")));
+await nav.switchContext("NATIVE_APP");
+const { width: largeurEcran } = await nav.getWindowSize();
+const copier = await nav.$(
+  "-ios predicate string:label IN {'Copy', 'Copier', 'Save to Files', 'Enregistrer dans Fichiers'}",
+);
+const feuilleOuverte = await copier
+  .waitForDisplayed({ timeout: 180_000 })
+  .then(() => true)
+  .catch(() => false);
+await capture("feuille-de-partage");
+if (feuilleOuverte) {
+  const r = await copier.getElementRect(copier.elementId);
+  ok(
+    r.x >= 0 && r.x + r.width <= largeurEcran && r.x + r.width / 2 < largeurEcran / 2,
+    `feuille de partage dans l'écran (« ${await copier.getAttribute("label")} » à x = ${Math.round(r.x)}, largeur de l'écran ${largeurEcran})`,
+  );
+  const fermer = await nav.$("-ios predicate string:label IN {'Close', 'Fermer'}");
+  if (await fermer.isDisplayed().catch(() => false)) await fermer.click();
+  else await nav.execute("mobile: swipe", { direction: "down" });
+  await pause(1000);
+} else ok(false, "feuille de partage ouverte après « Créer le PDF »");
+await webview();
+await toucher(await affiche('//button[@aria-label="Revenir en arrière"]'));
+
 // 5. Thème sombre de l'iPhone
 await nav.switchContext("NATIVE_APP");
 await nav.execute("mobile: setAppearance", { style: "dark" });
