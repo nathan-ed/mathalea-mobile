@@ -109,9 +109,10 @@
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
     {#if juge}
       <div class="flex flex-col items-center gap-3 py-4 text-center">
-        {#if reussi && palier!.couleur}
-          <!-- Ceinture obtenue : sa couleur, en grand -->
-          <Ceinture couleur={palier!.couleur} taille="h-12 w-44" classe="rounded-lg" />
+        {#if palier!.couleur}
+          <!-- La ceinture en grand : sa couleur si elle est obtenue, son contour en pointillé sinon
+               (la ceinture visée reste sous les yeux) -->
+          <Ceinture couleur={palier!.couleur} obtenue={reussi} taille="h-12 w-44" classe="rounded-lg" />
         {/if}
         <p class="text-2xl font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{etat}</p>
         <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">

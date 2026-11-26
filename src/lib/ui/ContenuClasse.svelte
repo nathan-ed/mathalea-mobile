@@ -21,6 +21,7 @@
     sousTitre,
     badge,
     badgeVert,
+    ceintures = () => undefined,
     onouvrir,
     onorganiser,
     epingles = [],
@@ -35,6 +36,7 @@
     sousTitre: (p: Parcours) => string
     badge: (p: Parcours) => string
     badgeVert: (p: Parcours) => boolean
+    ceintures?: (p: Parcours) => { couleur: string; obtenue: boolean }[] | undefined
     onouvrir: (p: Parcours) => void
     onorganiser: (o: Organisation) => void
     epingles?: string[]
@@ -114,9 +116,11 @@
   }
 </script>
 
+<!-- Titre et « Organiser » seulement avec plusieurs chapitres : avec un seul, le nom du
+     chapitre suffit (deux intertitres l'un sur l'autre, Rémi, 26 novembre 2026) -->
+{#if chapitres.length > 1}
 <div class="flex flex-row items-center justify-between">
   <h2 class="pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">{nom}</h2>
-  {#if chapitres.length > 1}
     <button
       type="button"
       class="text-sm text-coopmaths-action dark:text-coopmathsdark-action"
@@ -126,8 +130,8 @@
     >
       {organiser ? 'Terminé' : 'Organiser'}
     </button>
-  {/if}
 </div>
+{/if}
 
 {#each chapitres as c, i (c.nom)}
   {@const ouvert = !organisation.fermes.includes(c.nom)}
@@ -200,6 +204,7 @@
         subtitle={sousTitre(p)}
         badge={badge(p)}
         badgeVert={badgeVert(p)}
+        ceintures={ceintures(p)}
         onclick={() => onouvrir(p)}
         epingle={epingles.includes(p.id)}
         onepingler={onepingler ? () => onepingler(p) : undefined}

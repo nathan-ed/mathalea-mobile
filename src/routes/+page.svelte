@@ -174,6 +174,14 @@
   const dansSources = (id: string) => sources.some((s) => s.parcours.some((p) => p.id === id))
   const totalQuestions = (p: Parcours) => p.etapes.reduce((a, e) => a + (e.nbQuestions ?? 0), 0)
 
+  function resumePaliers(p: Parcours) {
+    const c = ceinturesObtenues(p, historiques[p.id] ?? [])
+    return {
+      reussis: c.filter((x) => x.obtenue).length,
+      total: paliersDe(p).length,
+      ...(p.style === 'ceintures' ? { ceintures: c.map((x) => ({ couleur: x.couleur, obtenue: x.obtenue })) } : {}),
+    }
+  }
   const resumes = $derived.by(() => {
     const r: Record<string, Resume> = {}
     for (const p of tous) {
@@ -185,9 +193,7 @@
         sur: enCours && s ? questionsDe(s).length || totalQuestions(p) : totalQuestions(p),
         enCours,
         pourcentage: derniersComplets[p.id] ?? null,
-        ...(aDesPaliers(p)
-          ? { paliers: { reussis: ceinturesObtenues(p, historiques[p.id] ?? []).filter((x) => x.obtenue).length, total: paliersDe(p).length } }
-          : {}),
+        ...(aDesPaliers(p) ? { paliers: resumePaliers(p) } : {}),
       }
     }
     return r

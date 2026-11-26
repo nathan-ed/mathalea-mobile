@@ -25,6 +25,7 @@
   } = $props()
 
   const toutes = $derived(fichesDes(parcours))
+  const SEUIL_RECHERCHE = 8
   const chapitres = $derived(parChapitre(toutes).map((c) => ({ ...c, cle: 'c:' + cleChapitre(c), parcours: parParcours(c.fiches) })))
   const trouvees = $derived(chercherFiches(toutes, recherche))
   const ouvrirFermer = (cle: string) => (ouverts = ouverts.includes(cle) ? ouverts.filter((c) => c !== cle) : [...ouverts, cle])
@@ -76,7 +77,8 @@
     <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
       Les fiches de cours de tes parcours apparaîtront ici.
     </p>
-  {:else}
+  {:else if toutes.length >= SEUIL_RECHERCHE || recherche}
+    <!-- Recherche seulement quand il y a de quoi chercher (comme à l'accueil) -->
     <label
       class="w-full flex flex-row items-center gap-2 rounded-full px-4 py-3
       bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark

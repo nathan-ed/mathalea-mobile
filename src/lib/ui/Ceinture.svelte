@@ -21,8 +21,8 @@
 
 <span
   aria-hidden="true"
-  class="ceinture shrink-0 rounded border {obtenue && claire ? 'claire' : ''} border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest {taille} {classe}"
-  style={obtenue ? `background-color: ${couleur}` : 'border-style: dashed'}
+  class="ceinture shrink-0 rounded border {obtenue && claire ? 'claire' : ''} {obtenue ? '' : 'a-obtenir'} border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest {taille} {classe}"
+  style={obtenue ? `background-color: ${couleur}` : ''}
 >
   {#if obtenue}
     {#each { length: barrettes } as _, i (i)}
@@ -42,6 +42,15 @@
     gap: 3px;
     padding-right: 6px;
     overflow: hidden;
+  }
+  /* À obtenir : contour en pointillé bien visible (il se perdait sur le gris des cartes) */
+  .ceinture.a-obtenir {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: var(--color-coopmaths-corpus-lightest);
+  }
+  :global(.dark) .ceinture.a-obtenir {
+    border-color: var(--color-coopmathsdark-corpus-lightest);
   }
   .ceinture.claire {
     border-color: var(--color-coopmaths-corpus-lightest);

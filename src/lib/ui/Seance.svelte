@@ -548,7 +548,11 @@
           </button>
         {/each}
       </div>
-      <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Question {page + 1} sur {pages.length}</p>
+      <!-- Drapeau sur la ligne du numéro : plus de ligne vide à lui seul au-dessus de l'énoncé (Rémi, 26 novembre 2026) -->
+      <div class="flex flex-row items-center">
+        <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">Question {page + 1} sur {pages.length}</p>
+        {#if pages[page]?.[0]}{@render drapeau(pages[page][0].etape, pages[page][0].question)}{/if}
+      </div>
     </div>
   {:else if pret && pages.length > 1}
     {#if palier}<div class="px-4 pt-2">{@render ceinture()}</div>{/if}
@@ -600,7 +604,9 @@
         {#each pages[page] as ref, i (ref.rang)}
           {@const ex = exercices[ref.etape]}
           {@const debutEtape = i === 0 || pages[page][i - 1].etape !== ref.etape}
-          {#if sansEnTete}
+          {#if sansEnTete && unique && pages.length > 1}
+            <!-- Drapeau déjà sur la ligne « Question n sur N » -->
+          {:else if sansEnTete}
             <div class="flex flex-row items-center text-coopmaths-struct dark:text-coopmathsdark-struct pb-2" class:mt-6={i > 0}>
               {#if !unique && liste.length > 1}
                 <!-- Numéro de la question, au style de l'en-tête d'exercice (aucun pour une seule question) -->
@@ -610,6 +616,8 @@
               {/if}
               {@render drapeau(ref.etape, ref.question)}
             </div>
+          {:else if debutEtape && unique && pages.length > 1 && seance.etapes.length <= 1 && !titreVisible(parcours, parcours.etapes[ref.etape])}
+            <!-- En-tête vide (ni numéro ni titre) : rien, le drapeau est sur la ligne « Question n sur N » -->
           {:else if debutEtape}
             <!-- En-tête d'exercice de la vue élève (HeaderExerciceVueEleve.svelte) -->
             <h1 class="text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex flex-row items-center" class:mt-6={i > 0}>
@@ -626,7 +634,7 @@
                   {#if titreVisible(parcours, parcours.etapes[ref.etape])}<span use:latex={parcours.etapes[ref.etape].titre || ex.titre}></span>{/if}
                 </div>
               </div>
-              {@render drapeau(ref.etape, unique ? ref.question : undefined)}
+              {#if !(unique && pages.length > 1)}{@render drapeau(ref.etape, unique ? ref.question : undefined)}{/if}
             </h1>
           {/if}
           <BlocQuestion

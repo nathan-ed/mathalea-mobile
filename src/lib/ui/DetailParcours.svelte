@@ -105,6 +105,16 @@
   }
   // QR code de la session, à montrer ou projeter : les autres le scannent depuis leur accueil
   let qrSession = $state(false)
+  let descriptionOuverte = $state(false)
+  // Grand titre dans la page ; la barre ne montre le titre qu'une fois celui-ci passé dessous
+  let grandTitre: HTMLElement | undefined = $state()
+  let grandTitreVisible = $state(true)
+  $effect(() => {
+    if (!grandTitre) return
+    const o = new IntersectionObserver(([e]) => (grandTitreVisible = e.isIntersecting), { rootMargin: '-56px 0px 0px 0px' })
+    o.observe(grandTitre)
+    return () => o.disconnect()
+  })
   const invitation = $derived(code ? encoderInvitation({ c: code, p: parcours.id, v: parcours.version, e: etapesSession, m: versionMoteur, l: lienSession }) : '')
   const memes = (a: number[], b: number[]) => a.length === b.length && a.every((x, i) => x === b[i])
   // Palier à faire : celui de la tentative en cours, sinon le premier ouvert pas terminé, sinon le premier à revoir
@@ -153,7 +163,8 @@
 </script>
 
 {#snippet lignesExercices(etapes: number[])}
-  {#if visibles(etapes).length}
+  <!-- Titres masqués (« Exercice 1 ») et rien de fait : la liste n'apprend rien, elle est omise -->
+  {#if visibles(etapes).length && visibles(etapes).some((i) => resultats[i] || !/^Exercice \d+$/.test(titreEleve(parcours, parcours.etapes[i], i)))}
   <ul class="flex flex-col gap-1">
     {#each visibles(etapes) as i (i)}
       {@const r = resultats[i]}
@@ -177,7 +188,7 @@
 {/snippet}
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete titre={parcours.titre} {onretour}>
+  <EnTete titre={parcours.titre} {onretour} titreCache={grandTitreVisible}>
     {#snippet droite()}
       <!-- Imprimer à côté de l'épingle, sans passer par « Autres actions » (Nathan, 3 novembre 2026) -->
       {#if impressionPossible()}
@@ -201,6 +212,9 @@
 
   <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
     <div>
+      <!-- Grand titre en entier (la barre le coupait : « Additionner et soustraire des… ») ;
+           celui de la barre revient quand il passe dessous -->
+      <p bind:this={grandTitre} class="mb-2 text-2xl font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct" aria-hidden="true">{parcours.titre}</p>
       {#if parcours.objectif}<p class="font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{parcours.objectif}</p>{/if}
       <p class="mt-1 {discret}">
         {[parcours.niveau, difficultes[parcours.difficulte - 1], avecPaliers ? `${paliers.length} ${parcours.style === 'ceintures' ? 'ceinture' : 'palier'}${paliers.length > 1 ? 's' : ''}` : '', `${nbQuestions} questions`].filter(Boolean).join(' · ')}
@@ -211,7 +225,11 @@
         </p>
       {/if}
       {#if parcours.descriptionEleves}
-        <p class="mt-3 whitespace-pre-line font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">{parcours.descriptionEleves}</p>
+        <!-- Longue description repliée sur trois lignes : les ceintures restent en vue -->
+        <p class="mt-3 whitespace-pre-line font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {descriptionOuverte ? '' : 'line-clamp-3'}">{parcours.descriptionEleves}</p>
+        {#if !descriptionOuverte && parcours.descriptionEleves.length > 140}
+          <button type="button" class="{boutonLien} -ml-1 mt-1 px-1" style="min-height: 44px" onclick={() => (descriptionOuverte = true)}>Lire la suite</button>
+        {/if}
       {/if}
       {#if misAJour}
         <p class="mt-1 flex items-center gap-1 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct">

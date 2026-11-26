@@ -9,7 +9,16 @@
     onretour,
     gauche,
     droite,
-  }: { titre?: string; titreHtml?: string /* formules rendues, à la place de titre */; onretour?: () => void; gauche?: Snippet; droite?: Snippet } = $props()
+    titreCache = false,
+  }: {
+    titre?: string
+    titreHtml?: string /* formules rendues, à la place de titre */
+    onretour?: () => void
+    gauche?: Snippet
+    droite?: Snippet
+    /** Grand titre visible dans la page : celui de la barre s'efface (il revient quand le grand titre passe sous la barre) */
+    titreCache?: boolean
+  } = $props()
   let defile = $state(false)
 </script>
 
@@ -27,7 +36,7 @@
       </button>
     {/if}
     {#if titre !== undefined}
-      <h1 class="min-w-0 flex-1 truncate px-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct">{#if titreHtml}{@html titreHtml}{:else}{titre}{/if}</h1>
+      <h1 class="titre-barre min-w-0 flex-1 truncate px-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct" style:opacity={titreCache ? 0 : 1}>{#if titreHtml}{@html titreHtml}{:else}{titre}{/if}</h1>
     {:else}
       <div class="logo-entete min-w-0 flex-1 flex flex-row items-center gap-2 px-2">
         <img src="/logo_mathalea.svg" alt="" class="h-8" />
@@ -42,3 +51,14 @@
     {@render droite?.()}
   </div>
 </header>
+
+<style>
+  .titre-barre {
+    transition: opacity 150ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .titre-barre {
+      transition: none;
+    }
+  }
+</style>

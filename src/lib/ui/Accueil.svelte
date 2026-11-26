@@ -4,7 +4,7 @@
     sur: number
     enCours: boolean
     pourcentage: number | null // dernier parcours complet terminé
-    paliers?: { reussis: number; total: number } // parcours à paliers : sa progression, pas un pourcentage
+    paliers?: { reussis: number; total: number; ceintures?: { couleur: string; obtenue: boolean }[] } // parcours à paliers : sa progression, pas un pourcentage ; ceintures : dessinées sur la tuile
   }
 
   export interface Source {
@@ -133,16 +133,21 @@
 
   const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
+  /** Ceintures du parcours, dessinées sur la tuile : la progression se voit au lieu d'une phrase */
+  const ceintures = (p: Parcours) => resumes[p.id]?.paliers?.ceintures
   const sousTitre = (p: Parcours) =>
     resumes[p.id]?.enCours
       ? `En cours · question ${Math.min(resumes[p.id].fait + 1, resumes[p.id].sur)} sur ${resumes[p.id].sur}`
+      : ceintures(p)?.length
+        ? `${p.niveau} · ${resumes[p.id].paliers!.reussis} / ${resumes[p.id].paliers!.total} ${resumes[p.id].paliers!.total > 1 ? 'ceintures' : 'ceinture'}`
       : resumes[p.id]?.paliers
         ? `${p.niveau} · ${organisationDe(p)}`
         : `${p.niveau} · ${organisationDe(p) || difficultes[p.difficulte - 1]}`
   const badge = (p: Parcours) => {
     const r = resumes[p.id]
     if (r?.enCours) return `${r.fait}/${r.sur}`
-    // Paliers réussis : un palier fait seul ne dit rien du parcours entier
+    // Paliers réussis : un palier fait seul ne dit rien du parcours entier ; ceintures : dessinées à la place
+    if (r?.paliers?.ceintures?.length) return ''
     if (r?.paliers) return r.paliers.reussis ? `${r.paliers.reussis}/${r.paliers.total}` : ''
     return r?.pourcentage != null ? `${r.pourcentage} %` : ''
   }
@@ -158,6 +163,7 @@
   const ouvrir = (p: Parcours) => onouvrir(p)
 
   let recherche = $state('')
+  const SEUIL_RECHERCHE = 7
   // Classe affichée quand il y en a plusieurs (pastilles) : la première par défaut
   let classeChoisie: string | null = $state(null)
   const classeVue = $derived(sources.find((s) => s.id === classeChoisie) ?? sources[0])
@@ -273,7 +279,9 @@
   <main class="flex-1 avec-onglets">
     {#if onglet === 'mes'}
       <div class="liste-tuiles flex flex-col gap-3 p-4">
-        {#if tous.length}
+        <!-- Recherche seulement quand la liste est longue : avec trois parcours, un champ vide
+             en tête de l'accueil ne sert à rien et repousse les tuiles (Rémi, 26 novembre 2026) -->
+        {#if tous.length >= SEUIL_RECHERCHE || recherche}
         <label
           class="w-full flex flex-row items-center gap-2 rounded-full px-4 py-3
           bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
@@ -292,7 +300,7 @@
 
         {#if recherche.trim()}
           {#each trouves as p (p.id)}
-            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} onclick={() => ouvrir(p)} />
+            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)} onclick={() => ouvrir(p)} />
           {:else}
             <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
               Aucun parcours ne correspond.
@@ -301,8 +309,9 @@
         {:else}
           {#if action}
             <!-- Une seule action proposée : l'élève n'a pas à chercher par où continuer -->
-            <section class="flex flex-col gap-2 pb-2" aria-label="À faire maintenant">
-              <p class="pl-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{action.detail}</p>
+            <!-- L'action proposée dans une carte : ce qu'on reprend, puis le bouton, d'un seul bloc -->
+            <section class="carte-action flex flex-col gap-3 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="À faire maintenant">
+              <p class="font-semibold leading-snug text-coopmaths-struct dark:text-coopmathsdark-struct">{action.detail}</p>
               <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={action.fn}>{action.libelle}</button>
             </section>
           {/if}
@@ -327,13 +336,13 @@
           {#if autresEnCours.length}
             <h2 class={titreSection}>En cours</h2>
             {#each autresEnCours as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#if epinglesVisibles.length}
             <h2 class={titreSection}>Épinglés</h2>
             {#each epinglesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#each aChoisir as d (d.lien)}
@@ -351,6 +360,7 @@
               {sousTitre}
               {badge}
               {badgeVert}
+              {ceintures}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(sources[0].id, o)}
               {epingles}
@@ -385,6 +395,7 @@
                   {sousTitre}
                   {badge}
                   {badgeVert}
+                  {ceintures}
                   onouvrir={ouvrir}
                   onorganiser={(o) => onorganiser(classeVue!.id, o)}
                   {epingles}
@@ -403,6 +414,7 @@
               {sousTitre}
               {badge}
               {badgeVert}
+              {ceintures}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(SOURCE_EXPLORER, o)}
               {epingles}
@@ -489,7 +501,7 @@
               icon={p.icone}
               title={p.titre}
               subtitle={sousTitre(p)}
-              badge={badge(p)} badgeVert={badgeVert(p)}
+              badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)}
               onclick={() => ouvrirDepuisNiveau(p)}
               onajouter={() => basculerUn(p)}
               ajoute={dejaAjoute(p)}
