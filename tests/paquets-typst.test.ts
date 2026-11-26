@@ -3,19 +3,22 @@
 // (« file not found (searched at typst.toml) », figures apigeom qui importent
 // @preview/cetz:0.3.4, 26 novembre 2026). Sans static/moteur (pnpm moteur), la
 // partie du moteur est sautée ; verifier-release.sh la joue toujours.
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
-import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-// @ts-expect-error module JavaScript sans types
-import { paquetsDuMoteur } from '../scripts/typst/paquets-moteur.mjs'
 
-const racine = join(__dirname, '..')
-const paquets = join(racine, 'src-tauri/typst/paquets/preview')
-const moteur = join(racine, 'static/moteur')
+// Modules de Node chargés à l'exécution (comme catalogues.test.ts) : le
+// contrôle des types de l'app ne connaît pas Node
+const { existsSync, readdirSync, readFileSync, statSync } = await import(/* @vite-ignore */ 'node:' + 'fs')
+const { join } = await import(/* @vite-ignore */ 'node:' + 'path')
+const outil = '../scripts/typst/paquets-moteur.mjs'
+const { paquetsDuMoteur } = await import(/* @vite-ignore */ outil)
+
+const racine: string = decodeURIComponent(new URL('..', import.meta.url).pathname)
+const paquets: string = join(racine, 'src-tauri/typst/paquets/preview')
+const moteur: string = join(racine, 'static/moteur')
 const IMPORT = /@preview\/([a-z0-9-]+):(\d+\.\d+\.\d+)/g
 
 function fichiers(dossier: string, extensions: string[]): string[] {
-  return readdirSync(dossier).flatMap((nom) => {
+  return (readdirSync(dossier) as string[]).flatMap((nom: string) => {
     const chemin = join(dossier, nom)
     if (statSync(chemin).isDirectory()) return fichiers(chemin, extensions)
     return extensions.some((e) => nom.endsWith(e)) ? [chemin] : []
@@ -24,7 +27,7 @@ function fichiers(dossier: string, extensions: string[]): string[] {
 
 function imports(liste: string[]): string[] {
   const vus = new Set<string>()
-  for (const f of liste) for (const m of readFileSync(f, 'utf8').matchAll(IMPORT)) vus.add(`${m[1]}:${m[2]}`)
+  for (const f of liste) for (const m of (readFileSync(f, 'utf8') as string).matchAll(IMPORT)) vus.add(`${m[1]}:${m[2]}`)
   return [...vus].sort()
 }
 
@@ -43,7 +46,7 @@ describe('paquets Typst embarqués', () => {
   it('leurs dépendances', () => {
     const liste = imports(fichiers(paquets, ['.typ']).filter((f) => !f.includes('/examples/') && !f.includes('/tests/')))
       // seulement les vrais #import (les commentaires d'exemple citent d'autres versions)
-      .filter((p) => fichiers(paquets, ['.typ']).some((f) => new RegExp(`^#import "@preview/${p.replace('.', '\\.')}`, 'm').test(readFileSync(f, 'utf8'))))
+      .filter((p) => fichiers(paquets, ['.typ']).some((f) => new RegExp(`^#import "@preview/${p.replace('.', '\\.')}`, 'm').test(readFileSync(f, 'utf8') as string)))
     expect(manquants(liste)).toEqual([])
   })
 

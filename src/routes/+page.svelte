@@ -5,7 +5,7 @@
   import { CLE_FICHES, type FicheDuParcours } from '$lib/fiches'
   import Fiches from '$lib/ui/Fiches.svelte'
   import { CLE_AVANT_RESTAURATION, apercuFusion, exporterSauvegarde, fusionnerSauvegarde, restaurerSauvegarde, resumerSauvegarde } from '$lib/sauvegarde'
-  import { chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, neChercherPasLeMoteur, type Moteur, type Pays } from '$lib/moteur'
+  import { appliquerMiseAJourAuRetour, chargerMoteur, chercherMiseAJourMoteur, infoMoteur, misesAJourMoteur, neChercherPasLeMoteur, type Moteur, type Pays } from '$lib/moteur'
   import { dansTauri } from '$lib/stockage'
   import { enregistrerFichier } from '$lib/fichiers'
   import { exporter, lireBibliotheque } from '$lib/bibliotheque'
@@ -288,8 +288,10 @@
     document.addEventListener('visibilitychange', auPremierPlan)
     window.addEventListener('online', auPremierPlan)
     const arreterHeure = suivreHeure()
+    const arreterMiseAJour = appliquerMiseAJourAuRetour()
     return () => {
       arreterHeure()
+      arreterMiseAJour()
       clearInterval(minuteur)
       document.removeEventListener('visibilitychange', auPremierPlan)
       window.removeEventListener('online', auPremierPlan)

@@ -58,6 +58,9 @@ const choisis = process.env.PARCOURS?.split(',')
 const tous = fichiers.flatMap((f) =>
   (JSON.parse(readFileSync(join(racine, f), 'utf8')).classes ?? []).flatMap((c) => c.parcours.map((p) => ({ f, p }))),
 ).filter(({ p }) => !choisis || choisis.includes(p.id))
+// Défauts déjà signalés (comme scripts/claviers/connus.json) : non bloquants
+// pour les parcours listés, bloquants partout ailleurs
+const connus = JSON.parse(readFileSync(join(racine, 'e2e/impression-connus.json'), 'utf8'))
 const pays = (f) => (/explorer\/(ch-|evacom|prequalifiant)/.test(f) ? 'CH' : 'FR')
 
 const nav = await chromium.launch({ executablePath: '/usr/bin/chromium', args: SANS_BRIDAGE })
@@ -101,7 +104,10 @@ for (const { f, p } of tous) {
       await fichier.saveAs(chemin)
       const texte = execFileSync('pdftotext', ['-layout', chemin, '-'], { encoding: 'utf8' })
       const pages = Number(/Pages:\s+(\d+)/.exec(execFileSync('pdfinfo', [chemin], { encoding: 'utf8' }))?.[1])
-      ok(pages >= 1 && texte.includes('Corrections') && !/non convertie|image non/i.test(texte), `${p.id} : PDF de ${pages} page(s), corrections, aucune figure non convertie`)
+      const defauts = [...new Set(texte.match(/[^\n]*(non convertie|image non)[^\n]*/gi) ?? [])].map((l) => l.trim())
+      const nouveaux = defauts.filter((d) => !connus[d]?.parcours.includes(p.id))
+      for (const d of defauts.filter((d) => !nouveaux.includes(d))) console.log(`  (défaut connu : ${d})`)
+      ok(pages >= 1 && texte.includes('Corrections') && !nouveaux.length, `${p.id} : PDF de ${pages} page(s), corrections${nouveaux.length ? `, ${nouveaux.join(' ; ')}` : ', aucune nouvelle figure non convertie'}`)
     }
   } catch (e) {
     await page.screenshot({ path: `${captures}/impression-parcours-${p.id}-erreur.png` }).catch(() => {})

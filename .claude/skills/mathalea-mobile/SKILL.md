@@ -518,9 +518,14 @@ commit de MathALÉA), signé par la clé
 (forge et Google Play) et ordinateurs, jamais sur iOS tant qu'Apple n'a pas
 répondu ni avec `MATHALEA_MOTEUR_FIGE=1`. Jamais le moteur de mathalea.fr.
 Au lancement (Nathan, 2026-11-18 : les élèves ne doivent pas avoir à
-rouvrir l'app), `chargerMoteur` cherche et télécharge la nouvelle version
-AVANT de choisir le moteur (`mettreAJourAuLancement`). Pas de plafond de
-durée (Nathan) : 20 s de connexion puis 20 s sans octet reçu (`client()`
+rouvrir l'app ; 2026-11-26, testeurs : « une roue qui tourne et qui est très
+embêtante »), `chargerMoteur` lance la recherche et le téléchargement de la
+nouvelle version mais ne l'attend que 1,5 s (`ATTENTE_LANCEMENT`) ; au-delà
+l'app s'ouvre avec le moteur qu'elle a, le téléchargement continue en tâche
+de fond, et le nouveau moteur sert au prochain lancement ou au retour dans
+l'app après 5 min d'absence (`appliquerMiseAJourAuRetour` recharge la page,
+l'écran quitté et son brouillon reviennent). Pas de plafond de
+durée au téléchargement : 20 s de connexion puis 20 s sans octet reçu (`client()`
 de `moteur.rs`), un téléchargement qui avance va jusqu'au bout ; en cas
 d'échec, l'app s'ouvre avec le moteur qu'elle a. `mettre_a_jour_moteur` ne fige jamais `SESSION`
 (`SESSION.get()`), seul `moteur_telecharge` le fait.

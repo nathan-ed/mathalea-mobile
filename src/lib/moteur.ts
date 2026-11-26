@@ -239,9 +239,17 @@ function rechargementSansMiseAJour(): boolean {
 
 /**
  * Au lancement, avant de choisir le moteur : s'il y en a un plus récent que
- * celui livré ou déjà téléchargé, le télécharger pour l'utiliser tout de suite.
- * N'échoue jamais : sans réseau, l'app s'ouvre avec le moteur qu'elle a.
+ * celui livré ou déjà téléchargé, le télécharger. L'app ne l'attend que
+ * `ATTENTE_LANCEMENT` ms (vérification de l'annonce, petit moteur, bon
+ * réseau) ; au-delà elle s'ouvre avec le moteur qu'elle a et le
+ * téléchargement continue en tâche de fond : le nouveau moteur sert au
+ * prochain lancement, ou au retour dans l'app après une absence
+ * (`appliquerMiseAJourAuRetour`). Testeurs, 26 novembre 2026 : « une roue qui
+ * tourne et qui est très embêtante ». N'échoue jamais : sans réseau, l'app
+ * s'ouvre avec le moteur qu'elle a.
  */
+const ATTENTE_LANCEMENT = 1500
+let miseAJourPrete = false
 async function mettreAJourAuLancement(
   invoke: <T>(commande: string, args?: Record<string, unknown>) => Promise<T>,
   reference: string,
@@ -250,20 +258,33 @@ async function mettreAJourAuLancement(
   try {
     const actifs = await invoke<boolean>('mises_a_jour_moteur')
     if (!actifs) return
-    // Sous le dé qui tourne, seulement si l'attente se prolonge
-    const mention = document.createElement('p')
-    mention.textContent = 'Mise à jour du moteur…'
-    const affichage = setTimeout(() => document.getElementById('lancement')?.appendChild(mention), 1000)
-    // Sans limite de durée : hors connexion, l'échec est immédiat ; un réseau
-    // qui ne répond plus pendant 20 s est abandonné (src-tauri/src/moteur.rs),
-    // un téléchargement qui avance, même lent, va jusqu'au bout.
-    await invoke('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: reference }).finally(() => {
-      clearTimeout(affichage)
-      mention.remove()
-    })
+    // Le téléchargement n'est jamais interrompu : il continue s'il dépasse l'attente
+    const miseAJour = invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: reference })
+      .then((version) => {
+        if (version) miseAJourPrete = true
+      })
+      .catch((e) => console.warn('Mise à jour du moteur', e))
+    await Promise.race([miseAJour, new Promise((r) => setTimeout(r, ATTENTE_LANCEMENT))])
   } catch (e) {
     console.warn('Mise à jour du moteur au lancement', e)
   }
+}
+
+/**
+ * Un moteur téléchargé en tâche de fond attend : au retour dans l'app après
+ * au moins `ABSENCE` ms, la page est rechargée et l'app rouvre l'écran quitté
+ * (brouillon compris) avec le nouveau moteur. Jamais pendant que l'élève est
+ * dans l'app.
+ */
+const ABSENCE = 5 * 60 * 1000
+export function appliquerMiseAJourAuRetour(): () => void {
+  let cacheeLe = 0
+  const surVisibilite = () => {
+    if (document.visibilityState === 'hidden') cacheeLe = Date.now()
+    else if (miseAJourPrete && cacheeLe && Date.now() - cacheeLe >= ABSENCE) location.reload()
+  }
+  document.addEventListener('visibilitychange', surVisibilite)
+  return () => document.removeEventListener('visibilitychange', surVisibilite)
 }
 
 /**
@@ -318,5 +339,7 @@ export async function misesAJourMoteur(): Promise<boolean> {
 export async function chercherMiseAJourMoteur(): Promise<string | null> {
   if (!dansTauri || !info) return null
   const { invoke } = await import('@tauri-apps/api/core')
-  return invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: info.publieLe })
+  const version = await invoke<string | null>('mettre_a_jour_moteur', { api: API_ATTENDUE, publieActuel: info.publieLe })
+  if (version) miseAJourPrete = true
+  return version
 }

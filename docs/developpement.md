@@ -790,8 +790,12 @@ Ancien fonctionnement (moteur publié par mathalea.fr, désactivé le
   livré et le moteur téléchargé (`moteur://`, repli sur le livré en cas
   d'échec), puis `mettre_a_jour_moteur` cherche une publication plus récente :
   signature, même `API_MOTEUR`, taille et SHA-256, extraction dans
-  `<données>/moteurs/`, activation au lancement suivant. Réglages : version du
-  moteur et recherche manuelle.
+  `<données>/moteurs/`. Au lancement, l'app attend cette mise à jour 1,5 s au
+  plus (`ATTENTE_LANCEMENT`, 26 novembre 2026 : la roue du lancement gênait) :
+  arrivée à temps, elle sert tout de suite ; sinon elle finit en tâche de fond
+  et sert au lancement suivant, ou au retour dans l'app après 5 min d'absence
+  (`appliquerMiseAJourAuRetour` : rechargement, l'écran quitté revient).
+  Réglages : version du moteur et recherche manuelle.
 - Actualisation (`actualiser()`, `+page.svelte`) : dossiers suivis, Explorer
   et moteur sont relus au lancement, à chaque retour dans l'app
   (`visibilitychange`), au retour de la connexion et toutes les 10 minutes

@@ -1,0 +1,6 @@
+{
+  "figure 3D non convertie": {
+    "raison": "Le moteur de MathALÉA n'exporte pas encore en Typst les figures 3D des corrections de solides (exercices 051aa, f57fe ou c7b58, « Procédons par élimination »). Le PDF se crée, la figure est remplacée par ce texte. À signaler à MathALÉA ; retirer d'ici quand le moteur les convertit.",
+    "parcours": ["ch-11ls-solides", "evacom-11ls-revision", "evacom-taf-revision"]
+  }
+}
