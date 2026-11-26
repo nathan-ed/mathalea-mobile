@@ -24,17 +24,33 @@
       addEventListener('unhandledrejection', function (e) {
         window.__erreursLancement.push('' + (e.reason && e.reason.message ? e.reason.message : e.reason))
       })
-      // WebView trop ancien pour le CSS de MathALÉA (Tailwind 4 : Chrome 111 et
-      // plus) : il se met à jour par le Play Store (« Android System WebView »)
+      // Navigateur intégré trop ancien pour MathALÉA : CSS de Tailwind 4
+      // (color-mix, @property : Chrome 111, Safari 16.4) et expressions
+      // régulières du moteur (lookbehind : Safari 16.4). Android : le WebView se
+      // met à jour par le Play Store ; iPhone et iPad : il faut iOS 16.4 (iPad
+      // Air 2 sous iPadOS 15.8, 26 novembre 2026 : « Invalid group specifier
+      // name » au lancement). L'App Store refuse déjà l'installation en dessous
+      // (minimumSystemVersion) ; cet écran reste pour une app déjà installée.
       var VERSION_MINIMALE = 111
       var versionWebView = +((navigator.userAgent.match(/Chrome\/([0-9]+)/) || [])[1] || 0)
-      if (versionWebView && versionWebView < VERSION_MINIMALE) {
+      var appareilApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent) && !versionWebView
+      var moteurPossible = (function () {
+        try { new RegExp('(?<=a)b'); } catch (e) { return false }
+        return !window.CSS || !CSS.supports || CSS.supports('color', 'color-mix(in srgb, red, blue)')
+      })()
+      if ((versionWebView && versionWebView < VERSION_MINIMALE) || !moteurPossible) {
         addEventListener('DOMContentLoaded', function () {
           var d = document.getElementById('webview-ancien')
           d.style.display = 'flex'
           var l = document.getElementById('lancement')
           if (l) l.style.display = 'none'
-          d.querySelector('.installee').textContent = versionWebView
+          if (appareilApple) {
+            d.querySelector('.android').style.display = 'none'
+            d.querySelector('.apple').style.display = 'block'
+            d.querySelector('.maj').style.display = 'none'
+          } else {
+            d.querySelector('.installee').textContent = versionWebView || '?'
+          }
           d.querySelector('.maj').onclick = function () {
             var url = 'https://play.google.com/store/apps/details?id=com.google.android.webview'
             var t = window.__TAURI_INTERNALS__
@@ -104,10 +120,15 @@
   <body>
     <div id="webview-ancien" role="alertdialog" aria-labelledby="webview-titre">
       <h1 id="webview-titre">Mise à jour nécessaire</h1>
-      <p>
+      <p class="android">
         MathALÉA a besoin d’une version plus récente d’« Android System WebView »
         (installée : <span class="installee"></span>, nécessaire : 111 ou plus).
         Elle se met à jour gratuitement par le Play Store.
+      </p>
+      <p class="apple" style="display: none">
+        MathALÉA demande iOS ou iPadOS 16.4 ou plus récent (Réglages, Général,
+        Mise à jour logicielle). Sur un appareil qui ne peut pas aller au-delà
+        d’iPadOS 15, comme l’iPad Air 2, les exercices ne peuvent pas s’afficher.
       </p>
       <button type="button" class="maj">Mettre à jour Android System WebView</button>
       <button type="button" class="continuer">Continuer quand même</button>

@@ -6,7 +6,6 @@
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, ecrirePoints, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import Ceinture from './Ceinture.svelte'
   import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
@@ -97,12 +96,12 @@
   const palier = $derived.by(() => {
     // Teste ton niveau : la ceinture du niveau passé
     const rang = niveauDuTest(parcours.id)
-    if (rang !== -1) return { nom: `${NIVEAUX_TEST[rang].nom} · ${ceintureDu(rang).toLowerCase()}`, couleur: couleurDu(rang) }
+    if (rang !== -1) return { nom: `${NIVEAUX_TEST[rang].nom} · ${ceintureDu(rang).toLowerCase()}`, court: `${NIVEAUX_TEST[rang].nom} · ${ceintureDu(rang).toLowerCase()}`, couleur: couleurDu(rang) }
     const ps = paliersDe(parcours)
     const k = ps.length > 1 ? ps.findIndex((x) => x.etapes.join() === seance.etapes.join()) : -1
     if (k === -1) return null
     const titre = ps[k].titre.trim()
-    return { nom: titre ? `${nomPalier(parcours, k)} · ${titre}` : nomPalier(parcours, k), couleur: parcours.style === 'ceintures' ? couleurCeinture(parcours, k) : null }
+    return { nom: titre ? `${nomPalier(parcours, k)} · ${titre}` : nomPalier(parcours, k), court: nomPalier(parcours, k), couleur: parcours.style === 'ceintures' ? couleurCeinture(parcours, k) : null }
   })
 
 
@@ -497,7 +496,8 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete titre={parcours.titre}>
+  <!-- Barre : la ceinture (ou le palier) travaillée, en entier ; le titre du parcours se coupait -->
+  <EnTete titre={palier ? palier.court : parcours.titre} couleurTitre={palier?.couleur ?? undefined}>
     {#snippet gauche()}
       <button type="button" aria-label="Quitter" onclick={demanderSortie} class="bouton-icone">
         <i aria-hidden="true" class="bx bx-x text-3xl"></i>
@@ -513,16 +513,6 @@
     {/snippet}
   </EnTete>
 
-  {#snippet ceinture()}
-    {#if palier}
-      <p class="flex flex-row items-center gap-2 text-sm font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
-        {#if palier.couleur}
-          <Ceinture couleur={palier.couleur} taille="w-8 h-4" />
-        {/if}
-        {palier.nom}
-      </p>
-    {/if}
-  {/snippet}
 
   {#snippet drapeau(etape: number, question?: number)}
     <!-- Signaler un problème dans cet exercice : discret, au bout de l'en-tête -->
@@ -539,7 +529,6 @@
   {#if pret && unique && pages.length > 1}
     <!-- Une question par page : barre de progression à segments (un toucher pour aller à une question) -->
     <div class="px-4 pt-2 pb-2">
-      {@render ceinture()}
       <div class="flex flex-row items-center" role="tablist" aria-label="Questions">
         {#each pages as p, i (i)}
           <button type="button" role="tab" aria-selected={i === page} aria-label={nomSegment(p[0], i)} class="flex-1 px-0.5 py-3" onclick={() => allerPage(i)}>
@@ -555,7 +544,6 @@
       </div>
     </div>
   {:else if pret && pages.length > 1}
-    {#if palier}<div class="px-4 pt-2">{@render ceinture()}</div>{/if}
     <!-- Onglets de la vue élève de MathALÉA (Eleve.svelte) -->
     <div
       class="flex flex-row overflow-x-auto w-full mt-2 mb-4 border-b-2 border-coopmaths-struct dark:border-coopmathsdark-struct
@@ -585,7 +573,6 @@
   {/if}
 
   <main class="lecture flex-1 px-4" class:pt-4={pages.length <= 1} style="padding-bottom: calc({hauteurClavier}px + 6rem)">
-    {#if pret && pages.length <= 1 && palier}<div class="pb-2">{@render ceinture()}</div>{/if}
     {#if seance.code}
       <p class="pb-2 text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
         Session <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{seance.code}</span>

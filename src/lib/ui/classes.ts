@@ -30,16 +30,17 @@ export const desactive = 'disabled:opacity-40'
 export const pastille = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
   fond-vert-mathalea text-white text-xs font-bold`
 
-/** Liste groupée (MobileBrowser.svelte) */
-export const listeGroupee = `flex flex-col rounded-xl overflow-hidden
-  border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
-  divide-y divide-coopmaths-canvas-darkest dark:divide-coopmathsdark-canvas-darkest`
+/** Liste : lignes séparées par un trait fin, sans boîte autour (refonte du
+ * 26 novembre 2026 : des boîtes partout faisaient « maquette IA ») */
+export const listeGroupee = `liste-lignes flex flex-col`
 
-/** Élément de liste (MobileEndingItem.svelte) */
-export const elementListe = `w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-  bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-  active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest
+/** Élément de liste : pleine largeur, sans fond, assombri au toucher */
+export const elementListe = `ligne-liste w-full flex flex-row items-center justify-between gap-3 py-3 text-left
+  active:bg-coopmaths-canvas-dark dark:active:bg-coopmathsdark-canvas-dark
   transition-colors duration-150`
+
+/** Intertitre de section : petites capitales grises, comme les listes des réglages d'un téléphone */
+export const titreSection = `titre-section`
 
 /** Pastille d'un score : couleur de réussite à partir de 80 %, neutre en dessous (0 % n'a pas l'air réussi) */
 export const pastilleNeutre = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full

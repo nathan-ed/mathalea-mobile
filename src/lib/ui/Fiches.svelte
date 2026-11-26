@@ -34,7 +34,7 @@
   const deplie = (cle: string) => (seul ? !ouverts.includes('f:' + cle) : ouverts.includes(cle))
   const basculerChapitre = (cle: string) => ouvrirFermer(seul ? 'f:' + cle : cle)
 
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const icone = 'p-2 text-xl text-coopmaths-action dark:text-coopmathsdark-action disabled:opacity-30'
   const chevron = 'text-2xl text-coopmaths-action dark:text-coopmathsdark-action'
@@ -117,13 +117,14 @@
       {@const ouvert = deplie(c.cle)}
       <button
         type="button"
-        class="flex flex-row items-center justify-between gap-3 pl-2 pt-2 text-left"
+        class="flex flex-row items-center justify-between gap-3 pt-2 text-left"
         style="min-height: 44px"
         aria-expanded={ouvert}
         onclick={() => basculerChapitre(c.cle)}
       >
         <span>
-          <span class="font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">{c.theme}</span>
+          <!-- Chapitre : petites capitales grises, comme à l'accueil -->
+          <span class="titre-section">{c.theme}</span>
           <span class="{discret} whitespace-nowrap">· {c.niveau} · {c.fiches.length} fiche{c.fiches.length > 1 ? 's' : ''}</span>
         </span>
         <i aria-hidden="true" class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'} {chevron}"></i>

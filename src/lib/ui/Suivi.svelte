@@ -29,7 +29,7 @@
     passagesRevision?: Seance[] // séances de révision : elles comptent pour les objectifs
   } = $props()
 
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   // Rampe à une teinte (struct de MathALÉA), validée : dataviz/validate_palette --ordinal
   const rampe = $derived(theme.sombre ? ['#8f48f5', '#a66df7', '#caa9fa', '#e0cffc'] : ['#5faedd', '#2c93cf', '#216d9a', '#14415c'])
@@ -168,12 +168,12 @@
     </p>
   {:else}
     <div
-      class="grid rounded-xl border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark py-4"
+      class="grid pt-2 pb-1"
       style="grid-template-columns: repeat(3, minmax(0, 1fr));"
     >
       {#each [[essais.length, 'questions'], [justes, justes > 1 ? 'correctes' : 'correcte'], [joursActifs, joursActifs > 1 ? 'jours actifs' : 'jour actif']] as [n, libelle] (libelle)}
-        <div class="text-center">
-          <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2.25rem; line-height: 1.1">{n}</div>
+        <div>
+          <div class="font-light text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 2rem; line-height: 1.1">{n}</div>
           <div class={discret}>{libelle}</div>
         </div>
       {/each}
@@ -216,8 +216,8 @@
                   <button
                     type="button"
                     aria-expanded={objectifOuvert === o.libelle}
-                    class="w-full flex flex-col gap-2 px-4 py-3 text-left bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-                    active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+                    class="w-full flex flex-col gap-2 py-3 text-left
+                    active:bg-coopmaths-canvas-dark dark:active:bg-coopmathsdark-canvas-dark transition-colors duration-150"
                     onclick={() => (objectifOuvert = objectifOuvert === o.libelle ? null : o.libelle)}
                   >
                     <span class="flex flex-row items-start justify-between gap-3">
@@ -246,7 +246,7 @@
     {:else if vue === 'ceintures'}
       {#if ceinturesTest.length}
         {@const plusHaute = ceinturesTest.filter((x) => x.obtenue).at(-1)}
-        <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+        <section class="flex flex-col gap-3 pt-2">
           <button type="button" class="text-left" onclick={ontest}>
             <span class="block font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Teste ton niveau</span>
             <span class={discret}>{plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')} (${plusHaute.niveau})` : 'Aucune ceinture pour le moment'}</span>
@@ -259,7 +259,7 @@
       {/if}
       {#each ceintures as c (`${c.niveau}|${c.theme}`)}
         {@const plusHaute = c.ceintures.filter((x) => x.obtenue).at(-1)}
-        <section class="flex flex-col gap-3 rounded-xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+        <section class="flex flex-col gap-3 pt-2">
           <div>
             <h3 class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{c.theme}</h3>
             <span class={discret}>{c.niveau} · {plusHaute ? `Ceinture la plus haute : ${plusHaute.nom.replace('Ceinture ', '')}` : 'Aucune ceinture pour le moment'}</span>
@@ -298,7 +298,7 @@
         {/each}
       </div>
     </div>
-    <div class="rounded-xl border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest p-3">
+    <div class="py-1">
       {#if vueActivite === 'calendrier'}
       <div class="grid gap-1 mx-auto" style="grid-template-columns: repeat(7, 2.25rem); width: max-content">
         {#each ['L', 'M', 'M', 'J', 'V', 'S', 'D'] as j, i (i)}
@@ -382,13 +382,12 @@
           <li>
             <button
               type="button"
-              class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-              bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-              active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+              class="w-full flex flex-row items-center justify-between gap-3 py-3 text-left
+              active:bg-coopmaths-canvas-dark dark:active:bg-coopmathsdark-canvas-dark transition-colors duration-150"
               onclick={() => onouvrir(l.p)}
             >
               <div class="min-w-0">
-                <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{l.p.titre}</div>
+                <div class="font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct" style="font-size: 1.0625rem">{l.p.titre}</div>
                 <div class={discret}>
                   {#if l.paliers}
                     {l.n} passage{l.n > 1 ? 's' : ''} · {l.paliers.reussis} {l.p.style === 'ceintures' ? 'ceinture' : 'palier'}{l.paliers.reussis > 1 ? 's' : ''} sur {l.paliers.total}
@@ -416,9 +415,8 @@
           <li>
             <button
               type="button"
-              class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-              bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-              active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+              class="w-full flex flex-row items-center justify-between gap-3 py-3 text-left
+              active:bg-coopmaths-canvas-dark dark:active:bg-coopmathsdark-canvas-dark transition-colors duration-150"
               onclick={() => onouvrir(r.p)}
             >
               <div class="min-w-0 text-coopmaths-corpus dark:text-coopmathsdark-corpus">

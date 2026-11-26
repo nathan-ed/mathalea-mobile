@@ -25,7 +25,17 @@
   retourSi(() => true, () => onretour())
 
   const riche = (t: string) => texteRiche(t, formule)
-  const etiquette = 'text-sm font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  // Intertitres de la fiche : petites capitales grises, comme les sections de l'app
+  const etiquette = 'titre-section'
+  // Grand titre dans la page ; celui de la barre revient quand il passe dessous
+  let grandTitre: HTMLElement | undefined = $state()
+  let grandTitreVisible = $state(true)
+  $effect(() => {
+    if (!grandTitre) return
+    const o = new IntersectionObserver(([e]) => (grandTitreVisible = e.isIntersecting), { rootMargin: '-56px 0px 0px 0px' })
+    o.observe(grandTitre)
+    return () => o.disconnect()
+  })
   // Étapes dévoilées des exemples, réponses données aux questions (par rang du bloc)
   let etapes: Record<number, number> = $state({})
   let choix: Record<number, number> = $state({})
@@ -36,39 +46,46 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <EnTete titre={fiche.titre} {onretour} />
-  <main class="colonne lecture flex-1 flex flex-col gap-5 p-4 {oncommencer ? 'pb-28' : 'zone-sure-bas'} text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+  <EnTete titre={fiche.titre} {onretour} titreCache={grandTitreVisible} />
+  <!-- Une page de manuel : lecture continue, sans boîtes ; la règle « À retenir » est la seule surface -->
+  <main class="fiche colonne lecture flex-1 flex flex-col gap-4 px-4 pt-1 {oncommencer ? 'pb-28' : 'pb-4 zone-sure-bas'} text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+    <p bind:this={grandTitre} class="text-2xl font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct" aria-hidden="true">{@html titreRiche(fiche.titre, formule)}</p>
     {#each fiche.blocs as bloc, i (i)}
       {#if bloc.type === 'texte'}
         <div class="texte-cours leading-relaxed">{@html riche(bloc.texte)}</div>
       {:else if bloc.type === 'retenir'}
-        <section class="flex flex-col gap-2 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label={(bloc.titre ?? 'À retenir').replace(/\$/g, '')}>
+        <section class="regle surface flex flex-col gap-1 p-4" aria-label={(bloc.titre ?? 'À retenir').replace(/\$/g, '')}>
           <h2 class={etiquette}>{@html titreRiche(bloc.titre ?? 'À retenir', formule)}</h2>
           <div class="texte-cours leading-relaxed">{@html riche(bloc.texte)}</div>
         </section>
       {:else if bloc.type === 'exemple'}
         {@const vues = etapes[i] ?? 0}
-        <section class="flex flex-col gap-3 rounded-2xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" aria-label={(bloc.titre ?? 'Exemple').replace(/\$/g, '')}>
+        <section class="flex flex-col gap-2" aria-label={(bloc.titre ?? 'Exemple').replace(/\$/g, '')}>
           <h2 class={etiquette}>{@html titreRiche(bloc.titre ?? 'Exemple', formule)}</h2>
           <div class="texte-cours leading-relaxed">{@html riche(bloc.enonce)}</div>
           {#each bloc.etapes.slice(0, vues) as e, k (k)}
-            <div class="texte-cours leading-relaxed border-l-4 border-coopmaths-struct-light dark:border-coopmathsdark-struct-light pl-4">{@html riche(e)}</div>
+            <!-- Étapes numérotées, dévoilées une à une -->
+            <div class="etape-exemple">
+              <span class="num-etape" aria-hidden="true">{k + 1}</span>
+              <div class="texte-cours leading-relaxed min-w-0 flex-1">{@html riche(e)}</div>
+            </div>
           {/each}
           {#if vues < bloc.etapes.length}
-            <button type="button" class={boutonLien} onclick={() => (etapes[i] = vues + 1)}>
+            <button type="button" class="lien-fiche" onclick={() => (etapes[i] = vues + 1)}>
               {vues === 0 ? 'Voir la première étape' : 'Étape suivante'}
             </button>
           {/if}
         </section>
       {:else if bloc.type === 'question'}
-        <section class="flex flex-col gap-3 rounded-2xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest" aria-label="À toi">
+        <section class="flex flex-col gap-2" aria-label="À toi">
           <h2 class={etiquette}>À toi</h2>
           <div class="texte-cours leading-relaxed">{@html riche(bloc.enonce)}</div>
           {#if bloc.choix}
             <div class={listeGroupee} role="radiogroup" aria-label="Réponses proposées">
               {#each bloc.choix as c, k (k)}
-                <button type="button" role="radio" aria-checked={choix[i] === k} class={elementListe} onclick={() => (choix[i] = k)}>
-                  <span class="texte-cours">{@html riche(c)}</span>
+                <button type="button" role="radio" aria-checked={choix[i] === k} class="{elementListe} choix-fiche" onclick={() => (choix[i] = k)}>
+                  <span class="rond-choix {choix[i] === k ? (k === bloc.bonne ? 'juste' : 'faux') : ''}" aria-hidden="true"></span>
+                  <span class="texte-cours flex-1 min-w-0">{@html riche(c)}</span>
                   {#if choix[i] === k}
                     <span class={k === bloc.bonne ? pastille : pastilleIncorrecte}>{k === bloc.bonne ? 'Correcte' : 'Incorrecte'}</span>
                   {/if}
@@ -138,3 +155,64 @@
     </footer>
   {/if}
 </div>
+
+<style>
+  /* Intertitres : plus d'air avant une nouvelle partie de la fiche */
+  .fiche :global(.titre-section) {
+    margin: 1rem 0 0;
+  }
+  .regle :global(.titre-section) {
+    margin: 0 0 0.25rem;
+    color: var(--app-struct);
+  }
+  .fiche {
+    font-size: 1.0625rem;
+  }
+  .etape-exemple {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .num-etape {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    background: var(--app-fond-2);
+    color: var(--app-struct);
+  }
+  .lien-fiche {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--app-action);
+  }
+  .choix-fiche {
+    justify-content: flex-start;
+  }
+  .rond-choix {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    border: 2px solid var(--app-discret);
+  }
+  .rond-choix.juste {
+    border-color: var(--app-vert);
+    background: var(--app-vert);
+    box-shadow: inset 0 0 0 4px var(--app-fond);
+  }
+  .rond-choix.faux {
+    border-color: var(--app-action);
+    background: var(--app-action);
+    box-shadow: inset 0 0 0 4px var(--app-fond);
+  }
+</style>

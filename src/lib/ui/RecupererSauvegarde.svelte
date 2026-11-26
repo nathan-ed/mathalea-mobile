@@ -6,7 +6,6 @@
   // « Tout remplacer » avec l'avertissement (Nathan, 19 novembre 2026).
   import type { BilanFusion } from '$lib/fusion'
   import type { resumerSauvegarde } from '$lib/sauvegarde'
-  import { boutonLien } from './classes'
   import ConfirmationRestauration from './ConfirmationRestauration.svelte'
   let {
     onresumer,
@@ -39,8 +38,8 @@
   }
 </script>
 
-<button type="button" class="{boutonLien} w-full" onclick={() => champ?.click()}>
-  <i aria-hidden="true" class="bx bx-import text-xl"></i> Récupérer une sauvegarde
+<button type="button" class="ligne-action-accueil" onclick={() => champ?.click()}>
+  <i aria-hidden="true" class="bx bx-import"></i> Récupérer une sauvegarde
 </button>
 <input bind:this={champ} type="file" accept=".json,application/json" class="hidden" aria-label="Fichier de sauvegarde" onchange={lire} />
 {#if message}<p class="text-sm font-bold text-coopmaths-action dark:text-coopmathsdark-action" role="alert">{message}</p>{/if}

@@ -24,7 +24,7 @@
   retourSi(() => true, () => onretour())
 
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const ligne = 'w-full flex flex-row items-center justify-between gap-4 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
 
   const groupes = $derived(parcoursParChapitre(revisions, mesParcours))

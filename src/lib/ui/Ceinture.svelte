@@ -22,7 +22,7 @@
 <span
   aria-hidden="true"
   class="ceinture shrink-0 rounded border {obtenue && claire ? 'claire' : ''} {obtenue ? '' : 'a-obtenir'} border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest {taille} {classe}"
-  style={obtenue ? `background-color: ${couleur}` : ''}
+  style={obtenue ? `background-color: ${couleur}` : `--c: ${claire ? 'var(--app-discret)' : couleur}`}
 >
   {#if obtenue}
     {#each { length: barrettes } as _, i (i)}
@@ -43,14 +43,13 @@
     padding-right: 6px;
     overflow: hidden;
   }
-  /* À obtenir : contour en pointillé bien visible (il se perdait sur le gris des cartes) */
+  /* À obtenir : hachurée de sa couleur (gris pour la blanche), contour de sa
+     couleur ; obtenue : pleine. Des tirets seuls ne distinguaient pas une
+     blanche obtenue d'une ceinture à obtenir (Nathan, 26 novembre 2026) */
   .ceinture.a-obtenir {
-    border-style: dashed;
-    border-width: 2px;
-    border-color: var(--color-coopmaths-corpus-lightest);
-  }
-  :global(.dark) .ceinture.a-obtenir {
-    border-color: var(--color-coopmathsdark-corpus-lightest);
+    border: 1.5px solid var(--c);
+    background: repeating-linear-gradient(-45deg, var(--c) 0 2px, transparent 2px 6px);
+    opacity: 0.75;
   }
   .ceinture.claire {
     border-color: var(--color-coopmaths-corpus-lightest);

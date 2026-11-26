@@ -636,7 +636,9 @@
   // ---------- Accueil : une seule action proposée ----------
   // Reprendre la séance commencée ; sinon la révision du jour ; sinon la
   // ceinture (ou le palier) suivante du parcours travaillé en dernier.
-  const actionProposee = $derived.by((): { libelle: string; detail: string; fn: () => void; id?: string } | null => {
+  /** Palier d'une séance (rang dans le parcours), pour nommer et dessiner sa ceinture */
+  const palierDeSeance = (p: Parcours, s: TSeance | null | undefined) => (s && aDesPaliers(p) ? paliersDe(p).findIndex((x) => x.etapes.join() === s.etapes.join()) : -1)
+  const actionProposee = $derived.by((): { libelle: string; detail: string; fn: () => void; id?: string; titre?: string; contexte?: string; couleur?: string } | null => {
     if (!moteur) return null
     const visibles = tous.filter((p) => !caches.includes(p.id))
     // 1. Séance commencée, la plus récente
@@ -645,7 +647,17 @@
     if (commencees.length) {
       const p = commencees[0]
       const r = resumes[p.id]
-      return { libelle: 'Reprendre', detail: `${p.titre} · question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`, fn: () => commencer(p), id: p.id }
+      const k = palierDeSeance(p, seances[p.id])
+      const question = `question ${Math.min(r.fait + 1, r.sur)} sur ${r.sur}`
+      return {
+        libelle: 'Reprendre',
+        detail: `${p.titre} · ${question}`,
+        titre: p.titre,
+        contexte: k >= 0 ? `${nomPalier(p, k)} · ${question}` : question.charAt(0).toUpperCase() + question.slice(1),
+        couleur: k >= 0 && p.style === 'ceintures' ? couleurCeinture(p, k) : undefined,
+        fn: () => commencer(p),
+        id: p.id,
+      }
     }
     // 2. Évaluation annoncée par l'enseignant : un toucher pour préparer ses révisions
     if (annonce) return { libelle: 'Préparer l’évaluation', detail: [`Évaluation ${jourEnMots(annonce.date)}`, annonce.titre].filter(Boolean).join(' · '), fn: () => void preparerEvaluationAnnoncee(annonce) }
@@ -666,7 +678,14 @@
       const k = etats.findIndex((x, i) => x.ouvert && !acquis[i])
       if (k === -1) continue
       const nom = nomPalier(p, k).toLowerCase()
-      return { libelle: p.style === 'ceintures' ? `Passer la ${nom}` : `Faire le ${nom}`, detail: [p.titre, etats[k].titre.trim()].filter(Boolean).join(' · '), fn: () => commencer(p, etats[k].etapes) }
+      return {
+        libelle: p.style === 'ceintures' ? `Passer la ${nom}` : `Faire le ${nom}`,
+        detail: [p.titre, etats[k].titre.trim()].filter(Boolean).join(' · '),
+        titre: p.titre,
+        contexte: [nomPalier(p, k), etats[k].titre.trim()].filter(Boolean).join(' · '),
+        couleur: p.style === 'ceintures' ? couleurCeinture(p, k) : undefined,
+        fn: () => commencer(p, etats[k].etapes),
+      }
     }
     return null
   })

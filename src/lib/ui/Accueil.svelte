@@ -27,6 +27,7 @@
   import type { NiveauExplorer } from '$lib/explorer'
   import ChampTexte from './ChampTexte.svelte'
   import ContenuClasse, { type Organisation } from './ContenuClasse.svelte'
+  import Ceinture from './Ceinture.svelte'
   import { boutonAction, boutonLien } from './classes'
   import EnTete from './EnTete.svelte'
   import BarreOnglets from './BarreOnglets.svelte'
@@ -105,7 +106,7 @@
     revisions?: { dus: number; prochaine: string | null; enCours: boolean; evaluation?: string | null /* jour en mots */; aPreparer?: string | null /* évaluation annoncée, pas encore préparée */ } | null // révisions espacées (null : rien de terminé)
     onrevisions?: () => void
     /** Ce que l'app propose de faire maintenant : reprendre la séance, sinon réviser, sinon la ceinture suivante */
-    action?: { libelle: string; detail: string; fn: () => void; id?: string } | null // id : parcours repris par l'action
+    action?: { libelle: string; detail: string; fn: () => void; id?: string; titre?: string; contexte?: string; couleur?: string } | null // id : parcours repris par l'action
     ontest?: () => void // Teste ton niveau (moteur prêt)
     resumeTest?: string
     onajouter: (lien: string) => Promise<string | null>
@@ -131,7 +132,7 @@
   }
   const organisation = (id: string): Organisation => organisations[id] ?? { ordre: [], fermes: [] }
 
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
   /** Ceintures du parcours, dessinées sur la tuile : la progression se voit au lieu d'une phrase */
   const ceintures = (p: Parcours) => resumes[p.id]?.paliers?.ceintures
@@ -164,6 +165,8 @@
 
   let recherche = $state('')
   const SEUIL_RECHERCHE = 7
+  // Ajout de la classe quand des parcours sont déjà là : une ligne, déployée au toucher
+  let formulaireOuvert = $state(false)
   // Classe affichée quand il y en a plusieurs (pastilles) : la première par défaut
   let classeChoisie: string | null = $state(null)
   const classeVue = $derived(sources.find((s) => s.id === classeChoisie) ?? sources[0])
@@ -278,7 +281,7 @@
 
   <main class="flex-1 avec-onglets">
     {#if onglet === 'mes'}
-      <div class="liste-tuiles flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col px-4 pt-2 pb-4">
         <!-- Recherche seulement quand la liste est longue : avec trois parcours, un champ vide
              en tête de l'accueil ne sert à rien et repousse les tuiles (Rémi, 26 novembre 2026) -->
         {#if tous.length >= SEUIL_RECHERCHE || recherche}
@@ -309,10 +312,17 @@
         {:else}
           {#if action}
             <!-- Une seule action proposée : l'élève n'a pas à chercher par où continuer -->
-            <!-- L'action proposée dans une carte : ce qu'on reprend, puis le bouton, d'un seul bloc -->
-            <section class="carte-action flex flex-col gap-3 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark" aria-label="À faire maintenant">
-              <p class="font-semibold leading-snug text-coopmaths-struct dark:text-coopmathsdark-struct">{action.detail}</p>
-              <button type="button" class="{boutonAction} w-full" style="min-height: 44px" onclick={action.fn}>{action.libelle}</button>
+            <!-- L'action proposée : la seule surface en relief de l'accueil. Où l'on en est
+                 (ceinture, question), le parcours, puis le bouton -->
+            <section class="surface flex flex-col p-4 mt-2 mb-2" aria-label="À faire maintenant">
+              <p class="flex flex-row items-center gap-2 text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+                {#if action.couleur}<Ceinture couleur={action.couleur} obtenue={false} taille="w-5 h-2.5" />{/if}
+                <span>{action.titre ? action.contexte : action.detail}</span>
+              </p>
+              {#if action.titre}
+                <p class="mt-1 text-xl font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct">{action.titre}</p>
+              {/if}
+              <button type="button" class="{boutonAction} w-full mt-3" style="min-height: 48px; font-size: 1rem" onclick={action.fn}>{action.libelle}</button>
             </section>
           {/if}
           {#if revisions && onrevisions}
@@ -427,15 +437,29 @@
             {#if !ajoutesVisibles.length}
               <Tuile icon="bx-compass" title="Explorer les parcours" subtitle="Parcours proposés par l’équipe MathALÉA" onclick={() => changerOnglet('explorer')} />
             {/if}
-            <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien?.(false)}>
-              <i aria-hidden="true" class="bx bx-link text-xl"></i> Ajouter le lien de ma classe
-            </button>
-            {#if onrestaurer && onresumer && onapercuSauvegarde && onfusionner}<RecupererSauvegarde {onresumer} onapercu={onapercuSauvegarde} {onrestaurer} {onfusionner} />{/if}
+            <div class="liste-lignes flex flex-col mt-4">
+              <button type="button" class="ligne-action-accueil" onclick={() => onsansLien?.(false)}>
+                <i aria-hidden="true" class="bx bx-link"></i> Ajouter le lien de ma classe
+              </button>
+              {#if onrestaurer && onresumer && onapercuSauvegarde && onfusionner}<RecupererSauvegarde {onresumer} onapercu={onapercuSauvegarde} {onrestaurer} {onfusionner} />{/if}
+            </div>
+          {:else if sources.length === 0 && aChoisir.length === 0 && ajoutesVisibles.length && !formulaireOuvert}
+            <!-- Des parcours déjà là : l'ajout de la classe tient sur une ligne -->
+            <div class="liste-lignes flex flex-col mt-4">
+              <button type="button" class="ligne-action-accueil" onclick={() => (formulaireOuvert = true)}>
+                <i aria-hidden="true" class="bx bx-plus-circle"></i> Ajouter le dossier de ma classe
+              </button>
+            </div>
           {:else if sources.length === 0 && aChoisir.length === 0}
-            <h2 class={titreSection}>Ajoute le dossier de ta classe ou une sauvegarde</h2>
+            {#if !ajoutesVisibles.length}
+              <h2 class="mt-2 text-2xl font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct">Ajoute ta classe</h2>
+              <p class="mt-1 text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light">Avec le lien de ton enseignant, tu reçois les parcours de ta classe.</p>
+            {:else}
+              <h2 class={titreSection}>Ajoute le dossier de ta classe</h2>
+            {/if}
             <!-- Formulaire : Entrée ajoute le dossier ; le lien reste si l'ajout échoue -->
             <form
-              class="flex flex-col gap-3"
+              class="flex flex-col gap-3 mt-4"
               onsubmit={(e) => {
                 e.preventDefault()
                 if (lien.trim() && !ajoutEnCours) ajouter()
@@ -448,17 +472,21 @@
               <button type="submit" class="{boutonAction} w-full disabled:opacity-40" style="min-height: 44px" disabled={!lien.trim() || ajoutEnCours} aria-busy={ajoutEnCours}>
                 {ajoutEnCours ? 'Ajout du dossier…' : 'Ajouter le dossier'}
               </button>
+            </form>
+            <div class="liste-lignes flex flex-col mt-4">
               {#if onscanner}
-                <button type="button" class="{boutonLien} w-full" onclick={onscanner}>
-                  <i aria-hidden="true" class="bx bx-qr-scan text-xl"></i> Scanner le QR code de ma classe
+                <button type="button" class="ligne-action-accueil" onclick={onscanner}>
+                  <i aria-hidden="true" class="bx bx-qr-scan"></i> Scanner le QR code de ma classe
                 </button>
               {/if}
               {#if onsansLien}
                 <!-- Pas de lien : l'élève travaille avec l'Explorer ; un QR code de classe suffit aussi -->
-                <button type="button" class="{boutonLien} w-full" onclick={() => onsansLien(true)}>Je n’ai pas de lien</button>
+                <button type="button" class="ligne-action-accueil" onclick={() => onsansLien(true)}>
+                  <i aria-hidden="true" class="bx bx-compass"></i> Je n’ai pas de lien
+                </button>
               {/if}
-            </form>
-            {#if onrestaurer && onresumer && onapercuSauvegarde && onfusionner}<RecupererSauvegarde {onresumer} onapercu={onapercuSauvegarde} {onrestaurer} {onfusionner} />{/if}
+              {#if onrestaurer && onresumer && onapercuSauvegarde && onfusionner}<RecupererSauvegarde {onresumer} onapercu={onapercuSauvegarde} {onrestaurer} {onfusionner} />{/if}
+            </div>
           {/if}
           {#if cachesListe.length && oncacher}
             <!-- Parcours cachés par l'élève : repliés en bas, l'œil ouvert les remet à leur place -->
@@ -481,7 +509,7 @@
       </div>
     {:else if onglet === 'explorer' && niveauOuvert}
       <!-- Tous les parcours du degré, rangés sous leur chapitre -->
-      <div class="liste-tuiles flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col px-4 pt-2 pb-4">
         <p class="pl-2 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
           Touche <i aria-hidden="true" class="bx bx-plus-circle align-middle text-lg text-coopmaths-action dark:text-coopmathsdark-action"></i><span class="sr-only">le bouton plus</span>
           pour mettre un parcours sur ton accueil, à nouveau pour l’en retirer.
@@ -511,7 +539,7 @@
         {/each}
       </div>
     {:else if onglet === 'explorer'}
-      <div class="liste-tuiles flex flex-col gap-3 p-4">
+      <div class="liste-tuiles flex flex-col px-4 pt-2 pb-4">
         {#if ontest}
           <Tuile icon="bx-timer" title="Teste ton niveau" subtitle={resumeTest} onclick={ontest} />
         {/if}

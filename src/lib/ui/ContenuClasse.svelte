@@ -120,7 +120,7 @@
      chapitre suffit (deux intertitres l'un sur l'autre, Rémi, 26 novembre 2026) -->
 {#if chapitres.length > 1}
 <div class="flex flex-row items-center justify-between">
-  <h2 class="pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">{nom}</h2>
+  <h2 class="titre-section">{nom}</h2>
     <button
       type="button"
       class="text-sm text-coopmaths-action dark:text-coopmathsdark-action"
@@ -137,7 +137,7 @@
   {@const ouvert = !organisation.fermes.includes(c.nom)}
   <div
     bind:this={lignes[i]}
-    class="flex flex-row items-center gap-1 rounded-xl {organiser ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''}"
+    class="ligne-chapitre flex flex-row items-center gap-1 rounded-xl {organiser ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''}"
     style={glisse?.index === i ? `transform: translateY(${glisse.dy}px); position: relative; z-index: 10; box-shadow: 0 6px 18px rgb(0 0 0 / 18%)` : ''}
   >
     {#if organiser}
@@ -156,21 +156,20 @@
     {/if}
     <button
       type="button"
-      class="flex-1 flex flex-row items-center justify-between gap-3 px-2 py-2 text-left"
+      class="chapitre flex-1 flex flex-row items-center justify-between gap-3 text-left"
       style="min-height: 44px"
       aria-expanded={ouvert}
       disabled={organiser}
       onclick={() => basculer(c.nom)}
     >
-      <span class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+      <!-- Intertitre du chapitre : petites capitales grises, comme les sections des réglages -->
+      <span class="titre-section">
         {c.nom}
-        <span class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-          · {c.parcours.length} parcours
-        </span>
+        <span class="compte"> · {c.parcours.length}</span>
       </span>
       {#if !organiser}
         <i aria-hidden="true"
- class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+ class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'} text-xl text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
       {/if}
     </button>
     {#if organiser}
@@ -215,3 +214,18 @@
     {/each}
   {/if}
 {/each}
+
+<style>
+  /* Chapitre : intertitre sans marge propre, l'espace vient de la ligne */
+  .chapitre .titre-section {
+    margin: 0;
+  }
+  .compte {
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .ligne-chapitre {
+    margin-top: 1rem;
+  }
+</style>

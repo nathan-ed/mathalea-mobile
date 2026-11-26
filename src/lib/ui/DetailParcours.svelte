@@ -79,7 +79,7 @@
   retourSi(() => session !== 'aucune', () => (session = 'aucune'))
 
   const difficultes = ['Découverte', 'Entraînement', 'Approfondissement']
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const date = (s: Seance) =>
     new Date(s.fin ?? s.debut).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
@@ -127,6 +127,8 @@
     return k !== -1 ? k : paliers.findIndex((x) => x.ouvert && x.aRevoir)
   })
   const objectifsSuivis = $derived(resultatsParObjectif(parcours, resultats))
+  // Barre du bas : le palier en cours (ou le parcours entier), hors session partagée
+  const barreBas = $derived(session === 'aucune' && (!avecPaliers || courant !== -1))
   // Exercice masqué par l'enseignant : absent de la liste (ni titre, ni « Exercice n »)
   const visibles = (etapes: number[]) => etapes.filter((i) => !parcours.etapes[i].titreMasque)
   const objectifsDe = (etapes: number[]) => [...new Set(etapes.flatMap((i) => parcours.etapes[i].objectifs ?? []))]
@@ -210,7 +212,7 @@
     {/snippet}
   </EnTete>
 
-  <main class="flex-1 flex flex-col gap-4 p-4 zone-sure-bas">
+  <main class="flex-1 flex flex-col gap-4 px-4 pt-1 {barreBas ? 'pb-28' : 'pb-4 zone-sure-bas'}">
     <div>
       <!-- Grand titre en entier (la barre le coupait : « Additionner et soustraire des… ») ;
            celui de la barre revient quand il passe dessous -->
@@ -228,7 +230,7 @@
         <!-- Longue description repliée sur trois lignes : les ceintures restent en vue -->
         <p class="mt-3 whitespace-pre-line font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {descriptionOuverte ? '' : 'line-clamp-3'}">{parcours.descriptionEleves}</p>
         {#if !descriptionOuverte && parcours.descriptionEleves.length > 140}
-          <button type="button" class="{boutonLien} -ml-1 mt-1 px-1" style="min-height: 44px" onclick={() => (descriptionOuverte = true)}>Lire la suite</button>
+          <button type="button" class="lien-palier" onclick={() => (descriptionOuverte = true)}>Lire la suite</button>
         {/if}
       {/if}
       {#if misAJour}
@@ -239,85 +241,78 @@
     </div>
 
     {#if avecPaliers}
-      <ol class="flex flex-col" aria-label="Paliers">
+      <!-- Les ceintures (ou paliers) : une échelle de lignes, sans boîtes. La ceinture en
+           cours porte la seule surface de l'écran ; son bouton est dans la barre du bas -->
+      <h2 class="titre-section">{paliers.length} {parcours.style === 'ceintures' ? (paliers.length > 1 ? 'ceintures' : 'ceinture') : paliers.length > 1 ? 'paliers' : 'palier'}</h2>
+      <ol class="liste-lignes flex flex-col" aria-label="Paliers">
         {#each paliers as x, k (k)}
           {@const e = etat(k)}
           {@const objectifsPalier = objectifsDe(x.etapes)}
-          {#if k > 0}<li aria-hidden="true" class="self-center w-1 h-4 rounded-full bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest"></li>{/if}
-          <li>
-            <section
-              class="flex flex-col gap-3 rounded-2xl p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-              {k === courant ? 'border-2 border-coopmaths-action dark:border-coopmathsdark-action' : ''}"
-              aria-label="{nomPalier(parcours, k)}{x.titre ? ` : ${x.titre}` : ''}"
-            >
-              <div class="flex flex-row items-center gap-3">
-                {#if parcours.style === 'ceintures'}
-                  <!-- Ceinture : sa couleur, seule teinte hors charte de l'app ; obtenue, elle porte ses barrettes -->
-                  <Ceinture couleur={couleurCeinture(parcours, k)} taille="w-10 h-5" classe={x.ouvert ? '' : 'opacity-40'} barrettes={obtenues[k] ? barrettesDe(x.etapes) : 0} />
-                {:else}
-                  <span
-                    aria-hidden="true"
-                    class="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full text-lg font-bold
-                    {x.ouvert
-                      ? 'bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas'
-                      : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'}"
-                    >{k + 1}</span
-                  >
-                {/if}
-                <div class="min-w-0 flex-1">
-                  <h2 class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">{nomPalier(parcours, k)}{x.titre ? ` · ${x.titre}` : ''}</h2>
-                  <p class="flex flex-row items-center gap-1 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                    <i aria-hidden="true" class="bx {e.icone} text-base text-coopmaths-action dark:text-coopmathsdark-action"></i>{e.texte}
-                  </p>
-                </div>
-              </div>
-              {#if x.ouvert}
-                {#if objectifsPalier.length}
-                  <p class={discret}>{objectifsPalier.length > 1 ? 'Objectifs' : 'Objectif'} : {objectifsPalier.join(' ; ')}</p>
-                {/if}
-                {@render lignesExercices(x.etapes)}
-                {#if x.fiche && onfiche}
-                  <button type="button" class="{x.aRevoir ? boutonInverse : boutonLien} w-full" onclick={() => onfiche(x.fiche!)}>
-                    <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Fiche : {x.fiche.titre}
-                  </button>
-                {/if}
-                {#if x.ressource && lienSur(x.ressource.lien)}
-                  <button type="button" class="{x.aRevoir ? boutonInverse : boutonLien} w-full" onclick={() => ouvrirLien(x.ressource!.lien)}>
-                    <i aria-hidden="true" class="bx bx-book-open text-xl"></i> Pour revoir : {x.ressource.titre}
-                  </button>
-                {/if}
-                {#if k === courant}
-                  <button type="button" class="{boutonAction} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
-                {:else if !enCours}
-                  <button type="button" class="{boutonLien} w-full" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
-                {/if}
+          {@const actif = k === courant}
+          <li class="palier {actif ? 'palier-actif' : ''}">
+            <section class="flex flex-row items-start gap-3" aria-label="{nomPalier(parcours, k)}{x.titre ? ` : ${x.titre}` : ''}">
+              {#if parcours.style === 'ceintures'}
+                <!-- Ceinture : sa couleur, seule teinte hors charte de l'app ; hachurée tant qu'elle n'est pas obtenue -->
+                <Ceinture couleur={couleurCeinture(parcours, k)} obtenue={!!obtenues[k]} taille="w-10 h-5" classe="mt-0.5" barrettes={obtenues[k] ? barrettesDe(x.etapes) : 0} />
               {:else}
-                <p class={discret}>{x.etapes.length} exercice{x.etapes.length > 1 ? 's' : ''}{objectifsPalier.length ? ` · ${objectifsPalier.join(' ; ')}` : ''}</p>
+                <span
+                  aria-hidden="true"
+                  class="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold
+                  {x.fini
+                    ? 'bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas'
+                    : 'border border-coopmaths-corpus-lightest dark:border-coopmathsdark-corpus-lightest text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light'}"
+                  >{k + 1}</span
+                >
               {/if}
+              <div class="min-w-0 flex-1">
+                <h3 class="nom-palier {x.ouvert ? '' : 'ferme'}">
+                  {nomPalier(parcours, k)}{#if x.titre}<span class="sr-only"> · </span><span class="sous-palier">{x.titre}</span>{/if}
+                </h3>
+                <p class="etat-palier">
+                  <i aria-hidden="true" class="bx {e.icone}"></i>{e.texte}
+                </p>
+                {#if x.ouvert && actif}
+                  {#if objectifsPalier.length}
+                    <p class="mt-1 {discret}">{objectifsPalier.length > 1 ? 'Objectifs' : 'Objectif'} : {objectifsPalier.join(' ; ')}</p>
+                  {/if}
+                  {@render lignesExercices(x.etapes)}
+                {/if}
+                {#if x.ouvert && (actif || x.aRevoir)}
+                  {#if x.fiche && onfiche}
+                    <button type="button" class="lien-palier" onclick={() => onfiche(x.fiche!)}>
+                      <i aria-hidden="true" class="bx bx-book-reader"></i> Fiche : {x.fiche.titre}
+                    </button>
+                  {/if}
+                  {#if x.ressource && lienSur(x.ressource.lien)}
+                    <button type="button" class="lien-palier" onclick={() => ouvrirLien(x.ressource!.lien)}>
+                      <i aria-hidden="true" class="bx bx-book-open"></i> Pour revoir : {x.ressource.titre}
+                    </button>
+                  {/if}
+                {/if}
+                {#if x.ouvert && !actif && !enCours}
+                  <button type="button" class="lien-palier" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
+                {/if}
+              </div>
             </section>
           </li>
           {#if x.pause}
-            <li aria-hidden="true" class="self-center w-1 h-4 rounded-full bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest"></li>
-            <li>
-              <section
-                class="flex flex-col gap-2 rounded-2xl p-4 border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-                aria-label="Pause après : {nomPalier(parcours, k).toLowerCase()}"
-              >
-                <p class="flex flex-row items-center gap-2 font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
-                  <i aria-hidden="true" class="bx {x.fini ? 'bx-pause-circle' : 'bx-lock-alt'} text-xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
-                  Pause
-                </p>
-                {#if x.fini}
-                  <p class="whitespace-pre-line text-coopmaths-corpus dark:text-coopmathsdark-corpus">{x.pause.texte}</p>
-                  {#if x.pause.ressource && lienSur(x.pause.ressource.lien)}
-                    <button type="button" class="{boutonLien} w-full" onclick={() => ouvrirLien(x.pause!.ressource!.lien)}>
-                      <i aria-hidden="true" class="bx bx-link-external text-xl"></i>
-                      {x.pause.ressource.titre}
-                    </button>
+            <li class="palier">
+              <section class="flex flex-row items-start gap-3" aria-label="Pause après : {nomPalier(parcours, k).toLowerCase()}">
+                <i aria-hidden="true" class="bx {x.fini ? 'bx-pause-circle' : 'bx-lock-alt'} w-10 text-center text-xl text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
+                <div class="min-w-0 flex-1">
+                  <h3 class="nom-palier">Pause</h3>
+                  {#if x.fini}
+                    <p class="whitespace-pre-line text-coopmaths-corpus dark:text-coopmathsdark-corpus">{x.pause.texte}</p>
+                    {#if x.pause.ressource && lienSur(x.pause.ressource.lien)}
+                      <button type="button" class="lien-palier" onclick={() => ouvrirLien(x.pause!.ressource!.lien)}>
+                        <i aria-hidden="true" class="bx bx-link-external"></i>
+                        {x.pause.ressource.titre}
+                      </button>
+                    {/if}
+                  {:else}
+                    <p class="etat-palier">Après : {nomPalier(parcours, k).toLowerCase()}</p>
                   {/if}
-                {:else}
-                  <p class={discret}>Après : {nomPalier(parcours, k).toLowerCase()}</p>
-                {/if}
+                </div>
               </section>
             </li>
           {/if}
@@ -350,11 +345,6 @@
     {/if}
 
     <div class="flex flex-col gap-3">
-      {#if !avecPaliers && session === 'aucune'}
-        <button type="button" class="{boutonAction} w-full" onclick={() => oncommencer()}>
-          {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
-        </button>
-      {/if}
       {#if explorer}
         <button type="button" class="{boutonInverse} w-full" aria-pressed={epingle} onclick={onepingler}>
           <i aria-hidden="true" class="bx {epingle ? 'bx-check' : 'bx-plus'} mr-1"></i>
@@ -458,6 +448,22 @@
       </ul>
     {/if}
   </main>
+  {#if barreBas}
+    <!-- L'action principale de la page, toujours sous le pouce -->
+    <footer
+      class="barre-bas fixed bottom-0 left-0 right-0 z-20 px-4 py-3 zone-sure-bas
+      border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      {#if avecPaliers}
+        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer(paliers[courant].etapes)}>{libelleBouton(courant)}</button>
+      {:else}
+        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer()}>
+          {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
+        </button>
+      {/if}
+    </footer>
+  {/if}
   {#if feuille === 'actions'}
     {@const action = (icone: string, libelle: string, fn: () => void) => ({ icone, libelle, fn })}
     {@const actions = [
@@ -536,3 +542,62 @@
     <QrSession {invitation} {code} titre={parcours.titre} onfermer={() => (qrSession = false)} />
   {/if}
 </div>
+
+<style>
+  /* Dans la colonne espacée de la page, l'intertitre n'ajoute pas sa propre marge */
+  main :global(.titre-section) {
+    margin-top: 0.5rem;
+    margin-bottom: -0.5rem;
+  }
+  .palier {
+    padding: 14px 0;
+  }
+  /* Le palier en cours : la seule surface de l'écran, sur toute la largeur */
+  .palier-actif {
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    background: var(--app-fond-2);
+  }
+  .palier-actif + li::before,
+  li + .palier-actif::before {
+    display: none;
+  }
+  .nom-palier {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--app-struct);
+  }
+  .nom-palier.ferme {
+    color: var(--app-gris);
+  }
+  .sous-palier {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--app-gris);
+  }
+  .etat-palier {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    color: var(--app-discret);
+  }
+  .lien-palier {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    margin-top: 2px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--app-action);
+  }
+  .lien-palier i {
+    font-size: 1.125rem;
+  }
+</style>

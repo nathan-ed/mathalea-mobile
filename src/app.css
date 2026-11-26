@@ -157,15 +157,87 @@ math-field,
     width: 100%;
   }
 }
+/* Grand écran : la liste reste une colonne lisible (des lignes de 1200 px ne se lisent pas) */
 @media (min-width: 768px) {
   .liste-tuiles {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    max-width: 44rem;
+    margin-inline: auto;
+    width: 100%;
   }
-  /* Titres, formulaires, pastilles : toute la ligne */
-  .liste-tuiles > :not(.tuile) {
-    grid-column: 1 / -1;
-  }
+}
+
+/* Langage visuel de l'app (refonte du 26 novembre 2026, docs/recherche-ui-mobile.md) :
+   des listes plutôt que des boîtes, la hiérarchie par la typographie, une seule
+   surface en relief par écran, la ceinture comme repère. Espacements sur 4 px. */
+
+/* Lignes de liste : un trait fin les sépare, aucune boîte autour */
+.ligne-liste {
+  position: relative;
+}
+.ligne-liste + .ligne-liste::before,
+.liste-lignes > * + *::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--app-presse);
+}
+.liste-lignes > * {
+  position: relative;
+}
+/* Intertitre de section : petites capitales grises */
+.titre-section {
+  margin: 1rem 0 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--app-discret);
+}
+.titre-section:first-child {
+  margin-top: 0.5rem;
+}
+/* La seule surface en relief d'un écran (action proposée, ceinture en cours, règle d'une fiche) */
+.surface {
+  border-radius: 1rem;
+  background: var(--app-fond-2);
+}
+/* Ligne d'action (ajouter la classe, scanner, sauvegarde) : icône et texte orange, sans cadre */
+.ligne-action-accueil {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--app-action);
+}
+.ligne-action-accueil i {
+  font-size: 1.375rem;
+}
+/* Ceintures en petit (tuiles, suivi) : couleur si obtenue, pointillé sinon */
+.ceintures-mini {
+  display: inline-flex;
+  gap: 4px;
+  flex: none;
+}
+.ceinture-mini {
+  width: 17px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid rgb(0 0 0 / 12%);
+}
+.ceinture-mini.claire {
+  border: 1.5px solid var(--app-gris);
+}
+/* À obtenir : hachurée de sa couleur (gris pour la blanche) ; obtenue : pleine */
+.ceinture-mini.a-obtenir {
+  border: 1px solid var(--c, var(--app-discret));
+  background: repeating-linear-gradient(-45deg, var(--c, var(--app-discret)) 0 1.5px, transparent 1.5px 4px);
+  opacity: 0.8;
 }
 
 /* Énoncé d'une question et ses champs de réponse (qui suivent la taille du texte) */

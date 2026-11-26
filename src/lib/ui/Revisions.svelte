@@ -60,7 +60,7 @@
   retourSi(() => !preparer, () => onretour())
 
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
-  const titreSection = 'pl-2 pt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const evaluation = $derived(evaluationEnCours(revisions))
   const pourEvaluation = $derived(evaluation ? dansEvaluation(revisions, evaluation) : [])
   // Évaluation : ce qui n'a pas encore été réussi aujourd'hui ; sinon ce qui est à revoir

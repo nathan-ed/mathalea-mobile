@@ -101,7 +101,7 @@
     }
   }
 
-  const titreSection = 'pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light'
+  const titreSection = 'titre-section'
   const texteDiscret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
 
   let lien = $state('')

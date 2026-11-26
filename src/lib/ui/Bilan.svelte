@@ -2,9 +2,9 @@
   import { avecArticle, titreEleve, type Parcours, type Fiche, type Pause, type Ressource } from '$lib/catalogue'
   import { lienSur, ouvrirLien } from '$lib/fichiers'
   import type { Moteur } from '$lib/moteur'
-  import { bilan, cleQuestion, ecrirePoints, premiersEssais, questionsOrdonnees, valeur, type Seance } from '$lib/progression'
+  import { bilan, cleQuestion, ecrirePoints, premiersEssais, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
-  import { boutonAction, boutonInverse, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
+  import { boutonAction, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
   import EnTete from './EnTete.svelte'
   import Ceinture from './Ceinture.svelte'
   import { texteBarrettes } from '$lib/revisions'
@@ -75,23 +75,25 @@
     while (n < b.sur && Math.round((100 * n) / b.sur) < palier!.attendu) n++
     return n
   })
-  // Manqué : le but dans l'unité du score, comme au bilan de Teste ton niveau
-  // (Nathan, 17 novembre 2026 : « Il manquait 2 bonnes réponses » se lisait
-  // comme le nombre d'erreurs)
+  // L'état en une phrase : « Ceinture jaune obtenue » ou « pas encore obtenue »
+  // (Nathan, 26 novembre 2026 : « il faut 4 / 4 » faisait IA et pas joli)
   const etat = $derived.by(() => {
     if (!juge) return ''
     const ceinture = palier!.couleur !== null
     if (reussi) return ceinture ? `${palier!.nom} obtenue` : `${palier!.nom} réussi`
-    return `${palier!.nom} : il faut ${requis} / ${b.sur}`
+    return ceinture ? `${palier!.nom} pas encore obtenue` : `${palier!.nom} pas encore réussi`
   })
-  // Sous l'état : le score ; manqué, « Obtenu 1 / 2 » (Nathan, 17 novembre 2026 : « obtenu pas tu as »)
-  // et le palier déjà obtenu s'il l'est
-  const sousEtat = $derived.by(() => {
-    if (!juge) return ''
-    const score = `${ecrirePoints(b.points)} / ${b.sur} · ${b.pourcentage} %`
-    if (reussi) return score
-    const deja = palier!.deja ? (palier!.couleur ? ' · déjà obtenue' : ' · déjà réussi') : ''
-    return `Obtenu ${score}${deja}`
+  // Une pastille par question : verte si juste, orange si fausse, à moitié pour un demi-point
+  const points = $derived(
+    juge ? questions.filter((q) => !surPapier(seance, q.etape, q.question)).map((q) => valeur(premiers.get(cleQuestion(q.etape, q.question)))) : [],
+  )
+  const bonnes = $derived(`${ecrirePoints(b.points)} bonne${b.points > 1 ? 's' : ''} réponse${b.points > 1 ? 's' : ''} sur ${b.sur}`)
+  // Manqué : à partir de combien elle s'obtient, et si elle l'était déjà
+  const condition = $derived.by(() => {
+    if (!juge || reussi) return ''
+    const obtenue = palier!.couleur ? 'Obtenue' : 'Réussi'
+    const deja = palier!.deja ? (palier!.couleur ? ' · déjà obtenue avant' : ' · déjà réussi avant') : ''
+    return `${obtenue} dès ${requis} sur ${b.sur}${deja}`
   })
   // La pause de l'enseignant suit un palier réussi ; sans seuil pour la suite, elle s'affiche toujours
   const pauseMontree = $derived(!!palier?.pause && b.passees.length === 0 && (reussi || !juge || palier.suite?.libre === true))
@@ -110,14 +112,19 @@
     {#if juge}
       <div class="flex flex-col items-center gap-3 py-4 text-center">
         {#if palier!.couleur}
-          <!-- La ceinture en grand : sa couleur si elle est obtenue, son contour en pointillé sinon
+          <!-- La ceinture en grand : pleine si elle est obtenue, hachurée de sa couleur sinon
                (la ceinture visée reste sous les yeux) -->
-          <Ceinture couleur={palier!.couleur} obtenue={reussi} taille="h-12 w-44" classe="rounded-lg" />
+          <Ceinture couleur={palier!.couleur} obtenue={reussi} taille="h-12 w-36" classe="rounded-lg" />
         {/if}
-        <p class="text-2xl font-bold text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{etat}</p>
-        <p class="text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-          {sousEtat}
-        </p>
+        <p class="text-2xl font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct" role="status">{etat}</p>
+        <!-- Une pastille par question : juste en vert, fausse en orange -->
+        <div class="points-bilan" aria-hidden="true">
+          {#each points as v, i (i)}
+            <span class="point {v >= 1 ? 'juste' : v > 0 ? 'moitie' : 'faux'}"></span>
+          {/each}
+        </div>
+        <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">{bonnes} · {b.pourcentage} %</p>
+        {#if condition}<p class="-mt-2 text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{condition}</p>{/if}
       </div>
     {:else}
     <div class="text-center py-4">
@@ -177,11 +184,11 @@
       {#each questions as q, i (cleQuestion(q.etape, q.question))}
         {@const cle = cleQuestion(q.etape, q.question)}
         {@const v = valeur(premiers.get(cle))}
-        <li class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+        <li>
           <button
             type="button"
-            class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-            active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+            class="w-full flex flex-row items-center justify-between gap-3 py-3 text-left
+            active:bg-coopmaths-canvas-dark dark:active:bg-coopmathsdark-canvas-dark transition-colors duration-150"
             aria-expanded={!!questionsOuvertes[cle]}
             onclick={() => (questionsOuvertes[cle] = !questionsOuvertes[cle])}
           >
@@ -194,7 +201,7 @@
             </span>
           </button>
           {#if questionsOuvertes[cle]}
-            <div class="px-4 pb-4 pt-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+            <div class="pb-4 pt-1">
               <QuestionsEtape {parcours} {seance} etape={q.etape} question={q.question} {moteur} />
             </div>
           {/if}
@@ -204,11 +211,11 @@
     {:else}
     <ul class={listeGroupee}>
       {#each b.parEtape as e (e.etape)}
-        <li class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+        <li>
           <button
             type="button"
-            class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
-            active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+            class="w-full flex flex-row items-center justify-between gap-3 py-3 text-left
+            active:bg-coopmaths-canvas-dark dark:active:bg-coopmathsdark-canvas-dark transition-colors duration-150"
             aria-expanded={!!ouvertes[e.etape]}
             onclick={() => (ouvertes[e.etape] = !ouvertes[e.etape])}
           >
@@ -235,7 +242,7 @@
             </div>
           </button>
           {#if ouvertes[e.etape]}
-            <div class="px-4 pb-4 pt-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+            <div class="pb-4 pt-1">
               <QuestionsEtape {parcours} {seance} etape={e.etape} {moteur} />
             </div>
           {/if}
@@ -251,12 +258,12 @@
             Répondre aux questions passées ({b.passees.length})
           </button>
         {/if}
-        <button type="button" class="{b.passees.length ? boutonInverse : boutonAction} w-full" style="min-height: 44px" onclick={onfermer}>Terminer</button>
+        <button type="button" class="{b.passees.length ? boutonLien : boutonAction} w-full" style="min-height: 44px" onclick={onfermer}>Terminer</button>
       </div>
     {:else if test}
       <div class="flex flex-col gap-3">
         {#each test.actions as a, i (a.libelle)}
-          <button type="button" class="{i === 0 ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={a.fn}>{a.libelle}</button>
+          <button type="button" class="{i === 0 ? boutonAction : boutonLien} w-full" style="min-height: 44px" onclick={a.fn}>{a.libelle}</button>
         {/each}
       </div>
     {:else}
@@ -278,28 +285,28 @@
           Pour ouvrir {avecArticle(palier.suite.nom)} : {palier.suite.condition}.
         </p>
         {#if palier.fiche && onfiche}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => onfiche(palier!.fiche!)}>
+          <button type="button" class="{boutonLien} w-full" style="min-height: 44px" onclick={() => onfiche(palier!.fiche!)}>
             <i aria-hidden="true" class="bx bx-book-reader text-xl"></i> Revoir la fiche : {palier.fiche.titre}
           </button>
         {/if}
         {#if palier.ressource && lienSur(palier.ressource.lien)}
-          <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => ouvrirLien(palier!.ressource!.lien)}>
+          <button type="button" class="{boutonLien} w-full" style="min-height: 44px" onclick={() => ouvrirLien(palier!.ressource!.lien)}>
             <i aria-hidden="true" class="bx bx-book-open text-xl"></i> Pour revoir : {palier.ressource.titre}
           </button>
         {/if}
       {/if}
       <button
         type="button"
-        class="{b.passees.length === 0 && !(palier?.suite?.ouvert && oncontinuer) && !palier?.suite?.attendDate && (palier || nbAAmeliorer === 0) ? boutonAction : boutonInverse} w-full"
+        class="{b.passees.length === 0 && !(palier?.suite?.ouvert && oncontinuer) && !palier?.suite?.attendDate && (palier || nbAAmeliorer === 0) ? boutonAction : boutonLien} w-full"
         style="min-height: 44px"
         onclick={onrefaire}
       >
         {palier ? `Refaire : ${palier.nom.toLowerCase()}` : 'Tout refaire'}
       </button>
       {#if palier}
-        <button type="button" class="{b.passees.length === 0 && palier.suite?.attendDate ? boutonAction : boutonInverse} w-full" style="min-height: 44px" onclick={onfermer}>Voir la carte du parcours</button>
+        <button type="button" class="{b.passees.length === 0 && palier.suite?.attendDate ? boutonAction : boutonLien} w-full" style="min-height: 44px" onclick={onfermer}>Voir la carte du parcours</button>
       {:else}
-        <button type="button" class="{boutonInverse} w-full" style="min-height: 44px" onclick={() => navigation.versAccueil()}>
+        <button type="button" class="{boutonLien} w-full" style="min-height: 44px" onclick={() => navigation.versAccueil()}>
           Retour à l’accueil
         </button>
       {/if}
@@ -307,3 +314,28 @@
     {/if}
   </main>
 </div>
+
+<style>
+  .points-bilan {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 18rem;
+    margin-top: 4px;
+  }
+  .point {
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+  }
+  .point.juste {
+    background: var(--app-vert);
+  }
+  .point.faux {
+    background: var(--app-action);
+  }
+  .point.moitie {
+    background: linear-gradient(90deg, var(--app-vert) 50%, var(--app-action) 50%);
+  }
+</style>
