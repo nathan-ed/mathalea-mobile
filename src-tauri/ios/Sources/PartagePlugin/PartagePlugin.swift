@@ -7,9 +7,6 @@ struct PartagerArgs: Decodable {
   let texte: String
   // Fichier binaire (image) : ses octets en base64, à la place du texte
   let base64: String?
-  // Essais sur le simulateur (e2e/appareil-ios.mjs) : manière de présenter la
-  // feuille ; absente dans l'app
-  let variante: String?
 }
 
 struct BarreEtatArgs: Decodable {
@@ -40,83 +37,47 @@ class PartagePlugin: Plugin {
       return
     }
     DispatchQueue.main.async {
-      guard let vue = self.manager.viewController else {
+      guard let vue = self.manager.viewController, let scene = vue.view.window?.windowScene else {
         invoke.reject("Partage impossible")
         return
       }
-      let variante = args.variante ?? "centre"
-      PartagePlugin.diagnostic("avant", vue)
-      if variante == "document" {
-        // Aperçu du fichier (Quick Look) avec son propre bouton de partage
-        let doc = UIDocumentInteractionController(url: fichier)
-        PartagePlugin.documents = doc
-        let ecran = vue.view.bounds
-        doc.presentOptionsMenu(from: CGRect(x: ecran.midX, y: ecran.midY, width: 1, height: 1), in: vue.view, animated: true)
-        invoke.resolve()
-        return
-      }
+      // La feuille part d'une fenêtre à part, au-dessus de celle de l'app, avec
+      // un contrôleur neuf. Présentée depuis le contrôleur de Tao (fenêtre de
+      // Tauri), iOS la dimensionnait mal sur iPhone : petit cadre coupé en bas
+      // à droite, contenu à moitié hors de l'écran (0.6.1 et 0.8.0 ; sur le
+      // simulateur, 148 × 402 points puis 320 × 480, alors que depuis une
+      // fenêtre à part elle prend 384 × 367 points en bas de l'écran, en
+      // entier ; docs/partage-iphone.md). La fenêtre disparaît à la fin du
+      // partage, et celle de l'app reprend la main.
+      let fenetre = UIWindow(windowScene: scene)
+      fenetre.frame = scene.coordinateSpace.bounds
+      fenetre.windowLevel = .alert
+      fenetre.backgroundColor = .clear
+      let support = UIViewController()
+      support.view.backgroundColor = .clear
+      fenetre.rootViewController = support
+      fenetre.makeKeyAndVisible()
+      PartagePlugin.fenetre = fenetre
       let feuille = UIActivityViewController(activityItems: [fichier], applicationActivities: nil)
-      var presentateur: UIViewController = vue
-      if variante == "fenetre", let scene = vue.view.window?.windowScene {
-        // Fenêtre à part, au-dessus de celle de l'app, avec un contrôleur neuf
-        // (indépendant du contrôleur et de la vue de Tao) ; retirée à la fin
-        let fenetre = UIWindow(windowScene: scene)
-        fenetre.frame = scene.coordinateSpace.bounds
-        fenetre.windowLevel = .alert
-        fenetre.backgroundColor = .clear
-        let support = UIViewController()
-        support.view.backgroundColor = .clear
-        fenetre.rootViewController = support
-        fenetre.makeKeyAndVisible()
-        PartagePlugin.fenetre = fenetre
-        presentateur = support
-        PartagePlugin.diagnostic("fenêtre à part", support)
-        feuille.completionWithItemsHandler = { _, _, _, _ in
-          PartagePlugin.fenetre?.isHidden = true
-          PartagePlugin.fenetre = nil
-          vue.view.window?.makeKeyAndVisible()
-        }
+      feuille.completionWithItemsHandler = { _, _, _, _ in
+        PartagePlugin.fenetre?.isHidden = true
+        PartagePlugin.fenetre = nil
+        vue.view.window?.makeKeyAndVisible()
       }
-      if variante == "compact", #available(iOS 17.0, *) {
-        feuille.traitOverrides.horizontalSizeClass = .compact
-      }
+      // iPad (et iPhone depuis iOS 18) : bulle ancrée au centre, sans flèche
       if let bulle = feuille.popoverPresentationController {
-        let ecran = presentateur.view.bounds
-        bulle.sourceView = presentateur.view
+        let ecran = support.view.bounds
+        bulle.sourceView = support.view
         bulle.sourceRect = CGRect(x: ecran.midX, y: ecran.midY, width: 1, height: 1)
         bulle.permittedArrowDirections = []
       }
-      presentateur.present(feuille, animated: true) {
-        PartagePlugin.diagnostic("présentée [\(variante)]", feuille)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { PartagePlugin.diagnostic("après 2 s [\(variante)]", feuille) }
-      }
+      support.present(feuille, animated: true)
       invoke.resolve()
     }
   }
 
+  /// Fenêtre de la feuille de partage en cours (gardée jusqu'à la fin du partage)
   static var fenetre: UIWindow?
-  static var documents: UIDocumentInteractionController?
-
-  /// Journal des essais sur le simulateur : géométrie et classes de taille du
-  /// contrôleur, de ses vues parentes et de sa fenêtre
-  static func diagnostic(_ moment: String, _ c: UIViewController) {
-    let t = c.traitCollection
-    var lignes = ["Partage[\(moment)] \(type(of: c)) style \(c.modalPresentationStyle.rawValue) présentation \(String(describing: c.presentationController.map { type(of: $0) })) tailles h \(t.horizontalSizeClass.rawValue) v \(t.verticalSizeClass.rawValue) idiome \(t.userInterfaceIdiom.rawValue) échelle \(t.displayScale)"]
-    var v: UIView? = c.view
-    var n = 0
-    while let vue = v, n < 8 {
-      lignes.append("  \(type(of: vue)) cadre \(NSCoder.string(for: vue.frame)) transformation \(NSCoder.string(for: vue.transform))")
-      v = vue.superview
-      n += 1
-    }
-    if let w = c.view.window {
-      lignes.append("  fenêtre \(type(of: w)) \(NSCoder.string(for: w.frame)) niveau \(w.windowLevel.rawValue) écran \(NSCoder.string(for: w.screen.bounds)) scène \(String(describing: w.windowScene?.interfaceOrientation.rawValue)) tailles h \(w.traitCollection.horizontalSizeClass.rawValue) racine \(String(describing: w.rootViewController.map { type(of: $0) }))")
-    }
-    if let conteneur = c.presentationController?.containerView {
-      lignes.append("  conteneur \(NSCoder.string(for: conteneur.frame))")
-    }
-    NSLog("%@", lignes.joined(separator: "\n"))
-  }
 
   /// Le texte de la barre d'état suit l'apparence de la fenêtre : on impose
   /// celle du thème choisi dans l'app. Quand l'app suit le téléphone, on ne
