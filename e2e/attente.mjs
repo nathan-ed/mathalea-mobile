@@ -102,3 +102,27 @@ export const touchable = (bouton, timeout = 5_000) =>
     () => bouton.evaluate((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.top >= 0 && r.bottom <= innerHeight }),
     () => false,
   )
+
+/**
+ * Actions d'un parcours de l'accueil (épingler, cacher) : appui long sur sa
+ * ligne, comme un élève (Tuile.svelte, refonte du 26 novembre 2026), puis le
+ * bouton du panneau du bas. `nom` : nom du bouton (« Cacher « Titre » »).
+ */
+export async function actionTuile(page, titre, nom) {
+  const ligne = page.locator('.corps-tuile', { hasText: titre }).first()
+  await ligne.scrollIntoViewIfNeeded()
+  await pagePrete(page)
+  const pt = await pointStable(ligne)
+  for (let essai = 0; essai < 3; essai++) {
+    await page.mouse.move(pt.x, pt.y)
+    await page.mouse.down()
+    await page.waitForTimeout(700) // durée du geste : un appui long
+    await page.mouse.up()
+    if (await page.getByRole('dialog').isVisible().catch(() => false)) break
+  }
+  const bouton = page.getByRole('dialog').getByRole('button', { name: nom })
+  await bouton.waitFor({ timeout: 10_000 })
+  await bouton.click()
+  await page.getByRole('dialog').waitFor({ state: 'detached', timeout: 10_000 })
+  await pagePrete(page)
+}

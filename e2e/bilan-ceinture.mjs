@@ -1,7 +1,7 @@
 // Bilan d'une ceinture (Nathan, 13 novembre 2026) : l'état d'abord, le score
-// en petit. Ceinture manquée : « Ceinture orange : il faut 2 / 2 » (Nathan,
-// 17 novembre 2026 : « Il manquait n bonnes réponses » se lisait comme le
-// nombre d'erreurs), « Pour ouvrir la ceinture verte : au moins 80 % », pas de pause
+// en petit. Ceinture manquée : « Ceinture orange pas encore obtenue », une
+// pastille par question, « Obtenue dès 2 sur 2 » (Nathan, 26 novembre 2026 :
+// « il faut 2 / 2 » faisait IA), « Pour ouvrir la ceinture verte : au moins 80 % », pas de pause
 // de l'enseignant (elle félicite), première erreur dépliée avec sa
 // correction. Ceinture obtenue : sa couleur en grand, « Ceinture orange
 // obtenue », la pause, « Continuer ». Ceinture déjà obtenue puis manquée :
@@ -99,9 +99,11 @@ for (const [appareil, theme, ecran] of [
   // ---------- Ceinture manquée : 1 sur 2 ----------
   await jouer(page, [true, false])
   let t = await texte(page)
-  ok(t.includes('Ceinture orange : il faut 2 / 2'), `${appareil} : ceinture manquée, « Ceinture orange : il faut 2 / 2 »`)
-  ok(t.includes('Obtenu 1 / 2 · 50 %') && !t.includes('Tu as'), `${appareil} : « Obtenu 1 / 2 », en petit`)
-  ok(!t.includes('obtenue'), `${appareil} : rien ne dit la ceinture obtenue`)
+  ok(t.includes('Ceinture orange pas encore obtenue'), `${appareil} : ceinture manquée, « Ceinture orange pas encore obtenue »`)
+  ok(t.includes('1 bonne réponse sur 2 · 50 %') && !t.includes('Tu as') && !t.includes('il faut'), `${appareil} : « 1 bonne réponse sur 2 », sans « il faut »`)
+  ok(t.includes('Obtenue dès 2 sur 2'), `${appareil} : à partir de combien elle s'obtient`)
+  ok((await page.locator('main .point.juste').count()) === 1 && (await page.locator('main .point.faux').count()) === 1, `${appareil} : une pastille par question, juste puis fausse`)
+  ok(!(await page.locator('main span[style*="background-color"]').count()), `${appareil} : la ceinture n'est pas pleine (hachurée)`)
   ok(!t.includes(PAUSE), `${appareil} : pas de pause de l'enseignant après une ceinture manquée`)
   ok(t.includes('Pour ouvrir la ceinture verte : au moins 80 % (obtenu 50 %)'), `${appareil} : ce qu'il faut pour la ceinture suivante`)
   ok((await page.locator('main button[aria-expanded="true"]').count()) === 1, `${appareil} : l'exercice de l'erreur est déplié d'office`)
@@ -118,7 +120,7 @@ for (const [appareil, theme, ecran] of [
   await jouer(page, [true, true])
   t = await texte(page)
   ok(t.includes('Ceinture orange obtenue'), `${appareil} : « Ceinture orange obtenue »`)
-  ok(t.includes('2 / 2 · 100 %') && !t.includes('il faut'), `${appareil} : score en petit, rien ne manque`)
+  ok(t.includes('2 bonnes réponses sur 2 · 100 %') && !t.includes('pas encore') && !t.includes('dès'), `${appareil} : score en petit, rien ne manque`)
   const couleur = await page.locator('main span[aria-hidden="true"][style*="background-color"]').first().evaluate((c) => getComputedStyle(c).backgroundColor)
   ok(couleur === 'rgb(249, 115, 22)', `${appareil} : la ceinture à sa couleur (${couleur})`)
   ok(t.includes(PAUSE), `${appareil} : la pause de l'enseignant suit la ceinture obtenue`)
@@ -130,8 +132,8 @@ for (const [appareil, theme, ecran] of [
   await toucher(page, page.getByRole('button', { name: /^Refaire : ceinture orange/ }))
   await jouer(page, [false, false])
   t = await texte(page)
-  ok(t.includes('Ceinture orange : il faut 2 / 2'), `${appareil} : manquée de nouveau, le seuil en titre`)
-  ok(t.includes('Obtenu 0 / 2 · 0 % · déjà obtenue'), `${appareil} : la ceinture reste obtenue`)
+  ok(t.includes('Ceinture orange pas encore obtenue') && t.includes('0 bonne réponse sur 2 · 0 %'), `${appareil} : manquée de nouveau`)
+  ok(t.includes('Obtenue dès 2 sur 2 · déjà obtenue avant'), `${appareil} : la ceinture reste obtenue`)
   ok(await page.getByRole('button', { name: 'Continuer : ceinture verte' }).isVisible(), `${appareil} : la ceinture suivante reste ouverte`)
   await page.screenshot({ path: `${captures}/bilan-ceinture-3-deja-${theme}.png`, fullPage: true })
   await ctx.close()

@@ -17,7 +17,7 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
-import { jusqua, pagePrete, SANS_BRIDAGE } from './attente.mjs'
+import { jusqua, pagePrete, SANS_BRIDAGE, actionTuile } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 let echecs = 0
@@ -276,9 +276,11 @@ for (const appareil of Object.keys(appareils)) {
     // Retour jusqu'aux onglets (fiche, parcours, degré), puis l'accueil
     for (let k = 0; k < 4 && !(await page.getByRole('tab', { name: 'Mes parcours', exact: true }).isVisible()); k++) await retour(page)
     await onglet(page, 'Mes parcours')
-    await page.getByRole('button', { name: /^Cacher « / }).first().waitFor()
-    await page.getByRole('button', { name: /^Cacher « / }).first().click()
-    await page.getByRole('button', { name: /^Cacher « / }).first().click()
+    // Deux parcours cachés par l'appui long sur leur ligne
+    for (let k = 0; k < 2; k++) {
+      const titre = (await page.locator('.corps-tuile .titre-ligne').first().innerText()).replace(/\s*\(ajouté depuis Explorer\)/, '').trim()
+      await actionTuile(page, titre, `Cacher « ${titre} »`)
+    }
     await page.getByRole('button', { name: /Parcours cachés/ }).click()
     await pagePrete(page)
     await verifier(o, a('accueil, parcours cachés dépliés'))

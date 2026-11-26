@@ -140,7 +140,7 @@ for (const a of appareils) {
   await pagePrete(page)
   await page.getByRole('tab', { name: 'Mes parcours' }).click()
   await pagePrete(page)
-  ok(!(await page.getByRole('button', { name: /^Actions pour/ }).count()), `${a.nom} : pas de « ⋯ » sur les tuiles de l'accueil`)
+  ok(!(await page.locator('.bx-dots-vertical-rounded').count()), `${a.nom} : pas de « ⋯ » sur les tuiles de l'accueil`)
   await page.getByRole('button', { name: /^Parcours à imprimer/ }).first().click()
   await pagePrete(page)
   await page.locator('header').getByRole('button', { name: 'Imprimer' }).click()

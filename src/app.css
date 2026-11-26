@@ -190,10 +190,12 @@ math-field,
 /* Intertitre de section : petites capitales grises */
 .titre-section {
   margin: 1rem 0 0.25rem;
-  font-size: 0.8125rem;
+  /* Petites capitales de la police plutôt que des majuscules : le texte reste
+     « Épinglés » pour la lecture (text-transform le changeait en « ÉPINGLÉS ») */
+  font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-variant-caps: all-small-caps;
   color: var(--app-discret);
 }
 .titre-section:first-child {

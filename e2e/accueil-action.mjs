@@ -127,7 +127,7 @@ for (const [appareil, theme, ecran] of [
   await toucher(page.getByRole('button', { name: 'Reprendre plus tard' }))
   await action.waitFor({ timeout: 30_000 })
   let t = (await action.innerText()).replace(/\s+/g, ' ')
-  ok(t.includes('Relatifs en deux ceintures · question 2 sur 2') && (await action.getByRole('button').innerText()) === 'Reprendre', `${appareil} : séance quittée, « Reprendre » (${t})`)
+  ok(t.includes('question 2 sur 2') && t.includes('Relatifs en deux ceintures') && (await action.getByRole('button').innerText()) === 'Reprendre', `${appareil} : séance quittée, « Reprendre » (${t})`)
   await page.screenshot({ path: `${captures}/accueil-action-1-reprendre-${theme}.png` })
   await toucher(action.getByRole('button'))
   // La séance rouvre où elle a été quittée : la question 1, déjà vérifiée
@@ -144,7 +144,7 @@ for (const [appareil, theme, ecran] of [
   // ---------- Ceinture obtenue : la suivante est proposée ----------
   await action.waitFor({ timeout: 30_000 })
   t = (await action.innerText()).replace(/\s+/g, ' ')
-  ok(t.includes('Relatifs en deux ceintures · Enchaîner') && (await action.getByRole('button').innerText()) === 'Passer la ceinture verte', `${appareil} : ceinture orange obtenue, « Passer la ceinture verte » (${t})`)
+  ok(t.includes('Ceinture verte · Enchaîner') && t.includes('Relatifs en deux ceintures') && (await action.getByRole('button').innerText()) === 'Passer la ceinture verte', `${appareil} : ceinture orange obtenue, « Passer la ceinture verte » (${t})`)
   await page.screenshot({ path: `${captures}/accueil-action-2-ceinture-${theme}.png` })
   await toucher(action.getByRole('button'))
   await page.locator('main math-field').first().waitFor({ timeout: 120_000 })

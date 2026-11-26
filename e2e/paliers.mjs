@@ -5,7 +5,7 @@
 // Captures à 390 px, en clair et en sombre.
 //   CAPTURES=<dossier> node e2e/paliers.mjs
 import { chromium } from 'playwright'
-import { pagePrete, SANS_BRIDAGE } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, actionTuile } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -194,12 +194,10 @@ for (const theme of ['clair', 'sombre']) {
   // Épingler depuis l’accueil d'un toucher, sans ouvrir le parcours ; un parcours de la classe se cache
   // (il ne se retire pas : « Retirer » n'existe que pour les parcours ajoutés depuis l'Explorer, dans l'Explorer)
   ok(!(await e.getByRole('button', { name: /^Retirer « / }).count()), 'accueil : parcours de la classe, pas de « Retirer »')
-  await e.getByRole('button', { name: 'Épingler « Relatifs en trois paliers » à l’accueil' }).first().click()
-  await pagePrete(e)
+  await actionTuile(e, 'Relatifs en trois paliers', 'Épingler « Relatifs en trois paliers » à l’accueil')
   ok(/Épinglés Relatifs en trois paliers/.test(await texte(e)), 'accueil : épinglé depuis la tuile')
   await cap(e, '13-accueil-epingle', theme)
-  await e.getByRole('button', { name: 'Cacher « Relatifs en trois paliers »' }).first().click()
-  await pagePrete(e)
+  await actionTuile(e, 'Relatifs en trois paliers', 'Cacher « Relatifs en trois paliers »')
   ok(!/Épinglés/.test(await texte(e)) && /Parcours cachés · 1/.test(await texte(e)), 'accueil : parcours de la classe caché, rangé en bas')
   await e.getByRole('button', { name: /Parcours cachés/ }).click()
   await e.getByRole('button', { name: 'Remettre « Relatifs en trois paliers » sur l’accueil' }).click()

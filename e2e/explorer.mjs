@@ -12,7 +12,7 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { chromium } from 'playwright'
-import { pagePrete, SANS_BRIDAGE, taperDans, touchable } from './attente.mjs'
+import { pagePrete, SANS_BRIDAGE, taperDans, touchable, actionTuile } from './attente.mjs'
 
 const base = process.env.BASE ?? 'http://localhost:1420/'
 const captures = process.env.CAPTURES ?? '.'
@@ -191,19 +191,16 @@ for (const [appareil, theme] of [
   ok((await ajouteVisible()) && !(await texte(e)).includes('Ajoutés depuis Explorer'), `${suffixe} : parcours ajoutés sur l'accueil, boussole sur leur tuile`)
   ok(!(await texte(e)).includes('Exponentielle et logarithme'), `${suffixe} : parcours retiré absent de l'accueil`)
 
-  // Accueil : épingle et œil sur chaque tuile, sans « ⋯ » : épingler, désépingler, cacher, remettre
-  ok(!(await e.getByRole('button', { name: /^Actions pour/ }).count()), `${suffixe} : pas de « ⋯ » sur les tuiles`)
-  await e.getByRole('button', { name: 'Épingler « Calcul intégral » à l’accueil' }).first().click()
-  await pagePrete(e)
+  // Accueil : épingler, désépingler, cacher par l'appui long sur la ligne (refonte du 26 novembre 2026), remettre
+  ok(!(await e.locator('.bx-dots-vertical-rounded').count()), `${suffixe} : pas de « ⋯ » sur les tuiles`)
+  await actionTuile(e, 'Calcul intégral', 'Épingler « Calcul intégral » à l’accueil')
   const accueilEpingle = await texte(e)
   ok(/Épinglés Calcul intégral/.test(accueilEpingle), `${suffixe} : parcours de l'Explorer épinglé depuis l'accueil`)
   ok((await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : épingler ne retire pas le parcours`)
   await cap(e, `2d-epingle-${suffixe}`)
-  await e.getByRole('button', { name: 'Désépingler « Calcul intégral »' }).first().click()
-  await pagePrete(e)
+  await actionTuile(e, 'Calcul intégral', 'Désépingler « Calcul intégral »')
   ok(!(await texte(e)).includes('Épinglés') && (await ajouteVisible()) && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : désépinglé, toujours sur l'accueil`)
-  await e.getByRole('button', { name: 'Cacher « Calcul intégral »' }).first().click()
-  await pagePrete(e)
+  await actionTuile(e, 'Calcul intégral', 'Cacher « Calcul intégral »')
   const accueilCache = await texte(e)
   ok(!(await ajouteVisible()) && accueilCache.includes('Parcours cachés · 1') && (await lireAjoutes()).join() === 'ch-4c-integrales', `${suffixe} : caché, rangé en bas, toujours enregistré`)
   await e.getByRole('button', { name: /Parcours cachés/ }).click()
@@ -313,8 +310,7 @@ for (const [appareil, theme] of [
   ok(avant.includes('seance'), `${suffixe} : tentative en cours enregistrée`, avant)
   await onglet(e, 'Mes parcours').click()
   await pagePrete(e)
-  await e.getByRole('button', { name: 'Cacher « Calcul intégral »' }).first().click()
-  await pagePrete(e)
+  await actionTuile(e, 'Calcul intégral', 'Cacher « Calcul intégral »')
   ok(!/Calcul intégral · question/.test(await texte(e)) && (await texte(e)).includes('Parcours cachés · 1'), `${suffixe} : parcours commencé caché, plus proposé à la reprise`)
   await e.getByRole('button', { name: /Parcours cachés/ }).click()
   await e.getByRole('button', { name: 'Remettre « Calcul intégral » sur l’accueil' }).click()
