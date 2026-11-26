@@ -63,12 +63,9 @@ const texte = async (page, sel = 'main') => (await page.locator(sel).innerText()
 const cap = async (page, n, theme, fullPage = true) => (await pagePrete(page), page.screenshot({ path: `${captures}/ouverture-${n}-${theme}.png`, fullPage }))
 const debordement = (page) => page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
 const carte = (page, nom) => page.getByRole('region', { name: new RegExp(`^${nom}`) })
-// Bouton pour commencer une ceinture : dans sa ligne, ou dans la barre du bas
-// si c'est la ceinture en cours (page du parcours de la 0.8.0)
-const commencer = (page, nom, libelle = /Commencer/) =>
-  carte(page, nom)
-    .getByRole('button', { name: libelle })
-    .or(page.locator(`body:has(main li.palier-actif section[aria-label^="${nom}"]) footer`).getByRole('button', { name: libelle }))
+// Bouton pour commencer une ceinture : dans sa ligne (0.8.1 : chaque ceinture
+// ouverte a le sien, plein pour la ceinture à faire)
+const commencer = (page, nom, libelle = /Commencer/) => carte(page, nom).getByRole('button', { name: libelle })
 
 // Version 2 publiée sur le site : la jaune ouvre le jeudi 12 novembre, l'orange
 // le vendredi 20, à 8 h chez l'enseignant
@@ -110,7 +107,7 @@ for (const theme of ['clair', 'sombre']) {
   // 8 h passe, l'app reste ouverte : la jaune s'ouvre d'elle-même
   await e.clock.runFor(90_000)
   await pagePrete(e)
-  ok(await commencer(e, 'Ceinture jaune', 'Commencer cette ceinture').isVisible(), '8 h passée, app ouverte : jaune ouverte sans relancer')
+  ok(await commencer(e, 'Ceinture jaune', /^Commencer/).isVisible(), '8 h passée, app ouverte : jaune ouverte sans relancer')
   ok((await texte(e)).includes('À partir du vendredi 20 novembre à 8 h'), '8 h passée : orange toujours fermée')
   await cap(e, '4-eleve-le-jour', theme)
   await e.context().close()

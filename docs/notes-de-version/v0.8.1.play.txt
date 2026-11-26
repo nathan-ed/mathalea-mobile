@@ -1,1 +1,1 @@
-iPhone : la feuille de partage (PDF d'un parcours, fichiers exportés) s'ouvre de nouveau en entier, au centre de l'écran, au lieu d'une bulle à moitié hors de l'écran. Rien d'autre ne change depuis la 0.8.0.
+Chaque ceinture ouverte a son bouton dans sa ligne : « Commencer » pour la ceinture à faire, « Commencer sans avoir fait la ceinture blanche » plus loin. Une fiche ouverte depuis l'onglet Fiches mène à son parcours. Chapitres : « 2 parcours » en clair, parcours sans chapitre en haut. iPhone : la feuille de partage (PDF) s'ouvre de nouveau en entier.

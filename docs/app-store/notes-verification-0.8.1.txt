@@ -1,4 +1,4 @@
-VERSION 0.8.1: fix only. On iPhone (iOS 26), the share sheet (PDF of a path, exported files) opened half off-screen; it now opens fully, centered. Same app as 0.8.0 otherwise (minimum iOS / iPadOS 16.4).
+VERSION 0.8.1: each open belt has its own start button on the path page; the iPhone share sheet (PDF of a path, exported files) opened cut off in the bottom-right corner and now opens fully. Minimum iOS / iPadOS 16.4.
 
 HOW TO TEST (no account needed)
 a. Launch, choose "France", tap "Je n'ai pas de lien".

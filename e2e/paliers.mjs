@@ -103,15 +103,15 @@ for (const theme of ['clair', 'sombre']) {
     const t2 = await texte(e)
     if (nom === '7-eleve-debut') {
       ok(t2.includes('À faire') && t2.includes('Au moins 50 % au palier 1') && t2.includes('Après : palier 1'), 'élève : palier 2 verrouillé, condition écrite, pause à venir')
-      ok((await e.getByRole('button', { name: 'Commencer ce palier' }).count()) === 1, 'élève : palier 3 ouvert d’emblée (accès libre)')
+      ok((await e.getByRole('button', { name: 'Commencer sans avoir fait le palier 2' }).count()) === 1, 'élève : palier 3 ouvert d’emblée (accès libre), « Commencer sans avoir fait le palier 2 »')
       ok((await e.getByRole('button', { name: 'Commencer', exact: true }).count()) === 1, 'élève : un seul bouton plein, sur le palier à faire')
       ok(t2.includes('Pas encore travaillé'), 'élève : objectifs pas encore travaillés')
       ok(!(await debordement(e)), 'élève : aucun débordement horizontal')
     }
     if (nom === '8-eleve-palier2') {
       ok(t2.includes('Réussi · 75 %') && t2.includes('Bravo !'), 'élève : palier 1 réussi (75 % ≥ 50 %), pause affichée')
-      ok(await e.getByRole('button', { name: 'Commencer ce palier' }).first().isVisible(), 'élève : palier 2 ouvert')
-      await e.getByRole('button', { name: 'Commencer ce palier' }).first().click()
+      ok(await e.getByRole('button', { name: 'Commencer', exact: true }).first().isVisible(), 'élève : palier 2 ouvert, son bouton plein dans sa ligne')
+      await e.getByRole('button', { name: 'Commencer', exact: true }).first().click()
       await e.locator('main math-field').first().waitFor({ timeout: 15000 })
       const seance = await e.evaluate((id) => JSON.parse(localStorage.getItem(`copie:seance:${id}`)), id)
       ok(JSON.stringify(seance.etapes) === '[2]', 'élève : la séance ne contient que les exercices du palier 2')

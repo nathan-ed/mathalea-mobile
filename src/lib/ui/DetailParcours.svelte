@@ -3,7 +3,7 @@
   // (état écrit en toutes lettres, exercices, objectifs, ressource pour revoir),
   // les pauses de l'enseignant entre les cartes, un seul bouton plein sur le
   // palier à faire. Sans paliers : la liste des exercices et Commencer.
-  import { aAvecArticle, aDesPaliers, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
+  import { aAvecArticle, avecArticle, aDesPaliers, auteursTexte, couleurCeinture, momentOuverture, nomPalier, titreEleve, type Fiche, type Parcours } from '$lib/catalogue'
   import { acquisDe, etatsPaliers, resultatsParObjectif } from '$lib/objectifs'
   import { exigerHeure, heure } from '$lib/heure.svelte'
   import { bilan, type ResultatEtape, type Seance } from '$lib/progression'
@@ -128,7 +128,9 @@
   })
   const objectifsSuivis = $derived(resultatsParObjectif(parcours, resultats))
   // Barre du bas : le palier en cours (ou le parcours entier), hors session partagée
-  const barreBas = $derived(session === 'aucune' && (!avecPaliers || courant !== -1))
+  // Avec paliers, chaque palier ouvert a son bouton dans sa ligne (Nathan, 26 novembre
+  // 2026 : on ne voyait pas que le bouton du bas commençait la ceinture blanche)
+  const barreBas = $derived(session === 'aucune' && !avecPaliers)
   // Exercice masqué par l'enseignant : absent de la liste (ni titre, ni « Exercice n »)
   const visibles = (etapes: number[]) => etapes.filter((i) => !parcours.etapes[i].titreMasque)
   const objectifsDe = (etapes: number[]) => [...new Set(etapes.flatMap((i) => parcours.etapes[i].objectifs ?? []))]
@@ -160,7 +162,10 @@
     if (enCours && courant === k) return 'Continuer'
     const ce = parcours.style === 'ceintures' ? 'cette ceinture' : 'ce palier'
     if (x.fini) return `Refaire ${ce}`
-    return k === 0 && !dejaFait ? 'Commencer' : `Commencer ${ce}`
+    if (k === courant) return 'Commencer'
+    // Plus loin que le palier à faire, celui d'avant pas encore fait : le bouton le dit
+    if (k > 0 && !paliers[k - 1].fini) return `Commencer sans avoir fait ${avecArticle(nomPalier(parcours, k - 1))}`
+    return `Commencer ${ce}`
   }
 </script>
 
@@ -221,13 +226,9 @@
       border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
-      {#if avecPaliers}
-        <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer(paliers[courant].etapes)}>{libelleBouton(courant)}</button>
-      {:else}
         <button type="button" class="{boutonAction} w-full" style="min-height: 48px; font-size: 1rem" onclick={() => oncommencer()}>
           {enCours ? 'Continuer' : dejaFait ? 'Recommencer' : 'Commencer'}
         </button>
-      {/if}
     </footer>
   {/if}
   <main class="flex-1 flex flex-col gap-4 px-4 pt-1 {barreBas ? 'pb-28' : 'pb-4 zone-sure-bas'}">
@@ -307,7 +308,10 @@
                     </button>
                   {/if}
                 {/if}
-                {#if x.ouvert && !actif && !enCours}
+                {#if x.ouvert && actif && session === 'aucune'}
+                  <!-- Le palier à faire : son bouton plein, dans sa ligne -->
+                  <button type="button" class="{boutonAction} bouton-palier" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
+                {:else if x.ouvert && !actif && !enCours}
                   <button type="button" class="lien-palier" onclick={() => oncommencer(x.etapes)}>{libelleBouton(k)}</button>
                 {/if}
               </div>
@@ -601,5 +605,12 @@
   }
   .lien-palier i {
     font-size: 1.125rem;
+  }
+  .bouton-palier {
+    margin-top: 8px;
+    min-height: 44px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1rem;
   }
 </style>
