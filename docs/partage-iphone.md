@@ -85,5 +85,7 @@ seconde par un toucher à côté ; ensuite un vrai toucher sur « France » ouvr
 l'accueil (la fenêtre de la feuille ne reste pas par-dessus). Captures :
 `partage-iphone/simulateur-0.8.1.jpg`.
 
-À vérifier sur un vrai iPhone par TestFlight : envoi du PDF vers Fichiers et
+Envoyée à TestFlight le 27 novembre à 1 h 53 (heure de Paris) par
+`testflight-essai.yml` (run 45913923607 : vérification complète verte, puis
+build iOS 0.8.1, numéro de build 26112700). À vérifier sur un vrai iPhone par TestFlight : envoi du PDF vers Fichiers et
 vers Mail.
