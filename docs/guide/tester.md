@@ -13,7 +13,7 @@ Merci de prendre un moment pour essayer l'application. Une demi-heure suffit pou
 ## Ce qu'on peut essayer
 
 1. Ajouter le dossier de démonstration et faire un parcours ([Découvrir](decouvrir.md)).
-2. Créer un parcours de votre niveau sur le site MathALÉA, le donner à une classe et publier ([Créer sur le site](creer-sur-le-site.md)).
+2. Créer un parcours de votre niveau sur le site MathALÉA, le donner à une classe et publier ([Créer un parcours et le publier avec le Nuage](parcours-nuage.md)).
 3. Déposer le fichier dans un dossier partagé de votre drive, puis ajouter ce dossier sur un autre téléphone ou avec un élève ([Côté élève](eleves.md)).
 4. Essayer les paliers ou les ceintures : un seuil de réussite, une pause, une ressource pour revoir.
 5. Modifier le parcours, republier, et vérifier que la nouvelle version arrive chez l'élève.

@@ -16,17 +16,17 @@ Choisissez France ou Suisse, puis ajoutez le dossier de démonstration avec son 
 
 ## 3. Créer un parcours et le donner à une classe
 
-Sur le site MathALÉA, page « Parcours pour l'application » : niveau, chapitre, titre, exercices (rangés comme sur le site, avec leurs réglages), paliers ou ceintures. Puis l'onglet Classes : créez la classe (5e B, par exemple) et cochez ses parcours. « Publier » télécharge le fichier.
+Sur le site MathALÉA, choisissez et réglez les exercices sur l'accueil, puis « Nouveau parcours avec ces exercices » dans le menu des trois points : titre, niveau, chapitre, paliers ou ceintures. Dans « Classes et publication », créez la classe (5e B, par exemple) et cochez ses parcours.
 
-Détails : [Créer un parcours sur le site](creer-sur-le-site.md).
+Détails : [Créer un parcours et le publier avec le Nuage](parcours-nuage.md), puis [Les réglages du parcours](parcours-avance.md).
 
 ## 4. Publier pour les élèves
 
-Une seule fois : créez sur votre drive (kDrive, Dropbox, Nextcloud, le Nuage d'apps.education.fr…) un dossier partagé par lien. Puis, à chaque changement, déposez le nouveau fichier dans ce dossier. C'est tout : les élèves reçoivent la nouvelle version au prochain lancement.
+Connectez votre Nuage (apps.education.fr) dans Mes sauvegardes, puis cliquez sur « Publier dans mon Nuage » : le site range le fichier des élèves dans votre Nuage et donne un lien et un QR code par classe. Avec un compte de l'espace collaboratif, « Publier en ligne » fait de même par le lien de votre compte ([Travailler en équipe](parcours-equipe.md)). Sans l'un ni l'autre, « Publier » télécharge un fichier à déposer dans un dossier de votre drive partagé par lien. Après chaque changement, republiez : les élèves reçoivent la nouvelle version au prochain lancement.
 
 ## 5. Côté élèves
 
-Le plus simple : un QR code du lien du dossier suivi de `?classe=5B`. Projetez-le : les élèves le scannent depuis leur accueil, le dossier est ajouté et leur classe choisie, sans rien saisir. Sinon, donnez-leur le lien (sur l'ENT par exemple) : ils le collent une fois sur leur accueil. Ensuite, chaque publication leur arrive toute seule, et ils travaillent même sans connexion.
+Le plus simple : le QR code de la classe, affiché par « Liens élèves » après la publication. Projetez-le : les élèves le scannent depuis leur accueil, le dossier est ajouté et leur classe choisie, sans rien saisir. Sinon, donnez-leur le lien (sur l'ENT par exemple) : ils le collent une fois sur leur accueil. Ensuite, chaque publication leur arrive toute seule, et ils travaillent même sans connexion.
 
 Détails : [Côté élève](eleves.md).
 
