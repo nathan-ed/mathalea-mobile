@@ -8,7 +8,7 @@
   import { BARRETTES, barrettes, revisionsObjectif, texteBarrettes, type Revisions } from '$lib/revisions'
   import Ceinture from './Ceinture.svelte'
   import { theme } from '$lib/theme.svelte'
-  import { listeGroupee, pastille, pastilleScore } from './classes'
+  import { listeGroupee, pastilleNeutre } from './classes'
 
   let {
     parcours,
@@ -250,7 +250,7 @@
                   <span class={discret}>{heure(s.fin!)} · {etat.texte}</span>
                 </span>
                 <span class="flex flex-row items-center gap-2 shrink-0">
-                  {#if etat.reussi !== null}<span class={pastilleScore(etat.reussi ? 100 : 0)}>{bilan(s).pourcentage} %</span>{/if}
+                  {#if etat.reussi !== null}<span class={pastilleNeutre}>{bilan(s).pourcentage} %</span>{/if}
                   <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
                 </span>
               </button>
@@ -460,9 +460,9 @@
                 </div>
               </div>
               {#if l.paliers}
-                <span class={pastilleScore(l.paliers.total ? (100 * l.paliers.reussis) / l.paliers.total : 0)}>{l.paliers.reussis}/{l.paliers.total}</span>
+                <span class={pastilleNeutre}>{l.paliers.reussis}/{l.paliers.total}</span>
               {:else if l.dernier !== undefined}
-                <span class={pastilleScore(l.dernier)}>{l.dernier} %</span>
+                <span class={pastilleNeutre}>{l.dernier} %</span>
               {/if}
             </button>
           </li>
@@ -485,7 +485,7 @@
                 {titreEleve(r.p, r.etape, r.rang)}
                 <div class={discret}>{r.p.titre}</div>
               </div>
-              <span class={pastille}>{ecrirePoints(r.points)}/{r.sur}</span>
+              <span class={pastilleNeutre}>{ecrirePoints(r.points)}/{r.sur}</span>
             </button>
           </li>
         {/each}

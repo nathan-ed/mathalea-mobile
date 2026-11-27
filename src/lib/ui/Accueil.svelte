@@ -152,13 +152,6 @@
     if (r?.paliers) return r.paliers.reussis ? `${r.paliers.reussis}/${r.paliers.total}` : ''
     return r?.pourcentage != null ? `${r.pourcentage} %` : ''
   }
-  /** Pastille verte seulement pour une réussite : tous les paliers, ou un score d'au moins 80 % ; une séance en cours dit l'avancement, en gris */
-  const badgeVert = (p: Parcours) => {
-    const r = resumes[p.id]
-    if (!r || r.enCours) return false
-    if (r.paliers) return r.paliers.reussis === r.paliers.total
-    return (r.pourcentage ?? 0) >= 80
-  }
   // La tuile « En cours » reprend la séance ; ailleurs, la page du parcours (Continuer,
   // autres paliers, supprimer la tentative) : quitter une séance ramène ici, pas à cette page
   const ouvrir = (p: Parcours) => onouvrir(p)
@@ -303,7 +296,7 @@
 
         {#if recherche.trim()}
           {#each trouves as p (p.id)}
-            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)} onclick={() => ouvrir(p)} />
+            <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} ceintures={ceintures(p)} onclick={() => ouvrir(p)} />
           {:else}
             <p class="py-8 text-center font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
               Aucun parcours ne correspond.
@@ -346,13 +339,13 @@
           {#if autresEnCours.length}
             <h2 class={titreSection}>En cours</h2>
             {#each autresEnCours as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} ceintures={ceintures(p)} onclick={() => oncontinuer(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#if epinglesVisibles.length}
             <h2 class={titreSection}>Épinglés</h2>
             {#each epinglesVisibles as p (p.id)}
-              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
+              <Tuile icon={p.icone} title={p.titre} subtitle={sousTitre(p)} badge={badge(p)} ceintures={ceintures(p)} onclick={() => ouvrir(p)} epingle={epingles.includes(p.id)} onepingler={() => onepingler(p)} oncacher={oncacher ? () => oncacher(p) : undefined} />
             {/each}
           {/if}
           {#each aChoisir as d (d.lien)}
@@ -368,7 +361,6 @@
               organisation={organisation(sources[0].id)}
               {sousTitre}
               {badge}
-              {badgeVert}
               {ceintures}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(sources[0].id, o)}
@@ -402,7 +394,6 @@
                   organisation={organisation(classeVue.id)}
                   {sousTitre}
                   {badge}
-                  {badgeVert}
                   {ceintures}
                   onouvrir={ouvrir}
                   onorganiser={(o) => onorganiser(classeVue!.id, o)}
@@ -420,7 +411,6 @@
               organisation={organisation(SOURCE_EXPLORER)}
               {sousTitre}
               {badge}
-              {badgeVert}
               {ceintures}
               onouvrir={ouvrir}
               onorganiser={(o) => onorganiser(SOURCE_EXPLORER, o)}
@@ -528,7 +518,7 @@
               icon={p.icone}
               title={p.titre}
               subtitle={sousTitre(p)}
-              badge={badge(p)} badgeVert={badgeVert(p)} ceintures={ceintures(p)}
+              badge={badge(p)} ceintures={ceintures(p)}
               onclick={() => ouvrirDepuisNiveau(p)}
               onajouter={() => basculerUn(p)}
               ajoute={dejaAjoute(p)}

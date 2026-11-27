@@ -4,7 +4,7 @@
   import type { Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, ecrirePoints, premiersEssais, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import QuestionsEtape from './QuestionsEtape.svelte'
-  import { boutonAction, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
+  import { boutonAction, boutonLien, listeGroupee, pastille, pastilleIncorrecte, pastilleNeutre } from './classes'
   import EnTete from './EnTete.svelte'
   import Ceinture from './Ceinture.svelte'
   import { texteBarrettes } from '$lib/revisions'
@@ -232,7 +232,7 @@
             </div>
             <div class="flex flex-row items-center gap-2">
               {#if e.sur > 0}
-                <span class={pastilleScore((100 * e.points) / e.sur)}>{ecrirePoints(e.points)}/{e.sur}</span>
+                <span class={pastilleNeutre}>{ecrirePoints(e.points)}/{e.sur}</span>
               {:else}
                 <span class="shrink-0 whitespace-nowrap text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">{e.vues === e.papier ? 'Correction vue' : 'Sur papier'}</span>
               {/if}

@@ -19,7 +19,6 @@
     organisation,
     sousTitre,
     badge,
-    badgeVert,
     ceintures = () => undefined,
     onouvrir,
     onorganiser,
@@ -33,7 +32,6 @@
     organisation: Organisation
     sousTitre: (p: Parcours) => string
     badge: (p: Parcours) => string
-    badgeVert: (p: Parcours) => boolean
     ceintures?: (p: Parcours) => { couleur: string; obtenue: boolean }[] | undefined
     onouvrir: (p: Parcours) => void
     onorganiser: (o: Organisation) => void
@@ -139,7 +137,6 @@
     title={p.titre}
     subtitle={sousTitre(p)}
     badge={badge(p)}
-    badgeVert={badgeVert(p)}
     ceintures={ceintures(p)}
     onclick={() => onouvrir(p)}
     epingle={epingles.includes(p.id)}

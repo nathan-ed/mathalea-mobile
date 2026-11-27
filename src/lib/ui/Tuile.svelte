@@ -6,7 +6,7 @@
   // cacher passent par un appui long (ou le clic droit), avec un bouton
   // « Actions » pour le clavier et les lecteurs d'écran. La grande tuile
   // (choix du programme) garde sa carte.
-  import { pastille as classePastille, pastilleNeutre } from './classes'
+  import { pastilleNeutre } from './classes'
   import Feuille from './Feuille.svelte'
 
   type Props = {
@@ -18,7 +18,6 @@
     size?: 'large' | 'normal'
     badge?: string
     /** Pastille verte (réussite) ; sinon grise (avancement, score encore bas) */
-    badgeVert?: boolean
     onclick?: () => void
     /** Accueil : épinglé en haut (petite épingle grise) ; épingler et cacher par l'appui long */
     epingle?: boolean
@@ -47,7 +46,6 @@
     icon = '',
     size = 'normal',
     badge = '',
-    badgeVert = false,
     onclick,
     epingle = false,
     onepingler,
@@ -125,7 +123,7 @@
           {/each}
         </span>
       {/if}
-      {#if badge}<span class={badgeVert ? classePastille : pastilleNeutre}>{badge}</span>{/if}
+      {#if badge}<span class={pastilleNeutre}>{badge}</span>{/if}
       {#if subtitle}<span class="min-w-0">{subtitle}</span>{/if}
     </span>
   {/if}

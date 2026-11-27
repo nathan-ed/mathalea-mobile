@@ -13,7 +13,7 @@
   import { lienSur, ouvrirLien } from '$lib/fichiers'
   import { CONTACT, mailSignalement } from '$lib/signalement'
   import ChampTexte from './ChampTexte.svelte'
-  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleScore } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleNeutre } from './classes'
   import EnTete from './EnTete.svelte'
   import Ceinture from './Ceinture.svelte'
   import { barrettes, texteBarrettes, type Revisions } from '$lib/revisions'
@@ -187,7 +187,7 @@
           {#if reussi}<i class="bx bx-check text-base"></i>{:else}{i + 1}{/if}
         </span>
         <span class="min-w-0 flex-1 text-coopmaths-corpus dark:text-coopmathsdark-corpus">{titreEleve(parcours, parcours.etapes[i], i)}</span>
-        {#if r && r.sur > 0}<span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>{/if}
+        {#if r && r.sur > 0}<span class={pastilleNeutre}>{Math.round((100 * r.points) / r.sur)} %</span>{/if}
       </li>
     {/each}
   </ul>
@@ -353,7 +353,7 @@
               {titreEleve(parcours, etape, i)}
             </div>
             {#if r && r.sur > 0}
-              <span class={pastilleScore((100 * r.points) / r.sur)}>{Math.round((100 * r.points) / r.sur)} %</span>
+              <span class={pastilleNeutre}>{Math.round((100 * r.points) / r.sur)} %</span>
             {/if}
           </li>
         {/each}
@@ -437,7 +437,7 @@
             {#if o.pourcentage === null}
               <span class="shrink-0 {discret}">Pas encore travaillé</span>
             {:else}
-              <span class={pastilleScore(o.pourcentage)}>{o.pourcentage} %</span>
+              <span class={pastilleNeutre}>{o.pourcentage} %</span>
             {/if}
           </li>
         {/each}
@@ -461,7 +461,7 @@
                 {date(s)}{s.type === 'ciblee' ? ' · reprise' : ''}{avecPaliers && paliers.findIndex((x) => memes(x.etapes, s.etapes)) !== -1 ? ` · ${nomPalier(parcours, paliers.findIndex((x) => memes(x.etapes, s.etapes))).toLowerCase()}` : ''}
               </div>
               <div class="flex flex-row items-center gap-2">
-                <span class={pastilleScore(b.pourcentage)}>{b.pourcentage} %</span>
+                <span class={pastilleNeutre}>{b.pourcentage} %</span>
                 <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
               </div>
             </button>

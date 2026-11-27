@@ -26,7 +26,12 @@ export const boutonLien = `presse inline-flex items-center justify-center gap-2 
 
 export const desactive = 'disabled:opacity-40'
 
-/** Pastille de compteur (MobileEndingItem.svelte), au vert de MathALÉA dans les deux thèmes (le « warn » sombre est rose) */
+/**
+ * Pastille verte, au vert de MathALÉA dans les deux thèmes (le « warn » sombre est rose) :
+ * seulement pour un verdict, « Correcte » ou une question correcte. Jamais pour un chiffre
+ * (score, pourcentage, compte) : un chiffre en vert se lisait comme une réussite qui n'en
+ * était pas une (Nathan, 27 novembre 2026). Les chiffres prennent `pastilleNeutre`.
+ */
 export const pastille = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
   fond-vert-mathalea text-white text-xs font-bold`
 
@@ -42,11 +47,10 @@ export const elementListe = `ligne-liste w-full flex flex-row items-center justi
 /** Intertitre de section : petites capitales grises, comme les listes des réglages d'un téléphone */
 export const titreSection = `titre-section`
 
-/** Pastille d'un score : couleur de réussite à partir de 80 %, neutre en dessous (0 % n'a pas l'air réussi) */
+/** Pastille d'un chiffre (score, pourcentage, avancement), ou d'une question sans réponse : neutre */
 export const pastilleNeutre = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
   bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest
   text-coopmaths-corpus dark:text-coopmathsdark-corpus text-xs font-bold`
 /** Pastille « Incorrecte » : orange de MathALÉA, comme les segments incorrects de la barre de progression (Seance.svelte) */
 export const pastilleIncorrecte = `shrink-0 inline-flex items-center justify-center h-6 min-w-6 px-2 rounded-full
   bg-coopmaths-action text-white text-xs font-bold`
-export const pastilleScore = (pourcentage: number) => (pourcentage >= 80 ? pastille : pastilleNeutre)

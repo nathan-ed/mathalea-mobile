@@ -6,7 +6,7 @@
   import type { ExercicePrepare, Moteur, ResultatVerification } from '$lib/moteur'
   import { cleQuestion, ecrirePoints, fixerOrdre, premiersEssais, questionsDe, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleScore } from './classes'
+  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastilleNeutre } from './classes'
   import EnTete from './EnTete.svelte'
   import Feuille from './Feuille.svelte'
   import { retourSi } from '$lib/navigation.svelte'
@@ -508,7 +508,7 @@
       {#if pret && !(finale && !seance.soumise)}
         <!-- Verte à partir de 80 % du total, comme au bilan : « 0/3 » en vert se lisait comme une réussite -->
         {@const total = liste.filter((q) => !surPapier(seance, q.etape, q.question)).length}
-        <span class="px-3"><span class={pastilleScore(total ? (100 * points) / total : 0)}>{ecrirePoints(points)}/{total}</span></span>
+        <span class="px-3"><span class={pastilleNeutre}>{ecrirePoints(points)}/{total}</span></span>
       {/if}
     {/snippet}
   </EnTete>

@@ -8,7 +8,7 @@
   import type { ExercicePrepare, Moteur } from '$lib/moteur'
   import { bilan, cleQuestion, ecrirePoints, premiersEssais, questionsOrdonnees, surPapier, valeur, type Seance } from '$lib/progression'
   import BlocQuestion from './BlocQuestion.svelte'
-  import { pastille, pastilleIncorrecte, pastilleNeutre, pastilleScore } from './classes'
+  import { pastille, pastilleIncorrecte, pastilleNeutre } from './classes'
   import EnTete from './EnTete.svelte'
 
   let {
@@ -66,7 +66,7 @@
 <div class="flex flex-col min-h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <EnTete titre="{parcours.titre} · {date}" {onretour}>
     {#snippet droite()}
-      {#if b.sur > 0}<span class="px-3"><span class={pastilleScore(b.pourcentage)}>{ecrirePoints(b.points)}/{b.sur}</span></span>{/if}
+      {#if b.sur > 0}<span class="px-3"><span class={pastilleNeutre}>{ecrirePoints(b.points)}/{b.sur}</span></span>{/if}
     {/snippet}
   </EnTete>
 

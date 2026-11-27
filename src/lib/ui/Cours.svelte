@@ -6,7 +6,7 @@
   import { lienSur, ouvrirLien } from '$lib/fichiers'
   import { retourSi } from '$lib/navigation.svelte'
   import { texteRiche, titreRiche, type RenduFormule } from '$lib/texteRiche'
-  import { boutonAction, boutonInverse, boutonLien, elementListe, listeGroupee, pastille, pastilleIncorrecte, pastilleScore } from './classes'
+  import { boutonAction, boutonInverse, elementListe, listeGroupee, pastille, pastilleIncorrecte } from './classes'
   import EnTete from './EnTete.svelte'
   import GraphiqueCours from './GraphiqueCours.svelte'
 

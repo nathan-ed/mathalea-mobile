@@ -160,6 +160,8 @@ for (const [appareil, theme, ecran] of [
     `${appareil} : Séances, les trois tentatives, la plus récente d'abord (${lignes.join(' | ')})`,
   )
   await page.screenshot({ path: `${captures}/bilan-ceinture-4-seances-${theme}.png`, fullPage: true })
+  // Nathan, 27 novembre 2026 : une pastille qui donne un chiffre n'est jamais verte (le vert dit seulement « Correcte »)
+  ok((await page.locator('main .fond-vert-mathalea').count()) === 0, `${appareil} : Séances, aucun chiffre en vert (même à 100 %)`)
   await toucher(page, page.locator('main [aria-label^="Séances du"] li button').nth(2))
   await page.getByRole('button', { name: 'Question 2 : incorrecte' }).waitFor({ timeout: 60_000 })
   await pagePrete(page)
