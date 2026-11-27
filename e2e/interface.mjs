@@ -203,17 +203,23 @@ for (const [appareil, theme, ecran] of [
   ok(!(await debordement(page)), `${appareil} : séance, aucun débordement`)
   await ctx.close()
 
-  // ---------- Parcours sans chapitre : en haut, sans intertitre vide ; « N parcours » en clair ----------
+  // ---------- Parcours sans chapitre : en haut, sans intertitre vide ; chapitres sans compte de parcours ----------
   {
     const sans = { ...fr[0], id: 'essai-sans-chapitre', titre: 'Parcours sans chapitre', theme: '' }
     const { ctx: c2, page: p2 } = await ouvrir(ecran, theme, { profil: 'eleve', pays: 'FR', ajoutes: [sans, fr[1], fr[2]] })
     await p2.locator('.corps-tuile').first().waitFor({ timeout: 60_000 })
     await pagePrete(p2)
-    const intertitres = await p2.locator('main .titre-section').allInnerTexts()
-    ok(intertitres.every((t) => t.replace(/[·\d\s]|parcours/g, '').trim().length > 0), `${appareil} : aucun intertitre vide`, intertitres.join(' | '))
+    const intertitres = await p2.locator('main .titre-section, main .titre-chapitre').allInnerTexts()
+    ok(intertitres.every((t) => t.trim().length > 0), `${appareil} : aucun intertitre vide`, intertitres.join(' | '))
     const premiere = (await p2.locator('main .corps-tuile .titre-ligne').first().innerText()).trim()
     ok(premiere.startsWith('Parcours sans chapitre'), `${appareil} : le parcours sans chapitre en haut, avant les chapitres`, premiere)
-    ok(intertitres.some((t) => /· 2 parcours/.test(t)), `${appareil} : le chapitre dit « 2 parcours » en clair`, intertitres.join(' | '))
+    // Nathan, 27 novembre 2026 : le nombre de parcours d'un chapitre ne disait rien ; le chapitre
+    // est un titre plus grand que les intertitres, avec sa flèche (on comprend qu'il se replie)
+    const chapitres = await p2.locator('main .titre-chapitre').allInnerTexts()
+    ok(chapitres.length > 0 && chapitres.every((t) => !/parcours/.test(t)), `${appareil} : chapitres sans « N parcours »`, chapitres.join(' | '))
+    const taille = await p2.locator('main .titre-chapitre').first().evaluate((x) => parseFloat(getComputedStyle(x).fontSize))
+    ok(taille >= 18, `${appareil} : chapitre plus grand que le texte des tuiles`, `${taille} px`)
+    ok((await p2.locator('main button[aria-expanded] .fleche-chapitre').count()) === chapitres.length, `${appareil} : une flèche par chapitre`)
     await cap(p2, '2b-sans-chapitre')
     await c2.close()
   }

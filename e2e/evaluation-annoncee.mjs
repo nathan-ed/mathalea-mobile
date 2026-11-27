@@ -153,7 +153,8 @@ async function repondre(page, id, total) {
   await pagePrete(page)
   let ecran = await texte(page)
   ok(ecran.includes('Évaluation vendredi') && ecran.includes('Évaluation sur les relatifs'), `préparation : ${ecran.slice(0, 70)}`)
-  ok(ecran.includes('Les révisions commencent dès qu’un exercice de ces parcours est terminé'), 'aucun exercice fait : l’écran le dit')
+  // Tous les exercices des parcours comptent, faits ou non (Nathan, 27 novembre 2026)
+  ok(ecran.includes('Combien de questions ?') && (await page.getByRole('button', { name: 'Commencer' }).isVisible()), 'aucun exercice fait : une série est déjà proposée')
   const aFinir = ecran.split('À finir avant l’évaluation')[1] ?? ''
   ok(aFinir.includes('Additions de relatifs Pas encore commencé') && aFinir.includes('Soustractions de relatifs Pas encore commencé'), 'les deux parcours sont à finir avant l’évaluation')
   const e = (await stock(page)).evaluation
@@ -167,7 +168,9 @@ async function repondre(page, id, total) {
   await page.getByRole('button', { name: 'Retour à l’accueil' }).click()
   await pagePrete(page)
   ok((await tuile(page).innerText()).includes('Évaluation vendredi') && !(await tuile(page).innerText()).includes('à préparer'), 'accueil : la tuile annonce l’évaluation')
-  ok(!(await page.getByRole('button', { name: 'Réviser pour l’évaluation' }).count()), 'réussi aujourd’hui : l’accueil ne demande pas de le refaire')
+  // Les additions sont réussies aujourd'hui ; reste l'exercice des soustractions, pas encore fait
+  const lundi = await texte(page, 'section[aria-label="À faire maintenant"]')
+  ok(lundi.includes('Réviser pour l’évaluation') && lundi.includes('1 question'), `réussi aujourd’hui : seul l’exercice pas encore fait est proposé (${lundi})`)
 
   // Mardi : l'accueil propose de réviser pour l'évaluation, sans attendre la date de révision (dans une semaine)
   await page.clock.setSystemTime(new Date('2026-11-17T09:00:00'))
@@ -175,10 +178,10 @@ async function repondre(page, id, total) {
   await action(page).waitFor({ timeout: 60_000 })
   await pagePrete(page)
   const mardi = await texte(page, 'section[aria-label="À faire maintenant"]')
-  ok(mardi.includes('Évaluation vendredi · 1 question') && mardi.includes('Réviser pour l’évaluation'), `le lendemain : ${mardi}`)
+  ok(mardi.includes('Évaluation vendredi · 2 questions') && mardi.includes('Réviser pour l’évaluation'), `le lendemain : ${mardi}`)
   await page.screenshot({ path: `${captures}/evaluation-annoncee-3-reviser-clair.png` })
   await action(page).getByRole('button', { name: 'Réviser pour l’évaluation' }).click()
-  await repondre(page, 'revisions', 1)
+  await repondre(page, 'revisions', 2)
   ok((await texte(page)).includes('Réussi aujourd’hui'), 'série de l’évaluation faite, bilan : réussi aujourd’hui')
   await page.getByRole('button', { name: 'Terminer' }).click()
   await pagePrete(page)

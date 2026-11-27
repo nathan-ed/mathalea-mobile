@@ -1,9 +1,10 @@
 <script lang="ts">
   // Suivi du travail dans la durée, avec la rampe « struct » de MathALÉA
   import { aDesPaliers, paliersDe, titreEleve, type Parcours } from '$lib/catalogue'
-  import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, maitrise, objectifsTravailles } from '$lib/objectifs'
+  import { MAITRISES, ceinturesObtenues, ceinturesParChapitre, issuePassage, maitrise, objectifsTravailles } from '$lib/objectifs'
   import { bilan, ecrirePoints, premiersEssais, valeur, type Essai, type Seance } from '$lib/progression'
-  import { estTest } from '$lib/testNiveau'
+  import { estTest, presenterTest } from '$lib/testNiveau'
+  import { estRevision } from '$lib/revisions'
   import { BARRETTES, barrettes, revisionsObjectif, texteBarrettes, type Revisions } from '$lib/revisions'
   import Ceinture from './Ceinture.svelte'
   import { theme } from '$lib/theme.svelte'
@@ -18,6 +19,8 @@
     ontest,
     revisions = null,
     passagesRevision = [],
+    vue = $bindable('activite'),
+    onrelire,
   }: {
     parcours: Parcours[]
     historiques: Record<string, Seance[]>
@@ -27,6 +30,8 @@
     ontest?: () => void
     revisions?: Revisions | null // révisions espacées : solidité de chaque objectif dans le temps
     passagesRevision?: Seance[] // séances de révision : elles comptent pour les objectifs
+    vue?: 'activite' | 'objectifs' | 'ceintures' | 'seances' // gardée au retour d'une séance relue
+    onrelire?: (s: Seance) => void // revoir une séance terminée, question par question
   } = $props()
 
   const titreSection = 'titre-section'
@@ -111,8 +116,36 @@
     }),
   )
 
+  // ---------- Séances terminées ----------
+  // Nathan, 27 novembre 2026 : l'élève revoit toutes ses tentatives, réussies ou non, et
+  // chaque question correcte ou incorrecte, pour en reparler avec l'enseignant
+  const seancesFaites = $derived(
+    [...parcours.flatMap((p) => historiques[p.id] ?? []), ...passagesRevision]
+      .filter((s) => s.fin)
+      .sort((a, b) => b.fin!.localeCompare(a.fin!)),
+  )
+  /** Titre vu par l'élève : jamais le nom d'un sujet de test (copie présentée) */
+  const titreSeance = (s: Seance) => (estRevision(s.parcours) ? 'Révisions' : estTest(s.parcours) ? presenterTest(s.contenu).titre : s.contenu.titre)
+  const etatSeance = (s: Seance) => {
+    const b = bilan(s)
+    const bonnes = `${ecrirePoints(b.points)} bonne${b.points > 1 ? 's' : ''} réponse${b.points > 1 ? 's' : ''} sur ${b.sur}`
+    if (estRevision(s.parcours) || !b.sur) return { texte: b.sur ? bonnes : 'Correction vue', reussi: null }
+    const { palier, reussi } = issuePassage(s)
+    const issue = palier.startsWith('Ceinture') ? `${palier} ${reussi ? 'obtenue' : 'pas obtenue'}` : palier ? `${palier} ${reussi ? 'réussi' : 'pas réussi'}` : reussi ? 'Réussi' : 'Pas réussi'
+    return { texte: `${issue} · ${bonnes}`, reussi }
+  }
+  const heure = (iso: string) => new Date(iso).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+  const parJour = $derived.by(() => {
+    const jours: { jour: string; liste: Seance[] }[] = []
+    for (const s of seancesFaites) {
+      const j = s.fin!.slice(0, 10)
+      if (jours.at(-1)?.jour !== j) jours.push({ jour: j, liste: [] })
+      jours.at(-1)!.liste.push(s)
+    }
+    return jours
+  })
+
   // ---------- Objectifs et ceintures ----------
-  let vue: 'activite' | 'objectifs' | 'ceintures' = $state('activite')
   const passagesTermines = $derived([...parcours.flatMap((p) => historiques[p.id] ?? []), ...passagesRevision])
   const objectifs = $derived(objectifsTravailles(passagesTermines))
   // Solidité dans le temps (révisions espacées) d'un objectif, ou null
@@ -140,6 +173,7 @@
     ['activite', 'Activité'],
     ['objectifs', 'Objectifs'],
     ...(ceintures.length || ceinturesTest.length ? [['ceintures', 'Ceintures']] : []),
+    ...(seancesFaites.length && onrelire ? [['seances', 'Séances']] : []),
   ])
   const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
 
@@ -196,7 +230,35 @@
       </div>
     {/if}
 
-    {#if vue === 'objectifs'}
+    {#if vue === 'seances'}
+      <!-- Toutes les séances terminées, la plus récente d'abord : un toucher les rejoue en lecture -->
+      {#each parJour as j (j.jour)}
+        <h2 class={titreSection}>{fmtDate(j.liste[0].fin!)}</h2>
+        <ul class={listeGroupee} aria-label="Séances du {fmtDate(j.liste[0].fin!)}">
+          {#each j.liste as s (`${s.parcours}@${s.debut}`)}
+            {@const etat = etatSeance(s)}
+            <li>
+              <button
+                type="button"
+                class="w-full flex flex-row items-center justify-between gap-3 px-4 py-3 text-left
+                bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
+                active:bg-coopmaths-canvas-darkest dark:active:bg-coopmathsdark-canvas-darkest transition-colors duration-150"
+                onclick={() => onrelire?.(s)}
+              >
+                <span class="flex flex-col min-w-0">
+                  <span class="truncate text-coopmaths-corpus dark:text-coopmathsdark-corpus">{titreSeance(s)}</span>
+                  <span class={discret}>{heure(s.fin!)} · {etat.texte}</span>
+                </span>
+                <span class="flex flex-row items-center gap-2 shrink-0">
+                  {#if etat.reussi !== null}<span class={pastilleScore(etat.reussi ? 100 : 0)}>{bilan(s).pourcentage} %</span>{/if}
+                  <i aria-hidden="true" class="bx bx-chevron-right text-2xl text-coopmaths-action dark:text-coopmathsdark-action"></i>
+                </span>
+              </button>
+            </li>
+          {/each}
+        </ul>
+      {/each}
+    {:else if vue === 'objectifs'}
       {#if !objectifs.length}
         <p class="py-6 text-center {discret}">Les objectifs de tes parcours apparaîtront ici dès que tu auras terminé un passage.</p>
       {:else}

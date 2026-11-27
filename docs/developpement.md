@@ -1316,9 +1316,16 @@ Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
   toucher) et les parcours rangés par chapitre (`parcoursParChapitre`, ceux
   de l'élève pas encore commencés compris). `evaluation` (`parcours`, `date`)
   dans la clé `revisions`. Jusqu'à ce jour compris (`evaluationEnCours`),
-  `tirerRevision` ne prend que les exercices de ces parcours, sans attendre
-  leur date : pas encore réussis aujourd'hui, puis boîte la plus basse, puis
-  vus depuis le plus longtemps, à tour de rôle par parcours. Tout réussi dans
+  `tirerRevision` prend tous les exercices de ces parcours, faits ou non
+  (Nathan, 27 novembre 2026 : « pour une révision d'éval, c'est tous qui
+  doivent être pris en compte » ; les révisions habituelles, elles, ne
+  reprennent que les exercices des parcours faits), d'après leur version sur
+  l'appareil (`dansEvaluation(r, ev, parcours)`), sans attendre leur date :
+  pas encore réussis aujourd'hui, puis boîte la plus basse (0 : jamais fait),
+  puis vus depuis le plus longtemps, à tour de rôle par parcours. Un exercice
+  jamais terminé dans son parcours est suivi dans `evaluation.vus` (revu,
+  réussi), jamais dans les boîtes. Seuls les parcours de l'élève (classes
+  choisies, Explorer) sont proposés, jamais ceux d'une classe quittée. Tout réussi dans
   la journée : « Tout est revu pour aujourd'hui », « Refaire une série »,
   l'accueil ne relance pas. Parcours choisis pas terminés : « À finir avant
   l'évaluation » (ouvre le parcours). Bilan : « Réussi aujourd'hui » ou « À
@@ -1341,7 +1348,18 @@ Suite de la revue du 13 novembre 2026 (Nathan : « tout cela est super »).
   ensuite son annonce (`suivreAnnonces` : jour ou parcours changés, annonce
   retirée), sauf si l'élève l'a modifiée (`modifiee`). Arrêtée ou passée,
   elle n'est pas reproposée (`annonces`). Rien ne revient à l'enseignant.
-  Test : `node e2e/evaluation-annoncee.mjs` (dossier simulé).
+  Test : `node e2e/evaluation-annoncee.mjs` (dossier simulé). Jamais perdue
+  (Nathan, 27 novembre 2026) : `node e2e/evaluation-gardee.mjs` (relancement,
+  dossier relu ou injoignable, annonce retouchée, sauvegarde récupérée,
+  fusion de deux appareils, lendemain, fin d'office).
+- Suivi, onglet Séances (Nathan, 27 novembre 2026 : l'élève revoit toutes ses
+  tentatives, réussies ou non, et chaque question correcte ou incorrecte, pour
+  en reparler avec l'enseignant) : toutes les séances terminées (parcours,
+  révisions, tests), par jour, la plus récente d'abord, avec leur issue
+  (`issuePassage` : « Ceinture jaune obtenue », « pas obtenue », « Réussi »)
+  et le score. Un toucher ouvre la relecture (`Relecture.svelte`) : une
+  pastille par question qui y mène, « Seulement les questions incorrectes ».
+  Le retour ramène à l'onglet. Test : `node e2e/bilan-ceinture.mjs`.
 - Suivi : les séances de révision comptent pour les objectifs, qui gardent le
   niveau et le chapitre du parcours d'origine (`objectifsTravailles`, passages
   triés par date) ; solidité d'un objectif = boîte la plus basse de ses

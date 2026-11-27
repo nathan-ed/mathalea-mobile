@@ -101,6 +101,9 @@
   }
   let seance: TSeance | undefined = $state()
   let relue: TSeance | undefined = $state()
+  // Séance relue depuis la page de son parcours ou depuis le Suivi (onglet Séances) : le retour y ramène
+  let relueDepuis: 'parcours' | 'suivi' = $state('parcours')
+  let vueSuivi: 'activite' | 'objectifs' | 'ceintures' | 'seances' = $state('activite')
   let seances: Record<string, TSeance | null> = $state({})
   let resultats: Record<string, Record<number, ResultatEtape>> = $state({})
   let historiques: Record<string, TSeance[]> = $state({})
@@ -613,7 +616,8 @@
     aller('revisions')
   }
   // Évaluation en préparation : ce qui n'a pas encore été réussi aujourd'hui dans ses parcours
-  const dusRevision = $derived(evaluation ? aReviserPourEvaluation(revisions, evaluation).length : aRevoir(revisions).length)
+  // Tous les exercices de ses parcours, faits ou non, d'après leur version sur l'appareil (classes choisies et Explorer)
+  const dusRevision = $derived(evaluation ? aReviserPourEvaluation(revisions, evaluation, undefined, tous).length : aRevoir(revisions).length)
   const resumeRevisions = $derived(
     Object.keys(revisions.elements).length || evaluation || annonce
       ? { dus: dusRevision, prochaine: prochaineRevision(revisions), enCours: revisionEnCours, evaluation: evaluation ? jourEnMots(evaluation.date) : null, aPreparer: annonce ? jourEnMots(annonce.date) : null }
@@ -698,7 +702,7 @@
       void lancer(commencee)
       return
     }
-    const p = tirerRevision(revisions)
+    const p = tirerRevision(revisions, undefined, undefined, tous)
     if (!p || !moteur) return
     actif = p
     void lancer(nouvelleSeance(p, moteur.VERSION_MOTEUR, 'complet'))
@@ -1172,6 +1176,12 @@
           ontest={ouvrirTest}
           {revisions}
           passagesRevision={historiques[ID_REVISIONS] ?? []}
+          bind:vue={vueSuivi}
+          onrelire={(s) => {
+            relue = s
+            relueDepuis = 'suivi'
+            aller('relecture')
+          }}
         />
       {/snippet}
       {#snippet fiches()}
@@ -1206,6 +1216,7 @@
       onepingler={() => (dansSources(actif!.id) ? basculerEpingle(actif!) : basculerAjout(actif!))}
       onrelire={(s) => {
         relue = s
+        relueDepuis = 'parcours'
         aller('relecture')
       }}
       onretour={() => aller('accueil')}
@@ -1230,6 +1241,7 @@
       {revisions}
       enCours={revisionEnCours}
       mesParcours={parcoursPourEvaluation}
+      parcoursEvaluation={tous}
       {annonce}
       onannonce={preparerEvaluationAnnoncee}
       onlancer={lancerRevision}
@@ -1249,7 +1261,12 @@
       onretour={accueil}
     />
   {:else if vue === 'relecture' && relue}
-    <Relecture parcours={relue.contenu} seance={relue} {moteur} onretour={() => aller('parcours')} />
+    <Relecture
+      parcours={estTest(relue.parcours) ? presenterTest(relue.contenu) : relue.contenu}
+      seance={relue}
+      {moteur}
+      onretour={() => aller(relueDepuis === 'suivi' || !actif ? 'accueil' : 'parcours')}
+    />
   {:else if vue === 'seance' && seance}
     {#key seance.debut}
       <Seance

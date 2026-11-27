@@ -21,6 +21,7 @@
     TAILLES,
     type Annonce,
     type Evaluation,
+    type ParcoursEvaluation,
     type Revisions,
     type SourceRevision,
   } from '$lib/revisions'
@@ -33,6 +34,7 @@
     revisions,
     enCours = false,
     mesParcours = [],
+    parcoursEvaluation = [],
     annonce = null,
     onannonce,
     onlancer,
@@ -45,6 +47,7 @@
     revisions: Revisions
     enCours?: boolean // une séance de révision commencée, à reprendre
     mesParcours?: ({ id: string; reste?: string } & SourceRevision)[] // parcours de l'élève ; `reste` : ce qui n'est pas encore obtenu (« 2 ceintures sur 5 »)
+    parcoursEvaluation?: ParcoursEvaluation[] // parcours sur l'appareil : une évaluation reprend tous leurs exercices
     annonce?: Annonce | null // évaluation annoncée par l'enseignant, pas encore préparée
     onannonce?: (a: Annonce) => void // la préparer : le jour et les parcours sont ceux de l'enseignant
     onlancer: () => void
@@ -62,9 +65,9 @@
   const discret = 'text-sm font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest'
   const titreSection = 'titre-section'
   const evaluation = $derived(evaluationEnCours(revisions))
-  const pourEvaluation = $derived(evaluation ? dansEvaluation(revisions, evaluation) : [])
+  const pourEvaluation = $derived(evaluation ? dansEvaluation(revisions, evaluation, parcoursEvaluation) : [])
   // Évaluation : ce qui n'a pas encore été réussi aujourd'hui ; sinon ce qui est à revoir
-  const dus = $derived(evaluation ? aReviserPourEvaluation(revisions, evaluation).length : aRevoir(revisions).length)
+  const dus = $derived(evaluation ? aReviserPourEvaluation(revisions, evaluation, undefined, parcoursEvaluation).length : aRevoir(revisions).length)
   const prochaine = $derived(prochaineRevision(revisions))
   const liste = $derived(chapitres(revisions))
   const ecartes = $derived(new Set(revisions.sansChapitres ?? []))
@@ -122,7 +125,9 @@
     {evaluation}
     onvalider={(e) => {
       // Évaluation de l'enseignant modifiée par l'élève : ses choix restent, elle n'est pas reproposée
-      onevaluation(evaluation?.annonce ? { ...e, annonce: evaluation.annonce, modifiee: true, ...(evaluation.titre ? { titre: evaluation.titre } : {}) } : e)
+      // Ce qui a déjà été revu pendant la préparation reste
+      const garde = evaluation?.vus ? { ...e, vus: evaluation.vus } : e
+      onevaluation(evaluation?.annonce ? { ...garde, annonce: evaluation.annonce, modifiee: true, ...(evaluation.titre ? { titre: evaluation.titre } : {}) } : garde)
       preparer = false
     }}
     onretour={() => (preparer = false)}
@@ -142,7 +147,7 @@
       {#if enCours}
         <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Révision commencée</div>
       {:else if evaluation && !pourEvaluation.length}
-        <div class="text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus">Les révisions commencent dès qu’un exercice de ces parcours est terminé.</div>
+        <div class="text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus">Les parcours de cette évaluation ne sont plus dans tes parcours.</div>
       {:else if evaluation && !dus}
         <div class="text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus">Tout est revu pour aujourd’hui.</div>
         {@render tailles()}

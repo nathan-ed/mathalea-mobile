@@ -158,6 +158,20 @@ const attenduDe = (paliers: ReturnType<typeof paliersDe>, k: number) => {
   const suivant = paliers[k + 1]
   return suivant?.acces === 'seuil' ? suivant.seuil : SEUIL_PAR_DEFAUT
 }
+/**
+ * Issue d'un passage terminé, jugée sur sa copie figée : palier ou ceinture
+ * passé (« Ceinture jaune », vide pour un passage sans paliers) et réussite
+ * (toutes les questions faites, avec la réussite attendue de ce palier).
+ */
+export function issuePassage(s: Seance) {
+  const paliers = paliersDe(s.contenu)
+  const rang = paliers.findIndex((a) => a.etapes.join() === s.etapes.join())
+  const b = bilan(s)
+  return {
+    palier: aDesPaliers(s.contenu) && rang !== -1 ? nomPalier(s.contenu, rang) : '',
+    reussi: b.faites === b.sur && b.pourcentage >= (rang !== -1 ? attenduDe(paliers, rang) : SEUIL_PAR_DEFAUT),
+  }
+}
 const signature = (p: Parcours, etapes: number[]) => etapes.map((i) => p.etapes[i]?.uuid).sort().join()
 
 /**

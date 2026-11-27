@@ -27,7 +27,14 @@
   const titreSection = 'titre-section'
   const ligne = 'w-full flex flex-row items-center justify-between gap-4 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
 
-  const groupes = $derived(parcoursParChapitre(revisions, mesParcours))
+  // Seulement les parcours de l'élève (classes choisies, Explorer) : jamais ceux d'une classe
+  // qu'il a quittée, même s'il en a fait des exercices (Nathan, 27 novembre 2026)
+  const groupes = $derived.by(() => {
+    const siens = new Set(mesParcours.map((p) => p.id))
+    return parcoursParChapitre(revisions, mesParcours)
+      .map((g) => ({ ...g, parcours: g.parcours.filter((p) => siens.has(p.id)) }))
+      .filter((g) => g.parcours.length)
+  })
   // svelte-ignore state_referenced_locally
   let coches: string[] = $state(evaluation?.parcours ?? [])
   // svelte-ignore state_referenced_locally

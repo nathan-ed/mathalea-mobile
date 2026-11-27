@@ -389,6 +389,37 @@ describe('préparer une évaluation', () => {
     expect(annonceAProposer(r, annonces, '2026-10-10')?.id).toBe('eval-2')
   })
 
+  it('tous les exercices des parcours de l’évaluation, faits ou non ; les révisions habituelles, seulement ceux faits', () => {
+    // Nathan, 27 novembre 2026 : « pour une révision d'éval, c'est tous qui doivent être pris en compte »
+    const multiplications = parcours('relatifs-2', 'Nombres relatifs', ['m1', 'm2'])
+    const surAppareil = [relatifs, fractions, aires, multiplications]
+    // Seul a1 a été fait (a2 manque au passage) : a2 et le parcours pas commencé comptent quand même
+    let r: Revisions = integrerPassages(revisionsVides(), [passage({ ...relatifs, etapes: [relatifs.etapes[0]] }, [2], '2026-10-01')])
+    r = { ...r, evaluation: { parcours: ['relatifs', 'relatifs-2'], date: '2026-10-05' } }
+    const le = '2026-10-02'
+    expect(dansEvaluation(r, r.evaluation!, surAppareil).map(([, e, id]) => `${e.etape.uuid} ${e.boite} ${id}`)).toEqual(['a1 3 relatifs', 'a2 0 relatifs', 'm1 0 relatifs-2', 'm2 0 relatifs-2'])
+    // Jamais faits d'abord (boîte 0), à tour de rôle entre les parcours
+    expect(uuids(tirerRevision(r, le, 10, surAppareil))).toEqual(['a2', 'm1', 'a1', 'm2'])
+    expect(aReviserPourEvaluation(r, r.evaluation!, le, surAppareil).length).toBe(4)
+    // m1 réussi, m2 manqué dans la série : notés pour la préparation, pas dans les révisions habituelles
+    const s = revision(tirerRevision(r, le, 2, surAppareil)!, { m1: true, a2: false }, le)
+    const { revisions, issues } = resultatsRevision(r, s, le)
+    expect(Object.values(issues).map((i) => `${i.apres.etape.uuid} ${i.reussi}`).sort()).toEqual(['a2 false', 'm1 true'])
+    expect(Object.values(revisions.elements).map((e) => e.etape.uuid)).toEqual(['a1'])
+    expect(Object.values(revisions.evaluation!.vus!)).toEqual([{ revu: le }, { revu: le, reussiLe: le }])
+    expect(estRevisions(revisions)).toBe(true)
+    // Ce qui a été réussi aujourd'hui passe après le reste
+    expect(aReviserPourEvaluation(revisions, revisions.evaluation!, le, surAppareil).map(([, e]) => e.etape.uuid)).toEqual(['a1', 'a2', 'm2'])
+    // Dans chaque parcours : jamais vu, puis manqué, puis réussi aujourd'hui
+    expect(uuids(tirerRevision(revisions, le, 10, surAppareil))).toEqual(['m2', 'a2', 'm1', 'a1'])
+    // Après l'évaluation : les révisions habituelles ne reprennent que l'exercice fait
+    expect(uuids(tirerRevision(revisions, '2026-10-08', 10, surAppareil))).toEqual(['a1'])
+    // L'enseignant déplace l'évaluation : ce qui a été revu reste
+    const annoncee = { ...revisions, evaluation: { ...revisions.evaluation!, annonce: 'e' } }
+    expect(suivreAnnonces(annoncee, [{ id: 'e', date: '2026-10-06', parcours: ['relatifs'] }]).evaluation!.vus).toEqual(revisions.evaluation!.vus)
+    expect(estRevisions({ ...revisions, evaluation: { ...revisions.evaluation!, vus: { x: { revu: 'hier' } } } })).toBe(false)
+  })
+
   it('jour de l’évaluation en mots simples', () => {
     expect(jourEnMots('2026-11-16', '2026-11-16')).toBe('aujourd’hui')
     expect(jourEnMots('2026-11-17', '2026-11-16')).toBe('demain')

@@ -15,7 +15,6 @@
   import { retourSi } from '$lib/navigation.svelte'
 
   let {
-    nom,
     parcours,
     organisation,
     sousTitre,
@@ -30,7 +29,6 @@
     oncacher,
     explorer = [],
   }: {
-    nom: string
     parcours: Parcours[]
     organisation: Organisation
     sousTitre: (p: Parcours) => string
@@ -117,11 +115,12 @@
   }
 </script>
 
-<!-- Titre et « Organiser » seulement avec plusieurs chapitres : avec un seul, le nom du
-     chapitre suffit (deux intertitres l'un sur l'autre, Rémi, 26 novembre 2026) -->
+<!-- Pas de nom de classe : une seule classe n'a pas besoin d'être nommée (son nom, dans le
+     même style que les chapitres, se confondait avec eux, Nathan, 27 novembre 2026) ; avec
+     plusieurs classes, les pastilles du haut la nomment. « Organiser » seulement avec
+     plusieurs chapitres. -->
 {#if chapitres.length > 1}
-<div class="flex flex-row items-center justify-between">
-  <h2 class="titre-section">{nom}</h2>
+  <div class="flex flex-row items-center justify-end">
     <button
       type="button"
       class="text-sm text-coopmaths-action dark:text-coopmathsdark-action"
@@ -131,7 +130,7 @@
     >
       {organiser ? 'Terminé' : 'Organiser'}
     </button>
-</div>
+  </div>
 {/if}
 
 {#snippet tuile(p: Parcours)}
@@ -161,7 +160,7 @@
   {@const ouvert = !organisation.fermes.includes(c.nom)}
   <div
     bind:this={lignes[i]}
-    class="ligne-chapitre flex flex-row items-center gap-1 rounded-xl {organiser ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''}"
+    class="ligne-chapitre flex flex-row items-center gap-1 {organiser ? 'rounded-xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''}"
     style={glisse?.index === i ? `transform: translateY(${glisse.dy}px); position: relative; z-index: 10; box-shadow: 0 6px 18px rgb(0 0 0 / 18%)` : ''}
   >
     {#if organiser}
@@ -186,14 +185,13 @@
       disabled={organiser}
       onclick={() => basculer(c.nom)}
     >
-      <!-- Intertitre du chapitre : petites capitales grises, comme les sections des réglages -->
-      <span class="titre-section">
-        {c.nom}
-        <span class="compte"> · {c.parcours.length} parcours</span>
-      </span>
+      <!-- Chapitre : titre en gras, plus grand que les intertitres, avec sa flèche dans un rond :
+           on voit qu'il se replie ou se déplie (Nathan, 27 novembre 2026) -->
+      <span class="titre-chapitre text-coopmaths-corpus dark:text-coopmathsdark-corpus">{c.nom}</span>
       {#if !organiser}
-        <i aria-hidden="true"
- class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'} text-xl text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"></i>
+        <span class="fleche-chapitre" aria-hidden="true">
+          <i class="bx {ouvert ? 'bx-chevron-up' : 'bx-chevron-down'}"></i>
+        </span>
       {/if}
     </button>
     {#if organiser}
@@ -227,16 +225,27 @@
 {/each}
 
 <style>
-  /* Chapitre : intertitre sans marge propre, l'espace vient de la ligne */
-  .chapitre .titre-section {
-    margin: 0;
+  /* Noir et plus grand que les titres des parcours (bleus) : un chapitre ne se confond pas avec eux */
+  .titre-chapitre {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.3;
   }
-  .compte {
-    font-weight: 400;
-    letter-spacing: 0;
-    font-variant-caps: normal;
+  .fleche-chapitre {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    font-size: 1.5rem;
+    background: var(--app-fond-2);
+    color: var(--app-action);
   }
   .ligne-chapitre {
-    margin-top: 1rem;
+    margin-top: 1.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--app-presse);
   }
 </style>

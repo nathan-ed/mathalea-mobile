@@ -179,6 +179,10 @@ fait très IA », fiches « très IA » ; recherche dans `docs/recherche-ui-mobi
   par question, « n bonnes réponses sur N », « Obtenue dès n sur N ».
 - **Séance** : la ceinture visée dans la barre ; drapeau sur la ligne
   « Question n sur N ». **Fiche** : page de manuel, étapes numérotées.
+- Accueil (Nathan, 27 novembre 2026) : jamais le nom de la classe au-dessus des
+  chapitres (il se confondait avec eux ; plusieurs classes : les pastilles du
+  haut), pas de « N parcours » ; un chapitre est un titre noir plus grand que
+  les titres des parcours, avec sa flèche dans un rond (on voit qu'il se replie).
 - Recherche à partir de 7 parcours (accueil) ou 8 fiches ; ajout de la classe
   en une ligne quand des parcours sont déjà là, « Récupérer une sauvegarde »
   toujours sur l'accueil.

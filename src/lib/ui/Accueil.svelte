@@ -364,7 +364,6 @@
           {#if sources.length === 1}
             <!-- Une seule classe : son contenu tout de suite -->
             <ContenuClasse
-              nom={sources[0].nom}
               parcours={avecAjoutes(sources[0].parcours)}
               organisation={organisation(sources[0].id)}
               {sousTitre}
@@ -399,7 +398,6 @@
             {#if classeVue}
               {#key classeVue.id}
                 <ContenuClasse
-                  nom="Chapitres"
                   parcours={avecAjoutes(classeVue.parcours)}
                   organisation={organisation(classeVue.id)}
                   {sousTitre}
@@ -418,7 +416,6 @@
           {:else if ajoutesVisibles.length}
             <!-- Sans classe : les parcours ajoutés depuis l'Explorer, rangés de la même façon -->
             <ContenuClasse
-              nom="Mes parcours"
               parcours={ajoutesVisibles}
               organisation={organisation(SOURCE_EXPLORER)}
               {sousTitre}

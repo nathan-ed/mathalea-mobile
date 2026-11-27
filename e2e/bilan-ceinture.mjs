@@ -5,7 +5,11 @@
 // de l'enseignant (elle félicite), première erreur dépliée avec sa
 // correction. Ceinture obtenue : sa couleur en grand, « Ceinture orange
 // obtenue », la pause, « Continuer ». Ceinture déjà obtenue puis manquée :
-// « déjà obtenue ». Vraie saisie, téléphone (clair) et bureau (sombre).
+// « déjà obtenue ». Puis le Suivi, onglet Séances (Nathan, 27 novembre 2026 : l'élève
+// revoit toutes ses tentatives, réussies ou non, question par question) : les trois
+// séances, la plus récente d'abord, chacune rejouée en lecture avec une pastille par
+// question et « Seulement les questions incorrectes » ; le retour ramène à l'onglet.
+// Vraie saisie, téléphone (clair) et bureau (sombre).
 //   CAPTURES=<dossier> node e2e/bilan-ceinture.mjs   (app construite servie sur 1420, ou BASE)
 import { chromium } from 'playwright'
 import { pagePrete, pointStable, SANS_BRIDAGE, taperDans } from './attente.mjs'
@@ -136,6 +140,42 @@ for (const [appareil, theme, ecran] of [
   ok(t.includes('Obtenue dès 2 sur 2 · déjà obtenue avant'), `${appareil} : la ceinture reste obtenue`)
   ok(await page.getByRole('button', { name: 'Continuer : ceinture verte' }).isVisible(), `${appareil} : la ceinture suivante reste ouverte`)
   await page.screenshot({ path: `${captures}/bilan-ceinture-3-deja-${theme}.png`, fullPage: true })
+
+  // ---------- Suivi, onglet Séances : toutes les tentatives, revues question par question ----------
+  for (let i = 0; i < 5 && !(await page.getByRole('tab', { name: 'Suivi', exact: true }).isVisible().catch(() => false)); i++) {
+    await page.getByRole('button', { name: 'Revenir en arrière' }).first().click().catch(() => {})
+    await pagePrete(page)
+  }
+  await toucher(page, page.getByRole('tab', { name: 'Suivi', exact: true }))
+  await pagePrete(page)
+  await toucher(page, page.getByRole('tab', { name: 'Séances', exact: true }))
+  await pagePrete(page)
+  const lignes = (await page.locator('main [aria-label^="Séances du"] li').allInnerTexts()).map((x) => x.replace(/\s+/g, ' ').trim())
+  ok(
+    lignes.length === 3 &&
+      lignes[0].includes('Ceinture orange pas obtenue · 0 bonne réponse sur 2') &&
+      lignes[1].includes('Ceinture orange obtenue · 2 bonnes réponses sur 2') &&
+      lignes[2].includes('Ceinture orange pas obtenue · 1 bonne réponse sur 2') &&
+      lignes.every((l) => l.startsWith('Bilan des ceintures')),
+    `${appareil} : Séances, les trois tentatives, la plus récente d'abord (${lignes.join(' | ')})`,
+  )
+  await page.screenshot({ path: `${captures}/bilan-ceinture-4-seances-${theme}.png`, fullPage: true })
+  await toucher(page, page.locator('main [aria-label^="Séances du"] li button').nth(2))
+  await page.getByRole('button', { name: 'Question 2 : incorrecte' }).waitFor({ timeout: 60_000 })
+  await pagePrete(page)
+  ok(await page.getByRole('button', { name: 'Question 1 : correcte' }).isVisible(), `${appareil} : relecture, une pastille par question (correcte, incorrecte)`)
+  ok((await texte(page)).includes('1 bonne réponse sur 2'), `${appareil} : relecture, le score`)
+  ok((await page.locator('main [id^="question-"]').count()) === 2, `${appareil} : relecture, les deux questions`)
+  await page.screenshot({ path: `${captures}/bilan-ceinture-5-relecture-${theme}.png`, fullPage: true })
+  await toucher(page, page.getByRole('switch'))
+  await pagePrete(page)
+  ok((await page.locator('main [id^="question-"]').count()) === 1 && (await page.locator('main #question-1').count()) === 1, `${appareil} : seulement la question incorrecte`)
+  await page.locator('main .pastille-verification').first().waitFor({ timeout: 30_000 }).catch(() => {})
+  ok((await page.locator('main .pastille-verification').allInnerTexts()).includes('Incorrecte'), `${appareil} : la réponse incorrecte et sa correction`)
+  await page.screenshot({ path: `${captures}/bilan-ceinture-6-incorrectes-${theme}.png`, fullPage: true })
+  await page.getByRole('button', { name: 'Revenir en arrière' }).first().click()
+  await pagePrete(page)
+  ok((await page.getByRole('tab', { name: 'Séances', exact: true }).getAttribute('aria-selected')) === 'true', `${appareil} : retour sur l'onglet Séances`)
   await ctx.close()
 }
 

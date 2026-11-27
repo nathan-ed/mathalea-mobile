@@ -5,8 +5,10 @@
 // révision mélange des exercices de chapitres différents, sans leur titre :
 // l'élève doit reconnaître seul le type de problème (pratique mélangée).
 // Avant une évaluation, l'élève choisit les parcours concernés et sa date :
-// jusqu'à ce jour, les séances ne portent que sur eux, sans attendre les
-// dates de révision (les autres exercices attendent, sans pénalité).
+// jusqu'à ce jour, les séances portent sur tous leurs exercices, faits ou non,
+// sans attendre les dates de révision (les autres exercices attendent, sans
+// pénalité). Les révisions habituelles, elles, ne reprennent que les exercices
+// des parcours faits.
 import type { Etape, Parcours } from './catalogue'
 import { cleExercice } from './objectifs'
 import { bilan, ID_REVISIONS, type Seance } from './progression'
@@ -42,6 +44,12 @@ export interface SourceRevision {
   theme: string
 }
 
+/** Exercice jamais terminé dans un parcours, revu pendant la préparation d'une évaluation */
+export interface VuEvaluation {
+  revu: string // dernier jour où il a été fait
+  reussiLe?: string // dernier jour où il a été réussi (correction vue pour un exercice sur papier)
+}
+
 /** Évaluation préparée par l'élève : parcours concernés, jour de l'évaluation */
 export interface Evaluation {
   parcours: string[]
@@ -49,7 +57,11 @@ export interface Evaluation {
   titre?: string // donné par l'enseignant
   annonce?: string // id de l'évaluation annoncée par l'enseignant (partage.ts) : elle suit ses changements
   modifiee?: boolean // l'élève a changé le jour ou les parcours : ses choix restent
+  vus?: Record<string, VuEvaluation> // par exercice (cleExercice) pas encore dans les révisions : il n'y entre pas
 }
+
+/** Ce qu'il faut d'un parcours pour en réviser tous les exercices avant une évaluation */
+export type ParcoursEvaluation = Pick<Parcours, 'id' | 'titre' | 'niveau' | 'theme' | 'etapes'>
 
 /** Évaluation annoncée par l'enseignant à la classe de l'élève (EvaluationAnnoncee de partage.ts) */
 export interface Annonce {
@@ -259,17 +271,41 @@ export function suivreAnnonces(r: Revisions, annonces: Annonce[]): Revisions {
     return reste
   }
   if (a.date === e.date && (a.titre ?? '') === (e.titre ?? '') && a.parcours.join('\n') === e.parcours.join('\n')) return r
-  return { ...r, evaluation: depuisAnnonce(a) }
+  // Ce qui a déjà été revu pendant la préparation reste
+  return { ...r, evaluation: { ...depuisAnnonce(a), ...(e.vus ? { vus: e.vus } : {}) } }
 }
 
-/** Exercices des parcours de l'évaluation */
-export function dansEvaluation(r: Revisions, ev: Evaluation) {
-  const voulus = new Set(ev.parcours)
-  return Object.entries(r.elements).filter(([, e]) => sourcesDe(r, e).some((s) => voulus.has(s.id)))
+/**
+ * Exercices de l'évaluation : tous ceux de ses parcours, faits ou non (Nathan,
+ * 27 novembre 2026 : « pour une révision d'éval, c'est tous qui doivent être
+ * pris en compte »), chacun une fois, avec le parcours (id) qui l'apporte.
+ * Un exercice déjà dans les révisions garde sa boîte ; un exercice jamais
+ * terminé est en boîte 0 (le moins sûr) et n'est suivi que pendant la
+ * préparation (`vus`), sans entrer dans les révisions habituelles. Un parcours
+ * qui n'est plus sur l'appareil donne les exercices des révisions venus de lui.
+ */
+export function dansEvaluation(r: Revisions, ev: Evaluation, parcours: ParcoursEvaluation[] = []): [string, ElementRevision, string][] {
+  const pris = new Map<string, [string, ElementRevision, string]>()
+  for (const id of ev.parcours) {
+    const p = parcours.find((x) => x.id === id)
+    if (!p) {
+      for (const [cle, e] of Object.entries(r.elements)) if (!pris.has(cle) && sourcesDe(r, e).some((x) => x.id === id)) pris.set(cle, [cle, e, id])
+      continue
+    }
+    for (const etape of p.etapes) {
+      const cle = cleExercice(etape)
+      if (pris.has(cle)) continue
+      const vu = ev.vus?.[cle]
+      const nouveau: ElementRevision = { etape, niveau: p.niveau, theme: p.theme, parcours: p.titre, boite: 0, prochaine: ev.date, historique: [], ...vu }
+      pris.set(cle, [cle, r.elements[cle] ?? nouveau, id])
+    }
+  }
+  return [...pris.values()]
 }
 
 /** Exercices de l'évaluation pas encore réussis aujourd'hui */
-export const aReviserPourEvaluation = (r: Revisions, ev: Evaluation, aujourdhui = jour()) => dansEvaluation(r, ev).filter(([, e]) => e.reussiLe !== aujourdhui)
+export const aReviserPourEvaluation = (r: Revisions, ev: Evaluation, aujourdhui = jour(), parcours: ParcoursEvaluation[] = []) =>
+  dansEvaluation(r, ev, parcours).filter(([, e]) => e.reussiLe !== aujourdhui)
 
 /**
  * Parcours que l'élève peut cocher pour une évaluation, par chapitre : ceux où
@@ -300,11 +336,11 @@ export function parcoursParChapitre(r: Revisions, autres: (SourceRevision & { id
 const dernier = (e: ElementRevision) => ((e.revu ?? '') > (e.reussiLe ?? '') ? e.revu! : (e.reussiLe ?? ''))
 
 /** `nb` exercices pris à tour de rôle dans les groupes (chapitres ou parcours), chacun dans l'ordre donné */
-function aTourDeRole(tries: [string, ElementRevision][], groupe: (e: ElementRevision) => string, nb: number) {
-  const parGroupe = new Map<string, [string, ElementRevision][]>()
-  for (const x of tries) parGroupe.set(groupe(x[1]), [...(parGroupe.get(groupe(x[1])) ?? []), x])
+function aTourDeRole<T extends [string, ElementRevision, ...string[]]>(tries: T[], groupe: (x: T) => string, nb: number) {
+  const parGroupe = new Map<string, T[]>()
+  for (const x of tries) parGroupe.set(groupe(x), [...(parGroupe.get(groupe(x)) ?? []), x])
   const files = [...parGroupe.values()]
-  const pris: [string, ElementRevision][] = []
+  const pris: T[] = []
   for (let i = 0; pris.length < nb && files.some((f) => f.length > i); i++) for (const f of files) if (f[i] && pris.length < nb) pris.push(f[i])
   return pris
 }
@@ -314,21 +350,21 @@ function aTourDeRole(tries: [string, ElementRevision][], groupe: (e: ElementRevi
  * d'abord (boîte la plus basse) puis les plus en retard, pris à tour de rôle
  * dans des chapitres différents (mélange). Le reste attend la séance suivante,
  * sans pénalité. Parcours généré sur l'appareil, sans titre d'exercice.
- * Évaluation en préparation : seulement ses parcours, sans attendre les dates
- * de révision ; d'abord ce qui n'a pas été réussi aujourd'hui, les plus
- * fragiles, puis ce qui n'a pas été vu depuis le plus longtemps.
+ * Évaluation en préparation : tous les exercices de ses parcours (`parcours` :
+ * leur version sur l'appareil), sans attendre les dates de révision ; d'abord
+ * ce qui n'a pas été réussi aujourd'hui, les plus fragiles (jamais faits
+ * d'abord), puis ce qui n'a pas été vu depuis le plus longtemps.
  */
-export function tirerRevision(r: Revisions, aujourdhui = jour(), nb = r.taille ?? TAILLE_PAR_DEFAUT): Parcours | null {
+export function tirerRevision(r: Revisions, aujourdhui = jour(), nb = r.taille ?? TAILLE_PAR_DEFAUT, parcours: ParcoursEvaluation[] = []): Parcours | null {
   const ev = evaluationEnCours(r, aujourdhui)
-  let pris: [string, ElementRevision][]
+  let pris: [string, ElementRevision, ...string[]][]
   if (ev) {
-    const voulus = new Set(ev.parcours)
     const fait = (e: ElementRevision) => (e.reussiLe === aujourdhui ? 1 : 0)
-    const tries = dansEvaluation(r, ev).sort(([, a], [, b]) => fait(a) - fait(b) || a.boite - b.boite || dernier(a).localeCompare(dernier(b)))
-    pris = aTourDeRole(tries, (e) => sourcesDe(r, e).find((s) => voulus.has(s.id))!.id, nb)
+    const tries = dansEvaluation(r, ev, parcours).sort(([, a], [, b]) => fait(a) - fait(b) || a.boite - b.boite || dernier(a).localeCompare(dernier(b)))
+    pris = aTourDeRole(tries, ([, , id]) => id, nb)
   } else {
     const dus = aRevoir(r, aujourdhui).sort(([, a], [, b]) => a.boite - b.boite || a.prochaine.localeCompare(b.prochaine))
-    pris = aTourDeRole(dus, (e) => chapitresDe(r, e)[0], nb)
+    pris = aTourDeRole(dus, ([, e]) => chapitresDe(r, e)[0], nb)
   }
   if (!pris.length) return null
   return {
@@ -358,10 +394,22 @@ export function resultatsRevision(r: Revisions, s: Seance, aujourdhui = jour()) 
   const elements = { ...r.elements }
   const traites = [...r.traites]
   const issues: Record<number, { reussi: boolean; avant: number; apres: ElementRevision }> = {}
+  const ev = evaluationEnCours(r, aujourdhui)
+  const vus = { ...ev?.vus }
   for (const e of bilan(s).parEtape) {
     const etape = s.contenu.etapes[e.etape]
     const cle = etape && cleExercice(etape)
     const avant = cle && elements[cle]
+    // Évaluation : exercice jamais terminé dans son parcours, noté pour la préparation seulement
+    // (sur papier : correction vue) ; il n'entre pas dans les révisions habituelles
+    if (cle && !avant && ev) {
+      const papierVu = !e.sur && e.papier > 0 && e.vues >= e.papier
+      if (!papierVu && (!e.sur || e.faites < e.sur)) continue
+      const reussi = papierVu || e.points >= e.sur
+      vus[cle] = { revu: aujourdhui, ...(reussi ? { reussiLe: aujourdhui } : vus[cle]?.reussiLe ? { reussiLe: vus[cle].reussiLe } : {}) }
+      issues[e.etape] = { reussi, avant: 0, apres: { etape, niveau: '', theme: '', parcours: '', boite: 0, prochaine: ev.date, historique: [], ...vus[cle] } }
+      continue
+    }
     if (!avant || !e.sur || e.faites < e.sur) continue
     const reussi = e.points >= e.sur
     const fait = `${clePassage(s)}#${e.etape}`
@@ -373,7 +421,8 @@ export function resultatsRevision(r: Revisions, s: Seance, aujourdhui = jour()) 
     traites.push(fait)
     issues[e.etape] = { reussi, avant: avant.boite, apres: elements[cle] }
   }
-  return { revisions: { ...r, elements, traites }, issues }
+  const evaluation = ev && Object.keys(vus).length ? { evaluation: { ...r.evaluation!, vus } } : {}
+  return { revisions: { ...r, elements, traites, ...evaluation }, issues }
 }
 
 /** Solidité dans le temps : d'après la boîte la plus basse des exercices de l'objectif */
@@ -485,7 +534,11 @@ export function estRevisions(v: unknown): v is Revisions {
         jourValide(r.evaluation.date) &&
         (r.evaluation.titre === undefined || typeof r.evaluation.titre === 'string') &&
         (r.evaluation.annonce === undefined || typeof r.evaluation.annonce === 'string') &&
-        (r.evaluation.modifiee === undefined || typeof r.evaluation.modifiee === 'boolean'))) &&
+        (r.evaluation.modifiee === undefined || typeof r.evaluation.modifiee === 'boolean') &&
+        (r.evaluation.vus === undefined ||
+          (!!r.evaluation.vus &&
+            typeof r.evaluation.vus === 'object' &&
+            Object.values(r.evaluation.vus).every((v) => !!v && jourValide(v.revu) && (v.reussiLe === undefined || jourValide(v.reussiLe))))))) &&
     (r.annonces === undefined || listeDeTextes(r.annonces)) &&
     (r.taille === undefined || TAILLES.includes(r.taille))
   )
