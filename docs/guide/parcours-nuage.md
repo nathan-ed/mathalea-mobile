@@ -4,8 +4,6 @@
 
 Les parcours de l'application se préparent sur le site MathALÉA, dans Mes sauvegardes, rubrique « Parcours ». Ce guide part des exercices choisis sur la page d'accueil du site et va jusqu'au lien que les élèves ajoutent dans l'application. Les fichiers des élèves sont rangés dans votre Nuage (apps.education.fr) ; un autre serveur Nextcloud convient aussi. Sur chaque image, le cadre bleu montre où cliquer.
 
-Tant que les parcours sont en test sur le site, ces menus n'apparaissent qu'en ajoutant `&beta` à l'adresse de la page (par exemple `https://coopmaths.fr/alea/?beta`).
-
 ## 1. Connecter votre Nuage
 
 Dans Mes sauvegardes, cliquez sur « Connecter mon Nuage », laissez le serveur nuage.apps.education.fr et cliquez sur « Se connecter ». Le Nuage s'ouvre dans un nouvel onglet : connectez-vous avec votre compte apps.education.fr et autorisez l'accès.
