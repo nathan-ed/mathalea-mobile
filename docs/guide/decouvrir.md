@@ -46,4 +46,4 @@ Touchez une case : le clavier de MathALÉA s'ouvre. Répondez, puis touchez « S
 
 Pour retirer la démonstration : Réglages, « Dossiers partagés », la croix sur sa ligne.
 
-Pour préparer vos propres parcours : [Créer un parcours sur le site MathALÉA](creer-sur-le-site.md).
+Pour préparer vos propres parcours : [Créer un parcours et le publier avec le Nuage](parcours-nuage.md).

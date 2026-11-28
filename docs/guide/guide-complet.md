@@ -75,14 +75,15 @@ Détails : [Révisions](revisions.md).
 
 ## Côté enseignant : préparer sur le site
 
-L'application est celle des élèves. L'enseignant prépare ses parcours sur le site MathALÉA, page « Parcours pour l'application » : [Créer sur le site](creer-sur-le-site.md).
+L'application est celle des élèves. L'enseignant prépare ses parcours sur le site MathALÉA, à partir des exercices choisis sur l'accueil (Mes sauvegardes, rubrique « Parcours ») : [Créer un parcours et le publier avec le Nuage](parcours-nuage.md), [Les réglages du parcours](parcours-avance.md), [Travailler en équipe](parcours-equipe.md).
 
 - **Un parcours** : niveau, chapitre, titre, but vu par les élèves, exercices de MathALÉA avec leurs réglages, pages et moment de la correction, mélange des questions.
 - **Paliers ou ceintures** : un seuil pour accéder au palier suivant (80 % par défaut) ou « Ouvert à tout moment », une date d'ouverture (8 h ce jour-là, l'heure étant vérifiée sur internet), une ressource pour revoir, une pause après le palier, une fiche de cours.
 - **Classes** : on crée pour un niveau et on donne à autant de classes qu'on veut.
-- **Publier** : le site télécharge un fichier ; déposez-le dans un dossier de votre drive partagé par lien. Ce lien ne change plus : c'est celui de vos élèves, toute l'année.
+- **Publier** : « Publier dans mon Nuage » range le fichier des élèves dans votre Nuage, « Publier en ligne » l'envoie par le lien de votre compte de l'espace collaboratif ; sans l'un ni l'autre, le site télécharge un fichier à déposer dans un dossier de votre drive partagé par lien. Le lien de chaque classe ne change plus de l'année. Tant que vous n'avez pas republié, les élèves gardent le fichier précédent.
+- **En équipe** : les parcours d'une équipe se préparent à plusieurs ; les classes restent celles de chaque enseignant, qui y met aussi bien ses parcours que ceux de l'équipe.
 - **Versions** : un parcours modifié passe en V2, V3… Les élèves la reçoivent au prochain lancement ; leurs résultats sont gardés, une séance commencée se termine dans sa version.
-- **QR code de la classe** : le lien du dossier suivi de `?classe=5A`, mis en QR code par n'importe quel générateur.
+- **QR code de la classe** : « Liens élèves », après la publication, donne le lien et le QR code de chaque classe.
 
 | Drive | Lien à donner |
 | --- | --- |

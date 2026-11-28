@@ -10,7 +10,7 @@ Au premier lancement, l'élève choisit son programme, puis colle le lien donné
 
 ![Ajouter le dossier de la classe](images/eleve-1-lien.png)
 
-Si le dossier contient plusieurs classes, l'élève choisit la sienne. Un lien qui se termine par `?classe=3A` (ou `&CLASSE=3A`) choisit la classe d'office : c'est le lien que l'enseignant met dans le QR code de la classe ([Créer sur le site](creer-sur-le-site.md)).
+Si le dossier contient plusieurs classes, l'élève choisit la sienne. Un lien qui se termine par `?classe=3A` (ou `&CLASSE=3A`) choisit la classe d'office : c'est le lien que l'enseignant met dans le QR code de la classe ([Créer un parcours et le publier](parcours-nuage.md)).
 
 Sans lien, l'élève touche « Je n'ai pas de lien » : l'accueil ne le lui demande plus, il travaille avec l'Explorer et ajoute le lien plus tard (« Ajouter le lien de ma classe », ou les Réglages).
 
